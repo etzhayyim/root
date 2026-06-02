@@ -10,11 +10,11 @@ import {
 
 const NSID = {
   // Reactive input — sqExporter follows cfRegistrar の transferRequest commits.
-  transferRequest: "app.etzhayyim.dns.transferRequest",
+  transferRequest: "com.etzhayyim.dns.transferRequest",
   // ADR-2605111200 procedure NSIDs (server-side handlers in pymagatama).
-  putTransferStep: "app.etzhayyim.dns.putTransferStep",
-  getTransferRequest: "app.etzhayyim.dns.getTransferRequest",
-  putTransferOutcome: "app.etzhayyim.dns.putTransferOutcome",
+  putTransferStep: "com.etzhayyim.dns.putTransferStep",
+  getTransferRequest: "com.etzhayyim.dns.getTransferRequest",
+  putTransferOutcome: "com.etzhayyim.dns.putTransferOutcome",
 } as const;
 
 const SQ_EXPORTER_PATH = "actor:sqExporter";

@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ftzZones.recordZone",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Foreign Trade Zone / Free Zone / SEZ (bridges cumulationRule.flagExploitation + customs-declaration + ev-supply-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "zoneId",
+            "hostCountryIso3",
+            "zoneKind",
+            "sectorKind",
+            "establishedAt"
+          ],
+          "properties": {
+            "zoneId": {
+              "type": "string"
+            },
+            "hostCountryIso3": {
+              "type": "string"
+            },
+            "zoneKind": {
+              "type": "string",
+              "enum": [
+                "ftz_us",
+                "free_zone_uae",
+                "free_zone_colombia",
+                "sez_china",
+                "sez_india",
+                "special_ec_zone",
+                "maquila_mex",
+                "export_ind_zone_kr",
+                "industrial_cluster",
+                "bonded_warehouse",
+                "airport_fz",
+                "port_fz",
+                "geographic_indication_fz"
+              ]
+            },
+            "sectorKind": {
+              "type": "string",
+              "enum": [
+                "automotive",
+                "electronics",
+                "semiconductor",
+                "petrochemical",
+                "apparel",
+                "pharma",
+                "logistics",
+                "ecommerce",
+                "food_processing",
+                "oil_gas",
+                "mining_proc",
+                "high_tech",
+                "defense",
+                "ai_data",
+                "media_creative"
+              ]
+            },
+            "exploitVid": {
+              "type": "string",
+              "description": "bridges cumulationRule.flagExploitation"
+            },
+            "establishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.transparency.covenantTransparencyAttestation",
+  "description": "A member's attestation accepting the Covenant Transparency Doctrine terms per ADR-2605310100 §1/§2. R0 skeleton. The doctrine rests on the VOLUNTARY-COVENANT model: a member opts in to (a) anonymity abolished — every act bound to an accountable DID+SBT; (b) full member-to-member visibility — every believer can see every member action; (c) no member-to-member secrecy. Those who require individuated protection are, per founder direction, free to not accept and to seek another community; this record is the on-chain expression of acceptance. CONSTITUTIONAL: acceptance does NOT waive the §4 floor (secrets/keys), and the doctrine itself is `proposed-unratified` until Council Lv7+ unanimity (Charter §0.4) — `ratificationStatus` reflects this. Intersection with §1.13 Eros / pastoral content visibility is an OPEN QUESTION reserved to Council (§5); this attestation does NOT pre-decide it.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "litp",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "memberDid",
+          "acceptsAnonymityAbolished",
+          "acceptsFullMemberVisibility",
+          "acknowledgesNoMemberSecrecy",
+          "doctrineAdrCid",
+          "ratificationStatus",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "memberDid": {"type": "string", "format": "did", "description": "DID of the member accepting the covenant transparency terms."},
+          "acceptsAnonymityAbolished": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true. Accepts that every action is bound to an accountable DID+SBT (§1)."
+          },
+          "acceptsFullMemberVisibility": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true. Accepts that every believer can see every member action (§2)."
+          },
+          "acknowledgesNoMemberSecrecy": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true. Acknowledges there is no member-to-member secrecy tier (§1)."
+          },
+          "doctrineAdrCid": {
+            "type": "string",
+            "description": "CID of ADR-2605310100 (the Covenant Transparency Doctrine) the member is attesting to."
+          },
+          "charterRiderVersion": {
+            "type": "string",
+            "description": "Charter Compliance Rider version in force at attestation (e.g. v2.0)."
+          },
+          "floorAcknowledgementCid": {
+            "type": "string",
+            "description": "Optional reference to the §4 floor statement the member acknowledges is NOT waived (secrets/keys never published)."
+          },
+          "ratificationStatus": {
+            "type": "string",
+            "const": "proposed-unratified",
+            "description": "MUST be `proposed-unratified` until Council Lv7+ unanimity ratifies the doctrine (ADR-2605310100 §5)."
+          },
+          "councilRatificationCid": {
+            "type": "string",
+            "description": "Set only after Council Lv7+ unanimity is recorded on-chain; absent at R0."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

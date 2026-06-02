@@ -21,15 +21,15 @@ describe("Oil Upstream Actor Manifest", () => {
   });
   it("subscribes to oilMidstream.flow", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.oilMidstream.flow");
+    expect(sub.trigger.collections).toContain("com.etzhayyim.apps.oilMidstream.flow");
   });
   it("xrpc covers field, basins, production pressure, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("app.etzhayyim.apps.oilUpstream.registry.getField");
-    expect(nsids).toContain("app.etzhayyim.apps.oilUpstream.registry.listFields");
-    expect(nsids).toContain("app.etzhayyim.apps.oilUpstream.registry.listBasins");
-    expect(nsids).toContain("app.etzhayyim.apps.oilUpstream.analytics.getProductionPressure");
-    expect(nsids).toContain("app.etzhayyim.apps.oilUpstream.health");
+    expect(nsids).toContain("com.etzhayyim.apps.oilUpstream.registry.getField");
+    expect(nsids).toContain("com.etzhayyim.apps.oilUpstream.registry.listFields");
+    expect(nsids).toContain("com.etzhayyim.apps.oilUpstream.registry.listBasins");
+    expect(nsids).toContain("com.etzhayyim.apps.oilUpstream.analytics.getProductionPressure");
+    expect(nsids).toContain("com.etzhayyim.apps.oilUpstream.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

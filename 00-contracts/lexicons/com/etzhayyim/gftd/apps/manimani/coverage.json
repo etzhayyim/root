@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.manimani.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Aggregate counters for intakes / projects / artifacts / runs + 24h delta + unrouted (deferred or errored) intake count. RLS-scoped to caller's actor_did. Per ADR-2605080800.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "windowDays": {
+            "type": "integer",
+            "default": 7,
+            "minimum": 1,
+            "maximum": 90
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["intakes", "projects", "artifacts", "runs", "windowDays"],
+          "properties": {
+            "intakes": { "type": "integer" },
+            "intakes24h": { "type": "integer" },
+            "projects": { "type": "integer" },
+            "projectsByKind": {
+              "type": "object",
+              "properties": {
+                "knowledge": { "type": "integer" },
+                "task": { "type": "integer" },
+                "memo": { "type": "integer" },
+                "unsorted": { "type": "integer" }
+              }
+            },
+            "projectsByStatus": {
+              "type": "object",
+              "properties": {
+                "active": { "type": "integer" },
+                "dormant": { "type": "integer" },
+                "archived": { "type": "integer" }
+              }
+            },
+            "artifacts": { "type": "integer" },
+            "artifactsByKind": {
+              "type": "object",
+              "properties": {
+                "facts_jsonl": { "type": "integer" },
+                "todos_jsonl": { "type": "integer" },
+                "summary_text": { "type": "integer" },
+                "raw_passthrough": { "type": "integer" },
+                "error": { "type": "integer" }
+              }
+            },
+            "runs": { "type": "integer" },
+            "runsByStatus": {
+              "type": "object",
+              "properties": {
+                "pending": { "type": "integer" },
+                "running": { "type": "integer" },
+                "completed": { "type": "integer" },
+                "completed_with_error": { "type": "integer" },
+                "failed": { "type": "integer" },
+                "interrupted": { "type": "integer" }
+              }
+            },
+            "unroutedCount": {
+              "type": "integer",
+              "description": "Count from mv_manimani_intake_unrouted (raw_passthrough + error within last 14 days)."
+            },
+            "windowDays": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

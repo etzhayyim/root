@@ -4,11 +4,11 @@
   import { ui } from '../lib/store.svelte';
 
   const nsid = {
-    listFiles: 'app.etzhayyim.apps.drive.listFiles',
-    createFolder: 'app.etzhayyim.apps.drive.createFolder',
-    uploadFile: 'app.etzhayyim.apps.drive.uploadFile',
-    deleteFile: 'app.etzhayyim.apps.drive.deleteFile',
-    getFile: 'app.etzhayyim.apps.drive.getFile'
+    listFiles: 'com.etzhayyim.apps.drive.listFiles',
+    createFolder: 'com.etzhayyim.apps.drive.createFolder',
+    uploadFile: 'com.etzhayyim.apps.drive.uploadFile',
+    deleteFile: 'com.etzhayyim.apps.drive.deleteFile',
+    getFile: 'com.etzhayyim.apps.drive.getFile'
   } as const;
 
   type Section = 'my-drive' | 'shared' | 'recent' | 'starred' | 'trash';

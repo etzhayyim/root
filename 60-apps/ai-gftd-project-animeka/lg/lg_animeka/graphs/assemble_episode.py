@@ -6,7 +6,7 @@ Pregel (LangGraph):
   SA2  concat          ffmpeg concat demuxer → single episode MP4
   SA3  upload          Upload episode MP4 → PDS blob → UPDATE vertex_animeka episode row
 
-XRPC: app.etzhayyim.animeka.assembleEpisode
+XRPC: com.etzhayyim.animeka.assembleEpisode
 Input:
   episode_rkey   str   (default: latest published episode)
   limit          int   (max cuts to include, default 999)
@@ -67,7 +67,7 @@ async def _sa0_fetch_cuts(state: EpisodeAssemblyState) -> dict[str, Any]:
                 f"""
                 SELECT rkey, output_cid, created_at, _seq
                 FROM vertex_animeka
-                WHERE collection = 'app.etzhayyim.animeka.cut'
+                WHERE collection = 'com.etzhayyim.animeka.cut'
                   AND output_cid IS NOT NULL
                 ORDER BY _seq
                 LIMIT {int(limit) * 4}
@@ -252,7 +252,7 @@ async def _sa3_upload(state: EpisodeAssemblyState) -> dict[str, Any]:
             try:
                 await conn.execute(
                     "UPDATE public.vertex_animeka SET output_cid = %s, status = 'published'"
-                    " WHERE collection = 'app.etzhayyim.animeka.episode' AND rkey = %s",
+                    " WHERE collection = 'com.etzhayyim.animeka.episode' AND rkey = %s",
                     [episode_cid, episode_rkey],
                 )
                 _log.info("SA3 episode %s updated output_cid", episode_rkey)

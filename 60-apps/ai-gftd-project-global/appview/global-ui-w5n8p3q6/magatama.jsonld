@@ -65,9 +65,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.global.globalEntity",
-        "ai.gftd.apps.global.globalEvent",
-        "ai.gftd.apps.global.globalReport"
+        "com.etzhayyim.apps.global.globalEntity",
+        "com.etzhayyim.apps.global.globalEvent",
+        "com.etzhayyim.apps.global.globalReport"
       ]
     }
   },

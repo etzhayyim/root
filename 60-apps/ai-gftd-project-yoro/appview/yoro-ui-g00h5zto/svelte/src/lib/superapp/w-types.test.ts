@@ -12,7 +12,7 @@ describe('AT Protocol types', () => {
 			id: '01TEST',
 			kind: 'message',
 			recordCid:'abc123',
-			atUri: 'at://did:plc:alice/app.etzhayyim.w.message/tid1',
+			atUri: 'at://did:plc:alice/com.etzhayyim.w.message/tid1',
 			rkey: 'tid1',
 			senderDid: 'did:plc:alice',
 			orgId: 'org1',

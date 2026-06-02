@@ -38,14 +38,14 @@
 
 - name: Deploy cloudflared launchd plist
   ansible.builtin.template:
-    src: app.etzhayyim.cloudflared.plist.j2
-    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.cloudflared.plist"
+    src: com.etzhayyim.cloudflared.plist.j2
+    dest: "{{ ansible_facts.env.HOME }}/Library/LaunchAgents/com.etzhayyim.cloudflared.plist"
     mode: "0644"
   notify: restart cloudflared
 
 - name: Load cloudflared launchd service
   ansible.builtin.command:
-    cmd: launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/app.etzhayyim.cloudflared.plist
+    cmd: launchctl load -w {{ ansible_facts.env.HOME }}/Library/LaunchAgents/com.etzhayyim.cloudflared.plist
   changed_when: false
   failed_when: false
 

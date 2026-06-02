@@ -32,7 +32,7 @@ import {
   type RegisterEntityOutput,
 } from "./types.js";
 
-const ENTITY_COLLECTION = "app.etzhayyim.apps.blockchain.entity";
+const ENTITY_COLLECTION = "com.etzhayyim.apps.blockchain.entity";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

@@ -13,11 +13,11 @@
     <bpmn:sequenceFlow id="f_oauth_revoke" sourceRef="Gateway_Operation" targetRef="Task_Revoke" name="revoke">
       <bpmn:conditionExpression>=operation = "revoke"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Task_Issue" name="Issue OAuth access token" camunda:topic="ai.gftd.apps.openJpnMynumber.issueOauthToken"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.issueOauthToken" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_Issue" name="Issue OAuth access token" camunda:topic="com.etzhayyim.apps.openJpnMynumber.issueOauthToken"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.issueOauthToken" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_oauth_02" sourceRef="Task_Issue" targetRef="End_OAuth" />
-    <bpmn:serviceTask id="Task_Introspect" name="Introspect OAuth access token" camunda:topic="ai.gftd.apps.openJpnMynumber.introspectOauthToken"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.introspectOauthToken" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_Introspect" name="Introspect OAuth access token" camunda:topic="com.etzhayyim.apps.openJpnMynumber.introspectOauthToken"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.introspectOauthToken" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_oauth_03" sourceRef="Task_Introspect" targetRef="End_OAuth" />
-    <bpmn:serviceTask id="Task_Revoke" name="Revoke OAuth access token" camunda:topic="ai.gftd.apps.openJpnMynumber.revokeOauthToken"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.revokeOauthToken" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_Revoke" name="Revoke OAuth access token" camunda:topic="com.etzhayyim.apps.openJpnMynumber.revokeOauthToken"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.revokeOauthToken" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_oauth_04" sourceRef="Task_Revoke" targetRef="End_OAuth" />
     <bpmn:endEvent id="End_OAuth" name="OAuth operation audited" />
   </bpmn:process>

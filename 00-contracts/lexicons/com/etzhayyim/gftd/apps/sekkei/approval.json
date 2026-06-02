@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sekkei.approval",
+  "description": "設計図改訂の承認記録。decision=approved 時に drawing.currentRevNo を更新し revision.status=approved へ遷移。decision=rejected 時は revision に差し戻し理由を付記。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["drawingId", "revNo", "approverDid", "decision", "decidedAt"],
+        "properties": {
+          "drawingId": { "type": "string" },
+          "revNo": { "type": "string" },
+          "approverDid": { "type": "string" },
+          "approverRole": {
+            "type": "string",
+            "enum": ["design-lead", "quality", "manufacturing", "safety", "regulatory"],
+            "description": "設計主任/品質/製造/安全/法規制"
+          },
+          "decision": { "type": "string", "enum": ["approved", "rejected", "conditional"] },
+          "decidedAt": { "type": "string", "format": "date-time" },
+          "conditions": { "type": "string", "description": "conditional 承認の条件" },
+          "rejectionReason": { "type": "string" },
+          "signatureRef": { "type": "string", "description": "電子署名 blob ref (PDF 等)" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

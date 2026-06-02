@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.terminologyBinding",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Public terminology binding (LOINC / ICD-10 / SNOMED CT / RxNorm / JLAC10 / JP-shinryo-code / YJ code). NOT PHI — code/display pairs only.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["system", "code", "display"],
+        "properties": {
+          "system": {"type": "string", "description": "URI of code system"},
+          "code": {"type": "string"},
+          "display": {"type": "string"},
+          "displayJa": {"type": "string"},
+          "definition": {"type": "string"},
+          "category": {"type": "string", "description": "vital | lab | imaging | diagnosis | medication | procedure"},
+          "deprecated": {"type": "boolean"},
+          "replacedBy": {"type": "string"},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

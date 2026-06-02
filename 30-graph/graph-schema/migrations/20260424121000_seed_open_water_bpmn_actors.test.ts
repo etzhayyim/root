@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmnDefineMain = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-water/defineMain.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-water/defineMain.bpmn"),
   "utf-8",
 );
 const bpmnReportLeak = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-water/reportLeak.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-water/reportLeak.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-water BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-water-define-main-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_water_define_main"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-water/defineMain.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-water/defineMain.bpmn"');
     expect(migrationSource).toContain("open-water-report-leak-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_water_report_leak"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-water/reportLeak.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-water/reportLeak.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openWater.defineMain"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openWater.reportLeak"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openWater.defineMain"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openWater.reportLeak"');
   });
 
   it("uses open-water-specific actor_id + owner_did", () => {

@@ -29,7 +29,7 @@ CREATE VIEW IF NOT EXISTS view_cpc_product_live AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cpc.product';
+    WHERE collection = 'com.etzhayyim.apps.cpc.product';
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_cpc_patent_prefix_match AS
     WITH cpc_prefixes AS (

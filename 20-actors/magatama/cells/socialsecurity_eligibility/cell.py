@@ -17,7 +17,7 @@ Constitutional ceiling (CRITICAL - IMMUTABLE):
     leaderboard -> no class formation, ADR-2605301020 §7).
   - G11 LIVE-ACTION GATE: entitlement is COMPUTED but liveDeliveryEnabled=false
     until Council Lv7+ §1.16 ratify + Sybil framework (testnet/dry-run only).
-Output Lexicon(s): app.etzhayyim.socialsecurity.entitlement.
+Output Lexicon(s): com.etzhayyim.socialsecurity.entitlement.
 
 R0 scaffold - import-time RuntimeError until R1 (testnet compute).
 """
@@ -53,7 +53,7 @@ if (
 #         # 1. Sybil check (Council-attested in bootstrap; ZK at scale)
 #         # 2. set currentStage=L0; compute L0/L1 in-kind entitlements
 #         # 3. init toritate imputed-income accounting (cashStipendUsd == 0)
-#         # 4. emit app.etzhayyim.socialsecurity.entitlement (liveDeliveryEnabled=false R0/R1)
+#         # 4. emit com.etzhayyim.socialsecurity.entitlement (liveDeliveryEnabled=false R0/R1)
 #         raise NotImplementedError("socialsecurity_eligibility R1")
 
 

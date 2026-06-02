@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-re-1" sourceRef="start-register-expert" targetRef="task-register-expert"/>
     <bpmn:serviceTask id="task-register-expert" name="Register Expert">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.register.expert"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.register.expert"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-re-2" sourceRef="task-register-expert" targetRef="end-register-expert"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-le-1" sourceRef="start-list-experts" targetRef="task-list-experts"/>
     <bpmn:serviceTask id="task-list-experts" name="List Experts">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.list.experts"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.list.experts"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-le-2" sourceRef="task-list-experts" targetRef="end-list-experts"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-si-1" sourceRef="start-submit-inference" targetRef="task-submit-inference"/>
     <bpmn:serviceTask id="task-submit-inference" name="Submit Inference">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.submit.inference"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.submit.inference"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-si-2" sourceRef="task-submit-inference" targetRef="end-submit-inference"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-gir-1" sourceRef="start-get-inference-result" targetRef="task-get-inference-result"/>
     <bpmn:serviceTask id="task-get-inference-result" name="Get Inference Result">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.get.inferenceResult"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.get.inferenceResult"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gir-2" sourceRef="task-get-inference-result" targetRef="end-get-inference-result"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-lj-1" sourceRef="start-list-jobs" targetRef="task-list-jobs"/>
     <bpmn:serviceTask id="task-list-jobs" name="List Jobs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.list.jobs"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.list.jobs"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lj-2" sourceRef="task-list-jobs" targetRef="end-list-jobs"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-gjs-1" sourceRef="start-get-job-status" targetRef="task-get-job-status"/>
     <bpmn:serviceTask id="task-get-job-status" name="Get Job Status">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.get.jobStatus"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.get.jobStatus"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gjs-2" sourceRef="task-get-job-status" targetRef="end-get-job-status"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-gcs-1" sourceRef="start-get-cluster-stats" targetRef="task-get-cluster-stats"/>
     <bpmn:serviceTask id="task-get-cluster-stats" name="Get Cluster Stats">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.get.clusterStats"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.get.clusterStats"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gcs-2" sourceRef="task-get-cluster-stats" targetRef="end-get-cluster-stats"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-ue-1" sourceRef="start-update-expert" targetRef="task-update-expert"/>
     <bpmn:serviceTask id="task-update-expert" name="Update Expert">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.web4.update.expert"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.web4.update.expert"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ue-2" sourceRef="task-update-expert" targetRef="end-update-expert"/>

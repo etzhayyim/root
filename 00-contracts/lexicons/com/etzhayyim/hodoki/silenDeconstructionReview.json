@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.silenDeconstructionReview",
+  "description": "Council 5-of-7 Safe attestation for any new hodoki scope expansion (new vehicle class, OEM cooperation pathway, R-phase transitions, take-back chain activation, suspect intake escalation). Mirrors yakushi silenPharmaReview / watatsumi silenSubmersibleReview / makura silenComfortReview / kanayama silenRecyclingReview.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "r1-activation",
+              "r2-activation",
+              "r3-activation",
+              "wave-2-bus-truck-class",
+              "wave-2-hydrogen-fcv",
+              "wave-2-tesla-cell-recovery-with-oem",
+              "wave-2-aerospace-marine-rail",
+              "oem-cooperation-pathway",
+              "suspect-intake-charter-escalation",
+              "drm-circumvention-request-rejected",
+              "asr-thermal-recovery-partner",
+              "lands-yard-amendment-request"
+            ]
+          },
+          "reviewSubject": {"type": "string"},
+          "councilSafeTxId": {"type": "string"},
+          "councilApproverDids": {"type": "array", "items": {"type": "string"}, "minItems": 5, "maxItems": 7},
+          "verdict": {"type": "string", "knownValues": ["approve", "approve-with-conditions", "defer", "reject"]},
+          "conditions": {"type": "array", "items": {"type": "string"}},
+          "publicCommentPeriodDays": {"type": "integer"},
+          "ipfsDeliberationCid": {"type": "string"},
+          "decidedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["scope", "reviewSubject", "councilSafeTxId", "verdict", "decidedAt"]
+      }
+    }
+  }
+}

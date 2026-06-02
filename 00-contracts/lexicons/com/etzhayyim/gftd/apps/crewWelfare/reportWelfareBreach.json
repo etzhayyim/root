@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.crewWelfare.reportWelfareBreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MLC 2006 breach (wage, rest, repatriation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "breachId",
+            "seafarerVid",
+            "breachType",
+            "reportedAt"
+          ],
+          "properties": {
+            "breachId": {
+              "type": "string"
+            },
+            "seafarerVid": {
+              "type": "string",
+              "description": "bridges registerSeafarer"
+            },
+            "breachType": {
+              "type": "string",
+              "enum": [
+                "wage_arrears",
+                "rest_hours",
+                "repatriation",
+                "medical",
+                "abandonment",
+                "harassment"
+              ]
+            },
+            "wagesOwedUsd": {
+              "type": "number"
+            },
+            "daysOverdue": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

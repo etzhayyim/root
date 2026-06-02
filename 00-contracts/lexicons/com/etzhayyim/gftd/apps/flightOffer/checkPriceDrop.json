@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.flightOffer.checkPriceDrop",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Compare cheapest known offer for a route+date+currency tuple against the last alert; if drop >= thresholdPct, append a row to vertex_flight_offer_alert. Starts BPMN flight_offer_check_price_drop.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["originIata", "destinationIata", "outboundDate"],
+          "properties": {
+            "originIata":      { "type": "string", "minLength": 3, "maxLength": 3 },
+            "destinationIata": { "type": "string", "minLength": 3, "maxLength": 3 },
+            "outboundDate":    { "type": "string", "format": "datetime" },
+            "currency":        { "type": "string", "minLength": 3, "maxLength": 3 },
+            "thresholdPct":    { "type": "number", "minimum": 0, "description": "Minimum drop % vs last recorded alert price (or first observation) to fire. Default 10." },
+            "notifyDid":       { "type": "string", "description": "DID to publish the app.bsky.feed.post drop alert from. Defaults to flight-offer.etzhayyim.com actor DID." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":           { "type": "boolean" },
+            "alerted":      { "type": "boolean" },
+            "vertexId":     { "type": "string" },
+            "newPrice":     { "type": "number" },
+            "previousPrice":{ "type": "number" },
+            "dropPct":      { "type": "number" },
+            "provider":     { "type": "string" },
+            "bookingUrl":   { "type": "string" },
+            "instanceKey":  { "type": "integer" },
+            "error":        { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

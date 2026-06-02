@@ -1,6 +1,6 @@
 """yukkuri `generateScript` graph — LLM で台本生成 (L/R 掛け合い + scene 分割).
 
-NSID: app.etzhayyim.apps.yukkuri.generateScript
+NSID: com.etzhayyim.apps.yukkuri.generateScript
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:scriptwriter
 
@@ -174,7 +174,7 @@ async def _node_insert_scenes_lines(state: _State) -> dict[str, Any]:
         try:
             for i, scene in enumerate(scenes):
                 scene_id = f"scene-{video_id}-{i}"
-                scene_vertex_id = f"at://{_REPO}/app.etzhayyim.apps.yukkuri.scene/{scene_id}"
+                scene_vertex_id = f"at://{_REPO}/com.etzhayyim.apps.yukkuri.scene/{scene_id}"
                 await conn.execute(
                     """INSERT INTO vertex_yukkuri_scene
                        (vertex_id, scene_id, video_id, scene_index, location, action, created_at)
@@ -184,7 +184,7 @@ async def _node_insert_scenes_lines(state: _State) -> dict[str, Any]:
                 )
                 for j, line in enumerate(scene.get("lines") or []):
                     line_id = f"line-{video_id}-{i}-{j}"
-                    line_vertex_id = f"at://{_REPO}/app.etzhayyim.apps.yukkuri.line/{line_id}"
+                    line_vertex_id = f"at://{_REPO}/com.etzhayyim.apps.yukkuri.line/{line_id}"
                     await conn.execute(
                         """INSERT INTO vertex_yukkuri_line
                            (vertex_id, line_id, video_id, scene_index, line_index,

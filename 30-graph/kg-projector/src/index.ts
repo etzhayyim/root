@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * kg-projector — SSoT → app.etzhayyim.kg.{node,edge} projector.
+ * kg-projector — SSoT → com.etzhayyim.kg.{node,edge} projector.
  *
  * Stage K1 of ADR-2605190900. Writes JSON record files; MST/PDS write is a follow-up.
  *

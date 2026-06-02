@@ -27,7 +27,7 @@ Pregel graph (5 nodes):
                                        void <25% per IPC-A-610 Class 3 baseline)
         |
         v
-    emit_pcb_attest               ->  MST PUT app.etzhayyim.tsutae.pcbAttestation
+    emit_pcb_attest               ->  MST PUT com.etzhayyim.tsutae.pcbAttestation
                                        (lot ID, PCB design CID, component DID
                                         chain, AOI pass count, X-ray void max %,
                                         binary blob audit summary, Mimi + Otete

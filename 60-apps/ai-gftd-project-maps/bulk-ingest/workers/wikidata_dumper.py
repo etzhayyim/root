@@ -147,12 +147,12 @@ def _entity_to_row(entity: dict, lat: float, lon: float) -> dict:
     label_en = (entity.get("labels", {}).get("en", {}) or {}).get("value", "")
     desc_en = (entity.get("descriptions", {}).get("en", {}) or {}).get("value", "")
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/wikidata-{qid}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.spot/wikidata-{qid}",
         "rkey": f"wikidata-{qid}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": "Spot",
         "did": "did:web:maps.etzhayyim.com",
-        "collection": "app.etzhayyim.apps.maps.spot",
+        "collection": "com.etzhayyim.apps.maps.spot",
         "name": label_en[:200],
         "lat": lat,
         "lng": lon,

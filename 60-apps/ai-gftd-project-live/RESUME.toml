@@ -39,9 +39,9 @@ commit = "72645d51e23"
 origin_commit = "a9138f52c7e on 260429-misaki-lora-wiring"
 file = "30-graph/graph-schema/migrations/20260429010000_seed_apps_live_bpmn_actors.ts"
 bpmn = [
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/postChat.bpmn",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/scheduleSet.bpmn",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/sendCheer.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/postChat.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/scheduleSet.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/sendCheer.bpmn",
 ]
 
 [[migrations.phases_done]]
@@ -63,14 +63,14 @@ note = """edge_live_room_track + edge_live_room_lighting_cue。demo room の
 
 [[migrations.phases_done]]
 phase = "D2a"
-title = "per-track edit XRPC (app.etzhayyim.apps.live.tweakTrack)"
+title = "per-track edit XRPC (com.etzhayyim.apps.live.tweakTrack)"
 commit = "366c48b7c15"
 files = [
-  "00-contracts/lexicons/ai/gftd/apps/live/tweakTrack.json",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/tweakTrack.bpmn",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/tweakTrack.json",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/tweakTrack.bpmn",
   "30-graph/graph-schema/migrations/20260429040000_seed_live_tweak_track_bpmn.ts",
 ]
-note = """PK = at://<callerDid>/app.etzhayyim.apps.live.track/<roomSlug>-<position>。
+note = """PK = at://<callerDid>/com.etzhayyim.apps.live.track/<roomSlug>-<position>。
 RW upsert via PK rewrite。"""
 
 [migrations.operator_steps]
@@ -80,7 +80,7 @@ RW upsert via PK rewrite。"""
 4 = "DATABASE_URL=$RW python3 70-tools/scripts/contract/gen-view-actor-universal.mjs"
 5 = "dispatcher.etzhayyim.com cache 更新を待つ (~数秒)"
 6 = """smoke test:
-curl -X POST https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.live.postChat \\
+curl -X POST https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.live.postChat \\
   -H 'x-internal-trust: $TRUST' -H 'Content-Type: application/json' \\
   -d '{\"roomSlug\":\"demo\",\"actorDid\":\"did:web:yorishiro.etzhayyim.com\", \\
        \"handle\":\"yorishiro\",\"text\":\"光が降りてきてる…\",\"kind\":\"react\"}'
@@ -89,7 +89,7 @@ curl -X POST https://dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.live.postC
 
 [[migrations.next_phases]]
 id = "D2b"
-title = "vertex_live_actor 参加者表 + app.etzhayyim.apps.live.actorJoin BPMN binding"
+title = "vertex_live_actor 参加者表 + com.etzhayyim.apps.live.actorJoin BPMN binding"
 note = "現在 actor 一覧は live worker / LangServer handler 内ハードコード。"
 size = "medium"
 
@@ -101,7 +101,7 @@ size = "medium"
 
 [[migrations.next_phases]]
 id = "D2d"
-title = "app.etzhayyim.apps.live.tweakLightingCue — D2a の VJ 版"
+title = "com.etzhayyim.apps.live.tweakLightingCue — D2a の VJ 版"
 note = "vertex_live_lighting_cue 対象。lexicon + BPMN + binding migration の同型コピー。"
 size = "small"
 
@@ -135,20 +135,20 @@ shell でも同等動作するように multi-base XRPC fallback を埋め込み
 
 [migrations.related_files]
 lexicons = [
-  "00-contracts/lexicons/ai/gftd/apps/live/joinRoom.json",
-  "00-contracts/lexicons/ai/gftd/apps/live/sendCheer.json",
-  "00-contracts/lexicons/ai/gftd/apps/live/getCurrentSet.json",
-  "00-contracts/lexicons/ai/gftd/apps/live/scheduleSet.json",
-  "00-contracts/lexicons/ai/gftd/apps/live/postChat.json",
-  "00-contracts/lexicons/ai/gftd/apps/live/actorJoin.json",
-  "00-contracts/lexicons/ai/gftd/apps/live/tweakTrack.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/joinRoom.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/sendCheer.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/getCurrentSet.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/scheduleSet.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/postChat.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/actorJoin.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/live/tweakTrack.json",
 ]
 bpmn = [
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/showFlow.bpmn",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/postChat.bpmn",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/scheduleSet.bpmn",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/sendCheer.bpmn",
-  "etzhayyim-root/00-contracts/bpmn/ai/gftd/apps/live/tweakTrack.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/showFlow.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/postChat.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/scheduleSet.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/sendCheer.bpmn",
+  "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apps/live/tweakTrack.bpmn",
 ]
 migrations = [
   "30-graph/graph-schema/migrations/20260429000000_vertex_live_room_chat.ts",

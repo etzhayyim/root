@@ -12,7 +12,7 @@ const ACTOR = {
   name: "gameya.etzhayyim.com",
   nanoid: "g4m3ya00",
   assistantId: "gameya_quality_loop",
-  qualityLoop: "/xrpc/app.etzhayyim.apps.gameya.qualityLoop",
+  qualityLoop: "/xrpc/com.etzhayyim.apps.gameya.qualityLoop",
 };
 
 export default {

@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yadoya.searchHotels",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Search hospitality catalog by region / country / ISIC class / date window. Returns Tier 2 domain rows from vertex_yadoya_hotel joined with hospitality chain actors.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "country":     { "type": "string", "description": "ISO-3166-1 alpha-2" },
+          "region":      { "type": "string", "description": "free-form region slug (asia / europe / mena / americas / africa / oceania)" },
+          "city":        { "type": "string" },
+          "chainDid":    { "type": "string", "format": "did", "description": "did:web:hospitality.etzhayyim.com:actor:chain:* filter" },
+          "isicCode":    { "type": "string", "enum": ["I5510","I5520","N7911"], "default": "I5510" },
+          "checkin":     { "type": "string", "description": "YYYY-MM-DD" },
+          "checkout":    { "type": "string", "description": "YYYY-MM-DD" },
+          "guests":      { "type": "integer", "minimum": 1, "maximum": 16, "default": 2 },
+          "priceJpyMax": { "type": "integer" },
+          "limit":       { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "cursor":      { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hotels"],
+          "properties": {
+            "hotels": { "type": "array", "items": { "type": "object" } },
+            "total":  { "type": "integer" },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

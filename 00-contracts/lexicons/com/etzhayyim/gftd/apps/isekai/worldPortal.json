@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isekai.worldPortal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Explicit teleport edge between two worldScenes on the same worldMap (ADR-0040). Federable. Consumed by minimap fast-travel + 3D portal gate.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["worldMapUri", "fromSceneUri", "toSceneUri", "createdAt"],
+        "properties": {
+          "worldMapUri": { "type": "string", "format": "at-uri" },
+          "fromSceneUri": { "type": "string", "format": "at-uri" },
+          "toSceneUri": { "type": "string", "format": "at-uri" },
+          "fadeMs": { "type": "integer", "minimum": 0, "maximum": 10000, "default": 500 },
+          "bidirectional": { "type": "boolean", "default": false },
+          "label": { "type": "string", "maxLength": 64 },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

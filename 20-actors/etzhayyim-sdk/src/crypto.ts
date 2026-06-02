@@ -50,7 +50,7 @@ export function generateNonce(): Uint8Array {
 
 /**
  * keyId = first 16 hex chars of SHA-256(key). Used as the lookup handle in
- * `app.etzhayyim.encrypted.keyWrap.keyId` so recipients can match a wrap to
+ * `com.etzhayyim.encrypted.keyWrap.keyId` so recipients can match a wrap to
  * the encrypted record without revealing the key itself.
  */
 export function keyIdOf(key: SymmetricKey): string {
@@ -138,7 +138,7 @@ export function unpadIso7816(padded: Uint8Array): Uint8Array {
 
 /**
  * Encrypt a CBOR-serializable plaintext into the envelope format described
- * in lexicon `app.etzhayyim.encrypted.record`.
+ * in lexicon `com.etzhayyim.encrypted.record`.
  */
 export function encrypt(opts: EncryptOpts): EncryptedEnvelope {
   if (opts.key.length !== KEY_BYTES) {

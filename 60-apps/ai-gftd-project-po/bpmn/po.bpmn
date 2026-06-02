@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cpo-1" sourceRef="start-create-po" targetRef="task-create-po"/>
     <bpmn:serviceTask id="task-create-po" name="Create PO">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.create.po"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.create.po"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cpo-2" sourceRef="task-create-po" targetRef="end-create-po"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-lpos-1" sourceRef="start-list-pos" targetRef="task-list-pos"/>
     <bpmn:serviceTask id="task-list-pos" name="List POs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.list.pos"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.list.pos"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lpos-2" sourceRef="task-list-pos" targetRef="end-list-pos"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-gpo-1" sourceRef="start-get-po" targetRef="task-get-po"/>
     <bpmn:serviceTask id="task-get-po" name="Get PO">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.get.po"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.get.po"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gpo-2" sourceRef="task-get-po" targetRef="end-get-po"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-apo-1" sourceRef="start-approve-po" targetRef="task-approve-po"/>
     <bpmn:serviceTask id="task-approve-po" name="Approve PO">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.approve.po"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.approve.po"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-apo-2" sourceRef="task-approve-po" targetRef="end-approve-po"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-ls-1" sourceRef="start-list-suppliers" targetRef="task-list-suppliers"/>
     <bpmn:serviceTask id="task-list-suppliers" name="List Suppliers">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.list.suppliers"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.list.suppliers"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ls-2" sourceRef="task-list-suppliers" targetRef="end-list-suppliers"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-cs-1" sourceRef="start-create-supplier" targetRef="task-create-supplier"/>
     <bpmn:serviceTask id="task-create-supplier" name="Create Supplier">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.create.supplier"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.create.supplier"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cs-2" sourceRef="task-create-supplier" targetRef="end-create-supplier"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-rr-1" sourceRef="start-record-receipt" targetRef="task-record-receipt"/>
     <bpmn:serviceTask id="task-record-receipt" name="Record Receipt">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.record.receipt"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.record.receipt"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rr-2" sourceRef="task-record-receipt" targetRef="end-record-receipt"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-lrec-1" sourceRef="start-list-receipts" targetRef="task-list-receipts"/>
     <bpmn:serviceTask id="task-list-receipts" name="List Receipts">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.po.list.receipts"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.po.list.receipts"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lrec-2" sourceRef="task-list-receipts" targetRef="end-list-receipts"/>

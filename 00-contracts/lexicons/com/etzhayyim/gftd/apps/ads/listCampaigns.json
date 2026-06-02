@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ads.listCampaigns",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List sponsored-post campaigns owned by the caller.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "cursor": { "type": "string" },
+          "limit":  { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["campaigns"],
+          "properties": {
+            "campaigns": {
+              "type": "array",
+              "items": {
+                "type": "ref",
+                "ref": "#campaignView"
+              }
+            },
+            "cursor": { "type": "string" }
+          }
+        }
+      }
+    },
+    "campaignView": {
+      "type": "object",
+      "required": ["campaignId", "did", "name", "createdAt"],
+      "properties": {
+        "campaignId":  { "type": "string" },
+        "did":         { "type": "string" },
+        "name":        { "type": "string" },
+        "description": { "type": "string" },
+        "advertiser":  { "type": "string" },
+        "budgetJpy":   { "type": "integer" },
+        "active":      { "type": "boolean" },
+        "createdAt":   { "type": "string", "format": "datetime" }
+      }
+    }
+  }
+}

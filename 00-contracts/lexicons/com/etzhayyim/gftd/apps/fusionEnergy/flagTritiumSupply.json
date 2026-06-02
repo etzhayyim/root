@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fusionEnergy.flagTritiumSupply",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Tritium supply / lithium supply constraint (bridges critical-minerals + iaea-safeguards + hydrogen-economy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "projectVid",
+            "material",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "projectVid": {
+              "type": "string",
+              "description": "bridges registerProject"
+            },
+            "material": {
+              "type": "string",
+              "enum": [
+                "tritium",
+                "li6_enriched",
+                "beryllium",
+                "tungsten",
+                "high_temperature_superconductor",
+                "neodymium"
+              ]
+            },
+            "supplyShortKg": {
+              "type": "number"
+            },
+            "bottleneckKind": {
+              "type": "string",
+              "enum": [
+                "cansl_production",
+                "enrichment",
+                "mining",
+                "processing",
+                "sanctions",
+                "dual_use"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

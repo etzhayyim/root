@@ -15,24 +15,24 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const procs = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/netintelDnsDelta.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/netintel-dns-delta-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/netintelDnsDelta.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/ipEnrichDelta.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/netintel-ip-enrich-delta-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/ipEnrichDelta.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/whoisDelta.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/netintel-whois-delta-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/whoisDelta.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/scanBannerDelta.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/netintel-scan-banner-delta-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/scanBannerDelta.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/fingerprintDelta.bpmn",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/netintel-fingerprint-delta-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/fingerprintDelta.bpmn",
   },
 ] as const;
 

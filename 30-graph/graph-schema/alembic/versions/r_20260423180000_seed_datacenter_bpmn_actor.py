@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-operate-facility-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-operate-facility-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'datacenter_operate_facility',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -500,11 +500,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  19628,
-                 '00-contracts/bpmn/ai/gftd/datacenter/operateFacility.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/datacenter/operateFacility.bpmn',
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-operate-facility-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-operate-facility-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -539,7 +539,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-access-review-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-access-review-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'datacenter_access_review',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -798,11 +798,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  11738,
-                 '00-contracts/bpmn/ai/gftd/datacenter/accessReview.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/datacenter/accessReview.bpmn',
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-access-review-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-access-review-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -837,7 +837,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-reserve-capacity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-reserve-capacity-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'datacenter_reserve_capacity',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1016,11 +1016,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  7893,
-                 '00-contracts/bpmn/ai/gftd/datacenter/reserveCapacity.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/datacenter/reserveCapacity.bpmn',
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-reserve-capacity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-reserve-capacity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -1055,7 +1055,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-purge-access-pii-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-purge-access-pii-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'datacenter_purge_access_pii',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1189,11 +1189,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5305,
-                 '00-contracts/bpmn/ai/gftd/datacenter/purgeAccessPii.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/datacenter/purgeAccessPii.bpmn',
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-purge-access-pii-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-purge-access-pii-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1226,15 +1226,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-startOperation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-startOperation-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'app.etzhayyim.apps.datacenter.startOperation',
+                 'com.etzhayyim.apps.datacenter.startOperation',
                  'datacenter_operate_facility',
                  0,
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-startOperation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-startOperation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1267,15 +1267,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-requestAccess-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-requestAccess-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'app.etzhayyim.apps.datacenter.requestAccess',
+                 'com.etzhayyim.apps.datacenter.requestAccess',
                  'datacenter_access_review',
                  0,
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-requestAccess-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-requestAccess-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1308,15 +1308,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-reserveCapacity-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-reserveCapacity-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'app.etzhayyim.apps.datacenter.reserveCapacity',
+                 'com.etzhayyim.apps.datacenter.reserveCapacity',
                  'datacenter_reserve_capacity',
                  0,
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-reserveCapacity-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-reserveCapacity-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1349,32 +1349,32 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-purgeAccessPii-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-purgeAccessPii-v1',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'app.etzhayyim.apps.datacenter.purgeAccessPii',
+                 'com.etzhayyim.apps.datacenter.purgeAccessPii',
                  'datacenter_purge_access_pii',
                  120000,
                  '2026-04-23T18:00:00Z',
                  'did:web:infra.etzhayyim.com:datacenter',
                  'did:web:infra.etzhayyim.com:datacenter',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-purgeAccessPii-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-purgeAccessPii-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-startOperation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-startOperation-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-requestAccess-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-requestAccess-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-reserveCapacity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-reserveCapacity-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/datacenter-purgeAccessPii-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/datacenter-purgeAccessPii-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-operate-facility-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-operate-facility-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-access-review-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-access-review-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-reserve-capacity-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-reserve-capacity-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/datacenter-purge-access-pii-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/datacenter-purge-access-pii-v1']}]
 
 
 def upgrade() -> None:

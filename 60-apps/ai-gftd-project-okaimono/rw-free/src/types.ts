@@ -20,14 +20,14 @@
 
 export const OKAIMONO_DID_PREFIX = "did:web:okaimono.etzhayyim.com:" as const;
 
-export const CATALOG_ITEM_COLLECTION = "app.etzhayyim.apps.okaimono.catalogItem";
-export const ORDER_COLLECTION = "app.etzhayyim.apps.okaimono.order";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.okaimono.payment";
-export const STOCK_COLLECTION = "app.etzhayyim.apps.okaimono.stock";
+export const CATALOG_ITEM_COLLECTION = "com.etzhayyim.apps.okaimono.catalogItem";
+export const ORDER_COLLECTION = "com.etzhayyim.apps.okaimono.order";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.okaimono.payment";
+export const STOCK_COLLECTION = "com.etzhayyim.apps.okaimono.stock";
 export const STOCK_RESERVATION_COLLECTION =
-  "app.etzhayyim.apps.okaimono.stockReservation";
-export const SHIPMENT_COLLECTION = "app.etzhayyim.apps.okaimono.shipment";
-export const SUPPORT_CASE_COLLECTION = "app.etzhayyim.apps.okaimono.supportCase";
+  "com.etzhayyim.apps.okaimono.stockReservation";
+export const SHIPMENT_COLLECTION = "com.etzhayyim.apps.okaimono.shipment";
+export const SUPPORT_CASE_COLLECTION = "com.etzhayyim.apps.okaimono.supportCase";
 
 /** D2C OEM-only production modes (no external resale; tsukuru manufacturing). */
 export type ProductionMode = "OEM" | "BTO" | "MTO" | "CTO";

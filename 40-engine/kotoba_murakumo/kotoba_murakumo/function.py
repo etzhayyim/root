@@ -10,7 +10,7 @@ caller (constitutional invariant per ADR-2605192200 + ADR-2605282000).
 Every dispatch emits one NDJSON line to
 ``~/.kotoba_murakumo/invocations.ndjson`` carrying caller DID, resolved
 endpoint, model, latency, and Charter scan severities. R1.2 will promote this
-to the ``app.etzhayyim.murakumo.invocation`` Lexicon record on the caller's
+to the ``com.etzhayyim.murakumo.invocation`` Lexicon record on the caller's
 PDS.
 """
 
@@ -108,7 +108,7 @@ class Function:
         self._tariff = tariff if tariff is not None else economy.default_tariff()
         # R1.3b — balance lookup defaults to "unlimited" so existing call sites
         # are unaffected. App.balance() callers can inject a real lookup that
-        # talks to kotoba-server app.etzhayyim.kotoba.economy.balance.
+        # talks to kotoba-server com.etzhayyim.kotoba.economy.balance.
         self._balance_lookup = balance_lookup or (lambda _did: 2**62)
 
     # ---- introspection passthrough -------------------------------------------

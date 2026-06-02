@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-ct-1" sourceRef="start-create-thread" targetRef="task-create-thread"/>
     <bpmn:serviceTask id="task-create-thread" name="Create Thread">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.createThread"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.createThread"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ct-2" sourceRef="task-create-thread" targetRef="end-create-thread"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-gt-1" sourceRef="start-get-thread" targetRef="task-get-thread"/>
     <bpmn:serviceTask id="task-get-thread" name="Get Thread">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.getThread"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.getThread"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gt-2" sourceRef="task-get-thread" targetRef="end-get-thread"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-rt-1" sourceRef="start-reply-thread" targetRef="task-reply-thread"/>
     <bpmn:serviceTask id="task-reply-thread" name="Reply Thread">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.replyThread"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.replyThread"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rt-2" sourceRef="task-reply-thread" targetRef="end-reply-thread"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-clt-1" sourceRef="start-close-thread" targetRef="task-close-thread"/>
     <bpmn:serviceTask id="task-close-thread" name="Close Thread">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.closeThread"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.closeThread"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-clt-2" sourceRef="task-close-thread" targetRef="end-close-thread"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-lt-1" sourceRef="start-list-threads" targetRef="task-list-threads"/>
     <bpmn:serviceTask id="task-list-threads" name="List Threads">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.listThreads"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.listThreads"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lt-2" sourceRef="task-list-threads" targetRef="end-list-threads"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-st-1" sourceRef="start-search-threads" targetRef="task-search-threads"/>
     <bpmn:serviceTask id="task-search-threads" name="Search Threads">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.searchThreads"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.searchThreads"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-st-2" sourceRef="task-search-threads" targetRef="end-search-threads"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-pt-1" sourceRef="start-pin-thread" targetRef="task-pin-thread"/>
     <bpmn:serviceTask id="task-pin-thread" name="Pin Thread">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.pinThread"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.pinThread"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-pt-2" sourceRef="task-pin-thread" targetRef="end-pin-thread"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-ts-1" sourceRef="start-thread-stats" targetRef="task-thread-stats"/>
     <bpmn:serviceTask id="task-thread-stats" name="Thread Stats">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.threads.threadStats"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.threads.threadStats"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ts-2" sourceRef="task-thread-stats" targetRef="end-thread-stats"/>

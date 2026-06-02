@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordTrustNegotiation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G SEPP — record N32 trust / cipher / IPX modification policy negotiation outcome with a peer SEPP (or via IPX provider).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["contextId", "negotiationKind", "outcome", "observedAt"],
+          "properties": {
+            "negotiationId": { "type": "string" },
+            "contextId": { "type": "string" },
+            "negotiationKind": { "type": "string", "enum": ["initial", "rekey", "cipher_change", "policy_change", "ipx_introduction"] },
+            "ipxProviderId": { "type": "string" },
+            "allowedCipherSuites": { "type": "array", "items": { "type": "string" } },
+            "agreedCipherSuite": { "type": "string" },
+            "modificationPolicy": { "type": "string", "enum": ["none", "ipx_authorized", "ipx_restricted"] },
+            "outcome": { "type": "string", "enum": ["agreed", "rejected", "fallback", "timeout"] },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "negotiationId": { "type": "string" },
+          "outcome": { "type": "string" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

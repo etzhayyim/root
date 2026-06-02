@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.aismarine.getVesselDetail",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch the full vertex_vessel master row for a given MMSI plus the most recent track (default 24h, hard cap 500 points) and the active vessel_voyage row if any. ADR-2605011500.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "mmsi": { "type": "integer", "description": "9-digit ITU MMSI." },
+          "trackHours": { "type": "integer", "description": "Hours of track history to return (default 24, max 168)." },
+          "trackLimit": { "type": "integer", "description": "Max track points (default 500, max 2000)." }
+        },
+        "required": ["mmsi"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vessel"],
+          "properties": {
+            "vessel": {
+              "type": "unknown",
+              "description": "{ mmsi, imo?, callsign?, name?, type_code?, type_class, flag_mid?, flag_iso?, length_m?, width_m?, draught_m?, source, first_seen_ms, last_seen_ms }. null if MMSI unknown."
+            },
+            "recentTrack": {
+              "type": "unknown",
+              "description": "Array of { ts_ms, lat, lon, sog_knot?, cog_deg?, heading_deg?, nav_status? } sorted by ts_ms ascending."
+            },
+            "voyage": {
+              "type": "unknown",
+              "description": "Latest vertex_vessel_voyage row: { departure_port_locode?, departure_ms?, arrival_port_locode?, arrival_ms?, declared_eta_ms?, declared_destination?, declared_draught_m? }. null if no voyage detected."
+            },
+            "owners": {
+              "type": "unknown",
+              "description": "Array of legal-entity owner edges, most recent first: { lei, name?, country?, entity_type?, legal_entity_vid?, share_pct?, source, effective_from_ms? }. Empty when no edge_vessel_owned_by row matches the MMSI (Wikidata enrichment task seeds these)."
+            },
+            "operators": {
+              "type": "unknown",
+              "description": "Array of legal-entity operator/manager edges, most recent first: { lei, name?, country?, entity_type?, legal_entity_vid?, role?, source, effective_from_ms? }. Empty when no edge_vessel_operated_by row matches the MMSI."
+            }
+          }
+        }
+      }
+    }
+  }
+}

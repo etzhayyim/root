@@ -25,16 +25,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/magatama-cron-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/magatama-cron-tick-v1',
                  'did:web:magatama.etzhayyim.com',
-                 'app.etzhayyim.magatama.cronTick',
+                 'com.etzhayyim.magatama.cronTick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"\n'
                  '                  id="magatama-cron-tick" '
                  'targetNamespace="https://etzhayyim.com/bpmn">\n'
-                 '  <bpmn:process id="app.etzhayyim.magatama.cronTick" name="Magatama Organizer Cron '
+                 '  <bpmn:process id="com.etzhayyim.magatama.cronTick" name="Magatama Organizer Cron '
                  'Tick" isExecutable="true">\n'
                  '    <bpmn:startEvent id="start" name="R/PT5M">\n'
                  '      <bpmn:outgoing>to-tick</bpmn:outgoing>\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&#34;POST&#34;" target="method"/>\n'
                  '          <zeebe:input '
-                 'source="=&#34;https://magatama.etzhayyim.com/xrpc/app.etzhayyim.apps.magatama.cronTick&#34;" '
+                 'source="=&#34;https://magatama.etzhayyim.com/xrpc/com.etzhayyim.apps.magatama.cronTick&#34;" '
                  'target="url"/>\n'
                  '          <zeebe:input source="={}" target="body"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&#34;app.etzhayyim.apps.magatama.cronTick&#34;" '
+                 '          <zeebe:input source="=&#34;com.etzhayyim.apps.magatama.cronTick&#34;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="=&#34;magatama-organizer&#34;" '
                  'target="actorId"/>\n'
@@ -81,12 +81,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2264,
-                 '00-contracts/bpmn/ai/gftd/magatama/cronTick.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/magatama/cronTick.bpmn',
                  '2026-04-28T09:00:00Z',
                  'did:web:magatama.etzhayyim.com',
                  'did:web:magatama.etzhayyim.com',
                  'sys.bpmn.seed.magatama',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/magatama-cron-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/magatama-cron-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -100,15 +100,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/magatama-cron-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/magatama-cron-tick-v1',
                  'did:web:magatama.etzhayyim.com',
-                 'app.etzhayyim.apps.magatama.cronTick',
-                 'app.etzhayyim.magatama.cronTick',
+                 'com.etzhayyim.apps.magatama.cronTick',
+                 'com.etzhayyim.magatama.cronTick',
                  '2026-04-28T09:00:00Z',
                  'did:web:magatama.etzhayyim.com',
                  'did:web:magatama.etzhayyim.com',
                  'sys.bpmn.seed.magatama',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/magatama-cron-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/magatama-cron-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -122,15 +122,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-cron-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-cron-tick-v1',
                  'did:web:graph.etzhayyim.com',
-                 'app.etzhayyim.graph.cronTick',
+                 'com.etzhayyim.graph.cronTick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
                  '                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"\n'
                  '                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"\n'
                  '                  id="graph-cron-tick" targetNamespace="https://etzhayyim.com/bpmn">\n'
-                 '  <bpmn:process id="app.etzhayyim.graph.cronTick" name="Graph Consumer Cron Tick" '
+                 '  <bpmn:process id="com.etzhayyim.graph.cronTick" name="Graph Consumer Cron Tick" '
                  'isExecutable="true">\n'
                  '    <bpmn:startEvent id="start" name="R/PT1M">\n'
                  '      <bpmn:outgoing>to-tick</bpmn:outgoing>\n'
@@ -154,7 +154,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&#34;app.etzhayyim.apps.graph.cronTick&#34;" '
+                 '          <zeebe:input source="=&#34;com.etzhayyim.apps.graph.cronTick&#34;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="=&#34;graph-consumer&#34;" target="actorId"/>\n'
                  '        </zeebe:ioMapping>\n'
@@ -172,12 +172,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2081,
-                 '00-contracts/bpmn/ai/gftd/graph/cronTick.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/graph/cronTick.bpmn',
                  '2026-04-28T09:00:00Z',
                  'did:web:graph.etzhayyim.com',
                  'did:web:graph.etzhayyim.com',
                  'sys.bpmn.seed.graph',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-cron-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-cron-tick-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -191,24 +191,24 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/graph-cron-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/graph-cron-tick-v1',
                  'did:web:graph.etzhayyim.com',
-                 'app.etzhayyim.apps.graph.cronTick',
-                 'app.etzhayyim.graph.cronTick',
+                 'com.etzhayyim.apps.graph.cronTick',
+                 'com.etzhayyim.graph.cronTick',
                  '2026-04-28T09:00:00Z',
                  'did:web:graph.etzhayyim.com',
                  'did:web:graph.etzhayyim.com',
                  'sys.bpmn.seed.graph',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/graph-cron-tick-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/graph-cron-tick-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/magatama-cron-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/magatama-cron-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/graph-cron-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/graph-cron-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/magatama-cron-tick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/magatama-cron-tick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-cron-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-cron-tick-v1']}]
 
 
 def upgrade() -> None:

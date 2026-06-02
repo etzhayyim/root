@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.biosecurityCertification.flagPscDetention",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Port State Control detention linked to biosecurity failure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "detentionId",
+            "imo",
+            "detainedHours",
+            "detainedAt"
+          ],
+          "properties": {
+            "detentionId": {
+              "type": "string"
+            },
+            "callVid": {
+              "type": "string",
+              "description": "bridges open-port-of-call-roster"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "pscRegimeMou": {
+              "type": "string",
+              "enum": [
+                "tokyo",
+                "paris",
+                "viña",
+                "caribbean",
+                "mediterranean",
+                "indian_ocean",
+                "black_sea",
+                "west_central_africa",
+                "riyadh"
+              ]
+            },
+            "deficiencyCode": {
+              "type": "string"
+            },
+            "detainedHours": {
+              "type": "integer"
+            },
+            "detainedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "brief",
+                "significant",
+                "prolonged"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

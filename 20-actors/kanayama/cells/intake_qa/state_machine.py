@@ -69,7 +69,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = IntakePhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.intakeRecord",
+        "$type": "com.etzhayyim.kanayama.intakeRecord",
         "lotId": s.lotId,
         "baleWeightKg": s.baleWeightKg,
         "chlorideResidualPpm": s.chlorideResidualPpm,

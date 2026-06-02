@@ -16,15 +16,15 @@ import { sql } from "kysely";
  * injection).
  *
  * Columns mirror the retired AT record shape
- * (`app.etzhayyim.projector.reflection`):
+ * (`com.etzhayyim.projector.reflection`):
  *   convoId / attempt / outcome / reflection / createdBy / createdAt
  *
  * Call sites it replaces (per Phase 2 handler rewrite):
- *   - app.etzhayyim.projector.addReflection (XRPC)
+ *   - com.etzhayyim.projector.addReflection (XRPC)
  *   - /reflect slash command in sendProjectMessage
  *   - auto-reflexion failure detection in sendProjectMessage
  *   - reflexion buffer load in sendProjectMessage system prompt
- *   - app.etzhayyim.projector.listReflections (XRPC)
+ *   - com.etzhayyim.projector.listReflections (XRPC)
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`

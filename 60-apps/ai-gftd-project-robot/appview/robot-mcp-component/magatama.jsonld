@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.robotics.mission",
-        "ai.gftd.apps.robotics.telemetry"
+        "com.etzhayyim.apps.robotics.mission",
+        "com.etzhayyim.apps.robotics.telemetry"
       ]
     }
   }

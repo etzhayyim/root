@@ -30,7 +30,7 @@ import {
   type RegisterCrawlOutput,
 } from "./types.js";
 
-const CRAWL_COLLECTION = "app.etzhayyim.apps.commonCrawl.crawlBatch";
+const CRAWL_COLLECTION = "com.etzhayyim.apps.commonCrawl.crawlBatch";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

@@ -16,11 +16,11 @@
     "cron": [
       {
         "schedule": "R/PT15M",
-        "nsid": "ai.gftd.apps.graphSosIntel.inventoryTick"
+        "nsid": "com.etzhayyim.apps.graphSosIntel.inventoryTick"
       },
       {
         "schedule": "R/PT6H",
-        "nsid": "ai.gftd.apps.graphSosIntel.briefingTick"
+        "nsid": "com.etzhayyim.apps.graphSosIntel.briefingTick"
       }
     ]
   }

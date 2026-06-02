@@ -3,10 +3,10 @@
  *
  * Flow:
  *   1. Attach CDP Virtual Authenticator (P-256, user-verified)
- *   2. POST /xrpc/app.etzhayyim.auth.passkeyBeginRegister → get challenge
+ *   2. POST /xrpc/com.etzhayyim.auth.passkeyBeginRegister → get challenge
  *   3. navigator.credentials.create → virtual authenticator signs
- *   4. POST /xrpc/app.etzhayyim.auth.passkeyVerifyRegister → get DID + session
- *   5. POST /xrpc/app.etzhayyim.auth.passkeyBeginAuth + VerifyAuth (sign-in)
+ *   4. POST /xrpc/com.etzhayyim.auth.passkeyVerifyRegister → get DID + session
+ *   5. POST /xrpc/com.etzhayyim.auth.passkeyBeginAuth + VerifyAuth (sign-in)
  *   6. Drive full OAuth2 PKCE round trip:
  *      - generate PKCE verifier/challenge
  *      - GET /oauth/authorize (no interactive UI needed; we issue the code
@@ -85,7 +85,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
         return Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
       };
 
-      const begin = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
+      const begin = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.passkeyBeginRegister`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -114,7 +114,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
       })) as PublicKeyCredential;
 
       const att = cred.response as AuthenticatorAttestationResponse;
-      const verify = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
+      const verify = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.passkeyVerifyRegister`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -217,7 +217,7 @@ test.describe("ADR-0023 P4 WebAuthn + apiKey bootstrap", () => {
     for (let i = 0; i < 5; i++) {
       pdsCheck = await page.evaluate(async (apiKey) => {
         const resp = await fetch(
-          "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.auth.listApiKeys",
+          "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.auth.listApiKeys",
           { method: "POST", headers: { Authorization: `Bearer ${apiKey}` } }
         );
         return { status: resp.status, body: await resp.json().catch(() => ({})) };

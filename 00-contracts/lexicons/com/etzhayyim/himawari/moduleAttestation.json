@@ -1,0 +1,185 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.moduleAttestation",
+  "description": "Finished PV module attestation (stringing → lamination → framing → J-box → flash IV + EL imaging), emitted by the himawari module_assembly cell on the asher Murakumo node (composes kuni-umi Otete handling + Mimi metrology). Final link in the polysilicon lot → wafer batch → cell batch → module serial chain. G11 (deterministic provenance — flash IV + EL content-bound and per-module signed; serial ↔ feedstock lot traceable, never single-witness) + G4 (EPBT << module service life) + G12 (internal hikari install only, SBT↔SBT carve-out; NO external commercial PV sale) + G5 (design-for-recovery ≥90%) structural enforcement. Materializes into the kotoba Datom log (EAVT) as canonical state; each property is one attribute keyed by the record CID, and per-serial history is queryable as-of any point. solar-grade c-Si only (N1) — NOT the iwakura/fuigo/tsukuru logic-grade EG-Si track. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "properties": {
+          "moduleSerial": {
+            "type": "string",
+            "description": "stable per-module serial; leaf of the polysilicon lot → wafer batch → cell batch → module serial chain (G11 traceability) and the primary EAVT entity key for the module's Datom history"
+          },
+          "cellBatchId": {
+            "type": "string",
+            "description": "G11: cell process batch this module's cells came from; chains back to com.etzhayyim.himawari.cellBatchRecord.batchId"
+          },
+          "feedstockLotId": {
+            "type": "string",
+            "description": "G11/G2: feedstock lot the module is traceable to; chains back through waferBatchRecord to com.etzhayyim.himawari.polysiliconProvenanceAttestation.lotId (XUAR/forced-labor-exclusion provenance inherited from the lot). A module with no resolvable lot is never attestable (fail-closed)."
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "module attestation timestamp (ISO-8601); as-of point for the kotoba Datom history of this serial"
+          },
+          "bomCid": {
+            "type": "string",
+            "description": "G8: full module SBOM (CycloneDX → kotoba EAVT, ADR-2605312330); cells + glass + EVA/POE encapsulant + backsheet + frame + J-box, plus the consumed cell batch"
+          },
+          "ratedWp": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "nameplate rating (peak watts at STC; integer); flash-binning tolerance is evaluated against this"
+          },
+          "measuredWp": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "G11: Mimi flash-IV measured peak power (watts; integer). A module whose measured Wp deviates beyond ±5% (500 bps) of ratedWp is binned, never silently attested as in-spec."
+          },
+          "flashIvCid": {
+            "type": "string",
+            "description": "G11: content-addressed Mimi flash-IV curve (Isc / Voc / Pmax / FF / IV trace). Canonical-JSON sha256 CID; deterministic for identical measurements (cid:himawari:flashiv:sha256:...)"
+          },
+          "elImageCid": {
+            "type": "string",
+            "description": "G11: content-addressed Mimi electroluminescence image (microcrack / finger-interruption / dark-cell inspection), bound into the per-module signature (cid:himawari:elimage:sha256:...)"
+          },
+          "thermalIrCid": {
+            "type": "string",
+            "description": "optional: content-addressed Mimi thermal-IR hotspot scan; advisory metrology not load-bearing for the G11 signature"
+          },
+          "destinationActorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "G12: install destination DID; MUST be an internal etzhayyim install actor (SBT↔SBT carve-out, currently did:web:etzhayyim.com:hikari). External / commercial destinations are refused outright — no external commercial PV sale, ever."
+          },
+          "epbtMonths": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "G4: energy-payback-time (months; integer); must be << module service life with margin. Accumulates the renewable-only process energy from polysilicon → wafer → cell → module."
+          },
+          "recyclabilityBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "G5: design-for-recovery in basis points 0-10000 (integer; 10000 = 100%). ≥9000 (≥90%) satisfies the circular floor; below-floor sets recyclabilityBelowFloor and is enforced at the silenHimawariReview Council gate."
+          },
+          "recyclabilityBelowFloor": {
+            "type": "boolean",
+            "description": "G5 advisory flag set when 0 < recyclabilityBps < 9000; surfaces to the Council circularity review without blocking the assembly cell"
+          },
+          "binned": {
+            "type": "boolean",
+            "description": "G11: true when the module fell outside flash tolerance (or had no positive rated Wp). Binned modules are recorded for traceability but flagged, never passed off as in-spec."
+          },
+          "binReason": {
+            "type": "string",
+            "description": "human-readable reason a binned module was flagged (e.g. flash-power deviation in bps vs tolerance)"
+          },
+          "provenanceChainDigest": {
+            "type": "string",
+            "description": "G11: sha256 digest over the canonical 'lot->cellBatch->serial' provenance link; binds the module record to its exact chain of custody (sha256:...)"
+          },
+          "attestingNode": {
+            "type": "string",
+            "description": "Murakumo node that produced this attestation (module_assembly → asher per manifest.jsonld)"
+          },
+          "signature": {
+            "type": "ref",
+            "ref": "#moduleSignature",
+            "description": "G11: per-module provenance signature over the canonical signed-view bytes (serial + lot + both metrology CIDs + rating + BOM + destination + chain digest); reproducible by any verifier"
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#robotSignature"
+            },
+            "minItems": 2,
+            "description": "G11: Ed25519 robot witness quorum (>=2 distinct robots — at least one process + one metrology); deterministic provenance is never single-witness"
+          }
+        },
+        "required": [
+          "moduleSerial",
+          "cellBatchId",
+          "feedstockLotId",
+          "recordedAt",
+          "bomCid",
+          "ratedWp",
+          "flashIvCid",
+          "elImageCid",
+          "destinationActorDid",
+          "provenanceChainDigest",
+          "signature",
+          "attestingRobots"
+        ]
+      }
+    },
+    "moduleSignature": {
+      "type": "object",
+      "description": "G11 per-module provenance signature. At R0 this is a deterministic content-binding (HMAC + sha256 over the canonical signed-view bytes) proving byte-integrity + non-substitution; at R1 activation the asher node's custody-held Ed25519 device key signs the SAME bytes (alg → 'ed25519') with the signedDigest contract unchanged. No server-held signing key lives in the cell (substrate boundary).",
+      "properties": {
+        "alg": {
+          "type": "string",
+          "knownValues": [
+            "content-binding-sha256",
+            "ed25519"
+          ],
+          "description": "signature algorithm; 'content-binding-sha256' at R0 → 'ed25519' at R1 activation"
+        },
+        "signedDigest": {
+          "type": "string",
+          "description": "sha256 over (domain tag || canonical signed-view bytes); reproducible by any verifier from the public record fields (sha256:...)"
+        },
+        "binding": {
+          "type": "string",
+          "description": "HMAC content-binding over the canonical signed-view bytes (placeholder for the Ed25519 signature at R1)"
+        },
+        "signer": {
+          "type": "string",
+          "description": "Murakumo node identity of the signer (asher)"
+        },
+        "serverHeldKey": {
+          "type": "boolean",
+          "description": "substrate-boundary invariant: MUST be false — no signing key is ever held in-cell or server-side"
+        }
+      },
+      "required": [
+        "alg",
+        "signedDigest",
+        "signer",
+        "serverHeldKey"
+      ]
+    },
+    "robotSignature": {
+      "type": "object",
+      "description": "G7-coupled Ed25519 robot witness attestation. Robot DID lineage logged so automated-away human QA tasks are accountable to the Liberation Metric (ADR-2605261000).",
+      "properties": {
+        "robotDid": {
+          "type": "string",
+          "format": "did"
+        },
+        "role": {
+          "type": "string",
+          "description": "witness role (e.g. stringing / lamination / framing / flash-iv / el-imaging / metrology)"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over the attested module bundle"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "datetime"
+        }
+      },
+      "required": [
+        "robotDid",
+        "signature"
+      ]
+    }
+  }
+}

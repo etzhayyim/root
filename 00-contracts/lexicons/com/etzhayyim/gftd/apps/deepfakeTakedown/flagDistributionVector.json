@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.deepfakeTakedown.flagDistributionVector",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Distribution vector / off-platform spread (bridges aiWatermark.flagEvasion + dsa-vlop + social-media-influence-op)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "takedownVid",
+            "vectorKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "takedownVid": {
+              "type": "string",
+              "description": "bridges recordTakedown"
+            },
+            "vectorKind": {
+              "type": "string",
+              "enum": [
+                "livestream_replay",
+                "whatsapp_forward",
+                "telegram_channel",
+                "sms_blast",
+                "tiktok_loop",
+                "instagram_reel",
+                "x_repost",
+                "reddit_thread",
+                "blog_embed",
+                "podcast_clip",
+                "clipboard_share",
+                "email_phishing",
+                "encrypted_dm"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

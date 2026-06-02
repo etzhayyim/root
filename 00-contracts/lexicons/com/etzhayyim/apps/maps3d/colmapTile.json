@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps3d.colmapTile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run COLMAP CPU dense reconstruction over a curated image set. Pipeline: feature_extractor (SIFT CPU) → exhaustive_matcher → mapper (incremental SfM) → image_undistorter → patch_match_stereo (CPU, 4-thread) → stereo_fusion → delaunay_mesher. Inputs are Mapillary URLs (worker downloads to ephemeral /tmp); output is a vertex-colored triangle mesh stored in B2. Wall-clock budget per tile = 60 min hard timeout (BPMN boundary); typical 30-45 min on 2 cores @ 2.5 GHz with 30 images at 1080p. On failure emits a structured error so `replanReconstruction` can decide retry|downgrade-to-osm|abort.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "selectedIds", "imageUrls"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "selectedIds": { "type": "array", "items": { "type": "string" } },
+            "imageUrls": { "type": "array", "items": { "type": "string" } },
+            "denseEnabled": { "type": "boolean", "description": "False = sparse-only fallback (skip patch_match_stereo). Default true." },
+            "matcher": { "type": "string", "description": "exhaustive | sequential | spatial. Default exhaustive (best quality, slowest)." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "ok"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "ok": { "type": "boolean" },
+            "rawMeshUri": { "type": "string", "description": "B2 URI of meshed.ply (vertex-colored triangle mesh) when ok=true." },
+            "imageCount": { "type": "integer", "description": "Cameras COLMAP successfully registered." },
+            "vertexCount": { "type": "integer" },
+            "triangleCount": { "type": "integer" },
+            "reconstructionMs": { "type": "integer" },
+            "errorCode": { "type": "string", "description": "On failure: TOO_FEW_MATCHES | BUNDLE_DIVERGED | DENSE_OOM | TIMEOUT | UNKNOWN." },
+            "errorMessage": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -21,7 +21,7 @@ interface ExportedHandler<E> {
 const APP = "yabai";
 const ACTOR_DID = "did:web:yabai.etzhayyim.com";
 const DEFAULT_NANOID = "y8b41k0x";
-const NSID_PREFIX = "app.etzhayyim.apps.yabai.";
+const NSID_PREFIX = "com.etzhayyim.apps.yabai.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -34,7 +34,7 @@ export default {
         nanoid: env.APP_NANOID ?? DEFAULT_NANOID,
         execution: "edge-proxy+agentgateway-mcp+langserver+udf",
         businessLogic: "BPMN/LangServer and UDF where applicable",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/yabai",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/yabai",
       });
     }
 

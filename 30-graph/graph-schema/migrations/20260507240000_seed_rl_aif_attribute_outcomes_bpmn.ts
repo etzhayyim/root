@@ -17,13 +17,13 @@ const CREATED_AT = "2026-05-07T23:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1";
 const BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/rl/rlAifAttributeOutcomes.bpmn"),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/rl/rlAifAttributeOutcomes.bpmn"),
     "utf8",
   );
   const byteSize = Buffer.byteLength(xml, "utf8");
@@ -35,7 +35,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       ${PROCESS_VID}, ${OWNER_DID}, 'rl_aif_attribute_outcomes', 1,
       ${xml}, CAST(${byteSize} AS integer),
-      '00-contracts/bpmn/ai/gftd/rl/rlAifAttributeOutcomes.bpmn',
+      '00-contracts/bpmn/com/etzhayyim/rl/rlAifAttributeOutcomes.bpmn',
       'active', ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = ${PROCESS_VID}
@@ -48,7 +48,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${BINDING_VID}, ${OWNER_DID}, 'rl_aif_attribute_outcomes',
-      'app.etzhayyim.apps.rl.aifAttributeOutcomes',
+      'com.etzhayyim.apps.rl.aifAttributeOutcomes',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${BINDING_VID}

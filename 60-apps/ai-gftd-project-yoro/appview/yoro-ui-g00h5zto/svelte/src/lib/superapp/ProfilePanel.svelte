@@ -336,7 +336,7 @@
 		esimLoading = true;
 		esimError = '';
 		try {
-			const result = await atProcedure<{ rows?: Record<string, unknown>[] }>('app.etzhayyim.apps.celler.getEsimProfile', {});
+			const result = await atProcedure<{ rows?: Record<string, unknown>[] }>('com.etzhayyim.apps.celler.getEsimProfile', {});
 			if (result?.rows?.[0]) {
 				const row = result.rows[0];
 				esimProfile = {
@@ -366,7 +366,7 @@
 		esimError = '';
 		try {
 			const userDid = await resolveViewerDid();
-			const result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.celler.provisionEsim', {
+			const result = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.celler.provisionEsim', {
 				did: userDid,
 				dataPlan: 'starter',
 			});
@@ -398,7 +398,7 @@
 	async function activateEsim() {
 		if (!esimProfile?.iccid) return;
 		try {
-			await atProcedure('app.etzhayyim.apps.celler.activateEsim', { iccid: esimProfile.iccid });
+			await atProcedure('com.etzhayyim.apps.celler.activateEsim', { iccid: esimProfile.iccid });
 			esimProfile = { ...esimProfile, status: 'enabled' };
 		} catch (e) {
 			console.warn('activateEsim failed', e);
@@ -408,7 +408,7 @@
 	async function suspendEsim() {
 		if (!esimProfile?.iccid) return;
 		try {
-			await atProcedure('app.etzhayyim.apps.celler.suspendEsim', { iccid: esimProfile.iccid });
+			await atProcedure('com.etzhayyim.apps.celler.suspendEsim', { iccid: esimProfile.iccid });
 			esimProfile = { ...esimProfile, status: 'disabled' };
 		} catch (e) {
 			console.warn('suspendEsim failed', e);
@@ -421,7 +421,7 @@
 		cardsError = '';
 		try {
 			const userDid = await resolveViewerDid();
-			const result = await atProcedure<{ items?: IssuedCard[] }>('app.etzhayyim.apps.stripe.listCards', { userId: userDid });
+			const result = await atProcedure<{ items?: IssuedCard[] }>('com.etzhayyim.apps.stripe.listCards', { userId: userDid });
 			if (result?.items && result.items.length > 0) {
 				cardsList = result.items.map((raw: any) => ({
 					id: String(raw.id ?? ''),
@@ -469,7 +469,7 @@
 			cardsError = 'カードホルダー作成に必要なメールアドレスが見つかりません';
 			return false;
 		}
-		const created = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.createCardholder', {
+		const created = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.stripe.createCardholder', {
 			userId: userDid,
 			name,
 			email,
@@ -486,7 +486,7 @@
 		cardsError = '';
 		try {
 			const userDid = await resolveViewerDid();
-			let result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.issueCard', {
+			let result = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.stripe.issueCard', {
 				userId: userDid,
 				cardType: 'virtual',
 				currency: 'jpy',
@@ -494,7 +494,7 @@
 			if (toStripeErrorCode(result?.error) === 'nocardholder') {
 				const ready = await ensureStripeCardholder(userDid);
 				if (ready) {
-					result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.issueCard', {
+					result = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.stripe.issueCard', {
 						userId: userDid,
 						cardType: 'virtual',
 						currency: 'jpy',
@@ -530,10 +530,10 @@
 		try {
 				const userDid = await resolveViewerDid();
 				if (card.status === 'active') {
-					await atProcedure('app.etzhayyim.apps.stripe.freezeCard', { userId: userDid, cardId: card.id });
+					await atProcedure('com.etzhayyim.apps.stripe.freezeCard', { userId: userDid, cardId: card.id });
 					cardsList = cardsList.map(c => c.id === card.id ? { ...c, status: 'inactive' } : c);
 				} else if (card.status === 'inactive') {
-					await atProcedure('app.etzhayyim.apps.stripe.unfreezeCard', { userId: userDid, cardId: card.id });
+					await atProcedure('com.etzhayyim.apps.stripe.unfreezeCard', { userId: userDid, cardId: card.id });
 					cardsList = cardsList.map(c => c.id === card.id ? { ...c, status: 'active' } : c);
 				}
 		} catch (e) {
@@ -560,7 +560,7 @@
 		cardChargingId = card.id;
 		cardsError = '';
 		try {
-			const result = await atProcedure<Record<string, unknown>>('app.etzhayyim.apps.stripe.assignCardCredits', {
+			const result = await atProcedure<Record<string, unknown>>('com.etzhayyim.apps.stripe.assignCardCredits', {
 				userId: userDid,
 				cardId: card.id,
 				amount,

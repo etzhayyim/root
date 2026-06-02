@@ -28,11 +28,11 @@ import {
   type VerticalZoneRecord,
 } from "./types.js";
 
-const COLLECTION_REGION = "app.etzhayyim.maps.region";
-const COLLECTION_ALIAS = "app.etzhayyim.maps.geoAlias";
-const COLLECTION_VERTICAL = "app.etzhayyim.maps.verticalZone";
-const COLLECTION_NATURAL = "app.etzhayyim.maps.naturalZone";
-const COLLECTION_LAYER = "app.etzhayyim.maps.layerCoordinator";
+const COLLECTION_REGION = "com.etzhayyim.maps.region";
+const COLLECTION_ALIAS = "com.etzhayyim.maps.geoAlias";
+const COLLECTION_VERTICAL = "com.etzhayyim.maps.verticalZone";
+const COLLECTION_NATURAL = "com.etzhayyim.maps.naturalZone";
+const COLLECTION_LAYER = "com.etzhayyim.maps.layerCoordinator";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, "..", "..", "data");

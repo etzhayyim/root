@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.receiverBankruptcy.recordProceeding",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Bankruptcy / insolvency / liquidation / administration proceeding (bridges securitiesInvestor.flagLowRecovery + enforcement-action + class-settlement)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "proceedingId",
+            "forum",
+            "petitionedAt"
+          ],
+          "properties": {
+            "proceedingId": {
+              "type": "string"
+            },
+            "debtorLei": {
+              "type": "string"
+            },
+            "forum": {
+              "type": "string",
+              "enum": [
+                "us_ch7",
+                "us_ch11",
+                "us_ch15",
+                "uk_admin",
+                "uk_liquidation",
+                "uk_cva",
+                "ca_ccaa",
+                "ca_bia",
+                "de_insolvenz",
+                "de_scheme",
+                "fr_sauvegarde",
+                "jp_corporate_reorganization",
+                "jp_civil_rehab",
+                "sg_scheme",
+                "in_ibc",
+                "kr_insolvency",
+                "sapin_2"
+              ]
+            },
+            "totalLiabilitiesBusd": {
+              "type": "number"
+            },
+            "lowRecoveryVid": {
+              "type": "string",
+              "description": "bridges securitiesInvestor.flagLowRecovery"
+            },
+            "petitionedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

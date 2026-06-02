@@ -15,7 +15,7 @@
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectForm" targetRef="Task_KYC"/>
 
     <bpmn:serviceTask id="Task_KYC" name="KYC/AML screening"
-                      camunda:topic="ai.gftd.apps.openBanking.kycScreen"/>
+                      camunda:topic="com.etzhayyim.apps.openBanking.kycScreen"/>
 
     <bpmn:sequenceFlow id="f3" sourceRef="Task_KYC" targetRef="Gateway_KycOk"/>
 
@@ -26,8 +26,8 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="f4b" sourceRef="Gateway_KycOk" targetRef="EndEvent_Rejected"/>
 
-    <bpmn:serviceTask id="Task_CreateAccount" name="ai.gftd.apps.openBanking.createAccount"
-                      camunda:topic="ai.gftd.apps.openBanking.createAccount"/>
+    <bpmn:serviceTask id="Task_CreateAccount" name="com.etzhayyim.apps.openBanking.createAccount"
+                      camunda:topic="com.etzhayyim.apps.openBanking.createAccount"/>
 
     <bpmn:sequenceFlow id="f5" sourceRef="Task_CreateAccount" targetRef="EndEvent_Opened"/>
 

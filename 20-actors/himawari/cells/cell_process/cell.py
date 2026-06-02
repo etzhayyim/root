@@ -7,7 +7,7 @@ G3 (high-GWP NF₃/SF₆/CF₄ etch/clean gas abatement ≥99% or substitution)
 Per ADR-2606021200 §R2 (cell_process / murakumo node benjamin): the solar-grade
 c-Si cell line — texture → diffusion/PECVD → metallization → flash IV test → bin.
 Input: waferBatchRecord (from ingot_wafer, murakumo node issachar).
-Output: cellBatchRecord (app.etzhayyim.himawari.cellBatchRecord), witness-signed.
+Output: cellBatchRecord (com.etzhayyim.himawari.cellBatchRecord), witness-signed.
 
 7-node LangGraph super-step state machine:
   init → texture → junction (diffusion/PECVD) → metallization → flash_iv
@@ -325,16 +325,16 @@ class CellProcessCell:
         return {"cell_state": cs.__dict__, "next_node": "emit_record"}
 
     def _emit_record(self, state: dict[str, Any]) -> dict[str, Any]:
-        """WITNESS_WAIT → COMPLETE: emit app.etzhayyim.himawari.cellBatchRecord."""
+        """WITNESS_WAIT → COMPLETE: emit com.etzhayyim.himawari.cellBatchRecord."""
         cs = CellState(**state["cell_state"])
 
-        # Matches lexicon app.etzhayyim.himawari.cellBatchRecord (required:
+        # Matches lexicon com.etzhayyim.himawari.cellBatchRecord (required:
         # batchId, waferBatchId, cellArchitecture, gasAbatementCid, attestingRobots).
         # attestingRobots is intentionally a list of DID strings (the lexicon types
         # it as array<string,format:did>); robotSignatures carries the full
         # #robotSignature object bundle (robotDid + role + signature + timestamp).
         record: dict[str, Any] = {
-            "$type": "app.etzhayyim.himawari.cellBatchRecord",
+            "$type": "com.etzhayyim.himawari.cellBatchRecord",
             "batchId": cs.batchId,
             "waferBatchId": cs.waferBatchId,
             "recordedAt": cs.recordedAt,
@@ -361,7 +361,7 @@ class CellProcessCell:
         """ANOMALY_HALT: halt the batch, escalate to a human PV-process engineer."""
         cs = CellState(**state["cell_state"])
         alert_record = {
-            "$type": "app.etzhayyim.himawari.cellBatchRecord.halt",
+            "$type": "com.etzhayyim.himawari.cellBatchRecord.halt",
             "batchId": cs.batchId,
             "waferBatchId": cs.waferBatchId,
             "event": "cell_process_halt",

@@ -12,7 +12,7 @@ in {
       description = ''
         Directory holding signed `.wasm` artefacts. Populated at deploy
         time from the cells/ workspace `target/wasm32-unknown-unknown/release/`.
-        `pinModule` records (per `ai.gftd.apps.openOt.pinModule`) reference
+        `pinModule` records (per `com.etzhayyim.apps.openOt.pinModule`) reference
         artefacts here by content hash.
       '';
     };

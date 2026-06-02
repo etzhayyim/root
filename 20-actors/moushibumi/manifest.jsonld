@@ -27,7 +27,7 @@
     "did:web:danjo.etzhayyim.com (OPPOSITE posture: danjo WATCHES the state's output [Diet/budget/procurement]; moushibumi conveys the citizen's INPUT [請願/意見]. A petition's subject matter MAY cite danjo's published observations at the member's choice, but moushibumi never adjudicates; ADR-2605301600)",
     "did:web:himotoki.etzhayyim.com (SIBLING active-outbound: himotoki files 開示請求 [data OUT]; moushibumi files 請願/意見 [voice IN]. Shared dispatch discipline (consent + own-only + transparent-non-pretext + lawful-channel-only + verified-target-only), disjoint purpose; ADR-2605302130)",
     "did:web:toritsugi.etzhayyim.com (SIBLING: toritsugi = administrative procedures, moushibumi = democratic participation; same coded-registry + G15 self-submit pattern; ADR-2605312030)",
-    "app.etzhayyim.encrypted.* (member PII + political-opinion content land ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100; political belief is APPI §2 special-care)",
+    "com.etzhayyim.encrypted.* (member PII + political-opinion content land ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100; political belief is APPI §2 special-care)",
     "kotoba QuadStore EAVT (target catalog + session/draft/submission lifecycle datoms; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "form": "任意団体 internal member-service substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a political party / PAC / campaign org — 公職選挙法 + non-partisan boundary G3/G9; NOT a 行政書士/弁護士 firm — UPL boundary G5)",
@@ -35,7 +35,7 @@
     "electionNeutralityBoundary": "G3 (CRITICAL) — INFO + procedure ONLY. No campaigning / canvassing (公職選挙法 §138 戸別訪問) / candidate or party endorsement / ranking / scoring / vote solicitation / GOTV targeting / partisan steering. Election content is neutral reference to official sources only. Protects §1.12 / 1 SBT = 1 vote (the religious-corp never directs votes).",
     "consentGatedOwnVoiceOnly": "G4 — every petition/comment is member-initiated with consent + Adherent-SBT/DID binding and is the member's OWN voice; never on behalf of a non-consenting person; never a third party's voice.",
     "uplBoundary": "G5 — drafting-assist + 案内 only; renders NO legal advice; legal characterization + appeal route to chigiri + licensed counsel (Public Fund Council Lv6+).",
-    "piiAndOpinionConfidentiality": "G6 — member PII + political-opinion content (APPI §2 special-care) land ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext on MST; explicit consent + minimum necessary.",
+    "piiAndOpinionConfidentiality": "G6 — member PII + political-opinion content (APPI §2 special-care) land ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext on MST; explicit consent + minimum necessary.",
     "murakumoOnlyInference": "G7 — Murakumo-only inference per ADR-2605215000; no vendor LLM API callout.",
     "nonFabrication": "G8 — never invent 期限 / 様式 / 根拠法令 / 紹介議員 requirement; every target cites 根拠法令 + provenance; the member confirms before any submission.",
     "nonPartisanNonCommercial": "G9 — non-profit; no paid lobbying / lobbying-for-hire; no resale of participation or member-opinion data; organisationally non-partisan (no party affiliation, donation, or PAC).",
@@ -66,7 +66,7 @@
     ]
   },
   "codedTargetRegistry": {
-    "description": "Each democratic-participation target encoded as app.etzhayyim.moushibumi.participationTarget records (organ / channel / 根拠法令 / 様式 / 期限 / 紹介議員-flag) so a cell can route + (eventually) file procedurally. Seed at registry/targets.seed.json.",
+    "description": "Each democratic-participation target encoded as com.etzhayyim.moushibumi.participationTarget records (organ / channel / 根拠法令 / 様式 / 期限 / 紹介議員-flag) so a cell can route + (eventually) file procedurally. Seed at registry/targets.seed.json.",
     "seedFile": "/20-actors/moushibumi/registry/targets.seed.json",
     "seedTargets": ["国会請願 (衆/参)", "地方議会陳情 template", "国パブコメ (e-Gov)", "自治体パブコメ template", "選挙情報 INFO-ONLY"],
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live submission until maintainer-verified / council-verified (代行) within freshnessWindowDays."
@@ -81,12 +81,12 @@
     {"name": "status_track", "module": "magatama.cells.moushibumi_status_track", "murakumoNode": "naphtali", "phase": "continuous", "io": "petition/comment receipt + 議会 採択/不採択 + agency 考え方 公示 (行手法 §43) tracking"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.moushibumi.participationTarget",
-    "app.etzhayyim.moushibumi.participationMatch",
-    "app.etzhayyim.moushibumi.participationSession",
-    "app.etzhayyim.moushibumi.voiceDraft",
-    "app.etzhayyim.moushibumi.submissionRecord",
-    "app.etzhayyim.moushibumi.statusTrack"
+    "com.etzhayyim.moushibumi.participationTarget",
+    "com.etzhayyim.moushibumi.participationMatch",
+    "com.etzhayyim.moushibumi.participationSession",
+    "com.etzhayyim.moushibumi.voiceDraft",
+    "com.etzhayyim.moushibumi.submissionRecord",
+    "com.etzhayyim.moushibumi.statusTrack"
   ],
   "constitutionalGates": {
     "description": "15 immutable gates per ADR-2605312400 §4. Council Lv6+ supermajority + new ADR to amend.",
@@ -96,7 +96,7 @@
       "G3": "公職選挙法 + political-neutrality boundary (CRITICAL) — INFO + procedure ONLY; no campaigning/canvassing/endorsement/ranking/vote-solicitation/GOTV/partisan-steering; neutral official-source reference only (protects §1.12 / 1 SBT = 1 vote)",
       "G4": "Consent-gated + own-voice-only — member-initiated, consent + Adherent-SBT/DID bound; never a non-consenting person; never a third party's voice",
       "G5": "行政書士法 / UPL-equivalent — drafting-assist + 案内; NO legal advice; characterization + appeals → chigiri + licensed counsel",
-      "G6": "PII + political-opinion confidentiality — member PII + political-opinion (APPI §2 special-care) ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext; explicit consent + minimum",
+      "G6": "PII + political-opinion confidentiality — member PII + political-opinion (APPI §2 special-care) ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext; explicit consent + minimum",
       "G7": "Murakumo-only inference (ADR-2605215000)",
       "G8": "Non-fabrication — never invent 期限/様式/根拠法令/紹介議員 requirement; cite 根拠法令 + provenance; member confirms before submission",
       "G9": "Non-partisan + non-commercial — non-profit; no paid lobbying; no resale of participation/opinion data; no party affiliation/donation/PAC",

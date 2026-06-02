@@ -16,19 +16,19 @@ const ownerDid = "did:web:open-isic.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-isic";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-isic-classify-entity-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-isic-classify-entity-v1",
     bpmnProcessId: "open_isic_classify_entity",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-isic-record-concordance-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-isic/classifyEntity.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-isic-record-concordance-v1",
     bpmnProcessId: "open_isic_record_concordance",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-isic/recordConcordance.bpmn", ownerDid },
 ];
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-isic-classifyEntity-v1",
-    nsid: "app.etzhayyim.apps.openIsic.classifyEntity", bpmnProcessId: "open_isic_classify_entity",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-isic-classifyEntity-v1",
+    nsid: "com.etzhayyim.apps.openIsic.classifyEntity", bpmnProcessId: "open_isic_classify_entity",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-isic-recordConcordance-v1",
-    nsid: "app.etzhayyim.apps.openIsic.recordConcordance", bpmnProcessId: "open_isic_record_concordance",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-isic-recordConcordance-v1",
+    nsid: "com.etzhayyim.apps.openIsic.recordConcordance", bpmnProcessId: "open_isic_record_concordance",
     ownerDid, resultTimeoutMs: 15000 },
 ];
 

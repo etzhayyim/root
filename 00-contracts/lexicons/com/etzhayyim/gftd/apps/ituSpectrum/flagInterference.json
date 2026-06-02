@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ituSpectrum.flagInterference",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ITU-R RR interference complaint (bridges space-weather + satellite space-traffic)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "complaintId",
+            "allocationVid",
+            "interferenceKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "complaintId": {
+              "type": "string"
+            },
+            "allocationVid": {
+              "type": "string",
+              "description": "bridges recordAllocation"
+            },
+            "victimLei": {
+              "type": "string"
+            },
+            "sourceCountryIso3": {
+              "type": "string"
+            },
+            "interferenceKind": {
+              "type": "string",
+              "enum": [
+                "harmful",
+                "unauthorized_emission",
+                "spillover",
+                "jamming",
+                "deorbit_debris",
+                "satellite_overlap"
+              ]
+            },
+            "mitigationStatus": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "mediated",
+                "resolved",
+                "escalated"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "routine",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

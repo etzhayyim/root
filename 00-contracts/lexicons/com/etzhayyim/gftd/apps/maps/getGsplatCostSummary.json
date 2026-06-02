@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.getGsplatCostSummary",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Sum `cost_usd` for completed gsplat train/bake jobs across three time windows (today UTC, last 7 days, last 30 days), partitioned by `job_kind`. ADR-2605092800 §D14.",
+      "parameters": {
+        "type": "params",
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["today", "last7d", "last30d"],
+          "properties": {
+            "today":  { "type": "ref", "ref": "#bucket" },
+            "last7d": { "type": "ref", "ref": "#bucket" },
+            "last30d":{ "type": "ref", "ref": "#bucket" }
+          }
+        }
+      }
+    },
+    "bucket": {
+      "type": "object",
+      "required": ["totalUsd", "count", "byKind"],
+      "properties": {
+        "totalUsd": { "type": "number" },
+        "count":    { "type": "integer" },
+        "byKind": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "totalUsd", "count"],
+            "properties": {
+              "kind":     { "type": "string", "knownValues": ["train", "bake"] },
+              "totalUsd": { "type": "number" },
+              "count":    { "type": "integer" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

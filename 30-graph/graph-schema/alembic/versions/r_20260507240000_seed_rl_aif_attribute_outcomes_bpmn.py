@@ -19,13 +19,13 @@ UP = [{'sql': '\n'
          '    SELECT\n'
          "      $1, $2, 'rl_aif_attribute_outcomes', 1,\n"
          '      $3, CAST($4 AS integer),\n'
-         "      '00-contracts/bpmn/ai/gftd/rl/rlAifAttributeOutcomes.bpmn',\n"
+         "      '00-contracts/bpmn/com/etzhayyim/rl/rlAifAttributeOutcomes.bpmn',\n"
          "      'active', $5, 1, $6, $7, 'sys.bpmn.seed.rl'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -41,9 +41,9 @@ UP = [{'sql': '\n'
                  '  This closes the RL feedback loop so that _learn_model_for_pair can use\n'
                  '  real causal action->state transitions for B-matrix learning.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.rl.aifAttributeOutcomes\n'
+                 '  NSID: com.etzhayyim.apps.rl.aifAttributeOutcomes\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -57,7 +57,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="rl_aif_attribute_outcomes" name="AIF Outcome Attribution" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.rl.aifAttributeOutcomes", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.rl.aifAttributeOutcomes", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -100,30 +100,30 @@ UP = [{'sql': '\n'
                  '2026-05-07T23:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, bpmn_process_id, nsid,\n'
          '       created_at, sensitivity_ord, org_id, user_id, actor_id)\n'
          '    SELECT\n'
          "      $1, $2, 'rl_aif_attribute_outcomes',\n"
-         "      'app.etzhayyim.apps.rl.aifAttributeOutcomes',\n"
+         "      'com.etzhayyim.apps.rl.aifAttributeOutcomes',\n"
          "      $3, 1, $4, $5, 'sys.bpmn.seed.rl'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $6\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-07T23:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-aif-attribute-outcomes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-aif-attribute-outcomes-v1']}]
 
 
 def upgrade() -> None:

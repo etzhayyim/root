@@ -47,10 +47,10 @@ def _parse_jwt_claims(token: str) -> tuple[str, str]:
 
 
 def _exchange_for_api_key(session_jwt: str, pds_url: str) -> str:
-    """Try to get a sk_live_* API key via app.etzhayyim.auth.createApiKey. Returns "" on failure."""
+    """Try to get a sk_live_* API key via com.etzhayyim.auth.createApiKey. Returns "" on failure."""
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.auth.createApiKey",
+            f"{pds_url}/xrpc/com.etzhayyim.auth.createApiKey",
             json={"name": "gftd-cli-login", "scopes": "read,write"},
             headers={"Authorization": f"Bearer {session_jwt}"},
             timeout=15,
@@ -358,14 +358,14 @@ def authn_migrate(name: str, dry_run: bool, pds: str | None) -> None:
         raise click.ClickException("no legacy session token found — run 'gftd authn signin' first")
 
     if dry_run:
-        click.echo(f"Would: POST {pds_url}/xrpc/app.etzhayyim.auth.createApiKey (name={name}) using session JWT.")
+        click.echo(f"Would: POST {pds_url}/xrpc/com.etzhayyim.auth.createApiKey (name={name}) using session JWT.")
         click.echo(f"Would: overwrite {_AUTH_FILE} with api_key entry.")
         return
 
     import httpx as _httpx
     try:
         resp = _httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.auth.createApiKey",
+            f"{pds_url}/xrpc/com.etzhayyim.auth.createApiKey",
             json={"name": name, "scopes": "read,write"},
             headers={"Authorization": f"Bearer {token}"},
             timeout=30,

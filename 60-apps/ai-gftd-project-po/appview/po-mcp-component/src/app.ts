@@ -11,7 +11,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.po.";
+const NSID_PREFIX = "com.etzhayyim.apps.po.";
 const ACTOR_DID = "did:web:po.gftd.ai";
 
 export default {

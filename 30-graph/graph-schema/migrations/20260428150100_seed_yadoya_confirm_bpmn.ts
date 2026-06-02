@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 // yadoya Phase 9 — register confirmReservation as a BPMN actor (ADR-0056).
 // This BPMN actor + the yadoya Worker handler share the same NSID
-// (app.etzhayyim.apps.yadoya.confirmReservation) — the dispatcher routes by
+// (com.etzhayyim.apps.yadoya.confirmReservation) — the dispatcher routes by
 // vertex_bpmn_lexicon_binding presence, so the Worker version is the
 // canonical XRPC handler and the BPMN version is the Zeebe-Operate-visible
 // path used when callers prefer to drive Zeebe directly.
@@ -31,18 +31,18 @@ const seeds: Seed[] = [
   {
     proc: "confirmReservation",
     bpmnProcessId: "yadoya_confirm_reservation",
-    nsid: "app.etzhayyim.apps.yadoya.confirmReservation",
+    nsid: "com.etzhayyim.apps.yadoya.confirmReservation",
     resultTimeoutMs: 45000,
   },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

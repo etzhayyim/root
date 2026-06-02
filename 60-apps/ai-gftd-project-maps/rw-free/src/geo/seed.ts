@@ -26,9 +26,9 @@ import {
   type VerticalZoneKind,
 } from "./types.js";
 
-const COLLECTION_VERTICAL = "app.etzhayyim.maps.verticalZone";
-const COLLECTION_NATURAL = "app.etzhayyim.maps.naturalZone";
-const COLLECTION_LAYER = "app.etzhayyim.maps.layerCoordinator";
+const COLLECTION_VERTICAL = "com.etzhayyim.maps.verticalZone";
+const COLLECTION_NATURAL = "com.etzhayyim.maps.naturalZone";
+const COLLECTION_LAYER = "com.etzhayyim.maps.layerCoordinator";
 const REGISTERED_AT_DEFAULT = "2026-05-23T00:00:00Z";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

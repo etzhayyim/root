@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.registerAsset",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a KAMI runtime asset descriptor, including street chunk packages and related runtime artifacts.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "assetType": {
+              "type": "string",
+              "enum": ["kami_street_chunk", "kami_prop_catalog", "kami_collision_chunk", "kami_nav_chunk"]
+            },
+            "assetRole": { "type": "string" },
+            "packageKind": { "type": "string" },
+            "targetRuntime": { "type": "string" },
+            "chunkKey": { "type": "string" },
+            "chunkSizeMeters": { "type": "integer", "enum": [25, 50, 100] },
+            "lodCount": { "type": "integer" },
+            "compressedBytes": { "type": "integer" },
+            "qualityClass": { "type": "string" },
+            "status": { "type": "string" },
+            "sourceDid": { "type": "string" },
+            "packageUrl": { "type": "string" },
+            "metadataUrl": { "type": "string" },
+            "bbox": { "type": "object" },
+            "formats": { "type": "object" },
+            "orgId": { "type": "string" },
+            "userId": { "type": "string" }
+          },
+          "required": [
+            "name",
+            "assetType"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "nodeId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "assetType": {
+              "type": "string"
+            },
+            "chunkSizeMeters": {
+              "type": "integer"
+            },
+            "qualityClass": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

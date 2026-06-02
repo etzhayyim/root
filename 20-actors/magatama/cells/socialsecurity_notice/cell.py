@@ -11,13 +11,13 @@ This is the concrete channel that reaches the human in their inbox.
 Constitutional ceiling (CRITICAL - IMMUTABLE):
   - G5 OPT-IN + CONSENT-GATED + NON-VEXATIOUS: no unsolicited mass mail;
     unsubscribe always honored; rate-limited (no inbox/agency DoS).
-  - G6 recipient PII only via app.etzhayyim.encrypted.* envelope (ADR-2605181100);
+  - G6 recipient PII only via com.etzhayyim.encrypted.* envelope (ADR-2605181100);
     never inline.
   - G3 NO PLATFORM-HELD MAIL KEY: member or community-operator DID signs
     (ADR-2605231525). On-chain postage (Postage.sol), Public-Fund-funded.
   - G11 LIVE-ACTION GATE: sent=false in R0 (no send) / R1 (dry-run to test
     addresses); real send only post Council Lv7+ §1.16 ratify, to consented members.
-Output Lexicon(s): app.etzhayyim.socialsecurity.noticeEmail.
+Output Lexicon(s): com.etzhayyim.socialsecurity.noticeEmail.
 
 R0 scaffold - import-time RuntimeError until R2 (real email to consented members).
 """
@@ -52,7 +52,7 @@ if (
 #         # 1. confirm opt-in consent (no unsolicited mail); check unsubscribe state
 #         # 2. resolve recipient PII via encrypted envelope ref (never inline)
 #         # 3. send via openmail (member/operator-signed; on-chain postage)
-#         # 4. emit app.etzhayyim.socialsecurity.noticeEmail (sent=false R0/R1)
+#         # 4. emit com.etzhayyim.socialsecurity.noticeEmail (sent=false R0/R1)
 #         raise NotImplementedError("socialsecurity_notice R2")
 
 

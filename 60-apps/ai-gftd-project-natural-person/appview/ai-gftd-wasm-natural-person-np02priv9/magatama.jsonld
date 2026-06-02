@@ -65,14 +65,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.naturalPerson.cohortPerson",
-        "ai.gftd.apps.naturalPerson.identifiedPerson",
-        "ai.gftd.apps.naturalPerson.personEnrichment",
-        "ai.gftd.apps.naturalPerson.censusSource",
-        "ai.gftd.apps.naturalPerson.complianceResult",
-        "ai.gftd.hanrei.person",
-        "ai.gftd.hanrei.case",
-        "ai.gftd.apps.intel.inferredCohort"
+        "com.etzhayyim.apps.naturalPerson.cohortPerson",
+        "com.etzhayyim.apps.naturalPerson.identifiedPerson",
+        "com.etzhayyim.apps.naturalPerson.personEnrichment",
+        "com.etzhayyim.apps.naturalPerson.censusSource",
+        "com.etzhayyim.apps.naturalPerson.complianceResult",
+        "com.etzhayyim.hanrei.person",
+        "com.etzhayyim.hanrei.case",
+        "com.etzhayyim.apps.intel.inferredCohort"
       ]
     }
   },

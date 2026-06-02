@@ -85,7 +85,7 @@ async function queryCounts() {
 async function persistRun(report) {
   if (dryRun) return;
   const client = await pgClient();
-  const vertexId = `at://did:web:recruit.etzhayyim.com/app.etzhayyim.apps.recruit.jobIngestRun/${runId.replace(/[^a-zA-Z0-9._:-]/g, "_")}`;
+  const vertexId = `at://did:web:recruit.etzhayyim.com/com.etzhayyim.apps.recruit.jobIngestRun/${runId.replace(/[^a-zA-Z0-9._:-]/g, "_")}`;
   const createdDate = startedAt.slice(0, 10);
   try {
     await client.query(

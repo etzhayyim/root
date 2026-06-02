@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.bakeGsplatAsset",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enqueue a splat→mesh bake job for the given asset. Worker delegates to a Vultr k8s pod via BPMN message (ADR-2604251830 L8). Returns the job ID synchronously; the actual extract / decimate / texture work runs asynchronously.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "vertexId": { "type": "string" },
+            "priority": {
+              "type": "string",
+              "knownValues": ["low", "normal", "high"],
+              "default": "normal"
+            },
+            "force": {
+              "type": "boolean",
+              "description": "Bypass the PSNR consistency gate that refuses to bake tiles whose latest train was auto-skipped for low quality. Default false.",
+              "default": false
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["bakeJobId", "queuedAt"],
+          "properties": {
+            "bakeJobId": { "type": "string" },
+            "queuedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

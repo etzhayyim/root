@@ -5,13 +5,13 @@ concierge).
 
 Purpose: track a submitted procedure's 処理状況 + 法定処理期間 clock, take in the
 result/結果通知, and on refusal/partial outcome route a lawful appeal
-(不服申立 / 審査請求) via chigiri. Emits `app.etzhayyim.toritsugi.statusTrack`.
+(不服申立 / 審査請求) via chigiri. Emits `com.etzhayyim.toritsugi.statusTrack`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G6 the result/結果通知 PII lands
-ONLY in an app.etzhayyim.encrypted.* DID-bound envelope (ADR-2605181100; never
+ONLY in an com.etzhayyim.encrypted.* DID-bound envelope (ADR-2605181100; never
 inline PII); G11 Transparent Religious Force — track + appeal only, no coercion;
 lawful 不服申立 via chigiri; Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.toritsugi.statusTrack.
+Output Lexicon(s): com.etzhayyim.toritsugi.statusTrack.
 
 R0 scaffold — import-time RuntimeError until R2.
 """

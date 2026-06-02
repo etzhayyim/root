@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.governance.approveAllFollowRequests": {
+    "/xrpc/com.etzhayyim.governance.approveAllFollowRequests": {
       "post": {
-        "summary": "app.etzhayyim.governance.approveAllFollowRequests",
-        "operationId": "app.etzhayyim.governance.approveAllFollowRequests",
+        "summary": "com.etzhayyim.governance.approveAllFollowRequests",
+        "operationId": "com.etzhayyim.governance.approveAllFollowRequests",
         "requestBody": {
           "required": true,
           "content": {
@@ -49,10 +49,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.approveFollowRequest": {
+    "/xrpc/com.etzhayyim.governance.approveFollowRequest": {
       "post": {
-        "summary": "app.etzhayyim.governance.approveFollowRequest",
-        "operationId": "app.etzhayyim.governance.approveFollowRequest",
+        "summary": "com.etzhayyim.governance.approveFollowRequest",
+        "operationId": "com.etzhayyim.governance.approveFollowRequest",
         "requestBody": {
           "required": true,
           "content": {
@@ -100,10 +100,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.checkAccess": {
+    "/xrpc/com.etzhayyim.governance.checkAccess": {
       "get": {
-        "summary": "app.etzhayyim.governance.checkAccess",
-        "operationId": "app.etzhayyim.governance.checkAccess",
+        "summary": "com.etzhayyim.governance.checkAccess",
+        "operationId": "com.etzhayyim.governance.checkAccess",
         "parameters": [
           {
             "name": "targetDid",
@@ -150,10 +150,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.createLabel": {
+    "/xrpc/com.etzhayyim.governance.createLabel": {
       "post": {
-        "summary": "app.etzhayyim.governance.createLabel",
-        "operationId": "app.etzhayyim.governance.createLabel",
+        "summary": "com.etzhayyim.governance.createLabel",
+        "operationId": "com.etzhayyim.governance.createLabel",
         "requestBody": {
           "required": true,
           "content": {
@@ -207,10 +207,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.getPolicy": {
+    "/xrpc/com.etzhayyim.governance.getPolicy": {
       "get": {
-        "summary": "app.etzhayyim.governance.getPolicy",
-        "operationId": "app.etzhayyim.governance.getPolicy",
+        "summary": "com.etzhayyim.governance.getPolicy",
+        "operationId": "com.etzhayyim.governance.getPolicy",
         "parameters": [
           {
             "name": "name",
@@ -262,10 +262,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.queryLabels": {
+    "/xrpc/com.etzhayyim.governance.queryLabels": {
       "get": {
-        "summary": "app.etzhayyim.governance.queryLabels",
-        "operationId": "app.etzhayyim.governance.queryLabels",
+        "summary": "com.etzhayyim.governance.queryLabels",
+        "operationId": "com.etzhayyim.governance.queryLabels",
         "parameters": [
           {
             "name": "uriPatterns",
@@ -343,10 +343,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.registerManifest": {
+    "/xrpc/com.etzhayyim.governance.registerManifest": {
       "post": {
-        "summary": "app.etzhayyim.governance.registerManifest",
-        "operationId": "app.etzhayyim.governance.registerManifest",
+        "summary": "com.etzhayyim.governance.registerManifest",
+        "operationId": "com.etzhayyim.governance.registerManifest",
         "requestBody": {
           "required": true,
           "content": {
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.registerMethodPolicy": {
+    "/xrpc/com.etzhayyim.governance.registerMethodPolicy": {
       "post": {
-        "summary": "app.etzhayyim.governance.registerMethodPolicy",
-        "operationId": "app.etzhayyim.governance.registerMethodPolicy",
+        "summary": "com.etzhayyim.governance.registerMethodPolicy",
+        "operationId": "com.etzhayyim.governance.registerMethodPolicy",
         "requestBody": {
           "required": true,
           "content": {
@@ -458,10 +458,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.registerPolicy": {
+    "/xrpc/com.etzhayyim.governance.registerPolicy": {
       "post": {
-        "summary": "app.etzhayyim.governance.registerPolicy",
-        "operationId": "app.etzhayyim.governance.registerPolicy",
+        "summary": "com.etzhayyim.governance.registerPolicy",
+        "operationId": "com.etzhayyim.governance.registerPolicy",
         "requestBody": {
           "required": true,
           "content": {
@@ -513,10 +513,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.registerRoleBindings": {
+    "/xrpc/com.etzhayyim.governance.registerRoleBindings": {
       "post": {
-        "summary": "app.etzhayyim.governance.registerRoleBindings",
-        "operationId": "app.etzhayyim.governance.registerRoleBindings",
+        "summary": "com.etzhayyim.governance.registerRoleBindings",
+        "operationId": "com.etzhayyim.governance.registerRoleBindings",
         "requestBody": {
           "required": true,
           "content": {
@@ -571,10 +571,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.rejectFollowRequest": {
+    "/xrpc/com.etzhayyim.governance.rejectFollowRequest": {
       "post": {
-        "summary": "app.etzhayyim.governance.rejectFollowRequest",
-        "operationId": "app.etzhayyim.governance.rejectFollowRequest",
+        "summary": "com.etzhayyim.governance.rejectFollowRequest",
+        "operationId": "com.etzhayyim.governance.rejectFollowRequest",
         "requestBody": {
           "required": true,
           "content": {
@@ -622,10 +622,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.resolveActorVisibility": {
+    "/xrpc/com.etzhayyim.governance.resolveActorVisibility": {
       "get": {
-        "summary": "app.etzhayyim.governance.resolveActorVisibility",
-        "operationId": "app.etzhayyim.governance.resolveActorVisibility",
+        "summary": "com.etzhayyim.governance.resolveActorVisibility",
+        "operationId": "com.etzhayyim.governance.resolveActorVisibility",
         "parameters": [
           {
             "name": "actor",
@@ -669,10 +669,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.governance.setActorSensitivity": {
+    "/xrpc/com.etzhayyim.governance.setActorSensitivity": {
       "post": {
-        "summary": "app.etzhayyim.governance.setActorSensitivity",
-        "operationId": "app.etzhayyim.governance.setActorSensitivity",
+        "summary": "com.etzhayyim.governance.setActorSensitivity",
+        "operationId": "com.etzhayyim.governance.setActorSensitivity",
         "requestBody": {
           "required": true,
           "content": {

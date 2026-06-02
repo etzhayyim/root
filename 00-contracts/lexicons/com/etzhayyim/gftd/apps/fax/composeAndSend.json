@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fax.composeAndSend",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "End-to-end FAX preparation + handoff in one call: takes text/markdown/HTML, renders to a print-ready Japanese A4 business letter PDF, uploads to CDN B2, and triggers the operator handoff. DEFAULT provider is 'manual' (Dropbox Fax UI) — the agent prepares everything and notifies the operator via mailer (Teams channel + email) with PDF URL + step-by-step instructions; operator does the final UI send. After operator confirms, call com.etzhayyim.apps.fax.confirmManualSend to close the audit chain. Phaxio API path is retained but marked as DEAD PATH (no creds in production). Use for compliance correspondence: 労基署 / 裁判所 / 内容証明 / 行政手続.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["to", "content", "format"],
+          "properties": {
+            "to": { "type": "string", "description": "Recipient fax number (E.164, e.g. +81338188411). Leading 0 of JP numbers auto-converted." },
+            "content": { "type": "string", "description": "Document body (plain text, markdown, or full HTML)" },
+            "format": { "type": "string", "enum": ["text", "markdown", "html"], "description": "Format of `content`. text/markdown wrap in default Japanese business letter template; html used as-is." },
+            "subject": { "type": "string", "description": "Letter title (centered as h1; ignored when format=html)" },
+            "addressee": {
+              "type": "object",
+              "description": "宛名 metadata (used by text/markdown templates)",
+              "properties": {
+                "name": { "type": "string", "description": "e.g. 中央労働基準監督署" },
+                "subLine": { "type": "string", "description": "e.g. 第2方面 福田彩乃 監督官 殿" },
+                "honorific": { "type": "string", "description": "御中 / 殿 / 様", "default": "御中" }
+              }
+            },
+            "sender": {
+              "type": "object",
+              "description": "差出人 metadata (used by text/markdown templates; falls back to actor profile)",
+              "properties": {
+                "company": { "type": "string" },
+                "representative": { "type": "string" },
+                "address": { "type": "string" },
+                "postalCode": { "type": "string" },
+                "tel": { "type": "string" },
+                "email": { "type": "string" }
+              }
+            },
+            "caseId": { "type": "string", "description": "Internal business case id (e.g. matsuoka-2504); propagated to faxTx + roukisho.communication record" },
+            "officeId": { "type": "string", "description": "roukisho officeId for cross-actor recordCommunication (e.g. jp-tokyo-chuo)" },
+            "officeDid": { "type": "string", "format": "did", "description": "Optional explicit roukisho sub-DID; derived from officeId if omitted" },
+            "divisionNumber": { "type": "integer", "description": "方面番号 (logged as evidence)" },
+            "inspector": { "type": "string", "description": "監督官 name (logged as evidence)" },
+            "referenceNumber": { "type": "string", "description": "External case ref (e.g. 中央基署呼発第10号) printed as document header" },
+            "provider": { "type": "string", "enum": ["auto", "manual", "phaxio"], "default": "auto", "description": "auto = manual (Phaxio is dead path; only fires if provider='phaxio' explicit AND SS_FAX_API_KEY set). manual = Dropbox Fax UI handoff with operator notification." },
+            "teamsChannelEmail": { "type": "string", "description": "Channel email for Teams notification (e.g. gj-ce-legal-2504-matsuoka@etzhayyim.onmicrosoft.com)" },
+            "operatorEmail": { "type": "string", "description": "Operator personal email for notification" },
+            "dryRun": { "type": "boolean", "default": false, "description": "Render + upload only; skip handoff/send" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "txId"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "txId": { "type": "string", "description": "Local transmission id (fax-<nanoid>)" },
+            "providerFaxId": { "type": "string" },
+            "status": { "type": "string", "enum": ["queued", "sending", "success", "failure", "needs_human", "rendered_only", "unknown"] },
+            "blobKey": { "type": "string", "description": "SHA-256 hex of rendered PDF in CDN_R2" },
+            "publicUrl": { "type": "string", "format": "uri", "description": "Direct R2 URL of rendered PDF" },
+            "pageCount": { "type": "integer" },
+            "byteSize": { "type": "integer" },
+            "providerUsed": { "type": "string" },
+            "humanInstructions": {
+              "type": "object",
+              "description": "Returned when provider=manual or fallback. Tells operator how to send.",
+              "properties": {
+                "channel": { "type": "string" },
+                "uploadUrl": { "type": "string" },
+                "downloadUrl": { "type": "string" },
+                "recipientFax": { "type": "string" },
+                "steps": { "type": "array", "items": { "type": "string" } }
+              }
+            },
+            "roukishoCommunicationId": { "type": "string", "description": "Cross-actor record id when officeId supplied" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

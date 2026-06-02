@@ -17,7 +17,7 @@
       "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "ICAO Doc 4444 (ICAO airport codes)", "IATA airport+airline codes", "ICAO Annex 13 (occurrence categories)", "OOOI (Off/Out/On/In)"]
     },
     "toolsAndMethods": [
-      "XRPC Lexicons (app.etzhayyim.apps.openAirplane.*)",
+      "XRPC Lexicons (com.etzhayyim.apps.openAirplane.*)",
       "BPMN 2.0 (scheduleFlight, reportAviationIncident)",
       "DMN 1.3 (incidentSeverity)",
       "Camunda Forms"

@@ -9,7 +9,7 @@ import didDoc from "../did.json";
  *
  * Identity of the off-chain actor that subscribes to the PDS firehose,
  * projects each commit into a per-collection MST shard, flushes CAR
- * files at boundary, and emits `app.etzhayyim.substrate.shardSnapshot`
+ * files at boundary, and emits `com.etzhayyim.substrate.shardSnapshot`
  * records. See 50-infra/mst-projector/ for the runtime.
  *
  * AT-Protocol clients resolve this DID via `/.well-known/did.json`. The

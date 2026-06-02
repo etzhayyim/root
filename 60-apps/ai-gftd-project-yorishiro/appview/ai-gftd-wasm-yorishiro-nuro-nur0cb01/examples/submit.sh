@@ -14,7 +14,7 @@ TOKEN="${etzhayyim_TOKEN:?set etzhayyim_TOKEN (AT Protocol session JWT)}"
 step() { printf '\n===== %s =====\n' "$*"; }
 
 step "1. listOffers (browser enumerate of 特典・キャンペーン)"
-LIST=$(curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroNuro.listOffers" \
+LIST=$(curl -sS -X POST "$BASE/xrpc/com.etzhayyim.apps.yorishiroNuro.listOffers" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   --data '{}')
@@ -24,7 +24,7 @@ LIST_JOB=$(echo "$LIST" | jq -r .jobId)
 step "2. poll getOffers until B195 appears"
 for i in 1 2 3 4 5 6; do
   sleep 15
-  OFFERS=$(curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroNuro.getOffers" \
+  OFFERS=$(curl -sS -X POST "$BASE/xrpc/com.etzhayyim.apps.yorishiroNuro.getOffers" \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
     --data "{\"campaignCode\":\"B195\"}")
@@ -36,7 +36,7 @@ done
 step "3. claimCashback (BILLABLE + FINANCIAL — confirm=true + approval required)"
 echo "Review B195 details + bankVaultKey=primary, then press ENTER to continue or Ctrl+C to abort"
 read -r
-curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroNuro.claimCashback" \
+curl -sS -X POST "$BASE/xrpc/com.etzhayyim.apps.yorishiroNuro.claimCashback" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   --data @claim-b195.json
@@ -44,7 +44,7 @@ curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroNuro.claimCashback" \
 step "4. getClaimStatus (poll until receiptNumber appears)"
 for i in 1 2 3 4 5 6; do
   sleep 30
-  curl -sS -X POST "$BASE/xrpc/app.etzhayyim.apps.yorishiroNuro.getClaimStatus" \
+  curl -sS -X POST "$BASE/xrpc/com.etzhayyim.apps.yorishiroNuro.getClaimStatus" \
     -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
     --data '{"campaignCode":"B195"}'

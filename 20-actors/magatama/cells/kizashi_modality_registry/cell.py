@@ -5,7 +5,7 @@ sign-sensing substrate). Cell §3 #6; Murakumo node `asher`.
 
 Purpose: maintain the PUBLIC modality capability ledger — bind each sensing
 modality to its declared evidenceGrade + regulatoryClass + canDetect /
-cannotDetect + ionizing + phaseGate. Emits `app.etzhayyim.kizashi.modalityCapability`.
+cannotDetect + ionizing + phaseGate. Emits `com.etzhayyim.kizashi.modalityCapability`.
 This is the G10 anti-pseudoscience gate: a modality not ledgered here with a
 defensible evidence grade may NEVER emit a `modalityObservation`. Seed lives at
 20-actors/kizashi/registry/modalities.seed.json (all `unverified-seed`).
@@ -16,7 +16,7 @@ never emit); G4 regulated/energy-emitting modalities are R3-gated to a
 licensed-medical-device pathway; G9 ALARA (ionizing = referral, never routine
 pod); Murakumo-only inference (ADR-2605215000). Activates FIRST among kizashi
 cells (no observation can fire before the ledger gates it).
-Output Lexicon(s): app.etzhayyim.kizashi.modalityCapability.
+Output Lexicon(s): com.etzhayyim.kizashi.modalityCapability.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

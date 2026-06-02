@@ -109,11 +109,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.kataribe.communityChronicleAttestation",
-    "app.etzhayyim.kataribe.doctrineCommentaryPublishing",
-    "app.etzhayyim.kataribe.translationAttestation",
-    "app.etzhayyim.kataribe.whistleblowerReport",
-    "app.etzhayyim.kataribe.silenKataribeReview"
+    "com.etzhayyim.kataribe.communityChronicleAttestation",
+    "com.etzhayyim.kataribe.doctrineCommentaryPublishing",
+    "com.etzhayyim.kataribe.translationAttestation",
+    "com.etzhayyim.kataribe.whistleblowerReport",
+    "com.etzhayyim.kataribe.silenKataribeReview"
   ],
   "constitutionalGates": {
     "description": "13 immutable gates per ADR-2605263600. Council Lv6+ supermajority + new ADR to amend.",

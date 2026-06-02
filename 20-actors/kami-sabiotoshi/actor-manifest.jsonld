@@ -42,7 +42,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kami.sabiotoshi.listItems",
+        "nsid": "com.etzhayyim.apps.kami.sabiotoshi.listItems",
         "type": "xrpc"
       }
     },
@@ -50,7 +50,7 @@
       "steps": [
         {
           "args": {
-            "template": "CREATE (i:RustyItem {did: $did, itemId: $input.itemId, name: $input.name, rustLevel: $input.rustLevel, difficulty: $input.difficulty, pointValue: $input.pointValue, category: $input.category, unlocked: coalesce($input.unlocked, false), zones: $input.zones, repo: $did, collection: 'ai.gftd.apps.kami.sabiotoshi.rustyItem'})"
+            "template": "CREATE (i:RustyItem {did: $did, itemId: $input.itemId, name: $input.name, rustLevel: $input.rustLevel, difficulty: $input.difficulty, pointValue: $input.pointValue, category: $input.category, unlocked: coalesce($input.unlocked, false), zones: $input.zones, repo: $did, collection: 'com.etzhayyim.apps.kami.sabiotoshi.rustyItem'})"
           },
           "fn": "graph.write",
           "id": "writeItem"
@@ -77,7 +77,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kami.sabiotoshi.createItem",
+        "nsid": "com.etzhayyim.apps.kami.sabiotoshi.createItem",
         "type": "xrpc"
       }
     },
@@ -85,7 +85,7 @@
       "steps": [
         {
           "args": {
-            "template": "MERGE (z:RustZone {zoneId: $input.zoneId, itemId: $input.itemId}) SET z.did = $did, z.rustCoverage = $input.rustCoverage, z.pattern = $input.pattern, z.bonusMultiplier = coalesce($input.bonusMultiplier, 1.0), z.score = $input.score, z.playerId = $input.playerId, z.repo = $did, z.collection = 'ai.gftd.apps.kami.sabiotoshi.rustZone'"
+            "template": "MERGE (z:RustZone {zoneId: $input.zoneId, itemId: $input.itemId}) SET z.did = $did, z.rustCoverage = $input.rustCoverage, z.pattern = $input.pattern, z.bonusMultiplier = coalesce($input.bonusMultiplier, 1.0), z.score = $input.score, z.playerId = $input.playerId, z.repo = $did, z.collection = 'com.etzhayyim.apps.kami.sabiotoshi.rustZone'"
           },
           "fn": "graph.write",
           "id": "writeScore"
@@ -120,7 +120,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kami.sabiotoshi.scoreZone",
+        "nsid": "com.etzhayyim.apps.kami.sabiotoshi.scoreZone",
         "type": "xrpc"
       }
     },
@@ -128,7 +128,7 @@
       "steps": [
         {
           "args": {
-            "template": "MERGE (g:GameEvent {eventId: $record.eventId}) SET g.type = $record.type, g.playerId = $record.playerId, g.itemId = $record.itemId, g.score = $record.score, g.repo = $did, g.collection = 'ai.gftd.apps.kami.sabiotoshi'"
+            "template": "MERGE (g:GameEvent {eventId: $record.eventId}) SET g.type = $record.type, g.playerId = $record.playerId, g.itemId = $record.itemId, g.score = $record.score, g.repo = $did, g.collection = 'com.etzhayyim.apps.kami.sabiotoshi'"
           },
           "fn": "graph.write",
           "id": "processGameEvent"
@@ -155,7 +155,7 @@
         }
       ],
       "trigger": {
-        "collection": "ai.gftd.apps.kami.sabiotoshi",
+        "collection": "com.etzhayyim.apps.kami.sabiotoshi",
         "type": "subscribeRepos"
       }
     },
@@ -216,7 +216,7 @@
             "params": {
               "actorName": "kami-sabiotoshi",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.kamisabiotoshi.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.kamisabiotoshi.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "s4b10t05",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -274,7 +274,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kamisabiotoshi.coverage.get",
+        "nsid": "com.etzhayyim.apps.kamisabiotoshi.coverage.get",
         "type": "xrpc"
       }
     }
@@ -293,8 +293,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -307,9 +307,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kami.sabiotoshi",
-        "ai.gftd.apps.kami.sabiotoshi.rustyItem",
-        "ai.gftd.apps.kami.sabiotoshi.rustZone"
+        "com.etzhayyim.apps.kami.sabiotoshi",
+        "com.etzhayyim.apps.kami.sabiotoshi.rustyItem",
+        "com.etzhayyim.apps.kami.sabiotoshi.rustZone"
       ]
     }
   },

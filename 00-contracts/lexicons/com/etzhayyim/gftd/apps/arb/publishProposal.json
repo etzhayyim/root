@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.arb.publishProposal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish a scored proposal to yoro social (T1 Social via app.bsky.feed.post) with mandatory disclaimer. Mentions are restricted to opt-in trader cohort handle (@trader.etzhayyim.com). NOT trade execution.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["proposalId"],
+          "properties": {
+            "proposalId":   { "type": "string" },
+            "mentionCohort": { "type": "string", "default": "trader.etzhayyim.com" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "postUri":  { "type": "string" },
+            "mentions": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}

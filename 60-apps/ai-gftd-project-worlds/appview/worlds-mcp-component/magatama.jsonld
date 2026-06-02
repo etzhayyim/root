@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.worlds.scene",
-        "ai.gftd.apps.worlds.asset"
+        "com.etzhayyim.apps.worlds.scene",
+        "com.etzhayyim.apps.worlds.asset"
       ]
     }
   }

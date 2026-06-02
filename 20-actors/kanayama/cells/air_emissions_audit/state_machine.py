@@ -94,7 +94,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = EmissionsPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.airEmissionsAuditRecord",
+        "$type": "com.etzhayyim.kanayama.airEmissionsAuditRecord",
         "lotId": s.lotId,
         "pfcFindings": s.pfcFindings,
         "so2NoxFindings": s.so2NoxFindings,

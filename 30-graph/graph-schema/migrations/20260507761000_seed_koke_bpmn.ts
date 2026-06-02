@@ -22,10 +22,10 @@ interface BpmnEntry {
 const ENTRIES: BpmnEntry[] = [
   {
     processId: "koke_photosynthesis_cycle",
-    bpmnPath: "00-contracts/bpmn/ai/gftd/koke/photosynthesis-cycle.bpmn",
-    processVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1",
-    bindingVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1",
-    nsid: "app.etzhayyim.apps.koke.photosynthesize",
+    bpmnPath: "00-contracts/bpmn/com/etzhayyim/koke/photosynthesis-cycle.bpmn",
+    processVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1",
+    nsid: "com.etzhayyim.apps.koke.photosynthesize",
   },
 ];
 

@@ -317,7 +317,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.yoro.browsingHistory'
+    WHERE collection = 'com.etzhayyim.apps.yoro.browsingHistory'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -339,7 +339,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.yoro.kojiDiscovery'
+    WHERE collection = 'com.etzhayyim.apps.yoro.kojiDiscovery'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -360,7 +360,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.yoro.kyumeiValidation'
+    WHERE collection = 'com.etzhayyim.apps.yoro.kyumeiValidation'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -381,7 +381,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.yoro.shinkaEvolution'
+    WHERE collection = 'com.etzhayyim.apps.yoro.shinkaEvolution'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -403,7 +403,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.yoro.hinshitsuAssessment'
+    WHERE collection = 'com.etzhayyim.apps.yoro.hinshitsuAssessment'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -424,7 +424,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'yoro',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.yoro.shinkaKnowledge'
+    WHERE collection = 'com.etzhayyim.apps.yoro.shinkaKnowledge'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -440,7 +440,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'dojo',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.dojo.step_completed_event'
+    WHERE collection = 'com.etzhayyim.apps.dojo.step_completed_event'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -456,7 +456,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'joucho',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.joucho.review'
+    WHERE collection = 'com.etzhayyim.apps.joucho.review'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -476,7 +476,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'states',
       1
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.states.stateProfile'
+    WHERE collection = 'com.etzhayyim.apps.states.stateProfile'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -496,7 +496,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'agent-governance',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.agent.governanceRule'
+    WHERE collection = 'com.etzhayyim.agent.governanceRule'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 
@@ -516,7 +516,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'agent-governance',
       2
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.agent.roleBinding'
+    WHERE collection = 'com.etzhayyim.agent.roleBinding'
     ON CONFLICT (vertex_id) DO NOTHING
   `.execute(db);
 

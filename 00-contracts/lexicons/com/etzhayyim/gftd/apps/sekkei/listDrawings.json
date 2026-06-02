@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sekkei.listDrawings",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "設計図一覧を drawingType / status / ownerDid / projectCode でフィルタ。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "drawingType": { "type": "string" },
+          "status": { "type": "string" },
+          "ownerDid": { "type": "string" },
+          "projectCode": { "type": "string" },
+          "linkedActorDid": { "type": "string" },
+          "limit": { "type": "integer", "default": 50, "maximum": 500 },
+          "offset": { "type": "integer", "default": 0 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["drawings"],
+          "properties": {
+            "drawings": { "type": "array", "items": { "type": "unknown" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

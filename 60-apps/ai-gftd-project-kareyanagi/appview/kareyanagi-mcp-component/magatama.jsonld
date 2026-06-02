@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kareyanagi.listing",
-        "ai.gftd.apps.kareyanagi.order"
+        "com.etzhayyim.apps.kareyanagi.listing",
+        "com.etzhayyim.apps.kareyanagi.order"
       ]
     }
   }

@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.celler.activateEsim",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "iccid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "iccid"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "iccid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "iccid"
+          ]
+        }
+      }
+    }
+  }
+}

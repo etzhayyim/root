@@ -33,14 +33,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.kenkyusha.discipline",
-        "ai.gftd.apps.kenkyusha.frontier",
-        "ai.gftd.apps.kenkyusha.hypothesis",
-        "ai.gftd.apps.kenkyusha.evidence",
-        "ai.gftd.apps.kenkyusha.researcherCohort",
-        "ai.gftd.apps.bunken.bunken",
-        "ai.gftd.isbn.book",
-        "ai.gftd.apps.issn.serial"
+        "com.etzhayyim.apps.kenkyusha.discipline",
+        "com.etzhayyim.apps.kenkyusha.frontier",
+        "com.etzhayyim.apps.kenkyusha.hypothesis",
+        "com.etzhayyim.apps.kenkyusha.evidence",
+        "com.etzhayyim.apps.kenkyusha.researcherCohort",
+        "com.etzhayyim.apps.bunken.bunken",
+        "com.etzhayyim.isbn.book",
+        "com.etzhayyim.apps.issn.serial"
       ]
     }
   },
@@ -61,12 +61,12 @@
   ],
   "derive": [
     {
-      "on": "ai.gftd.apps.kenkyusha.frontier",
+      "on": "com.etzhayyim.apps.kenkyusha.frontier",
       "action": "postFeed",
       "template": "New research frontier detected: {{title}} in {{primaryDiscipline}}. Detection method: {{detectionMethod}}. Urgency: {{urgency}}."
     },
     {
-      "on": "ai.gftd.apps.kenkyusha.hypothesis",
+      "on": "com.etzhayyim.apps.kenkyusha.hypothesis",
       "condition": "status == 'supported' || status == 'refuted'",
       "action": "postFeed",
       "template": "Hypothesis {{status}}: {{statement}} (confidence: {{confidenceScore}})"

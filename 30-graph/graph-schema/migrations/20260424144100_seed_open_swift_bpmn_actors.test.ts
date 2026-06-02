@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-swift/registerInstitution.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-swift/registerInstitution.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-swift/sendCustomerCreditTransfer.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-swift/sendCustomerCreditTransfer.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-swift BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-swift-register-institution-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_swift_register_institution"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-swift/registerInstitution.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-swift/registerInstitution.bpmn"');
     expect(migrationSource).toContain("open-swift-send-customer-credit-transfer-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_swift_send_customer_credit_transfer"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-swift/sendCustomerCreditTransfer.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-swift/sendCustomerCreditTransfer.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSwift.registerInstitution"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openSwift.registerInstitution"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer"');
   });
 
   it("uses open-swift-specific actor_id + owner_did", () => {

@@ -50,8 +50,8 @@ INSERT INTO vertex_gov_actor_manifest (
     FROM vertex_repo_record AS repo_record
     WHERE repo_record.collection IN (
       'actorManifest',
-      'ai.gftd.gov.actorManifest',
-      'ai.gftd.apps.states.actorManifest'
+      'com.etzhayyim.gov.actorManifest',
+      'com.etzhayyim.apps.states.actorManifest'
     )
       AND NOT EXISTS (
         SELECT 1

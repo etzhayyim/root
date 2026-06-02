@@ -77,7 +77,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = PaintPhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.sarutahiko.paintAttestation",
+        "$type": "com.etzhayyim.sarutahiko.paintAttestation",
         "chassisId": s.chassisId,
         "pretreatmentResult": s.pretreatmentResult,
         "layers": s.layers,

@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-ports/scheduleVesselCall.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-ports/scheduleVesselCall.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-ports/reportIncident.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-ports/reportIncident.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-ports BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-ports-schedule-vessel-call-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_ports_schedule_vessel_call"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-ports/scheduleVesselCall.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-ports/scheduleVesselCall.bpmn"');
     expect(migrationSource).toContain("open-ports-report-incident-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_ports_report_incident"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-ports/reportIncident.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-ports/reportIncident.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPorts.scheduleVesselCall"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPorts.reportIncident"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openPorts.scheduleVesselCall"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openPorts.reportIncident"');
   });
 
   it("uses open-ports-specific actor_id + owner_did", () => {

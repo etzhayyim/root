@@ -4,12 +4,12 @@ and ensuring TitheRouter.route() was called correctly.
 
 Per ADR-2605192130 (10% Tithe Redistribution).
 
-Trigger: MST listener on `app.etzhayyim.apps.payment.sent` records
+Trigger: MST listener on `com.etzhayyim.apps.payment.sent` records
 Effect:
   - Verify purpose is titheable
   - Verify TitheRouter.route() tx exists on Base L2
   - Verify 10% landed in Public Fund Safe
-  - Emit `app.etzhayyim.apps.payment.tithe` counterpart record
+  - Emit `com.etzhayyim.apps.payment.tithe` counterpart record
   - Alert if SDK bypass detected (direct USDC transfer not via TitheRouter)
 
 Murakumo node: zebulun (leader), asher (failover replica)
@@ -118,7 +118,7 @@ def verify_public_fund_receipt(state, port, constitution_port):
 
 
 def emit_tithe_record(state):
-    """Emit app.etzhayyim.apps.payment.tithe counterpart record."""
+    """Emit com.etzhayyim.apps.payment.tithe counterpart record."""
     return state
 
 

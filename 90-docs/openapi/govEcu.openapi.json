@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govEcu.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govEcu.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Ecuador government.",
-        "operationId": "app.etzhayyim.govEcu.followSiteDeps",
+        "operationId": "com.etzhayyim.govEcu.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govEcu.heartbeatTick": {
       "post": {
         "summary": "Run the Ecuador government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govEcu.heartbeatTick",
+        "operationId": "com.etzhayyim.govEcu.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.listOrgs": {
+    "/xrpc/com.etzhayyim.govEcu.listOrgs": {
       "get": {
         "summary": "List Ecuador government organization graph records.",
-        "operationId": "app.etzhayyim.govEcu.listOrgs",
+        "operationId": "com.etzhayyim.govEcu.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.registerDIDs": {
+    "/xrpc/com.etzhayyim.govEcu.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Ecuador government organizations.",
-        "operationId": "app.etzhayyim.govEcu.registerDIDs",
+        "operationId": "com.etzhayyim.govEcu.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govEcu.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Ecuador government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govEcu.resolveOrgPath",
+        "operationId": "com.etzhayyim.govEcu.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.seedOrgs": {
+    "/xrpc/com.etzhayyim.govEcu.seedOrgs": {
       "post": {
         "summary": "Seed initial Ecuador government organization records into the graph.",
-        "operationId": "app.etzhayyim.govEcu.seedOrgs",
+        "operationId": "com.etzhayyim.govEcu.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.shinka": {
+    "/xrpc/com.etzhayyim.govEcu.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Ecuador government organization update.",
-        "operationId": "app.etzhayyim.govEcu.shinka",
+        "operationId": "com.etzhayyim.govEcu.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEcu.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govEcu.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Ecuador government organization changes to graph.",
-        "operationId": "app.etzhayyim.govEcu.syncWetUpdates",
+        "operationId": "com.etzhayyim.govEcu.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

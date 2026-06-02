@@ -9,7 +9,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE): PROPOSE-ONLY (no merge/deploy) 
 NO PROBING (input via akuma finding_cid only) + DEFENSIVE-ONLY (no exploit/PoC,
 Charter Rider §2(a)) + NO PLATFORM-HELD KEY (ADR-2605231525) + Murakumo-only
 inference (ADR-2605215000). Gates: G11 (closure: akuma re-probe pass + owner human merge).
-Output Lexicon(s): app.etzhayyim.tsukuroi.closureAttestation.
+Output Lexicon(s): com.etzhayyim.tsukuroi.closureAttestation.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

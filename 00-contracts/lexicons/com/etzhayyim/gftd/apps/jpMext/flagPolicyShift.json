@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMext.flagPolicyShift",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Policy shift / cabinet override / academic freedom concern (bridges jpMof + judicialAppointment + minorityRights)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "shiftKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "shiftKind": {
+              "type": "string",
+              "enum": [
+                "cabinet_override",
+                "academic_freedom",
+                "sgu_global_30",
+                "top_global_university",
+                "gakujutsu_kaigi_appointment",
+                "ldp_overreach",
+                "budget_squeeze",
+                "rebellion_research",
+                "university_governance_shift",
+                "kantei_steering",
+                "language_revival_pause",
+                "liberal_arts_pivot"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

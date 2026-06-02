@@ -28,7 +28,7 @@ export async function recommendExpert(modelId?: string, providerMode?: string): 
 	const body: Record<string, unknown> = {};
 	if (modelId) body.modelId = modelId;
 	if (providerMode) body.providerMode = providerMode;
-	const resp = await fetch(`${WEB4_XRPC_BASE}/app.etzhayyim.web4.v1.recommendExpert`, {
+	const resp = await fetch(`${WEB4_XRPC_BASE}/com.etzhayyim.web4.v1.recommendExpert`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body),

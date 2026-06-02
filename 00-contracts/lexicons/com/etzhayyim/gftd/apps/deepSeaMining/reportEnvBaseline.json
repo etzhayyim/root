@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.deepSeaMining.reportEnvBaseline",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Environmental baseline / monitoring report (DeepCCZ / JPI Oceans)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "contractVid",
+            "reportedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "contractVid": {
+              "type": "string",
+              "description": "bridges issueIsaContract"
+            },
+            "gbfProtectedVid": {
+              "type": "string",
+              "description": "bridges open-biodiversity-gbf"
+            },
+            "benthicDiversityIndex": {
+              "type": "number"
+            },
+            "endemicSpeciesCount": {
+              "type": "integer"
+            },
+            "sedimentPlumeRadiusKm": {
+              "type": "number"
+            },
+            "noiseDbAt1m": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

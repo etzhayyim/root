@@ -18,7 +18,7 @@ import { sql } from "kysely";
  * one rev folds in cleanly.
  *
  * MCP exposure: rows in `vertex_mcp_tool_def` are read at runtime by
- * the canonical `mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message` `tools/list`
+ * the canonical `mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message` `tools/list`
  * handler (ADR-0087 + ADR-2604261000) — no per-actor deploy needed.
  * Auth path: `tools/call` requires AT Protocol session JWT or ES256
  * Service Auth with `lxm` claim equal to the NSID.
@@ -50,14 +50,14 @@ const langgraphUrl = "http://manimani-langgraph.mitama-udf.svc.cluster.local:800
 const seeds: LexiconSeed[] = [
   // Phase 1 surface — already bound in 20260508290000; we only seed MCP
   // rows here. bindingTimeoutMs=null skips the binding INSERT.
-  { nsid: "app.etzhayyim.apps.manimani.ingest",        bpmnProcessId: "manimani_ingest",        sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/ingest.json",        bindingTimeoutMs: null },
-  { nsid: "app.etzhayyim.apps.manimani.classify",      bpmnProcessId: "manimani_classify",      sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/classify.json",      bindingTimeoutMs: null },
-  { nsid: "app.etzhayyim.apps.manimani.process",       bpmnProcessId: "manimani_process",       sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/process.json",       bindingTimeoutMs: null },
-  { nsid: "app.etzhayyim.apps.manimani.getProject",    bpmnProcessId: "manimani_get_project",   sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/getProject.json",    bindingTimeoutMs: null },
-  { nsid: "app.etzhayyim.apps.manimani.listProjects",  bpmnProcessId: "manimani_list_projects", sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/listProjects.json",  bindingTimeoutMs: null },
-  { nsid: "app.etzhayyim.apps.manimani.coverage",      bpmnProcessId: "manimani_coverage",      sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/coverage.json",      bindingTimeoutMs: null },
+  { nsid: "com.etzhayyim.apps.manimani.ingest",        bpmnProcessId: "manimani_ingest",        sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/ingest.json",        bindingTimeoutMs: null },
+  { nsid: "com.etzhayyim.apps.manimani.classify",      bpmnProcessId: "manimani_classify",      sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/classify.json",      bindingTimeoutMs: null },
+  { nsid: "com.etzhayyim.apps.manimani.process",       bpmnProcessId: "manimani_process",       sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/process.json",       bindingTimeoutMs: null },
+  { nsid: "com.etzhayyim.apps.manimani.getProject",    bpmnProcessId: "manimani_get_project",   sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/getProject.json",    bindingTimeoutMs: null },
+  { nsid: "com.etzhayyim.apps.manimani.listProjects",  bpmnProcessId: "manimani_list_projects", sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/listProjects.json",  bindingTimeoutMs: null },
+  { nsid: "com.etzhayyim.apps.manimani.coverage",      bpmnProcessId: "manimani_coverage",      sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/coverage.json",      bindingTimeoutMs: null },
   // Phase 4 — resumeRun (new). Bind the dispatcher row and add MCP entry.
-  { nsid: "app.etzhayyim.apps.manimani.resumeRun",     bpmnProcessId: "manimani_resume_run",    sourcePath: "00-contracts/lexicons/ai/gftd/apps/manimani/resumeRun.json",     bindingTimeoutMs: 10_000 },
+  { nsid: "com.etzhayyim.apps.manimani.resumeRun",     bpmnProcessId: "manimani_resume_run",    sourcePath: "00-contracts/lexicons/com/etzhayyim/apps/manimani/resumeRun.json",     bindingTimeoutMs: 10_000 },
 ];
 
 function readContract(relPath: string): string {
@@ -65,11 +65,11 @@ function readContract(relPath: string): string {
 }
 
 function mcpVertexId(nsid: string): string {
-  return `at://${ownerDid}/app.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
+  return `at://${ownerDid}/com.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${nsid}`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${nsid}`;
 }
 
 function stableStringify(value: unknown): string {

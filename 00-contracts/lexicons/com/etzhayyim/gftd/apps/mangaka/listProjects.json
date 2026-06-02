@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.listProjects",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List manga projects. Tightened from F2 bootstrap stub on 2026-05-12.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "parentProjectId": { "type": "string" },
+          "limit": { "type": "integer" }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-script-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-script-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -23,7 +23,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-script-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-script-v1',
                  'animeka_generate_script',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -99,13 +99,13 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:      '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.script/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.script/&quot; + '
                  'string(episodeId) + &quot;-v1&quot;,\n'
                  '              owner_did:      &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:           &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              did:            &quot;did:web:animeka.etzhayyim.com:episode:&quot; + '
                  'string(episodeId),\n'
-                 '              collection:     &quot;app.etzhayyim.apps.animeka.script&quot;,\n'
+                 '              collection:     &quot;com.etzhayyim.apps.animeka.script&quot;,\n'
                  '              rkey:           string(episodeId) + &quot;-v1&quot;,\n'
                  '              kind:           &quot;script&quot;,\n'
                  '              episode_id:     string(episodeId),\n'
@@ -141,10 +141,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateScript.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateScript.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-breakdown-scene-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-breakdown-scene-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -154,7 +154,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-breakdown-scene-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-breakdown-scene-v1',
                  'animeka_breakdown_scene',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -220,11 +220,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.sceneBreakdown/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.sceneBreakdown/&quot; + '
                  'string(sceneId),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.sceneBreakdown&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.sceneBreakdown&quot;,\n'
                  '              rkey:       string(sceneId),\n'
                  '              kind:       &quot;sceneBreakdown&quot;,\n'
                  '              scene_id:   string(sceneId),\n'
@@ -256,10 +256,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/breakdownScene.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/breakdownScene.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-storyboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-storyboard-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-storyboard-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-storyboard-v1',
                  'animeka_generate_storyboard',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -346,11 +346,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.storyboard/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.storyboard/&quot; + '
                  'string(cutId) + &quot;-c&quot; + string(candidateNum),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.storyboard&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.storyboard&quot;,\n'
                  '              rkey:       string(cutId) + &quot;-c&quot; + '
                  'string(candidateNum),\n'
                  '              kind:       &quot;storyboard&quot;,\n'
@@ -387,10 +387,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateStoryboard.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateStoryboard.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-layout-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-layout-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -400,7 +400,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-layout-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-layout-v1',
                  'animeka_generate_layout',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -474,11 +474,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.layout/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.layout/&quot; + '
                  'string(cutId),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.layout&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.layout&quot;,\n'
                  '              rkey:       string(cutId),\n'
                  '              kind:       &quot;layout&quot;,\n'
                  '              cut_id:     string(cutId),\n'
@@ -514,10 +514,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateLayout.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateLayout.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-keyframe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-keyframe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -527,7 +527,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-keyframe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-keyframe-v1',
                  'animeka_generate_keyframe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -586,11 +586,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:   '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.keyframe/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.keyframe/&quot; + '
                  'string(cutId) + &quot;-f&quot; + string(frameNum),\n'
                  '              owner_did:   &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:        &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection:  &quot;app.etzhayyim.apps.animeka.keyframe&quot;,\n'
+                 '              collection:  &quot;com.etzhayyim.apps.animeka.keyframe&quot;,\n'
                  '              rkey:        string(cutId) + &quot;-f&quot; + string(frameNum),\n'
                  '              kind:        &quot;keyframe&quot;,\n'
                  '              cut_id:      string(cutId),\n'
@@ -626,10 +626,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateKeyframe.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateKeyframe.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-inbetween-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-inbetween-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -639,7 +639,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-inbetween-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-inbetween-v1',
                  'animeka_generate_inbetween',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -717,11 +717,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:      '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.inbetween/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.inbetween/&quot; + '
                  'string(cutId) + &quot;-ib-&quot; + string(numFrames),\n'
                  '              owner_did:      &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:           &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection:     &quot;app.etzhayyim.apps.animeka.inbetween&quot;,\n'
+                 '              collection:     &quot;com.etzhayyim.apps.animeka.inbetween&quot;,\n'
                  '              rkey:           string(cutId) + &quot;-ib-&quot; + '
                  'string(numFrames),\n'
                  '              kind:           &quot;inbetween&quot;,\n'
@@ -759,10 +759,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateInbetween.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateInbetween.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-design-color-model-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-design-color-model-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -772,7 +772,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-design-color-model-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-design-color-model-v1',
                  'animeka_design_color_model',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -847,11 +847,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:   '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.colorModel/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.colorModel/&quot; + '
                  'string(characterId),\n'
                  '              owner_did:   &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:        &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection:  &quot;app.etzhayyim.apps.animeka.colorModel&quot;,\n'
+                 '              collection:  &quot;com.etzhayyim.apps.animeka.colorModel&quot;,\n'
                  '              rkey:        string(characterId),\n'
                  '              kind:        &quot;colorModel&quot;,\n'
                  '              character_id: string(characterId),\n'
@@ -886,10 +886,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/designColorModel.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/designColorModel.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-auto-trace-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-auto-trace-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -899,7 +899,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-auto-trace-cut-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-auto-trace-cut-v1',
                  'animeka_auto_trace_cut',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -951,11 +951,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.colorTrace/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.colorTrace/&quot; + '
                  'string(frameUri),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.colorTrace&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.colorTrace&quot;,\n'
                  '              rkey:       string(frameUri),\n'
                  '              kind:       &quot;colorTrace&quot;,\n'
                  '              target_uri: string(frameUri),\n'
@@ -990,10 +990,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/autoTraceCut.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/autoTraceCut.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-background-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-background-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -1003,7 +1003,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-background-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-background-v1',
                  'animeka_generate_background',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -1078,11 +1078,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.background/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.background/&quot; + '
                  'string(cutId),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.background&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.background&quot;,\n'
                  '              rkey:       string(cutId),\n'
                  '              kind:       &quot;background&quot;,\n'
                  '              cut_id:     string(cutId),\n'
@@ -1119,10 +1119,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateBackground.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateBackground.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-render-composite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-render-composite-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -1132,7 +1132,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-render-composite-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-render-composite-v1',
                  'animeka_render_composite',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -1211,11 +1211,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.composite/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.composite/&quot; + '
                  'string(cutId),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.composite&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.composite&quot;,\n'
                  '              rkey:       string(cutId),\n'
                  '              kind:       &quot;composite&quot;,\n'
                  '              cut_id:     string(cutId),\n'
@@ -1252,10 +1252,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/renderComposite.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/renderComposite.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-sound-cue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-sound-cue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -1265,7 +1265,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-sound-cue-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-sound-cue-v1',
                  'animeka_generate_sound_cue',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -1361,11 +1361,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.soundCue/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.soundCue/&quot; + '
                  'string(cutId) + &quot;-&quot; + string(trackType),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.soundCue&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.soundCue&quot;,\n'
                  '              rkey:       string(cutId) + &quot;-&quot; + string(trackType),\n'
                  '              kind:       &quot;soundCue&quot;,\n'
                  '              cut_id:     string(cutId),\n'
@@ -1406,10 +1406,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/generateSoundCue.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/generateSoundCue.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-publish-episode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-publish-episode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -1419,7 +1419,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-publish-episode-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-publish-episode-v1',
                  'animeka_publish_episode',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -1509,11 +1509,11 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '          <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>\n'
                  '          <zeebe:input source="={\n'
                  '              vertex_id:  '
-                 '&quot;at://did:web:animeka.etzhayyim.com/app.etzhayyim.apps.animeka.master/&quot; + '
+                 '&quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.master/&quot; + '
                  'string(episodeId),\n'
                  '              owner_did:  &quot;did:web:animeka.etzhayyim.com&quot;,\n'
                  '              repo:       &quot;did:web:animeka.etzhayyim.com&quot;,\n'
-                 '              collection: &quot;app.etzhayyim.apps.animeka.master&quot;,\n'
+                 '              collection: &quot;com.etzhayyim.apps.animeka.master&quot;,\n'
                  '              rkey:       string(episodeId),\n'
                  '              kind:       &quot;master&quot;,\n'
                  '              episode_id: string(episodeId),\n'
@@ -1545,7 +1545,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '                &quot;$type&quot;: &quot;app.bsky.feed.post&quot;,\n'
                  '                text: &quot;🎬 #&quot; + string(episodeNum) + &quot; &quot; + '
                  'string(episodeTitle) + &quot; 公開\\nwatch → '
-                 'https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/app.etzhayyim.apps.animeka.episode/&quot; '
+                 'https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/com.etzhayyim.apps.animeka.episode/&quot; '
                  '+ string(episodeId),\n'
                  '                createdAt: today() + &quot;T00:00:00Z&quot;\n'
                  '              }\n'
@@ -1597,10 +1597,10 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/publishEpisode.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/publishEpisode.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE vertex_id = $1 LIMIT 1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-chat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-chat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, bpmn_process_id, version, xml, status,\n'
@@ -1610,7 +1610,7 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, $5, $6::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-chat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-chat-v1',
                  'animeka_chat',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -1657,12 +1657,12 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  'did:web:animeka.etzhayyim.com',
-                 '00-contracts/bpmn/ai/gftd/animeka/chat.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/chat.bpmn',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateScript-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateScript-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1672,15 +1672,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateScript-v1',
-                 'app.etzhayyim.apps.animeka.generateScript',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateScript-v1',
+                 'com.etzhayyim.apps.animeka.generateScript',
                  'animeka_generate_script',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-breakdownScene-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-breakdownScene-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1690,15 +1690,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-breakdownScene-v1',
-                 'app.etzhayyim.apps.animeka.breakdownScene',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-breakdownScene-v1',
+                 'com.etzhayyim.apps.animeka.breakdownScene',
                  'animeka_breakdown_scene',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateStoryboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateStoryboard-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1708,15 +1708,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateStoryboard-v1',
-                 'app.etzhayyim.apps.animeka.generateStoryboard',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateStoryboard-v1',
+                 'com.etzhayyim.apps.animeka.generateStoryboard',
                  'animeka_generate_storyboard',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateLayout-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateLayout-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1726,15 +1726,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateLayout-v1',
-                 'app.etzhayyim.apps.animeka.generateLayout',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateLayout-v1',
+                 'com.etzhayyim.apps.animeka.generateLayout',
                  'animeka_generate_layout',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateKeyframe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateKeyframe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1744,15 +1744,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateKeyframe-v1',
-                 'app.etzhayyim.apps.animeka.generateKeyframe',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateKeyframe-v1',
+                 'com.etzhayyim.apps.animeka.generateKeyframe',
                  'animeka_generate_keyframe',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateInbetween-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateInbetween-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1762,15 +1762,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateInbetween-v1',
-                 'app.etzhayyim.apps.animeka.generateInbetween',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateInbetween-v1',
+                 'com.etzhayyim.apps.animeka.generateInbetween',
                  'animeka_generate_inbetween',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-designColorModel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-designColorModel-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1780,15 +1780,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-designColorModel-v1',
-                 'app.etzhayyim.apps.animeka.designColorModel',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-designColorModel-v1',
+                 'com.etzhayyim.apps.animeka.designColorModel',
                  'animeka_design_color_model',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-autoTrace-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-autoTrace-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1798,15 +1798,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-autoTrace-v1',
-                 'app.etzhayyim.apps.animeka.autoTrace',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-autoTrace-v1',
+                 'com.etzhayyim.apps.animeka.autoTrace',
                  'animeka_auto_trace_cut',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateBackground-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateBackground-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1816,15 +1816,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateBackground-v1',
-                 'app.etzhayyim.apps.animeka.generateBackground',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateBackground-v1',
+                 'com.etzhayyim.apps.animeka.generateBackground',
                  'animeka_generate_background',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-renderComposite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-renderComposite-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1834,15 +1834,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-renderComposite-v1',
-                 'app.etzhayyim.apps.animeka.renderComposite',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-renderComposite-v1',
+                 'com.etzhayyim.apps.animeka.renderComposite',
                  'animeka_render_composite',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateSoundCue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateSoundCue-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1852,15 +1852,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateSoundCue-v1',
-                 'app.etzhayyim.apps.animeka.generateSoundCue',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateSoundCue-v1',
+                 'com.etzhayyim.apps.animeka.generateSoundCue',
                  'animeka_generate_sound_cue',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-publishEpisode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-publishEpisode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1870,15 +1870,15 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-publishEpisode-v1',
-                 'app.etzhayyim.apps.animeka.publishEpisode',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-publishEpisode-v1',
+                 'com.etzhayyim.apps.animeka.publishEpisode',
                  'animeka_publish_episode',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']},
  {'sql': '\n'
          '      SELECT vertex_id FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1 LIMIT 1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-chat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-chat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, nsid, bpmn_process_id, status,\n'
@@ -1888,64 +1888,64 @@ UP = [{'sql': '\n      SELECT vertex_id FROM vertex_bpmn_process_def WHERE verte
          '        $4, 600000, $5::timestamptz\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-chat-v1',
-                 'app.etzhayyim.apps.animeka.chat',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-chat-v1',
+                 'com.etzhayyim.apps.animeka.chat',
                  'animeka_chat',
                  'did:web:animeka.etzhayyim.com',
                  '2026-04-23T20:00:00Z']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateScript-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateScript-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-breakdownScene-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-breakdownScene-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateStoryboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateStoryboard-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateLayout-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateLayout-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateKeyframe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateKeyframe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateInbetween-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateInbetween-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-designColorModel-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-designColorModel-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-autoTrace-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-autoTrace-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateBackground-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateBackground-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-renderComposite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-renderComposite-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-generateSoundCue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-generateSoundCue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-publishEpisode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-publishEpisode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-chat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-chat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-script-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-script-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-breakdown-scene-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-breakdown-scene-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-storyboard-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-storyboard-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-layout-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-layout-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-keyframe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-keyframe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-inbetween-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-inbetween-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-design-color-model-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-design-color-model-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-auto-trace-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-auto-trace-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-background-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-background-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-render-composite-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-render-composite-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-generate-sound-cue-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-generate-sound-cue-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-publish-episode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-publish-episode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-chat-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-chat-v1']}]
 
 
 def upgrade() -> None:

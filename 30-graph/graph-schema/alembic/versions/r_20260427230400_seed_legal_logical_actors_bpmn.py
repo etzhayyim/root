@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/judge-register-judge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/judge-register-judge-v1',
                  'did:web:judge.etzhayyim.com',
                  'judge_register_judge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_judge&quot;" target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
                  '&quot;at://did:web:judge.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + '
-                 'judgeSlug + &quot;/app.etzhayyim.apps.judge.profile/self&quot;, judge_did: '
+                 'judgeSlug + &quot;/com.etzhayyim.apps.judge.profile/self&quot;, judge_did: '
                  '&quot;did:web:judge.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + judgeSlug, '
                  'full_name: fullName, full_name_local: fullNameLocal, court_did: courtDid, '
                  'court_level: courtLevel, jurisdiction: jurisdiction, appointed_at: appointedAt, '
@@ -61,12 +61,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1980,
-                 '00-contracts/bpmn/ai/gftd/judge/registerJudge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/judge/registerJudge.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:judge.etzhayyim.com',
                  'did:web:judge.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/judge-register-judge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/judge-register-judge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -74,7 +74,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/judge-list-judges-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/judge-list-judges-v1',
                  'did:web:judge.etzhayyim.com',
                  'judge_list_judges',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -108,12 +108,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1516,
-                 '00-contracts/bpmn/ai/gftd/judge/listJudges.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/judge/listJudges.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:judge.etzhayyim.com',
                  'did:web:judge.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/judge-list-judges-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/judge-list-judges-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bengoshi-register-lawyer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bengoshi-register-lawyer-v1',
                  'did:web:bengoshi.etzhayyim.com',
                  'bengoshi_register_lawyer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -142,7 +142,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_lawyer&quot;" target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
                  '&quot;at://did:web:bengoshi.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + '
-                 'lawyerSlug + &quot;/app.etzhayyim.apps.bengoshi.profile/self&quot;, lawyer_did: '
+                 'lawyerSlug + &quot;/com.etzhayyim.apps.bengoshi.profile/self&quot;, lawyer_did: '
                  '&quot;did:web:bengoshi.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + '
                  'lawyerSlug, full_name: fullName, full_name_local: fullNameLocal, bar_id: barId, '
                  'bar_association: barAssociation, jurisdiction: jurisdiction, admitted_at: '
@@ -163,12 +163,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2000,
-                 '00-contracts/bpmn/ai/gftd/bengoshi/registerLawyer.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/bengoshi/registerLawyer.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:bengoshi.etzhayyim.com',
                  'did:web:bengoshi.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bengoshi-register-lawyer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bengoshi-register-lawyer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -176,7 +176,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bengoshi-search-lawyers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bengoshi-search-lawyers-v1',
                  'did:web:bengoshi.etzhayyim.com',
                  'bengoshi_search_lawyers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -214,12 +214,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1680,
-                 '00-contracts/bpmn/ai/gftd/bengoshi/searchLawyers.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/bengoshi/searchLawyers.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:bengoshi.etzhayyim.com',
                  'did:web:bengoshi.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bengoshi-search-lawyers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bengoshi-search-lawyers-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -227,7 +227,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adr-register-arbitrator-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adr-register-arbitrator-v1',
                  'did:web:adr.etzhayyim.com',
                  'adr_register_arbitrator',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -249,7 +249,7 @@ UP = [{'sql': '\n'
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
                  '&quot;at://did:web:adr.etzhayyim.com:&quot; + institution + &quot;:&quot; + '
-                 'arbitratorSlug + &quot;/app.etzhayyim.apps.adr.profile/self&quot;, arbitrator_did: '
+                 'arbitratorSlug + &quot;/com.etzhayyim.apps.adr.profile/self&quot;, arbitrator_did: '
                  '&quot;did:web:adr.etzhayyim.com:&quot; + institution + &quot;:&quot; + arbitratorSlug, '
                  'full_name: fullName, institution: institution, panel: panel, nationality: '
                  'nationality, languages_csv: languages, expertise_csv: expertise, owner_did: '
@@ -268,12 +268,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1844,
-                 '00-contracts/bpmn/ai/gftd/adr/registerArbitrator.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/adr/registerArbitrator.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:adr.etzhayyim.com',
                  'did:web:adr.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adr-register-arbitrator-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adr-register-arbitrator-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -281,7 +281,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adr-create-case-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adr-create-case-v1',
                  'did:web:adr.etzhayyim.com',
                  'adr_create_case',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -300,7 +300,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_adr_case&quot;" target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
                  '&quot;at://did:web:adr.etzhayyim.com:&quot; + institution + '
-                 '&quot;/app.etzhayyim.apps.adr.case/&quot; + caseRef, case_ref: caseRef, institution: '
+                 '&quot;/com.etzhayyim.apps.adr.case/&quot; + caseRef, case_ref: caseRef, institution: '
                  'institution, panel: panel, seat: seat, governing_law: governingLaw, parties_enc: '
                  'partiesEnc, claim_amount_enc: claimAmountEnc, currency: currency, status: '
                  '&quot;pending&quot;, opened_at: openedAt, owner_did: '
@@ -318,12 +318,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1699,
-                 '00-contracts/bpmn/ai/gftd/adr/createCase.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/adr/createCase.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:adr.etzhayyim.com',
                  'did:web:adr.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adr-create-case-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adr-create-case-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -331,7 +331,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-aid-register-office-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-aid-register-office-v1',
                  'did:web:legal-aid.etzhayyim.com',
                  'legal_aid_register_office',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -353,7 +353,7 @@ UP = [{'sql': '\n'
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
                  '&quot;at://did:web:legal-aid.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + '
-                 'officeSlug + &quot;/app.etzhayyim.apps.legal-aid.profile/self&quot;, office_did: '
+                 'officeSlug + &quot;/com.etzhayyim.apps.legal-aid.profile/self&quot;, office_did: '
                  '&quot;did:web:legal-aid.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + '
                  'officeSlug, display_name: displayName, jurisdiction: jurisdiction, office_type: '
                  'officeType, address_locality: addressLocality, languages_csv: languages, '
@@ -373,12 +373,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1923,
-                 '00-contracts/bpmn/ai/gftd/legal-aid/registerOffice.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-aid/registerOffice.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:legal-aid.etzhayyim.com',
                  'did:web:legal-aid.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-aid-register-office-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-aid-register-office-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -386,7 +386,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-aid-open-case-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-aid-open-case-v1',
                  'did:web:legal-aid.etzhayyim.com',
                  'legal_aid_open_case',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -406,7 +406,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_legal_aid_case&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: &quot;at://&quot; + officeDid + '
-                 '&quot;/app.etzhayyim.apps.legal-aid.case/&quot; + applicantHash, office_did: '
+                 '&quot;/com.etzhayyim.apps.legal-aid.case/&quot; + applicantHash, office_did: '
                  'officeDid, applicant_hash: applicantHash, applicant_pii_enc: applicantPiiEnc, '
                  'matter_area: matterArea, income_bracket: incomeBracket, language_code: '
                  'languageCode, intake_channel: intakeChannel, opened_at: openedAt, status: '
@@ -426,12 +426,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1859,
-                 '00-contracts/bpmn/ai/gftd/legal-aid/openCase.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-aid/openCase.bpmn',
                  '2026-04-27T23:04:00Z',
                  'did:web:legal-aid.etzhayyim.com',
                  'did:web:legal-aid.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-aid-open-case-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-aid-open-case-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -439,16 +439,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/judge-registerJudge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/judge-registerJudge-v1',
                  'did:web:judge.etzhayyim.com',
-                 'app.etzhayyim.apps.judge.registerJudge',
+                 'com.etzhayyim.apps.judge.registerJudge',
                  'judge_register_judge',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:judge.etzhayyim.com',
                  'did:web:judge.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/judge-registerJudge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/judge-registerJudge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -456,16 +456,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/judge-listJudges-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/judge-listJudges-v1',
                  'did:web:judge.etzhayyim.com',
-                 'app.etzhayyim.apps.judge.listJudges',
+                 'com.etzhayyim.apps.judge.listJudges',
                  'judge_list_judges',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:judge.etzhayyim.com',
                  'did:web:judge.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/judge-listJudges-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/judge-listJudges-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -473,16 +473,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bengoshi-registerLawyer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bengoshi-registerLawyer-v1',
                  'did:web:bengoshi.etzhayyim.com',
-                 'app.etzhayyim.apps.bengoshi.registerLawyer',
+                 'com.etzhayyim.apps.bengoshi.registerLawyer',
                  'bengoshi_register_lawyer',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:bengoshi.etzhayyim.com',
                  'did:web:bengoshi.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bengoshi-registerLawyer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bengoshi-registerLawyer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -490,16 +490,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bengoshi-searchLawyers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bengoshi-searchLawyers-v1',
                  'did:web:bengoshi.etzhayyim.com',
-                 'app.etzhayyim.apps.bengoshi.searchLawyers',
+                 'com.etzhayyim.apps.bengoshi.searchLawyers',
                  'bengoshi_search_lawyers',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:bengoshi.etzhayyim.com',
                  'did:web:bengoshi.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bengoshi-searchLawyers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bengoshi-searchLawyers-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -507,16 +507,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/adr-registerArbitrator-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/adr-registerArbitrator-v1',
                  'did:web:adr.etzhayyim.com',
-                 'app.etzhayyim.apps.adr.registerArbitrator',
+                 'com.etzhayyim.apps.adr.registerArbitrator',
                  'adr_register_arbitrator',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:adr.etzhayyim.com',
                  'did:web:adr.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/adr-registerArbitrator-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/adr-registerArbitrator-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -524,16 +524,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/adr-createCase-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/adr-createCase-v1',
                  'did:web:adr.etzhayyim.com',
-                 'app.etzhayyim.apps.adr.createCase',
+                 'com.etzhayyim.apps.adr.createCase',
                  'adr_create_case',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:adr.etzhayyim.com',
                  'did:web:adr.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/adr-createCase-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/adr-createCase-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -541,16 +541,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-aid-registerOffice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-aid-registerOffice-v1',
                  'did:web:legal-aid.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-aid.registerOffice',
+                 'com.etzhayyim.apps.legal-aid.registerOffice',
                  'legal_aid_register_office',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:legal-aid.etzhayyim.com',
                  'did:web:legal-aid.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-aid-registerOffice-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-aid-registerOffice-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -558,49 +558,49 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-aid-openCase-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-aid-openCase-v1',
                  'did:web:legal-aid.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-aid.openCase',
+                 'com.etzhayyim.apps.legal-aid.openCase',
                  'legal_aid_open_case',
                  15000,
                  '2026-04-27T23:04:00Z',
                  'did:web:legal-aid.etzhayyim.com',
                  'did:web:legal-aid.etzhayyim.com',
                  'sys.bpmn.seed.legal-logical-actors',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-aid-openCase-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-aid-openCase-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/judge-registerJudge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/judge-registerJudge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/judge-listJudges-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/judge-listJudges-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bengoshi-registerLawyer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bengoshi-registerLawyer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/bengoshi-searchLawyers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/bengoshi-searchLawyers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/adr-registerArbitrator-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/adr-registerArbitrator-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/adr-createCase-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/adr-createCase-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-aid-registerOffice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-aid-registerOffice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-aid-openCase-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-aid-openCase-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/judge-register-judge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/judge-register-judge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/judge-list-judges-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/judge-list-judges-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bengoshi-register-lawyer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bengoshi-register-lawyer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/bengoshi-search-lawyers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bengoshi-search-lawyers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adr-register-arbitrator-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adr-register-arbitrator-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adr-create-case-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adr-create-case-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-aid-register-office-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-aid-register-office-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-aid-open-case-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-aid-open-case-v1']}]
 
 
 def upgrade() -> None:

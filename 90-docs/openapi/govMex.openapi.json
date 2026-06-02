@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govMex.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govMex.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Mexico government.",
-        "operationId": "app.etzhayyim.govMex.followSiteDeps",
+        "operationId": "com.etzhayyim.govMex.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govMex.heartbeatTick": {
       "post": {
         "summary": "Run the Mexico government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govMex.heartbeatTick",
+        "operationId": "com.etzhayyim.govMex.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.listOrgs": {
+    "/xrpc/com.etzhayyim.govMex.listOrgs": {
       "get": {
         "summary": "List Mexico government organization graph records.",
-        "operationId": "app.etzhayyim.govMex.listOrgs",
+        "operationId": "com.etzhayyim.govMex.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.registerDIDs": {
+    "/xrpc/com.etzhayyim.govMex.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Mexico government organizations.",
-        "operationId": "app.etzhayyim.govMex.registerDIDs",
+        "operationId": "com.etzhayyim.govMex.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govMex.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Mexico government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govMex.resolveOrgPath",
+        "operationId": "com.etzhayyim.govMex.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.seedOrgs": {
+    "/xrpc/com.etzhayyim.govMex.seedOrgs": {
       "post": {
         "summary": "Seed initial Mexico government organization records into the graph.",
-        "operationId": "app.etzhayyim.govMex.seedOrgs",
+        "operationId": "com.etzhayyim.govMex.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.shinka": {
+    "/xrpc/com.etzhayyim.govMex.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Mexico government organization update.",
-        "operationId": "app.etzhayyim.govMex.shinka",
+        "operationId": "com.etzhayyim.govMex.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMex.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govMex.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Mexico government organization changes to graph.",
-        "operationId": "app.etzhayyim.govMex.syncWetUpdates",
+        "operationId": "com.etzhayyim.govMex.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.convo.archiveConvo": {
+    "/xrpc/com.etzhayyim.convo.archiveConvo": {
       "post": {
-        "summary": "app.etzhayyim.convo.archiveConvo",
-        "operationId": "app.etzhayyim.convo.archiveConvo",
+        "summary": "com.etzhayyim.convo.archiveConvo",
+        "operationId": "com.etzhayyim.convo.archiveConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -65,10 +65,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.createConvo": {
+    "/xrpc/com.etzhayyim.convo.createConvo": {
       "post": {
-        "summary": "app.etzhayyim.convo.createConvo",
-        "operationId": "app.etzhayyim.convo.createConvo",
+        "summary": "com.etzhayyim.convo.createConvo",
+        "operationId": "com.etzhayyim.convo.createConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -139,10 +139,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.diff": {
+    "/xrpc/com.etzhayyim.convo.diff": {
       "post": {
-        "summary": "app.etzhayyim.convo.diff",
-        "operationId": "app.etzhayyim.convo.diff",
+        "summary": "com.etzhayyim.convo.diff",
+        "operationId": "com.etzhayyim.convo.diff",
         "requestBody": {
           "required": true,
           "content": {
@@ -236,10 +236,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.edit": {
+    "/xrpc/com.etzhayyim.convo.edit": {
       "post": {
-        "summary": "app.etzhayyim.convo.edit",
-        "operationId": "app.etzhayyim.convo.edit",
+        "summary": "com.etzhayyim.convo.edit",
+        "operationId": "com.etzhayyim.convo.edit",
         "requestBody": {
           "required": true,
           "content": {
@@ -308,10 +308,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.fetchBlocks": {
+    "/xrpc/com.etzhayyim.convo.fetchBlocks": {
       "get": {
-        "summary": "app.etzhayyim.convo.fetchBlocks",
-        "operationId": "app.etzhayyim.convo.fetchBlocks",
+        "summary": "com.etzhayyim.convo.fetchBlocks",
+        "operationId": "com.etzhayyim.convo.fetchBlocks",
         "parameters": [
           {
             "name": "convoId",
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.forwardMessage": {
+    "/xrpc/com.etzhayyim.convo.forwardMessage": {
       "post": {
-        "summary": "app.etzhayyim.convo.forwardMessage",
-        "operationId": "app.etzhayyim.convo.forwardMessage",
+        "summary": "com.etzhayyim.convo.forwardMessage",
+        "operationId": "com.etzhayyim.convo.forwardMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -413,10 +413,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.getProfile": {
+    "/xrpc/com.etzhayyim.convo.getProfile": {
       "get": {
-        "summary": "app.etzhayyim.convo.getProfile",
-        "operationId": "app.etzhayyim.convo.getProfile",
+        "summary": "com.etzhayyim.convo.getProfile",
+        "operationId": "com.etzhayyim.convo.getProfile",
         "parameters": [],
         "responses": {
           "200": {
@@ -443,10 +443,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.getThread": {
+    "/xrpc/com.etzhayyim.convo.getThread": {
       "get": {
-        "summary": "app.etzhayyim.convo.getThread",
-        "operationId": "app.etzhayyim.convo.getThread",
+        "summary": "com.etzhayyim.convo.getThread",
+        "operationId": "com.etzhayyim.convo.getThread",
         "parameters": [
           {
             "name": "convoId",
@@ -500,10 +500,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.getUnread": {
+    "/xrpc/com.etzhayyim.convo.getUnread": {
       "get": {
-        "summary": "app.etzhayyim.convo.getUnread",
-        "operationId": "app.etzhayyim.convo.getUnread",
+        "summary": "com.etzhayyim.convo.getUnread",
+        "operationId": "com.etzhayyim.convo.getUnread",
         "parameters": [],
         "responses": {
           "200": {
@@ -530,10 +530,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.inviteMember": {
+    "/xrpc/com.etzhayyim.convo.inviteMember": {
       "post": {
-        "summary": "app.etzhayyim.convo.inviteMember",
-        "operationId": "app.etzhayyim.convo.inviteMember",
+        "summary": "com.etzhayyim.convo.inviteMember",
+        "operationId": "com.etzhayyim.convo.inviteMember",
         "requestBody": {
           "required": true,
           "content": {
@@ -589,10 +589,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.joinConvo": {
+    "/xrpc/com.etzhayyim.convo.joinConvo": {
       "post": {
-        "summary": "app.etzhayyim.convo.joinConvo",
-        "operationId": "app.etzhayyim.convo.joinConvo",
+        "summary": "com.etzhayyim.convo.joinConvo",
+        "operationId": "com.etzhayyim.convo.joinConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -644,10 +644,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.listMembers": {
+    "/xrpc/com.etzhayyim.convo.listMembers": {
       "get": {
-        "summary": "app.etzhayyim.convo.listMembers",
-        "operationId": "app.etzhayyim.convo.listMembers",
+        "summary": "com.etzhayyim.convo.listMembers",
+        "operationId": "com.etzhayyim.convo.listMembers",
         "parameters": [
           {
             "name": "convoId",
@@ -686,10 +686,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.listPresence": {
+    "/xrpc/com.etzhayyim.convo.listPresence": {
       "get": {
-        "summary": "app.etzhayyim.convo.listPresence",
-        "operationId": "app.etzhayyim.convo.listPresence",
+        "summary": "com.etzhayyim.convo.listPresence",
+        "operationId": "com.etzhayyim.convo.listPresence",
         "parameters": [
           {
             "name": "convoId",
@@ -728,10 +728,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.listPublicConvos": {
+    "/xrpc/com.etzhayyim.convo.listPublicConvos": {
       "get": {
-        "summary": "app.etzhayyim.convo.listPublicConvos",
-        "operationId": "app.etzhayyim.convo.listPublicConvos",
+        "summary": "com.etzhayyim.convo.listPublicConvos",
+        "operationId": "com.etzhayyim.convo.listPublicConvos",
         "parameters": [
           {
             "name": "limit",
@@ -781,10 +781,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.pinMessage": {
+    "/xrpc/com.etzhayyim.convo.pinMessage": {
       "post": {
-        "summary": "app.etzhayyim.convo.pinMessage",
-        "operationId": "app.etzhayyim.convo.pinMessage",
+        "summary": "com.etzhayyim.convo.pinMessage",
+        "operationId": "com.etzhayyim.convo.pinMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -840,10 +840,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.react": {
+    "/xrpc/com.etzhayyim.convo.react": {
       "post": {
-        "summary": "app.etzhayyim.convo.react",
-        "operationId": "app.etzhayyim.convo.react",
+        "summary": "com.etzhayyim.convo.react",
+        "operationId": "com.etzhayyim.convo.react",
         "requestBody": {
           "required": true,
           "content": {
@@ -895,10 +895,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.redact": {
+    "/xrpc/com.etzhayyim.convo.redact": {
       "post": {
-        "summary": "app.etzhayyim.convo.redact",
-        "operationId": "app.etzhayyim.convo.redact",
+        "summary": "com.etzhayyim.convo.redact",
+        "operationId": "com.etzhayyim.convo.redact",
         "requestBody": {
           "required": true,
           "content": {
@@ -949,10 +949,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.search": {
+    "/xrpc/com.etzhayyim.convo.search": {
       "get": {
-        "summary": "app.etzhayyim.convo.search",
-        "operationId": "app.etzhayyim.convo.search",
+        "summary": "com.etzhayyim.convo.search",
+        "operationId": "com.etzhayyim.convo.search",
         "parameters": [
           {
             "name": "q",
@@ -1021,10 +1021,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.send": {
+    "/xrpc/com.etzhayyim.convo.send": {
       "post": {
-        "summary": "app.etzhayyim.convo.send",
-        "operationId": "app.etzhayyim.convo.send",
+        "summary": "com.etzhayyim.convo.send",
+        "operationId": "com.etzhayyim.convo.send",
         "requestBody": {
           "required": true,
           "content": {
@@ -1104,10 +1104,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.sendMessage": {
+    "/xrpc/com.etzhayyim.convo.sendMessage": {
       "post": {
-        "summary": "app.etzhayyim.convo.sendMessage",
-        "operationId": "app.etzhayyim.convo.sendMessage",
+        "summary": "com.etzhayyim.convo.sendMessage",
+        "operationId": "com.etzhayyim.convo.sendMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1190,10 +1190,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.sendTyping": {
+    "/xrpc/com.etzhayyim.convo.sendTyping": {
       "post": {
-        "summary": "app.etzhayyim.convo.sendTyping",
-        "operationId": "app.etzhayyim.convo.sendTyping",
+        "summary": "com.etzhayyim.convo.sendTyping",
+        "operationId": "com.etzhayyim.convo.sendTyping",
         "requestBody": {
           "required": true,
           "content": {
@@ -1237,10 +1237,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.setEncryption": {
+    "/xrpc/com.etzhayyim.convo.setEncryption": {
       "post": {
-        "summary": "app.etzhayyim.convo.setEncryption",
-        "operationId": "app.etzhayyim.convo.setEncryption",
+        "summary": "com.etzhayyim.convo.setEncryption",
+        "operationId": "com.etzhayyim.convo.setEncryption",
         "requestBody": {
           "required": true,
           "content": {
@@ -1291,10 +1291,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.setProfile": {
+    "/xrpc/com.etzhayyim.convo.setProfile": {
       "post": {
-        "summary": "app.etzhayyim.convo.setProfile",
-        "operationId": "app.etzhayyim.convo.setProfile",
+        "summary": "com.etzhayyim.convo.setProfile",
+        "operationId": "com.etzhayyim.convo.setProfile",
         "requestBody": {
           "required": true,
           "content": {
@@ -1349,10 +1349,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.unpinMessage": {
+    "/xrpc/com.etzhayyim.convo.unpinMessage": {
       "post": {
-        "summary": "app.etzhayyim.convo.unpinMessage",
-        "operationId": "app.etzhayyim.convo.unpinMessage",
+        "summary": "com.etzhayyim.convo.unpinMessage",
+        "operationId": "com.etzhayyim.convo.unpinMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1408,10 +1408,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.unreact": {
+    "/xrpc/com.etzhayyim.convo.unreact": {
       "post": {
-        "summary": "app.etzhayyim.convo.unreact",
-        "operationId": "app.etzhayyim.convo.unreact",
+        "summary": "com.etzhayyim.convo.unreact",
+        "operationId": "com.etzhayyim.convo.unreact",
         "requestBody": {
           "required": true,
           "content": {
@@ -1463,10 +1463,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.updateConvo": {
+    "/xrpc/com.etzhayyim.convo.updateConvo": {
       "post": {
-        "summary": "app.etzhayyim.convo.updateConvo",
-        "operationId": "app.etzhayyim.convo.updateConvo",
+        "summary": "com.etzhayyim.convo.updateConvo",
+        "operationId": "com.etzhayyim.convo.updateConvo",
         "requestBody": {
           "required": true,
           "content": {
@@ -1524,10 +1524,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.updateMemberRole": {
+    "/xrpc/com.etzhayyim.convo.updateMemberRole": {
       "post": {
-        "summary": "app.etzhayyim.convo.updateMemberRole",
-        "operationId": "app.etzhayyim.convo.updateMemberRole",
+        "summary": "com.etzhayyim.convo.updateMemberRole",
+        "operationId": "com.etzhayyim.convo.updateMemberRole",
         "requestBody": {
           "required": true,
           "content": {
@@ -1587,10 +1587,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.convo.updatePresence": {
+    "/xrpc/com.etzhayyim.convo.updatePresence": {
       "post": {
-        "summary": "app.etzhayyim.convo.updatePresence",
-        "operationId": "app.etzhayyim.convo.updatePresence",
+        "summary": "com.etzhayyim.convo.updatePresence",
+        "operationId": "com.etzhayyim.convo.updatePresence",
         "requestBody": {
           "required": true,
           "content": {
@@ -1851,7 +1851,7 @@
           },
           "encrypted": {
             "type": "boolean",
-            "description": "etzhayyim extension: whether this message is E2E encrypted via app.etzhayyim.signal"
+            "description": "etzhayyim extension: whether this message is E2E encrypted via com.etzhayyim.signal"
           }
         },
         "required": [

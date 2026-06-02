@@ -9,15 +9,15 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-lei/registerLegalEntity.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-lei/registerLegalEntity.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-lei/recordOwnership.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-lei/recordOwnership.bpmn"),
   "utf-8",
 );
 const bpmn3 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-lei/collectGleifGlobalLei.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-lei/collectGleifGlobalLei.bpmn"),
   "utf-8",
 );
 
@@ -25,18 +25,18 @@ describe("Seed open-lei BPMN actors migration", () => {
   it("seeds process definitions", () => {
     expect(migrationSource).toContain("open-lei-register-legal-entity-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_lei_register_legal_entity"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/registerLegalEntity.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-lei/registerLegalEntity.bpmn"');
     expect(migrationSource).toContain("open-lei-record-ownership-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_lei_record_ownership"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/recordOwnership.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-lei/recordOwnership.bpmn"');
     expect(migrationSource).toContain("open-lei-collect-gleif-global-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_lei_collect_gleif_global_lei"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-lei/collectGleifGlobalLei.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-lei/collectGleifGlobalLei.bpmn"');
   });
   it("seeds lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openLei.registerLegalEntity"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openLei.recordOwnership"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openLei.collectGleifGlobal"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openLei.registerLegalEntity"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openLei.recordOwnership"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openLei.collectGleifGlobal"');
   });
   it("uses open-lei-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-lei"');

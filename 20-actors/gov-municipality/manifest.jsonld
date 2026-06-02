@@ -35,9 +35,9 @@
     }
   ],
   "lexicons": [
-    "app.etzhayyim.gov.permitApplication",
-    "app.etzhayyim.gov.inspectionSchedule",
-    "app.etzhayyim.gov.permitsFinalizedRecord"
+    "com.etzhayyim.gov.permitApplication",
+    "com.etzhayyim.gov.inspectionSchedule",
+    "com.etzhayyim.gov.permitsFinalizedRecord"
   ],
   "constitutionalGates": [
     {"gate": "G1", "requirement": "All jurisdiction RPC calls open-source verified"},

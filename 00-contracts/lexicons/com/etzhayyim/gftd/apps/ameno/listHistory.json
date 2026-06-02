@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ameno.listHistory",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Query inference history. Read goes via CF Worker XRPC → bpmn-dispatcher → LangServer pod SELECT (ADR-2605111200). Encrypted output (signal:v1:*) is returned as-is — decryption is client-side.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "actorDid": { "type": "string", "description": "Filter by actor DID (LoRA scope)" },
+          "modelId": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "offset", "limit"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "resultId": { "type": "string" },
+                  "uri": { "type": "string" },
+                  "modelId": { "type": "string" },
+                  "actorDid": { "type": "string" },
+                  "prompt": { "type": "string" },
+                  "output": { "type": "string", "description": "Plain text or signal:v1:{ciphertext}" },
+                  "elapsedMs": { "type": "integer" },
+                  "tokensPerSec": { "type": "integer" },
+                  "createdAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

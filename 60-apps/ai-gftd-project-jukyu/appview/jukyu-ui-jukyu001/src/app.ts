@@ -17,7 +17,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "jukyu";
-const NSID_PREFIX = "app.etzhayyim.apps.jukyu.";
+const NSID_PREFIX = "com.etzhayyim.apps.jukyu.";
 const CRON_PATHS = new Set([
   "/cron/equilibrium",
   "/cron/outbox-drain",

@@ -41,8 +41,8 @@ const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:crypto_litecoin";
 const CHAIN_ID = "ltc";
 const ACTOR_HOST = "blockchain";
-const COLLECTION_BLOCK = "app.etzhayyim.apps.blockchain.block";
-const COLLECTION_TX = "app.etzhayyim.apps.blockchain.tx";
+const COLLECTION_BLOCK = "com.etzhayyim.apps.blockchain.block";
+const COLLECTION_TX = "com.etzhayyim.apps.blockchain.tx";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

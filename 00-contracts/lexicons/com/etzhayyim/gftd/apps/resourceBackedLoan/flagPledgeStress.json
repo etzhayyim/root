@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.resourceBackedLoan.flagPledgeStress",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pledge / royalty stream stress / sovereignty leak (bridges southSouthCoop.flagDebtTrap + sovereign-debt + debt-rescheduling-contract)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "loanVid",
+            "stressKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "loanVid": {
+              "type": "string",
+              "description": "bridges recordLoan"
+            },
+            "stressKind": {
+              "type": "string",
+              "enum": [
+                "price_collapse",
+                "production_disruption",
+                "force_majeure",
+                "asset_seizure",
+                "arbitration",
+                "escrow_drained",
+                "cross_default",
+                "seniority_dispute",
+                "local_court_block",
+                "sanctions",
+                "political_takeover",
+                "creditor_takeover_op"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ optionally calls LLM to analyze failures, and returns a structured QA report.
 ReAct loop:
   run_tests → analyze_failures → build_report
 
-NSID: app.etzhayyim.apps.yata.lg.qaReact.run
+NSID: com.etzhayyim.apps.yata.lg.qaReact.run
 Graph ID: qa_react
 Triggered: manually or pre-deploy gate
 """

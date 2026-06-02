@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.ops.processRun",
-        "ai.gftd.apps.ops.automation"
+        "com.etzhayyim.apps.ops.processRun",
+        "com.etzhayyim.apps.ops.automation"
       ]
     }
   }

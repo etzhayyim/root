@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airYield.adjustInventory",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Adjust seat inventory for a booking class on a flight.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flight_no", "dep_date", "rbd", "adjustment"],
+          "properties": {
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" },
+            "rbd": { "type": "string" },
+            "adjustment": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

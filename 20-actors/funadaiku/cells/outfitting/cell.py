@@ -3,7 +3,7 @@
 Fit cargo handling, hatch covers, low-VOC coatings, accommodation, and the autonomy sensor suite.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.outfittingAttestation.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.outfittingAttestation.
 """
 
 from typing import Any

@@ -31,7 +31,7 @@ def metrics(ctx: click.Context, pds: str | None, json_out: bool) -> None:
         return
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.metrics.getSummary",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.metrics.getSummary",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -52,7 +52,7 @@ def metrics_latency(pds: str | None, window: str, json_out: bool) -> None:
     """Latency percentiles (p50/p95/p99)."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.metrics.getLatency",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.metrics.getLatency",
                          params={"window": window}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -74,7 +74,7 @@ def metrics_throughput(pds: str | None, window: str, json_out: bool) -> None:
     """Request throughput (RPS)."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.metrics.getThroughput",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.metrics.getThroughput",
                          params={"window": window}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -95,7 +95,7 @@ def metrics_errors(pds: str | None, window: str, json_out: bool) -> None:
     """Error rate and top error NSIDs."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.metrics.getErrorRate",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.metrics.getErrorRate",
                          params={"window": window}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()

@@ -13,7 +13,7 @@
  * Two precise checks (designed for ~zero false positives):
  *
  *   Check A — schema invariant (always, over the canonical lexicon).
- *     app.etzhayyim.chigiri.legalAidMatter MUST, structurally:
+ *     com.etzhayyim.chigiri.legalAidMatter MUST, structurally:
  *       (1) carry `zeroCompensation` with `const: true` and list it +
  *           `supervisingCounsel` in the record `required` array;
  *       (2) define `supervisingCounsel` requiring `counselDid` +
@@ -41,7 +41,7 @@ const args = process.argv.slice(2);
 
 // ── Check A: schema invariant ────────────────────────────────────────
 const MATTER_LEX =
-  "00-contracts/lexicons/app/etzhayyim/chigiri/legalAidMatter.json";
+  "00-contracts/lexicons/com/etzhayyim/chigiri/legalAidMatter.json";
 
 // Property names that would represent a charge against the adherent.
 const CONSIDERATION_PROPS = [

@@ -110,7 +110,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1',
                  'did:web:murakumo.etzhayyim.com',
                  'murakumo_fleet_health_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
                  '  moves the periodic health sampling loop to Zeebe/PyZeebe so K8s owns cron,\n'
                  '  retry, and worker lifecycle.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.murakumo.fleetHealthCheck\n'
+                 '  NSID: com.etzhayyim.apps.murakumo.fleetHealthCheck\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -134,7 +134,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="murakumo_fleet_health_check" name="murakumo '
                  'fleetHealthCheck" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.murakumo.fleetHealthCheck", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.murakumo.fleetHealthCheck", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -173,12 +173,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2448,
-                 '00-contracts/bpmn/ai/gftd/murakumo/fleetHealthCheck.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/murakumo/fleetHealthCheck.bpmn',
                  '2026-05-07T06:31:00Z',
                  'did:web:murakumo.etzhayyim.com',
                  'did:web:murakumo.etzhayyim.com',
                  'did:web:murakumo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -195,9 +195,9 @@ UP = [{'sql': '\n'
          '      write_table_allowlist = EXCLUDED.write_table_allowlist,\n'
          '      status = EXCLUDED.status\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/murakumo-fleet-health-check-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/murakumo-fleet-health-check-v1',
                  'did:web:murakumo.etzhayyim.com',
-                 'app.etzhayyim.apps.murakumo.fleetHealthCheck',
+                 'com.etzhayyim.apps.murakumo.fleetHealthCheck',
                  'murakumo_fleet_health_check',
                  '2026-05-07T06:31:00Z',
                  'did:web:murakumo.etzhayyim.com',
@@ -205,9 +205,9 @@ UP = [{'sql': '\n'
                  'did:web:murakumo.etzhayyim.com']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/murakumo-fleet-health-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/murakumo-fleet-health-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/murakumo-fleet-health-check-v1']},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_murakumo_node_health_counts', 'parameters': []},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_murakumo_fleet_health_latest', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS edge_murakumo_fleet_node_health', 'parameters': []},

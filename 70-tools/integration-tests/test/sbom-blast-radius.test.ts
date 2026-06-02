@@ -91,11 +91,11 @@ describe.skip("sbom CVE blast-radius pipeline", () => {
     expect(vulnResult.did).toBeDefined();
 
     // Verify ipaddress and sbom records coexist in store
-    const asnCount = e.count("app.etzhayyim.ipaddress.asn");
-    const prefixCount = e.count("app.etzhayyim.ipaddress.prefix");
-    const ipCount = e.count("app.etzhayyim.ipaddress.ip");
-    const sbomArtifactCount = e.count("app.etzhayyim.sbom.artifact");
-    const sbomComponentCount = e.count("app.etzhayyim.sbom.component");
+    const asnCount = e.count("com.etzhayyim.ipaddress.asn");
+    const prefixCount = e.count("com.etzhayyim.ipaddress.prefix");
+    const ipCount = e.count("com.etzhayyim.ipaddress.ip");
+    const sbomArtifactCount = e.count("com.etzhayyim.sbom.artifact");
+    const sbomComponentCount = e.count("com.etzhayyim.sbom.component");
 
     expect(asnCount).toBeGreaterThanOrEqual(1);
     expect(prefixCount).toBeGreaterThanOrEqual(1);

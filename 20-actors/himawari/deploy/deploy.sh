@@ -2,7 +2,7 @@
 # himawari 向日葵 — kotoba deploy
 # ADR-2606021200 + ADR-2606015000 (PDS write path on kotoba-server)
 #
-# Ingests the seven app.etzhayyim.himawari.* lexicon records into a running kotoba
+# Ingests the seven com.etzhayyim.himawari.* lexicon records into a running kotoba
 # node and (optionally) builds the langgraph WASM actor (7-cell manufacturing
 # chain). Writes to the canonical Datom journal require a verified operator session
 # Proof-of-Possession (KOTOBA_SESSION_POP) — no-server-key posture, substrate
@@ -15,7 +15,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${HIMAWARI_GRAPH:-app.etzhayyim.himawari}"
+GRAPH="${HIMAWARI_GRAPH:-com.etzhayyim.himawari}"
 DEPLOY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ACTOR_DIR="$(cd "${DEPLOY_DIR}/.." && pwd)"
 ACTORS_ROOT="$(cd "${ACTOR_DIR}/.." && pwd)"          # 20-actors/ — Python path for himawari.cells.*

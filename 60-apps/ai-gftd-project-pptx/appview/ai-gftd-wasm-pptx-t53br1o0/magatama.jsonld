@@ -67,12 +67,12 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.pptx.presentation",
-        "ai.gftd.apps.pptx.slide",
-        "ai.gftd.apps.pptx.shape",
-        "ai.gftd.apps.pptx.textRun",
-        "ai.gftd.apps.pptx.image",
-        "ai.gftd.apps.pptx.slideTemplate"
+        "com.etzhayyim.apps.pptx.presentation",
+        "com.etzhayyim.apps.pptx.slide",
+        "com.etzhayyim.apps.pptx.shape",
+        "com.etzhayyim.apps.pptx.textRun",
+        "com.etzhayyim.apps.pptx.image",
+        "com.etzhayyim.apps.pptx.slideTemplate"
       ]
     }
   },

@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openPower.reportGridAttack — 送電網攻撃 報告
+// com.etzhayyim.apps.openPower.reportGridAttack — 送電網攻撃 報告
 export async function handle_reportGridAttack(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.feederVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openPower.reportGridAttack/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openPower.reportGridAttack/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-power",
-      nsid: "app.etzhayyim.apps.openPower.reportGridAttack",
+      nsid: "com.etzhayyim.apps.openPower.reportGridAttack",
       bpmnProcessId: "open_power_report_grid_attack",
       subjectVid,
       actionClass: "openPower.grid.reportAttack",
@@ -82,5 +82,5 @@ export async function handle_reportGridAttack(env: DefenceEnv, body: any): Promi
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openPower.reportGridAttack": handle_reportGridAttack,
+  "com.etzhayyim.apps.openPower.reportGridAttack": handle_reportGridAttack,
 };

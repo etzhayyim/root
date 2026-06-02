@@ -7,11 +7,11 @@ topic: tsukuru
 authoritative: true
 last_verified: 2026-04-27
 authoritative_for:
-  - app.etzhayyim.apps.tsukuru.industryActor.*
+  - com.etzhayyim.apps.tsukuru.industryActor.*
   - tsukuru-isic-bpmn-actors
   - tsukuru-euv-bpmn-actors
-  - app.etzhayyim.apps.tsukuru.euv.*
-  - app.etzhayyim.apps.tsukuru.supplierExchange.*
+  - com.etzhayyim.apps.tsukuru.euv.*
+  - com.etzhayyim.apps.tsukuru.supplierExchange.*
 related:
   - 0056-bpmn-as-actor
   - 0060-tsukuru-industry-profile-catalog
@@ -43,8 +43,8 @@ From that catalog we derive:
 
 - `20-actors/tsukuru/actor-manifest.jsonld` `actors[]` publication entries
 - tsukuru public XRPC queries:
-  - `app.etzhayyim.apps.tsukuru.industryActor.getIndustryActor`
-  - `app.etzhayyim.apps.tsukuru.industryActor.listIndustryActors`
+  - `com.etzhayyim.apps.tsukuru.industryActor.getIndustryActor`
+  - `com.etzhayyim.apps.tsukuru.industryActor.listIndustryActors`
 - `60-apps/ai-gftd-project-tsukuru/scripts/register-isic-industry-actors.mjs`
 - one BPMN process per ISIC section
 
@@ -97,11 +97,11 @@ boundary.
 
 | Process | NSID | Purpose |
 |---|---|---|
-| `tsukuru_euv_lithography_manufacturing_flow` | `app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow` | Design EUV lithography manufacturing phases and CAD/CAM handoff gates |
-| `tsukuru_normalize_supplier_exchange_package` | `app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage` | Normalize AutoCAD/Fusion/STEP/IGES/glTF artifacts into a supplier exchange envelope |
-| `tsukuru_validate_supplier_exchange_package` | `app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage` | Validate EUV supplier readiness and return `ready/blockers` without writing records |
-| `tsukuru_prepare_euv_order_package` | `app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage` | Compose EUV flow and supplier exchange package in one call |
-| `tsukuru_get_euv_implementation_coverage` | `app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage` | Report implementation coverage, manifest checks, score, and required capabilities |
+| `tsukuru_euv_lithography_manufacturing_flow` | `com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow` | Design EUV lithography manufacturing phases and CAD/CAM handoff gates |
+| `tsukuru_normalize_supplier_exchange_package` | `com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage` | Normalize AutoCAD/Fusion/STEP/IGES/glTF artifacts into a supplier exchange envelope |
+| `tsukuru_validate_supplier_exchange_package` | `com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage` | Validate EUV supplier readiness and return `ready/blockers` without writing records |
+| `tsukuru_prepare_euv_order_package` | `com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage` | Compose EUV flow and supplier exchange package in one call |
+| `tsukuru_get_euv_implementation_coverage` | `com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage` | Report implementation coverage, manifest checks, score, and required capabilities |
 
 The graph seed is
 `30-graph/graph-schema/migrations/20260427011500_seed_tsukuru_euv_bpmn_actor.ts`.
@@ -122,11 +122,11 @@ native CAD kernel state. The accepted design handoff surface includes:
 Validation requires at minimum an AutoCAD reference, a Fusion 360 reference,
 an Alibaba-style RFQ envelope, `overlay_nm`, and `cleanroom`. Missing inputs
 are returned as explicit blockers by
-`app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage`.
+`com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage`.
 
 ## Coverage contract
 
-`app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage` is the runtime-readable
+`com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage` is the runtime-readable
 coverage contract for this lane. It returns:
 
 - `coverageManifest[]` with BPMN source path and lexicon path per actor

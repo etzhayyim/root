@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openWater.reportInfraSabotage — 水道施設破壊 報告
+// com.etzhayyim.apps.openWater.reportInfraSabotage — 水道施設破壊 報告
 export async function handle_reportInfraSabotage(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.mainVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openWater.reportInfraSabotage/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openWater.reportInfraSabotage/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-water",
-      nsid: "app.etzhayyim.apps.openWater.reportInfraSabotage",
+      nsid: "com.etzhayyim.apps.openWater.reportInfraSabotage",
       bpmnProcessId: "open_water_report_infra_sabotage",
       subjectVid,
       actionClass: "openWater.main.reportSabotage",
@@ -82,5 +82,5 @@ export async function handle_reportInfraSabotage(env: DefenceEnv, body: any): Pr
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openWater.reportInfraSabotage": handle_reportInfraSabotage,
+  "com.etzhayyim.apps.openWater.reportInfraSabotage": handle_reportInfraSabotage,
 };

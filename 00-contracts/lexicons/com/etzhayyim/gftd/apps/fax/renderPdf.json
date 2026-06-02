@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fax.renderPdf",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Render a document (text/markdown/HTML) to a print-ready A4 PDF using Cloudflare Browser Rendering (Chromium headless). text and markdown are wrapped in a Japanese business-letter template (Hiragino Mincho ProN). Output is uploaded to CDN_R2 keyed by SHA-256 of the PDF bytes. Returns blobKey usable by com.etzhayyim.apps.fax.send.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["content", "format"],
+          "properties": {
+            "content": { "type": "string" },
+            "format": { "type": "string", "enum": ["text", "markdown", "html"] },
+            "subject": { "type": "string" },
+            "addressee": { "type": "unknown" },
+            "sender": { "type": "unknown" },
+            "referenceNumber": { "type": "string" },
+            "pageSize": { "type": "string", "enum": ["A4", "Letter", "Legal"], "default": "A4" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "blobKey": { "type": "string" },
+            "publicUrl": { "type": "string", "format": "uri" },
+            "pageCount": { "type": "integer" },
+            "byteSize": { "type": "integer" },
+            "renderedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

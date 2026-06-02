@@ -44,7 +44,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       created_at, org_id, user_id, actor_id
     )
     SELECT
-      'at://' || ${OWNER_DID} || '/app.etzhayyim.apps.yadoya.hotel/' || a.osm_id,
+      'at://' || ${OWNER_DID} || '/com.etzhayyim.apps.yadoya.hotel/' || a.osm_id,
       1, ${OWNER_DID},
       a.osm_id,
       a.osm_id,
@@ -70,7 +70,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       AND a.name IS NOT NULL
       AND NOT EXISTS (
         SELECT 1 FROM vertex_yadoya_hotel y
-        WHERE y.vertex_id = 'at://' || ${OWNER_DID} || '/app.etzhayyim.apps.yadoya.hotel/' || a.osm_id
+        WHERE y.vertex_id = 'at://' || ${OWNER_DID} || '/com.etzhayyim.apps.yadoya.hotel/' || a.osm_id
       )
     LIMIT ${sql.raw(String(ROW_CAP))}
   `.execute(db);

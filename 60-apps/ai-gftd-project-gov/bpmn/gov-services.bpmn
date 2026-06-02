@@ -10,7 +10,7 @@
     <sequenceFlow id="sf1_ra" sourceRef="start_registerAgency" targetRef="task_registerAgency"/>
     <serviceTask id="task_registerAgency" name="Register Agency">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.registerAgency"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.registerAgency"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_ra" sourceRef="task_registerAgency" targetRef="end_registerAgency"/>
@@ -23,7 +23,7 @@
     <sequenceFlow id="sf1_ro" sourceRef="start_recordOfficial" targetRef="task_recordOfficial"/>
     <serviceTask id="task_recordOfficial" name="Record Official">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.recordOfficial"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.recordOfficial"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_ro" sourceRef="task_recordOfficial" targetRef="end_recordOfficial"/>
@@ -36,7 +36,7 @@
     <sequenceFlow id="sf1_sc" sourceRef="start_submitConsult" targetRef="task_submitConsult"/>
     <serviceTask id="task_submitConsult" name="Submit Consult">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.submitConsult"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.submitConsult"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_sc" sourceRef="task_submitConsult" targetRef="end_submitConsult"/>
@@ -49,7 +49,7 @@
     <sequenceFlow id="sf1_la" sourceRef="start_listAgencies" targetRef="task_listAgencies"/>
     <serviceTask id="task_listAgencies" name="List Agencies">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.listAgencies"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.listAgencies"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_la" sourceRef="task_listAgencies" targetRef="end_listAgencies"/>
@@ -62,7 +62,7 @@
     <sequenceFlow id="sf1_ga" sourceRef="start_getAgency" targetRef="task_getAgency"/>
     <serviceTask id="task_getAgency" name="Get Agency">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.getAgency"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.getAgency"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_ga" sourceRef="task_getAgency" targetRef="end_getAgency"/>
@@ -75,7 +75,7 @@
     <sequenceFlow id="sf1_lo" sourceRef="start_listOfficials" targetRef="task_listOfficials"/>
     <serviceTask id="task_listOfficials" name="List Officials">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.listOfficials"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.listOfficials"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_lo" sourceRef="task_listOfficials" targetRef="end_listOfficials"/>
@@ -88,7 +88,7 @@
     <sequenceFlow id="sf1_lm" sourceRef="start_listMunicipalities" targetRef="task_listMunicipalities"/>
     <serviceTask id="task_listMunicipalities" name="List Municipalities">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.listMunicipalities"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.listMunicipalities"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_lm" sourceRef="task_listMunicipalities" targetRef="end_listMunicipalities"/>
@@ -101,7 +101,7 @@
     <sequenceFlow id="sf1_lc" sourceRef="start_listConsults" targetRef="task_listConsults"/>
     <serviceTask id="task_listConsults" name="List Consults">
       <extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.gov.listConsults"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.gov.listConsults"/>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sf2_lc" sourceRef="task_listConsults" targetRef="end_listConsults"/>

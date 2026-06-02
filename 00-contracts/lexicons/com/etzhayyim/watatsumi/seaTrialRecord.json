@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.seaTrialRecord",
+  "description": "Sea trial record (L5c). Dock → harbor → deep-water trial. IMCA D-001 equivalent. Surveyor DID-bound attestation. Per ADR-2605252200 L5c.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "dockTrialResults": {"type": "unknown"},
+          "harborDiveResults": {"type": "unknown"},
+          "deepWaterTrialResults": {"type": "unknown"},
+          "surveyorAttestationDid": {"type": "string", "format": "did"},
+          "overallAccept": {"type": "boolean"},
+          "protocol": {"type": "string", "knownValues": ["IMCA D-001 equivalent", "DNV-RU-UWT sea trial", "ABS Underwater Vehicles sea trial"]},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "surveyorAttestationDid", "overallAccept", "protocol"]
+      }
+    }
+  }
+}

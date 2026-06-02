@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.collectionJob",
+  "description": "Collection job descriptor — immutable creation record. Replaces the RW `vertex_maps_job` write-once row produced by `createCollectionJob`. State transitions are NOT stored on this record; they live as append-only com.etzhayyim.maps.jobEvent records keyed by TID. Per ADR-2605231400 + maps MIGRATION-TODO Phase 1 (Tier A).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{jobId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "jobId",
+          "sourceDid",
+          "kind",
+          "createdAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "jobId": {
+            "type": "string",
+            "description": "Caller-chosen stable identifier. Kebab-case. Suggested format: '{source-slug}-{purpose}-{yyyymmddhhmm}' for uniqueness. PDS createRecord rejects rkey conflicts — caller handles or pre-checks.",
+            "minLength": 4,
+            "maxLength": 128
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Source DID this job collects from (matches an com.etzhayyim.maps.source record)."
+          },
+          "kind": {
+            "type": "string",
+            "description": "Job purpose — drives the worker dispatch.",
+            "knownValues": [
+              "fetch",
+              "import",
+              "backfill",
+              "refresh",
+              "validate",
+              "vision",
+              "satellite",
+              "geocode",
+              "other"
+            ]
+          },
+          "targetCollection": {
+            "type": "string",
+            "format": "nsid",
+            "description": "If the job's outputs land in a specific Lexicon collection, name it (e.g., 'com.etzhayyim.maps.feature')."
+          },
+          "bboxWest": {
+            "type": "integer",
+            "description": "WGS84 bbox west edge in microdegrees (×1e7)."
+          },
+          "bboxSouth": {
+            "type": "integer",
+            "description": "WGS84 bbox south edge in microdegrees (×1e7)."
+          },
+          "bboxEast": {
+            "type": "integer",
+            "description": "WGS84 bbox east edge in microdegrees (×1e7)."
+          },
+          "bboxNorth": {
+            "type": "integer",
+            "description": "WGS84 bbox north edge in microdegrees (×1e7)."
+          },
+          "areaDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Optional region scope (matches an com.etzhayyim.maps.region DID)."
+          },
+          "params": {
+            "type": "unknown",
+            "description": "Free-form source-specific parameters (e.g., feed URL, date range, batch size). Worker contract decides the shape."
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the entity that submitted the job."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

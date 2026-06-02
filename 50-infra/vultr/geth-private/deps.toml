@@ -139,7 +139,7 @@ chain_id = 260425
 root_identity_registry = "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8"
 authn_worker = "ai-gftd-auth"
 authz_worker = "ai-gftd-authz"
-authn_route = "POST https://authn.etzhayyim.com/xrpc/app.etzhayyim.auth.createGuestAccount"
+authn_route = "POST https://authn.etzhayyim.com/xrpc/com.etzhayyim.auth.createGuestAccount"
 authz_internal_route = "POST https://authz.etzhayyim.com/internal/provision-root-identity"
 service_binding = "AUTHZ_RPC (ai-gftd-auth -> ai-gftd-authz)"
 internal_auth = "HMAC-SHA256 over canonical JSON body in x-claim-settler-auth"
@@ -162,7 +162,7 @@ verified_commands = [
   "wrangler deploy --config 60-apps/ai-gftd-project-auth/worker-authz/wrangler.jsonc --dry-run",
   "wrangler deploy --config 60-apps/ai-gftd-project-auth/worker/wrangler.jsonc --dry-run",
   "curl -sS -X POST https://authz.etzhayyim.com/internal/provision-root-identity -H content-type:application/json -H x-claim-settler-auth:<hmac> --data <stableId,label>",
-  "curl -sS -X POST https://authn.etzhayyim.com/xrpc/app.etzhayyim.auth.createGuestAccount -H content-type:application/json --data <username,password>",
+  "curl -sS -X POST https://authn.etzhayyim.com/xrpc/com.etzhayyim.auth.createGuestAccount -H content-type:application/json --data <username,password>",
   "eth_call etzhayyimRootIdentityRegistry.resolveFacade(keccak256(legacyDid))",
 ]
 verified_smoke = "guest signup returned did:erc725:gftd:260425:0x7794624f467730754c00a183662db41395f77d95 and resolveFacade(legacyDid) returned the same identity"

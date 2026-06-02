@@ -1,0 +1,100 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.zeroDayBroker.recordAcquisition",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Zero-day broker acquisition / bounty payout (bridges spywareExport.flagMisuse + cyber-vuln-cve + cyber-threat-actor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "acquisitionId",
+            "brokerKind",
+            "targetPlatform",
+            "acquiredAt"
+          ],
+          "properties": {
+            "acquisitionId": {
+              "type": "string"
+            },
+            "brokerLei": {
+              "type": "string"
+            },
+            "brokerKind": {
+              "type": "string",
+              "enum": [
+                "zdi",
+                "zerodium",
+                "crowdfense",
+                "vigilant_phoenix",
+                "inner_zero",
+                "tor_broker",
+                "nso_internal",
+                "government_direct",
+                "bug_bounty_premium",
+                "marketplace_dark"
+              ]
+            },
+            "targetPlatform": {
+              "type": "string",
+              "enum": [
+                "ios_kernel",
+                "ios_userspace",
+                "ios_chain",
+                "android_kernel",
+                "android_chain",
+                "chrome",
+                "edge",
+                "firefox",
+                "outlook",
+                "whatsapp",
+                "signal",
+                "ms_azure",
+                "aws",
+                "exchange_server",
+                "linux_kernel",
+                "macos_kernel",
+                "router",
+                "smart_tv",
+                "printer"
+              ]
+            },
+            "spywareVid": {
+              "type": "string",
+              "description": "bridges spywareExport.flagMisuse"
+            },
+            "payoutMusd": {
+              "type": "number"
+            },
+            "acquiredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

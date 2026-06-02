@@ -39,8 +39,8 @@ export {
   summariseEvents,
 } from "./types.js";
 
-const COLLECTION_JOB = "app.etzhayyim.maps.collectionJob";
-const COLLECTION_EVENT = "app.etzhayyim.maps.jobEvent";
+const COLLECTION_JOB = "com.etzhayyim.maps.collectionJob";
+const COLLECTION_EVENT = "com.etzhayyim.maps.jobEvent";
 
 function defaultClient(): Etzhayyim {
   return new Etzhayyim({

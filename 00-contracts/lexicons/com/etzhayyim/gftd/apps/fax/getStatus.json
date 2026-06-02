@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fax.getStatus",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get transmission status of a previously sent fax (by local txId or providerFaxId).",
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "txId": { "type": "string" },
+          "providerFaxId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "txId": { "type": "string" },
+            "providerFaxId": { "type": "string" },
+            "status": { "type": "string", "enum": ["queued", "sending", "success", "failure", "unknown"] },
+            "to": { "type": "string" },
+            "pages": { "type": "integer" },
+            "sentAt": { "type": "string", "format": "datetime" },
+            "deliveredAt": { "type": "string", "format": "datetime" },
+            "errorCode": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

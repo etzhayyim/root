@@ -31,7 +31,7 @@ Pregel graph (5 nodes):
                                         adherent / repair shop / Council
         |
         v
-    emit_device_attestation        ->  MST PUT app.etzhayyim.tsutae.deviceAttestation
+    emit_device_attestation        ->  MST PUT com.etzhayyim.tsutae.deviceAttestation
                                         (device DID, serial number, full BoM
                                         lineage CID array, IPFS-pinned photo
                                         CID, repair-event-log seed CID,

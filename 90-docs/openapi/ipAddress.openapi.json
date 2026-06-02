@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.apps.ipaddress.analyzeIp": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.analyzeIp": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.analyzeIp",
+        "operationId": "com.etzhayyim.apps.ipaddress.analyzeIp",
         "requestBody": {
           "required": true,
           "content": {
@@ -78,10 +78,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.batchIngestRir": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.batchIngestRir": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.batchIngestRir",
+        "operationId": "com.etzhayyim.apps.ipaddress.batchIngestRir",
         "requestBody": {
           "required": true,
           "content": {
@@ -128,10 +128,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.collectGeoip": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.collectGeoip": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.collectGeoip",
+        "operationId": "com.etzhayyim.apps.ipaddress.collectGeoip",
         "requestBody": {
           "required": true,
           "content": {
@@ -181,10 +181,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.collectRirDelegations": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.collectRirDelegations": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.collectRirDelegations",
+        "operationId": "com.etzhayyim.apps.ipaddress.collectRirDelegations",
         "requestBody": {
           "required": true,
           "content": {
@@ -231,10 +231,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.collectScan": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.collectScan": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.collectScan",
+        "operationId": "com.etzhayyim.apps.ipaddress.collectScan",
         "requestBody": {
           "required": true,
           "content": {
@@ -290,10 +290,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.collectWhois": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.collectWhois": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.collectWhois",
+        "operationId": "com.etzhayyim.apps.ipaddress.collectWhois",
         "requestBody": {
           "required": true,
           "content": {
@@ -346,10 +346,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.drizzleSmokeTest": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.drizzleSmokeTest": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.drizzleSmokeTest",
+        "operationId": "com.etzhayyim.apps.ipaddress.drizzleSmokeTest",
         "requestBody": {
           "required": true,
           "content": {
@@ -385,10 +385,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getAbuseContact": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getAbuseContact": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getAbuseContact",
+        "operationId": "com.etzhayyim.apps.ipaddress.getAbuseContact",
         "parameters": [
           {
             "name": "ip",
@@ -432,10 +432,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getAsn": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getAsn": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getAsn",
+        "operationId": "com.etzhayyim.apps.ipaddress.getAsn",
         "parameters": [
           {
             "name": "number",
@@ -480,10 +480,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getDelegationChain": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getDelegationChain": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getDelegationChain",
+        "operationId": "com.etzhayyim.apps.ipaddress.getDelegationChain",
         "parameters": [
           {
             "name": "cidr",
@@ -522,10 +522,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getGeolocation": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getGeolocation": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getGeolocation",
+        "operationId": "com.etzhayyim.apps.ipaddress.getGeolocation",
         "parameters": [
           {
             "name": "ip",
@@ -561,10 +561,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getIp": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getIp": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getIp",
+        "operationId": "com.etzhayyim.apps.ipaddress.getIp",
         "parameters": [
           {
             "name": "address",
@@ -615,10 +615,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getIpTopology": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getIpTopology": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getIpTopology",
+        "operationId": "com.etzhayyim.apps.ipaddress.getIpTopology",
         "parameters": [
           {
             "name": "ip",
@@ -657,10 +657,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getPeering": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getPeering": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getPeering",
+        "operationId": "com.etzhayyim.apps.ipaddress.getPeering",
         "parameters": [
           {
             "name": "asn",
@@ -699,10 +699,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getPrefix": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getPrefix": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getPrefix",
+        "operationId": "com.etzhayyim.apps.ipaddress.getPrefix",
         "parameters": [
           {
             "name": "cidr",
@@ -744,10 +744,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getProvider": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getProvider": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getProvider",
+        "operationId": "com.etzhayyim.apps.ipaddress.getProvider",
         "parameters": [
           {
             "name": "name",
@@ -783,10 +783,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getReverseDns": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getReverseDns": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getReverseDns",
+        "operationId": "com.etzhayyim.apps.ipaddress.getReverseDns",
         "parameters": [
           {
             "name": "ip",
@@ -822,10 +822,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getRirStats": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getRirStats": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getRirStats",
+        "operationId": "com.etzhayyim.apps.ipaddress.getRirStats",
         "parameters": [],
         "responses": {
           "200": {
@@ -852,10 +852,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getScanResults": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getScanResults": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getScanResults",
+        "operationId": "com.etzhayyim.apps.ipaddress.getScanResults",
         "parameters": [
           {
             "name": "ip",
@@ -916,10 +916,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.getWhois": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.getWhois": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.getWhois",
+        "operationId": "com.etzhayyim.apps.ipaddress.getWhois",
         "parameters": [
           {
             "name": "ip",
@@ -963,10 +963,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.ingestGeolocation": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.ingestGeolocation": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.ingestGeolocation",
+        "operationId": "com.etzhayyim.apps.ipaddress.ingestGeolocation",
         "requestBody": {
           "required": true,
           "content": {
@@ -1034,10 +1034,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.ingestWhois": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.ingestWhois": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.ingestWhois",
+        "operationId": "com.etzhayyim.apps.ipaddress.ingestWhois",
         "requestBody": {
           "required": true,
           "content": {
@@ -1129,10 +1129,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.listDelegations": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.listDelegations": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.listDelegations",
+        "operationId": "com.etzhayyim.apps.ipaddress.listDelegations",
         "parameters": [
           {
             "name": "cidr",
@@ -1195,10 +1195,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.listGovernanceRules": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.listGovernanceRules": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.listGovernanceRules",
+        "operationId": "com.etzhayyim.apps.ipaddress.listGovernanceRules",
         "parameters": [
           {
             "name": "category",
@@ -1264,10 +1264,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.listNirs": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.listNirs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.listNirs",
+        "operationId": "com.etzhayyim.apps.ipaddress.listNirs",
         "parameters": [
           {
             "name": "rir",
@@ -1300,10 +1300,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.listRirs": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.listRirs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.listRirs",
+        "operationId": "com.etzhayyim.apps.ipaddress.listRirs",
         "parameters": [],
         "responses": {
           "200": {
@@ -1327,10 +1327,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.recordDelegationEvent": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.recordDelegationEvent": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.recordDelegationEvent",
+        "operationId": "com.etzhayyim.apps.ipaddress.recordDelegationEvent",
         "requestBody": {
           "required": true,
           "content": {
@@ -1395,10 +1395,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.registerAsn": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.registerAsn": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.registerAsn",
+        "operationId": "com.etzhayyim.apps.ipaddress.registerAsn",
         "requestBody": {
           "required": true,
           "content": {
@@ -1457,10 +1457,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.registerEntityProfiles": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.registerEntityProfiles": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.registerEntityProfiles",
+        "operationId": "com.etzhayyim.apps.ipaddress.registerEntityProfiles",
         "requestBody": {
           "required": true,
           "content": {
@@ -1505,10 +1505,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.registerGovernanceRule": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.registerGovernanceRule": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.registerGovernanceRule",
+        "operationId": "com.etzhayyim.apps.ipaddress.registerGovernanceRule",
         "requestBody": {
           "required": true,
           "content": {
@@ -1577,10 +1577,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.registerIp": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.registerIp": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.registerIp",
+        "operationId": "com.etzhayyim.apps.ipaddress.registerIp",
         "requestBody": {
           "required": true,
           "content": {
@@ -1633,10 +1633,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.registerPrefix": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.registerPrefix": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.registerPrefix",
+        "operationId": "com.etzhayyim.apps.ipaddress.registerPrefix",
         "requestBody": {
           "required": true,
           "content": {
@@ -1701,10 +1701,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.registerProvider": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.registerProvider": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.registerProvider",
+        "operationId": "com.etzhayyim.apps.ipaddress.registerProvider",
         "requestBody": {
           "required": true,
           "content": {
@@ -1760,10 +1760,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.searchAsns": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.searchAsns": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.searchAsns",
+        "operationId": "com.etzhayyim.apps.ipaddress.searchAsns",
         "parameters": [
           {
             "name": "country",
@@ -1834,10 +1834,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.searchIps": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.searchIps": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.searchIps",
+        "operationId": "com.etzhayyim.apps.ipaddress.searchIps",
         "parameters": [
           {
             "name": "country",
@@ -1908,10 +1908,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.searchProviders": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.searchProviders": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.searchProviders",
+        "operationId": "com.etzhayyim.apps.ipaddress.searchProviders",
         "parameters": [
           {
             "name": "country",
@@ -1974,10 +1974,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.ipaddress.seedAsns": {
+    "/xrpc/com.etzhayyim.apps.ipaddress.seedAsns": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.ipaddress.seedAsns",
+        "operationId": "com.etzhayyim.apps.ipaddress.seedAsns",
         "requestBody": {
           "required": true,
           "content": {

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.dmn.evaluate": {
+    "/xrpc/com.etzhayyim.dmn.evaluate": {
       "post": {
         "summary": "Evaluate a DMN 1.3 decision table. Supports hit policies: UNIQUE, FIRST, ANY, COLLECT, RULE_ORDER. Uses FEEL expression evaluation for conditions.",
-        "operationId": "app.etzhayyim.dmn.evaluate",
+        "operationId": "com.etzhayyim.dmn.evaluate",
         "requestBody": {
           "required": true,
           "content": {
@@ -90,10 +90,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dmn.getModel": {
+    "/xrpc/com.etzhayyim.dmn.getModel": {
       "get": {
         "summary": "Get a deployed DMN decision model by decision key.",
-        "operationId": "app.etzhayyim.dmn.getModel",
+        "operationId": "com.etzhayyim.dmn.getModel",
         "parameters": [
           {
             "name": "decisionKey",

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.cdn.publicUrl",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve the public URL for a CDN object.",
+      "x-hostImportsMethod": "cdnPublicUrl",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "subdomain": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "subdomain",
+          "path"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      }
+    }
+  }
+}

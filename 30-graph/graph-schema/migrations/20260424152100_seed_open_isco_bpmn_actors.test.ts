@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-isco/classifyWorker.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-isco/classifyWorker.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-isco/recordConcordance.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-isco/recordConcordance.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-isco BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-isco-classify-worker-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_isco_classify_worker"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-isco/classifyWorker.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-isco/classifyWorker.bpmn"');
     expect(migrationSource).toContain("open-isco-record-concordance-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_isco_record_concordance"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-isco/recordConcordance.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-isco/recordConcordance.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsco.classifyWorker"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsco.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openIsco.classifyWorker"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openIsco.recordConcordance"');
   });
 
   it("uses open-isco-specific actor_id + owner_did", () => {

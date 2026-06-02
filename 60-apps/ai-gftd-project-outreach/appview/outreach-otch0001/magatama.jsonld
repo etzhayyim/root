@@ -10,32 +10,32 @@
   "performerType": "service",
   "uiType": "appview",
   "runtimeType": "ts-thin-edge",
-  "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/outreach",
+  "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach",
   "routes": [
     { "pattern": "otch0001.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
     { "pattern": "outreach.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ],
   "subscribeRepos": [
     {
-      "collection": "ai.gftd.apps.gmail.message",
+      "collection": "com.etzhayyim.apps.gmail.message",
       "description": "Reply detection from Gmail ingest — correlate thread to active outreach sequence"
     },
     {
-      "collection": "ai.gftd.apps.m365Ingest.email",
+      "collection": "com.etzhayyim.apps.m365Ingest.email",
       "description": "Reply detection from M365 ingest — correlate thread to active outreach sequence"
     }
   ],
   "capabilities": [
-    "ai.gftd.apps.outreach.createSequence",
-    "ai.gftd.apps.outreach.getSequence",
-    "ai.gftd.apps.outreach.listSequences",
-    "ai.gftd.apps.outreach.addProspect",
-    "ai.gftd.apps.outreach.addDnc"
+    "com.etzhayyim.apps.outreach.createSequence",
+    "com.etzhayyim.apps.outreach.getSequence",
+    "com.etzhayyim.apps.outreach.listSequences",
+    "com.etzhayyim.apps.outreach.addProspect",
+    "com.etzhayyim.apps.outreach.addDnc"
   ],
   "integrations": {
-    "ads": "ai.gftd.apps.ads.createCampaign",
+    "ads": "com.etzhayyim.apps.ads.createCampaign",
     "email": "resend",
-    "replyIngest": ["ai.gftd.apps.gmail.message", "ai.gftd.apps.m365Ingest.email"]
+    "replyIngest": ["com.etzhayyim.apps.gmail.message", "com.etzhayyim.apps.m365Ingest.email"]
   },
   "piiPolicy": {
     "tier": 3,

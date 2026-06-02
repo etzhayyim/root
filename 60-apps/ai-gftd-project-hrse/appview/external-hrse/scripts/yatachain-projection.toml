@@ -24,7 +24,7 @@ last_reviewed = "2026-05-23"
 # After cutover to MST PDS write path (ETZHAYYIM_SUBSTRATE_MODE=mst),
 # the scripts in this directory are deleted as a single commit.
 source_collections = [
-  "app.etzhayyim.hrse.legacy-postgres",
+  "com.etzhayyim.hrse.legacy-postgres",
 ]
 
 projection_tables = [

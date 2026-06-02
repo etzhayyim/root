@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.otelObservability.flagDataSovereigntyIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Telemetry data sovereignty / PII leak (bridges data-adequacy + cyber-incident + ai-governance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "pipelineVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "pipelineVid": {
+              "type": "string",
+              "description": "bridges registerTelemetryPipeline"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "pii_in_logs",
+                "cross_border_leak",
+                "unauthenticated_collector",
+                "schema_drift",
+                "sampling_bias",
+                "model_inference_capture"
+              ]
+            },
+            "affectedRecords": {
+              "type": "integer"
+            },
+            "dataAdequacyVid": {
+              "type": "string",
+              "description": "bridges open-data-adequacy"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

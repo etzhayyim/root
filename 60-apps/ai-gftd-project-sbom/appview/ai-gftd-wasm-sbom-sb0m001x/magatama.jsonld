@@ -27,9 +27,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.sbom.artifact",
-        "ai.gftd.sbom.component",
-        "ai.gftd.sbom.vulnMatch"
+        "com.etzhayyim.sbom.artifact",
+        "com.etzhayyim.sbom.component",
+        "com.etzhayyim.sbom.vulnMatch"
       ]
     }
   }

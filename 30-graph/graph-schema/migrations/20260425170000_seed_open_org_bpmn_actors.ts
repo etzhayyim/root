@@ -31,43 +31,43 @@ function readContract(relPath: string): string {
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-org-takeda-gmp-batch-release-v1",
     bpmnProcessId: "open_org_takeda_gmp_batch_release",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-org-takeda/gmpBatchRelease.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-org-takeda/gmpBatchRelease.bpmn",
     ownerDid: "did:web:open-org-takeda.etzhayyim.com",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-org-toyota-line-stop-escalation-v1",
     bpmnProcessId: "open_org_toyota_line_stop_escalation",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-org-toyota/lineStopEscalation.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-org-toyota/lineStopEscalation.bpmn",
     ownerDid: "did:web:open-org-toyota.etzhayyim.com",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-org-yamato-cold-chain-delivery-exception-v1",
     bpmnProcessId: "open_org_yamato_cold_chain_delivery_exception",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-org-yamato/coldChainDeliveryException.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-org-yamato/coldChainDeliveryException.bpmn",
     ownerDid: "did:web:open-org-yamato.etzhayyim.com",
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1",
-    nsid: "app.etzhayyim.apps.orgTakeda.gmpBatchRelease",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-org-takeda-gmpBatchRelease-v1",
+    nsid: "com.etzhayyim.apps.orgTakeda.gmpBatchRelease",
     bpmnProcessId: "open_org_takeda_gmp_batch_release",
     ownerDid: "did:web:open-org-takeda.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1",
-    nsid: "app.etzhayyim.apps.orgToyota.lineStopEscalation",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-org-toyota-lineStopEscalation-v1",
+    nsid: "com.etzhayyim.apps.orgToyota.lineStopEscalation",
     bpmnProcessId: "open_org_toyota_line_stop_escalation",
     ownerDid: "did:web:open-org-toyota.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1",
-    nsid: "app.etzhayyim.apps.orgYamato.coldChainDeliveryException",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-org-yamato-coldChainDeliveryException-v1",
+    nsid: "com.etzhayyim.apps.orgYamato.coldChainDeliveryException",
     bpmnProcessId: "open_org_yamato_cold_chain_delivery_exception",
     ownerDid: "did:web:open-org-yamato.etzhayyim.com",
     resultTimeoutMs: 30000,

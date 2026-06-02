@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.wvme.scan",
-        "ai.gftd.apps.wvme.vulnerability"
+        "com.etzhayyim.apps.wvme.scan",
+        "com.etzhayyim.apps.wvme.vulnerability"
       ]
     }
   }

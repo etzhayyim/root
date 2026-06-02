@@ -17,7 +17,7 @@
     <bpmn:sequenceFlow id="f3" sourceRef="Task_ClassifyType" targetRef="Task_FetchElaws"/>
 
     <bpmn:serviceTask id="Task_FetchElaws" name="e-Gov 法令API lawlists"
-                      camunda:topic="ai.gftd.apps.openJpnGov.searchLaws"/>
+                      camunda:topic="com.etzhayyim.apps.openJpnGov.searchLaws"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_FetchElaws" targetRef="Task_Filter"/>
 
     <bpmn:scriptTask id="Task_Filter" name="Client-side filter by query"

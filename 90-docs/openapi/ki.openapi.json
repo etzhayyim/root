@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.ki.absorb": {
+    "/xrpc/com.etzhayyim.ki.absorb": {
       "post": {
         "summary": "Take in processed signals from koke/hakkou into ki vascular input (xylem). Analogous to root absorption — raw signals enter the vascular system for upward transport toward synthesis.",
-        "operationId": "app.etzhayyim.ki.absorb",
+        "operationId": "com.etzhayyim.ki.absorb",
         "requestBody": {
           "required": true,
           "content": {
@@ -75,10 +75,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.ki.bloom": {
+    "/xrpc/com.etzhayyim.ki.bloom": {
       "post": {
         "summary": "Publish a synthesized knowledge artifact to the graph. Analogous to phloem transport — synthesized knowledge flows outward (downward) to all parts of the ecosystem.",
-        "operationId": "app.etzhayyim.ki.bloom",
+        "operationId": "com.etzhayyim.ki.bloom",
         "requestBody": {
           "required": true,
           "content": {
@@ -131,10 +131,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.ki.ring": {
+    "/xrpc/com.etzhayyim.ki.ring": {
       "post": {
         "summary": "Create a versioned knowledge checkpoint (growth ring). Analogous to tree dendrochronology — each ring records conditions at a point in time, enabling knowledge graph time-travel queries.",
-        "operationId": "app.etzhayyim.ki.ring",
+        "operationId": "com.etzhayyim.ki.ring",
         "requestBody": {
           "required": true,
           "content": {
@@ -187,10 +187,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.ki.synthesize": {
+    "/xrpc/com.etzhayyim.ki.synthesize": {
       "post": {
         "summary": "LLM-based structured synthesis of absorbed signals into a knowledge artifact. Analogous to photosynthesis — absorbed inputs are synthesized into structured knowledge (sugar) for downstream distribution.",
-        "operationId": "app.etzhayyim.ki.synthesize",
+        "operationId": "com.etzhayyim.ki.synthesize",
         "requestBody": {
           "required": true,
           "content": {

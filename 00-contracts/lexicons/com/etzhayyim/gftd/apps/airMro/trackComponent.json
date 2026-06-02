@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airMro.trackComponent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Track an aircraft component by part and serial number.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["part_no", "serial_no", "tail_number"],
+          "properties": {
+            "part_no": { "type": "string" },
+            "serial_no": { "type": "string" },
+            "tail_number": { "type": "string" },
+            "install_date": { "type": "string" },
+            "cycles_since_new": { "type": "integer" },
+            "hours_since_new": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

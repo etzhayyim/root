@@ -6,7 +6,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * ADR 2604241500 — BIM persistence (Worker-direct Hyperdrive per ADR-0036).
  *
- * Feeds `app.etzhayyim.apps.bim.*` XRPC surface at `bim.etzhayyim.com`:
+ * Feeds `com.etzhayyim.apps.bim.*` XRPC surface at `bim.etzhayyim.com`:
  *   - importIfc / getStoreyScene / listSpaces / annotateElement / requestExport
  *
  * IFC-native hierarchy (mirrors `kami_bim::*` Rust types):

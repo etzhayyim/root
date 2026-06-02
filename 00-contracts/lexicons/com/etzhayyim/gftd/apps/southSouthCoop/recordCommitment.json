@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.southSouthCoop.recordCommitment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "South-South cooperation / triangular dev / India IBSA / China BRI (bridges oecdDacTransparency.flagReportingGap + brics-bank + world-bank-dpf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "commitmentId",
+            "providerCountryIso3",
+            "partnerCountryIso3",
+            "modalityKind",
+            "sectorKind",
+            "announcedAt"
+          ],
+          "properties": {
+            "commitmentId": {
+              "type": "string"
+            },
+            "providerCountryIso3": {
+              "type": "string"
+            },
+            "partnerCountryIso3": {
+              "type": "string"
+            },
+            "modalityKind": {
+              "type": "string",
+              "enum": [
+                "bri_belt_road",
+                "global_dev_initiative",
+                "gcp_global_civilization",
+                "russia_economic",
+                "ibsa_india_brazil_sa",
+                "triangular",
+                "ali_baba_finance",
+                "csia_emerging",
+                "afdb_co_finance",
+                "aiib_co_finance",
+                "ndb_co_finance",
+                "global_south_pact"
+              ]
+            },
+            "sectorKind": {
+              "type": "string",
+              "enum": [
+                "infrastructure",
+                "energy",
+                "health",
+                "education",
+                "ag_food",
+                "water",
+                "trade",
+                "tech_transfer",
+                "capacity",
+                "peacekeeping",
+                "disaster_response"
+              ]
+            },
+            "reportingGapVid": {
+              "type": "string",
+              "description": "bridges oecdDacTransparency.flagReportingGap"
+            },
+            "announcedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

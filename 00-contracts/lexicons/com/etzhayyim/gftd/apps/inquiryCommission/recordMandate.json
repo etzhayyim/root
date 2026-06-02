@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.inquiryCommission.recordMandate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UN / OHCHR / regional inquiry commission mandate (bridges srsgCoordination.flagPillarGap + poc-ihl + universal-jurisdiction)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "commissionId",
+            "mandatingBody",
+            "country",
+            "mandateKind",
+            "establishedAt"
+          ],
+          "properties": {
+            "commissionId": {
+              "type": "string"
+            },
+            "mandatingBody": {
+              "type": "string",
+              "enum": [
+                "hrc_resolution",
+                "ga_resolution",
+                "sc_resolution",
+                "sg_discretion",
+                "regional_body",
+                "ohchr_field",
+                "treaty_body",
+                "joint_investigative",
+                "ad_hoc"
+              ]
+            },
+            "country": {
+              "type": "string"
+            },
+            "mandateKind": {
+              "type": "string",
+              "enum": [
+                "fact_finding",
+                "investigative",
+                "commission_of_inquiry",
+                "panel_of_experts",
+                "monitoring_mechanism",
+                "documentation_mechanism",
+                "impartial_independent",
+                "special_advisor",
+                "accountability"
+              ]
+            },
+            "pillarGapVid": {
+              "type": "string",
+              "description": "bridges srsgCoordination.flagPillarGap"
+            },
+            "establishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

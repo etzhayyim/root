@@ -153,7 +153,7 @@ impl Guest for LegalAidGuest {
                 kqe::assert_quad(&Quad {
                     graph: ctx.graph.clone(),
                     subject,
-                    predicate: "app.etzhayyim.chigiri/legalAidMatter".to_string(),
+                    predicate: "com.etzhayyim.chigiri/legalAidMatter".to_string(),
                     object_cbor: matter_cbor.clone(),
                 })
                 .map_err(|e| format!("assert-quad: {e}"))?;

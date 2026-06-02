@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-banking — core banking MVP (CF Worker + D1)
 //
-// 5 XRPC methods under app.etzhayyim.apps.openBanking.*:
+// 5 XRPC methods under com.etzhayyim.apps.openBanking.*:
 //   createAccount  (procedure)
 //   getAccount     (query)
 //   listAccounts   (query)
@@ -27,7 +27,7 @@
 // DoDAF v2.02 integration: GET /dodaf → index of deployed views,
 // GET /dodaf/{viewId} → view body. BPMN under /bpmn, DMN under /dmn, Camunda
 // forms under /forms. At cold start, dodafv2 views + Camunda forms are
-// pushed to PDS registries (app.etzhayyim.dodafv2.deployView / app.etzhayyim.form.register).
+// pushed to PDS registries (com.etzhayyim.dodafv2.deployView / com.etzhayyim.form.register).
 
 import AV1 from "../../dodaf/AV-1.json";
 import OV1 from "../../dodaf/OV-1.json";
@@ -394,11 +394,11 @@ export default {
           did: env.PRIMARY_DID,
           handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openBanking.createAccount",
-            "app.etzhayyim.apps.openBanking.getAccount",
-            "app.etzhayyim.apps.openBanking.listAccounts",
-            "app.etzhayyim.apps.openBanking.transfer",
-            "app.etzhayyim.apps.openBanking.listTransactions",
+            "com.etzhayyim.apps.openBanking.createAccount",
+            "com.etzhayyim.apps.openBanking.getAccount",
+            "com.etzhayyim.apps.openBanking.listAccounts",
+            "com.etzhayyim.apps.openBanking.transfer",
+            "com.etzhayyim.apps.openBanking.listTransactions",
           ],
           dodaf: Object.keys(DODAF_VIEWS),
           forms: Object.keys(FORMS),
@@ -437,11 +437,11 @@ export default {
 
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openBanking.getAccount":
+          case "com.etzhayyim.apps.openBanking.getAccount":
             return await getAccount(env, url.searchParams);
-          case "app.etzhayyim.apps.openBanking.listAccounts":
+          case "com.etzhayyim.apps.openBanking.listAccounts":
             return await listAccounts(env, url.searchParams);
-          case "app.etzhayyim.apps.openBanking.listTransactions":
+          case "com.etzhayyim.apps.openBanking.listTransactions":
             return await listTransactions(env, url.searchParams);
           default:
             return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
@@ -451,9 +451,9 @@ export default {
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openBanking.createAccount":
+          case "com.etzhayyim.apps.openBanking.createAccount":
             return await createAccount(env, body);
-          case "app.etzhayyim.apps.openBanking.transfer":
+          case "com.etzhayyim.apps.openBanking.transfer":
             return await transfer(env, body);
           default:
             return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);

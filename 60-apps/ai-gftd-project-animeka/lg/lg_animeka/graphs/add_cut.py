@@ -1,6 +1,6 @@
 """animeka `addCut` graph — create a cut under a scene.
 
-NSID: app.etzhayyim.animeka.addCut
+NSID: com.etzhayyim.animeka.addCut
 Auto-increments cutNum within the episode when not supplied.
 Initializes stageStatus to all 'pending'.
 """
@@ -76,7 +76,7 @@ async def _node_insert(state: _AddCutState) -> dict[str, Any]:
 
     scene_rkey = _rkey_from_id(scene_id)
     owner_did = _DEFAULT_APP_DID
-    collection = "app.etzhayyim.animeka.cut"
+    collection = "com.etzhayyim.animeka.cut"
     rkey = state.get("id") or _gen_rkey("cut")
     created_at = datetime.now(tz=timezone.utc).isoformat()
 
@@ -90,11 +90,11 @@ async def _node_insert(state: _AddCutState) -> dict[str, Any]:
             # Resolve scene vertex_id and episode_id
             await cur.execute(
                 """SELECT vertex_id, episode_id, fps FROM vertex_animeka
-                   WHERE collection='app.etzhayyim.animeka.scene' AND rkey=%s LIMIT 1""",
+                   WHERE collection='com.etzhayyim.animeka.scene' AND rkey=%s LIMIT 1""",
                 [scene_rkey],
             )
             scene_row = await cur.fetchone()
-            scene_vertex_id = scene_row[0] if scene_row else f"at://{owner_did}/app.etzhayyim.animeka.scene/{scene_rkey}"
+            scene_vertex_id = scene_row[0] if scene_row else f"at://{owner_did}/com.etzhayyim.animeka.scene/{scene_rkey}"
             scene_episode_id = (scene_row[1] if scene_row else None) or state.get("episode_id") or ""
             inherited_fps = (scene_row[2] if scene_row else None) or 24
 
@@ -106,7 +106,7 @@ async def _node_insert(state: _AddCutState) -> dict[str, Any]:
                 await cur.execute(
                     """
                     SELECT COALESCE(MAX(cut_num), 0) FROM vertex_animeka
-                    WHERE collection='app.etzhayyim.animeka.cut'
+                    WHERE collection='com.etzhayyim.animeka.cut'
                       AND episode_id = %s
                     """,
                     [scene_episode_id],

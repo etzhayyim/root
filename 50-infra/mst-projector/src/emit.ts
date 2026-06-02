@@ -6,7 +6,7 @@
  *      (best-effort — fall back to omitting `snapshotCid` if the pin
  *      service is unreachable; the `rootCid` still guarantees content
  *      identity).
- *   2. Publish an `app.etzhayyim.substrate.shardSnapshot` record under
+ *   2. Publish an `com.etzhayyim.substrate.shardSnapshot` record under
  *      the projector's DID with `phase: 2`, the AT-Protocol MST
  *      `rootCid`, the IPFS `snapshotCid`, and the seq range covered.
  *
@@ -22,7 +22,7 @@
 import { readFile } from "node:fs/promises";
 import { AtpAgent } from "@atproto/api";
 
-const COLLECTION = "app.etzhayyim.substrate.shardSnapshot";
+const COLLECTION = "com.etzhayyim.substrate.shardSnapshot";
 const PHASE = 2 as const;
 
 export interface ShardSnapshotEmitOpts {

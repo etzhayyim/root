@@ -260,7 +260,7 @@ async def _node_write_signals(state: _State) -> dict[str, Any]:
                     continue
                 severity = "critical" if risk >= 0.8 else "high" if risk >= 0.6 else "medium"
                 signal_id = f"jukyu-equil:{time.strftime('%Y%m%d')}:{ce.get('companyDid','?')[:30]}"
-                vertex_id = f"at://jukyu001.etzhayyim.com/app.etzhayyim.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
+                vertex_id = f"at://jukyu001.etzhayyim.com/com.etzhayyim.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
                 await cur.execute(
                     "DELETE FROM vertex_jukyu_notification_signal WHERE signal_id = %s",
                     (signal_id,),

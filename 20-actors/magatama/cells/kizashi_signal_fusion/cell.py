@@ -7,7 +7,7 @@ for the attribution cell. Holds fused features transient-only; never writes
 plaintext feature vectors to disk. Murakumo-only inference (gemma4:e4b).
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G2 biometric scan data is
-要配慮個人情報 — inputs/outputs ride app.etzhayyim.encrypted.* DID-bound envelopes
+要配慮個人情報 — inputs/outputs ride com.etzhayyim.encrypted.* DID-bound envelopes
 (ADR-2605181100), never inline; G10 only ledgered modalities may be fused;
 G14 Murakumo-only inference (ADR-2605215000).
 Output: transient fused feature vector (consumed by kizashi_attribution).

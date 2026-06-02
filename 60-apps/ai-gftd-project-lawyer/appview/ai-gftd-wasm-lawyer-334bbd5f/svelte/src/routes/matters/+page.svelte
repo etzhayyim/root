@@ -63,7 +63,7 @@
     loading = true;
     error = '';
     try {
-      const url = new URL('/xrpc/app.etzhayyim.apps.lawyer.listAssignedMatters', window.location.origin);
+      const url = new URL('/xrpc/com.etzhayyim.apps.lawyer.listAssignedMatters', window.location.origin);
       url.searchParams.set('lawyerDid', LAWYER_DID);
       url.searchParams.set('firmDid', FIRM_DID);
       if (filterStatus !== 'all') url.searchParams.set('status', filterStatus);

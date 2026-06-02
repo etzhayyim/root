@@ -36,7 +36,7 @@
   }
 
   async function doCheckin(modality: "face" | "voice" | "text") {
-    const actorDid = localStorage.getItem("deai-cohort-did") ?? "did:web:deapp.etzhayyim.ai:demo";
+    const actorDid = localStorage.getItem("deai-cohort-did") ?? "did:web:decom.etzhayyim.ai:demo";
     showTextInput = false;
     phase = "capturing";
     loading = true;

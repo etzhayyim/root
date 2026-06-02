@@ -12,7 +12,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.narou.";
+const NSID_PREFIX = "com.etzhayyim.narou.";
 const ACTOR_DID = "did:web:narou.gftd.ai";
 
 export default {

@@ -1,4 +1,4 @@
--- ADR-2605082000 Phase E0 — register ai.gftd.tools.sql.insert_row primitive.
+-- ADR-2605082000 Phase E0 — register com.etzhayyim.tools.sql.insert_row primitive.
 --
 -- Dynamic-column INSERT primitive. Bridges the LLM-supervisor decomposition
 -- pattern (Phase E §Standard Decomposition Template): LLM returns
@@ -14,13 +14,13 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-tools-sql-insert_row',
-   0, 0, 'ai.gftd.tools.sql.insert_row', 'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
+  ('at://did:web:tsukuru.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-sql-insert_row',
+   0, 0, 'com.etzhayyim.tools.sql.insert_row', 'did:web:tsukuru.gftd.ai', 'tsukuru.gftd.ai', 'procedure',
    'Dynamic-column INSERT — table + row dict + optional vertex_id_template (Phase E0).',
    '{"type":"object","properties":{"table":{"type":"string","pattern":"^[a-zA-Z_][a-zA-Z0-9_]*$"},"row":{"type":"object","additionalProperties":{"type":["string","number","boolean","null"]}},"vertex_id_template":{"type":"string"},"owner_did":{"type":"string"},"collection":{"type":"string"}},"required":["table","row"]}',
    '{"type":"object","properties":{"vertexId":{"type":"string"},"ok":{"type":"boolean"},"error":{"type":"string"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/tools/sql/insertRow.json',
+   '00-contracts/lexicons/com/etzhayyim/tools/sql/insertRow.json',
    'anon', 'anon', '', '2026-05-09T06:00:00Z');
 
 FLUSH;

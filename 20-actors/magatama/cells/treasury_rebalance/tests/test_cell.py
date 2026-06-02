@@ -237,7 +237,7 @@ def test_emit_at_record_carries_full_payload():
     out = emit_at_record(state, port)
     assert len(port.records) == 1
     rec = port.records[0]
-    assert rec["collection"] == "app.etzhayyim.apps.payment.treasury-rebalance-proposal"
+    assert rec["collection"] == "com.etzhayyim.apps.payment.treasury-rebalance-proposal"
     assert rec["record"]["proposalId"] == 42
     assert rec["record"]["driftLiquidBps"] == 1000
     assert rec["record"]["kappaBps"] == 300
@@ -254,7 +254,7 @@ def test_emit_skip_record_carries_reason():
         "drift_threshold_bps": 500, "epoch_seconds": 1_700_000_000,
     }
     out = emit_skip_record(state, port)
-    assert port.records[0]["collection"] == "app.etzhayyim.apps.payment.treasury-rebalance-skip"
+    assert port.records[0]["collection"] == "com.etzhayyim.apps.payment.treasury-rebalance-skip"
     assert port.records[0]["record"]["reason"] == "within_band"
     assert out["at_record_uri"].startswith("at://")
 
@@ -315,7 +315,7 @@ def test_graph_routes_to_correct_terminal(balances, expects_proposal):
         assert final["needs_rebalance"] is True
         assert final["proposal_id"] == 1
         assert final["proposal_tx_hash"] == "0xgovernanceProposeTxHash"
-        assert pds.records[0]["collection"] == "app.etzhayyim.apps.payment.treasury-rebalance-proposal"
+        assert pds.records[0]["collection"] == "com.etzhayyim.apps.payment.treasury-rebalance-proposal"
     else:
         assert final["needs_rebalance"] is False
-        assert pds.records[0]["collection"] == "app.etzhayyim.apps.payment.treasury-rebalance-skip"
+        assert pds.records[0]["collection"] == "com.etzhayyim.apps.payment.treasury-rebalance-skip"

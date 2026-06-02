@@ -1,6 +1,6 @@
 """yukkuri `translateVideo` graph — multilingual subtitles + dubbed voice.
 
-NSID: app.etzhayyim.apps.yukkuri.translateVideo
+NSID: com.etzhayyim.apps.yukkuri.translateVideo
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:translator
 

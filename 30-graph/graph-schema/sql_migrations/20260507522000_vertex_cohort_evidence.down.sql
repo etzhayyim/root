@@ -14,7 +14,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_cohort_identity_posterior AS
       SUM(CASE WHEN posterior > 0.95 AND judge_agreement THEN 1 ELSE 0 END)::BIGINT AS fission_ready_count,
       MAX(observed_at) AS last_evidence_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.cohort.evidence'
+    WHERE collection = 'com.etzhayyim.cohort.evidence'
     GROUP BY cohort_did;
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_cohort_k_drift AS
@@ -26,5 +26,5 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_cohort_k_drift AS
            ELSE COUNT(*) / COUNT(DISTINCT signal_kind)
       END::BIGINT AS k_proxy
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.cohort.evidence'
+    WHERE collection = 'com.etzhayyim.cohort.evidence'
     GROUP BY cohort_did;

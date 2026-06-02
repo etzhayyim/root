@@ -24,7 +24,7 @@ import {
   type RecordEventOutput,
 } from "./types.js";
 
-const EVENT_COLLECTION = "app.etzhayyim.ocel.event";
+const EVENT_COLLECTION = "com.etzhayyim.ocel.event";
 
 const PAGE_LIMIT = 100;
 

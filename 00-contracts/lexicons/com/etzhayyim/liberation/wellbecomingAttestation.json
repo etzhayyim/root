@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.liberation.wellbecomingAttestation",
+  "description": "Quarterly adherent self-report — Wellbecoming (§2(d)) + wage-labor + subsistence-labor disclosure. PRIVACY INVARIANT: encryptedPayloadCid mandatory (XChaCha20 envelope per ADR-2605181100). Failure → stage hold (not revoke). Per ADR-2605261000 §2.3 + §2.4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "adherentDid": {"type": "string"},
+          "reportingQuarter": {"type": "string"},
+          "currentStage": {"type": "string", "knownValues": ["L0", "L1", "L2", "L3", "L4", "L5", "L6"]},
+          "encryptedPayloadCid": {"type": "string", "description": "PRIVACY INVARIANT: REQUIRED; contains 4-question Wellbecoming form + wage-labor hours/wk + subsistence-labor hours/wk"},
+          "selfAttestationTimestamp": {"type": "string"},
+          "auditSamplingFlag": {"type": "boolean", "description": "1-in-100 Council manual review (§4)"}
+        },
+        "required": ["adherentDid", "reportingQuarter", "currentStage", "encryptedPayloadCid", "selfAttestationTimestamp"]
+      }
+    }
+  }
+}

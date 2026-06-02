@@ -46,14 +46,14 @@
         },
         {
           "args": {
-            "template": "MERGE (s:JouchoScore {did: $did}) SET s.entityDid = $input.record.entityDid, s.scores = $score.text, s.repo = $did, s.collection = 'ai.gftd.joucho.score'"
+            "template": "MERGE (s:JouchoScore {did: $did}) SET s.entityDid = $input.record.entityDid, s.scores = $score.text, s.repo = $did, s.collection = 'com.etzhayyim.joucho.score'"
           },
           "fn": "graph.write",
           "id": "writeScore"
         },
         {
           "args": {
-            "template": "MERGE (p:EmotionProfile {entityDid: $input.record.entityDid}) SET p.lastScoredAt = toString(timestamp()), p.repo = $did, p.collection = 'ai.gftd.joucho.emotionProfile'"
+            "template": "MERGE (p:EmotionProfile {entityDid: $input.record.entityDid}) SET p.lastScoredAt = toString(timestamp()), p.repo = $did, p.collection = 'com.etzhayyim.joucho.emotionProfile'"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -71,7 +71,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.joucho.scoreEmotion",
+        "nsid": "com.etzhayyim.joucho.scoreEmotion",
         "type": "xrpc"
       }
     },
@@ -93,7 +93,7 @@
         },
         {
           "args": {
-            "template": "CREATE (s:JouchoScore {did: $did, entityDid: $input.record.actorDid, source: $input.collection, interpretation: $interpret.text, repo: $did, collection: 'ai.gftd.joucho.score'})"
+            "template": "CREATE (s:JouchoScore {did: $did, entityDid: $input.record.actorDid, source: $input.collection, interpretation: $interpret.text, repo: $did, collection: 'com.etzhayyim.joucho.score'})"
           },
           "fn": "graph.write",
           "id": "writeSignal"
@@ -111,10 +111,10 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.maps.event",
-          "ai.gftd.apps.omatsuri.activity",
-          "ai.gftd.apps.okaimono.order",
-          "ai.gftd.apps.kaigo.record"
+          "com.etzhayyim.apps.maps.event",
+          "com.etzhayyim.apps.omatsuri.activity",
+          "com.etzhayyim.apps.okaimono.order",
+          "com.etzhayyim.apps.kaigo.record"
         ],
         "type": "subscribeRepos"
       }
@@ -182,7 +182,7 @@
             "params": {
               "actorName": "joucho",
               "bucket": "6h",
-              "collection": "ai.gftd.joucho.coverageSnapshot",
+              "collection": "com.etzhayyim.joucho.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "erp6xu1c",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -240,7 +240,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.joucho.coverage.get",
+        "nsid": "com.etzhayyim.joucho.coverage.get",
         "type": "xrpc"
       }
     }
@@ -259,8 +259,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -273,12 +273,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.joucho.score",
-        "ai.gftd.joucho.review",
-        "ai.gftd.apps.maps.event",
-        "ai.gftd.apps.omatsuri.activity",
-        "ai.gftd.apps.okaimono.order",
-        "ai.gftd.apps.kaigo.record"
+        "com.etzhayyim.joucho.score",
+        "com.etzhayyim.joucho.review",
+        "com.etzhayyim.apps.maps.event",
+        "com.etzhayyim.apps.omatsuri.activity",
+        "com.etzhayyim.apps.okaimono.order",
+        "com.etzhayyim.apps.kaigo.record"
       ]
     }
   },

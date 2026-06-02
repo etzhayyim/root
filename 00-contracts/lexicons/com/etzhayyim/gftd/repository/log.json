@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.log",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Walk commit ancestry from a ref or commit. Returns linearized history (first-parent by default) or full DAG.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "ownerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Required when startRef is set."
+          },
+          "startRef": {
+            "type": "string",
+            "description": "Ref name to start from. Mutually exclusive with startCommit."
+          },
+          "startCommit": {
+            "type": "string",
+            "description": "Commit hash to start from. Mutually exclusive with startRef."
+          },
+          "mode": {
+            "type": "string",
+            "knownValues": ["firstParent", "fullDag"],
+            "default": "firstParent",
+            "description": "firstParent = linearize via parent[0]; fullDag = topological order including merges."
+          },
+          "pathFilter": {
+            "type": "string",
+            "description": "Only include commits whose tree diff touches this path prefix."
+          },
+          "authorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Only include commits authored by this DID."
+          },
+          "limit": { "type": "integer", "default": 50, "maximum": 500 },
+          "cursor": {
+            "type": "string",
+            "description": "Opaque pagination cursor (commitHash of last returned entry)."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commits"],
+          "properties": {
+            "commits": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "com.etzhayyim.repository.getCommit#main" }
+            },
+            "cursor": { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "RefNotFound" },
+        { "name": "CommitNotFound" },
+        { "name": "InvalidParameters", "description": "Neither startRef nor startCommit given, or both." }
+      ]
+    }
+  }
+}

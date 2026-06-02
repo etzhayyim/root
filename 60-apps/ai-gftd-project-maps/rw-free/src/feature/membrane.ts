@@ -1,7 +1,7 @@
 /**
- * Default `MembraneRule` + `SchemaValidator` for app.etzhayyim.maps.feature.
+ * Default `MembraneRule` + `SchemaValidator` for com.etzhayyim.maps.feature.
  *
- * In production the rule is an `app.etzhayyim.yatachain.membraneRule` record
+ * In production the rule is an `com.etzhayyim.yatachain.membraneRule` record
  * published in PDS by an operator; orchestrators load it at startup. For
  * the rw-free reference + integration tests, this module exports a
  * default rule fixture with placeholder contentHash values. Operators
@@ -16,7 +16,7 @@ import type { yatachain } from "@etzhayyim/sdk";
 type MembraneRule = yatachain.MembraneRule;
 type SchemaValidator = yatachain.SchemaValidator;
 
-export const FEATURE_NSID = "app.etzhayyim.maps.feature";
+export const FEATURE_NSID = "com.etzhayyim.maps.feature";
 
 /** Placeholder content hashes — replace with sha256 of the real
  *  Lexicon JSON / Rego module / cell directory at publication time. */
@@ -24,12 +24,12 @@ export const DEFAULT_FEATURE_MEMBRANE_RULE: MembraneRule = {
   v: 1,
   nsid: FEATURE_NSID,
   schemaRef: {
-    path: "00-contracts/lexicons/app/etzhayyim/maps/feature.json",
+    path: "00-contracts/lexicons/com/etzhayyim/maps/feature.json",
     contentHash: "0".repeat(64),
     version: "1.0.0",
   },
   policyRef: {
-    path: "00-contracts/policies/app/etzhayyim/maps/feature.rego",
+    path: "00-contracts/policies/com/etzhayyim/maps/feature.rego",
     contentHash: "0".repeat(64),
     version: "1.0.0",
   },

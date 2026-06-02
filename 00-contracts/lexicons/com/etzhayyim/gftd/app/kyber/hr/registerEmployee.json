@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.app.kyber.hr.registerEmployee",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fullName": {
+              "type": "string"
+            },
+            "department": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "positionId": {
+              "type": "integer"
+            },
+            "employmentType": {
+              "type": "string"
+            },
+            "startDate": {
+              "type": "string"
+            },
+            "managerId": {
+              "type": "integer"
+            },
+            "email": {
+              "type": "string"
+            },
+            "salary": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "fullName",
+            "department",
+            "role"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "error": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "department": {
+              "type": "string"
+            },
+            "employeeId": {
+              "type": "integer"
+            },
+            "fullName": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "probationStatus": {
+              "type": "string"
+            },
+            "probationEndDate": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

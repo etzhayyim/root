@@ -1,7 +1,7 @@
 /**
  * cpc rw-free — record types + pure hierarchy helpers.
  *
- * Mirrors the app.etzhayyim.apps.cpc.product Lexicon record shape. UN Central
+ * Mirrors the com.etzhayyim.apps.cpc.product Lexicon record shape. UN Central
  * Product Classification (CPC Ver.2.1) — a public, 3-axis-clean product
  * taxonomy. Per ADR-2605203000 Option B + ADR-2605172000 (RW-free substrate).
  *

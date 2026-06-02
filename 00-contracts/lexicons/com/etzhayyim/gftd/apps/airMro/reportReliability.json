@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airMro.reportReliability",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Report aircraft reliability statistics for a period.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tail_number", "period"],
+          "properties": {
+            "tail_number": { "type": "string" },
+            "period": { "type": "string" },
+            "dispatch_reliability_pct": { "type": "string" },
+            "technical_delay_min": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

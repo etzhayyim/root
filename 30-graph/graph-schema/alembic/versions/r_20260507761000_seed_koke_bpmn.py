@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'koke_photosynthesis_cycle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -204,11 +204,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  7765,
-                 '00-contracts/bpmn/ai/gftd/koke/photosynthesis-cycle.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/koke/photosynthesis-cycle.bpmn',
                  '2026-05-07T19:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, bpmn_process_id, nsid,\n'
@@ -220,19 +220,19 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'koke_photosynthesis_cycle',
-                 'app.etzhayyim.apps.koke.photosynthesize',
+                 'com.etzhayyim.apps.koke.photosynthesize',
                  '2026-05-07T19:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/koke-photosynthesis-cycle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def    WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/koke-photosynthesis-cycle-v1']}]
 
 
 def upgrade() -> None:

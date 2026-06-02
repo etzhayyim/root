@@ -80,7 +80,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = DecoatingPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.decoatingAttestation",
+        "$type": "com.etzhayyim.kanayama.decoatingAttestation",
         "lotId": s.lotId,
         "decoaterTempC": s.decoaterTempC,
         "offGasCaptureCid": s.offGasCaptureCid,

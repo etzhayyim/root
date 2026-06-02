@@ -14,7 +14,7 @@
  * Two precise checks (designed for ~zero false positives):
  *
  *   Check A — schema invariant (always, over the canonical lexicon).
- *     app.etzhayyim.judiciary.judgeReference MUST, structurally:
+ *     com.etzhayyim.judiciary.judgeReference MUST, structurally:
  *       (1) carry `noAnalytics` with `const: true` and list it in the
  *           record `required` array;
  *       (2) contain NO analytics property (deny-list: winRate /
@@ -39,11 +39,11 @@ const args = process.argv.slice(2);
 
 // ── Check A: schema invariant ────────────────────────────────────────
 const JUDGE_LEX =
-  "00-contracts/lexicons/app/etzhayyim/judiciary/judgeReference.json";
+  "00-contracts/lexicons/com/etzhayyim/judiciary/judgeReference.json";
 const COURT_LEX =
-  "00-contracts/lexicons/app/etzhayyim/judiciary/court.json";
+  "00-contracts/lexicons/com/etzhayyim/judiciary/court.json";
 const DECISION_LEX =
-  "00-contracts/lexicons/app/etzhayyim/judiciary/judicialDecision.json";
+  "00-contracts/lexicons/com/etzhayyim/judiciary/judicialDecision.json";
 
 // Corpus-wide passive-ingestion (G3) + pseudonymization (D6) invariants:
 // { lexPath: [ {prop, requiredToo} ... ] } — each MUST be const:true.

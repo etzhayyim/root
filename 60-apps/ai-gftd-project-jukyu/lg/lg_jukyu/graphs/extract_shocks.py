@@ -1,7 +1,7 @@
 """jukyu `extractShocks` graph — news text → structured shock events.
 
 Model: qwen3-30b
-Endpoint: POST /extract/shocks and NSID app.etzhayyim.apps.jukyu.extractShocks
+Endpoint: POST /extract/shocks and NSID com.etzhayyim.apps.jukyu.extractShocks
 """
 
 from __future__ import annotations

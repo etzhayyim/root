@@ -1,6 +1,6 @@
 """Yatabase auth surface — vertex_api_key INSERTs + tenant DID minting.
 
-The yatabase CF Worker forwards `/xrpc/app.etzhayyim.apps.yata.{signup,invite,
+The yatabase CF Worker forwards `/xrpc/com.etzhayyim.apps.yata.{signup,invite,
 revoke}` to this module. Per ADR-2605111200 the Worker no longer writes
 to RisingWave directly; this pod owns vertex_api_key + vertex_org_plan
 writes.

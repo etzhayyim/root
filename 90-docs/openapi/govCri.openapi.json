@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govCri.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govCri.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Costa Rica government.",
-        "operationId": "app.etzhayyim.govCri.followSiteDeps",
+        "operationId": "com.etzhayyim.govCri.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govCri.heartbeatTick": {
       "post": {
         "summary": "Run the Costa Rica government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govCri.heartbeatTick",
+        "operationId": "com.etzhayyim.govCri.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.listOrgs": {
+    "/xrpc/com.etzhayyim.govCri.listOrgs": {
       "get": {
         "summary": "List Costa Rica government organization graph records.",
-        "operationId": "app.etzhayyim.govCri.listOrgs",
+        "operationId": "com.etzhayyim.govCri.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.registerDIDs": {
+    "/xrpc/com.etzhayyim.govCri.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Costa Rica government organizations.",
-        "operationId": "app.etzhayyim.govCri.registerDIDs",
+        "operationId": "com.etzhayyim.govCri.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govCri.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Costa Rica government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govCri.resolveOrgPath",
+        "operationId": "com.etzhayyim.govCri.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.seedOrgs": {
+    "/xrpc/com.etzhayyim.govCri.seedOrgs": {
       "post": {
         "summary": "Seed initial Costa Rica government organization records into the graph.",
-        "operationId": "app.etzhayyim.govCri.seedOrgs",
+        "operationId": "com.etzhayyim.govCri.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.shinka": {
+    "/xrpc/com.etzhayyim.govCri.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Costa Rica government organization update.",
-        "operationId": "app.etzhayyim.govCri.shinka",
+        "operationId": "com.etzhayyim.govCri.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCri.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govCri.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Costa Rica government organization changes to graph.",
-        "operationId": "app.etzhayyim.govCri.syncWetUpdates",
+        "operationId": "com.etzhayyim.govCri.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

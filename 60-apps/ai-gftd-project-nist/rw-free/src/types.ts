@@ -1,7 +1,7 @@
 /**
  * nist rw-free — record types + pure hierarchy helpers.
  *
- * Mirrors the app.etzhayyim.apps.nist.element Lexicon record shape. NIST
+ * Mirrors the com.etzhayyim.apps.nist.element Lexicon record shape. NIST
  * Cybersecurity Framework (CSF) 2.0 — a public, 3-axis-clean control taxonomy.
  * Per ADR-2605203000 Option B + ADR-2605172000 (RW-free substrate).
  *

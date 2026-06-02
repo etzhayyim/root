@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 PG = os.environ["PG_URL"]
 REPO = "did:web:media-gamers.etzhayyim.com"
-COLL = "app.etzhayyim.apps.media_gamers.title"
+COLL = "com.etzhayyim.apps.media_gamers.title"
 
 def fetch(page):
     url = f"https://catalog.gog.com/v1/catalog?limit=48&order=desc%3Atrending&productType=in%3Agame&page={page}"

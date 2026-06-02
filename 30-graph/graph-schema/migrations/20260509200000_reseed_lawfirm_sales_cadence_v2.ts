@@ -28,12 +28,12 @@ const SEED_ACTOR_TAG = "sys.bpmn.seed.lawfirm";
  * Down() flips v2 → 'inactive', restores v1 → 'active'. Idempotent.
  */
 const PROCESS_V2 = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v2",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v2",
   bpmnProcessId: "lawfirm_sales_cadence_tick",
-  sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/salesCadenceTick.bpmn",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/lawfirm/salesCadenceTick.bpmn",
   version: 2,
 };
-const PROCESS_V1_VID = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v1";
+const PROCESS_V1_VID = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-sales-cadence-tick-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readContract(PROCESS_V2.sourcePath);

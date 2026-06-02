@@ -7,25 +7,25 @@
 import { describe, it, expect } from "vitest";
 
 describe("G5 emergency_screen bypass impossible", () => {
-  it("POST /xrpc/app.etzhayyim.mitate.triageVerdict returns 405 G5InvariantBlocked", () => {
+  it("POST /xrpc/com.etzhayyim.mitate.triageVerdict returns 405 G5InvariantBlocked", () => {
     // Mirrors src/app.ts routing guard
     const mockRouteCheck = (method: string, path: string): { status: number; error?: string } => {
-      if (method === "POST" && path === "/xrpc/app.etzhayyim.mitate.triageVerdict") {
+      if (method === "POST" && path === "/xrpc/com.etzhayyim.mitate.triageVerdict") {
         return { status: 405, error: "G5InvariantBlocked" };
       }
       return { status: 200 };
     };
 
-    const res = mockRouteCheck("POST", "/xrpc/app.etzhayyim.mitate.triageVerdict");
+    const res = mockRouteCheck("POST", "/xrpc/com.etzhayyim.mitate.triageVerdict");
     expect(res.status).toBe(405);
     expect(res.error).toBe("G5InvariantBlocked");
   });
 
-  it("POST /xrpc/app.etzhayyim.mitate.rhinitisIntake is permitted (cell chain triggers emergency_screen)", () => {
+  it("POST /xrpc/com.etzhayyim.mitate.rhinitisIntake is permitted (cell chain triggers emergency_screen)", () => {
     const mockRouteCheck = (method: string, path: string, r1Active: boolean): { status: number; reason?: string } => {
       if (
         method === "POST" &&
-        path === "/xrpc/app.etzhayyim.mitate.rhinitisIntake" &&
+        path === "/xrpc/com.etzhayyim.mitate.rhinitisIntake" &&
         r1Active
       ) {
         return { status: 200, reason: "proxy-to-substrate" };
@@ -33,7 +33,7 @@ describe("G5 emergency_screen bypass impossible", () => {
       return { status: 503 };
     };
 
-    expect(mockRouteCheck("POST", "/xrpc/app.etzhayyim.mitate.rhinitisIntake", true)).toEqual({
+    expect(mockRouteCheck("POST", "/xrpc/com.etzhayyim.mitate.rhinitisIntake", true)).toEqual({
       status: 200,
       reason: "proxy-to-substrate",
     });
@@ -41,21 +41,21 @@ describe("G5 emergency_screen bypass impossible", () => {
 
   it("R1 active NSID set includes rhinitisIntake + triageVerdict + emergencyEscalation; excludes R2 lexicons", () => {
     const R1_ACTIVE = new Set([
-      "app.etzhayyim.mitate.rhinitisIntake",
-      "app.etzhayyim.mitate.triageVerdict",
-      "app.etzhayyim.mitate.emergencyEscalation",
+      "com.etzhayyim.mitate.rhinitisIntake",
+      "com.etzhayyim.mitate.triageVerdict",
+      "com.etzhayyim.mitate.emergencyEscalation",
     ]);
     const R2_GATED = new Set([
-      "app.etzhayyim.mitate.diagnosticOrder",
-      "app.etzhayyim.mitate.diagnosticResult",
-      "app.etzhayyim.mitate.treatmentPlan",
-      "app.etzhayyim.mitate.outcomeFollowup",
+      "com.etzhayyim.mitate.diagnosticOrder",
+      "com.etzhayyim.mitate.diagnosticResult",
+      "com.etzhayyim.mitate.treatmentPlan",
+      "com.etzhayyim.mitate.outcomeFollowup",
     ]);
 
-    expect(R1_ACTIVE.has("app.etzhayyim.mitate.emergencyEscalation")).toBe(true);
-    expect(R2_GATED.has("app.etzhayyim.mitate.diagnosticOrder")).toBe(true);
+    expect(R1_ACTIVE.has("com.etzhayyim.mitate.emergencyEscalation")).toBe(true);
+    expect(R2_GATED.has("com.etzhayyim.mitate.diagnosticOrder")).toBe(true);
 
     // Critical: emergencyEscalation must NEVER be in the gated set (G5 fail-safe inviolability)
-    expect(R2_GATED.has("app.etzhayyim.mitate.emergencyEscalation")).toBe(false);
+    expect(R2_GATED.has("com.etzhayyim.mitate.emergencyEscalation")).toBe(false);
   });
 });

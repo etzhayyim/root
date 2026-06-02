@@ -24,15 +24,15 @@ const seeds: Seed[] = [
   {
     proc: "startDailyIngest",
     bpmnProcessId: "jp_corp_finance_daily",
-    nsid: "app.etzhayyim.apps.jpCorpFinance.startDailyIngest",
-    sourcePath: "00-contracts/bpmn/ai/gftd/jp-corp-finance/dailyIngest.bpmn",
+    nsid: "com.etzhayyim.apps.jpCorpFinance.startDailyIngest",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/jp-corp-finance/dailyIngest.bpmn",
     resultTimeoutMs: 600000,
   },
   {
     proc: "repairCompany",
     bpmnProcessId: "jp_corp_finance_repair_one",
-    nsid: "app.etzhayyim.apps.jpCorpFinance.repairCompany",
-    sourcePath: "00-contracts/bpmn/ai/gftd/jp-corp-finance/repairCompany.bpmn",
+    nsid: "com.etzhayyim.apps.jpCorpFinance.repairCompany",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/jp-corp-finance/repairCompany.bpmn",
     resultTimeoutMs: 600000,
   },
 ];
@@ -42,9 +42,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

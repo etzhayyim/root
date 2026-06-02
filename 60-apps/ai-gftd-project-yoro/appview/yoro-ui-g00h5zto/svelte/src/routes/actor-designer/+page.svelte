@@ -159,7 +159,7 @@
         } catch { /* no forms */ }
       }
 
-      const result = await atProcedure('app.etzhayyim.actor.compileBpmn', {
+      const result = await atProcedure('com.etzhayyim.actor.compileBpmn', {
         bpmnXml: xml,
         did: actorDid || 'did:web:new-actor.etzhayyim.com',
         name: actorName || 'new-actor',
@@ -207,7 +207,7 @@
         } catch { /* */ }
       }
 
-      const result = await atProcedure('app.etzhayyim.actor.deployProcess', {
+      const result = await atProcedure('com.etzhayyim.actor.deployProcess', {
         bpmnXml: xml,
         did: actorDid,
         name: actorName,

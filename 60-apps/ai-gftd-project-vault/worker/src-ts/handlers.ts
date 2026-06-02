@@ -1,4 +1,4 @@
-// handlers.ts — XRPC handler implementations for app.etzhayyim.vault.* (10 NSIDs).
+// handlers.ts — XRPC handler implementations for com.etzhayyim.vault.* (10 NSIDs).
 //
 // All ciphertext / wrapped keys are opaque blobs to the server; we never
 // decrypt or inspect them. The server owns: schema, ACL (vault_members),

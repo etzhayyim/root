@@ -11,10 +11,10 @@ _LANGGRAPH_JSON = Path(__file__).parent.parent / "langgraph.json"
 
 _EXPECTED_GRAPHS = {"health", "marketing", "sales", "bmc_iteration"}
 _EXPECTED_NSID_MAP = {
-    "app.etzhayyim.apps.yata.lg.health": "health",
-    "app.etzhayyim.apps.yata.lg.marketing.run": "marketing",
-    "app.etzhayyim.apps.yata.lg.sales.run": "sales",
-    "app.etzhayyim.apps.yata.lg.bmc.iterate": "bmc_iteration",
+    "com.etzhayyim.apps.yata.lg.health": "health",
+    "com.etzhayyim.apps.yata.lg.marketing.run": "marketing",
+    "com.etzhayyim.apps.yata.lg.sales.run": "sales",
+    "com.etzhayyim.apps.yata.lg.bmc.iterate": "bmc_iteration",
 }
 _CRON_GRAPHS = {"marketing", "sales", "bmc_iteration"}
 
@@ -90,5 +90,5 @@ def test_all_graphs_have_ainvoke() -> None:
 
 
 def test_unknown_nsid_xrpc_404(client: TestClient) -> None:
-    r = client.post("/xrpc/app.etzhayyim.apps.yata.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.apps.yata.unknownMethod", json={})
     assert r.status_code == 404

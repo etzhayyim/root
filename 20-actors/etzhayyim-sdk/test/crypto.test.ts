@@ -50,9 +50,9 @@ describe("crypto envelope round-trip", () => {
       key,
       sender: SENDER,
       plaintext: {x: 1},
-      innerType: "app.etzhayyim.governance.proposal",
+      innerType: "com.etzhayyim.governance.proposal",
     });
-    expect(env.innerType).toBe("app.etzhayyim.governance.proposal");
+    expect(env.innerType).toBe("com.etzhayyim.governance.proposal");
   });
 
   it("uses a deterministic nonce when caller supplies one", () => {

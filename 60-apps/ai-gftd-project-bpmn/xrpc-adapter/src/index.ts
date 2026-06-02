@@ -2,7 +2,7 @@ import { createAuthedEtzhayyim, extractBearerToken, type Etzhayyim } from "@etzh
 import * as bpmnRwFree from "@etzhayyim/bpmn-rw-free";
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
-const NSID_BASE = "app.etzhayyim.bpmn";
+const NSID_BASE = "com.etzhayyim.bpmn";
 interface RouteConfig { method: "POST" | "GET"; handler: Handler; }
 const routes: Record<string, RouteConfig> = {
   [`${NSID_BASE}.deployProcess`]: { method: "POST", handler: (e, input) => bpmnRwFree.deployProcess(e, input as any) },

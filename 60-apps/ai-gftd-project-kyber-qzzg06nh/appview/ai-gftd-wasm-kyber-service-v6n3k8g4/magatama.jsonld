@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.kyber_qzzg06nh.kyber_qzzg06nh_entity",
-        "ai.gftd.apps.kyber_qzzg06nh.kyber_qzzg06nh_event",
-        "ai.gftd.apps.kyber_qzzg06nh.kyber_qzzg06nh_report"
+        "com.etzhayyim.apps.kyber_qzzg06nh.kyber_qzzg06nh_entity",
+        "com.etzhayyim.apps.kyber_qzzg06nh.kyber_qzzg06nh_event",
+        "com.etzhayyim.apps.kyber_qzzg06nh.kyber_qzzg06nh_report"
       ]
     }
   },

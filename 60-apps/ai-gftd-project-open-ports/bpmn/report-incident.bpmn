@@ -13,8 +13,8 @@
     <bpmn:businessRuleTask id="Task_Classify" name="Severity (DMN)"
                            camunda:decisionRef="openPorts.incidentSeverity"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_Classify" targetRef="Task_Persist"/>
-    <bpmn:serviceTask id="Task_Persist" name="ai.gftd.apps.openPorts.reportIncident"
-                      camunda:topic="ai.gftd.apps.openPorts.reportIncident"/>
+    <bpmn:serviceTask id="Task_Persist" name="com.etzhayyim.apps.openPorts.reportIncident"
+                      camunda:topic="com.etzhayyim.apps.openPorts.reportIncident"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_Persist" targetRef="Gateway_Cg"/>
     <bpmn:exclusiveGateway id="Gateway_Cg" name="Coast guard report?" default="f5b"/>
     <bpmn:sequenceFlow id="f5a" sourceRef="Gateway_Cg" targetRef="Task_AuditPost">

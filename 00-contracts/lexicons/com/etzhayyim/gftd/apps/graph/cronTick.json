@@ -1,0 +1,21 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.graph.cronTick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "LangServer-driven cron tick — consumes pending repo commits from vertex_repo_commit into the RisingWave social graph (ADR-0056).",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "dispatched"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "dispatched": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

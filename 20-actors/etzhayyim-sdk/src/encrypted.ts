@@ -39,14 +39,14 @@ import {
   type SessionHandle,
 } from "./signal.js";
 
-const COLLECTION_RECORD = "app.etzhayyim.encrypted.record";
-const COLLECTION_KEYWRAP = "app.etzhayyim.encrypted.keyWrap";
-const COLLECTION_SIGNAL_IDENTITY = "app.etzhayyim.encrypted.signalIdentity";
+const COLLECTION_RECORD = "com.etzhayyim.encrypted.record";
+const COLLECTION_KEYWRAP = "com.etzhayyim.encrypted.keyWrap";
+const COLLECTION_SIGNAL_IDENTITY = "com.etzhayyim.encrypted.signalIdentity";
 
 // ── Public types ─────────────────────────────────────────────────────────────
 
 export interface ResolvedRecipientIdentity {
-  /** Publishable bundle stored in `app.etzhayyim.encrypted.signalIdentity`. */
+  /** Publishable bundle stored in `com.etzhayyim.encrypted.signalIdentity`. */
   publishable: {
     signalIdentityKey: Uint8Array;
     signalRegistrationId: number;
@@ -69,7 +69,7 @@ export type RecipientIdentityResolver = (
 ) => Promise<ResolvedRecipientIdentity | null>;
 
 export interface EncryptedWriteOpts<T extends Record<string, unknown>> {
-  /** Lexicon NSID of the wrapper record. Default: app.etzhayyim.encrypted.record. */
+  /** Lexicon NSID of the wrapper record. Default: com.etzhayyim.encrypted.record. */
   collection?: string;
 
   /** Lexicon NSID describing the inner plaintext shape (informational). */
@@ -290,7 +290,7 @@ export async function encryptedWriteStandalone<T extends Record<string, unknown>
     if (!resolved) {
       skipped.push({
         recipient: recipientDid,
-        reason: "no app.etzhayyim.encrypted.signalIdentity record found",
+        reason: "no com.etzhayyim.encrypted.signalIdentity record found",
       });
       continue;
     }

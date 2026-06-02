@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.arb.ingestQuote",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ingest a single public market quote tick into vertex_arb_quote. Public delayed/EOD feeds only (Yahoo/Stooq/JPX/CME/LME/CoinGecko/REIT.com/MLIT/FRED). No realtime/paid feeds. No execution.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["assetClass", "venue", "symbol", "ts", "mid"],
+          "properties": {
+            "assetClass": { "type": "string", "enum": ["eq", "fut", "fx", "com", "re", "cr"] },
+            "venue":      { "type": "string" },
+            "symbol":     { "type": "string" },
+            "ts":         { "type": "string", "format": "datetime" },
+            "bid":        { "type": "number" },
+            "ask":        { "type": "number" },
+            "mid":        { "type": "number" },
+            "currency":   { "type": "string" },
+            "srcUrl":     { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "ts":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

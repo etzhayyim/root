@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.card.issue",
+  "id": "com.etzhayyim.card.issue",
   "defs": {
     "main": {
       "type": "procedure",

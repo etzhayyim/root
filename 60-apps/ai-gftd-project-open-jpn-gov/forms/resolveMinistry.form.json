@@ -3,7 +3,7 @@
   "formKey": "openJpnGov.resolveMinistry.v1",
   "name": "Resolve Ministry",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openJpnGov.getMinistry",
+  "lexiconRef": "com.etzhayyim.apps.openJpnGov.getMinistry",
   "components": [
     {
       "key": "inputKind",

@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euDgComp.flagPoliticalPressure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Political pressure / cabinet meddling / member-state lobbying (bridges antitrust-dma + euTrilogue + frugalFourCoalition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "pressureKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "pressureKind": {
+              "type": "string",
+              "enum": [
+                "member_state_lobbying",
+                "champion_protection",
+                "industrial_policy_carveout",
+                "strategic_autonomy_argument",
+                "national_security_invocation",
+                "commission_political_intervention",
+                "ep_pressure",
+                "council_request_review",
+                "dg_grow_vs_comp",
+                "dg_trade_vs_comp",
+                "sg_steering",
+                "cabinet_redraft"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

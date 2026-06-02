@@ -18,8 +18,8 @@ import { sql } from "kysely";
  *   • 2 TLD↔regulator accept edges (.law accepts JFBA + ABA)
  *
  * BPMN actors (3):
- *   domain_eligibility_check   app.etzhayyim.apps.domain.eligibilityCheck
- *   domain_register_assist     app.etzhayyim.apps.domain.registerAssist
+ *   domain_eligibility_check   com.etzhayyim.apps.domain.eligibilityCheck
+ *   domain_register_assist     com.etzhayyim.apps.domain.registerAssist
  *   domain_refresh_tld_catalog (timer R/P30D, autonomous, Phase 1 stub)
  *
  * Lexicon bindings (2 XRPC entries; 4 query lexicons are schema-doc only).
@@ -400,23 +400,23 @@ const acceptEdges: AcceptEdge[] = [
 const processSeeds: P[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-eligibility-check-v1",
     bpmnProcessId: "domain_eligibility_check",
-    sourcePath: "00-contracts/bpmn/ai/gftd/domain/eligibilityCheck.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/domain/eligibilityCheck.bpmn",
     ownerDid,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-register-assist-v1",
     bpmnProcessId: "domain_register_assist",
-    sourcePath: "00-contracts/bpmn/ai/gftd/domain/registerAssist.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/domain/registerAssist.bpmn",
     ownerDid,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/domain-refresh-tld-catalog-v1",
     bpmnProcessId: "domain_refresh_tld_catalog",
-    sourcePath: "00-contracts/bpmn/ai/gftd/domain/refreshTldCatalog.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/domain/refreshTldCatalog.bpmn",
     ownerDid,
   },
 ];
@@ -424,16 +424,16 @@ const processSeeds: P[] = [
 const bindingSeeds: B[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1",
-    nsid: "app.etzhayyim.apps.domain.eligibilityCheck",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-eligibilityCheck-v1",
+    nsid: "com.etzhayyim.apps.domain.eligibilityCheck",
     bpmnProcessId: "domain_eligibility_check",
     ownerDid,
     resultTimeoutMs: 30_000,
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1",
-    nsid: "app.etzhayyim.apps.domain.registerAssist",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/domain-registerAssist-v1",
+    nsid: "com.etzhayyim.apps.domain.registerAssist",
     bpmnProcessId: "domain_register_assist",
     ownerDid,
     resultTimeoutMs: 30_000,
@@ -443,7 +443,7 @@ const bindingSeeds: B[] = [
 // ── Insert helpers ──────────────────────────────────────────────────
 
 async function insertTld(db: Kysely<unknown>, t: TldRow): Promise<void> {
-  const vid = `at://${ownerDid}/app.etzhayyim.apps.domain.tld/${t.tld.replace(/^\./, "")}`;
+  const vid = `at://${ownerDid}/com.etzhayyim.apps.domain.tld/${t.tld.replace(/^\./, "")}`;
   await sql`
     INSERT INTO vertex_domain_tld (vertex_id, owner_did, sensitivity_ord, tld, operator, restricted, eligibility_summary, eligibility_policy_url, verification_required, typical_uses, notes, status, created_at, org_id, user_id, actor_id)
     SELECT ${vid}, ${ownerDid}, 0, ${t.tld}, ${t.operator}, CAST(${t.restricted} AS boolean), ${t.summary}, ${t.policyUrl}, CAST(${t.verificationRequired} AS boolean), ${t.typicalUses}, ${t.notes}, 'active', ${createdAt}, ${ownerDid}, ${ownerDid}, ${actorTag}
@@ -452,7 +452,7 @@ async function insertTld(db: Kysely<unknown>, t: TldRow): Promise<void> {
 }
 
 async function insertRegistrar(db: Kysely<unknown>, r: RegistrarRow): Promise<void> {
-  const vid = `at://${ownerDid}/app.etzhayyim.apps.domain.registrar/${r.slug}`;
+  const vid = `at://${ownerDid}/com.etzhayyim.apps.domain.registrar/${r.slug}`;
   await sql`
     INSERT INTO vertex_domain_registrar (vertex_id, owner_did, sensitivity_ord, registrar_slug, name, homepage_url, iana_id, jp_friendly, notes, status, created_at, org_id, user_id, actor_id)
     SELECT ${vid}, ${ownerDid}, 0, ${r.slug}, ${r.name}, ${r.homepage}, NULL, CAST(${r.jpFriendly} AS boolean), ${r.notes}, 'active', ${createdAt}, ${ownerDid}, ${ownerDid}, ${actorTag}
@@ -461,7 +461,7 @@ async function insertRegistrar(db: Kysely<unknown>, r: RegistrarRow): Promise<vo
 }
 
 async function insertRegulator(db: Kysely<unknown>, r: RegulatorRow): Promise<void> {
-  const vid = `at://${ownerDid}/app.etzhayyim.apps.domain.legalRegulator/${r.slug}`;
+  const vid = `at://${ownerDid}/com.etzhayyim.apps.domain.legalRegulator/${r.slug}`;
   await sql`
     INSERT INTO vertex_domain_legal_regulator (vertex_id, owner_did, sensitivity_ord, regulator_slug, name, jurisdiction, kind, public_register_url, notes, status, created_at, org_id, user_id, actor_id)
     SELECT ${vid}, ${ownerDid}, 0, ${r.slug}, ${r.name}, ${r.jurisdiction}, ${r.kind}, ${r.publicRegisterUrl}, ${r.notes}, 'active', ${createdAt}, ${ownerDid}, ${ownerDid}, ${actorTag}
@@ -470,7 +470,7 @@ async function insertRegulator(db: Kysely<unknown>, r: RegulatorRow): Promise<vo
 }
 
 async function insertAdvice(db: Kysely<unknown>, a: EligibilityAdvice): Promise<void> {
-  const vid = `at://${ownerDid}/app.etzhayyim.apps.domain.eligibilityAdvice/${a.slug}`;
+  const vid = `at://${ownerDid}/com.etzhayyim.apps.domain.eligibilityAdvice/${a.slug}`;
   await sql`
     INSERT INTO vertex_domain_eligibility_advice (vertex_id, owner_did, sensitivity_ord, tld, jurisdiction, regulator_slug, actor_kind, eligible, basis, policy_excerpt, source_url, effective_at, status, created_at, org_id, user_id, actor_id)
     SELECT ${vid}, ${ownerDid}, 0, ${a.tld}, ${a.jurisdiction}, ${a.regulatorSlug}, ${a.actorKind}, CAST(${a.eligible} AS boolean), ${a.basis}, ${a.policyExcerpt}, ${a.sourceUrl}, ${a.effectiveAt}, 'active', ${createdAt}, ${ownerDid}, ${ownerDid}, ${actorTag}
@@ -481,8 +481,8 @@ async function insertAdvice(db: Kysely<unknown>, a: EligibilityAdvice): Promise<
 async function insertSupportEdge(db: Kysely<unknown>, e: SupportEdge): Promise<void> {
   const tldKey = e.tld.replace(/^\./, "");
   const eid = `edge:domain:supports:${e.registrarSlug}:${tldKey}`;
-  const src = `at://${ownerDid}/app.etzhayyim.apps.domain.registrar/${e.registrarSlug}`;
-  const dst = `at://${ownerDid}/app.etzhayyim.apps.domain.tld/${tldKey}`;
+  const src = `at://${ownerDid}/com.etzhayyim.apps.domain.registrar/${e.registrarSlug}`;
+  const dst = `at://${ownerDid}/com.etzhayyim.apps.domain.tld/${tldKey}`;
   await sql`
     INSERT INTO edge_domain_registrar_supports_tld (edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, registrar_slug, tld, verified_at, handles_verification, notes, created_at, org_id, user_id, actor_id)
     SELECT ${eid}, ${ownerDid}, 0, ${src}, ${dst}, ${e.registrarSlug}, ${e.tld}, ${createdAt}, CAST(${e.handlesVerification} AS boolean), ${e.notes}, ${createdAt}, ${ownerDid}, ${ownerDid}, ${actorTag}
@@ -493,8 +493,8 @@ async function insertSupportEdge(db: Kysely<unknown>, e: SupportEdge): Promise<v
 async function insertAcceptEdge(db: Kysely<unknown>, e: AcceptEdge): Promise<void> {
   const tldKey = e.tld.replace(/^\./, "");
   const eid = `edge:domain:accepts:${tldKey}:${e.regulatorSlug}`;
-  const src = `at://${ownerDid}/app.etzhayyim.apps.domain.tld/${tldKey}`;
-  const dst = `at://${ownerDid}/app.etzhayyim.apps.domain.legalRegulator/${e.regulatorSlug}`;
+  const src = `at://${ownerDid}/com.etzhayyim.apps.domain.tld/${tldKey}`;
+  const dst = `at://${ownerDid}/com.etzhayyim.apps.domain.legalRegulator/${e.regulatorSlug}`;
   await sql`
     INSERT INTO edge_domain_tld_accepts_regulator (edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, tld, regulator_slug, basis, created_at, org_id, user_id, actor_id)
     SELECT ${eid}, ${ownerDid}, 0, ${src}, ${dst}, ${e.tld}, ${e.regulatorSlug}, ${e.basis}, ${createdAt}, ${ownerDid}, ${ownerDid}, ${actorTag}

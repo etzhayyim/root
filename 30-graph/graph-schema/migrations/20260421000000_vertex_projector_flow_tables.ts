@@ -10,7 +10,7 @@ import { sql } from "kysely";
  *
  * Per ADR-0036 (Worker-direct Hyperdrive Persistence) and the Design A
  * decision (2026-04-21), projector flow state moves off AT records
- * (app.etzhayyim.projector.flow / .branch / .reflection) and lives in
+ * (com.etzhayyim.projector.flow / .branch / .reflection) and lives in
  * RisingWave directly. Each app writes via
  *   createKyselyDb(env.HYPERDRIVE).insertInto("vertex_projector_flow_*")
  * from its own Worker; BPMN Projector (kyber-projector.etzhayyim.com) keeps
@@ -105,7 +105,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // suspended, done, failed}. runner_kind ∈ {cron, durable_object,
   // on_commit} — picked per-app (see Design A runner matrix).
   // parent_run_id carries ToT fork lineage (replaces the deleted
-  // app.etzhayyim.projector.branch AT record).
+  // com.etzhayyim.projector.branch AT record).
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_projector_flow_run (
       vertex_id VARCHAR PRIMARY KEY, _seq BIGINT, created_date DATE, sensitivity_ord BIGINT,
@@ -122,7 +122,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // Append-only step log. Per-step LLM token accounting lives here so
   // we never have to retro-compute from the run row. ocel_event_id is
-  // the rkey of the app.etzhayyim.apps.apqc.apqcEvent record emitted by the
+  // the rkey of the com.etzhayyim.apps.apqc.apqcEvent record emitted by the
   // runner for this step (see Kyber projector emitOcel contract,
   // ADR-0025). bpmn_activity_id optionally references a Kyber
   // BPMN_CATALOG taskId when the step invoked a catalog entry as a

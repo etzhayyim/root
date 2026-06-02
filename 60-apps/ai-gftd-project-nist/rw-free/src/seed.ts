@@ -26,7 +26,7 @@ import {
   type CsfElement,
 } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.nist.element";
+const COLLECTION = "com.etzhayyim.apps.nist.element";
 const CSF_PUBLISHED_AT_DEFAULT = "2024-02-26T00:00:00Z"; // CSF 2.0 release
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

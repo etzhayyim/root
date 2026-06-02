@@ -52,8 +52,8 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.editor.editorProject",
-        "ai.gftd.apps.editor.editorFile"
+        "com.etzhayyim.apps.editor.editorProject",
+        "com.etzhayyim.apps.editor.editorFile"
       ]
     }
   },

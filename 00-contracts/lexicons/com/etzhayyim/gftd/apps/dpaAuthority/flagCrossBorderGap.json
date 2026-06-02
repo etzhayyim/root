@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dpaAuthority.flagCrossBorderGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "One-stop-shop / lead-supervisor dispute / dual-filing gap (bridges schremsChallenge.flagRemedy + federal-court-docket + privacy-act)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "oss_bottleneck",
+                "lead_disagreement",
+                "double_jeopardy",
+                "edpb_binding_decision",
+                "member_state_divergence",
+                "carve_out_abuse",
+                "non_eu_reach",
+                "representative_bypass",
+                "scope_dispute",
+                "transfer_consequence"
+              ]
+            },
+            "daysOpen": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -22,11 +22,11 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../../..");
 
 const descriptorPaths = [
-  "00-contracts/formats/ai/gftd/ind/itr1/eri-submit-flow-v1.1.json",
-  "00-contracts/formats/ai/gftd/ind/itr1/prefill-schema-v6.5.manifest.json",
-  "00-contracts/formats/ai/gftd/ind/gstr3b/gsp-framework-v3.manifest.json",
-  "00-contracts/formats/ai/gftd/ind/epfo/ecr-file-format.json",
-  "00-contracts/formats/ai/gftd/ind/esic/monthly-contribution-format.manifest.json",
+  "00-contracts/formats/com/etzhayyim/ind/itr1/eri-submit-flow-v1.1.json",
+  "00-contracts/formats/com/etzhayyim/ind/itr1/prefill-schema-v6.5.manifest.json",
+  "00-contracts/formats/com/etzhayyim/ind/gstr3b/gsp-framework-v3.manifest.json",
+  "00-contracts/formats/com/etzhayyim/ind/epfo/ecr-file-format.json",
+  "00-contracts/formats/com/etzhayyim/ind/esic/monthly-contribution-format.manifest.json",
 ];
 
 function loadDescriptor(path: string): Descriptor {
@@ -63,7 +63,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   let seq = 20260427002000;
   for (const path of descriptorPaths) {
     const descriptor = loadDescriptor(path);
-    const vertexId = `at://${descriptor.actorDid}/app.etzhayyim.apps.ind.efiling.format/${descriptor.formatKey}`;
+    const vertexId = `at://${descriptor.actorDid}/com.etzhayyim.apps.ind.efiling.format/${descriptor.formatKey}`;
     await sql`DELETE FROM vertex_ind_efiling_format WHERE format_key = ${descriptor.formatKey}`.execute(db);
     await sql`
       INSERT INTO vertex_ind_efiling_format (

@@ -44,16 +44,16 @@ DISP_URL     = os.environ.get("BPMN_DISPATCHER_URL", "https://dispatcher.etzhayy
 TARGET_DID   = "did:web:shinshi.etzhayyim.com"
 
 WRITE_NSIDS = [
-    "app.etzhayyim.apps.openOssekai.generateIntelBrief",
-    "app.etzhayyim.apps.openOssekai.proposeArbitrageBrief",
-    "app.etzhayyim.apps.openOssekai.requestOssekaiConsent",
-    "app.etzhayyim.apps.openOssekai.scoreJocho",
-    "app.etzhayyim.apps.openOssekai.generateWellBecomingPlan",
+    "com.etzhayyim.apps.openOssekai.generateIntelBrief",
+    "com.etzhayyim.apps.openOssekai.proposeArbitrageBrief",
+    "com.etzhayyim.apps.openOssekai.requestOssekaiConsent",
+    "com.etzhayyim.apps.openOssekai.scoreJocho",
+    "com.etzhayyim.apps.openOssekai.generateWellBecomingPlan",
 ]
 READ_NSIDS = [
-    "app.etzhayyim.apps.openOssekai.getOssekaiStatus",
-    "app.etzhayyim.apps.openOssekai.listIntelBriefs",
-    "app.etzhayyim.apps.openOssekai.listArbitrageOpportunities",
+    "com.etzhayyim.apps.openOssekai.getOssekaiStatus",
+    "com.etzhayyim.apps.openOssekai.listIntelBriefs",
+    "com.etzhayyim.apps.openOssekai.listArbitrageOpportunities",
 ]
 
 # ─── Helpers ────────────────────────────────────────────────────────────────────
@@ -250,7 +250,7 @@ def test_dispatcher_bindings_present() -> None:
 # ─── Tests: CF Worker write commands ──────────────────────────────────────────────
 
 def test_generate_intel_brief() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.generateIntelBrief", method="POST",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.generateIntelBrief", method="POST",
                        body={"targetDid": TARGET_DID, "targetHandle": "shinshi.etzhayyim.com"})
     assert status == 200, f"got {status}: {body!r}"
     assert isinstance(body, dict), f"body: {body!r}"
@@ -261,7 +261,7 @@ def test_generate_intel_brief() -> None:
 
 
 def test_propose_arbitrage_brief() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.proposeArbitrageBrief", method="POST",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.proposeArbitrageBrief", method="POST",
                        body={"opportunityKind": "skills",
                              "supplyActorDid": TARGET_DID,
                              "demandActorDid": "did:web:yoro.etzhayyim.com"})
@@ -271,7 +271,7 @@ def test_propose_arbitrage_brief() -> None:
 
 
 def test_request_consent() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.requestOssekaiConsent", method="POST",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.requestOssekaiConsent", method="POST",
                        body={"targetDid": TARGET_DID,
                              "consentDid": TARGET_DID,
                              "consentScope": "wellbecoming"})
@@ -281,7 +281,7 @@ def test_request_consent() -> None:
 
 
 def test_score_jocho() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.scoreJocho", method="POST",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.scoreJocho", method="POST",
                        body={"targetDid": TARGET_DID})
     assert status == 200, f"got {status}: {body!r}"
     result = (body or {}).get("result") or {}
@@ -289,7 +289,7 @@ def test_score_jocho() -> None:
 
 
 def test_generate_wellbecoming_plan() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.generateWellBecomingPlan", method="POST",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.generateWellBecomingPlan", method="POST",
                        body={"targetDid": TARGET_DID})
     assert status == 200, f"got {status}: {body!r}"
     result = (body or {}).get("result") or {}
@@ -299,7 +299,7 @@ def test_generate_wellbecoming_plan() -> None:
 # ─── Tests: CF Worker read queries ─────────────────────────────────────────────────
 
 def test_get_ossekai_status() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.getOssekaiStatus",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.getOssekaiStatus",
                        body={"targetDid": TARGET_DID})
     assert status == 200, f"got {status}: {body!r}"
     assert isinstance(body, dict), f"not a dict: {body!r}"
@@ -310,7 +310,7 @@ def test_get_ossekai_status() -> None:
 
 
 def test_list_intel_briefs() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.listIntelBriefs",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.listIntelBriefs",
                        body={"limit": 5})
     assert status == 200, f"got {status}: {body!r}"
     assert isinstance(body, dict), f"not a dict: {body!r}"
@@ -321,7 +321,7 @@ def test_list_intel_briefs() -> None:
 
 
 def test_list_arbitrage_opportunities() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.listArbitrageOpportunities",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.listArbitrageOpportunities",
                        body={"limit": 5})
     assert status == 200, f"got {status}: {body!r}"
     assert isinstance(body, dict), f"not a dict: {body!r}"
@@ -334,7 +334,7 @@ def test_list_arbitrage_opportunities() -> None:
 
 def test_missing_required_param_returns_error() -> None:
     # proposeArbitrageBrief requires opportunityKind
-    status, body = _cf("app.etzhayyim.apps.openOssekai.proposeArbitrageBrief", method="POST",
+    status, body = _cf("com.etzhayyim.apps.openOssekai.proposeArbitrageBrief", method="POST",
                        body={"supplyActorDid": TARGET_DID})
     assert status in (400, 422, 500), f"expected 4xx/5xx for missing param, got {status}: {body!r}"
     assert isinstance(body, dict), f"expected error dict: {body!r}"
@@ -344,7 +344,7 @@ def test_missing_required_param_returns_error() -> None:
 
 def test_missing_targetdid_returns_error() -> None:
     # getOssekaiStatus requires targetDid
-    status, body = _cf("app.etzhayyim.apps.openOssekai.getOssekaiStatus")
+    status, body = _cf("com.etzhayyim.apps.openOssekai.getOssekaiStatus")
     # Returns {error:"targetDid required"} with 200 (soft error from handler)
     # or a lexicon validation error
     assert isinstance(body, dict), f"expected dict: {body!r}"
@@ -356,14 +356,14 @@ def test_missing_targetdid_returns_error() -> None:
 # ─── Tests: negative path ─────────────────────────────────────────────────────────
 
 def test_unknown_nsid_worker_404() -> None:
-    status, body = _cf("app.etzhayyim.apps.openOssekai.nonexistentMethod", method="POST", body={})
+    status, body = _cf("com.etzhayyim.apps.openOssekai.nonexistentMethod", method="POST", body={})
     assert status == 404, f"expected 404, got {status}: {body!r}"
 
 
 def test_unknown_nsid_dispatcher_404(skip: bool = False) -> None:
     if skip:
         return
-    status, body = _disp("app.etzhayyim.apps.openOssekai.nonexistentMethod", {})
+    status, body = _disp("com.etzhayyim.apps.openOssekai.nonexistentMethod", {})
     assert status == 404, f"expected 404, got {status}: {body!r}"
 
 
@@ -403,7 +403,7 @@ def test_rw_all_5_bindings_active() -> None:
     """All 5 write-command bindings are in vertex_bpmn_lexicon_binding with status=active."""
     count = _rw_count(
         "SELECT COUNT(*) FROM vertex_bpmn_lexicon_binding "
-        "WHERE nsid LIKE 'app.etzhayyim.apps.openOssekai.%' AND status='active'"
+        "WHERE nsid LIKE 'com.etzhayyim.apps.openOssekai.%' AND status='active'"
     )
     assert count == 5, f"expected 5 active ossekai bindings, got {count}"
 

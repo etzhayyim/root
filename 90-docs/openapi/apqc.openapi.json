@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.apqc.coverageSnapshot": {
+    "/xrpc/com.etzhayyim.apqc.coverageSnapshot": {
       "get": {
         "summary": "Return APQC pyzeebe + LangGraph + UDF migration coverage.",
-        "operationId": "app.etzhayyim.apqc.coverageSnapshot",
+        "operationId": "com.etzhayyim.apqc.coverageSnapshot",
         "parameters": [],
         "responses": {
           "200": {
@@ -55,10 +55,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apqc.emitEvent": {
+    "/xrpc/com.etzhayyim.apqc.emitEvent": {
       "post": {
         "summary": "Write an APQC OCEL event through the pyzeebe runtime.",
-        "operationId": "app.etzhayyim.apqc.emitEvent",
+        "operationId": "com.etzhayyim.apqc.emitEvent",
         "requestBody": {
           "required": true,
           "content": {
@@ -135,10 +135,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apqc.getProcess": {
+    "/xrpc/com.etzhayyim.apqc.getProcess": {
       "get": {
         "summary": "Tranche F stub — fetch one APQC PCF process by ID. Full schema pending Phase 3 content copy.",
-        "operationId": "app.etzhayyim.apqc.getProcess",
+        "operationId": "com.etzhayyim.apqc.getProcess",
         "parameters": [
           {
             "name": "processId",
@@ -168,10 +168,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apqc.materializeSubprocessDid": {
+    "/xrpc/com.etzhayyim.apqc.materializeSubprocessDid": {
       "get": {
         "summary": "Return the deterministic APQC subprocess DID for SQL/UDF callers.",
-        "operationId": "app.etzhayyim.apqc.materializeSubprocessDid",
+        "operationId": "com.etzhayyim.apqc.materializeSubprocessDid",
         "parameters": [],
         "responses": {
           "200": {
@@ -207,10 +207,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apqc.materializeSubprocesses": {
+    "/xrpc/com.etzhayyim.apqc.materializeSubprocesses": {
       "post": {
         "summary": "Materialize APQC subprocess DIDs for an APQC L1 code using the pyzeebe + LangGraph runtime.",
-        "operationId": "app.etzhayyim.apqc.materializeSubprocesses",
+        "operationId": "com.etzhayyim.apqc.materializeSubprocesses",
         "requestBody": {
           "required": true,
           "content": {

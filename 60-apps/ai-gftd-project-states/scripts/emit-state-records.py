@@ -162,7 +162,7 @@ def emit_country(iso3, out_dir):
     # stateProfile
     static = STATIC.get(iso3, {})
     profile_rec = {
-        "$type": "app.etzhayyim.apps.states.stateProfile",
+        "$type": "com.etzhayyim.apps.states.stateProfile",
         "iso3": iso3, "name": name,
         "displayName": static.get("displayName") or f"Government of {name}",
         "description": f"{name} government registry - path-based DID, administrative desks, procedures (BPMN), and document templates.",
@@ -181,7 +181,7 @@ def emit_country(iso3, out_dir):
     }
     (out_dir / "profile").mkdir(parents=True, exist_ok=True)
     (out_dir / "profile" / f"{iso3}.json").write_text(
-        json.dumps(put_body("app.etzhayyim.apps.states.stateProfile", iso3, profile_rec), ensure_ascii=False))
+        json.dumps(put_body("com.etzhayyim.apps.states.stateProfile", iso3, profile_rec), ensure_ascii=False))
 
     # stateProcedure (one per ministry with BPMN)
     (out_dir / "procedure").mkdir(parents=True, exist_ok=True)
@@ -193,7 +193,7 @@ def emit_country(iso3, out_dir):
         bpmn_name = path.replace(":", "-") + ".bpmn"
         has_bpmn = bpmn_name in bpmn_files
         proc_rec = {
-            "$type": "app.etzhayyim.apps.states.stateProcedure",
+            "$type": "com.etzhayyim.apps.states.stateProcedure",
             "iso3": iso3, "path": path,
             "title": m.get("nameEn") or m.get("name", ""),
             "titleLocal": m.get("name", ""),
@@ -206,7 +206,7 @@ def emit_country(iso3, out_dir):
             "createdAt": "2026-04-18T03:30:00Z",
         }
         (out_dir / "procedure" / f"{rkey}.json").write_text(
-            json.dumps(put_body("app.etzhayyim.apps.states.stateProcedure", rkey, proc_rec), ensure_ascii=False))
+            json.dumps(put_body("com.etzhayyim.apps.states.stateProcedure", rkey, proc_rec), ensure_ascii=False))
         proc_count += 1
 
     # stateDocument (one per contract/law)
@@ -217,7 +217,7 @@ def emit_country(iso3, out_dir):
         if not cslug: continue
         rkey = f"{iso3}-{slug(cslug)}"[:64]
         doc_rec = {
-            "$type": "app.etzhayyim.apps.states.stateDocument",
+            "$type": "com.etzhayyim.apps.states.stateDocument",
             "iso3": iso3, "slug": cslug,
             "title": c.get("nameEn") or c.get("name", ""),
             "titleLocal": c.get("name", ""),
@@ -231,7 +231,7 @@ def emit_country(iso3, out_dir):
             "createdAt": "2026-04-18T03:30:00Z",
         }
         (out_dir / "document" / f"{rkey}.json").write_text(
-            json.dumps(put_body("app.etzhayyim.apps.states.stateDocument", rkey, doc_rec), ensure_ascii=False))
+            json.dumps(put_body("com.etzhayyim.apps.states.stateDocument", rkey, doc_rec), ensure_ascii=False))
         doc_count += 1
     return (1, proc_count, doc_count)
 

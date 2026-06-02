@@ -17,7 +17,7 @@ import type {
   CardRefundOutput,
 } from './types.js';
 
-/** Thin typed wrapper over the `app.etzhayyim.card.*` lexicon procedures. */
+/** Thin typed wrapper over the `com.etzhayyim.card.*` lexicon procedures. */
 export interface WarifuSubstrate {
   /** Phase 2 (external purchase/subscription) gate — read from on-chain SettlementRouter. */
   phase2Enabled(): Promise<boolean>;

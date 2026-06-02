@@ -285,7 +285,7 @@ smoke_test_node() {
         fi
         # HTTP reachability — warm-start tolerance (warn, don't fail)
         if _run_ssh "$node" "
-            curl -fs -X POST http://localhost:8765/xrpc/app.etzhayyim.mstProjector.countByCollection \
+            curl -fs -X POST http://localhost:8765/xrpc/com.etzhayyim.mstProjector.countByCollection \
               -H 'Content-Type: application/json' \
               -d '{\"collection\":\"app.bsky.feed.post\"}' >/dev/null 2>&1
         " 2>/dev/null; then

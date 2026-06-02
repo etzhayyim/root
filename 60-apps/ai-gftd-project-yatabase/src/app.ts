@@ -8,7 +8,7 @@
 //   /storage/v1/bucket                        — list buckets
 //   /storage/v1/object/public/{bucket}/{key}  — public ACL (P3.2 stub)
 //   /sparql                                   — SPARQL 1.1 SELECT/CONSTRUCT/ASK
-//   /xrpc/app.etzhayyim.apps.{yata,billing}.*       — XRPC pass-through
+//   /xrpc/com.etzhayyim.apps.{yata,billing}.*       — XRPC pass-through
 //
 // Auth: Bearer sk_live_yata_* / ES256 JWT → PDS service binding
 // `/_internal/resolve-auth` returns { did, orgDid, activeDid, productScope }.
@@ -216,7 +216,7 @@ app.get("/_app/meta", (c) =>
       "/mcp",
       "/.well-known/agent.json",
       "/.well-known/mcp.json",
-      "/xrpc/app.etzhayyim.apps.yata.*",
+      "/xrpc/com.etzhayyim.apps.yata.*",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
   }),
@@ -336,7 +336,7 @@ async function resolveAuthContext(req: Request, env: Env): Promise<AuthContext |
     }
 
     const dispatcherBase = env.LG_YATABASE_URL || "https://dispatcher.etzhayyim.com";
-    const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/app.etzhayyim.apps.yata.authResolveApiKey`;
+    const url = `${dispatcherBase.replace(/\/+$/, "")}/xrpc/com.etzhayyim.apps.yata.authResolveApiKey`;
     try {
       const keyHash = await sha256Hex(rawKey);
       const bodyStr = JSON.stringify({ key_hash: keyHash });
@@ -1394,7 +1394,7 @@ app.post("/sparql", async (c) => {
 
   const result = await dispatchYataXrpc(
     c.env,
-    "app.etzhayyim.apps.yata.runSparql",
+    "com.etzhayyim.apps.yata.runSparql",
     body as Record<string, unknown>,
     {
       orgDid: auth.orgDid,
@@ -2041,7 +2041,7 @@ app.post("/_agents/:name/run", async (c) => {
 
 app.all("/xrpc/:nsid", async (c) => {
   const nsid = c.req.param("nsid");
-  if (!nsid.startsWith("app.etzhayyim.apps.yata.") && !nsid.startsWith("app.etzhayyim.apps.billing.")) {
+  if (!nsid.startsWith("com.etzhayyim.apps.yata.") && !nsid.startsWith("com.etzhayyim.apps.billing.")) {
     return c.json(
       { error: "NotFound", message: `nsid ${nsid} is not handled by yatabase.etzhayyim.com; use atproto.etzhayyim.com` },
       404,

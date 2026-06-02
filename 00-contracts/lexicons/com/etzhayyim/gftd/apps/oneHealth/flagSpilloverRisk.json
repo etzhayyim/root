@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oneHealth.flagSpilloverRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Spillover risk signal (SpilloverAI / Global Virome Project — bridges pandemic-preparedness + cites-wildlife + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "signalId",
+            "hostTaxonomy",
+            "reportedAt"
+          ],
+          "properties": {
+            "signalId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges recordSurveillanceEvent"
+            },
+            "hostTaxonomy": {
+              "type": "string"
+            },
+            "geoClusterIso3": {
+              "type": "string"
+            },
+            "driverKind": {
+              "type": "string",
+              "enum": [
+                "deforestation",
+                "wildlife_trade",
+                "livestock_intensification",
+                "climate",
+                "urban_peri_urban",
+                "migration"
+              ]
+            },
+            "reservoirConfidence": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "monitor",
+                "elevated",
+                "imminent"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

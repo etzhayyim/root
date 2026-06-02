@@ -6,7 +6,7 @@ approval, credentials, private specifications, and security review.
 
 TODO(substrate-boundary): replace RW writes (psycopg execute INSERT/UPDATE)
 with AT Protocol MST writes via @etzhayyim/sdk per ADR-2605172000.
-Collection: 'app.etzhayyim.apps.openJpnMynumber.personRef', rkey=person_id_hash.
+Collection: 'com.etzhayyim.apps.openJpnMynumber.personRef', rkey=person_id_hash.
 Remove RW_URL env dependency when migration complete.
 """
 
@@ -659,23 +659,23 @@ async def get_medical_info_status(**payload: Any) -> dict[str, Any]:
 
 
 TASKS: dict[str, Callable[..., Any]] = {
-    "app.etzhayyim.apps.openJpnMynumber.verifyJpki": verify_jpki,
-    "app.etzhayyim.apps.openJpnMynumber.registerPerson": register_person,
-    "app.etzhayyim.apps.openJpnMynumber.lookupNonresidentAddress": lookup_nonresident_address,
-    "app.etzhayyim.apps.openJpnMynumber.assignNonresidentAddress": assign_nonresident_address,
-    "app.etzhayyim.apps.openJpnMynumber.createConsentSession": create_consent_session,
-    "app.etzhayyim.apps.openJpnMynumber.brokerInformationRequest": broker_information_request,
-    "app.etzhayyim.apps.openJpnMynumber.discloseSelfInformation": disclose_self_information,
-    "app.etzhayyim.apps.openJpnMynumber.issueOauthToken": issue_oauth_token,
-    "app.etzhayyim.apps.openJpnMynumber.introspectOauthToken": introspect_oauth_token,
-    "app.etzhayyim.apps.openJpnMynumber.revokeOauthToken": revoke_oauth_token,
-    "app.etzhayyim.apps.openJpnMynumber.validateFileManifest": validate_file_manifest,
-    "app.etzhayyim.apps.openJpnMynumber.registerFileTransfer": register_file_transfer,
-    "app.etzhayyim.apps.openJpnMynumber.pollFileTransferStatus": poll_file_transfer_status,
-    "app.etzhayyim.apps.openJpnMynumber.submitElectronicApplication": submit_electronic_application,
-    "app.etzhayyim.apps.openJpnMynumber.getElectronicApplicationStatus": get_electronic_application_status,
-    "app.etzhayyim.apps.openJpnMynumber.requestMedicalInfo": request_medical_info,
-    "app.etzhayyim.apps.openJpnMynumber.getMedicalInfoStatus": get_medical_info_status,
+    "com.etzhayyim.apps.openJpnMynumber.verifyJpki": verify_jpki,
+    "com.etzhayyim.apps.openJpnMynumber.registerPerson": register_person,
+    "com.etzhayyim.apps.openJpnMynumber.lookupNonresidentAddress": lookup_nonresident_address,
+    "com.etzhayyim.apps.openJpnMynumber.assignNonresidentAddress": assign_nonresident_address,
+    "com.etzhayyim.apps.openJpnMynumber.createConsentSession": create_consent_session,
+    "com.etzhayyim.apps.openJpnMynumber.brokerInformationRequest": broker_information_request,
+    "com.etzhayyim.apps.openJpnMynumber.discloseSelfInformation": disclose_self_information,
+    "com.etzhayyim.apps.openJpnMynumber.issueOauthToken": issue_oauth_token,
+    "com.etzhayyim.apps.openJpnMynumber.introspectOauthToken": introspect_oauth_token,
+    "com.etzhayyim.apps.openJpnMynumber.revokeOauthToken": revoke_oauth_token,
+    "com.etzhayyim.apps.openJpnMynumber.validateFileManifest": validate_file_manifest,
+    "com.etzhayyim.apps.openJpnMynumber.registerFileTransfer": register_file_transfer,
+    "com.etzhayyim.apps.openJpnMynumber.pollFileTransferStatus": poll_file_transfer_status,
+    "com.etzhayyim.apps.openJpnMynumber.submitElectronicApplication": submit_electronic_application,
+    "com.etzhayyim.apps.openJpnMynumber.getElectronicApplicationStatus": get_electronic_application_status,
+    "com.etzhayyim.apps.openJpnMynumber.requestMedicalInfo": request_medical_info,
+    "com.etzhayyim.apps.openJpnMynumber.getMedicalInfoStatus": get_medical_info_status,
 }
 
 
@@ -714,7 +714,7 @@ def main() -> int:
         asyncio.run(serve())
         return 0
     if args.command:
-        task_type = f"app.etzhayyim.apps.openJpnMynumber.{args.command}"
+        task_type = f"com.etzhayyim.apps.openJpnMynumber.{args.command}"
         result = asyncio.run(run_task(task_type, args.payload_json))
         print(json.dumps(result, ensure_ascii=False, separators=(",", ":")))
         return 0

@@ -29,7 +29,7 @@
     "agentType": "reactive",
     "capabilities": ["send-email", "draft-email", "list-drafts", "teams-channel-email-post"],
     "category": "infrastructure",
-    "description": "Microsoft 365 write facade — Mail.Send (app-only) with policy routing (internal=direct / external=draft_only) per deps.toml [etzhayyim_agent.auth]. Exposes ai.gftd.apps.microsoft.{sendMail,sendDraft,listDrafts} over XRPC, auto-published as MCP tools via atproto.etzhayyim.com.",
+    "description": "Microsoft 365 write facade — Mail.Send (app-only) with policy routing (internal=direct / external=draft_only) per deps.toml [etzhayyim_agent.auth]. Exposes com.etzhayyim.apps.microsoft.{sendMail,sendDraft,listDrafts} over XRPC, auto-published as MCP tools via atproto.etzhayyim.com.",
     "displayName": "Microsoft 365 Send",
     "isBot": true,
     "operator": "gftd.co.jp"

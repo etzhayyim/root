@@ -82,9 +82,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
-        "ai.gftd.apps.kami.kamiEntity",
-        "ai.gftd.apps.kami.kamiEvent",
-        "ai.gftd.apps.kami.kamiReport"
+        "com.etzhayyim.apps.kami.kamiEntity",
+        "com.etzhayyim.apps.kami.kamiEvent",
+        "com.etzhayyim.apps.kami.kamiReport"
       ]
     }
   },

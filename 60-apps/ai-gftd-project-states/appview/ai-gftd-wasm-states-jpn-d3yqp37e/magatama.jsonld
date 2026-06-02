@@ -146,14 +146,14 @@
         "title": "省庁 DID 解決",
         "bpmn": "etzhayyim-root/60-apps/ai-gftd-project-open-jpn-gov/bpmn/resolve-ministry.bpmn",
         "form": "60-apps/ai-gftd-project-open-jpn-gov/forms/resolveMinistry.form.json",
-        "xrpcRef": "ai.gftd.apps.openJpnGov.getMinistry"
+        "xrpcRef": "com.etzhayyim.apps.openJpnGov.getMinistry"
       },
       {
         "id": "openJpnGov.searchLaw",
         "title": "法令検索 (e-Gov 法令API v2 proxy)",
         "bpmn": "etzhayyim-root/60-apps/ai-gftd-project-open-jpn-gov/bpmn/search-law.bpmn",
         "form": "60-apps/ai-gftd-project-open-jpn-gov/forms/searchLaw.form.json",
-        "xrpcRef": "ai.gftd.apps.openJpnGov.searchLaws"
+        "xrpcRef": "com.etzhayyim.apps.openJpnGov.searchLaws"
       }
     ],
     "documentTemplates": [
@@ -225,14 +225,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.site.wet",
-        "ai.gftd.apps.site.wat",
-        "ai.gftd.apps.site.page",
-        "ai.gftd.apps.site.domain",
-        "ai.gftd.apps.sashiosae.choushuuCase",
-        "ai.gftd.apps.sashiosae.sashiosaeNotice",
-        "ai.gftd.apps.sashiosae.sashiosaeRelease",
-        "ai.gftd.apps.sashiosae.kankaResult"
+        "com.etzhayyim.apps.site.wet",
+        "com.etzhayyim.apps.site.wat",
+        "com.etzhayyim.apps.site.page",
+        "com.etzhayyim.apps.site.domain",
+        "com.etzhayyim.apps.sashiosae.choushuuCase",
+        "com.etzhayyim.apps.sashiosae.sashiosaeNotice",
+        "com.etzhayyim.apps.sashiosae.sashiosaeRelease",
+        "com.etzhayyim.apps.sashiosae.kankaResult"
       ]
     }
   },

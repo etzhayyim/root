@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.panamaDrought.triggerDraftRestriction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Freshwater draft 規制",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restrictionId",
+            "lane",
+            "maxDraftFeet",
+            "reason",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "restrictionId": {
+              "type": "string"
+            },
+            "lane": {
+              "type": "string"
+            },
+            "maxDraftFeet": {
+              "type": "number"
+            },
+            "maxSlotsPerDay": {
+              "type": "integer"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "impactTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

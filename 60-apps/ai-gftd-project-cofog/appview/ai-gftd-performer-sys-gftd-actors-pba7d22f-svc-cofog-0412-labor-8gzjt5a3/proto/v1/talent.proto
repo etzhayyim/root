@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package app.etzhayyim.talent.v1;
+package com.etzhayyim.talent.v1;
 
 option go_package = "github.com/gftdcojp/ai-gftd-kyber/performers/ai-gftd-services-cap-cofog-0412-labor/proto/v1;talentv1";
 

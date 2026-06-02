@@ -99,7 +99,7 @@ export async function projectLexicons(repoRoot: string): Promise<KgProjection> {
     if (mainDef?.type) tags.push(`def:${mainDef.type}`);
 
     nodes.push({
-      $type: "app.etzhayyim.kg.node",
+      $type: "com.etzhayyim.kg.node",
       nodeId: `lexicon:${id}`,
       nodeType: "lexicon",
       label: id,
@@ -115,7 +115,7 @@ export async function projectLexicons(repoRoot: string): Promise<KgProjection> {
     for (const target of sortedRefs) {
       referencedNsids.add(target);
       edges.push({
-        $type: "app.etzhayyim.kg.edge",
+        $type: "com.etzhayyim.kg.edge",
         subject: `lexicon:${id}`,
         predicate: "uses-lexicon",
         object: `lexicon:${target}`,
@@ -131,7 +131,7 @@ export async function projectLexicons(repoRoot: string): Promise<KgProjection> {
   for (const nsid of sortedExternal) {
     const ns = nsid.split(".").slice(0, 2).join(".");
     nodes.push({
-      $type: "app.etzhayyim.kg.node",
+      $type: "com.etzhayyim.kg.node",
       nodeId: `lexicon:${nsid}`,
       nodeType: "lexicon",
       label: nsid,

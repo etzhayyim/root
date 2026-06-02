@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzDarkfleet.recordStsTransfer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Ship-to-ship 疑義転送記録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "transferId",
+            "donorImo",
+            "receiverImo",
+            "observedAt"
+          ],
+          "properties": {
+            "transferId": {
+              "type": "string"
+            },
+            "donorImo": {
+              "type": "string"
+            },
+            "receiverImo": {
+              "type": "string"
+            },
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            },
+            "cargoType": {
+              "type": "string"
+            },
+            "estimatedVolumeTonnes": {
+              "type": "number"
+            },
+            "durationHours": {
+              "type": "number"
+            },
+            "outsideDesignatedArea": {
+              "type": "boolean"
+            },
+            "observedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.payment.escrowRefunded",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Escrow refund record. Per ADR-2605202900 Phase 2: record-only state transition (no on-chain tx — USDC was never moved). Phase 2b+ when @etzhayyim/sdk escrowRelease() ships: refundTxHash populated with the actual on-chain refund tx. Written by the canceller (typically buyer DID) on cancellation of the associated productionOrder.",
+      "record": {
+        "type": "object",
+        "required": ["forEscrowUri", "forProductionOrderUri", "reason", "refundedAt", "refundedByDid"],
+        "properties": {
+          "forEscrowUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the escrowOpened record being refunded."
+          },
+          "forProductionOrderUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the productionOrder that triggered this refund."
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Cancellation reason carried from cancelProductionOrder.reason."
+          },
+          "refundedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "refundedByDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the actor refunding (typically buyer, sometimes arbiter)."
+          },
+          "refundTxHash": {
+            "type": "string",
+            "description": "Phase 2: omitted (record-only). Phase 2b+: 0x-prefixed Base L2 tx hash from @etzhayyim/sdk escrowRelease()."
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@
  * real T2 donated-mesh service. Exposes one XRPC-shaped HTTP endpoint that
  * resolves an actor → CID/CAR-verifies → runs → returns the JSON result:
  *
- *   GET /xrpc/app.etzhayyim.actor.run?actor=<did|handle>[&cid=<cidv1>]
+ *   GET /xrpc/com.etzhayyim.actor.run?actor=<did|handle>[&cid=<cidv1>]
  *   GET /healthz
  *
  * Trust is unchanged: bytes are CID/CAR-verified before execution (no trusted
@@ -64,7 +64,7 @@ export function serveActor({ port = 8787, gatewayBase, fetchImpl } = {}) {
         res.writeHead(200, JSON_HEADERS).end(JSON.stringify({ ok: true, service: "e7m-wasm-runner" }));
         return;
       }
-      if (url.pathname === "/xrpc/app.etzhayyim.actor.run") {
+      if (url.pathname === "/xrpc/com.etzhayyim.actor.run") {
         const out = await run({
           actor: url.searchParams.get("actor") ?? undefined,
           cid: url.searchParams.get("cid") ?? undefined,
@@ -86,5 +86,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const val = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : undefined; };
   const port = Number(val("--port") ?? 8787);
   serveActor({ port, gatewayBase: val("--gateway") });
-  console.log(`e7m-wasm-runner serving on :${port} — GET /xrpc/app.etzhayyim.actor.run?actor=<did|handle>`);
+  console.log(`e7m-wasm-runner serving on :${port} — GET /xrpc/com.etzhayyim.actor.run?actor=<did|handle>`);
 }

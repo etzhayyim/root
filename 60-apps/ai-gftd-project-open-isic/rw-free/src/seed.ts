@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import { hierarchyOf, type IsicClass } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.openIsic.class";
+const COLLECTION = "com.etzhayyim.apps.openIsic.class";
 const ISIC_PUBLISHED_AT_DEFAULT = "2008-01-01T00:00:00Z";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

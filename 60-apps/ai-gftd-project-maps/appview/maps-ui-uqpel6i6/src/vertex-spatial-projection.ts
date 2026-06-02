@@ -1,4 +1,4 @@
-// Projection from app.etzhayyim.apps.maps.{entity} domain records → vertex_spatial row.
+// Projection from com.etzhayyim.apps.maps.{entity} domain records → vertex_spatial row.
 // ADR-0036: domain writes bypass PDS + graph-worker and INSERT directly via
 // Hyperdrive Kysely. This mirrors 50-infra/cloudflare/workers/graph/worker.ts
 // `buildConventionRow` + `mapsEntityToLabel`.
@@ -30,7 +30,7 @@ function camelToSnake(s: string): string {
 }
 
 export function mapsEntityForCollection(collection: string): string | null {
-  const m = collection.match(/^ai\.gftd\.apps\.maps\.([^.]+)$/);
+  const m = collection.match(/^com\.etzhayyim\.apps\.maps\.([^.]+)$/);
   return m ? m[1] : null;
 }
 
@@ -77,7 +77,7 @@ export function projectToVertexSpatial(
   rec: Record<string, unknown>,
 ): VertexSpatialProjection {
   const label = mapsEntityToLabel(entity);
-  const collection = `app.etzhayyim.apps.maps.${entity}`;
+  const collection = `com.etzhayyim.apps.maps.${entity}`;
   let rkey = firstStableRkey(entity, rec);
   if (!rkey) rkey = `${entity}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const vertexId = `at://${repoDid}/${collection}/${rkey}`;

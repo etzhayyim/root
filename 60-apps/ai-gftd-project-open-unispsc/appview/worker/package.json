@@ -2,7 +2,7 @@
   "name": "@etzhayyim/open-unispsc-appview-worker",
   "version": "0.1.0",
   "private": true,
-  "description": "AppView Worker for app.etzhayyim.apps.unispsc.* XRPC. Proxies to lg-open-unispsc langserver. ADR-2605180900 Phase 7.",
+  "description": "AppView Worker for com.etzhayyim.apps.unispsc.* XRPC. Proxies to lg-open-unispsc langserver. ADR-2605180900 Phase 7.",
   "license": "Apache-2.0",
   "type": "module",
   "main": "src/index.ts",

@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.carePlan",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 CarePlan — 在宅療養計画書. Inner type of com.etzhayyim.encrypted.record envelope. Phase 3 (zaitaku). Bound to a homecareEpisode.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "episodeDid", "status", "intent", "createdAt"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "CarePlan"},
+          "patientDid": {"type": "string"},
+          "episodeDid": {"type": "string"},
+          "status": {"type": "string", "enum": ["draft", "active", "on-hold", "revoked", "completed", "entered-in-error", "unknown"]},
+          "intent": {"type": "string", "enum": ["proposal", "plan", "order", "option", "directive"]},
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "addressedConditionRefs": {"type": "array", "items": {"type": "string"}},
+          "goals": {"type": "array", "items": {"type": "ref", "ref": "#goal"}},
+          "activities": {"type": "array", "items": {"type": "ref", "ref": "#activity"}},
+          "primaryMdDid": {"type": "string"},
+          "primaryNurseDid": {"type": "string"},
+          "caregiverDids": {"type": "array", "items": {"type": "string"}, "description": "Family caregivers / 介護福祉士 with DID"},
+          "reviewIntervalDays": {"type": "integer", "description": "Cadence at which the plan is reviewed and updated"},
+          "createdAt": {"type": "string", "format": "datetime"},
+          "lastReviewedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {"type": "string"},
+        "priority": {"type": "string", "enum": ["high", "medium", "low"]},
+        "targetDate": {"type": "string", "format": "datetime"},
+        "achievementStatus": {"type": "string", "enum": ["in-progress", "improving", "worsening", "no-change", "achieved", "sustaining", "not-achieved", "no-progress"]}
+      }
+    },
+    "activity": {
+      "type": "object",
+      "required": ["status", "description"],
+      "properties": {
+        "category": {"type": "string", "enum": ["assessment", "diet", "drug", "encounter", "exercise", "observation", "procedure", "supply", "other"]},
+        "status": {"type": "string", "enum": ["not-started", "scheduled", "in-progress", "on-hold", "completed", "cancelled", "stopped", "unknown", "entered-in-error"]},
+        "description": {"type": "string"},
+        "scheduledTimingFreqPerWeek": {"type": "integer"},
+        "responsibleDid": {"type": "string"},
+        "performedAtRefs": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of homeVisit records that executed this activity"}
+      }
+    }
+  }
+}

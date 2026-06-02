@@ -26,7 +26,7 @@ Pregel graph (5 nodes — largest cell in the L5 ladder):
     charter_rider_§2_check     <-  scan donation purposes for §2(a)-(h) violations
         |
         v
-    emit_tax_audit_view        ->  MST PUT app.etzhayyim.gov.taxAuditView
+    emit_tax_audit_view        ->  MST PUT com.etzhayyim.gov.taxAuditView
 
 Tier: B (Per-Domain).
 Murakumo node (leader): gad (Economic-domain sibling of zebulun).

@@ -132,7 +132,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vessel.vesselPosition"
+          "com.etzhayyim.apps.vessel.vesselPosition"
         ],
         "type": "subscribeRepos"
       }
@@ -142,7 +142,7 @@
         {
           "args": {
             "did": "did:web:port.etzhayyim.com",
-            "method": "ai.gftd.apps.port.portCallTracking.receivePortCallEvent",
+            "method": "com.etzhayyim.apps.port.portCallTracking.receivePortCallEvent",
             "params": "$input.record"
           },
           "fn": "agent.invoke",
@@ -151,7 +151,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vessel.portCall"
+          "com.etzhayyim.apps.vessel.portCall"
         ],
         "type": "subscribeRepos"
       }
@@ -167,7 +167,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.registry.getShip",
+        "nsid": "com.etzhayyim.apps.vessel.registry.getShip",
         "type": "xrpc"
       }
     },
@@ -182,7 +182,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.registry.listShips",
+        "nsid": "com.etzhayyim.apps.vessel.registry.listShips",
         "type": "xrpc"
       }
     },
@@ -197,7 +197,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.registry.searchShips",
+        "nsid": "com.etzhayyim.apps.vessel.registry.searchShips",
         "type": "xrpc"
       }
     },
@@ -212,7 +212,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.tracking.getVesselPosition",
+        "nsid": "com.etzhayyim.apps.vessel.tracking.getVesselPosition",
         "type": "xrpc"
       }
     },
@@ -227,7 +227,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.tracking.listVesselsInArea",
+        "nsid": "com.etzhayyim.apps.vessel.tracking.listVesselsInArea",
         "type": "xrpc"
       }
     },
@@ -242,7 +242,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.tracking.getPositionHistory",
+        "nsid": "com.etzhayyim.apps.vessel.tracking.getPositionHistory",
         "type": "xrpc"
       }
     },
@@ -257,7 +257,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.voyage.listVoyages",
+        "nsid": "com.etzhayyim.apps.vessel.voyage.listVoyages",
         "type": "xrpc"
       }
     },
@@ -272,7 +272,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.voyage.listPortCalls",
+        "nsid": "com.etzhayyim.apps.vessel.voyage.listPortCalls",
         "type": "xrpc"
       }
     },
@@ -319,7 +319,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.voyage.getVesselChain",
+        "nsid": "com.etzhayyim.apps.vessel.voyage.getVesselChain",
         "type": "xrpc"
       }
     },
@@ -334,7 +334,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.getDashboard",
+        "nsid": "com.etzhayyim.apps.vessel.getDashboard",
         "type": "xrpc"
       }
     },
@@ -349,7 +349,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.health",
+        "nsid": "com.etzhayyim.apps.vessel.health",
         "type": "xrpc"
       }
     },
@@ -375,7 +375,7 @@
             "params": {
               "actorName": "vessel",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.vessel.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.vessel.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "v3ss3l01",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -433,7 +433,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vessel.coverage.get",
+        "nsid": "com.etzhayyim.apps.vessel.coverage.get",
         "type": "xrpc"
       }
     }
@@ -453,8 +453,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -467,15 +467,15 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.vessel.ship",
-        "ai.gftd.apps.vessel.shipowner",
-        "ai.gftd.apps.vessel.shipRegistry",
-        "ai.gftd.apps.vessel.vesselPosition",
-        "ai.gftd.apps.vessel.voyage",
-        "ai.gftd.apps.vessel.portCall",
-        "ai.gftd.apps.vessel.ownerLink",
-        "ai.gftd.apps.maps.port",
-        "ai.gftd.legalEntity.entity"
+        "com.etzhayyim.apps.vessel.ship",
+        "com.etzhayyim.apps.vessel.shipowner",
+        "com.etzhayyim.apps.vessel.shipRegistry",
+        "com.etzhayyim.apps.vessel.vesselPosition",
+        "com.etzhayyim.apps.vessel.voyage",
+        "com.etzhayyim.apps.vessel.portCall",
+        "com.etzhayyim.apps.vessel.ownerLink",
+        "com.etzhayyim.apps.maps.port",
+        "com.etzhayyim.legalEntity.entity"
       ]
     }
   },

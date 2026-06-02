@@ -8,6 +8,6 @@ DELETE FROM vertex_langgraph_assistant
  WHERE assistant_id LIKE 'wellbecoming_%.v2';
 
 DELETE FROM vertex_mcp_tool_def
- WHERE nsid LIKE 'ai.gftd.apps.wellbecoming.%';
+ WHERE nsid LIKE 'com.etzhayyim.apps.wellbecoming.%';
 
 FLUSH;

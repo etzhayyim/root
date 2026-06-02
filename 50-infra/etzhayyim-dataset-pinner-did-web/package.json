@@ -2,7 +2,7 @@
   "name": "etzhayyim-dataset-pinner-did-web",
   "version": "1.0.0",
   "private": true,
-  "description": "Cloudflare Worker serving did:web:dataset-pinner.etzhayyim.com DID Document at /.well-known/did.json. Identity for the religious-corp dataset pinner that emits app.etzhayyim.substrate.datasetPin records (ADR-2605241500).",
+  "description": "Cloudflare Worker serving did:web:dataset-pinner.etzhayyim.com DID Document at /.well-known/did.json. Identity for the religious-corp dataset pinner that emits com.etzhayyim.substrate.datasetPin records (ADR-2605241500).",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

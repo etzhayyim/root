@@ -15,7 +15,7 @@
             "reasonCode": { "type": "string", "enum": ["fraud", "not-received", "not-as-described", "duplicate", "other"] },
             "openedByDid": { "type": "string", "format": "did" },
             "amountUsdc": { "type": "integer", "minimum": 1 },
-            "evidenceCids": { "type": "array", "items": { "type": "string", "description": "encrypted blob CID (app.etzhayyim.encrypted.*) — no plaintext" } }
+            "evidenceCids": { "type": "array", "items": { "type": "string", "description": "encrypted blob CID (com.etzhayyim.encrypted.*) — no plaintext" } }
           }
         }
       },

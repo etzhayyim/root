@@ -66,7 +66,7 @@ class MutopiaSensor:
     source_archive = "mutopiaproject.org"
 
     def latest_pin(self) -> DatasetPin:
-        """Resolve latest app.etzhayyim.substrate.datasetPin for mutopia source.
+        """Resolve latest com.etzhayyim.substrate.datasetPin for mutopia source.
 
         TODO R1.1: implement via etzhayyim_sdk.substrate.resolve_latest_dataset_pin
         """
@@ -108,7 +108,7 @@ def _is_pd_globally(work_metadata: dict) -> bool:
 
 
 def _build_pd_attestation(work_metadata: dict, snapshot_cid: str, tier: TierClassification) -> dict:
-    """Build app.etzhayyim.creative.publicDomainStatusAttestation record per Mutopia work.
+    """Build com.etzhayyim.creative.publicDomainStatusAttestation record per Mutopia work.
 
     G1: per-work attestation REQUIRED.
     G2: 7-jurisdiction pessimistic threshold.
@@ -116,7 +116,7 @@ def _build_pd_attestation(work_metadata: dict, snapshot_cid: str, tier: TierClas
     """
     return {
         "lexicon": 1,
-        "id": "app.etzhayyim.creative.publicDomainStatusAttestation",
+        "id": "com.etzhayyim.creative.publicDomainStatusAttestation",
         "createdAt": datetime.now(UTC).isoformat(),
         "workId": f"mutopia:{work_metadata['id']}",
         "modality": "music-symbolic",

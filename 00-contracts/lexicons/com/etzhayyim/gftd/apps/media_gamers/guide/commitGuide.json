@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.guide.commitGuide",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Thin edge write boundary for LangServer media-gamers guide generation. Writes the guide, translations, translation links, and optional social posts.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "slug": { "type": "string" },
+            "gameSlug": { "type": "string" },
+            "gameName": { "type": "string" },
+            "guideType": { "type": "string" },
+            "lang": { "type": "string" },
+            "title": { "type": "string" },
+            "body": { "type": "string" },
+            "qualityScore": { "type": "number" },
+            "generatedBy": { "type": "string" },
+            "requestedBy": { "type": "string" },
+            "sourceUri": { "type": "string" },
+            "socialPost": { "type": "string" },
+            "publish": { "type": "boolean" },
+            "translations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lang": { "type": "string" },
+                  "title": { "type": "string" },
+                  "body": { "type": "string" },
+                  "socialPost": { "type": "string" },
+                  "qualityScore": { "type": "number" }
+                },
+                "required": ["lang", "title", "body"]
+              }
+            }
+          },
+          "required": ["gameSlug", "guideType", "title", "body"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "slug": { "type": "string" },
+            "rkey": { "type": "string" },
+            "uri": { "type": "string" },
+            "sourceUri": { "type": "string" },
+            "translated": { "type": "integer" },
+            "creditsEarned": { "type": "integer" },
+            "error": { "type": "string" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

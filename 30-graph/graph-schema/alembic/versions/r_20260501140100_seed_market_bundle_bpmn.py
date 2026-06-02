@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1',
                  'did:web:market.etzhayyim.com',
                  'market_settlement_bundle',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -43,9 +43,9 @@ UP = [{'sql': '\n'
                  '  Phase 1.3 will replace this with a real ERC-4337 bundler call that\n'
                  '  produces a userOpHash and submits to a public bundler endpoint.\n'
                  '\n'
-                 '  NSID:      app.etzhayyim.market.settlementBundle\n'
+                 '  NSID:      com.etzhayyim.market.settlementBundle\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1\n'
                  '  binding allowlist: vertex_market_settlement\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.market.settlementBundle", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.market.settlementBundle", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -113,7 +113,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.market.settlement.bundle&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.market.settlement.bundle&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;amendedCount&quot;: amendedCount, '
                  '&quot;phase&quot;: &quot;1.2-mock-bundler&quot; }" target="attributes"/>\n'
@@ -132,12 +132,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4727,
-                 '00-contracts/bpmn/ai/gftd/generic/settlementBundle.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/generic/settlementBundle.bpmn',
                  '2026-05-01T13:00:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -151,9 +151,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.settlementBundle',
+                 'com.etzhayyim.market.settlementBundle',
                  'market_settlement_bundle',
                  120000,
                  'vertex_market_settlement',
@@ -162,12 +162,12 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/market-settlementBundle-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1']}]
 
 
 def upgrade() -> None:

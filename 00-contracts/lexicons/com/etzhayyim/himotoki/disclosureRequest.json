@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himotoki.disclosureRequest",
+  "description": "A disclosure-request specification produced by himotoki_request_intake (ADR-2605302130 §3). CONSTITUTIONAL: when `requestKind=dsar` the request is for the requesting member's OWN personal data ONLY (G3) — `subjectDid` MUST equal the consenting member and `consentRef` is mandatory; himotoki MUST NOT represent a third party's personal data. When `requestKind=foia` the request is for public administrative documents (no data-subject) and `subjectDid`/`consentRef` are omitted but `requesterDid` (true requester, G4) is mandatory. Scope is data-minimized (G12).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "requestKind",
+          "targetCid",
+          "requesterDid",
+          "scope",
+          "purpose"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "requestKind": {
+            "type": "string",
+            "knownValues": ["dsar", "foia"],
+            "description": "dsar = own-data access (APPI-33/GDPR-15/CCPA-110); foia = public administrative document (行政文書開示)"
+          },
+          "targetCid": {"type": "string", "description": "CID of the resolved disclosureTarget entry (G14-verified at dispatch)"},
+          "requesterDid": {"type": "string", "format": "did", "description": "TRUE requester identity (G4 non-pretext) — the member/corp actually filing"},
+          "subjectDid": {"type": "string", "format": "did", "description": "DSAR only: the data subject — MUST equal requesterDid's bound member (own-data-only, G3)"},
+          "consentRef": {"type": "string", "description": "DSAR only: CID/ref of explicit member consent + Adherent-SBT binding (G3) — MANDATORY for dsar"},
+          "scope": {"type": "string", "maxLength": 2000, "description": "Data-minimized description of exactly what records are requested (G12)"},
+          "purpose": {"type": "string", "maxLength": 1000, "description": "Stated purpose (non-vexatious, G8; member-benefit / public-interest)"},
+          "jurisdiction": {"type": "string", "maxLength": 8},
+          "status": {
+            "type": "string",
+            "knownValues": ["draft", "composed", "dispatched", "responded", "appealed", "closed"],
+            "description": "Lifecycle status"
+          }
+        }
+      }
+    }
+  }
+}

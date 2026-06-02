@@ -104,7 +104,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = InteriorPhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.interiorAttestation",
+        "$type": "com.etzhayyim.yamabiko.interiorAttestation",
         "trainsetId": s.trainsetId,
         "carIndex": s.carIndex,
         "floor": s.floor,

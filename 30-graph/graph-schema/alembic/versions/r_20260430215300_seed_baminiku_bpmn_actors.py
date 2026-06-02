@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-set-agent-profile-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-set-agent-profile-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_set_agent_profile',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_set_agent_profile" name="baminiku setAgentProfile" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.setAgentProfile", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.setAgentProfile", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1039,
-                 '00-contracts/bpmn/ai/gftd/baminiku/setAgentProfile.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/setAgentProfile.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-set-agent-profile-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-set-agent-profile-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-set-agent-profile-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-set-agent-profile-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.setAgentProfile',
+                 'com.etzhayyim.apps.baminiku.setAgentProfile',
                  'baminiku_set_agent_profile',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-set-agent-profile-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-set-agent-profile-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -93,7 +93,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-create-stream-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-create-stream-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_create_stream',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_create_stream" name="baminiku createStream" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.createStream", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.createStream", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -112,13 +112,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1018,
-                 '00-contracts/bpmn/ai/gftd/baminiku/createStream.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/createStream.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-create-stream-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-create-stream-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -133,9 +133,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-create-stream-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-create-stream-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.createStream',
+                 'com.etzhayyim.apps.baminiku.createStream',
                  'baminiku_create_stream',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -143,7 +143,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-create-stream-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-create-stream-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -159,7 +159,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-update-stage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-update-stage-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_update_stage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -169,7 +169,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_update_stage" name="baminiku updateStage" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.updateStage", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.updateStage", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -178,13 +178,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1012,
-                 '00-contracts/bpmn/ai/gftd/baminiku/updateStage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/updateStage.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-update-stage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-update-stage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -199,9 +199,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-update-stage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-update-stage-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.updateStage',
+                 'com.etzhayyim.apps.baminiku.updateStage',
                  'baminiku_update_stage',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -209,7 +209,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-update-stage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-update-stage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-record-chat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-record-chat-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_record_chat',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -235,7 +235,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_record_chat" name="baminiku recordChat" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.recordChat", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.recordChat", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -244,13 +244,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1006,
-                 '00-contracts/bpmn/ai/gftd/baminiku/recordChat.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/recordChat.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-record-chat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-record-chat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -265,9 +265,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-record-chat-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-record-chat-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.recordChat',
+                 'com.etzhayyim.apps.baminiku.recordChat',
                  'baminiku_record_chat',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -275,7 +275,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-record-chat-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-record-chat-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -291,7 +291,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-record-tip-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-record-tip-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_record_tip',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -301,7 +301,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_record_tip" name="baminiku recordTip" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.recordTip", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.recordTip", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -310,13 +310,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1000,
-                 '00-contracts/bpmn/ai/gftd/baminiku/recordTip.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/recordTip.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-record-tip-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-record-tip-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -331,9 +331,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-record-tip-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-record-tip-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.recordTip',
+                 'com.etzhayyim.apps.baminiku.recordTip',
                  'baminiku_record_tip',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -341,7 +341,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-record-tip-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-record-tip-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -357,7 +357,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-enqueue-track-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-enqueue-track-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_enqueue_track',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -367,7 +367,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_enqueue_track" name="baminiku enqueueTrack" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.enqueueTrack", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.enqueueTrack", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -376,13 +376,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1018,
-                 '00-contracts/bpmn/ai/gftd/baminiku/enqueueTrack.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/enqueueTrack.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-enqueue-track-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-enqueue-track-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -397,9 +397,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-enqueue-track-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-enqueue-track-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.enqueueTrack',
+                 'com.etzhayyim.apps.baminiku.enqueueTrack',
                  'baminiku_enqueue_track',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -407,7 +407,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-enqueue-track-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-enqueue-track-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -423,7 +423,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-skip-track-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-skip-track-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_skip_track',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -433,7 +433,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_skip_track" name="baminiku skipTrack" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.skipTrack", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.skipTrack", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -442,13 +442,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1000,
-                 '00-contracts/bpmn/ai/gftd/baminiku/skipTrack.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/skipTrack.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-skip-track-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-skip-track-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -463,9 +463,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-skip-track-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-skip-track-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.skipTrack',
+                 'com.etzhayyim.apps.baminiku.skipTrack',
                  'baminiku_skip_track',
                  'vertex_baminiku_agent_profile,vertex_baminiku_stream,vertex_baminiku_stage_patch,vertex_baminiku_chat,vertex_baminiku_tip,vertex_baminiku_track,vertex_baminiku_track_event,edge_baminiku_stream_agent,edge_baminiku_stream_stage_patch,edge_baminiku_stream_chat,edge_baminiku_stream_tip,edge_baminiku_stream_track,edge_baminiku_stream_track_event',
                  '2026-04-30T21:53:00+09:00',
@@ -473,7 +473,7 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-skip-track-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-skip-track-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -489,7 +489,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-get-stream-state-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-get-stream-state-v1',
                  'did:web:baminiku.etzhayyim.com',
                  'baminiku_get_stream_state',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -499,7 +499,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/baminiku"><bpmn:process '
                  'id="baminiku_get_stream_state" name="baminiku getStreamState" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.baminiku.getStreamState", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.baminiku.getStreamState", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -508,13 +508,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1033,
-                 '00-contracts/bpmn/ai/gftd/baminiku/getStreamState.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/baminiku/getStreamState.bpmn',
                  '2026-04-30T21:53:00+09:00',
                  'did:web:baminiku.etzhayyim.com',
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-get-stream-state-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-get-stream-state-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -529,9 +529,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-get-stream-state-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-get-stream-state-v1',
                  'did:web:baminiku.etzhayyim.com',
-                 'app.etzhayyim.apps.baminiku.getStreamState',
+                 'com.etzhayyim.apps.baminiku.getStreamState',
                  'baminiku_get_stream_state',
                  '',
                  '2026-04-30T21:53:00+09:00',
@@ -539,40 +539,40 @@ UP = [{'sql': '\n'
                  'did:web:baminiku.etzhayyim.com',
                  'sys.bpmn.seed.baminiku',
                  'did:web:baminiku.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-get-stream-state-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-get-stream-state-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-set-agent-profile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-set-agent-profile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-set-agent-profile-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-set-agent-profile-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-create-stream-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-create-stream-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-create-stream-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-create-stream-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-update-stage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-update-stage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-update-stage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-update-stage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-record-chat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-record-chat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-record-chat-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-record-chat-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-record-tip-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-record-tip-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-record-tip-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-record-tip-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-enqueue-track-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-enqueue-track-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-enqueue-track-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-enqueue-track-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-skip-track-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-skip-track-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-skip-track-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-skip-track-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/baminiku-get-stream-state-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/baminiku-get-stream-state-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/baminiku-get-stream-state-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/baminiku-get-stream-state-v1']}]
 
 
 def upgrade() -> None:

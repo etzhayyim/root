@@ -2,24 +2,24 @@
 --
 -- Pre-conditions (operator must verify before applying):
 --   1. r_20260509160000_seed_saikin_mcp_tools applied — vertex_mcp_tool_def
---      has 5 enabled rows for ai.gftd.apps.saikin.* with actor_host=saikin.etzhayyim.com.
+--      has 5 enabled rows for com.etzhayyim.apps.saikin.* with actor_host=saikin.etzhayyim.com.
 --      Verify:
 --        SELECT nsid, actor_host, enabled FROM vertex_mcp_tool_def
---         WHERE nsid LIKE 'ai.gftd.apps.saikin.%';
+--         WHERE nsid LIKE 'com.etzhayyim.apps.saikin.%';
 --   2. r_20260509170000_topology_saikin_cycle_v2_mcp applied — assistant
 --      saikin.cycle.v2 + 5 mcp_tool node rows exist.
 --      Verify:
 --        SELECT version, kind, checkpointer_mode FROM vertex_langgraph_assistant
 --         WHERE assistant_id = 'saikin.cycle.v2';
 --   3. dispatcher (pymagatama/dispatcher_main.py) is deployed with the
---      `/xrpc/ai.gftd.mcp.message` route registered (commit that touches
+--      `/xrpc/com.etzhayyim.mcp.message` route registered (commit that touches
 --      `pymagatama/mcp_dispatch.py` is live).
 --   4. saikin.etzhayyim.com Worker (`60-apps/ai-gftd-project-saikin/src/app.ts`) is
 --      deployed with the MCP_NSID branch in fetch().
 --   5. End-to-end smoke test passed:
---        curl -X POST https://saikin.etzhayyim.com/xrpc/ai.gftd.mcp.message \
+--        curl -X POST https://saikin.etzhayyim.com/xrpc/com.etzhayyim.mcp.message \
 --          -H 'Content-Type: application/json' \
---          -d '{"method":"tools/call","params":{"name":"ai.gftd.apps.saikin.probeEnvironment","arguments":{}}}'
+--          -d '{"method":"tools/call","params":{"name":"com.etzhayyim.apps.saikin.probeEnvironment","arguments":{}}}'
 --      → 200 OK with `{"result":{"signalCount":...,"signals":[...]}}`.
 --
 -- Rollback: re-INSERT the v1 pin row (vertex_id PK = nsid, RW implicit upsert).

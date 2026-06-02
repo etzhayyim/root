@@ -3,7 +3,7 @@
 Float out the hull, run the inclining (stability) test, and complete dock trials.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.launchCommissioningRecord.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.launchCommissioningRecord.
 """
 
 from typing import Any

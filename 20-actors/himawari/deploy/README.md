@@ -15,7 +15,7 @@ manufacturing** — NOT the logic/compute iwakura/fuigo/tsukuru silicon track (N
 |---|---|
 | `agent.py` | WASM build entrypoint — a `kotoba_langgraph` StateGraph that **composes** the seven `himawari/cells/*` manufacturing cells into one ordered chain, plus an advisory `narrate` node routed through the Murakumo fleet (G5). Exposes `WitWorld.run`. |
 | `requirements.txt` | langgraph build deps (no external LLM client — Murakumo-only, G5). |
-| `schema.edn` | kotoba EAVT schema projecting the 7 `app.etzhayyim.himawari.*` lexicon records → `:himawari.*/*` Datom attributes. |
+| `schema.edn` | kotoba EAVT schema projecting the 7 `com.etzhayyim.himawari.*` lexicon records → `:himawari.*/*` Datom attributes. |
 | `seed.edn` | one representative end-to-end manufacturing chain (lot → wafer → cell → module → loading → outbound + Council review), `:representative`. |
 | `ingest_records.py` | PDS write path — parses `seed.edn`, projects each record to a `kg.ingest` entity, gates the write on an operator session PoP (`ai.gftd.pds.session.verify`), writes via `ai.gftd.apps.kotobase.kg.ingest`. |
 | `deploy.sh` | orchestrator — health-check → record ingest (session-PoP-gated) → `kotoba commit` → componentize-py WASM build. |
@@ -148,7 +148,7 @@ plumbing, not an actor bug, exactly as observed for aria).
 
 ## Lexicon records → PDS write path (ADR-2606015000)
 
-The seven `app.etzhayyim.himawari.*` lexicon records (manifest `:lexiconNamespaces`)
+The seven `com.etzhayyim.himawari.*` lexicon records (manifest `:lexiconNamespaces`)
 are written into the canonical kotoba Datom log through the kotoba-server PDS XRPC
 surface — **no separate TS PDS** (ADR-2606015000 retired it):
 
@@ -159,7 +159,7 @@ surface — **no separate TS PDS** (ADR-2606015000 retired it):
    on a valid session PoP — the no-server-key substrate boundary (G15-equivalent).
 2. **`ai.gftd.apps.kotobase.kg.ingest`** — each record is projected to an entity
    (`id` from the record's `:db.unique/identity` attr; literals → `claims`, refs →
-   `relations`) and asserted into the `app.etzhayyim.himawari` named graph (canonical
+   `relations`) and asserted into the `com.etzhayyim.himawari` named graph (canonical
    EAVT; G6/G8). `kotoba commit` seals the hot arrangement.
 
 `ingest_records.py` implements both legs. Without `KOTOBA_SESSION_POP` it is a
@@ -172,7 +172,7 @@ python3 20-actors/himawari/deploy/ingest_records.py --dry-run
 # live ingest — operator session PoP present
 KOTOBA_SESSION_POP=<compact-eddsa-jws> \
   python3 20-actors/himawari/deploy/ingest_records.py \
-    --url http://127.0.0.1:8077 --graph app.etzhayyim.himawari
+    --url http://127.0.0.1:8077 --graph com.etzhayyim.himawari
 ```
 
 > AT Protocol PDS `repo.*` / `sync.*` write endpoints are still **phased** in

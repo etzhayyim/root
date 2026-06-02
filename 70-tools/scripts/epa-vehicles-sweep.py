@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 
 PG = os.environ["PG_URL"]
 REPO = "did:web:kuruma.etzhayyim.com"
-COLL = "app.etzhayyim.apps.kuruma.vehicle"
+COLL = "com.etzhayyim.apps.kuruma.vehicle"
 
 print("fetching EPA CSV (~21MB)…", file=sys.stderr)
 # yorishiro op: ai.etzhayyim.yorishiro.fueleconomy.downloadVehiclesCsv (see file docstring)

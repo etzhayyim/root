@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-rail/defineLine.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-rail/defineLine.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-rail/reportIncident.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-rail/reportIncident.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-rail BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-rail-define-line-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_rail_define_line"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-rail/defineLine.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-rail/defineLine.bpmn"');
     expect(migrationSource).toContain("open-rail-report-incident-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_rail_report_incident"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-rail/reportIncident.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-rail/reportIncident.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openRail.defineLine"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openRail.reportIncident"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openRail.defineLine"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openRail.reportIncident"');
   });
 
   it("uses open-rail-specific actor_id + owner_did", () => {

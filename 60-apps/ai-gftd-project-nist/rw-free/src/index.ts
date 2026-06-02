@@ -29,7 +29,7 @@ import {
   type CsfFunction,
 } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.nist.element";
+const COLLECTION = "com.etzhayyim.apps.nist.element";
 
 function defaultClient(): Etzhayyim {
   return new Etzhayyim({

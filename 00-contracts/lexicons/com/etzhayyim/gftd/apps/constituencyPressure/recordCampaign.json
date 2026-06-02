@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.constituencyPressure.recordCampaign",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Constituency advocacy / town hall / petition campaign (bridges coalitionReform.flagCollapse + lobbying-disclosure + press-freedom)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "campaignId",
+            "districtName",
+            "issueArea",
+            "tacticKind",
+            "startedAt"
+          ],
+          "properties": {
+            "campaignId": {
+              "type": "string"
+            },
+            "districtName": {
+              "type": "string"
+            },
+            "issueArea": {
+              "type": "string"
+            },
+            "tacticKind": {
+              "type": "string",
+              "enum": [
+                "town_hall",
+                "petition",
+                "door_knock",
+                "phone_bank",
+                "social_media",
+                "direct_mail",
+                "op_ed",
+                "letter_to_editor",
+                "rally",
+                "sit_in",
+                "vote_pledge",
+                "primary_threat",
+                "attack_ad"
+              ]
+            },
+            "collapseVid": {
+              "type": "string",
+              "description": "bridges coalitionReform.flagCollapse"
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

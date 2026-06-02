@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.paintAttestation",
+  "description": "Paint finishing attestation (L5a). KTL primer + base coat + clear coat (water-based, VOC <100 g/L). G8 enforcement. Per ADR-2605252500 L5a.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "pretreatmentResult": {"type": "unknown"},
+          "layers": {"type": "array", "items": {"type": "unknown"}, "minItems": 3},
+          "vocGPerL": {"type": "number", "maximum": 100},
+          "vocLimitGPerL": {"type": "number", "const": 100},
+          "g8Accept": {"type": "boolean"},
+          "cureRecord": {"type": "unknown"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "vocGPerL", "g8Accept"]
+      }
+    }
+  }
+}

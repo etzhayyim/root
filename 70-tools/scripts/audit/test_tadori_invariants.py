@@ -34,7 +34,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_TADORI_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "tadori"
+_TADORI_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "tadori"
 _CASE = _TADORI_LEX / "caseMandate.json"
 _ATTR = _TADORI_LEX / "attributionFinding.json"
 _TRACE = _TADORI_LEX / "traceReport.json"
@@ -201,10 +201,10 @@ class TestManifestGates:
     def test_lexicon_namespaces_match_the_four_lexicons(self):
         ns = set(_load(_MANIFEST)["lexiconNamespaces"])
         assert ns == {
-            "app.etzhayyim.tadori.caseMandate",
-            "app.etzhayyim.tadori.attributionFinding",
-            "app.etzhayyim.tadori.traceReport",
-            "app.etzhayyim.tadori.silenTadoriReview",
+            "com.etzhayyim.tadori.caseMandate",
+            "com.etzhayyim.tadori.attributionFinding",
+            "com.etzhayyim.tadori.traceReport",
+            "com.etzhayyim.tadori.silenTadoriReview",
         }, "manifest lexiconNamespaces must match the 4 shipped Lexicons"
 
 
@@ -224,7 +224,7 @@ class TestManifestArtifactConsistency:
     def test_each_lexicon_id_matches_its_namespace(self):
         for p in _TADORI_LEX.glob("*.json"):
             lex_id = _load(p)["id"]
-            assert lex_id == f"app.etzhayyim.tadori.{p.stem}", (
+            assert lex_id == f"com.etzhayyim.tadori.{p.stem}", (
                 f"{p.name}: lexicon id {lex_id!r} must match its filename + namespace"
             )
 

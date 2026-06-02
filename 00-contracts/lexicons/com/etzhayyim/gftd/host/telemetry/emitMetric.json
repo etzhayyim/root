@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.telemetry.emitMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Emit an OTEL metric sample.",
+      "x-hostImportsMethod": "telemetryEmitMetric",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "number"
+            },
+            "tagsJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "value",
+            "tagsJson"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "ok"
+          ]
+        }
+      }
+    }
+  }
+}

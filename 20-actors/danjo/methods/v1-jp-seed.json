@@ -5,7 +5,7 @@
   "jurisdiction": "jpn",
   "status": "draft-pending-council-attestation",
   "councilAttestation": [],
-  "basis": "Open, versioned detector heuristics for danjo discrepancyObservation categories over the JP open-government corpus (ADR-2605263900: 国会会議録 / 予算書 / 政府調達 / e-Stat). Each method conforms to app.etzhayyim.danjo.methodNote. CONSTITUTIONAL: every method is NON-adjudicating (G4) — it describes a FACTUAL cross-reference pattern only, never a finding of wrongdoing; knownFalsePositiveModes are mandatory and document why a hit is NOT, by itself, evidence of a crime / 不正. Method = open (G6); the public audits the detector, not only its output.",
+  "basis": "Open, versioned detector heuristics for danjo discrepancyObservation categories over the JP open-government corpus (ADR-2605263900: 国会会議録 / 予算書 / 政府調達 / e-Stat). Each method conforms to com.etzhayyim.danjo.methodNote. CONSTITUTIONAL: every method is NON-adjudicating (G4) — it describes a FACTUAL cross-reference pattern only, never a finding of wrongdoing; knownFalsePositiveModes are mandatory and document why a hit is NOT, by itself, evidence of a crime / 不正. Method = open (G6); the public audits the detector, not only its output.",
   "notes": [
     "DRAFT / 雛形. Every threshold here is a placeholder planning figure pending (a) Council Lv6+ ≥3 attestation and (b) calibration against real pinned gov.dataset.* records. Do NOT treat as authoritative until status flips to 'attested' and councilAttestation lists ≥3 Lv6+ DIDs.",
     "A method hit produces a danjo.discrepancyObservation (nonAdjudicatingNotice=true, ≥2 sourceRecordCids, this methodNoteCid). It is a fact about public records, NOT a verdict. Legal characterization, if ever sought, routes to external counsel via chigiri + Public Fund (G4).",
@@ -19,7 +19,7 @@
       "title": "Consecutive single-bid awards from one authority to one awardee",
       "appliesToCategory": "single-bidder-streak",
       "definition": "For each (contractingAuthority, awardeeLei) pair, count consecutive procurementRecord awards within a rolling window where the notice recorded exactly one bidder (single-bid / sole-source). Emit when the consecutive count over the window meets the threshold. This is a FACT about the public procurement record; single-bid procurement is lawful and routine in many contexts — see knownFalsePositiveModes.",
-      "inputs": ["app.etzhayyim.gov.dataset.procurementRecord", "app.etzhayyim.corp.leiReference"],
+      "inputs": ["com.etzhayyim.gov.dataset.procurementRecord", "com.etzhayyim.corp.leiReference"],
       "thresholdParams": "{\"minConsecutive\":5,\"windowMonths\":24,\"requireSingleBidFlag\":true}",
       "knownFalsePositiveModes": [
         "Genuinely specialized / sole-source-justified requirement (proprietary spare parts, single accredited supplier, national-security exemption) — single-bidder by lawful necessity, not by steering.",
@@ -34,7 +34,7 @@
       "title": "Awardee entity shares a control / officer edge with the contracting authority's named officials",
       "appliesToCategory": "awardee-officer-ubo-link",
       "definition": "Resolve procurementRecord.awardeeLei to a corp entity, traverse corp.ownershipEdge (UBO / officer / parent-subsidiary), and emit when the awardee entity shares a control or officer edge with an individual publicly recorded (in the source data) as connected to the contracting authority. The link is asserted ONLY from public registry data (GLEIF L2 / OpenCorporates open-data); confidence MUST be 'exact-id-match' or 'registry-asserted' for an elevated observation (a 'name-normalized-candidate' fuzzy match alone may not ground elevated severity — see crossReferenceLink.confidence).",
-      "inputs": ["app.etzhayyim.gov.dataset.procurementRecord", "app.etzhayyim.corp.leiReference", "app.etzhayyim.corp.ownershipEdge"],
+      "inputs": ["com.etzhayyim.gov.dataset.procurementRecord", "com.etzhayyim.corp.leiReference", "com.etzhayyim.corp.ownershipEdge"],
       "thresholdParams": "{\"maxHops\":2,\"minConfidence\":\"registry-asserted\"}",
       "knownFalsePositiveModes": [
         "Homonym / common-name collision between distinct individuals (the dominant FP; mitigated by minConfidence + ≥2 source CIDs).",
@@ -49,7 +49,7 @@
       "title": "Diet floor statement references a program figure that diverges from the published outlay",
       "appliesToCategory": "statement-vs-outlay-divergence",
       "definition": "Link a parliamentRecord member-statement that cites a named program + figure to the corresponding budgetRecord outlay for that program/period, and emit when the cited figure diverges from the published outlay beyond the tolerance. FACTUAL divergence between two public records; many divergences are explainable (see FP modes).",
-      "inputs": ["app.etzhayyim.gov.dataset.parliamentRecord", "app.etzhayyim.gov.dataset.budgetRecord"],
+      "inputs": ["com.etzhayyim.gov.dataset.parliamentRecord", "com.etzhayyim.gov.dataset.budgetRecord"],
       "thresholdParams": "{\"relativeTolerance\":0.15,\"requireSameProgramId\":true,\"requireSameFiscalPeriod\":true}",
       "knownFalsePositiveModes": [
         "Statement quotes a forecast / appropriation figure while the matched record is a realized outlay (different stage of the budget cycle).",
@@ -64,7 +64,7 @@
       "title": "Published outlay lacks a traceable appropriation record in the corpus",
       "appliesToCategory": "outlay-without-appropriation-trace",
       "definition": "For each budgetRecord outlay, attempt to resolve a referencing appropriation record (same program, prior or same period). Emit when no appropriation trace is found within the corpus. This is frequently a CORPUS-COVERAGE gap, not a substantive one — see FP modes; severity defaults low.",
-      "inputs": ["app.etzhayyim.gov.dataset.budgetRecord"],
+      "inputs": ["com.etzhayyim.gov.dataset.budgetRecord"],
       "thresholdParams": "{\"lookbackPeriods\":2,\"requireProgramMatch\":true}",
       "knownFalsePositiveModes": [
         "The appropriation exists but was not yet ingested / pinned (passive-only corpus is necessarily incomplete; this is the dominant FP).",
@@ -79,7 +79,7 @@
       "title": "Award amount is a statistical outlier versus the category baseline",
       "appliesToCategory": "award-amount-anomaly-vs-baseline",
       "definition": "Build a per-category award-amount distribution from procurementRecord (optionally normalized by an e-Stat statisticsObservation denominator), and emit when an award is an outlier beyond the threshold. FACTUAL outlier flag; outliers are expected and usually benign.",
-      "inputs": ["app.etzhayyim.gov.dataset.procurementRecord", "app.etzhayyim.gov.dataset.statisticsObservation"],
+      "inputs": ["com.etzhayyim.gov.dataset.procurementRecord", "com.etzhayyim.gov.dataset.statisticsObservation"],
       "thresholdParams": "{\"method\":\"robust-zscore-mad\",\"zThreshold\":3.5,\"minSampleSize\":30}",
       "knownFalsePositiveModes": [
         "Genuinely large but legitimate project (infrastructure, large-scale IT) that dwarfs the category median.",
@@ -94,7 +94,7 @@
       "title": "Cumulative post-award modifications inflate the contract beyond a threshold of the original award",
       "appliesToCategory": "modification-inflation",
       "definition": "For each award, sum subsequent procurementRecord modification records and emit when the cumulative modification ratio exceeds the threshold of the original award amount. FACTUAL ratio over public records; scope growth is often legitimate.",
-      "inputs": ["app.etzhayyim.gov.dataset.procurementRecord"],
+      "inputs": ["com.etzhayyim.gov.dataset.procurementRecord"],
       "thresholdParams": "{\"cumulativeRatioThreshold\":0.50,\"windowMonths\":36}",
       "knownFalsePositiveModes": [
         "Legitimate scope expansion or indexation/escalation clauses agreed in the original contract.",

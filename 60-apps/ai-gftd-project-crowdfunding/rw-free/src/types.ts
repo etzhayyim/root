@@ -16,9 +16,9 @@
 
 export const CF_DID_PREFIX = "did:web:crowdfunding.etzhayyim.com:" as const;
 
-export const CAMPAIGN_COLLECTION = "app.etzhayyim.apps.crowdfunding.campaign";
-export const PLEDGE_COLLECTION = "app.etzhayyim.apps.crowdfunding.pledge";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.crowdfunding.payment";
+export const CAMPAIGN_COLLECTION = "com.etzhayyim.apps.crowdfunding.campaign";
+export const PLEDGE_COLLECTION = "com.etzhayyim.apps.crowdfunding.pledge";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.crowdfunding.payment";
 
 export type CampaignStatus =
   | "draft"

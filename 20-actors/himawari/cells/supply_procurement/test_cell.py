@@ -163,7 +163,7 @@ def test_provenance_attestation_attested_when_complete():
     out = SupplyProcurementCell().solve({"need": _full_need()})
     prov = out["provenanceAttestation"]
     rec = prov["record"]
-    assert rec["$type"] == "app.etzhayyim.himawari.polysiliconProvenanceAttestation"
+    assert rec["$type"] == "com.etzhayyim.himawari.polysiliconProvenanceAttestation"
     assert rec["attested"] is True
     assert rec["originRegionAttestationCid"] == "bafyOriginXUARfree"
     assert rec["sourcingAuditCid"] == "bafySourcingAudit2g"

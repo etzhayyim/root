@@ -35,9 +35,9 @@
     "udfHelpers": 2,
     "legacyCloudflareWorker": "archived",
     "rwWriteEvidence": {
-      "classifyEntityVertexId": "at://did:web:open-isic.etzhayyim.com/ai.gftd.apps.openIsic.classification/f63e0e0a1ed6fcc5c80226b6",
-      "classificationEdgeId": "at://did:web:open-isic.etzhayyim.com/ai.gftd.apps.openIsic.classificationClass/ef2af0c0aba1d86d141c3506",
-      "concordanceVertexId": "at://did:web:open-isic.etzhayyim.com/ai.gftd.apps.openIsic.concordance/a4e11e67086b2714a56b06cd",
+      "classifyEntityVertexId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.apps.openIsic.classification/f63e0e0a1ed6fcc5c80226b6",
+      "classificationEdgeId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.apps.openIsic.classificationClass/ef2af0c0aba1d86d141c3506",
+      "concordanceVertexId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.apps.openIsic.concordance/a4e11e67086b2714a56b06cd",
       "conflictHandling": "SELECT-before-INSERT"
     }
   },

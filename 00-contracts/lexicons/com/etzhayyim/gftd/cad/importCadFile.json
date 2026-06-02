@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cad.importCadFile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Import a CAD file (STEP / IGES / BREP / STL / glTF) into a workspace. Heavy parsing runs asynchronously in the CF Container job service; this procedure returns immediately with a jobId. The uploaded binary is content-addressed in B2 (Backblaze B2 S3-compatible) (SHA-256). Subscribe to com.etzhayyim.apps.cad.importJobEvent commits to track progress.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["workspaceId", "blobKey", "format"],
+          "properties": {
+            "workspaceId": {
+              "type": "string",
+              "description": "target workspace rkey"
+            },
+            "modelId": {
+              "type": "string",
+              "description": "target model rkey (omit to create a new model)"
+            },
+            "blobKey": {
+              "type": "string",
+              "description": "SHA-256 hex of the uploaded CAD blob in B2 (Backblaze B2 S3-compatible) (`cad/blobs/{sha256}`)"
+            },
+            "format": {
+              "type": "string",
+              "enum": ["step", "iges", "brep", "stl", "gltf", "obj"]
+            },
+            "units": {
+              "type": "string",
+              "enum": ["metre", "millimetre", "centimetre", "inch", "foot"],
+              "default": "millimetre"
+            },
+            "mergeDuplicates": {
+              "type": "boolean",
+              "default": true,
+              "description": "snap coincident vertices during tessellation"
+            },
+            "tessellationTolerance": {
+              "type": "number",
+              "default": 0.1,
+              "description": "sag tolerance (model units) for mesh generation"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["modelId", "revisionId", "jobId", "status"],
+          "properties": {
+            "modelId": { "type": "string" },
+            "revisionId": { "type": "string" },
+            "jobId": { "type": "string" },
+            "status": {
+              "type": "string",
+              "enum": ["queued", "parsing", "tessellating", "ready", "failed"]
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "WorkspaceNotFound" },
+        { "name": "BlobNotFound", "description": "B2 (Backblaze B2 S3-compatible) head check failed for blobKey" },
+        { "name": "UnsupportedFormat" },
+        { "name": "QuotaExceeded" }
+      ]
+    }
+  }
+}

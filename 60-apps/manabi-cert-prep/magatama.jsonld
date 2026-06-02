@@ -46,19 +46,19 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "app.etzhayyim.manabi.certPrepSession",
-        "app.etzhayyim.manabi.personalMaterialImport",
-        "app.etzhayyim.manabi.domainMasteryAttestation"
+        "com.etzhayyim.manabi.certPrepSession",
+        "com.etzhayyim.manabi.personalMaterialImport",
+        "com.etzhayyim.manabi.domainMasteryAttestation"
       ]
     }
   },
   "r0ScaffoldNoLlm": true,
   "r1ActiveLexiconNsids": [
-    "app.etzhayyim.manabi.certPrepSession",
-    "app.etzhayyim.manabi.domainMasteryAttestation"
+    "com.etzhayyim.manabi.certPrepSession",
+    "com.etzhayyim.manabi.domainMasteryAttestation"
   ],
   "r2GatedLexiconNsids": [
-    "app.etzhayyim.manabi.personalMaterialImport"
+    "com.etzhayyim.manabi.personalMaterialImport"
   ],
   "siblingApps": ["mitate-pwa"],
   "parentActor": "did:web:etzhayyim.com:manabi",

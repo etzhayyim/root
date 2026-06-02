@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.listDispenses",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List dispense events (public meta only). Filterable by patient, pharmacy, status.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "patientDid": {"type": "string"},
+          "pharmacyDid": {"type": "string"},
+          "status": {"type": "string"},
+          "fromDate": {"type": "string", "format": "datetime"},
+          "toDate": {"type": "string", "format": "datetime"},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+          "offset": {"type": "integer", "minimum": 0, "default": 0}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {"type": "ref", "ref": "#dispenseRow"}
+            },
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "dispenseRow": {
+      "type": "object",
+      "properties": {
+        "rkey": {"type": "string"},
+        "encryptedCid": {"type": "string"},
+        "patientDid": {"type": "string"},
+        "medicationRequestUri": {"type": "string"},
+        "pharmacyDid": {"type": "string"},
+        "pharmacistDid": {"type": "string"},
+        "status": {"type": "string"},
+        "whenHandedOver": {"type": "string", "format": "datetime"},
+        "substitutionPerformed": {"type": "boolean"}
+      }
+    }
+  }
+}

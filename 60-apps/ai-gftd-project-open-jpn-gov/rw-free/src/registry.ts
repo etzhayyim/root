@@ -30,7 +30,7 @@ import {
   type RegisterOrgOutput,
 } from "./types.js";
 
-const ORG_COLLECTION = "app.etzhayyim.apps.openJpnGov.org";
+const ORG_COLLECTION = "com.etzhayyim.apps.openJpnGov.org";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

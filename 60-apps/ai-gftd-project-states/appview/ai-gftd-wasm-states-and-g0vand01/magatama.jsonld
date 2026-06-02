@@ -116,10 +116,10 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.site.wet",
-        "ai.gftd.apps.site.wat",
-        "ai.gftd.apps.site.page",
-        "ai.gftd.apps.site.domain"
+        "com.etzhayyim.apps.site.wet",
+        "com.etzhayyim.apps.site.wat",
+        "com.etzhayyim.apps.site.page",
+        "com.etzhayyim.apps.site.domain"
       ]
     }
   },

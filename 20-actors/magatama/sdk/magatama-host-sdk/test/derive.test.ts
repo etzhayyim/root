@@ -7,7 +7,7 @@ import { resolveValue, resolveFacetIndices, type TemplateContext, type SelfRef }
 import { DERIVE_RULES, rulesForCollection } from "../src/derive/registry.js";
 import { recordLink, getLink, clearLinks, linkCount } from "../src/derive/state.js";
 
-function makeCtx(record: Record<string, unknown>, selfUri = "at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/tid1", selfCid = "bafyTestCid"): TemplateContext {
+function makeCtx(record: Record<string, unknown>, selfUri = "at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/tid1", selfCid = "bafyTestCid"): TemplateContext {
   return { record, self: { uri: selfUri, cid: selfCid }, repo: "did:web:mangaka.etzhayyim.com", derivedPosts: {} };
 }
 
@@ -29,7 +29,7 @@ describe("resolveValue — scalar templates", () => {
 
   it("resolves resolve(ref).workDid to at-uri authority", () => {
     const out = resolveValue("{{resolve(record.workRef).workDid}}", makeCtx({
-      workRef: { uri: "at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.work/abc", cid: "bafy" },
+      workRef: { uri: "at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.work/abc", cid: "bafy" },
     }));
     expect(out).toBe("mng4k4x1.etzhayyim.com");
   });
@@ -144,7 +144,7 @@ describe("derived(ref).strongRef resolution", () => {
   });
 
   it("returns recorded link via in-memory callback", () => {
-    const chapterUri = "at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/ch01";
+    const chapterUri = "at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/ch01";
     const postRef: SelfRef = { uri: "at://mng4k4x1.etzhayyim.com/app.bsky.feed.post/tid-ch01-post", cid: "bafy-post-cid" };
     recordLink(chapterUri, postRef);
     expect(linkCount()).toBe(1);
@@ -175,7 +175,7 @@ describe("derived(ref).strongRef resolution", () => {
   });
 
   it("page-published-social reply resolves once chapter link is recorded", () => {
-    const chapterUri = "at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/sip-vol01-loneliness-ch01";
+    const chapterUri = "at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/sip-vol01-loneliness-ch01";
     const chapterPostRef: SelfRef = { uri: "at://mng4k4x1.etzhayyim.com/app.bsky.feed.post/tid-post-1", cid: "bafy-p1" };
     recordLink(chapterUri, chapterPostRef);
 
@@ -190,7 +190,7 @@ describe("derived(ref).strongRef resolution", () => {
     };
     const ctx: TemplateContext = {
       record: pageRecord,
-      self: { uri: "at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.page/p3", cid: "bafy-p3-cid" },
+      self: { uri: "at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.page/p3", cid: "bafy-p3-cid" },
       repo: "did:web:mangaka.etzhayyim.com",
       resolveDerivedPost: (u) => getLink(u),
     };
@@ -210,7 +210,7 @@ describe("derived(ref).strongRef resolution", () => {
 
 describe("DERIVE_RULES registry + end-to-end chapter commit", () => {
   it("rulesForCollection finds mangaka chapter rule", () => {
-    const rules = rulesForCollection("app.etzhayyim.apps.mangaka.chapter");
+    const rules = rulesForCollection("com.etzhayyim.apps.mangaka.chapter");
     expect(rules).toHaveLength(1);
     expect(rules[0].id).toBe("chapter-published-social");
   });
@@ -218,7 +218,7 @@ describe("DERIVE_RULES registry + end-to-end chapter commit", () => {
   it("full resolution of chapter-published-social emits a valid post shape", () => {
     const rule = DERIVE_RULES.find((r) => r.id === "chapter-published-social")!;
     const record = {
-      workRef: { uri: "at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.work/spirit-in-physics", cid: "bafy-work" },
+      workRef: { uri: "at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.work/spirit-in-physics", cid: "bafy-work" },
       chapterNum: 1,
       titleJP: "第1話 配属の日",
       volumeId: "vol01-loneliness",
@@ -226,7 +226,7 @@ describe("DERIVE_RULES registry + end-to-end chapter commit", () => {
       charactersAppearing: [{ slug: "tamaki", displayName: "Tamaki" }, { slug: "nei", displayName: "Nei" }],
       coverCid: "bafy-cover-cid",
       coverAlt: "Vol1 cover",
-      readerUri: "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/sip-vol01-loneliness-ch01",
+      readerUri: "https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/sip-vol01-loneliness-ch01",
       status: "published",
     };
     const ctx = makeCtx(record);

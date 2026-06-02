@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govZwe.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govZwe.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Zimbabwe government.",
-        "operationId": "app.etzhayyim.govZwe.followSiteDeps",
+        "operationId": "com.etzhayyim.govZwe.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govZwe.heartbeatTick": {
       "post": {
         "summary": "Run the Zimbabwe government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govZwe.heartbeatTick",
+        "operationId": "com.etzhayyim.govZwe.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.listOrgs": {
+    "/xrpc/com.etzhayyim.govZwe.listOrgs": {
       "get": {
         "summary": "List Zimbabwe government organization graph records.",
-        "operationId": "app.etzhayyim.govZwe.listOrgs",
+        "operationId": "com.etzhayyim.govZwe.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.registerDIDs": {
+    "/xrpc/com.etzhayyim.govZwe.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Zimbabwe government organizations.",
-        "operationId": "app.etzhayyim.govZwe.registerDIDs",
+        "operationId": "com.etzhayyim.govZwe.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govZwe.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Zimbabwe government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govZwe.resolveOrgPath",
+        "operationId": "com.etzhayyim.govZwe.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.seedOrgs": {
+    "/xrpc/com.etzhayyim.govZwe.seedOrgs": {
       "post": {
         "summary": "Seed initial Zimbabwe government organization records into the graph.",
-        "operationId": "app.etzhayyim.govZwe.seedOrgs",
+        "operationId": "com.etzhayyim.govZwe.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.shinka": {
+    "/xrpc/com.etzhayyim.govZwe.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Zimbabwe government organization update.",
-        "operationId": "app.etzhayyim.govZwe.shinka",
+        "operationId": "com.etzhayyim.govZwe.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZwe.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govZwe.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Zimbabwe government organization changes to graph.",
-        "operationId": "app.etzhayyim.govZwe.syncWetUpdates",
+        "operationId": "com.etzhayyim.govZwe.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

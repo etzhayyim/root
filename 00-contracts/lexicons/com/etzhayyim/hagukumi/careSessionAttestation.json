@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hagukumi.careSessionAttestation",
+  "description": "Per-session care attestation. PRIVACY INVARIANT: encryptedPayloadCid mandatory (XChaCha20 envelope per ADR-2605181100); schema additionalProperties=false rejects any plaintext content field. Aggregate-only public fields. Per ADR-2605261030.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sessionId": {"type": "string"},
+          "caregiverDid": {"type": "string"},
+          "careRecipientDidOrPseudonym": {"type": "string", "description": "30-day rotating pseudonym per ADR-2605181200"},
+          "cellName": {"type": "string", "knownValues": ["child_daily_care", "elder_companionship", "chronic_continuity", "respite_support"]},
+          "encryptedPayloadCid": {"type": "string", "description": "PRIVACY INVARIANT: REQUIRED; all care content encrypted"},
+          "consentRecordCid": {"type": "string", "description": "G3: REQUIRED; default-deny absent valid consent"},
+          "durationMinutes": {"type": "integer", "description": "Aggregate-public field; for caregiver work-cap G10 + multi-gen ratio G14"},
+          "emergencyEscalation": {"type": "boolean", "description": "G11: mitate G5 emergency keyword trigger flag"},
+          "sessionStartTimestamp": {"type": "string"},
+          "sessionEndTimestamp": {"type": "string"}
+        },
+        "required": ["sessionId", "caregiverDid", "careRecipientDidOrPseudonym", "cellName", "encryptedPayloadCid", "consentRecordCid", "durationMinutes", "sessionStartTimestamp"]
+      }
+    }
+  }
+}

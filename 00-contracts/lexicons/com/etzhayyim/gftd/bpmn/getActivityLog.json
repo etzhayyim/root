@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.bpmn.getActivityLog",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "OCEL-style activity event log for a process instance.",
+      "parameters": {
+        "type": "params",
+        "required": ["instanceId"],
+        "properties": {
+          "instanceId": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "instanceId": { "type": "string" },
+            "events": { "type": "array", "items": { "type": "unknown" } }
+          }
+        }
+      }
+    }
+  }
+}

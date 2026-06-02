@@ -21,8 +21,8 @@ _LANGGRAPH_JSON = _LG_DIR / "langgraph.json"
 _EXPECTED_GRAPHS = {"health", "blob_convert", "ingest_uspto_weekly"}
 
 _EXPECTED_NSID_MAP = {
-    "app.etzhayyim.apps.patent.blobConvert":       "blob_convert",
-    "app.etzhayyim.apps.patent.ingestUsptoWeekly": "ingest_uspto_weekly",
+    "com.etzhayyim.apps.patent.blobConvert":       "blob_convert",
+    "com.etzhayyim.apps.patent.ingestUsptoWeekly": "ingest_uspto_weekly",
 }
 
 _EXPECTED_CRON_GRAPHS = {"blob_convert", "ingest_uspto_weekly"}
@@ -172,7 +172,7 @@ def test_runs_unknown_graph(client) -> None:
 
 
 def test_xrpc_unknown_nsid(client) -> None:
-    r = client.post("/xrpc/app.etzhayyim.apps.patent.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.apps.patent.unknownMethod", json={})
     assert r.status_code == 404
 
 
@@ -183,7 +183,7 @@ def test_xrpc_blob_convert_dispatches(client) -> None:
         "ainvoke",
         AsyncMock(return_value=mock_result),
     ):
-        r = client.post("/xrpc/app.etzhayyim.apps.patent.blobConvert", json={"limit": 5})
+        r = client.post("/xrpc/com.etzhayyim.apps.patent.blobConvert", json={"limit": 5})
     assert r.status_code in (200, 500)
 
 

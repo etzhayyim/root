@@ -21,7 +21,7 @@ import {
   type HostSDK,
 } from "@etzhayyim/magatama-host-sdk";
 
-const NS = "app.etzhayyim.apps.watashi";
+const NS = "com.etzhayyim.apps.watashi";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();

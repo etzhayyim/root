@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.graph.expandTick",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "BPMN-driven graph expansion tick (ADR 2605011200). Picks one stale vertex, asks the classifier-tier LLM to propose ONE related vertex/edge, and inserts the proposal into vertex_graph_expand_proposal (status='proposed'). Never writes edge_* directly.",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "sourceVid": { "type": "string" },
+            "edgeKind": { "type": "string" },
+            "confidence": { "type": "number" },
+            "proposalVid": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,9 +14,9 @@ import { sql } from "kysely";
  *
  *  Process / NSID                              Trigger
  *  ---------------------------------------------------------------
- *  training_list_runs        app.etzhayyim.apps.training.listRuns
- *  training_list_checkpoints app.etzhayyim.apps.training.listCheckpoints
- *  training_serving          app.etzhayyim.apps.training.serving
+ *  training_list_runs        com.etzhayyim.apps.training.listRuns
+ *  training_list_checkpoints com.etzhayyim.apps.training.listCheckpoints
+ *  training_serving          com.etzhayyim.apps.training.serving
  */
 
 type P = { vertexId: string; bpmnProcessId: string; sourcePath: string; ownerDid: string };
@@ -31,26 +31,26 @@ const ownerDid = "did:web:training.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.training.query";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-list-runs-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-list-runs-v1",
     bpmnProcessId: "training_list_runs",
-    sourcePath: "00-contracts/bpmn/ai/gftd/training/listRuns.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-list-checkpoints-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/training/listRuns.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-list-checkpoints-v1",
     bpmnProcessId: "training_list_checkpoints",
-    sourcePath: "00-contracts/bpmn/ai/gftd/training/listCheckpoints.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-serving-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/training/listCheckpoints.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-serving-v1",
     bpmnProcessId: "training_serving",
-    sourcePath: "00-contracts/bpmn/ai/gftd/training/serving.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/training/serving.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-listRuns-v1",
-    nsid: "app.etzhayyim.apps.training.listRuns",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-listRuns-v1",
+    nsid: "com.etzhayyim.apps.training.listRuns",
     bpmnProcessId: "training_list_runs", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-listCheckpoints-v1",
-    nsid: "app.etzhayyim.apps.training.listCheckpoints",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-listCheckpoints-v1",
+    nsid: "com.etzhayyim.apps.training.listCheckpoints",
     bpmnProcessId: "training_list_checkpoints", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-serving-v1",
-    nsid: "app.etzhayyim.apps.training.serving",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-serving-v1",
+    nsid: "com.etzhayyim.apps.training.serving",
     bpmnProcessId: "training_serving", ownerDid, resultTimeoutMs: 15_000 },
 ];
 

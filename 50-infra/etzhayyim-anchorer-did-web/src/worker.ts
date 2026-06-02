@@ -8,9 +8,9 @@ import didDoc from "../did.json";
  * `https://anchorer.etzhayyim.com/.well-known/did.json`.
  *
  * Identity of the off-chain actor that consumes
- * `app.etzhayyim.substrate.ipfsPin` records, anchors each unique
+ * `com.etzhayyim.substrate.ipfsPin` records, anchors each unique
  * `rootCid` to EtzhayyimAnchor on Base L2, and emits
- * `app.etzhayyim.substrate.l2Anchor` receipts back to PDS. See
+ * `com.etzhayyim.substrate.l2Anchor` receipts back to PDS. See
  * 50-infra/anchor-cron/ (substrate mode) for the runtime.
  *
  * AT-Protocol clients resolve this DID via `/.well-known/did.json`.

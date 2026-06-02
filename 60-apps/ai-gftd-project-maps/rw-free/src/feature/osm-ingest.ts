@@ -1,5 +1,5 @@
 /**
- * OSM GeoJSON → app.etzhayyim.maps.feature bulk ingest.
+ * OSM GeoJSON → com.etzhayyim.maps.feature bulk ingest.
  *
  * Sibling of `geonames-ingest.ts` for OpenStreetMap. Consumes a GeoJSON
  * FeatureCollection produced by `osmium export -f geojson` (operator-side

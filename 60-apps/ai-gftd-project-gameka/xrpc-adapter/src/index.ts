@@ -3,7 +3,7 @@
  *
  * Wires the rw-free reference impl (13 TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
- * https://gameka.etzhayyim.com/xrpc/app.etzhayyim.gameka.<cmd>
+ * https://gameka.etzhayyim.com/xrpc/com.etzhayyim.gameka.<cmd>
  *
  * Per ADR-2605210000 execution-layer demonstration. Instantiates the
  * Etzhayyim SDK from env bindings, calls the rw-free function with parsed input,
@@ -27,7 +27,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "app.etzhayyim.gameka";
+const NSID_BASE = "com.etzhayyim.gameka";
 
 interface RouteConfig {
   method: "POST" | "GET";

@@ -11,7 +11,7 @@ const migrationSource = readFileSync(
 const autonomousDispatch = readFileSync(
   resolve(
     __dirname,
-    "../../../00-contracts/bpmn/ai/gftd/agent/realWorldAutonomousDispatch.bpmn",
+    "../../../00-contracts/bpmn/com/etzhayyim/agent/realWorldAutonomousDispatch.bpmn",
   ),
   "utf-8",
 );
@@ -23,10 +23,10 @@ describe("Seed agent autonomous dispatch BPMN migration", () => {
       'bpmnProcessId: "agent_realworld_autonomous_dispatch"',
     );
     expect(migrationSource).toContain(
-      'nsid: "app.etzhayyim.apps.agent.planRealWorldDispatch"',
+      'nsid: "com.etzhayyim.apps.agent.planRealWorldDispatch"',
     );
     expect(migrationSource).toContain(
-      'sourcePath: "00-contracts/bpmn/ai/gftd/agent/realWorldAutonomousDispatch.bpmn"',
+      'sourcePath: "00-contracts/bpmn/com/etzhayyim/agent/realWorldAutonomousDispatch.bpmn"',
     );
     expect(migrationSource).toContain(
       '"vertex_agent_realworld_effect,vertex_agent_observation,vertex_agent_dispatch_ledger"',

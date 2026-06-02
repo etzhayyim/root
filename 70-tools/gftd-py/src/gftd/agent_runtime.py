@@ -87,7 +87,7 @@ def ar_status(pds: str | None, json_out: bool) -> None:
     """Runtime health and active graphs."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agentRuntime.getStatus",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.agentRuntime.getStatus",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -109,7 +109,7 @@ def ar_list(pds: str | None, json_out: bool) -> None:
     """List active LangGraph runs."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agentRuntime.listRuns",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.agentRuntime.listRuns",
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -132,7 +132,7 @@ def ar_logs(run_id: str, pds: str | None, limit: int, json_out: bool) -> None:
     """Fetch logs for a LangGraph run."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.agentRuntime.getRunLogs",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.agentRuntime.getRunLogs",
                          params={"id": run_id, "limit": limit},
                          headers=_auth_headers(), timeout=30)
         resp.raise_for_status()

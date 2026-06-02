@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.languagePreservation.registerEndangeredLanguage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UNESCO ILC / ELPublishing / Ethnologue endangered language (bridges indigenous-rights + cultural-heritage + misinformation-observatory)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "languageId",
+            "languageName",
+            "regionsIso3",
+            "unescoStatus",
+            "recordedAt"
+          ],
+          "properties": {
+            "languageId": {
+              "type": "string",
+              "description": "ISO 639-3"
+            },
+            "languageName": {
+              "type": "string"
+            },
+            "regionsIso3": {
+              "type": "string"
+            },
+            "speakerCount": {
+              "type": "integer"
+            },
+            "unescoStatus": {
+              "type": "string",
+              "enum": [
+                "safe",
+                "vulnerable",
+                "definitely_endangered",
+                "severely_endangered",
+                "critically_endangered",
+                "extinct"
+              ]
+            },
+            "writingSystem": {
+              "type": "string"
+            },
+            "transmissionIntergenPct": {
+              "type": "number"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "urgencyTier": {
+              "type": "string",
+              "enum": [
+                "monitor",
+                "elevated",
+                "high",
+                "extreme"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

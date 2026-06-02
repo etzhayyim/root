@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pensionsDc.recordFundMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defined contribution pension fund (OECD DC / EIOPA / PF IAIS — bridges sovereign-debt + esg-risk-rating + reit-transparency + insurance-guarantee)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "fundId",
+            "jurisdictionIso3",
+            "schemeType",
+            "aumUsd",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "fundId": {
+              "type": "string"
+            },
+            "trusteeLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "schemeType": {
+              "type": "string",
+              "enum": [
+                "trust_based",
+                "contract_based",
+                "master_trust",
+                "gpp",
+                "sipp",
+                "us_401k",
+                "au_super",
+                "cl_afp",
+                "se_pps",
+                "nz_kiwi"
+              ]
+            },
+            "aumUsd": {
+              "type": "number"
+            },
+            "membersCount": {
+              "type": "integer"
+            },
+            "defaultAssetAllocationEquityPct": {
+              "type": "number"
+            },
+            "feeTerBp": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "feeTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

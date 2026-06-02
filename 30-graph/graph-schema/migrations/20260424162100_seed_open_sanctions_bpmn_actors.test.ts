@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-sanctions/recordSanctionsEntry.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-sanctions/recordSanctionsEntry.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-sanctions/screenEntity.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-sanctions/screenEntity.bpmn"),
   "utf-8",
 );
 
@@ -21,14 +21,14 @@ describe("Seed open-sanctions BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-sanctions-record-entry-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_sanctions_record_entry"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/recordSanctionsEntry.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-sanctions/recordSanctionsEntry.bpmn"');
     expect(migrationSource).toContain("open-sanctions-screen-entity-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_sanctions_screen_entity"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/screenEntity.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-sanctions/screenEntity.bpmn"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSanctions.recordSanctionsEntry"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSanctions.screenEntity"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openSanctions.recordSanctionsEntry"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openSanctions.screenEntity"');
   });
   it("uses open-sanctions-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('"sys.bpmn.seed.open-sanctions"');

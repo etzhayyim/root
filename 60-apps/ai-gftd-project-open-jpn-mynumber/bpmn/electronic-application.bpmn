@@ -10,9 +10,9 @@
     <bpmn:sequenceFlow id="f_app_status" sourceRef="Gateway_ApplicationOperation" targetRef="Task_GetApplicationStatus" name="status">
       <bpmn:conditionExpression>=operation = "status"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Task_SubmitApplication" name="Submit electronic application" camunda:topic="ai.gftd.apps.openJpnMynumber.submitElectronicApplication"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.submitElectronicApplication" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_SubmitApplication" name="Submit electronic application" camunda:topic="com.etzhayyim.apps.openJpnMynumber.submitElectronicApplication"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.submitElectronicApplication" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_app_02" sourceRef="Task_SubmitApplication" targetRef="End_ElectronicApplication" />
-    <bpmn:serviceTask id="Task_GetApplicationStatus" name="Get electronic application status" camunda:topic="ai.gftd.apps.openJpnMynumber.getElectronicApplicationStatus"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.getElectronicApplicationStatus" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_GetApplicationStatus" name="Get electronic application status" camunda:topic="com.etzhayyim.apps.openJpnMynumber.getElectronicApplicationStatus"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.getElectronicApplicationStatus" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_app_03" sourceRef="Task_GetApplicationStatus" targetRef="End_ElectronicApplication" />
     <bpmn:endEvent id="End_ElectronicApplication" name="Electronic application audited" />
   </bpmn:process>

@@ -15,7 +15,7 @@
 #       --recipe 70-tools/baien-moemoekyun-train/recipes/tier-a-routing.toml
 #
 # Subdatasets MUST already be staged + DataLad-saved + IPFS-pinned +
-# have a corresponding `app.etzhayyim.substrate.datasetPin` record
+# have a corresponding `com.etzhayyim.substrate.datasetPin` record
 # before the assembler will accept them (G13).
 
 target_artifact = "baien-server-routing-foundations-v1"
@@ -42,7 +42,7 @@ Attribution preserved per each upstream's TOU: RIPE NCC RIS
 
 [[source]]
 subdataset    = "routing/ris-mrt/rrc00"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC00"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC00"
 shard_glob    = "bview.*.gz"
 tier          = "A"
 license       = "ripe-tou-open"
@@ -51,7 +51,7 @@ description   = "RIPE RIS rrc00 (Amsterdam, AMS-IX) — BGP bview snapshot, prim
 
 [[source]]
 subdataset    = "routing/ris-mrt/rrc12"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC12"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC12"
 shard_glob    = "bview.*.gz"
 tier          = "A"
 license       = "ripe-tou-open"
@@ -60,7 +60,7 @@ description   = "RIPE RIS rrc12 (Frankfurt, DE-CIX) — BGP bview snapshot from 
 
 [[source]]
 subdataset    = "routing/ris-mrt/rrc14"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC14"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC14"
 shard_glob    = "bview.*.gz"
 tier          = "A"
 license       = "ripe-tou-open"
@@ -69,7 +69,7 @@ description   = "RIPE RIS rrc14 (Palo Alto, PAIX) — BGP bview snapshot from We
 
 [[source]]
 subdataset    = "routing/ris-mrt/rrc18"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC18"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RRC18"
 shard_glob    = "bview.*.gz"
 tier          = "A"
 license       = "ripe-tou-open"
@@ -80,7 +80,7 @@ description   = "RIPE RIS rrc18 (Barcelona, CATNIX) — BGP bview snapshot from 
 
 [[source]]
 subdataset    = "routing/routeviews/route-views2"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RV2"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RV2"
 shard_glob    = "rib.*.bz2"
 tier          = "A"
 license       = "uo-tou-open"
@@ -89,7 +89,7 @@ description   = "Routeviews route-views2 (Oregon) — original Univ. Oregon coll
 
 [[source]]
 subdataset    = "routing/routeviews/route-views.wide"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RV_WIDE"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RV_WIDE"
 shard_glob    = "rib.*.bz2"
 tier          = "A"
 license       = "uo-tou-open"
@@ -98,7 +98,7 @@ description   = "Routeviews route-views.wide (Tokyo) — Asia-Pacific BGP VP for
 
 [[source]]
 subdataset    = "routing/routeviews/route-views.linx"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RV_LINX"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RV_LINX"
 shard_glob    = "rib.*.bz2"
 tier          = "A"
 license       = "uo-tou-open"
@@ -109,7 +109,7 @@ description   = "Routeviews route-views.linx (London, LINX) — UK/Northern Euro
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"

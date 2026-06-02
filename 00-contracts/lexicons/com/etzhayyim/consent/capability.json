@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.consent.capability",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Patient-issued, DID-bound, scope-limited, time-bound delegation token. Grants the `granteeDid` permission to operate on a defined set of resources (typically `com.etzhayyim.karute.*` AT URIs) under a specific stated purpose. Always signed by the granter; revocable. Used as the bridging primitive between etzhayyim (PHI custody) and vendor iryo.etzhayyim.com (insurance billing) and any third-party EHR / second-opinion clinic. Per ADR-2605231400.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["granterDid", "granteeDid", "purpose", "scope", "issuedAt", "expiresAt", "signature", "version"],
+        "properties": {
+          "version": {"type": "integer", "const": 1},
+          "granterDid": {"type": "string", "description": "DID of the principal granting access (patient or authorized representative)"},
+          "granteeDid": {"type": "string", "description": "DID of the recipient actor authorized to act"},
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "insurance-billing",
+              "second-opinion",
+              "data-portability",
+              "research-deidentified",
+              "emergency-disclosure",
+              "legal-disclosure",
+              "deploy-execution"
+            ],
+            "description": "Stated purpose — narrows the lawful basis of the grantee's processing. `deploy-execution` is the agent-led-deploy authority extension per ADR-2605232000 — bound to a specific agent DID with scope = deploy.* NSIDs."
+          },
+          "scope": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Lexicon NSIDs the grantee may read (e.g. ['com.etzhayyim.karute.encounter']). Use wildcards sparingly; least-privilege is the default."
+          },
+          "resourceUris": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Optional explicit AT URI allowlist. When empty, all records under `scope` collections in `granterDid`'s PDS are in-scope."
+          },
+          "issuedAt": {"type": "string", "format": "datetime"},
+          "expiresAt": {"type": "string", "format": "datetime"},
+          "constraints": {
+            "type": "object",
+            "description": "Optional refinements — purpose-specific guardrails",
+            "properties": {
+              "maxQueriesPerDay": {"type": "integer"},
+              "redactionLevel": {"type": "string", "enum": ["raw", "de-identified", "aggregate-only"]},
+              "downstreamRedistribution": {"type": "boolean", "description": "If false, grantee MUST NOT re-issue derived capabilities to other actors"},
+              "auditWebhookDid": {"type": "string", "description": "Optional auditor DID that receives an event each time the capability is invoked"}
+            }
+          },
+          "delegationPath": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Optional DID chain proving this capability was issued under a parent capability (e.g. a guardian capability for a minor patient)"
+          },
+          "revokedAt": {"type": "string", "format": "datetime"},
+          "revokedBy": {"type": "string"},
+          "revocationReason": {"type": "string"},
+          "signature": {
+            "type": "object",
+            "description": "Ed25519 signature by `granterDid` over the canonicalized payload (everything except signature itself)",
+            "required": ["alg", "value", "keyId"],
+            "properties": {
+              "alg": {"type": "string", "const": "ed25519"},
+              "value": {"type": "string", "description": "base64-encoded signature bytes"},
+              "keyId": {"type": "string", "description": "DID-doc verification method id used"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

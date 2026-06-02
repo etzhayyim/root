@@ -23,16 +23,16 @@ describe("Cargo Actor Manifest", () => {
   });
   it("xrpc covers B/L, container, manifest", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("app.etzhayyim.apps.cargo.manifest.getBl");
-    expect(nsids).toContain("app.etzhayyim.apps.cargo.manifest.trackContainer");
-    expect(nsids).toContain("app.etzhayyim.apps.cargo.manifest.getVoyageManifest");
+    expect(nsids).toContain("com.etzhayyim.apps.cargo.manifest.getBl");
+    expect(nsids).toContain("com.etzhayyim.apps.cargo.manifest.trackContainer");
+    expect(nsids).toContain("com.etzhayyim.apps.cargo.manifest.getVoyageManifest");
   });
   it("voyageManifest has 3 queries (B/L + containers + DG)", () => {
     const vm = m.pipelines.find((p: any) => p.trigger?.nsid?.includes("getVoyageManifest"));
     expect(vm.steps).toHaveLength(3);
   });
   it("subscribes to vessel.voyage", () => {
-    expect(m.triggers.subscribeRepos.collections).toContain("app.etzhayyim.apps.vessel.voyage");
+    expect(m.triggers.subscribeRepos.collections).toContain("com.etzhayyim.apps.vessel.voyage");
   });
   it("4 actors (master BL, house BL, container, DG)", () => { expect(m.actors).toHaveLength(4); });
   it("IMDG Code compliance", () => { expect(m.governance.complianceFrameworks).toContain("IMDG Code"); });

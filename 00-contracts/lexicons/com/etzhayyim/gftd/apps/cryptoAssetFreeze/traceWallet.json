@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cryptoAssetFreeze.traceWallet",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "walletAddress": {
+              "type": "string"
+            },
+            "chain": {
+              "type": "string"
+            },
+            "maxHops": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "walletAddress"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "traceId": {
+              "type": "integer"
+            },
+            "walletAddress": {
+              "type": "string"
+            },
+            "chain": {
+              "type": "string"
+            },
+            "existingData": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

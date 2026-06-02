@@ -24,7 +24,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "futawa"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "futawa"
 _MANIFEST = _REPO / "20-actors" / "futawa" / "manifest.jsonld"
 
 # (lexicon stem, field) → expected const true. The structural compliance gates.
@@ -112,7 +112,7 @@ class TestHygieneAndManifest:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.futawa.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.futawa.{p.stem}"
 
     def test_manifest_namespaces_match_disk(self):
         declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}

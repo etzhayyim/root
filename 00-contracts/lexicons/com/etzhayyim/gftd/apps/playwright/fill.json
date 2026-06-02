@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.playwright.fill",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fill an input. Either 'value' (literal) or 'valueRef' (vault:// / keychain: / 1password:// / env: / literal:).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId", "selector"],
+          "properties": {
+            "sessionId": { "type": "string" },
+            "selector": { "type": "string" },
+            "value": { "type": "string" },
+            "valueRef": { "type": "string", "description": "vault://path | keychain:service/account | 1password://vault/item/field | env:NAME | literal:value" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": { "ok": { "type": "boolean" }, "error": { "type": "string" } } }
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const ACTOR_DID = "did:web:rwa-state.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.govRwa.";
+const NSID_PREFIX = "com.etzhayyim.govRwa.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -29,7 +29,7 @@ export default {
         nanoid: env.APP_NANOID ?? "",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/gov_rwa.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/govRwa",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govRwa",
       });
     }
 

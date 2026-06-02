@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.interpolRedabuse.recordRedNotice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "INTERPOL Red Notice / Diffusion issuance (bridges extraditionTreaty.flagDenial + press-freedom + refugee-unhcr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "noticeId",
+            "issuingCountryIso3",
+            "noticeKind",
+            "basisOffence",
+            "issuedAt"
+          ],
+          "properties": {
+            "noticeId": {
+              "type": "string"
+            },
+            "issuingCountryIso3": {
+              "type": "string"
+            },
+            "subjectNationalityIso3": {
+              "type": "string"
+            },
+            "noticeKind": {
+              "type": "string",
+              "enum": [
+                "red_notice",
+                "diffusion",
+                "blue",
+                "green",
+                "yellow",
+                "orange",
+                "purple",
+                "infra_red"
+              ]
+            },
+            "basisOffence": {
+              "type": "string",
+              "enum": [
+                "economic_fraud",
+                "terrorism",
+                "drug",
+                "corruption",
+                "cyber",
+                "sanctions",
+                "political",
+                "religious",
+                "human_rights_defender",
+                "journalist_critic",
+                "dissident",
+                "dual_national"
+              ]
+            },
+            "denialVid": {
+              "type": "string",
+              "description": "bridges extraditionTreaty.flagDenial"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.partsCatalog",
+  "description": "CONSTITUTIONAL FIRST G12: RIGHT-TO-REPAIR FORWARD-PUBLISHING. Public IPFS-pinned full parts catalog + CAD source + firmware source + service manual + open diagnostic protocol shipped with every new vehicle AT MANUFACTURE TIME. Companion to hodoki.partsHarvestCatalog (published at EOL). Together: full lifecycle right-to-repair invariant. §2(e) anti-gatekeeping operationalized at vehicle build time. Per ADR-2605261330 L5a + G12.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "vin": {"type": "string"},
+          "vehicleDid": {"type": "string"},
+          "catalog": {
+            "type": "object",
+            "properties": {
+              "catalogCid": {"type": "string"},
+              "cadSourceCid": {"type": "string"},
+              "firmwareSourceCid": {"type": "string"},
+              "serviceManualCid": {"type": "string"},
+              "openDiagnosticProtocolCid": {"type": "string"},
+              "g12RightToRepairForwardPublishing": {"type": "boolean", "const": true},
+              "g12NoProprietaryLockIn": {"type": "boolean", "const": true},
+              "g12NoAntiDrm": {"type": "boolean", "const": true},
+              "g12NoWarrantyVoidOnUserRepair": {"type": "boolean", "const": true},
+              "g14PartDiscontinuationProhibitedYears": {"type": "integer", "const": 30},
+              "g14FirmwareUpdateCommitmentYears": {"type": "integer", "const": 30},
+              "languagesPresent": {"type": "array", "items": {"type": "string"}, "minItems": 2}
+            },
+            "required": ["catalogCid", "cadSourceCid", "firmwareSourceCid", "g12RightToRepairForwardPublishing", "g14PartDiscontinuationProhibitedYears"]
+          },
+          "publishedAt": {"type": "string", "format": "datetime"},
+          "g12ForwardPublishing": {"type": "boolean", "const": true}
+        },
+        "required": ["vehicleId", "vin", "vehicleDid", "catalog", "publishedAt", "g12ForwardPublishing"]
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.offshoreWind.registerLease",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Offshore wind lease / seabed auction (BOEM / Crown Estate / TenneT — bridges power-grid-interconnect + hydrogen-economy + bbnj-highseas + mpa-effectiveness)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "leaseId",
+            "lessor",
+            "countryIso3",
+            "leasedAt"
+          ],
+          "properties": {
+            "leaseId": {
+              "type": "string"
+            },
+            "lessor": {
+              "type": "string",
+              "enum": [
+                "boem",
+                "crown_estate",
+                "tennet",
+                "4coffshore",
+                "bsh",
+                "japan_meti",
+                "kepco",
+                "stateoceanic_adm"
+              ]
+            },
+            "leaseeLei": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "areaKm2": {
+              "type": "number"
+            },
+            "capacityMw": {
+              "type": "number"
+            },
+            "auctionPriceUsdKw": {
+              "type": "number"
+            },
+            "cod": {
+              "type": "string",
+              "description": "commercial operation date"
+            },
+            "leasedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

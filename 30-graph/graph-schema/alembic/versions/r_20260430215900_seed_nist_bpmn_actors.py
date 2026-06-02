@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-health-v1',
                  'did:web:nist.etzhayyim.com',
                  'nist_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -35,7 +35,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_nist_health" '
                  'targetNamespace="https://etzhayyim.com/bpmn/nist"><bpmn:process id="nist_health" '
                  'name="nist health" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.nist.health", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.nist.health", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -44,13 +44,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  955,
-                 '00-contracts/bpmn/ai/gftd/nist/health.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/nist/health.bpmn',
                  '2026-04-30T21:59:00+09:00',
                  'did:web:nist.etzhayyim.com',
                  'did:web:nist.etzhayyim.com',
                  'sys.bpmn.seed.nist',
                  'did:web:nist.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -65,9 +65,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-health-v1',
                  'did:web:nist.etzhayyim.com',
-                 'app.etzhayyim.apps.nist.health',
+                 'com.etzhayyim.apps.nist.health',
                  'nist_health',
                  '',
                  '2026-04-30T21:59:00+09:00',
@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
                  'did:web:nist.etzhayyim.com',
                  'sys.bpmn.seed.nist',
                  'did:web:nist.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-describe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-describe-v1',
                  'did:web:nist.etzhayyim.com',
                  'nist_describe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_nist_describe" '
                  'targetNamespace="https://etzhayyim.com/bpmn/nist"><bpmn:process id="nist_describe" '
                  'name="nist describe" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.nist.describe", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.nist.describe", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -108,13 +108,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  967,
-                 '00-contracts/bpmn/ai/gftd/nist/describe.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/nist/describe.bpmn',
                  '2026-04-30T21:59:00+09:00',
                  'did:web:nist.etzhayyim.com',
                  'did:web:nist.etzhayyim.com',
                  'sys.bpmn.seed.nist',
                  'did:web:nist.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-describe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-describe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -129,9 +129,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-describe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-describe-v1',
                  'did:web:nist.etzhayyim.com',
-                 'app.etzhayyim.apps.nist.describe',
+                 'com.etzhayyim.apps.nist.describe',
                  'nist_describe',
                  '',
                  '2026-04-30T21:59:00+09:00',
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
                  'did:web:nist.etzhayyim.com',
                  'sys.bpmn.seed.nist',
                  'did:web:nist.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-describe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-describe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-wave-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-wave-v1',
                  'did:web:nist.etzhayyim.com',
                  'nist_wave',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
                  'xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_nist_wave" '
                  'targetNamespace="https://etzhayyim.com/bpmn/nist"><bpmn:process id="nist_wave" '
                  'name="nist wave" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.nist.wave", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.nist.wave", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -172,13 +172,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  943,
-                 '00-contracts/bpmn/ai/gftd/nist/wave.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/nist/wave.bpmn',
                  '2026-04-30T21:59:00+09:00',
                  'did:web:nist.etzhayyim.com',
                  'did:web:nist.etzhayyim.com',
                  'sys.bpmn.seed.nist',
                  'did:web:nist.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-wave-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-wave-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -193,9 +193,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-wave-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-wave-v1',
                  'did:web:nist.etzhayyim.com',
-                 'app.etzhayyim.apps.nist.wave',
+                 'com.etzhayyim.apps.nist.wave',
                  'nist_wave',
                  'vertex_nist_event',
                  '2026-04-30T21:59:00+09:00',
@@ -203,20 +203,20 @@ UP = [{'sql': '\n'
                  'did:web:nist.etzhayyim.com',
                  'sys.bpmn.seed.nist',
                  'did:web:nist.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-wave-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-wave-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-describe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-describe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-describe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-describe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nist-wave-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nist-wave-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nist-wave-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nist-wave-v1']}]
 
 
 def upgrade() -> None:

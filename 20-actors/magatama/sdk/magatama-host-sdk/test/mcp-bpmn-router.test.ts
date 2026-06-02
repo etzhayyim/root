@@ -28,7 +28,7 @@ import {
 } from "../src/mcp-bpmn-router.js";
 
 const HYPERDRIVE = { __mock: true };
-const NSID = "app.etzhayyim.apps.lawfirm.createCase";
+const NSID = "com.etzhayyim.apps.lawfirm.createCase";
 
 const fetchMock = vi.fn();
 const originalFetch = globalThis.fetch;

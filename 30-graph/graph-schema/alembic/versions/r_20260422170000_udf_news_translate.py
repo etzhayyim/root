@@ -15,7 +15,7 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION news_translate(VARCHAR, VARCHAR, VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.news.translate'\n"
+         "      AS 'com.etzhayyim.apps.news.translate'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

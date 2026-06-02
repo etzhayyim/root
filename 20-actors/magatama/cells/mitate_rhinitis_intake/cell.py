@@ -19,7 +19,7 @@ Pregel graph (3 nodes):
                                       - sealed-recipient registry is current
         |
         v
-    emit_intake_record          ->  MST PUT app.etzhayyim.mitate.rhinitisIntake
+    emit_intake_record          ->  MST PUT com.etzhayyim.mitate.rhinitisIntake
                                   ->  next-cell message: mitate_emergency_screen
                                       (architectural invariant — emergency screen
                                        MUST run before any triage cell)

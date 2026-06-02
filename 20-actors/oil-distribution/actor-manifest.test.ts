@@ -21,15 +21,15 @@ describe("Oil Distribution Actor Manifest", () => {
   });
   it("subscribes to oilRefining.yieldSnapshot", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.oilRefining.yieldSnapshot");
+    expect(sub.trigger.collections).toContain("com.etzhayyim.apps.oilRefining.yieldSnapshot");
   });
   it("xrpc covers terminals, hubs, product balance, health", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("app.etzhayyim.apps.oilDistribution.network.getProductTerminal");
-    expect(nsids).toContain("app.etzhayyim.apps.oilDistribution.network.listProductTerminals");
-    expect(nsids).toContain("app.etzhayyim.apps.oilDistribution.network.listWholesaleHubs");
-    expect(nsids).toContain("app.etzhayyim.apps.oilDistribution.analytics.getProductBalance");
-    expect(nsids).toContain("app.etzhayyim.apps.oilDistribution.health");
+    expect(nsids).toContain("com.etzhayyim.apps.oilDistribution.network.getProductTerminal");
+    expect(nsids).toContain("com.etzhayyim.apps.oilDistribution.network.listProductTerminals");
+    expect(nsids).toContain("com.etzhayyim.apps.oilDistribution.network.listWholesaleHubs");
+    expect(nsids).toContain("com.etzhayyim.apps.oilDistribution.analytics.getProductBalance");
+    expect(nsids).toContain("com.etzhayyim.apps.oilDistribution.health");
   });
   it("4 actor paths", () => { expect(m.actors).toHaveLength(4); });
 });

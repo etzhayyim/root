@@ -50,9 +50,9 @@ import {
   type TransferStepView,
 } from "./types.js";
 
-const REQUEST_COLLECTION = "app.etzhayyim.dns.transferRequest";
-const STEP_COLLECTION = "app.etzhayyim.dns.transferStep";
-const OUTCOME_COLLECTION = "app.etzhayyim.dns.transferOutcome";
+const REQUEST_COLLECTION = "com.etzhayyim.dns.transferRequest";
+const STEP_COLLECTION = "com.etzhayyim.dns.transferStep";
+const OUTCOME_COLLECTION = "com.etzhayyim.dns.transferOutcome";
 
 const REQUIRED_APPROVALS = 3;
 

@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.kabi.";
+const NSID_PREFIX = "com.etzhayyim.apps.kabi.";
 const ACTOR_DID = "did:web:kabi.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "k4b100m1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/kabi",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kabi",
         methods: ["extendHypha", "pruneHypha", "fusionProbe", "getNetwork", "getNutrientFlow"],
       });
     }

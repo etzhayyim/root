@@ -47,7 +47,7 @@ const AGENTS = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const agent of AGENTS) {
     const xml = readFileSync(
-      path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/kaisya", agent.file),
+      path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/kaisya", agent.file),
       "utf8",
     );
     const size = Buffer.byteLength(xml, "utf8");

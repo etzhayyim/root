@@ -16,7 +16,7 @@ Constitutional ceiling (CRITICAL - IMMUTABLE):
   - G9 outreach is an OPEN INVITATION, never a benefit (N7: benefits are
     adherent-gated; non-adherents receive only public-good outputs).
   - G11 LIVE-ACTION GATE: published=false in R0/R1 (drafted, not published).
-Output Lexicon(s): app.etzhayyim.socialsecurity.outreachPost.
+Output Lexicon(s): com.etzhayyim.socialsecurity.outreachPost.
 
 R0 scaffold - import-time RuntimeError until R2 (first public invitation post).
 """
@@ -53,7 +53,7 @@ if (
 #         # 1. compose invitation / transparency-metric / declaration post
 #         # 2. Charter Rider §2(a)-(h) scan (G1) -> abort on hit
 #         # 3. attest ad-free / no-tracker / no-microtarget (G7)
-#         # 4. emit app.etzhayyim.socialsecurity.outreachPost (published=false R0/R1)
+#         # 4. emit com.etzhayyim.socialsecurity.outreachPost (published=false R0/R1)
 #         raise NotImplementedError("socialsecurity_outreach R2")
 
 

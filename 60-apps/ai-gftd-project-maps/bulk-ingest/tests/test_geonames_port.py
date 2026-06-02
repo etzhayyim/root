@@ -1,7 +1,7 @@
 """Tests for the geonames_dumper.py pymagatama.substrate port.
 
 Verifies the pure converter (`_geonames_row_to_feature`) produces a record
-shape that matches `app.etzhayyim.maps.feature` lexicon expectations. Does
+shape that matches `com.etzhayyim.maps.feature` lexicon expectations. Does
 not require network access; the substrate primitive itself is tested
 separately in 20-actors/magatama/py/tests/test_substrate.py.
 
@@ -31,12 +31,12 @@ import geonames_dumper  # noqa: E402
 
 
 SAMPLE_ROW = {
-    "vertex_id": "at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/geonames-1850147",
+    "vertex_id": "at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.spot/geonames-1850147",
     "rkey": "geonames-1850147",
     "repo": "did:web:maps.etzhayyim.com",
     "label": "Place",
     "did": "did:web:maps.etzhayyim.com",
-    "collection": "app.etzhayyim.apps.maps.spot",
+    "collection": "com.etzhayyim.apps.maps.spot",
     "name": "Tokyo",
     "lat": 35.6895,
     "lng": 139.69171,

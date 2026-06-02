@@ -13,18 +13,18 @@ mutual-consent bond between two SBT holders — nothing more.
 
 Pregel graph (4 nodes — one more than P1, because consent is a 2-step ritual):
 
-    ingest_proposal      <-  MST firehose on app.etzhayyim.member.marriage.proposal
+    ingest_proposal      <-  MST firehose on com.etzhayyim.member.marriage.proposal
         |
         v
-    validate_both_sbt    <-  both DIDs hold active app.etzhayyim.member.adherent
+    validate_both_sbt    <-  both DIDs hold active com.etzhayyim.member.adherent
         |
         v
-    collect_consent      <-  wait for app.etzhayyim.member.marriage.acceptance
+    collect_consent      <-  wait for com.etzhayyim.member.marriage.acceptance
                              (30-day timeout matches ADR-2605192300 Council
                              public objection period)
         |
         v
-    emit_marriage        ->  MST PUT app.etzhayyim.member.marriage (dual-signed)
+    emit_marriage        ->  MST PUT com.etzhayyim.member.marriage (dual-signed)
                          ->  optional: L2 attestation tx (off-cell, manual)
 
 Tier: B (Per-Domain).

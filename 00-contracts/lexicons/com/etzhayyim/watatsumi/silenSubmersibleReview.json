@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.silenSubmersibleReview",
+  "description": "Council 5-of-7 Safe attestation review for every new submersible craft class. Required before any L1 fabrication starts for a new craft class. Scopes include r0-scaffold-baseline / r1-benchtop-pressure-vessel / r2-pilot-rov / r3-research-or-infra. Per ADR-2605252200 Council Lv6+ supermajority for any G/N amendment.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftClassId": {"type": "string"},
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "r0-scaffold-baseline",
+              "r1-benchtop-pressure-vessel",
+              "r2-pilot-rov",
+              "r3-research-or-infra",
+              "wave-1-research-submersible",
+              "wave-2-infra-rov",
+              "wave-3-aquaculture",
+              "gate-amendment-G12-cap-revision",
+              "non-goal-amendment-tourist-submersible"
+            ]
+          },
+          "councilSafeAddress": {"type": "string"},
+          "councilSignatures": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#councilSignature"},
+            "minItems": 5
+          },
+          "decision": {"type": "string", "knownValues": ["approve", "reject", "request-revision"]},
+          "rationale": {"type": "string"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftClassId", "scope", "councilSignatures", "decision", "recordedAt"]
+      }
+    },
+    "councilSignature": {
+      "type": "object",
+      "properties": {
+        "councilMemberDid": {"type": "string", "format": "did"},
+        "signature": {"type": "string"},
+        "timestamp": {"type": "string", "format": "datetime"}
+      },
+      "required": ["councilMemberDid", "signature"]
+    }
+  }
+}

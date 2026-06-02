@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.listRetakes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List retakes. Powers the Review Room queue and per-cut retake panel. Default filter is status='open'.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "episodeId": { "type": "string" },
+          "cutId": { "type": "string" },
+          "stage": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["open", "acknowledged", "inProgress", "resolved", "wontFix"]
+          },
+          "assignee": { "type": "string" },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": { "type": "string", "format": "at-uri" },
+                  "targetUri": { "type": "string", "format": "at-uri" },
+                  "cutUri": { "type": "string", "format": "at-uri" },
+                  "stage": { "type": "string" },
+                  "severity": { "type": "string" },
+                  "status": { "type": "string" },
+                  "comment": { "type": "string" },
+                  "timecodeFrame": { "type": "integer" },
+                  "author": { "type": "string" },
+                  "assignee": { "type": "string" },
+                  "createdAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

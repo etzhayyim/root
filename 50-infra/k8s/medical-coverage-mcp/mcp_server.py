@@ -22,11 +22,11 @@ MCP_AUTH_TOKEN = os.environ.get("MCP_AUTH_TOKEN", "")
 PORT = int(os.environ.get("PORT", "8080"))
 
 TARGETS = {
-    "pubmed": ("gakujutsu_ronbun", "app.etzhayyim.apps.iryo.pubmedPaper"),
-    "clinical_trials": ("rinshou_shiken", "app.etzhayyim.apps.iryo.rinshou"),
-    "dsm": ("dsm_shikkan", "app.etzhayyim.apps.iryo.dsmCategory"),
-    "facilities": ("iryo_shisetsu", "app.etzhayyim.apps.iryo.shisetsu"),
-    "facilities_csv": ("iryo_shisetsu", "app.etzhayyim.apps.iryo.shisetsu"),
+    "pubmed": ("gakujutsu_ronbun", "com.etzhayyim.apps.iryo.pubmedPaper"),
+    "clinical_trials": ("rinshou_shiken", "com.etzhayyim.apps.iryo.rinshou"),
+    "dsm": ("dsm_shikkan", "com.etzhayyim.apps.iryo.dsmCategory"),
+    "facilities": ("iryo_shisetsu", "com.etzhayyim.apps.iryo.shisetsu"),
+    "facilities_csv": ("iryo_shisetsu", "com.etzhayyim.apps.iryo.shisetsu"),
 }
 
 READ_ONLY_TOOLS = {

@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.marineInsurance.listPolicies",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List marine insurance policies (Hull/Cargo/P&I).",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "policyType": { "type": "string" },
+          "insuredDid": { "type": "string", "format": "did" },
+          "underwriterDid": { "type": "string", "format": "did" },
+          "activeOnly": { "type": "boolean", "default": true },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["policies", "total", "offset", "limit"], "properties": { "policies": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "policyType": { "type": "string" }, "insuredDid": { "type": "string", "format": "did" }, "sumInsured": { "type": "number" }, "currency": { "type": "string" }, "effectiveTo": { "type": "string", "format": "datetime" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

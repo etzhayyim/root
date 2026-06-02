@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govSrb.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govSrb.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Serbia government.",
-        "operationId": "app.etzhayyim.govSrb.followSiteDeps",
+        "operationId": "com.etzhayyim.govSrb.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govSrb.heartbeatTick": {
       "post": {
         "summary": "Run the Serbia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govSrb.heartbeatTick",
+        "operationId": "com.etzhayyim.govSrb.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.listOrgs": {
+    "/xrpc/com.etzhayyim.govSrb.listOrgs": {
       "get": {
         "summary": "List Serbia government organization graph records.",
-        "operationId": "app.etzhayyim.govSrb.listOrgs",
+        "operationId": "com.etzhayyim.govSrb.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.registerDIDs": {
+    "/xrpc/com.etzhayyim.govSrb.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Serbia government organizations.",
-        "operationId": "app.etzhayyim.govSrb.registerDIDs",
+        "operationId": "com.etzhayyim.govSrb.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govSrb.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Serbia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govSrb.resolveOrgPath",
+        "operationId": "com.etzhayyim.govSrb.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.seedOrgs": {
+    "/xrpc/com.etzhayyim.govSrb.seedOrgs": {
       "post": {
         "summary": "Seed initial Serbia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govSrb.seedOrgs",
+        "operationId": "com.etzhayyim.govSrb.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.shinka": {
+    "/xrpc/com.etzhayyim.govSrb.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Serbia government organization update.",
-        "operationId": "app.etzhayyim.govSrb.shinka",
+        "operationId": "com.etzhayyim.govSrb.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSrb.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govSrb.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Serbia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govSrb.syncWetUpdates",
+        "operationId": "com.etzhayyim.govSrb.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

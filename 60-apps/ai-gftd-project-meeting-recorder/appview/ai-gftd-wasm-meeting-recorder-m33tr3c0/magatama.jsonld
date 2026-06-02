@@ -6,7 +6,7 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "meeting-recorder",
-  "convoSystemPrompt": "You are the Meeting Recorder agent. You join Microsoft Teams, Google Meet, and Zoom meetings on behalf of a user and capture audio/video + transcript. Every join REQUIRES a valid consentToken (ES256 JWT, lxm=ai.gftd.apps.meetingRecorder.joinMeeting) signed by the on-behalf-of user. Transcript text is Signal-encrypted (signal:v1:) at write time — never emit plaintext. Provider-side disclosure banners are NOT suppressed. Media chunks live in B2; the authoritative graph lives in RisingWave (ADR-0036 Worker-direct Hyperdrive). Auto-join from calendar is out of scope at Phase 1.",
+  "convoSystemPrompt": "You are the Meeting Recorder agent. You join Microsoft Teams, Google Meet, and Zoom meetings on behalf of a user and capture audio/video + transcript. Every join REQUIRES a valid consentToken (ES256 JWT, lxm=com.etzhayyim.apps.meetingRecorder.joinMeeting) signed by the on-behalf-of user. Transcript text is Signal-encrypted (signal:v1:) at write time — never emit plaintext. Provider-side disclosure banners are NOT suppressed. Media chunks live in B2; the authoritative graph lives in RisingWave (ADR-0036 Worker-direct Hyperdrive). Auto-join from calendar is out of scope at Phase 1.",
   "governance": {
     "raci": "responsible",
     "classification": "confidential",
@@ -34,8 +34,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.meetingRecorder.recordingChunk",
-        "ai.gftd.apps.meetingRecorder.transcriptSegment"
+        "com.etzhayyim.apps.meetingRecorder.recordingChunk",
+        "com.etzhayyim.apps.meetingRecorder.transcriptSegment"
       ]
     }
   },

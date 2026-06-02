@@ -180,13 +180,13 @@ UP = [{'sql': '\n'
          "      'media_gamers', 'game:work:pokemon-pokopia', 'pokemon-pokopia',\n"
          "      'Pokémon Pokopia Dream Island domain knowledge', 'ja', $4,\n"
          "      'sha256:pending', "
-         "'at://did:web:a7m8oocs.etzhayyim.com/app.etzhayyim.apps.media_gamers.article/3mkmcl7x3bt2b',\n"
+         "'at://did:web:a7m8oocs.etzhayyim.com/com.etzhayyim.apps.media_gamers.article/3mkmcl7x3bt2b',\n"
          "      'high', 'active', $5, $6,\n"
          "      'anon', 'anon', 'sys.llm.domain-knowledge.seed',\n"
          '      $7\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  'did:web:llm.etzhayyim.com',
                  'did:web:a7m8oocs.etzhayyim.com',
                  'Pokémon Pokopia / ぽこあポケモンの夢島に行くには、まずフワンテと仲良くなってフワンテのすみかを完成させる。\n'
@@ -215,10 +215,10 @@ UP = [{'sql': '\n'
          "        NULL, NULL, NULL, NULL, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-1',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-1',
                  1,
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  1,
                  '夢島に行くには、まずフワンテと仲良くなってフワンテのすみかを完成させる。あたたかい風の棲家は初回アンロック条件。',
                  28,
@@ -238,10 +238,10 @@ UP = [{'sql': '\n'
          "        NULL, NULL, NULL, NULL, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-2',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-2',
                  2,
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  2,
                  '棲家完成後、ポケモン人形を見つけ、置いた人形を調べるか、人形を持った状態でフワンテに話しかけ、『夢島に行きたい』を選ぶ。',
                  30,
@@ -261,10 +261,10 @@ UP = [{'sql': '\n'
          "        NULL, NULL, NULL, NULL, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-3',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-3',
                  3,
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  3,
                  '一度フワンテの棲家を完成させた後は、夢島へ行くたびに棲家を作り直す必要はない。',
                  20,
@@ -284,10 +284,10 @@ UP = [{'sql': '\n'
          "        NULL, NULL, NULL, NULL, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-4',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-4',
                  4,
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  4,
                  '1つの町のフワンテで選べる夢島は1日1種類。同じ日なら同じ夢島へ何度でも戻れる。帰る時はフワンテに話しかける。',
                  28,
@@ -307,10 +307,10 @@ UP = [{'sql': '\n'
          "        NULL, NULL, NULL, NULL, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-5',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-5',
                  5,
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  5,
                  'GameSpot は、フワンテの棲家についてキャンプファイア3つを横に並べ、ヒトカゲに火をつけてもらう手順として説明している。',
                  32,
@@ -330,10 +330,10 @@ UP = [{'sql': '\n'
          "        NULL, NULL, NULL, NULL, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-6',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island/chunk-6',
                  6,
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
                  6,
                  'Dream Island の参考画像: '
                  'https://www.gamespot.com/a/uploads/scale_super/1639/16394540/4662653-drifloonupdrafts.jpg',
@@ -351,7 +351,7 @@ UP = [{'sql': '\n'
          "        $7, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/nintendo-pokopia-dream-island',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.knowledgeSource/nintendo-pokopia-dream-island',
                  'did:web:llm.etzhayyim.com',
                  'https://en-americas-support.nintendo.com/app/answers/detail/a_id/71382',
                  'Nintendo Support: How to Visit a Dream Island (Pokémon Pokopia)',
@@ -370,8 +370,8 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:nintendo-pokopia-dream-island',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/nintendo-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.knowledgeSource/nintendo-pokopia-dream-island',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T14:40:00+09:00']},
  {'sql': '\n'
@@ -386,7 +386,7 @@ UP = [{'sql': '\n'
          "        $7, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island',
                  'did:web:llm.etzhayyim.com',
                  'https://www.gamespot.com/articles/how-dream-islands-work-in-pokemon-pokopia/1100-6538621/',
                  'GameSpot: How Dream Islands Work in Pokemon Pokopia',
@@ -405,8 +405,8 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:gamespot-pokopia-dream-island',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T14:40:00+09:00']},
  {'sql': '\n'
@@ -421,7 +421,7 @@ UP = [{'sql': '\n'
          "        $7, $8, 'anon', 'anon', 'sys.llm.domain-knowledge.seed'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island-image',
+  'parameters': ['at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island-image',
                  'did:web:llm.etzhayyim.com',
                  'https://www.gamespot.com/a/uploads/scale_super/1639/16394540/4662653-drifloonupdrafts.jpg',
                  'GameSpot image: Drifloon brings you to Dream Island',
@@ -440,8 +440,8 @@ UP = [{'sql': '\n'
          '      )\n'
          '    ',
   'parameters': ['edge:dk-cites:gamespot-pokopia-dream-island-image',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
-                 'at://did:web:llm.etzhayyim.com/app.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island-image',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.domainKnowledge/pokemon-pokopia-dream-island',
+                 'at://did:web:llm.etzhayyim.com/com.etzhayyim.apps.llm.knowledgeSource/gamespot-pokopia-dream-island-image',
                  'did:web:llm.etzhayyim.com',
                  '2026-04-29T14:40:00+09:00']}]
 

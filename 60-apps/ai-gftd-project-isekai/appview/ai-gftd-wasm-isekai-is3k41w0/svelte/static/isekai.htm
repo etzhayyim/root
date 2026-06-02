@@ -446,7 +446,7 @@ async function onFight() {
   disableEncounterButtons();
   const lead = getLeadPokoa();
   try {
-    const res = await xrpc('ai.gftd.isekai.startBattle', {
+    const res = await xrpc('com.etzhayyim.isekai.startBattle', {
       playerSpeciesId: lead.speciesId,
       playerLevel:     lead.level,
       playerInstanceId: lead.instanceId ?? 'starter',
@@ -493,7 +493,7 @@ async function onUseMove(moveIndex) {
   setMoveButtonsEnabled(false);
   const b = currentBattle;
   try {
-    const res = await xrpc('ai.gftd.isekai.useMove', {
+    const res = await xrpc('com.etzhayyim.isekai.useMove', {
       battleId:        b.battleId,
       moveIndex,
       turn:            0,
@@ -534,7 +534,7 @@ async function onCatch() {
   disableEncounterButtons();
   const ballType = 'standard-ball';
   try {
-    const res = await xrpc('ai.gftd.isekai.catchPokoa', {
+    const res = await xrpc('com.etzhayyim.isekai.catchPokoa', {
       enemySpeciesId: currentEncounter.speciesId,
       enemyLevel:     currentEncounter.level,
       ballType,
@@ -568,7 +568,7 @@ async function onRun() {
   if (currentBattle) {
     battleBusy = true;
     try {
-      const res = await xrpc('ai.gftd.isekai.fleeBattle', { battleId: currentBattle.battleId });
+      const res = await xrpc('com.etzhayyim.isekai.fleeBattle', { battleId: currentBattle.battleId });
       if (res.fled) { hideEncounter(); } else { setBattleLog("Can't escape!"); setMoveButtonsEnabled(true); }
     } catch { hideEncounter(); }
     battleBusy = false;

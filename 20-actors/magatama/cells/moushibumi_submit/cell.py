@@ -13,7 +13,7 @@ submission via an official channel with member authorization); G14 verified-
 target-only; G15 member-self-submission default (代行 requires per-submission
 consent + 行政書士法 clearance + Council Lv7+); G3 never a campaigning/vote act;
 no platform-held signing key (ADR-2605231525); Murakumo-only (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.moushibumi.submissionRecord.
+Output Lexicon(s): com.etzhayyim.moushibumi.submissionRecord.
 
 R0 scaffold — import-time RuntimeError until R2 (self-submit) / R3 (代行).
 """

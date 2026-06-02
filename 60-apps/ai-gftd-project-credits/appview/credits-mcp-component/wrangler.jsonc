@@ -18,7 +18,7 @@
     "APP_DISPLAY_NAME": "Credits Mcp",
     "APP_EMBED_URL": "https://a5ce95af.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "a5ce95af",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"

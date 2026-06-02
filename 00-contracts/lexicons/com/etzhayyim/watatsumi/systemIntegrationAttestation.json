@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.systemIntegrationAttestation",
+  "description": "System integration attestation (L4). Propulsion (G13 fuel restriction), life support (G12 caps), sensors (G8 sonar / N12 stealth), comms, Charter Rider scan. Per ADR-2605252200 L4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "propulsion": {
+            "type": "object",
+            "properties": {
+              "primaryFuel": {
+                "type": "string",
+                "knownValues": ["LFP-battery", "H2-fuel-cell", "NH3-fuel-cell", "methanol-fuel-cell"],
+                "description": "G13: only these fuels allowed. Nuclear propulsion = N2 constitutional non-goal."
+              },
+              "capacityKwh": {"type": "integer"},
+              "thrustKN": {"type": "integer"}
+            },
+            "required": ["primaryFuel"]
+          },
+          "lifeSupport": {
+            "type": "object",
+            "properties": {
+              "maxCrew": {"type": "integer", "maximum": 3},
+              "maxSubmergedHours": {"type": "integer", "maximum": 72}
+            },
+            "required": ["maxCrew", "maxSubmergedHours"]
+          },
+          "sensors": {
+            "type": "object",
+            "properties": {
+              "activeSonar": {
+                "type": "object",
+                "properties": {
+                  "maxSplDbRe1uPaAt1m": {"type": "integer", "maximum": 180},
+                  "g8Accept": {"type": "boolean"}
+                }
+              },
+              "antiStealthCoating": {
+                "type": "object",
+                "properties": {
+                  "proprietaryStealthCoatingPresent": {"type": "boolean", "const": false},
+                  "n12Accept": {"type": "boolean", "const": true}
+                }
+              }
+            }
+          },
+          "comms": {"type": "unknown"},
+          "charterRiderScan": {
+            "type": "object",
+            "properties": {
+              "categoriesChecked": {"type": "array", "items": {"type": "string"}, "minItems": 8},
+              "violations": {"type": "array", "items": {"type": "unknown"}, "maxItems": 0},
+              "accept": {"type": "boolean", "const": true}
+            },
+            "required": ["accept"]
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "propulsion", "lifeSupport", "charterRiderScan"]
+      }
+    }
+  }
+}

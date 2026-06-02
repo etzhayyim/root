@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # γ2 legacy-trust daily observation probe — appended to by the LaunchAgent
-# `app.etzhayyim.legacy-trust-tally.plist`. Mirrors the Claude session cron
+# `com.etzhayyim.legacy-trust-tally.plist`. Mirrors the Claude session cron
 # c79292b9 logic but runs on the OS cron so it survives across sessions
 # and isn't capped at 7 days.
 #

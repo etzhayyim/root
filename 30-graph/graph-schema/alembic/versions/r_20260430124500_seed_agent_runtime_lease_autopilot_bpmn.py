@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:agent.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1',
+  'parameters': ['at://did:web:agent.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1',
                  'did:web:agent.etzhayyim.com',
                  'agent_runtime_lease_autopilot',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -133,15 +133,15 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4549,
-                 '00-contracts/bpmn/ai/gftd/agent/runtimeLeaseAutopilot.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/agent/runtimeLeaseAutopilot.bpmn',
                  '2026-04-30T12:45:00Z',
                  'did:web:agent.etzhayyim.com',
                  'did:web:agent.etzhayyim.com',
                  'sys.bpmn.seed.agent.runtime.autopilot',
-                 'at://did:web:agent.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
+                 'at://did:web:agent.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:agent.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
+  'parameters': ['at://did:web:agent.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-autopilot-v1']}]
 
 
 def upgrade() -> None:

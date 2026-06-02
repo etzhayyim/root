@@ -11,7 +11,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Columns align with records emitted by
  *   60-apps/ai-gftd-project-cowork/appview/ai-gftd-wasm-cowork-graph-c0w0rkg1/src/app.ts
- * via collection NSIDs app.etzhayyim.apps.coworkGraph.{syncJob, mailDraft, toolGrant}.
+ * via collection NSIDs com.etzhayyim.apps.coworkGraph.{syncJob, mailDraft, toolGrant}.
  *
  * Graph API token cache is stored in GRAPH_D1 (CF D1) per-worker — not here.
  * This migration covers only RisingWave (graph) projections of AT Repo records.

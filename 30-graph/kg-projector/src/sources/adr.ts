@@ -99,7 +99,7 @@ export async function projectAdrs(repoRoot: string): Promise<KgProjection> {
     if (fm.authoritative) tags.push("authoritative");
 
     nodes.push({
-      $type: "app.etzhayyim.kg.node",
+      $type: "com.etzhayyim.kg.node",
       nodeId,
       nodeType: "adr",
       label: fm.title.slice(0, 256),
@@ -117,7 +117,7 @@ export async function projectAdrs(repoRoot: string): Promise<KgProjection> {
     for (const [predicate, refs] of predicates) {
       for (const ref of refs) {
         edges.push({
-          $type: "app.etzhayyim.kg.edge",
+          $type: "com.etzhayyim.kg.edge",
           subject: nodeId,
           predicate,
           object: refToObject(ref),
@@ -129,7 +129,7 @@ export async function projectAdrs(repoRoot: string): Promise<KgProjection> {
 
     for (const lit of cleanRefs(fm.authoritative_for)) {
       edges.push({
-        $type: "app.etzhayyim.kg.edge",
+        $type: "com.etzhayyim.kg.edge",
         subject: nodeId,
         predicate: "authoritative-for",
         literal: lit.slice(0, 1024),

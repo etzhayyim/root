@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.agent.chat": {
+    "/xrpc/com.etzhayyim.agent.chat": {
       "post": {
-        "summary": "app.etzhayyim.agent.chat",
-        "operationId": "app.etzhayyim.agent.chat",
+        "summary": "com.etzhayyim.agent.chat",
+        "operationId": "com.etzhayyim.agent.chat",
         "requestBody": {
           "required": true,
           "content": {
@@ -66,10 +66,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.agent.registerTools": {
+    "/xrpc/com.etzhayyim.agent.registerTools": {
       "post": {
-        "summary": "app.etzhayyim.agent.registerTools",
-        "operationId": "app.etzhayyim.agent.registerTools",
+        "summary": "com.etzhayyim.agent.registerTools",
+        "operationId": "com.etzhayyim.agent.registerTools",
         "requestBody": {
           "required": true,
           "content": {
@@ -124,10 +124,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.agent.spawnChildOrg": {
+    "/xrpc/com.etzhayyim.agent.spawnChildOrg": {
       "post": {
         "summary": "ADR-2604301200 governed child-org spawn request for a contract-DID autonomous agent.",
-        "operationId": "app.etzhayyim.agent.spawnChildOrg",
+        "operationId": "com.etzhayyim.agent.spawnChildOrg",
         "requestBody": {
           "required": true,
           "content": {
@@ -206,10 +206,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.agent.startRuntimeLeaseLifecycle": {
+    "/xrpc/com.etzhayyim.agent.startRuntimeLeaseLifecycle": {
       "post": {
         "summary": "ADR-2604301200 start request for quoting and reserving a persistent autonomous-agent runtime lease.",
-        "operationId": "app.etzhayyim.agent.startRuntimeLeaseLifecycle",
+        "operationId": "com.etzhayyim.agent.startRuntimeLeaseLifecycle",
         "requestBody": {
           "required": true,
           "content": {

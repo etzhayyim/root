@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.disputeMediation",
+  "description": "Cooperative-first dispute mediation record. G10 structural enforcement: at most 3 mediation rounds before any arbitration escalation may be invoked. mediationOutcomes[] MUST contain at least one completed round before escalateToArbitration=true. Mediator selection from Adherent SBT-holding mediator registry (no proprietary external arbitration provider; AAA / JCAA / SIAC referenced as procedural model only). Privacy: all session content runs through ADR-2605181100 encrypted envelope.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "claimantDid",
+          "respondentDid",
+          "claimCategory",
+          "claimSummaryEncryptedCid",
+          "currentRound",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "claimantDid": {
+            "type": "string",
+            "description": "DID of the party initiating the claim. MUST be Adherent SBT holder (chigiri represents members only — N9)."
+          },
+          "respondentDid": {
+            "type": "string",
+            "description": "DID of the respondent."
+          },
+          "claimCategory": {
+            "type": "string",
+            "knownValues": [
+              "charter-rider-violation",
+              "ceremony-dispute",
+              "vendor-contract",
+              "ip-license",
+              "covenant-breach",
+              "steward-labor-classification",
+              "data-privacy",
+              "interpersonal",
+              "other"
+            ]
+          },
+          "claimSummaryEncryptedCid": {
+            "type": "string",
+            "description": "ADR-2605181100 encrypted envelope CID for the claim summary (all parties' DIDs in recipient list)."
+          },
+          "currentRound": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Current mediation round (G10: ≤3 rounds before arbitration escalation may be invoked)."
+          },
+          "mediationOutcomes": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#mediationOutcome"
+            },
+            "description": "Per-round mediation outcome log. Required to be non-empty before escalateToArbitration may be true (G10)."
+          },
+          "escalateToArbitration": {
+            "type": "boolean",
+            "description": "May only be true when mediationOutcomes contains at least one entry with outcomeStatus=escalate (G10 structural enforcement at consumer cell layer)."
+          },
+          "arbitrationChannel": {
+            "type": "string",
+            "knownValues": [
+              "internal-council-tribunal",
+              "external-aaa-rules",
+              "external-jcaa-rules",
+              "external-siac-rules",
+              "external-icc-rules",
+              "n-a"
+            ],
+            "description": "Selected arbitration channel when escalating. internal-council-tribunal is the religious-corp's own panel (Council Lv6+ ≥3 attestation); external channels use the named institution's rules only (no fee-bearing engagement)."
+          },
+          "attestingDid": {
+            "type": "string"
+          },
+          "resolutionCid": {
+            "type": "string",
+            "description": "Final resolution CID (encrypted envelope). Present when status moves to resolved."
+          },
+          "resolvedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "mediationOutcome": {
+      "type": "object",
+      "required": ["round", "mediatorDid", "outcomeCid", "outcomeStatus", "completedAt"],
+      "properties": {
+        "round": {"type": "integer", "minimum": 1, "maximum": 3},
+        "mediatorDid": {"type": "string"},
+        "outcomeCid": {"type": "string", "description": "Encrypted outcome record CID."},
+        "outcomeStatus": {"type": "string", "knownValues": ["resolved", "partial-resolve", "deadlock", "escalate"]},
+        "completedAt": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

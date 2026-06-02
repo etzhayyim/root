@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.establishSeppContext",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G SEPP — establish an N32-c security context to a peer PLMN's SEPP (3GPP TS 33.501 §13.2). certificateRef must be a vault:// pointer; raw cert/key never persisted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["localSeppNfId", "remoteSeppFqdn", "localPlmnId", "remotePlmnId", "agreementId", "n32CipherSuite", "validUntil", "observedAt"],
+          "properties": {
+            "contextId": { "type": "string" },
+            "localSeppNfId": { "type": "string" },
+            "remoteSeppFqdn": { "type": "string" },
+            "localPlmnId": { "type": "string" },
+            "remotePlmnId": { "type": "string" },
+            "agreementId": { "type": "string" },
+            "n32CipherSuite": { "type": "string", "enum": ["TLS_AES_128_GCM_SHA256", "TLS_AES_256_GCM_SHA384", "TLS_CHACHA20_POLY1305_SHA256", "PRINS"] },
+            "telescopicFqdnEnabled": { "type": "boolean" },
+            "certificateRef": { "type": "string" },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "contextId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

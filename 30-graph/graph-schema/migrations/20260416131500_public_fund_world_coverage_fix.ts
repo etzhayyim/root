@@ -34,14 +34,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.fundProgram', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.fundCampaign', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.pledge', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.routedAllocation', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.eligibilityPolicy', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.application', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.decision', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'app.etzhayyim.apps.publicFund.disbursement', 150000, 'public funds', 'governance')
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.fundProgram', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.fundCampaign', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.pledge', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.routedAllocation', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.eligibilityPolicy', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.application', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.decision', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.disbursement', 150000, 'public funds', 'governance')
   `.execute(db);
 }
 
@@ -50,20 +50,20 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     DELETE FROM dim_world_domain_collection
     WHERE domain = 'public_fund'
       AND collection IN (
-        'app.etzhayyim.apps.publicFund.fundProgram',
-        'app.etzhayyim.apps.publicFund.fundCampaign',
-        'app.etzhayyim.apps.publicFund.pledge',
-        'app.etzhayyim.apps.publicFund.routedAllocation',
-        'app.etzhayyim.apps.publicFund.eligibilityPolicy',
-        'app.etzhayyim.apps.publicFund.application',
-        'app.etzhayyim.apps.publicFund.decision',
-        'app.etzhayyim.apps.publicFund.disbursement'
+        'com.etzhayyim.apps.publicFund.fundProgram',
+        'com.etzhayyim.apps.publicFund.fundCampaign',
+        'com.etzhayyim.apps.publicFund.pledge',
+        'com.etzhayyim.apps.publicFund.routedAllocation',
+        'com.etzhayyim.apps.publicFund.eligibilityPolicy',
+        'com.etzhayyim.apps.publicFund.application',
+        'com.etzhayyim.apps.publicFund.decision',
+        'com.etzhayyim.apps.publicFund.disbursement'
       )
   `.execute(db);
 
   await sql`
     INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
-    VALUES ('public_fund', 'public-fund', 'app.etzhayyim.coverage.bootstrap', 150000, 'public funds', 'governance')
+    VALUES ('public_fund', 'public-fund', 'com.etzhayyim.coverage.bootstrap', 150000, 'public funds', 'governance')
   `.execute(db);
 
   await sql`

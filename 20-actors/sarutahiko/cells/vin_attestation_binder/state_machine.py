@@ -68,7 +68,7 @@ def transition_to_vehicle_did_issued(state: dict[str, Any]) -> dict[str, Any]:
 def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = BinderState(**state.get("binder_state", {}))
     s.yatachainAnchor = {
-        "membraneNamespace": "app.etzhayyim.sarutahiko",
+        "membraneNamespace": "com.etzhayyim.sarutahiko",
         "anchorTxHash": "0xSARUTAHIKOVINBINDER...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
         "anchorBlockNumber": 0,

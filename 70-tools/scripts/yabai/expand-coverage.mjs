@@ -84,7 +84,7 @@ async function main() {
   for (const ip of ips) {
     let siblings = [];
     try {
-      const r = await xrpc("app.etzhayyim.apps.yabai.reverseIpLookup", { ip });
+      const r = await xrpc("com.etzhayyim.apps.yabai.reverseIpLookup", { ip });
       siblings = r?.variables?.siblings ?? [];
       if (r?.variables?.rateLimited) console.error(`  ${ip}: rate-limited`);
     } catch (e) { console.error(`  ${ip}: ${e.message}`); }
@@ -100,7 +100,7 @@ async function main() {
   for (const kw of FUZZY_TERMS) {
     let hits = [];
     try {
-      const r = await xrpc("app.etzhayyim.apps.yabai.crtshFuzzySearch", { keyword: kw });
+      const r = await xrpc("com.etzhayyim.apps.yabai.crtshFuzzySearch", { keyword: kw });
       hits = r?.variables?.siblings ?? [];
     } catch (e) { console.error(`  crt.sh ${kw}: ${e.message}`); }
     const fresh = hits.filter((d) => !known.has(d) && brandMatch(d) && !d.includes(".arpa") && !d.includes(" "));

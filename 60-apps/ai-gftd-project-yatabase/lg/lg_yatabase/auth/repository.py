@@ -71,7 +71,7 @@ async def insert_api_key(
     aws_access_key_id: str,
     aws_secret_access_key: str,
     status: str = "active",
-    scopes: str = "atproto,include:app.etzhayyim.apps.yata",
+    scopes: str = "atproto,include:com.etzhayyim.apps.yata",
     product_scope: str = "yata",
     key_prefix: str = "sk_live_yata_",
 ) -> dict[str, str]:

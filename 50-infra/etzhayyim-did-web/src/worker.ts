@@ -386,7 +386,7 @@ interface Env {
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
+// rw-free reference impl under the `com.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
@@ -396,21 +396,21 @@ interface Env {
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
-  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
-  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
-  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
+  "app.bsky.feed.getTimeline":     "com.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "com.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "com.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "com.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "com.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "com.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "com.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "com.etzhayyim.yoro.graph.getFollows",
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
 // NSID families already in their canonical rw-free shape (no app.bsky.* →
-// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+// com.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
-  "app.etzhayyim.apps.unispsc.",
+  "com.etzhayyim.apps.unispsc.",
 ];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -426,7 +426,7 @@ interface NsidRoute {
 }
 
 const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  { prefix: "com.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
   // AT Protocol / Bluesky read+write (PDS handles both write paths and
   // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
   // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
@@ -434,7 +434,7 @@ const XRPC_ROUTES: NsidRoute[] = [
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
   // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
+  { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
@@ -615,7 +615,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       primarySchema: infraActor?.primarySchema,
       registry: registered
         ? {
-            lexicon: "app.etzhayyim.apps.unispsc",
+            lexicon: "com.etzhayyim.apps.unispsc",
             generatedAt: UNISPSC_GENERATED_AT,
             totalCount: UNISPSC_TOTAL_COUNT,
           }
@@ -914,6 +914,108 @@ export default {
         },
       });
     }
+    // gov-atlas machine-readable index — `/.well-known/gov-units.json`.
+    // Served from ACTOR_KV (`gov-atlas:index`), generated offline by
+    // scripts/gen-gov-atlas-index.mjs from the ooyake seeds + the
+    // ai-gftd-project-states real-named municipality dataset (synthetic tiers
+    // excluded, G5). Observational mirror + civic wayfinding, never a target-list
+    // (G3/G10). Per ADR-2606021600. GET/HEAD only.
+    if (url.pathname === "/.well-known/gov-units.json") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      let body = '{"error":"gov-atlas index not provisioned (run gen-gov-atlas-index + kv put gov-atlas:index)"}';
+      let status = 503;
+      if (env.ACTOR_KV) {
+        const raw = await env.ACTOR_KV.get("gov-atlas:index");
+        if (raw) {
+          body = raw;
+          status = 200;
+        }
+      }
+      return new Response(body + "\n", {
+        status,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
+    // gov-atlas human search page — `/gov`. Browser-native: fetches
+    // /.well-known/gov-units.json and filters client-side (no per-keystroke server
+    // call, cookie-free, same-origin only). Civic wayfinding over the world
+    // government atlas; observational mirror, never a target-list (G3/G10).
+    // Per ADR-2606021600. GET/HEAD only.
+    if (url.pathname === "/gov" || url.pathname === "/gov/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      const govHtml = `<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>公 ooyake — World Government Atlas</title>
+<style>
+:root{color-scheme:light dark}
+body{font:15px/1.5 system-ui,sans-serif;max-width:920px;margin:0 auto;padding:1.2rem}
+h1{font-size:1.4rem;margin:.2rem 0}.sub{opacity:.7;font-size:.9rem;margin:.2rem 0 1rem}
+#q{width:100%;padding:.6rem .8rem;font-size:1rem;border:1px solid #8888;border-radius:.5rem;box-sizing:border-box}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+select{padding:.4rem;border:1px solid #8888;border-radius:.4rem}
+#stats{opacity:.7;font-size:.85rem;margin:.6rem 0}
+ul{list-style:none;padding:0;margin:0}
+li{padding:.5rem .2rem;border-bottom:1px solid #8882;display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap}
+.nm{font-weight:600}.en{opacity:.6}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
+.au{color:#1a7f37;border-color:#1a7f3766}.re{opacity:.55}
+a{color:inherit}
+</style></head><body>
+<h1>公 — World Government Atlas</h1>
+<p class="sub">An observational <strong>mirror</strong> + civic wayfinding map of the world's government units — never the government, never an official channel, never a target-list (ADR-2606021600). Data: <a href="/.well-known/gov-units.json">/.well-known/gov-units.json</a>. <a href="/actors">/actors</a></p>
+<input id="q" placeholder="search government units… (try: 財務省, 札幌市, Stuttgart, London, prefecture)" autocomplete="off">
+<div class="row">
+<select id="lvl"><option value="">all levels</option></select>
+<select id="src"><option value="">all sourcing</option><option value="authoritative">authoritative</option><option value="representative">representative</option></select>
+</div>
+<div id="stats">loading…</div>
+<ul id="out"></ul>
+<script>
+(async()=>{
+ const d=await (await fetch('/.well-known/gov-units.json')).json();
+ const U=d.units||[];
+ const q=document.getElementById('q'),lvl=document.getElementById('lvl'),src=document.getElementById('src'),out=document.getElementById('out'),stats=document.getElementById('stats');
+ for(const l of Object.keys(d.byLevel||{}).sort()){const o=document.createElement('option');o.value=l;o.textContent=l+' ('+d.byLevel[l]+')';lvl.appendChild(o);}
+ const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+ function render(){
+  const t=q.value.trim().toLowerCase(),fl=lvl.value,fs=src.value;
+  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
+  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · authoritative '+(d.bySourcing&&d.bySourcing.authoritative||0)+' / representative '+(d.bySourcing&&d.bySourcing.representative||0);
+  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+'</li>').join('');
+ }
+ q.oninput=lvl.onchange=src.onchange=render;render();
+})();
+</script></body></html>`;
+      return new Response(govHtml, {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
     if (url.pathname === "/actors" || url.pathname === "/actors/") {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
@@ -963,7 +1065,7 @@ export default {
             JSON.stringify({
               error: "HandleNotInRegistry",
               message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
-              registry: "app.etzhayyim.apps.unispsc",
+              registry: "com.etzhayyim.apps.unispsc",
               registryTotalCount: UNISPSC_TOTAL_COUNT,
             }),
             {
@@ -1179,7 +1281,7 @@ export default {
         //    actor; everything else falls through to substrate routing.
         if (
           (nsid === "app.bsky.actor.getProfile" ||
-            nsid === "app.etzhayyim.actor.getProfile") &&
+            nsid === "com.etzhayyim.actor.getProfile") &&
           (request.method === "GET" || request.method === "HEAD")
         ) {
           const actorParam = url.searchParams.get("actor") ?? "";

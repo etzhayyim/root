@@ -119,7 +119,7 @@ async function sha256Hex(bytes: Uint8Array): Promise<string> {
 }
 
 function write(sdk: HostSDK, kind: string, rec: Record<string, unknown>): void {
-  const collection = `app.etzhayyim.apps.yuubin.${kind}`;
+  const collection = `com.etzhayyim.apps.yuubin.${kind}`;
   const enriched = {
     ...rec,
     createdAt: nowISO(),
@@ -551,7 +551,7 @@ async function cmdComposeAndPost(sdk: HostSDK, body: Uint8Array) {
         });
         return {
           ok: true, txId, provider: "puppeteer-do", status: "processing",
-          hint: "Poll app.etzhayyim.apps.yuubin.getTxStatus or postalItemUpdate for final state. DO alarm runs the puppeteer flow.",
+          hint: "Poll com.etzhayyim.apps.yuubin.getTxStatus or postalItemUpdate for final state. DO alarm runs the puppeteer flow.",
         };
       } catch (e) {
         console.error("DO dispatch failed:", e instanceof Error ? e.message : String(e));
@@ -580,7 +580,7 @@ async function cmdComposeAndPost(sdk: HostSDK, body: Uint8Array) {
   if (teamsChannelEmail || operatorEmail) {
     try {
       const recipients = [teamsChannelEmail, operatorEmail].filter(Boolean);
-      const r = await fetch("https://mailer.etzhayyim.com/xrpc/app.etzhayyim.apps.mailer.send", {
+      const r = await fetch("https://mailer.etzhayyim.com/xrpc/com.etzhayyim.apps.mailer.send", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -597,7 +597,7 @@ async function cmdComposeAndPost(sdk: HostSDK, body: Uint8Array) {
             `<li>PDF: <a href="${docUrl}">${docUrl}</a></li>` +
             `</ul>` +
             `<p>手順: <a href="${webyubinUrl}">${webyubinUrl}</a> を開きログイン → "${deliveryMethod}" 選択 → PDF upload → 上記宛先入力 → 決済 → 申込番号控え。</p>` +
-            `<p>投函完了後、app.etzhayyim.apps.yuubin.confirmManualPost({ txId: "${txId}", apptNumber, paidAt }) で記録更新してください。</p>`,
+            `<p>投函完了後、com.etzhayyim.apps.yuubin.confirmManualPost({ txId: "${txId}", apptNumber, paidAt }) で記録更新してください。</p>`,
           importance: "high",
         }),
       });
@@ -639,7 +639,7 @@ async function cmdComposeAndPost(sdk: HostSDK, body: Uint8Array) {
         `Enter 宛先: ${formatAddressOneLine(to)}`,
         `Confirm 配送方法 + 決済 (登録済クレカ)`,
         `Capture 申込番号`,
-        `After completion, call app.etzhayyim.apps.yuubin.confirmManualPost({ txId: "${txId}", apptNumber, paidAt })`,
+        `After completion, call com.etzhayyim.apps.yuubin.confirmManualPost({ txId: "${txId}", apptNumber, paidAt })`,
       ],
     },
   };
@@ -752,7 +752,7 @@ async function cmdGetTxStatus(sdk: HostSDK, body: Uint8Array) {
   return {
     ok: true,
     txId,
-    hint: "Read app.etzhayyim.apps.yuubin.postalItem + postalItemUpdate AT Records filtered by txId. Final status lands in postalItemUpdate.",
+    hint: "Read com.etzhayyim.apps.yuubin.postalItem + postalItemUpdate AT Records filtered by txId. Final status lands in postalItemUpdate.",
   };
 }
 
@@ -882,27 +882,27 @@ export default createWorkerExport((sdk) => {
 
   sdk.app
     // Tier 1 (DEFAULT for agents)
-    .command(nsid("app.etzhayyim.apps.yuubin.composeAndPost"), async (_c, b) => cmdComposeAndPost(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.composeAndPost"), async (_c, b) => cmdComposeAndPost(sdk, b),
       asAgentTool("End-to-end Web ゆうびん 投函: PDF blob + 宛先 (郵便番号/都道府県/市区町村/建物/受取人) + 配送方法 (regular | letterpack-light | letterpack-plus | express) → CF Browser Rendering puppeteer で Web ゆうびん 自動操作 (login → 文書 upload → 宛先入力 → 決済 → 申込番号取得)。失敗時は Teams/email manual-handoff フォールバック。confirmManualPost で audit chain クローズ。"),
       withCapabilityTags("yuubin", "post", "outbound", "compliance", "high-level"))
-    .command(nsid("app.etzhayyim.apps.yuubin.submitNaiyoShomei"), async (_c, b) => cmdSubmitNaiyoShomei(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.submitNaiyoShomei"), async (_c, b) => cmdSubmitNaiyoShomei(sdk, b),
       asAgentTool("e内容証明 (電子内容証明) 発出: blobKey (Word 形式) + 差出人 + 受取人[] → Web ゆうびん 内容証明メニュー (現状 manual-handoff)。配達証明付き 3 通 (差出人控/受取人/郵便局保管) を機械印刷・封入・発送。"),
       withCapabilityTags("yuubin", "naiyo-shomei", "outbound", "compliance"))
-    .command(nsid("app.etzhayyim.apps.yuubin.confirmManualPost"), async (_c, b) => cmdConfirmManualPost(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.confirmManualPost"), async (_c, b) => cmdConfirmManualPost(sdk, b),
       asAgentTool("Manual handoff の投函完了を記録 (apptNumber + paidAt + trackingNumber)。postalItemUpdate を AT Repo に書き込み audit chain をクローズ。"),
       withCapabilityTags("yuubin", "confirm", "audit"))
-    .command(nsid("app.etzhayyim.apps.yuubin.getTxStatus"), async (_c, b) => cmdGetTxStatus(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.getTxStatus"), async (_c, b) => cmdGetTxStatus(sdk, b),
       asAgentTool("composeAndPost で発行された txId の処理状況を取得。async puppeteer flow は postalItem (initial) + postalItemUpdate (final) の 2 レコードを AT Repo に書く。最終 status/apptNumber は postalItemUpdate に入る。"),
       withCapabilityTags("yuubin", "status", "tx"))
     // Tier 2 (helpers)
-    .command(nsid("app.etzhayyim.apps.yuubin.uploadDocument"), async (_c, b) => cmdUploadDocument(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.uploadDocument"), async (_c, b) => cmdUploadDocument(sdk, b),
       asAgentTool("Pre-rendered PDF (base64) を CDN R2 へ content-addressed upload (SHA-256 dedup)。返り値の blobKey を composeAndPost / submitNaiyoShomei に渡す。"),
       withCapabilityTags("yuubin", "upload", "blob"))
     // Tier 2 (preprocessing: A4 正規化)
-    .command(nsid("app.etzhayyim.apps.yuubin.normalizeDocx"), async (_c, b) => cmdNormalizeDocx(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.normalizeDocx"), async (_c, b) => cmdNormalizeDocx(sdk, b),
       asAgentTool("Web ゆうびん は .docx が A4 (210x297mm) でないと拒否する。pandoc 既定は US Letter。この command は blobKey の .docx を unzip → word/document.xml の <w:sectPr> に A4 pgSz/pgMar を注入 → 再 zip → 新しい blobKey 返却。pure JS (fflate)、CF Worker で完結。"),
       withCapabilityTags("yuubin", "preprocess", "docx", "a4"))
-    .command(nsid("app.etzhayyim.apps.yuubin.validatePdf"), async (_c, b) => cmdValidatePdf(sdk, b),
+    .command(nsid("com.etzhayyim.apps.yuubin.validatePdf"), async (_c, b) => cmdValidatePdf(sdk, b),
       asAgentTool("PDF blob の page size を検査し、A4 (595.28x841.89pt) か確認。Web ゆうびん へ submit 前に呼んで non-A4 を早期検出。MediaBox 解析は heuristic (完全検査は pdfcpu 等を別途)。"),
       withCapabilityTags("yuubin", "preprocess", "pdf", "validate"));
 });

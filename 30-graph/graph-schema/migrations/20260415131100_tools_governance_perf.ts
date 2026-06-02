@@ -45,9 +45,9 @@ export async function up(db: Kysely<any>): Promise<void> {
     FROM vertex_capability g
     JOIN vertex_capability t
       ON t.name = g.name
-     AND t.collection = 'app.etzhayyim.tool.tool'
+     AND t.collection = 'com.etzhayyim.tool.tool'
      AND t.status = 'active'
-    WHERE g.collection = 'app.etzhayyim.actor.toolGrant'
+    WHERE g.collection = 'com.etzhayyim.actor.toolGrant'
       AND g.status = 'active'
   `.execute(db);
 

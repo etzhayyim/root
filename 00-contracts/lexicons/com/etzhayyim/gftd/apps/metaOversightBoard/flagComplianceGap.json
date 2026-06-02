@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.metaOversightBoard.flagComplianceGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Meta non-implementation / partial compliance / scope drift (bridges contentModerationAppeal.flagOutcomeAsymmetry + dsa-vlop + transparency-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "rulingVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "rulingVid": {
+              "type": "string",
+              "description": "bridges recordRuling"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "non_implementation",
+                "partial_implementation",
+                "narrowed_scope",
+                "insufficient_metric",
+                "feedback_loop_broken",
+                "mass_review_unactionable",
+                "commercial_concern",
+                "global_apply_narrow",
+                "selectively_enforced",
+                "new_policy_not_communicated",
+                "sunset_policy_lapsed"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

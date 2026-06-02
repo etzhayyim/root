@@ -5,14 +5,14 @@ under CHARTER-RIDER §2(i)(2) carve-out (ADR-2605262200) for baien-server-moemoe
 
 Per ADR-2605262300 §7, this script:
   1. charter-rider scan all dataset CIDs (train + eval)
-  2. publish app.etzhayyim.train.rentalAttestation (pre-flight)
+  2. publish com.etzhayyim.train.rentalAttestation (pre-flight)
   3. vendor.start_instance + provision train workload
   4. run train script remotely (poll for completion)
   5. fetch final checkpoint -> mac-260317
   6. e7m-dataset add (IPFS pin) + e7m-dataset verify
   7. fleet eval (Mac mini split-role per ADR-2605262100 §5)
   8. commit_gate (Δ_langgraph ≥ +3pp AND Δ_humaneval+ ≥ 0)
-  9. publish app.etzhayyim.train.rentalCostLog (post-flight)
+  9. publish com.etzhayyim.train.rentalCostLog (post-flight)
   10. instance terminate
 
 SKELETON STATUS (R2.0 deliverable):
@@ -76,7 +76,7 @@ class EvalMetrics:
 
 @dataclass
 class RentalAttestation:
-    """app.etzhayyim.train.rentalAttestation record body."""
+    """com.etzhayyim.train.rentalAttestation record body."""
 
     createdAt: str
     trainAdrRef: str
@@ -99,7 +99,7 @@ class RentalAttestation:
 
 @dataclass
 class RentalCostLog:
-    """app.etzhayyim.train.rentalCostLog record body."""
+    """com.etzhayyim.train.rentalCostLog record body."""
 
     createdAt: str
     rentalAttestationUri: str
@@ -328,7 +328,7 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
         attestingDid=config.attesting_did,
     )
     attestation_uri = publish_to_pds(
-        "app.etzhayyim.train.rentalAttestation",
+        "com.etzhayyim.train.rentalAttestation",
         asdict(attestation),
         dry_run=dry_run,
     )
@@ -350,7 +350,7 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
             postMortemNotes="DRY RUN: orchestrator skeleton executed without vendor integration (R2.1 deliverable pending)",
         )
         publish_to_pds(
-            "app.etzhayyim.train.rentalCostLog",
+            "com.etzhayyim.train.rentalCostLog",
             asdict(cost_log),
             dry_run=True,
         )
@@ -403,7 +403,7 @@ def run_rental_train(config: RentalConfig, *, dry_run: bool = True) -> RentalCos
         attestingDid=config.attesting_did,
     )
     publish_to_pds(
-        "app.etzhayyim.train.rentalCostLog",
+        "com.etzhayyim.train.rentalCostLog",
         asdict(cost_log),
         dry_run=dry_run,
     )

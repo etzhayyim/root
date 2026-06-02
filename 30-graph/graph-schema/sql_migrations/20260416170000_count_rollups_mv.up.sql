@@ -117,7 +117,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_project_reflection_count AS
       convo_id,
       COUNT(*)::bigint AS cnt
     FROM vertex_convo
-    WHERE kind = 'ai.gftd.projector.reflection'
+    WHERE kind = 'com.etzhayyim.projector.reflection'
       AND convo_id IS NOT NULL
     GROUP BY convo_id;
 

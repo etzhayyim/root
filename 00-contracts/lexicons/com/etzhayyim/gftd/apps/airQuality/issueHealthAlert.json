@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airQuality.issueHealthAlert",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Air-quality public health alert (bridges universal-health-coverage + pandemic-preparedness)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "alertId",
+            "readingVid",
+            "advisoryLevel",
+            "issuedAt"
+          ],
+          "properties": {
+            "alertId": {
+              "type": "string"
+            },
+            "readingVid": {
+              "type": "string",
+              "description": "bridges reportStationReading"
+            },
+            "advisoryLevel": {
+              "type": "string",
+              "enum": [
+                "advisory",
+                "warning",
+                "emergency"
+              ]
+            },
+            "affectedPopulation": {
+              "type": "integer"
+            },
+            "vulnerableGroups": {
+              "type": "string",
+              "description": "comma: children,elderly,asthma,copd,pregnant,cardiovascular"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

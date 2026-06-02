@@ -173,7 +173,7 @@ describe("ingestLegalEntitiesFromWikidata — E2E smoke", () => {
 
     // Each captured row has the right collection + label + provenance.
     for (const c of captured) {
-      expect(c.collection).toBe("app.etzhayyim.maps.legalEntity");
+      expect(c.collection).toBe("com.etzhayyim.maps.legalEntity");
       expect(c.value.entityType).toBe("Corporation");
       expect(c.value.sourceDid).toBe(WIKIDATA_SOURCE_DID);
       expect(c.value.country).toBe("JP");

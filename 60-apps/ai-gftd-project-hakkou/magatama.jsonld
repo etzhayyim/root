@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.hakkou.ferment"]
+      "collections": ["com.etzhayyim.hakkou.ferment"]
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "app.etzhayyim.card.refund",
+  "id": "com.etzhayyim.card.refund",
   "defs": {
     "main": {
       "type": "procedure",

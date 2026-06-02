@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSales.updateOpportunity",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create or update a sales opportunity. Starts BPMN open_sales_update_opportunity.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["oppId"],
+          "properties": {
+            "oppId":          { "type": "string" },
+            "accountDid":     { "type": "string" },
+            "title":          { "type": "string" },
+            "stage":          { "type": "string", "knownValues": ["prospecting", "qualification", "proposal", "negotiation", "closed_won", "closed_lost"] },
+            "probabilityPct": { "type": "number" },
+            "amountUsd":      { "type": "number" },
+            "closeDate":      { "type": "string" },
+            "ownerDid":       { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId":    { "type": "string" },
+            "status":      { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

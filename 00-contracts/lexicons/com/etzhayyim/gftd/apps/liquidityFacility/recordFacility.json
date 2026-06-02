@@ -1,0 +1,105 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.liquidityFacility.recordFacility",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Central bank liquidity facility / LOLR (bridges digitalRunRisk.flagContagionRisk + bankResolution + fx-swap-lines)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "facilityId",
+            "centralBank",
+            "facilityKind",
+            "openedAt"
+          ],
+          "properties": {
+            "facilityId": {
+              "type": "string"
+            },
+            "centralBank": {
+              "type": "string",
+              "enum": [
+                "fed",
+                "ecb",
+                "boj",
+                "boe",
+                "pboc",
+                "snb",
+                "boc_ca",
+                "rbi",
+                "rba",
+                "sebank",
+                "ringsnet",
+                "bcb",
+                "banxico",
+                "bsp",
+                "cbj"
+              ]
+            },
+            "facilityKind": {
+              "type": "string",
+              "enum": [
+                "discount_window",
+                "standing_lending",
+                "fhl_bank",
+                "bxl",
+                "bank_term_funding",
+                "emergency_authority",
+                "repo_operations",
+                "fx_swap",
+                "dollar_swap",
+                "targeted_ltro",
+                "special_liquidity"
+              ]
+            },
+            "collateralKind": {
+              "type": "string",
+              "enum": [
+                "high_quality_liquid_assets",
+                "agency_mbs",
+                "investment_grade_corporate",
+                "mortgage_loans",
+                "commercial_loans",
+                "sovereign",
+                "supranationals",
+                "gold",
+                "fx_receivables"
+              ]
+            },
+            "contagionVid": {
+              "type": "string",
+              "description": "bridges digitalRunRisk.flagContagionRisk"
+            },
+            "openedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

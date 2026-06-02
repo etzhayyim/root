@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">AIMA</string>
     <string name="title_activity_main">AIMA</string>
-    <string name="package_name">ai.gftd.aima</string>
-    <string name="custom_url_scheme">ai.gftd.aima</string>
+    <string name="package_name">com.etzhayyim.aima</string>
+    <string name="custom_url_scheme">com.etzhayyim.aima</string>
 </resources>

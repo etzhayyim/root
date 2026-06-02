@@ -78,7 +78,7 @@
     loading = true;
     error = '';
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.getSession`, { credentials: 'include' });
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.getSession`, { credentials: 'include' });
       const body = await resp.json();
       if (!resp.ok) throw new Error(body.message || body.error || 'Failed to load account');
       session = body;
@@ -93,7 +93,7 @@
   async function beginEmailLink() {
     linkStatus = '';
     emailStatus = '';
-    const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.linkEmailBegin`, {
+    const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.linkEmailBegin`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -110,7 +110,7 @@
   async function verifyEmailLink() {
     linkStatus = '';
     emailStatus = '';
-    const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.linkEmailVerify`, {
+    const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.linkEmailVerify`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -125,7 +125,7 @@
   }
 
   async function startOAuth(provider: 'google' | 'microsoft') {
-    const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.linkOAuthStart`, {
+    const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.linkOAuthStart`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -138,7 +138,7 @@
 
   async function unlinkMethod(method: LinkedMethod) {
     linkStatus = '';
-    const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.unlinkMethod`, {
+    const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.unlinkMethod`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
@@ -181,7 +181,7 @@
   async function switchActiveDid(targetDid: string) {
     personaStatus = '';
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.switchActiveDid`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.switchActiveDid`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -209,7 +209,7 @@
   async function loadOrgs() {
     orgsLoading = true;
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgList`, { credentials: 'include' });
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgList`, { credentials: 'include' });
       const body = await resp.json();
       if (!resp.ok) throw new Error(body.message || body.error || 'Failed to load orgs');
       orgs = body.orgs || [];
@@ -224,7 +224,7 @@
 
   async function loadOrgMembers(orgDid: string) {
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgMembers?orgDid=${encodeURIComponent(orgDid)}`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgMembers?orgDid=${encodeURIComponent(orgDid)}`, {
         credentials: 'include',
       });
       const body = await resp.json();
@@ -249,7 +249,7 @@
   async function updateOrg() {
     orgStatus = '';
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgUpdate`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgUpdate`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -276,7 +276,7 @@
       return;
     }
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgCreate`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgCreate`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -300,7 +300,7 @@
       return;
     }
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgInvite`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgInvite`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -325,7 +325,7 @@
       return;
     }
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgInviteAccept`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgInviteAccept`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -344,7 +344,7 @@
   async function updateMemberRole(memberDid: string, role: 'member' | 'admin') {
     orgStatus = '';
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgMemberRoleUpdate`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgMemberRoleUpdate`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -362,7 +362,7 @@
   async function removeMember(memberDid: string) {
     orgStatus = '';
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgMemberRemove`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgMemberRemove`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -381,7 +381,7 @@
     orgStatus = '';
     if (!confirm(`Transfer ownership of ${selectedOrgDid} to ${newOwnerDid}? You will become admin.`)) return;
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgTransferOwnership`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgTransferOwnership`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -400,7 +400,7 @@
     orgStatus = '';
     if (!confirm(`Leave ${orgDid}?`)) return;
     try {
-      const resp = await fetch(`${API}/xrpc/app.etzhayyim.authz.orgLeave`, {
+      const resp = await fetch(`${API}/xrpc/com.etzhayyim.authz.orgLeave`, {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

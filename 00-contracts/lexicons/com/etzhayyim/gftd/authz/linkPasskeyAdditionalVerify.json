@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.authz.linkPasskeyAdditionalVerify",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Verify the WebAuthn attestation produced by linkPasskeyAdditionalBegin and persist the new credential against the caller's existing account. The credential row remains in passkey_credentials with did=session.accountDid so primary signin works from this device next time; the linked_auth_methods mirror is stored under the ERC725 root DID when the caller has migrated. actor.score is unchanged (passkey already counts).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["challenge", "clientDataJson", "attestationObject"],
+          "properties": {
+            "challenge": { "type": "string" },
+            "clientDataJson": { "type": "string" },
+            "attestationObject": { "type": "string" },
+            "label": { "type": "string", "description": "Optional human-readable label" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "credentialId", "linkedMethods", "actorScore"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "credentialId": { "type": "string" },
+            "linkedMethods": { "type": "array" },
+            "actorScore": { "type": "object" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "AuthRequired" },
+        { "name": "AttestationFailed" },
+        { "name": "ConfigError" }
+      ]
+    }
+  }
+}

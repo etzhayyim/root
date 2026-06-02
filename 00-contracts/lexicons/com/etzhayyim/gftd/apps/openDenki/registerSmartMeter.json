@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDenki.registerSmartMeter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an AMI smart meter on a feeder. meterType: consumption | generation | bidirectional.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["feederDid", "meterCode", "meterType"],
+          "properties": {
+            "feederDid":   { "type": "string" },
+            "meterCode":   { "type": "string", "description": "Unique code (A-Z0-9-, 2..32)" },
+            "meterType":   { "type": "string", "enum": ["consumption","generation","bidirectional"] },
+            "capacityKva": { "type": "number", "description": "Contracted capacity in kVA (optional)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "meterDid":     { "type": "string" },
+            "meterCode":    { "type": "string" },
+            "feederDid":    { "type": "string" },
+            "meterType":    { "type": "string" },
+            "capacityKva":  { "type": "number" },
+            "registeredAt": { "type": "string", "format": "datetime" },
+            "error":        { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

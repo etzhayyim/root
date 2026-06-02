@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.orgYamato.coldChainDeliveryException",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the Yamato-facing cold-chain delivery exception BPMN workflow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId", "organizationId", "shipmentId", "originDepotId", "destinationDepotId"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "recoveryVertexId": { "type": "string" },
+            "organizationId": { "type": "string" },
+            "shipmentId": { "type": "string" },
+            "originDepotId": { "type": "string" },
+            "destinationDepotId": { "type": "string" },
+            "temperatureBreach": { "type": "boolean" },
+            "minutesLate": { "type": "integer" },
+            "damageReported": { "type": "boolean" },
+            "customerContactRequired": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

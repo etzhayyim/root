@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.listPatients",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List patient public meta entries. Caller's read-cap determines whether subsequent get* returns plaintext.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+          "offset": {"type": "integer", "minimum": 0, "default": 0},
+          "facilityDid": {"type": "string"},
+          "q": {"type": "string", "description": "match against public alias only (not PHI)"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rkey": {"type": "string"},
+                  "patientDid": {"type": "string"},
+                  "encryptedCid": {"type": "string"},
+                  "registeredAt": {"type": "string", "format": "datetime"},
+                  "facilityDid": {"type": "string"},
+                  "publicAlias": {"type": "string", "description": "non-PHI display label (e.g. patient self-chosen handle)"}
+                }
+              }
+            },
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"},
+            "total": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

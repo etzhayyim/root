@@ -337,7 +337,7 @@ function collectionForLabel(label: string): string {
 
 function normalizeCollectionName(collection: string): string {
   if (collection.includes(".")) return collection;
-  return `app.etzhayyim.apps.maps.${collection}`;
+  return `com.etzhayyim.apps.maps.${collection}`;
 }
 
 async function raceTimeout<T>(p: Promise<T>, ms: number, tag: string): Promise<T> {
@@ -943,7 +943,7 @@ async function upsertMapsSocialProfileDirect(
   record: { displayName: string; description: string; createdAt: string },
 ): Promise<void> {
   const row = {
-    vertex_id: `at://${did}/app.etzhayyim.apps.maps.socialProfile/self`,
+    vertex_id: `at://${did}/com.etzhayyim.apps.maps.socialProfile/self`,
     did,
     handle: did.replace(/^did:web:/, ""),
     display_name: record.displayName,
@@ -1722,7 +1722,7 @@ async function fetchInfraFromOverpass(sdk: HostSDK, lat: number, lng: number, ra
 
 /**
  * Fetch building footprints + heights from OSM Overpass and write to graph.
- * Emits `app.etzhayyim.apps.maps.building` records carrying `geometry` (GeoJSON
+ * Emits `com.etzhayyim.apps.maps.building` records carrying `geometry` (GeoJSON
  * Polygon as JSON string) and `heightM` so tileGeoJson can serve 3D extrusion.
  *
  * Overpass tags used:
@@ -1985,7 +1985,7 @@ async function dispatchSatelliteCollectionJob(sdk: HostSDK, phase: number): Prom
   // Remote site:ingestGeoData → stac_search_json format → processStacSearchResult → satelliteScene geoRecord
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: stacSearchUrl, format: "stac_search_json", project: "maps", satellite, stacCollectionId: catalog.collectionId }),
   );
   return `${satellite}:${regionName}`;
@@ -2483,7 +2483,7 @@ function mkGet(label: string, idField: string) {
 // ── Spatial Intelligence ──
 
 async function cmdPlaceReverseGeocode(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.reverseGeocode", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.reverseGeocode", payload);
   if (req.lat == null || req.lng == null) return { error: "lat and lng required" };
   const rows = (await listCollectionRows("place")).filter((row) => {
     const lat = readFiniteNumber(row.lat);
@@ -2503,7 +2503,7 @@ async function cmdPlaceReverseGeocode(sdk: HostSDK, payload: Uint8Array): Promis
 }
 
 async function cmdWeatherAt(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.weatherAt", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.weatherAt", payload);
   if (req.lat == null || req.lng == null) return { error: "lat and lng required" };
   const rows = (await listCollectionRows("weatherPoint")).filter((row) => {
     const lat = readFiniteNumber(row.lat);
@@ -2523,7 +2523,7 @@ async function cmdWeatherAt(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 }
 
 async function cmdWeatherGrid(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.weatherGrid", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.weatherGrid", payload);
   if (req.latMin == null || req.latMax == null || req.lngMin == null || req.lngMax == null) return { error: "latMin, latMax, lngMin, lngMax required" };
   const limit = Math.min(req.limit ?? 20, 50);
   return (await listCollectionRows("weatherPoint")).filter((row) => {
@@ -2536,7 +2536,7 @@ async function cmdWeatherGrid(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdIpGeolocate(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.ipGeolocate", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.ipGeolocate", payload);
   if (!req.ip) return { error: "ip required" };
   const row = (await listCollectionRows("crawlerHost")).find((entry) => String(entry.ip ?? "") === req.ip);
   return row ?? { error: "not found", ip: req.ip };
@@ -3538,7 +3538,7 @@ async function cmdCrawlerLocations(_sdk: HostSDK, payload: Uint8Array): Promise<
 }
 
 async function cmdActorLocations(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.actorLocations", normalizeQueryPayload(payload, ["limit"]));
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.actorLocations", normalizeQueryPayload(payload, ["limit"]));
   const limit = Math.min(Math.max(req.limit ?? 200, 1), 500);
   const rows = (await listProfileRows(Math.min(limit * 10, 1000))).filter((row) => {
     const valueB64 = rowField(row, "valueB64", "value_b64");
@@ -3591,7 +3591,7 @@ const cmdRegisterParking = mkRegister("parking", "Parking", "parking", "name");
 const cmdListParkings = mkList("Parking");
 
 /**
- * app.etzhayyim.apps.maps.nextDeparturesAtStop — Phase 2 (bus + train timetable).
+ * com.etzhayyim.apps.maps.nextDeparturesAtStop — Phase 2 (bus + train timetable).
  *
  * Reads the GTFS-JP schedule tables that the K8s gtfs-jp dumper writes:
  *   vertex_maps_stop_time  (stop_id, departure_time, …)
@@ -3622,7 +3622,7 @@ async function cmdNextDeparturesAtStop(_sdk: HostSDK, body: ArrayBuffer | Uint8A
 
   // Single 3-way join, anchored by (stop_id, departure_time) index.
   // route metadata lives in vertex_spatial keyed by
-  //   at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.{railway|busRoute}/gtfsjp-{feed_id}-{route_id}
+  //   at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.{railway|busRoute}/gtfsjp-{feed_id}-{route_id}
   // so we reconstruct the rkey from feed_id + route_id at query time.
   const rows = await raceTimeout<any[]>(sql`
     SELECT
@@ -3685,7 +3685,7 @@ async function cmdNextDeparturesAtStop(_sdk: HostSDK, body: ArrayBuffer | Uint8A
 }
 
 /**
- * app.etzhayyim.apps.maps.realtimeDelaysAtStop — Phase 3 (gated, RT layered on Phase 2).
+ * com.etzhayyim.apps.maps.realtimeDelaysAtStop — Phase 3 (gated, RT layered on Phase 2).
  *
  * Same anchor as nextDeparturesAtStop (idx_maps_stop_time_stop_dep) but
  * LEFT JOIN'd against mv_maps_recent_trip_update so an offline RT pipeline
@@ -3823,7 +3823,7 @@ async function cmdRealtimeDelaysAtStop(_sdk: HostSDK, body: ArrayBuffer | Uint8A
 const cmdRegisterEvCharger = mkRegister("evCharger", "EvCharger", "evCharger", "name");
 const cmdListEvChargers = mkList("EvCharger", "connectorType");
 
-// ─── app.etzhayyim.apps.maps.{get,list,bake}GsplatAsset ──────────────────────────
+// ─── com.etzhayyim.apps.maps.{get,list,bake}GsplatAsset ──────────────────────────
 //
 // 3D Gaussian Splat preview / QC asset registry (ADR-2605092800).
 //
@@ -4192,7 +4192,7 @@ async function cmdTrainGsplatFromMapillary(sdk: HostSDK, body: ArrayBuffer | Uin
     const zeebe: any = (sdk as any).zeebe;
     if (zeebe && typeof zeebe.publishMessage === "function") {
       await zeebe.publishMessage({
-        name: "app.etzhayyim.apps.maps.trainGsplatFromMapillary",
+        name: "com.etzhayyim.apps.maps.trainGsplatFromMapillary",
         correlationKey: tileH3,
         variables: {
           trainJobId, tileH3, lat, lng, radiusM, h3Resolution,
@@ -4346,7 +4346,7 @@ async function cmdBakeGsplatAsset(sdk: HostSDK, body: ArrayBuffer | Uint8Array |
     const zeebe: any = (sdk as any).zeebe;
     if (zeebe && typeof zeebe.publishMessage === "function") {
       await zeebe.publishMessage({
-        name: "app.etzhayyim.apps.maps.bakeGsplatAsset",
+        name: "com.etzhayyim.apps.maps.bakeGsplatAsset",
         correlationKey: tileH3,
         variables: { tileH3, vertexId, priority, bakeJobId, queuedAt },
         timeToLiveMs: 60 * 60 * 1000,
@@ -4526,7 +4526,7 @@ async function cmdCrawlFlightPrices(sdk: HostSDK, payload: Uint8Array): Promise<
 
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.crawlPage",
+    "com.etzhayyim.apps.site.crawlPage",
     JSON.stringify({ url: sourceUrl, depth: 1, topics: "flight-price,aviation,booking" }),
   );
 
@@ -4680,7 +4680,7 @@ async function cmdListAssets(_sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdDeviceBind(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.deviceBind", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.deviceBind", payload);
   if (!req.deviceDid || !req.assetId) return { error: "deviceDid and assetId required" };
   const nodeId = `devbind:${genID("devbind")}`;
   await write(sdk, "deviceBinding", {
@@ -4694,7 +4694,7 @@ async function cmdDeviceBind(sdk: HostSDK, payload: Uint8Array): Promise<unknown
 const cmdListDevices = mkList("DeviceBinding", "status");
 
 async function cmdTwinStateUpdate(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.twinStateUpdate", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.twinStateUpdate", payload);
   if (!req.entityType || !req.entityId) return { error: "entityType and entityId required" };
   const nodeId = `twin:${req.entityType}:${req.entityId}`;
   await write(sdk, "twinState", {
@@ -4709,7 +4709,7 @@ async function cmdTwinStateUpdate(sdk: HostSDK, payload: Uint8Array): Promise<un
 const cmdTwinStateGet = mkGet("TwinState", "entityId");
 
 async function cmdTwinScene(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.twinScene", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.twinScene", payload);
   if (req.lat == null || req.lng == null) return { error: "lat and lng required" };
   const r = req.radiusKm ?? 0.5;
   const dlat = r / 111.0;
@@ -4750,7 +4750,7 @@ async function cmdTwinScene(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 }
 
 async function cmdOccupancyUpdate(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.occupancyUpdate", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.occupancyUpdate", payload);
   if (!req.buildingId) return { error: "buildingId required" };
   await write(sdk, "twinState", {
     'nodeId': `twin:occupancy:${req.buildingId}:${req.floorNumber ?? 0}`,
@@ -4767,7 +4767,7 @@ const cmdRegisterSensor = mkRegister("sensor", "Sensor", "sensor", "sensorType")
 const cmdListSensors = mkList("Sensor", "sensorType");
 
 async function cmdSensorIngest(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.sensorIngest", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.sensorIngest", payload);
   if (!req.sensorId || !req.readings?.length) return { error: "sensorId and readings required" };
   await write(sdk, "sensorReading", {
     sensorId: req.sensorId, readingsJson: JSON.stringify(req.readings),
@@ -4778,21 +4778,21 @@ async function cmdSensorIngest(sdk: HostSDK, payload: Uint8Array): Promise<unkno
 }
 
 async function cmdSensorQuery(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.sensorQuery", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.sensorQuery", payload);
   if (!req.sensorId) return { error: "sensorId required" };
   const limit = Math.min(req.limit ?? 20, 100);
   return (await listCollectionRows("sensorReading")).filter((row) => String(row.sensorId ?? "") === req.sensorId).slice(0, limit);
 }
 
 async function cmdSensorLatest(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.sensorLatest", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.sensorLatest", payload);
   if (!req.sensorId) return { error: "sensorId required" };
   const rows = (await listCollectionRows("sensorReading")).filter((row) => String(row.sensorId ?? "") === req.sensorId).slice(0, 1);
   return rows.length > 0 ? rows[0] : { error: "no readings" };
 }
 
 async function cmdSensorAlertSet(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.sensorAlertSet", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.sensorAlertSet", payload);
   if (!req.sensorId || !req.metric || req.threshold == null) return { error: "sensorId, metric, threshold required" };
   const nodeId = `alertRule:${genID("alert")}`;
   await write(sdk, "sensorAlert", {
@@ -4809,7 +4809,7 @@ const cmdListSensorAlerts = mkList("SensorAlert", "sensorId");
 // ── Simulation Intelligence ──
 
 async function cmdSimulationCreate(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.simulationCreate", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.simulationCreate", payload);
   if (!req.name) return { error: "name required" };
   const nodeId = `sim:${genID("sim")}`;
   await write(sdk, "simulation", {
@@ -4824,7 +4824,7 @@ async function cmdSimulationCreate(sdk: HostSDK, payload: Uint8Array): Promise<u
 }
 
 async function cmdSimulationRun(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.simulationRun", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.simulationRun", payload);
   if (!req.simulationId) return { error: "simulationId required" };
   await write(sdk, "simulationResult", {
     'simulationId': req.simulationId, status: "running", 'startedAt': nowISO(),
@@ -4836,7 +4836,7 @@ async function cmdSimulationRun(sdk: HostSDK, payload: Uint8Array): Promise<unkn
 const cmdSimulationResult = mkGet("SimulationResult", "simulationId");
 
 async function cmdForecastGet(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.forecastGet", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.forecastGet", payload);
   if (!req.entityId) return { error: "entityId required" };
   const rows = (await listCollectionRows("forecast")).filter((row) => {
     if (String(row.entityId ?? "") !== req.entityId) return false;
@@ -4847,7 +4847,7 @@ async function cmdForecastGet(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdHealthAssess(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.healthAssess", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.healthAssess", payload);
   if (!req.entityId) return { error: "entityId required" };
   const nodeId = `health:${genID("health")}`;
   await write(sdk, "healthAssessment", {
@@ -4860,7 +4860,7 @@ async function cmdHealthAssess(sdk: HostSDK, payload: Uint8Array): Promise<unkno
 }
 
 async function cmdMaintenancePlan(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.maintenancePlan", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.maintenancePlan", payload);
   if (!req.entityId) return { error: "entityId required" };
   const nodeId = `maint:${genID("maint")}`;
   await write(sdk, "maintenancePlan", {
@@ -4899,7 +4899,7 @@ async function latestWorldBelief(entityId: string, hypothesis: string): Promise<
 }
 
 async function cmdWorldBeliefUpdate(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.worldBeliefUpdate", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.worldBeliefUpdate", payload);
   if (!req.entityId || !req.hypothesis) return { error: "entityId and hypothesis required" };
   if (req.likelihood == null && req.evidenceConfidence == null) return { error: "likelihood or evidenceConfidence required" };
   const entityId = String(req.entityId);
@@ -4951,7 +4951,7 @@ async function cmdWorldBeliefUpdate(sdk: HostSDK, payload: Uint8Array): Promise<
 }
 
 async function cmdWorldBeliefGet(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.worldBeliefGet", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.worldBeliefGet", payload);
   if (!req.entityId) return { error: "entityId required" };
   const limit = Math.min(Math.max(Number(req.limit ?? 20), 1), 100);
   const rows = await listCollectionRows("worldBelief");
@@ -4964,7 +4964,7 @@ async function cmdWorldBeliefGet(_sdk: HostSDK, payload: Uint8Array): Promise<un
 }
 
 async function cmdLatentWorldModelRun(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.latentWorldModelRun", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.latentWorldModelRun", payload);
   const modelVersion = str(req.modelVersion) || "maps-blwm-v1";
   const hypothesis = str(req.hypothesis) || "operational_state_normal";
   const entityFilter = str(req.entityId);
@@ -5049,7 +5049,7 @@ async function cmdLatentWorldModelRun(sdk: HostSDK, payload: Uint8Array): Promis
 // ── Spatiotemporal ──
 
 async function cmdSpatialEventRecord(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.spatialEventRecord", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.spatialEventRecord", payload);
   if (!req.entityId || !req.eventType) return { error: "entityId and eventType required" };
   const nodeId = `evt:${genID("evt")}`;
   await write(sdk, "spatialEvent", {
@@ -5063,7 +5063,7 @@ async function cmdSpatialEventRecord(sdk: HostSDK, payload: Uint8Array): Promise
 }
 
 async function cmdSpatialEventQuery(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.spatialEventQuery", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.spatialEventQuery", payload);
   const limit = Math.min(req.limit ?? 50, 100);
   return (await listCollectionRows("spatialEvent")).filter((row) => {
     if (req.entityId && String(row.entityId ?? "") !== req.entityId) return false;
@@ -5085,14 +5085,14 @@ async function cmdSpatialVersionRecord(sdk: HostSDK, payload: Uint8Array): Promi
 }
 
 async function cmdSpatialVersionQuery(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.spatialVersionQuery", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.spatialVersionQuery", payload);
   if (!req.entityId) return { error: "entityId required" };
   const limit = Math.min(req.limit ?? 50, 100);
   return (await listCollectionRows("spatialVersion")).filter((row) => String(row.entityId ?? "") === req.entityId).slice(0, limit);
 }
 
 async function cmdSpatialRelationWrite(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.spatialRelationWrite", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.spatialRelationWrite", payload);
   if (!req.fromId || !req.toId || !req.relation) return { error: "fromId, toId, relation required" };
   const relId = genID("rel");
   await write(sdk, "spatialRelation", {
@@ -5104,7 +5104,7 @@ async function cmdSpatialRelationWrite(sdk: HostSDK, payload: Uint8Array): Promi
 }
 
 async function cmdSpatialRelationQuery(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.spatialRelationQuery", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.spatialRelationQuery", payload);
   if (!req.entityId) return { error: "entityId required" };
   const limit = Math.min(req.limit ?? 50, 100);
   return (await listCollectionRows("spatialRelation")).filter((row) => {
@@ -5115,7 +5115,7 @@ async function cmdSpatialRelationQuery(sdk: HostSDK, payload: Uint8Array): Promi
 }
 
 async function cmdTimeline(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.timeline", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.timeline", payload);
   if (!req.entityId) return { error: "entityId required" };
   const limit = Math.min(req.limit ?? 50, 100);
   const events = (await listCollectionRows("spatialEvent")).filter((row) => String(row.entityId ?? "") === req.entityId).slice(0, limit);
@@ -5124,14 +5124,14 @@ async function cmdTimeline(sdk: HostSDK, payload: Uint8Array): Promise<unknown> 
 }
 
 async function cmdSpatialDiff(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.spatialDiff", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.spatialDiff", payload);
   if (!req.entityId) return { error: "entityId required" };
   const versions = (await listCollectionRows("spatialVersion")).filter((row) => String(row.entityId ?? "") === req.entityId).slice(0, 100);
   return { 'entityId': req.entityId, versions, 'diffCount': versions.length };
 }
 
 async function cmdDisplayLayerDefine(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.displayLayerDefine", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.displayLayerDefine", payload);
   if (!req.name) return { error: "name required" };
   const layerId = genID("layer");
   await write(sdk, "displayLayer", {
@@ -5148,7 +5148,7 @@ const cmdListDisplayLayers = mkList("DisplayLayer", "domain");
 // ── Step 1: User Post EXIF → SpatialEvent ('sourceDid': did:web:${appId}.etzhayyim.com:userPost) ──
 
 async function cmdExtractPostLocation(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.extractPostLocation", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.extractPostLocation", payload);
   if (!req.postUri) return { error: "postUri required" };
   const results: Record<string, unknown>[] = [];
   const images = req.embedImages ?? [];
@@ -5188,7 +5188,7 @@ async function cmdExtractPostLocation(sdk: HostSDK, payload: Uint8Array): Promis
 }
 
 async function cmdListPostLocations(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listPostLocations", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listPostLocations", payload);
   const limit = Math.min(req.limit ?? 50, 100);
   const rows = await listCollectionRows("spatialEvent");
   return rows.filter((row) => {
@@ -5211,7 +5211,7 @@ async function cmdListPostLocations(sdk: HostSDK, payload: Uint8Array): Promise<
 // ── Step 2: Mapraly ingest → Place/Route ('sourceDid': did:web:${appId}.etzhayyim.com:mapraly) ──
 
 async function cmdMapralyIngest(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.mapralyIngest", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.mapralyIngest", payload);
   if (!req.region && !req.bbox) return { error: "region or bbox required" };
   const jobId = genID("mapralyJob");
   await write(sdk, "collectionJob", {
@@ -5229,7 +5229,7 @@ async function cmdMapralyIngest(sdk: HostSDK, payload: Uint8Array): Promise<unkn
 }
 
 async function cmdMapralyImportPoi(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.mapralyImportPoi", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.mapralyImportPoi", payload);
   if (!req.pois?.length) return { error: "pois array required" };
   let created = 0;
   for (const poi of req.pois) {
@@ -5265,7 +5265,7 @@ async function cmdMapralyImportPoi(sdk: HostSDK, payload: Uint8Array): Promise<u
 }
 
 async function cmdMapralyListPois(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.mapralyListPois", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.mapralyListPois", payload);
   const limit = Math.min(req.limit ?? 50, 100);
   const rows = await listCollectionRows("spot");
   return rows.filter((row) => {
@@ -5288,7 +5288,7 @@ async function cmdMapralyListPois(sdk: HostSDK, payload: Uint8Array): Promise<un
 // ── Step 3: Murakumo Vision → image analysis → entity extraction ('sourceDid': did:web:${appId}.etzhayyim.com:vision) ──
 
 async function cmdAnalyzeImage(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.analyzeImage", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.analyzeImage", payload);
   if (!req.imageCid && !req.imageUrl) return { error: "imageCid or imageUrl required" };
   const jobId = genID("visionJob");
   await write(sdk, "collectionJob", {
@@ -5343,7 +5343,7 @@ async function cmdVisionImportEntities(sdk: HostSDK, payload: Uint8Array): Promi
 }
 
 async function cmdListVisionResults(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listVisionResults", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listVisionResults", payload);
   const limit = Math.min(req.limit ?? 50, 100);
   return (await listCollectionRows("visionResult")).filter((row) => {
     if (req.jobId && String(row.jobId ?? "") !== req.jobId) return false;
@@ -5366,7 +5366,7 @@ const FREE_SATELLITE_CATALOG: Record<string, { 'stacUrl': string; 'resolutionM':
 };
 
 async function cmdSatelliteIngest(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.satelliteIngest", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.satelliteIngest", payload);
   if (!req.bbox.latMin && !req.bbox.latMax) return { error: "bbox required (latMin, latMax, lngMin, lngMax)" };
   const satellite = req.satellite ?? "sentinel-2";
   const catalog = FREE_SATELLITE_CATALOG[satellite];
@@ -5395,7 +5395,7 @@ function cmdListSatelliteSources(_sdk: HostSDK, _payload: Uint8Array): unknown {
 }
 
 async function cmdSatelliteImportScene(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.satelliteImportScene", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.satelliteImportScene", payload);
   if (!req.scenes?.length) return { error: "scenes array required" };
   let created = 0;
   for (const scene of req.scenes) {
@@ -5426,7 +5426,7 @@ async function cmdSatelliteImportScene(sdk: HostSDK, payload: Uint8Array): Promi
 }
 
 async function cmdSatelliteAnalyze(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.satelliteAnalyze", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.satelliteAnalyze", payload);
   if (!req.sceneId) return { error: "sceneId required" };
   const scenes = (await listCollectionRows("satelliteScene")).filter((row) => String(row.sceneId ?? "") === req.sceneId).slice(0, 1);
   if (scenes.length === 0) return { error: "scene not found" };
@@ -5448,7 +5448,7 @@ async function cmdSatelliteAnalyze(sdk: HostSDK, payload: Uint8Array): Promise<u
 }
 
 async function cmdListSatelliteScenes(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listSatelliteScenes", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listSatelliteScenes", payload);
   const limit = Math.min(req.limit ?? 50, 100);
   return (await listCollectionRows("satelliteScene")).filter((row) => {
     if (req.satellite && String(row.satellite ?? "") !== req.satellite) return false;
@@ -5469,7 +5469,7 @@ async function cmdListSatelliteScenes(sdk: HostSDK, payload: Uint8Array): Promis
 // ── Dashboard (enhanced) ──
 
 async function cmdGetDashboard(sdk: HostSDK, _payload: Uint8Array): Promise<unknown> {
-  const pod = await callMapsLangserverRead("app.etzhayyim.apps.maps.getDashboard", _payload);
+  const pod = await callMapsLangserverRead("com.etzhayyim.apps.maps.getDashboard", _payload);
   if (pod) return pod;
 
   const count = async (label: string): Promise<number> => {
@@ -5566,7 +5566,7 @@ async function cmdGetDashboard(sdk: HostSDK, _payload: Uint8Array): Promise<unkn
 // ── Web Crawl Geo Coverage: site.etzhayyim.com integration ──
 
 async function cmdSeedGeoDomains(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.seedGeoDomains", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.seedGeoDomains", payload);
 
   let targets = GEO_CRAWL_DOMAINS;
   if (req.categories && req.categories.length > 0) {
@@ -5583,7 +5583,7 @@ async function cmdSeedGeoDomains(sdk: HostSDK, payload: Uint8Array): Promise<Uin
     type: "invoke",
     payload: {
       did: "did:web:site.etzhayyim.com",
-      method: "app.etzhayyim.apps.site.seedForProject",
+      method: "com.etzhayyim.apps.site.seedForProject",
       params: JSON.stringify({
         project: "maps",
         domains,
@@ -5632,7 +5632,7 @@ async function cmdListGeoDomains(sdk: HostSDK, _payload: Uint8Array): Promise<Ui
  * → maps handleCommit → write(spatialEvent).
  */
 async function cmdSeedSeismicFeed(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.seedSeismicFeed", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.seedSeismicFeed", payload);
   const feedMap = {
     day: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson",
     week: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson",
@@ -5642,7 +5642,7 @@ async function cmdSeedSeismicFeed(sdk: HostSDK, payload: Uint8Array): Promise<Ui
   const feedUrl = feedMap[req.feed ?? "day"];
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: feedUrl, format: "usgs_geojson", project: "maps" }),
   );
   await post(sdk, `[SeedSeismic] Requested USGS ${req.feed ?? "day"} feed via @site.etzhayyim.com`);
@@ -5673,7 +5673,7 @@ async function cmdSeedMunicipalities(sdk: HostSDK, payload: Uint8Array): Promise
   const url = `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparql)}`;
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "wikidata_sparql", project: "maps" }),
   );
   await post(sdk, `[SeedMunicipalities] Requested JP 市区町村 via Wikidata SPARQL → @site.etzhayyim.com`);
@@ -5697,7 +5697,7 @@ async function cmdSeedGtfsJp(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8A
   ];
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.seedForProject",
+    "com.etzhayyim.apps.site.seedForProject",
     JSON.stringify({
       project: "maps-gtfs",
       domains: gtfsDomains,
@@ -5716,7 +5716,7 @@ async function cmdSeedGtfsJp(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8A
  * Optional: region param filters by ISO 3166-1 alpha-2 prefix (e.g., "US" for US-* codes).
  */
 async function cmdSeedWorldAdminAreas(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.seedWorldAdminAreas", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.seedWorldAdminAreas", payload);
   const limit = Math.min(req.limit ?? 4000, 4000);
   const regionFilter = req.region ? `FILTER(STRSTARTS(?code, "${req.region.toUpperCase()}-"))` : "";
   const sparql = [
@@ -5732,7 +5732,7 @@ async function cmdSeedWorldAdminAreas(sdk: HostSDK, payload: Uint8Array): Promis
   const url = `https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparql)}`;
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "wikidata_sparql", project: "maps" }),
   );
   const label = req.region ? `region:${req.region}` : `all regions`;
@@ -5750,7 +5750,7 @@ async function cmdSeedAirports(sdk: HostSDK, _payload: Uint8Array): Promise<Uint
   const url = "https://davidmegginson.github.io/ourairports-data/airports.csv";
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "ourairports_csv", project: "maps" }),
   );
   await post(sdk, `[SeedAirports] Requested OurAirports CSV (large+medium airports) via @site.etzhayyim.com`);
@@ -5765,7 +5765,7 @@ async function cmdSeedAirports(sdk: HostSDK, _payload: Uint8Array): Promise<Uint
  * → maps handleCommit → write(spatialEvent{eventType:"aircraftPosition"})
  */
 async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.seedAdsb", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.seedAdsb", payload);
   // Default bbox: Japan + surrounding airspace
   const lamin = req.lamin ?? 24.0;
   const lomin = req.lomin ?? 122.0;
@@ -5774,7 +5774,7 @@ async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
   const url = `https://opensky-network.org/api/states/all?lamin=${lamin}&lomin=${lomin}&lamax=${lamax}&lomax=${lomax}`;
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url, format: "opensky_json", project: "maps" }),
   );
   await post(sdk, `[SeedADSB] Requested OpenSky ADS-B snapshot (bbox:[${lamin},${lomin}→${lamax},${lomax}]) via @site.etzhayyim.com`);
@@ -5787,7 +5787,7 @@ async function cmdSeedAdsb(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Arra
 async function cmdSeedWorldRivers(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q4022; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 15000`,
       entityType: "river" }),
@@ -5802,7 +5802,7 @@ async function cmdSeedWorldRivers(sdk: HostSDK, _payload: Uint8Array): Promise<U
 async function cmdSeedWorldLakes(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q23397; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 10000`,
       entityType: "lake" }),
@@ -5818,10 +5818,10 @@ async function cmdSeedWorldLakes(sdk: HostSDK, _payload: Uint8Array): Promise<Ui
 // Hyperdrive direct (ADR-0036). These XRPC handlers are pure SELECT.
 
 async function cmdListLiveAircraft(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const pod = await callMapsLangserverRead("app.etzhayyim.apps.maps.listLiveAircraft", payload);
+  const pod = await callMapsLangserverRead("com.etzhayyim.apps.maps.listLiveAircraft", payload);
   if (pod) return pod;
 
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listLiveAircraft", normalizeQueryPayload(payload, ["minLat", "maxLat", "minLon", "maxLon", "maxAgeSec", "limit"]));
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listLiveAircraft", normalizeQueryPayload(payload, ["minLat", "maxLat", "minLon", "maxLon", "maxAgeSec", "limit"]));
   const maxAge = Math.min(Math.max(Number(req.maxAgeSec ?? 90), 30), 600);
   const limitN = Math.min(Math.max(Number(req.limit ?? 200), 1), 2000);
   const cutoffMs = Date.now() - maxAge * 1000;
@@ -5859,10 +5859,10 @@ async function cmdListLiveAircraft(_sdk: HostSDK, payload: Uint8Array): Promise<
 }
 
 async function cmdListLiveSatellites(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const pod = await callMapsLangserverRead("app.etzhayyim.apps.maps.listLiveSatellites", payload);
+  const pod = await callMapsLangserverRead("com.etzhayyim.apps.maps.listLiveSatellites", payload);
   if (pod) return pod;
 
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listLiveSatellites", normalizeQueryPayload(payload, ["limit"]));
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listLiveSatellites", normalizeQueryPayload(payload, ["limit"]));
   const limitN = Math.min(Math.max(Number(req.limit ?? 100), 1), 1000);
   const nowMs = Date.now();
 
@@ -5894,7 +5894,7 @@ async function cmdListLiveSatellites(_sdk: HostSDK, payload: Uint8Array): Promis
 }
 
 async function cmdSatellitePassQuery(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.satellitePassQuery", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.satellitePassQuery", payload);
   if (req.lat == null || req.lon == null) return { error: "lat and lon required" };
   const windowH = Math.min(Math.max(Number(req.windowH ?? 24), 1), 168);
   const minEl = Math.min(Math.max(Number(req.minElevationDeg ?? 10), 0), 90);
@@ -5947,7 +5947,7 @@ async function cmdSatellitePassQuery(_sdk: HostSDK, payload: Uint8Array): Promis
 }
 
 async function cmdAircraftTrack(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.aircraftTrack", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.aircraftTrack", payload);
   const windowH = Math.min(Math.max(Number(req.windowH ?? 6), 1), 48);
   const cutoffMs = Date.now() - windowH * 3600 * 1000;
 
@@ -5972,7 +5972,7 @@ async function cmdAircraftTrack(_sdk: HostSDK, payload: Uint8Array): Promise<unk
 }
 
 async function cmdListCelestialObjects(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listCelestialObjects", normalizeQueryPayload(payload, ["magMax", "limit"]));
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listCelestialObjects", normalizeQueryPayload(payload, ["magMax", "limit"]));
   const limitN = Math.min(Math.max(Number(req.limit ?? 5000), 1), 20000);
   let q: any = getDb()
     .selectFrom("vertex_celestial_object" as any)
@@ -6001,7 +6001,7 @@ async function cmdListCelestialObjects(_sdk: HostSDK, payload: Uint8Array): Prom
 async function cmdSeedWorldMountains(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng ?elevation WHERE { ?item wdt:P31 wd:Q8502; wdt:P625 ?coord. OPTIONAL { ?item wdt:P2044 ?elevation. } BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 25000`,
       entityType: "mountain" }),
@@ -6016,7 +6016,7 @@ async function cmdSeedWorldMountains(sdk: HostSDK, _payload: Uint8Array): Promis
 async function cmdSeedWorldStations(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q55488; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 30000`,
       entityType: "station" }),
@@ -6031,7 +6031,7 @@ async function cmdSeedWorldStations(sdk: HostSDK, _payload: Uint8Array): Promise
 async function cmdSeedWorldPorts(sdk: HostSDK, _payload: Uint8Array): Promise<Uint8Array> {
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://query.wikidata.org/sparql", format: "wikidata_sparql", project: "maps",
       sparql: `SELECT ?item ?itemLabel ?lat ?lng WHERE { ?item wdt:P31 wd:Q44782; wdt:P625 ?coord. BIND(geof:latitude(?coord) AS ?lat) BIND(geof:longitude(?coord) AS ?lng) SERVICE wikibase:label { bd:serviceParam wikibase:language "en,ja". } } LIMIT 8000`,
       entityType: "port" }),
@@ -6041,7 +6041,7 @@ async function cmdSeedWorldPorts(sdk: HostSDK, _payload: Uint8Array): Promise<Ui
 }
 
 async function cmdListWebCrawlGeoEntities(sdk: HostSDK, payload: Uint8Array): Promise<Uint8Array> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.listWebCrawlGeoEntities", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.listWebCrawlGeoEntities", payload);
   const limit = Math.min(req.limit ?? 50, 200);
   const offset = req.offset ?? 0;
   let rows: Record<string, unknown>[] = [];
@@ -6061,9 +6061,9 @@ async function cmdListWebCrawlGeoEntities(sdk: HostSDK, payload: Uint8Array): Pr
 export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCommit): Promise<{ ok: true; detail: string }> {
   if (commit.action !== "create") return { ok: true, detail: "ignored" };
 
-  if (commit.collection.startsWith("app.etzhayyim.apps.maps.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.maps.")) {
     // Murakumo LLM vision callback → parse entities → write + post per entity
-    if (commit.collection === "app.etzhayyim.apps.maps.satelliteAnalysisResult") {
+    if (commit.collection === "com.etzhayyim.apps.maps.satelliteAnalysisResult") {
       try {
         const rows = await listCollectionRows("satelliteAnalysisResult");
         const row = rows.find((entry) => String(entry.rkey ?? "") === commit.rkey);
@@ -6111,7 +6111,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
 
     // Generic: 1 social post per new maps entity (suppress noise collections)
     const noPostKinds = new Set(["geoAlias", "collectionJob"]);
-    const kind = commit.collection.replace("app.etzhayyim.apps.maps.", "");
+    const kind = commit.collection.replace("com.etzhayyim.apps.maps.", "");
     if (!noPostKinds.has(kind)) {
       try {
         const label = kindToLabel(commit.collection);
@@ -6175,7 +6175,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
     return { ok: true, detail: "processedPostGeo" };
   }
 
-  if (commit.collection === "app.etzhayyim.apps.ipaddress.ipGeo") {
+  if (commit.collection === "com.etzhayyim.apps.ipaddress.ipGeo") {
     try {
       const rows = await listCollectionRows("ipGeo");
       const row = rows.find((entry) => String(entry.rkey ?? "") === commit.rkey);
@@ -6199,7 +6199,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
   }
 
   // ── site.etzhayyim.com WET → geo entity NER extraction (Murakumo LLM) ──
-  if (commit.collection === "app.etzhayyim.apps.site.wet") {
+  if (commit.collection === "com.etzhayyim.apps.site.wet") {
     try {
       const rows = await listCollectionRows("site.wet");
       const row = rows.find((entry) => String(entry.rkey ?? "") === commit.rkey);
@@ -6221,7 +6221,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
                 system: `You are a geo entity extractor. From the given web page text, extract geographic entities. Return JSON array of objects with: {name, entityType (place|station|airport|port|road|river|mountain|building|adminArea), lat?, lng?, address?, country?, description}. Only return entities with clear geographic identity. Max 20 entities. If no geo entities found, return [].`,
                 prompt: `URL: ${url}\nDomain: ${domain}\nLanguage: ${language}\n\nText:\n${truncateText(markdown, 3000)}`,
                 'responseFormat': "json",
-                'callbackCollection': "app.etzhayyim.apps.maps.webCrawlGeoEntity",
+                'callbackCollection': "com.etzhayyim.apps.maps.webCrawlGeoEntity",
                 'callbackMeta': JSON.stringify({ 'sourceDomain': domain, 'sourceUrl': url, 'sourceRkey': commit.rkey, 'sourceDid': "did:web:site.etzhayyim.com" }),
               }),
             },
@@ -6233,7 +6233,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
   }
 
   // ── site.etzhayyim.com WAT → outlink graph + domain geo classification ──
-  if (commit.collection === "app.etzhayyim.apps.site.wat") {
+  if (commit.collection === "com.etzhayyim.apps.site.wat") {
     try {
       const rows = await listCollectionRows("site.wat");
       const row = rows.find((entry) => String(entry.rkey ?? "") === commit.rkey);
@@ -6258,7 +6258,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
                 type: "invoke",
                 payload: {
                   did: "did:web:site.etzhayyim.com",
-                  method: "app.etzhayyim.apps.site.enqueueBulk",
+                  method: "com.etzhayyim.apps.site.enqueueBulk",
                   params: JSON.stringify({
                     urls: geoLinks,
                     topics: ["maps", geoTarget.category],
@@ -6291,7 +6291,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
   }
 
   // ── site.etzhayyim.com LLM NER callback → write extracted geo entities to graph ──
-  if (commit.collection === "app.etzhayyim.apps.maps.webCrawlGeoEntity") {
+  if (commit.collection === "com.etzhayyim.apps.maps.webCrawlGeoEntity") {
     try {
       const rows = await listCollectionRows("webCrawlGeoEntity");
       const rec = rows.find((entry) => String(entry.rkey ?? "") === commit.rkey);
@@ -6332,7 +6332,7 @@ export async function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, com
   }
 
   // ── site.etzhayyim.com geoRecord → AdminArea DID / SpatialEvent / Station / BusStop ──
-  if (commit.collection === "app.etzhayyim.apps.site.geoRecord") {
+  if (commit.collection === "com.etzhayyim.apps.site.geoRecord") {
     try {
       const rows = await listCollectionRows("site.geoRecord");
       const row = rows.find((entry) => String(entry.rkey ?? "") === commit.rkey);
@@ -6493,7 +6493,7 @@ async function processGeoRecord(sdk: HostSDK, rec: Record<string, unknown>): Pro
             system: "You are a satellite imagery analyst. Extract geographic entities visible in the image. Return a JSON array: [{name, entityType (building|road|river|waterBody|vegetation|landUse|infrastructure|mountain|settlement), description, confidence (0-1)}]. Max 8 entities. If nothing clear, return [].",
             prompt: `Satellite: ${satellite}. Date: ${acquisitionDate.slice(0, 10)}. Cloud: ${cloudCover.toFixed(0)}%. Center: ${lat.toFixed(3)},${lng.toFixed(3)}. Extract entities.`,
             responseFormat: "json",
-            callbackCollection: "app.etzhayyim.apps.maps.satelliteAnalysisResult",
+            callbackCollection: "com.etzhayyim.apps.maps.satelliteAnalysisResult",
             callbackMeta: JSON.stringify({ sceneId, satellite, lat, lng }),
           }),
         },
@@ -6794,7 +6794,7 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
   // Wikidata SPARQL: companies with HQ coordinates + industry
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({
       url: "https://query.wikidata.org/sparql",
       format: "wikidata_sparql",
@@ -6811,21 +6811,21 @@ async function cmdSeedGlobalRegistries(sdk: HostSDK, payload: Uint8Array): Promi
   // GLEIF LEI bulk download (CSV)
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://lei-api.gleif.org/api/v1/lei-records?page[size]=100&page[number]=1", format: "gleif_json", project: "maps" }),
   );
   actions.push({ action: "gleifLei", source: REGISTRY_SOURCE_DIDS.gleif });
   // JP 法人番号 (NTA open data)
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://www.houjin-bangou.nta.go.jp/download/zenken/", format: "jp_nta_csv", project: "maps" }),
   );
   actions.push({ action: "jpNtaCorporateNumber", source: REGISTRY_SOURCE_DIDS.jpNta });
   // OpenAddresses global addresses
   (sdk as any).hostImports?.magatamaInvoke?.(
     "site.etzhayyim.com",
-    "app.etzhayyim.apps.site.ingestGeoData",
+    "com.etzhayyim.apps.site.ingestGeoData",
     JSON.stringify({ url: "https://batch.openaddresses.io/api/data", format: "openaddresses_json", project: "maps" }),
   );
   actions.push({ action: "openaddresses", source: REGISTRY_SOURCE_DIDS.openaddresses });
@@ -6863,7 +6863,7 @@ function _parseBbox4(raw: unknown): [number, number, number, number] | null {
 }
 
 async function cmdAismarineQueryVesselsBbox(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.aismarine.queryVesselsBbox", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.aismarine.queryVesselsBbox", payload);
   const parsed = _parseBbox4(req.bbox);
   if (parsed === null) return { features: [], total: 0, bbox: [], truncated: false };
   const [w, s, e, n] = parsed;
@@ -6920,7 +6920,7 @@ async function cmdAismarineQueryVesselsBbox(_sdk: HostSDK, payload: Uint8Array):
 }
 
 async function cmdAismarineGetVesselDetail(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.aismarine.getVesselDetail", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.aismarine.getVesselDetail", payload);
   const mmsi = Number(req.mmsi);
   if (!Number.isInteger(mmsi) || mmsi <= 0) return { vessel: null };
 
@@ -7029,7 +7029,7 @@ async function cmdAismarineGetVesselDetail(_sdk: HostSDK, payload: Uint8Array): 
 }
 
 async function cmdAismarineSearchVessels(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.aismarine.searchVessels", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.aismarine.searchVessels", payload);
   const q = String(req.q ?? "").trim();
   if (q.length < 2) return { results: [], total: 0 };
   const limit = Math.min(Math.max(Number(req.limit ?? 25), 1), 100);
@@ -7074,7 +7074,7 @@ async function cmdAismarineSearchVessels(_sdk: HostSDK, payload: Uint8Array): Pr
 }
 
 async function cmdAismarineGetVesselDensityTile(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.aismarine.getVesselDensityTile", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.aismarine.getVesselDensityTile", payload);
   const parsed = _parseBbox4(req.bbox);
   if (parsed === null) return { cells: [], cellSchema: "grid_0p1deg", windowMinutes: 60 };
   const [w, s, e, n] = parsed;
@@ -7271,7 +7271,7 @@ async function cmdSearchResources(_sdk: HostSDK, payload: Uint8Array): Promise<u
       source: "vessel",
       latitude: null,  // resolved at click via aismarine.queryVesselsBbox / mv_vessel_latest_position
       longitude: null,
-      url: `/at/did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.aismarine/${v.mmsi}`,
+      url: `/at/did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.aismarine/${v.mmsi}`,
     });
   }
   for (const e of entities) {
@@ -7344,7 +7344,7 @@ async function cmdGraphSearchNodes(_sdk: HostSDK, payload: Uint8Array): Promise<
       id: r.vertex_id, label: r.label ?? "Place",
       title: r.name ?? r.rkey,
       lat: Number(r.lat), lng: Number(r.lng),
-      sourceUrl: null, types: [r.label ?? "Place"], nsPrefix: "app.etzhayyim.apps.maps.spatial",
+      sourceUrl: null, types: [r.label ?? "Place"], nsPrefix: "com.etzhayyim.apps.maps.spatial",
     });
   }
   for (const v of vessels) {
@@ -7353,7 +7353,7 @@ async function cmdGraphSearchNodes(_sdk: HostSDK, payload: Uint8Array): Promise<
       id: `mmsi:${v.mmsi}`, label: "Vessel",
       title: v.name ?? `MMSI ${v.mmsi}`,
       lat: Number(v.lat), lng: Number(v.lon),
-      sourceUrl: null, types: [v.type_class ?? "unknown"], nsPrefix: "app.etzhayyim.apps.maps.aismarine",
+      sourceUrl: null, types: [v.type_class ?? "unknown"], nsPrefix: "com.etzhayyim.apps.maps.aismarine",
     });
   }
   for (const e of entities) {
@@ -7362,7 +7362,7 @@ async function cmdGraphSearchNodes(_sdk: HostSDK, payload: Uint8Array): Promise<
       title: e.name ?? e.lei ?? e.vertex_id,
       lat: null, lng: null,
       sourceUrl: e.lei ? `https://search.gleif.org/#/record/${e.lei}` : null,
-      types: [e.entity_type ?? "LegalEntity"], nsPrefix: "app.etzhayyim.apps.legal_entity",
+      types: [e.entity_type ?? "LegalEntity"], nsPrefix: "com.etzhayyim.apps.legal_entity",
     });
   }
   for (const p of ports) {
@@ -7371,7 +7371,7 @@ async function cmdGraphSearchNodes(_sdk: HostSDK, payload: Uint8Array): Promise<
       title: p.name ?? p.un_locode,
       lat: p.latitude != null ? Number(p.latitude) : null,
       lng: p.longitude != null ? Number(p.longitude) : null,
-      sourceUrl: null, types: ["Port", p.un_locode], nsPrefix: "app.etzhayyim.apps.maps.openPorts",
+      sourceUrl: null, types: ["Port", p.un_locode], nsPrefix: "com.etzhayyim.apps.maps.openPorts",
     });
   }
   return { nodes: nodes.slice(0, limit), total: nodes.length };
@@ -7465,7 +7465,7 @@ async function _embedQuery(env: any, query: string): Promise<number[] | null> {
 }
 
 async function cmdSearchSemanticNodes(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.maps.searchSemanticNodes" as any, payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.searchSemanticNodes" as any, payload);
   const q = String((req as any).query ?? "").trim();
   if (q.length < 2) return { nodes: [], total: 0, model: IVF_MODEL, indexed: false };
   const limit = Math.min(Math.max(Number((req as any).limit ?? 20), 1), SEARCH_LIMIT_MAX);
@@ -7713,7 +7713,7 @@ const _innerExport = createWorkerExport((sdk) => {
       const feedUrl = feeds[collectionPhase % feeds.length];
       (sdk as any).hostImports?.magatamaInvoke?.(
         "site.etzhayyim.com",
-        "app.etzhayyim.apps.site.ingestGeoData",
+        "com.etzhayyim.apps.site.ingestGeoData",
         JSON.stringify({ url: feedUrl, format: "usgs_geojson", project: "maps" }),
       );
       actions.push({ action: "seismicRemoteIngest", url: feedUrl, phase: collectionPhase, ts });
@@ -7736,7 +7736,7 @@ const _innerExport = createWorkerExport((sdk) => {
       const adsbUrl = `https://opensky-network.org/api/states/all?lamin=${tile.lamin}&lomin=${tile.lomin}&lamax=${tile.lamax}&lomax=${tile.lomax}`;
       (sdk as any).hostImports?.magatamaInvoke?.(
         "site.etzhayyim.com",
-        "app.etzhayyim.apps.site.ingestGeoData",
+        "com.etzhayyim.apps.site.ingestGeoData",
         JSON.stringify({ url: adsbUrl, format: "opensky_json", project: "maps" }),
       );
       actions.push({ action: "adsbRemoteIngest", tile: tile.label, phase: collectionPhase, ts });
@@ -7746,7 +7746,7 @@ const _innerExport = createWorkerExport((sdk) => {
     // Every heartbeat (≈5 min): advance 1 gap + run the created job.
     // Coverage cycle is now driven by the Vultr K8s CronJob
     // `maps-coverage-ticker` (`*/2 * * * *`) which posts to
-    // /xrpc/app.etzhayyim.apps.maps.batchCoverageCycle guaranteed every 2 min —
+    // /xrpc/com.etzhayyim.apps.maps.batchCoverageCycle guaranteed every 2 min —
     // see 50-infra/vultr/maps-coverage-ticker/cronjob.yaml. The CF Worker
     // heartbeat was traffic-driven (fired only when isolate was hot), so
     // running the cycle here as well stacked duplicate external calls and
@@ -7761,76 +7761,76 @@ const _innerExport = createWorkerExport((sdk) => {
 
   const a = sdk.app;
     // Spatial Intelligence
-    a.command(nsid("app.etzhayyim.apps.maps.runtimeConfig"), (_, body) => cmdRuntimeConfig(sdk, body), asAgentTool("Get maps runtime configuration"), withCapabilityTags("config", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.kamiConfig"), (_, body) => cmdKamiConfig(sdk, body), asAgentTool("Get KAMI runtime configuration"), withCapabilityTags("config", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.tileGeoJson"), (_, body) => cmdTileGeoJson(sdk, body), asAgentTool("RisingWave-native vector tile: per-label GeoJSON for bbox"), withCapabilityTags("map", "vector", "geojson"))
-      .command(nsid("app.etzhayyim.apps.maps.tileXyz"), (_, body) => cmdTileXyz(sdk, body), asAgentTool("Slippy-tile (z/x/y) vector endpoint — stable tile URL, lod-simplified features"), withCapabilityTags("map", "vector", "xyz", "tile"))
-      .command(nsid("app.etzhayyim.apps.maps.getChunk"), (_, body) => cmdGetChunk(sdk, body), asAgentTool("Forward-topology H3 chunk reader: per-cell per-label GeoJSON (replaces XYZ pyramid)"), withCapabilityTags("map", "chunk", "h3", "forward-topology"))
-      .command(nsid("app.etzhayyim.apps.maps.getChunkModels"), (_, body) => cmdGetChunkModels(sdk, body), asAgentTool("DB-driven 3D model instances: buildings (AABB), vegetation (TaxonomicProfile), atoms for H3 tiles"), withCapabilityTags("map", "model", "3d", "science", "h3"))
-      .command(nsid("app.etzhayyim.apps.maps.seedBuildings"), (_, body) => cmdSeedBuildings(sdk, body), asAgentTool("Seed building polygons + heights from OSM Overpass for a bbox"), withCapabilityTags("seed", "building", "overpass"))
-      .command(nsid("app.etzhayyim.apps.maps.reverseGeocode"), (_, body) => cmdPlaceReverseGeocode(sdk, body), asAgentTool("Reverse geocode lat/lng"), withCapabilityTags("place", "geocode"))
-      .command(nsid("app.etzhayyim.apps.maps.weatherAt"), (_, body) => cmdWeatherAt(sdk, body), asAgentTool("Weather at location"), withCapabilityTags("weather", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.weatherGrid"), (_, body) => cmdWeatherGrid(sdk, body), asAgentTool("Weather grid query"), withCapabilityTags("weather", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.ipGeolocate"), (_, body) => cmdIpGeolocate(sdk, body), asAgentTool("IP geolocation lookup"), withCapabilityTags("ip", "query"));
+    a.command(nsid("com.etzhayyim.apps.maps.runtimeConfig"), (_, body) => cmdRuntimeConfig(sdk, body), asAgentTool("Get maps runtime configuration"), withCapabilityTags("config", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.kamiConfig"), (_, body) => cmdKamiConfig(sdk, body), asAgentTool("Get KAMI runtime configuration"), withCapabilityTags("config", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.tileGeoJson"), (_, body) => cmdTileGeoJson(sdk, body), asAgentTool("RisingWave-native vector tile: per-label GeoJSON for bbox"), withCapabilityTags("map", "vector", "geojson"))
+      .command(nsid("com.etzhayyim.apps.maps.tileXyz"), (_, body) => cmdTileXyz(sdk, body), asAgentTool("Slippy-tile (z/x/y) vector endpoint — stable tile URL, lod-simplified features"), withCapabilityTags("map", "vector", "xyz", "tile"))
+      .command(nsid("com.etzhayyim.apps.maps.getChunk"), (_, body) => cmdGetChunk(sdk, body), asAgentTool("Forward-topology H3 chunk reader: per-cell per-label GeoJSON (replaces XYZ pyramid)"), withCapabilityTags("map", "chunk", "h3", "forward-topology"))
+      .command(nsid("com.etzhayyim.apps.maps.getChunkModels"), (_, body) => cmdGetChunkModels(sdk, body), asAgentTool("DB-driven 3D model instances: buildings (AABB), vegetation (TaxonomicProfile), atoms for H3 tiles"), withCapabilityTags("map", "model", "3d", "science", "h3"))
+      .command(nsid("com.etzhayyim.apps.maps.seedBuildings"), (_, body) => cmdSeedBuildings(sdk, body), asAgentTool("Seed building polygons + heights from OSM Overpass for a bbox"), withCapabilityTags("seed", "building", "overpass"))
+      .command(nsid("com.etzhayyim.apps.maps.reverseGeocode"), (_, body) => cmdPlaceReverseGeocode(sdk, body), asAgentTool("Reverse geocode lat/lng"), withCapabilityTags("place", "geocode"))
+      .command(nsid("com.etzhayyim.apps.maps.weatherAt"), (_, body) => cmdWeatherAt(sdk, body), asAgentTool("Weather at location"), withCapabilityTags("weather", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.weatherGrid"), (_, body) => cmdWeatherGrid(sdk, body), asAgentTool("Weather grid query"), withCapabilityTags("weather", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.ipGeolocate"), (_, body) => cmdIpGeolocate(sdk, body), asAgentTool("IP geolocation lookup"), withCapabilityTags("ip", "query"));
     // Transport Intelligence
-    a.command(nsid("app.etzhayyim.apps.maps.nextDeparturesAtStop"), (_, body) => cmdNextDeparturesAtStop(sdk, body), asAgentTool("Next scheduled departures at a Station / BusStop (GTFS-JP timetable, no realtime)"), withCapabilityTags("transit", "schedule", "query", "gtfs"))
-      .command(nsid("app.etzhayyim.apps.maps.realtimeDelaysAtStop"), (_, body) => cmdRealtimeDelaysAtStop(sdk, body), asAgentTool("Next departures at a stop with GTFS-RT delays + active alerts (degrades to static when RT pipeline offline)"), withCapabilityTags("transit", "schedule", "query", "gtfs", "realtime"))
-      .command(nsid("app.etzhayyim.apps.maps.crawlFlightPrices" as any), (_, body) => cmdCrawlFlightPrices(sdk, body), asAgentTool("Queue flight fare crawler (Skyscanner-like)"), withCapabilityTags("transport", "crawler", "flight", "price", "write"));
+    a.command(nsid("com.etzhayyim.apps.maps.nextDeparturesAtStop"), (_, body) => cmdNextDeparturesAtStop(sdk, body), asAgentTool("Next scheduled departures at a Station / BusStop (GTFS-JP timetable, no realtime)"), withCapabilityTags("transit", "schedule", "query", "gtfs"))
+      .command(nsid("com.etzhayyim.apps.maps.realtimeDelaysAtStop"), (_, body) => cmdRealtimeDelaysAtStop(sdk, body), asAgentTool("Next departures at a stop with GTFS-RT delays + active alerts (degrades to static when RT pipeline offline)"), withCapabilityTags("transit", "schedule", "query", "gtfs", "realtime"))
+      .command(nsid("com.etzhayyim.apps.maps.crawlFlightPrices" as any), (_, body) => cmdCrawlFlightPrices(sdk, body), asAgentTool("Queue flight fare crawler (Skyscanner-like)"), withCapabilityTags("transport", "crawler", "flight", "price", "write"));
     // Gsplat preview / QC (ADR-2605092800)
-    a.query(nsid("app.etzhayyim.apps.maps.getGsplatAsset"), (_, body) => cmdGetGsplatAsset(sdk, body), asAgentTool("Resolve a 3D Gaussian Splat preview asset by tile (H3) or vertex_id"), withCapabilityTags("gsplat", "preview", "qc", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.listGsplatAssets"), (_, body) => cmdListGsplatAssets(sdk, body), asAgentTool("List 3D Gaussian Splat preview assets (filter by tile / source_did)"), withCapabilityTags("gsplat", "preview", "list", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.bakeGsplatAsset"), (_, body) => cmdBakeGsplatAsset(sdk, body), asAgentTool("Enqueue a splat→mesh bake job for a tile (delegates to L8 k8s pod)"), withCapabilityTags("gsplat", "bake", "mesh", "write"))
-      .command(nsid("app.etzhayyim.apps.maps.trainGsplatFromMapillary"), (_, body) => cmdTrainGsplatFromMapillary(sdk, body), asAgentTool("Train a 3D Gaussian Splat at lat/lng from Mapillary imagery (COLMAP + gsplat on RunPod L40S)"), withCapabilityTags("gsplat", "train", "mapillary", "colmap", "write"))
-      .query(nsid("app.etzhayyim.apps.maps.getGsplatJobStatus"), (_, body) => cmdGetGsplatJobStatus(sdk, body), asAgentTool("Latest state of a single gsplat train / bake job by jobId"), withCapabilityTags("gsplat", "status", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.listGsplatJobs"), (_, body) => cmdListGsplatJobs(sdk, body), asAgentTool("List the latest state of gsplat train / bake jobs (filter by tile / kind / status)"), withCapabilityTags("gsplat", "status", "list", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.getGsplatCostSummary"), (_, body) => cmdGetGsplatCostSummary(sdk, body), asAgentTool("RunPod $ spend summary across train + bake (today UTC / last 7 / last 30 days)"), withCapabilityTags("gsplat", "cost", "rollup", "query"));
+    a.query(nsid("com.etzhayyim.apps.maps.getGsplatAsset"), (_, body) => cmdGetGsplatAsset(sdk, body), asAgentTool("Resolve a 3D Gaussian Splat preview asset by tile (H3) or vertex_id"), withCapabilityTags("gsplat", "preview", "qc", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.listGsplatAssets"), (_, body) => cmdListGsplatAssets(sdk, body), asAgentTool("List 3D Gaussian Splat preview assets (filter by tile / source_did)"), withCapabilityTags("gsplat", "preview", "list", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.bakeGsplatAsset"), (_, body) => cmdBakeGsplatAsset(sdk, body), asAgentTool("Enqueue a splat→mesh bake job for a tile (delegates to L8 k8s pod)"), withCapabilityTags("gsplat", "bake", "mesh", "write"))
+      .command(nsid("com.etzhayyim.apps.maps.trainGsplatFromMapillary"), (_, body) => cmdTrainGsplatFromMapillary(sdk, body), asAgentTool("Train a 3D Gaussian Splat at lat/lng from Mapillary imagery (COLMAP + gsplat on RunPod L40S)"), withCapabilityTags("gsplat", "train", "mapillary", "colmap", "write"))
+      .query(nsid("com.etzhayyim.apps.maps.getGsplatJobStatus"), (_, body) => cmdGetGsplatJobStatus(sdk, body), asAgentTool("Latest state of a single gsplat train / bake job by jobId"), withCapabilityTags("gsplat", "status", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.listGsplatJobs"), (_, body) => cmdListGsplatJobs(sdk, body), asAgentTool("List the latest state of gsplat train / bake jobs (filter by tile / kind / status)"), withCapabilityTags("gsplat", "status", "list", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.getGsplatCostSummary"), (_, body) => cmdGetGsplatCostSummary(sdk, body), asAgentTool("RunPod $ spend summary across train + bake (today UTC / last 7 / last 30 days)"), withCapabilityTags("gsplat", "cost", "rollup", "query"));
     // Digital Twin
-    a.command(nsid("app.etzhayyim.apps.maps.twinScene"), (_, body) => cmdTwinScene(sdk, body), asAgentTool("Get KAMI 3D scene for area"), withCapabilityTags("twin", "scene"))
-      .command(nsid("app.etzhayyim.apps.maps.worldBeliefUpdate"), (_, body) => cmdWorldBeliefUpdate(sdk, body), asAgentTool("Bayesian latent world-model belief update for a spatial entity"), withCapabilityTags("world-model", "bayesian", "belief", "write"))
-      .command(nsid("app.etzhayyim.apps.maps.worldBeliefGet"), (_, body) => cmdWorldBeliefGet(sdk, body), asAgentTool("Get Bayesian latent world-model beliefs for a spatial entity"), withCapabilityTags("world-model", "bayesian", "belief", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.latentWorldModelRun"), (_, body) => cmdLatentWorldModelRun(sdk, body), asAgentTool("Run Bayesian latent world-model inference across twin, sensor, and spatial event state"), withCapabilityTags("world-model", "bayesian", "latent", "simulation"));
+    a.command(nsid("com.etzhayyim.apps.maps.twinScene"), (_, body) => cmdTwinScene(sdk, body), asAgentTool("Get KAMI 3D scene for area"), withCapabilityTags("twin", "scene"))
+      .command(nsid("com.etzhayyim.apps.maps.worldBeliefUpdate"), (_, body) => cmdWorldBeliefUpdate(sdk, body), asAgentTool("Bayesian latent world-model belief update for a spatial entity"), withCapabilityTags("world-model", "bayesian", "belief", "write"))
+      .command(nsid("com.etzhayyim.apps.maps.worldBeliefGet"), (_, body) => cmdWorldBeliefGet(sdk, body), asAgentTool("Get Bayesian latent world-model beliefs for a spatial entity"), withCapabilityTags("world-model", "bayesian", "belief", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.latentWorldModelRun"), (_, body) => cmdLatentWorldModelRun(sdk, body), asAgentTool("Run Bayesian latent world-model inference across twin, sensor, and spatial event state"), withCapabilityTags("world-model", "bayesian", "latent", "simulation"));
     // Operations dashboard — World Monitor-style summary surface for the maps UI.
-    a.query(nsid("app.etzhayyim.apps.maps.getDashboard"), (_, body) => cmdGetDashboard(sdk, body), asAgentTool("Get maps operations dashboard summary"), withCapabilityTags("dashboard", "intel", "query"));
-    a.query(nsid("app.etzhayyim.apps.maps.getWorldMonitorDashboard"), (_, body) => cmdMapsPodIntelRead("app.etzhayyim.apps.maps.getWorldMonitorDashboard", body), asAgentTool("Get World Monitor-style resident intelligence dashboard"), withCapabilityTags("dashboard", "intel", "world-monitor", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.listIntelEvents"), (_, body) => cmdMapsPodIntelRead("app.etzhayyim.apps.maps.listIntelEvents", body), asAgentTool("List resident intelligence graph events"), withCapabilityTags("event", "intel", "world-monitor", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.getRiskSnapshot"), (_, body) => cmdMapsPodIntelRead("app.etzhayyim.apps.maps.getRiskSnapshot", body), asAgentTool("Get resident intelligence risk snapshot"), withCapabilityTags("risk", "intel", "world-monitor", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.getLatestBrief"), (_, body) => cmdMapsPodIntelRead("app.etzhayyim.apps.maps.getLatestBrief", body), asAgentTool("Get latest resident intelligence brief"), withCapabilityTags("brief", "intel", "world-monitor", "query"))
-      .query(nsid("app.etzhayyim.apps.maps.listIntelAlerts"), (_, body) => cmdMapsPodIntelRead("app.etzhayyim.apps.maps.listIntelAlerts", body), asAgentTool("List resident intelligence alerts"), withCapabilityTags("alert", "intel", "world-monitor", "query"));
-    a.command(nsid("app.etzhayyim.apps.maps.timeline"), (_, body) => cmdTimeline(sdk, body), asAgentTool("Get spatial event timeline for an entity"), withCapabilityTags("timeline", "event", "query"))
-      .command(nsid("app.etzhayyim.apps.maps.displayLayerDefine"), (_, body) => cmdDisplayLayerDefine(sdk, body), asAgentTool("Define a display layer"), withCapabilityTags("layer", "write"))
-      .query(nsid("app.etzhayyim.apps.maps.listDisplayLayers"), (_, body) => cmdListDisplayLayers(sdk, body), asAgentTool("List display layers"), withCapabilityTags("layer", "query"));
+    a.query(nsid("com.etzhayyim.apps.maps.getDashboard"), (_, body) => cmdGetDashboard(sdk, body), asAgentTool("Get maps operations dashboard summary"), withCapabilityTags("dashboard", "intel", "query"));
+    a.query(nsid("com.etzhayyim.apps.maps.getWorldMonitorDashboard"), (_, body) => cmdMapsPodIntelRead("com.etzhayyim.apps.maps.getWorldMonitorDashboard", body), asAgentTool("Get World Monitor-style resident intelligence dashboard"), withCapabilityTags("dashboard", "intel", "world-monitor", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.listIntelEvents"), (_, body) => cmdMapsPodIntelRead("com.etzhayyim.apps.maps.listIntelEvents", body), asAgentTool("List resident intelligence graph events"), withCapabilityTags("event", "intel", "world-monitor", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.getRiskSnapshot"), (_, body) => cmdMapsPodIntelRead("com.etzhayyim.apps.maps.getRiskSnapshot", body), asAgentTool("Get resident intelligence risk snapshot"), withCapabilityTags("risk", "intel", "world-monitor", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.getLatestBrief"), (_, body) => cmdMapsPodIntelRead("com.etzhayyim.apps.maps.getLatestBrief", body), asAgentTool("Get latest resident intelligence brief"), withCapabilityTags("brief", "intel", "world-monitor", "query"))
+      .query(nsid("com.etzhayyim.apps.maps.listIntelAlerts"), (_, body) => cmdMapsPodIntelRead("com.etzhayyim.apps.maps.listIntelAlerts", body), asAgentTool("List resident intelligence alerts"), withCapabilityTags("alert", "intel", "world-monitor", "query"));
+    a.command(nsid("com.etzhayyim.apps.maps.timeline"), (_, body) => cmdTimeline(sdk, body), asAgentTool("Get spatial event timeline for an entity"), withCapabilityTags("timeline", "event", "query"))
+      .command(nsid("com.etzhayyim.apps.maps.displayLayerDefine"), (_, body) => cmdDisplayLayerDefine(sdk, body), asAgentTool("Define a display layer"), withCapabilityTags("layer", "write"))
+      .query(nsid("com.etzhayyim.apps.maps.listDisplayLayers"), (_, body) => cmdListDisplayLayers(sdk, body), asAgentTool("List display layers"), withCapabilityTags("layer", "query"));
     // Sensor Intelligence
     // Simulation Intelligence
     // Spatiotemporal
     // Analytics
     // Step 1: User Post EXIF Geolocation
-    a.command(nsid("app.etzhayyim.apps.maps.extractPostLocation"), (_, body) => cmdExtractPostLocation(sdk, body), asAgentTool("Extract geolocation from post images via EXIF"), withCapabilityTags("vision", "exif", "write"));
+    a.command(nsid("com.etzhayyim.apps.maps.extractPostLocation"), (_, body) => cmdExtractPostLocation(sdk, body), asAgentTool("Extract geolocation from post images via EXIF"), withCapabilityTags("vision", "exif", "write"));
     // Step 2: Mapraly Ingest
-    a.command(nsid("app.etzhayyim.apps.maps.mapralyIngest"), (_, body) => cmdMapralyIngest(sdk, body), asAgentTool("Create Mapraly collection job"), withCapabilityTags("mapraly", "ingest"));
+    a.command(nsid("com.etzhayyim.apps.maps.mapralyIngest"), (_, body) => cmdMapralyIngest(sdk, body), asAgentTool("Create Mapraly collection job"), withCapabilityTags("mapraly", "ingest"));
     // Step 3: Murakumo Vision Analysis
-    a.command(nsid("app.etzhayyim.apps.maps.analyzeImage"), (_, body) => cmdAnalyzeImage(sdk, body), asAgentTool("Analyze image for spatial entities via Murakumo Vision"), withCapabilityTags("vision", "analyze"));
+    a.command(nsid("com.etzhayyim.apps.maps.analyzeImage"), (_, body) => cmdAnalyzeImage(sdk, body), asAgentTool("Analyze image for spatial entities via Murakumo Vision"), withCapabilityTags("vision", "analyze"));
     // Step 4: Satellite Imagery (free sources: Sentinel-2, Landsat, Sentinel-1 SAR, HLS, Copernicus DEM, NAIP)
-    a.command(nsid("app.etzhayyim.apps.maps.satelliteIngest"), (_, body) => cmdSatelliteIngest(sdk, body), asAgentTool("Ingest satellite scenes from free STAC catalogs"), withCapabilityTags("satellite", "ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.satelliteAnalyze"), (_, body) => cmdSatelliteAnalyze(sdk, body), asAgentTool("Analyze satellite scene via Murakumo Vision"), withCapabilityTags("satellite", "analyze"));
+    a.command(nsid("com.etzhayyim.apps.maps.satelliteIngest"), (_, body) => cmdSatelliteIngest(sdk, body), asAgentTool("Ingest satellite scenes from free STAC catalogs"), withCapabilityTags("satellite", "ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.satelliteAnalyze"), (_, body) => cmdSatelliteAnalyze(sdk, body), asAgentTool("Analyze satellite scene via Murakumo Vision"), withCapabilityTags("satellite", "analyze"));
     // Web Crawl Geo Coverage (site.etzhayyim.com integration)
-    a.command(nsid("app.etzhayyim.apps.maps.seedGeoDomains"), (_, body) => cmdSeedGeoDomains(sdk, body), asAgentTool("Seed geo domain crawls via site.etzhayyim.com + CommonCrawl fallback"), withCapabilityTags("webcrawl", "seed", "coverage"));
+    a.command(nsid("com.etzhayyim.apps.maps.seedGeoDomains"), (_, body) => cmdSeedGeoDomains(sdk, body), asAgentTool("Seed geo domain crawls via site.etzhayyim.com + CommonCrawl fallback"), withCapabilityTags("webcrawl", "seed", "coverage"));
     // Seed commands → site.etzhayyim.com:ingestGeoData
-    a.command(nsid("app.etzhayyim.apps.maps.seedSeismicFeed"), (_, body) => cmdSeedSeismicFeed(sdk, body), asAgentTool("Seed USGS seismic feed via site.etzhayyim.com → SpatialEvent records"), withCapabilityTags("seismic", "usgs", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedMunicipalities"), (_, body) => cmdSeedMunicipalities(sdk, body), asAgentTool("Seed JP 市区町村 AdminArea DIDs via Wikidata SPARQL → site.etzhayyim.com → registerRegionRecord"), withCapabilityTags("municipality", "adminArea", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedGtfsJp"), (_, body) => cmdSeedGtfsJp(sdk, body), asAgentTool("Seed GTFS-JP transit data via site.etzhayyim.com crawl of transit agency domains"), withCapabilityTags("gtfs", "transit", "station", "seed", "remote-ingest"))
+    a.command(nsid("com.etzhayyim.apps.maps.seedSeismicFeed"), (_, body) => cmdSeedSeismicFeed(sdk, body), asAgentTool("Seed USGS seismic feed via site.etzhayyim.com → SpatialEvent records"), withCapabilityTags("seismic", "usgs", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedMunicipalities"), (_, body) => cmdSeedMunicipalities(sdk, body), asAgentTool("Seed JP 市区町村 AdminArea DIDs via Wikidata SPARQL → site.etzhayyim.com → registerRegionRecord"), withCapabilityTags("municipality", "adminArea", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedGtfsJp"), (_, body) => cmdSeedGtfsJp(sdk, body), asAgentTool("Seed GTFS-JP transit data via site.etzhayyim.com crawl of transit agency domains"), withCapabilityTags("gtfs", "transit", "station", "seed", "remote-ingest"))
       // P1 seeds
-      .command(nsid("app.etzhayyim.apps.maps.seedWorldAdminAreas"), (_, body) => cmdSeedWorldAdminAreas(sdk, body), asAgentTool("Seed world AdminArea tier-2 DIDs (US states, CN provinces, etc.) via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("adminArea", "wikidata", "tier2", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedAirports"), (_, body) => cmdSeedAirports(sdk, body), asAgentTool("Seed 1000+ airports (large/medium) from OurAirports CSV via site.etzhayyim.com → Airport DIDs + ICAO/IATA aliases"), withCapabilityTags("airport", "icao", "iata", "ourairports", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedAdsb"), (_, body) => cmdSeedAdsb(sdk, body), asAgentTool("Seed real-time aircraft positions from OpenSky ADS-B (optional bbox) via site.etzhayyim.com → SpatialEvent{aircraftPosition}"), withCapabilityTags("adsb", "aircraft", "opensky", "realtime", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedWorldAdminAreas"), (_, body) => cmdSeedWorldAdminAreas(sdk, body), asAgentTool("Seed world AdminArea tier-2 DIDs (US states, CN provinces, etc.) via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("adminArea", "wikidata", "tier2", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedAirports"), (_, body) => cmdSeedAirports(sdk, body), asAgentTool("Seed 1000+ airports (large/medium) from OurAirports CSV via site.etzhayyim.com → Airport DIDs + ICAO/IATA aliases"), withCapabilityTags("airport", "icao", "iata", "ourairports", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedAdsb"), (_, body) => cmdSeedAdsb(sdk, body), asAgentTool("Seed real-time aircraft positions from OpenSky ADS-B (optional bbox) via site.etzhayyim.com → SpatialEvent{aircraftPosition}"), withCapabilityTags("adsb", "aircraft", "opensky", "realtime", "seed", "remote-ingest"))
       // P2 seeds: Wikidata bulk natural geography + infrastructure
-      .command(nsid("app.etzhayyim.apps.maps.seedWorldRivers"), (_, body) => cmdSeedWorldRivers(sdk, body), asAgentTool("Seed ~15K world rivers via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("river", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedWorldLakes"), (_, body) => cmdSeedWorldLakes(sdk, body), asAgentTool("Seed ~8K world lakes via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("lake", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedWorldMountains"), (_, body) => cmdSeedWorldMountains(sdk, body), asAgentTool("Seed ~20K world mountains via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("mountain", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedWorldStations"), (_, body) => cmdSeedWorldStations(sdk, body), asAgentTool("Seed ~30K world railway stations via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("station", "wikidata", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.seedWorldPorts"), (_, body) => cmdSeedWorldPorts(sdk, body), asAgentTool("Seed ~5K world ports via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("port", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedWorldRivers"), (_, body) => cmdSeedWorldRivers(sdk, body), asAgentTool("Seed ~15K world rivers via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("river", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedWorldLakes"), (_, body) => cmdSeedWorldLakes(sdk, body), asAgentTool("Seed ~8K world lakes via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("lake", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedWorldMountains"), (_, body) => cmdSeedWorldMountains(sdk, body), asAgentTool("Seed ~20K world mountains via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("mountain", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedWorldStations"), (_, body) => cmdSeedWorldStations(sdk, body), asAgentTool("Seed ~30K world railway stations via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("station", "wikidata", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.seedWorldPorts"), (_, body) => cmdSeedWorldPorts(sdk, body), asAgentTool("Seed ~5K world ports via Wikidata SPARQL → site.etzhayyim.com"), withCapabilityTags("port", "wikidata", "seed", "remote-ingest"))
       // GeoRecord poll — process site.etzhayyim.com geoRecords written since $since
-      .command(nsid("app.etzhayyim.apps.maps.pollGeoRecords"), async (_, payload) => {;
-        const req = parseLexiconInput("app.etzhayyim.apps.maps.pollGeoRecords", payload);
+      .command(nsid("com.etzhayyim.apps.maps.pollGeoRecords"), async (_, payload) => {;
+        const req = parseLexiconInput("com.etzhayyim.apps.maps.pollGeoRecords", payload);
         const since = req.since ?? new Date(Date.now() - 10 * 60 * 1000).toISOString();
         const limit = req.limit ?? 50;
         const geoRecs = (await listCollectionRows("site.geoRecord")).filter((row) => String(row.source ?? "") > since).slice(0, limit);
@@ -7844,32 +7844,32 @@ const _innerExport = createWorkerExport((sdk) => {
         return { ok: true, processed, since, found: geoRecs.length };
       }, asAgentTool("Process recent site.etzhayyim.com geoRecords → SpatialEvent / AdminArea / Station"), withCapabilityTags("geoRecord", "poll", "seismic", "adsb"));
     // Registry & Legal Entity Intelligence (2026-04-13)
-    a.command(nsid("app.etzhayyim.apps.maps.seedGlobalRegistries"), (_, body) => cmdSeedGlobalRegistries(sdk, body), asAgentTool("Seed global registry data (GLEIF LEI, JP NTA, Wikidata corps, OpenAddresses)"), withCapabilityTags("registry", "seed", "remote-ingest"))
-      .command(nsid("app.etzhayyim.apps.maps.backfillSocial"), (_, body) => cmdBackfillSocial(sdk, body), asAgentTool("Backfill maps social posts/follows from existing RisingWave graph"), withCapabilityTags("social", "backfill", "post", "follow"));
+    a.command(nsid("com.etzhayyim.apps.maps.seedGlobalRegistries"), (_, body) => cmdSeedGlobalRegistries(sdk, body), asAgentTool("Seed global registry data (GLEIF LEI, JP NTA, Wikidata corps, OpenAddresses)"), withCapabilityTags("registry", "seed", "remote-ingest"))
+      .command(nsid("com.etzhayyim.apps.maps.backfillSocial"), (_, body) => cmdBackfillSocial(sdk, body), asAgentTool("Backfill maps social posts/follows from existing RisingWave graph"), withCapabilityTags("social", "backfill", "post", "follow"));
 
     // Live tracker — Flightradar24 + N2YO equivalent (2026-05-01).
     // listLive*/aircraftTrack are lexicon `query` (GET) → register via .query().
     // satellitePassQuery is lexicon `procedure` (POST) → register via .command().
-    a.query(nsid("app.etzhayyim.apps.maps.crawlerLocations"), (_, body) => cmdCrawlerLocations(sdk, body));
-    a.query(nsid("app.etzhayyim.apps.maps.actorLocations"), (_, body) => cmdActorLocations(sdk, body));
-    a.query(nsid("app.etzhayyim.apps.maps.listLiveAircraft"), (_, body) => cmdListLiveAircraft(sdk, body));
-    a.query(nsid("app.etzhayyim.apps.maps.listLiveSatellites"), (_, body) => cmdListLiveSatellites(sdk, body));
-    a.query(nsid("app.etzhayyim.apps.maps.listCelestialObjects"), (_, body) => cmdListCelestialObjects(sdk, body));
-    a.query(nsid("app.etzhayyim.apps.maps.aircraftTrack"), (_, body) => cmdAircraftTrack(sdk, body));
-    a.command(nsid("app.etzhayyim.apps.maps.satellitePassQuery"), (_, body) => cmdSatellitePassQuery(sdk, body), asAgentTool("Upcoming satellite passes for an arbitrary observer (SGP4)"), withCapabilityTags("satellite", "pass", "sgp4", "visibility"));
+    a.query(nsid("com.etzhayyim.apps.maps.crawlerLocations"), (_, body) => cmdCrawlerLocations(sdk, body));
+    a.query(nsid("com.etzhayyim.apps.maps.actorLocations"), (_, body) => cmdActorLocations(sdk, body));
+    a.query(nsid("com.etzhayyim.apps.maps.listLiveAircraft"), (_, body) => cmdListLiveAircraft(sdk, body));
+    a.query(nsid("com.etzhayyim.apps.maps.listLiveSatellites"), (_, body) => cmdListLiveSatellites(sdk, body));
+    a.query(nsid("com.etzhayyim.apps.maps.listCelestialObjects"), (_, body) => cmdListCelestialObjects(sdk, body));
+    a.query(nsid("com.etzhayyim.apps.maps.aircraftTrack"), (_, body) => cmdAircraftTrack(sdk, body));
+    a.command(nsid("com.etzhayyim.apps.maps.satellitePassQuery"), (_, body) => cmdSatellitePassQuery(sdk, body), asAgentTool("Upcoming satellite passes for an arbitrary observer (SGP4)"), withCapabilityTags("satellite", "pass", "sgp4", "visibility"));
 
     // AIS Marine — MarineTraffic-equivalent vessel tracking (ADR-2605011500)
-    a.query(nsid("app.etzhayyim.apps.maps.aismarine.queryVesselsBbox" as any), (_, body) => cmdAismarineQueryVesselsBbox(sdk, body), asAgentTool("List AIS-tracked vessels (MarineTraffic-equivalent) inside a WGS84 bbox as GeoJSON"), withCapabilityTags("vessel", "ais", "marine", "live", "tracking"))
-      .query(nsid("app.etzhayyim.apps.maps.aismarine.getVesselDetail" as any), (_, body) => cmdAismarineGetVesselDetail(sdk, body), asAgentTool("Vessel master + 24h track + active voyage by MMSI"), withCapabilityTags("vessel", "ais", "marine", "detail"))
-      .query(nsid("app.etzhayyim.apps.maps.aismarine.searchVessels" as any), (_, body) => cmdAismarineSearchVessels(sdk, body), asAgentTool("Search vessels by name prefix, MMSI, or IMO"), withCapabilityTags("vessel", "ais", "marine", "search"))
-      .query(nsid("app.etzhayyim.apps.maps.aismarine.getVesselDensityTile" as any), (_, body) => cmdAismarineGetVesselDensityTile(sdk, body), asAgentTool("Aggregated vessel density for low-zoom heatmap (Phase 1: 0.1° grid; Phase 2: H3 res-6)"), withCapabilityTags("vessel", "ais", "marine", "density", "grid"));
+    a.query(nsid("com.etzhayyim.apps.maps.aismarine.queryVesselsBbox" as any), (_, body) => cmdAismarineQueryVesselsBbox(sdk, body), asAgentTool("List AIS-tracked vessels (MarineTraffic-equivalent) inside a WGS84 bbox as GeoJSON"), withCapabilityTags("vessel", "ais", "marine", "live", "tracking"))
+      .query(nsid("com.etzhayyim.apps.maps.aismarine.getVesselDetail" as any), (_, body) => cmdAismarineGetVesselDetail(sdk, body), asAgentTool("Vessel master + 24h track + active voyage by MMSI"), withCapabilityTags("vessel", "ais", "marine", "detail"))
+      .query(nsid("com.etzhayyim.apps.maps.aismarine.searchVessels" as any), (_, body) => cmdAismarineSearchVessels(sdk, body), asAgentTool("Search vessels by name prefix, MMSI, or IMO"), withCapabilityTags("vessel", "ais", "marine", "search"))
+      .query(nsid("com.etzhayyim.apps.maps.aismarine.getVesselDensityTile" as any), (_, body) => cmdAismarineGetVesselDensityTile(sdk, body), asAgentTool("Aggregated vessel density for low-zoom heatmap (Phase 1: 0.1° grid; Phase 2: H3 res-6)"), withCapabilityTags("vessel", "ais", "marine", "density", "grid"));
 
     // Unified search (ADR-2605011500 §Phase-1.3) — restores broken Svelte
     // search box wiring (4 NSIDs called by App.svelte runUnifiedSearch).
-    a.query(nsid("app.etzhayyim.apps.maps.searchPlaces"), (_, body) => cmdSearchPlaces(sdk, body), asAgentTool("Substring search vertex_spatial → place rows with lat/lng"), withCapabilityTags("search", "place", "graph"))
-      .query(nsid("app.etzhayyim.apps.maps.searchResources"), (_, body) => cmdSearchResources(sdk, body), asAgentTool("Multi-source keyword search: places + vessels + legal entities"), withCapabilityTags("search", "resource", "graph"))
-      .query(nsid("app.etzhayyim.apps.maps.graphSearchNodes" as any), (_, body) => cmdGraphSearchNodes(sdk, body), asAgentTool("Cross-actor entity-graph keyword search; pins drawable from {lat,lng}"), withCapabilityTags("search", "graph", "entity"))
-      .query(nsid("app.etzhayyim.apps.maps.searchSemanticNodes" as any), (_, body) => cmdSearchSemanticNodes(sdk, body), asAgentTool("IVF semantic search via Cloudflare Workers AI bge-base embeddings + 128 centroids"), withCapabilityTags("search", "ivf", "semantic", "embedding"));
+    a.query(nsid("com.etzhayyim.apps.maps.searchPlaces"), (_, body) => cmdSearchPlaces(sdk, body), asAgentTool("Substring search vertex_spatial → place rows with lat/lng"), withCapabilityTags("search", "place", "graph"))
+      .query(nsid("com.etzhayyim.apps.maps.searchResources"), (_, body) => cmdSearchResources(sdk, body), asAgentTool("Multi-source keyword search: places + vessels + legal entities"), withCapabilityTags("search", "resource", "graph"))
+      .query(nsid("com.etzhayyim.apps.maps.graphSearchNodes" as any), (_, body) => cmdGraphSearchNodes(sdk, body), asAgentTool("Cross-actor entity-graph keyword search; pins drawable from {lat,lng}"), withCapabilityTags("search", "graph", "entity"))
+      .query(nsid("com.etzhayyim.apps.maps.searchSemanticNodes" as any), (_, body) => cmdSearchSemanticNodes(sdk, body), asAgentTool("IVF semantic search via Cloudflare Workers AI bge-base embeddings + 128 centroids"), withCapabilityTags("search", "ivf", "semantic", "embedding"));
 
   // Consolidated from maps-collection-control-plane (2026-04-22): source/job/dataset/POI commands.
   // Do not open a Kysely/Hyperdrive connection during Worker cold-start.

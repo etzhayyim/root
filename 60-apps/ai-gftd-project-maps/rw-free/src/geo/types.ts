@@ -1,12 +1,12 @@
 /**
  * Mirrors the 5 Geo DID Lexicon record shapes:
- *   - app.etzhayyim.maps.region
- *   - app.etzhayyim.maps.geoAlias
- *   - app.etzhayyim.maps.verticalZone
- *   - app.etzhayyim.maps.naturalZone
- *   - app.etzhayyim.maps.layerCoordinator
+ *   - com.etzhayyim.maps.region
+ *   - com.etzhayyim.maps.geoAlias
+ *   - com.etzhayyim.maps.verticalZone
+ *   - com.etzhayyim.maps.naturalZone
+ *   - com.etzhayyim.maps.layerCoordinator
  *
- * Source lexicons: 00-contracts/lexicons/app/etzhayyim/maps/
+ * Source lexicons: 00-contracts/lexicons/com/etzhayyim/maps/
  */
 
 // ─── Region ──────────────────────────────────────────────────────────

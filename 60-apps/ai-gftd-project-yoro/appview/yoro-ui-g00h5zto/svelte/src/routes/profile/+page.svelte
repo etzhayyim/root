@@ -29,14 +29,14 @@
 			<button type="button" onclick={() => {
 				const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 				const redirectUrl = isNative
-					? `app.etzhayyim.yoro://callback?target=${encodeURIComponent('/')}`
+					? `com.etzhayyim.yoro://callback?target=${encodeURIComponent('/')}`
 					: window.location.href;
 				window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
 			}} class="flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[#58CC02] text-[18px] font-black text-white shadow-[0_5px_0_#3D8A00] touch-manipulation active:shadow-none active:translate-y-[5px] transition-all duration-75">アカウント作成</button>
 			<button type="button" onclick={() => {
 				const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 				const redirectUrl = isNative
-					? `app.etzhayyim.yoro://callback?target=${encodeURIComponent('/')}`
+					? `com.etzhayyim.yoro://callback?target=${encodeURIComponent('/')}`
 					: window.location.href;
 				window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
 			}} class="flex min-h-[52px] w-full items-center justify-center rounded-2xl border-[3px] border-gv2-border text-[18px] font-black text-gv2-text-primary touch-manipulation active:bg-gv2-bg-hover active:scale-[0.97] transition-transform">ログイン</button>

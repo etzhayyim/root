@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openBanking.flagSuspiciousTransaction — 疑わしい取引 STR
+// com.etzhayyim.apps.openBanking.flagSuspiciousTransaction — 疑わしい取引 STR
 export async function handle_flagSuspiciousTransaction(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.accountVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openBanking.flagSuspiciousTransaction/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openBanking.flagSuspiciousTransaction/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-banking",
-      nsid: "app.etzhayyim.apps.openBanking.flagSuspiciousTransaction",
+      nsid: "com.etzhayyim.apps.openBanking.flagSuspiciousTransaction",
       bpmnProcessId: "open_banking_flag_suspicious_transaction",
       subjectVid,
       actionClass: "openBanking.transaction.flagSuspicious",
@@ -82,5 +82,5 @@ export async function handle_flagSuspiciousTransaction(env: DefenceEnv, body: an
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openBanking.flagSuspiciousTransaction": handle_flagSuspiciousTransaction,
+  "com.etzhayyim.apps.openBanking.flagSuspiciousTransaction": handle_flagSuspiciousTransaction,
 };

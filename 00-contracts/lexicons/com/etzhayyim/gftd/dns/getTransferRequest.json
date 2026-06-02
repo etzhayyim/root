@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.dns.getTransferRequest",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Server-side SELECT one transferRequest row by rkey (ADR-2605111200). Replaces direct Worker→Hyperdrive SELECT.",
+      "parameters": {
+        "type": "params",
+        "required": ["rkey"],
+        "properties": {
+          "rkey": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "rkey": { "type": "string" },
+                "domain": { "type": "string" },
+                "status": { "type": "string" },
+                "actorDid": { "type": "string" },
+                "createdAt": { "type": "string", "format": "datetime" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

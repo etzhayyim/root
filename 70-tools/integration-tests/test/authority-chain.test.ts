@@ -68,8 +68,8 @@ describe("authority-chain integration (hanrei + houbun)", () => {
     expect(articleResult.did).toBeDefined();
 
     // Verify collection isolation (no cross-contamination)
-    const hanreiCount = e.count("app.etzhayyim.hanrei.jurisdiction");
-    const houbunCount = e.count("app.etzhayyim.houbun.statute");
+    const hanreiCount = e.count("com.etzhayyim.hanrei.jurisdiction");
+    const houbunCount = e.count("com.etzhayyim.houbun.statute");
     expect(hanreiCount).toBeGreaterThanOrEqual(1);
     expect(houbunCount).toBeGreaterThanOrEqual(1);
 

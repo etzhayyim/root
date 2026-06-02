@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.auth.authenticate": {
+    "/xrpc/com.etzhayyim.auth.authenticate": {
       "post": {
         "summary": "Authenticate a request. Returns auth level, account DID, active DID, and token scopes. Used by PDS service binding to delegate authentication.",
-        "operationId": "app.etzhayyim.auth.authenticate",
+        "operationId": "com.etzhayyim.auth.authenticate",
         "requestBody": {
           "required": true,
           "content": {
@@ -93,10 +93,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.createAgentSession": {
+    "/xrpc/com.etzhayyim.auth.createAgentSession": {
       "post": {
         "summary": "Create an agent DID with P-256 keypair and AT Protocol session in one call. Used by gftd deploy for automatic agent credential provisioning.",
-        "operationId": "app.etzhayyim.auth.createAgentSession",
+        "operationId": "com.etzhayyim.auth.createAgentSession",
         "requestBody": {
           "required": true,
           "content": {
@@ -176,10 +176,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.createGuestAccount": {
+    "/xrpc/com.etzhayyim.auth.createGuestAccount": {
       "post": {
         "summary": "Create a guest account with username/password. Issues AT Protocol session with guest tier.",
-        "operationId": "app.etzhayyim.auth.createGuestAccount",
+        "operationId": "com.etzhayyim.auth.createGuestAccount",
         "requestBody": {
           "required": true,
           "content": {
@@ -248,10 +248,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.createPlcAlias": {
+    "/xrpc/com.etzhayyim.auth.createPlcAlias": {
       "post": {
         "summary": "Create a did:plc alias for a did:web identity. Used for AT Protocol federation bridge.",
-        "operationId": "app.etzhayyim.auth.createPlcAlias",
+        "operationId": "com.etzhayyim.auth.createPlcAlias",
         "requestBody": {
           "required": true,
           "content": {
@@ -315,10 +315,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.createSetupIntent": {
+    "/xrpc/com.etzhayyim.auth.createSetupIntent": {
       "post": {
         "summary": "Create a Stripe SetupIntent for Telecom tier payment method registration. Returns client secret for Stripe.js confirmSetupIntent().",
-        "operationId": "app.etzhayyim.auth.createSetupIntent",
+        "operationId": "com.etzhayyim.auth.createSetupIntent",
         "requestBody": {
           "required": true,
           "content": {
@@ -360,10 +360,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.esimProvision": {
+    "/xrpc/com.etzhayyim.auth.esimProvision": {
       "post": {
         "summary": "Provision a Telnyx eSIM for Telecom tier members. Creates SIM card, DID, and AT Protocol session. Requires Stripe payment verification.",
-        "operationId": "app.etzhayyim.auth.esimProvision",
+        "operationId": "com.etzhayyim.auth.esimProvision",
         "requestBody": {
           "required": true,
           "content": {
@@ -432,10 +432,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.listAgentKeys": {
+    "/xrpc/com.etzhayyim.auth.listAgentKeys": {
       "post": {
         "summary": "List agent signing keys for a DID.",
-        "operationId": "app.etzhayyim.auth.listAgentKeys",
+        "operationId": "com.etzhayyim.auth.listAgentKeys",
         "requestBody": {
           "required": true,
           "content": {
@@ -486,10 +486,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.mintChildDid": {
+    "/xrpc/com.etzhayyim.auth.mintChildDid": {
       "post": {
         "summary": "Mint a child did:gftd under a parent DID. ADR-0029 (revised 2026-04-19) defines two input shapes: (A) semantic path form — `{parentDid, segmentKind, segmentValue}`; (B) legacy hex Merkle form — `{parentDid, materialKind, material}`. New callers should use form (A). `pubkey` kind generates an independent P-256 keypair; other kinds are keyless and sign via the nearest ancestor key. Caller must control parent (session accountDid equal to parent or a prefix ancestor).",
-        "operationId": "app.etzhayyim.auth.mintChildDid",
+        "operationId": "com.etzhayyim.auth.mintChildDid",
         "requestBody": {
           "required": true,
           "content": {
@@ -645,10 +645,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.passkeyBeginAuth": {
+    "/xrpc/com.etzhayyim.auth.passkeyBeginAuth": {
       "post": {
         "summary": "Begin WebAuthn/FIDO2 passkey authentication. Returns challenge and credential request options for navigator.credentials.get().",
-        "operationId": "app.etzhayyim.auth.passkeyBeginAuth",
+        "operationId": "com.etzhayyim.auth.passkeyBeginAuth",
         "requestBody": {
           "required": true,
           "content": {
@@ -699,10 +699,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.passkeyBeginRegister": {
+    "/xrpc/com.etzhayyim.auth.passkeyBeginRegister": {
       "post": {
         "summary": "Begin WebAuthn/FIDO2 passkey registration. Returns challenge and credential creation options for navigator.credentials.create().",
-        "operationId": "app.etzhayyim.auth.passkeyBeginRegister",
+        "operationId": "com.etzhayyim.auth.passkeyBeginRegister",
         "requestBody": {
           "required": true,
           "content": {
@@ -769,10 +769,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.passkeyVerifyAuth": {
+    "/xrpc/com.etzhayyim.auth.passkeyVerifyAuth": {
       "post": {
         "summary": "Verify WebAuthn authentication assertion. Validates signature against stored credential and issues AT Protocol session.",
-        "operationId": "app.etzhayyim.auth.passkeyVerifyAuth",
+        "operationId": "com.etzhayyim.auth.passkeyVerifyAuth",
         "requestBody": {
           "required": true,
           "content": {
@@ -849,10 +849,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.passkeyVerifyRegister": {
+    "/xrpc/com.etzhayyim.auth.passkeyVerifyRegister": {
       "post": {
         "summary": "Verify WebAuthn registration attestation. Creates DID, stores passkey credential, and issues AT Protocol session.",
-        "operationId": "app.etzhayyim.auth.passkeyVerifyRegister",
+        "operationId": "com.etzhayyim.auth.passkeyVerifyRegister",
         "requestBody": {
           "required": true,
           "content": {
@@ -926,10 +926,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.resolveExternalDid": {
+    "/xrpc/com.etzhayyim.auth.resolveExternalDid": {
       "post": {
         "summary": "Resolve an external DID (did:plc via PLC Directory, did:web via .well-known). Used for AT Protocol federation.",
-        "operationId": "app.etzhayyim.auth.resolveExternalDid",
+        "operationId": "com.etzhayyim.auth.resolveExternalDid",
         "requestBody": {
           "required": true,
           "content": {
@@ -984,10 +984,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.rotateAgentKey": {
+    "/xrpc/com.etzhayyim.auth.rotateAgentKey": {
       "post": {
         "summary": "Rotate an agent's P-256 signing key. Generates new keypair and revokes the old key.",
-        "operationId": "app.etzhayyim.auth.rotateAgentKey",
+        "operationId": "com.etzhayyim.auth.rotateAgentKey",
         "requestBody": {
           "required": true,
           "content": {
@@ -1049,10 +1049,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.smsOtpSend": {
+    "/xrpc/com.etzhayyim.auth.smsOtpSend": {
       "post": {
         "summary": "Send SMS OTP verification code via Telnyx. Code expires in 5 minutes. Used for Verified tier phone verification.",
-        "operationId": "app.etzhayyim.auth.smsOtpSend",
+        "operationId": "com.etzhayyim.auth.smsOtpSend",
         "requestBody": {
           "required": true,
           "content": {
@@ -1106,10 +1106,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.smsOtpVerify": {
+    "/xrpc/com.etzhayyim.auth.smsOtpVerify": {
       "post": {
         "summary": "Verify SMS OTP code. On success, creates a person DID and issues AT Protocol session.",
-        "operationId": "app.etzhayyim.auth.smsOtpVerify",
+        "operationId": "com.etzhayyim.auth.smsOtpVerify",
         "requestBody": {
           "required": true,
           "content": {
@@ -1170,10 +1170,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.auth.verifyDpop": {
+    "/xrpc/com.etzhayyim.auth.verifyDpop": {
       "post": {
         "summary": "Verify a DPoP proof (RFC 9449). Validates ES256 signature, JWK thumbprint, and jti replay protection.",
-        "operationId": "app.etzhayyim.auth.verifyDpop",
+        "operationId": "com.etzhayyim.auth.verifyDpop",
         "requestBody": {
           "required": true,
           "content": {

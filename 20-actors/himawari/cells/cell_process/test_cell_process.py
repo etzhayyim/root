@@ -5,7 +5,7 @@ Pure-logic tests over the CellProcessCell super-step loop; no kotoba host
 bindings required. Verifies the constitutional invariants of the solar-grade
 c-Si cell line:
 
-  - end-to-end run emits a valid app.etzhayyim.himawari.cellBatchRecord
+  - end-to-end run emits a valid com.etzhayyim.himawari.cellBatchRecord
   - all lexicon-required fields present (batchId, waferBatchId, cellArchitecture,
     gasAbatementCid, attestingRobots ≥2)
   - G3: fluorinated etch/clean gases abated ≥99% DRE or substituted; a
@@ -47,7 +47,7 @@ def test_full_run_emits_cell_batch_record():
     out = _solve({"waferBatchId": "wafer-2026-0601-A", "cellArchitecture": "TOPCon", "metallization": "ag-cu-hybrid"})
     assert "cell_batch_record" in out, "expected a cellBatchRecord on the happy path"
     rec = out["cell_batch_record"]
-    assert rec["$type"] == "app.etzhayyim.himawari.cellBatchRecord"
+    assert rec["$type"] == "com.etzhayyim.himawari.cellBatchRecord"
     assert rec["waferBatchId"] == "wafer-2026-0601-A"
     assert rec["cellArchitecture"] == "TOPCon"
 
@@ -169,7 +169,7 @@ def test_batch_id_derives_from_wafer_batch_when_absent():
 
 _LEXICON_PATH = (
     pathlib.Path(__file__).resolve().parents[4]
-    / "00-contracts/lexicons/app/etzhayyim/himawari/cellBatchRecord.json"
+    / "00-contracts/lexicons/com/etzhayyim/himawari/cellBatchRecord.json"
 )
 
 # JSON-Schema/atproto primitive type → accepted Python type(s) for the value.
@@ -229,7 +229,7 @@ def _check_value_against_spec(value, spec, defs, ctx):
 def test_emitted_record_conforms_to_cell_batch_record_lexicon():
     """Every lexicon-required field is present with the correct type/shape.
 
-    Loads the canonical app.etzhayyim.himawari.cellBatchRecord lexicon and
+    Loads the canonical com.etzhayyim.himawari.cellBatchRecord lexicon and
     checks the emitted record against the `main` record `required` list and the
     #robotSignature / #gasAbatement #def types (where the cell emits them).
     """

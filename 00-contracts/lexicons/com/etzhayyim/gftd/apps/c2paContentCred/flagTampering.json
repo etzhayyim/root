@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.c2paContentCred.flagTampering",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Manifest tampering / chain break / spoofed signer (bridges satelliteEvidence.flagAuthenticationConcern + classification-review + zero-day-broker)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "manifestVid",
+            "tamperKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "manifestVid": {
+              "type": "string",
+              "description": "bridges recordManifest"
+            },
+            "tamperKind": {
+              "type": "string",
+              "enum": [
+                "chain_break",
+                "signature_invalid",
+                "trust_anchor_revoked",
+                "timestamp_anomaly",
+                "derivation_missing",
+                "ai_use_undisclosed",
+                "origin_swapped",
+                "training_data_uncited",
+                "redaction_overzealous",
+                "public_key_compromise",
+                "platform_strip"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

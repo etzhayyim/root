@@ -69,7 +69,7 @@
 		if (typeof window === 'undefined') return base;
 		const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 		const redirectUrl = isNative
-			? `app.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
+			? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 			: window.location.href;
 		return `${base}?redirect_url=${encodeURIComponent(redirectUrl)}`;
 	}

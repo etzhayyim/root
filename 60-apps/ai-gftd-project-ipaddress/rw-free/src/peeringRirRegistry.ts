@@ -31,9 +31,9 @@ import {
   type RirView,
 } from "./types.js";
 
-const PEERING_COLLECTION = "app.etzhayyim.apps.ipaddress.peering";
-const RIR_COLLECTION = "app.etzhayyim.apps.ipaddress.rir";
-const NIR_COLLECTION = "app.etzhayyim.apps.ipaddress.nir";
+const PEERING_COLLECTION = "com.etzhayyim.apps.ipaddress.peering";
+const RIR_COLLECTION = "com.etzhayyim.apps.ipaddress.rir";
+const NIR_COLLECTION = "com.etzhayyim.apps.ipaddress.nir";
 
 function peeringRkey(a: number, b: number): string {
   const [lo, hi] = a < b ? [a, b] : [b, a];

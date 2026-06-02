@@ -30,9 +30,9 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.guideDropoff"),
+    nsid("com.etzhayyim.apps.toshiKozan.guideDropoff"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.guideDropoff", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.guideDropoff", body);
       // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke maps.etzhayyim.com/nearbySearch.
       // TODO: reimplement via direct Hyperdrive SELECT on vertex_maps_depot once
       // cross-actor read RLS pattern is specified.
@@ -46,9 +46,9 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.guideSafety"),
+    nsid("com.etzhayyim.apps.toshiKozan.guideSafety"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.guideSafety", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.guideSafety", body);
       // Murakumo LLM で安全指示を生成
       const safetyGuide = await sdk.hostImports.converse(
         `e-waste カテゴリ「${input.wasteCategory}」の安全な取り扱い手順と注意事項を説明してください。バッテリー膨張・液漏れ・有害物質のリスクを含めてください。`,
@@ -66,10 +66,10 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.registerDepot"),
+    nsid("com.etzhayyim.apps.toshiKozan.registerDepot"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.registerDepot", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.depot", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.registerDepot", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.depot", {
         name: input.name,
         lat: input.lat,
         lng: input.lng,
@@ -88,10 +88,10 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.schedulePickup"),
+    nsid("com.etzhayyim.apps.toshiKozan.schedulePickup"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.schedulePickup", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.pickup", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.schedulePickup", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.pickup", {
         providerDid: input.providerDid,
         depotId: input.depotId,
         wasteCategory: input.wasteCategory,
@@ -112,14 +112,14 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.issueReceipt"),
+    nsid("com.etzhayyim.apps.toshiKozan.issueReceipt"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.issueReceipt", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.issueReceipt", body);
       // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke yabai.etzhayyim.com/screenItem
       // for theft detection. TODO: reimplement via shared vertex_yabai_entity SELECT
       // (hit check) or replace with classify_t1-style SQL UDF on serial_numbers.
       console.log(`[toshi-kozan] issueReceipt cross-actor stub: yabai screen skipped for ${input.serialNumbers?.length ?? 0} serials`);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.receipt", {
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.receipt", {
         pickupRkey: input.pickupRkey,
         providerDid: input.providerDid,
         wasteCategory: input.wasteCategory,
@@ -143,14 +143,14 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.scanItem"),
+    nsid("com.etzhayyim.apps.toshiKozan.scanItem"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.scanItem", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.scanItem", body);
       // Murakumo image inference で素材推定
       const inferenceResult = await sdk.hostImports.converse(
         `この e-waste 画像を分析してください。素材組成を推定し、以下の JSON 形式で回答: {"materials": [{"symbol": "Au", "confidence": 0.95, "location": "connector pins"}], "damage": [], "overallCondition": "good|fair|poor"}。画像 CID: ${input.imageCid}`,
       );
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.imageScan", {
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.imageScan", {
         receiptRkey: input.receiptRkey,
         imageCid: input.imageCid,
         inferenceResult,
@@ -170,10 +170,10 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.classifyMaterial"),
+    nsid("com.etzhayyim.apps.toshiKozan.classifyMaterial"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.classifyMaterial", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.classification", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.classifyMaterial", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.classification", {
         imageScanRkey: input.imageScanRkey,
         materials: input.materials,
         grade: input.grade,
@@ -194,14 +194,14 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.createDisassemblyPlan"),
+    nsid("com.etzhayyim.apps.toshiKozan.createDisassemblyPlan"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.createDisassemblyPlan", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.createDisassemblyPlan", body);
       // LLM で BOM 分析 → 工程計画
       const plan = await sdk.hostImports.converse(
         `e-waste カテゴリ「${input.wasteCategory}」、素材グレード「${input.grade}」の分解計画を作成してください。各工程を "auto" (ロボットアーム) or "human" (精密手作業) に振り分け。JSON: {"steps": [{"id": 1, "name": "...", "type": "auto|human", "description": "...", "estimatedMinutes": N, "hazardLevel": "none|low|medium|high"}]}`,
       );
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.disassemblyPlan", {
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.disassemblyPlan", {
         classificationRkey: input.classificationRkey,
         wasteCategory: input.wasteCategory,
         grade: input.grade,
@@ -219,10 +219,10 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.dispatchStep"),
+    nsid("com.etzhayyim.apps.toshiKozan.dispatchStep"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.dispatchStep", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.disassemblyStep", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.dispatchStep", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.disassemblyStep", {
         planRkey: input.planRkey,
         stepId: input.stepId,
         type: input.type,
@@ -243,10 +243,10 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.executeArmCommand"),
+    nsid("com.etzhayyim.apps.toshiKozan.executeArmCommand"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.executeArmCommand", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.armCommand", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.executeArmCommand", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.armCommand", {
         stepRkey: input.stepRkey,
         action: input.action,
         targetBin: input.targetBin,
@@ -270,15 +270,15 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.delegateToHc"),
+    nsid("com.etzhayyim.apps.toshiKozan.delegateToHc"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.delegateToHc", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.delegateToHc", body);
       // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke hc.etzhayyim.com/createTask.
       // The local hcTask record below is the write-only derived source; hc can
-      // consume via its own onCommit / MV on app.etzhayyim.apps.toshiKozan.hcTask once
+      // consume via its own onCommit / MV on com.etzhayyim.apps.toshiKozan.hcTask once
       // ADR-0004 derive pattern is wired for this actor pair.
       console.log(`[toshi-kozan] delegateToHc cross-actor stub: ${input.hcCategory} stepRkey=${input.stepRkey}`);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.hcTask", {
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.hcTask", {
         stepRkey: input.stepRkey,
         hcCategory: input.hcCategory,
         title: input.title,
@@ -304,14 +304,14 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.appraiseBatch"),
+    nsid("com.etzhayyim.apps.toshiKozan.appraiseBatch"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.appraiseBatch", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.appraiseBatch", body);
       // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke kakaku.etzhayyim.com/getPrice
       // for LME market prices. TODO: reimplement via direct Hyperdrive SELECT on
       // vertex_kakaku_price (or a `kakaku_latest_price(symbol, exchange)` SQL UDF).
       console.log(`[toshi-kozan] appraiseBatch cross-actor stub: ${(input.materialSymbols ?? []).join(",")}`);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.appraisal", {
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.appraisal", {
         batchRkey: input.batchRkey,
         materialName: input.materialName,
         materialSymbols: input.materialSymbols,
@@ -337,9 +337,9 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.announceCampaign"),
+    nsid("com.etzhayyim.apps.toshiKozan.announceCampaign"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.announceCampaign", body);
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.announceCampaign", body);
       await sdk.pds.dispatch({
         type: "app.bsky.feed.post",
         did: actorDid("actor:announcer"),
@@ -358,10 +358,10 @@ export default createWorkerExport((sdk) => {
   // ════════════════════════════════════════════════════════
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.registerMaterial"),
+    nsid("com.etzhayyim.apps.toshiKozan.registerMaterial"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.registerMaterial", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.material", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.registerMaterial", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.material", {
         symbol: input.symbol,
         name: input.name,
         category: input.category,
@@ -376,10 +376,10 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    nsid("app.etzhayyim.apps.toshiKozan.registerWaste"),
+    nsid("com.etzhayyim.apps.toshiKozan.registerWaste"),
     async (ctx, body) => {
-      const input = parseLexiconInput("app.etzhayyim.apps.toshiKozan.registerWaste", body);
-      await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.waste", {
+      const input = parseLexiconInput("com.etzhayyim.apps.toshiKozan.registerWaste", body);
+      await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.waste", {
         category: input.category,
         name: input.name,
         typicalMaterials: input.typicalMaterials,
@@ -399,14 +399,14 @@ export default createWorkerExport((sdk) => {
 
   // Target collections for inbox accumulation
   const TK_COLLECTIONS = new Set([
-    "app.etzhayyim.apps.toshiKozan.receipt",
-    "app.etzhayyim.apps.toshiKozan.imageScan",
-    "app.etzhayyim.apps.toshiKozan.classification",
-    "app.etzhayyim.apps.toshiKozan.batch",
-    "app.etzhayyim.apps.toshiKozan.appraisal",
-    "app.etzhayyim.apps.toshiKozan.hcTask",
-    "app.etzhayyim.apps.toshiKozan.armCommand",
-    "app.etzhayyim.apps.collector.pickup",
+    "com.etzhayyim.apps.toshiKozan.receipt",
+    "com.etzhayyim.apps.toshiKozan.imageScan",
+    "com.etzhayyim.apps.toshiKozan.classification",
+    "com.etzhayyim.apps.toshiKozan.batch",
+    "com.etzhayyim.apps.toshiKozan.appraisal",
+    "com.etzhayyim.apps.toshiKozan.hcTask",
+    "com.etzhayyim.apps.toshiKozan.armCommand",
+    "com.etzhayyim.apps.collector.pickup",
   ]);
 
   sdk.app.onHeartbeat(async (cadence, { pds }) => {
@@ -421,7 +421,7 @@ export default createWorkerExport((sdk) => {
         const stats = await db
           .selectFrom(LEGACY_VERTEX_OTHER_COUNT_TABLE as any)
           .select([(eb: any) => eb.fn.sum("cnt").as("total")])
-          .where("collection" as any, "=", "app.etzhayyim.apps.toshiKozan.appraisal")
+          .where("collection" as any, "=", "com.etzhayyim.apps.toshiKozan.appraisal")
           .executeTakeFirst();
         extra.push({ action: "analyze", appraisalCount: Number(stats?.total ?? 0) });
       } catch (e) {
@@ -457,9 +457,9 @@ export default createWorkerExport((sdk) => {
       }
 
       // ── collector.etzhayyim.com pickup → receiver: 自動受領 ──
-      if (op.collection === "app.etzhayyim.apps.collector.pickup") {
+      if (op.collection === "com.etzhayyim.apps.collector.pickup") {
         if (record.category && record.weightKg) {
-          await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.receipt", {
+          await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.receipt", {
             wasteCategory: record.category,
             weightKg: record.weightKg,
             providerDid: record.providerDid ?? "unknown",
@@ -470,8 +470,8 @@ export default createWorkerExport((sdk) => {
       }
 
       // ── receipt → eye: 自動画像スキャン依頼 ──
-      if (op.collection === "app.etzhayyim.apps.toshiKozan.receipt" && record.imageCid) {
-        await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.imageScan", {
+      if (op.collection === "com.etzhayyim.apps.toshiKozan.receipt" && record.imageCid) {
+        await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.imageScan", {
           receiptRkey: op.rkey,
           imageCid: record.imageCid,
           scannedAt: new Date().toISOString(),
@@ -480,8 +480,8 @@ export default createWorkerExport((sdk) => {
       }
 
       // ── imageScan → classifier: 自動分類 ──
-      if (op.collection === "app.etzhayyim.apps.toshiKozan.imageScan" && record.inferenceResult) {
-        await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.classification", {
+      if (op.collection === "com.etzhayyim.apps.toshiKozan.imageScan" && record.inferenceResult) {
+        await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.classification", {
           imageScanRkey: op.rkey,
           materials: record.inferenceResult,
           classifiedAt: new Date().toISOString(),
@@ -490,8 +490,8 @@ export default createWorkerExport((sdk) => {
       }
 
       // ── classification → disassembler: 自動分解計画 ──
-      if (op.collection === "app.etzhayyim.apps.toshiKozan.classification" && record.route === "disassembly") {
-        await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.disassemblyPlan", {
+      if (op.collection === "com.etzhayyim.apps.toshiKozan.classification" && record.route === "disassembly") {
+        await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.disassemblyPlan", {
           classificationRkey: op.rkey,
           wasteCategory: record.wasteCategory,
           grade: record.grade,
@@ -501,8 +501,8 @@ export default createWorkerExport((sdk) => {
       }
 
       // ── disassemblyStep(type=auto) → arm: ロボットアーム実行 ──
-      if (op.collection === "app.etzhayyim.apps.toshiKozan.disassemblyStep" && record.type === "auto") {
-        await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.armCommand", {
+      if (op.collection === "com.etzhayyim.apps.toshiKozan.disassemblyStep" && record.type === "auto") {
+        await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.armCommand", {
           stepRkey: op.rkey,
           action: record.action ?? "pick-and-sort",
           targetBin: record.targetBin,
@@ -514,13 +514,13 @@ export default createWorkerExport((sdk) => {
       }
 
       // ── disassemblyStep(type=human) → hcDelegate: HC タスク委任 ──
-      if (op.collection === "app.etzhayyim.apps.toshiKozan.disassemblyStep" && record.type === "human") {
+      if (op.collection === "com.etzhayyim.apps.toshiKozan.disassemblyStep" && record.type === "human") {
         const hazardLevel = (record.hazardLevel as string) ?? "low";
         const category = hazardLevel === "high" ? "tk-hazmat-handling" : "tk-precision-disassembly";
         const rewardJpy = hazardLevel === "high" ? 15000 : 5000;
         // cross-actor removed (ADR-0047 audit 2026-04-21). The hcTask record below is
         // the write-only derived source for hc.etzhayyim.com — no outbound invoke.
-        await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.hcTask", {
+        await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.hcTask", {
           stepRkey: op.rkey,
           hcCategory: category,
           title: `都市鉱山分解: ${record.description}`,
@@ -534,14 +534,14 @@ export default createWorkerExport((sdk) => {
 
       // ── armCommand/hcTask completed → appraiser: 自動鑑定 ──
       if (
-        (op.collection === "app.etzhayyim.apps.toshiKozan.armCommand" && record.status === "completed") ||
-        (op.collection === "app.etzhayyim.apps.toshiKozan.hcTask" && record.status === "completed")
+        (op.collection === "com.etzhayyim.apps.toshiKozan.armCommand" && record.status === "completed") ||
+        (op.collection === "com.etzhayyim.apps.toshiKozan.hcTask" && record.status === "completed")
       ) {
         if (record.materialSymbol && record.weightKg) {
           // cross-actor removed (ADR-0047 audit 2026-04-21). Was: invoke kakaku.etzhayyim.com
           // for LME price lookup — the call was fire-and-forget and its result
           // was not embedded in the appraisal record. Safely deleted.
-          await sdk.pds.writePublic("app.etzhayyim.apps.toshiKozan.appraisal", {
+          await sdk.pds.writePublic("com.etzhayyim.apps.toshiKozan.appraisal", {
             materialSymbols: [record.materialSymbol],
             weightKg: record.weightKg,
             grade: record.grade ?? "standard",

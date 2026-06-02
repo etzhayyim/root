@@ -1,11 +1,11 @@
 /**
  * ADR-0057 — mangaka pipeline process-mining MV.
  *
- * Projects `vertex_repo_commit` rows where `collection = 'app.etzhayyim.bpmn.audit'`
+ * Projects `vertex_repo_commit` rows where `collection = 'com.etzhayyim.bpmn.audit'`
  * and the embedded action is `mangaka.*` into a flat OCEL 2.0 trace table
  * keyed by `case_id` (= episode AT URI / charSlug-ts string). Used by:
  *
- *   - app.etzhayyim.apps.mangaka.getProcessTrace XRPC query (per-episode timeline)
+ *   - com.etzhayyim.apps.mangaka.getProcessTrace XRPC query (per-episode timeline)
  *   - PM4PY / Celonis Iceberg export (cross-episode bottleneck analysis)
  *   - mangaka actor's /mcp `getProcessTrace` tool
  *
@@ -38,7 +38,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (value_json::jsonb -> 'objectRefs')::varchar AS object_refs_json,
       value_json                                   AS payload_json
     FROM vertex_repo_commit
-    WHERE collection = 'app.etzhayyim.bpmn.audit'
+    WHERE collection = 'com.etzhayyim.bpmn.audit'
       AND (value_json::jsonb -> 'action')::varchar LIKE 'mangaka.%'
   `.execute(db);
 

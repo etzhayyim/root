@@ -2,7 +2,7 @@ import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
 import * as kiyoRwFree from "@etzhayyim/kiyo-rw-free";
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
-const NSID_BASE = "app.etzhayyim.kiyo";
+const NSID_BASE = "com.etzhayyim.kiyo";
 interface RouteConfig { method: "POST" | "GET"; handler: Handler; }
 const routes: Record<string, RouteConfig> = {};
 function mapStatus(status?: string): number { if (status === "rejected" || status?.includes("invalid") || status?.includes("notFound")) return status?.includes("notFound") ? 404 : 400; return 200; }

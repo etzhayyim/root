@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spsNotification.flagComment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SPS Committee concern / specific trade concern (STC — bridges importRefusal.flagRecurringOrigin + wto-dispute + trade-sanitary)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "commentId",
+            "notificationVid",
+            "commentingMemberIso3",
+            "concernKind",
+            "raisedAt"
+          ],
+          "properties": {
+            "commentId": {
+              "type": "string"
+            },
+            "notificationVid": {
+              "type": "string",
+              "description": "bridges recordNotification"
+            },
+            "commentingMemberIso3": {
+              "type": "string"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "lack_of_scientific_basis",
+                "unjustified_restriction",
+                "insufficient_comment_period",
+                "procedural",
+                "discriminatory",
+                "non_risk_based",
+                "disproportionate",
+                "non_notification"
+              ]
+            },
+            "stcNumber": {
+              "type": "string"
+            },
+            "raisedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

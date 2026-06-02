@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.kinoko.";
+const NSID_PREFIX = "com.etzhayyim.apps.kinoko.";
 const ACTOR_DID = "did:web:kinoko.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "k1n0k001",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/kinoko",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kinoko",
         methods: ["checkFlowThreshold", "formBlock", "getBlock"],
       });
     }

@@ -19,13 +19,13 @@ UP = [{'sql': '\n'
          '    SELECT\n'
          "      $1, $2, 'rl_collect_trajectories', 1,\n"
          '      $3, CAST($4 AS integer),\n'
-         "      '00-contracts/bpmn/ai/gftd/rl/rlCollectTrajectories.bpmn',\n"
+         "      '00-contracts/bpmn/com/etzhayyim/rl/rlCollectTrajectories.bpmn',\n"
          "      'active', $5, 1, $6, $7, 'sys.bpmn.seed.rl'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
@@ -34,9 +34,9 @@ UP = [{'sql': '\n'
                  '  Fires every 1h. Cursor-scans vertex_wellbecoming_event → vertex_rl_step.\n'
                  '  No training. Reward signal collection only.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.rl.collectTrajectories\n'
+                 '  NSID: com.etzhayyim.apps.rl.collectTrajectories\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -50,7 +50,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="rl_collect_trajectories" name="RL Collect Trajectories" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.rl.collectTrajectories", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.rl.collectTrajectories", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -92,30 +92,30 @@ UP = [{'sql': '\n'
                  '2026-05-05T21:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, bpmn_process_id, nsid,\n'
          '       created_at, sensitivity_ord, org_id, user_id, actor_id)\n'
          '    SELECT\n'
          "      $1, $2, 'rl_collect_trajectories',\n"
-         "      'app.etzhayyim.apps.rl.collectTrajectories',\n"
+         "      'com.etzhayyim.apps.rl.collectTrajectories',\n"
          "      $3, 1, $4, $5, 'sys.bpmn.seed.rl'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $6\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1',
                  'did:web:bpmn.etzhayyim.com',
                  '2026-05-05T21:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-collect-trajectories-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-collect-trajectories-v1']}]
 
 
 def upgrade() -> None:

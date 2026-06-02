@@ -29,7 +29,7 @@ const HEADERS = {
 };
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/com.etzhayyim.actor.create`, {
     method: "POST",
     headers: HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -73,13 +73,13 @@ async function main(): Promise<void> {
 
     await actorCreate(taxon.did, taxon.scientificName, `${taxon.rank}: ${taxon.scientificName} (${taxon.commonName ?? "—"})`);
 
-    await createRecord(ROOT_DID, "app.etzhayyim.apps.seibutsu.taxon", rkey, {
+    await createRecord(ROOT_DID, "com.etzhayyim.apps.seibutsu.taxon", rkey, {
       ...taxon,
       createdAt: new Date().toISOString(),
       orgId: "anon", userId: "anon", actorId: PROJECT_ID,
     });
 
-    await createRecord(ROOT_DID, "app.etzhayyim.apps.seibutsu.traits", rkey, {
+    await createRecord(ROOT_DID, "com.etzhayyim.apps.seibutsu.traits", rkey, {
       taxonDid: taxon.did,
       ...traits,
       createdAt: new Date().toISOString(),

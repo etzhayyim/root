@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDenki.recordRenewableOutput",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record renewable generation output for a solar / wind / hydro / storage generation node. Rejected for thermal or nuclear gen types.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["genDid", "recordedAt", "kwhOutput"],
+          "properties": {
+            "genDid":         { "type": "string" },
+            "recordedAt":     { "type": "string", "format": "datetime" },
+            "kwhOutput":      { "type": "number", "minimum": 0, "description": "Energy output in kWh for the period" },
+            "capacityFactor": { "type": "number", "minimum": 0, "maximum": 1, "description": "Capacity factor 0..1 (optional)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "outputDid":      { "type": "string" },
+            "genDid":         { "type": "string" },
+            "genType":        { "type": "string" },
+            "recordedAt":     { "type": "string", "format": "datetime" },
+            "kwhOutput":      { "type": "number" },
+            "capacityFactor": { "type": "number" },
+            "reportedAt":     { "type": "string", "format": "datetime" },
+            "error":          { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

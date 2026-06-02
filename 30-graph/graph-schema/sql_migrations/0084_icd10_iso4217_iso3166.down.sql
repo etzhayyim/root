@@ -1,6 +1,6 @@
 DROP VIEW IF EXISTS view_icd10_disease;
 
-DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.icd10.disease';
+DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.icd10.disease';
 
 DELETE FROM dim_world_domain WHERE domain = 'icd10';
 

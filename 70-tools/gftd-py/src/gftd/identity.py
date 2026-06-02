@@ -104,7 +104,7 @@ def identity_migrate_paths(
     source: str, apply: bool, limit: int, name_filter: str,
     pds: str | None, json_out: bool, deps_path: str,
 ) -> None:
-    """Migrate path DIDs (legacy-nanoids) to did:gftd via PDS XRPC app.etzhayyim.identity.submitOp."""
+    """Migrate path DIDs (legacy-nanoids) to did:gftd via PDS XRPC com.etzhayyim.identity.submitOp."""
     import subprocess
     import hashlib
     import base64
@@ -166,7 +166,7 @@ def identity_migrate_paths(
 
         try:
             resp = httpx.post(
-                f"{pds_url}/xrpc/app.etzhayyim.identity.submitOp",
+                f"{pds_url}/xrpc/com.etzhayyim.identity.submitOp",
                 json={"nanoid": nanoid, "pathDid": path_did, "dryRun": False},
                 headers=_auth_headers(),
                 timeout=30,
@@ -196,7 +196,7 @@ def identity_audit(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.identity.auditIdentities",
+            f"{pds_url}/xrpc/com.etzhayyim.identity.auditIdentities",
             headers=_auth_headers(), timeout=60,
         )
         resp.raise_for_status()

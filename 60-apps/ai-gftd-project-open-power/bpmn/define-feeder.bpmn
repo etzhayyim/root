@@ -12,8 +12,8 @@
                    camunda:formKey="openPower.defineFeeder.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectFeederForm" targetRef="Task_DefineFeeder"/>
 
-    <bpmn:serviceTask id="Task_DefineFeeder" name="ai.gftd.apps.openPower.defineFeeder"
-                      camunda:topic="ai.gftd.apps.openPower.defineFeeder"/>
+    <bpmn:serviceTask id="Task_DefineFeeder" name="com.etzhayyim.apps.openPower.defineFeeder"
+                      camunda:topic="com.etzhayyim.apps.openPower.defineFeeder"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_DefineFeeder" targetRef="EndEvent_Defined"/>
 
     <bpmn:endEvent id="EndEvent_Defined" name="Feeder defined"/>

@@ -4,7 +4,7 @@
   "sources": [
     {
       "source_id": "mof-fy2025-budget",
-      "collection": "app.etzhayyim.apps.jpFiscal.budgetBook",
+      "collection": "com.etzhayyim.apps.jpFiscal.budgetBook",
       "title": "令和7年度予算",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:mof",
       "source_url": "https://www.mof.go.jp/policy/budget/budger_workflow/budget/fy2025/fy2025.html",
@@ -17,7 +17,7 @@
     },
     {
       "source_id": "mof-budget-pdf-r7-general",
-      "collection": "app.etzhayyim.apps.jpFiscal.budgetBook",
+      "collection": "com.etzhayyim.apps.jpFiscal.budgetBook",
       "title": "令和7年度一般会計予算 PDF",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:mof",
       "source_url": "https://www.bb.mof.go.jp/server/2025_teishutsu/dlpdf/DL202511001.pdf",
@@ -30,7 +30,7 @@
     },
     {
       "source_id": "egov-geps-api-catalog",
-      "collection": "app.etzhayyim.apps.jpFiscal.procurementBid",
+      "collection": "com.etzhayyim.apps.jpFiscal.procurementBid",
       "title": "e-Gov API catalog: unified qualification and procurement information",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:mic",
       "source_url": "https://api-catalog.e-gov.go.jp/info/ja/apicatalog/view/42",
@@ -43,7 +43,7 @@
     },
     {
       "source_id": "egov-public-procurements",
-      "collection": "app.etzhayyim.apps.jpFiscal.procurementBid",
+      "collection": "com.etzhayyim.apps.jpFiscal.procurementBid",
       "title": "e-Gov public procurements portal references",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:mic",
       "source_url": "https://www.e-gov.go.jp/about-government/public-procurements.html",
@@ -56,7 +56,7 @@
     },
     {
       "source_id": "digital-agency-procurement",
-      "collection": "app.etzhayyim.apps.jpFiscal.procurementBid",
+      "collection": "com.etzhayyim.apps.jpFiscal.procurementBid",
       "title": "デジタル庁 調達情報",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:digital",
       "source_url": "https://www.digital.go.jp/procurement",
@@ -69,7 +69,7 @@
     },
     {
       "source_id": "jbaudit-latest-report",
-      "collection": "app.etzhayyim.apps.jpFiscal.auditFinding",
+      "collection": "com.etzhayyim.apps.jpFiscal.auditFinding",
       "title": "令和6年度決算検査報告 最新本文",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:boa",
       "source_url": "https://www.jbaudit.go.jp/report/new/all/index.html",
@@ -82,7 +82,7 @@
     },
     {
       "source_id": "jbaudit-report-db",
-      "collection": "app.etzhayyim.apps.jpFiscal.auditFinding",
+      "collection": "com.etzhayyim.apps.jpFiscal.auditFinding",
       "title": "会計検査院検査報告データベース",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:boa",
       "source_url": "https://report.jbaudit.go.jp/index.html",
@@ -95,7 +95,7 @@
     },
     {
       "source_id": "admin-review-visualization",
-      "collection": "app.etzhayyim.apps.jpFiscal.programReview",
+      "collection": "com.etzhayyim.apps.jpFiscal.programReview",
       "title": "行政事業レビュー見える化サイト",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:cao",
       "source_url": "https://rssystem.go.jp/",
@@ -108,7 +108,7 @@
     },
     {
       "source_id": "nta-statistics",
-      "collection": "app.etzhayyim.apps.jpFiscal.taxPayment",
+      "collection": "com.etzhayyim.apps.jpFiscal.taxPayment",
       "title": "国税庁 統計情報",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:mof:nta",
       "source_url": "https://www.nta.go.jp/publication/statistics/index.htm",
@@ -121,7 +121,7 @@
     },
     {
       "source_id": "mic-local-finance",
-      "collection": "app.etzhayyim.apps.jpFiscal.lgFinance",
+      "collection": "com.etzhayyim.apps.jpFiscal.lgFinance",
       "title": "総務省 地方財政状況調査関係資料",
       "publisher_did": "did:web:gov-jpn.etzhayyim.com:mic",
       "source_url": "https://www.soumu.go.jp/iken/zaisei/card.html",

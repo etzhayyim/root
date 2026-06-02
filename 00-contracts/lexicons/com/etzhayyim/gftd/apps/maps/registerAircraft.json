@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.registerAircraft",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register or upsert an aircraft (tail/hex/model) with operator, owner, and lifecycle metadata.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tailNumber"],
+          "properties": {
+            "aircraftDid": { "type": "string", "format": "did" },
+            "tailNumber": { "type": "string" },
+            "icao24": { "type": "string", "description": "24-bit hex transponder code." },
+            "modeS": { "type": "string" },
+            "registrationCountry": { "type": "string" },
+            "manufacturer": { "type": "string" },
+            "model": { "type": "string" },
+            "aircraftType": { "type": "string", "description": "narrowbody / widebody / regional / cargo etc." },
+            "ownerDid": { "type": "string", "format": "did" },
+            "operatorDid": { "type": "string", "format": "did" },
+            "inServiceDate": { "type": "string", "format": "datetime" },
+            "retirementDate": { "type": "string", "format": "datetime" },
+            "usefulLifeYears": { "type": "number" },
+            "seatCapacity": { "type": "integer" },
+            "cargoCapacityKg": { "type": "number" },
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "sourceLicense": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "nodeId": { "type": "string" },
+            "aircraftDid": { "type": "string", "format": "did" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

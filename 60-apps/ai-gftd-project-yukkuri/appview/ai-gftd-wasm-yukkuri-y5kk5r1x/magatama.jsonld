@@ -48,11 +48,11 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.yukkuri.video",
-        "ai.gftd.apps.yukkuri.scene",
-        "ai.gftd.apps.yukkuri.line",
-        "ai.gftd.apps.yukkuri.asset",
-        "ai.gftd.apps.yukkuri.generation"
+        "com.etzhayyim.apps.yukkuri.video",
+        "com.etzhayyim.apps.yukkuri.scene",
+        "com.etzhayyim.apps.yukkuri.line",
+        "com.etzhayyim.apps.yukkuri.asset",
+        "com.etzhayyim.apps.yukkuri.generation"
       ]
     }
   }

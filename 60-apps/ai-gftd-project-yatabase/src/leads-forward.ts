@@ -21,7 +21,7 @@ export async function forwardLeadIngest(
   body: Record<string, unknown>,
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.leadIngest", body, withTrace(traceId), { timeoutMs: 20_000 });
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.leadIngest", body, withTrace(traceId), { timeoutMs: 20_000 });
 }
 
 export async function forwardLeadList(
@@ -29,7 +29,7 @@ export async function forwardLeadList(
   query: { status?: string; domain?: string; limit?: number },
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "GET", "app.etzhayyim.apps.yata.leadList", query as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "GET", "com.etzhayyim.apps.yata.leadList", query as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadGet(
@@ -37,7 +37,7 @@ export async function forwardLeadGet(
   vertex_id: string,
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "GET", "app.etzhayyim.apps.yata.leadGet", { vertex_id }, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "GET", "com.etzhayyim.apps.yata.leadGet", { vertex_id }, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadSetOutreachStatus(
@@ -45,7 +45,7 @@ export async function forwardLeadSetOutreachStatus(
   body: { vertex_id: string; status: string },
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.leadSetOutreachStatus", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.leadSetOutreachStatus", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadSetContactEmail(
@@ -53,7 +53,7 @@ export async function forwardLeadSetContactEmail(
   body: { vertex_id: string; email: string },
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.leadSetContactEmail", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.leadSetContactEmail", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadSetEnrichment(
@@ -61,7 +61,7 @@ export async function forwardLeadSetEnrichment(
   body: { vertex_id: string; contact_email?: string; tech_stack?: string[] },
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.leadSetEnrichment", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.leadSetEnrichment", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadMarkDrafted(
@@ -69,7 +69,7 @@ export async function forwardLeadMarkDrafted(
   body: { vertex_id: string; outbox_id: string },
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "POST", "app.etzhayyim.apps.yata.leadMarkDrafted", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "POST", "com.etzhayyim.apps.yata.leadMarkDrafted", body as Record<string, unknown>, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadReady(
@@ -77,7 +77,7 @@ export async function forwardLeadReady(
   limit: number,
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "GET", "app.etzhayyim.apps.yata.leadReady", { limit }, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "GET", "com.etzhayyim.apps.yata.leadReady", { limit }, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadSendable(
@@ -85,7 +85,7 @@ export async function forwardLeadSendable(
   limit: number,
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "GET", "app.etzhayyim.apps.yata.leadSendable", { limit }, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "GET", "com.etzhayyim.apps.yata.leadSendable", { limit }, withTrace(traceId), { timeoutMs: 10_000 });
 }
 
 export async function forwardLeadNeedsEnrichment(
@@ -93,5 +93,5 @@ export async function forwardLeadNeedsEnrichment(
   limit: number,
   traceId?: string,
 ): Promise<ForwardResult> {
-  return forwardBmc(env, "GET", "app.etzhayyim.apps.yata.leadNeedsEnrichment", { limit }, withTrace(traceId), { timeoutMs: 10_000 });
+  return forwardBmc(env, "GET", "com.etzhayyim.apps.yata.leadNeedsEnrichment", { limit }, withTrace(traceId), { timeoutMs: 10_000 });
 }

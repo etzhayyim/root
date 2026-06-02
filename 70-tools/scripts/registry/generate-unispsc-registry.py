@@ -12,7 +12,7 @@ Schema (per ADR-2605212030 §D2, did:web colon-to-slash + lexicon family):
     "$schema":     URL,
     "version":     "1",
     "generatedAt": ISO-8601,
-    "lexicon":     "app.etzhayyim.apps.unispsc",
+    "lexicon":     "com.etzhayyim.apps.unispsc",
     "didEntity":   "did:web:etzhayyim.com",
     "totalCount":  int,
     "segments":    { "<2-digit prefix>": int, ... },
@@ -126,7 +126,7 @@ def main() -> int:
         "$schema": "https://etzhayyim.com/schemas/actor-registry/v1.json",
         "version": "1",
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "lexicon": "app.etzhayyim.apps.unispsc",
+        "lexicon": "com.etzhayyim.apps.unispsc",
         "didEntity": "did:web:etzhayyim.com",
         "adr": ["2605212030", "2605171800"],
         "totalCount": len(agents),
@@ -174,7 +174,7 @@ def main() -> int:
         f.write(
             "// Compact tuple form: [code, handle, title, segment].\n"
             "// Bundled into the xrpc-adapter Worker for "
-            "app.etzhayyim.apps.unispsc.listAgents.\n"
+            "com.etzhayyim.apps.unispsc.listAgents.\n"
             "// Phase β migration target: IPFS CID + KV cache (see ADR-2605171800).\n\n"
         )
         f.write(

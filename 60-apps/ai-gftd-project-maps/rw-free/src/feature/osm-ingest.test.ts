@@ -343,7 +343,7 @@ describe("ingestFromOsmGeoJson — E2E smoke", () => {
     expect(stats.ok).toBe(8);
     expect(stats.failed).toBe(0);
     expect(captured).toHaveLength(8);
-    expect(captured.every((c) => c.collection === "app.etzhayyim.maps.feature")).toBe(true);
+    expect(captured.every((c) => c.collection === "com.etzhayyim.maps.feature")).toBe(true);
     expect(stats.labelCounts).toEqual({
       AdminArea: 1, Road: 1, Railway: 1, River: 1,
       Mountain: 1, Airport: 1, Building: 1, Place: 1,

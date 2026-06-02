@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.filesGet",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "OneDrive/SharePoint の特定ファイル情報 (メタデータ + downloadUrl) を取得する。",
+      "parameters": {
+        "type": "params",
+        "required": ["driveId", "itemId"],
+        "properties": {
+          "driveId": {
+            "type": "string",
+            "description": "Drive ID"
+          },
+          "itemId": {
+            "type": "string",
+            "description": "ファイル item ID"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "size": { "type": "integer" },
+            "webUrl": { "type": "string" },
+            "downloadUrl": { "type": "string" },
+            "lastModifiedDateTime": { "type": "string" },
+            "file": { "type": "unknown" },
+            "folder": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

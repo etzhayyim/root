@@ -5,14 +5,14 @@ concierge; the 国民生活センター-equivalent, citizen↔merchant sibling o
 toritsugi / moushibumi).
 
 Purpose: maintain + resolve the coded consumer-remedy catalog
-(`app.etzhayyim.kurashimori.remedyTarget` — remedy kind / 根拠法令 / statutory
+(`com.etzhayyim.kurashimori.remedyTarget` — remedy kind / 根拠法令 / statutory
 window 日数 / 様式 / channel / escalation forum) and enforce the G14 gate.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G8 non-fabrication (every remedy
 cites legalBasis + provenance; a wrong cooling-off 日数 is harmful), G14
 verified-remedy-only, kotoba-EAVT-native (ADR-2605262130; no RW), Murakumo-only
 inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.kurashimori.remedyTarget.
+Output Lexicon(s): com.etzhayyim.kurashimori.remedyTarget.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

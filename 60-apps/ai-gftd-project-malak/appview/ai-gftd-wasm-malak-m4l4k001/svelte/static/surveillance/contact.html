@@ -191,7 +191,7 @@
       useCasePitch: data.useCasePitch || undefined,
     };
     try {
-      const res = await fetch("/xrpc/ai.gftd.apps.malak.registerAgencyProspect", {
+      const res = await fetch("/xrpc/com.etzhayyim.apps.malak.registerAgencyProspect", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),

@@ -88,7 +88,7 @@ fn print_help() {
     println!();
     println!("Live-update source (optional):");
     println!("  --firehose-url <wss>    Subscribe to a Jetstream-format firehose for live");
-    println!("                          app.etzhayyim.kg.* commits (K2.c).");
+    println!("                          com.etzhayyim.kg.* commits (K2.c).");
     println!();
     println!("Server:");
     println!("  --listen <addr:port>    Bind address. Default 127.0.0.1:8080.");

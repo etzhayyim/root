@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.debtTransparency.flagHiddenDebt",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Hidden / non-disclosed debt detection (bridges worldBankDpf.flagPriorActionSlippage + sovereign-debt + imf-article-iv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "disclosureVid",
+            "hidingKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "disclosureVid": {
+              "type": "string",
+              "description": "bridges recordDebtDisclosure"
+            },
+            "hidingKind": {
+              "type": "string",
+              "enum": [
+                "undisclosed_bilateral",
+                "resource_prepayment",
+                "collateralized_off_balance",
+                "soe_guaranteed",
+                "central_bank_swap",
+                "confidentiality_clause",
+                "revenue_assignment",
+                "escrow_arrangement"
+              ]
+            },
+            "estimatedBusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                     | Rows | Source                                         |
  * |--------------------------------|------|------------------------------------------------|
- * | app.etzhayyim.apps.iso639.language   |  184 | ISO 639-1 via github.com/haliaeetus/iso-639    |
+ * | com.etzhayyim.apps.iso639.language   |  184 | ISO 639-1 via github.com/haliaeetus/iso-639    |
  *
  * ### ISO 639-1 (language codes)
  * 184 language codes with ISO 639-1 (2-char) and ISO 639-2 (3-char) codes.
@@ -27,7 +27,7 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New view
  *
- * - view_iso639_language: projection of app.etzhayyim.apps.iso639.language
+ * - view_iso639_language: projection of com.etzhayyim.apps.iso639.language
  *
  * ## Topology integrity
  *
@@ -57,7 +57,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'iso639_2'    AS iso639_2_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.iso639.language'
+    WHERE collection = 'com.etzhayyim.apps.iso639.language'
   `.execute(db);
 
   await sql`
@@ -71,7 +71,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_iso639_language`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.iso639.language'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.iso639.language'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'iso639'`.execute(db);
   await sql`DELETE FROM edge_classified_as WHERE system = 'iso3166_m49'`.execute(db);
 }

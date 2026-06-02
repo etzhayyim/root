@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-extract-bill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-extract-bill-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_extract_bill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_extract_bill" name="shiharai extractBill" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.extractBill", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.shiharai.extractBill", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1012,
-                 '00-contracts/bpmn/ai/gftd/shiharai/extractBill.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/extractBill.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-extract-bill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-extract-bill-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-extractBill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-extractBill-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.extractBill',
+                 'com.etzhayyim.apps.shiharai.extractBill',
                  'shiharai_extract_bill',
                  30000,
                  'vertex_shiharai_bill',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-extractBill-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-extractBill-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-list-pending-bills-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-list-pending-bills-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_list_pending_bills',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_list_pending_bills" name="shiharai listPendingBills" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.listPendingBills", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.shiharai.listPendingBills", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -113,13 +113,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1045,
-                 '00-contracts/bpmn/ai/gftd/shiharai/listPendingBills.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/listPendingBills.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-list-pending-bills-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-list-pending-bills-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-listPendingBills-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-listPendingBills-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.listPendingBills',
+                 'com.etzhayyim.apps.shiharai.listPendingBills',
                  'shiharai_list_pending_bills',
                  30000,
                  '',
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-listPendingBills-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-listPendingBills-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-prepare-payment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-prepare-payment-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_prepare_payment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_prepare_payment" name="shiharai preparePayment" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.preparePayment", "version": 1, "resultTimeoutMs": 120000 '
+                 '"com.etzhayyim.apps.shiharai.preparePayment", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -180,13 +180,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1031,
-                 '00-contracts/bpmn/ai/gftd/shiharai/preparePayment.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/preparePayment.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-prepare-payment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-prepare-payment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,9 +201,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-preparePayment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-preparePayment-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.preparePayment',
+                 'com.etzhayyim.apps.shiharai.preparePayment',
                  'shiharai_prepare_payment',
                  120000,
                  'vertex_shiharai_job',
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-preparePayment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-preparePayment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,7 +228,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-confirm-payment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-confirm-payment-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_confirm_payment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_confirm_payment" name="shiharai confirmPayment" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.confirmPayment", "version": 1, "resultTimeoutMs": 120000 '
+                 '"com.etzhayyim.apps.shiharai.confirmPayment", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -247,13 +247,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1031,
-                 '00-contracts/bpmn/ai/gftd/shiharai/confirmPayment.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/confirmPayment.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-confirm-payment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-confirm-payment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,9 +268,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-confirmPayment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-confirmPayment-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.confirmPayment',
+                 'com.etzhayyim.apps.shiharai.confirmPayment',
                  'shiharai_confirm_payment',
                  120000,
                  'vertex_shiharai_payment',
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-confirmPayment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-confirmPayment-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-register-recurring-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-register-recurring-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_register_recurring',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_register_recurring" name="shiharai registerRecurring" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.registerRecurring", "version": 1, "resultTimeoutMs": '
+                 '"com.etzhayyim.apps.shiharai.registerRecurring", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -314,13 +314,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1049,
-                 '00-contracts/bpmn/ai/gftd/shiharai/registerRecurring.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/registerRecurring.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-register-recurring-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-register-recurring-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -335,9 +335,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-registerRecurring-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-registerRecurring-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.registerRecurring',
+                 'com.etzhayyim.apps.shiharai.registerRecurring',
                  'shiharai_register_recurring',
                  120000,
                  'vertex_shiharai_recurring',
@@ -346,7 +346,7 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-registerRecurring-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-registerRecurring-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -362,7 +362,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-list-recurring-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-list-recurring-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_list_recurring',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -372,7 +372,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_list_recurring" name="shiharai listRecurring" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.listRecurring", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.shiharai.listRecurring", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -381,13 +381,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1024,
-                 '00-contracts/bpmn/ai/gftd/shiharai/listRecurring.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/listRecurring.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-list-recurring-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-list-recurring-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -402,9 +402,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-listRecurring-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-listRecurring-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.listRecurring',
+                 'com.etzhayyim.apps.shiharai.listRecurring',
                  'shiharai_list_recurring',
                  30000,
                  '',
@@ -413,7 +413,7 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-listRecurring-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-listRecurring-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-get-job-status-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-get-job-status-v1',
                  'did:web:shiharai.etzhayyim.com',
                  'shiharai_get_job_status',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/shiharai"><bpmn:process '
                  'id="shiharai_get_job_status" name="shiharai getJobStatus" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.shiharai.getJobStatus", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.shiharai.getJobStatus", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -448,13 +448,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1021,
-                 '00-contracts/bpmn/ai/gftd/shiharai/getJobStatus.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shiharai/getJobStatus.bpmn',
                  '2026-04-30T20:00:00+09:00',
                  'did:web:shiharai.etzhayyim.com',
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-get-job-status-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-get-job-status-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -469,9 +469,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-getJobStatus-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-getJobStatus-v1',
                  'did:web:shiharai.etzhayyim.com',
-                 'app.etzhayyim.apps.shiharai.getJobStatus',
+                 'com.etzhayyim.apps.shiharai.getJobStatus',
                  'shiharai_get_job_status',
                  30000,
                  '',
@@ -480,36 +480,36 @@ UP = [{'sql': '\n'
                  'did:web:shiharai.etzhayyim.com',
                  'sys.bpmn.seed.shiharai',
                  'did:web:shiharai.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-getJobStatus-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-getJobStatus-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-extractBill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-extractBill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-extract-bill-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-extract-bill-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-listPendingBills-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-listPendingBills-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-list-pending-bills-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-list-pending-bills-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-preparePayment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-preparePayment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-prepare-payment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-prepare-payment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-confirmPayment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-confirmPayment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-confirm-payment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-confirm-payment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-registerRecurring-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-registerRecurring-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-register-recurring-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-register-recurring-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-listRecurring-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-listRecurring-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-list-recurring-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-list-recurring-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shiharai-getJobStatus-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shiharai-getJobStatus-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shiharai-get-job-status-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shiharai-get-job-status-v1']}]
 
 
 def upgrade() -> None:

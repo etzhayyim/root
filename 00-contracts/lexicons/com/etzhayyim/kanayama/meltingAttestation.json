@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanayama.meltingAttestation",
+  "description": "Twin-chamber Al furnace melt attestation (L3). ~720°C melt + N₂/Cl₂ degas + salt-flux refining + 3xxx/5xxx alloy adjust. Witness quorum ≥2 robots per pour (G4). Per ADR-2605252400 L3.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "chargeMassKg": {"type": "number"},
+          "furnaceTempC": {"type": "integer", "minimum": 660, "maximum": 800},
+          "degasGas": {"type": "string", "knownValues": ["N2", "Cl2", "Ar", "N2-Cl2-mix"]},
+          "saltFluxKg": {"type": "number"},
+          "alloyComposition": {
+            "type": "object",
+            "properties": {
+              "designation": {
+                "type": "string",
+                "knownValues": ["AA3104 (can body)", "AA5182 (end stock)", "AA3003", "AA5052", "AA1100"]
+              }
+            },
+            "required": ["designation"]
+          },
+          "pourMassKg": {"type": "number"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "furnaceTempC", "alloyComposition", "pourMassKg", "attestingRobots"]
+      }
+    }
+  }
+}

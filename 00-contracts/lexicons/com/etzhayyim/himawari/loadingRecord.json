@@ -1,0 +1,112 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.loadingRecord",
+  "description": "積込 loading-robot cycle record (palletize finished PV modules + load onto an internal hikari-install carrier), emitted by the himawari panel_loading cell. COMPOSES — never clones — the LANDED sarutahiko F10 LoaderRobot (ADR-2606013100, 14 tests green); the physical pick→carry→lower cycle (LoadPhase::{ToPick,Carry,Lower,Done}) is authoritative in the kami-engine crate kami-app-sarutahiko-factory, and this record only anchors that cycle outcome on-chain. Sixth link in the polysilicon → wafer → cell → module → loading → outbound provenance chain (G11 traceability); each module serial chains back to com.etzhayyim.himawari.moduleAttestation. G7 (labor-liberation transparency — every human task automated-away logged to the Liberation Metric, ADR-2605261000) + G12 (no external commercial PV sale — internal hikari install only, SBT↔SBT carve-out, ADR-2605192115 §3) structural enforcement. Materializes into the kotoba Datom log (EAVT, canonical state — G6); each property is one attribute under the :loading/* namespace keyed by the record CID, and per-cycle history is queryable as-of any point. solar-grade c-Si only (N1) — NOT the iwakura/fuigo/tsukuru logic-grade EG-Si track. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "properties": {
+          "loadingId": {
+            "type": "string",
+            "description": "himawari-assigned stable loading-cycle identifier; sixth link in the polysilicon → wafer → cell → module → loading → outbound serial chain (G11 traceability). Datom :loading/id."
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "cycle attestation timestamp (ISO-8601); as-of point for the kotoba Datom history of this loading cycle"
+          },
+          "moduleSerials": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "G11/G12: finished-module serials handed off this cycle; each chains back to com.etzhayyim.himawari.moduleAttestation.moduleSerial (and through it to the feedstock lot). Materialized as repeated :loading/module-serial datoms."
+          },
+          "palletCount": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "number of pallets in this cycle = ceil(len(moduleSerials) / palletCapacity); the F10 straddle loader moves one pallet per pick→carry→lower cycle. Datom :loading/pallet-count."
+          },
+          "carrierDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the receiving carrier. G12: must be an internal hikari-install carrier (SBT↔SBT carve-out); a non-internal carrier is refused at the cell and no record is emitted. Datom :loading/carrier-did."
+          },
+          "carrierInternal": {
+            "type": "boolean",
+            "description": "G12 gate flag — true iff the carrier is an internal hikari-install carrier. The panel_loading cell refuses (emits no record) when false; this attribute records the satisfied gate for audit."
+          },
+          "loaderRobotDid": {
+            "type": "string",
+            "format": "did",
+            "description": "G7: composed sarutahiko F10 LoaderRobot lineage DID (default did:web:etzhayyim.com:sarutahiko#F10-loader). Names the robot whose automation displaced manual loading, so the cycle is accountable to the Liberation Metric. Datom :loading/loader-robot-did."
+          },
+          "loaderPhase": {
+            "type": "string",
+            "knownValues": [
+              "ToPick",
+              "Carry",
+              "Lower",
+              "Done"
+            ],
+            "description": "terminal LoadPhase reported by the composed F10 LoaderRobot (mirror of the authoritative Rust LoadPhase enum); 'Done' = cycle complete. himawari recognizes the phase, it does not re-run the kinematics."
+          },
+          "humanTasksRemovedCid": {
+            "type": "string",
+            "description": "G7: content-addressed manifest of the manual tasks this fully-automated cycle displaced, logged to the Liberation Metric (ADR-2605261000). An empty manifest yields a zero-task CID rather than omitting the field — automation here is the point, but it must be accounted, never opaque. Datom :loading/human-tasks-removed-cid."
+          },
+          "cycleStateLogCid": {
+            "type": "string",
+            "description": "content-addressed F10 loader phase-transition log for this cycle (which LoadPhases the composed loader traversed). Audit anchor for the composed sarutahiko cycle telemetry. Datom :loading/cycle-state-log-cid."
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#robotSignature"
+            },
+            "minItems": 1,
+            "description": "G7-coupled Ed25519 robot witness attestations over the completed loading cycle (loader + any metrology/AGV witnesses). >=1 (the F10 loader itself); pallet-count and serial-set integrity may add further witnesses."
+          }
+        },
+        "required": [
+          "loadingId",
+          "recordedAt",
+          "moduleSerials",
+          "carrierDid",
+          "loaderRobotDid"
+        ]
+      }
+    },
+    "robotSignature": {
+      "type": "object",
+      "description": "G7-coupled Ed25519 robot witness attestation. Robot DID lineage logged so automated-away human loading tasks are accountable to the Liberation Metric (ADR-2605261000).",
+      "properties": {
+        "robotDid": {
+          "type": "string",
+          "format": "did"
+        },
+        "role": {
+          "type": "string",
+          "description": "witness role (e.g. straddle-loader / palletizer / AGV-handoff / serial-scan / mass-check)"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over the attested loading-cycle bundle"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "datetime"
+        }
+      },
+      "required": [
+        "robotDid",
+        "signature"
+      ]
+    }
+  }
+}

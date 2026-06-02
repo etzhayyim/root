@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cdrMarketplace.listRegistry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CDR registry / exchange listing (Puro Earth / Isometric / CDR.fyi / Frontier — bridges cdr-verification + climate-carbon-market + blue-carbon-mrv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "registryId",
+            "registryName",
+            "registryKind",
+            "launchedAt"
+          ],
+          "properties": {
+            "registryId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "registryName": {
+              "type": "string"
+            },
+            "registryKind": {
+              "type": "string",
+              "enum": [
+                "standard_body",
+                "exchange",
+                "otc_broker",
+                "advance_market_commitment",
+                "procurement_club",
+                "corp_buyer"
+              ]
+            },
+            "methodologiesSupported": {
+              "type": "string",
+              "description": "comma: DAC,BECCS,ERW,OAF,biochar,mineralization,blue_carbon,afforestation"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@
     "APP_TEMPLATE": "ts-thin-edge",
     "APP_UI_TYPE": "static",
     "APP_VERSION": "0.1.0",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

@@ -73,7 +73,7 @@ INSERT INTO vertex_bpmn_process_def
       (vertex_id, process_id, name, description, version, bpmn_xml, status, created_at)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-governance-daily-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gftdcojp-governance-daily-v1',
         'gftdcojp_governance_daily_check',
         'gftdcojp Governance Daily Check',
         'Daily Ω(t) governance check via LangGraph gftdcojp-company-ops (amanomibashira principal)',
@@ -83,7 +83,7 @@ INSERT INTO vertex_bpmn_process_def
         now()
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gftdcojp-ops-dispatch-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gftdcojp-ops-dispatch-v1',
         'gftdcojp_company_ops_dispatch',
         'gftdcojp Company Ops Dispatch',
         'XRPC-triggered domain task dispatch (HR/Finance/Legal/Sales/Governance) via LangGraph',
@@ -97,9 +97,9 @@ INSERT INTO vertex_bpmn_lexicon_binding
       (vertex_id, process_id, nsid, binding_type, status, created_at)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.binding/gftdcojp-ops-dispatch-xrpc-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/gftdcojp-ops-dispatch-xrpc-v1',
         'gftdcojp_company_ops_dispatch',
-        'ai.gftd.apps.gftdcojp.companyOpsDispatch',
+        'com.etzhayyim.apps.gftdcojp.companyOpsDispatch',
         'xrpc',
         'active',
         now()

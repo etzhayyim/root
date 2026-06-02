@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.autonomousVehicleSafety.reportDisengagement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AV disengagement / crash report (CA DMV / NHTSA SGO)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "oddVid",
+            "eventType",
+            "reportedAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "oddVid": {
+              "type": "string",
+              "description": "bridges registerOdd"
+            },
+            "eventType": {
+              "type": "string",
+              "enum": [
+                "disengagement",
+                "collision",
+                "near_miss",
+                "stall",
+                "unintended_behavior"
+              ]
+            },
+            "triggerCategory": {
+              "type": "string",
+              "enum": [
+                "perception",
+                "planning",
+                "control",
+                "hmi",
+                "environmental",
+                "adversarial"
+              ]
+            },
+            "injuries": {
+              "type": "integer"
+            },
+            "fatalities": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "operational",
+                "property",
+                "injury",
+                "fatal"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

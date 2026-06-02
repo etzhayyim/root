@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aquacultureCert.flagCertificationRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Certification suspension / sustainability concern (bridges spsNotification.flagComment + seafood-traceability + residue-mrl)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "certVid",
+            "riskKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "certVid": {
+              "type": "string",
+              "description": "bridges recordCertification"
+            },
+            "riskKind": {
+              "type": "string",
+              "enum": [
+                "certification_suspended",
+                "non_conformance",
+                "feed_provenance_gap",
+                "antibiotic_use",
+                "escape_event",
+                "disease_outbreak",
+                "labor_violation",
+                "chain_of_custody_break",
+                "greenwashing_claim"
+              ]
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "watch",
+                "elevated",
+                "suspended",
+                "delisted"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

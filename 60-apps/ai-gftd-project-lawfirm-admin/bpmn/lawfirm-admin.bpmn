@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cc-1" sourceRef="start-create-case" targetRef="task-create-case"/>
     <bpmn:serviceTask id="task-create-case" name="Create Case">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.createCase"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.createCase"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cc-2" sourceRef="task-create-case" targetRef="end-create-case"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-uc-1" sourceRef="start-update-case" targetRef="task-update-case"/>
     <bpmn:serviceTask id="task-update-case" name="Update Case">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.updateCase"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.updateCase"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-uc-2" sourceRef="task-update-case" targetRef="end-update-case"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-lc-1" sourceRef="start-list-cases" targetRef="task-list-cases"/>
     <bpmn:serviceTask id="task-list-cases" name="List Cases">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.listCases"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.listCases"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lc-2" sourceRef="task-list-cases" targetRef="end-list-cases"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-gc-1" sourceRef="start-get-case" targetRef="task-get-case"/>
     <bpmn:serviceTask id="task-get-case" name="Get Case">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.getCase"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.getCase"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gc-2" sourceRef="task-get-case" targetRef="end-get-case"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-ccl-1" sourceRef="start-create-client" targetRef="task-create-client"/>
     <bpmn:serviceTask id="task-create-client" name="Create Client">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.createClient"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.createClient"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ccl-2" sourceRef="task-create-client" targetRef="end-create-client"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-ucl-1" sourceRef="start-update-client" targetRef="task-update-client"/>
     <bpmn:serviceTask id="task-update-client" name="Update Client">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.updateClient"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.updateClient"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ucl-2" sourceRef="task-update-client" targetRef="end-update-client"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-lcl-1" sourceRef="start-list-clients" targetRef="task-list-clients"/>
     <bpmn:serviceTask id="task-list-clients" name="List Clients">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.listClients"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.listClients"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lcl-2" sourceRef="task-list-clients" targetRef="end-list-clients"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-gcl-1" sourceRef="start-get-client" targetRef="task-get-client"/>
     <bpmn:serviceTask id="task-get-client" name="Get Client">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.lawfirmAdmin.getClient"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.lawfirmAdmin.getClient"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gcl-2" sourceRef="task-get-client" targetRef="end-get-client"/>

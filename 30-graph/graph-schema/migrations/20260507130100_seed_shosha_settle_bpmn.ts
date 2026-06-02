@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 /**
  * shosha.etzhayyim.com Phase 2c — register `shosha_settle_trade` BPMN +
- * `app.etzhayyim.apps.shosha.settleTrade` XRPC binding.
+ * `com.etzhayyim.apps.shosha.settleTrade` XRPC binding.
  *
  * 1 process_def + 1 lexicon binding (XRPC-only, no autonomous timer).
  */
@@ -24,17 +24,17 @@ const actorTag = "sys.bpmn.seed.shosha.phase2c";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-settle-trade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-settle-trade-v1",
     bpmnProcessId: "shosha_settle_trade",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shosha/settleTrade.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shosha/settleTrade.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-settleTrade-v1",
-    nsid: "app.etzhayyim.apps.shosha.settleTrade",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-settleTrade-v1",
+    nsid: "com.etzhayyim.apps.shosha.settleTrade",
     bpmnProcessId: "shosha_settle_trade",
     ownerDid,
     resultTimeoutMs: 30_000,

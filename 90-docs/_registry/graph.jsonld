@@ -1155,11 +1155,11 @@
       "topic": "tsukuru",
       "authoritative": true,
       "authoritativeFor": [
-        "app.etzhayyim.apps.tsukuru.industryActor.*",
+        "com.etzhayyim.apps.tsukuru.industryActor.*",
         "tsukuru-isic-bpmn-actors",
         "tsukuru-euv-bpmn-actors",
-        "app.etzhayyim.apps.tsukuru.euv.*",
-        "app.etzhayyim.apps.tsukuru.supplierExchange.*"
+        "com.etzhayyim.apps.tsukuru.euv.*",
+        "com.etzhayyim.apps.tsukuru.supplierExchange.*"
       ],
       "related": [
         "doc:0056-bpmn-as-actor",
@@ -12138,6 +12138,18 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606020000-tsukuru-com-etzhayyim-nsid-conversion",
+      "type": "TechArticle",
+      "title": "ADR-2606020000: tsukuru NSID conversion app.etzhayyim.apps.tsukuru.* → com.etzhayyim.apps.tsukuru.*",
+      "status": "proposed",
+      "topic": "tsukuru-com-etzhayyim-nsid-conversion",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsukuru record/lexicon NSID namespace (com.etzhayyim.apps.tsukuru.*)"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606021200",
       "type": "TechArticle",
       "title": "ADR-2606021200: himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor R0 Scaffold",
@@ -12163,39 +12175,83 @@
       "lastVerified": "2026-06-02"
     },
     {
-      "id": "doc:adr-2606021400",
+      "id": "doc:adr-2606021300-session-close-himawari-solar-pv-manufacturing",
       "type": "TechArticle",
-      "title": "ADR-2606021400: 通関係 (つうかんがかり / tsuukan) — Customs/Tariff/通関 Clearance Orchestration Tier-B Actor R0 (Capability-Gap Resolution)",
-      "status": "proposed",
-      "topic": "tsuukan-customs-clearance-orchestration",
-      "authoritative": true,
-      "authoritativeFor": [
-        "customs/tariff/通関 clearance orchestration capability-gap resolution (R0 decision)",
-        "tsuukan actor charter sketch (proposed; NOT yet scaffolded — Council-gated)",
-        "app.etzhayyim.customsClearing lexicon namespace reservation"
-      ],
+      "title": "ADR-2606021300: Session close — himawari (向日葵) solar PV module manufacturing actor R0",
+      "status": "active",
+      "topic": "session-close-himawari-solar-pv-manufacturing",
+      "authoritative": false,
+      "related": "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606021400-session-close-nsid-com-etzhayyim-migration",
+      "type": "TechArticle",
+      "title": "ADR-2606021400: Session close — repo-wide NSID migration app.etzhayyim.* / ai.gftd.* → com.etzhayyim.*",
+      "status": "active",
+      "topic": "session-close-nsid-com-etzhayyim-migration",
+      "authoritative": false,
       "related": [
         "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
-        "doc:adr-2606013400-funadaiku-zero-emission-cargo-ship-building",
-        "doc:adr-2606010600-kami-autodrive-gnc-autonomy-layer",
-        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
-        "doc:adr-2605262700-chigiri-legal-procedure-substrate",
-        "doc:adr-2605312030-toritsugi-citizen-government-procedure-concierge",
-        "doc:adr-2605192100-etzhayyim-mission-charter",
-        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+        "doc:adr-2605172000-substrate-boundary-state",
+        "doc:adr-2605172100-substrate-boundary-payment"
       ],
       "lastVerified": "2026-06-02"
     },
     {
-      "id": "doc:adr-2606022600-session-close-himawari-r0.1-maturation",
+      "id": "doc:adr-2606021523-session-close-himawari-r0.1-reland-and-branch-cleanup",
       "type": "TechArticle",
-      "title": "ADR-2606022600: Session close — himawari (向日葵) solar-PV actor R0 → R0.1 maturation + clean main-based PR",
+      "title": "ADR-2606021523: Session close — himawari R0.1 code re-land onto main + worktree/branch cleanup",
       "status": "active",
-      "topic": "session-close-himawari-r0.1-maturation",
+      "topic": "session-close-himawari-r0.1-reland-and-branch-cleanup",
       "authoritative": false,
+      "related": "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606021600-ooyake-world-government-atlas",
+      "type": "TechArticle",
+      "title": "ADR-2606021600: ooyake 公 — kotoba-Datomic world government atlas (country→省庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN, observational-mirror Tier-B actor R0",
+      "status": "proposed",
+      "topic": "ooyake-world-government-atlas",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ooyake actor (world government-unit atlas / civic wayfinding map)",
+        "gov-atlas kotoba ontology (:gov.unit/* :gov.address/* :gov.window/* :gov.form/* :gov.procedure/* :gov.bpmn/*)",
+        "per-unit civic-atlas DID scheme (did:web:etzhayyim.com:gov:<iso3>:...) — observational mirror",
+        "government 住所 / 窓口 / 書式 / 手続き / BPMN structural catalog"
+      ],
       "related": [
-        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
-        "doc:adr-2606021400-tsuukan-customs-clearance-orchestration-r0"
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-fiscal-flow-visualization",
+        "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "doc:adr-2605250680-etzhayyim-gov-coverage-maturity-score"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606022000",
+      "type": "TechArticle",
+      "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",
+      "status": "proposed",
+      "topic": "kabuto-public-company-intel-supply-chain",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kabuto actor charter (R0)",
+        "public-company supply-chain knowledge-graph constitutional gates G1..G12",
+        "public-company-ontology.kotoba.edn vocabulary",
+        "atproto-compatible social publish path via kotoba-server atproto.repo.write"
+      ],
+      "related": [
+        "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "doc:adr-2606012600-watatsuna-submarine-cable-knowledge-graph",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2606013600-kotoba-wasm-browser-node",
+        "doc:adr-2606013800-actor-profile-ssot-dynamic-did-json",
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0"
       ],
       "lastVerified": "2026-06-02"
     },

@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-lv-1" sourceRef="start-list-videos" targetRef="task-list-videos"/>
     <bpmn:serviceTask id="task-list-videos" name="List Videos">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.list.videos"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.list.videos"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lv-2" sourceRef="task-list-videos" targetRef="end-list-videos"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-gv-1" sourceRef="start-get-video" targetRef="task-get-video"/>
     <bpmn:serviceTask id="task-get-video" name="Get Video">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.get.video"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.get.video"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gv-2" sourceRef="task-get-video" targetRef="end-get-video"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-mv-1" sourceRef="start-migrate-video" targetRef="task-migrate-video"/>
     <bpmn:serviceTask id="task-migrate-video" name="Migrate Video">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.migrate.video"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.migrate.video"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-mv-2" sourceRef="task-migrate-video" targetRef="end-migrate-video"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-lc-1" sourceRef="start-list-channels" targetRef="task-list-channels"/>
     <bpmn:serviceTask id="task-list-channels" name="List Channels">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.list.channels"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.list.channels"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lc-2" sourceRef="task-list-channels" targetRef="end-list-channels"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-gc-1" sourceRef="start-get-channel" targetRef="task-get-channel"/>
     <bpmn:serviceTask id="task-get-channel" name="Get Channel">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.get.channel"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.get.channel"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gc-2" sourceRef="task-get-channel" targetRef="end-get-channel"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-sv-1" sourceRef="start-search-videos" targetRef="task-search-videos"/>
     <bpmn:serviceTask id="task-search-videos" name="Search Videos">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.search.videos"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.search.videos"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sv-2" sourceRef="task-search-videos" targetRef="end-search-videos"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-gm-1" sourceRef="start-get-metadata" targetRef="task-get-metadata"/>
     <bpmn:serviceTask id="task-get-metadata" name="Get Metadata">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.get.metadata"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.get.metadata"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gm-2" sourceRef="task-get-metadata" targetRef="end-get-metadata"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-lp-1" sourceRef="start-list-playlists" targetRef="task-list-playlists"/>
     <bpmn:serviceTask id="task-list-playlists" name="List Playlists">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.videosLegacy.list.playlists"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.videosLegacy.list.playlists"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lp-2" sourceRef="task-list-playlists" targetRef="end-list-playlists"/>

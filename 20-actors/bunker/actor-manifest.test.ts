@@ -23,7 +23,7 @@ describe("Bunker Actor Manifest", () => {
   });
   it("subscribes to bunker.fuelSample for compliance check", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.bunker.fuelSample");
+    expect(sub.trigger.collections).toContain("com.etzhayyim.apps.bunker.fuelSample");
   });
   it("MARPOL compliance check has 2 queries (deliveries + failed samples)", () => {
     const mp = m.pipelines.find((p: any) => p.trigger?.nsid?.includes("checkMarpolCompliance"));
@@ -31,10 +31,10 @@ describe("Bunker Actor Manifest", () => {
   });
   it("xrpc covers delivery, samples, consumption, MARPOL", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("app.etzhayyim.apps.bunker.supply.getDelivery");
-    expect(nsids).toContain("app.etzhayyim.apps.bunker.supply.listSamples");
-    expect(nsids).toContain("app.etzhayyim.apps.bunker.supply.getConsumption");
-    expect(nsids).toContain("app.etzhayyim.apps.bunker.supply.checkMarpolCompliance");
+    expect(nsids).toContain("com.etzhayyim.apps.bunker.supply.getDelivery");
+    expect(nsids).toContain("com.etzhayyim.apps.bunker.supply.listSamples");
+    expect(nsids).toContain("com.etzhayyim.apps.bunker.supply.getConsumption");
+    expect(nsids).toContain("com.etzhayyim.apps.bunker.supply.checkMarpolCompliance");
   });
   it("5 actors (VLSFO, LNG, alternative, MARPOL, emissions)", () => { expect(m.actors).toHaveLength(5); });
   it("MARPOL Annex VI compliance", () => { expect(m.governance.complianceFrameworks).toContain("MARPOL Annex VI"); });

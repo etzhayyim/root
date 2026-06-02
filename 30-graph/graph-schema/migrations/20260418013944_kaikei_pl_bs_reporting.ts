@@ -13,7 +13,7 @@ import { Kysely, sql } from 'kysely';
  *
  * DID format:
  *   j.debit_account_did   = 'did:plc:gftd-works:account:{hash16}'
- *   a.vertex_id           = 'did:plc:gftd-works|app.etzhayyim.apps.kaikei.account|{hash16}'
+ *   a.vertex_id           = 'did:plc:gftd-works|com.etzhayyim.apps.kaikei.account|{hash16}'
  *   → JOIN via SPLIT_PART(..., ':', 5) on the account DID hash.
  *
  * Spec: 90-docs/adr/0031-moneyforward-actor-replacement.md §Phase C.
@@ -42,7 +42,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|app.etzhayyim.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.debit_account_did, ':', 5)
         WHERE a.account_type = 'expense'
         UNION ALL
@@ -55,7 +55,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|app.etzhayyim.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.credit_account_did, ':', 5)
         WHERE a.account_type = 'revenue'
       ) x
@@ -86,7 +86,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|app.etzhayyim.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.debit_account_did, ':', 5)
         WHERE a.account_type IN ('asset','liability','equity')
         UNION ALL
@@ -99,7 +99,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|app.etzhayyim.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.credit_account_did, ':', 5)
         WHERE a.account_type = 'asset'
         UNION ALL
@@ -112,7 +112,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|app.etzhayyim.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.credit_account_did, ':', 5)
         WHERE a.account_type IN ('liability','equity')
         UNION ALL
@@ -125,7 +125,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|app.etzhayyim.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.debit_account_did, ':', 5)
         WHERE a.account_type IN ('liability','equity')
       ) x

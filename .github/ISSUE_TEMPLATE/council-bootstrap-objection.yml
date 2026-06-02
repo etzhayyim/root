@@ -74,5 +74,5 @@ body:
     id: at-record-uri
     attributes:
       label: AT Record URI (strongly preferred)
-      description: "AT URI of your app.etzhayyim.apps.etzhayyim.council-objection record on your PDS."
-      placeholder: "at://did:plc:.../app.etzhayyim.apps.etzhayyim.council-objection/..."
+      description: "AT URI of your com.etzhayyim.apps.etzhayyim.council-objection record on your PDS."
+      placeholder: "at://did:plc:.../com.etzhayyim.apps.etzhayyim.council-objection/..."

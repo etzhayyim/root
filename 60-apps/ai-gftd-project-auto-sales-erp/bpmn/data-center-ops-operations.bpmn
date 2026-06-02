@@ -15,7 +15,7 @@
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="Task_ResolveReverseTopo" name="Resolve Reverse Dependency Topology (Lexicon: ai.gftd.apps.dataCenterOps.dependency.getReverseTopo)">
+    <bpmn:serviceTask id="Task_ResolveReverseTopo" name="Resolve Reverse Dependency Topology (Lexicon: com.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo)">
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_2b</bpmn:outgoing>
     </bpmn:serviceTask>

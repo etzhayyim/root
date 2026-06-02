@@ -51,7 +51,7 @@ _EXCLUDED_ORIGIN_TERMS = (
 )
 
 # Feedstock grades / processes accepted by the lexicon
-# (app.etzhayyim.himawari.polysiliconProvenanceAttestation). Solar-grade ONLY —
+# (com.etzhayyim.himawari.polysiliconProvenanceAttestation). Solar-grade ONLY —
 # logic-grade 9N+ EG-Si belongs to the iwakura/fuigo/tsukuru track (N1), not here.
 _VALID_GRADES = frozenset({"solar-grade-6N", "solar-grade-6N+", "recycled-kerf"})
 _VALID_PROCESSES = frozenset({"siemens", "fbr", "umg-upgraded", "recycled"})
@@ -201,7 +201,7 @@ class PolysiliconRefineCell:
         Returns the input state plus:
           accepted          bool — True only if every G2/N6/N1 check passes
           violations        list[str] — every failed check (empty iff accepted)
-          provenance        the app.etzhayyim.himawari.polysiliconProvenanceAttestation
+          provenance        the com.etzhayyim.himawari.polysiliconProvenanceAttestation
                             record (built even on refusal, so the refusal itself is
                             auditable on-chain); carries lexicon-required recordedAt,
                             chainOfCustody (array of #custodyHop), and attestingRobots
@@ -295,7 +295,7 @@ class PolysiliconRefineCell:
         # The refusal record is itself anchored so a rejected lot is permanently
         # auditable (a forced-labor lot that was turned away leaves a trail).
         provenance: dict[str, Any] = {
-            "$type": "app.etzhayyim.himawari.polysiliconProvenanceAttestation",
+            "$type": "com.etzhayyim.himawari.polysiliconProvenanceAttestation",
             "lotId": lot_id,
             "recordedAt": recorded_at,
             "feedstockGrade": grade,

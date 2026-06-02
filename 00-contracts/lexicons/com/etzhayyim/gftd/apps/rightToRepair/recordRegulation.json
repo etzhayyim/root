@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rightToRepair.recordRegulation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Right to Repair law / standard (EU ESPR / US 50-state / IN / JP — bridges textile-circularity + ev-charging-ocpp + antitrust-dma + oss-vuln)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "regulationId",
+            "jurisdictionIso3",
+            "scopeCategories",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "regulationId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "scopeCategories": {
+              "type": "string",
+              "description": "comma: smartphones,tablets,washers,dryers,dishwashers,televisions,monitors,vacuum,ev_bat,industrial,agricultural"
+            },
+            "mandatesPartsAvailability": {
+              "type": "boolean"
+            },
+            "mandatesSoftwareUpdates": {
+              "type": "boolean"
+            },
+            "mandatesDocumentation": {
+              "type": "boolean"
+            },
+            "effectiveFrom": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "strengthTier": {
+              "type": "string",
+              "enum": [
+                "narrow",
+                "moderate",
+                "comprehensive"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

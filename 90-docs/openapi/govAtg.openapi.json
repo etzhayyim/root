@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govAtg.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govAtg.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Antigua and Barbuda government.",
-        "operationId": "app.etzhayyim.govAtg.followSiteDeps",
+        "operationId": "com.etzhayyim.govAtg.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govAtg.heartbeatTick": {
       "post": {
         "summary": "Run the Antigua and Barbuda government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govAtg.heartbeatTick",
+        "operationId": "com.etzhayyim.govAtg.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.listOrgs": {
+    "/xrpc/com.etzhayyim.govAtg.listOrgs": {
       "get": {
         "summary": "List Antigua and Barbuda government organization graph records.",
-        "operationId": "app.etzhayyim.govAtg.listOrgs",
+        "operationId": "com.etzhayyim.govAtg.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.registerDIDs": {
+    "/xrpc/com.etzhayyim.govAtg.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Antigua and Barbuda government organizations.",
-        "operationId": "app.etzhayyim.govAtg.registerDIDs",
+        "operationId": "com.etzhayyim.govAtg.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govAtg.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Antigua and Barbuda government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govAtg.resolveOrgPath",
+        "operationId": "com.etzhayyim.govAtg.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.seedOrgs": {
+    "/xrpc/com.etzhayyim.govAtg.seedOrgs": {
       "post": {
         "summary": "Seed initial Antigua and Barbuda government organization records into the graph.",
-        "operationId": "app.etzhayyim.govAtg.seedOrgs",
+        "operationId": "com.etzhayyim.govAtg.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.shinka": {
+    "/xrpc/com.etzhayyim.govAtg.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Antigua and Barbuda government organization update.",
-        "operationId": "app.etzhayyim.govAtg.shinka",
+        "operationId": "com.etzhayyim.govAtg.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAtg.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govAtg.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Antigua and Barbuda government organization changes to graph.",
-        "operationId": "app.etzhayyim.govAtg.syncWetUpdates",
+        "operationId": "com.etzhayyim.govAtg.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

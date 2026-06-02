@@ -152,7 +152,7 @@ def scan_sample(sample_paths: Iterable[Path], *, kind: str, sample_rows: int = 2
     """Run the §2 scan over a sample of files; return a result dict.
 
     The result shape matches the `charterRiderScan` sub-object of the
-    `app.etzhayyim.substrate.datasetPin` lexicon.
+    `com.etzhayyim.substrate.datasetPin` lexicon.
     """
     now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     strict = os.environ.get(STRICT_ENV, "0") == "1"

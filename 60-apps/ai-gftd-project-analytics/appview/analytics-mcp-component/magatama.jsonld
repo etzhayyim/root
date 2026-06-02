@@ -25,8 +25,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.analytics.dashboard",
-        "ai.gftd.apps.analytics.event"
+        "com.etzhayyim.apps.analytics.dashboard",
+        "com.etzhayyim.apps.analytics.event"
       ]
     }
   }

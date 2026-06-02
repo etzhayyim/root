@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sbtnTarget.recordTarget",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Science-Based Targets for Nature target (bridges tnfdDisclosure.flagGreenwash + biodiversity-gbf + climate-value-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "targetId",
+            "realm",
+            "pressureKind",
+            "validatedAt"
+          ],
+          "properties": {
+            "targetId": {
+              "type": "string"
+            },
+            "companyLei": {
+              "type": "string"
+            },
+            "realm": {
+              "type": "string",
+              "enum": [
+                "freshwater",
+                "land",
+                "ocean",
+                "biodiversity_integrated",
+                "climate",
+                "pollution"
+              ]
+            },
+            "pressureKind": {
+              "type": "string",
+              "enum": [
+                "water_withdrawal",
+                "water_pollution",
+                "land_footprint",
+                "deforestation",
+                "ocean_use",
+                "noise_pollution",
+                "light",
+                "agri_chemical",
+                "plastic"
+              ]
+            },
+            "baselineYear": {
+              "type": "integer"
+            },
+            "targetYear": {
+              "type": "integer"
+            },
+            "greenwashVid": {
+              "type": "string",
+              "description": "bridges tnfdDisclosure.flagGreenwash"
+            },
+            "validatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

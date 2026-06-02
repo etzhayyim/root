@@ -10,9 +10,9 @@ Constitutional ceiling (CRITICAL — IMMUTABLE): G5 — this is a DATE COMPUTATI
 explicitly NOT a legal opinion or rights-determination (coolingOffAssessment.
 isLegalOpinion const false); borderline/complex cases route to chigiri +
 licensed counsel. G8 non-fabrication (uses verified 日数 only; member confirms
-input facts); G6 contract detail only in app.etzhayyim.encrypted.* (never
+input facts); G6 contract detail only in com.etzhayyim.encrypted.* (never
 inline); Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.kurashimori.coolingOffAssessment.
+Output Lexicon(s): com.etzhayyim.kurashimori.coolingOffAssessment.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

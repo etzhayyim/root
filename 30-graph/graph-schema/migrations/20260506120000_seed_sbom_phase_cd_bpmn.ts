@@ -7,8 +7,8 @@ import { sql } from "kysely";
 /**
  * sbom.etzhayyim.com — Phase C feeder (cveIngestOsv) + Phase D query (recall).
  *
- *   sbom_cve_ingest_osv  app.etzhayyim.apps.sbom.cveIngestOsv
- *   sbom_recall          app.etzhayyim.apps.sbom.recall
+ *   sbom_cve_ingest_osv  com.etzhayyim.apps.sbom.cveIngestOsv
+ *   sbom_recall          com.etzhayyim.apps.sbom.recall
  *
  * Both registered as version 1; F5 watcher deploys to Zeebe within 30s.
  */
@@ -34,31 +34,31 @@ const actorTag = "sys.bpmn.seed.sbom-phase-cd";
 const processSeeds: P[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-cve-ingest-osv-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/sbom-cve-ingest-osv-v1",
     bpmnProcessId: "sbom_cve_ingest_osv",
-    sourcePath: "00-contracts/bpmn/ai/gftd/sbom/cveIngestOsv.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/sbom/cveIngestOsv.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-recall-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/sbom-recall-v1",
     bpmnProcessId: "sbom_recall",
-    sourcePath: "00-contracts/bpmn/ai/gftd/sbom/recall.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/sbom/recall.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-cveIngestOsv-v1",
-    nsid: "app.etzhayyim.apps.sbom.cveIngestOsv",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/sbom-cveIngestOsv-v1",
+    nsid: "com.etzhayyim.apps.sbom.cveIngestOsv",
     bpmnProcessId: "sbom_cve_ingest_osv",
     ownerDid,
     // 1h — daily refresh can pull tens of thousands of vulnerabilities.
     resultTimeoutMs: 3_600_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-recall-v1",
-    nsid: "app.etzhayyim.apps.sbom.recall",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/sbom-recall-v1",
+    nsid: "com.etzhayyim.apps.sbom.recall",
     bpmnProcessId: "sbom_recall",
     ownerDid,
     resultTimeoutMs: 60_000,

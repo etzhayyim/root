@@ -1,10 +1,10 @@
 """yukkuri `generateBgm` graph — ongakuka.compose cross-project invoke.
 
-NSID: app.etzhayyim.apps.yukkuri.generateBgm
+NSID: com.etzhayyim.apps.yukkuri.generateBgm
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:composer
 
-Calls app.etzhayyim.ongakuka.compose XRPC to generate BGM for the video.
+Calls com.etzhayyim.ongakuka.compose XRPC to generate BGM for the video.
 Stores returned blob_key in vertex_yukkuri_asset (kind='bgm').
 
 CLAP cosine guard: ongakuka rejects similarity > 0.92 to existing works
@@ -30,7 +30,7 @@ _log = logging.getLogger(__name__)
 
 _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _ONGAKUKA_URL = os.environ.get(
-    "ONGAKUKA_XRPC_URL", "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.ongakuka.compose"
+    "ONGAKUKA_XRPC_URL", "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.ongakuka.compose"
 )
 _ONGAKUKA_TIMEOUT = float(os.environ.get("ONGAKUKA_TIMEOUT_SEC", "120"))
 _APP_DID = os.environ.get("YUKKURI_APP_DID", "did:web:yukkuri.etzhayyim.com")

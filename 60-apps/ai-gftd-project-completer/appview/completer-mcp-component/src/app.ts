@@ -11,7 +11,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.completer.";
+const NSID_PREFIX = "com.etzhayyim.apps.completer.";
 const ACTOR_DID = "did:web:completer.gftd.ai";
 
 export default {

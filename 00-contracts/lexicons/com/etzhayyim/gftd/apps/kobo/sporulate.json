@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kobo.sporulate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trigger sporulation: pack minimal agent state (prions + config) into a CBOR blob, create vertex_houshi_spore, and distribute custody edges to N peer agents. Used when stress_score exceeds threshold.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "agentDid": { "type": "string", "description": "Agent undergoing sporulation" },
+            "custodianDids": { "type": "array", "items": { "type": "string" }, "description": "Peer DIDs that will hold spore custody" },
+            "quorumN": { "type": "integer", "description": "Minimum custodians required to germinate", "default": 2 }
+          },
+          "required": ["agentDid", "custodianDids"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sporeVertexId": { "type": "string" },
+            "custodyEdgeIds": { "type": "array", "items": { "type": "string" } },
+            "revivalKeyHint": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["sporeVertexId", "custodyEdgeIds"]
+        }
+      }
+    }
+  }
+}

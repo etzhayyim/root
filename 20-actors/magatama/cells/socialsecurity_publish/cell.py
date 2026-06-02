@@ -18,7 +18,7 @@ Constitutional ceiling (CRITICAL - IMMUTABLE):
   - G13 TRANSPARENT: every publish emits an audit datom (Transparent Force §1.12).
   - G11 LIVE-ACTION GATE: published=false in R0/R1 (drafted, not published);
     real publish only post Council Lv7+ §1.16 ratify.
-Output Lexicon(s): app.etzhayyim.socialsecurity.metricReport (+ feed-post records).
+Output Lexicon(s): com.etzhayyim.socialsecurity.metricReport (+ feed-post records).
 
 R0 scaffold - import-time RuntimeError until R2 (first public declaration + metric).
 """

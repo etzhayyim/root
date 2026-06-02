@@ -7,7 +7,7 @@
 //   POST /mcp                           — JSON-RPC 2.0 MCP server (5 tools)
 //   *                                   — Svelte SPA via ASSETS binding
 //
-// MCP tools (app.etzhayyim.apps.studio.*):
+// MCP tools (com.etzhayyim.apps.studio.*):
 //   listGraphs    — registered LangGraph graphs (proxy /assistants/search)
 //   getGraphDag   — nodes+edges for a graph (proxy /assistants/{}/graph)
 //   runGraph      — invoke graph, return collected stage updates + image previews

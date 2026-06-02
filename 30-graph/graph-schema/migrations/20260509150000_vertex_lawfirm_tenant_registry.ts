@@ -3,7 +3,7 @@ import { sql } from "kysely";
 
 /**
  * vertex_lawfirm_tenant — registry table backing the
- * app.etzhayyim.apps.lawfirm.tenantBootstrap procedure.
+ * com.etzhayyim.apps.lawfirm.tenantBootstrap procedure.
  *
  * Companion to 20260509060000 which added tenant_id columns to all
  * lawfirm scope-tables for query-time isolation. This migration adds
@@ -124,7 +124,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   for (const t of SEED) {
     const tenantId = `sandbox-${t.slug}`;
-    const vertexId = `at://did:web:lawfirm.etzhayyim.com/app.etzhayyim.apps.lawfirm.tenant/${tenantId}`;
+    const vertexId = `at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenant/${tenantId}`;
     const tenantDid = `did:web:${t.slug}.sandbox.lawfirm.etzhayyim.com`;
     const pdsUrl = `https://${t.slug}.sandbox.lawfirm.etzhayyim.com`;
     const kpi = `https://kpi-lawfirm.etzhayyim.com/${t.slug}`;
@@ -143,7 +143,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     `.execute(db);
 
     // tenant <-> lead edge
-    const leadVid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.lawfirm.lead/${t.lead}`;
+    const leadVid = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.lawfirm.lead/${t.lead}`;
     const edgeId = `edge:tenant:${tenantId}:for-lead:${t.lead}`;
     await sql`
       INSERT INTO edge_lawfirm_tenant_lead
@@ -156,7 +156,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     `.execute(db);
 
     // audit-log: provisioning event (status: '' -> pending_kickoff)
-    const eventVid = `at://did:web:lawfirm.etzhayyim.com/app.etzhayyim.apps.lawfirm.tenantEvent/${tenantId}-provisioned`;
+    const eventVid = `at://did:web:lawfirm.etzhayyim.com/com.etzhayyim.apps.lawfirm.tenantEvent/${tenantId}-provisioned`;
     await sql`
       INSERT INTO vertex_lawfirm_tenant_event
         (vertex_id, tenant_id, event_kind, from_status, to_status,

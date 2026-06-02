@@ -38,13 +38,13 @@ const procedures = {
 
 function emitRecord(country, cofog, procedure, idx) {
   return {
-    $type: 'app.etzhayyim.gov.agency#procedure',
+    $type: 'com.etzhayyim.gov.agency#procedure',
     uri: `at://etzhayyim.com/gov/${country.iso3}/g20-expansion/${cofog.code}/${idx}`,
     agencyName: country.name,
     agencyIso3: country.iso3,
     procedureName: procedure,
     cofogCode: cofog.code,
-    bpmnReference: `00-contracts/bpmn/ai/gftd/gov${country.iso3}/${cofog.name.toLowerCase()}/procedure-${procedure}.bpmn`,
+    bpmnReference: `00-contracts/bpmn/com/etzhayyim/gov${country.iso3}/${cofog.name.toLowerCase()}/procedure-${procedure}.bpmn`,
     jurisdiction: country.iso3,
     createdAt: new Date().toISOString(),
     phase: 'L4-G20-expansion',

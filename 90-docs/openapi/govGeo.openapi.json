@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govGeo.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govGeo.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Georgia government.",
-        "operationId": "app.etzhayyim.govGeo.followSiteDeps",
+        "operationId": "com.etzhayyim.govGeo.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govGeo.heartbeatTick": {
       "post": {
         "summary": "Run the Georgia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govGeo.heartbeatTick",
+        "operationId": "com.etzhayyim.govGeo.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.listOrgs": {
+    "/xrpc/com.etzhayyim.govGeo.listOrgs": {
       "get": {
         "summary": "List Georgia government organization graph records.",
-        "operationId": "app.etzhayyim.govGeo.listOrgs",
+        "operationId": "com.etzhayyim.govGeo.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.registerDIDs": {
+    "/xrpc/com.etzhayyim.govGeo.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Georgia government organizations.",
-        "operationId": "app.etzhayyim.govGeo.registerDIDs",
+        "operationId": "com.etzhayyim.govGeo.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govGeo.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Georgia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govGeo.resolveOrgPath",
+        "operationId": "com.etzhayyim.govGeo.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.seedOrgs": {
+    "/xrpc/com.etzhayyim.govGeo.seedOrgs": {
       "post": {
         "summary": "Seed initial Georgia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govGeo.seedOrgs",
+        "operationId": "com.etzhayyim.govGeo.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.shinka": {
+    "/xrpc/com.etzhayyim.govGeo.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Georgia government organization update.",
-        "operationId": "app.etzhayyim.govGeo.shinka",
+        "operationId": "com.etzhayyim.govGeo.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGeo.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govGeo.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Georgia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govGeo.syncWetUpdates",
+        "operationId": "com.etzhayyim.govGeo.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

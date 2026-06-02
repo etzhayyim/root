@@ -47,8 +47,8 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.hrse.assignment",
-        "ai.gftd.apps.hrse.evaluation"
+        "com.etzhayyim.apps.hrse.assignment",
+        "com.etzhayyim.apps.hrse.evaluation"
       ]
     }
   },

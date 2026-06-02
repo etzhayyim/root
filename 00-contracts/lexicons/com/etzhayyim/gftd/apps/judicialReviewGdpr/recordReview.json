@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judicialReviewGdpr.recordReview",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "National court / CJEU judicial review of GDPR action (bridges gdprEnforcementPattern.flagFinePatterns + federal-court-docket + schrems-challenge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reviewId",
+            "forum",
+            "appellantCategory",
+            "groundsKind",
+            "filedAt"
+          ],
+          "properties": {
+            "reviewId": {
+              "type": "string"
+            },
+            "forum": {
+              "type": "string",
+              "enum": [
+                "cjeu",
+                "general_court_eu",
+                "advocate_general",
+                "bundesverfassungsgericht",
+                "oberlandesgericht",
+                "bverwg",
+                "conseil_deta",
+                "council_of_state_it",
+                "audiencia_nacional_es",
+                "supreme_ie",
+                "tribunal_suisse",
+                "uk_high_court"
+              ]
+            },
+            "appellantCategory": {
+              "type": "string",
+              "enum": [
+                "dpa",
+                "data_subject",
+                "controller",
+                "processor",
+                "joint_controller",
+                "ngo",
+                "government",
+                "industry_association"
+              ]
+            },
+            "groundsKind": {
+              "type": "string",
+              "enum": [
+                "procedural_violation",
+                "proportionality",
+                "misinterpretation",
+                "legitimate_interest",
+                "transfer_validity",
+                "adequacy_proportionality",
+                "erasure_limits",
+                "right_to_be_forgotten",
+                "ai_training_gap",
+                "opt_out_mechanism"
+              ]
+            },
+            "patternVid": {
+              "type": "string",
+              "description": "bridges gdprEnforcementPattern.flagFinePatterns"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

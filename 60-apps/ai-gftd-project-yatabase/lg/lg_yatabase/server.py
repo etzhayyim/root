@@ -67,16 +67,16 @@ GRAPHS: dict[str, Any] = {
 }
 
 NSID_TO_GRAPH = {
-    "app.etzhayyim.apps.yata.lg.health": "health",
-    "app.etzhayyim.apps.yata.lg.marketing.run": "marketing",
-    "app.etzhayyim.apps.yata.lg.sales.run": "sales",
-    "app.etzhayyim.apps.yata.lg.bmc.iterate": "bmc_iteration",
-    "app.etzhayyim.apps.yata.lg.bmc.agent.run": "bmc_agent",
-    "app.etzhayyim.apps.yata.lg.leadDiscovery.run": "lead_discovery",
-    "app.etzhayyim.apps.yata.lg.activation.run": "activation",
-    "app.etzhayyim.apps.yata.lg.conversion.run": "conversion",
-    "app.etzhayyim.apps.yata.lg.retention.run": "retention",
-    "app.etzhayyim.apps.yata.lg.emailSender.run": "email_sender",
+    "com.etzhayyim.apps.yata.lg.health": "health",
+    "com.etzhayyim.apps.yata.lg.marketing.run": "marketing",
+    "com.etzhayyim.apps.yata.lg.sales.run": "sales",
+    "com.etzhayyim.apps.yata.lg.bmc.iterate": "bmc_iteration",
+    "com.etzhayyim.apps.yata.lg.bmc.agent.run": "bmc_agent",
+    "com.etzhayyim.apps.yata.lg.leadDiscovery.run": "lead_discovery",
+    "com.etzhayyim.apps.yata.lg.activation.run": "activation",
+    "com.etzhayyim.apps.yata.lg.conversion.run": "conversion",
+    "com.etzhayyim.apps.yata.lg.retention.run": "retention",
+    "com.etzhayyim.apps.yata.lg.emailSender.run": "email_sender",
 }
 
 _scheduler = AsyncIOScheduler(timezone="Asia/Tokyo")
@@ -87,31 +87,31 @@ app = FastAPI(
     version="0.0.2",
 )
 
-# BMC XRPC surface (`app.etzhayyim.apps.yata.bmc*`). Must be mounted before the
+# BMC XRPC surface (`com.etzhayyim.apps.yata.bmc*`). Must be mounted before the
 # `/xrpc/{nsid}` catch-all so explicit routes win in registration order.
 app.include_router(BMC_ROUTER)
 
-# Auth XRPC surface (`app.etzhayyim.apps.yata.{signup,invite,revoke}`).
+# Auth XRPC surface (`com.etzhayyim.apps.yata.{signup,invite,revoke}`).
 # Owns vertex_api_key writes — Worker no longer touches Hyperdrive per
 # ADR-2605111200. Same x-internal-trust HMAC + identity headers as BMC.
 app.include_router(AUTH_ROUTER)
 
-# Leads CRM XRPC surface (`app.etzhayyim.apps.yata.lead{Ingest,List,Get,
+# Leads CRM XRPC surface (`com.etzhayyim.apps.yata.lead{Ingest,List,Get,
 # SetOutreachStatus,SetContactEmail,SetEnrichment,MarkDrafted,Ready,
 # Sendable,NeedsEnrichment}`). Owns vertex_lead writes.
 app.include_router(LEADS_ROUTER)
 
-# Outbox-review XRPC surface (`app.etzhayyim.apps.yata.outbox{List,Approve,
+# Outbox-review XRPC surface (`com.etzhayyim.apps.yata.outbox{List,Approve,
 # Reject}`). Marketing + sales graphs emit drafts at status='queued-no-
 # recipient'; reviewers flip them to 'queued' via these endpoints (P21).
 # Same x-internal-trust HMAC; admin gate enforced by the yatabase Worker.
 app.include_router(OUTBOX_ROUTER)
 
 # Deploy-first query XRPC surface (ADR-2605210000).
-# app.etzhayyim.apps.yata.{deployQuery,executeDeployedQuery,listDeployedQueries,deleteDeployedQuery}
+# com.etzhayyim.apps.yata.{deployQuery,executeDeployedQuery,listDeployedQueries,deleteDeployedQuery}
 app.include_router(QUERY_ROUTER)
 
-# Meter event XRPC surface (app.etzhayyim.apps.yata.meterEvent).
+# Meter event XRPC surface (com.etzhayyim.apps.yata.meterEvent).
 # CF Worker emitMeter() calls this pod-side so billing events reach RisingWave
 # (Worker cannot use Hyperdrive per ADR-2605111200).
 app.include_router(METER_ROUTER)

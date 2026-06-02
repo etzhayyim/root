@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.plc.getLog",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Proxy for plc.etzhayyim.com GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync.",
+      "parameters": {
+        "type": "params",
+        "required": ["did"],
+        "properties": {
+          "did": { "type": "string", "format": "did" },
+          "includeNullified": {
+            "type": "boolean",
+            "default": false,
+            "description": "include ops marked as nullified due to chain fork resolution"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "ops", "count"],
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "count": { "type": "integer" },
+            "ops": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["seq", "cid", "signedByKey", "createdAt"],
+                "properties": {
+                  "seq": { "type": "integer" },
+                  "cid": { "type": "string", "format": "cid" },
+                  "prevCid": { "type": "string", "format": "cid" },
+                  "signedByKey": { "type": "string", "format": "did" },
+                  "signature": { "type": "string" },
+                  "opType": { "type": "string", "enum": ["plc_operation", "plc_tombstone"] },
+                  "nullified": { "type": "boolean", "default": false },
+                  "createdAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "integrityVerified": {
+              "type": "boolean",
+              "description": "true if signature chain was verified end-to-end server-side"
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "DidNotFound" },
+        { "name": "ChainIntegrityBroken", "description": "signature chain verification failed (report to PLC operators)" }
+      ]
+    }
+  }
+}

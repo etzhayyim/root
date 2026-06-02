@@ -128,7 +128,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vessel.ship"
+          "com.etzhayyim.apps.vessel.ship"
         ],
         "type": "subscribeRepos"
       }
@@ -144,7 +144,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineInsurance.underwriting.getPolicy",
+        "nsid": "com.etzhayyim.apps.marineInsurance.underwriting.getPolicy",
         "type": "xrpc"
       }
     },
@@ -159,7 +159,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineInsurance.underwriting.listPolicies",
+        "nsid": "com.etzhayyim.apps.marineInsurance.underwriting.listPolicies",
         "type": "xrpc"
       }
     },
@@ -174,7 +174,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineInsurance.underwriting.listClaims",
+        "nsid": "com.etzhayyim.apps.marineInsurance.underwriting.listClaims",
         "type": "xrpc"
       }
     },
@@ -189,7 +189,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineInsurance.underwriting.listPiEntries",
+        "nsid": "com.etzhayyim.apps.marineInsurance.underwriting.listPiEntries",
         "type": "xrpc"
       }
     },
@@ -220,7 +220,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineInsurance.underwriting.getVesselCoverage",
+        "nsid": "com.etzhayyim.apps.marineInsurance.underwriting.getVesselCoverage",
         "type": "xrpc"
       }
     },
@@ -235,7 +235,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineInsurance.health",
+        "nsid": "com.etzhayyim.apps.marineInsurance.health",
         "type": "xrpc"
       }
     },
@@ -261,7 +261,7 @@
             "params": {
               "actorName": "marine-insurance",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.marineinsurance.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.marineinsurance.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "m1ns0001",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -299,7 +299,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.marineinsurance.coverage.get",
+        "nsid": "com.etzhayyim.apps.marineinsurance.coverage.get",
         "type": "xrpc"
       }
     }
@@ -320,8 +320,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -334,11 +334,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.marineInsurance.policy",
-        "ai.gftd.apps.marineInsurance.claim",
-        "ai.gftd.apps.marineInsurance.generalAverage",
-        "ai.gftd.apps.marineInsurance.piEntry",
-        "ai.gftd.apps.vessel.ship"
+        "com.etzhayyim.apps.marineInsurance.policy",
+        "com.etzhayyim.apps.marineInsurance.claim",
+        "com.etzhayyim.apps.marineInsurance.generalAverage",
+        "com.etzhayyim.apps.marineInsurance.piEntry",
+        "com.etzhayyim.apps.vessel.ship"
       ]
     }
   },

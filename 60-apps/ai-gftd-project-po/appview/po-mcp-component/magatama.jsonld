@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.po.purchaseOrder",
-        "ai.gftd.apps.po.supplier"
+        "com.etzhayyim.apps.po.purchaseOrder",
+        "com.etzhayyim.apps.po.supplier"
       ]
     }
   }

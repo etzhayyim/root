@@ -84,7 +84,7 @@ def apps(ctx: click.Context, workspace_dir: str | None, pds: str | None, json_ou
     tok = auth.get("accessJwt") or auth.get("access_token") or ""
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.apps.listApps",
+            f"{pds_url}/xrpc/com.etzhayyim.apps.listApps",
             headers={"Authorization": f"Bearer {tok}"} if tok else {},
             timeout=30,
         )
@@ -143,7 +143,7 @@ def apps_health(url: str, nanoid: str, json_out: bool) -> None:
 
 # ── coverage helpers ───────────────────────────────────────────────────────────
 
-_RE_COLLECTION = re.compile(r"""["']((?:ai\.gftd\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["']""")
+_RE_COLLECTION = re.compile(r"""["']((?:com\.etzhayyim\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["']""")
 _RE_SQL_LABEL = re.compile(r"""vertex_([a-z0-9_]+)""")
 _RE_CUSTOM_CMD = re.compile(r"""sdk\.app\.command\s*\(""")
 _RE_BUSINESS_RULE = re.compile(r"""(?:if|when|require|assert|validate)\s*\(""")
@@ -184,7 +184,7 @@ def _list_pds_records(pds_url: str, token: str, repo_did: str, collection: str,
 def _xrpc_coverage_stats(nanoid: str, app_name: str, token: str, timeout: int = 15) -> dict | None:
     if not app_name:
         app_name = nanoid
-    url = f"https://{nanoid}.etzhayyim.com/xrpc/app.etzhayyim.apps.{app_name}.coverageStats"
+    url = f"https://{nanoid}.etzhayyim.com/xrpc/com.etzhayyim.apps.{app_name}.coverageStats"
     headers = {"Content-Type": "application/json"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
@@ -200,7 +200,7 @@ def _xrpc_coverage_stats(nanoid: str, app_name: str, token: str, timeout: int = 
 def _infer_app_name_from_collections(cols: list[str]) -> str:
     for col in cols:
         parts = col.split(".")
-        if len(parts) >= 5 and parts[:3] == ["ai", "gftd", "apps"]:
+        if len(parts) >= 5 and parts[:3] == ["com", "etzhayyim", "apps"]:
             return parts[3]
     return ""
 
@@ -290,7 +290,7 @@ def apps_coverage(nanoid: str, pds: str | None, timeout: int,
     repo_dids = [did, f"did:web:{nanoid}.etzhayyim.com"]
     repo_dids = list(dict.fromkeys(repo_dids))
     for repo_did in repo_dids:
-        for col in (collections or [f"app.etzhayyim.apps.{nanoid}.status"]):
+        for col in (collections or [f"com.etzhayyim.apps.{nanoid}.status"]):
             recs = _list_pds_records(pds_url, token, repo_did, col, 250, timeout)
             for r in recs:
                 live_records += 1
@@ -412,7 +412,7 @@ def apps_kyumei_koji(nanoid: str, pds: str | None, domain: str, fast: bool,
     # Live record counts from PDS
     repo_dids = list(dict.fromkeys([did, f"did:web:{nanoid}.etzhayyim.com"]))
     live_record_counts: dict[str, int] = {}
-    default_cols = [f"app.etzhayyim.apps.{nanoid}.status"] if not collections else []
+    default_cols = [f"com.etzhayyim.apps.{nanoid}.status"] if not collections else []
     for col in (collections or default_cols):
         total = 0
         for repo_did in repo_dids:
@@ -428,7 +428,7 @@ def apps_kyumei_koji(nanoid: str, pds: str | None, domain: str, fast: bool,
         for path in sub_did_paths[:12]:
             sub_did = f"did:web:{nanoid}.etzhayyim.com:{path.replace('/', ':')}"
             cnt = 0
-            for col in (collections[:3] or [f"app.etzhayyim.apps.{nanoid}.status"]):
+            for col in (collections[:3] or [f"com.etzhayyim.apps.{nanoid}.status"]):
                 cnt += len(_list_pds_records(pds_url, token, sub_did, col, 100, timeout))
             sub_dids_info.append({"path": path, "records": cnt})
             if cnt > 0:

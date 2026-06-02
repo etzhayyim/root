@@ -3,7 +3,7 @@
   "formKey": "openPower.reportOutage.v1",
   "name": "Report Outage",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openPower.reportOutage",
+  "lexiconRef": "com.etzhayyim.apps.openPower.reportOutage",
   "components": [
     {
       "key": "feederDid",

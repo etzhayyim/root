@@ -29,7 +29,7 @@ function emitHierarchyRecord(country, org_name, parent_name, hierarchy_level, re
   const timestamp = new Date().toISOString();
 
   return {
-    $type: 'app.etzhayyim.gov.hierarchy#orgHierarchy',
+    $type: 'com.etzhayyim.gov.hierarchy#orgHierarchy',
     uri: `at://etzhayyim.com/gov/${country.iso3}/hierarchy/${++hierarchy_count}`,
     countryIso3: country.iso3,
     orgName: org_name,

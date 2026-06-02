@@ -22,17 +22,17 @@ interface BpmnEntry {
 const ENTRIES: BpmnEntry[] = [
   {
     processId: "graphSosIntel_inventoryTick",
-    bpmnPath: "00-contracts/bpmn/ai/gftd/graph-sos-intel/inventory-tick.bpmn",
-    processVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1",
-    bindingVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1",
-    nsid: "app.etzhayyim.apps.graphSosIntel.inventoryTick",
+    bpmnPath: "00-contracts/bpmn/com/etzhayyim/graph-sos-intel/inventory-tick.bpmn",
+    processVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-sos-intel-inventory-tick-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-inventory-tick-v1",
+    nsid: "com.etzhayyim.apps.graphSosIntel.inventoryTick",
   },
   {
     processId: "graphSosIntel_briefingTick",
-    bpmnPath: "00-contracts/bpmn/ai/gftd/graph-sos-intel/briefing-tick.bpmn",
-    processVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1",
-    bindingVid: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1",
-    nsid: "app.etzhayyim.apps.graphSosIntel.briefingTick",
+    bpmnPath: "00-contracts/bpmn/com/etzhayyim/graph-sos-intel/briefing-tick.bpmn",
+    processVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-sos-intel-briefing-tick-v1",
+    bindingVid: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/graph-sos-intel-briefing-tick-v1",
+    nsid: "com.etzhayyim.apps.graphSosIntel.briefingTick",
   },
 ];
 

@@ -32,7 +32,7 @@ import {
   type SerialView,
 } from "./types.js";
 
-const SERIAL_COLLECTION = "app.etzhayyim.issn.serial";
+const SERIAL_COLLECTION = "com.etzhayyim.issn.serial";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

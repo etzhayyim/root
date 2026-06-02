@@ -13,7 +13,7 @@ import { getSessionToken } from '$lib/auth';
 
 const CACHE_KEY = 'yoroXpCache';
 const PDS = 'https://atproto.etzhayyim.com';
-const DOJO_NSID = 'app.etzhayyim.apps.dojo';
+const DOJO_NSID = 'com.etzhayyim.apps.dojo';
 
 async function authHeaders(): Promise<Record<string, string>> {
 	const token = await getSessionToken().catch(() => null);

@@ -86,13 +86,13 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.crowdfunding.campaign",
-        "ai.gftd.apps.crowdfunding.reward",
-        "ai.gftd.apps.crowdfunding.pledge",
-        "ai.gftd.apps.crowdfunding.campaignUpdate",
-        "ai.gftd.apps.crowdfunding.analyticsEvent",
-        "ai.gftd.apps.tsukuru.production_progress",
-        "ai.gftd.apps.tsukuru.quality_inspection"
+        "com.etzhayyim.apps.crowdfunding.campaign",
+        "com.etzhayyim.apps.crowdfunding.reward",
+        "com.etzhayyim.apps.crowdfunding.pledge",
+        "com.etzhayyim.apps.crowdfunding.campaignUpdate",
+        "com.etzhayyim.apps.crowdfunding.analyticsEvent",
+        "com.etzhayyim.apps.tsukuru.production_progress",
+        "com.etzhayyim.apps.tsukuru.quality_inspection"
       ]
     }
   },
@@ -101,46 +101,46 @@
   "derive": {
     "social": [
       {
-        "on": "ai.gftd.apps.crowdfunding.campaign",
+        "on": "com.etzhayyim.apps.crowdfunding.campaign",
         "when": { "status": "live" },
         "template": "[Crowdfunding] \"{{title}}\" is now live! Goal: ¥{{goalAmount}} — Support now at crowdfunding.etzhayyim.com"
       },
       {
-        "on": "ai.gftd.apps.crowdfunding.campaign",
+        "on": "com.etzhayyim.apps.crowdfunding.campaign",
         "when": { "status": "funded" },
         "template": "[Crowdfunding] \"{{title}}\" funded! ¥{{currentAmount}} raised — manufacturing order submitted"
       },
       {
-        "on": "ai.gftd.apps.crowdfunding.campaign",
+        "on": "com.etzhayyim.apps.crowdfunding.campaign",
         "when": { "status": "failed" },
         "template": "[Crowdfunding] \"{{title}}\" did not reach its goal. All pledges will be refunded."
       },
       {
-        "on": "ai.gftd.apps.crowdfunding.campaign",
+        "on": "com.etzhayyim.apps.crowdfunding.campaign",
         "when": { "status": "fulfillment" },
         "template": "[Crowdfunding → Manufacturing] \"{{title}}\" 製造発注完了 → tsukuru.etzhayyim.com"
       },
       {
-        "on": "ai.gftd.apps.crowdfunding.campaignUpdate",
+        "on": "com.etzhayyim.apps.crowdfunding.campaignUpdate",
         "template": "[Crowdfunding Update] {{campaignTitle}}: {{title}}"
       },
       {
-        "on": "ai.gftd.apps.tsukuru.production_progress",
+        "on": "com.etzhayyim.apps.tsukuru.production_progress",
         "when": { "productionOrderId": "cf_*" },
         "template": "[Manufacturing Update] {{milestone}} ({{percentage}}%)"
       },
       {
-        "on": "ai.gftd.apps.tsukuru.quality_inspection",
+        "on": "com.etzhayyim.apps.tsukuru.quality_inspection",
         "when": { "result": "pass", "productionOrderId": "cf_*" },
         "template": "[Crowdfunding] QC passed! Shipping to backers soon."
       }
     ],
     "invoke": [
       {
-        "on": "ai.gftd.apps.crowdfunding.campaign",
+        "on": "com.etzhayyim.apps.crowdfunding.campaign",
         "when": { "status": "fulfillment" },
         "target": "did:web:tsukuru.etzhayyim.com",
-        "method": "ai.gftd.apps.tsukuru.productionOrder.createProductionOrder",
+        "method": "com.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder",
         "map": {
           "okaimono_order_id": "cf_{{id}}",
           "customer_id": "{{productDid}}",

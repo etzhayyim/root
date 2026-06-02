@@ -30,13 +30,13 @@
     "kotoba QuadStore EAVT (cross-reference graph store; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "lexiconReadAccess": {
-    "app.etzhayyim.gov.dataset.parliamentRecord": "ADR-2605263900; READ-ONLY JP 国会会議録 (Diet member-statement / debate / vote / bill). Indexed into kotoba EAVT by danjo_diet_statement_index. Passive-only (pre-published bulk archive).",
-    "app.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY JP 政府調達 (tender / award / modification / cancellation). awardeeLei cross-link to corp.leiReference. Indexed by danjo_procurement_graph.",
-    "app.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY JP 予算書 (appropriation / outlay / subaward). recipientLei cross-link. Indexed by danjo_budget_ledger.",
-    "app.etzhayyim.gov.dataset.statisticsObservation": "ADR-2605263900; READ-ONLY e-Stat indicator observations (denominator / baseline context for cross-reference).",
-    "app.etzhayyim.gov.dataset.openDatasetAttestation": "ADR-2605263900; READ-ONLY data.go.jp / e-Stat per-portal catalog entry (provenance lineage).",
-    "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for awardee / recipient identity resolution. CC0 1.0.",
-    "app.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO + parent-subsidiary + officer-edge traversal for cross-reference links (e.g. awardee UBO-linked to a contracting official per public registry). GLEIF L2 (CC0) + OpenCorporates open-data."
+    "com.etzhayyim.gov.dataset.parliamentRecord": "ADR-2605263900; READ-ONLY JP 国会会議録 (Diet member-statement / debate / vote / bill). Indexed into kotoba EAVT by danjo_diet_statement_index. Passive-only (pre-published bulk archive).",
+    "com.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY JP 政府調達 (tender / award / modification / cancellation). awardeeLei cross-link to corp.leiReference. Indexed by danjo_procurement_graph.",
+    "com.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY JP 予算書 (appropriation / outlay / subaward). recipientLei cross-link. Indexed by danjo_budget_ledger.",
+    "com.etzhayyim.gov.dataset.statisticsObservation": "ADR-2605263900; READ-ONLY e-Stat indicator observations (denominator / baseline context for cross-reference).",
+    "com.etzhayyim.gov.dataset.openDatasetAttestation": "ADR-2605263900; READ-ONLY data.go.jp / e-Stat per-portal catalog entry (provenance lineage).",
+    "com.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for awardee / recipient identity resolution. CC0 1.0.",
+    "com.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO + parent-subsidiary + officer-edge traversal for cross-reference links (e.g. awardee UBO-linked to a contracting official per public registry). GLEIF L2 (CC0) + OpenCorporates open-data."
   },
   "form": "任意団体 internal civic-transparency oversight substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a state-recognized audit organ, NOT 会計検査院)",
   "constitutionalDiscipline": {
@@ -112,10 +112,10 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.danjo.discrepancyObservation",
-    "app.etzhayyim.danjo.crossReferenceLink",
-    "app.etzhayyim.danjo.oversightReport",
-    "app.etzhayyim.danjo.methodNote"
+    "com.etzhayyim.danjo.discrepancyObservation",
+    "com.etzhayyim.danjo.crossReferenceLink",
+    "com.etzhayyim.danjo.oversightReport",
+    "com.etzhayyim.danjo.methodNote"
   ],
   "constitutionalGates": {
     "description": "13 immutable gates per ADR-2605301600 §4. Council Lv6+ supermajority + new ADR to amend.",

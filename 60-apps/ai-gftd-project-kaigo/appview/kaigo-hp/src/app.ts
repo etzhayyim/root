@@ -11,7 +11,7 @@ export default createWorkerExport((sdk: HostSDK) => {
   void did.create?.('mentorship',  { displayName: 'Kaigo Mentorship',  description: '知恵伝承 + Opus 4.6 アーカイブ',          avatar: '📚', isBot: true, operator: 'etzhayyim' });
   void did.create?.('journey',     { displayName: 'Kaigo Journey',     description: 'ライフジャーニー (成長物語)',              avatar: '🌱', isBot: true, operator: 'etzhayyim' });
 
-  sdk.app.query('app.etzhayyim.apps.kaigo.getProduct', async (_input, _ctx) => {
+  sdk.app.query('com.etzhayyim.apps.kaigo.getProduct', async (_input, _ctx) => {
     return {
       name: 'Giemon Kaigo',
       version: '1.0.0',
@@ -20,7 +20,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     };
   });
 
-  sdk.app.query('app.etzhayyim.apps.kaigo.calcHousingReformBenefit', async (input, _ctx) => {
+  sdk.app.query('com.etzhayyim.apps.kaigo.calcHousingReformBenefit', async (input, _ctx) => {
     const { care_level, total_cost_jpy } = input as { care_level: number; total_cost_jpy: number };
     const limit = 200_000;
     const copay_ratio = care_level >= 3 ? 0.1 : 0.2;
@@ -29,7 +29,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     return { limit_jpy: limit, covered_jpy: covered, benefit_jpy: benefit, copay_jpy: covered - benefit };
   });
 
-  sdk.app.query('app.etzhayyim.apps.kaigo.estimateCareCost', async (input, _ctx) => {
+  sdk.app.query('com.etzhayyim.apps.kaigo.estimateCareCost', async (input, _ctx) => {
     const { care_level, services } = input as { care_level: number; services: string[] };
     const limits: Record<number, number> = { 1: 50_320, 2: 105_310, 3: 167_650, 4: 197_050, 5: 270_480 };
     const limit = limits[care_level] ?? 50_320;

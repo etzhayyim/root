@@ -25,8 +25,8 @@ const seeds: Seed[] = [
   {
     proc: "generateCohortBatch",
     bpmnProcessId: "natural_person_generate_cohort_batch_v1",
-    nsid: "app.etzhayyim.apps.naturalPerson.generateCohortBatch",
-    sourcePath: "00-contracts/bpmn/ai/gftd/natural-person/generateCohortBatch.bpmn",
+    nsid: "com.etzhayyim.apps.naturalPerson.generateCohortBatch",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/natural-person/generateCohortBatch.bpmn",
     resultTimeoutMs: 300000,
   },
 ];
@@ -36,9 +36,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

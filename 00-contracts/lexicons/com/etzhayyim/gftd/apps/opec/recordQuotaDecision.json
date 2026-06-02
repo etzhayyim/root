@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.opec.recordQuotaDecision",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OPEC+ 生産枠決定記録",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "meetingId",
+            "meetingDate",
+            "memberCountry",
+            "quotaMbd",
+            "effectiveFrom",
+            "decisionType"
+          ],
+          "properties": {
+            "meetingId": {
+              "type": "string"
+            },
+            "meetingDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "memberCountry": {
+              "type": "string",
+              "description": "ISO 3166 alpha-3; KSA/UAE/RUS/etc"
+            },
+            "quotaMbd": {
+              "type": "number",
+              "description": "mbbl/day allocated"
+            },
+            "quotaMbdDelta": {
+              "type": "number"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "date"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "date"
+            },
+            "decisionType": {
+              "type": "string",
+              "enum": [
+                "baseline",
+                "voluntary-cut",
+                "voluntary-increase",
+                "compensatory-cut",
+                "emergency-release"
+              ]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "impactTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major"
+              ]
+            },
+            "requireMarketNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1165,11 +1165,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.hanrei.caseRecord",
-        "ai.gftd.hanrei.collectionJob",
-        "ai.gftd.hanrei.court",
-        "ai.gftd.hanrei.jurisdiction",
-        "ai.gftd.hanrei.digest",
+        "com.etzhayyim.hanrei.caseRecord",
+        "com.etzhayyim.hanrei.collectionJob",
+        "com.etzhayyim.hanrei.court",
+        "com.etzhayyim.hanrei.jurisdiction",
+        "com.etzhayyim.hanrei.digest",
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.feed.repost",

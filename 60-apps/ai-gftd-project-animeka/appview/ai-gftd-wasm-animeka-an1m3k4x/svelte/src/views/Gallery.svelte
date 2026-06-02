@@ -32,7 +32,7 @@
     loading = true;
     try {
       const resp = await atQuery<{ items?: RawCut[] }>(
-        'app.etzhayyim.animeka.listCuts',
+        'com.etzhayyim.animeka.listCuts',
         { limit: 200 }
       );
       cuts = (resp.items ?? [])

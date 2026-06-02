@@ -82,7 +82,7 @@ def run():
 
     for f in files:
         doc = json.loads(f.read_text())
-        stem = f.stem  # e.g. app.etzhayyim.card.authorize  /  warifu.authorize
+        stem = f.stem  # e.g. com.etzhayyim.card.authorize  /  warifu.authorize
         check(f"{stem}: lexicon==1", doc.get("lexicon") == 1)
         check(f"{stem}: id matches filename", doc.get("id") == stem)
         check(f"{stem}: has defs.main", isinstance(doc.get("defs", {}).get("main"), dict))

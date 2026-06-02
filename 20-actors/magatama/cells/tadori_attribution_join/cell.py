@@ -4,16 +4,16 @@ Per ADR-2605301400 (tadori 辿 - authorized on-chain transaction-tracing +
 actor-attribution actor; kotoba-EAVT-native consolidation of malak pursuit +
 ipaddress + yabai). Compute sibling: ADR-2605152000 (malak wallet/address pursuit).
 
-Purpose: cross-store join addr/cluster -> ip-obs/dns-obs/person via the kotoba-kqe VAET arrangement (2-hop, = yabai correlate-ip-activity). Person/IP/device objects are written under the app.etzhayyim.encrypted.* envelope, Signal-wrapped to case-members.
+Purpose: cross-store join addr/cluster -> ip-obs/dns-obs/person via the kotoba-kqe VAET arrangement (2-hop, = yabai correlate-ip-activity). Person/IP/device objects are written under the com.etzhayyim.encrypted.* envelope, Signal-wrapped to case-members.
 
 Constitutional ceiling (CRITICAL - IMMUTABLE): AUTHORIZED-INVESTIGATION-ONLY
 (caseMandate anchor required; no case -> Phase 0 dry-run) + OPEN-SOURCE (no
 proprietary chain-analysis as system of record) + ON-CHAIN-MONITORABLE
-(Transparent Force, Charter SS1.12) + PII-ENCRYPTED (app.etzhayyim.encrypted.*,
+(Transparent Force, Charter SS1.12) + PII-ENCRYPTED (com.etzhayyim.encrypted.*,
 ADR-2605181100) + EVIDENCE-ONLY / NO ENFORCEMENT (yabai + Council enforce) +
 NO PLATFORM-HELD KEY (ADR-2605231525) + Murakumo-only inference (ADR-2605215000)
 + kotoba-only store (ADR-2605262130). Gates: G6 (PII-encrypted) + G10 (no mass surveillance / no adherent de-anon) + G11 (kotoba-only).
-Output Lexicon(s): app.etzhayyim.tadori.attributionFinding.
+Output Lexicon(s): com.etzhayyim.tadori.attributionFinding.
 
 R0 scaffold - import-time RuntimeError until T1.
 """

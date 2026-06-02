@@ -69,12 +69,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.yuubin.postalItem",
-        "ai.gftd.apps.yuubin.postalItemUpdate",
-        "ai.gftd.apps.lawfirm.brief",
-        "ai.gftd.apps.kaisya.debt.draftThirdPartyInfoQuery",
-        "ai.gftd.apps.kaisya.debt.draftSeizureOrder",
-        "ai.gftd.apps.fax.faxTx",
+        "com.etzhayyim.apps.yuubin.postalItem",
+        "com.etzhayyim.apps.yuubin.postalItemUpdate",
+        "com.etzhayyim.apps.lawfirm.brief",
+        "com.etzhayyim.apps.kaisya.debt.draftThirdPartyInfoQuery",
+        "com.etzhayyim.apps.kaisya.debt.draftSeizureOrder",
+        "com.etzhayyim.apps.fax.faxTx",
         "app.bsky.feed.post",
         "app.bsky.graph.follow"
       ]

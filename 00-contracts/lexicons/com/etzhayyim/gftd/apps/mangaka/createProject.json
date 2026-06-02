@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.createProject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a manga project (multi-actor convo). Returns the string convoId. Tightened from F2 bootstrap stub on 2026-05-12.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "parentProjectId": { "type": "string" },
+            "projectType": { "type": "string" },
+            "workId": { "type": "string" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": { "type": "string" },
+            "projectId": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

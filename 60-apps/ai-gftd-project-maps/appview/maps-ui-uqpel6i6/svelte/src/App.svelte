@@ -680,7 +680,7 @@ import { clipRingToBBox, ringBBoxIntersects, type Ring as ClipRing } from '$lib/
     mapillaryToken = (cfg?.mapillaryAccessToken || cfg?.mapillary_access_token || '').trim();
     const mapTileUrlRaw = (cfg?.mapTileUrl || cfg?.map_tile_url || '').trim();
     // RisingWave-native rendering: vector layers now come from
-    // `app.etzhayyim.apps.maps.tileGeoJson` XRPC, not external MVT tiles. Only honor
+    // `com.etzhayyim.apps.maps.tileGeoJson` XRPC, not external MVT tiles. Only honor
     // an explicit MVT URL from server config (legacy path for self-hosted
     // tile-server); otherwise keep empty so KAMI uses raster basemap + the
     // RisingWave overlay attached below.

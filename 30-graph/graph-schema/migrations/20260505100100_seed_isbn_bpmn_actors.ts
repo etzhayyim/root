@@ -12,11 +12,11 @@ import { sql } from "kysely";
  *
  *  Process / NSID                                        Source
  *  ---------------------------------------------------------------------
- *  isbn_ingest_open_library    app.etzhayyim.apps.isbn.ingestOpenLibrary
- *  isbn_ingest_aozora          app.etzhayyim.apps.isbn.ingestAozora
- *  isbn_ingest_gutenberg       app.etzhayyim.apps.isbn.ingestGutenberg
- *  isbn_ingest_ndl             app.etzhayyim.apps.isbn.ingestNdl
- *  isbn_ingest_hathitrust      app.etzhayyim.apps.isbn.ingestHathiTrust
+ *  isbn_ingest_open_library    com.etzhayyim.apps.isbn.ingestOpenLibrary
+ *  isbn_ingest_aozora          com.etzhayyim.apps.isbn.ingestAozora
+ *  isbn_ingest_gutenberg       com.etzhayyim.apps.isbn.ingestGutenberg
+ *  isbn_ingest_ndl             com.etzhayyim.apps.isbn.ingestNdl
+ *  isbn_ingest_hathitrust      com.etzhayyim.apps.isbn.ingestHathiTrust
  *  isbn_refresh_daily          (timer R/PT24H, no XRPC binding)
  */
 
@@ -32,41 +32,41 @@ const ownerDid = "did:web:isbn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.isbn-bulk-ingest";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1",
     bpmnProcessId: "isbn_ingest_open_library",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestOpenLibrary.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/ingestOpenLibrary.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1",
     bpmnProcessId: "isbn_ingest_aozora",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestAozora.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/ingestAozora.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1",
     bpmnProcessId: "isbn_ingest_gutenberg",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestGutenberg.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/ingestGutenberg.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1",
     bpmnProcessId: "isbn_ingest_ndl",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestNdl.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/ingestNdl.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1",
     bpmnProcessId: "isbn_ingest_hathitrust",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestHathiTrust.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-refresh-daily-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/ingestHathiTrust.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-refresh-daily-v1",
     bpmnProcessId: "isbn_refresh_daily",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/refreshDaily.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/refreshDaily.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1",
-    nsid: "app.etzhayyim.apps.isbn.ingestOpenLibrary",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1",
+    nsid: "com.etzhayyim.apps.isbn.ingestOpenLibrary",
     bpmnProcessId: "isbn_ingest_open_library", ownerDid, resultTimeoutMs: 21_600_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1",
-    nsid: "app.etzhayyim.apps.isbn.ingestAozora",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1",
+    nsid: "com.etzhayyim.apps.isbn.ingestAozora",
     bpmnProcessId: "isbn_ingest_aozora", ownerDid, resultTimeoutMs: 7_200_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1",
-    nsid: "app.etzhayyim.apps.isbn.ingestGutenberg",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1",
+    nsid: "com.etzhayyim.apps.isbn.ingestGutenberg",
     bpmnProcessId: "isbn_ingest_gutenberg", ownerDid, resultTimeoutMs: 21_600_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1",
-    nsid: "app.etzhayyim.apps.isbn.ingestNdl",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1",
+    nsid: "com.etzhayyim.apps.isbn.ingestNdl",
     bpmnProcessId: "isbn_ingest_ndl", ownerDid, resultTimeoutMs: 600_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1",
-    nsid: "app.etzhayyim.apps.isbn.ingestHathiTrust",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1",
+    nsid: "com.etzhayyim.apps.isbn.ingestHathiTrust",
     bpmnProcessId: "isbn_ingest_hathitrust", ownerDid, resultTimeoutMs: 21_600_000 },
 ];
 

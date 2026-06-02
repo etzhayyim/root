@@ -32,7 +32,7 @@
       "steps": [
         {
           "args": {
-            "sql": "INSERT INTO vertex_message (vertex_id, rkey, repo, convo_id, sender_did, text) VALUES ('at://' || $repo || '/ai.gftd.convo.message/' || $rkey, $rkey, $repo, $convoId, $senderDid, $text)",
+            "sql": "INSERT INTO vertex_message (vertex_id, rkey, repo, convo_id, sender_did, text) VALUES ('at://' || $repo || '/com.etzhayyim.convo.message/' || $rkey, $rkey, $repo, $convoId, $senderDid, $text)",
             "params": {
               "convoId": "$input.record.convoId",
               "rkey": "$input.record.rkey",
@@ -47,7 +47,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.convo.message"
+          "com.etzhayyim.convo.message"
         ],
         "type": "subscribeRepos"
       }
@@ -93,8 +93,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -108,7 +108,7 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.graph.follow",
-        "ai.gftd.convo.message"
+        "com.etzhayyim.convo.message"
       ]
     }
   },

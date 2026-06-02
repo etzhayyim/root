@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "baminiku";
-const NSID_PREFIX = "app.etzhayyim.apps.baminiku.";
+const NSID_PREFIX = "com.etzhayyim.apps.baminiku.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -28,7 +28,7 @@ export default {
         nanoid: env.APP_NANOID ?? "bm1n1ku8",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/baminiku.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/baminiku",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/baminiku",
         engine: "gftd:kami@1.0.0",
       });
     }

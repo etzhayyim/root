@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cad.requestExport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Enqueue an export of a revision to another format (STEP / IGES / glTF / STL / 2D drawing PDF/DXF). Heavy conversion runs in the CF Container job service. Returns jobId; the finished blob appears in B2 (Backblaze B2 S3-compatible) under `cad/exports/{sha256}` and is referenced by the job's completion commit.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["revisionId", "target"],
+          "properties": {
+            "revisionId": { "type": "string" },
+            "target": {
+              "type": "string",
+              "enum": ["step", "iges", "brep", "stl", "gltf", "obj", "pdf", "dxf"]
+            },
+            "units": {
+              "type": "string",
+              "enum": ["metre", "millimetre", "centimetre", "inch", "foot"],
+              "default": "millimetre"
+            },
+            "drawingTemplate": {
+              "type": "string",
+              "description": "PDF/DXF drawing layout template key (required for 2D targets)"
+            },
+            "tessellationTolerance": {
+              "type": "number",
+              "default": 0.1
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jobId", "status"],
+          "properties": {
+            "jobId": { "type": "string" },
+            "status": {
+              "type": "string",
+              "enum": ["queued", "running", "ready", "failed"]
+            },
+            "estimatedSeconds": { "type": "integer" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "RevisionNotFound" },
+        { "name": "UnsupportedTarget" },
+        { "name": "DrawingTemplateRequired" },
+        { "name": "QuotaExceeded" }
+      ]
+    }
+  }
+}

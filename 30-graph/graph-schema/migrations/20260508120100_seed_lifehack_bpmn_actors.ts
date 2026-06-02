@@ -10,20 +10,20 @@ import { sql } from "kysely";
  * 8 BPMN process defs + 6 XRPC bindings.  No CF Worker (T2 tier:
  * pymagatama + Zeebe only).  3 timer-start BPMNs are autonomous;
  * 6 XRPC bindings are reachable via bpmn-dispatcher
- * `http://dispatcher.etzhayyim.com:8080/xrpc/app.etzhayyim.apps.lifehack.*`.
+ * `http://dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.apps.lifehack.*`.
  *
  *  Process / NSID                                Trigger
  *  ---------------------------------------------------------------------
  *  lifehack_research_topic   (none, autonomous)  R/PT24H
- *  lifehack_daily_dust_post  app.etzhayyim.apps.lifehack.dailyDustPost +
+ *  lifehack_daily_dust_post  com.etzhayyim.apps.lifehack.dailyDustPost +
  *                            cron 0 0 0 * * ?  (00:00 UTC = 09:00 JST)
  *  lifehack_static_alert     (none, autonomous)  R/PT6H
- *  lifehack_submit_tip       app.etzhayyim.apps.lifehack.submitTip
- *  lifehack_recommend        app.etzhayyim.apps.lifehack.recommend
- *  lifehack_agent_loop       app.etzhayyim.apps.lifehack.agentLoop
+ *  lifehack_submit_tip       com.etzhayyim.apps.lifehack.submitTip
+ *  lifehack_recommend        com.etzhayyim.apps.lifehack.recommend
+ *  lifehack_agent_loop       com.etzhayyim.apps.lifehack.agentLoop
  *  lifehack_submit_environment_reading
- *                            app.etzhayyim.apps.lifehack.submitEnvironmentReading
- *  lifehack_coverage         app.etzhayyim.apps.lifehack.coverage
+ *                            com.etzhayyim.apps.lifehack.submitEnvironmentReading
+ *  lifehack_coverage         com.etzhayyim.apps.lifehack.coverage
  *
  * The listTips / listProducts queries are intentionally schema-only in
  * Phase 1 — wire later via `generic.db.select` BPMNs.
@@ -41,50 +41,50 @@ const ownerDid = "did:web:lifehack.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lifehack";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-research-topic-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-research-topic-v1",
     bpmnProcessId: "lifehack_research_topic",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/researchTopic.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-daily-dust-post-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/researchTopic.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-daily-dust-post-v1",
     bpmnProcessId: "lifehack_daily_dust_post",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/dailyDustPost.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-static-alert-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/dailyDustPost.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-static-alert-v1",
     bpmnProcessId: "lifehack_static_alert",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/staticAlert.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-tip-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/staticAlert.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-submit-tip-v1",
     bpmnProcessId: "lifehack_submit_tip",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/submitTip.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-recommend-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/submitTip.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-recommend-v1",
     bpmnProcessId: "lifehack_recommend",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/recommend.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-agent-loop-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/recommend.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-agent-loop-v1",
     bpmnProcessId: "lifehack_agent_loop",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/agentLoop.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-submit-environment-reading-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/agentLoop.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-submit-environment-reading-v1",
     bpmnProcessId: "lifehack_submit_environment_reading",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/submitEnvironmentReading.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lifehack-coverage-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/submitEnvironmentReading.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lifehack-coverage-v1",
     bpmnProcessId: "lifehack_coverage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lifehack/coverage.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lifehack/coverage.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-dailyDustPost-v1",
-    nsid: "app.etzhayyim.apps.lifehack.dailyDustPost",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lifehack-dailyDustPost-v1",
+    nsid: "com.etzhayyim.apps.lifehack.dailyDustPost",
     bpmnProcessId: "lifehack_daily_dust_post", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitTip-v1",
-    nsid: "app.etzhayyim.apps.lifehack.submitTip",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lifehack-submitTip-v1",
+    nsid: "com.etzhayyim.apps.lifehack.submitTip",
     bpmnProcessId: "lifehack_submit_tip", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-recommend-v1",
-    nsid: "app.etzhayyim.apps.lifehack.recommend",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lifehack-recommend-v1",
+    nsid: "com.etzhayyim.apps.lifehack.recommend",
     bpmnProcessId: "lifehack_recommend", ownerDid, resultTimeoutMs: 30_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-agentLoop-v1",
-    nsid: "app.etzhayyim.apps.lifehack.agentLoop",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lifehack-agentLoop-v1",
+    nsid: "com.etzhayyim.apps.lifehack.agentLoop",
     bpmnProcessId: "lifehack_agent_loop", ownerDid, resultTimeoutMs: 60_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1",
-    nsid: "app.etzhayyim.apps.lifehack.submitEnvironmentReading",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lifehack-submitEnvironmentReading-v1",
+    nsid: "com.etzhayyim.apps.lifehack.submitEnvironmentReading",
     bpmnProcessId: "lifehack_submit_environment_reading", ownerDid, resultTimeoutMs: 15_000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lifehack-coverage-v1",
-    nsid: "app.etzhayyim.apps.lifehack.coverage",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lifehack-coverage-v1",
+    nsid: "com.etzhayyim.apps.lifehack.coverage",
     bpmnProcessId: "lifehack_coverage", ownerDid, resultTimeoutMs: 15_000 },
 ];
 

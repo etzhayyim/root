@@ -27,11 +27,11 @@ const createdAt = "2026-05-06T00:00:00Z";
 const ownerDid = "did:web:adsk.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.adsk-cron";
 
-const v1VertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v1";
+const v1VertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v1";
 const v2Seed: P = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v2",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adsk-ingest-dataset-v2",
   bpmnProcessId: "adsk_ingest_dataset",
-  sourcePath: "00-contracts/bpmn/ai/gftd/adsk/ingestAdskDataset.bpmn",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/adsk/ingestAdskDataset.bpmn",
   ownerDid,
 };
 

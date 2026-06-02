@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.flightOffer.getCheapest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Cheapest known offer for an origin/destination/outbound-date/currency tuple, served from mv_flight_offer_cheapest_by_route_date. Procedure type so BPMN dispatcher can route via vertex_bpmn_lexicon_binding (read-only handler).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["originIata", "destinationIata", "outboundDate", "currency"],
+          "properties": {
+            "originIata":      { "type": "string", "minLength": 3, "maxLength": 3 },
+            "destinationIata": { "type": "string", "minLength": 3, "maxLength": 3 },
+            "outboundDate":    { "type": "string", "format": "datetime" },
+            "currency":        { "type": "string", "minLength": 3, "maxLength": 3 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":                 { "type": "boolean" },
+            "found":              { "type": "boolean" },
+            "originIata":         { "type": "string" },
+            "destinationIata":    { "type": "string" },
+            "outboundDate":       { "type": "string" },
+            "currency":           { "type": "string" },
+            "cheapestTotalPrice": { "type": "number" },
+            "cheapestProvider":   { "type": "string" },
+            "cheapestBookingUrl": { "type": "string" },
+            "cheapestObservedAt": { "type": "string" },
+            "error":              { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

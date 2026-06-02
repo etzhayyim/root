@@ -63,7 +63,7 @@ async def emit_audit(
     if _INTERNAL_SECRET:
         headers["x-internal-trust"] = _INTERNAL_SECRET
 
-    url = f"{_DISPATCHER_URL}/xrpc/app.etzhayyim.generic.audit.emit"
+    url = f"{_DISPATCHER_URL}/xrpc/com.etzhayyim.generic.audit.emit"
 
     try:
         async with httpx.AsyncClient(timeout=_AUDIT_TIMEOUT_SEC) as client:

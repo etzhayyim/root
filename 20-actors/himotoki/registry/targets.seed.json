@@ -1,5 +1,5 @@
 {
-  "$schema": "app.etzhayyim.himotoki.disclosureTarget",
+  "$schema": "com.etzhayyim.himotoki.disclosureTarget",
   "_comment": "R0 SEED disclosure-target registry per ADR-2605302130 §2. Each entry is the coded 窓口 / 住所 / メールアドレス / portal / 手続き / fee / deadline so himotoki can route + file procedurally. ALL entries ship verificationStatus=unverified-seed: per G14, NO live dispatch may occur against an unverified entry — these MUST be human/Council-verified (and re-checked within the freshness window) before himotoki_dispatch will transmit. Specific portalUrl / contactEmail / postalAddress / feeJpy / statutoryDeadlineDays below are best-effort public references as of 2026-05-30 and are EXPECTED to drift; treat them as routing scaffolds, not authoritative contacts.",
   "freshnessWindowDays": 180,
   "targets": [

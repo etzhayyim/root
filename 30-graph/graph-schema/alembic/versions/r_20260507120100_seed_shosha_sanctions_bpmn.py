@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_refresh_sanctions_list',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -93,7 +93,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.shosha.refreshSanctionsList&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.shosha.refreshSanctionsList&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;ofacRows&quot;: ofacRows, '
                  '&quot;ofacInserted&quot;: ofacInserted, &quot;ofacUpdated&quot;: ofacUpdated, '
@@ -114,15 +114,15 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3711,
-                 '00-contracts/bpmn/ai/gftd/shosha/refreshSanctionsList.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/refreshSanctionsList.bpmn',
                  '2026-05-07T12:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2b',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1']}]
 
 
 def upgrade() -> None:

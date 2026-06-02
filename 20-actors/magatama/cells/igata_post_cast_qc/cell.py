@@ -31,7 +31,7 @@ Pregel graph (5 nodes):
                                    Reject branch routes to scrap recovery (G10).
         |
         v
-    emit_qc_attest            ->  MST PUT app.etzhayyim.igata.qcAttestation
+    emit_qc_attest            ->  MST PUT com.etzhayyim.igata.qcAttestation
                                   (dimensional report + tolerance CID, porosity
                                    map CID, mechanical companion data,
                                    surface defect classification, overall verdict

@@ -30,7 +30,7 @@ const OWNER = "did:web:etzhayyim.com";
 const RESPONSIBLE = "did:web:j-kawasaki.etzhayyim.com";
 
 const ACTION_CODE = "GJ-CA-2026-001";
-const ACTION_VID = `at://did:web:etzhayyim.com/app.etzhayyim.apps.kaisya.corporateAction/${ACTION_CODE}`;
+const ACTION_VID = `at://did:web:etzhayyim.com/com.etzhayyim.apps.kaisya.corporateAction/${ACTION_CODE}`;
 
 type ActionItem = {
   itemCode: string;
@@ -165,7 +165,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── vertex_corporate_action_item ─────────────────────────────────────────
   for (const item of ITEMS) {
-    const vid = `at://did:web:etzhayyim.com/app.etzhayyim.apps.kaisya.corporateActionItem/${item.itemCode}`;
+    const vid = `at://did:web:etzhayyim.com/com.etzhayyim.apps.kaisya.corporateActionItem/${item.itemCode}`;
     await sql`
       INSERT INTO vertex_corporate_action_item
         (vertex_id, action_vid, item_code, item_type, description,
@@ -192,7 +192,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── edge_corporate_action_document ───────────────────────────────────────
   for (const doc of DOCS) {
-    const eid = `at://did:web:etzhayyim.com/app.etzhayyim.apps.kaisya.corporateActionDocument/${doc.edgeId}`;
+    const eid = `at://did:web:etzhayyim.com/com.etzhayyim.apps.kaisya.corporateActionDocument/${doc.edgeId}`;
     await sql`
       INSERT INTO edge_corporate_action_document
         (edge_id, src_vid, action_code, doc_role, file_path, created_at, owner_did)
@@ -213,11 +213,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const doc of DOCS) {
-    const eid = `at://did:web:etzhayyim.com/app.etzhayyim.apps.kaisya.corporateActionDocument/${doc.edgeId}`;
+    const eid = `at://did:web:etzhayyim.com/com.etzhayyim.apps.kaisya.corporateActionDocument/${doc.edgeId}`;
     await sql`DELETE FROM edge_corporate_action_document WHERE edge_id = ${eid}`.execute(db);
   }
   for (const item of ITEMS) {
-    const vid = `at://did:web:etzhayyim.com/app.etzhayyim.apps.kaisya.corporateActionItem/${item.itemCode}`;
+    const vid = `at://did:web:etzhayyim.com/com.etzhayyim.apps.kaisya.corporateActionItem/${item.itemCode}`;
     await sql`DELETE FROM vertex_corporate_action_item WHERE vertex_id = ${vid}`.execute(db);
   }
   await sql`DELETE FROM vertex_corporate_action WHERE vertex_id = ${ACTION_VID}`.execute(db);

@@ -51,7 +51,7 @@
       "id": "gather-intel",
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.abuse.gatherIntel"
+        "nsid": "com.etzhayyim.apps.abuse.gatherIntel"
       },
       "steps": [
         {
@@ -97,7 +97,7 @@
           "fn": "graph.write",
           "depends_on": ["dns","whois","reverseIp","wayback","asn"],
           "args": {
-            "sql": "INSERT INTO vertex_yabai_evidence (vertex_id, rkey, repo, owner_did, evidence_id, entity_id, category, confidence, severity, probability, source, source_reliability, jurisdiction, summary, description, occurred_at, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://did:web:yabai.etzhayyim.com/ai.gftd.apps.yabai.evidence/ev-intel-', $entityId), concat('ev-intel-', $entityId), 'did:web:yabai.etzhayyim.com', 'did:web:yabai.etzhayyim.com', concat('ev-intel-', $entityId), $entityId, 'PhishingInfrastructure', 0.95, 3, 1.0, 'abuse.gatherIntel', 'dns+whois+asn+wayback+reverse-ip', $jurisdiction, $summary, $description, NOW()::VARCHAR, NOW()::VARCHAR, CURRENT_DATE, 100, 't1:abuse')",
+            "sql": "INSERT INTO vertex_yabai_evidence (vertex_id, rkey, repo, owner_did, evidence_id, entity_id, category, confidence, severity, probability, source, source_reliability, jurisdiction, summary, description, occurred_at, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://did:web:yabai.etzhayyim.com/com.etzhayyim.apps.yabai.evidence/ev-intel-', $entityId), concat('ev-intel-', $entityId), 'did:web:yabai.etzhayyim.com', 'did:web:yabai.etzhayyim.com', concat('ev-intel-', $entityId), $entityId, 'PhishingInfrastructure', 0.95, 3, 1.0, 'abuse.gatherIntel', 'dns+whois+asn+wayback+reverse-ip', $jurisdiction, $summary, $description, NOW()::VARCHAR, NOW()::VARCHAR, CURRENT_DATE, 100, 't1:abuse')",
             "params": {
               "entityId": "$input.params.entityId",
               "jurisdiction": "$whois.registrant_country",
@@ -112,7 +112,7 @@
       "id": "submit-report",
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.abuse.submitReport"
+        "nsid": "com.etzhayyim.apps.abuse.submitReport"
       },
       "steps": [
         {
@@ -171,7 +171,7 @@
       "id": "send-report",
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.abuse.sendReport"
+        "nsid": "com.etzhayyim.apps.abuse.sendReport"
       },
       "steps": [
         {
@@ -194,7 +194,7 @@
           "depends_on": ["draft"],
           "args": {
             "did": "did:web:mailer.etzhayyim.com",
-            "nsid": "ai.gftd.apps.mailer.sendEmail",
+            "nsid": "com.etzhayyim.apps.mailer.sendEmail",
             "params": {
               "to": "$draft.rows[0].to_email",
               "subject": "$draft.rows[0].subject",
@@ -208,7 +208,7 @@
           "fn": "graph.write",
           "depends_on": ["dispatch"],
           "args": {
-            "sql": "INSERT INTO vertex_yabai_audit_log (vertex_id, rkey, repo, owner_did, action, resource_id, result, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://did:web:yabai.etzhayyim.com/ai.gftd.apps.yabai.auditLog/', $reportId, '-sent-', NOW()::VARCHAR), concat($reportId, '-sent'), 'did:web:yabai.etzhayyim.com', 'did:web:yabai.etzhayyim.com', 'abuse.send', $reportId, $messageId, NOW()::VARCHAR, CURRENT_DATE, 200, 't1:abuse')",
+            "sql": "INSERT INTO vertex_yabai_audit_log (vertex_id, rkey, repo, owner_did, action, resource_id, result, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://did:web:yabai.etzhayyim.com/com.etzhayyim.apps.yabai.auditLog/', $reportId, '-sent-', NOW()::VARCHAR), concat($reportId, '-sent'), 'did:web:yabai.etzhayyim.com', 'did:web:yabai.etzhayyim.com', 'abuse.send', $reportId, $messageId, NOW()::VARCHAR, CURRENT_DATE, 200, 't1:abuse')",
             "params": {"reportId": "$input.params.reportId", "messageId": "$dispatch.messageId"}
           }
         }
@@ -220,7 +220,7 @@
       "trigger": {
         "type": "subscribeRepos",
         "follows": ["did:web:ml1nb0nd.etzhayyim.com"],
-        "collections": ["ai.gftd.apps.mailer.inboundEmail"]
+        "collections": ["com.etzhayyim.apps.mailer.inboundEmail"]
       },
       "steps": [
         {
@@ -244,7 +244,7 @@
           "fn": "graph.write",
           "depends_on": ["matchReport"],
           "args": {
-            "sql": "INSERT INTO public.vertex_mailer_inbound_email (vertex_id, rkey, repo, owner_did, message_id, from_address, from_domain, to_local, to_address, subject, body_text, received_at_ms, received_at, status, is_abuse_reply, matched_report_rkey, created_at, created_date, sensitivity_ord, org_id, user_id, actor_id) VALUES (concat('at://', 'did:web:ml1nb0nd.etzhayyim.com', '/ai.gftd.apps.mailer.inboundEmail/', $rkey), $rkey, 'did:web:ml1nb0nd.etzhayyim.com', 'did:web:ml1nb0nd.etzhayyim.com', $messageId, $fromAddress, SPLIT_PART($fromAddress, '@', 2), $toLocal, concat($toLocal, '@etzhayyim.com'), $subject, $bodyText, $receivedAtMs, to_char(to_timestamp($receivedAtMs/1000), 'YYYY-MM-DD\"T\"HH24:MI:SS.MSZ'), 'received', CASE WHEN $matchedRkey != '' THEN 'true' ELSE 'false' END, $matchedRkey, NOW()::VARCHAR, CURRENT_DATE, 300, 'gftd', 'did:gftd:03fa7d86a1406bce8f226dc5', 't1:abuse-reply-track')",
+            "sql": "INSERT INTO public.vertex_mailer_inbound_email (vertex_id, rkey, repo, owner_did, message_id, from_address, from_domain, to_local, to_address, subject, body_text, received_at_ms, received_at, status, is_abuse_reply, matched_report_rkey, created_at, created_date, sensitivity_ord, org_id, user_id, actor_id) VALUES (concat('at://', 'did:web:ml1nb0nd.etzhayyim.com', '/com.etzhayyim.apps.mailer.inboundEmail/', $rkey), $rkey, 'did:web:ml1nb0nd.etzhayyim.com', 'did:web:ml1nb0nd.etzhayyim.com', $messageId, $fromAddress, SPLIT_PART($fromAddress, '@', 2), $toLocal, concat($toLocal, '@etzhayyim.com'), $subject, $bodyText, $receivedAtMs, to_char(to_timestamp($receivedAtMs/1000), 'YYYY-MM-DD\"T\"HH24:MI:SS.MSZ'), 'received', CASE WHEN $matchedRkey != '' THEN 'true' ELSE 'false' END, $matchedRkey, NOW()::VARCHAR, CURRENT_DATE, 300, 'gftd', 'did:gftd:03fa7d86a1406bce8f226dc5', 't1:abuse-reply-track')",
             "params": {
               "rkey": "$input.rkey",
               "messageId": "$extractFrom.messageId",
@@ -273,7 +273,7 @@
           "depends_on": ["markAcked"],
           "when": "$matchReport.rows[0].rkey != null",
           "args": {
-            "sql": "INSERT INTO public.vertex_yabai_audit_log (vertex_id, rkey, repo, owner_did, action, resource_id, result, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://did:web:yabai.etzhayyim.com/ai.gftd.apps.yabai.auditLog/', $matchedRkey, '-acked-', $receivedAtMs::VARCHAR), concat($matchedRkey, '-acked'), 'did:web:yabai.etzhayyim.com', 'did:web:yabai.etzhayyim.com', 'abuse.reply', $matchedRkey, concat('ACK from ', $fromAddress, ' re: ', $subject), NOW()::VARCHAR, CURRENT_DATE, 200, 't1:abuse-reply-track')",
+            "sql": "INSERT INTO public.vertex_yabai_audit_log (vertex_id, rkey, repo, owner_did, action, resource_id, result, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://did:web:yabai.etzhayyim.com/com.etzhayyim.apps.yabai.auditLog/', $matchedRkey, '-acked-', $receivedAtMs::VARCHAR), concat($matchedRkey, '-acked'), 'did:web:yabai.etzhayyim.com', 'did:web:yabai.etzhayyim.com', 'abuse.reply', $matchedRkey, concat('ACK from ', $fromAddress, ' re: ', $subject), NOW()::VARCHAR, CURRENT_DATE, 200, 't1:abuse-reply-track')",
             "params": {
               "matchedRkey": "$matchReport.rows[0].rkey",
               "fromAddress": "$extractFrom.fromAddress",
@@ -298,13 +298,13 @@
     "subscribeRepos": [
       {
         "follows": ["did:web:yabai.etzhayyim.com"],
-        "collections": ["ai.gftd.apps.yabai.flag"],
+        "collections": ["com.etzhayyim.apps.yabai.flag"],
         "filter": "flag_type LIKE 'phishing-%'",
         "pipeline": "gather-intel"
       },
       {
         "follows": ["did:web:ml1nb0nd.etzhayyim.com"],
-        "collections": ["ai.gftd.apps.mailer.inboundEmail"],
+        "collections": ["com.etzhayyim.apps.mailer.inboundEmail"],
         "pipeline": "reply-track"
       }
     ]

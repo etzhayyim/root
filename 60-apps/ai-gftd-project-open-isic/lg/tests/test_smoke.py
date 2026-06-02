@@ -32,8 +32,8 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "classify_entity", "hierarchical_classify"}
 
 _EXPECTED_NSID_MAP = {
-    "app.etzhayyim.apps.openIsic.classifyEntity":       "classify_entity",
-    "app.etzhayyim.apps.openIsic.hierarchicalClassify":  "hierarchical_classify",
+    "com.etzhayyim.apps.openIsic.classifyEntity":       "classify_entity",
+    "com.etzhayyim.apps.openIsic.hierarchicalClassify":  "hierarchical_classify",
 }
 
 
@@ -126,5 +126,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/app.etzhayyim.apps.openIsic.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.apps.openIsic.unknownMethod", json={})
     assert r.status_code == 404

@@ -43,7 +43,7 @@ INSERT INTO vertex_live_room (
       name, description, actor_did, org_did, at_did, created_at
     )
     VALUES (
-      'at://did:web:live.etzhayyim.com/ai.gftd.apps.live.room/demo',
+      'at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.room/demo',
       'demo',
       128.0,
       1777380000.0,

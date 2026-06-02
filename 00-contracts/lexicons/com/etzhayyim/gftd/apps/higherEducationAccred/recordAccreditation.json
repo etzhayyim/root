@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.higherEducationAccred.recordAccreditation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "University / programme accreditation event (bridges apprenticeshipReg.flagCompletionGap + credential-portability + course)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "accreditationId",
+            "accreditorKind",
+            "scopeKind",
+            "decidedAt"
+          ],
+          "properties": {
+            "accreditationId": {
+              "type": "string"
+            },
+            "institutionLei": {
+              "type": "string"
+            },
+            "accreditorKind": {
+              "type": "string",
+              "enum": [
+                "us_regional",
+                "us_national",
+                "abet",
+                "aacsb",
+                "equis",
+                "amba",
+                "jabee",
+                "jab_japan",
+                "aishe_india",
+                "mufu_china",
+                "aqu_spain",
+                "mas_singapore",
+                "tequip",
+                "cti_chile",
+                "mqf_malta",
+                "aqic_iran",
+                "caebep",
+                "csgs"
+              ]
+            },
+            "scopeKind": {
+              "type": "string",
+              "enum": [
+                "institution",
+                "programme",
+                "engineering",
+                "business",
+                "medical",
+                "law",
+                "architecture",
+                "teacher_ed",
+                "graduate",
+                "online_degree",
+                "mba",
+                "executive_ed",
+                "new_programme",
+                "renewal",
+                "probation",
+                "withdrawal"
+              ]
+            },
+            "completionGapVid": {
+              "type": "string",
+              "description": "bridges apprenticeshipReg.flagCompletionGap"
+            },
+            "decidedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

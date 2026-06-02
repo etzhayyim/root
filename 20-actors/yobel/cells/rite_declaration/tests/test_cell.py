@@ -148,7 +148,7 @@ def test_e2e_happy_path_shmita(checkpointer, council_sbt, charter_compliance, co
     assert result["rite_status"] == "active"
     assert result["council_ratified"] is True
     assert len(anchor_bridge.writes) == 1
-    assert anchor_bridge.writes[0]["collection"] == "app.etzhayyim.apps.etzhayyim.yobel.rite"
+    assert anchor_bridge.writes[0]["collection"] == "com.etzhayyim.apps.etzhayyim.yobel.rite"
 
 
 def test_e2e_council_rejection_cancels_rite(

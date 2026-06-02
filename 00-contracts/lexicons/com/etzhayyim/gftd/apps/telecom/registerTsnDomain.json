@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerTsnDomain",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "TSN domain (IEEE 802.1Q-2022). Defines gPTP / SRP scope. Optionally bound to a Phase 11 SNPN for industrial 5G integration. Phase 15 deterministic plane.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerOrgId", "displayName", "profileKind", "controllerKind", "gptpDomainNumber", "observedAt"],
+          "properties": {
+            "domainId": { "type": "string" },
+            "ownerOrgId": { "type": "string" },
+            "displayName": { "type": "string" },
+            "profileKind": { "type": "string", "enum": ["industrial_iec_iet", "automotive_802_1dg", "audio_video_802_1ba", "fronthaul_802_1cm", "general_802_1as_2020"] },
+            "snpnId": { "type": "string" },
+            "controllerKind": { "type": "string", "enum": ["fully_distributed", "fully_centralized_cnc", "hybrid_cuc_cnc"] },
+            "controllerEndpoint": { "type": "string" },
+            "gptpDomainNumber": { "type": "integer" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "domainId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.classSettlement.flagClaimRate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Claim rate / cy pres / fairness concern (bridges civilLiability.flagDispositiveRuling + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "settlementVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "settlementVid": {
+              "type": "string",
+              "description": "bridges recordSettlement"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "low_claim_rate",
+                "excessive_fees",
+                "non_monetary_relief",
+                "reversionary",
+                "cy_pres_conflict",
+                "administrator_conflict",
+                "objector_blackmail",
+                "opt_out_wave",
+                "collateral_estoppel"
+              ]
+            },
+            "claimRatePct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

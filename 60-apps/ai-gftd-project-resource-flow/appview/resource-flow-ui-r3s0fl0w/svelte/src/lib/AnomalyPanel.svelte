@@ -240,7 +240,7 @@
 
   <p style="margin-top:14px;color:#6c7280;font-size:11px">
     Detector: <code>R/PT24H</code> BPMN cron · threshold 3.0× rolling 30-day avg ·
-    written by <code>app.etzhayyim.apps.resourceFlow.detectAnomaly</code> · listed via
-    <code>app.etzhayyim.apps.resourceFlow.listAnomalies</code>.
+    written by <code>com.etzhayyim.apps.resourceFlow.detectAnomaly</code> · listed via
+    <code>com.etzhayyim.apps.resourceFlow.listAnomalies</code>.
   </p>
 </section>

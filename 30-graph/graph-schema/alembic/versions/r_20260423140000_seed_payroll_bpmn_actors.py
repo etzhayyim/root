@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-declare-initial-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-declare-initial-v1',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'fuyou_declare_initial',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -63,7 +63,7 @@ UP = [{'sql': '\n'
                  '      employerOrgId (str)      雇用主 org_id (kaisya scope)\n'
                  '      taxYear (int)            対象年 (e.g. 2026)\n'
                  '      vertexId (str)           '
-                 'at://{employeeDid}/app.etzhayyim.apps.fuyou.declaration/{taxYear}-{rkey}\n'
+                 'at://{employeeDid}/com.etzhayyim.apps.fuyou.declaration/{taxYear}-{rkey}\n'
                  '                               dispatcher 側で生成して注入\n'
                  '\n'
                  '    middle (form output):\n'
@@ -262,14 +262,14 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.pds.dispatch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.kaikei.recomputeWithholding&quot;" target="type"/>\n'
+                 'source="=&quot;com.etzhayyim.apps.kaikei.recomputeWithholding&quot;" target="type"/>\n'
                  '          <zeebe:input source="={\n'
                  '              employeeDid:        employeeDid,\n'
                  '              employerOrgId:      employerOrgId,\n'
                  '              taxYear:            taxYear,\n'
                  '              effectiveFromMonth: substring(string(now()), 1, 7),\n'
                  '              triggerVertexId:    vertexId,\n'
-                 '              triggerSource:      &quot;app.etzhayyim.apps.fuyou.finalize&quot;\n'
+                 '              triggerSource:      &quot;com.etzhayyim.apps.fuyou.finalize&quot;\n'
                  '          }" target="payload"/>\n'
                  '          <zeebe:input source="=&quot;did:web:jpn-payroll.etzhayyim.com:fuyou&quot;" '
                  'target="callerDid"/>\n'
@@ -373,11 +373,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  14128,
-                 '00-contracts/bpmn/ai/gftd/fuyou/declareInitial.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/fuyou/declareInitial.bpmn',
                  '2026-04-23T14:00:00Z',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-declare-initial-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-declare-initial-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -412,7 +412,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-amend-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-amend-v1',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'fuyou_amend',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -658,7 +658,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.pds.dispatch"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.kaikei.recomputeWithholding&quot;" target="type"/>\n'
+                 'source="=&quot;com.etzhayyim.apps.kaikei.recomputeWithholding&quot;" target="type"/>\n'
                  '          <zeebe:input source="={\n'
                  '              employeeDid:        employeeDid,\n'
                  '              employerOrgId:      employerOrgId,\n'
@@ -667,7 +667,7 @@ UP = [{'sql': '\n'
                  '1, 7),\n'
                  '              triggerVertexId:    vertexId,\n'
                  '              triggerSource:      '
-                 '&quot;app.etzhayyim.apps.fuyou.amendDeclaration&quot;,\n'
+                 '&quot;com.etzhayyim.apps.fuyou.amendDeclaration&quot;,\n'
                  '              amendmentReason:    string(amendmentMeta.amendmentReason)\n'
                  '          }" target="payload"/>\n'
                  '          <zeebe:input source="=&quot;did:web:jpn-payroll.etzhayyim.com:fuyou&quot;" '
@@ -741,11 +741,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  14219,
-                 '00-contracts/bpmn/ai/gftd/fuyou/amend.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/fuyou/amend.bpmn',
                  '2026-04-23T14:00:00Z',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-amend-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-amend-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -780,7 +780,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-purge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-purge-v1',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'fuyou_purge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -792,7 +792,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '  起動方法:\n'
                  '    - timer start (毎日 03:00) — Operate / Tasklist でスケジュール起動\n'
-                 '    - manual: dispatcher から POST /xrpc/app.etzhayyim.apps.fuyou.purge\n'
+                 '    - manual: dispatcher から POST /xrpc/com.etzhayyim.apps.fuyou.purge\n'
                  '\n'
                  '  Variables:\n'
                  '    out:\n'
@@ -821,7 +821,7 @@ UP = [{'sql': '\n'
                  '\n'
                  '    <!-- Two start events feed the same flow: a daily timer (cron) and a\n'
                  '         plain none-start so dispatcher can invoke it manually via\n'
-                 '         POST /xrpc/app.etzhayyim.apps.fuyou.purge. -->\n'
+                 '         POST /xrpc/com.etzhayyim.apps.fuyou.purge. -->\n'
                  '    <bpmn:startEvent id="StartTimer" name="03:00 daily">\n'
                  '      <bpmn:outgoing>Flow_T</bpmn:outgoing>\n'
                  '      <bpmn:timerEventDefinition>\n'
@@ -957,11 +957,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  7376,
-                 '00-contracts/bpmn/ai/gftd/fuyou/purge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/fuyou/purge.bpmn',
                  '2026-04-23T14:00:00Z',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-purge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-purge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -996,7 +996,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-submit-monthly-ecr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-submit-monthly-ecr-v1',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'epfo_submit_monthly_ecr',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1189,7 +1189,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.pds.dispatch"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.kaikei.recordPfPayable&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.kaikei.recordPfPayable&quot;" '
                  'target="type"/>\n'
                  '          <zeebe:input source="={\n'
                  '              employerOrgId:                employerOrgId,\n'
@@ -1203,7 +1203,7 @@ UP = [{'sql': '\n'
                  'number(establishment.totalAdminInrPaise),\n'
                  '              triggerVertexId:              vertexId,\n'
                  '              triggerSource:                '
-                 '&quot;app.etzhayyim.apps.epfo.finalize&quot;,\n'
+                 '&quot;com.etzhayyim.apps.epfo.finalize&quot;,\n'
                  '              trrn:                         string(verdict.trrn)\n'
                  '          }" target="payload"/>\n'
                  '          <zeebe:input source="=&quot;did:web:ind-payroll.etzhayyim.com:epfo&quot;" '
@@ -1315,11 +1315,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  14346,
-                 '00-contracts/bpmn/ai/gftd/epfo/submitMonthlyEcr.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/epfo/submitMonthlyEcr.bpmn',
                  '2026-04-23T14:00:00Z',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-submit-monthly-ecr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-submit-monthly-ecr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -1354,7 +1354,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-amend-ecr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-amend-ecr-v1',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'epfo_amend_ecr',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1574,14 +1574,14 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.pds.dispatch"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.kaikei.recordPfPayable&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.kaikei.recordPfPayable&quot;" '
                  'target="type"/>\n'
                  '          <zeebe:input source="={\n'
                  '              employerOrgId:       employerOrgId,\n'
                  '              establishmentPfCode: establishmentPfCode,\n'
                  '              effectiveWageMonth:  wageMonth,\n'
                  '              triggerVertexId:     vertexId,\n'
-                 '              triggerSource:       &quot;app.etzhayyim.apps.epfo.amendEcr&quot;,\n'
+                 '              triggerSource:       &quot;com.etzhayyim.apps.epfo.amendEcr&quot;,\n'
                  '              amendmentReason:     string(amendmentMeta.amendmentReason)\n'
                  '          }" target="payload"/>\n'
                  '          <zeebe:input source="=&quot;did:web:ind-payroll.etzhayyim.com:epfo&quot;" '
@@ -1650,11 +1650,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  13213,
-                 '00-contracts/bpmn/ai/gftd/epfo/amend.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/epfo/amend.bpmn',
                  '2026-04-23T14:00:00Z',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-amend-ecr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-amend-ecr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -1689,7 +1689,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-purge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-purge-v1',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'epfo_purge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1826,11 +1826,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5381,
-                 '00-contracts/bpmn/ai/gftd/epfo/purge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/epfo/purge.bpmn',
                  '2026-04-23T14:00:00Z',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-purge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-purge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1863,15 +1863,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-startDeclaration-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-startDeclaration-v1',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'app.etzhayyim.apps.fuyou.startDeclaration',
+                 'com.etzhayyim.apps.fuyou.startDeclaration',
                  'fuyou_declare_initial',
                  0,
                  '2026-04-23T14:00:00Z',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-startDeclaration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-startDeclaration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1904,15 +1904,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-amendDeclaration-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-amendDeclaration-v1',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'app.etzhayyim.apps.fuyou.amendDeclaration',
+                 'com.etzhayyim.apps.fuyou.amendDeclaration',
                  'fuyou_amend',
                  0,
                  '2026-04-23T14:00:00Z',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-amendDeclaration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-amendDeclaration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1945,15 +1945,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-purge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-purge-v1',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'app.etzhayyim.apps.fuyou.purge',
+                 'com.etzhayyim.apps.fuyou.purge',
                  'fuyou_purge',
                  120000,
                  '2026-04-23T14:00:00Z',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
                  'did:web:jpn-payroll.etzhayyim.com:fuyou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-purge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-purge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1986,15 +1986,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-startMonthlyEcr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-startMonthlyEcr-v1',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'app.etzhayyim.apps.epfo.startMonthlyEcr',
+                 'com.etzhayyim.apps.epfo.startMonthlyEcr',
                  'epfo_submit_monthly_ecr',
                  0,
                  '2026-04-23T14:00:00Z',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-startMonthlyEcr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-startMonthlyEcr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -2027,15 +2027,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-amendEcr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-amendEcr-v1',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'app.etzhayyim.apps.epfo.amendEcr',
+                 'com.etzhayyim.apps.epfo.amendEcr',
                  'epfo_amend_ecr',
                  0,
                  '2026-04-23T14:00:00Z',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-amendEcr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-amendEcr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -2068,40 +2068,40 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-purge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-purge-v1',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'app.etzhayyim.apps.epfo.purge',
+                 'com.etzhayyim.apps.epfo.purge',
                  'epfo_purge',
                  120000,
                  '2026-04-23T14:00:00Z',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'did:web:ind-payroll.etzhayyim.com:epfo',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-purge-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-purge-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-startDeclaration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-startDeclaration-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-amendDeclaration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-amendDeclaration-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fuyou-purge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fuyou-purge-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-startMonthlyEcr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-startMonthlyEcr-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-amendEcr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-amendEcr-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/epfo-purge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/epfo-purge-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-declare-initial-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-declare-initial-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-amend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-amend-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fuyou-purge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fuyou-purge-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-submit-monthly-ecr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-submit-monthly-ecr-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-amend-ecr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-amend-ecr-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/epfo-purge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/epfo-purge-v1']}]
 
 
 def upgrade() -> None:

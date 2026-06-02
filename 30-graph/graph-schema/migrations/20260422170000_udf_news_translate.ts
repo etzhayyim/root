@@ -4,7 +4,7 @@ import { sql } from "kysely";
 /**
  * ADR-0049 Phase B4 — register `news_translate` external Python UDF.
  *
- * Delegates to `app.etzhayyim.apps.news.translate` on the mitama-udf pool.
+ * Delegates to `com.etzhayyim.apps.news.translate` on the mitama-udf pool.
  * 3-arg signature: (text, source_lang, target_lang) → translated text.
  *
  * Replaces the RunPod gemma4:26b round-trip in
@@ -30,7 +30,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION news_translate(VARCHAR, VARCHAR, VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.news.translate'
+      AS 'com.etzhayyim.apps.news.translate'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

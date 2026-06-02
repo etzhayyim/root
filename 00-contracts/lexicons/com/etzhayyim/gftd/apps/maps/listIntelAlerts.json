@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listIntelAlerts",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List active resident intelligence alerts derived from maps graph risk scoring.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "scopeKind": { "type": "string" },
+          "scopeId": { "type": "string" },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    }
+  }
+}

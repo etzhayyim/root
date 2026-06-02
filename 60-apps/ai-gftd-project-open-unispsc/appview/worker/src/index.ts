@@ -1,6 +1,6 @@
 // AppView Worker for the UNSPSC langserver. Per ADR-2605180900 Phase 7.
 //
-// Mounts `/xrpc/app.etzhayyim.apps.unispsc.*` at unispsc.etzhayyim.com and
+// Mounts `/xrpc/com.etzhayyim.apps.unispsc.*` at unispsc.etzhayyim.com and
 // proxies each call to the in-cluster lg-open-unispsc langserver. The
 // XRPC handler library lives in @etzhayyim/magatama-host-sdk so the same
 // surface can be re-mounted from any other Worker.

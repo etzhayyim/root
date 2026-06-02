@@ -4,7 +4,7 @@
   "name": "karute",
   "nanoid": "karu7t3e",
   "displayName": "Karute — 電子カルテ (EMR / FHIR R5)",
-  "description": "FHIR R5 互換の電子カルテ (Patient / Encounter / SOAP / Observation / Condition / MedicationRequest / ServiceRequest)。PHI は `app.etzhayyim.encrypted.record` envelope (XChaCha20-Poly1305 + Signal key-wrap, ADR-2605181100) で保護。public meta + 統計のみ平文。RW-free 基盤 (AT MST + IPFS + Base L2) 準拠。",
+  "description": "FHIR R5 互換の電子カルテ (Patient / Encounter / SOAP / Observation / Condition / MedicationRequest / ServiceRequest)。PHI は `com.etzhayyim.encrypted.record` envelope (XChaCha20-Poly1305 + Signal key-wrap, ADR-2605181100) で保護。public meta + 統計のみ平文。RW-free 基盤 (AT MST + IPFS + Base L2) 準拠。",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",
   "edge": "sveltekit-proxy",
@@ -23,7 +23,7 @@
       "HIPAA-compatible-pattern"
     ],
     "raci": "responsible",
-    "phiPolicy": "all clinical records MUST flow through app.etzhayyim.encrypted.record envelope (ADR-2605181100); plaintext on MST is prohibited for any field containing patient-identifying data"
+    "phiPolicy": "all clinical records MUST flow through com.etzhayyim.encrypted.record envelope (ADR-2605181100); plaintext on MST is prohibited for any field containing patient-identifying data"
   },
   "capabilities": [
     "graph.query",
@@ -76,8 +76,8 @@
     ]
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -90,15 +90,15 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "app.etzhayyim.encrypted.record",
-        "ai.gftd.apps.karute.terminologyBinding",
-        "ai.gftd.apps.karute.referral"
+        "com.etzhayyim.encrypted.record",
+        "com.etzhayyim.apps.karute.terminologyBinding",
+        "com.etzhayyim.apps.karute.referral"
       ]
     }
   },
   "pipelines": [
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.listPatients", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.listPatients", "type": "xrpc"},
       "steps": [
         {
           "id": "patients",
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.getPatient", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.getPatient", "type": "xrpc"},
       "steps": [
         {
           "id": "patient",
@@ -130,14 +130,14 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.createSoapNote", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.createSoapNote", "type": "xrpc"},
       "steps": [
         {
           "id": "encrypt",
           "fn": "encrypted.write",
           "args": {
-            "innerType": "app.etzhayyim.karute.soapNote",
-            "envelope": "app.etzhayyim.encrypted.record",
+            "innerType": "com.etzhayyim.karute.soapNote",
+            "envelope": "com.etzhayyim.encrypted.record",
             "recipients": "$input.recipientDids",
             "record": "$input.record",
             "publicMeta": "$input.publicMeta"
@@ -148,7 +148,7 @@
           "fn": "graph.write",
           "depends_on": ["encrypt"],
           "args": {
-            "template": "CREATE (n:KaruteSoapNote {did: $did, patientDid: $input.publicMeta.patientDid, encounterDid: $input.publicMeta.encounterDid, occurredAt: $input.publicMeta.occurredAt, authorDid: $input.publicMeta.authorDid, repo: $did, collection: 'app.etzhayyim.encrypted.record', innerType: 'app.etzhayyim.karute.soapNote', encryptedCid: $encrypt.cid})"
+            "template": "CREATE (n:KaruteSoapNote {did: $did, patientDid: $input.publicMeta.patientDid, encounterDid: $input.publicMeta.encounterDid, occurredAt: $input.publicMeta.occurredAt, authorDid: $input.publicMeta.authorDid, repo: $did, collection: 'com.etzhayyim.encrypted.record', innerType: 'com.etzhayyim.karute.soapNote', encryptedCid: $encrypt.cid})"
           }
         },
         {
@@ -168,7 +168,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.createMedicationRequest", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.createMedicationRequest", "type": "xrpc"},
       "steps": [
         {
           "id": "interactionCheck",
@@ -182,8 +182,8 @@
           "fn": "encrypted.write",
           "depends_on": ["interactionCheck"],
           "args": {
-            "innerType": "app.etzhayyim.karute.medicationRequest",
-            "envelope": "app.etzhayyim.encrypted.record",
+            "innerType": "com.etzhayyim.karute.medicationRequest",
+            "envelope": "com.etzhayyim.encrypted.record",
             "recipients": "$input.recipientDids",
             "record": "$input.record",
             "publicMeta": "$input.publicMeta"
@@ -194,20 +194,20 @@
           "fn": "graph.write",
           "depends_on": ["encrypt"],
           "args": {
-            "template": "CREATE (r:KaruteMedicationRequest {did: $did, patientDid: $input.publicMeta.patientDid, encounterDid: $input.publicMeta.encounterDid, prescriberDid: $input.publicMeta.prescriberDid, status: $input.publicMeta.status, repo: $did, collection: 'app.etzhayyim.encrypted.record', innerType: 'app.etzhayyim.karute.medicationRequest', encryptedCid: $encrypt.cid, interactionFlags: $interactionCheck.text})"
+            "template": "CREATE (r:KaruteMedicationRequest {did: $did, patientDid: $input.publicMeta.patientDid, encounterDid: $input.publicMeta.encounterDid, prescriberDid: $input.publicMeta.prescriberDid, status: $input.publicMeta.status, repo: $did, collection: 'com.etzhayyim.encrypted.record', innerType: 'com.etzhayyim.karute.medicationRequest', encryptedCid: $encrypt.cid, interactionFlags: $interactionCheck.text})"
           }
         }
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.createObservation", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.createObservation", "type": "xrpc"},
       "steps": [
         {
           "id": "encrypt",
           "fn": "encrypted.write",
           "args": {
-            "innerType": "app.etzhayyim.karute.observation",
-            "envelope": "app.etzhayyim.encrypted.record",
+            "innerType": "com.etzhayyim.karute.observation",
+            "envelope": "com.etzhayyim.encrypted.record",
             "recipients": "$input.recipientDids",
             "record": "$input.record",
             "publicMeta": "$input.publicMeta"
@@ -218,19 +218,19 @@
           "fn": "graph.write",
           "depends_on": ["encrypt"],
           "args": {
-            "template": "CREATE (o:KaruteObservation {did: $did, patientDid: $input.publicMeta.patientDid, encounterDid: $input.publicMeta.encounterDid, loincCode: $input.publicMeta.loincCode, occurredAt: $input.publicMeta.occurredAt, repo: $did, collection: 'app.etzhayyim.encrypted.record', innerType: 'app.etzhayyim.karute.observation', encryptedCid: $encrypt.cid})"
+            "template": "CREATE (o:KaruteObservation {did: $did, patientDid: $input.publicMeta.patientDid, encounterDid: $input.publicMeta.encounterDid, loincCode: $input.publicMeta.loincCode, occurredAt: $input.publicMeta.occurredAt, repo: $did, collection: 'com.etzhayyim.encrypted.record', innerType: 'com.etzhayyim.karute.observation', encryptedCid: $encrypt.cid})"
           }
         }
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.createDispense", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.createDispense", "type": "xrpc"},
       "steps": [
         {
           "id": "writeDispense",
           "fn": "graph.write",
           "args": {
-            "template": "CREATE (d:KaruteDispense {did: $did, patientDid: $input.publicMeta.patientDid, medicationRequestUri: $input.publicMeta.medicationRequestUri, pharmacyDid: $input.publicMeta.pharmacyDid, pharmacistDid: $input.publicMeta.pharmacistDid, status: $input.publicMeta.status, whenHandedOver: $input.publicMeta.whenHandedOver, substitutionPerformed: $input.publicMeta.substitutionPerformed, repo: $did, collection: 'app.etzhayyim.encrypted.record', innerType: 'app.etzhayyim.karute.dispenseRecord', encryptedCid: $input.encryptedCid})"
+            "template": "CREATE (d:KaruteDispense {did: $did, patientDid: $input.publicMeta.patientDid, medicationRequestUri: $input.publicMeta.medicationRequestUri, pharmacyDid: $input.publicMeta.pharmacyDid, pharmacistDid: $input.publicMeta.pharmacistDid, status: $input.publicMeta.status, whenHandedOver: $input.publicMeta.whenHandedOver, substitutionPerformed: $input.publicMeta.substitutionPerformed, repo: $did, collection: 'com.etzhayyim.encrypted.record', innerType: 'com.etzhayyim.karute.dispenseRecord', encryptedCid: $input.encryptedCid})"
           }
         },
         {
@@ -258,7 +258,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.listDispenses", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.listDispenses", "type": "xrpc"},
       "steps": [
         {
           "id": "rows",
@@ -270,13 +270,13 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.getChartSummary", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.getChartSummary", "type": "xrpc"},
       "steps": [
         {
           "id": "timeline",
           "fn": "graph.query",
           "args": {
-            "sql": "MATCH (n) WHERE n.patientDid = $input.patientDid AND n.innerType IN ['app.etzhayyim.karute.patient','app.etzhayyim.karute.encounter','app.etzhayyim.karute.soapNote','app.etzhayyim.karute.observation','app.etzhayyim.karute.condition','app.etzhayyim.karute.medicationRequest','app.etzhayyim.karute.serviceRequest','app.etzhayyim.karute.dispenseRecord'] RETURN n.innerType AS kind, n.rkey AS rkey, n.occurredAt AS occurredAt, n._seq AS seq, n.encryptedCid AS encryptedCid, n.publicMeta AS publicMeta ORDER BY n._seq DESC LIMIT $input.limit"
+            "sql": "MATCH (n) WHERE n.patientDid = $input.patientDid AND n.innerType IN ['com.etzhayyim.karute.patient','com.etzhayyim.karute.encounter','com.etzhayyim.karute.soapNote','com.etzhayyim.karute.observation','com.etzhayyim.karute.condition','com.etzhayyim.karute.medicationRequest','com.etzhayyim.karute.serviceRequest','com.etzhayyim.karute.dispenseRecord'] RETURN n.innerType AS kind, n.rkey AS rkey, n.occurredAt AS occurredAt, n._seq AS seq, n.encryptedCid AS encryptedCid, n.publicMeta AS publicMeta ORDER BY n._seq DESC LIMIT $input.limit"
           }
         },
         {
@@ -290,13 +290,13 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.exportFhirBundle", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.exportFhirBundle", "type": "xrpc"},
       "steps": [
         {
           "id": "fetchTimeline",
           "fn": "graph.query",
           "args": {
-            "sql": "MATCH (n) WHERE n.patientDid = $input.patientDid AND n.innerType IN ['app.etzhayyim.karute.patient','app.etzhayyim.karute.encounter','app.etzhayyim.karute.soapNote','app.etzhayyim.karute.observation','app.etzhayyim.karute.condition','app.etzhayyim.karute.medicationRequest','app.etzhayyim.karute.serviceRequest','app.etzhayyim.karute.dispenseRecord'] RETURN n.innerType AS innerType, n.encryptedCid AS encryptedCid, n.publicMeta AS publicMeta, n._seq AS seq ORDER BY n._seq ASC"
+            "sql": "MATCH (n) WHERE n.patientDid = $input.patientDid AND n.innerType IN ['com.etzhayyim.karute.patient','com.etzhayyim.karute.encounter','com.etzhayyim.karute.soapNote','com.etzhayyim.karute.observation','com.etzhayyim.karute.condition','com.etzhayyim.karute.medicationRequest','com.etzhayyim.karute.serviceRequest','com.etzhayyim.karute.dispenseRecord'] RETURN n.innerType AS innerType, n.encryptedCid AS encryptedCid, n.publicMeta AS publicMeta, n._seq AS seq ORDER BY n._seq ASC"
           }
         },
         {
@@ -312,7 +312,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.grantConsent", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.grantConsent", "type": "xrpc"},
       "steps": [
         {
           "id": "sign",
@@ -337,13 +337,13 @@
           "fn": "graph.write",
           "depends_on": ["sign"],
           "args": {
-            "template": "CREATE (c:ConsentCapability {did: $input.granterDid, granterDid: $input.granterDid, granteeDid: $input.granteeDid, purpose: $input.purpose, scope: $input.scope, status: 'active', issuedAt: $sign.issuedAt, expiresAt: $input.expiresAt, capabilityUri: $sign.capabilityUri, repo: $input.granterDid, collection: 'app.etzhayyim.consent.capability'})"
+            "template": "CREATE (c:ConsentCapability {did: $input.granterDid, granterDid: $input.granterDid, granteeDid: $input.granteeDid, purpose: $input.purpose, scope: $input.scope, status: 'active', issuedAt: $sign.issuedAt, expiresAt: $input.expiresAt, capabilityUri: $sign.capabilityUri, repo: $input.granterDid, collection: 'com.etzhayyim.consent.capability'})"
           }
         }
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.revokeConsent", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.revokeConsent", "type": "xrpc"},
       "steps": [
         {
           "id": "revoke",
@@ -355,7 +355,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.listConsent", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.listConsent", "type": "xrpc"},
       "steps": [
         {
           "id": "rows",
@@ -367,14 +367,14 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.rekeyRecord", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.rekeyRecord", "type": "xrpc"},
       "steps": [
         {
           "id": "rekey",
           "fn": "encrypted.write",
           "args": {
             "innerType": "$input.innerType",
-            "envelope": "app.etzhayyim.encrypted.record",
+            "envelope": "com.etzhayyim.encrypted.record",
             "recipients": "$input.newRecipientDids",
             "rekeyOfCid": "$input.priorCid"
           }
@@ -384,7 +384,7 @@
           "fn": "graph.write",
           "depends_on": ["rekey"],
           "args": {
-            "template": "CREATE (t:EncryptedTombstone {supersededCid: $input.priorCid, supersededAtUri: $input.priorAtUri, successorCid: $rekey.cid, successorAtUri: $rekey.uri, tombstoneType: 'rekey', reason: $input.reason, scope: 'single-record', removedRecipientDid: $input.removedRecipientDid, actorDid: $did, tombstoneAt: $now, repo: $did, collection: 'app.etzhayyim.encrypted.tombstone'})"
+            "template": "CREATE (t:EncryptedTombstone {supersededCid: $input.priorCid, supersededAtUri: $input.priorAtUri, successorCid: $rekey.cid, successorAtUri: $rekey.uri, tombstoneType: 'rekey', reason: $input.reason, scope: 'single-record', removedRecipientDid: $input.removedRecipientDid, actorDid: $did, tombstoneAt: $now, repo: $did, collection: 'com.etzhayyim.encrypted.tombstone'})"
           }
         },
         {
@@ -409,13 +409,13 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.redactRecord", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.redactRecord", "type": "xrpc"},
       "steps": [
         {
           "id": "tombstone",
           "fn": "graph.write",
           "args": {
-            "template": "CREATE (t:EncryptedTombstone {supersededCid: $input.targetCid, supersededAtUri: $input.targetAtUri, tombstoneType: CASE $input.seal WHEN true THEN 'sealed' ELSE 'redact' END, reason: $input.reason, scope: 'single-record', actorDid: $did, tombstoneAt: $now, repo: $did, collection: 'app.etzhayyim.encrypted.tombstone'})"
+            "template": "CREATE (t:EncryptedTombstone {supersededCid: $input.targetCid, supersededAtUri: $input.targetAtUri, tombstoneType: CASE $input.seal WHEN true THEN 'sealed' ELSE 'redact' END, reason: $input.reason, scope: 'single-record', actorDid: $did, tombstoneAt: $now, repo: $did, collection: 'com.etzhayyim.encrypted.tombstone'})"
           }
         },
         {
@@ -440,7 +440,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.listTombstones", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.listTombstones", "type": "xrpc"},
       "steps": [
         {
           "id": "rows",
@@ -452,7 +452,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.listAuditEvents", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.listAuditEvents", "type": "xrpc"},
       "steps": [
         {
           "id": "rows",
@@ -464,7 +464,7 @@
       ]
     },
     {
-      "trigger": {"nsid": "ai.gftd.apps.karute.requestIryoBilling", "type": "xrpc"},
+      "trigger": {"nsid": "com.etzhayyim.apps.karute.requestIryoBilling", "type": "xrpc"},
       "steps": [
         {
           "id": "verifyCap",
@@ -495,7 +495,7 @@
           "fn": "graph.write",
           "depends_on": ["forwardToIryo"],
           "args": {
-            "template": "CREATE (r:IryoBillingRequest {did: $did, patientDid: $input.patientDid, encounterDid: $input.encounterDid, consentCapabilityUri: $input.consentCapabilityUri, iryoClaimRef: $forwardToIryo.iryoClaimRef, iryoStatus: $forwardToIryo.iryoStatus, requestedAt: $now, repo: $did, collection: 'ai.gftd.apps.karute.iryoBillingRequest'})"
+            "template": "CREATE (r:IryoBillingRequest {did: $did, patientDid: $input.patientDid, encounterDid: $input.encounterDid, consentCapabilityUri: $input.consentCapabilityUri, iryoClaimRef: $forwardToIryo.iryoClaimRef, iryoStatus: $forwardToIryo.iryoStatus, requestedAt: $now, repo: $did, collection: 'com.etzhayyim.apps.karute.iryoBillingRequest'})"
           }
         }
       ]
@@ -545,7 +545,7 @@
             "params": {
               "actorName": "karute",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.karute.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.karute.coverageSnapshot",
               "nanoid": "karu7t3e",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
             },

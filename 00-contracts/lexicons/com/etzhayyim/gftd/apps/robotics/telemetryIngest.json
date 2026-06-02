@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.telemetry.ingest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Validate and normalize a robotics telemetry frame against the robotics telemetry schema.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "frameId": { "type": "string" },
+            "topic": { "type": "string" },
+            "payload": { "type": "unknown" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "frameId": { "type": "string" },
+            "topic": { "type": "string" },
+            "accepted": { "type": "boolean" },
+            "missingFields": { "type": "array", "items": { "type": "string" } },
+            "payload": { "type": "unknown" },
+            "receivedAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
