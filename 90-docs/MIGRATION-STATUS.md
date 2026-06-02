@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 102 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 17 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 66 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 16 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 67 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 17 apps** (C + D = 0 + 17; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 16 apps** (C + D = 0 + 16; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -76,7 +76,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (66)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (67)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -619,6 +619,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (ADR-0018); integrations ads / resend / gmail / m365. Private CRM/PII +
   outreach steps, not open-data (carry-forward test fails). Same family as
   `webmk` (marketing-CRM agent). No rw-free built.
+- **phone** (Bucket D / ad-pixel → V) — axes: **Custody (call history + contacts
+  PII) + Liability (PSTN telephony / telecom + call routing) + Settlement
+  (per-minute charges) + Infra (AWS Connect)**. Browser-based phone calling
+  platform (`phone.etzhayyim.com`) powered by AWS Connect: WebRTC softphone, call
+  control (dial/answer/hold/transfer/DTMF), call history, contact management,
+  inbound/outbound PSTN. Private telephony PII + telecom infra, not open-data
+  (carry-forward test fails). No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -646,7 +653,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (17, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (16, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -662,7 +669,7 @@ yatabase) have been migrated (A) or judged vendor-resident (V). Only the
 **ad-pixel codemod (26)** + **substrate-boundary (6)** sublists remain in Bucket D.
 
 **Ad-pixel codemod complete (un-resolved tail)**:
-phone, recap, ses, society6, x
+recap, ses, society6, x
 (\* names animeka/briefing/communicator/email-service-adapter*/fax* already
 resolved: animeka/mangaka in A; briefing/communicator in V; email-service-adapter/fax
 tracked as legacy codemod-only. `*` = also in Bucket C list.)
