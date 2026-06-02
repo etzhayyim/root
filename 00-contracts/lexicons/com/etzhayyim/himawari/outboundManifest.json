@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.outboundManifest",
+  "description": "Outbound transport handoff manifest (→ hikari install site). Composes kami-autodrive GNC (ADR-2606010600, LANDED). G13 (transport bound by kami-autodrive gates — no weaponization, encrypted telemetry, own-module → hikari only) structural enforcement. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "manifestId": {
+            "type": "string"
+          },
+          "loadingId": {
+            "type": "string"
+          },
+          "destinationSiteDid": {
+            "type": "string",
+            "description": "G13/N10: hikari install site only; no external carriage"
+          },
+          "transportClass": {
+            "type": "string",
+            "knownValues": [
+              "kami-autodrive-truck",
+              "kami-autodrive-ship",
+              "funadaiku-marine"
+            ]
+          },
+          "telemetryEncryptionCid": {
+            "type": "string",
+            "description": "G13 encrypted telemetry"
+          },
+          "routePlanCid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "manifestId",
+          "loadingId",
+          "destinationSiteDid",
+          "transportClass"
+        ]
+      }
+    }
+  }
+}

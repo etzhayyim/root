@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himawari.loadingRecord",
+  "description": "積込 loading-robot cycle record (palletize + load onto carrier). Composes sarutahiko F10 LoaderRobot (ADR-2606013100, LANDED). G7 (labor-liberation transparency) coupling. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "loadingId": {
+            "type": "string"
+          },
+          "moduleSerials": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "palletCount": {
+            "type": "integer"
+          },
+          "carrierDid": {
+            "type": "string"
+          },
+          "loaderRobotDid": {
+            "type": "string",
+            "description": "sarutahiko F10 LoaderRobot lineage"
+          },
+          "humanTasksRemovedCid": {
+            "type": "string",
+            "description": "G7: tasks automated-away logged to Liberation Metric (ADR-2605261000)"
+          },
+          "cycleStateLogCid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "loadingId",
+          "moduleSerials",
+          "carrierDid",
+          "loaderRobotDid"
+        ]
+      }
+    }
+  }
+}
