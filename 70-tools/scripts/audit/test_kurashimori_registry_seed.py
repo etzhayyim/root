@@ -17,8 +17,8 @@ Invariants under test:
   4. every entry has a non-empty https provenance/source URL + a "lastVerified"
      timestamp.
   5. every entry has a "jurisdiction"; the registry spans MULTIPLE jurisdictions
-     (>= 5 distinct values — proves worldwide coverage, guards against
-     regression to JP-only).
+     (>= 12 distinct values — proves long-tail worldwide coverage, guards
+     against regression to JP-only / shallow-bloc-only).
   6. G5/UPL boundary caveat is present: every entry's "notes" is non-empty, and
      the registry references its 弁護士法 / 司法書士法 / UPL boundary regime.
 """
@@ -114,9 +114,10 @@ def test_jurisdiction_present_and_worldwide():
     jurs = [t.get("jurisdiction") for t in targets]
     assert all(jurs), "every entry MUST carry a 'jurisdiction'"
     distinct = set(jurs)
-    assert len(distinct) >= 5, (
-        "registry MUST span >= 5 distinct jurisdictions (worldwide coverage; "
-        f"guards against JP-only regression); got {sorted(distinct)}"
+    assert len(distinct) >= 12, (
+        "registry MUST span >= 12 distinct jurisdictions (long-tail worldwide "
+        "coverage; guards against JP-only / shallow-bloc-only regression); "
+        f"got {sorted(distinct)}"
     )
 
 

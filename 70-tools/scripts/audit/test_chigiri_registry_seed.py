@@ -19,8 +19,9 @@ Invariants under test:
   2. Every entry has a unique "referralId" (no duplicates) — fail-closed.
   3. EVERY entry has verificationStatus == "unverified-seed" (G14).
   4. Every entry has a non-empty provenance URL (https) + a lastVerified stamp.
-  5. Every entry has a "jurisdiction"; registry spans >= 5 distinct
-     jurisdictions (proves worldwide coverage, guards JP-only regression).
+  5. Every entry has a "jurisdiction"; registry spans >= 12 distinct
+     jurisdictions (proves long-tail worldwide coverage, guards JP-only and
+     core-only regression).
   6. Every entry's notes is non-empty, and the registry references its
      boundary regime (UPL / referral-only / no advice / zero compensation).
   7. A top-level integer "freshnessWindowDays" is present.
@@ -119,9 +120,10 @@ def test_multiple_jurisdictions(referrals: list):
             f"{rid}: MUST carry a non-empty jurisdiction"
         )
     distinct = {e["jurisdiction"] for e in referrals}
-    assert len(distinct) >= 5, (
-        "registry MUST span >= 5 distinct jurisdictions (worldwide coverage; "
-        f"guards JP-only regression); got {sorted(distinct)}"
+    assert len(distinct) >= 12, (
+        "registry MUST span >= 12 distinct jurisdictions (long-tail worldwide "
+        "coverage; guards JP-only AND core-only regression); got "
+        f"{sorted(distinct)}"
     )
 
 

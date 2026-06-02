@@ -19,7 +19,7 @@ Invariants under test:
      may be pre-marked verified in the seed).
   4. every entry has a non-empty https provenance URL + a lastVerified stamp.
   5. every entry has a `jurisdiction`, and the registry spans MULTIPLE
-     jurisdictions (>= 5 distinct) — proves worldwide coverage / guards against
+     jurisdictions (>= 12 distinct) — proves worldwide coverage / guards against
      regression to JP-only.
   6. G5 行政書士法/UPL boundary caveat is present: every entry's `notes` is
      non-empty, and the registry as a whole references its UPL boundary regime.
@@ -119,10 +119,11 @@ def test_registry_spans_multiple_jurisdictions():
             f"{p.get('procedureId')}: MUST declare a jurisdiction"
         )
     jurisdictions = {p["jurisdiction"] for p in procs}
-    assert len(jurisdictions) >= 5, (
-        "WORLDWIDE coverage invariant: registry MUST span >= 5 distinct "
-        f"jurisdictions (guards against regression to JP-only); got "
-        f"{sorted(jurisdictions)}"
+    assert len(jurisdictions) >= 12, (
+        "WORLDWIDE coverage invariant: registry MUST span >= 12 distinct "
+        f"jurisdictions (raised from 5 after the 2026-06-02 long-tail "
+        f"deepening to lock in deeper coverage; guards against regression to "
+        f"JP-only); got {sorted(jurisdictions)}"
     )
 
 

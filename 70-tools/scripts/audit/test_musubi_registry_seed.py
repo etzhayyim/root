@@ -17,8 +17,8 @@ Invariants under test (all fail-closed):
      may be pre-marked verified in the seed).
   4. Every entry has a non-empty https provenance URL and a lastVerified stamp.
   5. Every entry has a "jurisdiction" and the registry spans MULTIPLE
-     jurisdictions (>= 5 distinct — proves worldwide coverage, guards against
-     regression to JP-only).
+     jurisdictions (>= 12 distinct — proves deep worldwide coverage after the
+     long-tail deepening, guards against regression to JP-only).
   6. Boundary caveat present: every entry's "notes" is non-empty AND references
      the informational-only / no-civil-registration / no-advice regime.
   7. A top-level integer "freshnessWindowDays" is present.
@@ -117,10 +117,10 @@ def test_worldwide_multiple_jurisdictions():
             f"{r.get('recognitionId')}: MUST carry a jurisdiction"
         )
     distinct = {r["jurisdiction"] for r in recs}
-    assert len(distinct) >= 5, (
-        f"worldwide invariant: registry MUST span >= 5 distinct jurisdictions "
-        f"(guards against regression to JP-only); got {len(distinct)}: "
-        f"{sorted(distinct)}"
+    assert len(distinct) >= 12, (
+        f"worldwide invariant: registry MUST span >= 12 distinct jurisdictions "
+        f"(locks in the long-tail deepening; guards against regression to "
+        f"JP-only); got {len(distinct)}: {sorted(distinct)}"
     )
 
 

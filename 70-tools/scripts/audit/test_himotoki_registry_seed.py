@@ -15,8 +15,8 @@ Invariants under test:
   4. Every entry cites a non-empty https "provenance" source URL and a
      non-empty "lastVerified" timestamp.
   5. Every entry has a "jurisdiction"; the registry spans MULTIPLE
-     jurisdictions (>= 5 distinct) — proves worldwide coverage, guards
-     against regression to JP-only.
+     jurisdictions (>= 12 distinct) — proves worldwide long-tail coverage,
+     guards against regression to JP-only.
   6. Boundary caveat: every entry's "notes" is non-empty, and the registry as
      a whole references its consent-gated / own-data-only / lawful-channel
      boundary regime.
@@ -112,9 +112,9 @@ def test_multi_jurisdiction_worldwide_coverage():
         assert j, f"{t.get('organization')!r} MUST declare a jurisdiction"
         jurisdictions.append(j)
     distinct = set(jurisdictions)
-    assert len(distinct) >= 5, (
-        "registry MUST span >= 5 distinct jurisdictions (worldwide coverage; "
-        f"guards against JP-only regression); got {sorted(distinct)}"
+    assert len(distinct) >= 12, (
+        "registry MUST span >= 12 distinct jurisdictions (worldwide long-tail "
+        "coverage; guards against JP-only regression); got {}".format(sorted(distinct))
     )
 
 

@@ -15,8 +15,8 @@ Invariants under test:
      human/Council verification).
   4. every entry has a non-empty https provenance URL + a lastVerified stamp.
   5. every entry has a "jurisdiction" and the registry spans MULTIPLE
-     jurisdictions (>= 5 distinct) — proves worldwide coverage, guards against
-     regression to JP-only.
+     jurisdictions (>= 12 distinct) — proves worldwide long-tail coverage,
+     guards against regression to JP-only / shallow coverage.
   6. boundary caveat: every entry's notes is non-empty, and the registry as a
      whole references its political-neutrality / 公選法 boundary regime (G3).
   7. a top-level freshnessWindowDays integer is present.
@@ -110,8 +110,8 @@ def test_registry_spans_multiple_jurisdictions():
             f"{t.get('targetId')} MUST declare a jurisdiction"
         )
     distinct = {t["jurisdiction"] for t in targets}
-    assert len(distinct) >= 5, (
-        f"worldwide coverage regression guard: expected >= 5 distinct "
+    assert len(distinct) >= 12, (
+        f"worldwide coverage regression guard: expected >= 12 distinct "
         f"jurisdictions, got {len(distinct)}: {sorted(distinct)}"
     )
 
