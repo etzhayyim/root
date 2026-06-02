@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 83 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 12 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 11 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 29 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 30 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 67 apps** (C + D = 12 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 66 apps** (C + D = 11 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -58,7 +58,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (29)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (30)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -199,6 +199,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   + kyu/dan coaching, consent-gated per ADR-0018; L1 OSINT actor profiling.
   Sensitive personal psychometric PII — Tier-3 stays server-side (Preferences/
   E2E), never public AT records. Stays gftd.
+- **os-messaging** — axes: **Custody + RisingWave**. Multi-platform messaging
+  bridge (9 platforms: Discord/Telegram/Slack/LINE/WhatsApp/Matrix/Teams/WeChat/
+  Kakao → etzhayyim agents): private user DMs (com.etzhayyim.convo.message) +
+  platform webhook credentials + messaging-user DID resolution; peripheral
+  public-open-channel crawler is RW-backed. Messaging is E2E/signal per root rules,
+  never public AT records. The public-open-channel crawl could later be an
+  etzhayyim-front feed, but the bridge + credentials stay gftd.
 - **dougaka** — axis: **RisingWave + render compute**. Video-rendering (動画化)
   LangGraph pipeline (render + health graphs; com.etzhayyim.apps.dougaka.render)
   with RW-backed job state (RW_URL / vertex_). Pure GPU/render compute infra — no
@@ -248,7 +255,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (12) — active backlog
+## Bucket C — NEEDS-CODEMOD (11) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -261,7 +268,7 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-os-messaging, patent (RW), pptx,
+patent (RW), pptx,
 public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
