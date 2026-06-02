@@ -11,13 +11,13 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 103 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 104 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 9 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 73 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 9 apps** (C + D = 0 + 9; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -33,7 +33,7 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (103, has rw-free/)
+## Bucket A — DONE (104, has rw-free/)
 
 6ir, aima (data layer; AI-compute stays gftd), air-sched,
 analytics (mixed split — public catalog front), anime, bim, business-person, cad,
@@ -60,6 +60,7 @@ media-gamers (Bucket D; mixed split — public game catalog publisher/developer/
 news (Bucket D; mixed split — public news-aggregation source/article catalog; quality-eval + translation LLM stay gftd),
 newsletter (Bucket D; mixed split — public newsletter-issue archive; subscriber list + email delivery + LLM gen stay gftd),
 open-jpn-mynumber (Bucket D; public My Number reference-doc catalog — gov-published policy/spec/API docs; ingest compute stays gftd),
+repository (Bucket D; ADR-0039 Repository-in-Graph — git object model blob/tree/commit/ref over Actor DID = first-party source code; FaaS build dispatch + execution stay gftd),
 collector (mixed split — public OSINT front), completer,
 fleamarket (mixed split — public C2C catalog front), flight-offer, ge,
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
@@ -709,7 +710,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (9, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (8, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -733,8 +734,8 @@ microsoft-graph / ongakuka / outreach / phone / recap / ses / society6 / x
 (plus animeka/mangaka already in A; briefing already in V; email-service-adapter/fax
 legacy codemod-only).
 
-**Substrate-boundary violation flagged (un-resolved)**: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V),
-open-jpn-mynumber, playwright, repository, site
+**Substrate-boundary violation flagged**: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V), repository (A — Repository-in-Graph git object model = first-party source code → front; FaaS build dispatch + execution stay gftd).
+Un-resolved tail: **site**.
 
 ## In-progress (2026-06-02)
 
