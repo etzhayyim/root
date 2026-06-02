@@ -43,13 +43,19 @@ coverage: 28.6% authoritative (8/28) — rest honestly :representative
 This is a deterministic OFFLINE demo against a bundled reference; **live fetch of
 Wikidata / 行政機関コード / GeoNames is G4 + Council + operator gated** and is NOT run.
 
+The reconcile logic is now a real cell: `cells/reconcile/cell.py` (`ReconcileCell`)
+with `mode="bundled"` (runnable, the above) and `mode="live"` (raises, G4-gated).
+`scripts/reconcile.py` is the thin CLI over it. Unit tests:
+`cells/reconcile/test_reconcile_cell.py` — **5 passed** (promotion set, no-conflict
+remainder, bundled-ok, live-gated, unknown-mode-rejected).
+
 ## What is NOT done (by design at R0)
 
 | Question | Status |
 |---|---|
 | All world governments enumerated? | **NO** — 28 units (proof-of-model). The world has ~195 countries × thousands of units each. |
 | Any `:authoritative` row in the seed? | **NO** — every seed row is `:representative` / `:unverified-seed`. The `reconcile.py` demo can promote 8/28 against the bundled reference, but that is a demo, not committed seed state or live ingest. |
-| Cells running? | **NO** — 6 cells path-reserved, none deployed. |
+| Cells running? | **PARTIAL** — `reconcile` (bundled mode) is implemented + unit-tested (5 passed); the other 5 cells are path-reserved scaffolds. `reconcile` live mode + all ingest/serve cells are gated. |
 | Per-unit DID served? | **NO** — scheme defined; dynamic did.json serving is R2. |
 | `findService` live? | **NO** — lexicon + BPMN defined; serving is R1/R2. |
 | `/actors` search surfaces gov units? | **NO** — R1 (after `atlas_serve` + reconcile). |
