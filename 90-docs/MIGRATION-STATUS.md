@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 94 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 51 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 40 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 50 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 41 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 51 apps** (C + D = 0 + 51; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 50 apps** (C + D = 0 + 50; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -68,7 +68,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (40)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (41)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -370,6 +370,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   webhook callback secrets, routing rules + live routing state + metrics — not a
   public directory (carry-forward test fails). `routeRequest` is live proxy
   compute. Same gateway/dispatcher-infra family. No rw-free built.
+- **kaikei** (Bucket D → V) — axes: **Custody (confidential financial/tax books)
+  + Liability (記帳/tax compliance, 善管注意義務) + Settlement (invoice/payment
+  accounting)**. Accounting / bookkeeping platform (会計): thin-edge facade over
+  pod-side accounting logic (journals / ledgers / invoices / tax / balances /
+  financial reports). Accounting books are **confidential business financial
+  data**, never public AT records (carry-forward test fails). Same financial
+  family as `harai` / `credits`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -397,7 +404,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (51, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (50, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -406,8 +413,8 @@ These are mechanical import-removal chores on already-migrated/vendor apps, not
 > `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
 > gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
 
-**TRANSFORM-pending (21)**:
-kaikei, keiei, ops, resource-flow, resource-planner,
+**TRANSFORM-pending (20)**:
+keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
 yabai, yatabase
 
