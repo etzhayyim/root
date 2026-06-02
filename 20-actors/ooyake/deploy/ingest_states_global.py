@@ -104,20 +104,48 @@ def project_municipality(cc, row):
     return _entity(uid, row.get("nameEn", row["name"]), row["name"], claims, relations)
 
 
+_NCB_SUFFIX = " INTERPOL National Central Bureau"
+
+
+def _country_names() -> dict:
+    """cc -> real English country name, from the INTERPOL NCB row in each country's
+    lea.ndjson (real in-repo data, not fabricated, G5; ~169/195 carry it)."""
+    m = {}
+    for cc in os.listdir(GOV_DIR):
+        f = os.path.join(GOV_DIR, cc, "lea.ndjson")
+        if not os.path.isfile(f):
+            continue
+        for line in open(f, encoding="utf-8"):
+            if not line.strip():
+                continue
+            ne = json.loads(line).get("nameEn") or ""
+            if ne.endswith(_NCB_SUFFIX):
+                m[cc] = ne[:-len(_NCB_SUFFIX)].strip()
+                break
+    return m
+
+
+_CC_NAMES = _country_names()
+
+
 def country_unit(cc):
-    """ISO3-identified country stub (factual code as name-en; real name pending)."""
+    """ISO3-identified country unit; real English name from the lea NCB record when
+    available (G5 - real in-repo source), else the factual ISO3 code (no fabrication)."""
+    nm = _CC_NAMES.get(cc, cc.upper())
+    prov = ("country name from lea.ndjson INTERPOL NCB record" if cc in _CC_NAMES
+            else "iso-3166-1 alpha-3 (code-stub; localized name pending real source)")
     return _entity(
-        f"gov.{cc}", cc.upper(), None,
+        f"gov.{cc}", nm, None,
         [
             {"pred": "gov.unit/atlas-did", "value": f"did:web:etzhayyim.com:gov:{cc}"},
             {"pred": "gov.unit/level", "value": "country"},
             {"pred": "gov.unit/branch", "value": "executive"},
             {"pred": "gov.unit/jurisdiction", "value": cc},
-            {"pred": "gov.unit/name-en", "value": cc.upper()},
+            {"pred": "gov.unit/name-en", "value": nm},
             {"pred": "gov.unit/external-code", "value": f"iso3166-1-alpha3:{cc.upper()}"},
             {"pred": "gov.unit/status", "value": "active"},
             {"pred": "gov.unit/sourcing", "value": "representative"},
-            {"pred": "gov.unit/provenance", "value": "iso-3166-1 alpha-3 (code-stub; localized name pending real source)"},
+            {"pred": "gov.unit/provenance", "value": prov},
             {"pred": "gov.unit/last-verified", "value": LAST_VERIFIED},
             {"pred": "gov.unit/verification-status", "value": "unverified-seed"},
         ],
