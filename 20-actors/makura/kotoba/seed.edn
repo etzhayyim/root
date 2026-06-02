@@ -1,0 +1,44 @@
+;; makura 枕 — kotoba seed data (representative, R0)
+;; ADR-2605261115  ·  :sourcing :representative (NOT authoritative)
+;; A small worked example: a single pillow lot going through foam batch, fabric,
+;; filling, QC, and packaging attestations.
+
+[;; ════════════ Foam Batch Attestation ════════════
+ {:foamBatchAttestation/id "fba.demo.0001"
+  :foamBatchAttestation/chemistry "Polyol: P-100, Isocyanate: I-200"
+  :foamBatchAttestation/density "45 kg/m³"
+  :foamBatchAttestation/cellStructure "Open-cell, uniform"
+  :foamBatchAttestation/vocTest "Passed CertiPUR-US"
+  :sourcing :representative}
+
+ ;; ════════════ Fabric Attestation ════════════
+ {:fabricAttestation/id "fa.demo.0001"
+  :fabricAttestation/materialDisclosure "100% Organic Cotton"
+  :fabricAttestation/charterScan "CR-2.0-Passed"
+  :fabricAttestation/dyeSafety "OEKO-TEX Class 1 Certified"
+  :sourcing :representative}
+
+ ;; ════════════ Pillow Lot Attestation ════════════
+ {:pillowLotAttestation/id "pla.demo.0001"
+  :pillowLotAttestation/fillWeight "1.5 kg"
+  :pillowLotAttestation/closureDetails "Double-stitched seam"
+  :pillowLotAttestation/labelDetails "Standard Care Label"
+  :pillowLotAttestation/lotDid "did:web:makura.etzhayyim.com/lot/pillow-0001"
+  :sourcing :representative}
+
+ ;; ════════════ QC Record (Pass) ════════════
+ {:qcRecord/id "qc.demo.0001"
+  :qcRecord/dimensional "Passed"
+  :qcRecord/ild "Passed"
+  :qcRecord/visual "No defects"
+  :qcRecord/rejectPercentage "0%"
+  :sourcing :representative}
+
+ ;; ════════════ Packaging Record ════════════
+ {:packagingRecord/id "pr.demo.0001"
+  :packagingRecord/vacuumCompression "40% reduction"
+  :packagingRecord/carton "Recycled Kraft, Small"
+  :packagingRecord/pallet "Standard Euro Pallet"
+  :packagingRecord/takeBackQr "ipfs://QmXYZABC..."
+  :sourcing :representative}
+ ]
