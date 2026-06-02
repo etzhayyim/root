@@ -28,14 +28,14 @@ packages:
 
   # ameno cohort
   - "20-actors/ameno"
-  - "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
-  - "60-apps/ai-gftd-project-ameno/daemon"
+  - "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/svelte"
+  - "60-apps/etzhayyim-project-ameno/daemon"
 
   # yoro cohort (Charter-compliant rebuild — AdSense/GA4 removed)
-  - "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+  - "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte"
 
   # karute (電子カルテ / EMR) — ADR-2605231100
-  - "60-apps/ai-gftd-project-karute/appview/ai-gftd-wasm-karute-karu7t3e/svelte"
+  - "60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte"
   - "10-protocol/signal"
   - "10-protocol/xrpc"
   - "40-engine/svelte/auth"
@@ -53,10 +53,10 @@ packages:
   - "70-tools/lexicon-to-zod"
 
   # Phase E rw-free reference impls (27 actors)
-  - "60-apps/ai-gftd-project-*/rw-free"
+  - "60-apps/etzhayyim-project-*/rw-free"
 
   # Phase F worker XRPC adapters (25 actors)
-  - "60-apps/ai-gftd-project-*/xrpc-adapter"
+  - "60-apps/etzhayyim-project-*/xrpc-adapter"
 
   # yorishiro generator + emitted MCP servers (ADR-2605211900)
   - "70-tools/etzhayyim-cli/yorishiro"
