@@ -1,0 +1,65 @@
+# akashi 証 — Coverage Matrix
+
+Honest R0 coverage for public ad-disclosure sources. **R0 ships source planning
+and schema coverage, not live collection.** A source counts as covered only when
+it has:
+
+1. `sourcePolicySnapshot` with `collectionStatus=allowed`
+2. a methodNote for its adapter/parser
+3. at least one fixture or public bulk/API sample parsed into
+   `adDisclosureSnapshot`
+4. source lineage preserved through creative/delivery/landing records
+
+## Source Coverage Status
+
+| Source family | Platforms | R0 status | Counts as covered? |
+|---|---|---|---|
+| social ad libraries | Meta/Facebook/Instagram, X/Twitter, TikTok | registry seed only; no adapter | no |
+| messaging / portal ad disclosures | LINE | registry seed only; access-mode requires manual review | no |
+| search/video ad libraries | Google / YouTube | registry seed only; no adapter | no |
+| regulator repositories | EU / DSA-style repositories, election-ad archives | fixture-only bulk parser with lexicon validation; no live adapter | no |
+| regional transparency portals | jurisdiction-specific ad libraries | placeholder only | no |
+
+## Field Coverage
+
+| Field group | Lexicon | R0 schema? | Live data? |
+|---|---|---|---|
+| source policy / ToS / robots / cadence | `sourcePolicySnapshot` | yes | no |
+| raw public snapshot + payload CID/hash | `adDisclosureSnapshot` | yes | no |
+| disclosed advertiser identity | `advertiserIdentity` | yes | no |
+| creative text/media/category | `creativeDisclosure` | yes | no |
+| delivery period, spend/impression ranges | `deliveryDisclosure` | yes | no |
+| landing URL/domain/hash evidence | `landingEvidence` | yes | no |
+| non-adjudicating cross-platform links | `adDisclosureLink` | yes | no |
+| aggregate transparency report | `adTransparencyReport` | yes | no |
+| malak evidence candidate | `malakEvidenceCandidate` | yes | no |
+
+## R1 Promotion Rules
+
+A platform source can move from `candidate` to `covered-r1` only when:
+
+- terms/robots/API policy is reviewed and represented as a
+  `sourcePolicySnapshot`
+- collection requires no login, no sockpuppet account, no anti-bot bypass, and
+  no interactive dark-pattern path
+- fixture parsing preserves source-limited fields without inventing missing
+  values
+- `methodNote` states false-positive limits
+- `akashi` tests prove no voter/person profile fields are present in output
+- malak bridge remains disabled unless a reviewed public IOC fixture is present
+- `source-policy-reviews.seed.json` moves the source runtime from `disabled`
+  with an attested review transaction
+
+## R0 Gaps
+
+- No live adapter code exists; current parser is fixture-only.
+- One fixture-only regulator bulk parser exists and validates output against
+  akashi lexicons; no platform adapter exists.
+- No live fetch runs.
+- Source-policy review workflow exists and keeps every live source disabled.
+- Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every
+  cell raises at import until ADR-2606022300 R1 activation gates are attested.
+- Lexicon-specific invariant test exists (`test_akashi_invariants.py`), but no
+  fixture parser tests exist yet.
+- `source-catalog.seed.json` is planning metadata only; it does not authorize
+  collection.
