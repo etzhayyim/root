@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 93 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 2 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 1 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 36 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 37 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 57 apps** (C + D = 2 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 56 apps** (C + D = 1 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -67,7 +67,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (36)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (37)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -328,8 +328,22 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (availability/fulfillment liability + paid custom-domain provisioning). Not
   open-data — a site's authority is our own generation run (carry-forward test
   fails). Same generation + hosting family as `webmk`. Stays gftd.
+- **yorishiro** — axes: **Custody (per-user/org credential vault + session) +
+  Liability (browser-automation agency) + Settlement (card/ad/cashback
+  providers)**. Apify-inspired web-service browser-automation platform (依り代):
+  a fleet of provider adapters that drive authenticated browser automation
+  (Playwright Chromium pool, session persistence) or external APIs **on the
+  user's behalf using stored credentials** — google/microsoft/aws/x/linkedin
+  (browser), marqeta (card issuing), japanpost-enaiyo (certified legal mail),
+  flyio (account closure), nuro (cashback), trafficstars (ad delivery).
+  `provider-vault-provider` is a HashiCorp Vault storing **per-user/org
+  credentials** (`secret/data/orgs/{org}/users/{user}/services/{service}/{key}`).
+  Records are credential references + authenticated session/automation-run state
+  — no external authority (carry-forward test fails), and it acts *as* the user
+  on external regulated/financial services. Same credential-custody family as
+  `auth`. Stays gftd.
 
-## Bucket C — NEEDS-CODEMOD (2) — active backlog
+## Bucket C — NEEDS-CODEMOD (1) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -342,12 +356,12 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-yorishiro, yukkuri
+yukkuri
 
 > **Count correction (2026-06-02)**: the header C count had drifted *below* the
 > real backlog (mechanical per-fire decrements assumed the tail names were
 > legacy-cleanup-only with existing rw-free; they are not). Verified un-resolved
-> build-targets **yorishiro / yukkuri** (2; xlsx migrated as document-editor)
+> build-target **yukkuri** (1; xlsx migrated as document-editor; yorishiro judged (b) vendor-resident)
 > genuinely lack `rw-free/src` (voxelforge + watashi + webmk + webya judged (b) vendor-resident).
 > `common-crawl` +
 > `cpc` are legacy-src codemod-only (rw-free already exists); `email-service-adapter`
