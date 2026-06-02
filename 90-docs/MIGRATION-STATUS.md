@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 94 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 50 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 41 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 49 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 42 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 50 apps** (C + D = 0 + 50; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 49 apps** (C + D = 0 + 49; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -68,7 +68,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (41)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (42)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -377,6 +377,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   financial reports). Accounting books are **confidential business financial
   data**, never public AT records (carry-forward test fails). Same financial
   family as `harai` / `credits`. No rw-free built.
+- **keiei** (Bucket D → V) — axes: **Infra (k8s-resident C-suite orchestration
+  LSP + leader election) + Custody (internal CxO audit ledger)**. C-suite role
+  LSP (経営): an AI CxO management daemon (`pymagatama.keiei` / `KeieiServer`,
+  `did:web:keiei.gftd.ai`, ADR-2605101200) — multi-replica k8s deployment with
+  single-writer Lease leader-election, an append-only `CXO-LEDGER.md` decision
+  audit, and JSON-RPC dispatch to C-suite roles. Internal management
+  orchestration compute, not a consumer/catalog product (carry-forward test
+  fails); records are internal governance audit. Root CLAUDE keeps the keiei
+  daemon a distinct gftd-tied entity. Same internal-orchestration family as
+  `shinka`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -404,7 +414,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (50, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (49, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -413,8 +423,8 @@ These are mechanical import-removal chores on already-migrated/vendor apps, not
 > `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
 > gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
 
-**TRANSFORM-pending (20)**:
-keiei, ops, resource-flow, resource-planner,
+**TRANSFORM-pending (19)**:
+ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
 yabai, yatabase
 
