@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 92 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 7 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 6 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 32 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 33 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 62 apps** (C + D = 7 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 61 apps** (C + D = 6 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -66,7 +66,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (32)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (33)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -282,8 +282,21 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   family the root invariant keeps server-side (`signal:v1:{ciphertext}` field-
   encrypt, PDS pipethrough). No public catalog to front — surfacing the wrapped
   keys would violate the zero-knowledge invariant. Stays gftd.
+- **voxelforge** — axes: **RisingWave + GPU generation-compute (+ Settlement,
+  metered `sk_live_*` API)**. 3D design pipeline (text/image/CAD → mesh+voxel):
+  a stateless L3 dispatcher CF Worker forwarding `generate` to the
+  `mitama-voxelforge-pool` LangGraph Server, which calls RunPod 6000 Ada GPU
+  (TRELLIS / ComfyUI 3D-Pack / CadQuery) and **writes artifacts to B2 +
+  RisingWave directly**. The design/artifact metadata is a read-projection of RW
+  run-state; `listArtifacts?actorDid=` is a private "my generation history" view,
+  not a public reference. **Discriminator**: its records have NO authoritative
+  external source — artifacts exist only because a GPU job ran, so `sourceUrl`
+  would point at our own RunPod pod. Compute-output bookkeeping, not open-data
+  (same family as `dougaka`, NOT a published-work catalog like animeka). Stays
+  gftd. (Carry-forward test: can each record cite an authority that isn't our own
+  pod/RW? No → (b).)
 
-## Bucket C — NEEDS-CODEMOD (7) — active backlog
+## Bucket C — NEEDS-CODEMOD (6) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -296,14 +309,15 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-voxelforge, watashi, webmk, webya, xlsx,
+watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
 > **Count correction (2026-06-02)**: the header C count had drifted *below* the
 > real backlog (mechanical per-fire decrements assumed the tail names were
-> legacy-cleanup-only with existing rw-free; they are not). Verified: the 7
-> build-targets **voxelforge / watashi / webmk / webya / xlsx / yorishiro /
-> yukkuri** genuinely lack `rw-free/src` and are un-resolved. `common-crawl` +
+> legacy-cleanup-only with existing rw-free; they are not). Verified un-resolved
+> build-targets **watashi / webmk / webya / xlsx / yorishiro / yukkuri** (6)
+> genuinely lack `rw-free/src` (voxelforge was judged (b) vendor-resident).
+> `common-crawl` +
 > `cpc` are legacy-src codemod-only (rw-free already exists); `email-service-adapter`
 > is a stripe codemod-only item (also in Bucket D). C count = the 7 build-targets.
 
