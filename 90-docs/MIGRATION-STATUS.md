@@ -15,7 +15,7 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 8 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 78 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 79 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (78)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (79)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -143,6 +143,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   regulatory); load sheet = weight-&-balance flight-safety; baggage reconciliation
   = security; all = 善管注意義務 safety/border liability ⇒ stays gftd. No public
   catalog to front.
+- **air-ffp** — axes: **Custody + Settlement + Liability**. Airline frequent-flyer
+  program: member enrollment (`enrollMember`), points accrual (`accruePoints`),
+  reward redemption (`redeemReward`), tier updates (`updateTier`), miles transfer
+  (`transferMiles`), purchase processing (`processPurchase`), miles expiration
+  (`expireMiles`), partner reconciliation (`reconcilePartner`). Member PII + miles
+  balance = stored-value ledger custody; processPurchase = fiat MoR; reconcile-
+  Partner = partner settlement; miles = deferred-revenue liability ⇒ stays gftd.
+  No catalog method exists (no reward/partner inventory list) — the only member-
+  facing records are the PII + stored-value balance that stay gftd; fabricating a
+  reward catalog would be the invent-a-catalog trap. No frontable surface.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
   is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
   passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
