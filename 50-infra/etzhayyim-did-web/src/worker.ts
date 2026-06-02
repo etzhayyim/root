@@ -15,6 +15,7 @@ import {
   compiledActorRecord,
   toDidDoc,
   toGetProfileView,
+  didDocCid,
   COMPILED_ACTOR_HANDLES,
   type ActorRecord,
 } from "./registry/actor-profiles";
@@ -240,6 +241,32 @@ function buildActorsJson() {
     adr: ["2605241800", "2605212030"],
     actors,
   };
+}
+
+// Attach the content-addressed DID-doc CID per actor so a client can retrieve +
+// verify each did.json from any IPFS gateway (`didDocumentIpfs`), not just over
+// TLS. The handle→CID binding stays anchored here (TLS) — IPFS makes the bytes
+// tamper-evident + mirrorable (ADR-2606015400).
+async function buildActorsJsonWithCids(env: DidDocEnvLite) {
+  const base = buildActorsJson();
+  const actors = await Promise.all(
+    base.actors.map(async (a) => {
+      const rec = compiledActorRecord(a.handle);
+      if (!rec) return a;
+      const cid = await didDocCid(rec, env);
+      return {
+        ...a,
+        didDocumentCid: cid,
+        didDocumentIpfs: `ipfs://${cid}`,
+        didDocumentGateway: `https://etzhayyim.com/ipfs/${cid}`,
+      };
+    }),
+  );
+  return { ...base, didResolution: "did:web (TLS) + IPFS (content-addressed)", actors };
+}
+
+interface DidDocEnvLite {
+  readonly AUTHZ_CONTRACT_ADDRESS?: string;
 }
 
 function renderActorCard(handle: string): string {
@@ -874,7 +901,7 @@ export default {
           headers: { allow: "GET, HEAD" },
         });
       }
-      return new Response(JSON.stringify(buildActorsJson(), null, 2) + "\n", {
+      return new Response(JSON.stringify(await buildActorsJsonWithCids(env), null, 2) + "\n", {
         status: 200,
         headers: {
           "content-type": "application/json; charset=utf-8",
@@ -953,20 +980,30 @@ export default {
         // (not registered actors) get null → legacy buildPerActorDidDoc scaffold.
         const rec = await resolveActorRecord(handle, env, ctx);
         const doc = rec ? toDidDoc(rec, env) : buildPerActorDidDoc(handle, env);
+        // Advertise the content-addressed (canonical) DID-doc CID so a client can
+        // ALSO retrieve + verify this document from any IPFS gateway, not just
+        // over TLS (ADR-2606015400). The CID is NOT embedded in the doc (that
+        // would be circular); it rides on a header + a `Link: …/ipfs/<cid>`.
+        const ddCid = rec ? await didDocCid(rec, env) : null;
+        const ddHeaders: Record<string, string> = {
+          "content-type": "application/did+json; charset=utf-8",
+          // Shorter cache window than the entity doc; per-actor state can
+          // change (key rotation, deactivation) and we want quicker invalidation.
+          "cache-control": "public, max-age=60, must-revalidate",
+          "access-control-allow-origin": "*",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+          "x-etzhayyim-actor-source": rec?.source ?? "scaffold",
+        };
+        if (ddCid) {
+          ddHeaders["x-etzhayyim-did-doc-cid"] = ddCid;
+          ddHeaders["link"] = `<https://etzhayyim.com/ipfs/${ddCid}>; rel="canonical"; type="application/did+json"`;
+        }
         return new Response(JSON.stringify(doc, null, 2) + "\n", {
           status: 200,
-          headers: {
-            "content-type": "application/did+json; charset=utf-8",
-            // Shorter cache window than the entity doc; per-actor state can
-            // change (key rotation, deactivation) and we want quicker invalidation.
-            "cache-control": "public, max-age=60, must-revalidate",
-            "access-control-allow-origin": "*",
-            "x-content-type-options": "nosniff",
-            "strict-transport-security": "max-age=31536000; includeSubDomains",
-            "permissions-policy": PERMISSIONS_POLICY,
-            "x-etzhayyim-no-cookie": "1",
-            "x-etzhayyim-actor-source": rec?.source ?? "scaffold",
-          },
+          headers: ddHeaders,
         });
       }
     }

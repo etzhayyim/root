@@ -15,6 +15,7 @@
  */
 
 import { INFRA_ACTORS, getInfraActor } from "./infra-actors";
+import { cidV1Raw } from "../cid";
 import { isRawCidV1 } from "../cid";
 
 export interface ActorServiceEntry {
@@ -224,6 +225,40 @@ export function toDidDoc(
           : "verificationMethod mirrors on-chain ERC725 Root.activeKey",
     },
   };
+}
+
+/** Canonical (content-addressable) DID document — `toDidDoc` with the one
+ *  request-tier-volatile field (`_meta.source`) normalized to "ipfs", so the
+ *  bytes (and therefore the CID) are identical no matter which tier (KV / kotoba
+ *  / compiled) served the actor record. This is the form that gets pinned to
+ *  IPFS and content-addressed for IPFS-based DID retrieval (ADR-2606015400).
+ *  Trust: the handle→CID binding is still anchored by `etzhayyim.com` (TLS) /
+ *  Base L2; IPFS makes the bytes tamper-evident, mirrorable, offline-verifiable. */
+export function canonicalDidDoc(
+  rec: ActorRecord,
+  env: DidDocEnv = {},
+): Record<string, unknown> {
+  const doc = toDidDoc(rec, env);
+  const meta = { ...(doc._meta as Record<string, unknown>), source: "ipfs" };
+  return { ...doc, _meta: meta };
+}
+
+/** Deterministic JSON serialization of the canonical DID document (the exact
+ *  bytes that get pinned + content-addressed). */
+export function canonicalDidDocBytes(
+  rec: ActorRecord,
+  env: DidDocEnv = {},
+): Uint8Array {
+  return new TextEncoder().encode(JSON.stringify(canonicalDidDoc(rec, env)));
+}
+
+/** The IPFS CIDv1 (raw, sha2-256) of the actor's canonical DID document. Lets a
+ *  client retrieve `did.json` from any IPFS gateway and verify it by CID. */
+export function didDocCid(
+  rec: ActorRecord,
+  env: DidDocEnv = {},
+): Promise<string> {
+  return cidV1Raw(canonicalDidDocBytes(rec, env));
 }
 
 /** ActorRecord → app.bsky.actor.getProfile view (+ etzhayyim extensions that

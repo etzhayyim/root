@@ -18715,6 +18715,35 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606015400-mesh-runner-serving-and-ipfs-did-retrieval.md",
+      "id": "adr-2606015400-mesh-runner-serving-and-ipfs-did-retrieval",
+      "title": "ADR-2606015400: Mesh-runner serving surface + IPFS-based DID retrieval",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "mesh-runner-serving-and-ipfs-did-retrieval",
+      "authoritative": true,
+      "authoritative_for": [
+        "mesh-runner-serving-surface",
+        "ipfs-based-did-retrieval"
+      ],
+      "related": [
+        "2606014500",
+        "2605262130"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606015200",
+        "2606014600",
+        "2606013800",
+        "2605212030",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
