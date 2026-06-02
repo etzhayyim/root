@@ -203,7 +203,26 @@
    :actor/primary-lexicon "com.etzhayyim.kabuto"
    :actor/primary-schema "00-contracts/schemas/public-company-ontology.kotoba.edn"
    :actor/adr ["2606022000"]
+  :actor/created-at "2026-06-02"
+  :actor/vm []
+  :actor/service [{"id" "did:web:etzhayyim.com:actor:kabuto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  {:actor/handle "ooyake"
+   :actor/did "did:web:etzhayyim.com:actor:ooyake"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/glyph "公"
+   :actor/display-name-ja "公 — 全世界政府アトラス (市民導線マップ)"
+   :actor/display-name-en "Ooyake — World Government Atlas (civic wayfinding map)"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "kotoba-Datomic structural atlas of every government unit on Earth (国→省→庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN. The read-side SSoT danjo/kanae/tsumugi/toritsugi/himotoki consume. An observational MIRROR + civic wayfinding map — NEVER the government, NEVER an official channel, NEVER a target-list (G3/G10)."
+   :actor/primary-lexicon "app.etzhayyim.ooyake"
+   :actor/primary-schema "00-contracts/schemas/gov-atlas-ontology.kotoba.edn"
+   :actor/adr ["2606021600"]
    :actor/created-at "2026-06-02"
    :actor/vm []
-   :actor/service [{"id" "did:web:etzhayyim.com:actor:kabuto#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}

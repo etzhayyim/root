@@ -269,6 +269,27 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606022000"],
   },
+  ooyake: {
+    description:
+      "公 — World Government Atlas. kotoba-Datomic structural atlas of every government unit on Earth (supranational → country → 都道府県 → 市区町村 → 省 → 庁 → 局 → 課 → 窓口) with 住所 / 窓口 / 書式 / 手続き / BPMN. The read-side SSoT danjo / kanae / tsumugi / toritsugi / himotoki consume for the who/where/how of public administration. An OBSERVATIONAL MIRROR + civic wayfinding map — the per-unit atlas DID (did:web:etzhayyim.com:gov:<iso3>:...) mirrors a real public body, NEVER claims to BE the government, is NEVER an official channel, and is NEVER a target-list (G3/G10). Read-only: catalogs, never files (→ toritsugi) and never audits (→ danjo). Per ADR-2606021600.",
+    glyph: "公",
+    displayName: "Ooyake — World Government Atlas (civic wayfinding map)",
+    primaryLexicon: "app.etzhayyim.ooyake",
+    primarySchema: "00-contracts/schemas/gov-atlas-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:ooyake#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606021600"],
+  },
 } as const;
 
 

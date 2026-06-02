@@ -55,9 +55,9 @@ service = "yoro-xrpc-adapter"
 # fallback — now routed through the SAME toDidDoc/toGetProfileView mappers, so
 # behaviour is identical; KV just promotes kotoba to live source of truth.
 #
-# [[kv_namespaces]]
-# binding = "ACTOR_KV"
-# id = "REPLACE_WITH_wrangler_kv_namespace_create_OUTPUT"
+[[kv_namespaces]]
+binding = "ACTOR_KV"
+id = "d33de8e083874cf5b8e2dbdb637ccdb4"
 
 [vars]
 XRPC_UNISPSC_UPSTREAM = ""
