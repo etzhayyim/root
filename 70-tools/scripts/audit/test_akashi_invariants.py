@@ -18,6 +18,21 @@ _LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "akashi"
 _MANIFEST = _REPO / "20-actors" / "akashi" / "manifest.jsonld"
 _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.seed.json"
 _METHOD_SEED = _REPO / "20-actors" / "akashi" / "methods" / "v1-r0-seed.json"
+_ADAPTER = (
+    _REPO
+    / "20-actors"
+    / "akashi"
+    / "adapters"
+    / "regulator_bulk_fixture_parser.py"
+)
+_FIXTURE = (
+    _REPO
+    / "20-actors"
+    / "akashi"
+    / "fixtures"
+    / "regulator_bulk"
+    / "sample.json"
+)
 _CELLS = _REPO / "20-actors" / "magatama" / "cells"
 
 _EXPECTED_LEXICONS = {
@@ -197,6 +212,41 @@ def test_seven_cells_raise_at_import_and_match_manifest():
         module = importlib.util.module_from_spec(spec)
         with pytest.raises(RuntimeError, match="akashi R0 scaffold"):
             spec.loader.exec_module(module)
+
+
+def test_regulator_bulk_fixture_parser_is_fixture_only_and_shape_safe():
+    source = _ADAPTER.read_text()
+    for forbidden in ("requests", "httpx", "aiohttp", "urlopen"):
+        assert forbidden not in source
+
+    spec = importlib.util.spec_from_file_location("_akashi_regulator_parser", _ADAPTER)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    payload = _load(_FIXTURE)
+    output = module.parse_regulator_bulk_fixture(
+        payload,
+        attesting_did="did:web:akashi.etzhayyim.com",
+        source_policy_cid="cid:akashi:source-policy:test",
+        method_note_cid="cid:akashi:method-note:test",
+    )
+
+    assert set(output) == {
+        "methodNote",
+        "sourcePolicySnapshot",
+        "adDisclosureSnapshot",
+        "advertiserIdentity",
+        "landingEvidence",
+        "creativeDisclosure",
+        "deliveryDisclosure",
+    }
+    assert output["sourcePolicySnapshot"]["collectionStatus"] == "manual-review"
+    assert output["sourcePolicySnapshot"]["accessMode"] == "public-bulk-export"
+    assert output["adDisclosureSnapshot"][0]["sourceLimited"] is True
+    assert output["advertiserIdentity"][0]["nonInferred"] is True
+    assert output["landingEvidence"][0]["fetchMode"] == "manual-review-only"
+    assert output["deliveryDisclosure"][0]["sourceLimited"] is True
 
 
 if __name__ == "__main__":

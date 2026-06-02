@@ -59,6 +59,8 @@ fixtures, or collection jobs yet. See:
 - `MATURITY.md` — maturity scorecard and R1 work list
 - `registry/source-catalog.seed.json` — planning seed for Meta, X, LINE,
   Google/YouTube, TikTok, and regulator repositories
+- `adapters/regulator_bulk_fixture_parser.py` and `fixtures/regulator_bulk/`
+  — local fixture parser only; no live collection
 - `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
 
 ## Immutable Gates
