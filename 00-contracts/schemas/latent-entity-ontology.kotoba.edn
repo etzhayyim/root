@@ -1,0 +1,101 @@
+;; Latent-Entity Ontology — kotoba-EAVT vocabulary for statistical entity resolution
+;; Extends engi-organism-ontology (ADR-2606011000). SUPERSEDES the RisingWave
+;;   `30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts`
+;;   and the `90-docs/260430-natural-person-latent-entity-backend-design.md` design.
+;; CONSTITUTIONAL: existence is NEVER a stored per-soul truth-score. Like :grasp/*,
+;;   it is an aggregate-first, method-versioned quantity COMPUTED ON READ from incident
+;;   :en/evidence edges (G2 edge-primary / N1). Any stored :latent/* datom is a memoized,
+;;   reproducible projection — never authority.
+;; NON-ESCHATOLOGICAL: :latent/frontier has NO terminal :fissioned/:suppressed value;
+;;   fission is recorded only as :organism/claimed? true in Datom as-of history.
+;; G1 power-only: natural persons appear ONLY as :cohort/* aggregates, never as
+;;   individual latent persons. The RW "tens of billions latent persons" universe is
+;;   deliberately NOT ported.
+;; STATUS: proposed scaffold. NOT executed — no real-world data populated until Council
+;;   Lv7+ ratifies (per ADR-2606011000 §D1–§D4 + §4(2) outbound gates).
+
+[;; ════════════════════════════════════════════════════════════════════════════
+ ;; :latent/* — aggregate existence assessment (mirror of :grasp/*)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :latent/organism
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "ref :organism this latent assessment is about"}
+ {:db/ident :latent/existence
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one
+  :db/doc "aggregate existence mass ∈ [0,1], method-versioned, REPRODUCIBLE from incident :en/evidence edges (noisy-OR); computed-on-read, memoized only"}
+ {:db/ident :latent/evidence-count
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "k — count of incident :en/evidence edges"}
+ {:db/ident :latent/viewpoint-consensus
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "number of DISTINCT :en/evidence-kind viewpoints agreeing"}
+ {:db/ident :latent/method-version
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "open-source version-pinned resolver id (e.g. latent-resolve/v1-noisy-or); reproducible"}
+ {:db/ident :latent/frontier
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":observed | :candidate | :fission-ready — NO terminal state (非終末論); fission = :organism/claimed? true in as-of history"}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :en/* evidence + binding extensions (ADDITIVE to engi :en/*)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :en/evidence-weight
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one
+  :db/doc "weight of THIS evidence edge toward the latent entity's existence (use with :en/kind :evidence)"}
+ {:db/ident :en/evidence-kind
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "viewpoint of the evidence: :lexical :behavioral :network :semantic :temporal :geographic :economic :signal (8 viewpoints ported from the RW seed)"}
+ {:db/ident :en/binding-confidence
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one
+  :db/doc "confidence of a :en/kind :topic-binding edge (LDA topic → latent entity)"}
+ {:db/ident :en/stability
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one
+  :db/doc "stability score of a topic-binding across resolver runs"}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :topic/* — LDA topic node (P2 Pregel computes φ/θ; this is storage only)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :topic/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "stable topic key"}
+ {:db/ident :topic/label
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "human-readable topic label"}
+ {:db/ident :topic/coherence
+  :db/valueType :db.type/double
+  :db/cardinality :db.cardinality/one
+  :db/doc "topic coherence score"}
+ {:db/ident :topic/viewpoint
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "primary viewpoint kind (see :en/evidence-kind)"}
+
+ ;; ════════════════════════════════════════════════════════════════════════════
+ ;; :cohort/* — anonymous population aggregate (G1: the ONLY home for natural persons)
+ ;; ════════════════════════════════════════════════════════════════════════════
+ {:db/ident :cohort/id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique :db.unique/identity
+  :db/doc "anonymous population bucket key (never an individual)"}
+ {:db/ident :cohort/k-anonymity
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "k-anonymity floor; entity→cohort lineage via :en/kind :cohort-link"}
+ {:db/ident :cohort/sourcing
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc ":authoritative | :representative — aggregate-first, never per-person"}]

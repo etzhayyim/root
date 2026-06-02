@@ -58,3 +58,28 @@ Additional violations detected in re-scan:
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.
+
+---
+
+## kotoba-native replacement LANDED (2026-06-02) — P9 archive-pending
+
+Per ADR-2606021730 (Latent-Entity kotoba-Datomic Refactor), the statistical
+entity-resolution / latent-entity stack this app depends on has been ported
+off RisingWave to the kotoba Datom log. The RW implementation here is now
+**SUPERSEDED** and **archive-pending**:
+
+| Legacy (RW, prohibited) | kotoba-native replacement (landed) |
+|---|---|
+| `30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts` (`vertex_latent_entity`, LDA θ/φ tables, 4 MV) | `00-contracts/schemas/latent-entity-ontology.kotoba.edn` (`:latent/* :en/evidence-* :topic/* :cohort/*`) |
+| `existence_probability` stored column | `:latent/existence` computed ON READ (noisy-OR) by `20-actors/tsumugi/methods/resolve.py` — G2/N1, no per-soul score |
+| `vertex_lda_topic` + `edge_topic_entity_binding` + θ/φ MVs | `20-actors/tsumugi/methods/topics.py` (`:topic/*` + `:en/kind :topic-binding`); full LDA = Pregel/Murakumo, deferred (P2-full) |
+| `coverage.inferFission` BPMN / LangGraph `create_actor` | `20-actors/tsumugi/methods/fission_gate.py` — observer-only proposals; real fission = §D5 covenant claim, Council Lv7+, no DID minted, no server key |
+| RW Python UDF (gmm_fit / cosine) | Murakumo-only embed (substrate boundary) — deferred to P2-full |
+| natural-person individual latent entities ("tens of billions") | NOT ported — natural persons only as `:cohort/*` aggregates (G1 power-only) |
+
+**Remaining P9 work**: rewrite this app's `appview/coverage-ui-c0v3r4g3/src/app.ts`
+to read latent-entity / topic / proposal datoms from kotoba (via `@etzhayyim/sdk`)
+instead of RisingWave/Kysely, then `git rm` the RW migration + this app's RW code
+once no consumer remains. Until then the `// CHARTER-VIOLATION` annotations stand
+as the blocker markers. This section closes the *design* gap; the *code* removal
+stays open under P9.
