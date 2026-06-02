@@ -10,7 +10,7 @@
    "ticker": "2330.TW",
    "sector": ":semiconductors",
    "country": "TW",
-   "out": 8,
+   "out": 12,
    "address": {
     "street": "No. 8, Li-Hsin Rd. 6, Hsinchu Science Park",
     "city": "Hsinchu",
@@ -29,7 +29,7 @@
    "ticker": "005930.KS",
    "sector": ":semiconductors",
    "country": "KR",
-   "out": 2,
+   "out": 3,
    "address": {
     "street": "129 Samsung-ro, Yeongtong-gu",
     "city": "Suwon",
@@ -580,7 +580,7 @@
    "ticker": "6902.T",
    "sector": ":automotive",
    "country": "JP",
-   "out": 1,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -715,7 +715,7 @@
    "ticker": "300750.SZ",
    "sector": ":industrials",
    "country": "CN",
-   "out": 5,
+   "out": 8,
    "address": {
     "street": "No. 2 Xingang Rd., Zhangwan",
     "city": "Ningde",
@@ -824,8 +824,17 @@
    "sector": ":energy",
    "country": "GB",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Shell Centre, 2 York Road",
+    "city": "London",
+    "country": "GB",
+    "lat": 51.5,
+    "lon": -0.11
+   },
+   "contact": {
+    "website": "https://www.shell.com",
+    "ir": "https://www.shell.com/investors.html"
+   }
   },
   {
    "id": "org.corp.gb.bp",
@@ -844,8 +853,17 @@
    "sector": ":energy",
    "country": "FR",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "2 place Jean Millier, La Défense",
+    "city": "Courbevoie",
+    "country": "FR",
+    "lat": 48.89,
+    "lon": 2.24
+   },
+   "contact": {
+    "website": "https://totalenergies.com",
+    "ir": "https://totalenergies.com/investors"
+   }
   },
   {
    "id": "org.corp.cn.petrochina",
@@ -864,8 +882,17 @@
    "sector": ":energy",
    "country": "IN",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Maker Chambers IV, Nariman Point",
+    "city": "Mumbai",
+    "country": "IN",
+    "lat": 18.93,
+    "lon": 72.82
+   },
+   "contact": {
+    "website": "https://www.ril.com",
+    "ir": "https://www.ril.com/InvestorRelations.aspx"
+   }
   },
   {
    "id": "org.corp.dk.maersk",
@@ -993,7 +1020,13 @@
    "sector": ":materials",
    "country": "AU",
    "out": 2,
-   "address": null,
+   "address": {
+    "street": "171 Collins Street",
+    "city": "Melbourne",
+    "country": "AU",
+    "lat": -37.81,
+    "lon": 144.97
+   },
    "contact": null
   },
   {
@@ -1088,7 +1121,7 @@
    "ticker": "GE",
    "sector": ":industrials",
    "country": "US",
-   "out": 1,
+   "out": 2,
    "address": null,
    "contact": null
   },
@@ -1119,8 +1152,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "66 Hudson Boulevard East",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.75,
+    "lon": -74.0
+   },
+   "contact": {
+    "website": "https://www.pfizer.com",
+    "ir": "https://investors.pfizer.com"
+   }
   },
   {
    "id": "org.corp.us.jnj",
@@ -1149,7 +1191,13 @@
    "sector": ":pharma",
    "country": "CH",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "Grenzacherstrasse 124",
+    "city": "Basel",
+    "country": "CH",
+    "lat": 47.56,
+    "lon": 7.61
+   },
    "contact": null
   },
   {
@@ -1169,7 +1217,13 @@
    "sector": ":pharma",
    "country": "DK",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "Novo Allé 1",
+    "city": "Bagsværd",
+    "country": "DK",
+    "lat": 55.76,
+    "lon": 12.43
+   },
    "contact": null
   },
   {
@@ -1252,7 +1306,10 @@
     "lat": 47.64,
     "lon": -122.13
    },
-   "contact": null
+   "contact": {
+    "website": "https://www.microsoft.com",
+    "ir": "https://www.microsoft.com/en-us/investor"
+   }
   },
   {
    "id": "org.corp.us.alphabet",
@@ -1261,8 +1318,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1600 Amphitheatre Parkway",
+    "city": "Mountain View",
+    "country": "US",
+    "lat": 37.42,
+    "lon": -122.08
+   },
+   "contact": {
+    "website": "https://abc.xyz",
+    "ir": "https://abc.xyz/investor/"
+   }
   },
   {
    "id": "org.corp.us.amazon",
@@ -1271,8 +1337,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "410 Terry Avenue North",
+    "city": "Seattle",
+    "country": "US",
+    "lat": 47.62,
+    "lon": -122.34
+   },
+   "contact": {
+    "website": "https://www.amazon.com",
+    "ir": "https://ir.aboutamazon.com"
+   }
   },
   {
    "id": "org.corp.us.meta",
@@ -1281,8 +1356,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1 Hacker Way",
+    "city": "Menlo Park",
+    "country": "US",
+    "lat": 37.48,
+    "lon": -122.15
+   },
+   "contact": {
+    "website": "https://about.meta.com",
+    "ir": "https://investor.atmeta.com"
+   }
   },
   {
    "id": "org.corp.cn.tencent",
@@ -1291,7 +1375,13 @@
    "sector": ":software",
    "country": "CN",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "Tencent Binhai Towers, Nanshan",
+    "city": "Shenzhen",
+    "country": "CN",
+    "lat": 22.52,
+    "lon": 113.94
+   },
    "contact": null
   },
   {
@@ -1301,7 +1391,13 @@
    "sector": ":software",
    "country": "CN",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "969 West Wen Yi Road, Yuhang",
+    "city": "Hangzhou",
+    "country": "CN",
+    "lat": 30.3,
+    "lon": 120.02
+   },
    "contact": null
   },
   {
@@ -1380,7 +1476,13 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "3555 Farnam Street",
+    "city": "Omaha",
+    "country": "US",
+    "lat": 41.26,
+    "lon": -95.94
+   },
    "contact": null
   },
   {
@@ -1858,7 +1960,7 @@
    "ticker": "ERIC-B.ST",
    "sector": ":telecom",
    "country": "SE",
-   "out": 4,
+   "out": 5,
    "address": null,
    "contact": null
   },
@@ -3214,6 +3316,1630 @@
    "out": 0,
    "address": null,
    "contact": null
+  },
+  {
+   "id": "org.corp.jp.tokyo-ohka",
+   "name": "Tokyo Ohka Kogyo (TOK)",
+   "ticker": "4186.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 2,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ibiden",
+   "name": "Ibiden",
+   "ticker": "4062.T",
+   "sector": ":electronics",
+   "country": "JP",
+   "out": 2,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.hoya",
+   "name": "HOYA",
+   "ticker": "7741.T",
+   "sector": ":electronics",
+   "country": "JP",
+   "out": 2,
+   "address": {
+    "street": "2-7-5 Naka-Ochiai, Shinjuku-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.72,
+    "lon": 139.69
+   },
+   "contact": {
+    "website": "https://www.hoya.com",
+    "ir": "https://www.hoya.com/en/ir/"
+   }
+  },
+  {
+   "id": "org.corp.jp.nikon",
+   "name": "Nikon",
+   "ticker": "7731.T",
+   "sector": ":semiconductors",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.canon",
+   "name": "Canon",
+   "ticker": "7751.T",
+   "sector": ":electronics",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ulvac",
+   "name": "ULVAC",
+   "ticker": "6728.T",
+   "sector": ":semiconductors",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.entegris",
+   "name": "Entegris",
+   "ticker": "ENTG",
+   "sector": ":materials",
+   "country": "US",
+   "out": 1,
+   "address": {
+    "street": "129 Concord Road",
+    "city": "Billerica",
+    "country": "US",
+    "lat": 42.54,
+    "lon": -71.27
+   },
+   "contact": {
+    "website": "https://www.entegris.com",
+    "ir": "https://investor.entegris.com"
+   }
+  },
+  {
+   "id": "org.corp.us.wolfspeed",
+   "name": "Wolfspeed",
+   "ticker": "WOLF",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.coherent",
+   "name": "Coherent",
+   "ticker": "COHR",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.merck-kgaa",
+   "name": "Merck KGaA",
+   "ticker": "MRK.DE",
+   "sector": ":pharma",
+   "country": "DE",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.naura",
+   "name": "NAURA Technology Group",
+   "ticker": "002371.SZ",
+   "sector": ":semiconductors",
+   "country": "CN",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.agricultural-bank",
+   "name": "Agricultural Bank of China",
+   "ticker": "1288.HK",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.boc",
+   "name": "Bank of China",
+   "ticker": "3988.HK",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.china-life",
+   "name": "China Life Insurance",
+   "ticker": "2628.HK",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.wuxi-biologics",
+   "name": "WuXi Biologics",
+   "ticker": "2269.HK",
+   "sector": ":healthcare",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.longi",
+   "name": "LONGi Green Energy Technology",
+   "ticker": "601012.SS",
+   "sector": ":energy",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.sbi",
+   "name": "State Bank of India",
+   "ticker": "SBIN.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": {
+    "street": "State Bank Bhavan, Madame Cama Road",
+    "city": "Mumbai",
+    "country": "IN",
+    "lat": 18.93,
+    "lon": 72.82
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.kotak",
+   "name": "Kotak Mahindra Bank",
+   "ticker": "KOTAKBANK.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.itc",
+   "name": "ITC Limited",
+   "ticker": "ITC.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.power-grid",
+   "name": "Power Grid Corporation of India",
+   "ticker": "POWERGRID.NS",
+   "sector": ":utilities",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.dr-reddys",
+   "name": "Dr. Reddy's Laboratories",
+   "ticker": "DRREDDY.NS",
+   "sector": ":pharma",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.my.tenaga",
+   "name": "Tenaga Nasional",
+   "ticker": "5347.KL",
+   "sector": ":utilities",
+   "country": "MY",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.th.aot",
+   "name": "Airports of Thailand",
+   "ticker": "AOT.BK",
+   "sector": ":industrials",
+   "country": "TH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ph.bdo",
+   "name": "BDO Unibank",
+   "ticker": "BDO.PS",
+   "sector": ":financials",
+   "country": "PH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.au.wesfarmers",
+   "name": "Wesfarmers",
+   "ticker": "WES.AX",
+   "sector": ":consumer",
+   "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.au.transurban",
+   "name": "Transurban Group",
+   "ticker": "TCL.AX",
+   "sector": ":industrials",
+   "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.il.teva",
+   "name": "Teva Pharmaceutical Industries",
+   "ticker": "TEVA",
+   "sector": ":pharma",
+   "country": "IL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.il.nice",
+   "name": "NICE",
+   "ticker": "NICE",
+   "sector": ":software",
+   "country": "IL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tr.koc",
+   "name": "Koç Holding",
+   "ticker": "KCHOL.IS",
+   "sector": ":industrials",
+   "country": "TR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gr.alpha",
+   "name": "Alpha Services and Holdings",
+   "ticker": "ALPHA.AT",
+   "sector": ":financials",
+   "country": "GR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cz.cez",
+   "name": "ČEZ Group",
+   "ticker": "CEZ.PR",
+   "sector": ":utilities",
+   "country": "CZ",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.pl.pko",
+   "name": "PKO Bank Polski",
+   "ticker": "PKO.WA",
+   "sector": ":financials",
+   "country": "PL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.pe.credicorp",
+   "name": "Credicorp",
+   "ticker": "BAP",
+   "sector": ":financials",
+   "country": "PE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ma.maroc-telecom",
+   "name": "Maroc Telecom",
+   "ticker": "IAM.CS",
+   "sector": ":telecom",
+   "country": "MA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.bae",
+   "name": "BAE Systems",
+   "ticker": "BA.L",
+   "sector": ":industrials",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.northrop",
+   "name": "Northrop Grumman",
+   "ticker": "NOC",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.deutsche-bank",
+   "name": "Deutsche Bank",
+   "ticker": "DBK.DE",
+   "sector": ":financials",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ch.zurich",
+   "name": "Zurich Insurance Group",
+   "ticker": "ZURN.SW",
+   "sector": ":financials",
+   "country": "CH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tw.globalwafers",
+   "name": "GlobalWafers",
+   "ticker": "6488.TWO",
+   "sector": ":materials",
+   "country": "TW",
+   "out": 2,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.soitec",
+   "name": "Soitec",
+   "ticker": "SOI.PA",
+   "sector": ":semiconductors",
+   "country": "FR",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.amkor",
+   "name": "Amkor Technology",
+   "ticker": "AMKR",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 2,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mks",
+   "name": "MKS Instruments",
+   "ticker": "MKSI",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.onto",
+   "name": "Onto Innovation",
+   "ticker": "ONTO",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.hk.asmpt",
+   "name": "ASMPT",
+   "ticker": "0522.HK",
+   "sector": ":semiconductors",
+   "country": "HK",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.formfactor",
+   "name": "FormFactor",
+   "ticker": "FORM",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ie.linde",
+   "name": "Linde",
+   "ticker": "LIN",
+   "sector": ":materials",
+   "country": "IE",
+   "out": 2,
+   "address": {
+    "street": "Forge, 43 Church Street West",
+    "city": "Woking",
+    "country": "GB",
+    "lat": 51.32,
+    "lon": -0.56
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.air-liquide",
+   "name": "Air Liquide",
+   "ticker": "AI.PA",
+   "sector": ":materials",
+   "country": "FR",
+   "out": 1,
+   "address": {
+    "street": "75 quai d'Orsay",
+    "city": "Paris",
+    "country": "FR",
+    "lat": 48.86,
+    "lon": 2.3
+   },
+   "contact": {
+    "website": "https://www.airliquide.com",
+    "ir": "https://www.airliquide.com/group/investors-shareholders"
+   }
+  },
+  {
+   "id": "org.corp.us.air-products",
+   "name": "Air Products and Chemicals",
+   "ticker": "APD",
+   "sector": ":materials",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ca.magna",
+   "name": "Magna International",
+   "ticker": "MGA",
+   "sector": ":automotive",
+   "country": "CA",
+   "out": 2,
+   "address": {
+    "street": "337 Magna Drive",
+    "city": "Aurora",
+    "country": "CA",
+    "lat": 44.0,
+    "lon": -79.46
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.ie.aptiv",
+   "name": "Aptiv",
+   "ticker": "APTV",
+   "sector": ":automotive",
+   "country": "IE",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.valeo",
+   "name": "Valeo",
+   "ticker": "FR.PA",
+   "sector": ":automotive",
+   "country": "FR",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.borgwarner",
+   "name": "BorgWarner",
+   "ticker": "BWA",
+   "sector": ":automotive",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.bridgestone",
+   "name": "Bridgestone",
+   "ticker": "5108.T",
+   "sector": ":automotive",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.michelin",
+   "name": "Michelin",
+   "ticker": "ML.PA",
+   "sector": ":automotive",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.dow",
+   "name": "Dow",
+   "ticker": "DOW",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.dupont",
+   "name": "DuPont de Nemours",
+   "ticker": "DD",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.toray",
+   "name": "Toray Industries",
+   "ticker": "3402.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 2,
+   "address": null,
+   "contact": {
+    "website": "https://www.toray.com",
+    "ir": "https://www.toray.com/global/ir/"
+   }
+  },
+  {
+   "id": "org.corp.jp.asahi-kasei",
+   "name": "Asahi Kasei",
+   "ticker": "3407.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.vn.vingroup",
+   "name": "Vingroup",
+   "ticker": "VIC.VN",
+   "sector": ":industrials",
+   "country": "VN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.id.bri",
+   "name": "Bank Rakyat Indonesia",
+   "ticker": "BBRI.JK",
+   "sector": ":financials",
+   "country": "ID",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.qa.industries-qatar",
+   "name": "Industries Qatar",
+   "ticker": "IQCD.QA",
+   "sector": ":materials",
+   "country": "QA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kw.nbk",
+   "name": "National Bank of Kuwait",
+   "ticker": "NBK.KW",
+   "sector": ":financials",
+   "country": "KW",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sa.al-rajhi",
+   "name": "Al Rajhi Bank",
+   "ticker": "1120.SR",
+   "sector": ":financials",
+   "country": "SA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ng.dangote-cement",
+   "name": "Dangote Cement",
+   "ticker": "DANGCEM.LG",
+   "sector": ":materials",
+   "country": "NG",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.hu.otp",
+   "name": "OTP Bank",
+   "ticker": "OTP.BU",
+   "sector": ":financials",
+   "country": "HU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ro.banca-transilvania",
+   "name": "Banca Transilvania",
+   "ticker": "TLV.RO",
+   "sector": ":financials",
+   "country": "RO",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kz.kaspi",
+   "name": "Kaspi.kz",
+   "ticker": "KSPI",
+   "sector": ":software",
+   "country": "KZ",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cl.copec",
+   "name": "Empresas Copec",
+   "ticker": "COPEC.SN",
+   "sector": ":energy",
+   "country": "CL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.pepsico",
+   "name": "PepsiCo",
+   "ticker": "PEP",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mondelez",
+   "name": "Mondelez International",
+   "ticker": "MDLZ",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.starbucks",
+   "name": "Starbucks",
+   "ticker": "SBUX",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.es.inditex",
+   "name": "Industria de Diseño Textil (Inditex)",
+   "ticker": "ITX.MC",
+   "sector": ":consumer",
+   "country": "ES",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.public-storage",
+   "name": "Public Storage",
+   "ticker": "PSA",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.welltower",
+   "name": "Welltower",
+   "ticker": "WELL",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.vodafone",
+   "name": "Vodafone Group",
+   "ticker": "VOD.L",
+   "sector": ":telecom",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.amex",
+   "name": "American Express",
+   "ticker": "AXP",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ch.glencore",
+   "name": "Glencore",
+   "ticker": "GLEN.L",
+   "sector": ":materials",
+   "country": "CH",
+   "out": 2,
+   "address": {
+    "street": "Baarermattstrasse 3",
+    "city": "Baar",
+    "country": "CH",
+    "lat": 47.2,
+    "lon": 8.52
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.adm",
+   "name": "Archer-Daniels-Midland",
+   "ticker": "ADM",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 2,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.bunge",
+   "name": "Bunge Global",
+   "ticker": "BG",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sg.wilmar",
+   "name": "Wilmar International",
+   "ticker": "F34.SI",
+   "sector": ":consumer",
+   "country": "SG",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.jbs",
+   "name": "JBS",
+   "ticker": "JBSS3.SA",
+   "sector": ":consumer",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.tyson",
+   "name": "Tyson Foods",
+   "ticker": "TSN",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.skyworks",
+   "name": "Skyworks Solutions",
+   "ticker": "SWKS",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.rohm",
+   "name": "ROHM",
+   "ticker": "6963.T",
+   "sector": ":semiconductors",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tw.novatek",
+   "name": "Novatek Microelectronics",
+   "ticker": "3034.TW",
+   "sector": ":semiconductors",
+   "country": "TW",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tw.realtek",
+   "name": "Realtek Semiconductor",
+   "ticker": "2379.TW",
+   "sector": ":semiconductors",
+   "country": "TW",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tw.win-semi",
+   "name": "WIN Semiconductors",
+   "ticker": "3105.TWO",
+   "sector": ":semiconductors",
+   "country": "TW",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.amgen",
+   "name": "Amgen",
+   "ticker": "AMGN",
+   "sector": ":pharma",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "One Amgen Center Drive",
+    "city": "Thousand Oaks",
+    "country": "US",
+    "lat": 34.16,
+    "lon": -118.86
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.gilead",
+   "name": "Gilead Sciences",
+   "ticker": "GILD",
+   "sector": ":pharma",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.bristol-myers",
+   "name": "Bristol-Myers Squibb",
+   "ticker": "BMY",
+   "sector": ":pharma",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.stryker",
+   "name": "Stryker",
+   "ticker": "SYK",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.boston-scientific",
+   "name": "Boston Scientific",
+   "ticker": "BSX",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.daiichi-sankyo",
+   "name": "Daiichi Sankyo",
+   "ticker": "4568.T",
+   "sector": ":pharma",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.dk.genmab",
+   "name": "Genmab",
+   "ticker": "GMAB.CO",
+   "sector": ":pharma",
+   "country": "DK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.be.ucb",
+   "name": "UCB",
+   "ticker": "UCB.BR",
+   "sector": ":pharma",
+   "country": "BE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.hengrui",
+   "name": "Jiangsu Hengrui Pharmaceuticals",
+   "ticker": "600276.SS",
+   "sector": ":pharma",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.vn.vinamilk",
+   "name": "Vietnam Dairy Products (Vinamilk)",
+   "ticker": "VNM.VN",
+   "sector": ":consumer",
+   "country": "VN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ng.airtel-africa",
+   "name": "Airtel Africa",
+   "ticker": "AAF.L",
+   "sector": ":telecom",
+   "country": "NG",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ke.equity-group",
+   "name": "Equity Group Holdings",
+   "ticker": "EQTY.NR",
+   "sector": ":financials",
+   "country": "KE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.standard-bank",
+   "name": "Standard Bank Group",
+   "ticker": "SBK.JO",
+   "sector": ":financials",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.shoprite",
+   "name": "Shoprite Holdings",
+   "ticker": "SHP.JO",
+   "sector": ":consumer",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mx.walmex",
+   "name": "Walmart de México (Walmex)",
+   "ticker": "WALMEX.MX",
+   "sector": ":consumer",
+   "country": "MX",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mx.grupo-mexico",
+   "name": "Grupo México",
+   "ticker": "GMEXICOB.MX",
+   "sector": ":materials",
+   "country": "MX",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ar.mercadolibre",
+   "name": "MercadoLibre",
+   "ticker": "MELI",
+   "sector": ":software",
+   "country": "AR",
+   "out": 0,
+   "address": {
+    "street": "Av. Caseros 3039",
+    "city": "Buenos Aires",
+    "country": "AR",
+    "lat": -34.64,
+    "lon": -58.4
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.weg",
+   "name": "WEG",
+   "ticker": "WEGE3.SA",
+   "sector": ":industrials",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.embraer",
+   "name": "Embraer",
+   "ticker": "EMBR3.SA",
+   "sector": ":industrials",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.salesforce",
+   "name": "Salesforce",
+   "ticker": "CRM",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": {
+    "website": "https://www.salesforce.com",
+    "ir": "https://investor.salesforce.com"
+   }
+  },
+  {
+   "id": "org.corp.us.servicenow",
+   "name": "ServiceNow",
+   "ticker": "NOW",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.intuit",
+   "name": "Intuit",
+   "ticker": "INTU",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.deutsche-post",
+   "name": "Deutsche Post (DHL Group)",
+   "ticker": "DPW.DE",
+   "sector": ":shipping",
+   "country": "DE",
+   "out": 1,
+   "address": null,
+   "contact": {
+    "website": "https://group.dhl.com",
+    "ir": "https://group.dhl.com/en/investors.html"
+   }
+  },
+  {
+   "id": "org.corp.us.union-pacific",
+   "name": "Union Pacific",
+   "ticker": "UNP",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.realty-income",
+   "name": "Realty Income",
+   "ticker": "O",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.qorvo",
+   "name": "Qorvo",
+   "ticker": "QRVO",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.lattice",
+   "name": "Lattice Semiconductor",
+   "ticker": "LSCC",
+   "sector": ":semiconductors",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tw.vanguard",
+   "name": "Vanguard International Semiconductor",
+   "ticker": "5347.TWO",
+   "sector": ":semiconductors",
+   "country": "TW",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.socionext",
+   "name": "Socionext",
+   "ticker": "6526.T",
+   "sector": ":semiconductors",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.will-semi",
+   "name": "Will Semiconductor (OmniVision)",
+   "ticker": "603501.SS",
+   "sector": ":semiconductors",
+   "country": "CN",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.cambricon",
+   "name": "Cambricon Technologies",
+   "ticker": "688256.SS",
+   "sector": ":semiconductors",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.nio",
+   "name": "NIO",
+   "ticker": "NIO",
+   "sector": ":automotive",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.xpeng",
+   "name": "XPeng",
+   "ticker": "XPEV",
+   "sector": ":automotive",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.geely",
+   "name": "Geely Automobile Holdings",
+   "ticker": "0175.HK",
+   "sector": ":automotive",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.porsche",
+   "name": "Porsche AG",
+   "ticker": "P911.DE",
+   "sector": ":automotive",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.suzuki",
+   "name": "Suzuki Motor",
+   "ticker": "7269.T",
+   "sector": ":automotive",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.subaru",
+   "name": "Subaru",
+   "ticker": "7270.T",
+   "sector": ":automotive",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.mahindra",
+   "name": "Mahindra & Mahindra",
+   "ticker": "M&M.NS",
+   "sector": ":automotive",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.au.westpac",
+   "name": "Westpac Banking",
+   "ticker": "WBC.AX",
+   "sector": ":financials",
+   "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ca.td",
+   "name": "Toronto-Dominion Bank (TD)",
+   "ticker": "TD.TO",
+   "sector": ":financials",
+   "country": "CA",
+   "out": 0,
+   "address": {
+    "street": "66 Wellington Street West",
+    "city": "Toronto",
+    "country": "CA",
+    "lat": 43.65,
+    "lon": -79.38
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.ca.scotiabank",
+   "name": "Bank of Nova Scotia (Scotiabank)",
+   "ticker": "BNS.TO",
+   "sector": ":financials",
+   "country": "CA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.intesa",
+   "name": "Intesa Sanpaolo",
+   "ticker": "ISP.MI",
+   "sector": ":financials",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.unicredit",
+   "name": "UniCredit",
+   "ticker": "UCG.MI",
+   "sector": ":financials",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.nl.ing",
+   "name": "ING Group",
+   "ticker": "INGA.AS",
+   "sector": ":financials",
+   "country": "NL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.se.nordea",
+   "name": "Nordea Bank",
+   "ticker": "NDA-SE.ST",
+   "sector": ":financials",
+   "country": "SE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sg.ocbc",
+   "name": "Oversea-Chinese Banking (OCBC)",
+   "ticker": "O39.SI",
+   "sector": ":financials",
+   "country": "SG",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sg.uob",
+   "name": "United Overseas Bank (UOB)",
+   "ticker": "U11.SI",
+   "sector": ":financials",
+   "country": "SG",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.th.scb",
+   "name": "SCB X (Siam Commercial Bank)",
+   "ticker": "SCB.BK",
+   "sector": ":financials",
+   "country": "TH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.axis",
+   "name": "Axis Bank",
+   "ticker": "AXISBANK.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.target",
+   "name": "Target",
+   "ticker": "TGT",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.lowes",
+   "name": "Lowe's",
+   "ticker": "LOW",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.tesco",
+   "name": "Tesco",
+   "ticker": "TSCO.L",
+   "sector": ":consumer",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.carrefour",
+   "name": "Carrefour",
+   "ticker": "CA.PA",
+   "sector": ":consumer",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.seven-i",
+   "name": "Seven & i Holdings",
+   "ticker": "3382.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.colgate",
+   "name": "Colgate-Palmolive",
+   "ticker": "CL",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.reckitt",
+   "name": "Reckitt Benckiser",
+   "ticker": "RKT.L",
+   "sector": ":consumer",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kraft-heinz",
+   "name": "Kraft Heinz",
+   "ticker": "KHC",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.national-grid",
+   "name": "National Grid",
+   "ticker": "NG.L",
+   "sector": ":utilities",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.dominion",
+   "name": "Dominion Energy",
+   "ticker": "D",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.eletrobras",
+   "name": "Eletrobras",
+   "ticker": "ELET3.SA",
+   "sector": ":utilities",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kddi",
+   "name": "KDDI",
+   "ticker": "9433.T",
+   "sector": ":telecom",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.skt",
+   "name": "SK Telecom",
+   "ticker": "017670.KS",
+   "sector": ":telecom",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.bayer",
+   "name": "Bayer",
+   "ticker": "BAYN.DE",
+   "sector": ":pharma",
+   "country": "DE",
+   "out": 0,
+   "address": {
+    "street": "Kaiser-Wilhelm-Allee 1",
+    "city": "Leverkusen",
+    "country": "DE",
+    "lat": 51.04,
+    "lon": 6.99
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.chugai",
+   "name": "Chugai Pharmaceutical",
+   "ticker": "4519.T",
+   "sector": ":pharma",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.cipla",
+   "name": "Cipla",
+   "ticker": "CIPLA.NS",
+   "sector": ":pharma",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.digital-realty",
+   "name": "Digital Realty Trust",
+   "ticker": "DLR",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.crown-castle",
+   "name": "Crown Castle",
+   "ticker": "CCI",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
   }
  ],
  "edges": [
@@ -3930,28 +5656,346 @@
    "to": "org.corp.cn.li-auto",
    "commodity": "battery",
    "criticality": 0.5
+  },
+  {
+   "from": "org.corp.jp.hoya",
+   "to": "org.corp.nl.asml",
+   "commodity": "mask-blank",
+   "criticality": 0.9
+  },
+  {
+   "from": "org.corp.jp.hoya",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "mask-blank",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.jp.tokyo-ohka",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "photoresist",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.jp.tokyo-ohka",
+   "to": "org.corp.kr.samsung-electronics",
+   "commodity": "photoresist",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.de.merck-kgaa",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "photoresist",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.ibiden",
+   "to": "org.corp.us.intel",
+   "commodity": "substrate",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.jp.ibiden",
+   "to": "org.corp.us.nvidia",
+   "commodity": "substrate",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.entegris",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "wafer",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.nikon",
+   "to": "org.corp.us.intel",
+   "commodity": "lithography",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.canon",
+   "to": "org.corp.jp.kioxia",
+   "commodity": "lithography",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.coherent",
+   "to": "org.corp.nl.asml",
+   "commodity": "lithography",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.cn.naura",
+   "to": "org.corp.cn.smic",
+   "commodity": "wafer",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.tw.globalwafers",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "wafer",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.tw.globalwafers",
+   "to": "org.corp.kr.samsung-electronics",
+   "commodity": "wafer",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.fr.soitec",
+   "to": "org.corp.ch.stmicro",
+   "commodity": "wafer",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.amkor",
+   "to": "org.corp.us.apple",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.amkor",
+   "to": "org.corp.us.qualcomm",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.mks",
+   "to": "org.corp.us.applied-materials",
+   "commodity": "wafer",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.hk.asmpt",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.ie.linde",
+   "to": "org.corp.tw.tsmc",
+   "commodity": "gas",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.ie.linde",
+   "to": "org.corp.us.intel",
+   "commodity": "gas",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.fr.air-liquide",
+   "to": "org.corp.kr.samsung-electronics",
+   "commodity": "gas",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.air-products",
+   "to": "org.corp.us.micron",
+   "commodity": "gas",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.ca.magna",
+   "to": "org.corp.us.gm",
+   "commodity": "assembly",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.ca.magna",
+   "to": "org.corp.de.bmw",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.ie.aptiv",
+   "to": "org.corp.us.gm",
+   "commodity": "sensor",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.fr.valeo",
+   "to": "org.corp.nl.stellantis",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.bridgestone",
+   "to": "org.corp.jp.toyota",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.toray",
+   "to": "org.corp.us.boeing",
+   "commodity": "composite",
+   "criticality": 0.7
+  },
+  {
+   "from": "org.corp.jp.toray",
+   "to": "org.corp.fr.airbus",
+   "commodity": "composite",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.ch.glencore",
+   "to": "org.corp.cn.catl",
+   "commodity": "battery",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.ch.glencore",
+   "to": "org.corp.kr.samsung-sdi",
+   "commodity": "battery",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.adm",
+   "to": "org.corp.us.pepsico",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.adm",
+   "to": "org.corp.us.mondelez",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.sg.wilmar",
+   "to": "org.corp.ch.nestle",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.skyworks",
+   "to": "org.corp.us.apple",
+   "commodity": "sensor",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.tw.tsmc",
+   "to": "org.corp.tw.novatek",
+   "commodity": "foundry",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.tw.tsmc",
+   "to": "org.corp.tw.realtek",
+   "commodity": "foundry",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.tw.novatek",
+   "to": "org.corp.kr.samsung-electronics",
+   "commodity": "display",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.rohm",
+   "to": "org.corp.jp.toyota",
+   "commodity": "sensor",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.ge",
+   "to": "org.corp.br.embraer",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.de.deutsche-post",
+   "to": "org.corp.us.apple",
+   "commodity": "logistics",
+   "criticality": 0.2
+  },
+  {
+   "from": "org.corp.mx.grupo-mexico",
+   "to": "org.corp.us.tesla",
+   "commodity": "steel",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.qorvo",
+   "to": "org.corp.us.apple",
+   "commodity": "sensor",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.cn.will-semi",
+   "to": "org.corp.cn.xiaomi",
+   "commodity": "sensor",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.cn.catl",
+   "to": "org.corp.cn.nio",
+   "commodity": "battery",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.cn.catl",
+   "to": "org.corp.cn.xpeng",
+   "commodity": "battery",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.cn.catl",
+   "to": "org.corp.cn.geely",
+   "commodity": "battery",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.tw.tsmc",
+   "to": "org.corp.jp.socionext",
+   "commodity": "foundry",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.tw.tsmc",
+   "to": "org.corp.cn.cambricon",
+   "commodity": "foundry",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.se.ericsson",
+   "to": "org.corp.jp.kddi",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.kr.samsung-electronics",
+   "to": "org.corp.kr.skt",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.denso",
+   "to": "org.corp.jp.suzuki",
+   "commodity": "assembly",
+   "criticality": 0.4
   }
  ],
  "jurisdictions": [
   {
    "country": "JP",
-   "load": 13.95
+   "load": 20.55
   },
   {
    "country": "TW",
-   "load": 9.85
+   "load": 13.55
   },
   {
    "country": "US",
-   "load": 8.7
+   "load": 12.9
   },
   {
    "country": "CN",
-   "load": 5.1
+   "load": 7.2
   },
   {
    "country": "KR",
-   "load": 5.1
+   "load": 5.4
   },
   {
    "country": "NL",
@@ -3962,24 +6006,36 @@
    "load": 3.0
   },
   {
+   "country": "FR",
+   "load": 3.0
+  },
+  {
    "country": "AU",
    "load": 2.4
   },
   {
-   "country": "SE",
-   "load": 1.7
-  },
-  {
-   "country": "FR",
-   "load": 1.6
-  },
-  {
    "country": "DE",
+   "load": 2.1
+  },
+  {
+   "country": "SE",
+   "load": 2.0
+  },
+  {
+   "country": "IE",
    "load": 1.5
   },
   {
    "country": "IN",
    "load": 1.4
+  },
+  {
+   "country": "CH",
+   "load": 1.3
+  },
+  {
+   "country": "CA",
+   "load": 0.9
   },
   {
    "country": "SA",
@@ -3988,10 +6044,6 @@
   {
    "country": "FI",
    "load": 0.8
-  },
-  {
-   "country": "CH",
-   "load": 0.6
   },
   {
    "country": "CL",
@@ -4003,6 +6055,18 @@
   },
   {
    "country": "DK",
+   "load": 0.3
+  },
+  {
+   "country": "HK",
+   "load": 0.3
+  },
+  {
+   "country": "SG",
+   "load": 0.3
+  },
+  {
+   "country": "MX",
    "load": 0.3
   }
  ]
