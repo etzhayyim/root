@@ -7,7 +7,7 @@
     }
   ],
   "@type": "Project",
-  "identifier": "ai-gftd-project-apps",
+  "identifier": "etzhayyim-project-apps",
   "name": "GFTD Apps Directory (apps.etzhayyim.com)",
   "status": "In Progress",
   "description": "Apple App Store style listing page for all etzhayyim.com apps. Showcases the full GFTD ecosystem with categories, search, and featured apps at apps.etzhayyim.com.",
