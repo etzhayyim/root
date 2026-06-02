@@ -12185,6 +12185,20 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021400-session-close-nsid-com-etzhayyim-migration",
+      "type": "TechArticle",
+      "title": "ADR-2606021400: Session close — repo-wide NSID migration app.etzhayyim.* / ai.gftd.* → com.etzhayyim.*",
+      "status": "active",
+      "topic": "session-close-nsid-com-etzhayyim-migration",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "doc:adr-2605172000-substrate-boundary-state",
+        "doc:adr-2605172100-substrate-boundary-payment"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
