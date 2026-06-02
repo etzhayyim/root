@@ -124,6 +124,32 @@ nor settlement counterparty; gftd remains both for any hakken-originated sale.
   knowledge that the repo standard is `app.etzhayyim.*`; this divergence is deliberate and
   documented, to be revisited at org-level standardisation.
 
+## Status update (2026-06-02 — session close)
+
+All migration PRs merged to `etzhayyim/root` main:
+
+- **#697 (merged)** — Phase 1 contract surface: scaffold + 4 `com.etzhayyim.apps.hakken.*`
+  lexicons + rw-free ingest reference.
+- **#724 (merged)** — **actual LangGraph pipeline code moved from vendor, VERBATIM** (no
+  refactor): `lg/lg_hakken/` = `graph.py`, `state.py`, `edn.py`, `kotoba.py`,
+  `kotoba_datomic.py`, and the 11 nodes (`trend_scan`, `gap_analysis`, `supplier_search`,
+  `quality_eval`, `phase_router`, `okaimono_dropship`, `import_order`, `tsukuru_order`,
+  `okaimono_register`, `social_announce`, `phase_promotion`) + `pyproject.toml` / `uv.lock` /
+  `wasm/agent.py`. Byte-identical to vendor HEAD (excl `.venv`/`__pycache__`).
+- **#718 (merged)** — tsukuru converted to `com.etzhayyim.apps.tsukuru.*` (ADR-2606020000).
+
+**Code state:** the moved pipeline is **un-refactored by design** — it still references vendor
+`kotoba`/RisingWave/Stripe and `ai.gftd.*` NSIDs. Per operator direction the refactor
+(RW → kotoba/PDS, Stripe tail → gftd consent capability, `ai.gftd.*` → `com.etzhayyim.*`,
+wiring the pipeline to the rw-free ingest surface) happens **on the etzhayyim side** and is the
+remaining Phase 2/3 work. Vendor `hakken.gftd.ai` is unchanged (Phase 4 sunset still pending,
+after etzhayyim deploy proves stable).
+
+**Backlog:** the company/product ingest-actor *code move* is complete (hakken contract +
+pipeline, tsukuru namespace, okaimono already resident). Remaining items — etzhayyim-side
+refactor, LangGraph pod rehome/deploy, vendor sunset — are operator/infra tasks, not further
+code moves.
+
 ## References
 
 - Vendor ADR-2606011400 — Consensys pattern (product front / infra back) [overridden for hakken placement]
