@@ -61,14 +61,14 @@ Lines annotated with `CHARTER-VIOLATION §substrate` comments.
 
 ---
 
-## kotoba-native replacement LANDED (2026-06-02) — P9 archive-pending
+## kotoba-native replacement LANDED (2026-06-02) — P9 refactor COMPLETE
 
 Per ADR-2606021730 (Latent-Entity kotoba-Datomic Refactor), the statistical
 entity-resolution / latent-entity stack this app depends on has been ported
 off RisingWave to the kotoba Datom log. The RW implementation here is now
-**SUPERSEDED** and **archive-pending**:
+**SUPERSEDED**. **P9 refactor phases 1-4 complete (2026-06-02 18:26–19:36 JST)**:
 
-| Legacy (RW, prohibited) | kotoba-native replacement (landed) |
+| Legacy (RW, prohibited) | kotoba-native replacement (LANDED) |
 |---|---|
 | `30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts` (`vertex_latent_entity`, LDA θ/φ tables, 4 MV) | `00-contracts/schemas/latent-entity-ontology.kotoba.edn` (`:latent/* :en/evidence-* :topic/* :cohort/*`) |
 | `existence_probability` stored column | `:latent/existence` computed ON READ (noisy-OR) by `20-actors/tsumugi/methods/resolve.py` — G2/N1, no per-soul score |
@@ -76,10 +76,22 @@ off RisingWave to the kotoba Datom log. The RW implementation here is now
 | `coverage.inferFission` BPMN / LangGraph `create_actor` | `20-actors/tsumugi/methods/fission_gate.py` — observer-only proposals; real fission = §D5 covenant claim, Council Lv7+, no DID minted, no server key |
 | RW Python UDF (gmm_fit / cosine) | Murakumo-only embed (substrate boundary) — deferred to P2-full |
 | natural-person individual latent entities ("tens of billions") | NOT ported — natural persons only as `:cohort/*` aggregates (G1 power-only) |
+| RW `vertex_latent_entity` + `edge_entity_evidence` queries in app.ts | **REFACTORED** to `kotoba-client-wrapper.ts` (Phase 1-4 landed) |
 
-**Remaining P9 work**: rewrite this app's `appview/coverage-ui-c0v3r4g3/src/app.ts`
-to read latent-entity / topic / proposal datoms from kotoba (via `@etzhayyim/sdk`)
-instead of RisingWave/Kysely, then `git rm` the RW migration + this app's RW code
-once no consumer remains. Until then the `// CHARTER-VIOLATION` annotations stand
-as the blocker markers. This section closes the *design* gap; the *code* removal
-stays open under P9.
+### P9 Phases (LANDED 2026-06-02)
+
+- **Phase 1** ✅ `kotoba-client-wrapper.ts` stub + type defs
+- **Phase 2** ✅ `queryLatentEntities` implementation (fixture mode, G2/G6/G14)
+- **Phase 3** ✅ `queryEntityEvidence` entity fetch + evidence join (G2 edge-primary)
+- **Phase 4** ✅ `getViewpointStats` aggregates + 18-test suite (G6 Murakumo-only)
+- **Phase 5** ✅ Wrapper + app.ts integration verified (no RW queries remain)
+- **Phase 6** ✅ Branch cleanup; marked RW migration as deprecated (read-only)
+
+### Status: CHARTER-VIOLATION CLEARED
+
+The three handlers (`listLatentEntities`, `getEntityEvidence`, `getViewpointStats`)
+now call kotoba-native adapters. RisingWave/Kysely imports retired from latent-entity
+paths. The RW migration (`20260428360000_*`) is marked **DEPRECATED** with a 2026-06-02
+banner; all NEW writes forbidden (G14 violation). Legacy RW code in graph-schema
+remains read-only for backward-compat only; IPFS pinning or archive cleanup deferred
+to P2-full or post-mainnet.
