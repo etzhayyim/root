@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 63 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 76 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 2 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 75 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 3 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 117 apps** (C + D = 41 + 76; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 116 apps** (C + D = 41 + 75; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -50,7 +50,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (2)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (3)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -71,6 +71,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   credentials + email PII + sessions. Currently scaffold-only (route still
   served by the auth Worker). Stays gftd. The DID-linkage primitives are
   etzhayyim-exclusive (ADR-2605211950), tracked separately.
+- **air-book** — axes: **Custody + Settlement + Liability** (all three). Airline
+  reservations / ticketing: PNR (passenger name records = passport / itinerary /
+  contact PII), ticket issuance, IATA **BSP settlement** (fiat money settlement
+  between airlines and agents), passenger reprotection (duty-of-care liability).
+  No clean public-catalog layer to split out (flight schedules belong to
+  air-sched). Stays gftd.
 
 ## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
@@ -90,9 +96,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (76, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (75, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (46)**: air-book, air-cargo, air-crew,
+**TRANSFORM-pending (45)**: air-cargo, air-crew,
 air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
 business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
