@@ -18895,6 +18895,25 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606022600-session-close-himawari-r0.1-maturation.md",
+      "id": "adr-2606022600-session-close-himawari-r0.1-maturation",
+      "title": "ADR-2606022600: Session close — himawari (向日葵) solar-PV actor R0 → R0.1 maturation + clean main-based PR",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-himawari-r0.1-maturation",
+      "authoritative": false,
+      "related": [
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "adr-2606021400-tsuukan-customs-clearance-orchestration-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

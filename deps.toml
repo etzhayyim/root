@@ -3133,6 +3133,60 @@ lexicons = "00-contracts/lexicons/app/etzhayyim/hikari"
 liberation_ladder_gate = "L2 + cross-cutting"
 constitutional_invariants_lv7_unanimity = ["G4 no nuclear", "G5 no fossil", "G8 no rare-earth permanent magnets"]
 
+# ─── himawari (向日葵) solar PV manufacturing Tier-B actor R0.1 (ADR-2606021200) ──
+
+[[adrs]]
+id = "2606021200"
+title = "himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor (R0 charter / R0.1 cells implemented)"
+status = "proposed"
+status_note = "Master charter establishing himawari (向日葵, sunflower/sun-turning; heliotropic echo of solar trackers + manufacture of light-capturing surfaces; deliberate sibling resonance with hikari 光) as Tier-B religious-corp first-party SOLAR-GRADE crystalline-silicon PV MODULE MANUFACTURING actor + finished-module loading robotics + outbound logistics + feedstock procurement. **PRIMARY RATIONALE: structurally closes hikari §G2 (no XUAR/forced-labor polysilicon) via first-party on-chain feedstock provenance** — vertical integration replaces fragile vendor self-attestation. Completes 製造 (himawari) → 積込 (sarutahiko F10 LoaderRobot) → 輸送 (kami-autodrive GNC) → 設置 (hikari) end-to-end first-party energy chain. 14 gates G1..G14 / 10 non-goals N1..N10 (N1 NO logic/compute fab — silicon iwakura track ADR-2605242500, solar-grade only; N6 NO XUAR feedstock; N9 NO fossil/nuclear process heat). 7 Pregel cells (polysilicon_refine / ingot_wafer / cell_process / module_assembly / panel_loading / outbound_logistics / supply_procurement) + 7 lexicons. **R0.1 (ADR-2606022600): all 7 cell solvers IMPLEMENTED (RuntimeError stubs removed), 109 pure-logic tests green, lexicons reconciled to cell emits + per-cell conformance tests, supply_procurement calls okaimono settlement + giemon CycloneDX bridge, outbound_logistics wires real kami-autodrive VehicleClass + open-customs-clearance + funadaiku, kotoba-WASM deploy scaffold build-verified.** NOT operationally activated (no runtime/sim, digest CIDs); R1 Council-gated. Robotics COMPOSED (not re-implemented): sarutahiko F10 / giemon AGV / kami-autodrive GNC / kuni-umi Otete+Mimi. Parent ADR = 2605261000 (Liberation Ladder L2); tightest sibling = 2605261100 (hikari)."
+path = "90-docs/adr/2606021200-himawari-solar-pv-manufacturing-r0.md"
+
+[[adrs]]
+id = "2606021400"
+title = "tsuukan (通関係) — Customs / Tariff / 通関 Clearance Orchestration Tier-B Actor R0 (capability-gap resolution)"
+status = "proposed"
+status_note = "Proposed customs/tariff/通関 clearance orchestrator that wraps the existing open-customs-clearance BPMN (no fork): intakes manifest+HS, queries tariff/restriction/license overlays, computes landed-cost, lodges declaration, routes inspection, authorizes release, feeds landed-cost to okaimono. himawari outbound_logistics consumes `releaseAuthorized` as its transport gate; also serves funadaiku cross-border cargo. Constitutional bindings honored (kotoba Datom canonical state, Murakumo-only inference, Apache 2.0 + Charter Rider, USDC/TitheRouter). UPL/customs-law prohibitions encoded (NOT a licensed 通関業者; no duty-evasion/misclassification; no sanctions circumvention; no authority impersonation). PROPOSED ONLY — creates no actor dir/code/DID/lexicon files; namespace app.etzhayyim.customsClearing reserved; Council Lv6+ ratification required before any scaffold."
+path = "90-docs/adr/2606021400-tsuukan-customs-clearance-orchestration-r0.md"
+
+[[adrs]]
+id = "2606022600"
+title = "Session close — himawari (向日葵) solar-PV actor R0 → R0.1 maturation + clean main-based PR"
+status = "active"
+status_note = "Documentation-only closure for the session answering the alibaba/tsukuru/robotics/procurement/customs/kotoba-wasm coverage question + 「coverage, 成熟度を高めて」. Matured himawari R0 scaffold → R0.1 via two multi-agent workflows + an adversarial-critic fix pass: 7 cell solvers IMPLEMENTED (no RuntimeError stubs, 109 tests green via pytest cells/ --import-mode=importlib), 7 lexicons reconciled to cell emits (recordedAt / #custodyHop / #robotSignature objects / loadingId) + per-cell conformance tests, supply_procurement wires okaimono SBT settlement + TitheRouter (gross=tithe+payout) + giemon CycloneDX→kotoba bridge, outbound_logistics wires real kami-autodrive VehicleClass + app.etzhayyim.gftd.apps.customsClearance + funadaiku, kotoba-WASM atproto deploy scaffold build-verified (deploy/, agent.wasm gitignored). Proposed tsuukan customs actor ADR-2606021400 (Proposed; no code, Council-gated). Critic findings (lexicon↔emit mismatch / prose outbound stub / wrong customs namespace / pytest import collision) all fixed + re-verified. Delivery: himawari R0.1 commit 9756f4565 on feature line; dedicated worktree feat/himawari-r0.1 created to decouple from contended shared tree (one mislabeled commit created+reverted under concurrency, no work lost); clean main-based branch feat/himawari-r0.1-pr commit 26b19f85e (46-file himawari-only delta) opened as PR #748 — pytest 109/109 + e7m verify 9/9 + all lefthook gates green on clean main base. Honest R0.1: NOT operationally activated (no runtime/sim, digest CIDs, HMAC signature stand-in); R1 Council-gated. Parallel-session himawari R1 design ADR-2606022300 out of scope. Authoritative design = ADR-2606021200."
+path = "90-docs/adr/2606022600-session-close-himawari-r0.1-maturation.md"
+
+[[modules]]
+path = "20-actors/himawari"
+kind = "tier-b-per-domain-leader-actor"
+version = "0.2.0-r0.1-cells-implemented"
+status = "R0.1-cell-solvers-implemented-and-tested-not-operationally-activated"
+description = "himawari (向日葵) — religious-corp first-party SOLAR-GRADE c-Si PV MODULE MANUFACTURING Tier-B actor + loading + outbound + procurement. R0.1 per ADR-2606021200 + ADR-2606022600: all 7 cell solvers implemented (no RuntimeError stubs, 109 tests green), 7 lexicons reconciled to cell emits + per-cell conformance tests, kotoba-WASM atproto deploy scaffold build-verified. Makes the panels hikari installs; structurally closes hikari §G2 (no XUAR/forced-labor polysilicon) via first-party on-chain feedstock provenance. Completes 製造→積込→輸送→設置 energy chain. NOT the silicon iwakura logic-fab track (N1, solar-grade only). Modules for internal hikari install only (G12, SBT↔SBT carve-out). Fab heat+power from hikari renewable only (G4). Labor-liberation transparency G7. COMPOSES landed robotics (sarutahiko F10 LoaderRobot / giemon AGV / kami-autodrive GNC / kuni-umi Otete+Mimi); does not re-implement. NOT operationally activated (no runtime/sim, digest CIDs); R1 Council-gated. customs/通関 orchestration proposed as tsuukan ADR-2606021400 (Proposed)."
+adr = ["2606021200", "2606021400", "2606022600", "2605261100", "2605261000", "2605192100", "2605192245", "2606013100", "2606010030", "2606010600", "2605312330", "2606012100", "2605242500"]
+sibling_actors = [
+  "hikari (consumes himawari modules for install; himawari closes hikari §G2 sourcing gap)",
+  "sarutahiko (F10 LoaderRobot lineage for panel_loading)",
+  "giemon (AGV + 4D-BIM factory pattern + CycloneDX→kotoba SBOM bridge)",
+  "kami-autodrive (outbound_logistics transport autonomy; real VehicleClass)",
+  "kuni-umi (Otete/Mimi robotics class lineage)",
+  "okaimono (commons-first procurement + SBT settlement for supply_procurement)",
+  "funadaiku (marine outbound cargo, R3+)",
+  "hodoki (end-of-life module recovery, G5 circularity)",
+  "tsuukan (proposed customs/通関 orchestrator ADR-2606021400, outbound clearance gate)",
+  "silicon iwakura/fuigo/tsukuru (distinct logic-fab track, shared metallurgy heritage only, N1)",
+]
+sibling_modules = [
+  "20-actors/himawari/cells/polysilicon_refine",
+  "20-actors/himawari/cells/ingot_wafer",
+  "20-actors/himawari/cells/cell_process",
+  "20-actors/himawari/cells/module_assembly",
+  "20-actors/himawari/cells/panel_loading",
+  "20-actors/himawari/cells/outbound_logistics",
+  "20-actors/himawari/cells/supply_procurement",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/himawari"
+liberation_ladder_gate = "L2 (energy supply chain — manufacturing half of hikari)"
+
 # ─── makura (枕) foam pillow Tier-B actor R0 scaffold (ADR-2605261115) ────────
 
 [[adrs]]
@@ -4097,7 +4151,7 @@ authoritative_doc = "90-docs/adr/2606011700-hakken-etzhayyim-migration-override.
 authoritative_adr = "ADR-2606011700"
 overrides = "vendor ADR-2606011400 (Consensys pattern) — hakken vendor-keep verdict"
 scope = "60-apps/ai-gftd-project-hakken (scaffold + rw-free ingest), 00-contracts/lexicons/com/etzhayyim/apps/hakken/* (4 lexicons)"
-description = "User-directed move (2026-06-01) of hakken's product-discovery INGEST FRONT (trend_scan / gap_analysis / supplier_search / quality_eval + branded-product + supplier-candidate write path) to etzhayyim, overriding the same-day vendor-keep verdict of vendor ADR-2606011400. Structure of 2606011400 preserved: product front → etzhayyim, regulated fulfillment tail (okaimono_register Ph1 dropship + Stripe, import_order Ph2, tsukuru_order Ph3) stays a gftd function consumed via consent capability. Phase 1 (DONE): scaffold + 4 com.etzhayyim.apps.hakken.* lexicons + rw-free ingest reference (@etzhayyim/sdk e.write, RW-free + on-chain, float→integer encoding weightG/ratingMilli). Vendor hakken.gftd.ai unchanged. NSID = com.etzhayyim.apps.hakken.* by operator direction; OPEN: reconcile vs the app.etzhayyim.* record-NSID convention used elsewhere in repo (consent/council/encrypted/esign). Phase 2: rehome LangGraph discovery nodes to etzhayyim Murakumo fleet. Phase 3: fulfillment via gftd consent capability. Phase 4: vendor discovery-node sunset. SIBLING (separate PR): main already migrated tsukuru to app.etzhayyim.apps.tsukuru.* (~86 files, repo-wide app.etzhayyim.* standard = 15758 occ vs 0 com.etzhayyim). Per operator direction tsukuru will be converted to com.etzhayyim.apps.tsukuru.* in a DEDICATED follow-up PR (overrides merged work + 4 generated registries regen); this hakken PR does not touch tsukuru. Payment stays shared app.etzhayyim.apps.payment.* (different authority)."
+description = "User-directed move (2026-06-01) of hakken's product-discovery INGEST FRONT (trend_scan / gap_analysis / supplier_search / quality_eval + branded-product + supplier-candidate write path) to etzhayyim, overriding the same-day vendor-keep verdict of vendor ADR-2606011400. Structure of 2606011400 preserved: product front → etzhayyim, regulated fulfillment tail (okaimono_register Ph1 dropship + Stripe, import_order Ph2, tsukuru_order Ph3) stays a gftd function consumed via consent capability. Phase 1 (DONE): scaffold + 4 com.etzhayyim.apps.hakken.* lexicons + rw-free ingest reference (@etzhayyim/sdk e.write, RW-free + on-chain, float→integer encoding weightG/ratingMilli). Vendor hakken host (on the legacy vendor zone) unchanged. NSID = com.etzhayyim.apps.hakken.* by operator direction; OPEN: reconcile vs the app.etzhayyim.* record-NSID convention used elsewhere in repo (consent/council/encrypted/esign). Phase 2: rehome LangGraph discovery nodes to etzhayyim Murakumo fleet. Phase 3: fulfillment via gftd consent capability. Phase 4: vendor discovery-node sunset. SIBLING (separate PR): main already migrated tsukuru to app.etzhayyim.apps.tsukuru.* (~86 files, repo-wide app.etzhayyim.* standard = 15758 occ vs 0 com.etzhayyim). Per operator direction tsukuru will be converted to com.etzhayyim.apps.tsukuru.* in a DEDICATED follow-up PR (overrides merged work + 4 generated registries regen); this hakken PR does not touch tsukuru. Payment stays shared app.etzhayyim.apps.payment.* (different authority)."
 last_verified = "2026-06-01"
 
 # ─── Session summaries ──────────────────────────────────────────────

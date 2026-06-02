@@ -12187,6 +12187,19 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606022600-session-close-himawari-r0.1-maturation",
+      "type": "TechArticle",
+      "title": "ADR-2606022600: Session close — himawari (向日葵) solar-PV actor R0 → R0.1 maturation + clean main-based PR",
+      "status": "active",
+      "topic": "session-close-himawari-r0.1-maturation",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "doc:adr-2606021400-tsuukan-customs-clearance-orchestration-r0"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
