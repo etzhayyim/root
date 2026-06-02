@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 72 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 38 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 37 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 15 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 16 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 93 apps** (C + D = 38 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 92 apps** (C + D = 37 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -53,7 +53,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (15)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (16)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -141,6 +141,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   observability); there is no substrate record layer to migrate. Stays gftd.
   (Publishing periodic coverage snapshots as public records would be net-new, not
   a migration of this monitor.)
+- **briefing** — axis: **Custody** (PII Tier 3). WebRTC multi-actor meeting /
+  live-briefing platform (transcriber/translator/recorder/summarizer; KAMI spatial
+  audio; C2ISR situational awareness): briefingRoom / briefingParticipant /
+  briefingPosition + transcript / summary / recording. Meeting recordings +
+  transcripts + participant identity + private real-time comms are Tier-3 PII
+  (server-side Preferences, never public AT records). Stays gftd.
 - **cowork** — axes: **Custody + RisingWave**. Internal "Claude Cowork" MCP bridge
   to Microsoft Graph (Mail/Teams/Files/Calendar/Users) + RW graph (read-only):
   mailDraft (email content), toolGrant (OAuth delegation credentials), syncJob.
@@ -155,12 +161,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (38) — active backlog
+## Bucket C — NEEDS-CODEMOD (37) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
-briefing, cad, cloudflare-browser-render,
+cad, cloudflare-browser-render,
 common-crawl (RW, legacy src), cpc (legacy src),
 crypto-asset-freeze, cyber-drill (stripe), deai (RW), dougaka (RW), editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
