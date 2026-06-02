@@ -933,41 +933,6 @@ importers:
         specifier: ^4.1.0
         version: 4.1.7(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
 
-  60-apps/etzhayyim-project-gtin/rw-free:
-    dependencies:
-      '@etzhayyim/sdk':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk
-    devDependencies:
-      '@etzhayyim/sdk-mock':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk-mock
-      vitest:
-        specifier: ^4.1.0
-        version: 4.1.7(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
-
-  60-apps/etzhayyim-project-gtin/xrpc-adapter:
-    dependencies:
-      '@etzhayyim/gtin-rw-free':
-        specifier: workspace:*
-        version: link:../rw-free
-      '@etzhayyim/sdk':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk
-      '@etzhayyim/sdk-auth':
-        specifier: workspace:*
-        version: link:../../../20-actors/etzhayyim-sdk-auth
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20240712.0
-        version: 4.20260521.1
-      typescript:
-        specifier: ^5.5.0
-        version: 5.9.3
-      wrangler:
-        specifier: ^3.78.0
-        version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
-
   60-apps/ai-gftd-project-hakken/rw-free:
     dependencies:
       '@etzhayyim/sdk':
@@ -2213,6 +2178,22 @@ importers:
         specifier: ^4.1.0
         version: 4.1.7(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
 
+  60-apps/ai-gftd-project-saiban/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.0
+        version: 4.1.7(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
+
   60-apps/ai-gftd-project-sbom/rw-free:
     dependencies:
       '@etzhayyim/sdk':
@@ -2699,6 +2680,41 @@ importers:
       vitest:
         specifier: ^4.1.0
         version: 4.1.7(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
+
+  60-apps/etzhayyim-project-gtin/rw-free:
+    dependencies:
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+    devDependencies:
+      '@etzhayyim/sdk-mock':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-mock
+      vitest:
+        specifier: ^4.1.0
+        version: 4.1.7(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(esbuild@0.28.0)(jiti@1.21.7)(jsdom@25.0.1)(tsx@4.22.4)
+
+  60-apps/etzhayyim-project-gtin/xrpc-adapter:
+    dependencies:
+      '@etzhayyim/gtin-rw-free':
+        specifier: workspace:*
+        version: link:../rw-free
+      '@etzhayyim/sdk':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk
+      '@etzhayyim/sdk-auth':
+        specifier: workspace:*
+        version: link:../../../20-actors/etzhayyim-sdk-auth
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20240712.0
+        version: 4.20260521.1
+      typescript:
+        specifier: ^5.5.0
+        version: 5.9.3
+      wrangler:
+        specifier: ^3.78.0
+        version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
 
   70-tools/etzhayyim-cli/yorishiro:
     dependencies:
