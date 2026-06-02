@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.kosei import scan_kosei, _check_app
+from etzhayyim.cli import main
+from etzhayyim.kosei import scan_kosei, _check_app
 
 
 def _make_full_app(base: Path) -> Path:

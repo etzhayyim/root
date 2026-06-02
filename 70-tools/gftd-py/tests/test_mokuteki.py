@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.mokuteki import (
+from etzhayyim.cli import main
+from etzhayyim.mokuteki import (
     MokutekiRank,
     MokutekiComponent,
     MokutekiLayer,
@@ -378,7 +378,7 @@ def test_cli_mokuteki_store_calls_duckdb(tmp_path):
     mock_result = MagicMock()
     mock_result.returncode = 0
     mock_result.stderr = ""
-    with patch("gftd.mokuteki.subprocess.run", return_value=mock_result) as mock_run:
+    with patch("etzhayyim.mokuteki.subprocess.run", return_value=mock_result) as mock_run:
         runner = CliRunner()
         result = runner.invoke(main, [
             "mokuteki", "store",
@@ -401,7 +401,7 @@ def test_cli_mokuteki_query_calls_duckdb(tmp_path):
     mock_result.returncode = 0
     mock_result.stdout = "generated_at\ttotal_score\n2026-01-01\t100\n"
     mock_result.stderr = ""
-    with patch("gftd.mokuteki.subprocess.run", return_value=mock_result) as mock_run:
+    with patch("etzhayyim.mokuteki.subprocess.run", return_value=mock_result) as mock_run:
         runner = CliRunner()
         result = runner.invoke(main, [
             "mokuteki", "query",

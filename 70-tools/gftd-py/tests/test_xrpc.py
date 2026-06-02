@@ -1,4 +1,4 @@
-"""Unit tests for gftd.xrpc — NSID routing and _resolve_base logic.
+"""Unit tests for etzhayyim.xrpc — NSID routing and _resolve_base logic.
 
 Tests only the pure routing logic (_resolve_base).
 No real HTTP calls are made.
@@ -11,8 +11,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.xrpc import _KNOWN_APPS, _APP_HOST_TEMPLATE, _resolve_base
-from gftd.cli import main
+from etzhayyim.xrpc import _KNOWN_APPS, _APP_HOST_TEMPLATE, _resolve_base
+from etzhayyim.cli import main
 
 
 # ─── _resolve_base ────────────────────────────────────────────────────────────
@@ -89,7 +89,7 @@ class TestXrpcUsedScopedAuth:
             return {"Authorization": "Bearer scoped-tok"}
 
         with (
-            patch("gftd.xrpc.scoped_auth_headers", side_effect=fake_scoped_auth_headers),
+            patch("etzhayyim.xrpc.scoped_auth_headers", side_effect=fake_scoped_auth_headers),
             patch("httpx.get", return_value=mock_resp),
         ):
             runner = CliRunner()

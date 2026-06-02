@@ -10,8 +10,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.kaizen import (
+from etzhayyim.cli import main
+from etzhayyim.kaizen import (
     DomainAppReport,
     KaizenGap,
     KaizenReport,
@@ -268,25 +268,25 @@ def test_cli_kaizen_filter_grade(tmp_path):
 
 def test_cli_kaizen_logs_exits_nonzero_no_auth(tmp_path):
     """kaizen logs without auth token must exit non-zero."""
-    with patch("gftd.kaizen._resolve_cf_token", return_value=""), \
-         patch("gftd.kaizen._resolve_gftd_token", return_value=""):
+    with patch("etzhayyim.kaizen._resolve_cf_token", return_value=""), \
+         patch("etzhayyim.kaizen._resolve_gftd_token", return_value=""):
         runner = CliRunner()
         result = runner.invoke(main, ["kaizen", "logs"])
     assert result.exit_code != 0
 
 
 def test_kaizen_logs_percentile_empty():
-    from gftd.kaizen import _percentile
+    from etzhayyim.kaizen import _percentile
     assert _percentile([], 0.99) == 0.0
 
 
 def test_kaizen_logs_percentile_single():
-    from gftd.kaizen import _percentile
+    from etzhayyim.kaizen import _percentile
     assert _percentile([100], 0.99) == 100.0
 
 
 def test_kaizen_logs_percentile_multiple():
-    from gftd.kaizen import _percentile
+    from etzhayyim.kaizen import _percentile
     samples = list(range(1, 101))  # 1..100
     p50 = _percentile(samples, 0.50)
     p99 = _percentile(samples, 0.99)
@@ -295,7 +295,7 @@ def test_kaizen_logs_percentile_multiple():
 
 
 def test_kaizen_logs_aggregate_events():
-    from gftd.kaizen import _aggregate_events
+    from etzhayyim.kaizen import _aggregate_events
     events = [
         {"method": "com.etzhayyim.foo.bar", "status": 200, "ms": 100},
         {"method": "com.etzhayyim.foo.bar", "status": 500, "ms": 2000},
@@ -309,7 +309,7 @@ def test_kaizen_logs_aggregate_events():
 
 
 def test_kaizen_logs_build_findings_slow():
-    from gftd.kaizen import _build_findings
+    from etzhayyim.kaizen import _build_findings
     events = [
         {"method": "com.etzhayyim.slow.query", "status": 200, "ms": 1200},
         {"method": "com.etzhayyim.slow.query", "status": 200, "ms": 1500},
@@ -324,7 +324,7 @@ def test_kaizen_logs_build_findings_slow():
 
 
 def test_kaizen_logs_build_findings_errors():
-    from gftd.kaizen import _build_findings
+    from etzhayyim.kaizen import _build_findings
     events = [
         {"method": "com.etzhayyim.broken", "status": 500, "ms": 100},
         {"method": "com.etzhayyim.broken", "status": 500, "ms": 100},
@@ -341,7 +341,7 @@ def test_kaizen_logs_build_findings_errors():
 
 def test_kaizen_logs_with_mocked_ocel():
     """kaizen logs end-to-end with mocked OCEL data."""
-    from gftd.kaizen import _load_ocel
+    from etzhayyim.kaizen import _load_ocel
     mock_data = {
         "events": [
             {"method": "com.etzhayyim.apps.foo.bar", "status": 200, "ms": 120, "ts": "2026-05-15T00:00:00Z"},
@@ -350,9 +350,9 @@ def test_kaizen_logs_with_mocked_ocel():
         ],
         "aggregates": {},
     }
-    with patch("gftd.kaizen._load_ocel", return_value=(mock_data, "test")):
+    with patch("etzhayyim.kaizen._load_ocel", return_value=(mock_data, "test")):
         runner = CliRunner()
-        from gftd.cli import main
+        from etzhayyim.cli import main
         result = runner.invoke(main, ["kaizen", "logs"])
     assert result.exit_code == 0
     assert "kaizen logs" in result.output
@@ -366,9 +366,9 @@ def test_kaizen_logs_json_with_mocked_ocel():
         ],
         "aggregates": {},
     }
-    with patch("gftd.kaizen._load_ocel", return_value=(mock_data, "test")):
+    with patch("etzhayyim.kaizen._load_ocel", return_value=(mock_data, "test")):
         runner = CliRunner()
-        from gftd.cli import main
+        from etzhayyim.cli import main
         result = runner.invoke(main, ["kaizen", "logs", "--json"])
     assert result.exit_code == 0
     data = json.loads(result.output)
@@ -379,7 +379,7 @@ def test_kaizen_logs_json_with_mocked_ocel():
 
 
 def test_kaizen_logs_severity_classification():
-    from gftd.kaizen import _build_findings
+    from etzhayyim.kaizen import _build_findings
     # critical: errRate >= 10
     events = [{"method": "m", "status": 500, "ms": 100}] * 10
     f = _build_findings(events, {}, 5, 500, 1.0, 10)
@@ -437,7 +437,7 @@ def test_cli_actors_shinka_dry_run_mocked(tmp_path):
     async def mock_run_shinka(**kwargs):
         pass  # no-op, avoids real LLM/PDS calls
 
-    with patch("gftd.actors._run_shinka", side_effect=mock_run_shinka):
+    with patch("etzhayyim.actors._run_shinka", side_effect=mock_run_shinka):
         runner = CliRunner()
         result = runner.invoke(main, [
             "actors", "shinka",
@@ -450,7 +450,7 @@ def test_cli_actors_shinka_dry_run_mocked(tmp_path):
 
 
 def test_parse_shinka_result_valid():
-    from gftd.actors import ActorInfo, _parse_result
+    from etzhayyim.actors import ActorInfo, _parse_result
     actor = ActorInfo(did="did:plc:abc", nanoid="abc123", handle="billing.etzhayyim.com")
     llm_text = json.dumps({
         "domain_summary": "Billing management actor.",
@@ -466,14 +466,14 @@ def test_parse_shinka_result_valid():
 
 
 def test_parse_shinka_result_no_json():
-    from gftd.actors import ActorInfo, _parse_result
+    from etzhayyim.actors import ActorInfo, _parse_result
     actor = ActorInfo(did="did:plc:abc", nanoid="abc123")
     result = _parse_result(actor, "no json here")
     assert result.error != ""
 
 
 def test_parse_shinka_result_strips_think_block():
-    from gftd.actors import ActorInfo, _parse_result, _RE_JSON_BLOCK
+    from etzhayyim.actors import ActorInfo, _parse_result, _RE_JSON_BLOCK
     actor = ActorInfo(did="did:plc:abc", nanoid="abc123", handle="test.etzhayyim.com")
     llm_text = (
         "<think>Let me reason about this...</think>\n"

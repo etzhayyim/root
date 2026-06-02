@@ -1,4 +1,4 @@
-"""Unit tests for gftd.auth — token resolution and header helpers.
+"""Unit tests for etzhayyim.auth — token resolution and header helpers.
 
 All external I/O (subprocess, filesystem) is mocked.
 No keychain, no ~/.gftd/auth.json reads.
@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from gftd.auth import (
+from etzhayyim.auth import (
     auth_headers,
     mint_scoped_jwt,
     scoped_auth_headers,
@@ -53,8 +53,8 @@ class TestResolveToken:
     def test_returns_none_when_no_sources(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={}),
         ):
             token = resolve_token()
         assert token is None
@@ -62,8 +62,8 @@ class TestResolveToken:
     def test_keychain_used_when_no_env(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value="keychain-token"),
-            patch("gftd.auth._load_auth_file", return_value={}),
+            patch("etzhayyim.auth._read_keychain", return_value="keychain-token"),
+            patch("etzhayyim.auth._load_auth_file", return_value={}),
         ):
             token = resolve_token()
         assert token == "keychain-token"
@@ -71,8 +71,8 @@ class TestResolveToken:
     def test_auth_file_api_key_used_when_no_env_or_keychain(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={"api_key": "file-api-key"}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={"api_key": "file-api-key"}),
         ):
             token = resolve_token()
         assert token == "file-api-key"
@@ -80,8 +80,8 @@ class TestResolveToken:
     def test_auth_file_id_token_fallback(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={"id_token": "id-tok-xyz"}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={"id_token": "id-tok-xyz"}),
         ):
             token = resolve_token()
         assert token == "id-tok-xyz"
@@ -89,8 +89,8 @@ class TestResolveToken:
     def test_auth_file_access_token_fallback(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={"access_token": "acc-tok-789"}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={"access_token": "acc-tok-789"}),
         ):
             token = resolve_token()
         assert token == "acc-tok-789"
@@ -98,8 +98,8 @@ class TestResolveToken:
     def test_api_key_wins_over_id_token(self, monkeypatch):
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={
                 "api_key": "api-key-wins",
                 "id_token": "id-tok-loses",
             }),
@@ -112,22 +112,22 @@ class TestResolveToken:
 
 class TestResolveActiveDid:
     def test_returns_none_when_no_auth_file(self):
-        with patch("gftd.auth._load_auth_file", return_value={}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={}):
             did = resolve_active_did()
         assert did is None
 
     def test_returns_active_did_from_file(self):
-        with patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:abc123"}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={"active_did": "did:plc:abc123"}):
             did = resolve_active_did()
         assert did == "did:plc:abc123"
 
     def test_falls_back_to_sub(self):
-        with patch("gftd.auth._load_auth_file", return_value={"sub": "did:plc:sub456"}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={"sub": "did:plc:sub456"}):
             did = resolve_active_did()
         assert did == "did:plc:sub456"
 
     def test_active_did_wins_over_sub(self):
-        with patch("gftd.auth._load_auth_file", return_value={
+        with patch("etzhayyim.auth._load_auth_file", return_value={
             "active_did": "did:plc:active",
             "sub": "did:plc:sub",
         }):
@@ -142,15 +142,15 @@ class TestAuthHeaders:
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         monkeypatch.delenv("etzhayyim_ORG_ID", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={}),
         ):
             headers = auth_headers()
         assert headers == {}
 
     def test_token_sets_authorization_header(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_TOKEN", "tok-xyz")
-        with patch("gftd.auth._load_auth_file", return_value={}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={}):
             headers = auth_headers()
         assert headers["Authorization"] == "Bearer tok-xyz"
 
@@ -158,8 +158,8 @@ class TestAuthHeaders:
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         monkeypatch.delenv("etzhayyim_ORG_ID", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}),
         ):
             headers = auth_headers()
         assert headers["X-Active-DID"] == "did:plc:abc"
@@ -168,8 +168,8 @@ class TestAuthHeaders:
         monkeypatch.setenv("etzhayyim_ORG_ID", "org-123")
         monkeypatch.delenv("etzhayyim_TOKEN", raising=False)
         with (
-            patch("gftd.auth._read_keychain", return_value=None),
-            patch("gftd.auth._load_auth_file", return_value={}),
+            patch("etzhayyim.auth._read_keychain", return_value=None),
+            patch("etzhayyim.auth._load_auth_file", return_value={}),
         ):
             headers = auth_headers()
         assert headers["X-etzhayyim-Org-Id"] == "org-123"
@@ -177,7 +177,7 @@ class TestAuthHeaders:
     def test_all_headers_present_when_all_sources_set(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_TOKEN", "tok-full")
         monkeypatch.setenv("etzhayyim_ORG_ID", "org-full")
-        with patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:full"}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={"active_did": "did:plc:full"}):
             headers = auth_headers()
         assert "Authorization" in headers
         assert "X-Active-DID" in headers
@@ -286,7 +286,7 @@ class TestScopedAuthHeaders:
     def test_falls_back_to_base_token_when_mint_fails(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
-        with patch("gftd.auth._load_auth_file", return_value={}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={}):
             headers = scoped_auth_headers("com.etzhayyim.apps.billing.listInvoices")
         assert headers["Authorization"] == "Bearer base-tok"
 
@@ -294,8 +294,8 @@ class TestScopedAuthHeaders:
         monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
         monkeypatch.delenv("etzhayyim_SCOPED_AUTH", raising=False)
         with (
-            patch("gftd.auth._load_auth_file", return_value={}),
-            patch("gftd.auth.mint_scoped_jwt", return_value="scoped-tok"),
+            patch("etzhayyim.auth._load_auth_file", return_value={}),
+            patch("etzhayyim.auth.mint_scoped_jwt", return_value="scoped-tok"),
         ):
             headers = scoped_auth_headers("com.etzhayyim.apps.billing.listInvoices")
         assert headers["Authorization"] == "Bearer scoped-tok"
@@ -304,7 +304,7 @@ class TestScopedAuthHeaders:
         monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
         monkeypatch.setenv("etzhayyim_ORG_ID", "org-x")
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
-        with patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}):
+        with patch("etzhayyim.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}):
             headers = scoped_auth_headers("com.etzhayyim.apps.billing.listInvoices")
         assert "X-Active-DID" in headers
         assert "X-etzhayyim-Org-Id" in headers

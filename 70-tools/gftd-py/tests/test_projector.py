@@ -8,8 +8,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.projector import _mcp_call, _agent_token, _mcp_headers
+from etzhayyim.cli import main
+from etzhayyim.projector import _mcp_call, _agent_token, _mcp_headers
 
 
 # ── _agent_token ───────────────────────────────────────────────────────────────
@@ -60,7 +60,7 @@ def _mcp_envelope(tool_result: dict) -> dict:
 
 def test_mcp_call_unwraps_content_text():
     expected = {"projectId": "proj-123", "ok": True}
-    with patch("gftd.projector.httpx.post", return_value=_mock_response(_mcp_envelope(expected))):
+    with patch("etzhayyim.projector.httpx.post", return_value=_mock_response(_mcp_envelope(expected))):
         result = _mcp_call("projector.create_project", {"name": "Test"})
     assert result == expected
 
@@ -71,7 +71,7 @@ def test_mcp_call_raises_on_rpc_error():
         "id": 1,
         "error": {"code": -32600, "message": "Invalid request"},
     }
-    with patch("gftd.projector.httpx.post", return_value=_mock_response(error_resp)):
+    with patch("etzhayyim.projector.httpx.post", return_value=_mock_response(error_resp)):
         import click
         with pytest.raises(click.ClickException, match="Invalid request"):
             _mcp_call("projector.create_project", {"name": "Test"})
@@ -85,7 +85,7 @@ def test_mcp_call_sends_correct_payload():
         captured["url"] = url
         return _mock_response(_mcp_envelope({"ok": True}))
 
-    with patch("gftd.projector.httpx.post", side_effect=fake_post):
+    with patch("etzhayyim.projector.httpx.post", side_effect=fake_post):
         _mcp_call("projector.create_project", {"name": "Foo"})
 
     assert captured["json"]["method"] == "tools/call"
@@ -99,7 +99,7 @@ def test_mcp_call_sends_correct_payload():
 
 def test_cli_projector_create_minimal():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"projectId": "p1", "ok": True}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"projectId": "p1", "ok": True}) as mock_call:
         result = runner.invoke(main, ["projector", "create", "My Project"])
     assert result.exit_code == 0
     mock_call.assert_called_once_with("projector.create_project", {"name": "My Project"})
@@ -107,7 +107,7 @@ def test_cli_projector_create_minimal():
 
 def test_cli_projector_create_with_options():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"projectId": "p2"}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"projectId": "p2"}) as mock_call:
         result = runner.invoke(main, [
             "projector", "create", "My Project",
             "--org-id", "did:plc:abc123",
@@ -125,7 +125,7 @@ def test_cli_projector_create_with_options():
 
 def test_cli_projector_status():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"projectId": "p1", "status": "active"}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"projectId": "p1", "status": "active"}) as mock_call:
         result = runner.invoke(main, ["projector", "status", "p1"])
     assert result.exit_code == 0
     mock_call.assert_called_once_with("projector.get_status", {"projectId": "p1", "summarize": True})
@@ -133,7 +133,7 @@ def test_cli_projector_status():
 
 def test_cli_projector_get_is_alias_for_status():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"projectId": "p1"}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"projectId": "p1"}) as mock_call:
         result = runner.invoke(main, ["projector", "get", "p1", "--no-summarize"])
     assert result.exit_code == 0
     mock_call.assert_called_once_with("projector.get_status", {"projectId": "p1", "summarize": False})
@@ -143,7 +143,7 @@ def test_cli_projector_get_is_alias_for_status():
 
 def test_cli_projector_update_progress():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"ok": True}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"ok": True}) as mock_call:
         result = runner.invoke(main, ["projector", "update", "p1", "--progress", "500"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -153,7 +153,7 @@ def test_cli_projector_update_progress():
 
 def test_cli_projector_update_state():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"ok": True}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"ok": True}) as mock_call:
         result = runner.invoke(main, ["projector", "update", "p1", "--state", "completed"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -164,7 +164,7 @@ def test_cli_projector_update_state():
 
 def test_cli_projector_list_default():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"projects": []}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"projects": []}) as mock_call:
         result = runner.invoke(main, ["projector", "list"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -173,7 +173,7 @@ def test_cli_projector_list_default():
 
 def test_cli_projector_list_with_filters():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"projects": []}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"projects": []}) as mock_call:
         result = runner.invoke(main, ["projector", "list", "--org-id", "did:plc:abc", "--state", "active", "--limit", "5"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -186,7 +186,7 @@ def test_cli_projector_list_with_filters():
 
 def test_cli_projector_blocker_add():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"blockerId": "b1"}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"blockerId": "b1"}) as mock_call:
         result = runner.invoke(main, [
             "projector", "blocker", "add", "p1", "CI pipeline broken",
             "--type", "technical",
@@ -204,7 +204,7 @@ def test_cli_projector_blocker_add():
 
 def test_cli_projector_blocker_add_minimal():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"blockerId": "b2"}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"blockerId": "b2"}) as mock_call:
         result = runner.invoke(main, ["projector", "blocker", "add", "p1", "Budget freeze"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -215,7 +215,7 @@ def test_cli_projector_blocker_add_minimal():
 
 def test_cli_projector_blocker_resolve():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"ok": True}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"ok": True}) as mock_call:
         result = runner.invoke(main, ["projector", "blocker", "resolve", "b1", "--resolution", "Fixed in PR #42"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -225,7 +225,7 @@ def test_cli_projector_blocker_resolve():
 
 def test_cli_projector_blocker_resolve_minimal():
     runner = CliRunner()
-    with patch("gftd.projector._mcp_call", return_value={"ok": True}) as mock_call:
+    with patch("etzhayyim.projector._mcp_call", return_value={"ok": True}) as mock_call:
         result = runner.invoke(main, ["projector", "blocker", "resolve", "b99"])
     assert result.exit_code == 0
     args = mock_call.call_args[0][1]
@@ -237,7 +237,7 @@ def test_cli_projector_blocker_resolve_minimal():
 def test_cli_output_is_valid_json():
     runner = CliRunner()
     payload = {"projectId": "p1", "name": "My Project", "ok": True}
-    with patch("gftd.projector._mcp_call", return_value=payload):
+    with patch("etzhayyim.projector._mcp_call", return_value=payload):
         result = runner.invoke(main, ["projector", "status", "p1"])
     assert result.exit_code == 0
     parsed = json.loads(result.output)

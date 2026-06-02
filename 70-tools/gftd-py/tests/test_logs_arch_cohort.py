@@ -9,7 +9,7 @@ from unittest.mock import patch, MagicMock
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
+from etzhayyim.cli import main
 
 
 # ── logs arch ─────────────────────────────────────────────────────────────────
@@ -77,7 +77,7 @@ def test_logs_arch_json_with_commits(tmp_path):
 
 def test_logs_arch_layer_classifier():
     """Layer classification matches repo directory conventions."""
-    from gftd.logs import _classify_layer
+    from etzhayyim.logs import _classify_layer
     cases = [
         ("60-apps/proj/app.ts", "projects"),
         ("50-infra/k8s/values.yaml", "infra"),
@@ -86,7 +86,7 @@ def test_logs_arch_layer_classifier():
         ("40-engine/svelte/pkg/foo.ts", "engine"),
         ("30-graph/schema/foo.sql", "graph"),
         ("00-contracts/lexicons/foo.json", "contracts"),
-        ("70-tools/gftd-py/bar.py", "tools"),
+        ("70-tools/etzhayyim-py/bar.py", "tools"),
         ("CLAUDE.md", "root"),
         ("deps.toml", "root"),
     ]
@@ -147,7 +147,7 @@ def test_cohort_bootstrap_exits_nonzero():
 
 def test_cohort_dashboard_not_signed_in(tmp_path):
     auth_file = tmp_path / "auth.json"
-    with patch("gftd.cohort._load_auth", return_value={}):
+    with patch("etzhayyim.cohort._load_auth", return_value={}):
         runner = CliRunner()
         result = runner.invoke(main, ["cohort", "dashboard"])
     assert result.exit_code != 0
@@ -156,7 +156,7 @@ def test_cohort_dashboard_not_signed_in(tmp_path):
 def test_cohort_snapshot_saves_file(tmp_path):
     """cohort snapshot saves JSON without network call."""
     out_dir = tmp_path / "snapshots"
-    with patch("gftd.cohort._auth_headers", return_value={}), \
+    with patch("etzhayyim.cohort._auth_headers", return_value={}), \
          patch("httpx.get") as mock_get:
         mock_resp = MagicMock()
         mock_resp.raise_for_status = MagicMock()

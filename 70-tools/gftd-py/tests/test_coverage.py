@@ -9,8 +9,8 @@ from unittest.mock import patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.coverage import _check_actor_completeness, _scan_actors, _heal_one, _run_heal, _build_heal_prompt
+from etzhayyim.cli import main
+from etzhayyim.coverage import _check_actor_completeness, _scan_actors, _heal_one, _run_heal, _build_heal_prompt
 
 
 # ── _check_actor_completeness ──────────────────────────────────────────────────
@@ -299,7 +299,7 @@ def test_cli_coverage_heal_dry_run(tmp_path):
     jsonld.write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
 
     runner = CliRunner()
-    with patch("gftd.coverage._call_llm_sync", return_value='{"performerType": "actor", "did": "did:plc:x"}'):
+    with patch("etzhayyim.coverage._call_llm_sync", return_value='{"performerType": "actor", "did": "did:plc:x"}'):
         result = runner.invoke(main, [
             "coverage", "heal", "--dry-run", "--workspace-dir", str(tmp_path),
         ])
@@ -316,7 +316,7 @@ def test_cli_coverage_heal_json_output(tmp_path):
     (app_dir / "magatama.jsonld").write_text(json.dumps({"nanoid": "abc123", "name": "billing"}))
 
     runner = CliRunner()
-    with patch("gftd.coverage._call_llm_sync", return_value='{"performerType": "actor", "did": "did:plc:x"}'):
+    with patch("etzhayyim.coverage._call_llm_sync", return_value='{"performerType": "actor", "did": "did:plc:x"}'):
         result = runner.invoke(main, [
             "coverage", "heal", "--dry-run", "--json", "--workspace-dir", str(tmp_path),
         ])

@@ -1,4 +1,4 @@
-"""Unit tests for gftd.dns_sync — ADR-0013 Phase 3 DNS sync.
+"""Unit tests for etzhayyim.dns_sync — ADR-0013 Phase 3 DNS sync.
 
 No real Cloudflare API calls are made. All CF API interactions are mocked.
 """
@@ -12,7 +12,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.dns_sync import (
+from etzhayyim.dns_sync import (
     _IdActor,
     _IdLegacy,
     _parse_identifier_tables,
@@ -24,7 +24,7 @@ from gftd.dns_sync import (
     _patch_wrangler_bindings,
     dns_sync,
 )
-from gftd.cli import main
+from etzhayyim.cli import main
 
 
 # ─── _parse_identifier_tables ────────────────────────────────────────────────
@@ -451,7 +451,7 @@ handle = "adr.etzhayyim.com"
 
     def test_no_token_fails(self, tmp_path):
         self._write_deps(tmp_path)
-        with patch("gftd.dns_sync._resolve_cf_token", return_value=("", "")):
+        with patch("etzhayyim.dns_sync._resolve_cf_token", return_value=("", "")):
             result = CliRunner().invoke(main, ["dns-sync", "--workspace-dir", str(tmp_path)])
         assert result.exit_code != 0
 

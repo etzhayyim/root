@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.source_graph import scan_source_graph, SGReport, _parse_ts_imports, _parse_py_imports
+from etzhayyim.cli import main
+from etzhayyim.source_graph import scan_source_graph, SGReport, _parse_ts_imports, _parse_py_imports
 
 
 # ── parsers ────────────────────────────────────────────────────────────────────
@@ -34,11 +34,11 @@ def test_parse_ts_imports_skips_at_packages():
 
 
 def test_parse_py_imports_basic():
-    content = "import os\nfrom pathlib import Path\nfrom gftd.kaizen import score"
+    content = "import os\nfrom pathlib import Path\nfrom etzhayyim.kaizen import score"
     imps = _parse_py_imports(content)
     assert "os" in imps
     assert "pathlib" in imps
-    assert "gftd.kaizen" in imps
+    assert "etzhayyim.kaizen" in imps
 
 
 # ── scan_source_graph ──────────────────────────────────────────────────────────

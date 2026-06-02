@@ -1,4 +1,4 @@
-"""Unit tests for gftd.database — migration runner and management commands.
+"""Unit tests for etzhayyim.database — migration runner and management commands.
 
 No real DB connections are made. subprocess.run and psycopg are mocked.
 """
@@ -12,13 +12,13 @@ from unittest.mock import MagicMock, patch, call
 import pytest
 from click.testing import CliRunner
 
-from gftd.database import (
+from etzhayyim.database import (
     _resolve_db_url,
     _redact_url,
     _validate_migrator_args,
     _list_graph_schema_migrations,
 )
-from gftd.cli import main
+from etzhayyim.cli import main
 
 
 # ─── _resolve_db_url ──────────────────────────────────────────────────────────
@@ -159,7 +159,7 @@ class TestDatabaseMigrateCLI:
             return MagicMock(returncode=0)
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("subprocess.run", side_effect=fake_run),
         ):
             result = CliRunner().invoke(main, ["database", "migrate"])
@@ -177,7 +177,7 @@ class TestDatabaseMigrateCLI:
             return MagicMock(returncode=0)
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("subprocess.run", side_effect=fake_run),
         ):
             CliRunner().invoke(main, ["database", "migrate"])
@@ -195,7 +195,7 @@ class TestDatabaseMigrateCLI:
             return MagicMock(returncode=0)
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("subprocess.run", side_effect=fake_run),
         ):
             CliRunner().invoke(main, ["database", "migrate", "to", "0001_init"])
@@ -206,7 +206,7 @@ class TestDatabaseMigrateCLI:
         monkeypatch.delenv("DATABASE_URL", raising=False)
         self._make_schema(tmp_path)
 
-        with patch("gftd.database._find_git_root", return_value=tmp_path):
+        with patch("etzhayyim.database._find_git_root", return_value=tmp_path):
             result = CliRunner().invoke(main, ["database", "migrate", "badcmd"])
         assert result.exit_code != 0
 
@@ -215,7 +215,7 @@ class TestDatabaseMigrateCLI:
         self._make_schema(tmp_path)
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("subprocess.run", return_value=MagicMock(returncode=1)),
         ):
             result = CliRunner().invoke(main, ["database", "migrate"])
@@ -242,7 +242,7 @@ class TestDatabaseUpCLI:
             return MagicMock(returncode=0)
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("subprocess.run", side_effect=fake_run),
         ):
             result = CliRunner().invoke(main, ["database", "up"])
@@ -261,7 +261,7 @@ class TestDatabaseUpCLI:
             return MagicMock(returncode=0)
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("subprocess.run", side_effect=fake_run),
         ):
             CliRunner().invoke(main, ["database", "up", "--env", "prod"])
@@ -292,7 +292,7 @@ class TestDatabaseRepairOrderCLI:
         ]
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("psycopg.connect", return_value=mock_conn),
         ):
             result = CliRunner().invoke(main, ["database", "repair-order"])
@@ -310,7 +310,7 @@ class TestDatabaseRepairOrderCLI:
         mock_conn.execute.return_value.fetchall.return_value = []
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("psycopg.connect", return_value=mock_conn),
         ):
             result = CliRunner().invoke(main, ["database", "repair-order"])
@@ -331,7 +331,7 @@ class TestDatabaseRepairOrderCLI:
         ]
 
         with (
-            patch("gftd.database._find_git_root", return_value=tmp_path),
+            patch("etzhayyim.database._find_git_root", return_value=tmp_path),
             patch("psycopg.connect", return_value=mock_conn),
         ):
             result = CliRunner().invoke(main, ["database", "repair-order", "--json"])

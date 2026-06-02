@@ -12,13 +12,13 @@ from unittest.mock import patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.lint import _lint_rule, _ALL_RULES
-from gftd.identifier_audit import run_audit, _audit_jsonld
-from gftd.nono import _load_manifests, NonoManifest
-from gftd.deps import _load
-from gftd.yoroshiku import _run_readiness
-from gftd.workspace import workspace
+from etzhayyim.cli import main
+from etzhayyim.lint import _lint_rule, _ALL_RULES
+from etzhayyim.identifier_audit import run_audit, _audit_jsonld
+from etzhayyim.nono import _load_manifests, NonoManifest
+from etzhayyim.deps import _load
+from etzhayyim.yoroshiku import _run_readiness
+from etzhayyim.workspace import workspace
 
 
 # ── lint ───────────────────────────────────────────────────────────────────────
@@ -113,7 +113,7 @@ def test_cli_workspace_status(tmp_path):
 
 def test_cli_workspace_sync_missing_rsync(tmp_path):
     runner = CliRunner()
-    with patch("gftd.workspace.subprocess.run", side_effect=FileNotFoundError):
+    with patch("etzhayyim.workspace.subprocess.run", side_effect=FileNotFoundError):
         result = runner.invoke(main, ["workspace", "sync",
                                       "--remote", "user@host:/path",
                                       "--workspace-dir", str(tmp_path)])
@@ -239,7 +239,7 @@ nanoid = "adr00001"
 
 def test_cli_deps_kv_sync_build_records_sorted():
     """_build_kv_records returns actors sorted by name."""
-    from gftd.deps import _build_kv_records
+    from etzhayyim.deps import _build_kv_records
     actors = [
         {"name": "zoro", "did": "did:web:zoro.etzhayyim.com"},
         {"name": "adr", "did": "did:web:adr.etzhayyim.com"},
@@ -745,7 +745,7 @@ def test_migrate_manifest_dry_run_basic(tmp_path):
         "org": "etzhayyim",
         "routes": [{"host": "test.etzhayyim.com"}],
     }
-    (tmp_path / "gftd.json").write_text(json.dumps(gftd_json))
+    (tmp_path / "etzhayyim.json").write_text(json.dumps(gftd_json))
     runner = CliRunner()
     result = runner.invoke(
         main, ["migrate-manifest", "run", "--dir", str(tmp_path), "--dry-run"]
@@ -756,14 +756,14 @@ def test_migrate_manifest_dry_run_basic(tmp_path):
 
 
 def test_migrate_manifest_writes_jsonld(tmp_path):
-    """migrate-manifest run writes magatama.jsonld from gftd.json."""
+    """migrate-manifest run writes magatama.jsonld from etzhayyim.json."""
     gftd_json = {
         "name": "my-actor",
         "nanoid": "my4ct0r",
         "project": "testproj",
         "runtime": "worker",
     }
-    (tmp_path / "gftd.json").write_text(json.dumps(gftd_json))
+    (tmp_path / "etzhayyim.json").write_text(json.dumps(gftd_json))
     runner = CliRunner()
     result = runner.invoke(
         main, ["migrate-manifest", "run", "--dir", str(tmp_path)]
@@ -780,7 +780,7 @@ def test_migrate_manifest_writes_jsonld(tmp_path):
 
 def test_migrate_manifest_skips_existing(tmp_path):
     """migrate-manifest run skips component if magatama.jsonld already exists."""
-    (tmp_path / "gftd.json").write_text(json.dumps({"name": "a", "nanoid": "b"}))
+    (tmp_path / "etzhayyim.json").write_text(json.dumps({"name": "a", "nanoid": "b"}))
     (tmp_path / "magatama.jsonld").write_text("{}")
     runner = CliRunner()
     result = runner.invoke(
@@ -795,7 +795,7 @@ def test_migrate_manifest_batch(tmp_path):
     for name in ("alpha", "beta"):
         d = tmp_path / name
         d.mkdir()
-        (d / "gftd.json").write_text(json.dumps({"name": name, "nanoid": name[:3]}))
+        (d / "etzhayyim.json").write_text(json.dumps({"name": name, "nanoid": name[:3]}))
     runner = CliRunner()
     result = runner.invoke(
         main, ["migrate-manifest", "run", "--batch", "--dir", str(tmp_path)]
@@ -807,7 +807,7 @@ def test_migrate_manifest_batch(tmp_path):
 
 def test_migrate_manifest_toml_ui(tmp_path):
     """migrate-manifest run merges magatama.toml ui section."""
-    (tmp_path / "gftd.json").write_text(json.dumps({"name": "ui-app", "nanoid": "uiapp"}))
+    (tmp_path / "etzhayyim.json").write_text(json.dumps({"name": "ui-app", "nanoid": "uiapp"}))
     (tmp_path / "magatama.toml").write_text(
         '[ui]\nmode = "custom"\naccent = "#ff0000"\n'
     )
@@ -966,7 +966,7 @@ def test_cli_vertex_stats_help():
 
 def test_vertex_tier_registry_parse(tmp_path):
     """_load_vertex_tier_registry parses [vertex_tier.tier_*] sections."""
-    from gftd.vertex import _load_vertex_tier_registry
+    from etzhayyim.vertex import _load_vertex_tier_registry
     deps = tmp_path / "deps.toml"
     deps.write_text(
         '[vertex_tier.tier_a]\ntables = [\n  "vertex_actor_profile",\n]\n'
@@ -982,7 +982,7 @@ def test_vertex_tier_registry_parse(tmp_path):
 
 def test_vertex_tier_lookup(tmp_path):
     """vertex tier command returns correct tier from deps.toml."""
-    from gftd.vertex import _load_vertex_tier_registry
+    from etzhayyim.vertex import _load_vertex_tier_registry
     deps = tmp_path / "deps.toml"
     deps.write_text('[vertex_tier.tier_a]\ntables = [\n  "vertex_actor_did",\n]\n'
                     '[vertex_tier.tier_b]\ntables = []\n[vertex_tier.tier_c]\ntables = []\n')
@@ -1117,7 +1117,7 @@ def test_apps_kyumei_koji_json_structure():
 
 def test_apps_coverage_static_score(tmp_path):
     """Static domain score works from a synthetic app.ts."""
-    from gftd.apps import _score_domain_static
+    from etzhayyim.apps import _score_domain_static
     app_dir = tmp_path / "myapp"
     src_dir = app_dir / "src"
     src_dir.mkdir(parents=True)
@@ -1186,7 +1186,7 @@ def test_cli_kosei_sbom_help():
 
 def test_kosei_config_roundtrip(tmp_path):
     """_load_kosei_config / _save_kosei_config round-trip."""
-    from gftd.kosei import _load_kosei_config, _save_kosei_config
+    from etzhayyim.kosei import _load_kosei_config, _save_kosei_config
     data_dir = tmp_path / "80-data" / "kosei"
     cfg = _load_kosei_config(data_dir)
     assert cfg["apps"] == {}
@@ -1198,7 +1198,7 @@ def test_kosei_config_roundtrip(tmp_path):
 
 def test_kosei_suggest_tier():
     """_suggest_tier heuristics."""
-    from gftd.kosei import _suggest_tier
+    from etzhayyim.kosei import _suggest_tier
     assert _suggest_tier({"name": "pds-gateway", "dir": "50-infra/vultr/pds"}) == "T3"
     assert _suggest_tier({"name": "magatama-actor", "dir": "20-actors/magatama"}) == "T1"
     assert _suggest_tier({"name": "shinshi-app", "dir": "60-apps/ai-gftd-project-shinshi"}) == "T2"
@@ -1290,7 +1290,7 @@ def test_cli_bunseki_recommendations_help():
 
 def test_bunseki_dfg_logic():
     """_build_dfg produces correct edges from traces."""
-    from gftd.bunseki import _build_dfg, _build_traces
+    from etzhayyim.bunseki import _build_dfg, _build_traces
     events = [
         {"auth": "u1", "activity": "login", "method": "POST", "type": "", "duration_ms": 50},
         {"auth": "u1", "activity": "search", "method": "GET", "type": "", "duration_ms": 100},
@@ -1308,7 +1308,7 @@ def test_bunseki_dfg_logic():
 
 def test_bunseki_performance_logic():
     """_analyze_performance computes avg/p50/p95."""
-    from gftd.bunseki import _analyze_performance
+    from etzhayyim.bunseki import _analyze_performance
     events = [{"activity": "login", "duration_ms": d} for d in [100, 200, 300, 400, 1000]]
     perf = _analyze_performance(events)
     login = next((p for p in perf if p["activity"] == "login"), None)
@@ -1415,7 +1415,7 @@ def test_hinshitsu_actors_json(tmp_path):
 def test_hinshitsu_score_logic():
     """_score_actor computes correct score."""
     import tempfile, os
-    from gftd.hinshitsu import _score_actor
+    from etzhayyim.hinshitsu import _score_actor
     with tempfile.TemporaryDirectory() as tmpdir:
         actor = {
             "nanoid": "abc12345",
@@ -1730,7 +1730,7 @@ def test_pm_scan_empty(tmp_path):
 
 def test_pm_scan_with_ts_file(tmp_path):
     """process-mining scan detects bottlenecks in TS files."""
-    from gftd.process_mining import _analyze_handler_file
+    from etzhayyim.process_mining import _analyze_handler_file
     handler_dir = tmp_path / "handlers"
     handler_dir.mkdir()
     ts_file = handler_dir / "my-handler.ts"
@@ -1750,7 +1750,7 @@ async function myHandler(c) {
 
 def test_pm_summary_logic():
     """_compute_pm_summary produces score and grade."""
-    from gftd.process_mining import _compute_pm_summary
+    from etzhayyim.process_mining import _compute_pm_summary
     handlers = [
         {
             "bottleneck_count": 2,
@@ -2283,7 +2283,7 @@ def test_deps_governance_wit_with_files(tmp_path):
     wit_dir = tmp_path / "wit"
     wit_dir.mkdir()
     (wit_dir / "world.wit").write_text(
-        'package ai:test;\nworld my-world {\n  import gftd:runtime/host;\n}\n'
+        'package ai:test;\nworld my-world {\n  import etzhayyim:runtime/host;\n}\n'
     )
     src_dir = tmp_path / "src"
     src_dir.mkdir()
@@ -2681,7 +2681,7 @@ def test_domain_ingest_local_missing_script_exits_nonzero(tmp_path, monkeypatch)
 
 # ── monitor shinka ────────────────────────────────────────────────────────────
 
-from gftd.monitor import (
+from etzhayyim.monitor import (
     _discover_apps, _compute_shinka_score, _coverage_grade,
     _analyze_shinka_app, _print_shinka_table,
     DiscoveredApp, ShinkaStatus,
@@ -3136,7 +3136,7 @@ def test_lint_choices_include_update_variants():
 
 def test_lint_silent_catch_update_missing_script(tmp_path):
     runner = CliRunner()
-    with patch("gftd.lint._resolve_root", return_value=tmp_path):
+    with patch("etzhayyim.lint._resolve_root", return_value=tmp_path):
         result = runner.invoke(main, ["lint", "silent-catch-update"])
     assert result.exit_code != 0
     assert "not found" in result.output.lower() or "error" in result.output.lower()
@@ -3144,14 +3144,14 @@ def test_lint_silent_catch_update_missing_script(tmp_path):
 
 def test_lint_ts_camel_update_missing_script(tmp_path):
     runner = CliRunner()
-    with patch("gftd.lint._resolve_root", return_value=tmp_path):
+    with patch("etzhayyim.lint._resolve_root", return_value=tmp_path):
         result = runner.invoke(main, ["lint", "ts-camel-update"])
     assert result.exit_code != 0
 
 
 def test_lint_json_sql_update_missing_script(tmp_path):
     runner = CliRunner()
-    with patch("gftd.lint._resolve_root", return_value=tmp_path):
+    with patch("etzhayyim.lint._resolve_root", return_value=tmp_path):
         result = runner.invoke(main, ["lint", "json-sql-update"])
     assert result.exit_code != 0
 

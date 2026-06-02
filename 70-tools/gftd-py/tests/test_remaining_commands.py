@@ -13,7 +13,7 @@ from unittest.mock import patch, MagicMock
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
+from etzhayyim.cli import main
 
 
 # ── authz ──────────────────────────────────────────────────────────────────────
@@ -26,8 +26,8 @@ def test_authz_help():
 
 def test_authz_dids_not_signed_in(tmp_path):
     auth_file = tmp_path / ".gftd" / "auth.json"
-    with patch("gftd.authz._AUTH_FILE", auth_file), \
-         patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authz._AUTH_FILE", auth_file), \
+         patch("etzhayyim.authn._AUTH_FILE", auth_file):
         runner = CliRunner()
         result = runner.invoke(main, ["authz", "dids"])
     assert result.exit_code != 0
@@ -37,8 +37,8 @@ def test_authz_dids_with_auth(tmp_path):
     auth_file = tmp_path / ".gftd" / "auth.json"
     auth_file.parent.mkdir(parents=True)
     auth_file.write_text(json.dumps({"did": "did:plc:abc", "accessJwt": "tok"}))
-    with patch("gftd.authz._AUTH_FILE", auth_file), \
-         patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authz._AUTH_FILE", auth_file), \
+         patch("etzhayyim.authn._AUTH_FILE", auth_file):
         runner = CliRunner()
         result = runner.invoke(main, ["authz", "dids", "--json"])
     assert result.exit_code == 0
@@ -49,7 +49,7 @@ def test_authz_dids_with_auth(tmp_path):
 
 def test_authz_switch_not_signed_in(tmp_path):
     auth_file = tmp_path / ".gftd" / "missing.json"
-    with patch("gftd.authz._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authz._AUTH_FILE", auth_file):
         runner = CliRunner()
         result = runner.invoke(main, ["authz", "switch", "did:plc:new"])
     assert result.exit_code != 0
@@ -59,8 +59,8 @@ def test_authz_switch_updates_did(tmp_path):
     auth_file = tmp_path / ".gftd" / "auth.json"
     auth_file.parent.mkdir()
     auth_file.write_text(json.dumps({"did": "did:plc:old", "accessJwt": "tok"}))
-    with patch("gftd.authz._AUTH_FILE", auth_file), \
-         patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authz._AUTH_FILE", auth_file), \
+         patch("etzhayyim.authn._AUTH_FILE", auth_file):
         runner = CliRunner()
         result = runner.invoke(main, ["authz", "switch", "did:plc:new"])
     assert result.exit_code == 0
@@ -259,7 +259,7 @@ def test_kagami_local_with_actors(tmp_path):
 
 def test_kagami_diff_not_signed_in(tmp_path):
     auth_file = tmp_path / ".gftd" / "auth.json"
-    with patch("gftd.kagami._load_auth", return_value={}):
+    with patch("etzhayyim.kagami._load_auth", return_value={}):
         runner = CliRunner()
         result = runner.invoke(main, ["kagami", "diff", "--workspace-dir", str(tmp_path)])
     assert result.exit_code != 0
@@ -291,7 +291,7 @@ def test_dns_sync_offline_json_empty(tmp_path):
 
 def test_dns_sync_no_token_fails(tmp_path):
     from unittest.mock import patch
-    with patch("gftd.dns_sync._resolve_cf_token", return_value=("", "")):
+    with patch("etzhayyim.dns_sync._resolve_cf_token", return_value=("", "")):
         runner = CliRunner()
         result = runner.invoke(main, ["dns-sync", "--workspace-dir", str(tmp_path)])
     assert result.exit_code != 0

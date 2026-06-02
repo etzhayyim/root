@@ -9,7 +9,7 @@ from unittest.mock import patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
+from etzhayyim.cli import main
 
 
 def _write_auth(tmp_path: Path, data: dict) -> Path:
@@ -24,7 +24,7 @@ def _write_auth(tmp_path: Path, data: dict) -> Path:
 def test_authn_token_not_signed_in(tmp_path):
     runner = CliRunner()
     auth_file = tmp_path / ".gftd" / "auth.json"
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "token"])
     assert result.exit_code != 0
 
@@ -32,7 +32,7 @@ def test_authn_token_not_signed_in(tmp_path):
 def test_authn_token_outputs_token(tmp_path):
     auth_file = _write_auth(tmp_path, {"accessJwt": "tok123"})
     runner = CliRunner()
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "token"])
     assert result.exit_code == 0
     assert "tok123" in result.output
@@ -41,7 +41,7 @@ def test_authn_token_outputs_token(tmp_path):
 def test_authn_token_access_token_key(tmp_path):
     auth_file = _write_auth(tmp_path, {"access_token": "bearer_xyz"})
     runner = CliRunner()
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "token"])
     assert result.exit_code == 0
     assert "bearer_xyz" in result.output
@@ -52,7 +52,7 @@ def test_authn_token_access_token_key(tmp_path):
 def test_authn_whoami_not_signed_in(tmp_path):
     runner = CliRunner()
     auth_file = tmp_path / ".gftd" / "auth.json"
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "whoami"])
     assert result.exit_code != 0
 
@@ -64,7 +64,7 @@ def test_authn_whoami_shows_did(tmp_path):
         "accessJwt": "tok",
     })
     runner = CliRunner()
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "whoami"])
     assert result.exit_code == 0
     assert "did:plc:abc123" in result.output
@@ -74,7 +74,7 @@ def test_authn_whoami_shows_did(tmp_path):
 def test_authn_whoami_json(tmp_path):
     auth_file = _write_auth(tmp_path, {"did": "did:plc:abc", "accessJwt": "tok"})
     runner = CliRunner()
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "whoami", "--json"])
     assert result.exit_code == 0
     data = json.loads(result.output)
@@ -86,7 +86,7 @@ def test_authn_whoami_json(tmp_path):
 def test_authn_signout_not_signed_in(tmp_path):
     runner = CliRunner()
     auth_file = tmp_path / ".gftd" / "auth.json"
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "signout"])
     assert result.exit_code == 0
     assert "not signed in" in result.output
@@ -96,7 +96,7 @@ def test_authn_signout_removes_file(tmp_path):
     auth_file = _write_auth(tmp_path, {"accessJwt": "tok"})
     assert auth_file.exists()
     runner = CliRunner()
-    with patch("gftd.authn._AUTH_FILE", auth_file):
+    with patch("etzhayyim.authn._AUTH_FILE", auth_file):
         result = runner.invoke(main, ["authn", "signout"])
     assert result.exit_code == 0
     assert "signed out" in result.output

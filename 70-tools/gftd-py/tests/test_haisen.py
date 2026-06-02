@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.haisen import (
+from etzhayyim.cli import main
+from etzhayyim.haisen import (
     HaisenApp,
     HaisenEdge,
     HaisenReport,

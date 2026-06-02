@@ -8,8 +8,8 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.bonsai import scan_workspace, PRUNE_TIERS, BonsaiReport
+from etzhayyim.cli import main
+from etzhayyim.bonsai import scan_workspace, PRUNE_TIERS, BonsaiReport
 
 
 def _write(path: Path, content: str) -> Path:

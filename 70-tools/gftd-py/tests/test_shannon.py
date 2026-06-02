@@ -10,8 +10,8 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.shannon import (
+from etzhayyim.cli import main
+from etzhayyim.shannon import (
     ShannonItem,
     ShannonCheck,
     _cap,

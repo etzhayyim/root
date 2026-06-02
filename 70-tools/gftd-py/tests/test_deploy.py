@@ -9,8 +9,8 @@ from unittest.mock import patch
 import pytest
 from click.testing import CliRunner
 
-from gftd.cli import main
-from gftd.deploy import (
+from etzhayyim.cli import main
+from etzhayyim.deploy import (
     _find_git_root,
     _app_id,
     _ui_type,
@@ -288,7 +288,7 @@ def test_cli_build_no_svelte_no_score(tmp_path):
     """Build with --no-svelte --no-deps-score on a minimal app should succeed."""
     _write_minimal_app(tmp_path)
     runner = CliRunner()
-    with patch("gftd.deploy._run_build") as mock_build:
+    with patch("etzhayyim.deploy._run_build") as mock_build:
         mock_build.return_value = None
         result = runner.invoke(main, [
             "build", "--dir", str(tmp_path),
@@ -309,9 +309,9 @@ def test_cli_deploy_generates_wrangler_and_calls_wrangler(tmp_path):
     """Deploy with mocked subprocess should generate wrangler.jsonc and call wrangler deploy."""
     _write_minimal_app(tmp_path)
     runner = CliRunner()
-    with patch("gftd.deploy._run_build"), \
-         patch("gftd.deploy._run_cmd") as mock_cmd, \
-         patch("gftd.deploy._post_deploy_announce"):
+    with patch("etzhayyim.deploy._run_build"), \
+         patch("etzhayyim.deploy._run_cmd") as mock_cmd, \
+         patch("etzhayyim.deploy._post_deploy_announce"):
         result = runner.invoke(main, [
             "deploy", "--dir", str(tmp_path),
             "--no-svelte", "--no-deps-score", "--no-announce",
