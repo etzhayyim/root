@@ -22,7 +22,9 @@ import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REG = os.path.normpath(os.path.join(_HERE, "..", "registry"))
-SEEDS = [os.path.join(_REG, "gov-units.seed.edn"), os.path.join(_REG, "gov-units.jp-central.seed.edn")]
+SEEDS = [os.path.join(_REG, "gov-units.seed.edn"),
+         os.path.join(_REG, "gov-units.jp-central.seed.edn"),
+         os.path.join(_REG, "gov-units.toritsugi-procedures.seed.edn")]
 
 
 # ── minimal EDN reader ────────────────────────────────────────────────────────
@@ -181,9 +183,26 @@ def _self_test():
     # tax procedure routes to the national tax agency
     t = resolve("jp-kakutei-shinkoku-etax")
     assert t and t["ownerUnit"]["id"] == "gov.jpn.mof.nta"
+    # all 6 toritsugi R0 procedures now resolve through the gov-atlas (6/6 coverage)
+    for ref, owner in [("jp-juminhyo-utsushi", "gov.jpn.city.13104"),
+                       ("jp-tennyu-todoke", "gov.jpn.city.13104"),
+                       ("jp-kakutei-shinkoku-etax", "gov.jpn.mof.nta"),
+                       ("jp-shussei-todoke", "gov.jpn.city.13104"),
+                       ("jp-mynumber-card", "gov.jpn.city.13104"),
+                       ("jp-jido-teate", "gov.jpn.city.13104")]:
+        rr = resolve(ref)
+        assert rr is not None, f"{ref} must resolve"
+        assert rr["ownerUnit"]["id"] == owner, (ref, rr["ownerUnit"])
+        assert rr["legalBasis"], (ref, "legal basis")
+        assert rr["windows"] and rr["windows"][0]["resolved"], (ref, "window")
+        # forms exist for all but the e-Tax filing (online, no paper 様式)
+        if ref != "jp-kakutei-shinkoku-etax":
+            assert rr["forms"] and rr["forms"][0].get("chigiriRef"), (ref, "form/chigiri ref")
+    # 児童手当 routes to its own 子ども家庭課 window (not the koseki window)
+    assert resolve("jp-jido-teate")["windows"][0]["id"] == "madoguchi.gov.jpn.city.13104.kodomo"
     # unknown ref → None (no fabrication)
     assert resolve("does-not-exist") is None
-    print("PASS resolve_for_toritsugi self-test (3 procedures + miss)")
+    print("PASS resolve_for_toritsugi self-test (6/6 toritsugi procedures + miss)")
 
 
 if __name__ == "__main__":
