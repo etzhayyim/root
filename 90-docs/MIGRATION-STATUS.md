@@ -13,10 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 53 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 42 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 88 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 1 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 130 apps** (C + D = 42 + 88). Buckets A + B (260) need no
+**Real remaining scope ≈ 128 apps** (C + D = 41 + 87; auth resolved to Bucket V). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
 every open-* app now has an rw-free impl. The loop now proceeds over the
 remaining C/D apps with a per-app judgment gate (etzhayyim-front vs
@@ -25,8 +26,10 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > **Nuance**: an app can be in A *and* C — the `rw-free/` package is the clean
 > etzhayyim-compliant reimplementation, but the project's original (pre-migration)
 > `src/` may still carry RW/Stripe code that a later cleanup removes. e.g. `cpc`,
-> `common-crawl`, `sanctions`, `saiban`, `auth`, `coverage`, `kami`. For these the
+> `common-crawl`, `sanctions`, `saiban`, `coverage`, `kami`. For these the
 > on-chain path exists; the legacy src is residual cleanup, not a missing impl.
+> (`auth` was an example here previously but is now Bucket V — vendor-resident,
+> no on-chain path; see below.)
 
 ## Bucket A — DONE (53, has rw-free/)
 
@@ -43,12 +46,27 @@ threads, threat-intelligence, tsukuru, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket C — NEEDS-CODEMOD (42) — active backlog
+## Bucket V — CONFIRMED VENDOR-RESIDENT (1)
+
+Apps judged (per-app gate) to have a **regulated-infra primary function** that
+correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
+are NOT migrated; the etzhayyim front consumes them via consent-capability.
+
+- **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
+  is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
+  passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
+  (private keys, revocation) in D1 KEYS_DB, session JWT issuance. Operator-
+  producible secrets ⇒ stays gftd. NOTE: the *decentralized-identity primitives*
+  it also touches — did:web / did:plc issuance + `vertex_gftd_identity` public
+  governance — are etzhayyim-exclusive per ADR-2605211950 and tracked as separate
+  relocate targets in `/CLAUDE.md` migrations, not as an rw-free registry here.
+
+## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
-auth (HYPERDRIVE), bim, briefing, cad, cloudflare-browser-render,
+bim, briefing, cad, cloudflare-browser-render,
 common-crawl (RW, legacy src), coverage, cowork, cpc (legacy src),
 crypto-asset-freeze, cyber-drill (stripe), deai (RW), dougaka (RW), editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
@@ -61,11 +79,11 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (88, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (87, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (58)**: 6ir, accounts, aima, air-book, air-cargo, air-crew,
+**TRANSFORM-pending (57)**: 6ir, accounts, aima, air-book, air-cargo, air-crew,
 air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
-auth, business-edge, business-person, **celler, eigyo, minpaku, omise,
+business-edge, business-person, **celler, eigyo, minpaku, omise,
 real-estate, shopping, supplychain, yadoya** (Tier-2 commerce), collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
