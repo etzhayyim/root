@@ -1,7 +1,10 @@
 # etzhayyim/root — deps.toml
 #
 # Machine-readable SSoT for the etzhayyim/root monorepo.
-# Updated 2026-05-25 after:
+# Updated 2026-06-02 after:
+#   0. RisingWave→kotoba latent-entity migration (ADR-2606021730, P0–P10,
+#      8 commits, coverage app refactored, PR #798; charter gates G1–G14 verified;
+#      fixture-mode R0 ready for Phase 2 operator gate + live endpoint)
 #   1. Substrate scaffolding wave (ADR-2605170900 through ADR-2605172200,
 #      SDK + 4 infra modules + paymaster)
 #   2. Mechanical legacy-prefix sweep (1934 files rewritten, ADR-2605172900

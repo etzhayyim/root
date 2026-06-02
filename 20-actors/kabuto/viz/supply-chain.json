@@ -715,7 +715,7 @@
    "ticker": "300750.SZ",
    "sector": ":industrials",
    "country": "CN",
-   "out": 8,
+   "out": 10,
    "address": {
     "street": "No. 2 Xingang Rd., Zhangwan",
     "city": "Ningde",
@@ -1131,7 +1131,7 @@
    "ticker": "BA",
    "sector": ":industrials",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -1141,7 +1141,7 @@
    "ticker": "AIR.PA",
    "sector": ":industrials",
    "country": "FR",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -1151,7 +1151,7 @@
    "ticker": "PFE",
    "sector": ":pharma",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": {
     "street": "66 Hudson Boulevard East",
     "city": "New York",
@@ -1170,7 +1170,7 @@
    "ticker": "JNJ",
    "sector": ":pharma",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -1960,7 +1960,7 @@
    "ticker": "ERIC-B.ST",
    "sector": ":telecom",
    "country": "SE",
-   "out": 5,
+   "out": 6,
    "address": null,
    "contact": null
   },
@@ -1970,7 +1970,7 @@
    "ticker": "NOKIA.HE",
    "sector": ":telecom",
    "country": "FI",
-   "out": 2,
+   "out": 3,
    "address": null,
    "contact": null
   },
@@ -3303,7 +3303,7 @@
    "ticker": "RTX",
    "sector": ":industrials",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -4051,7 +4051,7 @@
    "ticker": "PEP",
    "sector": ":consumer",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -6266,6 +6266,1916 @@
    "out": 0,
    "address": null,
    "contact": null
+  },
+  {
+   "id": "org.corp.us.citigroup",
+   "name": "Citigroup",
+   "ticker": "C",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "388 Greenwich Street",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.72,
+    "lon": -74.01
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.us-bancorp",
+   "name": "U.S. Bancorp",
+   "ticker": "USB",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.ice",
+   "name": "Intercontinental Exchange",
+   "ticker": "ICE",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.cigna",
+   "name": "The Cigna Group",
+   "ticker": "CI",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.elevance",
+   "name": "Elevance Health",
+   "ticker": "ELV",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.humana",
+   "name": "Humana",
+   "ticker": "HUM",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.3m",
+   "name": "3M",
+   "ticker": "MMM",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.lockheed",
+   "name": "Lockheed Martin",
+   "ticker": "LMT",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "6801 Rockledge Drive",
+    "city": "Bethesda",
+    "country": "US",
+    "lat": 39.02,
+    "lon": -77.13
+   },
+   "contact": {
+    "website": "https://www.lockheedmartin.com",
+    "ir": "https://investors.lockheedmartin.com"
+   }
+  },
+  {
+   "id": "org.corp.us.ge-vernova",
+   "name": "GE Vernova",
+   "ticker": "GEV",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.delta",
+   "name": "Delta Air Lines",
+   "ticker": "DAL",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.henkel",
+   "name": "Henkel",
+   "ticker": "HEN3.DE",
+   "sector": ":consumer",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.beiersdorf",
+   "name": "Beiersdorf",
+   "ticker": "BEI.DE",
+   "sector": ":consumer",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.pernod-ricard",
+   "name": "Pernod Ricard",
+   "ticker": "RI.PA",
+   "sector": ":consumer",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.legrand",
+   "name": "Legrand",
+   "ticker": "LR.PA",
+   "sector": ":industrials",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.nl.philips",
+   "name": "Koninklijke Philips",
+   "ticker": "PHIA.AS",
+   "sector": ":healthcare",
+   "country": "NL",
+   "out": 0,
+   "address": {
+    "street": "Amstelplein 2, Breitner Center",
+    "city": "Amsterdam",
+    "country": "NL",
+    "lat": 52.35,
+    "lon": 4.91
+   },
+   "contact": {
+    "website": "https://www.philips.com",
+    "ir": "https://www.philips.com/a-w/about/investor.html"
+   }
+  },
+  {
+   "id": "org.corp.ch.sika",
+   "name": "Sika",
+   "ticker": "SIKA.SW",
+   "sector": ":materials",
+   "country": "CH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.compass",
+   "name": "Compass Group",
+   "ticker": "CPG.L",
+   "sector": ":consumer",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.ashtead",
+   "name": "Ashtead Group",
+   "ticker": "AHT.L",
+   "sector": ":industrials",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ch.geberit",
+   "name": "Geberit",
+   "ticker": "GEBN.SW",
+   "sector": ":industrials",
+   "country": "CH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.hindustan-aeronautics",
+   "name": "Hindustan Aeronautics (HAL)",
+   "ticker": "HAL.NS",
+   "sector": ":industrials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.bajaj-auto",
+   "name": "Bajaj Auto",
+   "ticker": "BAJAJ-AUTO.NS",
+   "sector": ":automotive",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.eicher",
+   "name": "Eicher Motors",
+   "ticker": "EICHERMOT.NS",
+   "sector": ":automotive",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.adani-ports",
+   "name": "Adani Ports and SEZ",
+   "ticker": "ADANIPORTS.NS",
+   "sector": ":shipping",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.dmart",
+   "name": "Avenue Supermarts (DMart)",
+   "ticker": "DMART.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.great-wall",
+   "name": "Great Wall Motor",
+   "ticker": "601633.SS",
+   "sector": ":automotive",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.saic",
+   "name": "SAIC Motor",
+   "ticker": "600104.SS",
+   "sector": ":automotive",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.wanhua",
+   "name": "Wanhua Chemical",
+   "ticker": "600309.SS",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.sungrow",
+   "name": "Sungrow Power Supply",
+   "ticker": "300274.SZ",
+   "sector": ":energy",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nidec",
+   "name": "Nidec",
+   "ticker": "6594.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 2,
+   "address": {
+    "street": "338 Kuzetonoshiro-cho, Minami-ku",
+    "city": "Kyoto",
+    "country": "JP",
+    "lat": 34.95,
+    "lon": 135.72
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.terumo",
+   "name": "Terumo",
+   "ticker": "4543.T",
+   "sector": ":healthcare",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.smc",
+   "name": "SMC Corporation",
+   "ticker": "6273.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.samsung-biologics",
+   "name": "Samsung Biologics",
+   "ticker": "207940.KS",
+   "sector": ":healthcare",
+   "country": "KR",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.hanwha-aerospace",
+   "name": "Hanwha Aerospace",
+   "ticker": "012450.KS",
+   "sector": ":industrials",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sa.acwa-power",
+   "name": "ACWA Power",
+   "ticker": "2082.SR",
+   "sector": ":utilities",
+   "country": "SA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mx.cemex",
+   "name": "Cemex",
+   "ticker": "CEMEXCPO.MX",
+   "sector": ":materials",
+   "country": "MX",
+   "out": 0,
+   "address": {
+    "street": "Avenida Ricardo Margáin Zozaya 325",
+    "city": "San Pedro Garza García",
+    "country": "MX",
+    "lat": 25.65,
+    "lon": -100.4
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.pl.allegro",
+   "name": "Allegro",
+   "ticker": "ALE.WA",
+   "sector": ":software",
+   "country": "PL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.tr.bim",
+   "name": "BİM Birleşik Mağazalar",
+   "ticker": "BIMAS.IS",
+   "sector": ":consumer",
+   "country": "TR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.id.bank-mandiri",
+   "name": "Bank Mandiri",
+   "ticker": "BMRI.JK",
+   "sector": ":financials",
+   "country": "ID",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.chubb",
+   "name": "Chubb",
+   "ticker": "CB",
+   "sector": ":financials",
+   "country": "CH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.marsh-mclennan",
+   "name": "Marsh McLennan",
+   "ticker": "MMC",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.progressive",
+   "name": "Progressive",
+   "ticker": "PGR",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.csx",
+   "name": "CSX",
+   "ticker": "CSX",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.marriott",
+   "name": "Marriott International",
+   "ticker": "MAR",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "7750 Wisconsin Avenue",
+    "city": "Bethesda",
+    "country": "US",
+    "lat": 38.99,
+    "lon": -77.1
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.booking",
+   "name": "Booking Holdings",
+   "ticker": "BKNG",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.altria",
+   "name": "Altria Group",
+   "ticker": "MO",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.sherwin-williams",
+   "name": "Sherwin-Williams",
+   "ticker": "SHW",
+   "sector": ":materials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.vinci",
+   "name": "Vinci",
+   "ticker": "DG.PA",
+   "sector": ":industrials",
+   "country": "FR",
+   "out": 0,
+   "address": {
+    "street": "1973 boulevard de la Défense",
+    "city": "Nanterre",
+    "country": "FR",
+    "lat": 48.9,
+    "lon": 2.24
+   },
+   "contact": {
+    "website": "https://www.vinci.com",
+    "ir": "https://www.vinci.com/vinci.nsf/en/investors.htm"
+   }
+  },
+  {
+   "id": "org.corp.fr.essilorluxottica",
+   "name": "EssilorLuxottica",
+   "ticker": "EL.PA",
+   "sector": ":consumer",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.prysmian",
+   "name": "Prysmian",
+   "ticker": "PRY.MI",
+   "sector": ":industrials",
+   "country": "IT",
+   "out": 2,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.es.amadeus",
+   "name": "Amadeus IT Group",
+   "ticker": "AMS.MC",
+   "sector": ":software",
+   "country": "ES",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.se.assa-abloy",
+   "name": "ASSA ABLOY",
+   "ticker": "ASSA-B.ST",
+   "sector": ":industrials",
+   "country": "SE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.se.essity",
+   "name": "Essity",
+   "ticker": "ESSITY-B.ST",
+   "sector": ":consumer",
+   "country": "SE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.no.norsk-hydro",
+   "name": "Norsk Hydro",
+   "ticker": "NHY.OL",
+   "sector": ":materials",
+   "country": "NO",
+   "out": 2,
+   "address": {
+    "street": "Drammensveien 264, Vækerø",
+    "city": "Oslo",
+    "country": "NO",
+    "lat": 59.92,
+    "lon": 10.65
+   },
+   "contact": {
+    "website": "https://www.hydro.com",
+    "ir": "https://www.hydro.com/en/investors/"
+   }
+  },
+  {
+   "id": "org.corp.gb.haleon",
+   "name": "Haleon",
+   "ticker": "HLN.L",
+   "sector": ":consumer",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.rwe",
+   "name": "RWE",
+   "ticker": "RWE.DE",
+   "sector": ":utilities",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.mtu",
+   "name": "MTU Aero Engines",
+   "ticker": "MTX.DE",
+   "sector": ":industrials",
+   "country": "DE",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.vedanta",
+   "name": "Vedanta",
+   "ticker": "VEDL.NS",
+   "sector": ":materials",
+   "country": "IN",
+   "out": 0,
+   "address": {
+    "street": "1st Floor, C Wing, Unit 103, Corporate Avenue, Atul Projects",
+    "city": "Mumbai",
+    "country": "IN",
+    "lat": 19.11,
+    "lon": 72.89
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.grasim",
+   "name": "Grasim Industries",
+   "ticker": "GRASIM.NS",
+   "sector": ":materials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.britannia",
+   "name": "Britannia Industries",
+   "ticker": "BRITANNIA.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.dabur",
+   "name": "Dabur India",
+   "ticker": "DABUR.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.indusind",
+   "name": "IndusInd Bank",
+   "ticker": "INDUSINDBK.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.haier",
+   "name": "Haier Smart Home",
+   "ticker": "600690.SS",
+   "sector": ":electronics",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.anta",
+   "name": "ANTA Sports Products",
+   "ticker": "2020.HK",
+   "sector": ":consumer",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.nongfu-spring",
+   "name": "Nongfu Spring",
+   "ticker": "9633.HK",
+   "sector": ":consumer",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.sf-holding",
+   "name": "S.F. Holding",
+   "ticker": "002352.SZ",
+   "sector": ":shipping",
+   "country": "CN",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.yangtze-power",
+   "name": "China Yangtze Power",
+   "ticker": "600900.SS",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.localiza",
+   "name": "Localiza",
+   "ticker": "RENT3.SA",
+   "sector": ":industrials",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mx.grupo-bimbo",
+   "name": "Grupo Bimbo",
+   "ticker": "BIMBOA.MX",
+   "sector": ":consumer",
+   "country": "MX",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.bidcorp",
+   "name": "Bid Corporation",
+   "ticker": "BID.JO",
+   "sector": ":consumer",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ae.adcb",
+   "name": "Abu Dhabi Commercial Bank",
+   "ticker": "ADCB.AE",
+   "sector": ":financials",
+   "country": "AE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.th.delta-thailand",
+   "name": "Delta Electronics (Thailand)",
+   "ticker": "DELTA.BK",
+   "sector": ":electronics",
+   "country": "TH",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cl.falabella",
+   "name": "Falabella",
+   "ticker": "FALABELLA.SN",
+   "sector": ":consumer",
+   "country": "CL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sg.sea",
+   "name": "Sea Limited",
+   "ticker": "SE",
+   "sector": ":software",
+   "country": "SG",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.vn.masan",
+   "name": "Masan Group",
+   "ticker": "MSN.VN",
+   "sector": ":consumer",
+   "country": "VN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.schlumberger",
+   "name": "SLB (Schlumberger)",
+   "ticker": "SLB",
+   "sector": ":energy",
+   "country": "US",
+   "out": 1,
+   "address": {
+    "street": "5599 San Felipe",
+    "city": "Houston",
+    "country": "US",
+    "lat": 29.74,
+    "lon": -95.46
+   },
+   "contact": {
+    "website": "https://www.slb.com",
+    "ir": "https://investorcenter.slb.com"
+   }
+  },
+  {
+   "id": "org.corp.us.halliburton",
+   "name": "Halliburton",
+   "ticker": "HAL",
+   "sector": ":energy",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.baker-hughes",
+   "name": "Baker Hughes",
+   "ticker": "BKR",
+   "sector": ":energy",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.conocophillips",
+   "name": "ConocoPhillips",
+   "ticker": "COP",
+   "sector": ":energy",
+   "country": "US",
+   "out": 1,
+   "address": {
+    "street": "925 N. Eldridge Parkway",
+    "city": "Houston",
+    "country": "US",
+    "lat": 29.78,
+    "lon": -95.62
+   },
+   "contact": {
+    "website": "https://www.conocophillips.com",
+    "ir": "https://www.conocophillips.com/investor-relations/"
+   }
+  },
+  {
+   "id": "org.corp.us.phillips66",
+   "name": "Phillips 66",
+   "ticker": "PSX",
+   "sector": ":energy",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.valero",
+   "name": "Valero Energy",
+   "ticker": "VLO",
+   "sector": ":energy",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kinder-morgan",
+   "name": "Kinder Morgan",
+   "ticker": "KMI",
+   "sector": ":energy",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.williams",
+   "name": "Williams Companies",
+   "ticker": "WMB",
+   "sector": ":energy",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.becton-dickinson",
+   "name": "Becton Dickinson",
+   "ticker": "BDX",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.zoetis",
+   "name": "Zoetis",
+   "ticker": "ZTS",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.hca",
+   "name": "HCA Healthcare",
+   "ticker": "HCA",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.edwards",
+   "name": "Edwards Lifesciences",
+   "ticker": "EW",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.iqvia",
+   "name": "IQVIA",
+   "ticker": "IQV",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ch.alcon",
+   "name": "Alcon",
+   "ticker": "ALC.SW",
+   "sector": ":healthcare",
+   "country": "CH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.veolia",
+   "name": "Veolia Environnement",
+   "ticker": "VIE.PA",
+   "sector": ":utilities",
+   "country": "FR",
+   "out": 0,
+   "address": {
+    "street": "30 rue Madeleine Vionnet",
+    "city": "Aubervilliers",
+    "country": "FR",
+    "lat": 48.91,
+    "lon": 2.38
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.sse",
+   "name": "SSE plc",
+   "ticker": "SSE.L",
+   "sector": ":utilities",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.brenntag",
+   "name": "Brenntag",
+   "ticker": "BNR.DE",
+   "sector": ":materials",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.fresenius-medical",
+   "name": "Fresenius Medical Care",
+   "ticker": "FME.DE",
+   "sector": ":healthcare",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.smith-nephew",
+   "name": "Smith+Nephew",
+   "ticker": "SN.L",
+   "sector": ":healthcare",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.moncler",
+   "name": "Moncler",
+   "ticker": "MONC.MI",
+   "sector": ":consumer",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.no.aker-bp",
+   "name": "Aker BP",
+   "ticker": "AKRBP.OL",
+   "sector": ":energy",
+   "country": "NO",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.nl.dsm-firmenich",
+   "name": "DSM-Firmenich",
+   "ticker": "DSFIR.AS",
+   "sector": ":materials",
+   "country": "NL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.havells",
+   "name": "Havells India",
+   "ticker": "HAVELLS.NS",
+   "sector": ":electronics",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.pidilite",
+   "name": "Pidilite Industries",
+   "ticker": "PIDILITIND.NS",
+   "sector": ":materials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.trent",
+   "name": "Trent",
+   "ticker": "TRENT.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.lupin",
+   "name": "Lupin",
+   "ticker": "LUPIN.NS",
+   "sector": ":pharma",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.mindray",
+   "name": "Shenzhen Mindray Bio-Medical",
+   "ticker": "300760.SZ",
+   "sector": ":healthcare",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.luzhou-laojiao",
+   "name": "Luzhou Laojiao",
+   "ticker": "000568.SZ",
+   "sector": ":consumer",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.china-telecom",
+   "name": "China Telecom",
+   "ticker": "601728.SS",
+   "sector": ":telecom",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.aier-eye",
+   "name": "Aier Eye Hospital Group",
+   "ticker": "300015.SZ",
+   "sector": ":healthcare",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.shimano",
+   "name": "Shimano",
+   "ticker": "7309.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": {
+    "street": "3-77 Oimatsu-cho, Sakai-ku",
+    "city": "Sakai",
+    "country": "JP",
+    "lat": 34.57,
+    "lon": 135.47
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nitto-denko",
+   "name": "Nitto Denko",
+   "ticker": "6988.T",
+   "sector": ":materials",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nec",
+   "name": "NEC Corporation",
+   "ticker": "6701.T",
+   "sector": ":software",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kw.zain",
+   "name": "Zain Group",
+   "ticker": "ZAIN.KW",
+   "sector": ":telecom",
+   "country": "KW",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.sanlam",
+   "name": "Sanlam",
+   "ticker": "SLM.JO",
+   "sector": ":financials",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ph.ayala",
+   "name": "Ayala Corporation",
+   "ticker": "AC.PS",
+   "sector": ":financials",
+   "country": "PH",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.my.petronas-chem",
+   "name": "Petronas Chemicals Group",
+   "ticker": "PCHEM.KL",
+   "sector": ":materials",
+   "country": "MY",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.moodys",
+   "name": "Moody's",
+   "ticker": "MCO",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.sp-global",
+   "name": "S&P Global",
+   "ticker": "SPGI",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "55 Water Street",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.7,
+    "lon": -74.01
+   },
+   "contact": {
+    "website": "https://www.spglobal.com",
+    "ir": "https://investor.spglobal.com"
+   }
+  },
+  {
+   "id": "org.corp.us.msci",
+   "name": "MSCI",
+   "ticker": "MSCI",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.lseg",
+   "name": "London Stock Exchange Group",
+   "ticker": "LSEG.L",
+   "sector": ":financials",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ie.experian",
+   "name": "Experian",
+   "ticker": "EXPN.L",
+   "sector": ":software",
+   "country": "IE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.fiserv",
+   "name": "Fiserv",
+   "ticker": "FI",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.adp",
+   "name": "Automatic Data Processing (ADP)",
+   "ticker": "ADP",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.rheinmetall",
+   "name": "Rheinmetall",
+   "ticker": "RHM.DE",
+   "sector": ":industrials",
+   "country": "DE",
+   "out": 0,
+   "address": {
+    "street": "Rheinmetall Platz 1",
+    "city": "Düsseldorf",
+    "country": "DE",
+    "lat": 51.25,
+    "lon": 6.79
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.knorr-bremse",
+   "name": "Knorr-Bremse",
+   "ticker": "KBX.DE",
+   "sector": ":industrials",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.dassault-systemes",
+   "name": "Dassault Systèmes",
+   "ticker": "DSY.PA",
+   "sector": ":software",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.se.epiroc",
+   "name": "Epiroc",
+   "ticker": "EPI-A.ST",
+   "sector": ":industrials",
+   "country": "SE",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fi.wartsila",
+   "name": "Wärtsilä",
+   "ticker": "WRT1V.HE",
+   "sector": ":industrials",
+   "country": "FI",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.dk.carlsberg",
+   "name": "Carlsberg",
+   "ticker": "CARL-B.CO",
+   "sector": ":consumer",
+   "country": "DK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.pinduoduo",
+   "name": "PDD Holdings (Pinduoduo)",
+   "ticker": "PDD",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": {
+    "street": "866 East Yan'an Road, Huangpu",
+    "city": "Shanghai",
+    "country": "CN",
+    "lat": 31.23,
+    "lon": 121.48
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.jd",
+   "name": "JD.com",
+   "ticker": "JD",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.baidu",
+   "name": "Baidu",
+   "ticker": "BIDU",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.netease",
+   "name": "NetEase",
+   "ticker": "NTES",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.trip-com",
+   "name": "Trip.com Group",
+   "ticker": "TCOM",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.american-airlines",
+   "name": "American Airlines Group",
+   "ticker": "AAL",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kroger",
+   "name": "Kroger",
+   "ticker": "KR",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.walgreens",
+   "name": "Walgreens Boots Alliance",
+   "ticker": "WBA",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.tjx",
+   "name": "TJX Companies",
+   "ticker": "TJX",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kao",
+   "name": "Kao Corporation",
+   "ticker": "4452.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ajinomoto",
+   "name": "Ajinomoto",
+   "ticker": "2802.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 1,
+   "address": {
+    "street": "15-1 Kyobashi 1-chome, Chuo-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.68,
+    "lon": 139.77
+   },
+   "contact": {
+    "website": "https://www.ajinomoto.co.jp",
+    "ir": "https://www.ajinomoto.co.jp/company/en/ir/"
+   }
+  },
+  {
+   "id": "org.corp.jp.bandai-namco",
+   "name": "Bandai Namco Holdings",
+   "ticker": "7832.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kawasaki-heavy",
+   "name": "Kawasaki Heavy Industries",
+   "ticker": "7012.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ihi",
+   "name": "IHI Corporation",
+   "ticker": "7013.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.varun-beverages",
+   "name": "Varun Beverages",
+   "ticker": "VBL.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.dlf",
+   "name": "DLF",
+   "ticker": "DLF.NS",
+   "sector": ":real-estate",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.interglobe",
+   "name": "InterGlobe Aviation (IndiGo)",
+   "ticker": "INDIGO.NS",
+   "sector": ":industrials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.zomato",
+   "name": "Eternal (Zomato)",
+   "ticker": "ETERNAL.NS",
+   "sector": ":software",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mx.banorte",
+   "name": "Grupo Financiero Banorte",
+   "ticker": "GFNORTEO.MX",
+   "sector": ":financials",
+   "country": "MX",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ae.fab",
+   "name": "First Abu Dhabi Bank",
+   "ticker": "FAB.AE",
+   "sector": ":financials",
+   "country": "AE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.aspen",
+   "name": "Aspen Pharmacare",
+   "ticker": "APN.JO",
+   "sector": ":pharma",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.equity-residential",
+   "name": "Equity Residential",
+   "ticker": "EQR",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.avalonbay",
+   "name": "AvalonBay Communities",
+   "ticker": "AVB",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.ventas",
+   "name": "Ventas",
+   "ticker": "VTR",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.unibail",
+   "name": "Unibail-Rodamco-Westfield",
+   "ticker": "URW.PA",
+   "sector": ":real-estate",
+   "country": "FR",
+   "out": 0,
+   "address": {
+    "street": "7 place du Chancelier Adenauer",
+    "city": "Paris",
+    "country": "FR",
+    "lat": 48.87,
+    "lon": 2.28
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.segro",
+   "name": "SEGRO",
+   "ticker": "SGRO.L",
+   "sector": ":real-estate",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.hk.sun-hung-kai",
+   "name": "Sun Hung Kai Properties",
+   "ticker": "0016.HK",
+   "sector": ":real-estate",
+   "country": "HK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nippon-building",
+   "name": "Nippon Building Fund (Hulic-managed)",
+   "ticker": "8951.T",
+   "sector": ":real-estate",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ca.cibc",
+   "name": "Canadian Imperial Bank of Commerce (CIBC)",
+   "ticker": "CM.TO",
+   "sector": ":financials",
+   "country": "CA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.au.anz",
+   "name": "ANZ Group",
+   "ticker": "ANZ.AX",
+   "sector": ":financials",
+   "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.mizuho",
+   "name": "Mizuho Financial Group",
+   "ticker": "8411.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": {
+    "street": "1-5-5 Otemachi, Chiyoda-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.69,
+    "lon": 139.76
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.kb-financial",
+   "name": "KB Financial Group",
+   "ticker": "105560.KS",
+   "sector": ":financials",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.shinhan",
+   "name": "Shinhan Financial Group",
+   "ticker": "055550.KS",
+   "sector": ":financials",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sa.snb",
+   "name": "Saudi National Bank",
+   "ticker": "1180.SR",
+   "sector": ":financials",
+   "country": "SA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.bank-of-baroda",
+   "name": "Bank of Baroda",
+   "ticker": "BANKBARODA.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.qa.qib",
+   "name": "Qatar Islamic Bank",
+   "ticker": "QIBK.QA",
+   "sector": ":financials",
+   "country": "QA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.aep",
+   "name": "American Electric Power",
+   "ticker": "AEP",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.exelon",
+   "name": "Exelon",
+   "ticker": "EXC",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.terna",
+   "name": "Terna",
+   "ticker": "TRN.MI",
+   "sector": ":utilities",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kansai-electric",
+   "name": "Kansai Electric Power",
+   "ticker": "9503.T",
+   "sector": ":utilities",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mckesson",
+   "name": "McKesson",
+   "ticker": "MCK",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "6555 State Highway 161",
+    "city": "Irving",
+    "country": "US",
+    "lat": 32.89,
+    "lon": -96.96
+   },
+   "contact": {
+    "website": "https://www.mckesson.com",
+    "ir": "https://investor.mckesson.com"
+   }
+  },
+  {
+   "id": "org.corp.us.cardinal-health",
+   "name": "Cardinal Health",
+   "ticker": "CAH",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.cencora",
+   "name": "Cencora",
+   "ticker": "COR",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.sysmex",
+   "name": "Sysmex",
+   "ticker": "6869.T",
+   "sector": ":healthcare",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kimberly-clark",
+   "name": "Kimberly-Clark",
+   "ticker": "KMB",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.hershey",
+   "name": "The Hershey Company",
+   "ticker": "HSY",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kellanova",
+   "name": "Kellanova",
+   "ticker": "K",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.abf",
+   "name": "Associated British Foods",
+   "ticker": "ABF.L",
+   "sector": ":consumer",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.amorepacific",
+   "name": "AmorePacific",
+   "ticker": "090430.KS",
+   "sector": ":consumer",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.tim-brasil",
+   "name": "TIM S.A. (Brasil)",
+   "ticker": "TIMS3.SA",
+   "sector": ":telecom",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.mtn-group",
+   "name": "MTN Group",
+   "ticker": "MTN.JO",
+   "sector": ":telecom",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": {
+    "website": "https://www.mtn.com",
+    "ir": "https://www.mtn.com/investors/"
+   }
+  },
+  {
+   "id": "org.corp.cl.entel",
+   "name": "Entel",
+   "ticker": "ENTEL.SN",
+   "sector": ":telecom",
+   "country": "CL",
+   "out": 0,
+   "address": null,
+   "contact": null
   }
  ],
  "edges": [
@@ -7486,16 +9396,202 @@
    "to": "org.corp.us.pfizer",
    "commodity": "assembly",
    "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.nidec",
+   "to": "org.corp.us.tesla",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.nidec",
+   "to": "org.corp.us.apple",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.cn.catl",
+   "to": "org.corp.cn.great-wall",
+   "commodity": "battery",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.cn.catl",
+   "to": "org.corp.cn.saic",
+   "commodity": "battery",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.rtx",
+   "to": "org.corp.us.lockheed",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.ge-vernova",
+   "to": "org.corp.us.nextera",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.boeing",
+   "to": "org.corp.us.delta",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.fr.airbus",
+   "to": "org.corp.us.delta",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.kr.samsung-biologics",
+   "to": "org.corp.us.moderna",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.it.prysmian",
+   "to": "org.corp.es.iberdrola",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.it.prysmian",
+   "to": "org.corp.gb.national-grid",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.de.mtu",
+   "to": "org.corp.fr.airbus",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.no.norsk-hydro",
+   "to": "org.corp.de.bmw",
+   "commodity": "aluminium",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.no.norsk-hydro",
+   "to": "org.corp.us.ford",
+   "commodity": "aluminium",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.cn.sf-holding",
+   "to": "org.corp.cn.alibaba",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.th.delta-thailand",
+   "to": "org.corp.us.tesla",
+   "commodity": "sensor",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.schlumberger",
+   "to": "org.corp.us.exxonmobil",
+   "commodity": "logistics",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.halliburton",
+   "to": "org.corp.us.chevron",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.baker-hughes",
+   "to": "org.corp.sa.aramco",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.conocophillips",
+   "to": "org.corp.us.phillips66",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.nitto-denko",
+   "to": "org.corp.us.apple",
+   "commodity": "display",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.iqvia",
+   "to": "org.corp.us.pfizer",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.ajinomoto",
+   "to": "org.corp.jp.ibiden",
+   "commodity": "substrate",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.se.epiroc",
+   "to": "org.corp.au.bhp",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.fi.wartsila",
+   "to": "org.corp.dk.maersk",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.kawasaki-heavy",
+   "to": "org.corp.us.boeing",
+   "commodity": "composite",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.pepsico",
+   "to": "org.corp.in.varun-beverages",
+   "commodity": "logistics",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.pfizer",
+   "to": "org.corp.us.cardinal-health",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.jnj",
+   "to": "org.corp.us.mckesson",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.se.ericsson",
+   "to": "org.corp.za.mtn-group",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.fi.nokia",
+   "to": "org.corp.br.tim-brasil",
+   "commodity": "logistics",
+   "criticality": 0.3
   }
  ],
  "jurisdictions": [
   {
    "country": "JP",
-   "load": 21.55
+   "load": 23.35
   },
   {
    "country": "US",
-   "load": 17.5
+   "load": 21.4
   },
   {
    "country": "TW",
@@ -7503,11 +9599,11 @@
   },
   {
    "country": "CN",
-   "load": 9.6
+   "load": 10.7
   },
   {
    "country": "KR",
-   "load": 5.9
+   "load": 6.2
   },
   {
    "country": "NL",
@@ -7515,7 +9611,7 @@
   },
   {
    "country": "FR",
-   "load": 3.4
+   "load": 3.7
   },
   {
    "country": "GB",
@@ -7523,7 +9619,11 @@
   },
   {
    "country": "DE",
-   "load": 2.5
+   "load": 2.9
+  },
+  {
+   "country": "SE",
+   "load": 2.6
   },
   {
    "country": "AU",
@@ -7534,16 +9634,16 @@
    "load": 2.1
   },
   {
-   "country": "SE",
-   "load": 2.0
-  },
-  {
    "country": "CH",
    "load": 1.8
   },
   {
    "country": "IE",
    "load": 1.8
+  },
+  {
+   "country": "FI",
+   "load": 1.4
   },
   {
    "country": "DK",
@@ -7562,8 +9662,12 @@
    "load": 0.8
   },
   {
-   "country": "FI",
-   "load": 0.8
+   "country": "NO",
+   "load": 0.7
+  },
+  {
+   "country": "IT",
+   "load": 0.6
   },
   {
    "country": "LU",
@@ -7583,6 +9687,10 @@
   },
   {
    "country": "PE",
+   "load": 0.3
+  },
+  {
+   "country": "TH",
    "load": 0.3
   }
  ]

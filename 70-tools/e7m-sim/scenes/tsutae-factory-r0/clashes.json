@@ -1,0 +1,20 @@
+{
+  "of": "tsutae-factory-r0",
+  "clashes": [
+    {
+      "id": "clash:util_n2__wall_n",
+      "kind": "hard",
+      "systems": [
+        "nitrogen",
+        "wall"
+      ],
+      "a": "util_n2",
+      "b": "wall_n",
+      "x": -13.0,
+      "y": 14.85,
+      "z": 2.6,
+      "clearance_m": -0.3,
+      "note": "nitrogen配管/配線がwall(wall_n)を貫通"
+    }
+  ]
+}

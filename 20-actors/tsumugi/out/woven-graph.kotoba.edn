@@ -66,4 +66,13 @@
 {:en/id "en.theverge.follow.nvidia" :en/kind :follows :en/from "org.media.theverge" :en/to "org.corp.us.nvidia" :en/grasping-load 0.17 :en/source :atproto-follow :en/sourcing :representative}
 {:en/id "en.reuters.follow.tsmc" :en/kind :follows :en/from "org.media.reuters" :en/to "org.corp.tw.tsmc" :en/grasping-load 0.15 :en/source :atproto-follow :en/sourcing :representative}
 {:en/id "en.nasa.follow.nvidia" :en/kind :follows :en/from "org.agency.nasa" :en/to "org.corp.us.nvidia" :en/grasping-load 0.13 :en/source :atproto-follow :en/sourcing :representative}
+{:organism/id "org.registry.jp-meti-listing" :organism/kind :institutional :organism/subkind :registry :organism/label "METI Corporate Registry (public source)" :organism/standing :latent :organism/sourcing :representative :organism/claimed? false}
+{:organism/id "org.atproto.indexer" :organism/kind :institutional :organism/subkind :service :organism/label "AT Protocol Indexer (public feed)" :organism/standing :latent :organism/sourcing :representative :organism/claimed? false}
+{:organism/id "org.corp.example.alpha" :organism/kind :institutional :organism/subkind :corp :organism/label "Example Alpha Industries" :organism/standing :latent :organism/sourcing :representative :organism/claimed? false}
+{:organism/id "org.corp.example.beta" :organism/kind :institutional :organism/subkind :corp :organism/label "Example Beta Manufacturing" :organism/standing :latent :organism/sourcing :representative :organism/claimed? false}
+{:organism/id "org.corp.example.gamma" :organism/kind :institutional :organism/subkind :corp :organism/label "Example Gamma Trading" :organism/standing :latent :organism/sourcing :representative :organism/claimed? false}
+{:en/id "en.alpha.ev1.semantic" :en/kind :evidence :en/from "org.registry.jp-meti-listing" :en/to "org.corp.example.alpha" :en/evidence-weight 0.6 :en/evidence-kind :semantic :en/source "METI corporate registration filing" :en/sourcing :representative}
+{:en/id "en.alpha.ev2.network" :en/kind :evidence :en/from "org.atproto.indexer" :en/to "org.corp.example.alpha" :en/evidence-weight 0.7 :en/evidence-kind :network :en/source "atproto public follow graph" :en/sourcing :representative}
+{:en/id "en.beta.ev1.lexical" :en/kind :evidence :en/from "org.registry.jp-meti-listing" :en/to "org.corp.example.beta" :en/evidence-weight 0.5 :en/evidence-kind :lexical :en/source "business name mention in METI bulletin" :en/sourcing :representative}
+{:en/id "en.gamma.ev1.temporal" :en/kind :evidence :en/from "org.atproto.indexer" :en/to "org.corp.example.gamma" :en/evidence-weight 0.2 :en/evidence-kind :temporal :en/source "historical atproto archive timestamp" :en/sourcing :representative}
 ]

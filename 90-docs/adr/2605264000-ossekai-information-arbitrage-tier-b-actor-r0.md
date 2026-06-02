@@ -45,7 +45,7 @@ superseded_by: []
 
 # ADR-2605264000: ossekai (御節介) — non-profit religious-corp information-arbitrage elimination + Wellbecoming-nudge artificial-organism actor R0 charter
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-05-26
 **Deciders**: Jun Kawasaki
 

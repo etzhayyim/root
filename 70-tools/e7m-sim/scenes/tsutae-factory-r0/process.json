@@ -1,0 +1,1525 @@
+{
+  "of": "tsutae-factory-r0",
+  "ops": [
+    {
+      "id": "op:step:01-siteprep:01",
+      "step": "step:01-siteprep",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Crushed-stone sub-base (RC-40)",
+      "robot": "(発注)",
+      "materials": [
+        "bld:A1-subbase"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "施工JV / 専門工事業者 (発注)",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:01-siteprep:02",
+      "step": "step:01-siteprep",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:A1-subbase"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:01-siteprep:03",
+      "step": "step:01-siteprep",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:A1-subbase"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "受入 (zone_recv)",
+      "to": "site",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:01-siteprep:04",
+      "step": "step:01-siteprep",
+      "seq": 4,
+      "action": "grade",
+      "label": "造成・転圧",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:A1-subbase"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "site",
+      "to": "site",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:01-siteprep:05",
+      "step": "step:01-siteprep",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:A1-subbase"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "site",
+      "to": "site",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:02-incoming:01",
+      "step": "step:02-incoming",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: 受電設備 high-voltage cubicle + transformer",
+      "robot": "(発注)",
+      "materials": [
+        "bld:G1-cubicle"
+      ],
+      "supplier": "三菱電機 → 電材商社",
+      "from": "三菱電機 → 電材商社",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "6 週 (代表値)"
+    },
+    {
+      "id": "op:step:02-incoming:02",
+      "step": "step:02-incoming",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:G1-cubicle"
+      ],
+      "supplier": "三菱電機 → 電材商社",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:02-incoming:03",
+      "step": "step:02-incoming",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:G1-cubicle"
+      ],
+      "supplier": "三菱電機 → 電材商社",
+      "from": "受入 (zone_recv)",
+      "to": "site",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:02-incoming:04",
+      "step": "step:02-incoming",
+      "seq": 4,
+      "action": "connect",
+      "label": "引込接続",
+      "robot": "robot:mep",
+      "materials": [
+        "bld:G1-cubicle"
+      ],
+      "supplier": "三菱電機 → 電材商社",
+      "from": "site",
+      "to": "site",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:02-incoming:05",
+      "step": "step:02-incoming",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:G1-cubicle"
+      ],
+      "supplier": "三菱電機 → 電材商社",
+      "from": "site",
+      "to": "site",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:03-foundation:01",
+      "step": "step:03-foundation",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: RC ground slab + anti-static topping 他2点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:A2-slab",
+        "bld:A3-rebar",
+        "bld:L1-readymix"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "施工JV / 専門工事業者 (発注)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:03-foundation:02",
+      "step": "step:03-foundation",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:A2-slab",
+        "bld:A3-rebar",
+        "bld:L1-readymix"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:03-foundation:03",
+      "step": "step:03-foundation",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:A2-slab",
+        "bld:A3-rebar",
+        "bld:L1-readymix"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:03-foundation:04",
+      "step": "step:03-foundation",
+      "seq": 4,
+      "action": "pour",
+      "label": "打設・均し",
+      "robot": "robot:printer",
+      "materials": [
+        "bld:A2-slab",
+        "bld:A3-rebar",
+        "bld:L1-readymix"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "deposition",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:03-foundation:05",
+      "step": "step:03-foundation",
+      "seq": 5,
+      "action": "cure",
+      "label": "養生",
+      "robot": "robot:printer",
+      "materials": [
+        "bld:A2-slab",
+        "bld:A3-rebar",
+        "bld:L1-readymix"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 10,
+      "process": "deposition",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:03-foundation:06",
+      "step": "step:03-foundation",
+      "seq": 6,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:A2-slab",
+        "bld:A3-rebar",
+        "bld:L1-readymix"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:04-steel:01",
+      "step": "step:04-steel",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: H-section steel column H300x300 他1点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:B1-column",
+        "bld:B2-baseplate"
+      ],
+      "supplier": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "from": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:04-steel:02",
+      "step": "step:04-steel",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:B1-column",
+        "bld:B2-baseplate"
+      ],
+      "supplier": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:04-steel:03",
+      "step": "step:04-steel",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:B1-column",
+        "bld:B2-baseplate"
+      ],
+      "supplier": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:04-steel:04",
+      "step": "step:04-steel",
+      "seq": 4,
+      "action": "erect",
+      "label": "建方・位置決め",
+      "robot": "robot:crane",
+      "materials": [
+        "bld:B1-column",
+        "bld:B2-baseplate"
+      ],
+      "supplier": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:04-steel:05",
+      "step": "step:04-steel",
+      "seq": 5,
+      "action": "weld",
+      "label": "溶接・本締め",
+      "robot": "robot:crane",
+      "materials": [
+        "bld:B1-column",
+        "bld:B2-baseplate"
+      ],
+      "supplier": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 10,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:04-steel:06",
+      "step": "step:04-steel",
+      "seq": 6,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:B1-column",
+        "bld:B2-baseplate"
+      ],
+      "supplier": "伊藤忠丸紅鉄鋼 (商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:05-roofsteel:01",
+      "step": "step:05-roofsteel",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Roof lattice truss, 30m clear span",
+      "robot": "(発注)",
+      "materials": [
+        "bld:C1-truss"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "施工JV / 専門工事業者 (発注)",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:05-roofsteel:02",
+      "step": "step:05-roofsteel",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:C1-truss"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:05-roofsteel:03",
+      "step": "step:05-roofsteel",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:C1-truss"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:05-roofsteel:04",
+      "step": "step:05-roofsteel",
+      "seq": 4,
+      "action": "erect",
+      "label": "建方・位置決め",
+      "robot": "robot:crane",
+      "materials": [
+        "bld:C1-truss"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:05-roofsteel:05",
+      "step": "step:05-roofsteel",
+      "seq": 5,
+      "action": "weld",
+      "label": "溶接・本締め",
+      "robot": "robot:crane",
+      "materials": [
+        "bld:C1-truss"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "all",
+      "to": "all",
+      "dur_min": 10,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:05-roofsteel:06",
+      "step": "step:05-roofsteel",
+      "seq": 6,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:C1-truss"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:06-envelope:01",
+      "step": "step:06-envelope",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Roof deck + insulation + membrane 他2点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:C2-deck",
+        "bld:D1-panel",
+        "bld:D4-door"
+      ],
+      "supplier": "阪和興業 (商社)（他）",
+      "from": "阪和興業 (商社)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "8 週 (代表値)"
+    },
+    {
+      "id": "op:step:06-envelope:02",
+      "step": "step:06-envelope",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:C2-deck",
+        "bld:D1-panel",
+        "bld:D4-door"
+      ],
+      "supplier": "阪和興業 (商社)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:06-envelope:03",
+      "step": "step:06-envelope",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:C2-deck",
+        "bld:D1-panel",
+        "bld:D4-door"
+      ],
+      "supplier": "阪和興業 (商社)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:06-envelope:04",
+      "step": "step:06-envelope",
+      "seq": 4,
+      "action": "place",
+      "label": "パネル設置",
+      "robot": "robot:panel",
+      "materials": [
+        "bld:C2-deck",
+        "bld:D1-panel",
+        "bld:D4-door"
+      ],
+      "supplier": "阪和興業 (商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:06-envelope:05",
+      "step": "step:06-envelope",
+      "seq": 5,
+      "action": "fix",
+      "label": "ファスナ固定",
+      "robot": "robot:panel",
+      "materials": [
+        "bld:C2-deck",
+        "bld:D1-panel",
+        "bld:D4-door"
+      ],
+      "supplier": "阪和興業 (商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 10,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:06-envelope:06",
+      "step": "step:06-envelope",
+      "seq": 6,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:C2-deck",
+        "bld:D1-panel",
+        "bld:D4-door"
+      ],
+      "supplier": "阪和興業 (商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:07-cleanroom:01",
+      "step": "step:07-cleanroom",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Cleanroom partition + HEPA ceiling grid 他2点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:D2-cleanwall",
+        "bld:D3-airlock",
+        "bld:E1-ffu"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "施工JV / 専門工事業者 (発注)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:07-cleanroom:02",
+      "step": "step:07-cleanroom",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:D2-cleanwall",
+        "bld:D3-airlock",
+        "bld:E1-ffu"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:07-cleanroom:03",
+      "step": "step:07-cleanroom",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:D2-cleanwall",
+        "bld:D3-airlock",
+        "bld:E1-ffu"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:07-cleanroom:04",
+      "step": "step:07-cleanroom",
+      "seq": 4,
+      "action": "place",
+      "label": "据付",
+      "robot": "robot:panel",
+      "materials": [
+        "bld:D2-cleanwall",
+        "bld:D3-airlock",
+        "bld:E1-ffu"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:07-cleanroom:05",
+      "step": "step:07-cleanroom",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:D2-cleanwall",
+        "bld:D3-airlock",
+        "bld:E1-ffu"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:08-hvac:01",
+      "step": "step:08-hvac",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Make-up air handling unit + chiller 他2点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:E2-ahu",
+        "bld:E3-air",
+        "bld:E4-n2"
+      ],
+      "supplier": "ダイキン工業 → 空調設備業者（他）",
+      "from": "ダイキン工業 → 空調設備業者（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "8 週 (代表値)"
+    },
+    {
+      "id": "op:step:08-hvac:02",
+      "step": "step:08-hvac",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:E2-ahu",
+        "bld:E3-air",
+        "bld:E4-n2"
+      ],
+      "supplier": "ダイキン工業 → 空調設備業者（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:08-hvac:03",
+      "step": "step:08-hvac",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:E2-ahu",
+        "bld:E3-air",
+        "bld:E4-n2"
+      ],
+      "supplier": "ダイキン工業 → 空調設備業者（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:08-hvac:04",
+      "step": "step:08-hvac",
+      "seq": 4,
+      "action": "route",
+      "label": "配管・敷設",
+      "robot": "robot:mep",
+      "materials": [
+        "bld:E2-ahu",
+        "bld:E3-air",
+        "bld:E4-n2"
+      ],
+      "supplier": "ダイキン工業 → 空調設備業者（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:08-hvac:05",
+      "step": "step:08-hvac",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:E2-ahu",
+        "bld:E3-air",
+        "bld:E4-n2"
+      ],
+      "supplier": "ダイキン工業 → 空調設備業者（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:09-elec:01",
+      "step": "step:09-elec",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: 分電盤 distribution boards + busway 他1点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:G2-dboard",
+        "bld:G3-pv"
+      ],
+      "supplier": "因幡電機産業 (電材商社)（他）",
+      "from": "因幡電機産業 (電材商社)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "R2+ gated"
+    },
+    {
+      "id": "op:step:09-elec:02",
+      "step": "step:09-elec",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:G2-dboard",
+        "bld:G3-pv"
+      ],
+      "supplier": "因幡電機産業 (電材商社)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:09-elec:03",
+      "step": "step:09-elec",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:G2-dboard",
+        "bld:G3-pv"
+      ],
+      "supplier": "因幡電機産業 (電材商社)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:09-elec:04",
+      "step": "step:09-elec",
+      "seq": 4,
+      "action": "route",
+      "label": "配線・敷設",
+      "robot": "robot:mep",
+      "materials": [
+        "bld:G2-dboard",
+        "bld:G3-pv"
+      ],
+      "supplier": "因幡電機産業 (電材商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:09-elec:05",
+      "step": "step:09-elec",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:G2-dboard",
+        "bld:G3-pv"
+      ],
+      "supplier": "因幡電機産業 (電材商社)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:10-water:01",
+      "step": "step:10-water",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: DI water + recirc (cleanroom) 他1点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:H1-di",
+        "bld:H2-sanitary"
+      ],
+      "supplier": "オルガノ (純水装置, 直販)（他）",
+      "from": "オルガノ (純水装置, 直販)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "8 週 (代表値)"
+    },
+    {
+      "id": "op:step:10-water:02",
+      "step": "step:10-water",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:H1-di",
+        "bld:H2-sanitary"
+      ],
+      "supplier": "オルガノ (純水装置, 直販)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:10-water:03",
+      "step": "step:10-water",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:H1-di",
+        "bld:H2-sanitary"
+      ],
+      "supplier": "オルガノ (純水装置, 直販)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:10-water:04",
+      "step": "step:10-water",
+      "seq": 4,
+      "action": "install",
+      "label": "衛生器具据付",
+      "robot": "robot:mep",
+      "materials": [
+        "bld:H1-di",
+        "bld:H2-sanitary"
+      ],
+      "supplier": "オルガノ (純水装置, 直販)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:10-water:05",
+      "step": "step:10-water",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:H1-di",
+        "bld:H2-sanitary"
+      ],
+      "supplier": "オルガノ (純水装置, 直販)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:11-fire:01",
+      "step": "step:11-fire",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: 火災報知 + 誘導灯 fire alarm + exit lights 他1点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:J1-alarm",
+        "bld:J2-suppress"
+      ],
+      "supplier": "ホーチキ → 消防設備業者（他）",
+      "from": "ホーチキ → 消防設備業者（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "8 週 (代表値)"
+    },
+    {
+      "id": "op:step:11-fire:02",
+      "step": "step:11-fire",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:J1-alarm",
+        "bld:J2-suppress"
+      ],
+      "supplier": "ホーチキ → 消防設備業者（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:11-fire:03",
+      "step": "step:11-fire",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:J1-alarm",
+        "bld:J2-suppress"
+      ],
+      "supplier": "ホーチキ → 消防設備業者（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:11-fire:04",
+      "step": "step:11-fire",
+      "seq": 4,
+      "action": "route",
+      "label": "消火配管・機器",
+      "robot": "robot:mep",
+      "materials": [
+        "bld:J1-alarm",
+        "bld:J2-suppress"
+      ],
+      "supplier": "ホーチキ → 消防設備業者（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:11-fire:05",
+      "step": "step:11-fire",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:J1-alarm",
+        "bld:J2-suppress"
+      ],
+      "supplier": "ホーチキ → 消防設備業者（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:12-equip:01",
+      "step": "step:12-equip",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Solder-paste stencil printer 他12点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:F1-stencil",
+        "bld:F2-pnp",
+        "bld:F3-reflow",
+        "bld:F4-aoi",
+        "bld:F5-xray",
+        "bld:F6-chassisbench",
+        "bld:F7-laminator",
+        "bld:F8-flashrack",
+        "bld:F9-rfchamber",
+        "bld:F10-qcbench",
+        "bld:F11-packstation",
+        "bld:F12-eolbench",
+        "bld:F15-conveyor"
+      ],
+      "supplier": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "from": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:12-equip:02",
+      "step": "step:12-equip",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:F1-stencil",
+        "bld:F2-pnp",
+        "bld:F3-reflow",
+        "bld:F4-aoi",
+        "bld:F5-xray",
+        "bld:F6-chassisbench",
+        "bld:F7-laminator",
+        "bld:F8-flashrack",
+        "bld:F9-rfchamber",
+        "bld:F10-qcbench",
+        "bld:F11-packstation",
+        "bld:F12-eolbench",
+        "bld:F15-conveyor"
+      ],
+      "supplier": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:12-equip:03",
+      "step": "step:12-equip",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F1-stencil",
+        "bld:F2-pnp",
+        "bld:F3-reflow",
+        "bld:F4-aoi",
+        "bld:F5-xray",
+        "bld:F6-chassisbench",
+        "bld:F7-laminator",
+        "bld:F8-flashrack",
+        "bld:F9-rfchamber",
+        "bld:F10-qcbench",
+        "bld:F11-packstation",
+        "bld:F12-eolbench",
+        "bld:F15-conveyor"
+      ],
+      "supplier": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:12-equip:04",
+      "step": "step:12-equip",
+      "seq": 4,
+      "action": "install",
+      "label": "機械据付・芯出し",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F1-stencil",
+        "bld:F2-pnp",
+        "bld:F3-reflow",
+        "bld:F4-aoi",
+        "bld:F5-xray",
+        "bld:F6-chassisbench",
+        "bld:F7-laminator",
+        "bld:F8-flashrack",
+        "bld:F9-rfchamber",
+        "bld:F10-qcbench",
+        "bld:F11-packstation",
+        "bld:F12-eolbench",
+        "bld:F15-conveyor"
+      ],
+      "supplier": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:12-equip:05",
+      "step": "step:12-equip",
+      "seq": 5,
+      "action": "anchor",
+      "label": "アンカー固定",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F1-stencil",
+        "bld:F2-pnp",
+        "bld:F3-reflow",
+        "bld:F4-aoi",
+        "bld:F5-xray",
+        "bld:F6-chassisbench",
+        "bld:F7-laminator",
+        "bld:F8-flashrack",
+        "bld:F9-rfchamber",
+        "bld:F10-qcbench",
+        "bld:F11-packstation",
+        "bld:F12-eolbench",
+        "bld:F15-conveyor"
+      ],
+      "supplier": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 10,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:12-equip:06",
+      "step": "step:12-equip",
+      "seq": 6,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F1-stencil",
+        "bld:F2-pnp",
+        "bld:F3-reflow",
+        "bld:F4-aoi",
+        "bld:F5-xray",
+        "bld:F6-chassisbench",
+        "bld:F7-laminator",
+        "bld:F8-flashrack",
+        "bld:F9-rfchamber",
+        "bld:F10-qcbench",
+        "bld:F11-packstation",
+        "bld:F12-eolbench",
+        "bld:F15-conveyor"
+      ],
+      "supplier": "オープンHW設計 → 受託製造 (EMS)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:13-robots:01",
+      "step": "step:13-robots",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: Line robot cells (precision arm) 他1点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:F13-cell",
+        "bld:F14-agv"
+      ],
+      "supplier": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "from": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "R0 reuse"
+    },
+    {
+      "id": "op:step:13-robots:02",
+      "step": "step:13-robots",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:F13-cell",
+        "bld:F14-agv"
+      ],
+      "supplier": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:13-robots:03",
+      "step": "step:13-robots",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F13-cell",
+        "bld:F14-agv"
+      ],
+      "supplier": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:13-robots:04",
+      "step": "step:13-robots",
+      "seq": 4,
+      "action": "install",
+      "label": "ロボットセル据付",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F13-cell",
+        "bld:F14-agv"
+      ],
+      "supplier": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:13-robots:05",
+      "step": "step:13-robots",
+      "seq": 5,
+      "action": "anchor",
+      "label": "ベース固定",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F13-cell",
+        "bld:F14-agv"
+      ],
+      "supplier": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 10,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:13-robots:06",
+      "step": "step:13-robots",
+      "seq": 6,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:F13-cell",
+        "bld:F14-agv"
+      ],
+      "supplier": "kuni-umi (Otete/Mimi ロボ) (internal hand-off)（他）",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:14-site:01",
+      "step": "step:14-site",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: 外構舗装 site paving + parking 他2点",
+      "robot": "(発注)",
+      "materials": [
+        "bld:K1-pave",
+        "bld:K2-fence",
+        "bld:K3-landscape"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "施工JV / 専門工事業者 (発注)（他）",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "施工計画依存"
+    },
+    {
+      "id": "op:step:14-site:02",
+      "step": "step:14-site",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:K1-pave",
+        "bld:K2-fence",
+        "bld:K3-landscape"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:14-site:03",
+      "step": "step:14-site",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:K1-pave",
+        "bld:K2-fence",
+        "bld:K3-landscape"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "受入 (zone_recv)",
+      "to": "site",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:14-site:04",
+      "step": "step:14-site",
+      "seq": 4,
+      "action": "place",
+      "label": "据付",
+      "robot": "robot:doboku",
+      "materials": [
+        "bld:K1-pave",
+        "bld:K2-fence",
+        "bld:K3-landscape"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "site",
+      "to": "site",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:14-site:05",
+      "step": "step:14-site",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [
+        "bld:K1-pave",
+        "bld:K2-fence",
+        "bld:K3-landscape"
+      ],
+      "supplier": "施工JV / 専門工事業者 (発注)（他）",
+      "from": "site",
+      "to": "site",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:15-commission:01",
+      "step": "step:15-commission",
+      "seq": 1,
+      "action": "procure",
+      "label": "調達: —",
+      "robot": "(発注)",
+      "materials": [],
+      "supplier": "—",
+      "from": "—",
+      "to": "工場ゲート",
+      "dur_min": 5,
+      "process": "none",
+      "lead_weeks": "—"
+    },
+    {
+      "id": "op:step:15-commission:02",
+      "step": "step:15-commission",
+      "seq": 2,
+      "action": "deliver",
+      "label": "搬入 (自律トラック)",
+      "robot": "robot:doboku",
+      "materials": [],
+      "supplier": "—",
+      "from": "工場ゲート",
+      "to": "受入 (zone_recv)",
+      "dur_min": 8,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:15-commission:03",
+      "step": "step:15-commission",
+      "seq": 3,
+      "action": "stage",
+      "label": "搬送・仮置き (AGV)",
+      "robot": "robot:fitout",
+      "materials": [],
+      "supplier": "—",
+      "from": "受入 (zone_recv)",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:15-commission:04",
+      "step": "step:15-commission",
+      "seq": 4,
+      "action": "test",
+      "label": "試運転・通電通水",
+      "robot": "robot:fitout",
+      "materials": [],
+      "supplier": "—",
+      "from": "all",
+      "to": "all",
+      "dur_min": 18,
+      "process": "none",
+      "lead_weeks": null
+    },
+    {
+      "id": "op:step:15-commission:05",
+      "step": "step:15-commission",
+      "seq": 5,
+      "action": "inspect",
+      "label": "検査 (scan-to-BIM)",
+      "robot": "robot:fitout",
+      "materials": [],
+      "supplier": "—",
+      "from": "all",
+      "to": "all",
+      "dur_min": 6,
+      "process": "none",
+      "lead_weeks": null
+    }
+  ]
+}
