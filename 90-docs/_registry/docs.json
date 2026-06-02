@@ -18898,6 +18898,26 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606021400-session-close-nsid-com-etzhayyim-migration.md",
+      "id": "adr-2606021400-session-close-nsid-com-etzhayyim-migration",
+      "title": "ADR-2606021400: Session close — repo-wide NSID migration app.etzhayyim.* / ai.gftd.* → com.etzhayyim.*",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-nsid-com-etzhayyim-migration",
+      "authoritative": false,
+      "related": [
+        "adr-2606021200-himawari-solar-pv-manufacturing-r0",
+        "adr-2605172000-substrate-boundary-state",
+        "adr-2605172100-substrate-boundary-payment"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
