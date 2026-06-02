@@ -11,13 +11,15 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 53 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 61 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 88 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **D — TODO-PENDING** | 79 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 1 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 128 apps** (C + D = 41 + 87; auth resolved to Bucket V). Buckets A + B (260) need no
+**Real remaining scope ≈ 120 apps** (C + D = 41 + 79; the 8 Tier-2 commerce apps
+celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
+rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
 every open-* app now has an rw-free impl. The loop now proceeds over the
 remaining C/D apps with a per-app judgment gate (etzhayyim-front vs
@@ -31,16 +33,17 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (53, has rw-free/)
+## Bucket A — DONE (61, has rw-free/)
 
 anime, animeka (mixed split — catalog front), blockchain, bpmn, bunken,
-common-crawl, cpc, crowdfunding, dns, ec,
+celler, common-crawl, cpc, crowdfunding, dns, ec, eigyo,
 gameka, gtin, hakkou, hanrei, houbun, houki, houshi, ipaddress, isbn, isin,
-issn, ki, kiyo, koke, legal-corpus, manga, maps, narou, ndc, nist, ocel,
-okaimono, open-airplane, open-apqc, open-banking, open-cofog, open-denki,
-open-gas, open-isco, open-isic, open-jpn-gov, open-network, open-ports,
-open-power, open-rail, open-swift, open-unispsc, open-water, otakiage, sbom,
-threads, threat-intelligence, tsukuru, yoro
+issn, ki, kiyo, koke, legal-corpus, manga, maps, minpaku, narou, ndc, nist,
+ocel, okaimono, omise, open-airplane, open-apqc, open-banking, open-cofog,
+open-denki, open-gas, open-isco, open-isic, open-jpn-gov, open-network,
+open-ports, open-power, open-rail, open-swift, open-unispsc, open-water,
+otakiage, real-estate, sbom, shopping, supplychain, threads,
+threat-intelligence, tsukuru, yadoya, yoro
 
 (51 incl. `ec`/`crowdfunding` (2026-06-02) and the 8 open-* commodity-data apps
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
@@ -79,12 +82,11 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (87, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (79, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (57)**: 6ir, accounts, aima, air-book, air-cargo, air-crew,
+**TRANSFORM-pending (49)**: 6ir, accounts, aima, air-book, air-cargo, air-crew,
 air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
-business-edge, business-person, **celler, eigyo, minpaku, omise,
-real-estate, shopping, supplychain, yadoya** (Tier-2 commerce), collector,
+business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
