@@ -11,13 +11,13 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 71 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 72 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 39 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 38 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 | **V — VENDOR-RESIDENT** | 15 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 94 apps** (C + D = 39 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 93 apps** (C + D = 38 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -33,10 +33,10 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > (`auth` was an example here previously but is now Bucket V — vendor-resident,
 > no on-chain path; see below.)
 
-## Bucket A — DONE (71, has rw-free/)
+## Bucket A — DONE (72, has rw-free/)
 
 6ir, aima (data layer; AI-compute stays gftd), air-sched,
-analytics (mixed split — public catalog front), anime, business-person,
+analytics (mixed split — public catalog front), anime, bim, business-person,
 collector (mixed split — public OSINT front), completer,
 fleamarket (mixed split — public C2C catalog front), flight-offer, ge,
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
@@ -155,12 +155,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (39) — active backlog
+## Bucket C — NEEDS-CODEMOD (38) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
-bim, briefing, cad, cloudflare-browser-render,
+briefing, cad, cloudflare-browser-render,
 common-crawl (RW, legacy src), cpc (legacy src),
 crypto-asset-freeze, cyber-drill (stripe), deai (RW), dougaka (RW), editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
