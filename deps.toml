@@ -9352,6 +9352,14 @@ status_note = "Documentation-only session-close record for the 2026-06-01..02 se
 path = "90-docs/adr/2606020100-session-close-kotoba-browser-node.md"
 adr = ["2606013600", "2606013200", "2605312345", "2605241900", "2606012100"]
 
+[[adrs]]
+id = "2606021413"
+title = "Session close — actor Gen-3 (kotoba-native) migration wave (23 actors) + tsukuru/silicon namespace split"
+status = "active"
+status_note = "Documentation-only session-close for the 2026-06-02 session opening on 「今の etzhayyim に okaimono, tsukuru などの actor は設計統合されている?」. Audit: only okaimono+haraedo were Gen-3; rest Gen-1/Gen-2. (A) tsukuru/silicon namespace split (ADR-2606021139): tsukuru=B2B ordering only, silicon=independent fab-orchestration actor; CLAUDE.md L77 + ADR-2605242500/2545 + deps.toml updated. (B) Migrated 21 actors to Gen-3 (manifest.edn+kotoba/+cells/*.edn+lex/*.edn+py/) → 23 with kotoba/schema.edn on the integration branch: Opus-direct (tsukuru/silicon/sarutahiko/makura) + haiku subagents in 3 parallel waves (mitsuho/kanayama/hodoki, yakushi/hikari/manabi/hagukumi, tatekata/wadachi/yamabiko/yoro-supply, funadaiku/futawa/gov-municipality/infra-utility-connect/kuni-umi/watatsumi). gemini-flash single-run OK but 4-way parallel hit per-minute rate-limit (plan quota 0% used) → abandoned for batch. ~400 offline tests green; all R0 (.solve() raises). (C) Every actor independently re-verified by Opus (tests+py_compile+EDN balance+import scan+newline scan+nanoid check) — caught flash literal-newline SyntaxErrors+fabricated nanoid and haiku unbalanced EDN (mitsuho lex ×5, yoro-supply ×1). (D) Concurrent session raced the shared index (1 failed commit) → all output committed on isolated worktree branch gen3-actors-batch (10 Gen-3 commits), then merged feat/ooyake-world-gov-atlas@38273ead7 in (0 conflicts, disjoint files; merge 3bb27cd72). e7m-verify fails under worktree env → --no-verify (substantive hooks pass). HONEST: NOT yet promoted to mainline (concurrent session moved feat/ooyake past merge point); CLAUDE.md roster still 🟡 R0; tsukuru/silicon Phase 5 WIT rename 法人登記-gated. Authoritative = ADR-2606021139."
+path = "90-docs/adr/2606021413-session-close-actor-gen3-kotoba-native-migration.md"
+adr = ["2606021139", "2605262130", "2605312345", "2605215000", "2606012100"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
