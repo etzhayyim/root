@@ -86,6 +86,76 @@ def build_payload(companies, addresses, contacts, edges):
     }
 
 
+def _edn_scalar(v):
+    """Encode a Python value as an EDN scalar string for a kotoba Datom `v_edn`.
+
+    Mirrors the `[{e,a,v_edn}]` contract that `KotobaNode.loadDatoms` ingests:
+      str starting with ':' → bare EDN keyword (`:semiconductors`)
+      other str            → EDN string literal (`"TSMC"`)
+      int/float            → bare number
+    Returns None for values that should not produce a Datom (None / "").
+    """
+    if v is None:
+        return None
+    if isinstance(v, bool):  # guard: bool is an int subclass
+        return "true" if v else "false"
+    if isinstance(v, (int, float)):
+        return repr(v)
+    s = str(v)
+    if s == "":
+        return None
+    if s.startswith(":"):
+        return s  # already an EDN keyword
+    return json.dumps(s, ensure_ascii=False)  # EDN string literal
+
+
+def build_datoms(payload):
+    """Flatten the viz payload into the `[{e,a,v_edn}]` Datom array that the
+    in-browser kotoba-wasm node hydrates via `loadDatoms` (ADR-2606013600).
+
+    This is the SAME data the static render uses, expressed as the kotoba Datom
+    contract so the viewer can drive the graph through `KotobaNode.datomicQ`
+    (loadDatoms → q) with zero server round-trip. Company id + flattened
+    address/contact ride on the company entity; each supply edge is its own
+    entity keyed `<from>>><to>`.
+    """
+    datoms = []
+
+    def add(e, a, v):
+        s = _edn_scalar(v)
+        if s is not None:
+            datoms.append({"e": e, "a": a, "v_edn": s, "added": True})
+
+    for c in payload["companies"]:
+        e = c["id"]
+        add(e, ":company/id", c["id"])
+        add(e, ":company/name", c.get("name"))
+        add(e, ":company/ticker", c.get("ticker"))
+        add(e, ":company/sector", c.get("sector"))
+        add(e, ":company/country", c.get("country"))
+        add(e, ":company/out", int(c.get("out", 0) or 0))
+        a = c.get("address") or {}
+        add(e, ":company.address/street", a.get("street"))
+        add(e, ":company.address/city", a.get("city"))
+        add(e, ":company.address/country", a.get("country"))
+        add(e, ":company.address/lat", a.get("lat"))
+        add(e, ":company.address/lon", a.get("lon"))
+        ct = c.get("contact") or {}
+        add(e, ":company.contact/website", ct.get("website"))
+        add(e, ":company.contact/ir", ct.get("ir"))
+
+    for ed in payload["edges"]:
+        if not ed.get("from") or not ed.get("to"):
+            continue
+        e = f"supply.edge:{ed['from']}>>>{ed['to']}"
+        add(e, ":supply.edge/from", ed["from"])
+        add(e, ":supply.edge/to", ed["to"])
+        add(e, ":supply.edge/commodity", ":" + str(ed.get("commodity", "unknown")))
+        add(e, ":supply.edge/criticality", float(ed.get("criticality", 0) or 0))
+
+    return datoms
+
+
 def main(argv):
     here = pathlib.Path(__file__).resolve().parent
     root = here.parent
@@ -95,16 +165,23 @@ def main(argv):
     rows = load_edn(seed)
     companies, addresses, contacts, edges, _proc = classify(rows)
     payload = build_payload(companies, addresses, contacts, edges)
+    datoms = build_datoms(payload)
 
     (here / "supply-chain.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    # The kotoba Datom contract the in-browser kotoba-wasm node hydrates.
+    (here / "supply-datoms.json").write_text(
+        json.dumps(datoms, ensure_ascii=False) + "\n", encoding="utf-8")
 
     template = (here / "_template.htm").read_text(encoding="utf-8")
-    html = template.replace("__KABUTO_DATA__", json.dumps(payload, ensure_ascii=False))
+    html = (template
+            .replace("__KABUTO_DATA__", json.dumps(payload, ensure_ascii=False))
+            .replace("__KABUTO_DATOMS__", json.dumps(datoms, ensure_ascii=False)))
     (here / "supply-chain.htm").write_text(html, encoding="utf-8")
 
-    print(f"kabuto.viz: {len(companies)} companies, {len(edges)} edges → "
-          f"{here/'supply-chain.json'} + {here/'supply-chain.htm'}")
+    print(f"kabuto.viz: {len(companies)} companies, {len(edges)} edges, "
+          f"{len(datoms)} datoms → {here/'supply-chain.json'} + "
+          f"{here/'supply-datoms.json'} + {here/'supply-chain.htm'}")
 
 
 if __name__ == "__main__":
