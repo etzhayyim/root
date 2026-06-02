@@ -97,7 +97,7 @@ def main(argv):
     payload = build_payload(companies, addresses, contacts, edges)
 
     (here / "supply-chain.json").write_text(
-        json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+        json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
     template = (here / "_template.htm").read_text(encoding="utf-8")
     html = template.replace("__KABUTO_DATA__", json.dumps(payload, ensure_ascii=False))

@@ -715,7 +715,7 @@
    "ticker": "300750.SZ",
    "sector": ":industrials",
    "country": "CN",
-   "out": 4,
+   "out": 5,
    "address": {
     "street": "No. 2 Xingang Rd., Zhangwan",
     "city": "Ningde",
@@ -1088,7 +1088,7 @@
    "ticker": "GE",
    "sector": ":industrials",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -2790,6 +2790,430 @@
    "out": 1,
    "address": null,
    "contact": null
+  },
+  {
+   "id": "org.corp.jp.mitsubishi-corp",
+   "name": "Mitsubishi Corporation",
+   "ticker": "8058.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 1,
+   "address": {
+    "street": "3-1 Marunouchi 2-chome, Chiyoda-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.68,
+    "lon": 139.76
+   },
+   "contact": {
+    "website": "https://www.mitsubishicorp.com",
+    "ir": "https://www.mitsubishicorp.com/jp/en/ir/"
+   }
+  },
+  {
+   "id": "org.corp.jp.mitsui-co",
+   "name": "Mitsui & Co.",
+   "ticker": "8031.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.itochu",
+   "name": "ITOCHU Corporation",
+   "ticker": "8001.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.sumitomo-corp",
+   "name": "Sumitomo Corporation",
+   "ticker": "8053.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.marubeni",
+   "name": "Marubeni Corporation",
+   "ticker": "8002.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.hitachi",
+   "name": "Hitachi",
+   "ticker": "6501.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.mitsubishi-heavy",
+   "name": "Mitsubishi Heavy Industries",
+   "ticker": "7011.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.fast-retailing",
+   "name": "Fast Retailing (Uniqlo)",
+   "ticker": "9983.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.naver",
+   "name": "Naver",
+   "ticker": "035420.KS",
+   "sector": ":software",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.kia",
+   "name": "Kia",
+   "ticker": "000270.KS",
+   "sector": ":automotive",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.midea",
+   "name": "Midea Group",
+   "ticker": "000333.SZ",
+   "sector": ":electronics",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.gree",
+   "name": "Gree Electric Appliances",
+   "ticker": "000651.SZ",
+   "sector": ":electronics",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.hikvision",
+   "name": "Hangzhou Hikvision",
+   "ticker": "002415.SZ",
+   "sector": ":electronics",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.fii",
+   "name": "Foxconn Industrial Internet (FII)",
+   "ticker": "601138.SS",
+   "sector": ":electronics",
+   "country": "CN",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.cmb",
+   "name": "China Merchants Bank",
+   "ticker": "600036.SS",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.li-auto",
+   "name": "Li Auto",
+   "ticker": "2015.HK",
+   "sector": ":automotive",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.cnooc",
+   "name": "CNOOC",
+   "ticker": "0883.HK",
+   "sector": ":energy",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.sinopec",
+   "name": "China Petroleum & Chemical (Sinopec)",
+   "ticker": "0386.HK",
+   "sector": ":energy",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.wipro",
+   "name": "Wipro",
+   "ticker": "WIPRO.NS",
+   "sector": ":software",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.tata-steel",
+   "name": "Tata Steel",
+   "ticker": "TATASTEEL.NS",
+   "sector": ":materials",
+   "country": "IN",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.ongc",
+   "name": "Oil and Natural Gas Corporation (ONGC)",
+   "ticker": "ONGC.NS",
+   "sector": ":energy",
+   "country": "IN",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.ntpc",
+   "name": "NTPC",
+   "ticker": "NTPC.NS",
+   "sector": ":utilities",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.bajaj-finance",
+   "name": "Bajaj Finance",
+   "ticker": "BAJFINANCE.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.equinix",
+   "name": "Equinix",
+   "ticker": "EQIX",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "One Lagoon Drive",
+    "city": "Redwood City",
+    "country": "US",
+    "lat": 37.53,
+    "lon": -122.25
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.simon-property",
+   "name": "Simon Property Group",
+   "ticker": "SPG",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.es.santander",
+   "name": "Banco Santander",
+   "ticker": "SAN.MC",
+   "sector": ":financials",
+   "country": "ES",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.es.bbva",
+   "name": "Banco Bilbao Vizcaya Argentaria (BBVA)",
+   "ticker": "BBVA.MC",
+   "sector": ":financials",
+   "country": "ES",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.ferrari",
+   "name": "Ferrari",
+   "ticker": "RACE.MI",
+   "sector": ":automotive",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.adidas",
+   "name": "Adidas",
+   "ticker": "ADS.DE",
+   "sector": ":consumer",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.rolls-royce",
+   "name": "Rolls-Royce Holdings",
+   "ticker": "RR.L",
+   "sector": ":industrials",
+   "country": "GB",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.safran",
+   "name": "Safran",
+   "ticker": "SAF.PA",
+   "sector": ":industrials",
+   "country": "FR",
+   "out": 1,
+   "address": {
+    "street": "2 boulevard du Général Martial Valin",
+    "city": "Paris",
+    "country": "FR",
+    "lat": 48.84,
+    "lon": 2.27
+   },
+   "contact": {
+    "website": "https://www.safran-group.com",
+    "ir": "https://www.safran-group.com/finance"
+   }
+  },
+  {
+   "id": "org.corp.fr.saint-gobain",
+   "name": "Compagnie de Saint-Gobain",
+   "ticker": "SGO.PA",
+   "sector": ":materials",
+   "country": "FR",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.nl.prosus",
+   "name": "Prosus",
+   "ticker": "PRX.AS",
+   "sector": ":software",
+   "country": "NL",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.netflix",
+   "name": "Netflix",
+   "ticker": "NFLX",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.disney",
+   "name": "The Walt Disney Company",
+   "ticker": "DIS",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.nike",
+   "name": "Nike",
+   "ticker": "NKE",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mcdonalds",
+   "name": "McDonald's",
+   "ticker": "MCD",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.honeywell",
+   "name": "Honeywell International",
+   "ticker": "HON",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.rtx",
+   "name": "RTX Corporation",
+   "ticker": "RTX",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.palantir",
+   "name": "Palantir Technologies",
+   "ticker": "PLTR",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
   }
  ],
  "edges": [
@@ -3434,12 +3858,84 @@
    "to": "org.corp.de.deutsche-telekom",
    "commodity": "logistics",
    "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.mitsubishi-corp",
+   "to": "org.corp.jp.toyota",
+   "commodity": "logistics",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.mitsui-co",
+   "to": "org.corp.jp.toyota",
+   "commodity": "logistics",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.itochu",
+   "to": "org.corp.jp.fast-retailing",
+   "commodity": "logistics",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.jp.marubeni",
+   "to": "org.corp.jp.mitsubishi-heavy",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.fr.safran",
+   "to": "org.corp.fr.airbus",
+   "commodity": "assembly",
+   "criticality": 0.7
+  },
+  {
+   "from": "org.corp.gb.rolls-royce",
+   "to": "org.corp.fr.airbus",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.us.ge",
+   "to": "org.corp.us.boeing",
+   "commodity": "assembly",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.fr.saint-gobain",
+   "to": "org.corp.de.volkswagen",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.in.tata-steel",
+   "to": "org.corp.in.tatamotors",
+   "commodity": "steel",
+   "criticality": 0.5
+  },
+  {
+   "from": "org.corp.in.ongc",
+   "to": "org.corp.in.reliance",
+   "commodity": "polysilicon",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.cn.fii",
+   "to": "org.corp.us.apple",
+   "commodity": "assembly",
+   "criticality": 0.4
+  },
+  {
+   "from": "org.corp.cn.catl",
+   "to": "org.corp.cn.li-auto",
+   "commodity": "battery",
+   "criticality": 0.5
   }
  ],
  "jurisdictions": [
   {
    "country": "JP",
-   "load": 12.45
+   "load": 13.95
   },
   {
    "country": "TW",
@@ -3447,7 +3943,11 @@
   },
   {
    "country": "US",
-   "load": 8.1
+   "load": 8.7
+  },
+  {
+   "country": "CN",
+   "load": 5.1
   },
   {
    "country": "KR",
@@ -3458,12 +3958,8 @@
    "load": 4.95
   },
   {
-   "country": "CN",
-   "load": 4.2
-  },
-  {
    "country": "GB",
-   "load": 2.6
+   "load": 3.0
   },
   {
    "country": "AU",
@@ -3474,8 +3970,16 @@
    "load": 1.7
   },
   {
+   "country": "FR",
+   "load": 1.6
+  },
+  {
    "country": "DE",
    "load": 1.5
+  },
+  {
+   "country": "IN",
+   "load": 1.4
   },
   {
    "country": "SA",
@@ -3487,14 +3991,6 @@
   },
   {
    "country": "CH",
-   "load": 0.6
-  },
-  {
-   "country": "IN",
-   "load": 0.6
-  },
-  {
-   "country": "FR",
    "load": 0.6
   },
   {

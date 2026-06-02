@@ -108,4 +108,5 @@
   {:db/ident :supply/diversification-index :db/doc "distinct-supplier-sectors ÷ Σ inbound criticality per customer — low = brittle (dependency concentrated in few sectors)"}
   {:db/ident :supply/betweenness :db/doc "in-degree × out-degree for nodes that are both customer and supplier — supply-chain middle-layer systemic-ness (transparency signal, NEVER a target, G2)"}
   {:db/ident :supply/tier-depth :db/doc "longest DISCLOSED upstream supplier chain reaching a node (hops back toward raw inputs) — multi-tier-visibility signal, NEVER a target (G2)"}
-  {:db/ident :supply/bloc-load :db/doc "Σ criticality of edges whose supplier domiciles in a macro-region bloc (East Asia / Europe / North America / …) — regional concentration surface routed to cross-region diversification (G2)"}]}
+  {:db/ident :supply/bloc-load :db/doc "Σ criticality of edges whose supplier domiciles in a macro-region bloc (East Asia / Europe / North America / …) — regional concentration surface routed to cross-region diversification (G2)"}
+  {:db/ident :supply/commodity-hhi :db/doc "Herfindahl-Hirschman Index of supplier shares within a commodity (Σ share² by criticality) ∈ (0,1]; 1.0 = single disclosed supplier (monopoly), low = fragmented — the headline redundancy-priority signal (G2)"}]}

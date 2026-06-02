@@ -44,7 +44,7 @@ never a target-list.**
 ├── README.md                             # this file
 ├── CLAUDE.md                             # agent reference
 ├── data/
-│   ├── seed-public-companies.kotoba.edn  # 252 companies · 107 supply edges · 35 HQ · 19 contacts · 2 BPMN seeds (:representative; grows each /loop)
+│   ├── seed-public-companies.kotoba.edn  # 292 companies · 119 supply edges · 38 HQ · 21 contacts · 2 BPMN seeds (:representative; grows each /loop)
 │   └── companies.merged.kotoba.edn       # GENERATED: seed + ingest bridge (dedup)
 ├── methods/
 │   ├── kabuto_edn.py                     # shared minimal EDN reader + classifier (stdlib)
@@ -79,12 +79,13 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ### Result (seed)
 
-- **252** public companies · **107** disclosed supply edges · **15** sectors · **41** countries · **35** HQ addresses
-  (growing each `/loop` iteration toward full global coverage — all 15 sectors now populated incl.
-  healthcare/medtech, utilities, real-estate/REITs, insurance; 41 countries across East Asia,
-  Europe, North America, South/SE Asia, Middle East, Latin America, Africa, Oceania).
-- Regional-bloc concentration headline: **East Asia ~55%** of disclosed supply load (Europe ~23%,
-  North America ~14%) — the real semiconductor/electronics concentration, routed to diversification.
+- **292** public companies · **119** disclosed supply edges · **15** sectors · **41** countries · **38** HQ addresses
+  (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 41 countries
+  across East Asia, Europe, North America, South/SE Asia, Middle East, Latin America, Africa, Oceania;
+  incl. Japanese sōgō shōsha trading houses as supply intermediaries).
+- Regional-bloc headline: **East Asia ~55%** of disclosed supply load (Europe ~23%, N. America ~14%).
+- Commodity HHI headline: **lithography 0.66** (ASML near-monopoly), display 0.52, foundry 0.47
+  (TSMC-dominant) — the highest-concentration inputs, routed to diversification.
 - **14** single-source dependencies (≥0.7 criticality) — the redundancy gaps. The headline:
   **ASML → TSMC / Samsung / Intel** (sole EUV lithography, 0.95) and **TSMC → Apple / NVIDIA**
   (foundry, 0.95) — the same concentration the industry already watches.

@@ -143,6 +143,25 @@ def analyze(companies, edges):
         key=lambda r: -r[1])
     tier_depth = [(n, d) for n, d in tier_depth if d > 0]
 
+    # MATURITY — per-commodity HHI (Herfindahl-Hirschman Index): supplier-share
+    # concentration within each commodity, by Σ criticality. HHI = Σ(share²) ∈
+    # (0,1]; 1.0 = a single disclosed supplier (monopoly), low = fragmented/diverse.
+    commodity_supplier_crit = defaultdict(lambda: defaultdict(float))
+    for e in edges:
+        s = e.get(':supply.edge/from')
+        commodity = e.get(':supply.edge/commodity', ':unknown')
+        crit = float(e.get(':supply.edge/criticality', 0.0) or 0.0)
+        if s and crit > 0:
+            commodity_supplier_crit[commodity][s] += crit
+    commodity_hhi = []
+    for commodity, shares in commodity_supplier_crit.items():
+        tot = sum(shares.values())
+        if tot <= 0:
+            continue
+        hhi = sum((v / tot) ** 2 for v in shares.values())
+        commodity_hhi.append((commodity, len(shares), round(hhi, 3)))
+    commodity_hhi.sort(key=lambda r: -r[2])  # most concentrated first
+
     return dict(
         in_deg={k: len(v) for k, v in in_deg.items()},
         out_deg={k: len(v) for k, v in out_deg.items()},
@@ -154,6 +173,7 @@ def analyze(companies, edges):
         intermediaries=intermediaries,
         tier_depth=tier_depth,
         bloc_load=bloc_load,
+        commodity_hhi=commodity_hhi,
     )
 
 
@@ -223,6 +243,20 @@ def render_report(companies, addresses, contacts, edges, processes, a):
     P("")
 
     # ── sector × commodity concentration ──
+    # ── per-commodity HHI (maturity) ──
+    P("## Commodity supplier concentration — Herfindahl index (HHI)")
+    P("")
+    P("Supplier-share concentration WITHIN each commodity, by Σ criticality "
+      "(HHI = Σ share²; 1.0 = a single disclosed supplier, low = fragmented). "
+      "High HHI = the world depends on few suppliers for that input — the headline "
+      "redundancy priority, routed to diversification (G2).")
+    P("")
+    P("| commodity | disclosed suppliers | HHI |")
+    P("|---|---:|---:|")
+    for commodity, nsup, hhi in a['commodity_hhi']:
+        P(f"| `{str(commodity).lstrip(':')}` | {nsup} | {hhi} |")
+    P("")
+
     P("## Sector × commodity concentration")
     P("")
     P("| supplier sector | commodity | Σ criticality |")
@@ -326,6 +360,9 @@ def render_datoms(companies, a):
         P(f' {{:supply/tier-depth-node {edn_str(n)} :supply/tier-depth {d} :supply/derived true}}')
     for bloc, load in sorted(a['bloc_load'].items(), key=lambda kv: -kv[1]):
         P(f' {{:supply/region-bloc "{bloc}" :supply/bloc-load {round(load, 2)} :supply/derived true}}')
+    for commodity, nsup, hhi in a['commodity_hhi']:
+        P(f' {{:supply/commodity "{str(commodity).lstrip(":")}" '
+          f':supply/commodity-suppliers {nsup} :supply/commodity-hhi {hhi} :supply/derived true}}')
     P("]")
     return "\n".join(L) + "\n"
 
