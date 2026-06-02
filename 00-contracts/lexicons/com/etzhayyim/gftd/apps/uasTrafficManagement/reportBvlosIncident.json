@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.uasTrafficManagement.reportBvlosIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "BVLOS / swarm / drone-to-drone incident (bridges aviation-safety + cyber-incident)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "eventType",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "authorizationVid": {
+              "type": "string",
+              "description": "bridges registerFlightAuthorization"
+            },
+            "eventType": {
+              "type": "string",
+              "enum": [
+                "loss_of_c2",
+                "swarm_desync",
+                "gps_spoofing",
+                "airprox",
+                "crash",
+                "unauthorized_entry",
+                "battery_fire",
+                "cyber_intrusion"
+              ]
+            },
+            "airproxVid": {
+              "type": "string",
+              "description": "bridges open-aviation-safety reportAirprox"
+            },
+            "cyberIncidentVid": {
+              "type": "string",
+              "description": "bridges open-cyber-incident"
+            },
+            "injuries": {
+              "type": "integer"
+            },
+            "fatalities": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "operational",
+                "cyber_severe",
+                "injury",
+                "fatal"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$type": "lexicon",
+  "id": "com.etzhayyim.apps.irScrape.processQueue",
+  "revision": 1,
+  "description": "Claim queued IR scraper runs, fetch company IR pages (RSS-first, HTML fallback), extract press releases into vertex_ir_pressrelease, and link to vertex_intel_subject via LEI.",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "maxRuns": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 5,
+              "description": "Maximum number of queued runs to process per invocation."
+            },
+            "fetchTimeoutSec": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 60,
+              "default": 30,
+              "description": "HTTP fetch timeout per URL in seconds."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "processed", "inserted", "errors"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "processed": { "type": "integer", "description": "Number of scraper runs processed." },
+            "inserted": { "type": "integer", "description": "Total vertex_ir_pressrelease rows inserted." },
+            "errors": { "type": "integer", "description": "Number of runs that failed." },
+            "runId": { "type": "string", "description": "ISO timestamp of this invocation." },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

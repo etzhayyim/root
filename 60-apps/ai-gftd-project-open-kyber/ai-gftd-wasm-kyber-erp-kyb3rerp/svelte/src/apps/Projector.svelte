@@ -6,15 +6,15 @@
   import { ui } from '../lib/store.svelte';
 
   const nsid = {
-    listProjectTree: 'app.etzhayyim.projector.listProjectTree',
-    newProjectConvo: 'app.etzhayyim.projector.newProjectConvo',
-    sendProjectMessage: 'app.etzhayyim.projector.sendProjectMessage',
-    addConvoTask: 'app.etzhayyim.projector.addConvoTask',
-    listConvoTasks: 'app.etzhayyim.projector.listConvoTasks',
-    completeConvoTask: 'app.etzhayyim.projector.completeConvoTask',
-    getConvoProjectStatus: 'app.etzhayyim.projector.getConvoProjectStatus',
-    addReflection: 'app.etzhayyim.projector.addReflection',
-    branchConvo: 'app.etzhayyim.projector.branchConvo'
+    listProjectTree: 'com.etzhayyim.projector.listProjectTree',
+    newProjectConvo: 'com.etzhayyim.projector.newProjectConvo',
+    sendProjectMessage: 'com.etzhayyim.projector.sendProjectMessage',
+    addConvoTask: 'com.etzhayyim.projector.addConvoTask',
+    listConvoTasks: 'com.etzhayyim.projector.listConvoTasks',
+    completeConvoTask: 'com.etzhayyim.projector.completeConvoTask',
+    getConvoProjectStatus: 'com.etzhayyim.projector.getConvoProjectStatus',
+    addReflection: 'com.etzhayyim.projector.addReflection',
+    branchConvo: 'com.etzhayyim.projector.branchConvo'
   } as const;
 
   type Project = { id: string; name: string; emoji: string; convoId: string; children?: Project[] };

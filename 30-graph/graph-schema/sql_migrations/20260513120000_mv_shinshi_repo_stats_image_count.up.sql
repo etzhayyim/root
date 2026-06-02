@@ -13,7 +13,7 @@ DROP MATERIALIZED VIEW IF EXISTS mv_shinshi_repo_stats;
 CREATE MATERIALIZED VIEW mv_shinshi_repo_stats AS
 SELECT
   repo,
-  COUNT(*) FILTER (WHERE collection = 'ai.gftd.apps.shinshi.modelProfile') AS model_profile_count,
+  COUNT(*) FILTER (WHERE collection = 'com.etzhayyim.apps.shinshi.modelProfile') AS model_profile_count,
   COUNT(*) FILTER (WHERE collection = 'app.bsky.feed.post') AS post_count,
   COUNT(*) FILTER (
     WHERE collection = 'app.bsky.feed.post'
@@ -22,5 +22,5 @@ SELECT
 FROM vertex_repo_record
 WHERE repo LIKE 'did:web:sh1n5h1x.etzhayyim.com:%'
   AND repo != 'did:web:sh1n5h1x.etzhayyim.com'
-  AND collection IN ('ai.gftd.apps.shinshi.modelProfile', 'app.bsky.feed.post')
+  AND collection IN ('com.etzhayyim.apps.shinshi.modelProfile', 'app.bsky.feed.post')
 GROUP BY repo;

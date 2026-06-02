@@ -20,7 +20,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1, $2, $3, $4,\n'
-         "        $5, 'app.etzhayyim.gov.source', 'active', $6, $7,\n"
+         "        $5, 'com.etzhayyim.gov.source', 'active', $6, $7,\n"
          "        $8, 'official-government-page', $9, 'html',\n"
          "        'gov-za-official-seed', 'page-wet-wat-gyotaku-ingested',\n"
          '        $10, $11\n'
@@ -28,7 +28,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_gov_source WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-national-departments-9cfc7bff4a-10304550',
+  'parameters': ['at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-national-departments-9cfc7bff4a-10304550',
                  'did:web:zaf-state.etzhayyim.com',
                  'zaf-national-departments-9cfc7bff4a-10304550',
                  'did:web:zaf-state.etzhayyim.com',
@@ -39,8 +39,8 @@ UP = [{'sql': '\n'
                  'https://www.gov.za/about-government/government-system/national-departments',
                  '2026-04-27T01:00:00Z',
                  '{"countryCode":"ZAF","officialPublisher":"South African '
-                 'Government","evidence":{"page":{"rkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.page/zaf-national-departments-9cfc7bff4a-10304550","b2Blob":"official-sources/zaf/govza/zaf-national-departments/page.html"},"wet":{"pageRkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.wetChunk/zaf-national-departments-9cfc7bff4a-10304550"},"wat":{"rkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.wat/zaf-national-departments-9cfc7bff4a-10304550"},"screenshot":{"rkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.screenshot/zaf-national-departments-9cfc7bff4a-10304550","b2Blob":"official-sources/zaf/govza/zaf-national-departments/gyotaku.png","format":"png","fileSize":388467}}}',
-                 'at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-national-departments-9cfc7bff4a-10304550']},
+                 'Government","evidence":{"page":{"rkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.page/zaf-national-departments-9cfc7bff4a-10304550","b2Blob":"official-sources/zaf/govza/zaf-national-departments/page.html"},"wet":{"pageRkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.wetChunk/zaf-national-departments-9cfc7bff4a-10304550"},"wat":{"rkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.wat/zaf-national-departments-9cfc7bff4a-10304550"},"screenshot":{"rkey":"zaf-national-departments-9cfc7bff4a-10304550","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.screenshot/zaf-national-departments-9cfc7bff4a-10304550","b2Blob":"official-sources/zaf/govza/zaf-national-departments/gyotaku.png","format":"png","fileSize":388467}}}',
+                 'at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-national-departments-9cfc7bff4a-10304550']},
  {'sql': '\n'
          '      INSERT INTO vertex_gov_source (\n'
          '        vertex_id, owner_did, rkey, repo, did, collection, status,\n'
@@ -49,7 +49,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1, $2, $3, $4,\n'
-         "        $5, 'app.etzhayyim.gov.source', 'active', $6, $7,\n"
+         "        $5, 'com.etzhayyim.gov.source', 'active', $6, $7,\n"
          "        $8, 'official-government-page', $9, 'html',\n"
          "        'gov-za-official-seed', 'page-wet-wat-gyotaku-ingested',\n"
          '        $10, $11\n'
@@ -57,7 +57,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_gov_source WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-provinces-2aa86b5df1-10305612',
+  'parameters': ['at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-provinces-2aa86b5df1-10305612',
                  'did:web:zaf-state.etzhayyim.com',
                  'zaf-provinces-2aa86b5df1-10305612',
                  'did:web:zaf-state.etzhayyim.com',
@@ -68,8 +68,8 @@ UP = [{'sql': '\n'
                  'https://www.gov.za/provinces',
                  '2026-04-27T01:00:00Z',
                  '{"countryCode":"ZAF","officialPublisher":"South African '
-                 'Government","evidence":{"page":{"rkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.page/zaf-provinces-2aa86b5df1-10305612","b2Blob":"official-sources/zaf/govza/zaf-provinces/page.html"},"wet":{"pageRkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.wetChunk/zaf-provinces-2aa86b5df1-10305612"},"wat":{"rkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.wat/zaf-provinces-2aa86b5df1-10305612"},"screenshot":{"rkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.screenshot/zaf-provinces-2aa86b5df1-10305612","b2Blob":"official-sources/zaf/govza/zaf-provinces/gyotaku.png","format":"png","fileSize":493001}}}',
-                 'at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-provinces-2aa86b5df1-10305612']},
+                 'Government","evidence":{"page":{"rkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.page/zaf-provinces-2aa86b5df1-10305612","b2Blob":"official-sources/zaf/govza/zaf-provinces/page.html"},"wet":{"pageRkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.wetChunk/zaf-provinces-2aa86b5df1-10305612"},"wat":{"rkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.wat/zaf-provinces-2aa86b5df1-10305612"},"screenshot":{"rkey":"zaf-provinces-2aa86b5df1-10305612","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.screenshot/zaf-provinces-2aa86b5df1-10305612","b2Blob":"official-sources/zaf/govza/zaf-provinces/gyotaku.png","format":"png","fileSize":493001}}}',
+                 'at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-provinces-2aa86b5df1-10305612']},
  {'sql': '\n'
          '      INSERT INTO vertex_gov_source (\n'
          '        vertex_id, owner_did, rkey, repo, did, collection, status,\n'
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
          '      )\n'
          '      SELECT\n'
          '        $1, $2, $3, $4,\n'
-         "        $5, 'app.etzhayyim.gov.source', 'active', $6, $7,\n"
+         "        $5, 'com.etzhayyim.gov.source', 'active', $6, $7,\n"
          "        $8, 'official-government-page', $9, 'html',\n"
          "        'gov-za-official-seed', 'page-wet-wat-gyotaku-ingested',\n"
          '        $10, $11\n'
@@ -86,7 +86,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_gov_source WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-provincial-government-6eeae56a66-10306648',
+  'parameters': ['at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-provincial-government-6eeae56a66-10306648',
                  'did:web:zaf-state.etzhayyim.com',
                  'zaf-provincial-government-6eeae56a66-10306648',
                  'did:web:zaf-state.etzhayyim.com',
@@ -97,15 +97,15 @@ UP = [{'sql': '\n'
                  'https://www.gov.za/links/provincial-government',
                  '2026-04-27T01:00:00Z',
                  '{"countryCode":"ZAF","officialPublisher":"South African '
-                 'Government","evidence":{"page":{"rkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.page/zaf-provincial-government-6eeae56a66-10306648","b2Blob":"official-sources/zaf/govza/zaf-provincial-government/page.html"},"wet":{"pageRkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.wetChunk/zaf-provincial-government-6eeae56a66-10306648"},"wat":{"rkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.wat/zaf-provincial-government-6eeae56a66-10306648"},"screenshot":{"rkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.apps.site.screenshot/zaf-provincial-government-6eeae56a66-10306648","b2Blob":"official-sources/zaf/govza/zaf-provincial-government/gyotaku.png","format":"png","fileSize":549036}}}',
-                 'at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-provincial-government-6eeae56a66-10306648']}]
+                 'Government","evidence":{"page":{"rkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.page/zaf-provincial-government-6eeae56a66-10306648","b2Blob":"official-sources/zaf/govza/zaf-provincial-government/page.html"},"wet":{"pageRkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.wetChunk/zaf-provincial-government-6eeae56a66-10306648"},"wat":{"rkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.wat/zaf-provincial-government-6eeae56a66-10306648"},"screenshot":{"rkey":"zaf-provincial-government-6eeae56a66-10306648","vertexId":"at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.apps.site.screenshot/zaf-provincial-government-6eeae56a66-10306648","b2Blob":"official-sources/zaf/govza/zaf-provincial-government/gyotaku.png","format":"png","fileSize":549036}}}',
+                 'at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-provincial-government-6eeae56a66-10306648']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_gov_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-national-departments-9cfc7bff4a-10304550']},
+  'parameters': ['at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-national-departments-9cfc7bff4a-10304550']},
  {'sql': 'DELETE FROM vertex_gov_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-provinces-2aa86b5df1-10305612']},
+  'parameters': ['at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-provinces-2aa86b5df1-10305612']},
  {'sql': 'DELETE FROM vertex_gov_source WHERE vertex_id = $1',
-  'parameters': ['at://did:web:zaf-state.etzhayyim.com/app.etzhayyim.gov.source/zaf-provincial-government-6eeae56a66-10306648']}]
+  'parameters': ['at://did:web:zaf-state.etzhayyim.com/com.etzhayyim.gov.source/zaf-provincial-government-6eeae56a66-10306648']}]
 
 
 def upgrade() -> None:

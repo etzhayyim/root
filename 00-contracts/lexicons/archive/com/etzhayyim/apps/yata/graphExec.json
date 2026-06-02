@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.graphExec",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Archived yata SQL RPC endpoint. Use createKyselyDb(env.HYPERDRIVE) for graph reads/writes.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "statement": { "type": "string" },
+            "query": { "type": "string" },
+            "params": { "type": "object" },
+            "parameters": { "type": "object" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rows": { "type": "array", "items": { "type": "object" } }
+          },
+          "required": ["rows"]
+        }
+      }
+    }
+  }
+}

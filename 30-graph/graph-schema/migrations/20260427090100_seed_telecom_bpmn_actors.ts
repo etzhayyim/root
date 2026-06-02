@@ -22,26 +22,26 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "onboardSubscriber", bpmnProcessId: "telecom_onboard_subscriber",
-    nsid: "app.etzhayyim.apps.telecom.onboardSubscriber", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.onboardSubscriber", resultTimeoutMs: 30000 },
   { proc: "activateSim", bpmnProcessId: "telecom_activate_sim",
-    nsid: "app.etzhayyim.apps.telecom.activateSim", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.activateSim", resultTimeoutMs: 30000 },
   { proc: "provisionService", bpmnProcessId: "telecom_provision_service",
-    nsid: "app.etzhayyim.apps.telecom.provisionService", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.provisionService", resultTimeoutMs: 30000 },
   { proc: "recordUsage", bpmnProcessId: "telecom_record_usage",
-    nsid: "app.etzhayyim.apps.telecom.recordUsage", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.recordUsage", resultTimeoutMs: 15000 },
   { proc: "runBillingCycle", bpmnProcessId: "telecom_run_billing_cycle",
-    nsid: "app.etzhayyim.apps.telecom.runBillingCycle", resultTimeoutMs: 60000 },
+    nsid: "com.etzhayyim.apps.telecom.runBillingCycle", resultTimeoutMs: 60000 },
   { proc: "escalateSlaBreach", bpmnProcessId: "telecom_escalate_sla_breach",
-    nsid: "app.etzhayyim.apps.telecom.escalateSlaBreach", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.escalateSlaBreach", resultTimeoutMs: 30000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

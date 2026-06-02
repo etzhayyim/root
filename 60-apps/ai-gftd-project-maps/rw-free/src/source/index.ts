@@ -17,7 +17,7 @@ export { didForSlug, isValidTtl, slugForDid } from "./types.js";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { MapsSource } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.maps.source";
+const COLLECTION = "com.etzhayyim.maps.source";
 
 function defaultClient(): Etzhayyim {
   return new Etzhayyim({

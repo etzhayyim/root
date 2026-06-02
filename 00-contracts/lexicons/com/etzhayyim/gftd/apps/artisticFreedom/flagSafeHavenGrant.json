@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.artisticFreedom.flagSafeHavenGrant",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Artist residency / safe haven grant (bridges refugee-unhcr + uasc-protection + ocha-funding)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "grantId",
+            "residencyCountryIso3",
+            "supportKind",
+            "grantedAt"
+          ],
+          "properties": {
+            "grantId": {
+              "type": "string"
+            },
+            "attackVid": {
+              "type": "string",
+              "description": "bridges recordAttack"
+            },
+            "sponsorLei": {
+              "type": "string"
+            },
+            "residencyCountryIso3": {
+              "type": "string"
+            },
+            "supportKind": {
+              "type": "string",
+              "enum": [
+                "residency",
+                "visa",
+                "legal",
+                "psych",
+                "relocation",
+                "stipend",
+                "digital_safety"
+              ]
+            },
+            "durationMonths": {
+              "type": "integer"
+            },
+            "grantedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

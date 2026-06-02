@@ -1,0 +1,106 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isekai.useMove",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": {
+              "type": "integer"
+            },
+            "battleId": {
+              "type": "integer"
+            },
+            "playerInstanceId": {
+              "type": "integer"
+            },
+            "moveIndex": {
+              "type": "number"
+            },
+            "turn": {
+              "type": "number"
+            },
+            "playerSpeciesId": {
+              "type": "number"
+            },
+            "playerLevel": {
+              "type": "number"
+            },
+            "playerHp": {
+              "type": "number"
+            },
+            "enemySpeciesId": {
+              "type": "number"
+            },
+            "enemyLevel": {
+              "type": "number"
+            },
+            "enemyHp": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "battleId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "playerMove": {
+              "type": "string"
+            },
+            "enemyLevel": {
+              "type": "number"
+            },
+            "enemyMove": {
+              "type": "string"
+            },
+            "playerLevel": {
+              "type": "number"
+            },
+            "isekaiActiveBattle": {
+              "type": "string"
+            },
+            "playerDmg": {
+              "type": "string"
+            },
+            "enemyDmg": {
+              "type": "string"
+            },
+            "playerHp": {
+              "type": "string"
+            },
+            "enemyHp": {
+              "type": "string"
+            },
+            "battleStatus": {
+              "type": "string"
+            },
+            "evolved": {
+              "type": "string"
+            },
+            "message": {
+              "type": "integer"
+            },
+            "turn": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

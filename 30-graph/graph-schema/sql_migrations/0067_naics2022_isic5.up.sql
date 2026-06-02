@@ -9,7 +9,7 @@ CREATE VIEW IF NOT EXISTS view_naics_industry AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.naics.industry';
+    WHERE collection = 'com.etzhayyim.apps.naics.industry';
 
 CREATE VIEW IF NOT EXISTS view_isic5_activity AS
     SELECT
@@ -20,7 +20,7 @@ CREATE VIEW IF NOT EXISTS view_isic5_activity AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev5';
+    WHERE collection = 'com.etzhayyim.apps.open_isic.economic_activity_rev5';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('naics', 'naics.etzhayyim.com', 2125, 'industries', 'industry');

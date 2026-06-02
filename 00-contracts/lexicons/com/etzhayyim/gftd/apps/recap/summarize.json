@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.recap.summarize",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Extract transcript from a supported video platform and generate an LLM summary. Returns a structured summary with overview, key points, and conclusion.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["url"],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Source video URL (YouTube, TikTok, NicoNico, etc.)"
+            },
+            "lang": {
+              "type": "string",
+              "description": "Output language code (default: ja)"
+            },
+            "actorDid": {
+              "type": "string",
+              "description": "DID of the requesting actor"
+            },
+            "orgDid": {
+              "type": "string",
+              "description": "DID of the requesting org"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "platform": { "type": "string" },
+            "title": { "type": "string" },
+            "uploader": { "type": "string" },
+            "durationSec": { "type": "integer" },
+            "uploadDate": { "type": "string" },
+            "transcriptLang": { "type": "string" },
+            "summary": { "type": "string" },
+            "summaryUri": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

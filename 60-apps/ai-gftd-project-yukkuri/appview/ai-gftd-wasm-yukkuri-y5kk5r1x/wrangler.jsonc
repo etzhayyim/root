@@ -19,7 +19,7 @@
     "APP_DISPLAY_NAME": "Yukkuri — AI Commentary Video Generator",
     "APP_EMBED_URL": "https://y5kk5r1x.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "y5kk5r1x",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"

@@ -32,30 +32,30 @@ function readContract(relPath: string): string {
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1",
     bpmnProcessId: "open_pharma_supply_register_product",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-pharma-supply/registerProduct.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-pharma-supply/registerProduct.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1",
     bpmnProcessId: "open_pharma_supply_flag_shortage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-pharma-supply/flagShortage.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-pharma-supply/flagShortage.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1",
-    nsid: "app.etzhayyim.apps.pharmaSupply.registerProduct",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1",
+    nsid: "com.etzhayyim.apps.pharmaSupply.registerProduct",
     bpmnProcessId: "open_pharma_supply_register_product",
     ownerDid,
     resultTimeoutMs: 15000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1",
-    nsid: "app.etzhayyim.apps.pharmaSupply.flagShortage",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1",
+    nsid: "com.etzhayyim.apps.pharmaSupply.flagShortage",
     bpmnProcessId: "open_pharma_supply_flag_shortage",
     ownerDid,
     resultTimeoutMs: 15000,

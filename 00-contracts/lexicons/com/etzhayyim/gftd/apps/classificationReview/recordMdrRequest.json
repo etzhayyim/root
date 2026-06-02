@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.classificationReview.recordMdrRequest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Mandatory Declassification Review / ISCAP / FRUS (bridges foiaTracker.flagResponseDelay + ig-audit + press-freedom)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "requestId",
+            "agency",
+            "classificationLevel",
+            "reviewKind",
+            "requestedAt"
+          ],
+          "properties": {
+            "requestId": {
+              "type": "string"
+            },
+            "agency": {
+              "type": "string",
+              "enum": [
+                "cia",
+                "doe",
+                "dia",
+                "dod",
+                "state",
+                "fbi",
+                "nga",
+                "nro",
+                "nsa",
+                "doj",
+                "white_house",
+                "nsc",
+                "oig",
+                "archives_nara"
+              ]
+            },
+            "classificationLevel": {
+              "type": "string",
+              "enum": [
+                "top_secret",
+                "secret",
+                "confidential",
+                "cui",
+                "sci",
+                "sap",
+                "nato_secret",
+                "rdy_eyes_only"
+              ]
+            },
+            "reviewKind": {
+              "type": "string",
+              "enum": [
+                "mdr",
+                "iscap_appeal",
+                "automatic_25_year",
+                "foia_exempt_b1",
+                "eo_13526",
+                "public_interest_declass",
+                "congressional_request",
+                "historical"
+              ]
+            },
+            "responseDelayVid": {
+              "type": "string",
+              "description": "bridges foiaTracker.flagResponseDelay"
+            },
+            "requestedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

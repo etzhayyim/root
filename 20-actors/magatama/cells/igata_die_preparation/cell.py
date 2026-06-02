@@ -29,7 +29,7 @@ Pregel graph (5 nodes):
                                   G7=NONE invariant: spray composition logged
         |
         v
-    emit_die_ready           ->  MST PUT app.etzhayyim.igata.dieAttestation
+    emit_die_ready           ->  MST PUT com.etzhayyim.igata.dieAttestation
                                   (die ID, cycle count, crack status, thermal
                                    profile CID, lubricant batch + spray amount,
                                    Mimi + Otete witness DIDs per G4)

@@ -10,14 +10,14 @@
         "id": "sys.worker", "name": "open-airplane Worker",
         "platform": "Cloudflare Workers", "entrypoint": "worker/src/app.ts",
         "interfaces": [
-          { "id": "if.xrpc.defineAirport",       "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openAirplane.defineAirport" },
-          { "id": "if.xrpc.listAirports",        "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openAirplane.listAirports" },
-          { "id": "if.xrpc.registerAircraft",    "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openAirplane.registerAircraft" },
-          { "id": "if.xrpc.scheduleFlight",      "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openAirplane.scheduleFlight" },
-          { "id": "if.xrpc.recordFlightStatus",  "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openAirplane.recordFlightStatus" },
-          { "id": "if.xrpc.listFlights",         "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openAirplane.listFlights" },
-          { "id": "if.xrpc.reportIncident",      "kind": "XRPC", "method": "POST", "nsid": "app.etzhayyim.apps.openAirplane.reportIncident" },
-          { "id": "if.xrpc.listIncidents",       "kind": "XRPC", "method": "GET",  "nsid": "app.etzhayyim.apps.openAirplane.listIncidents" }
+          { "id": "if.xrpc.defineAirport",       "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openAirplane.defineAirport" },
+          { "id": "if.xrpc.listAirports",        "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openAirplane.listAirports" },
+          { "id": "if.xrpc.registerAircraft",    "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openAirplane.registerAircraft" },
+          { "id": "if.xrpc.scheduleFlight",      "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openAirplane.scheduleFlight" },
+          { "id": "if.xrpc.recordFlightStatus",  "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openAirplane.recordFlightStatus" },
+          { "id": "if.xrpc.listFlights",         "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openAirplane.listFlights" },
+          { "id": "if.xrpc.reportIncident",      "kind": "XRPC", "method": "POST", "nsid": "com.etzhayyim.apps.openAirplane.reportIncident" },
+          { "id": "if.xrpc.listIncidents",       "kind": "XRPC", "method": "GET",  "nsid": "com.etzhayyim.apps.openAirplane.listIncidents" }
         ]
       },
       { "id": "sys.d1", "name": "Cloudflare D1 (SQLite)", "platform": "D1",

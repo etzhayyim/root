@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.scotusDocket.flagDoctrinalShift",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Overturn / major questions / Chevron shift (bridges tosArbitration.flagUnconscionability + treasuryRulemaking.flagChallenge + federal-court-docket)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "certVid",
+            "shiftKind",
+            "ruledAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "certVid": {
+              "type": "string",
+              "description": "bridges recordCertGrant"
+            },
+            "shiftKind": {
+              "type": "string",
+              "enum": [
+                "overturn_precedent",
+                "major_questions",
+                "chevron_retreat",
+                "nondelegation_revival",
+                "private_rights_of_action",
+                "implied_preemption",
+                "concurrent_jurisdiction",
+                "categorical_rule",
+                "balancing_test",
+                "textualism_narrowing"
+              ]
+            },
+            "downstreamStatutesAffected": {
+              "type": "integer"
+            },
+            "ruledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

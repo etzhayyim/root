@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'webmk_create_proposal',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -31,7 +31,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/webmk">\n'
                  '  <bpmn:process id="webmk_create_proposal" name="webmk createProposal" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.webmk.createProposal", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.webmk.createProposal", '
                  '"version": 1, "resultTimeoutMs": 180000, "adr": '
                  '"2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>\n'
                  '\n'
@@ -95,12 +95,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3022,
-                 '00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/webmk/createProposal.bpmn',
                  '2026-05-08T00:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -108,7 +108,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'webmk_deliver_proposal',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -118,7 +118,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/webmk">\n'
                  '  <bpmn:process id="webmk_deliver_proposal" name="webmk deliverProposal" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.webmk.deliverProposal", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.webmk.deliverProposal", '
                  '"version": 1, "resultTimeoutMs": 60000 }</bpmn:documentation>\n'
                  '    <bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>\n'
@@ -135,12 +135,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1117,
-                 '00-contracts/bpmn/ai/gftd/webmk/deliverProposal.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/webmk/deliverProposal.bpmn',
                  '2026-05-08T00:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -148,7 +148,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'newsletter_send_campaign',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -158,7 +158,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/newsletter">\n'
                  '  <bpmn:process id="newsletter_send_campaign" name="newsletter sendCampaign" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.newsletter.sendCampaign", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.newsletter.sendCampaign", '
                  '"version": 1, "resultTimeoutMs": 120000 }</bpmn:documentation>\n'
                  '    <bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>\n'
@@ -175,12 +175,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1133,
-                 '00-contracts/bpmn/ai/gftd/newsletter/sendCampaign.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/newsletter/sendCampaign.bpmn',
                  '2026-05-08T00:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -188,9 +188,9 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.webmk.createProposal',
+                 'com.etzhayyim.apps.webmk.createProposal',
                  'webmk_create_proposal',
                  180000,
                  '2026-05-08T00:00:00Z',
@@ -198,7 +198,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'langgraph',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -206,9 +206,9 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.webmk.deliverProposal',
+                 'com.etzhayyim.apps.webmk.deliverProposal',
                  'webmk_deliver_proposal',
                  60000,
                  '2026-05-08T00:00:00Z',
@@ -216,7 +216,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'zeebe',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -224,9 +224,9 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.newsletter.sendCampaign',
+                 'com.etzhayyim.apps.newsletter.sendCampaign',
                  'newsletter_send_campaign',
                  60000,
                  '2026-05-08T00:00:00Z',
@@ -234,20 +234,20 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'zeebe',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1']}]
 
 
 def upgrade() -> None:

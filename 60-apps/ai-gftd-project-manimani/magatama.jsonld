@@ -21,7 +21,7 @@
   "layer": "edge-dispatcher",
   "atStandard": false,
   "nsidPrefixes": [
-    "ai.gftd.apps.manimani"
+    "com.etzhayyim.apps.manimani"
   ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",

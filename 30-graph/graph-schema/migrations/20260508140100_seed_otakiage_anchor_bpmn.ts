@@ -8,12 +8,12 @@ import { sql } from "kysely";
  * otakiage.etzhayyim.com Phase 2b1 — ERC725 anchor BPMN seeding.
  *
  * Adds 2 BPMN process_def + 1 lexicon binding for the
- * `app.etzhayyim.apps.otakiage.anchorCertificate` XRPC entry plus the
+ * `com.etzhayyim.apps.otakiage.anchorCertificate` XRPC entry plus the
  * R/PT1H sweep that progresses queued rows.
  *
  *  Process / NSID                                      Trigger
  *  ---------------------------------------------------------------------
- *  otakiage_anchor_certificate         (XRPC)         app.etzhayyim.apps.otakiage.anchorCertificate
+ *  otakiage_anchor_certificate         (XRPC)         com.etzhayyim.apps.otakiage.anchorCertificate
  *  otakiage_certificate_anchor_sweep   (R/PT1H)       (no XRPC — autonomous)
  */
 
@@ -29,17 +29,17 @@ const ownerDid = "did:web:otakiage.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.otakiage";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-anchor-certificate-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-anchor-certificate-v1",
     bpmnProcessId: "otakiage_anchor_certificate",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/anchorCertificate.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/otakiage-certificate-anchor-sweep-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/anchorCertificate.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-certificate-anchor-sweep-v1",
     bpmnProcessId: "otakiage_certificate_anchor_sweep",
-    sourcePath: "00-contracts/bpmn/ai/gftd/otakiage/certificateAnchorSweep.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/otakiage/certificateAnchorSweep.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/otakiage-anchorCertificate-v1",
-    nsid: "app.etzhayyim.apps.otakiage.anchorCertificate",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/otakiage-anchorCertificate-v1",
+    nsid: "com.etzhayyim.apps.otakiage.anchorCertificate",
     bpmnProcessId: "otakiage_anchor_certificate", ownerDid, resultTimeoutMs: 60_000 },
 ];
 

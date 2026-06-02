@@ -1,7 +1,7 @@
 <!--
   /research — Product/price research dashboard (yoro.productIngest).
-  Reads vertex_yoro_product_research via XRPC app.etzhayyim.apps.yoro.listProductResearch.
-  Triggers ingest via XRPC app.etzhayyim.apps.yoro.ingestProductCategory.
+  Reads vertex_yoro_product_research via XRPC com.etzhayyim.apps.yoro.listProductResearch.
+  Triggers ingest via XRPC com.etzhayyim.apps.yoro.ingestProductCategory.
 -->
 <script lang="ts">
 	import { browser } from '$app/environment';
@@ -35,7 +35,7 @@
 	async function load() {
 		loading = true;
 		try {
-			const res = await atQuery('app.etzhayyim.apps.yoro.listProductResearch', { limit: 50 }) as { items: ResearchRow[] };
+			const res = await atQuery('com.etzhayyim.apps.yoro.listProductResearch', { limit: 50 }) as { items: ResearchRow[] };
 			items = res.items ?? [];
 		} catch {
 			items = [];
@@ -49,7 +49,7 @@
 		triggering = true;
 		lastJobStatus = null;
 		try {
-			const res = await atProcedure('app.etzhayyim.apps.yoro.ingestProductCategory', {
+			const res = await atProcedure('com.etzhayyim.apps.yoro.ingestProductCategory', {
 				query: queryInput.trim(),
 				category: categoryInput.trim() || undefined,
 				retailers: [],

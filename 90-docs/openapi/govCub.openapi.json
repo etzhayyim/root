@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govCub.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govCub.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Cuba government.",
-        "operationId": "app.etzhayyim.govCub.followSiteDeps",
+        "operationId": "com.etzhayyim.govCub.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govCub.heartbeatTick": {
       "post": {
         "summary": "Run the Cuba government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govCub.heartbeatTick",
+        "operationId": "com.etzhayyim.govCub.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.listOrgs": {
+    "/xrpc/com.etzhayyim.govCub.listOrgs": {
       "get": {
         "summary": "List Cuba government organization graph records.",
-        "operationId": "app.etzhayyim.govCub.listOrgs",
+        "operationId": "com.etzhayyim.govCub.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.registerDIDs": {
+    "/xrpc/com.etzhayyim.govCub.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Cuba government organizations.",
-        "operationId": "app.etzhayyim.govCub.registerDIDs",
+        "operationId": "com.etzhayyim.govCub.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govCub.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Cuba government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govCub.resolveOrgPath",
+        "operationId": "com.etzhayyim.govCub.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.seedOrgs": {
+    "/xrpc/com.etzhayyim.govCub.seedOrgs": {
       "post": {
         "summary": "Seed initial Cuba government organization records into the graph.",
-        "operationId": "app.etzhayyim.govCub.seedOrgs",
+        "operationId": "com.etzhayyim.govCub.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.shinka": {
+    "/xrpc/com.etzhayyim.govCub.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Cuba government organization update.",
-        "operationId": "app.etzhayyim.govCub.shinka",
+        "operationId": "com.etzhayyim.govCub.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCub.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govCub.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Cuba government organization changes to graph.",
-        "operationId": "app.etzhayyim.govCub.syncWetUpdates",
+        "operationId": "com.etzhayyim.govCub.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

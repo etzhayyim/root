@@ -30,7 +30,7 @@ import { Readable } from "node:stream";
 
 const RW_CONN   = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const RECRUIT_DID = "did:web:recruit.etzhayyim.com";
-const COLLECTION  = "app.etzhayyim.apps.recruit.jobPosting";
+const COLLECTION  = "com.etzhayyim.apps.recruit.jobPosting";
 
 const args    = process.argv.slice(2);
 const getArg  = (k, d) => { const i = args.indexOf(`--${k}`); return i === -1 ? d : args[i + 1] ?? d; };

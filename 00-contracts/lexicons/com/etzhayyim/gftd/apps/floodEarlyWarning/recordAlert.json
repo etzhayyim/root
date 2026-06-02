@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.floodEarlyWarning.recordAlert",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Flood early warning alert (GDACS / EFAS / GloFAS / JMA / NOAA / JRC — bridges damSafety.flagCriticalRisk + ecmwf-forecast + disaster-response)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "alertId",
+            "regionName",
+            "floodKind",
+            "warningLevel",
+            "sourceSystem",
+            "issuedAt"
+          ],
+          "properties": {
+            "alertId": {
+              "type": "string"
+            },
+            "regionName": {
+              "type": "string"
+            },
+            "floodKind": {
+              "type": "string",
+              "enum": [
+                "river_riverine",
+                "flash",
+                "urban",
+                "coastal",
+                "glacial_outburst",
+                "dam_break",
+                "mudflow",
+                "storm_surge",
+                "snowmelt_ice_jam",
+                "compound"
+              ]
+            },
+            "warningLevel": {
+              "type": "string",
+              "enum": [
+                "advisory",
+                "watch",
+                "warning",
+                "emergency",
+                "imminent",
+                "ongoing_recession",
+                "post_event_review"
+              ]
+            },
+            "sourceSystem": {
+              "type": "string",
+              "enum": [
+                "gdacs",
+                "efas_europe",
+                "glofas",
+                "jma_japan",
+                "noaa_nws",
+                "bmkg_indonesia",
+                "imd_india",
+                "shkp_shanghai",
+                "cwc_india",
+                "gfas_asean"
+              ]
+            },
+            "damRiskVid": {
+              "type": "string",
+              "description": "bridges damSafety.flagCriticalRisk"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

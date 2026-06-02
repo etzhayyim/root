@@ -25,7 +25,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const BPMN_PROCESS_ID = "owl_reasoner_batch";
 const BPMN_FILE = path.resolve(
   repoRoot,
-  "00-contracts/bpmn/ai/gftd/owl/owlReasonerBatch.bpmn",
+  "00-contracts/bpmn/com/etzhayyim/owl/owlReasonerBatch.bpmn",
 );
 
 export async function up(db: Kysely<unknown>): Promise<void> {

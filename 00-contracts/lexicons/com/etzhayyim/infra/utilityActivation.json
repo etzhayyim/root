@@ -1,0 +1,106 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.infra.utilityActivation",
+  "description": "Terminal record emitted by the infra-utility-connect activation_test Pregel cell. Confirms one utility class is live + tested + accepting consumption readings. A construction site typically generates 4 of these (one per water/gas/electric/telecom). Cited by the parent tatekata mission's commissioning gate as proof of utility activation. Per ADR-2605250900 + gates G2 (IPFS-pinned activation test results), G3 (provider witness signature), G5 (Charter Rider).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "activationId",
+          "meterInstallationId",
+          "utilityClass",
+          "activatedAt",
+          "activationTestResultIpfsCid",
+          "providerWitnessSignatures",
+          "charterRiderComplianceAttested",
+          "activationTestCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "activationId": {
+            "type": "string"
+          },
+          "meterInstallationId": {
+            "type": "string",
+            "description": "Parent meterInstallation this activation completes."
+          },
+          "utilityClass": {
+            "type": "string",
+            "knownValues": [
+              "water",
+              "gas",
+              "electric",
+              "telecom"
+            ]
+          },
+          "activatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Timestamp the provider's billing-system marked the meter as live."
+          },
+          "activationTestResultIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "G2: IPFS CID of the activation test results document (pressure / voltage / flow / signal-strength as appropriate for utilityClass)."
+          },
+          "providerWitnessSignatures": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#providerWitnessSignature"
+            },
+            "minLength": 1,
+            "description": "G3: at least one provider witness signature confirming activation."
+          },
+          "charterRiderComplianceAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "Structural G5."
+          },
+          "activationTestCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "providerBillingAccountReference": {
+            "type": "string",
+            "description": "Optional opaque provider-issued billing account reference. Persisted for the member's account-management UI; PII filter applies."
+          },
+          "expectedFirstBillingCycleStartsAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Optional provider-quoted first billing cycle start. Informational only."
+          }
+        }
+      }
+    },
+    "providerWitnessSignature": {
+      "type": "object",
+      "required": ["witnessDid", "providerEmployeeReference", "signedAt", "signature"],
+      "properties": {
+        "witnessDid": {
+          "type": "string",
+          "description": "DID of the provider witness. Should differ from the submitter's DID."
+        },
+        "providerEmployeeReference": {
+          "type": "string",
+          "description": "Opaque provider-internal employee reference. PII filter applies."
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "datetime"
+        },
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over (activationId + meterInstallationId + activatedAt + activationTestResultIpfsCid)."
+        }
+      }
+    }
+  }
+}

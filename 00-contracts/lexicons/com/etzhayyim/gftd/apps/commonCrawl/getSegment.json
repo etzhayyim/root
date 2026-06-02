@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.commonCrawl.getSegment",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a Common Crawl ingest segment by ingestId or crawlId+segmentId.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "properties": { "ingestId": { "type": "string" }, "crawlId": { "type": "string" }, "segmentId": { "type": "string" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "uri": { "type": "string", "format": "at-uri" }, "ingestId": { "type": "string" }, "crawlId": { "type": "string" }, "segmentId": { "type": "string" }, "format": { "type": "string" }, "url": { "type": "string", "format": "uri" }, "estimatedRecords": { "type": "integer" }, "filterDomain": { "type": "string" }, "outputCollection": { "type": "string" }, "status": { "type": "string", "enum": ["pending", "in-progress", "completed", "failed"] } } } }
+    }
+  }
+}

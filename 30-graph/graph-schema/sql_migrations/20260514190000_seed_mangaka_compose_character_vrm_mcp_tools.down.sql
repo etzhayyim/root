@@ -2,13 +2,13 @@
 
 DELETE FROM vertex_mcp_tool_def
 WHERE nsid IN (
-  'ai.gftd.apps.mangaka.tools.loadCharacterProfile',
-  'ai.gftd.apps.mangaka.tools.generateMultiviewAnime',
-  'ai.gftd.apps.mangaka.tools.reconstructMesh',
-  'ai.gftd.apps.mangaka.tools.extractFacialBlendshapes',
-  'ai.gftd.apps.mangaka.tools.autoRigHumanoid',
-  'ai.gftd.apps.mangaka.tools.bindVrm',
-  'ai.gftd.apps.mangaka.tools.validateVrm'
+  'com.etzhayyim.apps.mangaka.tools.loadCharacterProfile',
+  'com.etzhayyim.apps.mangaka.tools.generateMultiviewAnime',
+  'com.etzhayyim.apps.mangaka.tools.reconstructMesh',
+  'com.etzhayyim.apps.mangaka.tools.extractFacialBlendshapes',
+  'com.etzhayyim.apps.mangaka.tools.autoRigHumanoid',
+  'com.etzhayyim.apps.mangaka.tools.bindVrm',
+  'com.etzhayyim.apps.mangaka.tools.validateVrm'
 );
 
 FLUSH;

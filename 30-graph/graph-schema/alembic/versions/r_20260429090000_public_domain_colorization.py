@@ -222,7 +222,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1',
                  'did:web:pd-color.etzhayyim.com',
                  'public_domain_colorization_pipeline',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.xrpc.invoke"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.storage.resolveSourceAsset&quot;" target="nsid"/>\n'
+                 'source="=&quot;com.etzhayyim.apps.storage.resolveSourceAsset&quot;" target="nsid"/>\n'
                  '          <zeebe:input source="={sourceUrl: sourceUrl, sourceBlobCid: '
                  'sourceBlobCid, sourceIpfsCid: sourceIpfsCid, sourceIpfsUrl: sourceIpfsUrl, '
                  'sourceSha256: sourceSha256, sourceByteSize: sourceByteSize, title: title, '
@@ -318,7 +318,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.xrpc.invoke"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.copyright.license.inspect&quot;" target="nsid"/>\n'
+                 'source="=&quot;com.etzhayyim.apps.copyright.license.inspect&quot;" target="nsid"/>\n'
                  '          <zeebe:input source="={workId: workId, title: title, workKind: '
                  'workKind, publishJurisdiction: publishJurisdiction, sourceRecord: sourceRecord}" '
                  'target="payload"/>\n'
@@ -778,10 +778,10 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="={\n'
                  '              repo: callerDid,\n'
                  '              collection: '
-                 '&quot;app.etzhayyim.apps.publicDomainColorization.publication&quot;,\n'
+                 '&quot;com.etzhayyim.apps.publicDomainColorization.publication&quot;,\n'
                  '              record: {\n'
                  '                $type: '
-                 '&quot;app.etzhayyim.apps.publicDomainColorization.publication&quot;,\n'
+                 '&quot;com.etzhayyim.apps.publicDomainColorization.publication&quot;,\n'
                  '                workId: workId,\n'
                  '                title: title,\n'
                  '                workKind: workKind,\n'
@@ -924,12 +924,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  33207,
-                 '00-contracts/bpmn/ai/gftd/public-domain-colorization/colorizeWork.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/public-domain-colorization/colorizeWork.bpmn',
                  '2026-04-29T09:00:00Z',
                  'did:web:pd-color.etzhayyim.com',
                  'did:web:pd-color.etzhayyim.com',
                  'sys.bpmn.seed.public-domain-colorization',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -943,21 +943,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1',
                  'did:web:pd-color.etzhayyim.com',
-                 'app.etzhayyim.apps.publicDomainColorization.colorizeWork',
+                 'com.etzhayyim.apps.publicDomainColorization.colorizeWork',
                  'public_domain_colorization_pipeline',
                  900000,
                  '2026-04-29T09:00:00Z',
                  'did:web:pd-color.etzhayyim.com',
                  'did:web:pd-color.etzhayyim.com',
                  'sys.bpmn.seed.public-domain-colorization',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/public-domain-colorization-colorizeWork-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/public-domain-colorization-colorize-work-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_pd_color_publication', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_pd_color_localization_asset', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_pd_color_derivative_asset', 'parameters': []},

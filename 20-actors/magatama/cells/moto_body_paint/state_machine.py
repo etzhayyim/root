@@ -118,7 +118,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     bp.robotSignatures = mock_sigs
     bp.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.futawa.paintAttestation",
+        "$type": "com.etzhayyim.futawa.paintAttestation",
         "vehicleId": bp.vehicleId,
         "panel": bp.panel,
         "charterScan": bp.charterScan,

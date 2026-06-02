@@ -14,31 +14,31 @@ const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESSES = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-payment-intake-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-payment-intake-v1",
     bpmnProcessId: "lawfirm_payment_intake",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/paymentIntake.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lawfirm/paymentIntake.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-marketing-tick-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-marketing-tick-v1",
     bpmnProcessId: "lawfirm_marketing_tick",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/marketingTick.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lawfirm/marketingTick.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-marketing-ad-hoc-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-marketing-ad-hoc-v1",
     bpmnProcessId: "lawfirm_marketing_ad_hoc",
-    sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/marketingAdHoc.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/lawfirm/marketingAdHoc.bpmn",
   },
 ];
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-stripe-webhook-v1",
-    nsid: "app.etzhayyim.apps.lawfirm.stripeWebhook",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-stripe-webhook-v1",
+    nsid: "com.etzhayyim.apps.lawfirm.stripeWebhook",
     bpmnProcessId: "lawfirm_payment_intake",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-marketing-ad-hoc-xrpc-v1",
-    nsid: "app.etzhayyim.apps.lawfirm.marketingDispatch",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-marketing-ad-hoc-xrpc-v1",
+    nsid: "com.etzhayyim.apps.lawfirm.marketingDispatch",
     bpmnProcessId: "lawfirm_marketing_ad_hoc",
     resultTimeoutMs: 180_000,
   },

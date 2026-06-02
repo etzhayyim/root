@@ -13,7 +13,7 @@ member authorization; never threats / 威迫); G14 verified-remedy-only; G15
 member-self-action default (代行 requires per-submission consent + 司法書士法/
 行政書士法 clearance + Council Lv7+); no platform-held signing key
 (ADR-2605231525); Murakumo-only (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.kurashimori.dispatchRecord.
+Output Lexicon(s): com.etzhayyim.kurashimori.dispatchRecord.
 
 R0 scaffold — import-time RuntimeError until R2 (self-send) / R3 (代行).
 """

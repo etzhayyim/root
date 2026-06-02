@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.workerGrievance.recordGrievance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Worker grievance filing (ITUC / national labor inspectorate / OECD NCP — bridges iloLaborRights.flagNonCompliance + forced-labor + gender-pay-gap)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "grievanceId",
+            "jurisdictionIso3",
+            "grievanceKind",
+            "channel",
+            "filedAt"
+          ],
+          "properties": {
+            "grievanceId": {
+              "type": "string"
+            },
+            "employerLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "grievanceKind": {
+              "type": "string",
+              "enum": [
+                "wage_theft",
+                "unsafe_workplace",
+                "union_busting",
+                "retaliation",
+                "discrimination",
+                "sexual_harassment",
+                "forced_overtime",
+                "child_labor",
+                "forced_labor",
+                "migrant_exploitation",
+                "collective_barg_refusal"
+              ]
+            },
+            "channel": {
+              "type": "string",
+              "enum": [
+                "ituc_global_rights",
+                "oecd_ncp",
+                "national_inspectorate",
+                "company_hotline",
+                "union_complaint",
+                "ngo_report",
+                "media_investigation",
+                "whistleblower"
+              ]
+            },
+            "iloFindingVid": {
+              "type": "string",
+              "description": "bridges iloLaborRights.flagNonCompliance"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

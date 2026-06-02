@@ -87,7 +87,7 @@
  {:db/ident :spirit/encrypted?
   :db/valueType :db.type/boolean
   :db/cardinality :db.cardinality/one
-  :db/doc "true → field detail held under app.etzhayyim.encrypted.* (要配慮 PII; ADR-2605181100). Default true for :human"}
+  :db/doc "true → field detail held under com.etzhayyim.encrypted.* (要配慮 PII; ADR-2605181100). Default true for :human"}
  {:db/ident :spirit/sourcing
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one

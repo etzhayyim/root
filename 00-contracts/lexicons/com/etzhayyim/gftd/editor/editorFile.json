@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.editor.editorFile",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["projectId", "path", "blobRef", "sha256", "sizeBytes", "mimeType", "updatedAt", "orgId", "userId", "actorId"],
+        "properties": {
+          "projectId": { "type": "string" },
+          "path": { "type": "string", "maxLength": 1024 },
+          "blobRef": { "type": "string" },
+          "sha256": { "type": "string", "minLength": 64, "maxLength": 64 },
+          "sizeBytes": { "type": "integer", "minimum": 0 },
+          "mimeType": { "type": "string" },
+          "updatedAt": { "type": "string", "format": "datetime" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@ from e7m_dataset import pds_diagnose as diag
 
 _AT_URI = (
     "at://did:web:dataset-pinner.etzhayyim.com/"
-    "app.etzhayyim.substrate.datasetPin/3kpqab"
+    "com.etzhayyim.substrate.datasetPin/3kpqab"
 )
 
 
@@ -46,7 +46,7 @@ def test_parse_canonical_at_uri(capsys):
     assert rc == 0
     captured = capsys.readouterr()
     assert "repo:       did:web:dataset-pinner.etzhayyim.com" in captured.out
-    assert "collection: app.etzhayyim.substrate.datasetPin" in captured.out
+    assert "collection: com.etzhayyim.substrate.datasetPin" in captured.out
     assert "rkey:       3kpqab" in captured.out
 
 
@@ -55,7 +55,7 @@ def test_parse_json_output(capsys):
     assert rc == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["repo"] == "did:web:dataset-pinner.etzhayyim.com"
-    assert payload["collection"] == "app.etzhayyim.substrate.datasetPin"
+    assert payload["collection"] == "com.etzhayyim.substrate.datasetPin"
     assert payload["rkey"] == "3kpqab"
 
 

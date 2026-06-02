@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMofa.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "外務省 action / treaty / consular / development aid (bridges sovereignDebt + extraditionTreaty + oecdDacTransparency)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "bureau",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "bureau": {
+              "type": "string",
+              "enum": [
+                "honsho_minister",
+                "secretariat",
+                "north_america",
+                "europe_central_asia",
+                "asia_oceania",
+                "middle_east_africa",
+                "cn_korea",
+                "latin_caribbean",
+                "economic",
+                "international_cooperation",
+                "international_legal",
+                "intelligence_analysis",
+                "press_pr",
+                "jica_govern",
+                "ngo_grantsdesk"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "bilateral_treaty",
+                "fpda_security_consultation",
+                "apec_japan_summit",
+                "g7_g20_jp_chair",
+                "tcs_korea_china_jp",
+                "oda_white_paper",
+                "oda_kibou",
+                "jica_loan",
+                "jbic_loan",
+                "economic_sanction_jp",
+                "jeita_arms_export_review",
+                "bracket_jhcl",
+                "fc_cn_friendship",
+                "tomodachi_us_alliance",
+                "quad_uomp",
+                "fpda_kicker"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges sovereignDebt / extraditionTreaty"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

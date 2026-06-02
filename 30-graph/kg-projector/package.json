@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "SSoT projector for the etzhayyim Knowledge Graph. Stage K1 of ADR-2605190900. Reads deps.toml + ADR front-matter + lexicon files; emits app.etzhayyim.kg.{node,edge} records as JSON files with deterministic rkeys.",
+  "description": "SSoT projector for the etzhayyim Knowledge Graph. Stage K1 of ADR-2605190900. Reads deps.toml + ADR front-matter + lexicon files; emits com.etzhayyim.kg.{node,edge} records as JSON files with deterministic rkeys.",
   "license": "Apache-2.0",
   "main": "dist/index.js",
   "bin": {

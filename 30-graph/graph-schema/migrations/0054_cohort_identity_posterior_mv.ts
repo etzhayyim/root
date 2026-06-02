@@ -5,11 +5,11 @@ import { Kysely, sql } from 'kysely';
  *
  * Drives:
  *   1. Fission decision (`posterior > 0.95 AND judge_agreement`) for
- *      `app.etzhayyim.cohort.fission` procedure.
+ *      `com.etzhayyim.cohort.fission` procedure.
  *   2. k-anonymity drift detection for Path F scheduler middleware
  *      `cohortKReevaluate` task.
  *
- * Source collection: `app.etzhayyim.cohort.evidence` (Tier 1 hashed AT Repo record).
+ * Source collection: `com.etzhayyim.cohort.evidence` (Tier 1 hashed AT Repo record).
  *
  * Pre-flight (graph-schema CLAUDE.md §MV Memory Safety Guardrails):
  *   - GROUP BY cohort_did cardinality: 初期 ~31、scale ~10k → safe
@@ -31,7 +31,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
                THEN 1 ELSE 0 END)::BIGINT                           AS fission_ready_count,
       MAX(observed_at)                                              AS last_evidence_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.cohort.evidence'
+    WHERE collection = 'com.etzhayyim.cohort.evidence'
     GROUP BY cohort_did`.execute(db);
 
   await sql`CREATE MATERIALIZED VIEW IF NOT EXISTS mv_cohort_k_drift AS
@@ -43,7 +43,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
            ELSE COUNT(*) / COUNT(DISTINCT signal_kind)
       END::BIGINT                         AS k_proxy
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.cohort.evidence'
+    WHERE collection = 'com.etzhayyim.cohort.evidence'
     GROUP BY cohort_did`.execute(db);
 }
 

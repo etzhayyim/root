@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.identity.getEngagement": {
+    "/xrpc/com.etzhayyim.identity.getEngagement": {
       "get": {
-        "summary": "app.etzhayyim.identity.getEngagement",
-        "operationId": "app.etzhayyim.identity.getEngagement",
+        "summary": "com.etzhayyim.identity.getEngagement",
+        "operationId": "com.etzhayyim.identity.getEngagement",
         "parameters": [
           {
             "name": "did",
@@ -49,10 +49,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.identity.list": {
+    "/xrpc/com.etzhayyim.identity.list": {
       "get": {
-        "summary": "app.etzhayyim.identity.list",
-        "operationId": "app.etzhayyim.identity.list",
+        "summary": "com.etzhayyim.identity.list",
+        "operationId": "com.etzhayyim.identity.list",
         "parameters": [
           {
             "name": "limit",
@@ -102,10 +102,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.identity.pullFeed": {
+    "/xrpc/com.etzhayyim.identity.pullFeed": {
       "get": {
-        "summary": "app.etzhayyim.identity.pullFeed",
-        "operationId": "app.etzhayyim.identity.pullFeed",
+        "summary": "com.etzhayyim.identity.pullFeed",
+        "operationId": "com.etzhayyim.identity.pullFeed",
         "parameters": [
           {
             "name": "did",
@@ -152,10 +152,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.identity.register": {
+    "/xrpc/com.etzhayyim.identity.register": {
       "post": {
-        "summary": "app.etzhayyim.identity.register",
-        "operationId": "app.etzhayyim.identity.register",
+        "summary": "com.etzhayyim.identity.register",
+        "operationId": "com.etzhayyim.identity.register",
         "requestBody": {
           "required": true,
           "content": {
@@ -206,10 +206,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.identity.resolve": {
+    "/xrpc/com.etzhayyim.identity.resolve": {
       "get": {
-        "summary": "app.etzhayyim.identity.resolve",
-        "operationId": "app.etzhayyim.identity.resolve",
+        "summary": "com.etzhayyim.identity.resolve",
+        "operationId": "com.etzhayyim.identity.resolve",
         "parameters": [
           {
             "name": "did",
@@ -248,10 +248,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.identity.submitOp": {
+    "/xrpc/com.etzhayyim.identity.submitOp": {
       "post": {
-        "summary": "app.etzhayyim.identity.submitOp",
-        "operationId": "app.etzhayyim.identity.submitOp",
+        "summary": "com.etzhayyim.identity.submitOp",
+        "operationId": "com.etzhayyim.identity.submitOp",
         "requestBody": {
           "required": true,
           "content": {

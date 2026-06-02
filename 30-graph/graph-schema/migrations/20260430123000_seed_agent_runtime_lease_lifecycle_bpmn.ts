@@ -1,7 +1,7 @@
 // ADR-2604301200 P2 — register the autonomous-agent runtime lease lifecycle BPMN.
 //
 // This is the dispatcher-facing entrypoint for:
-//   app.etzhayyim.apps.agent.runtimeLeaseLifecycle
+//   com.etzhayyim.apps.agent.runtimeLeaseLifecycle
 //
 // The BPMN quotes CPU/memory/GPU/storage/egress cost, records a runtime lease,
 // and optionally submits the GCC bond to AgentRuntimeLeaseEscrow when explicitly
@@ -22,12 +22,12 @@ const ownerDid = "did:web:agent.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.agent.runtimeLeaseLifecycle";
 
 const procVertexId =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-runtime-lease-lifecycle-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1";
-const sourcePath = "00-contracts/bpmn/ai/gftd/agent/runtimeLeaseLifecycle.bpmn";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/agent-runtimeLeaseLifecycle-v1";
+const sourcePath = "00-contracts/bpmn/com/etzhayyim/agent/runtimeLeaseLifecycle.bpmn";
 const bpmnProcessId = "agent_runtime_lease_lifecycle";
-const nsid = "app.etzhayyim.apps.agent.runtimeLeaseLifecycle";
+const nsid = "com.etzhayyim.apps.agent.runtimeLeaseLifecycle";
 const resultTimeoutMs = 90_000;
 
 export async function up(db: Kysely<unknown>): Promise<void> {

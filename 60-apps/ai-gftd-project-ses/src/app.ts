@@ -2,17 +2,17 @@
 //
 // Surfaces:
 //   /health, /_app/meta                         edge probe (no auth)
-//   /xrpc/app.etzhayyim.apps.ses.ingestAnken          procedure (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.ses.updateJokyo          procedure (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.ses.getAnken             query     (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.ses.listAnken            query     (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.ses.listJokyo            query     (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.ses.coverage             query     (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.ses.ingestAnken          procedure (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.ses.updateJokyo          procedure (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.ses.getAnken             query     (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.ses.listAnken            query     (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.ses.listJokyo            query     (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.ses.coverage             query     (Bearer auth)
 //
 // Auth: Bearer sk_live_* / ES256 JWT → local decode → HMAC forward.
 // Dispatch: forwards to bpmn-dispatcher with x-internal-trust HMAC.
 //
-// LangGraph backend: bpmn-dispatcher routes `app.etzhayyim.apps.ses.*` to
+// LangGraph backend: bpmn-dispatcher routes `com.etzhayyim.apps.ses.*` to
 // LangGraph Server ses-langgraph.mitama-udf.svc.cluster.local:8000.
 //
 // ADR-2605111200: NO Hyperdrive binding. Zero domain writes here.
@@ -59,12 +59,12 @@ app.get("/_app/meta", (c) =>
     layer: "L3-dispatcher",
     adr: "2605120000",
     surfaces: [
-      "/xrpc/app.etzhayyim.apps.ses.ingestAnken",
-      "/xrpc/app.etzhayyim.apps.ses.updateJokyo",
-      "/xrpc/app.etzhayyim.apps.ses.getAnken",
-      "/xrpc/app.etzhayyim.apps.ses.listAnken",
-      "/xrpc/app.etzhayyim.apps.ses.listJokyo",
-      "/xrpc/app.etzhayyim.apps.ses.coverage",
+      "/xrpc/com.etzhayyim.apps.ses.ingestAnken",
+      "/xrpc/com.etzhayyim.apps.ses.updateJokyo",
+      "/xrpc/com.etzhayyim.apps.ses.getAnken",
+      "/xrpc/com.etzhayyim.apps.ses.listAnken",
+      "/xrpc/com.etzhayyim.apps.ses.listJokyo",
+      "/xrpc/com.etzhayyim.apps.ses.coverage",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
     jokyoValues: ["提案中", "選考中", "契約", "稼働中", "終了", "見送り", "中途終了"],
@@ -129,7 +129,7 @@ app.get("/", (c) => c.json({ app: "ses", did: "did:web:ses.etzhayyim.com" }));
 
 app.all("/xrpc/:nsidParam", async (c) => {
   const nsid = c.req.param("nsidParam") || "";
-  if (!nsid.startsWith("app.etzhayyim.apps.ses.")) {
+  if (!nsid.startsWith("com.etzhayyim.apps.ses.")) {
     return c.json({ error: "NotFound", path: c.req.path }, 404);
   }
   const auth = c.var.auth;

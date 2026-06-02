@@ -94,7 +94,7 @@
             "params": {
               "actorName": "business-person",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.businessPerson.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.businessPerson.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "bp3r5n0x",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -150,8 +150,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -164,12 +164,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.businessPerson.person",
-        "ai.gftd.apps.businessPerson.officerRole",
-        "ai.gftd.apps.businessPerson.boardMembership",
-        "ai.gftd.apps.businessPerson.affiliation",
-        "ai.gftd.apps.businessPerson.personnelChange",
-        "ai.gftd.apps.businessPerson.collectionJob"
+        "com.etzhayyim.apps.businessPerson.person",
+        "com.etzhayyim.apps.businessPerson.officerRole",
+        "com.etzhayyim.apps.businessPerson.boardMembership",
+        "com.etzhayyim.apps.businessPerson.affiliation",
+        "com.etzhayyim.apps.businessPerson.personnelChange",
+        "com.etzhayyim.apps.businessPerson.collectionJob"
       ]
     }
   },

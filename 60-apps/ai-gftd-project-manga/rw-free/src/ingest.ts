@@ -17,9 +17,9 @@ import {
   readingProgressSlug,
 } from "./types.js";
 
-const TITLE_COLLECTION = "app.etzhayyim.manga.title";
-const CHAPTER_COLLECTION = "app.etzhayyim.manga.chapter";
-const READING_COLLECTION = "app.etzhayyim.manga.reading";
+const TITLE_COLLECTION = "com.etzhayyim.manga.title";
+const CHAPTER_COLLECTION = "com.etzhayyim.manga.chapter";
+const READING_COLLECTION = "com.etzhayyim.manga.reading";
 
 function generateNanoid(): string {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";

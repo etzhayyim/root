@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.guide.guideGenerate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the LangServer guide generation pipeline for media-gamers.etzhayyim.com.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "slug": { "type": "string" },
+            "guideType": { "type": "string" },
+            "translate": { "type": "boolean" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "userId": { "type": "string" },
+            "mood": { "type": "string" },
+            "publish": { "type": "boolean" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "results": { "type": "array", "items": { "type": "object" } },
+            "auditRkey": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

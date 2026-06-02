@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+                  id="replyDetected"
+                  targetNamespace="com.etzhayyim.apps.outreach">
+
+  <!--
+    replyDetected.bpmn — Reply detection sub-flow (ADR-2605072000)
+    Trigger: subscribeRepos fires when gmail or m365Ingest emits a reply record.
+    The worker correlates the Zeebe message to the active outreachSequenceProcess instance
+    so the WaitReply timer is cancelled and the ReplyGateway routes to RepliedEnd.
+  -->
+
+  <bpmn:process id="replyDetectedProcess" isExecutable="true" name="Reply Detection">
+
+    <bpmn:startEvent id="ReplyStart" name="Reply Record Observed">
+      <bpmn:outgoing>toCorrelate</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="CorrelateReply" name="Correlate Reply to Sequence">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="outreach.correlate_reply" retries="3" />
+        <zeebe:taskHeaders>
+          <zeebe:header key="timeout" value="30" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>toCorrelate</bpmn:incoming>
+      <bpmn:outgoing>toReplyEnd</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="ReplyEnd" name="Correlated">
+      <bpmn:incoming>toReplyEnd</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="toCorrelate" sourceRef="ReplyStart" targetRef="CorrelateReply" />
+    <bpmn:sequenceFlow id="toReplyEnd" sourceRef="CorrelateReply" targetRef="ReplyEnd" />
+  </bpmn:process>
+</bpmn:definitions>

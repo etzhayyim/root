@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govIrq.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govIrq.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Iraq government.",
-        "operationId": "app.etzhayyim.govIrq.followSiteDeps",
+        "operationId": "com.etzhayyim.govIrq.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govIrq.heartbeatTick": {
       "post": {
         "summary": "Run the Iraq government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govIrq.heartbeatTick",
+        "operationId": "com.etzhayyim.govIrq.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.listOrgs": {
+    "/xrpc/com.etzhayyim.govIrq.listOrgs": {
       "get": {
         "summary": "List Iraq government organization graph records.",
-        "operationId": "app.etzhayyim.govIrq.listOrgs",
+        "operationId": "com.etzhayyim.govIrq.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.registerDIDs": {
+    "/xrpc/com.etzhayyim.govIrq.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Iraq government organizations.",
-        "operationId": "app.etzhayyim.govIrq.registerDIDs",
+        "operationId": "com.etzhayyim.govIrq.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govIrq.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Iraq government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govIrq.resolveOrgPath",
+        "operationId": "com.etzhayyim.govIrq.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.seedOrgs": {
+    "/xrpc/com.etzhayyim.govIrq.seedOrgs": {
       "post": {
         "summary": "Seed initial Iraq government organization records into the graph.",
-        "operationId": "app.etzhayyim.govIrq.seedOrgs",
+        "operationId": "com.etzhayyim.govIrq.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.shinka": {
+    "/xrpc/com.etzhayyim.govIrq.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Iraq government organization update.",
-        "operationId": "app.etzhayyim.govIrq.shinka",
+        "operationId": "com.etzhayyim.govIrq.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrq.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govIrq.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Iraq government organization changes to graph.",
-        "operationId": "app.etzhayyim.govIrq.syncWetUpdates",
+        "operationId": "com.etzhayyim.govIrq.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

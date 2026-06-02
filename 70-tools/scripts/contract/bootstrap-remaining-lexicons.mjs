@@ -33,7 +33,7 @@ function writeIfMissing(path, data) {
 // ---------------------------------------------------------------------------
 const records = [
   {
-    id: "app.etzhayyim.agent.actorCard",
+    id: "com.etzhayyim.agent.actorCard",
     props: {
       nanoid: { type: "string" },
       name: { type: "string" },
@@ -45,7 +45,7 @@ const records = [
     required: ["nanoid", "name", "createdAt"],
   },
   {
-    id: "app.etzhayyim.agent.actorCapability",
+    id: "com.etzhayyim.agent.actorCapability",
     props: {
       id: { type: "string" },
       name: { type: "string" },
@@ -58,7 +58,7 @@ const records = [
     required: ["id", "name", "createdAt"],
   },
   {
-    id: "app.etzhayyim.agent.agentTools",
+    id: "com.etzhayyim.agent.agentTools",
     props: {
       tools: { type: "array", items: { type: "unknown" } },
       createdAt: { type: "string" },
@@ -66,7 +66,7 @@ const records = [
     required: ["tools", "createdAt"],
   },
   {
-    id: "app.etzhayyim.agent.governanceRule",
+    id: "com.etzhayyim.agent.governanceRule",
     props: {
       name: { type: "string" },
       rules: { type: "unknown" },
@@ -74,7 +74,7 @@ const records = [
     required: ["name", "rules"],
   },
   {
-    id: "app.etzhayyim.agent.roleBinding",
+    id: "com.etzhayyim.agent.roleBinding",
     props: {
       role: { type: "string" },
       did: { type: "string" },
@@ -83,14 +83,14 @@ const records = [
     required: ["role", "did"],
   },
   {
-    id: "app.etzhayyim.apps.yoro.activitySeen",
+    id: "com.etzhayyim.apps.yoro.activitySeen",
     props: {
       seenAt: { type: "string" },
     },
     required: ["seenAt"],
   },
   {
-    id: "app.etzhayyim.apps.yoro.projectEntity",
+    id: "com.etzhayyim.apps.yoro.projectEntity",
     props: {
       projectId: { type: "string" },
       entityType: { type: "string" },
@@ -99,7 +99,7 @@ const records = [
     required: ["projectId", "entityType", "entityId"],
   },
   {
-    id: "app.etzhayyim.apps.yoro.shinkaEvolution",
+    id: "com.etzhayyim.apps.yoro.shinkaEvolution",
     props: {
       nanoid: { type: "string" },
       evolutionData: { type: "unknown" },
@@ -107,7 +107,7 @@ const records = [
     required: ["nanoid", "evolutionData"],
   },
   {
-    id: "app.etzhayyim.apps.yoro.shinkaKnowledge",
+    id: "com.etzhayyim.apps.yoro.shinkaKnowledge",
     props: {
       nanoid: { type: "string" },
       knowledgeData: { type: "unknown" },
@@ -115,7 +115,7 @@ const records = [
     required: ["nanoid", "knowledgeData"],
   },
   {
-    id: "app.etzhayyim.auth.AgentKey",
+    id: "com.etzhayyim.auth.AgentKey",
     props: {
       keyId: { type: "string" },
       publicKey: { type: "string" },
@@ -124,7 +124,7 @@ const records = [
     required: ["keyId", "publicKey", "createdAt"],
   },
   {
-    id: "app.etzhayyim.convo.convo",
+    id: "com.etzhayyim.convo.convo",
     props: {
       name: { type: "string" },
       kind: { type: "string" },
@@ -134,7 +134,7 @@ const records = [
     required: ["name", "createdBy", "createdAt"],
   },
   {
-    id: "app.etzhayyim.convo.message",
+    id: "com.etzhayyim.convo.message",
     props: {
       convoId: { type: "string" },
       text: { type: "string" },
@@ -146,7 +146,7 @@ const records = [
     required: ["convoId", "sender", "sentAt"],
   },
   {
-    id: "app.etzhayyim.convo.reaction",
+    id: "com.etzhayyim.convo.reaction",
     props: {
       convoId: { type: "string" },
       messageId: { type: "string" },
@@ -157,7 +157,7 @@ const records = [
     required: ["convoId", "messageId", "emoji", "reactor", "createdAt"],
   },
   {
-    id: "app.etzhayyim.convo.readReceipt",
+    id: "com.etzhayyim.convo.readReceipt",
     props: {
       convoId: { type: "string" },
       readAt: { type: "string" },
@@ -165,7 +165,7 @@ const records = [
     required: ["convoId", "readAt"],
   },
   {
-    id: "app.etzhayyim.convo.membership",
+    id: "com.etzhayyim.convo.membership",
     props: {
       convoId: { type: "string" },
       action: { type: "string" },
@@ -174,7 +174,7 @@ const records = [
     required: ["convoId", "action", "memberDid"],
   },
   {
-    id: "app.etzhayyim.convo.convoUpdate",
+    id: "com.etzhayyim.convo.convoUpdate",
     props: {
       convoId: { type: "string" },
       updatedAt: { type: "string" },
@@ -182,7 +182,7 @@ const records = [
     required: ["convoId", "updatedAt"],
   },
   {
-    id: "app.etzhayyim.convo.invite",
+    id: "com.etzhayyim.convo.invite",
     props: {
       convoId: { type: "string" },
       invitedDid: { type: "string" },
@@ -191,7 +191,7 @@ const records = [
     required: ["convoId", "invitedDid", "invitedAt"],
   },
   {
-    id: "app.etzhayyim.convo.roleUpdate",
+    id: "com.etzhayyim.convo.roleUpdate",
     props: {
       convoId: { type: "string" },
       memberDid: { type: "string" },
@@ -201,7 +201,7 @@ const records = [
     required: ["convoId", "memberDid", "role", "updatedAt"],
   },
   {
-    id: "app.etzhayyim.convo.presence",
+    id: "com.etzhayyim.convo.presence",
     props: {
       status: { type: "string" },
       updatedAt: { type: "string" },
@@ -209,7 +209,7 @@ const records = [
     required: ["status", "updatedAt"],
   },
   {
-    id: "app.etzhayyim.convo.profile",
+    id: "com.etzhayyim.convo.profile",
     props: {
       displayName: { type: "string" },
       description: { type: "string" },
@@ -218,7 +218,7 @@ const records = [
     required: [],
   },
   {
-    id: "app.etzhayyim.convo.pin",
+    id: "com.etzhayyim.convo.pin",
     props: {
       convoId: { type: "string" },
       messageId: { type: "string" },
@@ -227,7 +227,7 @@ const records = [
     required: ["convoId", "messageId", "pinnedAt"],
   },
   {
-    id: "app.etzhayyim.convo.forward",
+    id: "com.etzhayyim.convo.forward",
     props: {
       sourceConvoId: { type: "string" },
       targetConvoId: { type: "string" },
@@ -237,7 +237,7 @@ const records = [
     required: ["sourceConvoId", "targetConvoId", "messageId", "forwardedAt"],
   },
   {
-    id: "app.etzhayyim.convo.member",
+    id: "com.etzhayyim.convo.member",
     props: {
       convoId: { type: "string" },
       memberDid: { type: "string" },
@@ -246,7 +246,7 @@ const records = [
     required: ["convoId", "memberDid"],
   },
   {
-    id: "app.etzhayyim.projector",
+    id: "com.etzhayyim.projector",
     props: {
       projectId: { type: "string" },
       name: { type: "string" },
@@ -256,7 +256,7 @@ const records = [
     required: ["projectId", "name", "convoId"],
   },
   {
-    id: "app.etzhayyim.projector.branch",
+    id: "com.etzhayyim.projector.branch",
     props: {
       sourceConvoId: { type: "string" },
       branchConvoId: { type: "string" },
@@ -265,7 +265,7 @@ const records = [
     required: ["sourceConvoId", "branchConvoId"],
   },
   {
-    id: "app.etzhayyim.projector.reflection",
+    id: "com.etzhayyim.projector.reflection",
     props: {
       convoId: { type: "string" },
       content: { type: "string" },
@@ -273,7 +273,7 @@ const records = [
     required: ["convoId"],
   },
   {
-    id: "app.etzhayyim.projectorTask",
+    id: "com.etzhayyim.projectorTask",
     props: {
       convoId: { type: "string" },
       title: { type: "string" },
@@ -284,7 +284,7 @@ const records = [
     required: ["convoId", "title", "status"],
   },
   {
-    id: "app.etzhayyim.projectorUpdate",
+    id: "com.etzhayyim.projectorUpdate",
     props: {
       convoId: { type: "string" },
       updateType: { type: "string" },
@@ -292,7 +292,7 @@ const records = [
     required: ["convoId", "updateType"],
   },
   {
-    id: "app.etzhayyim.rtc.meeting",
+    id: "com.etzhayyim.rtc.meeting",
     props: {
       title: { type: "string" },
       scheduledAt: { type: "string" },
@@ -301,7 +301,7 @@ const records = [
     required: ["title", "status"],
   },
   {
-    id: "app.etzhayyim.rtc.meetingJoin",
+    id: "com.etzhayyim.rtc.meetingJoin",
     props: {
       meetingId: { type: "string" },
       participantDid: { type: "string" },
@@ -309,7 +309,7 @@ const records = [
     required: ["meetingId", "participantDid"],
   },
   {
-    id: "app.etzhayyim.rtc.meetingAdmit",
+    id: "com.etzhayyim.rtc.meetingAdmit",
     props: {
       meetingId: { type: "string" },
       participantDid: { type: "string" },
@@ -317,7 +317,7 @@ const records = [
     required: ["meetingId", "participantDid"],
   },
   {
-    id: "app.etzhayyim.rtc.breakout",
+    id: "com.etzhayyim.rtc.breakout",
     props: {
       meetingId: { type: "string" },
       name: { type: "string" },
@@ -325,7 +325,7 @@ const records = [
     required: ["meetingId", "name"],
   },
   {
-    id: "app.etzhayyim.rtc.recording",
+    id: "com.etzhayyim.rtc.recording",
     props: {
       meetingId: { type: "string" },
       action: { type: "string" },
@@ -333,7 +333,7 @@ const records = [
     required: ["meetingId", "action"],
   },
   {
-    id: "app.etzhayyim.rtc.hand",
+    id: "com.etzhayyim.rtc.hand",
     props: {
       meetingId: { type: "string" },
       raised: { type: "boolean" },
@@ -341,14 +341,14 @@ const records = [
     required: ["meetingId", "raised"],
   },
   {
-    id: "app.etzhayyim.rtc.huddle",
+    id: "com.etzhayyim.rtc.huddle",
     props: {
       convoId: { type: "string" },
     },
     required: ["convoId"],
   },
   {
-    id: "app.etzhayyim.rtc.screenShare",
+    id: "com.etzhayyim.rtc.screenShare",
     props: {
       meetingId: { type: "string" },
       sharing: { type: "boolean" },
@@ -356,7 +356,7 @@ const records = [
     required: ["meetingId", "sharing"],
   },
   {
-    id: "app.etzhayyim.rtc.pushSubscription",
+    id: "com.etzhayyim.rtc.pushSubscription",
     props: {
       endpoint: { type: "string" },
       keys: { type: "unknown" },
@@ -364,7 +364,7 @@ const records = [
     required: ["endpoint", "keys"],
   },
   {
-    id: "app.etzhayyim.signal.prekeys",
+    id: "com.etzhayyim.signal.prekeys",
     props: {
       identityKey: { type: "string" },
       signedPrekey: { type: "unknown" },
@@ -373,14 +373,14 @@ const records = [
     required: ["identityKey", "signedPrekey", "oneTimePrekeys"],
   },
   {
-    id: "app.etzhayyim.signal.otpks",
+    id: "com.etzhayyim.signal.otpks",
     props: {
       oneTimePrekeys: { type: "array", items: { type: "unknown" } },
     },
     required: ["oneTimePrekeys"],
   },
   {
-    id: "app.etzhayyim.signal.groupKeyRotation",
+    id: "com.etzhayyim.signal.groupKeyRotation",
     props: {
       convoId: { type: "string" },
       rotatedAt: { type: "string" },
@@ -388,7 +388,7 @@ const records = [
     required: ["convoId", "rotatedAt"],
   },
   {
-    id: "app.etzhayyim.wproto.did",
+    id: "com.etzhayyim.wproto.did",
     props: {
       did: { type: "string" },
       document: { type: "unknown" },
@@ -396,7 +396,7 @@ const records = [
     required: ["did", "document"],
   },
   {
-    id: "app.etzhayyim.wproto.label",
+    id: "com.etzhayyim.wproto.label",
     props: {
       label: { type: "string" },
       val: { type: "string" },
@@ -404,7 +404,7 @@ const records = [
     required: ["label", "val"],
   },
   {
-    id: "app.etzhayyim.pds.profileIncomplete",
+    id: "com.etzhayyim.pds.profileIncomplete",
     props: {
       did: { type: "string" },
       reason: { type: "string" },
@@ -434,38 +434,38 @@ function buildRecordLexicon(r) {
 // Category 2: 4-segment handler alias NSIDs
 // ---------------------------------------------------------------------------
 const aliases = [
-  { alias: "app.etzhayyim.convo.archiveConvo", source: "app.etzhayyim.convo.convo.archiveConvo" },
-  { alias: "app.etzhayyim.convo.createConvo", source: "app.etzhayyim.convo.convo.createConvo" },
-  { alias: "app.etzhayyim.convo.joinConvo", source: "app.etzhayyim.convo.convo.joinConvo" },
-  { alias: "app.etzhayyim.convo.sendTyping", source: "app.etzhayyim.convo.convo.sendTyping" },
-  { alias: "app.etzhayyim.convo.setProfile", source: "app.etzhayyim.convo.convo.setProfile" },
-  { alias: "app.etzhayyim.convo.updateConvo", source: "app.etzhayyim.convo.convo.updateConvo" },
-  { alias: "app.etzhayyim.convo.updatePresence", source: "app.etzhayyim.convo.convo.updatePresence" },
-  { alias: "app.etzhayyim.convo.setEncryption", source: "app.etzhayyim.convo.convo.setConvoEncryption" },
-  { alias: "app.etzhayyim.governance.checkAccess", source: "app.etzhayyim.governance.governance.checkAccess" },
-  { alias: "app.etzhayyim.governance.getPolicy", source: "app.etzhayyim.governance.governance.getPolicy" },
-  { alias: "app.etzhayyim.governance.registerMethodPolicy", source: "app.etzhayyim.governance.governance.registerMethodPolicy" },
-  { alias: "app.etzhayyim.governance.registerPolicy", source: "app.etzhayyim.governance.governance.registerPolicy" },
-  { alias: "app.etzhayyim.governance.resolveActorVisibility", source: "app.etzhayyim.governance.governance.resolveActorVisibility" },
-  { alias: "app.etzhayyim.governance.setActorSensitivity", source: "app.etzhayyim.governance.governance.setActorSensitivity" },
-  { alias: "app.etzhayyim.projector.addConvoMember", source: "app.etzhayyim.projector.projector.addConvoMember" },
-  { alias: "app.etzhayyim.projector.addConvoTask", source: "app.etzhayyim.projector.projector.addConvoTask" },
-  { alias: "app.etzhayyim.projector.archiveProjectConvo", source: "app.etzhayyim.projector.projector.archiveProjectConvo" },
-  { alias: "app.etzhayyim.projector.completeConvoTask", source: "app.etzhayyim.projector.projector.completeConvoTask" },
-  { alias: "app.etzhayyim.projector.getConvoProjectStatus", source: "app.etzhayyim.projector.projector.getConvoProjectStatus" },
-  { alias: "app.etzhayyim.projector.getProjectConvo", source: "app.etzhayyim.projector.projector.getProjectConvo" },
-  { alias: "app.etzhayyim.projector.listConvoTasks", source: "app.etzhayyim.projector.projector.listConvoTasks" },
-  { alias: "app.etzhayyim.projector.listProjectConvos", source: "app.etzhayyim.projector.projector.listProjectConvos" },
-  { alias: "app.etzhayyim.projector.newProjectConvo", source: "app.etzhayyim.projector.projector.newProjectConvo" },
-  { alias: "app.etzhayyim.projector.sendProjectMessage", source: "app.etzhayyim.projector.projector.sendProjectMessage" },
-  { alias: "app.etzhayyim.projector.updateProjectConvo", source: "app.etzhayyim.projector.projector.updateProjectConvo" },
-  { alias: "app.etzhayyim.rtc.getVAPIDPublicKey", source: "app.etzhayyim.rtc.rtc.getVapidPublicKey" },
-  { alias: "app.etzhayyim.rtc.hangupCall", source: "app.etzhayyim.rtc.rtc.hangupCall" },
-  { alias: "app.etzhayyim.rtc.sendCallAnswer", source: "app.etzhayyim.rtc.rtc.sendCallAnswer" },
-  { alias: "app.etzhayyim.rtc.sendCallICE", source: "app.etzhayyim.rtc.rtc.sendCallIce" },
-  { alias: "app.etzhayyim.rtc.sendCallOffer", source: "app.etzhayyim.rtc.rtc.sendCallOffer" },
-  { alias: "app.etzhayyim.rtc.subscribePush", source: "app.etzhayyim.rtc.rtc.subscribePush" },
-  { alias: "app.etzhayyim.rtc.unsubscribePush", source: "app.etzhayyim.rtc.rtc.unsubscribePush" },
+  { alias: "com.etzhayyim.convo.archiveConvo", source: "com.etzhayyim.convo.convo.archiveConvo" },
+  { alias: "com.etzhayyim.convo.createConvo", source: "com.etzhayyim.convo.convo.createConvo" },
+  { alias: "com.etzhayyim.convo.joinConvo", source: "com.etzhayyim.convo.convo.joinConvo" },
+  { alias: "com.etzhayyim.convo.sendTyping", source: "com.etzhayyim.convo.convo.sendTyping" },
+  { alias: "com.etzhayyim.convo.setProfile", source: "com.etzhayyim.convo.convo.setProfile" },
+  { alias: "com.etzhayyim.convo.updateConvo", source: "com.etzhayyim.convo.convo.updateConvo" },
+  { alias: "com.etzhayyim.convo.updatePresence", source: "com.etzhayyim.convo.convo.updatePresence" },
+  { alias: "com.etzhayyim.convo.setEncryption", source: "com.etzhayyim.convo.convo.setConvoEncryption" },
+  { alias: "com.etzhayyim.governance.checkAccess", source: "com.etzhayyim.governance.governance.checkAccess" },
+  { alias: "com.etzhayyim.governance.getPolicy", source: "com.etzhayyim.governance.governance.getPolicy" },
+  { alias: "com.etzhayyim.governance.registerMethodPolicy", source: "com.etzhayyim.governance.governance.registerMethodPolicy" },
+  { alias: "com.etzhayyim.governance.registerPolicy", source: "com.etzhayyim.governance.governance.registerPolicy" },
+  { alias: "com.etzhayyim.governance.resolveActorVisibility", source: "com.etzhayyim.governance.governance.resolveActorVisibility" },
+  { alias: "com.etzhayyim.governance.setActorSensitivity", source: "com.etzhayyim.governance.governance.setActorSensitivity" },
+  { alias: "com.etzhayyim.projector.addConvoMember", source: "com.etzhayyim.projector.projector.addConvoMember" },
+  { alias: "com.etzhayyim.projector.addConvoTask", source: "com.etzhayyim.projector.projector.addConvoTask" },
+  { alias: "com.etzhayyim.projector.archiveProjectConvo", source: "com.etzhayyim.projector.projector.archiveProjectConvo" },
+  { alias: "com.etzhayyim.projector.completeConvoTask", source: "com.etzhayyim.projector.projector.completeConvoTask" },
+  { alias: "com.etzhayyim.projector.getConvoProjectStatus", source: "com.etzhayyim.projector.projector.getConvoProjectStatus" },
+  { alias: "com.etzhayyim.projector.getProjectConvo", source: "com.etzhayyim.projector.projector.getProjectConvo" },
+  { alias: "com.etzhayyim.projector.listConvoTasks", source: "com.etzhayyim.projector.projector.listConvoTasks" },
+  { alias: "com.etzhayyim.projector.listProjectConvos", source: "com.etzhayyim.projector.projector.listProjectConvos" },
+  { alias: "com.etzhayyim.projector.newProjectConvo", source: "com.etzhayyim.projector.projector.newProjectConvo" },
+  { alias: "com.etzhayyim.projector.sendProjectMessage", source: "com.etzhayyim.projector.projector.sendProjectMessage" },
+  { alias: "com.etzhayyim.projector.updateProjectConvo", source: "com.etzhayyim.projector.projector.updateProjectConvo" },
+  { alias: "com.etzhayyim.rtc.getVAPIDPublicKey", source: "com.etzhayyim.rtc.rtc.getVapidPublicKey" },
+  { alias: "com.etzhayyim.rtc.hangupCall", source: "com.etzhayyim.rtc.rtc.hangupCall" },
+  { alias: "com.etzhayyim.rtc.sendCallAnswer", source: "com.etzhayyim.rtc.rtc.sendCallAnswer" },
+  { alias: "com.etzhayyim.rtc.sendCallICE", source: "com.etzhayyim.rtc.rtc.sendCallIce" },
+  { alias: "com.etzhayyim.rtc.sendCallOffer", source: "com.etzhayyim.rtc.rtc.sendCallOffer" },
+  { alias: "com.etzhayyim.rtc.subscribePush", source: "com.etzhayyim.rtc.rtc.subscribePush" },
+  { alias: "com.etzhayyim.rtc.unsubscribePush", source: "com.etzhayyim.rtc.rtc.unsubscribePush" },
 ];
 
 // ---------------------------------------------------------------------------

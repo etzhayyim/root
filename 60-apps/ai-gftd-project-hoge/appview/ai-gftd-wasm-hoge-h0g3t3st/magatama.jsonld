@@ -41,9 +41,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.hoge.hogeEntity",
-        "ai.gftd.apps.hoge.hogeEvent",
-        "ai.gftd.apps.hoge.hogeReport"
+        "com.etzhayyim.apps.hoge.hogeEntity",
+        "com.etzhayyim.apps.hoge.hogeEvent",
+        "com.etzhayyim.apps.hoge.hogeReport"
       ]
     }
   },

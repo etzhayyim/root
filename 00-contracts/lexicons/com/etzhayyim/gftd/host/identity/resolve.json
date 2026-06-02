@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.identity.resolve",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Resolve a nanoid to its DID. Returns null if not registered.",
+      "x-hostImportsMethod": "identityResolve",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "nanoid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nanoid"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

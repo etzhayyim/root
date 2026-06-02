@@ -41,11 +41,11 @@
           summary: 'バックエンド未接続 — モック表示。本番では public meta から PHI を含まない 200 字以内のサマリが返ります。',
           stats: { encountersTotal: 3, activeConditions: 2, activeMedications: 4, pendingOrders: 1, interactionFlagsMaxSeverity: 'minor' as const },
           timeline: [
-            { innerType: 'app.etzhayyim.karute.encounter', rkey: 'enc1', encryptedCid: 'bafy-mock-enc-a1', occurredAt: '2026-05-22T09:00:00Z' },
-            { innerType: 'app.etzhayyim.karute.soapNote', rkey: 'soap1', encryptedCid: 'bafy-mock-soap-a1', occurredAt: '2026-05-22T09:15:00Z' },
-            { innerType: 'app.etzhayyim.karute.observation', rkey: 'obs1', encryptedCid: 'bafy-mock-obs-a1', occurredAt: '2026-05-22T09:05:00Z' },
-            { innerType: 'app.etzhayyim.karute.medicationRequest', rkey: 'rx1', encryptedCid: 'bafy-mock-rx-a1', occurredAt: '2026-05-22T09:30:00Z' },
-            { innerType: 'app.etzhayyim.karute.condition', rkey: 'cond1', encryptedCid: 'bafy-mock-cond-a1', occurredAt: '2026-05-22T09:20:00Z' },
+            { innerType: 'com.etzhayyim.karute.encounter', rkey: 'enc1', encryptedCid: 'bafy-mock-enc-a1', occurredAt: '2026-05-22T09:00:00Z' },
+            { innerType: 'com.etzhayyim.karute.soapNote', rkey: 'soap1', encryptedCid: 'bafy-mock-soap-a1', occurredAt: '2026-05-22T09:15:00Z' },
+            { innerType: 'com.etzhayyim.karute.observation', rkey: 'obs1', encryptedCid: 'bafy-mock-obs-a1', occurredAt: '2026-05-22T09:05:00Z' },
+            { innerType: 'com.etzhayyim.karute.medicationRequest', rkey: 'rx1', encryptedCid: 'bafy-mock-rx-a1', occurredAt: '2026-05-22T09:30:00Z' },
+            { innerType: 'com.etzhayyim.karute.condition', rkey: 'cond1', encryptedCid: 'bafy-mock-cond-a1', occurredAt: '2026-05-22T09:20:00Z' },
           ],
         };
         summary = mockSummary;

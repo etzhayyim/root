@@ -1,5 +1,5 @@
 {
-  "$schema": "app.etzhayyim.toritsugi.procedure",
+  "$schema": "com.etzhayyim.toritsugi.procedure",
   "_comment": "R0 SEED government-procedure registry per ADR-2605312030 §2. Each entry is the coded 窓口 / 所管 / オンライン申請URL / 必要書類 / 様式 / 手数料 / 法定処理期間 / 根拠法令 / channel so toritsugi can guide + (eventually) file procedurally. ALL entries ship verificationStatus=unverified-seed: per G14, NO live submission may occur against an unverified entry — these MUST be human/Council-verified (and re-checked within the freshness window) before toritsugi_submit will transmit, and 代行 (option 2 / R3) additionally requires council-verified + 行政書士法 clearance + Council Lv7+ (G15). 必要書類 / 手数料 / 法定処理期間 / 窓口 below are best-effort public references as of 2026-05-31 and are EXPECTED to drift (esp. per-自治体 variation) — treat them as guide scaffolds, not authoritative. Default mode is 案内+伴走+本人提出支援: toritsugi assembles + hands back, the MEMBER submits + signs.",
   "freshnessWindowDays": 180,
   "procedures": [

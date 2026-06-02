@@ -71,7 +71,7 @@ from langgraph.types import RetryPolicy
 _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_NSID = "app.etzhayyim.mangaka.document"
+_NSID = "com.etzhayyim.mangaka.document"
 _RW_URL = os.environ.get("RW_URL", "")
 _BLOB_BASE = os.environ.get("MANGAKA_BLOB_BASE", "https://mangaka.etzhayyim.com")
 _STUDENT_MODEL_PATH = os.environ.get("MANGAKA_HUME_STUDENT_MODEL", "")

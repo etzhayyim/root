@@ -267,7 +267,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       COUNT(*)::bigint AS cut_count,
       SUM(CASE WHEN priority = 'retake' THEN 1 ELSE 0 END)::bigint AS retake_count
     FROM vertex_animeka
-    WHERE collection = 'app.etzhayyim.apps.animeka.cut'
+    WHERE collection = 'com.etzhayyim.apps.animeka.cut'
     GROUP BY 1, 2
   `.execute(db);
 
@@ -278,7 +278,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       COALESCE(cut_id, '') AS cut_id,
       COUNT(*)::bigint AS open_cnt
     FROM vertex_animeka
-    WHERE collection = 'app.etzhayyim.apps.animeka.retake'
+    WHERE collection = 'com.etzhayyim.apps.animeka.retake'
       AND COALESCE(status, 'open') = 'open'
     GROUP BY 1, 2
   `.execute(db);

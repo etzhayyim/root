@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit" retries="0"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.llm.classifierGatePattern&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.llm.classifierGatePattern&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ processId: '
                  '&quot;llm_classifier_gate_pattern&quot;, decisionId: '
@@ -142,13 +142,13 @@ UP = [{'sql': '\n'
          '      1,\n'
          '      $3,\n'
          '      CAST($4 AS integer),\n'
-         "      '00-contracts/dmn/ai/gftd/llm/classifierGate.dmn',\n"
+         "      '00-contracts/dmn/com/etzhayyim/llm/classifierGate.dmn',\n"
          "      'active',\n"
          '      NULL,\n'
          '      NULL\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/llm_classifier_gate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/llm_classifier_gate-v1',
                  'llm_classifier_gate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"\n'

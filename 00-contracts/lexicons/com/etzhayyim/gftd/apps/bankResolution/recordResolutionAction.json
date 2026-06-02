@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bankResolution.recordResolutionAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FSB TLAC / SPE / MPE bank resolution action (bridges subordinatedDebt.flagResolution + enforcement-action + sovereign-guarantee)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "authorityKind",
+            "strategy",
+            "effectiveAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "bankLei": {
+              "type": "string"
+            },
+            "authorityKind": {
+              "type": "string",
+              "enum": [
+                "fdic",
+                "fsb",
+                "srb",
+                "boe",
+                "pra",
+                "bafin",
+                "autocat_fr",
+                "fsa_jp",
+                "cnbv_mx",
+                "apra_au",
+                "rbi_in",
+                "pboc_cbirc",
+                "cbirc"
+              ]
+            },
+            "strategy": {
+              "type": "string",
+              "enum": [
+                "spe",
+                "mpe",
+                "bridge",
+                "liquidation",
+                "write_off",
+                "bail_in",
+                "bail_out",
+                "purchase_assumption",
+                "asset_transfer",
+                "gone_concern",
+                "scheme_of_arrangement"
+              ]
+            },
+            "resolutionVid": {
+              "type": "string",
+              "description": "bridges subordinatedDebt.flagResolution"
+            },
+            "effectiveAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

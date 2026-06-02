@@ -1,6 +1,6 @@
 """animeka `listEpisodes` graph — list episodes by work.
 
-NSID: app.etzhayyim.animeka.listEpisodes
+NSID: com.etzhayyim.animeka.listEpisodes
 """
 import logging
 import os
@@ -57,7 +57,7 @@ async def _node_query(state: _ListEpisodesState) -> dict[str, Any]:
             await cur.execute(
                 """
                 SELECT vertex_id FROM vertex_animeka
-                WHERE collection = 'app.etzhayyim.animeka.work' AND rkey = %s
+                WHERE collection = 'com.etzhayyim.animeka.work' AND rkey = %s
                 LIMIT 1
                 """,
                 [work_rkey],
@@ -66,7 +66,7 @@ async def _node_query(state: _ListEpisodesState) -> dict[str, Any]:
             work_vertex_id = work_row[0] if work_row else work_rkey
 
             params: list[Any] = [work_vertex_id]
-            where = "work_id = %s AND collection = 'app.etzhayyim.animeka.episode'"
+            where = "work_id = %s AND collection = 'com.etzhayyim.animeka.episode'"
             if status_filter:
                 where += " AND status = %s"
                 params.append(status_filter)
@@ -92,7 +92,7 @@ async def _node_query(state: _ListEpisodesState) -> dict[str, Any]:
                     f"""
                     SELECT episode_id, COUNT(*) AS cut_count
                     FROM vertex_animeka
-                    WHERE collection = 'app.etzhayyim.animeka.cut'
+                    WHERE collection = 'com.etzhayyim.animeka.cut'
                       AND episode_id IN ({placeholders})
                     GROUP BY episode_id
                     LIMIT 200

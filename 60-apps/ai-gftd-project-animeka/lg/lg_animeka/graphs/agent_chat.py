@@ -4,7 +4,7 @@ Default persona = director (per CLAUDE.md "12 actor DIDs"). Each
 animeka work has a director AI; this graph is the simplest creative
 collaboration entry-point.
 
-Replaces BPMN `animeka_chat` (NSID app.etzhayyim.animeka.chat).
+Replaces BPMN `animeka_chat` (NSID com.etzhayyim.animeka.chat).
 
 Mirrors lg-shinshi/agent_chat.py but with animeka actor personas and
 no shinshi NSFW governance pin (animeka content is family-safe).

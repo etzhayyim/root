@@ -34,12 +34,12 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openPorts.port",
-        "ai.gftd.apps.openPorts.vessel",
-        "ai.gftd.apps.openPorts.vesselCall",
-        "ai.gftd.apps.openPorts.callEvent",
-        "ai.gftd.apps.openPorts.container",
-        "ai.gftd.apps.openPorts.incident"
+        "com.etzhayyim.apps.openPorts.port",
+        "com.etzhayyim.apps.openPorts.vessel",
+        "com.etzhayyim.apps.openPorts.vesselCall",
+        "com.etzhayyim.apps.openPorts.callEvent",
+        "com.etzhayyim.apps.openPorts.container",
+        "com.etzhayyim.apps.openPorts.incident"
       ]
     }
   },

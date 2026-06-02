@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.generateStoryboard",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 3/12 — Generate one storyboard candidate image (Animagine XL 512x512). Caller invokes 3 times (candidateNum=1,2,3); director picks 1 via status=approved gate. Backed by BPMN animeka_generate_storyboard (ADR-2604231328).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cutId", "cutSummary", "candidateNum"],
+          "properties": {
+            "cutId": { "type": "string" },
+            "cutSummary": { "type": "string" },
+            "candidateNum": { "type": "integer" },
+            "characters": { "type": "string", "description": "Comma-separated character names." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "blobCid": { "type": "string" },
+            "visualPrompt": { "type": "string" },
+            "renderMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

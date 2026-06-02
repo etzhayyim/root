@@ -33,12 +33,12 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.jpAshiba.scaffoldItem",
-        "ai.gftd.apps.jpAshiba.rentalContract",
-        "ai.gftd.apps.jpAshiba.subscriptionPlan",
-        "ai.gftd.apps.jpAshiba.siteSchedule",
-        "ai.gftd.apps.jpAshiba.inspectionRecord",
-        "ai.gftd.apps.jpAshiba.analyticsEvent"
+        "com.etzhayyim.apps.jpAshiba.scaffoldItem",
+        "com.etzhayyim.apps.jpAshiba.rentalContract",
+        "com.etzhayyim.apps.jpAshiba.subscriptionPlan",
+        "com.etzhayyim.apps.jpAshiba.siteSchedule",
+        "com.etzhayyim.apps.jpAshiba.inspectionRecord",
+        "com.etzhayyim.apps.jpAshiba.analyticsEvent"
       ]
     }
   },

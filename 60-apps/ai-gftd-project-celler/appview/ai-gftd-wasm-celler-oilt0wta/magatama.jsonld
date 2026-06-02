@@ -127,14 +127,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.celler.device",
-        "ai.gftd.apps.celler.call",
-        "ai.gftd.apps.celler.gateway",
-        "ai.gftd.apps.celler.cell",
-        "ai.gftd.apps.celler.mesh_link",
-        "ai.gftd.apps.celler.phone_number",
-        "ai.gftd.apps.celler.esim_profile",
-        "ai.gftd.apps.celler.regional_trunk"
+        "com.etzhayyim.apps.celler.device",
+        "com.etzhayyim.apps.celler.call",
+        "com.etzhayyim.apps.celler.gateway",
+        "com.etzhayyim.apps.celler.cell",
+        "com.etzhayyim.apps.celler.mesh_link",
+        "com.etzhayyim.apps.celler.phone_number",
+        "com.etzhayyim.apps.celler.esim_profile",
+        "com.etzhayyim.apps.celler.regional_trunk"
       ]
     }
   },

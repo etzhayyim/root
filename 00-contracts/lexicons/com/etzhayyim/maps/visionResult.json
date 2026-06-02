@@ -1,0 +1,131 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.visionResult",
+  "description": "Murakumo Vision (qwen3-vl-8b) analysis output. Holds metadata only — the source image + raw analysis JSON live in a DataLad-managed dataset pinned to IPFS (per ADR-2605241500). The `payloadRef` discriminator names which storage backend holds the payload. Per maps CLAUDE.md §Vision Intelligence + Phase 3 Tier B (ADR-2605231400).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{resultId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "resultId",
+          "analysisKind",
+          "visionModel",
+          "payloadKind",
+          "analyzedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "resultId": {
+            "type": "string",
+            "description": "Stable rkey-safe identifier.",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "subjectUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the feature being analyzed (e.g., a Building or SatelliteScene record)."
+          },
+          "analysisKind": {
+            "type": "string",
+            "description": "What kind of analysis produced this result.",
+            "knownValues": [
+              "classification",
+              "object-detection",
+              "change-detection",
+              "ocr",
+              "ner",
+              "caption",
+              "feature-extraction",
+              "custom"
+            ]
+          },
+          "visionModel": {
+            "type": "string",
+            "description": "Model identifier (e.g., 'qwen3-vl-8b', 'gemma-4-e2b').",
+            "maxLength": 128
+          },
+          "entities": {
+            "type": "array",
+            "description": "Small inline entity list (≤ 32 items, ≤ 16KB total). Larger result sets live in `payloadRef`.",
+            "items": {
+              "type": "ref",
+              "ref": "#entity"
+            },
+            "maxLength": 32
+          },
+          "confidenceX10000": {
+            "type": "integer",
+            "description": "Aggregate confidence for the overall analysis × 10000 (0..10000 = 0.0000..1.0000).",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "payloadKind": {
+            "type": "string",
+            "description": "How the full payload (source image + raw JSON output) is stored. `datalad-pin` references an com.etzhayyim.substrate.datasetPin record per ADR-2605241500.",
+            "knownValues": ["datalad-pin", "ipfs", "inline", "external-url"]
+          },
+          "datasetPinUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "When payloadKind=datalad-pin, AT URI of the corresponding com.etzhayyim.substrate.datasetPin record."
+          },
+          "datasetPath": {
+            "type": "string",
+            "description": "Relative path inside the DataLad subdataset (e.g., 'qwen3-vl-8b/2026-05-23/r0001.json').",
+            "maxLength": 512
+          },
+          "payloadCid": {
+            "type": "string",
+            "description": "Raw IPFS CID when payloadKind=ipfs (no DataLad superdataset).",
+            "maxLength": 96
+          },
+          "externalUrl": {
+            "type": "string",
+            "description": "Source URL when payloadKind=external-url (avoid for new records — substrate-purity dictates DataLad+IPFS).",
+            "maxLength": 1024
+          },
+          "inlineJson": {
+            "type": "string",
+            "description": "Inline payload when small (<16KB) and payloadKind=inline.",
+            "maxLength": 16384
+          },
+          "analyzedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "sourceDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Provenance (e.g., did:web:maps.etzhayyim.com:vision)."
+          },
+          "supersededByUri": {
+            "type": "string",
+            "format": "at-uri"
+          }
+        }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "description": "One detected/recognized entity inside a visionResult.entities[].",
+      "properties": {
+        "label": { "type": "string", "maxLength": 64 },
+        "confidenceX10000": {
+          "type": "integer",
+          "description": "Per-entity confidence × 10000 (0..10000 = 0.0000..1.0000).",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "bbox": { "type": "string", "description": "Pixel bbox as JSON [x,y,w,h]" }
+      }
+    }
+  }
+}

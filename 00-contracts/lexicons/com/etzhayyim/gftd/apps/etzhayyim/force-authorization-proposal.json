@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.force-authorization-proposal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Proposal to authorize an actual force operation. Goes through 1 SBT = 1 vote with 50% quorum + 67% supermajority. Normal voting: 72h; emergency: 24h (requires Council Lv6+ ≥3 emergency attestation). Per ADR-2605192315 §3.",
+      "record": {
+        "type": "object",
+        "required": [
+          "scenarioDescription",
+          "intendedUse",
+          "proportionalityAnalysis",
+          "expectedDurationHours",
+          "actorDids",
+          "proposerDid",
+          "proposedAt"
+        ],
+        "properties": {
+          "scenarioDescription": { "type": "string", "maxLength": 8000 },
+          "intendedUse": {
+            "type": "string",
+            "enum": [
+              "defense-of-land",
+              "defense-of-adherent",
+              "rescue-from-armed-group",
+              "civil-disobedience-coordinated",
+              "legal-battle-strategic",
+              "international-advocacy",
+              "other"
+            ]
+          },
+          "proportionalityAnalysis": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Analysis of proportionality vs threat. Religious accountability standard."
+          },
+          "thirdPartyReviewCid": {
+            "type": "string",
+            "description": "Optional independent legal / ethical review reference."
+          },
+          "rdPublicationsReferenced": {
+            "type": "array",
+            "maxLength": 20,
+            "items": { "type": "string", "format": "at-uri" },
+            "description": "AT URIs of force-rd-publication records relevant to this authorization."
+          },
+          "expectedDurationHours": { "type": "integer", "minimum": 1 },
+          "actorDids": {
+            "type": "array",
+            "minLength": 1,
+            "items": { "type": "string" },
+            "description": "DIDs of Adherents who will perform the force operation."
+          },
+          "emergencyDeclared": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, requests 24h emergency voting (requires concurrent Council Lv6+ ≥3 emergency attestation)."
+          },
+          "councilEmergencyAttestationUris": {
+            "type": "array",
+            "items": { "type": "string", "format": "at-uri" },
+            "description": "Required if emergencyDeclared. AT URIs of Council emergency attestations (≥3)."
+          },
+          "proposerDid": { "type": "string" },
+          "proposerSignature": { "type": "string" },
+          "proposedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

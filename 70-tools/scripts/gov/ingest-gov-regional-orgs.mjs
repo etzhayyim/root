@@ -35,7 +35,7 @@ for (const region of regions) {
   for (const cofog of cofogs) {
     for (const proc of procedures) {
       const record = {
-        $type: 'app.etzhayyim.gov.agency#procedure',
+        $type: 'com.etzhayyim.gov.agency#procedure',
         uri: `at://etzhayyim.com/gov/${region.iso3}/regional/${cofog.code}/${++count}`,
         agencyName: region.name,
         agencyIso3: region.iso3,

@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.icpenConsumer.launchSweep",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ICPEN consumer protection sweep (bridges antitrust-dma + misinformation-observatory + ai-governance + data-broker-registry)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "sweepId",
+            "leadAuthority",
+            "participatingJurisdictions",
+            "theme",
+            "launchedAt"
+          ],
+          "properties": {
+            "sweepId": {
+              "type": "string"
+            },
+            "leadAuthority": {
+              "type": "string"
+            },
+            "participatingJurisdictions": {
+              "type": "string",
+              "description": "comma ISO3"
+            },
+            "theme": {
+              "type": "string",
+              "enum": [
+                "dark_patterns",
+                "greenwashing",
+                "health_claims",
+                "fake_reviews",
+                "subscription_traps",
+                "influencer_disclosure",
+                "ai_chatbots",
+                "kids_apps",
+                "crypto_ads",
+                "sustainability_claims"
+              ]
+            },
+            "urlsScanned": {
+              "type": "integer"
+            },
+            "violationsFoundPct": {
+              "type": "number"
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

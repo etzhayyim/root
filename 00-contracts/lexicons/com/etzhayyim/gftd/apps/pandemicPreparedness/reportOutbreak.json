@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pandemicPreparedness.reportOutbreak",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WHO IHR 2005 outbreak report (bridges pharma-supply + icd10 disease + forced-labor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "outbreakId",
+            "pathogenName",
+            "jurisdictionIso3",
+            "phase",
+            "reportedAt"
+          ],
+          "properties": {
+            "outbreakId": {
+              "type": "string"
+            },
+            "pathogenName": {
+              "type": "string"
+            },
+            "icd10Code": {
+              "type": "string",
+              "description": "bridges open-icd10"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "casesConfirmed": {
+              "type": "integer"
+            },
+            "deaths": {
+              "type": "integer"
+            },
+            "cfrPct": {
+              "type": "number",
+              "description": "case fatality rate"
+            },
+            "phase": {
+              "type": "string",
+              "enum": [
+                "alert",
+                "cluster",
+                "epidemic",
+                "pandemic_declared",
+                "controlled"
+              ]
+            },
+            "pheicDeclared": {
+              "type": "boolean",
+              "description": "Public Health Emergency of International Concern"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "routine",
+                "elevated",
+                "severe",
+                "catastrophic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

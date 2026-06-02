@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govEgy.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govEgy.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Egypt government.",
-        "operationId": "app.etzhayyim.govEgy.followSiteDeps",
+        "operationId": "com.etzhayyim.govEgy.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govEgy.heartbeatTick": {
       "post": {
         "summary": "Run the Egypt government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govEgy.heartbeatTick",
+        "operationId": "com.etzhayyim.govEgy.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.listOrgs": {
+    "/xrpc/com.etzhayyim.govEgy.listOrgs": {
       "get": {
         "summary": "List Egypt government organization graph records.",
-        "operationId": "app.etzhayyim.govEgy.listOrgs",
+        "operationId": "com.etzhayyim.govEgy.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.registerDIDs": {
+    "/xrpc/com.etzhayyim.govEgy.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Egypt government organizations.",
-        "operationId": "app.etzhayyim.govEgy.registerDIDs",
+        "operationId": "com.etzhayyim.govEgy.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govEgy.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Egypt government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govEgy.resolveOrgPath",
+        "operationId": "com.etzhayyim.govEgy.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.seedOrgs": {
+    "/xrpc/com.etzhayyim.govEgy.seedOrgs": {
       "post": {
         "summary": "Seed initial Egypt government organization records into the graph.",
-        "operationId": "app.etzhayyim.govEgy.seedOrgs",
+        "operationId": "com.etzhayyim.govEgy.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.shinka": {
+    "/xrpc/com.etzhayyim.govEgy.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Egypt government organization update.",
-        "operationId": "app.etzhayyim.govEgy.shinka",
+        "operationId": "com.etzhayyim.govEgy.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEgy.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govEgy.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Egypt government organization changes to graph.",
-        "operationId": "app.etzhayyim.govEgy.syncWetUpdates",
+        "operationId": "com.etzhayyim.govEgy.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

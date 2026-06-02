@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.corp.filingEvent",
+  "description": "Material-event filing header (high-cadence hot-path attestation). R0 skeleton per ADR-2605263800 §3 (CorpFilingEventSensor). Authored by W3 sensors (`sec_edgar_rss_sensor` + `jp_edinet_api_sensor`) reading published filing-event feeds. This lexicon yields HEADERS only — full filing body is referenced via `payloadCid` for the cold-path corpus. ossekai (ADR-2605263600) is the primary aggregate-publication consumer of high-cadence material-event observations.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "jurisdictionIso3",
+          "entityLocalId",
+          "eventKind",
+          "eventSummary",
+          "filedAtUtc",
+          "payloadCid",
+          "sourceSensor",
+          "datasetPinAt",
+          "tier",
+          "license",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "jurisdictionIso3": {"type": "string", "maxLength": 3, "minLength": 3},
+          "entityLocalId": {"type": "string"},
+          "entityLei": {"type": "string", "maxLength": 20},
+          "eventKind": {
+            "type": "string",
+            "description": "Per-jurisdiction event taxonomy. Examples: '8-K item 1.01' (US material agreement) / '8-K item 2.01' (US asset acquisition) / 大量保有変更 (JP large-holding amendment) / etc."
+          },
+          "eventSummary": {
+            "type": "string",
+            "description": "Short header excerpt only (NOT full filing body). Body lives at payloadCid.",
+            "maxLength": 1024
+          },
+          "filedAtUtc": {"type": "string", "format": "datetime"},
+          "payloadCid": {"type": "string"},
+          "sourceSensor": {
+            "type": "string",
+            "knownValues": ["sec_edgar_rss", "jp_edinet_api"]
+          },
+          "datasetPinAt": {"type": "string", "format": "at-uri"},
+          "tier": {"type": "string", "knownValues": ["A"]},
+          "license": {
+            "type": "string",
+            "knownValues": ["public-domain", "fsa-open-data-utilization-terms"]
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

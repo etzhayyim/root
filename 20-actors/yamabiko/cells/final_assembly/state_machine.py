@@ -87,7 +87,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = FinalPhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.finalAssemblyAttestation",
+        "$type": "com.etzhayyim.yamabiko.finalAssemblyAttestation",
         "trainsetId": s.trainsetId,
         "inputs": s.inputs,
         "marriage": s.marriage,

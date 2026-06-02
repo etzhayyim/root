@@ -53,7 +53,7 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.browser.automationJob",
+        "com.etzhayyim.apps.browser.automationJob",
         "app.bsky.feed.post"
       ]
     }

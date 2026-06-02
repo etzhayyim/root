@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.transparency.accessLogPublication",
+  "description": "A published access-log record per ADR-2605310100 §3/§6 (Covenant Transparency Doctrine). R0 skeleton. Promotes the kotoba `fingerprint_middleware` audit datom (kotoba/audit/requests/v1: method/path/node_id/ts/peer_ip) and inbound-email ingest from operator-only to PUBLISHABLE for any party (member or non-member) that accessed an etzhayyim / kotoba resource. CONSTITUTIONAL: the §4 non-waivable floor applies BEFORE publication — `secretsRedacted` MUST be true; access-control material (DID private key, CACAO-as-bearer, auth tokens, session secrets, KOTOBA_* secrets) is NEVER published, only redacted. Outbound third-party data NOT brought in by ingress is out of scope (stays under tadori/danjo/himotoki gates). `ratificationStatus` MUST be `proposed-unratified` until Council Lv7+ unanimity is recorded; until then records are scaffolds and no live publication of real access occurs (§5).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "accessKind",
+          "actorClass",
+          "ingressConsentBasis",
+          "secretsRedacted",
+          "ratificationStatus",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "accessKind": {
+            "type": "string",
+            "knownValues": [
+              "http-request",
+              "xrpc",
+              "mcp",
+              "wallet-tx",
+              "inbound-email"
+            ],
+            "description": "The ingress surface the access arrived on."
+          },
+          "actorClass": {
+            "type": "string",
+            "knownValues": ["member", "non-member"],
+            "description": "Whether the accessing party is a covenant member. Both classes are subject to §3 ingress-consent."
+          },
+          "attributedDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the accessing party when attributable (members are always attributable per §1; non-members usually absent)."
+          },
+          "peerIp": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Client IP as captured by fingerprint_middleware (X-Forwarded-For / X-Real-IP). Present only when the proxy supplied it."
+          },
+          "method": {"type": "string", "maxLength": 16, "description": "HTTP method for request-kind access."},
+          "path": {"type": "string", "maxLength": 512, "description": "Request path (truncated as in the audit datom)."},
+          "requestAuditCid": {
+            "type": "string",
+            "description": "CID of the underlying kotoba/audit/requests/v1 datom this publication derives from."
+          },
+          "contentDigest": {
+            "type": "string",
+            "description": "blake3 digest of the published content (e.g. inbound-email body) for integrity, computed AFTER §4 redaction."
+          },
+          "publishedContent": {
+            "type": "string",
+            "maxLength": 65536,
+            "description": "The publishable content of the access (e.g. inbound-email body), AFTER the §4 secret-redaction filter. Omitted if the access carried no content."
+          },
+          "ingressConsentBasis": {
+            "type": "string",
+            "const": "ingress-act",
+            "description": "MUST be `ingress-act`: consent is constituted by the act of reaching into etzhayyim's domain (territorial / ingress consent, §3), not by membership."
+          },
+          "secretsRedacted": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true. Asserts the §4 floor was applied: access-control material was redacted, never published."
+          },
+          "withheldUnderFloor": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Categories withheld by §4 (e.g. 'credential', 'cacao-signature', 'private-key', 'outbound-third-party-pii'). Transparency about what transparency did NOT publish."
+          },
+          "redactionMethodNoteCid": {
+            "type": "string",
+            "description": "Open, versioned method note describing the §4 redaction filter (analogous to danjo.methodNote)."
+          },
+          "ratificationStatus": {
+            "type": "string",
+            "const": "proposed-unratified",
+            "description": "MUST be `proposed-unratified` at R0 (ADR-2605310100 §5). Live publication of real access requires recorded Council Lv7+ unanimity."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

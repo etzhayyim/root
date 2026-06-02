@@ -16,8 +16,8 @@ import { createMockHostImports } from "./mock-helpers.js";
 describe("F-Plan Phase 1: Lexicon-as-Contract POC", () => {
 	describe("generated NSID registry", () => {
 		it("exposes representative host capabilities", () => {
-			expect(HOST_NSID.secretsGet).toBe("app.etzhayyim.host.secrets.get");
-			expect(HOST_NSID.llmConverse).toBe("app.etzhayyim.host.llm.converse");
+			expect(HOST_NSID.secretsGet).toBe("com.etzhayyim.host.secrets.get");
+			expect(HOST_NSID.llmConverse).toBe("com.etzhayyim.host.llm.converse");
 		});
 	});
 
@@ -58,7 +58,7 @@ describe("F-Plan Phase 1: Lexicon-as-Contract POC", () => {
 			const dispatcher = createHostDispatcher(hostImports);
 
 			await expect(
-				dispatcher.dispatch("app.etzhayyim.host.nonexistent.method", {}),
+				dispatcher.dispatch("com.etzhayyim.host.nonexistent.method", {}),
 			).rejects.toThrow(/unknown NSID/);
 		});
 	});

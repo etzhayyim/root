@@ -25,7 +25,7 @@ export interface GovCoverageScore {
 }
 
 async function countBpmnFiles(root: string): Promise<number> {
-  const bpmnDir = path.join(root, '00-contracts', 'bpmn', 'ai', 'gftd');
+  const bpmnDir = path.join(root, '00-contracts', 'bpmn', 'com', 'etzhayyim');
   try {
     const stat = await fs.stat(bpmnDir);
     if (!stat.isDirectory()) return 0;
@@ -52,7 +52,7 @@ async function countBpmnFiles(root: string): Promise<number> {
 }
 
 async function countIso3Countries(root: string): Promise<number> {
-  const bpmnDir = path.join(root, '00-contracts', 'bpmn', 'ai', 'gftd');
+  const bpmnDir = path.join(root, '00-contracts', 'bpmn', 'com', 'etzhayyim');
   try {
     const entries = await fs.readdir(bpmnDir, { withFileTypes: true });
     const countryDirs = entries.filter(e => e.isDirectory() && e.name.startsWith('gov'));
@@ -128,7 +128,7 @@ async function countActivatedCells(root: string): Promise<number> {
 }
 
 async function countLexicons(root: string): Promise<number> {
-  const lexDir = path.join(root, '00-contracts', 'lexicons', 'app', 'etzhayyim', 'gov');
+  const lexDir = path.join(root, '00-contracts', 'lexicons', 'com', 'etzhayyim', 'gov');
   try {
     const entries = await fs.readdir(lexDir, { withFileTypes: true });
     return entries.filter(e => e.isFile() && e.name.endsWith('.json')).length;

@@ -1,6 +1,6 @@
 """webmk `deliver_proposal` graph — send proposal via Resend email.
 
-NSID: app.etzhayyim.apps.webmk.deliverProposal
+NSID: com.etzhayyim.apps.webmk.deliverProposal
 """
 
 from __future__ import annotations
@@ -98,7 +98,7 @@ async def _update_status(state: _State) -> dict[str, Any]:
             await conn.execute(
                 "INSERT INTO vertex_webmk_proposal (vertex_id, proposal_id, status, actor_did, org_did, created_at) "
                 "VALUES (%s, %s, 'delivered', %s, 'anon', NOW()) ",
-                (f"at://did:web:webmk.etzhayyim.com/app.etzhayyim.apps.webmk.proposal/{proposal_id}", proposal_id, _APP_DID),
+                (f"at://did:web:webmk.etzhayyim.com/com.etzhayyim.apps.webmk.proposal/{proposal_id}", proposal_id, _APP_DID),
             )
     except Exception as exc:  # noqa: BLE001
         _log.warning("update_status failed (non-fatal): %s", exc)

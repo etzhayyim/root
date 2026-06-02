@@ -6,10 +6,10 @@ Purpose: track a dispatched remedy's outcome — merchant response / refund /
 window-expiry clock; on stall, flag for escalation. Emits `statusTrack`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G6 any member-identifying outcome
-detail lands ONLY in an app.etzhayyim.encrypted.* DID-bound envelope (never
+detail lands ONLY in an com.etzhayyim.encrypted.* DID-bound envelope (never
 inline); G10/G11 track only — no coercion, no harassment follow-up; Murakumo-only
 inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.kurashimori.statusTrack.
+Output Lexicon(s): com.etzhayyim.kurashimori.statusTrack.
 
 R0 scaffold — import-time RuntimeError until R2.
 """

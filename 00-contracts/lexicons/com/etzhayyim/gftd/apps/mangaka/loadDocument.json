@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.loadDocument",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Load a manga document by string docId. Tightened from F2 bootstrap stub on 2026-05-12.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "docId": { "type": "string" }
+        },
+        "required": ["docId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "docId": { "type": "string" },
+            "name": { "type": "string" },
+            "document": { "type": "string" },
+            "convoId": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fpicConsent.flagFpicViolation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FPIC violation / failure to obtain / coerced consent (bridges soyMoratorium.flagMoratoriumBreach + indigenous-rights + worker-grievance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "eventVid",
+            "violationKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges recordConsentEvent"
+            },
+            "violationKind": {
+              "type": "string",
+              "enum": [
+                "no_consultation",
+                "tokenistic",
+                "coerced",
+                "manipulated_info",
+                "representative_unrecognized",
+                "proceeded_without",
+                "divide_and_rule",
+                "compensation_inadequate",
+                "land_grabbing",
+                "threats_violence"
+              ]
+            },
+            "affectedPersons": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

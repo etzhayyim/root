@@ -97,7 +97,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.society6.s6Event"
+          "com.etzhayyim.apps.society6.s6Event"
         ],
         "type": "subscribeRepos"
       }
@@ -113,7 +113,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.society6.health",
+        "nsid": "com.etzhayyim.apps.society6.health",
         "type": "xrpc"
       }
     },
@@ -139,7 +139,7 @@
             "params": {
               "actorName": "society6",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.society6.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.society6.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "s6c9m2q1",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -197,7 +197,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.society6.coverage.get",
+        "nsid": "com.etzhayyim.apps.society6.coverage.get",
         "type": "xrpc"
       }
     }
@@ -218,8 +218,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -232,9 +232,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.society6.s6Rank",
-        "ai.gftd.apps.society6.s6Achievement",
-        "ai.gftd.apps.society6.s6Event"
+        "com.etzhayyim.apps.society6.s6Rank",
+        "com.etzhayyim.apps.society6.s6Achievement",
+        "com.etzhayyim.apps.society6.s6Event"
       ]
     }
   },

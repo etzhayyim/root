@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilDistribution.registerTerminal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a downstream product terminal / wholesale hub. Path-based DID: did:web:oil-distribution.etzhayyim.com:terminal:{iso3}:{slug}.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["name", "country", "terminalType"],
+          "properties": {
+            "name": { "type": "string" },
+            "country": { "type": "string" },
+            "terminalType": { "type": "string", "enum": ["product-terminal", "wholesale-rack", "blending-facility", "lpg-terminal", "lubricant-depot", "marine-bunker"] },
+            "operatorDid": { "type": "string", "format": "did" },
+            "throughputBopd": { "type": "number" },
+            "storageMmbbl": { "type": "number" },
+            "modes": { "type": "array", "items": { "type": "string", "enum": ["pipeline-in", "marine-in", "rail-in", "truck-out", "rail-out", "pipeline-out"] } },
+            "products": { "type": "array", "items": { "type": "string", "enum": ["gasoline", "diesel", "jet", "fuel-oil", "lpg", "naphtha", "lubricants", "asphalt"] } }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

@@ -48,15 +48,15 @@ const APPS: ReadonlyArray<{
 ];
 
 const processSeeds: ProcessSeed[] = APPS.map(({ app, ownerDid }) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${app}-cron-tick-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${app}-cron-tick-v1`,
   bpmnProcessId: `${app}_cron_tick`,
-  sourcePath: `00-contracts/bpmn/ai/gftd/${app}/cronTick.bpmn`,
+  sourcePath: `00-contracts/bpmn/com/etzhayyim/${app}/cronTick.bpmn`,
   ownerDid,
 }));
 
 const bindingSeeds: BindingSeed[] = APPS.map(({ app, ownerDid }) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${app}-cronTick-v1`,
-  nsid: `app.etzhayyim.apps.${app}.cronTick`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${app}-cronTick-v1`,
+  nsid: `com.etzhayyim.apps.${app}.cronTick`,
   bpmnProcessId: `${app}_cron_tick`,
   ownerDid,
   resultTimeoutMs: 60_000,

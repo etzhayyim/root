@@ -25,28 +25,28 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $2\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, nsid, bpmn_process_id,\n'
          '       sensitivity_ord, org_id, user_id, actor_id)\n'
          '    SELECT\n'
          '      $1,\n'
-         "      'app.etzhayyim.apps.wellbecoming.beliefNoiseInject',\n"
+         "      'com.etzhayyim.apps.wellbecoming.beliefNoiseInject',\n"
          "      'wellbecoming_belief_noise_inject',\n"
          "      1, '', '', 'sys.bpmn.wellbecoming'\n"
          '    WHERE NOT EXISTS (\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $2\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/wellbecoming-belief-noise-inject-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-noise-inject-v1']}]
 
 
 def upgrade() -> None:

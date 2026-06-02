@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'jpn_invoice_register_issuer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -82,12 +82,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2700,
-                 '00-contracts/bpmn/ai/gftd/jpn-invoice/registerInvoiceIssuer.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/jpn-invoice/registerInvoiceIssuer.bpmn',
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'sys.bpmn.seed.jpn-invoice',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -95,7 +95,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'jpn_invoice_record_corporate_tax_filing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -214,12 +214,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5142,
-                 '00-contracts/bpmn/ai/gftd/jpn-invoice/recordCorporateTaxFiling.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/jpn-invoice/recordCorporateTaxFiling.bpmn',
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'sys.bpmn.seed.jpn-invoice',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -227,16 +227,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1',
                  'did:web:jpn-invoice.etzhayyim.com',
-                 'app.etzhayyim.apps.jpnInvoice.registerInvoiceIssuer',
+                 'com.etzhayyim.apps.jpnInvoice.registerInvoiceIssuer',
                  'jpn_invoice_register_issuer',
                  15000,
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'sys.bpmn.seed.jpn-invoice',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -244,25 +244,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1',
                  'did:web:jpn-invoice.etzhayyim.com',
-                 'app.etzhayyim.apps.jpnInvoice.recordCorporateTaxFiling',
+                 'com.etzhayyim.apps.jpnInvoice.recordCorporateTaxFiling',
                  'jpn_invoice_record_corporate_tax_filing',
                  30000,
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'did:web:jpn-invoice.etzhayyim.com',
                  'sys.bpmn.seed.jpn-invoice',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-invoice-registerInvoiceIssuer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-invoice-recordCorporateTaxFiling-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-invoice-register-issuer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-invoice-record-corporate-tax-filing-v1']}]
 
 
 def upgrade() -> None:

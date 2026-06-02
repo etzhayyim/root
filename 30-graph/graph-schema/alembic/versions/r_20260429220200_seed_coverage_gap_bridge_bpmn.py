@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1',
                  'did:web:coverage.etzhayyim.com',
                  'coverage_gap_bridge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -55,8 +55,8 @@ UP = [{'sql': '\n'
                  '    4. generic.audit.emit        : OCEL event (domain, kind, rows_written)\n'
                  '\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1\n'
-                 '  NSID:      app.etzhayyim.apps.coverage.coverageGapBridge\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1\n'
+                 '  NSID:      com.etzhayyim.apps.coverage.coverageGapBridge\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -69,7 +69,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.coverage.coverageGapBridge", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.coverage.coverageGapBridge", "version": 1, '
                  '"resultTimeoutMs": 900000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -249,13 +249,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  9093,
-                 '00-contracts/bpmn/ai/gftd/coverage/coverageGapBridge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/coverage/coverageGapBridge.bpmn',
                  '2026-04-29T22:02:00+09:00',
                  'did:web:coverage.etzhayyim.com',
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
                  'did:web:coverage.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -270,9 +270,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-coverageGapBridge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/coverage-coverageGapBridge-v1',
                  'did:web:coverage.etzhayyim.com',
-                 'app.etzhayyim.apps.coverage.coverageGapBridge',
+                 'com.etzhayyim.apps.coverage.coverageGapBridge',
                  'coverage_gap_bridge',
                  900000,
                  'vertex_coverage_recipe,vertex_crypto_asset_freeze,vertex_rare_earth_coverage,vertex_coverage_infer_entity,vertex_business_person',
@@ -281,12 +281,12 @@ UP = [{'sql': '\n'
                  'did:web:coverage.etzhayyim.com',
                  'sys.bpmn.seed.coverage',
                  'did:web:coverage.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-coverageGapBridge-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/coverage-coverageGapBridge-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/coverage-coverageGapBridge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/coverage-coverageGapBridge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1']}]
 
 
 def upgrade() -> None:

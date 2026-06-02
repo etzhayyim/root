@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.otakiage.requestReuse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "物品の引取希望を登録。reuser が H3 cell + メッセージを送り、寄贈者が confirmHandover で確定するまで pending。1 item に対して N reuse_request 並列許容、最初に confirm された 1 件のみ handed_over。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["itemUri", "requesterDid"],
+          "properties": {
+            "itemUri": {"type": "string", "description": "at:// 形式 item URI"},
+            "requesterDid": {"type": "string"},
+            "message": {"type": "string", "maxLength": 1000, "description": "引取希望メッセージ (子の年齢、用途、引取手段 等)"},
+            "h3Cell": {"type": "string", "description": "requester の H3 res-5 cell。距離計算に使用"},
+            "lat": {"type": "number"},
+            "lng": {"type": "number"},
+            "preferredHandoverDate": {"type": "string", "format": "date"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "reuseRequestUri", "distanceKm"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "reuseRequestUri": {"type": "string"},
+            "distanceKm": {"type": "number", "description": "item と requester の H3 中心点間距離 (km)"},
+            "withinAdjacentCells": {"type": "boolean", "description": "true なら res-5 同一 + 隣接 6 cell 圏内"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -32,8 +32,8 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openJpnGov.ministry",
-        "ai.gftd.apps.openJpnGov.lawCitation"
+        "com.etzhayyim.apps.openJpnGov.ministry",
+        "com.etzhayyim.apps.openJpnGov.lawCitation"
       ]
     }
   },

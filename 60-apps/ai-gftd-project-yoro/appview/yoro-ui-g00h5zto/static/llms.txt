@@ -20,7 +20,7 @@ Machine-readable discovery:
 
 Protocol and MCP:
 - AT Protocol gateway: https://atproto.etzhayyim.com/
-- MCP endpoint: https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message
+- MCP endpoint: https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message
 - DID metadata: https://atproto.etzhayyim.com/.well-known/did.json
 - OAuth metadata: https://atproto.etzhayyim.com/.well-known/oauth-authorization-server
 

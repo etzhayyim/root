@@ -17,7 +17,7 @@ COMPOSES:
 For a feedstock/consumable need it (1) routes commons-first through okaimono, (2) builds
 a `procurementOrder`, (3) emits a CycloneDX-shaped `sbomAttestation` and projects it to
 kotoba `:cdx/*` datoms (G8), and (4) writes a per-lot
-`app.etzhayyim.himawari.polysiliconProvenanceAttestation`-shaped provenance datom set
+`com.etzhayyim.himawari.polysiliconProvenanceAttestation`-shaped provenance datom set
 with the XUAR-exclusion + §2(g) sourcing-audit CIDs (G2). Settlement is intent-only and
 on-chain broadcast / live external purchase stays operator-gated (G11/§1.3).
 """
@@ -313,7 +313,7 @@ class SupplyProcurementCell:
 
     # ----------------------------------------------------------------------- #
     # G2 — per-lot provenance attestation (XUAR-exclusion + §2(g) audit) → kotoba.
-    # Shape mirrors app.etzhayyim.himawari.polysiliconProvenanceAttestation.
+    # Shape mirrors com.etzhayyim.himawari.polysiliconProvenanceAttestation.
     # ----------------------------------------------------------------------- #
     def _build_provenance_attestation(self, need: dict) -> dict:
         """Build a per-lot provenance attestation matching the himawari lexicon
@@ -325,7 +325,7 @@ class SupplyProcurementCell:
             "sourcingAuditCid", "attestingEngineerDid", "attestingRobots",
         ]
         record: dict[str, Any] = {
-            "$type": "app.etzhayyim.himawari.polysiliconProvenanceAttestation",
+            "$type": "com.etzhayyim.himawari.polysiliconProvenanceAttestation",
             "lotId": need.get("lotId"),
             "feedstockGrade": need.get("feedstockGrade"),
             "process": need.get("process"),

@@ -12,7 +12,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "kgCurator";
-const NSID_PREFIX = "app.etzhayyim.apps.kgCurator.";
+const NSID_PREFIX = "com.etzhayyim.apps.kgCurator.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -24,7 +24,7 @@ export default {
         nanoid: env.APP_NANOID ?? "kg7r4t0r",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kg_curator.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/kgCurator",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kgCurator",
       });
     }
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";

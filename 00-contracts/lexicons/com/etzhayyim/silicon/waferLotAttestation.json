@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.silicon.waferLotAttestation",
+  "description": "Append-only per-process-step attestation for a wafer lot moving through the fab. Each silicon_* Pregel cell super-step writes one record after completing its step. The chain of these records is the wafer lot's process_history used by chipManufacturingAttestation. Per ADR-2605242545 §Decision 1 + 2.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "lotId",
+          "stepIndex",
+          "processStep",
+          "executingCellDid",
+          "equipmentDid",
+          "recipeUri",
+          "outcome",
+          "completedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "lotId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "stepIndex": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Monotonic step number within this lot's process_history."
+          },
+          "processStep": {
+            "type": "string",
+            "knownValues": [
+              "litho",
+              "deposition",
+              "etch",
+              "implant",
+              "cmp",
+              "metrology",
+              "test",
+              "packaging"
+            ]
+          },
+          "executingCellDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the silicon_* Pregel cell that performed the super-step."
+          },
+          "equipmentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the equipment unit that ran the recipe."
+          },
+          "recipeUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the recipe record (versioned)."
+          },
+          "telemetryUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional. AT URI of the fabEquipmentTelemetry down-sample for this step."
+          },
+          "metrologyUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional. If this step is metrology, AT URI of the defect classification result. If non-metrology, may reference the most recent prior metrology."
+          },
+          "outcome": {
+            "type": "string",
+            "knownValues": [
+              "ok",
+              "rework-required",
+              "scrapped",
+              "quarantined"
+            ]
+          },
+          "outcomeNarrative": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "Required when outcome != 'ok'. Documents the deviation and the operator/cell decision."
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "silenForceReviewUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Required when processStep ∈ {'litho', 'implant'} (HIGH §2(a)(c) risk per ADR-2605242545 §Decision 1)."
+          }
+        }
+      }
+    }
+  }
+}

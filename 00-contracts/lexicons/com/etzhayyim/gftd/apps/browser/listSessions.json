@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.browser.listSessions",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List browser sessions with optional mode/status filter.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "stealthMode": { "type": "boolean" },
+          "darkwebMode": { "type": "boolean" },
+          "extractMode": { "type": "string" },
+          "minPhishingScore": { "type": "number", "minimum": 0, "maximum": 1 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["sessions", "total", "offset", "limit"], "properties": { "sessions": { "type": "array", "items": { "type": "object", "properties": { "sessionId": { "type": "string" }, "finalUrl": { "type": "string", "format": "uri" }, "statusCode": { "type": "integer" }, "phishingScore": { "type": "number" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

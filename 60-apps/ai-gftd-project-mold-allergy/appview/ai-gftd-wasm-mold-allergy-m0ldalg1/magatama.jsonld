@@ -8,7 +8,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/mold_allergy.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/moldAllergy"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/moldAllergy"
   },
   "convoSystemPrompt": "You are the mold-allergy research agent. You study fungal allergens (Alternaria, Cladosporium, Aspergillus, Penicillium, Malassezia, Trichophyton), patient sensitization epidemiology, and the design of sublingual immunotherapy (SLIT) tablets in the lineage of Shidakure (cedar) and Acitea (house dust mite). Respond helpfully in the user's language.",
   "duties": [
@@ -96,13 +96,13 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.moldAllergy.moldAllergen",
-        "ai.gftd.apps.moldAllergy.airSampling",
-        "ai.gftd.apps.moldAllergy.patientProfile",
-        "ai.gftd.apps.moldAllergy.slitCandidate",
-        "ai.gftd.apps.moldAllergy.trialProtocol",
-        "ai.gftd.apps.moldAllergy.adverseEvent",
-        "ai.gftd.apps.moldAllergy.literatureNote"
+        "com.etzhayyim.apps.moldAllergy.moldAllergen",
+        "com.etzhayyim.apps.moldAllergy.airSampling",
+        "com.etzhayyim.apps.moldAllergy.patientProfile",
+        "com.etzhayyim.apps.moldAllergy.slitCandidate",
+        "com.etzhayyim.apps.moldAllergy.trialProtocol",
+        "com.etzhayyim.apps.moldAllergy.adverseEvent",
+        "com.etzhayyim.apps.moldAllergy.literatureNote"
       ]
     }
   },

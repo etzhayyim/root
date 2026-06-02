@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.realEstate.registerProperty",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register or refresh a global real-estate property/land parcel vertex. Starts BPMN real_estate_register_property.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["propertyId", "canonicalPropertyKey", "propertyType", "countryIso2"],
+          "properties": {
+            "propertyId": { "type": "string" },
+            "canonicalPropertyKey": { "type": "string", "description": "Stable dedupe key, e.g. country:registry/cadastral/address-hash." },
+            "propertyType": { "type": "string", "enum": ["land", "house", "apartment", "condominium", "commercial", "industrial", "agricultural", "mixed_use", "parking", "other"] },
+            "countryIso2": { "type": "string" },
+            "countryIso3": { "type": "string" },
+            "admin1": { "type": "string" },
+            "admin2": { "type": "string" },
+            "city": { "type": "string" },
+            "postalCode": { "type": "string" },
+            "addressText": { "type": "string" },
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" },
+            "geohash": { "type": "string" },
+            "landAreaSqm": { "type": "number" },
+            "floorAreaSqm": { "type": "number" },
+            "buildingAreaSqm": { "type": "number" },
+            "rooms": { "type": "number" },
+            "bedrooms": { "type": "integer" },
+            "bathrooms": { "type": "number" },
+            "yearBuilt": { "type": "integer" },
+            "landRightsType": { "type": "string", "enum": ["freehold", "leasehold", "customary", "state_owned", "commonhold", "strata", "unknown"] },
+            "registryNumber": { "type": "string" },
+            "cadastralId": { "type": "string" },
+            "sourceId": { "type": "string" },
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "dataHash": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

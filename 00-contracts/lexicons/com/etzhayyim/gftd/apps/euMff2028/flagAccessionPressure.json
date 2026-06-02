@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euMff2028.flagAccessionPressure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Accession-driven MFF strain (Ukraine, Western Balkans) (bridges frugalFourCoalition.flagSwingShift + euSummitConclusion + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "headingVid",
+            "strainKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "headingVid": {
+              "type": "string",
+              "description": "bridges recordHeading"
+            },
+            "strainKind": {
+              "type": "string",
+              "enum": [
+                "ukraine_accession",
+                "wb6_accession",
+                "moldova",
+                "cap_recipient_dilution",
+                "cohesion_recipient_dilution",
+                "budget_neutrality_demand",
+                "headroom_unrealistic",
+                "crisis_facility_demand",
+                "resource_own_block",
+                "gravity_capacity"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

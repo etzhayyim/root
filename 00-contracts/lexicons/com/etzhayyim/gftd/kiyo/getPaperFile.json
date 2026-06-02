@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kiyo.getPaperFile",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get the IPFS gateway URL for a paper's PDF (or LaTeX source). Content is permanently accessible at https://ipfs.etzhayyim.com/ipfs/{cid} — no expiry (content-addressed, immutable).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "paperId":  { "type": "string" },
+          "version":  { "type": "integer", "description": "Version number; omit for latest" },
+          "fileType": { "type": "string",  "description": "pdf | source; default pdf" }
+        },
+        "required": ["paperId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "url":         { "type": "string",  "description": "https://ipfs.etzhayyim.com/ipfs/{cid}" },
+            "cid":         { "type": "string" },
+            "version":     { "type": "integer" },
+            "contentType": { "type": "string" }
+          },
+          "required": ["url", "cid"]
+        }
+      }
+    }
+  }
+}

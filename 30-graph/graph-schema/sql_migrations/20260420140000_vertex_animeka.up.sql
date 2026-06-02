@@ -239,7 +239,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_animeka_cut_progress AS
       COUNT(*)::bigint AS cut_count,
       SUM(CASE WHEN priority = 'retake' THEN 1 ELSE 0 END)::bigint AS retake_count
     FROM vertex_animeka
-    WHERE collection = 'ai.gftd.apps.animeka.cut'
+    WHERE collection = 'com.etzhayyim.apps.animeka.cut'
     GROUP BY 1, 2;
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_animeka_open_retake_by_cut AS
@@ -248,7 +248,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_animeka_open_retake_by_cut AS
       COALESCE(cut_id, '') AS cut_id,
       COUNT(*)::bigint AS open_cnt
     FROM vertex_animeka
-    WHERE collection = 'ai.gftd.apps.animeka.retake'
+    WHERE collection = 'com.etzhayyim.apps.animeka.retake'
       AND COALESCE(status, 'open') = 'open'
     GROUP BY 1, 2;
 

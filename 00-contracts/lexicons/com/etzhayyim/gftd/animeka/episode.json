@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.episode",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a single anime episode. Episode = project unit (convoId = roomId for Project Actor Composition). Derive rule `episode-published-social` auto-emits a thread-root app.bsky.feed.post on status transition to 'published', with the work DID as author.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["workRef", "episodeNum", "titleJP", "status", "createdAt"],
+        "properties": {
+          "workRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "strongRef to com.etzhayyim.apps.animeka.work. Resolves the primary DID (= post author)."
+          },
+          "episodeNum": {
+            "type": "integer",
+            "description": "Episode number within the work (1-indexed)."
+          },
+          "titleJP": {
+            "type": "string"
+          },
+          "titleEN": {
+            "type": "string"
+          },
+          "convoId": {
+            "type": "string",
+            "description": "Project convoId (= roomId). Knowledge graph records in this episode are scoped by this id."
+          },
+          "durationSec": {
+            "type": "integer",
+            "description": "Target duration in seconds (typ. 1410 = 23m30s for TV)."
+          },
+          "fps": {
+            "type": "integer",
+            "description": "Episode default fps (24 full, 12 limited). Overrides work.fps."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["planning", "scripting", "storyboarding", "layout", "keyAnim", "inbetween", "color", "composite", "review", "delivered", "published", "archived"],
+            "description": "Pipeline stage indicator (coarse). Per-cut progress lives in `cut.status`."
+          },
+          "airDate": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "masterCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the final master video (mp4/mov). Set on delivery."
+          },
+          "thumbCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Episode thumbnail. Consumed by derive rule as embed.images[0]."
+          },
+          "teamDids": {
+            "type": "array",
+            "description": "DIDs of actor/human members participating in this episode project.",
+            "items": { "type": "string" }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

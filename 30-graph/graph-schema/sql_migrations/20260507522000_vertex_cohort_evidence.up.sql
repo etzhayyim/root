@@ -42,7 +42,7 @@ INSERT INTO vertex_cohort_evidence (
       actor_did,
       org_did
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.cohort.evidence'
+    WHERE collection = 'com.etzhayyim.cohort.evidence'
       AND evidence_hash IS NOT NULL;
 
 DROP MATERIALIZED VIEW IF EXISTS mv_cohort_k_drift;

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govNor.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govNor.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Norway government.",
-        "operationId": "app.etzhayyim.govNor.followSiteDeps",
+        "operationId": "com.etzhayyim.govNor.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govNor.heartbeatTick": {
       "post": {
         "summary": "Run the Norway government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govNor.heartbeatTick",
+        "operationId": "com.etzhayyim.govNor.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.listOrgs": {
+    "/xrpc/com.etzhayyim.govNor.listOrgs": {
       "get": {
         "summary": "List Norway government organization graph records.",
-        "operationId": "app.etzhayyim.govNor.listOrgs",
+        "operationId": "com.etzhayyim.govNor.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.registerDIDs": {
+    "/xrpc/com.etzhayyim.govNor.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Norway government organizations.",
-        "operationId": "app.etzhayyim.govNor.registerDIDs",
+        "operationId": "com.etzhayyim.govNor.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govNor.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Norway government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govNor.resolveOrgPath",
+        "operationId": "com.etzhayyim.govNor.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.seedOrgs": {
+    "/xrpc/com.etzhayyim.govNor.seedOrgs": {
       "post": {
         "summary": "Seed initial Norway government organization records into the graph.",
-        "operationId": "app.etzhayyim.govNor.seedOrgs",
+        "operationId": "com.etzhayyim.govNor.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.shinka": {
+    "/xrpc/com.etzhayyim.govNor.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Norway government organization update.",
-        "operationId": "app.etzhayyim.govNor.shinka",
+        "operationId": "com.etzhayyim.govNor.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNor.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govNor.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Norway government organization changes to graph.",
-        "operationId": "app.etzhayyim.govNor.syncWetUpdates",
+        "operationId": "com.etzhayyim.govNor.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

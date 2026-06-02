@@ -4,11 +4,11 @@
  * Per ADR-2605191358 step 2 — replaces the legacy Kysely+Hyperdrive→RisingWave
  * path with `@etzhayyim/sdk` over AT MST + IPFS (when needed) + Base L2. The
  * inference job state machine is event-sourced through two lexicons:
- *   - app.etzhayyim.murakumo.inferenceJob       (immutable header)
- *   - app.etzhayyim.murakumo.inferenceJobEvent  (append-only status events)
+ *   - com.etzhayyim.murakumo.inferenceJob       (immutable header)
+ *   - com.etzhayyim.murakumo.inferenceJobEvent  (append-only status events)
  *
  * Platform API keys (`sk_live_*`) are looked up via
- *   app.etzhayyim.murakumo.apiKey (rkey = lowercase hex sha-256 of raw key).
+ *   com.etzhayyim.murakumo.apiKey (rkey = lowercase hex sha-256 of raw key).
  *
  * Non-substrate concerns (Hono routing, Service-Auth JWT, chat-anon HMAC token,
  * LiteLLM HTTP proxy + SSE keepalive, R2 fleet roster, cron) are preserved
@@ -66,9 +66,9 @@ const ROSTER_CACHE_TTL_MS = 30_000;
 const API_KEY_CACHE_TTL_MS = 60_000;
 const OPENAI_MODEL_LIST_CREATED_AT = 1_711_929_600;
 
-const COLLECTION_API_KEY = "app.etzhayyim.murakumo.apiKey";
-const COLLECTION_JOB = "app.etzhayyim.murakumo.inferenceJob";
-const COLLECTION_JOB_EVENT = "app.etzhayyim.murakumo.inferenceJobEvent";
+const COLLECTION_API_KEY = "com.etzhayyim.murakumo.apiKey";
+const COLLECTION_JOB = "com.etzhayyim.murakumo.inferenceJob";
+const COLLECTION_JOB_EVENT = "com.etzhayyim.murakumo.inferenceJobEvent";
 
 const DEFAULT_MURAKUMO_DID = "did:web:murakumo.etzhayyim.com";
 
@@ -1016,7 +1016,7 @@ app.get("/internal/capacity", async (c) => {
 });
 
 // Zeebe-driven cron tick (timer-start BPMN R/PT5M).
-app.post("/xrpc/app.etzhayyim.apps.murakumo.cronTick", async (c) => {
+app.post("/xrpc/com.etzhayyim.apps.murakumo.cronTick", async (c) => {
   c.executionCtx.waitUntil(
     runFleetHealthCheck(c.env).catch((err) =>
       console.error("[murakumo-cron] Zeebe cron tick failed:", err)

@@ -2,9 +2,9 @@
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 5 methods: probeEnvironment / transferSignal / formColony / handoffToKi / lyse
 //
-// Also forwards `app.etzhayyim.mcp.message` envelopes (MCP `tools/call`) to the
-// dispatcher's dedicated `/xrpc/app.etzhayyim.mcp.message` route so that LangGraph
-// `mcp_tool` nodes (ADR-2605082000 §2.6) bound as `mcp://app.etzhayyim.apps.saikin.*`
+// Also forwards `com.etzhayyim.mcp.message` envelopes (MCP `tools/call`) to the
+// dispatcher's dedicated `/xrpc/com.etzhayyim.mcp.message` route so that LangGraph
+// `mcp_tool` nodes (ADR-2605082000 §2.6) bound as `mcp://com.etzhayyim.apps.saikin.*`
 // resolve to this Worker via vertex_mcp_tool_def.actor_host=saikin.etzhayyim.com.
 
 interface SecretBinding { get(): Promise<string>; }
@@ -15,8 +15,8 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.saikin.";
-const MCP_NSID = "app.etzhayyim.mcp.message";
+const NSID_PREFIX = "com.etzhayyim.apps.saikin.";
+const MCP_NSID = "com.etzhayyim.mcp.message";
 const ACTOR_DID = "did:web:saikin.etzhayyim.com";
 
 export default {
@@ -28,7 +28,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "s41k1n01",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/saikin",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/saikin",
         layer: "horizontal",
         metaphor: "bacteria-horizontal-gene-transfer",
         methods: [
@@ -38,11 +38,11 @@ export default {
         mcp: {
           envelope: MCP_NSID,
           tools: [
-            "app.etzhayyim.apps.saikin.probeEnvironment",
-            "app.etzhayyim.apps.saikin.transferSignal",
-            "app.etzhayyim.apps.saikin.formColony",
-            "app.etzhayyim.apps.saikin.handoffToKi",
-            "app.etzhayyim.apps.saikin.lyse",
+            "com.etzhayyim.apps.saikin.probeEnvironment",
+            "com.etzhayyim.apps.saikin.transferSignal",
+            "com.etzhayyim.apps.saikin.formColony",
+            "com.etzhayyim.apps.saikin.handoffToKi",
+            "com.etzhayyim.apps.saikin.lyse",
           ],
         },
       });

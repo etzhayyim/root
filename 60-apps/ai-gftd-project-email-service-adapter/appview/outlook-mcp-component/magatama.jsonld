@@ -25,8 +25,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.emailServiceAdapter.syncMailbox",
-        "ai.gftd.apps.emailServiceAdapter.syncJob"
+        "com.etzhayyim.apps.emailServiceAdapter.syncMailbox",
+        "com.etzhayyim.apps.emailServiceAdapter.syncJob"
       ]
     }
   },

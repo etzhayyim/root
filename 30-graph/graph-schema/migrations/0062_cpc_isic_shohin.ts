@@ -13,11 +13,11 @@ import { Kysely, sql } from 'kysely';
  *   - TABLE  vertex_shohin         — global product master (seeded 30 rows)
  *   - VIEW   view_cpc_product      — typed projection of
  *                                    vertex_repo_record where
- *                                    collection='app.etzhayyim.apps.cpc.commodity_item'
+ *                                    collection='com.etzhayyim.apps.cpc.commodity_item'
  *                                    (UN CPC Ver.2.1 full hierarchy, 4,596 rows)
  *   - VIEW   view_isic_activity    — typed projection of
  *                                    vertex_repo_record where
- *                                    collection='app.etzhayyim.apps.open_isic.economic_activity'
+ *                                    collection='com.etzhayyim.apps.open_isic.economic_activity'
  *                                    (UN ISIC Rev.4 full hierarchy, 766 rows)
  *
  * dim_world_domain adjustments (idempotent):
@@ -68,7 +68,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.cpc.commodity_item'
+    WHERE collection = 'com.etzhayyim.apps.cpc.commodity_item'
   `.execute(db);
 
   // ── view_isic_activity — typed projection over vertex_repo_record ───
@@ -82,7 +82,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.open_isic.economic_activity'
+    WHERE collection = 'com.etzhayyim.apps.open_isic.economic_activity'
   `.execute(db);
 
   // ── dim_world_domain corrections ─────────────────────────────────────

@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.public-fund.proposal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Public Fund grant proposal. Anyone (Adherent or external) can submit. Per ADR-2605192145 §2. Quorum 20% active SBTs, approval 50% of cast votes, 48h timelock.",
+      "record": {
+        "type": "object",
+        "required": [
+          "title",
+          "abstract",
+          "missionAxisHash",
+          "recipients",
+          "amounts",
+          "evidenceCid",
+          "proposerDid",
+          "proposerSignature",
+          "proposedAt"
+        ],
+        "properties": {
+          "title": { "type": "string", "maxLength": 200 },
+          "abstract": { "type": "string", "maxLength": 2000 },
+          "missionAxisHash": {
+            "type": "string",
+            "enum": [
+              "mission.labor_liberation",
+              "mission.robotics_universal",
+              "mission.ip_free_release",
+              "mission.disintermediation",
+              "mission.specialist_anti_gatekeeping",
+              "mission.land_stewardship",
+              "mission.multi_generational_priority",
+              "mission.wellbecoming_priority",
+              "treasury.rebalance"
+            ],
+            "description": "Mission Charter axis this proposal serves. Required for LLM evaluation + Council deliberation."
+          },
+          "recipients": {
+            "type": "array",
+            "minLength": 1,
+            "maxLength": 20,
+            "items": { "type": "string" },
+            "description": "0x-prefixed recipient addresses. None can be Charter Non-Aligned (checked at propose() time)."
+          },
+          "amounts": {
+            "type": "array",
+            "minLength": 1,
+            "maxLength": 20,
+            "items": { "type": "integer", "minimum": 1 },
+            "description": "USDC base units per recipient. Parallel to recipients."
+          },
+          "evidenceCid": {
+            "type": "string",
+            "description": "IPFS CID of full proposal document (markdown / PDF)."
+          },
+          "milestonesCid": {
+            "type": "string",
+            "description": "Optional IPFS CID of milestone breakdown if using MilestoneEscrow path."
+          },
+          "proposerDid": { "type": "string" },
+          "proposerSignature": { "type": "string" },
+          "proposedAt": { "type": "string", "format": "datetime" },
+          "proposalBondTxHash": {
+            "type": "string",
+            "description": "Tx hash of the minimum proposal bond (spam prevention)."
+          },
+          "onchainProposalId": {
+            "type": "string",
+            "description": "PublicFundGovernance contract proposalId (set after propose() tx)."
+          }
+        }
+      }
+    }
+  }
+}

@@ -56,6 +56,31 @@ export {
   type InferenceBackend,
 } from "./inference/webnn";
 
+// WASM-actor loader (ADR-2606014500 + 2606014600) — resolve actor DID, fetch
+// its content-addressed WASM via the apex trustless gateway, CID-verify, run
+// browser-local. The "one Worker, many WASM actors" runtime in the browser.
+export {
+  didToDocUrl,
+  resolveActorWasm,
+  fetchVerifiedWasm,
+  instantiateActor,
+  runCompute,
+  loadActor,
+  isRawCidV1,
+  cidV1Raw,
+  type WasmActorRef,
+  type WasmActorLoaderOpts,
+} from "./inference/wasm-actor-loader";
+
+// WASM-actor UI panel (ADR-2606015200) — framework-free widget the yoro appview
+// mounts to run an actor browser-local and render its result.
+export {
+  formatActorResult,
+  mountActorPanel,
+  type ActorResult,
+  type MountOpts,
+} from "./inference/wasm-actor-panel";
+
 export {
   TRAIN_DEFAULTS,
   DEVICE_STEP_BUDGET,

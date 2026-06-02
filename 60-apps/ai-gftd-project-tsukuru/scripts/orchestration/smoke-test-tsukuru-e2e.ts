@@ -8,7 +8,7 @@ async function runSmokeTest() {
 
   // Mock an incoming AT Protocol record
   const mockRecord = {
-    uri: 'at://did:web:customer.etzhayyim.com/app.etzhayyim.apps.tsukuru.productionOrder/3jxy2z...',
+    uri: 'at://did:web:customer.etzhayyim.com/com.etzhayyim.apps.tsukuru.productionOrder/3jxy2z...',
     manufacturerDid: 'did:web:tsukuru.etzhayyim.com',
     customerDid: 'did:web:customer.etzhayyim.com',
     contactEmail: 'buyer@example.com',

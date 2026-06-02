@@ -1,7 +1,7 @@
 import { json, text, type RequestEvent } from '@sveltejs/kit';
 
 export const YORO_SITE_ORIGIN = 'https://yoro.etzhayyim.com';
-export const DEFAULT_MCP_ROUTER_URL = 'https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message';
+export const DEFAULT_MCP_ROUTER_URL = 'https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message';
 
 export type YoroEnv = Record<string, unknown> & {
 	AGENTGATEWAY_MCP_ROUTER_URL?: string;

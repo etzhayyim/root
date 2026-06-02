@@ -2,7 +2,7 @@
   "$schema": "https://etzhayyim.com/schemas/actor-registry/v1.json",
   "version": "1",
   "generatedAt": "2026-05-23T03:07:52+00:00",
-  "lexicon": "app.etzhayyim.apps.unispsc",
+  "lexicon": "com.etzhayyim.apps.unispsc",
   "didEntity": "did:web:etzhayyim.com",
   "adr": [
     "2605212030",

@@ -2,7 +2,7 @@
 
 Wraps comfy_workflows.scene_workflow (landscape 1216x832 establishing shot,
 no characters by default) behind submit + poll. Input mirrors
-app.etzhayyim.mangaka.environment.
+com.etzhayyim.mangaka.environment.
 
 Pregel:  build → submit → poll → END
 """
@@ -19,7 +19,7 @@ from lg_mangaka import comfy_workflows as _wf
 
 
 class _State(TypedDict, total=False):
-    # input — mirrors app.etzhayyim.mangaka.environment
+    # input — mirrors com.etzhayyim.mangaka.environment
     name: str
     description: str
     style: str

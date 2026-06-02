@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.koke.fixation"]
+      "collections": ["com.etzhayyim.koke.fixation"]
     }
   }
 }

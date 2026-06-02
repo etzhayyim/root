@@ -3,12 +3,12 @@
 interface SecretBinding { get(): Promise<string>; }
 interface Env { ASSETS?: Fetcher; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
 const APP = "slides";
-const NSID_PREFIX = "app.etzhayyim.apps.slides.";
+const NSID_PREFIX = "com.etzhayyim.apps.slides.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
-    if (url.pathname === "/health" || url.pathname === "/_app/meta") return json({ ok: true, actor: "did:web:slides.etzhayyim.com", nanoid: env.APP_NANOID ?? "slides-mcp", execution: "edge-proxy+agentgateway-mcp+langserver", businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py", bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/slides" });
+    if (url.pathname === "/health" || url.pathname === "/_app/meta") return json({ ok: true, actor: "did:web:slides.etzhayyim.com", nanoid: env.APP_NANOID ?? "slides-mcp", execution: "edge-proxy+agentgateway-mcp+langserver", businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py", bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/slides" });
     if (url.pathname === "/oauth/callback") return htmlFromDispatcher(env, `${NSID_PREFIX}oauthCallback`, Object.fromEntries(url.searchParams));
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";
     if (nsid.startsWith(NSID_PREFIX) && (req.method === "POST" || req.method === "GET")) {

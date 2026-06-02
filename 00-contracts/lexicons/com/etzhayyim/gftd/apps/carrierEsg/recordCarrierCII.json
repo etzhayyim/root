@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.carrierEsg.recordCarrierCII",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fleet-level CII",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "ciiId",
+            "carrierCode",
+            "periodYear",
+            "fleetCii",
+            "rating",
+            "reportedAt"
+          ],
+          "properties": {
+            "ciiId": {
+              "type": "string"
+            },
+            "carrierCode": {
+              "type": "string"
+            },
+            "periodYear": {
+              "type": "string",
+              "description": "YYYY"
+            },
+            "fleetCii": {
+              "type": "number"
+            },
+            "rating": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ]
+            },
+            "poseidonAligned": {
+              "type": "boolean"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "ratingTier": {
+              "type": "string",
+              "enum": [
+                "excellent",
+                "satisfactory",
+                "inferior",
+                "non-compliant"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

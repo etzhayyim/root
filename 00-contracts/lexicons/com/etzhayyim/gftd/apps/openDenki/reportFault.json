@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openDenki.reportFault",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Report a grid fault on a feeder. Severity is classified via the openDenki.faultSeverity DMN. severity≥major triggers a public notice post.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["feederDid", "faultType", "detectedAt"],
+          "properties": {
+            "feederDid":          { "type": "string" },
+            "faultType":          { "type": "string", "enum": ["voltage_deviation","outage","short_circuit","earth_fault","overload"] },
+            "detectedAt":         { "type": "string", "format": "datetime" },
+            "restoredAt":         { "type": "string", "format": "datetime", "description": "ISO datetime if already restored" },
+            "affectedCustomers":  { "type": "integer", "minimum": 0 },
+            "voltagePct":         { "type": "number", "minimum": 0, "maximum": 200, "description": "Measured voltage as % of nominal (for voltage_deviation)" },
+            "description":        { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "faultDid":            { "type": "string" },
+            "feederDid":           { "type": "string" },
+            "faultType":           { "type": "string" },
+            "severity":            { "type": "string", "enum": ["minor","moderate","major","critical"] },
+            "requirePublicNotice": { "type": "boolean" },
+            "affectedCustomers":   { "type": "integer" },
+            "reportedAt":          { "type": "string", "format": "datetime" },
+            "error":               { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

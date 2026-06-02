@@ -5,7 +5,7 @@
  * Emits baseline government procedure records for 5 major countries (USA, CHN, IND, JPN, DEU)
  * across 4 major COFOG functional categories (education, health, social, transport).
  *
- * Generates demonstrator records for app.etzhayyim.gov.agency lexicon.
+ * Generates demonstrator records for com.etzhayyim.gov.agency lexicon.
  * Part of ADR-2605242330 (gov coverage 5-layer taxonomy) + ADR-2605250680 (gov coverage scoring).
  */
 
@@ -57,10 +57,10 @@ const procedures = {
 
 function generateRecord(country, cofog, procedure, index) {
   const timestamp = new Date().toISOString();
-  const bpmnPath = `00-contracts/bpmn/ai/gftd/gov${country.iso3}/${cofog.cofog}/${procedure}.bpmn`;
+  const bpmnPath = `00-contracts/bpmn/com/etzhayyim/gov${country.iso3}/${cofog.cofog}/${procedure}.bpmn`;
 
   return {
-    $type: 'app.etzhayyim.gov.agency#procedure',
+    $type: 'com.etzhayyim.gov.agency#procedure',
     uri: `at://etzhayyim.com/gov/${country.iso3}/${cofog.code}/procedure-${index}`,
     agencyName: country.name,
     agencyIso3: country.iso3,

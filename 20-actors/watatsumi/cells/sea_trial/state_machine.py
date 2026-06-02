@@ -90,7 +90,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     st.phase = SeaTrialPhase.RECORD_EMITTED
     st.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.watatsumi.seaTrialRecord",
+        "$type": "com.etzhayyim.watatsumi.seaTrialRecord",
         "craftId": st.craftId,
         "dockTrialResults": st.dockTrialResults,
         "harborDiveResults": st.harborDiveResults,

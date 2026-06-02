@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.carrierCapacity.recordUtilization",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Weekly utilization",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "utilId",
+            "carrierCode",
+            "tradeLane",
+            "periodWeek",
+            "teuOffered",
+            "teuLifted",
+            "reportedAt"
+          ],
+          "properties": {
+            "utilId": {
+              "type": "string"
+            },
+            "carrierCode": {
+              "type": "string"
+            },
+            "tradeLane": {
+              "type": "string",
+              "description": "TP (trans-pacific), FE-EUR (far-east to europe), IPBC (intra-pacific), etc."
+            },
+            "periodWeek": {
+              "type": "string",
+              "description": "YYYY-Www"
+            },
+            "teuOffered": {
+              "type": "number"
+            },
+            "teuLifted": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "utilizationPct": {
+              "type": "number"
+            },
+            "saturationTier": {
+              "type": "string",
+              "enum": [
+                "undersubscribed",
+                "balanced",
+                "tight",
+                "saturated"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -39,7 +39,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/credits.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/credits"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/credits"
   },
   "space": {
     "channels": [

@@ -119,14 +119,14 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.watatsumi.pressureHullAttestation",
-    "app.etzhayyim.watatsumi.sectionAssemblyAttestation",
-    "app.etzhayyim.watatsumi.weldInspectionRecord",
-    "app.etzhayyim.watatsumi.systemIntegrationAttestation",
-    "app.etzhayyim.watatsumi.sectionJoiningAttestation",
-    "app.etzhayyim.watatsumi.pressureTestRecord",
-    "app.etzhayyim.watatsumi.seaTrialRecord",
-    "app.etzhayyim.watatsumi.silenSubmersibleReview"
+    "com.etzhayyim.watatsumi.pressureHullAttestation",
+    "com.etzhayyim.watatsumi.sectionAssemblyAttestation",
+    "com.etzhayyim.watatsumi.weldInspectionRecord",
+    "com.etzhayyim.watatsumi.systemIntegrationAttestation",
+    "com.etzhayyim.watatsumi.sectionJoiningAttestation",
+    "com.etzhayyim.watatsumi.pressureTestRecord",
+    "com.etzhayyim.watatsumi.seaTrialRecord",
+    "com.etzhayyim.watatsumi.silenSubmersibleReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605252200. Changes require Council Lv6+ supermajority + new ADR.",

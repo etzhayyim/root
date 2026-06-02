@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.otakiage.submitItem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "物品を otakiage 登録。state=submitted で INSERT され、家具以外は自動で reuse_open に遷移。photoBlobKeys は B2 content-addressed (SHA-256 hex)、登録前に uploadBlob で保存しておく。h3Cell が空の場合は h3FromLatLng で res-5 cell に解決。",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["category", "title", "ownerDid"],
+          "properties": {
+            "ownerDid": {"type": "string", "description": "寄贈者 DID (did:web or did:plc)。Tier 3 PII (氏名/住所/連絡先) は Preferences で保持し、本 lexicon には含めない。"},
+            "category": {"type": "string", "enum": ["ehon", "jidousho", "nuigurumi", "ningyo", "omocha", "kagu", "kaden"], "description": "ehon=絵本 / jidousho=児童書 / nuigurumi=ぬいぐるみ / ningyo=人形 / omocha=おもちゃ / kagu=家具 / kaden=家電"},
+            "title": {"type": "string", "maxLength": 200, "description": "物品名 (例: 「はらぺこあおむし」「アンパンマンのぬいぐるみ」「無印の本棚 大」)"},
+            "storyText": {"type": "string", "maxLength": 4000, "description": "物の思い出 / 状態 / 譲渡条件。受領者が判断材料にする"},
+            "photoBlobKeys": {"type": "array", "items": {"type": "string"}, "maxLength": 5, "description": "B2 SHA-256 content-addressed key 配列。最大 5 枚"},
+            "h3Cell": {"type": "string", "description": "H3 res-5 cell ID (15 chars)。omit 時は latLng から導出"},
+            "lat": {"type": "number"},
+            "lng": {"type": "number"},
+            "weightKgClass": {"type": "string", "enum": ["light", "medium", "heavy", "bulky"], "default": "light", "description": "light < 5kg / medium 5-20kg / heavy 20-50kg / bulky >50kg"},
+            "modeHint": {"type": "string", "enum": ["reuse_then_ritual", "reuse_only"], "description": "明示。omit 時は category から auto-derive (家具/家電 → reuse_only、他 → reuse_then_ritual)"}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "itemUri", "state"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "itemUri": {"type": "string", "description": "at://did:web:otakiage.etzhayyim.com/com.etzhayyim.apps.otakiage.item/{rkey}"},
+            "state": {"type": "string", "enum": ["submitted", "reuse_open"]},
+            "mode": {"type": "string", "enum": ["reuse_then_ritual", "reuse_only"]},
+            "h3Cell": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

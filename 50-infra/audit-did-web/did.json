@@ -50,7 +50,7 @@
       "type": "EtzhayyimAuditSubject",
       "serviceEndpoint": {
         "spec": "ADR-2605231700",
-        "eventLexicon": "app.etzhayyim.audit.event",
+        "eventLexicon": "com.etzhayyim.audit.event",
         "auditChainSemantics": "per-actor-per-subject linked-list via auditChainPrev"
       }
     }

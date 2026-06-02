@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.citesWildlife.recordSeizure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Wildlife seizure record (WCO + Interpol Mercator + UNODC — bridges customs-clearance + maritime-piracy + ofac-sanctions)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "seizureId",
+            "seizedAt"
+          ],
+          "properties": {
+            "seizureId": {
+              "type": "string"
+            },
+            "listingVid": {
+              "type": "string",
+              "description": "bridges listSpecies"
+            },
+            "portVid": {
+              "type": "string",
+              "description": "bridges open-ports"
+            },
+            "customsDeclarationVid": {
+              "type": "string",
+              "description": "bridges open-customs-clearance"
+            },
+            "quantityUnits": {
+              "type": "integer"
+            },
+            "weightKg": {
+              "type": "number"
+            },
+            "estimatedValueUsd": {
+              "type": "number"
+            },
+            "partsRoute": {
+              "type": "string",
+              "description": "comma: origin,transit,destination iso3"
+            },
+            "seizedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

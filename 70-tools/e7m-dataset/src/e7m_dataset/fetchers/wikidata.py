@@ -7,9 +7,9 @@ Two canonical queries are provided (callers can also pass a raw query
 via `query_text=`):
 
   - ``legal-entities-with-lei`` — companies that have an ISO 17442 LEI.
-    Feeds app.etzhayyim.maps.legalEntity Tier B seeds.
+    Feeds com.etzhayyim.maps.legalEntity Tier B seeds.
   - ``admin-areas`` — administrative subdivisions with WGS84 coords +
-    ISO 3166-2 code. Feeds app.etzhayyim.maps.region Tier A seeds.
+    ISO 3166-2 code. Feeds com.etzhayyim.maps.region Tier A seeds.
 
 The query text is included verbatim in the FetchResult.source so the
 datasetPin manifest row records the exact query that produced the

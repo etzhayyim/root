@@ -117,7 +117,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.oilShipping.cargo"
+          "com.etzhayyim.apps.oilShipping.cargo"
         ],
         "type": "subscribeRepos"
       }
@@ -133,7 +133,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilTrading.book.getTrade",
+        "nsid": "com.etzhayyim.apps.oilTrading.book.getTrade",
         "type": "xrpc"
       }
     },
@@ -148,7 +148,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilTrading.book.listTrades",
+        "nsid": "com.etzhayyim.apps.oilTrading.book.listTrades",
         "type": "xrpc"
       }
     },
@@ -163,7 +163,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilTrading.book.listOfftakes",
+        "nsid": "com.etzhayyim.apps.oilTrading.book.listOfftakes",
         "type": "xrpc"
       }
     },
@@ -178,7 +178,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilTrading.analytics.getBenchmarkExposure",
+        "nsid": "com.etzhayyim.apps.oilTrading.analytics.getBenchmarkExposure",
         "type": "xrpc"
       }
     },
@@ -193,7 +193,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilTrading.health",
+        "nsid": "com.etzhayyim.apps.oilTrading.health",
         "type": "xrpc"
       }
     },
@@ -219,7 +219,7 @@
             "params": {
               "actorName": "oil-trading",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.oilTrading.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.oilTrading.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "01ltrad3",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -254,8 +254,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -268,10 +268,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.oilTrading.trade",
-        "ai.gftd.apps.oilTrading.offtakeContract",
-        "ai.gftd.apps.oilShipping.cargo",
-        "ai.gftd.apps.oilRefining.refinery"
+        "com.etzhayyim.apps.oilTrading.trade",
+        "com.etzhayyim.apps.oilTrading.offtakeContract",
+        "com.etzhayyim.apps.oilShipping.cargo",
+        "com.etzhayyim.apps.oilRefining.refinery"
       ]
     }
   },

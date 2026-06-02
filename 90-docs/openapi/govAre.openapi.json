@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govAre.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govAre.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for United Arab Emirates government.",
-        "operationId": "app.etzhayyim.govAre.followSiteDeps",
+        "operationId": "com.etzhayyim.govAre.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govAre.heartbeatTick": {
       "post": {
         "summary": "Run the United Arab Emirates government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govAre.heartbeatTick",
+        "operationId": "com.etzhayyim.govAre.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.listOrgs": {
+    "/xrpc/com.etzhayyim.govAre.listOrgs": {
       "get": {
         "summary": "List United Arab Emirates government organization graph records.",
-        "operationId": "app.etzhayyim.govAre.listOrgs",
+        "operationId": "com.etzhayyim.govAre.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.registerDIDs": {
+    "/xrpc/com.etzhayyim.govAre.registerDIDs": {
       "post": {
         "summary": "Register DIDs for United Arab Emirates government organizations.",
-        "operationId": "app.etzhayyim.govAre.registerDIDs",
+        "operationId": "com.etzhayyim.govAre.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govAre.resolveOrgPath": {
       "get": {
         "summary": "Resolve a United Arab Emirates government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govAre.resolveOrgPath",
+        "operationId": "com.etzhayyim.govAre.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.seedOrgs": {
+    "/xrpc/com.etzhayyim.govAre.seedOrgs": {
       "post": {
         "summary": "Seed initial United Arab Emirates government organization records into the graph.",
-        "operationId": "app.etzhayyim.govAre.seedOrgs",
+        "operationId": "com.etzhayyim.govAre.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.shinka": {
+    "/xrpc/com.etzhayyim.govAre.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible United Arab Emirates government organization update.",
-        "operationId": "app.etzhayyim.govAre.shinka",
+        "operationId": "com.etzhayyim.govAre.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAre.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govAre.syncWetUpdates": {
       "post": {
         "summary": "Sync recent United Arab Emirates government organization changes to graph.",
-        "operationId": "app.etzhayyim.govAre.syncWetUpdates",
+        "operationId": "com.etzhayyim.govAre.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

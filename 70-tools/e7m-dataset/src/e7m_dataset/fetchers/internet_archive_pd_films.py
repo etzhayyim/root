@@ -114,7 +114,7 @@ def _build_pd_attestation(work_metadata: dict, snapshot_cid: str) -> dict:
     """
     return {
         "lexicon": 1,
-        "id": "app.etzhayyim.creative.publicDomainStatusAttestation",
+        "id": "com.etzhayyim.creative.publicDomainStatusAttestation",
         "createdAt": datetime.now(UTC).isoformat(),
         "workId": f"ia:{work_metadata['id']}",
         "modality": "film",

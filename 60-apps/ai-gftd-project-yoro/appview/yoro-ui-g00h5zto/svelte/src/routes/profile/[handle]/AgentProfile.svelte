@@ -648,8 +648,8 @@
 				await followUser(did);
 				following = true;
 			}
-			// Create project convo (app.etzhayyim.projector) instead of DM
-			const res = await atProcedure<Record<string, unknown>>('app.etzhayyim.projector.newProjectConvo', {
+			// Create project convo (com.etzhayyim.projector) instead of DM
+			const res = await atProcedure<Record<string, unknown>>('com.etzhayyim.projector.newProjectConvo', {
 				name: actor.name || did,
 				members: [did],
 			}).catch((e: unknown) => {
@@ -680,8 +680,8 @@
 				await followUser(did);
 				following = true;
 			}
-			// Create project convo (app.etzhayyim.projector) instead of DM
-			const res = await atProcedure<Record<string, unknown>>('app.etzhayyim.projector.newProjectConvo', {
+			// Create project convo (com.etzhayyim.projector) instead of DM
+			const res = await atProcedure<Record<string, unknown>>('com.etzhayyim.projector.newProjectConvo', {
 				name: actor.name || did,
 				members: [did],
 			}).catch((e: unknown) => {
@@ -1135,7 +1135,7 @@
 				console.warn('[silent-fail] AgentProfile.svelte: getCurrentDID failed', error);
 				return null;
 			});
-			const primary = await atProcedure<any>('app.etzhayyim.pds.getEntityGraph', {
+			const primary = await atProcedure<any>('com.etzhayyim.pds.getEntityGraph', {
 				mode: 'knowledgeGraph',
 				did,
 				limit: 150,

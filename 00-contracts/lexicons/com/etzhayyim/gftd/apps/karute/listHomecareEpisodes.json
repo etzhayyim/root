@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.listHomecareEpisodes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List 在宅医療 episodes — filterable by patient, managing facility, status, care type.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "patientDid": {"type": "string"},
+          "managingFacilityDid": {"type": "string"},
+          "status": {"type": "string"},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50},
+          "offset": {"type": "integer", "minimum": 0, "default": 0}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {"type": "array", "items": {"type": "ref", "ref": "#episodeRow"}},
+            "offset": {"type": "integer"},
+            "limit": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "episodeRow": {
+      "type": "object",
+      "properties": {
+        "rkey": {"type": "string"},
+        "encryptedCid": {"type": "string"},
+        "patientDid": {"type": "string"},
+        "managingFacilityDid": {"type": "string"},
+        "primaryMdDid": {"type": "string"},
+        "status": {"type": "string"},
+        "careType": {"type": "array", "items": {"type": "string"}},
+        "startedAt": {"type": "string", "format": "datetime"},
+        "endedAt": {"type": "string", "format": "datetime"},
+        "dnar": {"type": "boolean"}
+      }
+    }
+  }
+}

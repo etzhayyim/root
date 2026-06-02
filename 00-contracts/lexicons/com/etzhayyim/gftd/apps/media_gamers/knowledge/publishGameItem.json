@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.knowledge.publishGameItem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an in-game item (e.g. cooking tool like frying pan) into the media-gamers knowledge graph. Optionally attaches a recipe.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["game_slug", "slug", "name", "item_type"],
+          "properties": {
+            "game_slug": { "type": "string" },
+            "slug": { "type": "string" },
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "item_type": { "type": "string" },
+            "rarity": { "type": "string" },
+            "stackable": { "type": "boolean" },
+            "lang": { "type": "string", "default": "en" },
+            "acquisition": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "effects": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "sources": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "drop_rate_permille": { "type": "integer" },
+            "found_at": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "sell_price": { "type": "integer" },
+            "buy_price": { "type": "integer" },
+            "recipe": { "type": "ref", "ref": "#recipeInput" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "item_id": { "type": "string" },
+            "recipe_id": { "type": "string" },
+            "item_record": { "type": "string" },
+            "recipe_record": { "type": "string" }
+          }
+        }
+      }
+    },
+    "recipeInput": {
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "output_item_id": { "type": "string" },
+        "output_quantity": { "type": "integer" },
+        "ingredients": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "com.etzhayyim.apps.media_gamers.record.itemRecipe#ingredient" }
+        },
+        "station": { "type": "string" },
+        "unlock_condition": { "type": "string" }
+      }
+    }
+  }
+}

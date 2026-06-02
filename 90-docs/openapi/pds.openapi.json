@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.pds.exportRepo": {
+    "/xrpc/com.etzhayyim.pds.exportRepo": {
       "get": {
-        "summary": "app.etzhayyim.pds.exportRepo",
-        "operationId": "app.etzhayyim.pds.exportRepo",
+        "summary": "com.etzhayyim.pds.exportRepo",
+        "operationId": "com.etzhayyim.pds.exportRepo",
         "parameters": [
           {
             "name": "did",
@@ -49,10 +49,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.getActorProfile": {
+    "/xrpc/com.etzhayyim.pds.getActorProfile": {
       "get": {
-        "summary": "app.etzhayyim.pds.getActorProfile",
-        "operationId": "app.etzhayyim.pds.getActorProfile",
+        "summary": "com.etzhayyim.pds.getActorProfile",
+        "operationId": "com.etzhayyim.pds.getActorProfile",
         "parameters": [
           {
             "name": "did",
@@ -169,10 +169,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.getAppPreview": {
+    "/xrpc/com.etzhayyim.pds.getAppPreview": {
       "get": {
-        "summary": "app.etzhayyim.pds.getAppPreview",
-        "operationId": "app.etzhayyim.pds.getAppPreview",
+        "summary": "com.etzhayyim.pds.getAppPreview",
+        "operationId": "com.etzhayyim.pds.getAppPreview",
         "parameters": [
           {
             "name": "nanoid",
@@ -208,10 +208,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.getEntityGraph": {
+    "/xrpc/com.etzhayyim.pds.getEntityGraph": {
       "get": {
-        "summary": "app.etzhayyim.pds.getEntityGraph",
-        "operationId": "app.etzhayyim.pds.getEntityGraph",
+        "summary": "com.etzhayyim.pds.getEntityGraph",
+        "operationId": "com.etzhayyim.pds.getEntityGraph",
         "parameters": [
           {
             "name": "did",
@@ -265,10 +265,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.getProfile": {
+    "/xrpc/com.etzhayyim.pds.getProfile": {
       "get": {
-        "summary": "app.etzhayyim.pds.getProfile",
-        "operationId": "app.etzhayyim.pds.getProfile",
+        "summary": "com.etzhayyim.pds.getProfile",
+        "operationId": "com.etzhayyim.pds.getProfile",
         "parameters": [
           {
             "name": "did",
@@ -389,10 +389,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.importRepo": {
+    "/xrpc/com.etzhayyim.pds.importRepo": {
       "post": {
-        "summary": "app.etzhayyim.pds.importRepo",
-        "operationId": "app.etzhayyim.pds.importRepo",
+        "summary": "com.etzhayyim.pds.importRepo",
+        "operationId": "com.etzhayyim.pds.importRepo",
         "requestBody": {
           "required": true,
           "content": {
@@ -442,10 +442,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.invoke": {
+    "/xrpc/com.etzhayyim.pds.invoke": {
       "post": {
-        "summary": "app.etzhayyim.pds.invoke",
-        "operationId": "app.etzhayyim.pds.invoke",
+        "summary": "com.etzhayyim.pds.invoke",
+        "operationId": "com.etzhayyim.pds.invoke",
         "requestBody": {
           "required": true,
           "content": {
@@ -496,10 +496,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.listHeartbeatApps": {
+    "/xrpc/com.etzhayyim.pds.listHeartbeatApps": {
       "get": {
-        "summary": "app.etzhayyim.pds.listHeartbeatApps",
-        "operationId": "app.etzhayyim.pds.listHeartbeatApps",
+        "summary": "com.etzhayyim.pds.listHeartbeatApps",
+        "operationId": "com.etzhayyim.pds.listHeartbeatApps",
         "parameters": [
           {
             "name": "limit",
@@ -538,10 +538,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.putProfile": {
+    "/xrpc/com.etzhayyim.pds.putProfile": {
       "post": {
-        "summary": "app.etzhayyim.pds.putProfile",
-        "operationId": "app.etzhayyim.pds.putProfile",
+        "summary": "com.etzhayyim.pds.putProfile",
+        "operationId": "com.etzhayyim.pds.putProfile",
         "requestBody": {
           "required": true,
           "content": {
@@ -604,10 +604,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.query": {
+    "/xrpc/com.etzhayyim.pds.query": {
       "get": {
-        "summary": "app.etzhayyim.pds.query",
-        "operationId": "app.etzhayyim.pds.query",
+        "summary": "com.etzhayyim.pds.query",
+        "operationId": "com.etzhayyim.pds.query",
         "parameters": [
           {
             "name": "statement",
@@ -654,10 +654,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.pds.registerSyncApp": {
+    "/xrpc/com.etzhayyim.pds.registerSyncApp": {
       "post": {
-        "summary": "app.etzhayyim.pds.registerSyncApp",
-        "operationId": "app.etzhayyim.pds.registerSyncApp",
+        "summary": "com.etzhayyim.pds.registerSyncApp",
+        "operationId": "com.etzhayyim.pds.registerSyncApp",
         "requestBody": {
           "required": true,
           "content": {

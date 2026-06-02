@@ -15,7 +15,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const NSID_PREFIX = "app.etzhayyim.apps.apps.";
+const NSID_PREFIX = "com.etzhayyim.apps.apps.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -27,7 +27,7 @@ export default {
         nanoid: env.APP_NANOID ?? "a9p5l1st",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/apps_directory.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/appsDirectory",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/appsDirectory",
       });
     }
 

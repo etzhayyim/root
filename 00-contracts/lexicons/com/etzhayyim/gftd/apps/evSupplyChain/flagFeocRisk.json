@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.evSupplyChain.flagFeocRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Foreign Entity of Concern (FEOC) / IRA §45X disqualification risk (bridges criticalMinerals.flagExportControlRisk + ira-tax-credit)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "riskId",
+            "cellVid",
+            "feocJurisdictionIso3",
+            "upstreamStage",
+            "reportedAt"
+          ],
+          "properties": {
+            "riskId": {
+              "type": "string"
+            },
+            "cellVid": {
+              "type": "string",
+              "description": "bridges registerBatteryCell"
+            },
+            "mineralRiskVid": {
+              "type": "string",
+              "description": "bridges criticalMinerals.flagExportControlRisk"
+            },
+            "feocJurisdictionIso3": {
+              "type": "string"
+            },
+            "upstreamStage": {
+              "type": "string",
+              "enum": [
+                "mining",
+                "refining",
+                "cathode_precursor",
+                "anode_graphite",
+                "cell_components",
+                "recycling",
+                "licensing_ip"
+              ]
+            },
+            "equityPct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "disqTier": {
+              "type": "string",
+              "enum": [
+                "monitor",
+                "reviewable",
+                "disqualifying"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

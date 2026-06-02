@@ -36,7 +36,7 @@ fn hash_partition(label: &str, n: usize) -> usize {
 
 fn cypher(url: &str, stmt: &str) -> Result<serde_json::Value, String> {
     let resp = client()
-        .post(&format!("{url}/xrpc/app.etzhayyim.yata.cypher"))
+        .post(&format!("{url}/xrpc/com.etzhayyim.yata.cypher"))
         .header("X-Magatama-Verified", "true")
         .json(&serde_json::json!({ "statement": stmt, "appId": "" }))
         .send()
@@ -51,7 +51,7 @@ fn cypher(url: &str, stmt: &str) -> Result<serde_json::Value, String> {
 
 fn merge_record(url: &str, label: &str, rkey: &str, props: &serde_json::Value) -> Result<(), String> {
     let resp = client()
-        .post(&format!("{url}/xrpc/app.etzhayyim.yata.mergeRecord"))
+        .post(&format!("{url}/xrpc/com.etzhayyim.yata.mergeRecord"))
         .header("X-Magatama-Verified", "true")
         .json(&serde_json::json!({
             "label": label,
@@ -69,7 +69,7 @@ fn merge_record(url: &str, label: &str, rkey: &str, props: &serde_json::Value) -
 
 fn trigger_compaction(url: &str) -> bool {
     client()
-        .post(&format!("{url}/xrpc/app.etzhayyim.yata.compact"))
+        .post(&format!("{url}/xrpc/com.etzhayyim.yata.compact"))
         .header("X-Magatama-Verified", "true")
         .json(&serde_json::json!({}))
         .send()

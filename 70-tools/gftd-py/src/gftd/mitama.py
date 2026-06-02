@@ -50,7 +50,7 @@ def _do_register(app_dir: Path, pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.register",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.register",
             json=data, headers=_auth_headers(), timeout=60,
         )
         resp.raise_for_status()
@@ -81,7 +81,7 @@ def mitama_list(pds: str | None, json_out: bool, limit: int) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.listActors",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.listActors",
             params={"limit": limit}, headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()
@@ -106,7 +106,7 @@ def mitama_inspect(did_or_nanoid: str, pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.getActor",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.getActor",
             params={"id": did_or_nanoid}, headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()
@@ -128,7 +128,7 @@ def mitama_dormant(did_or_nanoid: str, pds: str | None) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.setStatus",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.setStatus",
             json={"id": did_or_nanoid, "status": "dormant"},
             headers=_auth_headers(), timeout=30,
         )
@@ -146,7 +146,7 @@ def mitama_revive(did_or_nanoid: str, pds: str | None) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.setStatus",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.setStatus",
             json={"id": did_or_nanoid, "status": "active"},
             headers=_auth_headers(), timeout=30,
         )
@@ -168,7 +168,7 @@ def mitama_shinka(pds: str | None, model: str, json_out: bool) -> None:
         payload["model"] = model
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.shinka",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.shinka",
             json=payload, headers=_auth_headers(), timeout=300,
         )
         resp.raise_for_status()
@@ -209,7 +209,7 @@ def mitama_schema_status(table: str, all_tables: bool, state: str, pds: str | No
     payload = {"statement": stmt, "params": {}, "timeoutMs": timeout_ms}
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.kagami.sql",
+            f"{pds_url}/xrpc/com.etzhayyim.kagami.sql",
             json=payload, headers=_auth_headers(), timeout=timeout_sec,
         )
         resp.raise_for_status()

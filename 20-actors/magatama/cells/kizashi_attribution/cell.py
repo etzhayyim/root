@@ -5,7 +5,7 @@ Per ADR-2605312700 (兆 kizashi). Cell §3 #3; Murakumo node `gad`.
 Purpose: emit a PROBABILISTIC, NON-DIAGNOSTIC cause-contribution report —
 candidate contributing factors (never diseases) with calibrated confidence, a
 structural disclaimer, and a consult recommendation. "kizashi senses; mitate
-diagnoses." Emits `app.etzhayyim.kizashi.attributionReport`.
+diagnoses." Emits `com.etzhayyim.kizashi.attributionReport`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE — the load-bearing cell):
 G3 NON-DIAGNOSTIC (医師法 §17) — the attributionReport schema FORBIDS
@@ -13,7 +13,7 @@ diagnosis / prescription / treatmentPlan; a licensed clinician (mitate/iyashi)
 owns any diagnosis; G7 uncertainty-honest — confidence + "所見≠確定原因" disclaimer
 + consultRecommendation are required, no false precision; G2 encrypted I/O;
 G14 Murakumo-only inference (ADR-2605215000), no vendor medical-AI.
-Output Lexicon(s): app.etzhayyim.kizashi.attributionReport.
+Output Lexicon(s): com.etzhayyim.kizashi.attributionReport.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

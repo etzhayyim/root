@@ -5,7 +5,7 @@ CI lint: maps Sentinel scaffolding drift check.
 
 Asserts that the four artefacts defining the maps Sentinel pipeline stay in sync:
 
-  A  BPMN files (00-contracts/bpmn/ai/gftd/maps/sentinel*.bpmn)
+  A  BPMN files (00-contracts/bpmn/com/etzhayyim/maps/sentinel*.bpmn)
      • sentinelIngest.bpmn  — timer-start R/PT24H
      • sentinelAnalyze.bpmn — XRPC-triggered
 
@@ -15,7 +15,7 @@ Asserts that the four artefacts defining the maps Sentinel pipeline stay in sync
      20-actors/magatama/py/src/pymagatama/primitives/maps_sentinel.py
 
   D  Lexicon NSID JSON files
-     (00-contracts/lexicons/ai/gftd/apps/maps/satellite{Ingest,Analyze}.json)
+     (00-contracts/lexicons/com/etzhayyim/apps/maps/satellite{Ingest,Analyze}.json)
 
   E  Phase 2 typed-table migration file
      (30-graph/graph-schema/migrations/20260427220000_vertex_satellite_typed_tables.ts)
@@ -46,8 +46,8 @@ from xml.etree import ElementTree as ET
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 
-BPMN_DIR = REPO_ROOT / "00-contracts" / "bpmn" / "ai" / "gftd" / "maps"
-LEXICON_DIR = REPO_ROOT / "00-contracts" / "lexicons" / "ai" / "gftd" / "apps" / "maps"
+BPMN_DIR = REPO_ROOT / "00-contracts" / "bpmn" / "com" / "etzhayyim" / "maps"
+LEXICON_DIR = REPO_ROOT / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "apps" / "maps"
 PRIMITIVE_PATH = (
     REPO_ROOT
     / "20-actors"
@@ -106,9 +106,9 @@ def _parse_primitive_task_types() -> list[str]:
 
 
 def _nsid_to_lexicon_path(nsid: str) -> Path:
-    """app.etzhayyim.apps.maps.fooBar → lexicons/ai/gftd/apps/maps/fooBar.json"""
+    """com.etzhayyim.apps.maps.fooBar → lexicons/com/etzhayyim/apps/maps/fooBar.json"""
     parts = nsid.split(".")
-    # NSIDs follow app.etzhayyim.apps.<appName>.<methodName>
+    # NSIDs follow com.etzhayyim.apps.<appName>.<methodName>
     method = parts[-1]
     return LEXICON_DIR / f"{method}.json"
 

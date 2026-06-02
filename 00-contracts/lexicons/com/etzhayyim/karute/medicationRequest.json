@@ -1,0 +1,110 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.medicationRequest",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 MedicationRequest (処方). Inner type of com.etzhayyim.encrypted.record envelope. interactionFlags is computed by upstream agent.chat step and persisted in publicMeta.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "status", "intent", "medication", "authoredOn"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "MedicationRequest"},
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string"},
+          "prescriberDid": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["active", "on-hold", "ended", "stopped", "completed", "cancelled", "draft", "unknown"]
+          },
+          "intent": {
+            "type": "string",
+            "enum": ["proposal", "plan", "order", "original-order", "reflex-order", "filler-order", "instance-order", "option"]
+          },
+          "priority": {"type": "string", "enum": ["routine", "urgent", "asap", "stat"]},
+          "medication": {"type": "ref", "ref": "#medicationCodeable"},
+          "dosageInstruction": {"type": "array", "items": {"type": "ref", "ref": "#dosage"}},
+          "dispenseRequest": {"type": "ref", "ref": "#dispenseRequest"},
+          "substitutionAllowed": {"type": "boolean", "description": "後発品変更可否"},
+          "reasonReferenceConditionDids": {"type": "array", "items": {"type": "string"}},
+          "reasonCode": {"type": "array", "items": {"type": "string"}, "description": "ICD-10 codes"},
+          "authoredOn": {"type": "string", "format": "datetime"},
+          "interactionFlags": {
+            "type": "array",
+            "description": "Computed by agent.chat upstream. Persists in encrypted record AND mirrored in publicMeta (severity only).",
+            "items": {"type": "ref", "ref": "#interactionFlag"}
+          },
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "medicationCodeable": {
+      "type": "object",
+      "required": ["display"],
+      "properties": {
+        "rxnorm": {"type": "string", "description": "RxNorm code"},
+        "yjCode": {"type": "string", "description": "JP YJ code (個別医薬品コード)"},
+        "atc": {"type": "string", "description": "WHO ATC code"},
+        "display": {"type": "string", "description": "Brand/generic name as written"},
+        "form": {"type": "string", "description": "tablet/capsule/syrup/injection/ointment/etc"},
+        "strength": {
+          "type": "object",
+          "properties": {
+            "valueScaled": {"type": "integer"},
+            "scale": {"type": "integer", "enum": [1, 10, 100, 1000]},
+            "unit": {"type": "string", "description": "mg / mcg / mL / IU"}
+          }
+        }
+      }
+    },
+    "dosage": {
+      "type": "object",
+      "properties": {
+        "sequence": {"type": "integer"},
+        "text": {"type": "string", "description": "Free-text instruction, e.g. '1日3回毎食後'"},
+        "timing": {
+          "type": "object",
+          "properties": {
+            "frequency": {"type": "integer", "description": "回数/period"},
+            "periodScaled": {"type": "integer"},
+            "periodScale": {"type": "integer", "enum": [1, 10, 100]},
+            "periodUnit": {"type": "string", "enum": ["s", "min", "h", "d", "wk", "mo", "a"]}
+          }
+        },
+        "route": {"type": "string", "description": "PO / IV / IM / SC / topical / inhaled"},
+        "doseQuantity": {
+          "type": "object",
+          "properties": {
+            "valueScaled": {"type": "integer"},
+            "scale": {"type": "integer", "enum": [1, 10, 100, 1000]},
+            "unit": {"type": "string"}
+          }
+        },
+        "maxDosePerPeriodScaled": {"type": "integer"},
+        "asNeeded": {"type": "boolean", "description": "頓服"}
+      }
+    },
+    "dispenseRequest": {
+      "type": "object",
+      "properties": {
+        "quantityScaled": {"type": "integer"},
+        "quantityScale": {"type": "integer", "enum": [1, 10, 100]},
+        "quantityUnit": {"type": "string"},
+        "supplyDurationDays": {"type": "integer"},
+        "refillsAllowed": {"type": "integer"},
+        "validityStart": {"type": "string", "format": "datetime"},
+        "validityEnd": {"type": "string", "format": "datetime"}
+      }
+    },
+    "interactionFlag": {
+      "type": "object",
+      "properties": {
+        "withMedicationRxnorm": {"type": "string"},
+        "severity": {"type": "string", "enum": ["minor", "moderate", "major", "contraindicated"]},
+        "mechanism": {"type": "string"},
+        "recommendation": {"type": "string"}
+      }
+    }
+  }
+}

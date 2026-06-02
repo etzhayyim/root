@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.unispsc.classify",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Classify a free-text commodity description into a UNSPSC code. Bulk path uses Haiku 4.5 with embedding pre-filter; confidence < 0.7 escalates to Sonnet 4.6.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["description"],
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000,
+              "description": "Free-text product or service description."
+            },
+            "topK": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 5,
+              "description": "Return top-K candidate codes."
+            },
+            "modelHint": {
+              "type": "string",
+              "enum": ["haiku-4.5", "sonnet-4.6", "auto"],
+              "default": "auto",
+              "description": "Preferred LLM. 'auto' = Haiku-first with Sonnet escalation."
+            },
+            "confidenceThreshold": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.7,
+              "description": "Below this confidence, escalate to Sonnet."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["candidates", "modelUsed", "elapsedMs"],
+          "properties": {
+            "candidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["code", "confidence", "title"],
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "description": "8-digit UNSPSC commodity code."
+                  },
+                  "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Canonical commodity title."
+                  },
+                  "reasoning": {
+                    "type": "string",
+                    "description": "Short LLM rationale (optional)."
+                  }
+                }
+              }
+            },
+            "modelUsed": {
+              "type": "string",
+              "description": "Actual LLM that produced the answer."
+            },
+            "escalated": {
+              "type": "boolean",
+              "default": false,
+              "description": "Whether Sonnet was invoked after Haiku low-confidence."
+            },
+            "elapsedMs": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "errors": [
+        {"name": "DescriptionEmpty"},
+        {"name": "ModelUnavailable"},
+        {"name": "RegistryNotReady"}
+      ]
+    }
+  }
+}

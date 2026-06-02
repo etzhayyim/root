@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coalitionReform.flagCollapse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Coalition collapse / whip-tarnishing / tokenism (bridges stockActAmendment.flagStallPattern + press-freedom + judicialInfluence)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "coalitionVid",
+            "collapseKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "coalitionVid": {
+              "type": "string",
+              "description": "bridges recordCoalition"
+            },
+            "collapseKind": {
+              "type": "string",
+              "enum": [
+                "leadership_quit",
+                "whip_opposed",
+                "member_defect",
+                "scandal_undermine",
+                "election_displace",
+                "redistricting_kill",
+                "bill_watered",
+                "sunset_compromise",
+                "superficial_reform",
+                "non_self_executing",
+                "report_not_bill"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

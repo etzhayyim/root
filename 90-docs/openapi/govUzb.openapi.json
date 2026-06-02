@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govUzb.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govUzb.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Uzbekistan government.",
-        "operationId": "app.etzhayyim.govUzb.followSiteDeps",
+        "operationId": "com.etzhayyim.govUzb.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govUzb.heartbeatTick": {
       "post": {
         "summary": "Run the Uzbekistan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govUzb.heartbeatTick",
+        "operationId": "com.etzhayyim.govUzb.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.listOrgs": {
+    "/xrpc/com.etzhayyim.govUzb.listOrgs": {
       "get": {
         "summary": "List Uzbekistan government organization graph records.",
-        "operationId": "app.etzhayyim.govUzb.listOrgs",
+        "operationId": "com.etzhayyim.govUzb.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.registerDIDs": {
+    "/xrpc/com.etzhayyim.govUzb.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Uzbekistan government organizations.",
-        "operationId": "app.etzhayyim.govUzb.registerDIDs",
+        "operationId": "com.etzhayyim.govUzb.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govUzb.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Uzbekistan government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govUzb.resolveOrgPath",
+        "operationId": "com.etzhayyim.govUzb.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.seedOrgs": {
+    "/xrpc/com.etzhayyim.govUzb.seedOrgs": {
       "post": {
         "summary": "Seed initial Uzbekistan government organization records into the graph.",
-        "operationId": "app.etzhayyim.govUzb.seedOrgs",
+        "operationId": "com.etzhayyim.govUzb.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.shinka": {
+    "/xrpc/com.etzhayyim.govUzb.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Uzbekistan government organization update.",
-        "operationId": "app.etzhayyim.govUzb.shinka",
+        "operationId": "com.etzhayyim.govUzb.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUzb.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govUzb.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Uzbekistan government organization changes to graph.",
-        "operationId": "app.etzhayyim.govUzb.syncWetUpdates",
+        "operationId": "com.etzhayyim.govUzb.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

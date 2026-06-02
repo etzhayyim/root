@@ -72,9 +72,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.drone.droneEntity",
-        "ai.gftd.apps.drone.droneEvent",
-        "ai.gftd.apps.drone.droneReport"
+        "com.etzhayyim.apps.drone.droneEntity",
+        "com.etzhayyim.apps.drone.droneEvent",
+        "com.etzhayyim.apps.drone.droneReport"
       ]
     }
   },

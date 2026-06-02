@@ -25,64 +25,64 @@ const seeds: Seed[] = [
   {
     slug: "register-publisher",
     bpmnProcessId: "open_adnetwork_register_publisher",
-    nsid: "app.etzhayyim.apps.openAdnetwork.registerPublisher",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/registerPublisher.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.registerPublisher",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/registerPublisher.bpmn",
     resultTimeoutMs: 30000,
     writeTableAllowlist: "vertex_open_adnetwork_publisher",
   },
   {
     slug: "record-ad-unit",
     bpmnProcessId: "open_adnetwork_record_ad_unit",
-    nsid: "app.etzhayyim.apps.openAdnetwork.recordAdUnit",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/recordAdUnit.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.recordAdUnit",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/recordAdUnit.bpmn",
     resultTimeoutMs: 30000,
     writeTableAllowlist: "vertex_open_adnetwork_ad_unit",
   },
   {
     slug: "register-advertiser",
     bpmnProcessId: "open_adnetwork_register_advertiser",
-    nsid: "app.etzhayyim.apps.openAdnetwork.registerAdvertiser",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/registerAdvertiser.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.registerAdvertiser",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/registerAdvertiser.bpmn",
     resultTimeoutMs: 30000,
     writeTableAllowlist: "vertex_open_adnetwork_advertiser",
   },
   {
     slug: "create-campaign",
     bpmnProcessId: "open_adnetwork_create_campaign",
-    nsid: "app.etzhayyim.apps.openAdnetwork.createCampaign",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/createCampaign.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.createCampaign",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/createCampaign.bpmn",
     resultTimeoutMs: 30000,
     writeTableAllowlist: "vertex_open_adnetwork_campaign",
   },
   {
     slug: "record-impression",
     bpmnProcessId: "open_adnetwork_record_impression",
-    nsid: "app.etzhayyim.apps.openAdnetwork.recordImpression",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/recordImpression.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.recordImpression",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/recordImpression.bpmn",
     resultTimeoutMs: 30000,
     writeTableAllowlist: "vertex_open_adnetwork_impression",
   },
   {
     slug: "record-conversion",
     bpmnProcessId: "open_adnetwork_record_conversion",
-    nsid: "app.etzhayyim.apps.openAdnetwork.recordConversion",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/recordConversion.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.recordConversion",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/recordConversion.bpmn",
     resultTimeoutMs: 30000,
     writeTableAllowlist: "vertex_open_adnetwork_conversion",
   },
   {
     slug: "compute-publisher-rpm",
     bpmnProcessId: "open_adnetwork_compute_publisher_rpm",
-    nsid: "app.etzhayyim.apps.openAdnetwork.computePublisherRpm",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/computePublisherRpm.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.computePublisherRpm",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/computePublisherRpm.bpmn",
     resultTimeoutMs: 90000,
     writeTableAllowlist: "vertex_open_adnetwork_revenue_snapshot",
   },
   {
     slug: "fetch-auction-market-delta",
     bpmnProcessId: "open_adnetwork_fetch_auction_market_delta",
-    nsid: "app.etzhayyim.apps.openAdnetwork.fetchAuctionMarketDelta",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-adnetwork/fetchAuctionMarketDelta.bpmn",
+    nsid: "com.etzhayyim.apps.openAdnetwork.fetchAuctionMarketDelta",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-adnetwork/fetchAuctionMarketDelta.bpmn",
     resultTimeoutMs: 90000,
     writeTableAllowlist: "",
   },
@@ -90,9 +90,9 @@ const seeds: Seed[] = [
 
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.pressureHullAttestation",
+  "description": "Pressure hull ring fabrication attestation (L1). Material lot, plate rolling, ring-frame welding, roundness QA. Per ADR-2605252200 L1.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "ringIndex": {"type": "integer"},
+          "materialLot": {
+            "type": "object",
+            "properties": {
+              "alloy": {"type": "string", "knownValues": ["HSLA-80", "Ti-6Al-4V-ELI"]},
+              "grade": {"type": "string"},
+              "lotId": {"type": "string"},
+              "certCid": {"type": "string"},
+              "yieldStrengthMpa": {"type": "integer"},
+              "tensileStrengthMpa": {"type": "integer"},
+              "councilAttestation": {"type": "string"}
+            },
+            "required": ["alloy", "lotId", "certCid"]
+          },
+          "rolling": {"type": "unknown"},
+          "weldPasses": {"type": "array", "items": {"type": "unknown"}},
+          "roundness": {
+            "type": "object",
+            "properties": {
+              "maxOutOfRoundPpm": {"type": "integer", "description": "Max out-of-roundness, implied unit parts-per-million of Ø per Lexicon v1 (ADR-2605190900). 5000 = 0.5%."},
+              "limitPpm": {"type": "integer", "const": 5000, "description": "Roundness acceptance limit = 0.5% Ø = 5000 ppm (ADR-2605252200 L1)."},
+              "accept": {"type": "boolean"}
+            },
+            "required": ["maxOutOfRoundPpm", "accept"]
+          },
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "ringIndex", "materialLot", "roundness", "attestingRobots"]
+      }
+    }
+  }
+}

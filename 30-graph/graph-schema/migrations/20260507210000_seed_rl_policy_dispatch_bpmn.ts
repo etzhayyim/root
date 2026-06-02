@@ -16,13 +16,13 @@ const CREATED_AT = "2026-05-07T20:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const DISPATCH_PROCESS_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-policy-dispatch-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-policy-dispatch-v1";
 const DISPATCH_BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-policy-dispatch-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-policy-dispatch-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/rl/rlPolicyDispatch.bpmn"),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/rl/rlPolicyDispatch.bpmn"),
     "utf8",
   );
   const byteSize = Buffer.byteLength(xml, "utf8");
@@ -34,7 +34,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       ${DISPATCH_PROCESS_VID}, ${OWNER_DID}, 'rl_policy_dispatch', 1,
       ${xml}, CAST(${byteSize} AS integer),
-      '00-contracts/bpmn/ai/gftd/rl/rlPolicyDispatch.bpmn',
+      '00-contracts/bpmn/com/etzhayyim/rl/rlPolicyDispatch.bpmn',
       'active', ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = ${DISPATCH_PROCESS_VID}
@@ -47,7 +47,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${DISPATCH_BINDING_VID}, ${OWNER_DID}, 'rl_policy_dispatch',
-      'app.etzhayyim.apps.rl.policyDispatch',
+      'com.etzhayyim.apps.rl.policyDispatch',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${DISPATCH_BINDING_VID}

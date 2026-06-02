@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.joucho.scoring.searchScores",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "axis": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "maxScore": {
+            "type": "number"
+          },
+          "minScore": {
+            "type": "number"
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scores": {
+              "type": "string"
+            },
+            "axis": {
+              "type": "string"
+            },
+            "range": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "limit": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: judahnomac-mini.local
     etzhayyim.com/trigger: mst-listener
     etzhayyim.com/healthz-port: '13006'
-    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.land-dispute
+    etzhayyim.com/listens-to: com.etzhayyim.apps.etzhayyim.land-dispute
     etzhayyim.com/adr: '2605192245'
 spec:
   selector:

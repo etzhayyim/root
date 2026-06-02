@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pharmacoGx.lookupAllele",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Lookup pharmacogenomic star allele (PharmGKB/CPIC) → drug response. Auto-generated stub (coverage expansion 2026-04-17). PII Tier 3 when caller supplies genotype.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "required": ["gene"],
+        "properties": {
+          "gene": { "type": "string", "description": "e.g. CYP2D6, CYP2C19, HLA-B" },
+          "starAllele": { "type": "string", "description": "e.g. *1/*4" },
+          "drug": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "phenotype": { "type": "string", "description": "e.g. poor-metabolizer, intermediate, normal, rapid, ultra-rapid" },
+            "cpicLevel": { "type": "string", "enum": ["A", "B", "C", "D"] },
+            "recommendation": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -19,7 +19,7 @@ Manabi anti-credentialism (G7) + anti-dependency UX (G3) framing preserved.
 
 [[source]]
 subdataset    = "law/treaties/un-treaty-collection"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UDHR_ICCPR_ICESCR"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UDHR_ICCPR_ICESCR"
 shard_glob    = "udhr-iccpr-icescr-*.ndjson"
 tier          = "A"
 license       = "public"
@@ -27,7 +27,7 @@ weight        = 0.30
 
 [[source]]
 subdataset    = "law/statutes/eu-eurlex"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_GDPR"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_GDPR"
 shard_glob    = "gdpr-*.ndjson"
 tier          = "A"
 license       = "free-reuse-with-citation"
@@ -35,7 +35,7 @@ weight        = 0.20
 
 [[source]]
 subdataset    = "law/statutes/jp-egov"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_APPI"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_APPI"
 shard_glob    = "appi-*.ndjson"
 tier          = "A"
 license       = "CC-BY-4.0"
@@ -43,7 +43,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "law/commentary/council-of-europe-handbooks"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_COE_HANDBOOKS"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_COE_HANDBOOKS"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "open"

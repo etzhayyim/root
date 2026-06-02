@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govUkr.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govUkr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Ukraine government.",
-        "operationId": "app.etzhayyim.govUkr.followSiteDeps",
+        "operationId": "com.etzhayyim.govUkr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govUkr.heartbeatTick": {
       "post": {
         "summary": "Run the Ukraine government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govUkr.heartbeatTick",
+        "operationId": "com.etzhayyim.govUkr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.listOrgs": {
+    "/xrpc/com.etzhayyim.govUkr.listOrgs": {
       "get": {
         "summary": "List Ukraine government organization graph records.",
-        "operationId": "app.etzhayyim.govUkr.listOrgs",
+        "operationId": "com.etzhayyim.govUkr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.registerDIDs": {
+    "/xrpc/com.etzhayyim.govUkr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Ukraine government organizations.",
-        "operationId": "app.etzhayyim.govUkr.registerDIDs",
+        "operationId": "com.etzhayyim.govUkr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govUkr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Ukraine government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govUkr.resolveOrgPath",
+        "operationId": "com.etzhayyim.govUkr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.seedOrgs": {
+    "/xrpc/com.etzhayyim.govUkr.seedOrgs": {
       "post": {
         "summary": "Seed initial Ukraine government organization records into the graph.",
-        "operationId": "app.etzhayyim.govUkr.seedOrgs",
+        "operationId": "com.etzhayyim.govUkr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.shinka": {
+    "/xrpc/com.etzhayyim.govUkr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Ukraine government organization update.",
-        "operationId": "app.etzhayyim.govUkr.shinka",
+        "operationId": "com.etzhayyim.govUkr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUkr.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govUkr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Ukraine government organization changes to graph.",
-        "operationId": "app.etzhayyim.govUkr.syncWetUpdates",
+        "operationId": "com.etzhayyim.govUkr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

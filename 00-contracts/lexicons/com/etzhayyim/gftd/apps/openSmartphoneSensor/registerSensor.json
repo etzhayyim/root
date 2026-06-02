@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneSensor.registerSensor",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a smartphone sensor module",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sensorId", "sensorType", "vendor", "model"],
+          "properties": {
+            "sensorId": { "type": "string" },
+            "sensorType": { "type": "string", "knownValues": ["camera", "imu-accel", "imu-gyro", "imu-mag", "gps-gnss", "fingerprint-optical", "fingerprint-capacitive", "fingerprint-ultrasonic", "proximity", "als", "barometer", "nfc", "ir-blaster", "other"] },
+            "vendor": { "type": "string" },
+            "model": { "type": "string" },
+            "interfaceType": { "type": "string", "knownValues": ["mipi-csi", "mipi-dsi", "spi", "i2c", "i3c", "usb", "other"] },
+            "openDriver": { "type": "boolean" },
+            "mainlineKernelStatus": { "type": "string", "knownValues": ["mainlined", "staging", "out-of-tree", "unknown"] },
+            "pixelCountMp": { "type": "number" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": { "vertexId": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

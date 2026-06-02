@@ -26,7 +26,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       e.confidence AS record_evidence_confidence
     FROM (
       SELECT
-        'app.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
+        'com.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
         vertex_id,
         fiscal_year,
         account_type,
@@ -38,7 +38,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       FROM vertex_jp_fiscal_budget_book
       UNION ALL
       SELECT
-        'app.etzhayyim.apps.jpFiscal.appropriation' AS collection,
+        'com.etzhayyim.apps.jpFiscal.appropriation' AS collection,
         vertex_id,
         fiscal_year,
         account_type,

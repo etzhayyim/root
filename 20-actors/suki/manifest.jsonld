@@ -87,15 +87,15 @@
     {"name": "suki_vehicle_attestation_binder", "module": "suki.cells.suki_vehicle_attestation_binder", "murukumoNode": "judah", "phase": "attest-terminal"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.suki.chassisAttestation",
-    "app.etzhayyim.suki.powertrainAttestation",
-    "app.etzhayyim.suki.cabAttestation",
-    "app.etzhayyim.suki.hitchPtoAttestation",
-    "app.etzhayyim.suki.paintAttestation",
-    "app.etzhayyim.suki.electricalEcuAttestation",
-    "app.etzhayyim.suki.fieldTestRecord",
-    "app.etzhayyim.suki.emissionsAuditRecord",
-    "app.etzhayyim.suki.silenSukiReview"
+    "com.etzhayyim.suki.chassisAttestation",
+    "com.etzhayyim.suki.powertrainAttestation",
+    "com.etzhayyim.suki.cabAttestation",
+    "com.etzhayyim.suki.hitchPtoAttestation",
+    "com.etzhayyim.suki.paintAttestation",
+    "com.etzhayyim.suki.electricalEcuAttestation",
+    "com.etzhayyim.suki.fieldTestRecord",
+    "com.etzhayyim.suki.emissionsAuditRecord",
+    "com.etzhayyim.suki.silenSukiReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261500. Changes require Council Lv6+ supermajority + new ADR.",

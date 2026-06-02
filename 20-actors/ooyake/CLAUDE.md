@@ -2,7 +2,7 @@
 
 **World government atlas — civic wayfinding map.** Tier-B ·
 `did:web:ooyake.etzhayyim.com` · ADR-2606021600 ·
-**R0 scaffold (no cells run, no live ingest, no served DIDs)**.
+**R0/R1 — `reconcile` (bundled mode) runs + unit-tested; live ingest + serve + per-unit DID gated**.
 
 ## What this actor IS
 

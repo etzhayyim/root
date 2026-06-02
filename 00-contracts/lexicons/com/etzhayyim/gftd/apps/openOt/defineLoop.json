@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOt.defineLoop",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Declare a control loop. A loop is one LangGraph graph containing N cells connected by typed event edges; one super-step covers all participating cells per ADR-2605151200 §LangGraph + Pregel binding.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["loopCode", "name", "loopKind", "cellDids", "superStepRateMillihz"],
+          "properties": {
+            "loopCode":             { "type": "string" },
+            "name":                 { "type": "string" },
+            "loopKind":             { "type": "string", "enum": ["pid", "sequence", "interlock", "coordination", "economic"] },
+            "cellDids":             { "type": "array", "items": { "type": "string" }, "minLength": 1 },
+            "edges":                { "type": "array", "items": { "type": "ref", "ref": "#cellEdge" } },
+            "superStepRateMillihz": { "type": "integer", "minimum": 1, "maximum": 1000000, "description": "Super-step rate in millihertz (1000 = 1 Hz, 100 = 0.1 Hz, 10000 = 10 Hz)" },
+            "checkpointEveryStep":  { "type": "boolean", "default": true },
+            "debounceMs":           { "type": "integer", "minimum": 0, "maximum": 60000, "description": "Coalesce signal-change triggers within this window into one super-step" },
+            "barrierSource":        { "type": "string", "enum": ["softwareScheduler", "tsnGateEvent", "ptpGptp"], "default": "softwareScheduler" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "loopDid":   { "type": "string" },
+            "loopCode":  { "type": "string" },
+            "definedAt": { "type": "string", "format": "datetime" },
+            "error":     { "type": "string" }
+          }
+        }
+      }
+    },
+    "cellEdge": {
+      "type": "object",
+      "required": ["fromCellDid", "fromEvent", "toCellDid", "toEvent"],
+      "properties": {
+        "fromCellDid": { "type": "string" },
+        "fromEvent":   { "type": "string" },
+        "toCellDid":   { "type": "string" },
+        "toEvent":     { "type": "string" }
+      }
+    }
+  }
+}

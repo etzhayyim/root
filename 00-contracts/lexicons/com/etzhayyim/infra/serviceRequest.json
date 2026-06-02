@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.infra.serviceRequest",
+  "description": "Utility service request emitted by the infra-utility-connect service_request Pregel cell. One record per utility class (water / gas / electric / telecom); a building site typically generates 4 records. Carries the parent tatekata mepSignoffRecord CID + site coords + the provider RPC trace (G1 open-source). Per ADR-2605250900 + gates G1 (open-source RPC), G2 (IPFS-pinned provider responses), G5 (Charter Rider §2(e) — no commercial utility-broker middleware, members request directly to the provider).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "serviceRequestId",
+          "submitterDid",
+          "siteCoords",
+          "utilityClass",
+          "providerReference",
+          "mepSignoffRecordCid",
+          "providerRpcAttestationCid",
+          "serviceRequestCellAttestationCid",
+          "charterRiderComplianceAttested"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "serviceRequestId": {
+            "type": "string",
+            "description": "Stable identifier; prefixed with utilityClass for human readability (e.g. `water:<ticket>`)."
+          },
+          "submitterDid": {
+            "type": "string"
+          },
+          "siteCoords": {
+            "type": "ref",
+            "ref": "#geoCoords"
+          },
+          "utilityClass": {
+            "type": "string",
+            "knownValues": [
+              "water",
+              "gas",
+              "electric",
+              "telecom"
+            ],
+            "description": "Schema rejects unsupported utility classes. R0 covers the 4 fundamental civilian utilities only."
+          },
+          "providerReference": {
+            "type": "string",
+            "description": "Opaque jurisdiction-recognized provider identifier (e.g. utility-company DID or registered ID number). Free-text provider names disallowed — must resolve to a recognized provider entity."
+          },
+          "mepSignoffRecordCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the parent tatekata MEP-phase sign-off record. Establishes that the construction reached the MEP commissioning gate before utilities are requested."
+          },
+          "providerRpcAttestationCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "G1: IPFS CID of the open-source RPC trace (request payload + provider response) used to submit. No commercial broker middleware (G5)."
+          },
+          "serviceRequestCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "charterRiderComplianceAttested": {
+            "type": "boolean",
+            "const": true,
+            "description": "Structural G5."
+          }
+        }
+      }
+    },
+    "geoCoords": {
+      "type": "object",
+      "required": ["latE7", "lonE7"],
+      "properties": {
+        "latE7": {
+          "type": "integer",
+          "minimum": -900000000,
+          "maximum": 900000000
+        },
+        "lonE7": {
+          "type": "integer",
+          "minimum": -1800000000,
+          "maximum": 1800000000
+        }
+      }
+    }
+  }
+}

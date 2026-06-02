@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.resourceFlow.detectAnomaly",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Scan mv_resource_flow_sankey_{currency,service,personnel} and flag (source × counterparty × period) triples whose observed event_count exceeds the rolling baseline by `thresholdFactor`. Writes to vertex_resource_flow_anomaly + emits T1 social posts to the rf-anomaly channel. Designed to be invoked by the R/PT24H BPMN timer; manual invocation is allowed for backtest. ADR-0028 + ADR-0046.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "flowClass":          { "type": "string", "enum": ["currency", "service", "personnel", "all"], "default": "all" },
+            "windowDays":         { "type": "integer", "minimum": 1, "maximum": 365, "default": 30 },
+            "thresholdFactor":    { "type": "number",  "minimum": 1.0, "default": 3.0,
+              "description": "Anomaly when observed_value >= thresholdFactor * baseline_avg." },
+            "minBaselineSamples": { "type": "integer", "minimum": 1, "default": 3,
+              "description": "Skip triples with fewer than N baseline rows to avoid cold-start false positives." },
+            "post":               { "type": "boolean", "default": true,
+              "description": "Emit T1 app.bsky.feed.post on the rf-anomaly channel for each new anomaly." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["runId", "scanned", "flagged", "anomalies"],
+          "properties": {
+            "runId":     { "type": "string" },
+            "scanned":   { "type": "integer" },
+            "flagged":   { "type": "integer" },
+            "anomalies": { "type": "array", "items": { "type": "object" } }
+          }
+        }
+      }
+    }
+  }
+}

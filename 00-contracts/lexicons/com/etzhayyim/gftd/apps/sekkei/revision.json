@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sekkei.revision",
+  "description": "設計図の改訂記録。revNo は図面改訂番号 (A→B→C または 01→02)。status=pending-approval で承認フロー (approval レコード) を起動。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["drawingId", "revNo", "revisionReason", "revisedByDid", "revisedAt"],
+        "properties": {
+          "drawingId": { "type": "string" },
+          "revNo": { "type": "string", "description": "改訂番号 (例: B, 02)" },
+          "previousRevNo": { "type": "string" },
+          "revisionReason": {
+            "type": "string",
+            "enum": ["design-change", "error-correction", "spec-update", "regulatory", "cost-reduction", "other"]
+          },
+          "changeDescription": { "type": "string" },
+          "revisedByDid": { "type": "string" },
+          "revisedAt": { "type": "string", "format": "date" },
+          "cadFileRef": { "type": "string", "description": "この改訂の CAD ファイル blob ref" },
+          "pdfFileRef": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pending-approval", "approved", "rejected", "withdrawn"]
+          },
+          "affectedBomLines": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "影響する bomLine.bomLineId 一覧"
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.murakumo.trainExperts": {
+    "/xrpc/com.etzhayyim.murakumo.trainExperts": {
       "post": {
-        "summary": "app.etzhayyim.murakumo.trainExperts",
-        "operationId": "app.etzhayyim.murakumo.trainExperts",
+        "summary": "com.etzhayyim.murakumo.trainExperts",
+        "operationId": "com.etzhayyim.murakumo.trainExperts",
         "requestBody": {
           "required": true,
           "content": {

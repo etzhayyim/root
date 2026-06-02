@@ -25,15 +25,15 @@ const seeds: Seed[] = [
   {
     proc: "generateImage",
     bpmnProcessId: "comfyui_openai_image_generation",
-    nsid: "app.etzhayyim.apps.comfyui.generateImage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/comfyui/generateImage.bpmn",
+    nsid: "com.etzhayyim.apps.comfyui.generateImage",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/comfyui/generateImage.bpmn",
     resultTimeoutMs: 600000,
   },
   {
     proc: "editImage",
     bpmnProcessId: "comfyui_openai_image_edit",
-    nsid: "app.etzhayyim.apps.comfyui.editImage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/comfyui/editImage.bpmn",
+    nsid: "com.etzhayyim.apps.comfyui.editImage",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/comfyui/editImage.bpmn",
     resultTimeoutMs: 600000,
   },
 ];
@@ -43,9 +43,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

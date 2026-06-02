@@ -1,6 +1,6 @@
 """mangaka_generate_panel — typed per-panel 2-pass ComfyUI workflow.
 
-Per-panel generator that maps `app.etzhayyim.mangaka.panel` records (framing,
+Per-panel generator that maps `com.etzhayyim.mangaka.panel` records (framing,
 charactersAppearing, environment, mood) onto a 2-pass SDXL workflow
 (composition → inked refine, denoise=0.4). Each invocation produces TWO
 images, one for each pass, with filenames keyed by the panel rkey so
@@ -26,7 +26,7 @@ from lg_mangaka import comfy_workflows as _wf
 
 
 class _State(TypedDict, total=False):
-    # input — mirrors app.etzhayyim.mangaka.panel + supplemental scene context
+    # input — mirrors com.etzhayyim.mangaka.panel + supplemental scene context
     panel_rkey: str
     framing: str                  # wide|medium|closeup|low-angle|high-angle|ots
     characters: list              # e.g. ["lone hacker", "shadow figure"]

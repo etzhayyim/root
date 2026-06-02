@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kyber.projector.listProcessGroups",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Compatibility query for APQC process groups. In kyber-projector, a process group maps to one APQC L1 actor/DID.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "groupId": { "type": "string", "description": "Alias of apqcCode" },
+          "apqcCode": { "type": "string" },
+          "period": { "type": "string", "description": "Optional YYYY-MM-DD/YYYY-MM-DD period for activity counts" },
+          "offset": { "type": "integer", "default": 0 },
+          "limit": { "type": "integer", "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "processGroups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "groupId": { "type": "string" },
+                  "did": { "type": "string" },
+                  "apqcCode": { "type": "string" },
+                  "code": { "type": "string" },
+                  "slug": { "type": "string" },
+                  "name": { "type": "string" },
+                  "title": { "type": "string" },
+                  "subProcesses": { "type": "integer" },
+                  "processCount": { "type": "integer" },
+                  "activityCount": { "type": "integer" },
+                  "status": { "type": "string" }
+                },
+                "required": ["groupId", "apqcCode", "name", "status"]
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["ok", "processGroups", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

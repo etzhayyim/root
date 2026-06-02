@@ -187,7 +187,7 @@ export async function handleCypherRequest(
   for (const s of statements) {
     // P64: Worker-side KV fallback for simple CREATE/MATCH. Avoids the
     // dispatcher 404 round-trip until the pod ships
-    // app.etzhayyim.apps.yata.runCypher. Returns null for queries the KV engine
+    // com.etzhayyim.apps.yata.runCypher. Returns null for queries the KV engine
     // doesn't understand — those fall through to the dispatcher path.
     const { tryServeCypherFromKv } = await import("./cypher-kv");
     const kvResult = await tryServeCypherFromKv(env as never, caller.orgDid, s.statement ?? "");
@@ -205,7 +205,7 @@ export async function handleCypherRequest(
 
     const dispatcherResult = await dispatchYataXrpc<DispatcherCypherOk>(
       env,
-      "app.etzhayyim.apps.yata.runCypher",
+      "com.etzhayyim.apps.yata.runCypher",
       {
         statement: s.statement ?? "",
         parametersJson: JSON.stringify(s.parameters ?? {}),

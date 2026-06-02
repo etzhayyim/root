@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.dispenseRecord",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 MedicationDispense — pharmacy hand-off record. Inner type of com.etzhayyim.encrypted.record envelope. Created by pharmacist DID upon dispensing a MedicationRequest.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "medicationRequestUri", "pharmacistDid", "status", "whenHandedOver"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "MedicationDispense"},
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string"},
+          "medicationRequestUri": {"type": "string", "description": "AT URI of source com.etzhayyim.karute.medicationRequest"},
+          "pharmacyDid": {"type": "string", "description": "did:web of dispensing pharmacy facility"},
+          "pharmacistDid": {"type": "string", "description": "did:web of dispensing pharmacist"},
+          "status": {
+            "type": "string",
+            "enum": ["preparation", "in-progress", "cancelled", "on-hold", "completed", "entered-in-error", "stopped", "declined", "unknown"]
+          },
+          "medication": {"type": "ref", "ref": "#medicationCodeable"},
+          "quantityDispensed": {"type": "ref", "ref": "#scaledQuantity"},
+          "daysSupply": {"type": "integer"},
+          "whenPrepared": {"type": "string", "format": "datetime"},
+          "whenHandedOver": {"type": "string", "format": "datetime"},
+          "substitutionPerformed": {"type": "boolean", "description": "true if pharmacist substituted (e.g. generic for brand)"},
+          "substitutionReason": {"type": "string"},
+          "dosageInstruction": {"type": "array", "items": {"type": "ref", "ref": "#dispenseDosage"}},
+          "patientCounselling": {"type": "string", "description": "服薬指導内容 (drug education delivered to patient)"},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "medicationCodeable": {
+      "type": "object",
+      "required": ["display"],
+      "properties": {
+        "rxnorm": {"type": "string"},
+        "yjCode": {"type": "string"},
+        "display": {"type": "string"},
+        "form": {"type": "string"},
+        "strength": {"type": "ref", "ref": "#scaledQuantity"}
+      }
+    },
+    "scaledQuantity": {
+      "type": "object",
+      "required": ["valueScaled", "scale", "unit"],
+      "properties": {
+        "valueScaled": {"type": "integer"},
+        "scale": {"type": "integer", "enum": [1, 10, 100, 1000]},
+        "unit": {"type": "string"}
+      }
+    },
+    "dispenseDosage": {
+      "type": "object",
+      "properties": {
+        "sequence": {"type": "integer"},
+        "text": {"type": "string"},
+        "route": {"type": "string"},
+        "doseQuantity": {"type": "ref", "ref": "#scaledQuantity"},
+        "asNeeded": {"type": "boolean"}
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.socialMediaInfluenceOp.flagStateInfluenceOp",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave2 (stub): 国家工作 情報戦 フラグ. Starts BPMN process open_social_media_influence_op_flag_state_influence_op.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "campaignVid": { "type": "string" },
+            "statedAttribution": { "type": "string" },
+            "platform": { "type": "string" }
+          },
+          "required": ["vertexId", "campaignVid", "statedAttribution"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

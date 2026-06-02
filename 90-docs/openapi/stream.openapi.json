@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.stream.closeStream": {
+    "/xrpc/com.etzhayyim.stream.closeStream": {
       "post": {
-        "summary": "app.etzhayyim.stream.closeStream",
-        "operationId": "app.etzhayyim.stream.closeStream",
+        "summary": "com.etzhayyim.stream.closeStream",
+        "operationId": "com.etzhayyim.stream.closeStream",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.stream.openStream": {
+    "/xrpc/com.etzhayyim.stream.openStream": {
       "post": {
-        "summary": "app.etzhayyim.stream.openStream",
-        "operationId": "app.etzhayyim.stream.openStream",
+        "summary": "com.etzhayyim.stream.openStream",
+        "operationId": "com.etzhayyim.stream.openStream",
         "requestBody": {
           "required": true,
           "content": {
@@ -104,10 +104,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.stream.readFrames": {
+    "/xrpc/com.etzhayyim.stream.readFrames": {
       "get": {
-        "summary": "app.etzhayyim.stream.readFrames",
-        "operationId": "app.etzhayyim.stream.readFrames",
+        "summary": "com.etzhayyim.stream.readFrames",
+        "operationId": "com.etzhayyim.stream.readFrames",
         "parameters": [
           {
             "name": "streamId",
@@ -154,10 +154,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.stream.subscribe": {
+    "/xrpc/com.etzhayyim.stream.subscribe": {
       "post": {
-        "summary": "app.etzhayyim.stream.subscribe",
-        "operationId": "app.etzhayyim.stream.subscribe",
+        "summary": "com.etzhayyim.stream.subscribe",
+        "operationId": "com.etzhayyim.stream.subscribe",
         "requestBody": {
           "required": true,
           "content": {

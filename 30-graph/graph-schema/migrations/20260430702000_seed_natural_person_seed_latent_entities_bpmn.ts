@@ -15,13 +15,13 @@ const project = "natural-person";
 const seed = {
   proc: "seedLatentEntities",
   bpmnProcessId: "natural_person_seed_latent_entities_v1",
-  nsid: "app.etzhayyim.apps.naturalPerson.seedLatentEntities",
-  sourcePath: "00-contracts/bpmn/ai/gftd/natural-person/seedLatentEntities.bpmn",
+  nsid: "com.etzhayyim.apps.naturalPerson.seedLatentEntities",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/natural-person/seedLatentEntities.bpmn",
   resultTimeoutMs: 300000,
 };
 
-const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-seed-latent-entities-v1`;
-const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${seed.proc}-v1`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-seed-latent-entities-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${seed.proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

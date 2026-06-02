@@ -230,7 +230,7 @@ function nsidToConstName(nsid) {
   ).join("_");
 }
 
-// Collision-aware name resolver. When two NSIDs (e.g. app.etzhayyim.convo.sendMessage
+// Collision-aware name resolver. When two NSIDs (e.g. com.etzhayyim.convo.sendMessage
 // vs chat.bsky.convo.sendMessage) would produce the same `NSID_*` constant,
 // disambiguate by prefixing the namespace segments (ai.gftd → AI_etzhayyim,
 // chat.bsky → CHAT_BSKY). Emits an explicit error if a 3-way collision arises.
@@ -430,7 +430,7 @@ function generate(lexicons) {
   lines.push("");
   lines.push("/**");
   lines.push(" * Type-safe body cast for a known Lexicon NSID.");
-  lines.push(" * Usage: const input = parseXrpcBody<\"app.etzhayyim.convo.send\">(body);");
+  lines.push(" * Usage: const input = parseXrpcBody<\"com.etzhayyim.convo.send\">(body);");
   lines.push(" */");
   lines.push("export function parseXrpcBody<N extends LexiconXrpcNSID>(");
   lines.push("  body: Record<string, unknown>,");
@@ -444,7 +444,7 @@ function generate(lexicons) {
   lines.push("");
   lines.push("/**");
   lines.push(" * Type-safe response cast for a known Lexicon NSID.");
-  lines.push(" * Usage: return typedResponse<\"app.etzhayyim.convo.send\">(data);");
+  lines.push(" * Usage: return typedResponse<\"com.etzhayyim.convo.send\">(data);");
   lines.push(" */");
   lines.push("export function typedResponse<N extends LexiconXrpcNSID>(");
   lines.push("  data: XrpcOutput<N>,");

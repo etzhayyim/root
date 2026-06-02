@@ -75,12 +75,12 @@
     {"name": "tsutae_recycling_intake", "module": "tsutae.cells.tsutae_recycling_intake", "murukumoNode": "dan", "phase": "eol"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.tsutae.pcbAttestation",
-    "app.etzhayyim.tsutae.chassisAttestation",
-    "app.etzhayyim.tsutae.firmwareAttestation",
-    "app.etzhayyim.tsutae.deviceAttestation",
-    "app.etzhayyim.tsutae.recyclingCertificate",
-    "app.etzhayyim.tsutae.silenTsutaeReview"
+    "com.etzhayyim.tsutae.pcbAttestation",
+    "com.etzhayyim.tsutae.chassisAttestation",
+    "com.etzhayyim.tsutae.firmwareAttestation",
+    "com.etzhayyim.tsutae.deviceAttestation",
+    "com.etzhayyim.tsutae.recyclingCertificate",
+    "com.etzhayyim.tsutae.silenTsutaeReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261300. Changes require Council Lv6+ supermajority + new ADR.",

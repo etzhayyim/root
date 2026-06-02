@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_ongakukaCompose"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  exporter="Camunda Modeler"
+  exporterVersion="2.0">
+
+  <bpmn:process id="ongakuka_compose" name="com.etzhayyim.apps.ongakuka.compose" isExecutable="true">
+
+    <!-- none-start: triggered by CF Worker XRPC compose call via proxyToBpmn() -->
+    <bpmn:startEvent id="Start_Manual" name="compose triggered">
+      <bpmn:outgoing>Flow_start_to_generate</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_MusicGenerate" name="Generate music track">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ongakuka.music.generate" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=style"       target="style" />
+          <zeebe:input source="=title"       target="title" />
+          <zeebe:input source="=duration_sec" target="duration_sec" />
+          <zeebe:input source="=seed"        target="seed" />
+          <zeebe:input source="=project_id"  target="project_id" />
+          <zeebe:input source="=track_rkey"  target="track_rkey" />
+          <zeebe:input source="=pre_gen_sha" target="pre_gen_sha" />
+          <zeebe:output source="=blob_key"     target="blob_key" />
+          <zeebe:output source="=audio_url"    target="audio_url" />
+          <zeebe:output source="=inference_ms" target="inference_ms" />
+          <zeebe:output source="=status"       target="track_status" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_start_to_generate</bpmn:incoming>
+      <bpmn:outgoing>Flow_generate_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit audit event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="2" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;ongakuka.compose&quot;"        target="event_type" />
+          <zeebe:input source="=track_rkey"                          target="subject_id" />
+          <zeebe:input source="=&quot;com.etzhayyim.apps.ongakuka&quot;"   target="actor" />
+          <zeebe:input source="=track_status"                        target="result" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_generate_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End_Composed" name="track published">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_start_to_generate"  sourceRef="Start_Manual"     targetRef="Task_MusicGenerate" />
+    <bpmn:sequenceFlow id="Flow_generate_to_audit"  sourceRef="Task_MusicGenerate" targetRef="Task_Audit" />
+    <bpmn:sequenceFlow id="Flow_audit_to_end"       sourceRef="Task_Audit"        targetRef="End_Composed" />
+
+  </bpmn:process>
+
+</bpmn:definitions>

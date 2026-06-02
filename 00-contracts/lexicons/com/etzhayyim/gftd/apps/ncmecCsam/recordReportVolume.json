@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ncmecCsam.recordReportVolume",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NCMEC CyberTipline / INHOPE hotline report volume (bridges misinformation-observatory + crc-children-digital + uasc-protection + icpen-consumer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "reportingYear",
+            "reportType",
+            "reportsCount",
+            "submittedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "platformLei": {
+              "type": "string"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportType": {
+              "type": "string",
+              "enum": [
+                "csam",
+                "csai_ai_generated",
+                "online_enticement",
+                "child_sex_trafficking",
+                "child_sexual_molestation",
+                "sextortion",
+                "misleading_domain"
+              ]
+            },
+            "reportsCount": {
+              "type": "integer"
+            },
+            "uniqueImagesCount": {
+              "type": "integer"
+            },
+            "uniqueVideosCount": {
+              "type": "integer"
+            },
+            "aiGeneratedPctEstimate": {
+              "type": "number"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "scaleTier": {
+              "type": "string",
+              "enum": [
+                "limited",
+                "significant",
+                "major",
+                "mass"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

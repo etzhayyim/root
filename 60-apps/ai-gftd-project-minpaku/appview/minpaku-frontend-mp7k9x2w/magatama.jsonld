@@ -84,9 +84,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.minpaku.minpakuEntity",
-        "ai.gftd.apps.minpaku.minpakuEvent",
-        "ai.gftd.apps.minpaku.minpakuReport"
+        "com.etzhayyim.apps.minpaku.minpakuEntity",
+        "com.etzhayyim.apps.minpaku.minpakuEvent",
+        "com.etzhayyim.apps.minpaku.minpakuReport"
       ]
     }
   },

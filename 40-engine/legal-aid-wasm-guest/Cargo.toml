@@ -3,7 +3,7 @@
 # Runs INSIDE the kotoba node (wasm32-wasip2, WasmExecutor) instead of an
 # external Cloudflare Worker. Build:
 #   cargo component build --release --target wasm32-wasip2
-# Deploy/run via XRPC ai.gftd.apps.kotoba.invoke.run (program_type=wasm-node).
+# Deploy/run via XRPC com.etzhayyim.apps.kotoba.invoke.run (program_type=wasm-node).
 #
 # Python guests are blocked on the current kotoba (wasmtime 22 / extended-const);
 # the Rust guest path is live-verified (deps.toml). This crate is standalone

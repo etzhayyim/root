@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ustrSection301.grantExclusion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Section 301 exclusion grant for specific HTS subheadings",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "exclusionId",
+            "actionVid",
+            "htsSubheading",
+            "grantedAt",
+            "expiresAt"
+          ],
+          "properties": {
+            "exclusionId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges imposeTariff"
+            },
+            "htsSubheading": {
+              "type": "string"
+            },
+            "requesterLei": {
+              "type": "string"
+            },
+            "customsDeclarationVid": {
+              "type": "string",
+              "description": "bridges open-customs-clearance"
+            },
+            "grantedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

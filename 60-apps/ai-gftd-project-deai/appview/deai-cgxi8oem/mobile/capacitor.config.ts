@@ -1,15 +1,15 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "app.etzhayyim.deai",
+  appId: "com.etzhayyim.deai",
   appName: "deai — Spirit Match",
   webDir: "../svelte/build",
   server: {
     androidScheme: "https",
     iosScheme: "https",
-    hostname: "deapp.etzhayyim.ai",
+    hostname: "decom.etzhayyim.ai",
     allowNavigation: [
-      "deapp.etzhayyim.ai",
+      "decom.etzhayyim.ai",
       "*.etzhayyim.com",
       // Spirit-in-Physics research API (SSoT for research data)
       "spirit-in-physics.com",

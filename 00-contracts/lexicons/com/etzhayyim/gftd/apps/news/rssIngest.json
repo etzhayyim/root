@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.news.rssIngest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the LangServer RSS ingest pipeline for news.etzhayyim.com.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sourceId": { "type": "string" },
+            "sources": { "type": "array", "items": { "type": "object" } },
+            "limit": { "type": "integer" },
+            "publish": { "type": "boolean" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "results": { "type": "array", "items": { "type": "object" } },
+            "auditRkey": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

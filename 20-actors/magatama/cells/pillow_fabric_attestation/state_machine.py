@@ -110,7 +110,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     fa.robotSignatures = mock_sigs
     fa.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.makura.fabricAttestation",
+        "$type": "com.etzhayyim.makura.fabricAttestation",
         "lotId": fa.lotId,
         "fabricRoll": fa.fabricRoll,
         "dyeReport": fa.dyeReport,

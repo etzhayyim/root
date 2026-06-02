@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gdprEnforcementPattern.recordCaseCluster",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GDPR enforcement pattern / repeat offender / sector sweep (bridges edpbBinding.flagNationalResistance + schrems-challenge + dpa-authority)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "clusterId",
+            "dpaAuthor",
+            "patternKind",
+            "patternStartedAt"
+          ],
+          "properties": {
+            "clusterId": {
+              "type": "string"
+            },
+            "dpaAuthor": {
+              "type": "string"
+            },
+            "patternKind": {
+              "type": "string",
+              "enum": [
+                "sector_sweep",
+                "big_tech_focus",
+                "health_data",
+                "children_data",
+                "ai_training",
+                "adtech_cookies",
+                "hr_workplace",
+                "police_mass_surveil",
+                "telecom_data",
+                "banking_kyc",
+                "ecommerce_personalization"
+              ]
+            },
+            "resistanceVid": {
+              "type": "string",
+              "description": "bridges edpbBinding.flagNationalResistance"
+            },
+            "patternStartedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

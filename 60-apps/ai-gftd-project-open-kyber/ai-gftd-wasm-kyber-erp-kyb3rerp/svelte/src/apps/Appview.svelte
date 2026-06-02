@@ -4,22 +4,22 @@
   import { ui } from '../lib/store.svelte';
 
   const nsid = {
-    dashboard: 'app.etzhayyim.apps.kyber.dashboard',
-    listInvoices: 'app.etzhayyim.apps.kyber.listInvoices',
-    createInvoice: 'app.etzhayyim.apps.kyber.createInvoice',
-    listEmployees: 'app.etzhayyim.apps.kyber.listEmployees',
-    registerEmployee: 'app.etzhayyim.apps.kyber.registerEmployee',
-    listPurchaseOrders: 'app.etzhayyim.apps.kyber.listPurchaseOrders',
-    createPurchaseOrder: 'app.etzhayyim.apps.kyber.createPurchaseOrder',
-    listIntegrationCatalog: 'app.etzhayyim.apps.kyber.listIntegrationCatalog',
-    syncIntegrationCatalog: 'app.etzhayyim.apps.kyber.syncIntegrationCatalog',
+    dashboard: 'com.etzhayyim.apps.kyber.dashboard',
+    listInvoices: 'com.etzhayyim.apps.kyber.listInvoices',
+    createInvoice: 'com.etzhayyim.apps.kyber.createInvoice',
+    listEmployees: 'com.etzhayyim.apps.kyber.listEmployees',
+    registerEmployee: 'com.etzhayyim.apps.kyber.registerEmployee',
+    listPurchaseOrders: 'com.etzhayyim.apps.kyber.listPurchaseOrders',
+    createPurchaseOrder: 'com.etzhayyim.apps.kyber.createPurchaseOrder',
+    listIntegrationCatalog: 'com.etzhayyim.apps.kyber.listIntegrationCatalog',
+    syncIntegrationCatalog: 'com.etzhayyim.apps.kyber.syncIntegrationCatalog',
     // APQC/BPMN projector (ADR-0025). Kyber ERP side:
-    initApqcProjector: 'app.etzhayyim.apps.kyber.initApqcProjector',
+    initApqcProjector: 'com.etzhayyim.apps.kyber.initApqcProjector',
     // kyber-projector side (proxied via PDS pipethrough):
-    listApqcActors: 'app.etzhayyim.kyber.projector.listApqcActors',
-    listBpmnTasks: 'app.etzhayyim.kyber.projector.listBpmnTasks',
-    runBpmnTask: 'app.etzhayyim.kyber.projector.runBpmnTask',
-    getApqcCoverage: 'app.etzhayyim.kyber.projector.getApqcCoverage'
+    listApqcActors: 'com.etzhayyim.kyber.projector.listApqcActors',
+    listBpmnTasks: 'com.etzhayyim.kyber.projector.listBpmnTasks',
+    runBpmnTask: 'com.etzhayyim.kyber.projector.runBpmnTask',
+    getApqcCoverage: 'com.etzhayyim.kyber.projector.getApqcCoverage'
   } as const;
 
   type Section = 'finance' | 'people' | 'procurement' | 'apqc';

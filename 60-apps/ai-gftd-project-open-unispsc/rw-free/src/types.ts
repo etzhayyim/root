@@ -1,6 +1,6 @@
 /**
- * Mirrors the app.etzhayyim.apps.openUnispsc.segmentDef Lexicon record shape.
- * Source: 00-contracts/lexicons/ai/gftd/apps/openUnispsc/segmentDef.json
+ * Mirrors the com.etzhayyim.apps.openUnispsc.segmentDef Lexicon record shape.
+ * Source: 00-contracts/lexicons/com/etzhayyim/apps/openUnispsc/segmentDef.json
  */
 export interface SegmentDef {
   /** UNSPSC 2-digit segment code (e.g. "10", "43"). */

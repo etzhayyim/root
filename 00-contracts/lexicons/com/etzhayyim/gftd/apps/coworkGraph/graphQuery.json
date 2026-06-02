@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.coworkGraph.graphQuery",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "RisingWave graph に対して read-only SQL を実行する。vertex_*/edge_*/mv_*/dim_*/view_* テーブルのみ許可。INSERT/UPDATE/DELETE/DROP 等の書き込み SQL は拒否する。",
+      "parameters": {
+        "type": "params",
+        "required": ["sql"],
+        "properties": {
+          "sql": {
+            "type": "string",
+            "description": "実行する SQL 文 (SELECT のみ。テーブルは vertex_*/edge_*/mv_*/dim_*/view_* に限定)"
+          },
+          "params": {
+            "type": "array",
+            "items": { "type": "unknown" },
+            "description": "プレースホルダー ($1, $2, ...) に対応するパラメーター"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "LIMIT がない場合に自動付加する行数 (最大 500)",
+            "default": 100
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["rows", "count"],
+          "properties": {
+            "rows": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            },
+            "count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ CREATE VIEW IF NOT EXISTS view_hs2007_commodity AS
       value_json::jsonb->>'parent'  AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity2007';
+    WHERE collection = 'com.etzhayyim.apps.hs.commodity2007';
 
 CREATE VIEW IF NOT EXISTS view_hs2002_commodity AS
     SELECT
@@ -20,7 +20,7 @@ CREATE VIEW IF NOT EXISTS view_hs2002_commodity AS
       value_json::jsonb->>'parent'  AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity2002';
+    WHERE collection = 'com.etzhayyim.apps.hs.commodity2002';
 
 CREATE VIEW IF NOT EXISTS view_hs1996_commodity AS
     SELECT
@@ -32,7 +32,7 @@ CREATE VIEW IF NOT EXISTS view_hs1996_commodity AS
       value_json::jsonb->>'parent'  AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.hs.commodity1996';
+    WHERE collection = 'com.etzhayyim.apps.hs.commodity1996';
 
 CREATE VIEW IF NOT EXISTS view_sitc1_commodity AS
     SELECT
@@ -44,7 +44,7 @@ CREATE VIEW IF NOT EXISTS view_sitc1_commodity AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity_rev1';
+    WHERE collection = 'com.etzhayyim.apps.sitc.commodity_rev1';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('hs2007', 'hs2007.etzhayyim.com', 6373, 'HS products', 'trade');

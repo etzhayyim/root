@@ -52,9 +52,9 @@ const entries: Array<{ project: string; bpmnProcessId: string; proc: string; own
 ];
 
 const processSeeds: ProcessSeed[] = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${e.project}-${e.proc}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${e.project}-${e.proc}-v1`,
   bpmnProcessId: e.bpmnProcessId,
-  sourcePath: `00-contracts/bpmn/ai/gftd/${e.project}/${e.proc}.bpmn`,
+  sourcePath: `00-contracts/bpmn/com/etzhayyim/${e.project}/${e.proc}.bpmn`,
   ownerDid: e.ownerDid,
 }));
 

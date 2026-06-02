@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.refugeeUnhcr.logRepatriation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Voluntary repatriation / resettlement / integration tracking",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "snapshotVid",
+            "solutionType",
+            "personsCount",
+            "recordedAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "snapshotVid": {
+              "type": "string",
+              "description": "bridges recordPopulation"
+            },
+            "solutionType": {
+              "type": "string",
+              "enum": [
+                "voluntary_repatriation",
+                "local_integration",
+                "resettlement",
+                "naturalization",
+                "complementary_pathway"
+              ]
+            },
+            "personsCount": {
+              "type": "integer"
+            },
+            "destinationIso3": {
+              "type": "string"
+            },
+            "assistedBy": {
+              "type": "string"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

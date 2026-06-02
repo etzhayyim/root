@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-water — water utility operations + network design
 //
-// 9 XRPC under app.etzhayyim.apps.openWater.*:
+// 9 XRPC under com.etzhayyim.apps.openWater.*:
 //   defineReservoir       (proc)   reservoir / pumping station node
 //   defineMain            (proc)   main pipe + downstream service points
 //   getNode               (query)  node detail + downstream mains
@@ -408,15 +408,15 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openWater.defineReservoir",
-            "app.etzhayyim.apps.openWater.defineMain",
-            "app.etzhayyim.apps.openWater.getNode",
-            "app.etzhayyim.apps.openWater.listMains",
-            "app.etzhayyim.apps.openWater.recordReading",
-            "app.etzhayyim.apps.openWater.reportLeak",
-            "app.etzhayyim.apps.openWater.listLeaks",
-            "app.etzhayyim.apps.openWater.recordQualitySample",
-            "app.etzhayyim.apps.openWater.listQualitySamples",
+            "com.etzhayyim.apps.openWater.defineReservoir",
+            "com.etzhayyim.apps.openWater.defineMain",
+            "com.etzhayyim.apps.openWater.getNode",
+            "com.etzhayyim.apps.openWater.listMains",
+            "com.etzhayyim.apps.openWater.recordReading",
+            "com.etzhayyim.apps.openWater.reportLeak",
+            "com.etzhayyim.apps.openWater.listLeaks",
+            "com.etzhayyim.apps.openWater.recordQualitySample",
+            "com.etzhayyim.apps.openWater.listQualitySamples",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["defineMain", "reportLeak"], dmn: ["openWater.leakSeverity"],
@@ -442,21 +442,21 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openWater.getNode":             return await getNode(env, url.searchParams);
-          case "app.etzhayyim.apps.openWater.listMains":           return await listMains(env, url.searchParams);
-          case "app.etzhayyim.apps.openWater.listLeaks":           return await listLeaks(env, url.searchParams);
-          case "app.etzhayyim.apps.openWater.listQualitySamples":  return await listQualitySamples(env, url.searchParams);
+          case "com.etzhayyim.apps.openWater.getNode":             return await getNode(env, url.searchParams);
+          case "com.etzhayyim.apps.openWater.listMains":           return await listMains(env, url.searchParams);
+          case "com.etzhayyim.apps.openWater.listLeaks":           return await listLeaks(env, url.searchParams);
+          case "com.etzhayyim.apps.openWater.listQualitySamples":  return await listQualitySamples(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openWater.defineReservoir":      return await defineReservoir(env, body);
-          case "app.etzhayyim.apps.openWater.defineMain":           return await defineMain(env, body);
-          case "app.etzhayyim.apps.openWater.recordReading":        return await recordReading(env, body);
-          case "app.etzhayyim.apps.openWater.reportLeak":           return await reportLeak(env, body);
-          case "app.etzhayyim.apps.openWater.recordQualitySample":  return await recordQualitySample(env, body);
+          case "com.etzhayyim.apps.openWater.defineReservoir":      return await defineReservoir(env, body);
+          case "com.etzhayyim.apps.openWater.defineMain":           return await defineMain(env, body);
+          case "com.etzhayyim.apps.openWater.recordReading":        return await recordReading(env, body);
+          case "com.etzhayyim.apps.openWater.reportLeak":           return await reportLeak(env, body);
+          case "com.etzhayyim.apps.openWater.recordQualitySample":  return await recordQualitySample(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

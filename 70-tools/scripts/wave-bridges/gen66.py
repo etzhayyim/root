@@ -205,7 +205,7 @@ def build_ddl_cols(methods):
 
 
 def gen_lexicon(actor, method):
-    nsid = f"app.etzhayyim.apps.{actor['app']}.{method['name']}"
+    nsid = f"com.etzhayyim.apps.{actor['app']}.{method['name']}"
     props={}; required=[]
     for f in method["fields"]:
         name,ftype,req=f[0],f[1],f[2]
@@ -274,8 +274,8 @@ def gen_ddl(actor):
 
 
 for i, a in enumerate(ACTORS, start=1):
-    bd=REPO/f"00-contracts/bpmn/ai/gftd/open-{a['slug']}"
-    ld=REPO/f"00-contracts/lexicons/ai/gftd/apps/{a['app']}"
+    bd=REPO/f"00-contracts/bpmn/com/etzhayyim/open-{a['slug']}"
+    ld=REPO/f"00-contracts/lexicons/com/etzhayyim/apps/{a['app']}"
     bd.mkdir(parents=True,exist_ok=True); ld.mkdir(parents=True,exist_ok=True)
     for m in a["methods"]:
         (ld/f"{m['name']}.json").write_text(json.dumps(gen_lexicon(a,m),indent=2,ensure_ascii=False))

@@ -351,7 +351,7 @@ async function cmdRegisterToPds(_sdk: HostSDK, body: Uint8Array): Promise<Uint8A
       const did = `did:web:cpc.etzhayyim.com`;
       const rkey = p.code;
       await (db.insertInto("vertex_cpc_product" as any).values({
-        vertex_id: `at://${did}/app.etzhayyim.apps.cpc.product/${rkey}`,
+        vertex_id: `at://${did}/com.etzhayyim.apps.cpc.product/${rkey}`,
         sensitivity_ord: 2,
         owner_did: did,
         actor_did: did,
@@ -433,55 +433,55 @@ export default createWorkerExport((sdk) => {
 
   sdk.app
     .command(
-      nsid("app.etzhayyim.apps.cpc.catalog.listSections"),
+      nsid("com.etzhayyim.apps.cpc.catalog.listSections"),
       (_ctx, body) => cmdListSections(body),
       asAgentTool("List CPC sections"),
       withCapabilityTags("cpc", "catalog"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.catalog.listDivisions"),
+      nsid("com.etzhayyim.apps.cpc.catalog.listDivisions"),
       (_ctx, body) => cmdListDivisions(body),
       asAgentTool("List CPC divisions"),
       withCapabilityTags("cpc", "catalog"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.catalog.getProduct"),
+      nsid("com.etzhayyim.apps.cpc.catalog.getProduct"),
       (_ctx, body) => cmdGetProduct(body),
       asAgentTool("Get CPC product by code"),
       withCapabilityTags("cpc", "catalog"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.catalog.searchProducts"),
+      nsid("com.etzhayyim.apps.cpc.catalog.searchProducts"),
       (_ctx, body) => cmdSearchProducts(body),
       asAgentTool("Search CPC products"),
       withCapabilityTags("cpc", "catalog", "query"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.concordance.get"),
+      nsid("com.etzhayyim.apps.cpc.concordance.get"),
       (_ctx, body) => cmdGetConcordance(body),
       asAgentTool("Get CPC concordance to ISIC/HS"),
       withCapabilityTags("cpc", "concordance"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.process.resolveManufacturingProcess"),
+      nsid("com.etzhayyim.apps.cpc.process.resolveManufacturingProcess"),
       (_ctx, body) => cmdResolveManufacturingProcess(body),
       asAgentTool("Resolve manufacturing process for CPC code"),
       withCapabilityTags("cpc", "manufacturing", "process"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.registry.registerToPds"),
+      nsid("com.etzhayyim.apps.cpc.registry.registerToPds"),
       (_ctx, body) => cmdRegisterToPds(sdk, body),
       asAgentTool("Register CPC products to graph"),
       withCapabilityTags("cpc", "registry"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.stats"),
+      nsid("com.etzhayyim.apps.cpc.stats"),
       () => cmdStats(),
       asAgentTool("Get CPC component coverage stats"),
       withCapabilityTags("cpc", "analytics"),
     )
     .command(
-      nsid("app.etzhayyim.apps.cpc.wave"),
+      nsid("com.etzhayyim.apps.cpc.wave"),
       (_ctx, body) => cmdWave(sdk, body),
       asAgentTool("Post CPC social wave"),
       withCapabilityTags("cpc", "social"),

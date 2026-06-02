@@ -15,7 +15,7 @@
  * Two precise checks (designed for ~zero false positives):
  *
  *   Check A — schema invariant (always, over the canonical lexicon).
- *     app.etzhayyim.legal.outboundLegalAct MUST, structurally:
+ *     com.etzhayyim.legal.outboundLegalAct MUST, structurally:
  *       (1) require `counselActuation` AND `actuatedByLicensedCounsel`
  *           in the record `required` array;
  *       (2) carry `actuatedByLicensedCounsel` with `const: true`;
@@ -42,7 +42,7 @@ const args = process.argv.slice(2);
 
 // ── Check A: schema invariant ────────────────────────────────────────
 const LEGAL_ACT_LEX =
-  "00-contracts/lexicons/app/etzhayyim/legal/outboundLegalAct.json";
+  "00-contracts/lexicons/com/etzhayyim/legal/outboundLegalAct.json";
 
 // Property names that would represent a platform/corp-held signing
 // capability for a legal act — must NEVER appear.

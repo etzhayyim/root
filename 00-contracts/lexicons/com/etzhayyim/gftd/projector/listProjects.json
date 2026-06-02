@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.listProjects",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "orgId": { "type": "string" },
+          "lifecycleState": { "type": "string" },
+          "limit": { "type": "integer" },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "projects": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#projectSummary" }
+            },
+            "cursor": { "type": "string" }
+          },
+          "required": ["projects"]
+        }
+      }
+    },
+    "projectSummary": {
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "name": { "type": "string" },
+        "lifecycleState": { "type": "string" },
+        "progressPermille": { "type": "integer" },
+        "openBlockerCount": { "type": "integer" },
+        "targetDate": { "type": "string" }
+      },
+      "required": ["projectId", "name", "lifecycleState"]
+    }
+  }
+}

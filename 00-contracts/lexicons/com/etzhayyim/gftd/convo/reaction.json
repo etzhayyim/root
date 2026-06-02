@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.reaction",
+  "description": "Extended reaction record. Superset of chat.bsky.convo.defs#reactionView — stored as a repo record.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "convoId": {
+            "type": "string"
+          },
+          "messageId": {
+            "type": "string"
+          },
+          "emoji": {
+            "type": "string",
+            "description": "Maps to chat.bsky.convo.defs#reactionView.value"
+          },
+          "reactor": {
+            "type": "ref",
+            "description": "The DID of the reactor. Compatible with chat.bsky.convo.defs#reactionViewSender.",
+            "ref": "chat.bsky.convo.defs#reactionViewSender"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "convoId",
+          "messageId",
+          "emoji",
+          "reactor",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

@@ -19,8 +19,8 @@ const PINNER_REPO = "did:web:pinner.etzhayyim.com";
 const ANCHORER_REPO = "did:web:anchorer.etzhayyim.com";
 
 const PIN_A: IpfsPinRecord = {
-  uri: `at://${PINNER_REPO}/app.etzhayyim.substrate.ipfsPin/3a`,
-  shardKey: "app.etzhayyim.apps.threads.post",
+  uri: `at://${PINNER_REPO}/com.etzhayyim.substrate.ipfsPin/3a`,
+  shardKey: "com.etzhayyim.apps.threads.post",
   rootCid: ROOT_CID,
   carCid: ROOT_CID,
   byteSize: 4096,
@@ -64,7 +64,7 @@ function mockAgent(opts: {
   const listRecords = vi.fn(async (req: {collection: string; cursor?: string}) => {
     calls.push({collection: req.collection, cursor: req.cursor});
     const records =
-      req.collection === "app.etzhayyim.substrate.ipfsPin"
+      req.collection === "com.etzhayyim.substrate.ipfsPin"
         ? opts.pins
         : opts.anchors;
     return {data: {records, cursor: undefined as string | undefined}};
@@ -91,7 +91,7 @@ describe("readPendingFromPds", () => {
           },
         },
         {
-          uri: `at://${PINNER_REPO}/app.etzhayyim.substrate.ipfsPin/3b`,
+          uri: `at://${PINNER_REPO}/com.etzhayyim.substrate.ipfsPin/3b`,
           value: {
             shardKey: PIN_A.shardKey,
             rootCid: ROOT_CID_2,
@@ -102,7 +102,7 @@ describe("readPendingFromPds", () => {
       // ROOT_CID is already anchored → must be filtered out.
       anchors: [
         {
-          uri: `at://${ANCHORER_REPO}/app.etzhayyim.substrate.l2Anchor/3z`,
+          uri: `at://${ANCHORER_REPO}/com.etzhayyim.substrate.l2Anchor/3z`,
           value: {rootCid: ROOT_CID},
         },
       ],
@@ -119,15 +119,15 @@ describe("readPendingFromPds", () => {
     expect(out[0].pending.row.mst_root_cid).toBe(ROOT_CID_2);
     expect(out[0].shardKey).toBe(PIN_A.shardKey);
     // Both collections were queried.
-    expect(calls.some((c) => c.collection === "app.etzhayyim.substrate.ipfsPin"))
+    expect(calls.some((c) => c.collection === "com.etzhayyim.substrate.ipfsPin"))
       .toBe(true);
-    expect(calls.some((c) => c.collection === "app.etzhayyim.substrate.l2Anchor"))
+    expect(calls.some((c) => c.collection === "com.etzhayyim.substrate.l2Anchor"))
       .toBe(true);
   });
 
   it("respects the limit cap", async () => {
     const pins = Array.from({length: 5}, (_, i) => ({
-      uri: `at://${PINNER_REPO}/app.etzhayyim.substrate.ipfsPin/3p${i}`,
+      uri: `at://${PINNER_REPO}/com.etzhayyim.substrate.ipfsPin/3p${i}`,
       value: {
         shardKey: "x",
         rootCid: `bafy${"x".repeat(50)}${i}`,

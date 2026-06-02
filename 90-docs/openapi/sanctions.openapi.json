@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.sanctions.getEntry": {
+    "/xrpc/com.etzhayyim.sanctions.getEntry": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.sanctions.getEntry",
+        "operationId": "com.etzhayyim.sanctions.getEntry",
         "parameters": [
           {
             "name": "entryId",
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.sanctions.listUpdates": {
+    "/xrpc/com.etzhayyim.sanctions.listUpdates": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.sanctions.listUpdates",
+        "operationId": "com.etzhayyim.sanctions.listUpdates",
         "parameters": [
           {
             "name": "limit",
@@ -85,10 +85,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.sanctions.searchByName": {
+    "/xrpc/com.etzhayyim.sanctions.searchByName": {
       "get": {
         "summary": "Tranche F stub — fuzzy name search across all sanctions lists. Full schema pending Phase 3 content copy.",
-        "operationId": "app.etzhayyim.sanctions.searchByName",
+        "operationId": "com.etzhayyim.sanctions.searchByName",
         "parameters": [
           {
             "name": "name",

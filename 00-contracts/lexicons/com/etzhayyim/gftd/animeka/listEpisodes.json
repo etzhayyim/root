@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.listEpisodes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List episodes of a work. Uses edge_contains graph traversal from work.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "workId": { "type": "string", "description": "Work rkey or at-uri." },
+          "status": { "type": "string" },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        },
+        "required": ["workId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "total"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": { "type": "string", "format": "at-uri" },
+                  "episodeNum": { "type": "integer" },
+                  "titleJP": { "type": "string" },
+                  "status": { "type": "string" },
+                  "cutCount": { "type": "integer" },
+                  "progress": {
+                    "type": "object",
+                    "description": "Per-stage completion ratio [0,1].",
+                    "properties": {
+                      "storyboard": { "type": "number" },
+                      "layout": { "type": "number" },
+                      "keyAnim": { "type": "number" },
+                      "inbetween": { "type": "number" },
+                      "finish": { "type": "number" },
+                      "background": { "type": "number" },
+                      "composite": { "type": "number" },
+                      "sound": { "type": "number" }
+                    }
+                  },
+                  "airDate": { "type": "string", "format": "datetime" },
+                  "thumbCid": { "type": "string", "format": "cid" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

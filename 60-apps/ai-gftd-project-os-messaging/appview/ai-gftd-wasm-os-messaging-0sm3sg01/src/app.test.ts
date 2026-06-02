@@ -87,24 +87,24 @@ describe("OS Messaging Gateway — Integration Tests", () => {
 
   describe("Discord webhook", () => {
     it("dispatches a Discord message", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookDiscord", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookDiscord", {
         t: "MESSAGE_CREATE",
         d: { content: "新幹線を予約して", channel_id: "ch-123", author: { id: "user-456" } },
       });
       expect(result.status).toBe("dispatched");
-      const inbound = writtenRecords.find(r => r.collection === "app.etzhayyim.apps.osMessaging.inbound");
+      const inbound = writtenRecords.find(r => r.collection === "com.etzhayyim.apps.osMessaging.inbound");
       expect(inbound).toBeDefined();
       expect(inbound!.record.platform).toBe("discord");
       expect(inbound!.record.text).toBe("新幹線を予約して");
     });
 
     it("responds to Discord PING", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookDiscord", { type: 1 });
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookDiscord", { type: 1 });
       expect(result.type).toBe(1);
     });
 
     it("ignores empty Discord messages", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookDiscord", { d: {} });
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookDiscord", { d: {} });
       expect(result.status).toBe("ignored");
     });
   });
@@ -113,16 +113,16 @@ describe("OS Messaging Gateway — Integration Tests", () => {
 
   describe("Telegram webhook", () => {
     it("dispatches a Telegram message", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookTelegram", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookTelegram", {
         message: { text: "東京から新大阪", chat: { id: 12345 }, from: { id: 67890 }, date: 1718000000 },
       });
       expect(result.status).toBe("dispatched");
-      const inbound = writtenRecords.find(r => r.collection === "app.etzhayyim.apps.osMessaging.inbound");
+      const inbound = writtenRecords.find(r => r.collection === "com.etzhayyim.apps.osMessaging.inbound");
       expect(inbound!.record.platform).toBe("telegram");
     });
 
     it("ignores non-text Telegram updates", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookTelegram", { update_id: 1 });
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookTelegram", { update_id: 1 });
       expect(result.status).toBe("ignored");
     });
   });
@@ -131,7 +131,7 @@ describe("OS Messaging Gateway — Integration Tests", () => {
 
   describe("Slack webhook", () => {
     it("responds to Slack URL verification", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookSlack", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookSlack", {
         type: "url_verification",
         challenge: "test-challenge-token",
       });
@@ -139,14 +139,14 @@ describe("OS Messaging Gateway — Integration Tests", () => {
     });
 
     it("dispatches a Slack message", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookSlack", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookSlack", {
         event: { type: "message", text: "予約確認", channel: "C123", user: "U456", ts: "1718000000.000" },
       });
       expect(result.status).toBe("dispatched");
     });
 
     it("ignores Slack bot messages (subtype)", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookSlack", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookSlack", {
         event: { type: "message", subtype: "bot_message", text: "bot reply", channel: "C123" },
       });
       expect(result.status).toBe("ignored");
@@ -157,7 +157,7 @@ describe("OS Messaging Gateway — Integration Tests", () => {
 
   describe("LINE webhook", () => {
     it("dispatches a LINE message", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookLine", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookLine", {
         events: [{
           type: "message",
           message: { type: "text", text: "明日の新幹線" },
@@ -167,7 +167,7 @@ describe("OS Messaging Gateway — Integration Tests", () => {
         }],
       });
       expect(result.status).toBe("dispatched");
-      const inbound = writtenRecords.find(r => r.collection === "app.etzhayyim.apps.osMessaging.inbound");
+      const inbound = writtenRecords.find(r => r.collection === "com.etzhayyim.apps.osMessaging.inbound");
       expect(inbound!.record.platform).toBe("line");
     });
   });
@@ -176,7 +176,7 @@ describe("OS Messaging Gateway — Integration Tests", () => {
 
   describe("WhatsApp webhook", () => {
     it("dispatches a WhatsApp message", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.webhookWhatsapp", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.webhookWhatsapp", {
         entry: [{
           changes: [{
             value: {
@@ -186,7 +186,7 @@ describe("OS Messaging Gateway — Integration Tests", () => {
         }],
       });
       expect(result.status).toBe("dispatched");
-      const inbound = writtenRecords.find(r => r.collection === "app.etzhayyim.apps.osMessaging.inbound");
+      const inbound = writtenRecords.find(r => r.collection === "com.etzhayyim.apps.osMessaging.inbound");
       expect(inbound!.record.platform).toBe("whatsapp");
       expect(inbound!.record.text).toBe("のぞみ予約");
     });
@@ -196,19 +196,19 @@ describe("OS Messaging Gateway — Integration Tests", () => {
 
   describe("Platform connections", () => {
     it("connectPlatform writes mapping record", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.connectPlatform", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.connectPlatform", {
         platform: "discord",
         platformUid: "user-456",
         gftdDid: "did:web:gkgua2o1.etzhayyim.com",
       });
       expect(result.status).toBe("connected");
-      const mapping = writtenRecords.find(r => r.collection === "app.etzhayyim.apps.osMessaging.platformMapping");
+      const mapping = writtenRecords.find(r => r.collection === "com.etzhayyim.apps.osMessaging.platformMapping");
       expect(mapping).toBeDefined();
       expect(mapping!.record.gftdDid).toBe("did:web:gkgua2o1.etzhayyim.com");
     });
 
     it("disconnectPlatform writes disconnect record", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.osMessaging.disconnectPlatform", {
+      const result = await invokeCommand("com.etzhayyim.apps.osMessaging.disconnectPlatform", {
         platform: "telegram",
         platformUid: "67890",
       });
@@ -216,7 +216,7 @@ describe("OS Messaging Gateway — Integration Tests", () => {
     });
 
     it("listConnections returns empty array", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.osMessaging.listConnections", {});
+      const result = await invokeQuery("com.etzhayyim.apps.osMessaging.listConnections", {});
       expect(result.connections).toBeDefined();
     });
   });

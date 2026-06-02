@@ -6,7 +6,7 @@
 // `INSERT N rows` pattern as ADR-0056 BPMN-as-actor.
 //
 // One row per MCP-exposed tool. Source of truth is the lexicon JSON
-// in `00-contracts/lexicons/ai/gftd/apps/**/*.json`; the
+// in `00-contracts/lexicons/com/etzhayyim/apps/**/*.json`; the
 // `sync-mcp-registry.py` script upserts rows from disk on each
 // `gftd contract sync` run.
 //
@@ -18,7 +18,7 @@
 // Promoted columns only (no JSON column type — RW lacks JSONB; large
 // JSON is stored as VARCHAR following the project convention).
 //
-// Vertex naming: `at://did:web:<actor-host>/app.etzhayyim.mcp.toolDef/<slug>`
+// Vertex naming: `at://did:web:<actor-host>/com.etzhayyim.mcp.toolDef/<slug>`
 // where slug = NSID with dots replaced by `-` (e.g.
 // `ai-gftd-apps-yoro-listPosts`). Stable, content-addressable,
 // queryable by actor_did via the secondary index.

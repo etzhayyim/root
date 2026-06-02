@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Permanent robot-witnessed audit event for a deployment site. N >= 2 independent robot DID signatures REQUIRED. Class=anomaly/injury subtypes are XChaCha20-Poly1305-enveloped per ADR-2605181100; class=community-event/compliance-check are public (transparency triple per ADR-2605192315 §3). Feeds Phenotype.effectiveMultiplier delta per ADR-2605192230.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteDid", "eventClass", "occurredAt", "witnessAttestations"],
+          "properties": {
+            "siteDid": { "type": "string" },
+            "planDid": { "type": "string", "description": "Optional — when event is during construction phase" },
+            "eventClass": { "type": "string", "enum": ["anomaly", "intrusion", "injury", "compliance-check", "community-event"] },
+            "subtype": { "type": "string", "description": "Class-specific subtype (e.g., 'witness-mismatch', 'material-shortage', 'wildlife-incident', 'land-return', 'open-house', 'audit-pass')" },
+            "occurredAt": { "type": "string", "format": "datetime" },
+            "evidenceCid": { "type": "string", "description": "IPFS CID for evidence — encrypted envelope for anomaly/injury, clear CID for community/compliance" },
+            "participantDids": { "type": "array", "items": { "type": "string" }, "description": "DIDs of all participants in the event (excluding robots which are in witnessAttestations)" },
+            "witnessAttestations": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "required": ["robotDid", "evidenceHash", "signature"],
+                "properties": {
+                  "robotDid": { "type": "string" },
+                  "evidenceHash": { "type": "string" },
+                  "signature": { "type": "string", "description": "Ed25519 base64url" }
+                }
+              }
+            },
+            "phenotypeDeltaTargetDid": { "type": "string", "description": "DID whose Phenotype.effectiveMultiplier is updated as a consequence (e.g., responsible steward on injury; site steward on community-event)" },
+            "phenotypeDeltaBps": { "type": "integer", "description": "Signed basis-points delta to apply (negative = penalty, positive = reward). Magnitude bounded by ADR-2605192230 enforcement schedule." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "auditDid": { "type": "string" },
+            "siteDid": { "type": "string" },
+            "eventClass": { "type": "string" },
+            "councilEscalated": { "type": "boolean", "description": "true when witness-mismatch or other constitutional trigger fires" },
+            "recordedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

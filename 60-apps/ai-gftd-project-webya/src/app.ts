@@ -16,7 +16,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.webya.";
+const NSID_PREFIX = "com.etzhayyim.apps.webya.";
 const ACTOR_DID = "did:web:webya.etzhayyim.com";
 const WEBYA_HOST = "webya.etzhayyim.com";
 
@@ -32,7 +32,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "w3bya001",
         execution: "edge-bpmn+langgraph-granian",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/webya",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/webya",
         langgraph: "20-actors/magatama/py/src/pymagatama/langgraph_graphs/webya_site_generation.py",
         methods: [
           "createSite", "reviseSite",

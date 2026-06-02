@@ -28,7 +28,7 @@ import {
   type ListDocumentsOutput,
 } from "./types.js";
 
-const DOCUMENT_COLLECTION = "app.etzhayyim.houki.document";
+const DOCUMENT_COLLECTION = "com.etzhayyim.houki.document";
 
 function isSha256(s: string): boolean {
   return /^[a-f0-9]{64}$/i.test(s);

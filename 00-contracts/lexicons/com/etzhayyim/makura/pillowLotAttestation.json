@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.pillowLotAttestation",
+  "description": "Per-pillow lot attestation (L5a). Fill weight + close stitch + bilingual care label + full BoM disclosure + take-back QR. Per ADR-2605261115 L5a (G3 + G4 + G11 + G12 + G13 + G14).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "pillowSerial": {"type": "string"},
+          "pillowDid": {"type": "string"},
+          "shellReady": {"type": "unknown"},
+          "fill": {
+            "type": "object",
+            "properties": {
+              "targetKg": {"type": "number"},
+              "actualKg": {"type": "number"},
+              "tolerancePct": {"type": "number"},
+              "g11MaxFoamMassKg": {"type": "number", "const": 2.0},
+              "withinG11Cap": {"type": "boolean"}
+            },
+            "required": ["actualKg", "withinG11Cap"]
+          },
+          "closeStitch": {"type": "unknown"},
+          "label": {
+            "type": "object",
+            "properties": {
+              "languagesPresent": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+              "g4BilingualMinimumMet": {"type": "boolean", "const": true},
+              "bom": {
+                "type": "object",
+                "properties": {
+                  "polyolType": {"type": "string"},
+                  "polyolBiocontentPct": {"type": "integer"},
+                  "blowingAgent": {"type": "string"},
+                  "fabricBlend": {"type": "array", "items": {"type": "unknown"}},
+                  "fillWeightKg": {"type": "number"},
+                  "fillForm": {"type": "string", "knownValues": ["shred", "slab"]},
+                  "fireRetardant": {"type": "string"},
+                  "originCountry": {"type": "string"}
+                },
+                "required": ["polyolType", "fabricBlend", "fillWeightKg", "fillForm", "fireRetardant", "originCountry"]
+              },
+              "g12FullBomDisclosed": {"type": "boolean", "const": true},
+              "takeBackQrCid": {"type": "string"},
+              "g13TakeBackQrPresent": {"type": "boolean", "const": true},
+              "embeddedElectronics": {"type": "string", "knownValues": ["none"]},
+              "g14NoEmbeddedElectronics": {"type": "boolean", "const": true}
+            },
+            "required": ["bom", "g4BilingualMinimumMet", "g12FullBomDisclosed", "g13TakeBackQrPresent", "g14NoEmbeddedElectronics"]
+          },
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "pillowSerial", "pillowDid", "fill", "label", "attestingRobots"]
+      }
+    }
+  }
+}

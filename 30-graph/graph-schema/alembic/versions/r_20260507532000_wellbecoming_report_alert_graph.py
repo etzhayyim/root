@@ -116,10 +116,10 @@ UP = [{'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
          '    WHERE nsid IN (\n'
-         "      'app.etzhayyim.apps.wellbecoming.agentLoop',\n"
-         "      'app.etzhayyim.apps.wellbecoming.proactiveConnect',\n"
-         "      'app.etzhayyim.apps.wellbecoming.floorViolationAlert',\n"
-         "      'app.etzhayyim.apps.wellbecoming.processMining'\n"
+         "      'com.etzhayyim.apps.wellbecoming.agentLoop',\n"
+         "      'com.etzhayyim.apps.wellbecoming.proactiveConnect',\n"
+         "      'com.etzhayyim.apps.wellbecoming.floorViolationAlert',\n"
+         "      'com.etzhayyim.apps.wellbecoming.processMining'\n"
          '    )\n'
          '  ',
   'parameters': ['vertex_wellbecoming_event,vertex_actor_wellbecoming_profile,vertex_wellbecoming_proactive_message,vertex_wellbecoming_floor_alert,vertex_wellbecoming_process_mining_report']}]

@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.asylumDetermination.flagProtectionGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Non-refoulement breach / detention / third-country agreement (bridges transnationalRepression.flagImpunity + refugee-unhcr + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "determinationVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "determinationVid": {
+              "type": "string",
+              "description": "bridges recordRsd"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "refoulement",
+                "detention_arbitrary",
+                "third_country_transfer",
+                "safe_country_ill",
+                "family_separation",
+                "undue_delay",
+                "legal_aid_gap",
+                "interpretation_failure",
+                "credibility_bias",
+                "culture_of_disbelief",
+                "protection_screening_dropped"
+              ]
+            },
+            "daysInLimbo": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

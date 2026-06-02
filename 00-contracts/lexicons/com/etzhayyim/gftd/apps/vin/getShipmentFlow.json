@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.vin.getShipmentFlow",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "year": {
+            "type": "number"
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "plant": {
+              "type": "string"
+            },
+            "plant_name": {
+              "type": "string"
+            },
+            "manufacturer": {
+              "type": "string"
+            },
+            "destination": {
+              "type": "string"
+            },
+            "vehicle_type": {
+              "type": "string"
+            },
+            "actual_flow": {
+              "type": "string"
+            },
+            "capacity": {
+              "type": "string"
+            },
+            "utilization": {
+              "type": "string"
+            },
+            "year": {
+              "type": "integer"
+            },
+            "flows": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -109,7 +109,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     bh.robotSignatures = mock_sigs
     bh.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.hodoki.batteryHandlingRecord",
+        "$type": "com.etzhayyim.hodoki.batteryHandlingRecord",
         "vehicleId": bh.vehicleId,
         "thermalBaseline": bh.thermalBaseline,
         "soh": bh.sohMeasurement,

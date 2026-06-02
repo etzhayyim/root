@@ -1,9 +1,9 @@
 /**
  * Mirrors the 4 Phase 3 Tier B ingest lexicons:
- *   - app.etzhayyim.maps.visionResult
- *   - app.etzhayyim.maps.satelliteScene
- *   - app.etzhayyim.maps.mapralyPoi
- *   - app.etzhayyim.maps.webCrawlGeoEntity
+ *   - com.etzhayyim.maps.visionResult
+ *   - com.etzhayyim.maps.satelliteScene
+ *   - com.etzhayyim.maps.mapralyPoi
+ *   - com.etzhayyim.maps.webCrawlGeoEntity
  *
  * All four follow the same payloadRef pattern from ADR-2605241500:
  * record holds metadata + a discriminated reference to where the actual

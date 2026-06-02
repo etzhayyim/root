@@ -62,13 +62,13 @@ FLUSH_INTERVAL_SEC = float(os.environ.get("FLUSH_INTERVAL_SEC", "60"))
 # yatachain-projection: legacy psycopg2 → vertex_spatial INSERT below is the
 # RW-projection write path. Set USE_PYMAGATAMA_SUBSTRATE=1 to enable the
 # parallel pymagatama.substrate writer (PDS createRecord into
-# app.etzhayyim.maps.feature, per yatachain Phase 1 Tier A migration in
+# com.etzhayyim.maps.feature, per yatachain Phase 1 Tier A migration in
 # 60-apps/ai-gftd-project-maps/MIGRATION-TODO.md). When both paths are on,
 # substrate write is the source of truth; RW INSERT is treated as a
 # projection seed.
 USE_PYMAGATAMA_SUBSTRATE = os.environ.get("USE_PYMAGATAMA_SUBSTRATE", "0") == "1"
 SUBSTRATE_DID = os.environ.get("SUBSTRATE_DID", "did:web:maps.etzhayyim.com")
-SUBSTRATE_COLLECTION = "app.etzhayyim.maps.feature"
+SUBSTRATE_COLLECTION = "com.etzhayyim.maps.feature"
 SUBSTRATE_H3_RES = int(os.environ.get("SUBSTRATE_H3_RES", "8"))  # ≈ neighborhood
 SUBSTRATE_BATCH = int(os.environ.get("SUBSTRATE_BATCH", "100"))
 _flush_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
@@ -153,12 +153,12 @@ def _row(fields: list[str]) -> dict | None:
         return None
     label = _classify_geonames(fcl, fcode)
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/geonames-{gid}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.spot/geonames-{gid}",
         "rkey": f"geonames-{gid}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": label,
         "did": "did:web:maps.etzhayyim.com",
-        "collection": "app.etzhayyim.apps.maps.spot",
+        "collection": "com.etzhayyim.apps.maps.spot",
         "name": name,
         "lat": lat,
         "lng": lon,
@@ -204,7 +204,7 @@ def _flush_shard(rows: list[dict], dump_id: str, shard_idx: int) -> str:
 
 def _geonames_row_to_feature(row: dict) -> tuple[str, dict]:
     """Convert a geonames row (vertex_spatial-shape dict) into an
-    `app.etzhayyim.maps.feature` record + rkey. Pure function.
+    `com.etzhayyim.maps.feature` record + rkey. Pure function.
 
     Per yatachain Phase 1 Tier A — bulk-ingest pods write feature records
     to PDS via pymagatama.substrate.
@@ -251,7 +251,7 @@ def _h3_cell(lat: float, lng: float, resolution: int) -> str:
 
 
 async def _write_features_via_substrate(rows: list[dict], batch_size: int = SUBSTRATE_BATCH) -> int:
-    """Async path: write geonames rows as `app.etzhayyim.maps.feature` records
+    """Async path: write geonames rows as `com.etzhayyim.maps.feature` records
     via pymagatama.substrate.Etzhayyim.write."""
     if not rows:
         return 0

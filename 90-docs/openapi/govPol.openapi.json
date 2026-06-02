@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govPol.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govPol.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Poland government.",
-        "operationId": "app.etzhayyim.govPol.followSiteDeps",
+        "operationId": "com.etzhayyim.govPol.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govPol.heartbeatTick": {
       "post": {
         "summary": "Run the Poland government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govPol.heartbeatTick",
+        "operationId": "com.etzhayyim.govPol.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.listOrgs": {
+    "/xrpc/com.etzhayyim.govPol.listOrgs": {
       "get": {
         "summary": "List Poland government organization graph records.",
-        "operationId": "app.etzhayyim.govPol.listOrgs",
+        "operationId": "com.etzhayyim.govPol.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.registerDIDs": {
+    "/xrpc/com.etzhayyim.govPol.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Poland government organizations.",
-        "operationId": "app.etzhayyim.govPol.registerDIDs",
+        "operationId": "com.etzhayyim.govPol.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govPol.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Poland government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govPol.resolveOrgPath",
+        "operationId": "com.etzhayyim.govPol.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.seedOrgs": {
+    "/xrpc/com.etzhayyim.govPol.seedOrgs": {
       "post": {
         "summary": "Seed initial Poland government organization records into the graph.",
-        "operationId": "app.etzhayyim.govPol.seedOrgs",
+        "operationId": "com.etzhayyim.govPol.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.shinka": {
+    "/xrpc/com.etzhayyim.govPol.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Poland government organization update.",
-        "operationId": "app.etzhayyim.govPol.shinka",
+        "operationId": "com.etzhayyim.govPol.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPol.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govPol.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Poland government organization changes to graph.",
-        "operationId": "app.etzhayyim.govPol.syncWetUpdates",
+        "operationId": "com.etzhayyim.govPol.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

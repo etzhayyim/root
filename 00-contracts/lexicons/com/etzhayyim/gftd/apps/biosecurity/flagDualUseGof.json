@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.biosecurity.flagDualUseGof",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave5 (stub): 機能獲得 (GoF) 軍民両用. Starts BPMN process open_biosecurity_flag_dual_use_gof.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "researchVid": { "type": "string" },
+            "programLei": { "type": "string" },
+            "country": { "type": "string" }
+          },
+          "required": ["vertexId", "researchVid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

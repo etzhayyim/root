@@ -91,7 +91,7 @@
         },
         {
           "args": {
-            "template": "MERGE (f:KenkyushaFrontier {did: $did, detectionMethod: 'citationGap'}) SET f.title = $hypothesize.text, f.status = 'detected', f.urgency = 'medium', f.evidenceLevel = 'none', f.consensusLevel = 'none', f.detectedAt = toString(datetime()), f.repo = $did, f.collection = 'ai.gftd.apps.kenkyusha.frontier'"
+            "template": "MERGE (f:KenkyushaFrontier {did: $did, detectionMethod: 'citationGap'}) SET f.title = $hypothesize.text, f.status = 'detected', f.urgency = 'medium', f.evidenceLevel = 'none', f.consensusLevel = 'none', f.detectedAt = toString(datetime()), f.repo = $did, f.collection = 'com.etzhayyim.apps.kenkyusha.frontier'"
           },
           "fn": "graph.write",
           "id": "writeFrontiers"
@@ -140,7 +140,7 @@
         },
         {
           "args": {
-            "template": "MERGE (h:KenkyushaHypothesis {did: $did}) SET h.statement = $generateHypotheses.text, h.status = 'proposed', h.confidenceScore = 0.3, h.repo = $did, h.collection = 'ai.gftd.apps.kenkyusha.hypothesis'"
+            "template": "MERGE (h:KenkyushaHypothesis {did: $did}) SET h.statement = $generateHypotheses.text, h.status = 'proposed', h.confidenceScore = 0.3, h.repo = $did, h.collection = 'com.etzhayyim.apps.kenkyusha.hypothesis'"
           },
           "fn": "graph.write",
           "id": "writeHypotheses"
@@ -210,7 +210,7 @@
         },
         {
           "args": {
-            "template": "MERGE (e:KenkyushaEvidence {did: $did}) SET e.evaluation = $evaluate.text, e.status = 'evaluated', e.repo = $did, e.collection = 'ai.gftd.apps.kenkyusha.evidence'"
+            "template": "MERGE (e:KenkyushaEvidence {did: $did}) SET e.evaluation = $evaluate.text, e.status = 'evaluated', e.repo = $did, e.collection = 'com.etzhayyim.apps.kenkyusha.evidence'"
           },
           "fn": "graph.write",
           "id": "writeEvaluation"
@@ -249,7 +249,7 @@
         },
         {
           "args": {
-            "template": "MERGE (e:KenkyushaEvidence {did: $did, sourceType: 'bunken'}) SET e.extractedClaim = $relevance.text, e.relevanceScore = 0.7, e.evidenceType = 'neutral', e.repo = $did, e.collection = 'ai.gftd.apps.kenkyusha.evidence'"
+            "template": "MERGE (e:KenkyushaEvidence {did: $did, sourceType: 'bunken'}) SET e.extractedClaim = $relevance.text, e.relevanceScore = 0.7, e.evidenceType = 'neutral', e.repo = $did, e.collection = 'com.etzhayyim.apps.kenkyusha.evidence'"
           },
           "fn": "graph.write",
           "id": "writeEvidence"
@@ -267,7 +267,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.bunken.bunken"
+          "com.etzhayyim.apps.bunken.bunken"
         ],
         "type": "subscribeRepos"
       }
@@ -301,8 +301,8 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.isbn.book",
-          "ai.gftd.apps.issn.serial"
+          "com.etzhayyim.isbn.book",
+          "com.etzhayyim.apps.issn.serial"
         ],
         "type": "subscribeRepos"
       }
@@ -325,7 +325,7 @@
         },
         {
           "args": {
-            "template": "MERGE (f:KenkyushaFrontier {did: $did, detectionMethod: 'crossDisciplineVoid'}) SET f.title = $analyzeVoids.text, f.status = 'detected', f.urgency = 'medium', f.repo = $did, f.collection = 'ai.gftd.apps.kenkyusha.frontier'"
+            "template": "MERGE (f:KenkyushaFrontier {did: $did, detectionMethod: 'crossDisciplineVoid'}) SET f.title = $analyzeVoids.text, f.status = 'detected', f.urgency = 'medium', f.repo = $did, f.collection = 'com.etzhayyim.apps.kenkyusha.frontier'"
           },
           "fn": "graph.write",
           "id": "writeCrossVoids"
@@ -399,7 +399,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kenkyusha.stats",
+        "nsid": "com.etzhayyim.apps.kenkyusha.stats",
         "type": "xrpc"
       }
     },
@@ -448,7 +448,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kenkyusha.seedDisciplines",
+        "nsid": "com.etzhayyim.apps.kenkyusha.seedDisciplines",
         "type": "xrpc"
       }
     },
@@ -474,7 +474,7 @@
             "params": {
               "actorName": "kenkyusha",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.kenkyusha.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.kenkyusha.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "kk8r3n5v",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -532,7 +532,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.kenkyusha.coverage.get",
+        "nsid": "com.etzhayyim.apps.kenkyusha.coverage.get",
         "type": "xrpc"
       }
     }
@@ -553,8 +553,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -567,9 +567,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.bunken.bunken",
-        "ai.gftd.isbn.book",
-        "ai.gftd.apps.issn.serial"
+        "com.etzhayyim.apps.bunken.bunken",
+        "com.etzhayyim.isbn.book",
+        "com.etzhayyim.apps.issn.serial"
       ]
     }
   },

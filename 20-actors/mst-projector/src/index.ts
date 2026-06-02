@@ -49,7 +49,7 @@ import type {
  *    - LanceDB: text search (IVF embedding vectors)
  *    - DuckDB: attribute inverted index + aggregate counts
  * 4. Serve queries: textSearch, attributeQuery, aggregateQuery
- * 5. Materialize results back to PDS as `app.etzhayyim.projector.<actor>View` records
+ * 5. Materialize results back to PDS as `com.etzhayyim.projector.<actor>View` records
  *
  * Storage: file-based (stateless, recoverable via PDS cursor replay)
  * Update latency SLA: p50 ≤1s, p99 ≤10s
@@ -95,7 +95,7 @@ export class MstProjector {
    * Example:
    * ```ts
    * const results = await projector.queryTextSearch({
-   *   collection: "app.etzhayyim.kiyo.paper",
+   *   collection: "com.etzhayyim.kiyo.paper",
    *   query: "machine learning",
    *   limit: 50
    * });
@@ -119,7 +119,7 @@ export class MstProjector {
    * Example:
    * ```ts
    * const results = await projector.queryAttribute({
-   *   collection: "app.etzhayyim.ipaddress.provider",
+   *   collection: "com.etzhayyim.ipaddress.provider",
    *   attribute: "countryIso3",
    *   value: "US"
    * });
@@ -143,7 +143,7 @@ export class MstProjector {
    * Example:
    * ```ts
    * const results = await projector.queryAggregate({
-   *   collection: "app.etzhayyim.kiyo.paper",
+   *   collection: "com.etzhayyim.kiyo.paper",
    *   groupBy: "status"
    * });
    * // Returns { counts: { "published": 1234, "draft": 567 }, total: 1801 }

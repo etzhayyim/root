@@ -23,7 +23,7 @@ Pregel graph (5 nodes):
                                       env monitoring (particle + viable count)
         |
         v
-    emit_fill_finish_attest       ->  MST PUT app.etzhayyim.pharma.fillFinishAttestation
+    emit_fill_finish_attest       ->  MST PUT com.etzhayyim.pharma.fillFinishAttestation
                                       (bulk lot, API source lot URI, excipient lots,
                                        filter integrity result, BFS run params,
                                        env monitoring CIDs, CCIT result,

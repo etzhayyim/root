@@ -1,5 +1,5 @@
 -- ADR-2605151400 — akuma authorized red team actor.
--- 4 append-only tables backing ai.gftd.apps.akuma.{registerScope,
+-- 4 append-only tables backing com.etzhayyim.apps.akuma.{registerScope,
 -- approveScope, runProbe, recordFinding} XRPC. RisingWave-friendly
 -- (varchar/bigint, no JSONB, no soft delete).
 

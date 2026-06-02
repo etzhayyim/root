@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govGrc.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govGrc.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Greece government.",
-        "operationId": "app.etzhayyim.govGrc.followSiteDeps",
+        "operationId": "com.etzhayyim.govGrc.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govGrc.heartbeatTick": {
       "post": {
         "summary": "Run the Greece government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govGrc.heartbeatTick",
+        "operationId": "com.etzhayyim.govGrc.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.listOrgs": {
+    "/xrpc/com.etzhayyim.govGrc.listOrgs": {
       "get": {
         "summary": "List Greece government organization graph records.",
-        "operationId": "app.etzhayyim.govGrc.listOrgs",
+        "operationId": "com.etzhayyim.govGrc.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.registerDIDs": {
+    "/xrpc/com.etzhayyim.govGrc.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Greece government organizations.",
-        "operationId": "app.etzhayyim.govGrc.registerDIDs",
+        "operationId": "com.etzhayyim.govGrc.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govGrc.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Greece government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govGrc.resolveOrgPath",
+        "operationId": "com.etzhayyim.govGrc.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.seedOrgs": {
+    "/xrpc/com.etzhayyim.govGrc.seedOrgs": {
       "post": {
         "summary": "Seed initial Greece government organization records into the graph.",
-        "operationId": "app.etzhayyim.govGrc.seedOrgs",
+        "operationId": "com.etzhayyim.govGrc.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.shinka": {
+    "/xrpc/com.etzhayyim.govGrc.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Greece government organization update.",
-        "operationId": "app.etzhayyim.govGrc.shinka",
+        "operationId": "com.etzhayyim.govGrc.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrc.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govGrc.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Greece government organization changes to graph.",
-        "operationId": "app.etzhayyim.govGrc.syncWetUpdates",
+        "operationId": "com.etzhayyim.govGrc.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

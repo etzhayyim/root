@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.onboardRapp",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "O-RAN Non-RT RIC — onboard an rApp (non-RT RIC application) to SMO. packageRef must be a vault:// pointer; raw package never persisted in graph.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["smoId", "vendor", "name", "version", "packageHash", "observedAt"],
+          "properties": {
+            "rappId": { "type": "string" },
+            "smoId": { "type": "string" },
+            "vendor": { "type": "string" },
+            "name": { "type": "string" },
+            "version": { "type": "string" },
+            "useCases": { "type": "array", "items": { "type": "string" } },
+            "requiredA1PolicyTypes": { "type": "array", "items": { "type": "string" } },
+            "requiredR1Services": { "type": "array", "items": { "type": "string" } },
+            "packageHash": { "type": "string" },
+            "packageRef": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "rappId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -30,9 +30,9 @@ import {
 } from "./types.js";
 import { componentRegistry } from "./artifactRegistry.js";
 
-const CVE_COLLECTION = "app.etzhayyim.apps.sbom.cve";
-const VULN_MATCH_COLLECTION = "app.etzhayyim.apps.sbom.vulnMatch";
-const COMPONENT_COLLECTION = "app.etzhayyim.apps.sbom.component";
+const CVE_COLLECTION = "com.etzhayyim.apps.sbom.cve";
+const VULN_MATCH_COLLECTION = "com.etzhayyim.apps.sbom.vulnMatch";
+const COMPONENT_COLLECTION = "com.etzhayyim.apps.sbom.component";
 
 function cveSlug(cveId: string): string {
   return cveId.toLowerCase().replace(/[^a-z0-9]/g, "-");

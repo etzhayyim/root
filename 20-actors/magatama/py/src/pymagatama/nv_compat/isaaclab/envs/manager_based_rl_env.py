@@ -63,7 +63,7 @@ class _Lcg:
 class CartpoleEnvCfg:
     """Mirror of isaaclab_tasks.manager_based.classic.cartpole.CartpoleEnvCfg.
 
-    Loaded directly from 70-tools/e7m-sim/scenes/cartpole/scene.yaml or set
+    Loaded directly from 40-engine/kami-engine/fixtures/cartpole/scene.yaml or set
     programmatically.
     """
     num_envs: int = 1                  # R1.1 = 1 env; R1.5 vectorizes via WGSL

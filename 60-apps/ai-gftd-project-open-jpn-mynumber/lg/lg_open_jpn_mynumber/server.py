@@ -84,7 +84,7 @@ GRAPHS.update(
 
 # NSID → assistant_id map
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "app.etzhayyim.apps.openJpnMynumber.health": "health",
+    "com.etzhayyim.apps.openJpnMynumber.health": "health",
 }
 for _nsid in TASKS:
     _NSID_TO_ASSISTANT[_nsid] = _nsid.rsplit(".", 1)[-1]

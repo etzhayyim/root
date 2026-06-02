@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOrcid.registerResearcher",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "研究者登録 - Starts BPMN open_orcid_register_researcher.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "orcidId",
+            "givenName",
+            "familyName",
+            "registeredAt"
+          ],
+          "properties": {
+            "orcidId": {
+              "type": "string",
+              "description": "0000-0000-0000-0000 format"
+            },
+            "givenName": {
+              "type": "string"
+            },
+            "familyName": {
+              "type": "string"
+            },
+            "primaryEmail": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "biography": {
+              "type": "string"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "verification": {
+              "type": "string",
+              "enum": [
+                "authoritative",
+                "community",
+                "candidate"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

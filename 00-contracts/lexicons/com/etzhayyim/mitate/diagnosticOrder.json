@@ -1,0 +1,157 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mitate.diagnosticOrder",
+  "description": "Diagnostic test ordering — allergy serology, blood / clinical-chemistry panels, cytology, imaging, in-clinic instrument acquisitions — to external clinical lab (with iyashi.phlebotomyAttestation when religious-corp clinic performs venipuncture) or community center equipment. Inherits G1 (consent receipt CID mandatory) + G2 (resultDeliveryChannel must be encrypted-mst-envelope) + G4 (R2+ licensed MD physicianAttestorDid mandatory) from ADR-2605260100. R2+ phase only. Rhinitis-domain enums per ADR-2605260115 §Decision 2 (IgE) + ADR-2605260145 §Decision 3 (CT) + ADR-2605260160 §Decision 2 (rhinomanometry). General blood / chemistry enums + iyashi-internal routing target + diagnosticConsentReceipt binding added per ADR-2605281950.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "orderId",
+          "patientPseudonymDid",
+          "orderType",
+          "conditionContext",
+          "consentReceiptCid",
+          "physicianAttestorDid",
+          "resultDeliveryChannel",
+          "orderedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "orderId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "patientPseudonymDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "orderType": {
+            "type": "string",
+            "knownValues": [
+              "ige-panel-39",
+              "ige-panel-perennial-only",
+              "nasal-smear-eosinophil",
+              "nasal-endoscopy-4k-video",
+              "rhinomanometry-aar",
+              "paranasal-ct",
+              "paranasal-mri",
+              "blood-cbc-eosinophil-count",
+              "nasal-culture-bacterial",
+              "nasal-culture-fungal",
+              "blood-cbc-full",
+              "blood-biochemistry-basic-12",
+              "blood-liver-panel",
+              "blood-kidney-panel",
+              "blood-lipid-panel",
+              "blood-hba1c",
+              "blood-glucose-fasting",
+              "blood-glucose-ogtt-75g",
+              "blood-thyroid-tsh-ft3-ft4",
+              "blood-ferritin-iron-tibc",
+              "blood-vitamin-d-25oh",
+              "blood-vitamin-b12-folate",
+              "blood-crp",
+              "blood-esr",
+              "blood-coagulation-pt-aptt-fib",
+              "urinalysis-routine-with-microalbumin"
+            ],
+            "description": "Per ADR-2605281950: 16 general blood / clinical-chemistry / urinalysis orderType values appended (R2+ activate). Rhinitis-scoped orderType set unchanged. Excluded by N1..N11 of ADR-2605281950: genetic / DTC / NIPT / oncology markers / fertility hormones / STI / heavy-metal / forensic / employer-screen / in-vivo skin prick."
+          },
+          "conditionContext": {
+            "type": "string",
+            "knownValues": [
+              "allergic-rhinitis-perennial-rule-in",
+              "allergic-vs-vasomotor-rule-out",
+              "chronic-sinusitis-subtype-classification",
+              "chronic-sinusitis-eosinophilic-suspect",
+              "chronic-sinusitis-odontogenic-suspect",
+              "chronic-sinusitis-fungal-suspect-urgent",
+              "septal-deviation-objective-measurement",
+              "rhinitis-medicamentosa-baseline-recovery",
+              "general-health-baseline-screen",
+              "suspected-iron-deficiency-anemia",
+              "suspected-vitamin-b12-folate-deficiency",
+              "suspected-vitamin-d-deficiency",
+              "suspected-type2-diabetes",
+              "diabetes-glycemic-monitoring",
+              "suspected-dyslipidemia",
+              "suspected-thyroid-dysfunction",
+              "suspected-chronic-kidney-disease",
+              "suspected-hepatic-dysfunction",
+              "pre-medication-hepato-renal-baseline",
+              "post-medication-hepato-renal-monitoring",
+              "suspected-inflammation-acute-phase",
+              "pre-vaccination-medical-clearance-pediatric",
+              "prenatal-baseline-general-only",
+              "postnatal-maternal-screening",
+              "suspected-coagulation-disorder",
+              "geriatric-annual-baseline"
+            ],
+            "description": "Per ADR-2605281950: 18 general (non-rhinitis) conditionContext values appended (R2+ activate). Each context is community-primary-care-scoped. Out of scope (constitutional non-goals): genetic markers, NIPT, oncology screening, fertility hormones, STI testing, forensic / employer screen — see ADR-2605281950 §D6."
+          },
+          "consentReceiptCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Mandatory (G1 + ADR-2605281950 GC). MUST resolve to an `com.etzhayyim.mitate.diagnosticConsentReceipt` record (or, for rhinitis-domain orders predating ADR-2605281950, the legacy generic encrypted consent record). Procedure-level consent, distinct from intake-level consent."
+          },
+          "orderRoutingTarget": {
+            "type": "string",
+            "knownValues": [
+              "iyashi-internal",
+              "external-lab"
+            ],
+            "description": "R2+ (ADR-2605281950). 'iyashi-internal' = phlebotomy by religious-corp iyashi clinic (requires linked `com.etzhayyim.iyashi.phlebotomyAttestation`); 'external-lab' = specimen drawn elsewhere or assay-only at external facility. Optional at R0/R1; required at R2+."
+          },
+          "physicianAttestorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Mandatory (G4). Licensed MD DID attesting clinical indication. Must be in LICENSED_MD_REGISTRY (Council-attested)."
+          },
+          "scopedAntigens": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 32
+            },
+            "description": "Only for orderType = 'ige-panel-*'. WHO IUIS allergen nomenclature (e.g. 'Der-f-1', 'Fel-d-1', 'Cry-j-1')."
+          },
+          "externalLabDid": {
+            "type": "string",
+            "format": "did",
+            "description": "For orderType requiring external facility (ige-panel, ct, mri, culture). Must be in EXTERNAL_LAB_DID_REGISTRY."
+          },
+          "internalEquipmentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "For orderType using mitate community center equipment (smear / endoscopy / rhinomanometry). Must be in equipment registry (Hanami / Mimi / rhinomanometer)."
+          },
+          "resultDeliveryChannel": {
+            "type": "string",
+            "knownValues": [
+              "encrypted-mst-envelope",
+              "encrypted-mst-envelope-dicom",
+              "encrypted-mst-envelope-image-and-video"
+            ],
+            "description": "G2 mandatory. Plaintext delivery channel is prohibited."
+          },
+          "urgency": {
+            "type": "string",
+            "knownValues": ["routine", "expedited", "urgent", "emergency"]
+          },
+          "orderedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

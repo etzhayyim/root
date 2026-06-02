@@ -37,7 +37,7 @@ GovStatisticsObservation schema (ADR-2605263900 §3).
 
 [[source]]
 subdataset    = "gov/statistics/eurostat"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_EUROSTAT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_EUROSTAT"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "eurostat-free-reuse"
@@ -45,7 +45,7 @@ weight        = 0.25
 
 [[source]]
 subdataset    = "gov/statistics/oecd-stat"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_OECD_STAT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_OECD_STAT"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "oecd-tou-free-reuse"
@@ -53,7 +53,7 @@ weight        = 0.20
 
 [[source]]
 subdataset    = "gov/statistics/worldbank-open-data"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_WORLDBANK_OPEN_DATA"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_WORLDBANK_OPEN_DATA"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC-BY-4.0"
@@ -61,7 +61,7 @@ weight        = 0.25
 
 [[source]]
 subdataset    = "gov/statistics/imf-sdmx"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IMF_SDMX"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_IMF_SDMX"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "imf-open-data-terms"
@@ -69,7 +69,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "gov/statistics/un-data"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UN_DATA"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UN_DATA"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "un-free-use"

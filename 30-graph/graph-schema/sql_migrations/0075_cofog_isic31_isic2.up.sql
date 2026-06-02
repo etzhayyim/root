@@ -6,7 +6,7 @@ CREATE VIEW IF NOT EXISTS view_cofog_function AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cofog.function';
+    WHERE collection = 'com.etzhayyim.apps.cofog.function';
 
 CREATE VIEW IF NOT EXISTS view_isic31_activity AS
     SELECT
@@ -19,7 +19,7 @@ CREATE VIEW IF NOT EXISTS view_isic31_activity AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev31';
+    WHERE collection = 'com.etzhayyim.apps.open_isic.economic_activity_rev31';
 
 CREATE VIEW IF NOT EXISTS view_isic2_activity AS
     SELECT
@@ -32,7 +32,7 @@ CREATE VIEW IF NOT EXISTS view_isic2_activity AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity_rev2';
+    WHERE collection = 'com.etzhayyim.apps.open_isic.economic_activity_rev2';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('cofog', 'cofog.etzhayyim.com', 188, 'government functions', 'governance');

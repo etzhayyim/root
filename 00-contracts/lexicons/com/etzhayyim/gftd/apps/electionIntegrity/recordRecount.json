@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.electionIntegrity.recordRecount",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Recount / audit result vs original tally",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "recountId",
+            "contestDescription",
+            "certifiedAt"
+          ],
+          "properties": {
+            "recountId": {
+              "type": "string"
+            },
+            "observationVid": {
+              "type": "string",
+              "description": "bridges recordObservation"
+            },
+            "contestDescription": {
+              "type": "string"
+            },
+            "originalMargin": {
+              "type": "integer"
+            },
+            "recountedMargin": {
+              "type": "integer"
+            },
+            "changedOutcome": {
+              "type": "boolean"
+            },
+            "certifiedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

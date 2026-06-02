@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.host.virtualActor.invoke": {
+    "/xrpc/com.etzhayyim.host.virtualActor.invoke": {
       "post": {
         "summary": "Invoke a method on a virtual actor (lifecycle-managed, reentrant).",
-        "operationId": "app.etzhayyim.host.virtualActor.invoke",
+        "operationId": "com.etzhayyim.host.virtualActor.invoke",
         "requestBody": {
           "required": true,
           "content": {
@@ -69,10 +69,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.telemetry.emitMetric": {
+    "/xrpc/com.etzhayyim.host.telemetry.emitMetric": {
       "post": {
         "summary": "Emit an OTEL metric sample.",
-        "operationId": "app.etzhayyim.host.telemetry.emitMetric",
+        "operationId": "com.etzhayyim.host.telemetry.emitMetric",
         "requestBody": {
           "required": true,
           "content": {
@@ -124,10 +124,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.telemetry.log": {
+    "/xrpc/com.etzhayyim.host.telemetry.log": {
       "post": {
         "summary": "Emit a structured log line (OTEL logs).",
-        "operationId": "app.etzhayyim.host.telemetry.log",
+        "operationId": "com.etzhayyim.host.telemetry.log",
         "requestBody": {
           "required": true,
           "content": {
@@ -179,10 +179,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.storage.getObject": {
+    "/xrpc/com.etzhayyim.host.storage.getObject": {
       "get": {
         "summary": "Get an object from the storage satellite.",
-        "operationId": "app.etzhayyim.host.storage.getObject",
+        "operationId": "com.etzhayyim.host.storage.getObject",
         "parameters": [
           {
             "name": "bucket",
@@ -227,10 +227,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.storage.putObject": {
+    "/xrpc/com.etzhayyim.host.storage.putObject": {
       "post": {
         "summary": "Put an object to the storage satellite (bucket/key addressed).",
-        "operationId": "app.etzhayyim.host.storage.putObject",
+        "operationId": "com.etzhayyim.host.storage.putObject",
         "requestBody": {
           "required": true,
           "content": {
@@ -287,10 +287,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.pubsub.publish": {
+    "/xrpc/com.etzhayyim.host.pubsub.publish": {
       "post": {
         "summary": "Publish a message to a pubsub topic (at-least-once).",
-        "operationId": "app.etzhayyim.host.pubsub.publish",
+        "operationId": "com.etzhayyim.host.pubsub.publish",
         "requestBody": {
           "required": true,
           "content": {
@@ -339,10 +339,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.pubsub.pull": {
+    "/xrpc/com.etzhayyim.host.pubsub.pull": {
       "get": {
         "summary": "Pull up to N messages from a topic.",
-        "operationId": "app.etzhayyim.host.pubsub.pull",
+        "operationId": "com.etzhayyim.host.pubsub.pull",
         "parameters": [
           {
             "name": "topic",
@@ -386,10 +386,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.ocel.emitEvent": {
+    "/xrpc/com.etzhayyim.host.ocel.emitEvent": {
       "post": {
         "summary": "Emit an OCEL event (object-centric event log).",
-        "operationId": "app.etzhayyim.host.ocel.emitEvent",
+        "operationId": "com.etzhayyim.host.ocel.emitEvent",
         "requestBody": {
           "required": true,
           "content": {
@@ -433,10 +433,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.acquireAppToken": {
+    "/xrpc/com.etzhayyim.host.m365.acquireAppToken": {
       "post": {
         "summary": "Acquire a Microsoft Graph app-only access token via client credentials flow. Uses tenant secret from Cloudflare Secrets Store.",
-        "operationId": "app.etzhayyim.host.m365.acquireAppToken",
+        "operationId": "com.etzhayyim.host.m365.acquireAppToken",
         "responses": {
           "200": {
             "description": "OK",
@@ -470,10 +470,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.batchMoveMessages": {
+    "/xrpc/com.etzhayyim.host.m365.batchMoveMessages": {
       "post": {
         "summary": "Move up to 20 messages to a well-known folder via Graph $batch API.",
-        "operationId": "app.etzhayyim.host.m365.batchMoveMessages",
+        "operationId": "com.etzhayyim.host.m365.batchMoveMessages",
         "requestBody": {
           "required": true,
           "content": {
@@ -557,10 +557,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.createDraft": {
+    "/xrpc/com.etzhayyim.host.m365.createDraft": {
       "post": {
         "summary": "Create a draft email via Graph POST /users/{fromUpn}/messages. The message lands in the Drafts folder and is NOT sent. Returns the draft id + Outlook web link for human review/approval. Used for external-recipient policy (draft_only).",
-        "operationId": "app.etzhayyim.host.m365.createDraft",
+        "operationId": "com.etzhayyim.host.m365.createDraft",
         "requestBody": {
           "required": true,
           "content": {
@@ -660,10 +660,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.enumerateUsers": {
+    "/xrpc/com.etzhayyim.host.m365.enumerateUsers": {
       "get": {
         "summary": "Enumerate tenant users matching a UPN domain filter. Uses ConsistencyLevel=eventual for advanced filters.",
-        "operationId": "app.etzhayyim.host.m365.enumerateUsers",
+        "operationId": "com.etzhayyim.host.m365.enumerateUsers",
         "parameters": [
           {
             "name": "token",
@@ -742,10 +742,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.fetchMailFolders": {
+    "/xrpc/com.etzhayyim.host.m365.fetchMailFolders": {
       "get": {
         "summary": "Fetch all mail folders (recursive childFolders) for a user. Returns flat id→displayName map.",
-        "operationId": "app.etzhayyim.host.m365.fetchMailFolders",
+        "operationId": "com.etzhayyim.host.m365.fetchMailFolders",
         "parameters": [
           {
             "name": "token",
@@ -808,10 +808,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.fetchMessagesPage": {
+    "/xrpc/com.etzhayyim.host.m365.fetchMessagesPage": {
       "get": {
         "summary": "Fetch one page of /users/{upn}/messages. Pagination via nextLink. Classification (folder → signal_class, sender_kind) is caller responsibility.",
-        "operationId": "app.etzhayyim.host.m365.fetchMessagesPage",
+        "operationId": "com.etzhayyim.host.m365.fetchMessagesPage",
         "parameters": [
           {
             "name": "token",
@@ -891,10 +891,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.listDrafts": {
+    "/xrpc/com.etzhayyim.host.m365.listDrafts": {
       "get": {
         "summary": "List drafts in /users/{fromUpn}/mailFolders/drafts/messages (newest first). Used for approval UIs / audit trails.",
-        "operationId": "app.etzhayyim.host.m365.listDrafts",
+        "operationId": "com.etzhayyim.host.m365.listDrafts",
         "parameters": [
           {
             "name": "token",
@@ -975,10 +975,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.sendDraft": {
+    "/xrpc/com.etzhayyim.host.m365.sendDraft": {
       "post": {
         "summary": "Send a previously created draft via Graph POST /users/{fromUpn}/messages/{id}/send. Post-approval transition from createDraft → sent. The draft is consumed (removed from Drafts, copy in Sent Items).",
-        "operationId": "app.etzhayyim.host.m365.sendDraft",
+        "operationId": "com.etzhayyim.host.m365.sendDraft",
         "requestBody": {
           "required": true,
           "content": {
@@ -1031,10 +1031,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.m365.sendMail": {
+    "/xrpc/com.etzhayyim.host.m365.sendMail": {
       "post": {
-        "summary": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. app.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
-        "operationId": "app.etzhayyim.host.m365.sendMail",
+        "summary": "Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. com.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern).",
+        "operationId": "com.etzhayyim.host.m365.sendMail",
         "requestBody": {
           "required": true,
           "content": {
@@ -1134,10 +1134,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.lock.tryLock": {
+    "/xrpc/com.etzhayyim.host.lock.tryLock": {
       "post": {
         "summary": "Attempt to acquire a distributed lock with a TTL lease.",
-        "operationId": "app.etzhayyim.host.lock.tryLock",
+        "operationId": "com.etzhayyim.host.lock.tryLock",
         "requestBody": {
           "required": true,
           "content": {
@@ -1185,10 +1185,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.lock.unlock": {
+    "/xrpc/com.etzhayyim.host.lock.unlock": {
       "post": {
         "summary": "Release a previously acquired lock.",
-        "operationId": "app.etzhayyim.host.lock.unlock",
+        "operationId": "com.etzhayyim.host.lock.unlock",
         "requestBody": {
           "required": true,
           "content": {
@@ -1232,10 +1232,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.llm.chat": {
+    "/xrpc/com.etzhayyim.host.llm.chat": {
       "post": {
         "summary": "Single-turn LLM chat (legacy agentChat). Prefer llm.converse for structured I/O.",
-        "operationId": "app.etzhayyim.host.llm.chat",
+        "operationId": "com.etzhayyim.host.llm.chat",
         "requestBody": {
           "required": true,
           "content": {
@@ -1283,10 +1283,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.llm.converse": {
+    "/xrpc/com.etzhayyim.host.llm.converse": {
       "post": {
         "summary": "Multi-turn structured LLM conversation. Routes to Murakumo or CF Workers AI per llm-model-registry. In-process capability (BindingTransport).",
-        "operationId": "app.etzhayyim.host.llm.converse",
+        "operationId": "com.etzhayyim.host.llm.converse",
         "requestBody": {
           "required": true,
           "content": {
@@ -1354,10 +1354,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.llm.react": {
+    "/xrpc/com.etzhayyim.host.llm.react": {
       "post": {
         "summary": "ReAct loop: LLM → tool → observe → repeat until stop condition or max iterations.",
-        "operationId": "app.etzhayyim.host.llm.react",
+        "operationId": "com.etzhayyim.host.llm.react",
         "requestBody": {
           "required": true,
           "content": {
@@ -1405,10 +1405,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.llm.route": {
+    "/xrpc/com.etzhayyim.host.llm.route": {
       "post": {
         "summary": "Intent classification via LLM tool_choice=required. Returns tool name, does not execute.",
-        "operationId": "app.etzhayyim.host.llm.route",
+        "operationId": "com.etzhayyim.host.llm.route",
         "requestBody": {
           "required": true,
           "content": {
@@ -1452,10 +1452,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.ipfs.publish": {
+    "/xrpc/com.etzhayyim.host.ipfs.publish": {
       "post": {
         "summary": "Publish bytes to IPFS (S3/R2-backed). Returns CIDv1.",
-        "operationId": "app.etzhayyim.host.ipfs.publish",
+        "operationId": "com.etzhayyim.host.ipfs.publish",
         "requestBody": {
           "required": true,
           "content": {
@@ -1504,10 +1504,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.invoke.call": {
+    "/xrpc/com.etzhayyim.host.invoke.call": {
       "post": {
         "summary": "DID-addressed RPC call. Governance-gated. Empty did = host auto-discovers provider.",
-        "operationId": "app.etzhayyim.host.invoke.call",
+        "operationId": "com.etzhayyim.host.invoke.call",
         "requestBody": {
           "required": true,
           "content": {
@@ -1561,10 +1561,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.identity.listActors": {
+    "/xrpc/com.etzhayyim.host.identity.listActors": {
       "get": {
         "summary": "Paginated list of registered actor DIDs.",
-        "operationId": "app.etzhayyim.host.identity.listActors",
+        "operationId": "com.etzhayyim.host.identity.listActors",
         "parameters": [
           {
             "name": "offset",
@@ -1608,10 +1608,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.identity.resolve": {
+    "/xrpc/com.etzhayyim.host.identity.resolve": {
       "get": {
         "summary": "Resolve a nanoid to its DID. Returns null if not registered.",
-        "operationId": "app.etzhayyim.host.identity.resolve",
+        "operationId": "com.etzhayyim.host.identity.resolve",
         "parameters": [
           {
             "name": "nanoid",
@@ -1644,10 +1644,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.governance.checkPolicy": {
+    "/xrpc/com.etzhayyim.host.governance.checkPolicy": {
       "get": {
         "summary": "Check whether a command is permitted for a user under current policy.",
-        "operationId": "app.etzhayyim.host.governance.checkPolicy",
+        "operationId": "com.etzhayyim.host.governance.checkPolicy",
         "parameters": [
           {
             "name": "command",
@@ -1699,10 +1699,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.governance.registerManifest": {
+    "/xrpc/com.etzhayyim.host.governance.registerManifest": {
       "post": {
         "summary": "Register a governance manifest (RACI / approval policy) for the current actor.",
-        "operationId": "app.etzhayyim.host.governance.registerManifest",
+        "operationId": "com.etzhayyim.host.governance.registerManifest",
         "requestBody": {
           "required": true,
           "content": {
@@ -1746,10 +1746,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.core.configGet": {
+    "/xrpc/com.etzhayyim.host.core.configGet": {
       "get": {
         "summary": "Resolve a configuration value (env var / SPIN_VARIABLE_*).",
-        "operationId": "app.etzhayyim.host.core.configGet",
+        "operationId": "com.etzhayyim.host.core.configGet",
         "parameters": [
           {
             "name": "key",
@@ -1782,10 +1782,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.core.logAppend": {
+    "/xrpc/com.etzhayyim.host.core.logAppend": {
       "post": {
         "summary": "Append a log record to a named stream.",
-        "operationId": "app.etzhayyim.host.core.logAppend",
+        "operationId": "com.etzhayyim.host.core.logAppend",
         "requestBody": {
           "required": true,
           "content": {
@@ -1838,10 +1838,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.conversation.createSession": {
+    "/xrpc/com.etzhayyim.host.conversation.createSession": {
       "post": {
         "summary": "Create a W Protocol WChannel conversation session.",
-        "operationId": "app.etzhayyim.host.conversation.createSession",
+        "operationId": "com.etzhayyim.host.conversation.createSession",
         "requestBody": {
           "required": true,
           "content": {
@@ -1889,10 +1889,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.conversation.sendMessage": {
+    "/xrpc/com.etzhayyim.host.conversation.sendMessage": {
       "post": {
         "summary": "Send a message into an existing conversation session.",
-        "operationId": "app.etzhayyim.host.conversation.sendMessage",
+        "operationId": "com.etzhayyim.host.conversation.sendMessage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1940,10 +1940,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.cdn.publicUrl": {
+    "/xrpc/com.etzhayyim.host.cdn.publicUrl": {
       "get": {
         "summary": "Resolve the public URL for a CDN object.",
-        "operationId": "app.etzhayyim.host.cdn.publicUrl",
+        "operationId": "com.etzhayyim.host.cdn.publicUrl",
         "parameters": [
           {
             "name": "subdomain",
@@ -1987,10 +1987,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.cdn.upload": {
+    "/xrpc/com.etzhayyim.host.cdn.upload": {
       "post": {
         "summary": "Upload bytes to the CDN under a subdomain/path.",
-        "operationId": "app.etzhayyim.host.cdn.upload",
+        "operationId": "com.etzhayyim.host.cdn.upload",
         "requestBody": {
           "required": true,
           "content": {
@@ -2047,10 +2047,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.capability.discover": {
+    "/xrpc/com.etzhayyim.host.capability.discover": {
       "get": {
         "summary": "Discover capabilities by tag/status (CV-1 discovery).",
-        "operationId": "app.etzhayyim.host.capability.discover",
+        "operationId": "com.etzhayyim.host.capability.discover",
         "parameters": [
           {
             "name": "tag",
@@ -2110,10 +2110,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.capability.listOwn": {
+    "/xrpc/com.etzhayyim.host.capability.listOwn": {
       "get": {
         "summary": "List capabilities owned by the current actor.",
-        "operationId": "app.etzhayyim.host.capability.listOwn",
+        "operationId": "com.etzhayyim.host.capability.listOwn",
         "parameters": [],
         "responses": {
           "200": {
@@ -2140,10 +2140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.authz.enforce": {
+    "/xrpc/com.etzhayyim.host.authz.enforce": {
       "post": {
         "summary": "In-process RBAC enforcement. Throws on deny, returns on allow.",
-        "operationId": "app.etzhayyim.host.authz.enforce",
+        "operationId": "com.etzhayyim.host.authz.enforce",
         "requestBody": {
           "required": true,
           "content": {
@@ -2212,10 +2212,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.authn.verifyToken": {
+    "/xrpc/com.etzhayyim.host.authn.verifyToken": {
       "post": {
         "summary": "Verify a bearer token and return its claims (base64 bytes).",
-        "operationId": "app.etzhayyim.host.authn.verifyToken",
+        "operationId": "com.etzhayyim.host.authn.verifyToken",
         "requestBody": {
           "required": true,
           "content": {
@@ -2260,10 +2260,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.activity.awaitAll": {
+    "/xrpc/com.etzhayyim.host.activity.awaitAll": {
       "post": {
         "summary": "Join on a previously spawned parallel batch. Returns results array.",
-        "operationId": "app.etzhayyim.host.activity.awaitAll",
+        "operationId": "com.etzhayyim.host.activity.awaitAll",
         "requestBody": {
           "required": true,
           "content": {
@@ -2311,10 +2311,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.activity.spawnParallel": {
+    "/xrpc/com.etzhayyim.host.activity.spawnParallel": {
       "post": {
         "summary": "Fan out a batch of activities for parallel execution. Returns batch ID.",
-        "operationId": "app.etzhayyim.host.activity.spawnParallel",
+        "operationId": "com.etzhayyim.host.activity.spawnParallel",
         "requestBody": {
           "required": true,
           "content": {
@@ -2358,10 +2358,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.host.accessLog.record": {
+    "/xrpc/com.etzhayyim.host.accessLog.record": {
       "post": {
         "summary": "Record an access log entry (auto-collected path).",
-        "operationId": "app.etzhayyim.host.accessLog.record",
+        "operationId": "com.etzhayyim.host.accessLog.record",
         "requestBody": {
           "required": true,
           "content": {

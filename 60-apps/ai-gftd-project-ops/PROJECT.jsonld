@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "dodaf": "https://resources.gftd.ai/dodaf/"
+  },
+  "@type": "Project",
+  "@id": "https://resources.gftd.ai/ai-gftd-project-ops/id/Project/ai-gftd-project-ops",
+  "name": "ai-gftd-project-ops",
+  "description": "Operations Dashboard — APQC process monitoring, scheduler automations, credits/revenue tracking, and campaign ROI visualization for gftd.ai",
+  "url": "https://ops.gftd.ai",
+  "dodaf:capability": [
+    "Revenue Operations Monitoring",
+    "APQC Process Visualization",
+    "Scheduler Automation Tracking",
+    "Credits/GCC Balance Monitoring"
+  ]
+}

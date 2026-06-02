@@ -25,7 +25,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "kokoro"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "kokoro"
 _MANIFEST = _REPO / "20-actors" / "kokoro" / "manifest.jsonld"
 
 # silenKokoroReview counters that MUST be structurally zero (the ethics red lines).
@@ -72,7 +72,7 @@ class TestPhiEncryption:
         req = set(_rec(stem)["required"])
         assert field in req, (
             f"{stem}: {field} must be required — session content stays in the "
-            "app.etzhayyim.encrypted.* envelope, never plaintext on MST (ADR-2605181100)"
+            "com.etzhayyim.encrypted.* envelope, never plaintext on MST (ADR-2605181100)"
         )
 
     def test_subjects_are_pseudonymized(self):
@@ -135,7 +135,7 @@ class TestLexiconHygiene:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.kokoro.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.kokoro.{p.stem}"
 
     def test_manifest_namespaces_match_disk(self):
         declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}

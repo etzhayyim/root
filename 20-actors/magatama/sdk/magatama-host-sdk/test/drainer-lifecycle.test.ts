@@ -42,7 +42,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
       v: 1,
       ts: now.getTime(),
       actorDid: actorDid,
-      lexicon: "app.etzhayyim.organism.lifecycle",
+      lexicon: "com.etzhayyim.organism.lifecycle",
       createdAt: nowISO,
       event: birthEvent.event
     };
@@ -50,7 +50,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
     await drainer.processLine(JSON.stringify(record));
 
     expect(mockWrite).toHaveBeenCalledWith({
-      collection: "app.etzhayyim.organism.lifecycle",
+      collection: "com.etzhayyim.organism.lifecycle",
       record: {
         ...birthEvent.event,
         createdAt: nowISO,
@@ -72,7 +72,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
       v: 1,
       ts: now.getTime(),
       actorDid: actorDid,
-      lexicon: "app.etzhayyim.organism.lifecycle",
+      lexicon: "com.etzhayyim.organism.lifecycle",
       createdAt: nowISO,
       event: cloneEvent.event
     };
@@ -80,7 +80,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
     await drainer.processLine(JSON.stringify(record));
 
     expect(mockWrite).toHaveBeenCalledWith({
-      collection: "app.etzhayyim.organism.lifecycle",
+      collection: "com.etzhayyim.organism.lifecycle",
       record: {
         ...cloneEvent.event,
         createdAt: nowISO,
@@ -100,7 +100,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
       v: 1,
       ts: now.getTime(),
       actorDid: actorDid,
-      lexicon: "app.etzhayyim.organism.lifecycle",
+      lexicon: "com.etzhayyim.organism.lifecycle",
       createdAt: nowISO,
       event: retireEvent.event
     };
@@ -108,7 +108,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
     await drainer.processLine(JSON.stringify(record));
 
     expect(mockWrite).toHaveBeenCalledWith({
-      collection: "app.etzhayyim.organism.lifecycle",
+      collection: "com.etzhayyim.organism.lifecycle",
       record: {
         ...retireEvent.event,
         createdAt: nowISO,
@@ -128,7 +128,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
       v: 1,
       ts: now.getTime(),
       actorDid: actorDid,
-      lexicon: "app.etzhayyim.organism.lifecycle",
+      lexicon: "com.etzhayyim.organism.lifecycle",
       createdAt: nowISO,
       event: excommunicationEvent.event
     };
@@ -136,7 +136,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
     await drainer.processLine(JSON.stringify(record));
 
     expect(mockWrite).toHaveBeenCalledWith({
-      collection: "app.etzhayyim.organism.lifecycle",
+      collection: "com.etzhayyim.organism.lifecycle",
       record: {
         ...excommunicationEvent.event,
         createdAt: nowISO,
@@ -166,14 +166,14 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
     });
   });
 
-  // Regression test for app.etzhayyim.organism.message (unencrypted path for simplicity)
-  it("should still process app.etzhayyim.organism.message records correctly", async () => {
+  // Regression test for com.etzhayyim.organism.message (unencrypted path for simplicity)
+  it("should still process com.etzhayyim.organism.message records correctly", async () => {
     const messageRecord = {
       v: 1,
       ts: now.getTime(),
       actorDid: actorDid,
       recipientDid: "did:web:recipient",
-      lexicon: "app.etzhayyim.organism.message",
+      lexicon: "com.etzhayyim.organism.message",
       text: "A secret message.",
       createdAt: nowISO
     };
@@ -181,7 +181,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
 
     const base64Expected = Buffer.from("A secret message.").toString("base64");
     expect(mockWrite).toHaveBeenCalledWith(expect.objectContaining({
-      collection: "app.etzhayyim.organism.message",
+      collection: "com.etzhayyim.organism.message",
       record: expect.objectContaining({
         encryptedPayload: `mock-signal-keywrap-v1(${base64Expected})`,
       }),
@@ -203,7 +203,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
         v: 1,
         ts: now.getTime(),
         actorDid: actorDid,
-        lexicon: "app.etzhayyim.organism.lifecycle",
+        lexicon: "com.etzhayyim.organism.lifecycle",
         createdAt: nowISO,
         event: { type: "birth", sourceDid: "did:web:source" }
       },
@@ -212,7 +212,7 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
         ts: now.getTime(),
         actorDid: actorDid,
         recipientDid: "did:web:recipient",
-        lexicon: "app.etzhayyim.organism.message",
+        lexicon: "com.etzhayyim.organism.message",
         text: "A message after birth",
         createdAt: nowISO
       }
@@ -232,14 +232,14 @@ describe("OrganismPostDrainer with Lifecycle Events", () => {
 
     // Check second call (lifecycle)
     expect(mockWrite.mock.calls[1][0]).toEqual({
-      collection: "app.etzhayyim.organism.lifecycle",
+      collection: "com.etzhayyim.organism.lifecycle",
       record: { type: "birth", sourceDid: "did:web:source", createdAt: nowISO },
     });
 
     // Check third call (message)
     const base64Expected = Buffer.from("A message after birth").toString("base64");
     expect(mockWrite.mock.calls[2][0]).toEqual(expect.objectContaining({
-        collection: "app.etzhayyim.organism.message",
+        collection: "com.etzhayyim.organism.message",
         record: expect.objectContaining({ encryptedPayload: `mock-signal-keywrap-v1(${base64Expected})`})
     }));
   });

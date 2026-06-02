@@ -141,7 +141,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     fa.robotSignatures = mock_sigs
     fa.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.futawa.vehicleLotAttestation",
+        "$type": "com.etzhayyim.futawa.vehicleLotAttestation",
         "vehicleId": fa.vehicleId,
         "vin": fa.vin,
         "vehicleDid": f"did:web:etzhayyim.com:futawa:vehicle:{fa.vin}",
@@ -157,7 +157,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "recordedAt": "2026-05-27T15:30:10Z",
     }
     parts_catalog_record = {
-        "$type": "app.etzhayyim.futawa.partsCatalog",
+        "$type": "com.etzhayyim.futawa.partsCatalog",
         "vehicleId": fa.vehicleId,
         "vin": fa.vin,
         "vehicleDid": f"did:web:etzhayyim.com:futawa:vehicle:{fa.vin}",

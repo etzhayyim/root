@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.playwright.getUrl",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get the current page URL of a session.",
+      "parameters": {
+        "type": "params",
+        "required": ["sessionId"],
+        "properties": { "sessionId": { "type": "string" } }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "url": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

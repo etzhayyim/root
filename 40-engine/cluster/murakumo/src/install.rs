@@ -219,7 +219,7 @@ fn install_launchd(cfg: &NodeConfig) {
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>app.etzhayyim.murakumo</string>
+    <string>com.etzhayyim.murakumo</string>
     <key>ProgramArguments</key>
     <array>
         <string>{}</string>
@@ -256,11 +256,11 @@ fn install_launchd(cfg: &NodeConfig) {
         home_str,
     );
 
-    let plist_path = plist_dir.join("app.etzhayyim.murakumo.plist");
+    let plist_path = plist_dir.join("com.etzhayyim.murakumo.plist");
     let _ = std::fs::write(&plist_path, &plist);
     let _ = Command::new("launchctl").args(["unload", &plist_path.to_string_lossy()]).status();
     run_cmd("launchctl", &["load", &plist_path.to_string_lossy()]);
-    logf("  launchd: app.etzhayyim.murakumo (RunAtLoad)");
+    logf("  launchd: com.etzhayyim.murakumo (RunAtLoad)");
 }
 
 fn install_systemd(cfg: &NodeConfig) {

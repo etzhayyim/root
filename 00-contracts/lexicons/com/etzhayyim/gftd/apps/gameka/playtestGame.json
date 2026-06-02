@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gameka.playtestGame",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Headless WebGPU playtest of a built kami-app artifact, scored by visual + perf critics. Closes the QA loop by deriving publishGame on pass, or proposeGame (revise) on fail with priorSpecs feedback.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "specId": {
+              "type": "string"
+            },
+            "iteration": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "description": "Current QA loop iteration. 0 = first attempt; >=3 stops the loop without revise."
+            }
+          },
+          "required": ["specId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "qaId": { "type": "string" },
+            "uri": { "type": "string" },
+            "visualScore": { "type": "number" },
+            "perfScore": { "type": "number" },
+            "combinedScore": { "type": "number" },
+            "publish": { "type": "boolean" },
+            "iteration": { "type": "integer" },
+            "outcome": {
+              "type": "string",
+              "description": "pass | revise | exhausted"
+            }
+          },
+          "required": ["qaId", "uri", "combinedScore", "publish", "outcome"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.dodafv2.listViews",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List deployed DoDAF v2 views, optionally filtered by DID or viewpoint (AV/CV/DIV/OV/PV/SV/StdV/SvcV).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "did": { "type": "string", "format": "did" },
+          "viewpoint": { "type": "string", "enum": ["AV","CV","DIV","OV","PV","SV","StdV","SvcV"] },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["views", "total", "offset", "limit"],
+          "properties": {
+            "views": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "viewId": { "type": "string" },
+                  "did": { "type": "string", "format": "did" },
+                  "viewType": { "type": "string" },
+                  "title": { "type": "string" },
+                  "version": { "type": "integer" },
+                  "deployedAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzIncident.reportMilitaryIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "軍事的インシデント (IRGC拿捕等)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "incidentType",
+            "occurredAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "flag": {
+              "type": "string"
+            },
+            "aggressorParty": {
+              "type": "string",
+              "description": "IRGC / Iran-Navy / unknown"
+            },
+            "incidentType": {
+              "type": "string",
+              "enum": [
+                "seizure",
+                "detention",
+                "warning-shot",
+                "boarding",
+                "drone-attack",
+                "mine"
+              ]
+            },
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            },
+            "narrative": {
+              "type": "string"
+            },
+            "casualties": {
+              "type": "integer"
+            },
+            "vesselSeized": {
+              "type": "boolean"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ]
+            },
+            "requireInternationalNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

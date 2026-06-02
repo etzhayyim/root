@@ -1,5 +1,5 @@
 {
-  "$schema": "app.etzhayyim.kurashimori.remedyTarget",
+  "$schema": "com.etzhayyim.kurashimori.remedyTarget",
   "_comment": "R0 SEED consumer-remedy registry per ADR-2605312500 §2. Each entry is the coded remedy kind / 根拠法令 / statutory window (日数) / 書面 form / delivery channel / escalation forum so kurashimori can diagnose + (eventually) send procedurally. ALL entries ship verificationStatus=unverified-seed: per G14, NO live send may occur against an unverified entry — these MUST be human/Council-verified (and re-checked within the freshness window) before kurashimori_send will transmit, and 代行 (R3) additionally requires council-verified + 司法書士法/行政書士法 clearance + Council Lv7+ (G15). CRITICAL: statutory cooling-off windows (日数) drift and vary by transaction type — a wrong 日数 is harmful; these are best-effort references as of 2026-05-31 and MUST be verified before any live use. The cooling-off eligibility output is an INFORMATIONAL date computation, NOT a legal opinion (G5).",
   "freshnessWindowDays": 180,
   "targets": [

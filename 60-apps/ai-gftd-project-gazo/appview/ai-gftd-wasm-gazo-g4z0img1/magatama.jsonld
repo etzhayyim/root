@@ -21,7 +21,7 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.gazo.generationResult"
+        "com.etzhayyim.apps.gazo.generationResult"
       ]
     }
   }

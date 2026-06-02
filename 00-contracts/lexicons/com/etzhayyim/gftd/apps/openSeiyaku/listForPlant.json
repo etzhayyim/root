@@ -1,0 +1,19 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSeiyaku.listForPlant",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List batches visible to one plant or manufacturer org.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "plantOrgId": { "type": "string" },
+          "manufacturerOrgId": { "type": "string" },
+          "status": { "type": "string" },
+          "limit": { "type": "integer", "default": 50 }
+        }
+      }
+    }
+  }
+}

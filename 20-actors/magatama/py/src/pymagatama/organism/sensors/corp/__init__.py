@@ -55,6 +55,7 @@ from .base import (
     LeiSensor,
     OwnershipKind,
 )
+from .gleif_l2_ownership_sensor import GleifL2OwnershipSensor
 from .jp_edinet_sensor import JpEdinetSensor
 from .lei_sensor import GleifLeiSensor
 from .sec_edgar_sensor import SecEdgarSensor
@@ -70,6 +71,7 @@ __all__ = [
     "CorpRegistryObservation",
     "CorpRegistrySensor",
     "FormClass",
+    "GleifL2OwnershipSensor",
     "GleifLeiSensor",
     "JpEdinetSensor",
     "LeiObservation",

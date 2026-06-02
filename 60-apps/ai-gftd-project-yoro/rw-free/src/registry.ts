@@ -43,7 +43,7 @@ export async function projectEntity(
   const rkey = projectEntityRkey(input.projectId, input.entityId);
   try {
     const result = await e.write({
-      collection: "app.etzhayyim.yoro.projectEntity",
+      collection: "com.etzhayyim.yoro.projectEntity",
       record,
       rkey,
     });
@@ -64,7 +64,7 @@ export async function productResearch(
   const rkey = productResearchRkey(input.jobId);
   try {
     const result = await e.write({
-      collection: "app.etzhayyim.yoro.productResearch",
+      collection: "com.etzhayyim.yoro.productResearch",
       record,
       rkey,
     });
@@ -84,7 +84,7 @@ export async function activitySeen(
   const rkey = activitySeenRkey(input.objectId);
   try {
     const result = await e.write({
-      collection: "app.etzhayyim.yoro.activitySeen",
+      collection: "com.etzhayyim.yoro.activitySeen",
       record,
       rkey,
     });
@@ -105,7 +105,7 @@ export async function shinkaEvolution(
   const rkey = shinkaEvolutionRkey(input.nanoid);
   try {
     const result = await e.write({
-      collection: "app.etzhayyim.yoro.shinkaEvolution",
+      collection: "com.etzhayyim.yoro.shinkaEvolution",
       record,
       rkey,
     });
@@ -126,7 +126,7 @@ export async function shinkaKnowledge(
   const rkey = shinkaKnowledgeRkey(input.nanoid);
   try {
     const result = await e.write({
-      collection: "app.etzhayyim.yoro.shinkaKnowledge",
+      collection: "com.etzhayyim.yoro.shinkaKnowledge",
       record,
       rkey,
     });

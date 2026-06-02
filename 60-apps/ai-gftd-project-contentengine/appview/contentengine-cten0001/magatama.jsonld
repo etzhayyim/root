@@ -10,31 +10,31 @@
   "performerType": "service",
   "uiType": "appview",
   "runtimeType": "ts-thin-edge",
-  "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/contentengine",
+  "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine",
   "routes": [
     { "pattern": "cten0001.etzhayyim.com/*", "zone_name": "etzhayyim.com" },
     { "pattern": "contentengine.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ],
   "subscribeRepos": [
     {
-      "collection": "ai.gftd.apps.news.article",
+      "collection": "com.etzhayyim.apps.news.article",
       "description": "Ingest news articles as content signals for personalization"
     },
     {
-      "collection": "ai.gftd.narou.chapter",
+      "collection": "com.etzhayyim.narou.chapter",
       "description": "Ingest narou chapters as content signals for creative personalization"
     }
   ],
   "capabilities": [
-    "ai.gftd.apps.contentengine.generateContent",
-    "ai.gftd.apps.contentengine.getContent",
-    "ai.gftd.apps.contentengine.listContent",
-    "ai.gftd.apps.contentengine.registerCohortProfile"
+    "com.etzhayyim.apps.contentengine.generateContent",
+    "com.etzhayyim.apps.contentengine.getContent",
+    "com.etzhayyim.apps.contentengine.listContent",
+    "com.etzhayyim.apps.contentengine.registerCohortProfile"
   ],
   "integrations": {
-    "ads": "ai.gftd.apps.ads.createCampaign",
-    "newsIngest": "ai.gftd.apps.news.article",
-    "narouIngest": "ai.gftd.narou.chapter"
+    "ads": "com.etzhayyim.apps.ads.createCampaign",
+    "newsIngest": "com.etzhayyim.apps.news.article",
+    "narouIngest": "com.etzhayyim.narou.chapter"
   },
   "piiPolicy": {
     "tier": 0,

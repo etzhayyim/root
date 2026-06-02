@@ -1,0 +1,11 @@
+{
+  "vendorDid": "did:web:etzhayyim.com",
+  "period": "2027-Q3",
+  "donatedAmountMicros": 5000000000000,
+  "grossSurplusMicrosDisclosed": 6000000000000,
+  "purpose": "grant",
+  "recipientProgram": "public-fund",
+  "txHash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "councilPolicyRef": "at://did:web:etzhayyim.com/com.etzhayyim.give.vendorSurplusPolicy/3lkabcd1234",
+  "createdAt": "2027-10-01T00:00:00Z"
+}

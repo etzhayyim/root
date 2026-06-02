@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.amrSurveillance.flagStewardshipBreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Antibiotic stewardship / prescribing breach (bridges livestock-antibiotics + hospital-infection + one-health)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "breachId",
+            "breachKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "breachId": {
+              "type": "string"
+            },
+            "sampleVid": {
+              "type": "string",
+              "description": "bridges recordResistanceSample"
+            },
+            "breachKind": {
+              "type": "string",
+              "enum": [
+                "inappropriate_prescribing",
+                "non_therapeutic_livestock_use",
+                "counterfeit_antibiotic",
+                "over_the_counter_sale",
+                "missed_source_control",
+                "unregulated_disposal"
+              ]
+            },
+            "facilityLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

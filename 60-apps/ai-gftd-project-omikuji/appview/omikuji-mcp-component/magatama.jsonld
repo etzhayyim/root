@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.omikuji.fortuneDraw",
-        "ai.gftd.apps.omikuji.shrine"
+        "com.etzhayyim.apps.omikuji.fortuneDraw",
+        "com.etzhayyim.apps.omikuji.shrine"
       ]
     }
   }

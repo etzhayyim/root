@@ -1,0 +1,111 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airlineJalOps.recordFlightSchedule",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "JAL group flight schedule / fleet utilization / codeshare entry (bridges aviation-safety + airplane-flight + iata-codeshare)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scheduleId",
+            "entityKind",
+            "routeKind",
+            "aircraftFamily",
+            "scheduledAt"
+          ],
+          "properties": {
+            "scheduleId": {
+              "type": "string"
+            },
+            "entityKind": {
+              "type": "string",
+              "enum": [
+                "jal_main_jl",
+                "jal_japan_air_commuter_jc",
+                "jal_japan_transocean_jta",
+                "jal_zipair_zg",
+                "jal_jcommuter_3x",
+                "jal_spring_japan_ij",
+                "jal_jair_xm",
+                "jal_express_jc",
+                "jal_codeshare_oneworld",
+                "jal_codeshare_qf",
+                "jal_codeshare_ba",
+                "jal_codeshare_aa"
+              ]
+            },
+            "routeKind": {
+              "type": "string",
+              "enum": [
+                "domestic_trunk",
+                "domestic_local",
+                "int_americas",
+                "int_europe",
+                "int_asia",
+                "int_oceania",
+                "int_china_hkt",
+                "cargo_freighter",
+                "int_codeshare",
+                "virtual_codeshare",
+                "seasonal",
+                "crisis_repat",
+                "jet_charter"
+              ]
+            },
+            "aircraftFamily": {
+              "type": "string",
+              "enum": [
+                "b787_family",
+                "b777_family",
+                "b737_family",
+                "a350_family",
+                "a330_family",
+                "e170_family",
+                "atr72_family",
+                "mrj_replaced",
+                "saf_blend",
+                "cargo_b777f",
+                "retired_b747",
+                "drone_lupin"
+              ]
+            },
+            "flightNumberPrefix": {
+              "type": "string"
+            },
+            "flightVid": {
+              "type": "string",
+              "description": "bridges airplane-flight"
+            },
+            "scheduledAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.agent.orgLineage",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ADR-2604301200 parent/child org lineage for contract-DID agents.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["childRootDid", "childAgentDid", "status", "createdAt"],
+        "properties": {
+          "parentRootDid": {
+            "type": "string"
+          },
+          "childRootDid": {
+            "type": "string"
+          },
+          "parentAgentDid": {
+            "type": "string"
+          },
+          "childAgentDid": {
+            "type": "string"
+          },
+          "childOrgDid": {
+            "type": "string"
+          },
+          "factoryAddr": {
+            "type": "string"
+          },
+          "reproductionBondWei": {
+            "type": "string"
+          },
+          "childBudgetPolicyCid": {
+            "type": "string"
+          },
+          "childRuntimePolicyCid": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "active | hibernated | suspended | pruned"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

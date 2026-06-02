@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.mangaka.addChapter": {
+    "/xrpc/com.etzhayyim.mangaka.addChapter": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.addChapter",
+        "operationId": "com.etzhayyim.mangaka.addChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -79,10 +79,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.addMember": {
+    "/xrpc/com.etzhayyim.mangaka.addMember": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.addMember",
+        "operationId": "com.etzhayyim.mangaka.addMember",
         "requestBody": {
           "required": true,
           "content": {
@@ -125,10 +125,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.addPage": {
+    "/xrpc/com.etzhayyim.mangaka.addPage": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.addPage",
+        "operationId": "com.etzhayyim.mangaka.addPage",
         "requestBody": {
           "required": true,
           "content": {
@@ -188,10 +188,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.applyTone": {
+    "/xrpc/com.etzhayyim.mangaka.applyTone": {
       "post": {
         "summary": "Stage 5/8 — Screentone + effects pass (トーン貼り). ComfyUI halftone postprocess on the inked panel. Writes one vertex_mangaka row (kind=tonedPanel).",
-        "operationId": "app.etzhayyim.mangaka.applyTone",
+        "operationId": "com.etzhayyim.mangaka.applyTone",
         "requestBody": {
           "required": true,
           "content": {
@@ -259,10 +259,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.autoLayout": {
+    "/xrpc/com.etzhayyim.mangaka.autoLayout": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.autoLayout",
+        "operationId": "com.etzhayyim.mangaka.autoLayout",
         "requestBody": {
           "required": true,
           "content": {
@@ -304,10 +304,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.backfillEdges": {
+    "/xrpc/com.etzhayyim.mangaka.backfillEdges": {
       "post": {
         "summary": "Back-fill edge_contains relationships from existing vertex_mangaka rows' props (workId, chapterId). Idempotent.",
-        "operationId": "app.etzhayyim.mangaka.backfillEdges",
+        "operationId": "com.etzhayyim.mangaka.backfillEdges",
         "requestBody": {
           "required": true,
           "content": {
@@ -339,10 +339,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.breakdownPage": {
+    "/xrpc/com.etzhayyim.mangaka.breakdownPage": {
       "post": {
         "summary": "Stage 2/8 — Break a page beat into 3-8 panels (koma-wari). Qwen 7B outputs panel geometry + per-panel action summary. Writes one vertex_mangaka row (kind=pageBreakdown). Caller fans out generatePanel per entry.",
-        "operationId": "app.etzhayyim.mangaka.breakdownPage",
+        "operationId": "com.etzhayyim.mangaka.breakdownPage",
         "requestBody": {
           "required": true,
           "content": {
@@ -406,10 +406,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.composePage": {
+    "/xrpc/com.etzhayyim.mangaka.composePage": {
       "post": {
         "summary": "Stage 7/8 — Compose final page. Loads approved toned panels + lettering overlays for a page, sends them to ComfyUI /v1/images/edits (composite mode) for final page render. Writes one vertex_mangaka row (kind=composedPage).",
-        "operationId": "app.etzhayyim.mangaka.composePage",
+        "operationId": "com.etzhayyim.mangaka.composePage",
         "requestBody": {
           "required": true,
           "content": {
@@ -473,10 +473,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.createCharacter": {
+    "/xrpc/com.etzhayyim.mangaka.createCharacter": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.createCharacter",
+        "operationId": "com.etzhayyim.mangaka.createCharacter",
         "requestBody": {
           "required": true,
           "content": {
@@ -530,10 +530,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.createEnvironment": {
+    "/xrpc/com.etzhayyim.mangaka.createEnvironment": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.createEnvironment",
+        "operationId": "com.etzhayyim.mangaka.createEnvironment",
         "requestBody": {
           "required": true,
           "content": {
@@ -584,10 +584,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.createOrganization": {
+    "/xrpc/com.etzhayyim.mangaka.createOrganization": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.createOrganization",
+        "operationId": "com.etzhayyim.mangaka.createOrganization",
         "requestBody": {
           "required": true,
           "content": {
@@ -641,10 +641,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.createPanel": {
+    "/xrpc/com.etzhayyim.mangaka.createPanel": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.createPanel",
+        "operationId": "com.etzhayyim.mangaka.createPanel",
         "requestBody": {
           "required": true,
           "content": {
@@ -725,10 +725,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.createProject": {
+    "/xrpc/com.etzhayyim.mangaka.createProject": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.createProject",
+        "operationId": "com.etzhayyim.mangaka.createProject",
         "requestBody": {
           "required": true,
           "content": {
@@ -773,10 +773,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.createWork": {
+    "/xrpc/com.etzhayyim.mangaka.createWork": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.createWork",
+        "operationId": "com.etzhayyim.mangaka.createWork",
         "requestBody": {
           "required": true,
           "content": {
@@ -848,10 +848,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.dedupeEdges": {
+    "/xrpc/com.etzhayyim.mangaka.dedupeEdges": {
       "post": {
         "summary": "Remove duplicate edge_contains rows per (src_vid, dst_vid, label). RisingWave does not enforce PK uniqueness on non-streaming INSERTs; this retro-cleans accumulated dups. Idempotent.",
-        "operationId": "app.etzhayyim.mangaka.dedupeEdges",
+        "operationId": "com.etzhayyim.mangaka.dedupeEdges",
         "requestBody": {
           "required": true,
           "content": {
@@ -884,10 +884,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.describe": {
+    "/xrpc/com.etzhayyim.mangaka.describe": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.describe",
+        "operationId": "com.etzhayyim.mangaka.describe",
         "parameters": [],
         "responses": {
           "200": {
@@ -932,10 +932,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.export": {
+    "/xrpc/com.etzhayyim.mangaka.export": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.export",
+        "operationId": "com.etzhayyim.mangaka.export",
         "requestBody": {
           "required": true,
           "content": {
@@ -971,10 +971,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.generateEpisode": {
+    "/xrpc/com.etzhayyim.mangaka.generateEpisode": {
       "post": {
-        "summary": "Generate a 20-page manga episode for a given character. Kicks the BPMN process app.etzhayyim.apps.bpmn.generateEpisode which orchestrates: LLM script (20 pages × 3-5 panels with dialogue) → ComfyUI panel render (~76 panels) → Pillow speech-balloon overlay → page composition (3-7 panel grids) → multi-record write (1 work + 20 pages) → social post (recordWithMedia + facets) → OCEL audit emit at each phase. Returns the new episode (work) AT URI plus the BPMN process instance key for status tracking.",
-        "operationId": "app.etzhayyim.mangaka.generateEpisode",
+        "summary": "Generate a 20-page manga episode for a given character. Kicks the BPMN process com.etzhayyim.apps.bpmn.generateEpisode which orchestrates: LLM script (20 pages × 3-5 panels with dialogue) → ComfyUI panel render (~76 panels) → Pillow speech-balloon overlay → page composition (3-7 panel grids) → multi-record write (1 work + 20 pages) → social post (recordWithMedia + facets) → OCEL audit emit at each phase. Returns the new episode (work) AT URI plus the BPMN process instance key for status tracking.",
+        "operationId": "com.etzhayyim.mangaka.generateEpisode",
         "requestBody": {
           "required": true,
           "content": {
@@ -1034,12 +1034,12 @@
                   "properties": {
                     "episodeUri": {
                       "type": "string",
-                      "description": "AT URI of the created app.etzhayyim.apps.mangaka.work record.",
+                      "description": "AT URI of the created com.etzhayyim.apps.mangaka.work record.",
                       "format": "at-uri"
                     },
                     "processInstanceKey": {
                       "type": "string",
-                      "description": "Zeebe process instance key — use app.etzhayyim.apps.mangaka.getProcessTrace to inspect."
+                      "description": "Zeebe process instance key — use com.etzhayyim.apps.mangaka.getProcessTrace to inspect."
                     },
                     "postUri": {
                       "type": "string",
@@ -1067,10 +1067,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.generateImage": {
+    "/xrpc/com.etzhayyim.mangaka.generateImage": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.generateImage",
+        "operationId": "com.etzhayyim.mangaka.generateImage",
         "requestBody": {
           "required": true,
           "content": {
@@ -1106,10 +1106,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.generatePanel": {
+    "/xrpc/com.etzhayyim.mangaka.generatePanel": {
       "post": {
         "summary": "Stage 3/8 — Generate one panel candidate image (Animagine XL 4.0 @ pod n911oglid03v5n, 832x1216 monochrome manga ink). HITL gate: caller invokes 3 times (candidateNum=1,2,3), editor picks 1 via status=approved. Backed by BPMN mangaka_generate_panel.",
-        "operationId": "app.etzhayyim.mangaka.generatePanel",
+        "operationId": "com.etzhayyim.mangaka.generatePanel",
         "requestBody": {
           "required": true,
           "content": {
@@ -1183,10 +1183,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.generateScript": {
+    "/xrpc/com.etzhayyim.mangaka.generateScript": {
       "post": {
         "summary": "Stage 1/8 — Draft a chapter script (page-by-page beat list). Claude deep drafts the story, Qwen 7B structures it into a pages[] JSON array. Writes one vertex_mangaka row (kind=script). Backed by BPMN mangaka_generate_script (ADR-2604231328 applied to mangaka).",
-        "operationId": "app.etzhayyim.mangaka.generateScript",
+        "operationId": "com.etzhayyim.mangaka.generateScript",
         "requestBody": {
           "required": true,
           "content": {
@@ -1252,19 +1252,19 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.getEpisode": {
+    "/xrpc/com.etzhayyim.mangaka.getEpisode": {
       "get": {
         "summary": "Fetch a manga episode (work record + all 20 page records) by episode AT URI. Reads vertex_mangaka_work + vertex_mangaka_page from RisingWave via Hyperdrive (ADR-0036).",
-        "operationId": "app.etzhayyim.mangaka.getEpisode",
+        "operationId": "com.etzhayyim.mangaka.getEpisode",
         "parameters": [
           {
             "name": "episodeUri",
             "in": "query",
             "required": true,
-            "description": "AT URI of the app.etzhayyim.apps.mangaka.work record.",
+            "description": "AT URI of the com.etzhayyim.apps.mangaka.work record.",
             "schema": {
               "type": "string",
-              "description": "AT URI of the app.etzhayyim.apps.mangaka.work record.",
+              "description": "AT URI of the com.etzhayyim.apps.mangaka.work record.",
               "format": "at-uri"
             }
           }
@@ -1364,10 +1364,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.getMembers": {
+    "/xrpc/com.etzhayyim.mangaka.getMembers": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.getMembers",
+        "operationId": "com.etzhayyim.mangaka.getMembers",
         "parameters": [
           {
             "name": "convoId",
@@ -1395,10 +1395,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.getProcessTrace": {
+    "/xrpc/com.etzhayyim.mangaka.getProcessTrace": {
       "get": {
         "summary": "Fetch the OCEL 2.0 process-mining trace for a manga episode. Returns the activity timeline (case_id = episode_uri, event_type = task name, timestamp, duration, status, object_refs). Use this for process mining (PM4PY/Celonis), bottleneck analysis, or debugging stuck pipelines. Reads from mv_mangaka_process_trace (RisingWave streaming MV over vertex_audit_event).",
-        "operationId": "app.etzhayyim.mangaka.getProcessTrace",
+        "operationId": "com.etzhayyim.mangaka.getProcessTrace",
         "parameters": [
           {
             "name": "episodeUri",
@@ -1496,10 +1496,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.getProject": {
+    "/xrpc/com.etzhayyim.mangaka.getProject": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.getProject",
+        "operationId": "com.etzhayyim.mangaka.getProject",
         "parameters": [
           {
             "name": "convoId",
@@ -1527,10 +1527,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.getWork": {
+    "/xrpc/com.etzhayyim.mangaka.getWork": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.getWork",
+        "operationId": "com.etzhayyim.mangaka.getWork",
         "parameters": [
           {
             "name": "id",
@@ -1558,10 +1558,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.health": {
+    "/xrpc/com.etzhayyim.mangaka.health": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.health",
+        "operationId": "com.etzhayyim.mangaka.health",
         "requestBody": {
           "required": true,
           "content": {
@@ -1606,10 +1606,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.inkPanel": {
+    "/xrpc/com.etzhayyim.mangaka.inkPanel": {
       "post": {
         "summary": "Stage 4/8 — Ink pass (ペン入れ). ControlNet-lineart + img2img on the approved panel candidate. Sharpens linework + removes color artifacts. Writes one vertex_mangaka row (kind=inkedPanel).",
-        "operationId": "app.etzhayyim.mangaka.inkPanel",
+        "operationId": "com.etzhayyim.mangaka.inkPanel",
         "requestBody": {
           "required": true,
           "content": {
@@ -1668,10 +1668,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.letterPanel": {
+    "/xrpc/com.etzhayyim.mangaka.letterPanel": {
       "post": {
         "summary": "Stage 6/8 — Lettering (写植). Claude deep picks speech balloon kind + placement; outputs overlay JSON the composePage stage renders. Writes one vertex_mangaka row (kind=lettering).",
-        "operationId": "app.etzhayyim.mangaka.letterPanel",
+        "operationId": "com.etzhayyim.mangaka.letterPanel",
         "requestBody": {
           "required": true,
           "content": {
@@ -1730,10 +1730,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listChapters": {
+    "/xrpc/com.etzhayyim.mangaka.listChapters": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listChapters",
+        "operationId": "com.etzhayyim.mangaka.listChapters",
         "parameters": [
           {
             "name": "workId",
@@ -1769,10 +1769,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listCharacters": {
+    "/xrpc/com.etzhayyim.mangaka.listCharacters": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listCharacters",
+        "operationId": "com.etzhayyim.mangaka.listCharacters",
         "parameters": [
           {
             "name": "limit",
@@ -1800,10 +1800,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listChatHistory": {
+    "/xrpc/com.etzhayyim.mangaka.listChatHistory": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listChatHistory",
+        "operationId": "com.etzhayyim.mangaka.listChatHistory",
         "parameters": [
           {
             "name": "projectId",
@@ -1839,10 +1839,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listDocuments": {
+    "/xrpc/com.etzhayyim.mangaka.listDocuments": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listDocuments",
+        "operationId": "com.etzhayyim.mangaka.listDocuments",
         "parameters": [
           {
             "name": "limit",
@@ -1870,10 +1870,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listEnvironments": {
+    "/xrpc/com.etzhayyim.mangaka.listEnvironments": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listEnvironments",
+        "operationId": "com.etzhayyim.mangaka.listEnvironments",
         "parameters": [
           {
             "name": "workId",
@@ -1909,10 +1909,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listEpisodes": {
+    "/xrpc/com.etzhayyim.mangaka.listEpisodes": {
       "get": {
         "summary": "List manga episodes filtered by character slug or genre. Paginated via offset+limit (CLAUDE.md projects scope: required for all list APIs).",
-        "operationId": "app.etzhayyim.mangaka.listEpisodes",
+        "operationId": "com.etzhayyim.mangaka.listEpisodes",
         "parameters": [
           {
             "name": "charSlug",
@@ -2020,10 +2020,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listGeneratedImages": {
+    "/xrpc/com.etzhayyim.mangaka.listGeneratedImages": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listGeneratedImages",
+        "operationId": "com.etzhayyim.mangaka.listGeneratedImages",
         "parameters": [
           {
             "name": "panelId",
@@ -2051,10 +2051,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listOrganizations": {
+    "/xrpc/com.etzhayyim.mangaka.listOrganizations": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listOrganizations",
+        "operationId": "com.etzhayyim.mangaka.listOrganizations",
         "parameters": [
           {
             "name": "workId",
@@ -2090,10 +2090,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listPages": {
+    "/xrpc/com.etzhayyim.mangaka.listPages": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listPages",
+        "operationId": "com.etzhayyim.mangaka.listPages",
         "parameters": [
           {
             "name": "chapterId",
@@ -2129,10 +2129,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listProjects": {
+    "/xrpc/com.etzhayyim.mangaka.listProjects": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listProjects",
+        "operationId": "com.etzhayyim.mangaka.listProjects",
         "parameters": [
           {
             "name": "parentProjectId",
@@ -2168,10 +2168,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.listWorks": {
+    "/xrpc/com.etzhayyim.mangaka.listWorks": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.listWorks",
+        "operationId": "com.etzhayyim.mangaka.listWorks",
         "parameters": [
           {
             "name": "limit",
@@ -2199,10 +2199,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.loadDocument": {
+    "/xrpc/com.etzhayyim.mangaka.loadDocument": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.loadDocument",
+        "operationId": "com.etzhayyim.mangaka.loadDocument",
         "parameters": [
           {
             "name": "docId",
@@ -2230,10 +2230,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.loadProject": {
+    "/xrpc/com.etzhayyim.mangaka.loadProject": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.loadProject",
+        "operationId": "com.etzhayyim.mangaka.loadProject",
         "parameters": [
           {
             "name": "projectId",
@@ -2261,10 +2261,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.pipelineChat": {
+    "/xrpc/com.etzhayyim.mangaka.pipelineChat": {
       "post": {
         "summary": "Pipeline chat — BPMN-backed assistant for manga production context. Defaults to mid tier (Qwen 7B @ pod n911oglid03v5n:8001). Pass tier='deep' for Claude editor critique. Distinct from projectChat (Worker-native, project-scoped chatMessage records).",
-        "operationId": "app.etzhayyim.mangaka.pipelineChat",
+        "operationId": "com.etzhayyim.mangaka.pipelineChat",
         "requestBody": {
           "required": true,
           "content": {
@@ -2329,10 +2329,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.projectChat": {
+    "/xrpc/com.etzhayyim.mangaka.projectChat": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.projectChat",
+        "operationId": "com.etzhayyim.mangaka.projectChat",
         "requestBody": {
           "required": true,
           "content": {
@@ -2371,10 +2371,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.publishChapter": {
+    "/xrpc/com.etzhayyim.mangaka.publishChapter": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.publishChapter",
+        "operationId": "com.etzhayyim.mangaka.publishChapter",
         "requestBody": {
           "required": true,
           "content": {
@@ -2416,10 +2416,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.publishChapterPipeline": {
+    "/xrpc/com.etzhayyim.mangaka.publishChapterPipeline": {
       "post": {
-        "summary": "Stage 8/8 — Pipeline-driven publish. Loads approved composedPage rows for the chapter, writes a chapter master row, and emits a Tier 1 social post (AppBskyFeedPost) authored by the work's path-based DID. Distinct from app.etzhayyim.apps.mangaka.publishChapter (Worker-native stub) — this NSID is the BPMN-backed entry point that actually does the social post.",
-        "operationId": "app.etzhayyim.mangaka.publishChapterPipeline",
+        "summary": "Stage 8/8 — Pipeline-driven publish. Loads approved composedPage rows for the chapter, writes a chapter master row, and emits a Tier 1 social post (AppBskyFeedPost) authored by the work's path-based DID. Distinct from com.etzhayyim.apps.mangaka.publishChapter (Worker-native stub) — this NSID is the BPMN-backed entry point that actually does the social post.",
+        "operationId": "com.etzhayyim.mangaka.publishChapterPipeline",
         "requestBody": {
           "required": true,
           "content": {
@@ -2485,10 +2485,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.realtimeDraw": {
+    "/xrpc/com.etzhayyim.mangaka.realtimeDraw": {
       "post": {
         "summary": "Realtime sketch-to-image via img2img. Accepts a base64 PNG sketch and returns an AI-generated image synchronously.",
-        "operationId": "app.etzhayyim.mangaka.realtimeDraw",
+        "operationId": "com.etzhayyim.mangaka.realtimeDraw",
         "requestBody": {
           "required": true,
           "content": {
@@ -2555,10 +2555,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.recordGeneratedImage": {
+    "/xrpc/com.etzhayyim.mangaka.recordGeneratedImage": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.recordGeneratedImage",
+        "operationId": "com.etzhayyim.mangaka.recordGeneratedImage",
         "requestBody": {
           "required": true,
           "content": {
@@ -2615,10 +2615,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.registerAsset": {
+    "/xrpc/com.etzhayyim.mangaka.registerAsset": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.registerAsset",
+        "operationId": "com.etzhayyim.mangaka.registerAsset",
         "requestBody": {
           "required": true,
           "content": {
@@ -2657,10 +2657,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.saveDocument": {
+    "/xrpc/com.etzhayyim.mangaka.saveDocument": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.saveDocument",
+        "operationId": "com.etzhayyim.mangaka.saveDocument",
         "requestBody": {
           "required": true,
           "content": {
@@ -2705,10 +2705,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.saveProject": {
+    "/xrpc/com.etzhayyim.mangaka.saveProject": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.saveProject",
+        "operationId": "com.etzhayyim.mangaka.saveProject",
         "requestBody": {
           "required": true,
           "content": {
@@ -2747,10 +2747,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.searchAssets": {
+    "/xrpc/com.etzhayyim.mangaka.searchAssets": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.searchAssets",
+        "operationId": "com.etzhayyim.mangaka.searchAssets",
         "parameters": [
           {
             "name": "limit",
@@ -2778,10 +2778,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.searchWorks": {
+    "/xrpc/com.etzhayyim.mangaka.searchWorks": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.searchWorks",
+        "operationId": "com.etzhayyim.mangaka.searchWorks",
         "parameters": [
           {
             "name": "q",
@@ -2817,10 +2817,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.stats": {
+    "/xrpc/com.etzhayyim.mangaka.stats": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.stats",
+        "operationId": "com.etzhayyim.mangaka.stats",
         "requestBody": {
           "required": true,
           "content": {
@@ -2856,10 +2856,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.storyboard": {
+    "/xrpc/com.etzhayyim.mangaka.storyboard": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.storyboard",
+        "operationId": "com.etzhayyim.mangaka.storyboard",
         "requestBody": {
           "required": true,
           "content": {
@@ -2895,10 +2895,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.updatePage": {
+    "/xrpc/com.etzhayyim.mangaka.updatePage": {
       "post": {
         "summary": "Update a page record. Kysely UPDATE vertex_mangaka + edge_contains.quantity when pageNum changes.",
-        "operationId": "app.etzhayyim.mangaka.updatePage",
+        "operationId": "com.etzhayyim.mangaka.updatePage",
         "requestBody": {
           "required": true,
           "content": {
@@ -2991,10 +2991,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.mangaka.wave": {
+    "/xrpc/com.etzhayyim.mangaka.wave": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.mangaka.wave",
+        "operationId": "com.etzhayyim.mangaka.wave",
         "requestBody": {
           "required": true,
           "content": {
@@ -3075,11 +3075,11 @@
           },
           "pageCount": {
             "type": "integer",
-            "description": "Total page count (informational; actual pages are separate app.etzhayyim.apps.mangaka.page records)."
+            "description": "Total page count (informational; actual pages are separate com.etzhayyim.apps.mangaka.page records)."
           },
           "readerUri": {
             "type": "string",
-            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post.",
+            "description": "Full-screen reader URL (e.g. https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/{rkey}). Emitted as app.bsky.richtext.facet#link in the derived post.",
             "format": "uri"
           },
           "status": {

@@ -7,11 +7,11 @@ import { resolve } from 'node:path';
 
 const ROOT = resolve(__dirname, '../../../../../..');
 const LEX_DIRS = [
-  resolve(ROOT, '00-contracts/lexicons/ai/gftd/apps/karute'),
-  resolve(ROOT, '00-contracts/lexicons/app/etzhayyim/karute'),
-  resolve(ROOT, '00-contracts/lexicons/app/etzhayyim/consent'),
-  resolve(ROOT, '00-contracts/lexicons/app/etzhayyim/encrypted'),
-  resolve(ROOT, '00-contracts/lexicons/app/etzhayyim/audit'),
+  resolve(ROOT, '00-contracts/lexicons/com/etzhayyim/apps/karute'),
+  resolve(ROOT, '00-contracts/lexicons/com/etzhayyim/karute'),
+  resolve(ROOT, '00-contracts/lexicons/com/etzhayyim/consent'),
+  resolve(ROOT, '00-contracts/lexicons/com/etzhayyim/encrypted'),
+  resolve(ROOT, '00-contracts/lexicons/com/etzhayyim/audit'),
 ];
 
 function walkJsonFiles(dir: string): string[] {
@@ -41,10 +41,10 @@ describe('karute lexicon shape', () => {
     expect(lexicons.length).toBeGreaterThan(20);
   });
 
-  it('every doc has lexicon=1 and an id starting with app.etzhayyim. or app.etzhayyim.', () => {
+  it('every doc has lexicon=1 and an id starting with com.etzhayyim. or com.etzhayyim.', () => {
     for (const { doc } of lexicons) {
       expect(doc.lexicon).toBe(1);
-      expect(doc.id).toMatch(/^(ai\.gftd\.|app\.etzhayyim\.)/);
+      expect(doc.id).toMatch(/^(com\.etzhayyim\.|com\.etzhayyim\.)/);
     }
   });
 
@@ -56,7 +56,7 @@ describe('karute lexicon shape', () => {
       // listPatients carries a `limit` / `offset` declared as number for legacy bootstrap reasons.
       // For strictness we accept up to N occurrences in the bootstrap files; everything else fails.
       if (matches.length > 0) {
-        // Allow only app.etzhayyim.apps.karute.listPatients / listEncounters that carry stub `number` types.
+        // Allow only com.etzhayyim.apps.karute.listPatients / listEncounters that carry stub `number` types.
         const allowed = /listPatients\.json|listEncounters\.json$/.test(path);
         expect(allowed, `unexpected type:number in ${path}`).toBe(true);
       }
@@ -72,7 +72,7 @@ describe('karute lexicon shape', () => {
   });
 
   it('encrypted inner-type records flag fhirResourceType const', () => {
-    const phiRecords = lexicons.filter((l) => l.doc.id.startsWith('app.etzhayyim.karute.'));
+    const phiRecords = lexicons.filter((l) => l.doc.id.startsWith('com.etzhayyim.karute.'));
     expect(phiRecords.length).toBeGreaterThanOrEqual(7);
     for (const { doc, path } of phiRecords) {
       const main = (doc.defs as { main: { type: string; record?: { properties?: Record<string, { const?: string }> } } }).main;

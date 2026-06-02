@@ -25,15 +25,15 @@ function fail(msg) { console.log(`  ✗ ${msg}`); failures += 1; }
 function header(msg) { console.log(`\n── ${msg} ──`); }
 
 // ─── Expected pipeline ────────────────────────────────────────────────
-// bpmnNsid = sync-bpmn-actors.py convention (app.etzhayyim.apps.{ns}.{camelCase(filename)})
+// bpmnNsid = sync-bpmn-actors.py convention (com.etzhayyim.apps.{ns}.{camelCase(filename)})
 // xrpcNsid = lexicon `id` (Worker-served procedure). One BPMN may call a
 // different XRPC NSID from its own process id — e.g. runPendingCoverageJobs
 // orchestrates the runCoverageJob XRPC in a multi-instance loop. The two
 // NSIDs are deliberately distinct in that case.
 const EXPECTED = [
-  { kind: "advance",  bpmnNsid: "app.etzhayyim.apps.maps.advanceCoverage",        xrpcNsid: "app.etzhayyim.apps.maps.advanceCoverage",      bpmnFile: "advanceCoverage.bpmn",        lexFile: "advanceCoverage.json",       timer: "R/PT1M"  },
-  { kind: "refresh",  bpmnNsid: "app.etzhayyim.apps.maps.refreshCoverageStats",   bpmnFile: "refreshCoverageStats.bpmn",                                                     xrpcNsid: "app.etzhayyim.apps.maps.refreshCoverageStats", lexFile: "refreshCoverageStats.json",  timer: "R/PT5M" },
-  { kind: "run",      bpmnNsid: "app.etzhayyim.apps.maps.runPendingCoverageJobs", xrpcNsid: "app.etzhayyim.apps.maps.runCoverageJob",       bpmnFile: "runPendingCoverageJobs.bpmn", lexFile: "runCoverageJob.json",        timer: "R/PT3M"  },
+  { kind: "advance",  bpmnNsid: "com.etzhayyim.apps.maps.advanceCoverage",        xrpcNsid: "com.etzhayyim.apps.maps.advanceCoverage",      bpmnFile: "advanceCoverage.bpmn",        lexFile: "advanceCoverage.json",       timer: "R/PT1M"  },
+  { kind: "refresh",  bpmnNsid: "com.etzhayyim.apps.maps.refreshCoverageStats",   bpmnFile: "refreshCoverageStats.bpmn",                                                     xrpcNsid: "com.etzhayyim.apps.maps.refreshCoverageStats", lexFile: "refreshCoverageStats.json",  timer: "R/PT5M" },
+  { kind: "run",      bpmnNsid: "com.etzhayyim.apps.maps.runPendingCoverageJobs", xrpcNsid: "com.etzhayyim.apps.maps.runCoverageJob",       bpmnFile: "runPendingCoverageJobs.bpmn", lexFile: "runCoverageJob.json",        timer: "R/PT3M"  },
 ];
 
 const EXPECTED_MIGRATIONS = [
@@ -64,8 +64,8 @@ const TS_IMPLEMENTED_KINDS = [
 // ─── A + B: BPMN ↔ lexicon ↔ NSID ─────────────────────────────────────
 header("BPMN + lexicon NSID consistency");
 for (const p of EXPECTED) {
-  const bpmnPath = resolve(ROOT, "00-contracts/bpmn/ai/gftd/maps", p.bpmnFile);
-  const lexPath = resolve(ROOT, "00-contracts/lexicons/ai/gftd/apps/maps", p.lexFile);
+  const bpmnPath = resolve(ROOT, "00-contracts/bpmn/com/etzhayyim/maps", p.bpmnFile);
+  const lexPath = resolve(ROOT, "00-contracts/lexicons/com/etzhayyim/apps/maps", p.lexFile);
 
   if (!existsSync(bpmnPath)) { fail(`${p.bpmnFile}: not found`); continue; }
   if (!existsSync(lexPath))  { fail(`${p.lexFile}: not found`); continue; }
@@ -161,7 +161,7 @@ for (const m of EXPECTED_MIGRATIONS) {
 
 // ─── F: BPMN runPending WHERE clause uses the UDF ─────────────────────
 header("runPendingCoverageJobs uses UDF in WHERE");
-const runPendingPath = resolve(ROOT, "00-contracts/bpmn/ai/gftd/maps/runPendingCoverageJobs.bpmn");
+const runPendingPath = resolve(ROOT, "00-contracts/bpmn/com/etzhayyim/maps/runPendingCoverageJobs.bpmn");
 const runPending = readFileSync(runPendingPath, "utf8");
 if (!runPending.includes("maps_source_dispatch_kind(")) {
   fail("runPendingCoverageJobs.bpmn: WHERE clause does not call maps_source_dispatch_kind — drift risk");
@@ -177,7 +177,7 @@ if (!runPending.includes("multiInstanceLoopCharacteristics")) {
 
 // ─── G: advanceCoverage uses the gap-ranked view ──────────────────────
 header("advanceCoverage uses view_maps_coverage_gap_ranked");
-const advPath = resolve(ROOT, "00-contracts/bpmn/ai/gftd/maps/advanceCoverage.bpmn");
+const advPath = resolve(ROOT, "00-contracts/bpmn/com/etzhayyim/maps/advanceCoverage.bpmn");
 const adv = readFileSync(advPath, "utf8");
 if (!adv.includes("view_maps_coverage_gap_ranked")) {
   fail("advanceCoverage.bpmn: does not query view_maps_coverage_gap_ranked");

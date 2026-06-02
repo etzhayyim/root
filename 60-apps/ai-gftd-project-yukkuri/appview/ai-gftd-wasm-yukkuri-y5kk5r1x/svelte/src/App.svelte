@@ -10,8 +10,8 @@
 
   function parsePath() {
     const { pathname } = window.location;
-    // /at/{authority}/app.etzhayyim.apps.yukkuri.video/{rkey}
-    const atMatch = pathname.match(/^\/at\/([^/]+)\/ai\.gftd\.apps\.yukkuri\.video\/([^/]+)$/);
+    // /at/{authority}/com.etzhayyim.apps.yukkuri.video/{rkey}
+    const atMatch = pathname.match(/^\/at\/([^/]+)\/com\.etzhayyim\.apps\.yukkuri\.video\/([^/]+)$/);
     if (atMatch) {
       view = 'detail';
       context = { rkey: atMatch[2] };

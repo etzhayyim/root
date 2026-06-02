@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himotoki.requestDispatch",
+  "description": "Transparent dispatch log emitted by himotoki_dispatch when a composed request is transmitted through the target's declared channel (ADR-2605302130 §3). CONSTITUTIONAL: dispatch is permitted ONLY against a G14-verified disclosureTarget (`verificationStatus` >= maintainer-verified and within freshness window). The dispatch is TRANSPARENT and IDENTIFIED (G4) — `requesterDid` is the true requester; NO pretext/sockpuppet. himotoki transmits a LAWFUL request through an OFFICIAL channel only (G10); it never circumvents access controls.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "dispatchedAt",
+          "requestCid",
+          "targetCid",
+          "requesterDid",
+          "channelType",
+          "verificationStatusAtDispatch",
+          "deadlineAt"
+        ],
+        "properties": {
+          "dispatchedAt": {"type": "string", "format": "datetime"},
+          "requestCid": {"type": "string", "description": "CID of the disclosureRequest dispatched"},
+          "targetCid": {"type": "string", "description": "CID of the disclosureTarget the request was sent to"},
+          "requesterDid": {"type": "string", "format": "did", "description": "TRUE requester (G4)"},
+          "channelType": {"type": "string", "knownValues": ["web-portal", "email", "postal", "in-product-form"]},
+          "channelDetail": {"type": "string", "maxLength": 500, "description": "Redacted channel detail (e.g. portal confirmation id, postal tracking) — no PII"},
+          "verificationStatusAtDispatch": {
+            "type": "string",
+            "knownValues": ["maintainer-verified", "council-verified"],
+            "description": "G14: MUST be a verified status; `unverified-seed` is unrepresentable here (dispatch refused upstream)"
+          },
+          "deadlineAt": {"type": "string", "format": "datetime", "description": "Computed statutory-response deadline (deadline_tracker basis)"},
+          "feeJpyPaid": {"type": "integer", "minimum": 0, "description": "Fee paid for this request, if any"}
+        }
+      }
+    }
+  }
+}

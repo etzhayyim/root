@@ -60,7 +60,7 @@ export const BROWSER_TOOLS: AgentTool[] = [
 	},
 	{
 		name: 'mcp.call',
-		description: 'MCP JSON-RPC を app.etzhayyim.mcp.message 経由で実行する。',
+		description: 'MCP JSON-RPC を com.etzhayyim.mcp.message 経由で実行する。',
 		parameters: {
 			method: { type: 'string', description: 'MCP method (例: tools/list, tools/call)', required: true },
 			params: { type: 'string', description: 'JSON-RPC params object', required: false },

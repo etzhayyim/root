@@ -97,7 +97,7 @@ INSERT INTO vertex_gov_procedure_variant (
       last_verified_at, created_at, org_id, user_id, actor_id
     )
     SELECT
-      CONCAT('at://', actor_did, '/ai.gftd.apps.gov.procedureVariant/', format_key),
+      CONCAT('at://', actor_did, '/com.etzhayyim.apps.gov.procedureVariant/', format_key),
       20260427003000 + ROW_NUMBER() OVER (ORDER BY format_key),
       DATE '2026-04-27',
       2,
@@ -146,7 +146,7 @@ INSERT INTO vertex_gov_form_language_variant (
       created_at, org_id, user_id, actor_id
     )
     SELECT
-      CONCAT('at://', actor_did, '/ai.gftd.apps.gov.formLanguageVariant/', form_key, '-en'),
+      CONCAT('at://', actor_did, '/com.etzhayyim.apps.gov.formLanguageVariant/', form_key, '-en'),
       20260427003100 + ROW_NUMBER() OVER (ORDER BY form_key),
       DATE '2026-04-27',
       2,
@@ -180,7 +180,7 @@ INSERT INTO vertex_gov_local_variation_gap (
       gap_kind, gap_status, reason, created_at, org_id, user_id, actor_id
     )
     SELECT
-      CONCAT('at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.localVariationGap/ind-', municipality_code),
+      CONCAT('at://did:web:gov.etzhayyim.com/com.etzhayyim.apps.gov.localVariationGap/ind-', municipality_code),
       20260427003200 + ROW_NUMBER() OVER (ORDER BY municipality_code),
       DATE '2026-04-27',
       1,

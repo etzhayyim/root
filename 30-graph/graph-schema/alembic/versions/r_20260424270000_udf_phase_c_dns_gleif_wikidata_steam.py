@@ -15,35 +15,35 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION dns_resolve(VARCHAR, VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.dns.resolve'\n"
+         "      AS 'com.etzhayyim.apps.dns.resolve'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION dns_resolve_json(VARCHAR, VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.dns.resolveJson'\n"
+         "      AS 'com.etzhayyim.apps.dns.resolveJson'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION gleif_lei_lookup(VARCHAR, VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.gleif.lookup'\n"
+         "      AS 'com.etzhayyim.apps.gleif.lookup'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION wikidata_entity_claims(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.wikidata.entityClaims'\n"
+         "      AS 'com.etzhayyim.apps.wikidata.entityClaims'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []},
  {'sql': '\n'
          '    CREATE FUNCTION steam_release_date(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.steam.releaseDate'\n"
+         "      AS 'com.etzhayyim.apps.steam.releaseDate'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

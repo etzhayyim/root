@@ -65,7 +65,7 @@ export default {
     if (url.pathname === "/_app/meta") return json(ACTOR);
     if (url.pathname.startsWith("/xrpc/")) {
       const nsid = url.pathname.slice("/xrpc/".length);
-      if (!nsid.startsWith("app.etzhayyim.apps.os.")) return json({ error: "unsupported_nsid", nsid }, { status: 404 });
+      if (!nsid.startsWith("com.etzhayyim.apps.os.")) return json({ error: "unsupported_nsid", nsid }, { status: 404 });
       return dispatch(env, nsid, await readBody(request), request);
     }
     if (env.ASSETS) return env.ASSETS.fetch(request);

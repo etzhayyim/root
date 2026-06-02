@@ -76,7 +76,7 @@ class SendReceipt:
     """Audit-trail record returned by :func:`send`.
 
     Mirrors the on-chain ``Deposited`` event + the
-    ``app.etzhayyim.kawase.depositAttestation`` Lexicon record.
+    ``com.etzhayyim.kawase.depositAttestation`` Lexicon record.
     """
 
     intent_cid: str

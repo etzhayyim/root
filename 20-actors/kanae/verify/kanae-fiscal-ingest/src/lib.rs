@@ -103,7 +103,7 @@ impl Guest for KanaeFiscalIngest {
 
         // ── 1+2. Ingest the fiscal slice → kotoba EAVT fundFlowEdge datoms ──
         // Each edge is asserted as a set of datoms keyed by the edge id, with
-        // predicates mirroring the app.etzhayyim.kanae.fundFlowEdge lexicon.
+        // predicates mirroring the com.etzhayyim.kanae.fundFlowEdge lexicon.
         let mut flow_summary = String::new();
         for e in SAMPLE_FLOWS {
             assert_str(GRAPH, e.edge_id, "kanae/fundFlowEdge/flowClass", e.flow_class)?;

@@ -632,12 +632,12 @@ const auth = {
 
 // connectPost is used for performer methods not in the proto service definition
 async function connectPost<T>(method: string, body = {}): Promise<T> {
-  return unwrapXrpcResponse(xrpcClient.xrpc<T>(`app.etzhayyim.apps.maps.${method}`, { auth, params: body }));
+  return unwrapXrpcResponse(xrpcClient.xrpc<T>(`com.etzhayyim.apps.maps.${method}`, { auth, params: body }));
 }
 
 export async function getRuntimeConfig(): Promise<RuntimeMapConfig> {
   const res = await unwrapXrpcResponse(
-    xrpcClient.xrpc<RuntimeConfigResponse>('app.etzhayyim.apps.maps.runtimeConfig', { auth, params: {} }),
+    xrpcClient.xrpc<RuntimeConfigResponse>('com.etzhayyim.apps.maps.runtimeConfig', { auth, params: {} }),
   );
   return {
     'styleUrl': res.styleUrl ?? res.style_url,
@@ -661,7 +661,7 @@ export async function getRuntimeConfig(): Promise<RuntimeMapConfig> {
 
 export async function getKamiConfig(): Promise<KamiRuntimeConfig> {
   const res = await unwrapXrpcResponse(
-    xrpcClient.xrpc<KamiConfigResponse>('app.etzhayyim.apps.maps.kamiConfig', { auth, params: {} }),
+    xrpcClient.xrpc<KamiConfigResponse>('com.etzhayyim.apps.maps.kamiConfig', { auth, params: {} }),
   );
   return {
     tileUrl: res.tileUrl ?? res.tile_url,
@@ -696,7 +696,7 @@ function normalizeDashboard(raw: DashboardResponse): MapsDashboard {
 
 export async function getDashboard(params: Record<string, unknown> = {}): Promise<MapsDashboard> {
   const res = await unwrapXrpcResponse(
-    xrpcClient.xrpc<DashboardResponse>('app.etzhayyim.apps.maps.getDashboard', {
+    xrpcClient.xrpc<DashboardResponse>('com.etzhayyim.apps.maps.getDashboard', {
       auth,
       params,
       timeout: 7000,
@@ -707,7 +707,7 @@ export async function getDashboard(params: Record<string, unknown> = {}): Promis
 
 export async function searchResources(query: string, limit?: number): Promise<SearchResourcesResult> {
   const res = await unwrapXrpcResponse(
-    xrpcClient.xrpc<SearchResourcesResponse>('app.etzhayyim.apps.maps.searchResources', {
+    xrpcClient.xrpc<SearchResourcesResponse>('com.etzhayyim.apps.maps.searchResources', {
       auth,
       params: {
         q: query,
@@ -749,7 +749,7 @@ export interface SearchPlacesRow {
 export async function searchPlaces(query: string, limit = 6): Promise<SearchPlacesRow[]> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ places?: Array<Record<string, unknown>> } | Array<Record<string, unknown>>>(
-      'app.etzhayyim.apps.maps.searchPlaces',
+      'com.etzhayyim.apps.maps.searchPlaces',
       { auth, params: { query, limit } },
     ),
   );
@@ -768,7 +768,7 @@ export async function searchPlaces(query: string, limit = 6): Promise<SearchPlac
 
 export async function getCrawlerLocations(options: CrawlerLocationsOptions = {}): Promise<CrawlerLocationsResult> {
   const res = await unwrapXrpcResponse(
-    xrpcClient.xrpc<CrawlerLocationsResponse>('app.etzhayyim.apps.maps.crawlerLocations', {
+    xrpcClient.xrpc<CrawlerLocationsResponse>('com.etzhayyim.apps.maps.crawlerLocations', {
       auth,
       params: {
         'jobStatus': options.jobStatus ?? '',
@@ -812,7 +812,7 @@ export async function getCrawlerLocations(options: CrawlerLocationsOptions = {})
 
 export async function getActorLocations(limit = 200): Promise<ActorLocationsResult> {
   const res = await unwrapXrpcResponse(
-    xrpcClient.xrpc<ActorLocationsResponse>('app.etzhayyim.apps.maps.actorLocations', {
+    xrpcClient.xrpc<ActorLocationsResponse>('com.etzhayyim.apps.maps.actorLocations', {
       auth,
       params: { limit },
     }),
@@ -839,7 +839,7 @@ export async function getChunk(params: {
 }): Promise<{ chunks: Record<string, Record<string, Feature[]>>; total: number }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ chunks?: Record<string, Record<string, Feature[]>>; total?: number }>(
-      'app.etzhayyim.apps.maps.getChunk',
+      'com.etzhayyim.apps.maps.getChunk',
       { auth, params },
     ),
   );
@@ -852,7 +852,7 @@ export async function getTileGeoJson(params: {
 }): Promise<{ layers: Record<string, { type: 'FeatureCollection'; features: unknown[] }>; total: number }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ layers?: Record<string, { type: 'FeatureCollection'; features: unknown[] }>; total?: number }>(
-      'app.etzhayyim.apps.maps.tileGeoJson',
+      'com.etzhayyim.apps.maps.tileGeoJson',
       { auth, params },
     ),
   );
@@ -886,7 +886,7 @@ export async function aismarineQueryVesselsBbox(params: {
 }): Promise<{ features: VesselFeature[]; total: number; bbox: number[]; truncated: boolean }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ features?: VesselFeature[]; total?: number; bbox?: number[]; truncated?: boolean }>(
-      'app.etzhayyim.apps.maps.aismarine.queryVesselsBbox',
+      'com.etzhayyim.apps.maps.aismarine.queryVesselsBbox',
       { auth, params },
     ),
   );
@@ -963,7 +963,7 @@ export async function aismarineGetVesselDetail(params: {
 }): Promise<VesselDetail> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<VesselDetail>(
-      'app.etzhayyim.apps.maps.aismarine.getVesselDetail',
+      'com.etzhayyim.apps.maps.aismarine.getVesselDetail',
       { auth, params },
     ),
   );
@@ -994,7 +994,7 @@ export async function aismarineSearchVessels(params: {
 }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ results?: unknown[]; total?: number }>(
-      'app.etzhayyim.apps.maps.aismarine.searchVessels',
+      'com.etzhayyim.apps.maps.aismarine.searchVessels',
       { auth, params },
     ),
   );
@@ -1023,7 +1023,7 @@ export async function aismarineGetVesselDensityTile(params: {
 }): Promise<{ cells: VesselDensityCell[]; cellSchema: VesselDensityCellSchema; windowMinutes: number }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ cells?: VesselDensityCell[]; cellSchema?: VesselDensityCellSchema; windowMinutes?: number }>(
-      'app.etzhayyim.apps.maps.aismarine.getVesselDensityTile',
+      'com.etzhayyim.apps.maps.aismarine.getVesselDensityTile',
       { auth, params },
     ),
   );
@@ -1085,7 +1085,7 @@ export async function listLiveAircraft(params: {
 } = {}): Promise<{ aircraft: LiveAircraft[]; count: number; asOfMs: number }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ aircraft?: LiveAircraft[]; count?: number; asOfMs?: number }>(
-      'app.etzhayyim.apps.maps.listLiveAircraft',
+      'com.etzhayyim.apps.maps.listLiveAircraft',
       { method: 'GET', auth, params },
     ),
   );
@@ -1103,7 +1103,7 @@ export async function listLiveSatellites(params: {
 } = {}): Promise<{ satellites: LiveSatellite[]; count: number; asOfMs: number }> {
   const res = await unwrapXrpcResponse(
     xrpcClient.xrpc<{ satellites?: LiveSatellite[]; count?: number; asOfMs?: number }>(
-      'app.etzhayyim.apps.maps.listLiveSatellites',
+      'com.etzhayyim.apps.maps.listLiveSatellites',
       { method: 'GET', auth, params },
     ),
   );

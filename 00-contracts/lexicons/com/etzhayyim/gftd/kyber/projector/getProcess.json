@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kyber.projector.getProcess",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Compatibility query for one APQC/BPMN process by processId/taskId.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "processId": { "type": "string", "description": "Alias of taskId" },
+          "taskId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "processId": { "type": "string" },
+            "taskId": { "type": "string" },
+            "groupId": { "type": "string" },
+            "apqcCode": { "type": "string" },
+            "actorDid": { "type": "string" },
+            "taskType": { "type": "string" },
+            "name": { "type": "string" },
+            "title": { "type": "string" },
+            "ocelEventType": { "type": "string" },
+            "kyberCollection": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

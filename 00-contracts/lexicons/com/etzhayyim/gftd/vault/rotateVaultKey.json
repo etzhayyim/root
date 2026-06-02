@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.vault.rotateVaultKey",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Re-encrypt all items with a new vaultKey. Client computes per-item rewrapped keys and per-member rewrapped vaultKeys, then submits in a single atomic call.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vaultId": { "type": "string" },
+            "newWrappedVaultKeys": {
+              "type": "array",
+              "description": "One entry per current member: { memberDid, wrappedVaultKey, memberDeviceKeyId }",
+              "items": { "type": "object" }
+            },
+            "rewrappedItemKeys": {
+              "type": "array",
+              "description": "One entry per item: { itemId, wrappedItemKey }",
+              "items": { "type": "object" }
+            }
+          },
+          "required": ["vaultId", "newWrappedVaultKeys", "rewrappedItemKeys"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rotated": { "type": "boolean" },
+            "rotatedAt": { "type": "string" },
+            "memberCount": { "type": "integer" },
+            "itemCount": { "type": "integer" }
+          },
+          "required": ["rotated", "rotatedAt", "memberCount", "itemCount"]
+        }
+      }
+    }
+  }
+}

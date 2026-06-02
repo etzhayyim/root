@@ -173,7 +173,7 @@ const OWNER_DID = "did:web:demo-opensaas.etzhayyim.com:seat:ae-01";
 
 function seed(): State {
   const acctA: Account = {
-    uri: "at://demo-opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.account/acct-acme",
+    uri: "at://demo-opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.account/acct-acme",
     tenantDid: TENANT_DID,
     ownerDid: OWNER_DID,
     name: "Acme Robotics K.K.",
@@ -185,7 +185,7 @@ function seed(): State {
     createdAt: iso(-72),
   };
   const contactA: Contact = {
-    uri: "at://demo-opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.contact/ctc-acme-cto",
+    uri: "at://demo-opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.contact/ctc-acme-cto",
     tenantDid: TENANT_DID,
     accountDid: acctA.uri,
     emailHash: "sha256:demo-cto-hash",
@@ -196,7 +196,7 @@ function seed(): State {
     createdAt: iso(-72),
   };
   const oppA: Opportunity = {
-    uri: "at://demo-opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.opportunity/opp-acme-q2",
+    uri: "at://demo-opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.opportunity/opp-acme-q2",
     tenantDid: TENANT_DID,
     accountDid: acctA.uri,
     primaryContactDid: contactA.uri,
@@ -212,7 +212,7 @@ function seed(): State {
     lastStageChangeAt: iso(-3 * 24),
   };
   const leadA: Lead = {
-    uri: "at://demo-opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.lead/lead-inbound-001",
+    uri: "at://demo-opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.lead/lead-inbound-001",
     tenantDid: TENANT_DID,
     ownerDid: OWNER_DID,
     companyLabel: "Nihon MegaMaker Inc.",
@@ -225,7 +225,7 @@ function seed(): State {
     createdAt: iso(-5 * 24),
   };
   const caseA: Case = {
-    uri: "at://demo-opensaas.etzhayyim.com/app.etzhayyim.apps.opensaas.salesforce.case/case-acme-0001",
+    uri: "at://demo-opensaas.etzhayyim.com/com.etzhayyim.apps.opensaas.salesforce.case/case-acme-0001",
     tenantDid: TENANT_DID,
     accountDid: acctA.uri,
     contactDid: contactA.uri,
@@ -259,15 +259,15 @@ export function getBlueprint() {
       seatDidFormat: "did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>",
     },
     lexicons: [
-      "app.etzhayyim.apps.opensaas.salesforce.account",
-      "app.etzhayyim.apps.opensaas.salesforce.contact",
-      "app.etzhayyim.apps.opensaas.salesforce.lead",
-      "app.etzhayyim.apps.opensaas.salesforce.opportunity",
-      "app.etzhayyim.apps.opensaas.salesforce.case",
-      "app.etzhayyim.apps.opensaas.salesforce.activity",
-      "app.etzhayyim.apps.opensaas.salesforce.createLead",
-      "app.etzhayyim.apps.opensaas.salesforce.convertLead",
-      "app.etzhayyim.apps.opensaas.salesforce.listPipeline",
+      "com.etzhayyim.apps.opensaas.salesforce.account",
+      "com.etzhayyim.apps.opensaas.salesforce.contact",
+      "com.etzhayyim.apps.opensaas.salesforce.lead",
+      "com.etzhayyim.apps.opensaas.salesforce.opportunity",
+      "com.etzhayyim.apps.opensaas.salesforce.case",
+      "com.etzhayyim.apps.opensaas.salesforce.activity",
+      "com.etzhayyim.apps.opensaas.salesforce.createLead",
+      "com.etzhayyim.apps.opensaas.salesforce.convertLead",
+      "com.etzhayyim.apps.opensaas.salesforce.listPipeline",
     ],
     piiTier: {
       tier1Public: ["emailHash", "phoneHash", "amountBand", "displayLabel"],
@@ -323,7 +323,7 @@ export function createLead(input: CreateLeadInput): Lead {
   }
   const rkey = `lead-${Math.random().toString(36).slice(2, 10)}`;
   const lead: Lead = {
-    uri: `at://${input.tenantDid.replace("did:web:", "")}/app.etzhayyim.apps.opensaas.salesforce.lead/${rkey}`,
+    uri: `at://${input.tenantDid.replace("did:web:", "")}/com.etzhayyim.apps.opensaas.salesforce.lead/${rkey}`,
     tenantDid: input.tenantDid,
     ownerDid: input.ownerDid,
     companyLabel: input.companyLabel,
@@ -363,7 +363,7 @@ export function convertLead(input: ConvertLeadInput): {
 
   const account: Account =
     (input.existingAccountDid && state.accounts.find((a) => a.uri === input.existingAccountDid)) || {
-      uri: `at://${lead.tenantDid.replace("did:web:", "")}/app.etzhayyim.apps.opensaas.salesforce.account/${`acct-${Math.random().toString(36).slice(2, 10)}`}`,
+      uri: `at://${lead.tenantDid.replace("did:web:", "")}/com.etzhayyim.apps.opensaas.salesforce.account/${`acct-${Math.random().toString(36).slice(2, 10)}`}`,
       tenantDid: lead.tenantDid,
       ownerDid: lead.ownerDid || OWNER_DID,
       name: input.accountName || lead.companyLabel || "Unnamed Account",
@@ -373,7 +373,7 @@ export function convertLead(input: ConvertLeadInput): {
   if (!state.accounts.some((a) => a.uri === account.uri)) state.accounts.push(account);
 
   const contact: Contact = {
-    uri: `at://${lead.tenantDid.replace("did:web:", "")}/app.etzhayyim.apps.opensaas.salesforce.contact/${`ctc-${Math.random().toString(36).slice(2, 10)}`}`,
+    uri: `at://${lead.tenantDid.replace("did:web:", "")}/com.etzhayyim.apps.opensaas.salesforce.contact/${`ctc-${Math.random().toString(36).slice(2, 10)}`}`,
     tenantDid: lead.tenantDid,
     accountDid: account.uri,
     emailHash: lead.emailHash,
@@ -388,7 +388,7 @@ export function convertLead(input: ConvertLeadInput): {
     const stage = input.opportunityStage || "qualification";
     const amountJpy = input.opportunityAmountJpy || 0;
     opportunity = {
-      uri: `at://${lead.tenantDid.replace("did:web:", "")}/app.etzhayyim.apps.opensaas.salesforce.opportunity/${`opp-${Math.random().toString(36).slice(2, 10)}`}`,
+      uri: `at://${lead.tenantDid.replace("did:web:", "")}/com.etzhayyim.apps.opensaas.salesforce.opportunity/${`opp-${Math.random().toString(36).slice(2, 10)}`}`,
       tenantDid: lead.tenantDid,
       accountDid: account.uri,
       primaryContactDid: contact.uri,
@@ -413,7 +413,7 @@ export function convertLead(input: ConvertLeadInput): {
   lead.convertedOpportunityDid = opportunity?.uri;
 
   const activity: Activity = {
-    uri: `at://${lead.tenantDid.replace("did:web:", "")}/app.etzhayyim.apps.opensaas.salesforce.activity/${`act-${Math.random().toString(36).slice(2, 10)}`}`,
+    uri: `at://${lead.tenantDid.replace("did:web:", "")}/com.etzhayyim.apps.opensaas.salesforce.activity/${`act-${Math.random().toString(36).slice(2, 10)}`}`,
     tenantDid: lead.tenantDid,
     accountDid: account.uri,
     contactDid: contact.uri,
@@ -441,7 +441,7 @@ export function advanceStage(input: AdvanceStageInput): { opportunity: Opportuni
   opp.forecastCategory = STAGE_FORECAST[input.stage];
   opp.lastStageChangeAt = iso();
   const activity: Activity = {
-    uri: `at://${opp.tenantDid.replace("did:web:", "")}/app.etzhayyim.apps.opensaas.salesforce.activity/${`act-${Math.random().toString(36).slice(2, 10)}`}`,
+    uri: `at://${opp.tenantDid.replace("did:web:", "")}/com.etzhayyim.apps.opensaas.salesforce.activity/${`act-${Math.random().toString(36).slice(2, 10)}`}`,
     tenantDid: opp.tenantDid,
     accountDid: opp.accountDid,
     opportunityDid: opp.uri,

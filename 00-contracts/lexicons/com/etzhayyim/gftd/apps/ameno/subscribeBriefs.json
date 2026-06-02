@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ameno.subscribeBriefs",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "SSE stream of brief inference prompts derived from PDS commits. ADR-2605091700 path: pds-firehose-bridge → NATS JetStream subject `pds.repo.commit.app_bsky_feed_post` → ameno-langserver SSE generator → PDS pipethrough (Accept: text/event-stream preserved). Browser tabs subscribe with EventSource and run local Gemma/Baien inference, then post results via com.etzhayyim.apps.ameno.saveResult. Murakumo Tier 2 crowd-source (browser compute) entrypoint.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "collection": { "type": "string", "description": "AT collection NSID to subscribe (default: app.bsky.feed.post). Internal-only — restricted to social collections in handler.", "default": "app.bsky.feed.post" },
+          "maxEvents": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100, "description": "Server closes the stream after N events to bound per-tab cost." },
+          "idleTimeoutSec": { "type": "integer", "minimum": 5, "maximum": 600, "default": 60, "description": "Server closes the stream after this many seconds with no new event." }
+        }
+      },
+      "output": {
+        "encoding": "text/event-stream",
+        "schema": {
+          "type": "object",
+          "description": "Each SSE `data:` line is a JSON object with these fields. `event:` line is one of: brief, error, done.",
+          "properties": {
+            "uri": { "type": "string", "description": "at://did/collection/rkey of the source record" },
+            "authorDid": { "type": "string" },
+            "collection": { "type": "string" },
+            "text": { "type": "string", "description": "Extracted prompt text from the record (e.g. post.text)" },
+            "tsMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

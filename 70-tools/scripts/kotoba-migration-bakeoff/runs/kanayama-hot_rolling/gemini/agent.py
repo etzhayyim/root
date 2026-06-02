@@ -84,7 +84,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = HotRollingPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.rollingAttestation",
+        "$type": "com.etzhayyim.kanayama.rollingAttestation",
         "lotId": s.lotId,
         "reheatTempC": s.reheatTempC,
         "passes": s.passes,

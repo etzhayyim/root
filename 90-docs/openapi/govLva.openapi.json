@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govLva.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govLva.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Latvia government.",
-        "operationId": "app.etzhayyim.govLva.followSiteDeps",
+        "operationId": "com.etzhayyim.govLva.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govLva.heartbeatTick": {
       "post": {
         "summary": "Run the Latvia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govLva.heartbeatTick",
+        "operationId": "com.etzhayyim.govLva.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.listOrgs": {
+    "/xrpc/com.etzhayyim.govLva.listOrgs": {
       "get": {
         "summary": "List Latvia government organization graph records.",
-        "operationId": "app.etzhayyim.govLva.listOrgs",
+        "operationId": "com.etzhayyim.govLva.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.registerDIDs": {
+    "/xrpc/com.etzhayyim.govLva.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Latvia government organizations.",
-        "operationId": "app.etzhayyim.govLva.registerDIDs",
+        "operationId": "com.etzhayyim.govLva.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govLva.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Latvia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govLva.resolveOrgPath",
+        "operationId": "com.etzhayyim.govLva.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.seedOrgs": {
+    "/xrpc/com.etzhayyim.govLva.seedOrgs": {
       "post": {
         "summary": "Seed initial Latvia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govLva.seedOrgs",
+        "operationId": "com.etzhayyim.govLva.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.shinka": {
+    "/xrpc/com.etzhayyim.govLva.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Latvia government organization update.",
-        "operationId": "app.etzhayyim.govLva.shinka",
+        "operationId": "com.etzhayyim.govLva.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLva.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govLva.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Latvia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govLva.syncWetUpdates",
+        "operationId": "com.etzhayyim.govLva.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

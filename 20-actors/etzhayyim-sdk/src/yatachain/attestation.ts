@@ -7,7 +7,7 @@
  *      schema / Rego policy / LangGraph determinism),
  *   2. produce a signed verdict that other parties can verify against the
  *      cell's published key, and
- *   3. format the verdict as an `app.etzhayyim.yatachain.attestation` record
+ *   3. format the verdict as an `com.etzhayyim.yatachain.attestation` record
  *      ready for PDS commit.
  *
  * Per yatachain SPEC §4 + §5 + ADR-2605231400.
@@ -17,7 +17,7 @@ import type { Attestation, Verdict } from "./quorum.js";
 import { quorumGroup, type FleetCell } from "./witness-selector.js";
 
 /** A reference to a membrane layer artifact, mirroring
- *  app.etzhayyim.yatachain.membraneRule#layerRef. */
+ *  com.etzhayyim.yatachain.membraneRule#layerRef. */
 export interface MembraneLayerRef {
   path: string;
   contentHash: string;
@@ -25,7 +25,7 @@ export interface MembraneLayerRef {
 }
 
 /** A loaded membrane rule for a single NSID. Mirrors
- *  app.etzhayyim.yatachain.membraneRule. */
+ *  com.etzhayyim.yatachain.membraneRule. */
 export interface MembraneRule {
   v: 1;
   nsid: string;
@@ -184,7 +184,7 @@ export interface ProduceAttestationOpts {
   attestedAt?: string;
 }
 
-/** Cell-side: validate + sign + format an `app.etzhayyim.yatachain.attestation`. */
+/** Cell-side: validate + sign + format an `com.etzhayyim.yatachain.attestation`. */
 export async function produceAttestation(opts: ProduceAttestationOpts): Promise<Attestation> {
   const verdictResult = await validateAgainstMembrane(opts.record, opts.rule, opts.validators);
   const attestedAt = opts.attestedAt ?? new Date().toISOString();

@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'science_paper_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,9 +44,9 @@ UP = [{'sql': '\n'
                  '    5. generic.audit.emit         — OCEL event with aggregate stats.\n'
                  '\n'
                  '  Cadence: R/PT6H. Rotates domains: physics → chemistry → biology → materials.\n'
-                 '  ADR-0056 (BPMN-as-actor). NSID: app.etzhayyim.apps.maps.sciencePaperIngest.\n'
+                 '  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.sciencePaperIngest.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -60,7 +60,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.sciencePaperIngest", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.sciencePaperIngest", "version": 1, '
                  '"resultTimeoutMs": 21600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -155,7 +155,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.maps.science.paper.ingest&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.maps.science.paper.ingest&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, &quot;domain&quot;: '
                  'domain, &quot;papersInserted&quot;: papersInserted, &quot;papersEmbedded&quot;: '
@@ -174,12 +174,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6688,
-                 '00-contracts/bpmn/ai/gftd/maps/sciencePaperIngest.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/sciencePaperIngest.bpmn',
                  '2026-04-28T22:00:00+09:00',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -187,7 +187,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-element-seed-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-element-seed-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'science_element_seed',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -208,9 +208,9 @@ UP = [{'sql': '\n'
                  '    3. generic.audit.emit           — OCEL event.\n'
                  '\n'
                  '  Cadence: R/P1D (once per day, idempotent).\n'
-                 '  ADR-0056 (BPMN-as-actor). NSID: app.etzhayyim.apps.maps.scienceElementSeed.\n'
+                 '  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.scienceElementSeed.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-element-seed-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-element-seed-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -224,7 +224,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.scienceElementSeed", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.scienceElementSeed", "version": 1, '
                  '"resultTimeoutMs": 86400000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -274,7 +274,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.maps.science.element.seed&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.maps.science.element.seed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;elementsSeeded&quot;: elementsSeeded, '
                  '&quot;materialsSeeded&quot;: materialsSeeded }" target="attributes"/>\n'
@@ -292,12 +292,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4134,
-                 '00-contracts/bpmn/ai/gftd/maps/scienceElementSeed.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/scienceElementSeed.bpmn',
                  '2026-04-28T22:00:00+09:00',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-element-seed-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-element-seed-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'science_taxon_sync',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -336,9 +336,9 @@ UP = [{'sql': '\n'
                  '    5. generic.audit.emit       — OCEL event.\n'
                  '\n'
                  '  Cadence: R/PT12H. Rotates root taxid every run.\n'
-                 '  ADR-0056 (BPMN-as-actor). NSID: app.etzhayyim.apps.maps.scienceTaxonSync.\n'
+                 '  ADR-0056 (BPMN-as-actor). NSID: com.etzhayyim.apps.maps.scienceTaxonSync.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -352,7 +352,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.scienceTaxonSync", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.scienceTaxonSync", "version": 1, '
                  '"resultTimeoutMs": 43200000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -440,7 +440,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.maps.science.taxon.sync&quot;" target="eventType"/>\n'
+                 'source="=&quot;com.etzhayyim.apps.maps.science.taxon.sync&quot;" target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;rootTaxid&quot;: rootTaxid, '
                  '&quot;domain_kind&quot;: domain_kind, &quot;taxaInserted&quot;: taxaInserted, '
                  '&quot;vegetationSeeded&quot;: vegetationSeeded, '
@@ -459,19 +459,19 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6418,
-                 '00-contracts/bpmn/ai/gftd/maps/scienceTaxonSync.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/scienceTaxonSync.bpmn',
                  '2026-04-28T22:00:00+09:00',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.maps',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-paper-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-element-seed-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-element-seed-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-taxon-sync-v1']}]
 
 
 def upgrade() -> None:

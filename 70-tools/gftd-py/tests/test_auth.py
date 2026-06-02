@@ -206,17 +206,17 @@ class TestMintScopedJwt:
 
     def test_disabled_by_env_off(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
-        result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+        result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_disabled_by_env_zero(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "0")
-        result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+        result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_disabled_by_env_false(self, monkeypatch):
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "false")
-        result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+        result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_network_failure_returns_empty(self, monkeypatch):
@@ -226,7 +226,7 @@ class TestMintScopedJwt:
 
         import httpx
         with patch("httpx.post", side_effect=httpx.ConnectError("refused")):
-            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_http_error_returns_empty(self, monkeypatch):
@@ -237,7 +237,7 @@ class TestMintScopedJwt:
         mock_resp = MagicMock()
         mock_resp.status_code = 401
         with patch("httpx.post", return_value=mock_resp):
-            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
     def test_successful_mint_returns_token(self, monkeypatch):
@@ -249,7 +249,7 @@ class TestMintScopedJwt:
         mock_resp.status_code = 200
         mock_resp.json.return_value = {"token": "scoped-jwt-xyz"}
         with patch("httpx.post", return_value=mock_resp):
-            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == "scoped-jwt-xyz"
 
     def test_cache_hit_skips_http(self, monkeypatch):
@@ -262,8 +262,8 @@ class TestMintScopedJwt:
         mock_resp.json.return_value = {"token": "scoped-jwt-cached"}
 
         with patch("httpx.post", return_value=mock_resp) as mock_post:
-            r1 = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
-            r2 = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+            r1 = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
+            r2 = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert r1 == r2 == "scoped-jwt-cached"
         assert mock_post.call_count == 1
 
@@ -276,7 +276,7 @@ class TestMintScopedJwt:
         mock_resp.status_code = 200
         mock_resp.json.return_value = {"token": ""}
         with patch("httpx.post", return_value=mock_resp):
-            result = mint_scoped_jwt("mytoken", "app.etzhayyim.apps.billing.listInvoices")
+            result = mint_scoped_jwt("mytoken", "com.etzhayyim.apps.billing.listInvoices")
         assert result == ""
 
 
@@ -287,7 +287,7 @@ class TestScopedAuthHeaders:
         monkeypatch.setenv("etzhayyim_TOKEN", "base-tok")
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
         with patch("gftd.auth._load_auth_file", return_value={}):
-            headers = scoped_auth_headers("app.etzhayyim.apps.billing.listInvoices")
+            headers = scoped_auth_headers("com.etzhayyim.apps.billing.listInvoices")
         assert headers["Authorization"] == "Bearer base-tok"
 
     def test_upgrades_to_scoped_token_when_available(self, monkeypatch):
@@ -297,7 +297,7 @@ class TestScopedAuthHeaders:
             patch("gftd.auth._load_auth_file", return_value={}),
             patch("gftd.auth.mint_scoped_jwt", return_value="scoped-tok"),
         ):
-            headers = scoped_auth_headers("app.etzhayyim.apps.billing.listInvoices")
+            headers = scoped_auth_headers("com.etzhayyim.apps.billing.listInvoices")
         assert headers["Authorization"] == "Bearer scoped-tok"
 
     def test_preserves_did_and_org_headers(self, monkeypatch):
@@ -305,6 +305,6 @@ class TestScopedAuthHeaders:
         monkeypatch.setenv("etzhayyim_ORG_ID", "org-x")
         monkeypatch.setenv("etzhayyim_SCOPED_AUTH", "off")
         with patch("gftd.auth._load_auth_file", return_value={"active_did": "did:plc:abc"}):
-            headers = scoped_auth_headers("app.etzhayyim.apps.billing.listInvoices")
+            headers = scoped_auth_headers("com.etzhayyim.apps.billing.listInvoices")
         assert "X-Active-DID" in headers
         assert "X-etzhayyim-Org-Id" in headers

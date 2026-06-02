@@ -32,8 +32,8 @@ Compliance:
 
 TODO(substrate-boundary): replace RW queries (fetch from vertex_lead,
 execute UPDATE/INSERT into vertex_lead/vertex_email_outbox) with e.read/e.write
-per ADR-2605172000. Leads collection: 'app.etzhayyim.apps.yata.leads', rkey=company_domain.
-Outbox: 'app.etzhayyim.apps.yata.outbox', rkey=timestamp_hash. Update after SDK types land.
+per ADR-2605172000. Leads collection: 'com.etzhayyim.apps.yata.leads', rkey=company_domain.
+Outbox: 'com.etzhayyim.apps.yata.outbox', rkey=timestamp_hash. Update after SDK types land.
 """
 
 from __future__ import annotations

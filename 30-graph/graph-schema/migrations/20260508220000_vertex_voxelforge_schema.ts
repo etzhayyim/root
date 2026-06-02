@@ -13,7 +13,7 @@ import { sql } from "kysely";
  * Pattern: T2 actor with LangGraph Server execution runtime
  * (ADR-2605080600). Domain writes go through `createKyselyDb(env.HYPERDRIVE)`
  * direct from the LangGraph nodes (ADR-0036). PDS commit pipeline is NOT
- * used for `app.etzhayyim.apps.voxelforge.*` (non-federable, see federable
+ * used for `com.etzhayyim.apps.voxelforge.*` (non-federable, see federable
  * whitelist in deps.toml — voxelforge is default block).
  *
  * Tables (3 vertex + 1 edge):

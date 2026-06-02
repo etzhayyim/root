@@ -3,7 +3,7 @@
 100% NDT (RT/UT/PT) of hull seams with >=2 robot witness quorum.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.weldInspectionRecord.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.weldInspectionRecord.
 """
 
 from typing import Any

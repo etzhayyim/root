@@ -71,7 +71,7 @@ describe("ABI fragments", () => {
   });
 
   it("OATH_RECORD_NSID matches the lexicon path", () => {
-    expect(OATH_RECORD_NSID).toBe("app.etzhayyim.apps.etzhayyim.oath");
+    expect(OATH_RECORD_NSID).toBe("com.etzhayyim.apps.etzhayyim.oath");
   });
 });
 

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.criticalMinerals.flagRareEarthChokepoint",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave3 arms (stub): 希土類 ボトルネック. Starts BPMN process open_critical_minerals_flag_rare_earth_chokepoint.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "element": { "type": "string" },
+            "producerCountry": { "type": "string" },
+            "marketShare": { "type": "number" },
+            "supplierLei": { "type": "string" }
+          },
+          "required": ["vertexId", "element", "producerCountry"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

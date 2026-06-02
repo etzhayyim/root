@@ -1,0 +1,105 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.advanceJob",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Advance a maps collection job stage and attach street-chunk coverage metrics when available.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "errorMessage": {
+              "type": "string"
+            },
+            "jobId": {
+              "type": "string"
+            },
+            "phase": {
+              "type": "string"
+            },
+            "progressPct": {
+              "type": "number"
+            },
+            "recordsCount": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "stage": {
+              "type": "string",
+              "enum": ["sequence_select", "frame_admit", "chunk_assign", "coverage_score", "reconstruct", "bake", "publish"]
+            },
+            "sequenceId": {
+              "type": "string"
+            },
+            "chunkKey": {
+              "type": "string"
+            },
+            "chunkSizeMeters": {
+              "type": "integer",
+              "enum": [25, 50, 100]
+            },
+            "frameCount": {
+              "type": "integer"
+            },
+            "coverageRatio": {
+              "type": "number"
+            },
+            "headingSpanDeg": {
+              "type": "number"
+            },
+            "viewClusterCount": {
+              "type": "integer"
+            },
+            "occlusionRisk": {
+              "type": "number"
+            },
+            "dynamicObjectRisk": {
+              "type": "number"
+            },
+            "recommendedChunkClass": {
+              "type": "string",
+              "enum": ["25m", "50m", "100m", "semantic-only"]
+            }
+          },
+          "required": [
+            "jobId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "jobId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "stage": {
+              "type": "string"
+            },
+            "progressPct": {
+              "type": "number"
+            },
+            "coverageRatio": {
+              "type": "number"
+            },
+            "recommendedChunkClass": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

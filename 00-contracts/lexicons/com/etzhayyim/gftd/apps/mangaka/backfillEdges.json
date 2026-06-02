@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.backfillEdges",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Back-fill edge_contains relationships from existing vertex_mangaka rows' props (workId, chapterId). Idempotent.",
+      "input": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {} }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "chapters": { "type": "unknown" },
+            "pages": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

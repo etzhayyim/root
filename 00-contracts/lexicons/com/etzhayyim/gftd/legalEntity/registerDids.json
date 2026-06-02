@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.registerDids",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start the Zeebe Python path-DID registration pipeline for GLEIF LEI entities. The edge worker only returns workflow metadata and exposes commitEntityDids for the actor.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 1)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 200)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 1)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "movedToZeebe": { "type": "boolean" },
+            "processId": { "type": "string" },
+            "taskTypes": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "variables": { "type": "object" },
+            "commitCommand": { "type": "string" },
+            "totalRegistered": { "type": "integer", "description": "Legacy compatibility; populated by commitEntityDids, not this dispatcher." },
+            "totalSkipped": { "type": "integer", "description": "Legacy compatibility; populated by commitEntityDids, not this dispatcher." },
+            "totalErrors": { "type": "integer", "description": "Legacy compatibility; populated by commitEntityDids, not this dispatcher." },
+            "firstError": { "type": "string", "description": "Legacy compatibility; populated by commitEntityDids, not this dispatcher." }
+          }
+        }
+      }
+    }
+  }
+}

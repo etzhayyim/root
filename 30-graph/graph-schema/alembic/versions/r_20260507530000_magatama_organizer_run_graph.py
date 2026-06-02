@@ -75,7 +75,7 @@ UP = [{'sql': '\n'
          '    WHERE owner_did = $1\n'
          '      AND nsid = $2\n'
          '  ',
-  'parameters': ['did:web:magatama.etzhayyim.com', 'app.etzhayyim.apps.magatama.organizerRun']}]
+  'parameters': ['did:web:magatama.etzhayyim.com', 'com.etzhayyim.apps.magatama.organizerRun']}]
 
 DOWN = [{'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
@@ -83,7 +83,7 @@ DOWN = [{'sql': '\n'
          '    WHERE owner_did = $1\n'
          '      AND nsid = $2\n'
          '  ',
-  'parameters': ['did:web:magatama.etzhayyim.com', 'app.etzhayyim.apps.magatama.organizerRun']},
+  'parameters': ['did:web:magatama.etzhayyim.com', 'com.etzhayyim.apps.magatama.organizerRun']},
  {'sql': 'DROP MATERIALIZED VIEW IF EXISTS mv_magatama_organizer_run_health', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_magatama_organizer_run', 'parameters': []}]
 

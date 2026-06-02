@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.listAuditEvents",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List audit events for a subject (typically the patient themselves) — filterable by eventType, actor, time window. Returns public meta. The caller MUST be either the subjectDid or a charter-authorized auditor; karute enforces this in the actor pipeline.",
+      "parameters": {
+        "type": "params",
+        "required": ["subjectDid"],
+        "properties": {
+          "subjectDid": {"type": "string"},
+          "eventType": {"type": "string"},
+          "actorDid": {"type": "string"},
+          "fromDate": {"type": "string", "format": "datetime"},
+          "toDate": {"type": "string", "format": "datetime"},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 500, "default": 100},
+          "cursor": {"type": "string"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {"type": "array", "items": {"type": "ref", "ref": "#eventRow"}},
+            "cursor": {"type": "string"}
+          }
+        }
+      }
+    },
+    "eventRow": {
+      "type": "object",
+      "properties": {
+        "auditUri": {"type": "string"},
+        "eventType": {"type": "string"},
+        "subjectDid": {"type": "string"},
+        "actorDid": {"type": "string"},
+        "granteeDid": {"type": "string"},
+        "capabilityUri": {"type": "string"},
+        "envelopeCid": {"type": "string"},
+        "tombstoneCid": {"type": "string"},
+        "purpose": {"type": "string"},
+        "reason": {"type": "string"},
+        "outcome": {"type": "string"},
+        "occurredAt": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

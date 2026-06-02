@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ransomwatch.listPosts",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List victim post observations. Victim identifiers are omitted (TLP:WHITE public view uses sector/country only).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "groupSlug":      { "type": "string" },
+          "status":         { "type": "string" },
+          "victimSector":   { "type": "string" },
+          "victimCountry":  { "type": "string" },
+          "offset":         { "type": "integer", "default": 0 },
+          "limit":          { "type": "integer", "default": 50, "maximum": 100 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["posts", "total", "offset", "limit"],
+          "properties": {
+            "posts":  { "type": "array", "items": { "type": "unknown" } },
+            "total":  { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit":  { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

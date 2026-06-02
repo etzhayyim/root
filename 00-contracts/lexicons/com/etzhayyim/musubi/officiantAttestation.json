@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.musubi.officiantAttestation",
+  "description": "Officiant L5 vocation-flow community-witnessed-competence record. G3 STRUCTURAL: officiantClass enum DELIBERATELY excludes 'clergy' / 'ordained' / 'priest' / 'bishop' / 'minister-with-ecclesiastical-authority'; valid value = 'community-witnessed-competent' (Reformed 万人祭司 invariant per Charter §1.7). G12 STRUCTURAL: lLevel const L5 + employmentRelation const vocation-flow. ≥3 prior officiant attestations REQUIRED (witnessing chain; structurally distinct from apostolic-succession).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "officiantDid",
+          "officiantClass",
+          "lLevel",
+          "employmentRelation",
+          "witnessingOfficiantAttestations",
+          "councilAttestations",
+          "stewardLaborAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "officiantDid": {"type": "string"},
+          "officiantClass": {
+            "type": "string",
+            "const": "community-witnessed-competent",
+            "description": "G3 STRUCTURAL: const 'community-witnessed-competent'; clergy/ordained/priest/bishop/minister-with-ecclesiastical-authority DELIBERATELY excluded (Reformed 万人祭司)"
+          },
+          "lLevel": {
+            "type": "string",
+            "const": "L5",
+            "description": "G12 STRUCTURAL: L5 vocation-flow per Liberation Ladder (cross-actor chigiri.stewardLaborAttestation enforcement)"
+          },
+          "employmentRelation": {
+            "type": "string",
+            "const": "vocation-flow",
+            "description": "G12 STRUCTURAL: vocation-flow steward (NOT employee; NOT clergy-on-stipend; NOT contractor)"
+          },
+          "witnessingOfficiantAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3,
+            "description": "≥3 prior officiant attestation CIDs witnessing community-witnessed competence (chain pattern; structurally distinct from apostolic-succession)"
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3,
+            "description": "≥3 Council Lv6+ DIDs attesting officiant classification"
+          },
+          "stewardLaborAttestationCid": {
+            "type": "string",
+            "description": "Cross-link to chigiri.stewardLaborAttestation record (lLevel=L5 + employmentRelation=vocation-flow)"
+          },
+          "doctrinalTraditionSelfDeclared": {
+            "type": "string",
+            "knownValues": ["reformed", "presbyterian", "baptist", "methodist", "anglican-low-church", "nondenominational", "cross-tradition", "other-protestant", "ecumenical"],
+            "description": "Transparency declaration (NOT gatekeeping per G9 + N12 cross-doctrinal Wellbecoming priority); members can request matching tradition"
+          },
+          "ceremoniesPerformedCount": {"type": "integer", "minimum": 0},
+          "attestationStatus": {
+            "type": "string",
+            "knownValues": ["pending-witnessing", "active", "on-leave", "revoked-by-council", "voluntary-withdrawal"]
+          },
+          "revokedAt": {"type": "string", "format": "datetime"},
+          "revocationReasonCid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

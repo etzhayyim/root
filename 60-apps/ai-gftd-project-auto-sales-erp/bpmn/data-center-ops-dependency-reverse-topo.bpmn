@@ -10,27 +10,27 @@
       <bpmn:outgoing>Flow_D1</bpmn:outgoing>
     </bpmn:startEvent>
 
-    <bpmn:serviceTask id="Task_SeedBaseline" name="Seed Baseline Dependencies (Lexicon: ai.gftd.apps.dataCenterOps.dependency.seedBaseline)">
+    <bpmn:serviceTask id="Task_SeedBaseline" name="Seed Baseline Dependencies (Lexicon: com.etzhayyim.apps.dataCenterOps.dependency.seedBaseline)">
       <bpmn:incoming>Flow_D1</bpmn:incoming>
       <bpmn:outgoing>Flow_D2</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="Task_ListNodes" name="List Dependency Nodes (Lexicon: ai.gftd.apps.dataCenterOps.dependency.listNodes)">
+    <bpmn:serviceTask id="Task_ListNodes" name="List Dependency Nodes (Lexicon: com.etzhayyim.apps.dataCenterOps.dependency.listNodes)">
       <bpmn:incoming>Flow_D2</bpmn:incoming>
       <bpmn:outgoing>Flow_D3</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="Task_ListEdges" name="List Dependency Edges (Lexicon: ai.gftd.apps.dataCenterOps.dependency.listEdges)">
+    <bpmn:serviceTask id="Task_ListEdges" name="List Dependency Edges (Lexicon: com.etzhayyim.apps.dataCenterOps.dependency.listEdges)">
       <bpmn:incoming>Flow_D3</bpmn:incoming>
       <bpmn:outgoing>Flow_D4</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="Task_CollectGlobal" name="Collect Global Dependency Topology (Lexicon: ai.gftd.apps.dataCenterOps.dependency.collectGlobal)">
+    <bpmn:serviceTask id="Task_CollectGlobal" name="Collect Global Dependency Topology (Lexicon: com.etzhayyim.apps.dataCenterOps.dependency.collectGlobal)">
       <bpmn:incoming>Flow_D4</bpmn:incoming>
       <bpmn:outgoing>Flow_D5</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <bpmn:serviceTask id="Task_ReverseTopo" name="Resolve Reverse Topological Order (Lexicon: ai.gftd.apps.dataCenterOps.dependency.getReverseTopo)">
+    <bpmn:serviceTask id="Task_ReverseTopo" name="Resolve Reverse Topological Order (Lexicon: com.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo)">
       <bpmn:incoming>Flow_D5</bpmn:incoming>
       <bpmn:outgoing>Flow_D6</bpmn:outgoing>
     </bpmn:serviceTask>

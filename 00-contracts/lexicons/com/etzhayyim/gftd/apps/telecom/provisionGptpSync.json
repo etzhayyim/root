@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.provisionGptpSync",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provision a gPTP (IEEE 802.1AS-2020) sync profile with grandmaster + redundant GMs. priority1/priority2 follow PTPv2 BMCA.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["domainId", "grandmasterBridgeId", "profileKind", "syncIntervalLog", "announceIntervalLog", "observedAt"],
+          "properties": {
+            "syncProfileId": { "type": "string" },
+            "domainId": { "type": "string" },
+            "grandmasterBridgeId": { "type": "string" },
+            "profileKind": { "type": "string", "enum": ["802_1as_2020", "802_1as_2011", "ptpv2_default", "automotive_aerospace", "fronthaul_802_1cm"] },
+            "syncIntervalLog": { "type": "integer" },
+            "announceIntervalLog": { "type": "integer" },
+            "priority1": { "type": "integer" },
+            "priority2": { "type": "integer" },
+            "redundantGmBridgeIds": { "type": "array", "items": { "type": "string" } },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "syncProfileId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

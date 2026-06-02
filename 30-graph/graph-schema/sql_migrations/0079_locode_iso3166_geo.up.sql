@@ -13,7 +13,7 @@ CREATE VIEW IF NOT EXISTS view_locode_location AS
       (value_json::jsonb->>'has_rail')::boolean    AS has_rail,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.locode.location';
+    WHERE collection = 'com.etzhayyim.apps.locode.location';
 
 CREATE VIEW IF NOT EXISTS view_iso3166_country AS
     SELECT
@@ -25,7 +25,7 @@ CREATE VIEW IF NOT EXISTS view_iso3166_country AS
       value_json::jsonb->>'capital' AS capital,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.iso3166.country';
+    WHERE collection = 'com.etzhayyim.apps.iso3166.country';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('locode', 'locode.etzhayyim.com', 116067, 'locations', 'transport');

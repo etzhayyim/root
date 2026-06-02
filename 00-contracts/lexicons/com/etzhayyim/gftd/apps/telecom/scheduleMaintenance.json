@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.scheduleMaintenance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Schedule a preventive / corrective maintenance window on a site / node / asset.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["maintenanceKind", "plannedStart", "plannedEnd"],
+          "properties": {
+            "windowId": { "type": "string" },
+            "siteId": { "type": "string" },
+            "nodeId": { "type": "string" },
+            "assetId": { "type": "string" },
+            "maintenanceKind": { "type": "string", "enum": ["preventive", "corrective", "emergency", "vendor_swap", "software_upgrade"] },
+            "plannedStart": { "type": "string", "format": "datetime" },
+            "plannedEnd": { "type": "string", "format": "datetime" },
+            "vendorOrgId": { "type": "string" },
+            "summary": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "windowId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

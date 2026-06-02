@@ -83,11 +83,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.hikari.parcelEnergyAttestation",
-    "app.etzhayyim.hikari.installAttestation",
-    "app.etzhayyim.hikari.generationRecord",
-    "app.etzhayyim.hikari.consumptionAuditRecord",
-    "app.etzhayyim.hikari.silenEnergyReview"
+    "com.etzhayyim.hikari.parcelEnergyAttestation",
+    "com.etzhayyim.hikari.installAttestation",
+    "com.etzhayyim.hikari.generationRecord",
+    "com.etzhayyim.hikari.consumptionAuditRecord",
+    "com.etzhayyim.hikari.silenEnergyReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261100. G4 + G5 + G8 are Lv7-unanimity constitutional; others Lv6+ supermajority.",

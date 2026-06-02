@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govGrd.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govGrd.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Grenada government.",
-        "operationId": "app.etzhayyim.govGrd.followSiteDeps",
+        "operationId": "com.etzhayyim.govGrd.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govGrd.heartbeatTick": {
       "post": {
         "summary": "Run the Grenada government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govGrd.heartbeatTick",
+        "operationId": "com.etzhayyim.govGrd.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.listOrgs": {
+    "/xrpc/com.etzhayyim.govGrd.listOrgs": {
       "get": {
         "summary": "List Grenada government organization graph records.",
-        "operationId": "app.etzhayyim.govGrd.listOrgs",
+        "operationId": "com.etzhayyim.govGrd.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.registerDIDs": {
+    "/xrpc/com.etzhayyim.govGrd.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Grenada government organizations.",
-        "operationId": "app.etzhayyim.govGrd.registerDIDs",
+        "operationId": "com.etzhayyim.govGrd.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govGrd.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Grenada government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govGrd.resolveOrgPath",
+        "operationId": "com.etzhayyim.govGrd.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.seedOrgs": {
+    "/xrpc/com.etzhayyim.govGrd.seedOrgs": {
       "post": {
         "summary": "Seed initial Grenada government organization records into the graph.",
-        "operationId": "app.etzhayyim.govGrd.seedOrgs",
+        "operationId": "com.etzhayyim.govGrd.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.shinka": {
+    "/xrpc/com.etzhayyim.govGrd.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Grenada government organization update.",
-        "operationId": "app.etzhayyim.govGrd.shinka",
+        "operationId": "com.etzhayyim.govGrd.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGrd.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govGrd.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Grenada government organization changes to graph.",
-        "operationId": "app.etzhayyim.govGrd.syncWetUpdates",
+        "operationId": "com.etzhayyim.govGrd.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

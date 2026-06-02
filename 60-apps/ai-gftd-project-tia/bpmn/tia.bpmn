@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-ai-1" sourceRef="start-analyze-intent" targetRef="task-analyze-intent"/>
     <bpmn:serviceTask id="task-analyze-intent" name="Analyze Intent">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.analyzeIntent"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.analyzeIntent"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ai-2" sourceRef="task-analyze-intent" targetRef="end-analyze-intent"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-cs-1" sourceRef="start-classify-signal" targetRef="task-classify-signal"/>
     <bpmn:serviceTask id="task-classify-signal" name="Classify Signal">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.classifySignal"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.classifySignal"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cs-2" sourceRef="task-classify-signal" targetRef="end-classify-signal"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-ee-1" sourceRef="start-extract-entities" targetRef="task-extract-entities"/>
     <bpmn:serviceTask id="task-extract-entities" name="Extract Entities">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.extractEntities"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.extractEntities"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ee-2" sourceRef="task-extract-entities" targetRef="end-extract-entities"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-sr-1" sourceRef="start-score-risk" targetRef="task-score-risk"/>
     <bpmn:serviceTask id="task-score-risk" name="Score Risk">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.scoreRisk"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.scoreRisk"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sr-2" sourceRef="task-score-risk" targetRef="end-score-risk"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-gs-1" sourceRef="start-generate-summary" targetRef="task-generate-summary"/>
     <bpmn:serviceTask id="task-generate-summary" name="Generate Summary">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.generateSummary"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.generateSummary"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gs-2" sourceRef="task-generate-summary" targetRef="end-generate-summary"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-lp-1" sourceRef="start-lookup-profile" targetRef="task-lookup-profile"/>
     <bpmn:serviceTask id="task-lookup-profile" name="Lookup Profile">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.lookupProfile"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.lookupProfile"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lp-2" sourceRef="task-lookup-profile" targetRef="end-lookup-profile"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-sf-1" sourceRef="start-submit-feedback" targetRef="task-submit-feedback"/>
     <bpmn:serviceTask id="task-submit-feedback" name="Submit Feedback">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.submitFeedback"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.submitFeedback"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sf-2" sourceRef="task-submit-feedback" targetRef="end-submit-feedback"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-gi-1" sourceRef="start-get-insights" targetRef="task-get-insights"/>
     <bpmn:serviceTask id="task-get-insights" name="Get Insights">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.tia.getInsights"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.tia.getInsights"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gi-2" sourceRef="task-get-insights" targetRef="end-get-insights"/>

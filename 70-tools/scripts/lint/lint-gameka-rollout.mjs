@@ -11,10 +11,10 @@
  * Checks (one section per concern):
  *
  *   1. Lexicons present + parse + correct id.
- *      9 NSIDs under `00-contracts/lexicons/ai/gftd/apps/gameka/`.
+ *      9 NSIDs under `00-contracts/lexicons/com/etzhayyim/apps/gameka/`.
  *
  *   2. BPMNs present + parse + claim the right NSID.
- *      5 process files under `00-contracts/bpmn/ai/gftd/gameka/`.
+ *      5 process files under `00-contracts/bpmn/com/etzhayyim/gameka/`.
  *
  *   3. Migrations present in expected order.
  *      4 timestamp-prefixed files under `30-graph/graph-schema/migrations/`
@@ -29,10 +29,10 @@
  *   5. zeebe-worker registers all 4 gameka task types.
  *      `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
  *      must declare:
- *        - app.etzhayyim.agent.gameka.studio
+ *        - com.etzhayyim.agent.gameka.studio
  *        - gameka.codegen.renderKamiApp
  *        - gameka.avatar.render
- *        - app.etzhayyim.agent.gameka.visualCritic
+ *        - com.etzhayyim.agent.gameka.visualCritic
  *
  *   6. gameka-build-runner Dockerfile COPY paths still exist.
  *      Drift between repo layout and build-runner image breaks
@@ -67,17 +67,17 @@ function read(rel) {
 // ─── 1. Lexicons ────────────────────────────────────────────────────────
 
 section("lexicons");
-const LEXICON_DIR = "00-contracts/lexicons/ai/gftd/apps/gameka";
+const LEXICON_DIR = "00-contracts/lexicons/com/etzhayyim/apps/gameka";
 const EXPECTED_LEXICONS = [
-  ["proposeGame.json",   "app.etzhayyim.apps.gameka.proposeGame",   "procedure"],
-  ["generateGame.json",  "app.etzhayyim.apps.gameka.generateGame",  "procedure"],
-  ["playtestGame.json",  "app.etzhayyim.apps.gameka.playtestGame",  "procedure"],
-  ["publishGame.json",   "app.etzhayyim.apps.gameka.publishGame",   "procedure"],
-  ["tickStudio.json",    "app.etzhayyim.apps.gameka.tickStudio",    "procedure"],
-  ["gameSpec.json",      "app.etzhayyim.apps.gameka.gameSpec",      "record"],
-  ["buildArtifact.json", "app.etzhayyim.apps.gameka.buildArtifact", "record"],
-  ["gameQa.json",        "app.etzhayyim.apps.gameka.gameQa",        "record"],
-  ["gameTitle.json",     "app.etzhayyim.apps.gameka.gameTitle",     "record"],
+  ["proposeGame.json",   "com.etzhayyim.apps.gameka.proposeGame",   "procedure"],
+  ["generateGame.json",  "com.etzhayyim.apps.gameka.generateGame",  "procedure"],
+  ["playtestGame.json",  "com.etzhayyim.apps.gameka.playtestGame",  "procedure"],
+  ["publishGame.json",   "com.etzhayyim.apps.gameka.publishGame",   "procedure"],
+  ["tickStudio.json",    "com.etzhayyim.apps.gameka.tickStudio",    "procedure"],
+  ["gameSpec.json",      "com.etzhayyim.apps.gameka.gameSpec",      "record"],
+  ["buildArtifact.json", "com.etzhayyim.apps.gameka.buildArtifact", "record"],
+  ["gameQa.json",        "com.etzhayyim.apps.gameka.gameQa",        "record"],
+  ["gameTitle.json",     "com.etzhayyim.apps.gameka.gameTitle",     "record"],
 ];
 for (const [file, id, type] of EXPECTED_LEXICONS) {
   const raw = read(`${LEXICON_DIR}/${file}`);
@@ -92,13 +92,13 @@ for (const [file, id, type] of EXPECTED_LEXICONS) {
 // ─── 2. BPMNs ───────────────────────────────────────────────────────────
 
 section("BPMNs");
-const BPMN_DIR = "00-contracts/bpmn/ai/gftd/gameka";
+const BPMN_DIR = "00-contracts/bpmn/com/etzhayyim/gameka";
 const EXPECTED_BPMNS = [
-  ["proposeGame.bpmn",   "app.etzhayyim.apps.gameka.proposeGame"],
-  ["generateGame.bpmn",  "app.etzhayyim.apps.gameka.generateGame"],
-  ["playtestGame.bpmn",  "app.etzhayyim.apps.gameka.playtestGame"],
-  ["publishGame.bpmn",   "app.etzhayyim.apps.gameka.publishGame"],
-  ["tickStudio.bpmn",    "app.etzhayyim.apps.gameka.tickStudio"],
+  ["proposeGame.bpmn",   "com.etzhayyim.apps.gameka.proposeGame"],
+  ["generateGame.bpmn",  "com.etzhayyim.apps.gameka.generateGame"],
+  ["playtestGame.bpmn",  "com.etzhayyim.apps.gameka.playtestGame"],
+  ["publishGame.bpmn",   "com.etzhayyim.apps.gameka.publishGame"],
+  ["tickStudio.bpmn",    "com.etzhayyim.apps.gameka.tickStudio"],
 ];
 for (const [file, expectedNsid] of EXPECTED_BPMNS) {
   const raw = read(`${BPMN_DIR}/${file}`);
@@ -153,8 +153,8 @@ section("zeebe-worker task registrations");
 const ZBW = read("20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py");
 if (ZBW) {
   const TASKS = [
-    "app.etzhayyim.agent.gameka.studio",
-    "app.etzhayyim.agent.gameka.visualCritic",
+    "com.etzhayyim.agent.gameka.studio",
+    "com.etzhayyim.agent.gameka.visualCritic",
     "gameka.codegen.renderKamiApp",
     "gameka.avatar.render",
   ];
@@ -184,7 +184,7 @@ if (DOCKER) {
 
 section("playtest-shell ↔ publishGame column alignment");
 const SHELL = read("50-infra/cloudflare/workers/gameka-playtest-shell/src/worker.ts");
-const PUBLISH = read("00-contracts/bpmn/ai/gftd/gameka/publishGame.bpmn");
+const PUBLISH = read("00-contracts/bpmn/com/etzhayyim/gameka/publishGame.bpmn");
 if (SHELL && PUBLISH) {
   // The Worker reads vertex_gameka_title columns; publishGame writes
   // the same columns. Mismatch = 404 on /play/{slug}.

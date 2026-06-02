@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.statelessPerson.recordProtection",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Statelessness protection / 1954/1961 UN Convention (bridges asylumDetermination.flagProtectionGap + refugee-unhcr + labour-mobility)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "protectionId",
+            "hostCountryIso3",
+            "originDescriptor",
+            "regime",
+            "recognizedAt"
+          ],
+          "properties": {
+            "protectionId": {
+              "type": "string"
+            },
+            "hostCountryIso3": {
+              "type": "string"
+            },
+            "originDescriptor": {
+              "type": "string",
+              "enum": [
+                "de_jure",
+                "de_facto",
+                "inter_generation",
+                "post_soviet_succession",
+                "rohingya",
+                "bidun",
+                "kurds",
+                "nubia",
+                "haitian_dr",
+                "dominican_bateyes",
+                "nepal_madhesi",
+                "north_koreans_usa",
+                "discrimination_gender",
+                "discrimination_religion"
+              ]
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "1954_convention",
+                "1961_convention",
+                "eu_directive",
+                "national_proof",
+                "unhcr_mandate",
+                "admin_determination",
+                "host_sop",
+                "observed_status"
+              ]
+            },
+            "protectionGapVid": {
+              "type": "string",
+              "description": "bridges asylumDetermination.flagProtectionGap"
+            },
+            "recognizedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

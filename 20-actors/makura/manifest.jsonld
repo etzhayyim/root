@@ -120,14 +120,14 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.makura.foamBatchAttestation",
-    "app.etzhayyim.makura.fabricAttestation",
-    "app.etzhayyim.makura.pillowLotAttestation",
-    "app.etzhayyim.makura.qcRecord",
-    "app.etzhayyim.makura.packagingRecord",
-    "app.etzhayyim.makura.recyclingCertificate",
-    "app.etzhayyim.makura.workerExposureRecord",
-    "app.etzhayyim.makura.silenComfortReview"
+    "com.etzhayyim.makura.foamBatchAttestation",
+    "com.etzhayyim.makura.fabricAttestation",
+    "com.etzhayyim.makura.pillowLotAttestation",
+    "com.etzhayyim.makura.qcRecord",
+    "com.etzhayyim.makura.packagingRecord",
+    "com.etzhayyim.makura.recyclingCertificate",
+    "com.etzhayyim.makura.workerExposureRecord",
+    "com.etzhayyim.makura.silenComfortReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261115. Changes require Council Lv6+ supermajority + new ADR.",

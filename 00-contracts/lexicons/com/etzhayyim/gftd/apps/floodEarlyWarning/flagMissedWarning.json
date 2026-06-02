@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.floodEarlyWarning.flagMissedWarning",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "False negative / missed evacuation / last-mile failure (bridges damSafety.flagCriticalRisk + refugee-unhcr + disaster-response)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "alertVid",
+            "missKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "alertVid": {
+              "type": "string",
+              "description": "bridges recordAlert"
+            },
+            "missKind": {
+              "type": "string",
+              "enum": [
+                "false_negative",
+                "last_mile",
+                "language_gap",
+                "telecoms_down",
+                "issuing_too_late",
+                "wrong_precision",
+                "cellbroadcast_failure",
+                "literacy_barrier",
+                "disabled_warning",
+                "nomadic_unreachable",
+                "border_language"
+              ]
+            },
+            "affectedPersons": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

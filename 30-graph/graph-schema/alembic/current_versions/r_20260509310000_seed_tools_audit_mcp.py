@@ -1,4 +1,4 @@
-"""Seed app.etzhayyim.tools.audit.emit generic primitive (ADR-2605082000 §2.5)."""
+"""Seed com.etzhayyim.tools.audit.emit generic primitive (ADR-2605082000 §2.5)."""
 from __future__ import annotations
 from pathlib import Path
 from alembic import op

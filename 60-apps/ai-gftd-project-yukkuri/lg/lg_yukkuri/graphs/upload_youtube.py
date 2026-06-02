@@ -1,6 +1,6 @@
 """yukkuri `uploadYoutube` graph — publish rendered mp4 to YouTube via Data API v3.
 
-NSID: app.etzhayyim.apps.yukkuri.uploadYoutube
+NSID: com.etzhayyim.apps.yukkuri.uploadYoutube
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:publisher
 

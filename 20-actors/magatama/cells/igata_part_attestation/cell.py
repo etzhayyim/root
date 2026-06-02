@@ -37,7 +37,7 @@ Pregel graph (5 nodes):
                                    Reject part attestation if balance <0.95.
         |
         v
-    emit_part_attestation     ->  MST PUT app.etzhayyim.igata.partAttestation
+    emit_part_attestation     ->  MST PUT com.etzhayyim.igata.partAttestation
                                   (final part DID, lineage CID array, IPFS-pinned
                                    photo CID, material balance log, Mimi + Otete
                                    witness DIDs per G4)

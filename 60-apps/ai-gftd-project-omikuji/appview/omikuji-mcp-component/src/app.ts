@@ -11,7 +11,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.omikuji.";
+const NSID_PREFIX = "com.etzhayyim.apps.omikuji.";
 const ACTOR_DID = "did:web:omikuji.etzhayyim.com";
 
 export default {

@@ -32,10 +32,10 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openRail.line",
-        "ai.gftd.apps.openRail.station",
-        "ai.gftd.apps.openRail.trainRun",
-        "ai.gftd.apps.openRail.incident"
+        "com.etzhayyim.apps.openRail.line",
+        "com.etzhayyim.apps.openRail.station",
+        "com.etzhayyim.apps.openRail.trainRun",
+        "com.etzhayyim.apps.openRail.incident"
       ]
     }
   },

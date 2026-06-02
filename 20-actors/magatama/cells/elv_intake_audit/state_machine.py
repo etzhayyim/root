@@ -140,7 +140,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     it.robotSignatures = mock_sigs
     it.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.hodoki.elvIntakeRecord",
+        "$type": "com.etzhayyim.hodoki.elvIntakeRecord",
         "vehicleId": it.vehicleId,
         "vehicleDid": f"did:web:etzhayyim.com:hodoki:vehicle:{it.vinRecord['vin'] if it.vinRecord else ''}",
         "vinRecord": it.vinRecord,

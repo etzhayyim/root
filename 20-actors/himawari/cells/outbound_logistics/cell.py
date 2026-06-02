@@ -6,12 +6,12 @@ re-implement guidance/navigation/control; this cell only selects the carrier
 vehicle class + emits the route-request the GNC layer drives.
 
 Wires the EXISTING open-customs-clearance BPMN
-(app.etzhayyim.gftd.apps.customsClearance.{lodgeDeclaration,releaseShipment})
+(com.etzhayyim.gftd.apps.customsClearance.{lodgeDeclaration,releaseShipment})
 for any cross-border leg — it does NOT invent a parallel customs engine. The
 lodgeDeclaration record this cell builds conforms to the REAL lexicon at
-00-contracts/lexicons/app/etzhayyim/gftd/apps/customsClearance/lodgeDeclaration.json
+00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/lodgeDeclaration.json
 (required: declarationId, hsCode, declaredValueUsd, lodgedAt) driven by the BPMN
-at 00-contracts/bpmn/app/etzhayyim/open-customs-clearance/lodgeDeclaration.bpmn.
+at 00-contracts/bpmn/com/etzhayyim/open-customs-clearance/lodgeDeclaration.bpmn.
 
 Bound by G13: no weaponization · encrypted telemetry · own-module → hikari
 sites only (no external commercial logistics carriage / robotaxi, N10).
@@ -20,7 +20,7 @@ sites only (no external commercial logistics carriage / robotaxi, N10).
 the R0 import-only smoke test keeps passing):
   init → bind_carrier → customs_clear → plan_route → emit_manifest
 
-Output record: app.etzhayyim.himawari.outboundManifest.
+Output record: com.etzhayyim.himawari.outboundManifest.
 """
 
 from __future__ import annotations
@@ -82,10 +82,10 @@ def _load_kami_autodrive_vehicle_classes() -> frozenset[str]:
 _ALLOWED_CONSIGNEE_PREFIX = "did:web:etzhayyim.com:hikari"
 
 # Real customs engine lexicon namespace (verified to exist on disk):
-#   00-contracts/lexicons/app/etzhayyim/gftd/apps/customsClearance/lodgeDeclaration.json
-# NOT the non-existent app.etzhayyim.apps.customsClearance.* (that path has no lexicon).
-_CUSTOMS_ENGINE = "app.etzhayyim.gftd.apps.customsClearance"
-_CUSTOMS_BPMN = "00-contracts/bpmn/app/etzhayyim/open-customs-clearance"
+#   00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/lodgeDeclaration.json
+# NOT the non-existent com.etzhayyim.apps.customsClearance.* (that path has no lexicon).
+_CUSTOMS_ENGINE = "com.etzhayyim.gftd.apps.customsClearance"
+_CUSTOMS_BPMN = "00-contracts/bpmn/com/etzhayyim/open-customs-clearance"
 
 
 class OutboundLogisticsCell:
@@ -167,7 +167,7 @@ class OutboundLogisticsCell:
             phase="carrier_bound",
             carrierClass=requested,
             transportMode=mode,
-            # G13: telemetry envelope is encrypted (app.etzhayyim.encrypted.*);
+            # G13: telemetry envelope is encrypted (com.etzhayyim.encrypted.*);
             # no weaponization payload is ever attached to the carriage.
             telemetryEncrypted=True,
             weaponizationPayload=False,
@@ -180,8 +180,8 @@ class OutboundLogisticsCell:
 
         For cross-border legs, build the lodgeDeclaration input + the expected
         releaseShipment handle against the REAL customs engine
-        app.etzhayyim.gftd.apps.customsClearance.* (open-customs-clearance BPMN);
-        the previously-hardcoded app.etzhayyim.apps.customsClearance.* namespace
+        com.etzhayyim.gftd.apps.customsClearance.* (open-customs-clearance BPMN);
+        the previously-hardcoded com.etzhayyim.apps.customsClearance.* namespace
         does NOT exist on disk and is corrected here. The lodgeDeclaration record
         conforms to that lexicon's required fields (declarationId, hsCode,
         declaredValueUsd, lodgedAt). Domestic legs skip customs but record the
@@ -207,7 +207,7 @@ class OutboundLogisticsCell:
                 state.get("lodgedAt", os_.get("recordedAt", "")) or os_["manifestId"]
             )
             customs = {
-                # input contract: app.etzhayyim.gftd.apps.customsClearance.lodgeDeclaration
+                # input contract: com.etzhayyim.gftd.apps.customsClearance.lodgeDeclaration
                 # (conforms to lodgeDeclaration.json required: declarationId,
                 #  hsCode, declaredValueUsd, lodgedAt).
                 "lodgeDeclaration": {
@@ -246,7 +246,7 @@ class OutboundLogisticsCell:
             "origin": origin,
             "destination": os_["consigneeDid"],
             "waypoints": list(state.get("waypoints", [])),
-            "telemetryChannel": "app.etzhayyim.encrypted.telemetry",  # G13 encrypted
+            "telemetryChannel": "com.etzhayyim.encrypted.telemetry",  # G13 encrypted
         }
         os_.update(phase="route_planned", routeRequest=route, originSite=origin, completionPct=80)
         return {**state, "outbound_state": os_, "next_node": "emit_manifest"}
@@ -254,14 +254,14 @@ class OutboundLogisticsCell:
     def _emit_manifest(self, state: dict[str, Any]) -> dict[str, Any]:
         """ROUTE_PLANNED → COMPLETE: build the outboundManifest record.
 
-        Returns the app.etzhayyim.himawari.outboundManifest record. The Pregel
+        Returns the com.etzhayyim.himawari.outboundManifest record. The Pregel
         runtime persists it to the kotoba Datom log (EAVT) + MST per the
         manifest's lexicon declaration; this cell returns it in-state so the
         record is testable without a host binding.
         """
         os_ = dict(state["outbound_state"])
         record = {
-            "$type": "app.etzhayyim.himawari.outboundManifest",
+            "$type": "com.etzhayyim.himawari.outboundManifest",
             "manifestId": os_["manifestId"],
             # recordedAt + loadingId: lexicon-required, threaded through from input.
             "recordedAt": os_.get("recordedAt", ""),
@@ -277,7 +277,7 @@ class OutboundLogisticsCell:
             # G13 invariants surfaced on the record for on-chain audit.
             "telemetryEncrypted": os_["telemetryEncrypted"],
             "telemetryChannel": os_["routeRequest"].get(
-                "telemetryChannel", "app.etzhayyim.encrypted.telemetry"
+                "telemetryChannel", "com.etzhayyim.encrypted.telemetry"
             ),
             "weaponizationPayload": os_["weaponizationPayload"],
             # attestingRobots: array of #robotSignature objects (NOT flat DID/name

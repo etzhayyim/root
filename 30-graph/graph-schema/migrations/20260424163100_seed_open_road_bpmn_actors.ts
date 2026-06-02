@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-road.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-road";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-road-define-road-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-road-define-road-v1",
     bpmnProcessId: "open_road_define_road",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-road/defineRoad.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-road-report-incident-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-road/defineRoad.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-road-report-incident-v1",
     bpmnProcessId: "open_road_report_incident",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-road/reportIncident.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-road/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-road-defineRoad-v1",
-    nsid: "app.etzhayyim.apps.openRoad.defineRoad", bpmnProcessId: "open_road_define_road",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-road-defineRoad-v1",
+    nsid: "com.etzhayyim.apps.openRoad.defineRoad", bpmnProcessId: "open_road_define_road",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-road-reportIncident-v1",
-    nsid: "app.etzhayyim.apps.openRoad.reportIncident", bpmnProcessId: "open_road_report_incident",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-road-reportIncident-v1",
+    nsid: "com.etzhayyim.apps.openRoad.reportIncident", bpmnProcessId: "open_road_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

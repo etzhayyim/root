@@ -14,7 +14,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const NSID_PREFIX = "app.etzhayyim.apps.nist.";
+const NSID_PREFIX = "com.etzhayyim.apps.nist.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -26,7 +26,7 @@ export default {
         nanoid: env.APP_NANOID ?? "n1st0csf",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/nist.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/nist",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/nist",
       });
     }
 

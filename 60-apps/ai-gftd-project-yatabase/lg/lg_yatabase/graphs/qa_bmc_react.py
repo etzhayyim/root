@@ -7,7 +7,7 @@ the only node that invokes the write path (but skips persistence).
 ReAct loop:
   probe_canvas → probe_hypotheses → run_bmc_dry → analyze_bmc → build_bmc_report
 
-NSID: app.etzhayyim.apps.yata.lg.qaBmc.run
+NSID: com.etzhayyim.apps.yata.lg.qaBmc.run
 Graph ID: qa_bmc_react
 Triggered: manually or as post-deploy gate
 

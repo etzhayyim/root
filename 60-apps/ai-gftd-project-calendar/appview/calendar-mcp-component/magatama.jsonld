@@ -86,8 +86,8 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.calendar.event",
-        "ai.gftd.apps.calendar.reminder"
+        "com.etzhayyim.apps.calendar.event",
+        "com.etzhayyim.apps.calendar.reminder"
       ]
     }
   },

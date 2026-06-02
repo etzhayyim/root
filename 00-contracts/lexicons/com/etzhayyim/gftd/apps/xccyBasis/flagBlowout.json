@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.xccyBasis.flagBlowout",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Basis blowout / funding squeeze (bridges treasuryMarketStress.flagFedIntervention + liquidity-facility + nbfi-stress)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "snapshotVid",
+            "regime",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "snapshotVid": {
+              "type": "string",
+              "description": "bridges recordBasisPoint"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "fed_restraint",
+                "dollar_shortage",
+                "japanese_qe_side_effect",
+                "year_end_squeeze",
+                "offshore_cny_stress",
+                "em_stress",
+                "qe_tapering",
+                "repo_spike",
+                "stigma_borrowing",
+                "fima_non_activation",
+                "currency_war"
+              ]
+            },
+            "peakBasisBps": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

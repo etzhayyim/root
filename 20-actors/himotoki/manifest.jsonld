@@ -9,8 +9,8 @@
   "displayName": "繙き — Active Disclosure-Request Filer",
   "displayNameJa": "繙き",
   "displayNameEn": "Himotoki",
-  "description": "kotoba-native ACTIVE disclosure-request substrate. The outbound counterpart to the passive-only danjo/tadori: himotoki EXERCISES A RIGHT OF ACCESS. It files (a) data-subject access / 個人情報開示請求 (APPI §33 / GDPR Art.15 / CCPA) to private controllers (Discord / Google / LINE / Meta / Amazon …) on behalf of CONSENTING members for their OWN data, and (b) freedom-of-information / 行政文書開示請求 (行政機関情報公開法 / FOIA) to public organs. Carries a CODED target registry (disclosureTarget) of each organization's 窓口 / 住所 / 連絡先 / メールアドレス / portal / 手続き / fee / statutory deadline so the actor can route + file procedurally. Tracks deadlines, routes lawful appeals, and custodies responses — disclosed PII lands ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (G6). Consent-gated own-data-only (G3), transparent + non-pretextual (G4), UPL-equivalent (G5), rate-limited / non-vexatious (G8), lawful-channel-only (G10), dispatch ONLY against a verified target (G14), Murakumo-only (G7), Transparent Religious Force discipline (G11). 7 cells / 5 Lexicons / 14 gates / 13 non-goals.",
-  "descriptionJa": "kotoba-native の能動的 情報開示請求 substrate。受動限定の danjo/tadori とは逆向き — himotoki は『閲覧の権利』を行使する。(a) 同意した信者の本人データに対する 個人情報開示請求 (APPI §33 / GDPR Art.15 / CCPA) を民間 controller (Discord / Google / LINE / Meta / Amazon …) に提出し、(b) 行政文書開示請求 (行政機関情報公開法 / FOIA) を公的機関に提出する。各組織の 窓口 / 住所 / 連絡先 / メールアドレス / portal / 手続き / 手数料 / 法定期限 を コード化した target registry (disclosureTarget) を保持し、手続きを actor が遂行できるようにする。法定期限 tracking・適法な不服申立 routing・回答の custody を行う — 開示された個人データは app.etzhayyim.encrypted.* の DID-bound 暗号 envelope にのみ格納 (G6, 平文 PII を MST に置かない)。同意必須・本人データ限定 (G3)、透明かつ pretext 禁止 (G4)、UPL 等価 (G5; 法的助言は chigiri + 外部 counsel)、レート制限・濫用請求禁止 (G8)、適法 channel のみ (G10)、検証済 target のみ dispatch (G14)、Murakumo-only 推論 (G7)、Transparent Religious Force 規律 (G11)。日本先行 (R0); architecture は jurisdiction 汎用。7 cells / 5 Lexicons / 14 gates / 13 non-goals。",
+  "description": "kotoba-native ACTIVE disclosure-request substrate. The outbound counterpart to the passive-only danjo/tadori: himotoki EXERCISES A RIGHT OF ACCESS. It files (a) data-subject access / 個人情報開示請求 (APPI §33 / GDPR Art.15 / CCPA) to private controllers (Discord / Google / LINE / Meta / Amazon …) on behalf of CONSENTING members for their OWN data, and (b) freedom-of-information / 行政文書開示請求 (行政機関情報公開法 / FOIA) to public organs. Carries a CODED target registry (disclosureTarget) of each organization's 窓口 / 住所 / 連絡先 / メールアドレス / portal / 手続き / fee / statutory deadline so the actor can route + file procedurally. Tracks deadlines, routes lawful appeals, and custodies responses — disclosed PII lands ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (G6). Consent-gated own-data-only (G3), transparent + non-pretextual (G4), UPL-equivalent (G5), rate-limited / non-vexatious (G8), lawful-channel-only (G10), dispatch ONLY against a verified target (G14), Murakumo-only (G7), Transparent Religious Force discipline (G11). 7 cells / 5 Lexicons / 14 gates / 13 non-goals.",
+  "descriptionJa": "kotoba-native の能動的 情報開示請求 substrate。受動限定の danjo/tadori とは逆向き — himotoki は『閲覧の権利』を行使する。(a) 同意した信者の本人データに対する 個人情報開示請求 (APPI §33 / GDPR Art.15 / CCPA) を民間 controller (Discord / Google / LINE / Meta / Amazon …) に提出し、(b) 行政文書開示請求 (行政機関情報公開法 / FOIA) を公的機関に提出する。各組織の 窓口 / 住所 / 連絡先 / メールアドレス / portal / 手続き / 手数料 / 法定期限 を コード化した target registry (disclosureTarget) を保持し、手続きを actor が遂行できるようにする。法定期限 tracking・適法な不服申立 routing・回答の custody を行う — 開示された個人データは com.etzhayyim.encrypted.* の DID-bound 暗号 envelope にのみ格納 (G6, 平文 PII を MST に置かない)。同意必須・本人データ限定 (G3)、透明かつ pretext 禁止 (G4)、UPL 等価 (G5; 法的助言は chigiri + 外部 counsel)、レート制限・濫用請求禁止 (G8)、適法 channel のみ (G10)、検証済 target のみ dispatch (G14)、Murakumo-only 推論 (G7)、Transparent Religious Force 規律 (G11)。日本先行 (R0); architecture は jurisdiction 汎用。7 cells / 5 Lexicons / 14 gates / 13 non-goals。",
   "adr": {
     "master": "etzhayyim:adr:2605302130",
     "parent": "etzhayyim:adr:2605262700",
@@ -24,7 +24,7 @@
   "posture": "ACTIVE-OUTBOUND (narrowly-gated exception to the passive-only norm; see G3/G4/G8/G10/G14)",
   "crossActorBoundary": [
     "did:web:chigiri.etzhayyim.com (BOUNDARY: chigiri = procedure TEMPLATES + legal characterization + UPL routing + appeal procedure [data_privacy cell]; himotoki = the ACTIVE filer + deadline tracker + encrypted response custodian. himotoki pulls templates from chigiri; ADR-2605262700)",
-    "app.etzhayyim.encrypted.* (disclosed PII lands ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100)",
+    "com.etzhayyim.encrypted.* (disclosed PII lands ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100)",
     "did:web:manimani.etzhayyim.com (a member's OWN disclosed data, decrypted by the member, may be ingested into that member's personal knowledge graph with consent; ADR-2605291100)",
     "did:web:danjo.etzhayyim.com (FOIA-obtained PUBLIC administrative documents [non-PII] may feed danjo's open-government corpus; PII NEVER flows to danjo; ADR-2605301600)",
     "did:web:ossekai.etzhayyim.com (aggregate publication of FOIA-obtained public records [non-PII] via §1.12 path; ADR-2605264000)",
@@ -33,15 +33,15 @@
     "kotoba QuadStore EAVT (request-lifecycle + registry datoms; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "lexiconReadAccess": {
-    "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for resolving a controller's identity in the target registry. CC0 1.0.",
-    "app.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY parent-subsidiary resolution (e.g. which legal entity is the controller for a product)."
+    "com.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for resolving a controller's identity in the target registry. CC0 1.0.",
+    "com.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY parent-subsidiary resolution (e.g. which legal entity is the controller for a product)."
   },
   "form": "任意団体 internal member-service substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a law firm — UPL boundary G5)",
   "constitutionalDiscipline": {
     "consentGatedOwnDataOnly": "G3 — DSAR is member-initiated with explicit consent + Adherent-SBT/DID binding and ONLY for the member's OWN personal data; NEVER a third party's PII; NEVER on behalf of a non-consenting person.",
     "transparentNonPretext": "G4 — every request identifies the TRUE requester; no sockpuppet / pretext / false identity / social-engineering / impersonation (§2(c) covert-ops avoidance).",
     "uplEquivalent": "G5 — himotoki files + tracks + custodies; renders NO legal advice; procedure templates + legal characterization + appeal strategy via chigiri + external counsel (Public Fund Council Lv6+).",
-    "piiConfidentiality": "G6 — disclosed personal data lands ONLY in app.etzhayyim.encrypted.* (XChaCha20-Poly1305, DID-bound to the requesting member; ADR-2605181100); NEVER plaintext PII on MST; member holds decryption capability.",
+    "piiConfidentiality": "G6 — disclosed personal data lands ONLY in com.etzhayyim.encrypted.* (XChaCha20-Poly1305, DID-bound to the requesting member; ADR-2605181100); NEVER plaintext PII on MST; member holds decryption capability.",
     "rateLimitedNonVexatious": "G8 — purpose-bound; one request per genuine need; no automated mass-filing / bulk enumeration / request-flooding; per-target + per-member rate caps; over-threshold Council-reviewed.",
     "noDataBroker": "G9 — no resale / commercialization of disclosed data; no paid pretext / disclosure-mill for third parties (Charter Rider §2(e)).",
     "lawfulChannelOnly": "G10 — only mutation of external state is a LAWFUL request through an OFFICIAL channel; never alters target records; never unauthorized access; never circumvents access controls / paywalls / rate limits.",
@@ -69,7 +69,7 @@
     ]
   },
   "codedTargetRegistry": {
-    "description": "The user's explicit requirement (2026-05-30): every organization's 窓口 / 住所 / 連絡先 / メールアドレス / 手続き encoded so the actor can file procedurally. Lives as app.etzhayyim.himotoki.disclosureTarget records; seed at registry/targets.seed.json.",
+    "description": "The user's explicit requirement (2026-05-30): every organization's 窓口 / 住所 / 連絡先 / メールアドレス / 手続き encoded so the actor can file procedurally. Lives as com.etzhayyim.himotoki.disclosureTarget records; seed at registry/targets.seed.json.",
     "seedFile": "/20-actors/himotoki/registry/targets.seed.json",
     "seedTargets": ["Discord", "Google/Alphabet", "LY Corporation (LINE)", "Meta", "Amazon (incl. amazon.co.jp)", "日本国 行政機関 template (行政文書開示請求)"],
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live dispatch until maintainer-verified/council-verified within freshnessWindowDays."
@@ -84,11 +84,11 @@
     {"name": "appeal_route", "module": "magatama.cells.himotoki_appeal_route", "murakumoNode": "naphtali", "phase": "event", "io": "non/partial disclosure → lawful appeal via chigiri (審査請求 / DPA complaint / FOIA appeal) → appealRecord"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.himotoki.disclosureTarget",
-    "app.etzhayyim.himotoki.disclosureRequest",
-    "app.etzhayyim.himotoki.requestDispatch",
-    "app.etzhayyim.himotoki.disclosureResponse",
-    "app.etzhayyim.himotoki.appealRecord"
+    "com.etzhayyim.himotoki.disclosureTarget",
+    "com.etzhayyim.himotoki.disclosureRequest",
+    "com.etzhayyim.himotoki.requestDispatch",
+    "com.etzhayyim.himotoki.disclosureResponse",
+    "com.etzhayyim.himotoki.appealRecord"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605302130 §4. Council Lv6+ supermajority + new ADR to amend.",
@@ -98,7 +98,7 @@
       "G3": "Consent-gated + identity-bound — DSAR is member-initiated, consent + Adherent-SBT/DID bound, OWN data only; never a third party's PII; never a non-consenting person",
       "G4": "Transparent + non-pretextual — true requester always identified; no sockpuppet / pretext / impersonation / social-engineering (§2(c))",
       "G5": "UPL-equivalent — files + tracks; no legal advice; characterization + appeal strategy via chigiri + external counsel (Public Fund)",
-      "G6": "PII confidentiality mandatory — disclosed personal data ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext PII on MST",
+      "G6": "PII confidentiality mandatory — disclosed personal data ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext PII on MST",
       "G7": "Murakumo-only inference (ADR-2605215000)",
       "G8": "Rate-limited / non-vexatious — no mass-filing / bulk enumeration / request-flooding; per-target + per-member rate caps",
       "G9": "No data-broker / no pretext-as-a-service — no resale of disclosed data; non-profit + member-benefit only",

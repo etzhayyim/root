@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.tenso.createTransfer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "recipientDid": {
+              "type": "integer"
+            },
+            "filename": {
+              "type": "string"
+            },
+            "mimeType": {
+              "type": "string"
+            },
+            "encryptedManifest": {
+              "type": "string"
+            },
+            "sizeBytes": {
+              "type": "number"
+            },
+            "chunkCount": {
+              "type": "number"
+            },
+            "expireHours": {
+              "type": "number"
+            },
+            "maxDownloads": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "recipientDid",
+            "filename",
+            "encryptedManifest"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "transferId": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "expireAt": {
+              "type": "string"
+            },
+            "chunkCount": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -25,13 +25,13 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.drive.file",
-        "ai.gftd.apps.drive.folder",
-        "ai.gftd.apps.drive.fileShare",
-        "ai.gftd.apps.drive.fileDeletion",
-        "ai.gftd.apps.drive.fileMove",
-        "ai.gftd.apps.drive.fileStatusUpdate",
-        "ai.gftd.apps.drive.fileLocationUpdate"
+        "com.etzhayyim.apps.drive.file",
+        "com.etzhayyim.apps.drive.folder",
+        "com.etzhayyim.apps.drive.fileShare",
+        "com.etzhayyim.apps.drive.fileDeletion",
+        "com.etzhayyim.apps.drive.fileMove",
+        "com.etzhayyim.apps.drive.fileStatusUpdate",
+        "com.etzhayyim.apps.drive.fileLocationUpdate"
       ]
     }
   },

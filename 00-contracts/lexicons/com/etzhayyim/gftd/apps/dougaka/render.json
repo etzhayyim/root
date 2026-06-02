@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dougaka.render",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Render a yukkuri video from timeline JSON. Generates scene images via ComfyUI, assembles mp4 with ffmpeg, uploads to B2. Returns blobKey and url when complete.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["videoId", "timeline"],
+          "properties": {
+            "videoId": { "type": "string", "description": "yukkuri video rkey" },
+            "timeline": {
+              "type": "ref",
+              "ref": "#timeline"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["videoId", "status"],
+          "properties": {
+            "videoId": { "type": "string" },
+            "blobKey": { "type": "string" },
+            "blobUrl": { "type": "string" },
+            "status": { "type": "string", "description": "done | error" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "videoId": { "type": "string" },
+        "scenes": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "#scene" }
+        },
+        "lines": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "#line" }
+        },
+        "assets": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "#asset" }
+        },
+        "format": { "type": "string", "default": "mp4" },
+        "resolution": { "type": "string", "default": "1280x720" },
+        "fps": { "type": "integer", "default": 30 }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "required": ["index"],
+      "properties": {
+        "index": { "type": "integer" },
+        "location": { "type": "string" },
+        "action": { "type": "string" }
+      }
+    },
+    "line": {
+      "type": "object",
+      "required": ["sceneIndex", "lineIndex"],
+      "properties": {
+        "sceneIndex": { "type": "integer" },
+        "lineIndex": { "type": "integer" },
+        "speaker": { "type": "string" },
+        "text": { "type": "string" },
+        "emotion": { "type": "string" },
+        "voiceBlobKey": { "type": "string", "description": "B2 SHA-256 key for voice WAV" }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "description": "bgm | sfx | character | image" },
+        "blobKey": { "type": "string" },
+        "meta": { "type": "unknown" }
+      }
+    }
+  }
+}

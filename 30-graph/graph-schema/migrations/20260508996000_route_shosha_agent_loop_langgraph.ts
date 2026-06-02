@@ -4,7 +4,7 @@
  * The shosha_agent_loop graph is already registered in langgraph_server_app.
  * This migration switches only the interactive XRPC binding:
  *
- *   app.etzhayyim.apps.shosha.agentLoop -> assistant_id "shosha_agent_loop"
+ *   com.etzhayyim.apps.shosha.agentLoop -> assistant_id "shosha_agent_loop"
  *
  * Other shosha write/check bindings remain on Zeebe until each graph has a
  * dedicated LangGraph replacement and rollout evidence.
@@ -15,7 +15,7 @@ const ownerDid = "did:web:shosha.etzhayyim.com";
 const actorTag = "sys.bpmn.route.shosha.langgraph";
 const createdAt = "2026-05-08T09:56:00Z";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-agentLoop-langgraph-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-agentLoop-langgraph-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
@@ -24,7 +24,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         bpmn_version = 1,
         result_timeout_ms = CAST(120000 AS integer),
         routing_target = 'langgraph'
-    WHERE nsid = 'app.etzhayyim.apps.shosha.agentLoop'
+    WHERE nsid = 'com.etzhayyim.apps.shosha.agentLoop'
       AND status = 'active'
   `.execute(db);
 
@@ -35,7 +35,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        org_id, user_id, actor_id, routing_target)
     SELECT
       ${bindingVertexId}, ${ownerDid},
-      'app.etzhayyim.apps.shosha.agentLoop',
+      'com.etzhayyim.apps.shosha.agentLoop',
       'shosha_agent_loop',
       1,
       CAST(120000 AS integer),
@@ -44,7 +44,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'langgraph'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding
-      WHERE nsid = 'app.etzhayyim.apps.shosha.agentLoop'
+      WHERE nsid = 'com.etzhayyim.apps.shosha.agentLoop'
         AND status = 'active'
     )
   `.execute(db);
@@ -62,7 +62,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
         bpmn_version = 1,
         result_timeout_ms = CAST(60000 AS integer),
         routing_target = 'zeebe'
-    WHERE nsid = 'app.etzhayyim.apps.shosha.agentLoop'
+    WHERE nsid = 'com.etzhayyim.apps.shosha.agentLoop'
       AND status = 'active'
   `.execute(db);
 }

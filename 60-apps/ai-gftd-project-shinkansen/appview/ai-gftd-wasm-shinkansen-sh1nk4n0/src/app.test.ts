@@ -130,7 +130,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
 
   describe("Queries", () => {
     it("listLines returns all 8 shinkansen lines", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.listLines");
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.listLines");
       expect(result.lines).toBeDefined();
       expect(Array.isArray(result.lines)).toBe(true);
       const lines = result.lines as any[];
@@ -147,7 +147,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
     });
 
     it("searchRoute returns routes array", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.searchRoute", {
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.searchRoute", {
         from: "東京", to: "新大阪", date: "2026-04-20",
       });
       expect(result).toHaveProperty("routes");
@@ -155,14 +155,14 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
     });
 
     it("checkAvailability returns availability array", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.checkAvailability", {
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.checkAvailability", {
         trainNumber: "のぞみ1号", date: "2026-04-20",
       });
       expect(result).toHaveProperty("availability");
     });
 
     it("compareFare returns fares with cheapest", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.compareFare", {
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.compareFare", {
         from: "東京", to: "新大阪", date: "2026-04-20",
       });
       expect(result).toHaveProperty("fares");
@@ -170,21 +170,21 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
     });
 
     it("getReservation returns not found for unknown ID", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.getReservation", {
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.getReservation", {
         reservationId: "nonexistent",
       });
       expect(result.error).toBe("not found");
     });
 
     it("listReservations returns with offset/limit", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.listReservations", {});
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.listReservations", {});
       expect(result).toHaveProperty("reservations");
       expect(result).toHaveProperty("offset");
       expect(result).toHaveProperty("limit");
     });
 
     it("getOperation returns operations array", async () => {
-      const result = await invokeQuery("app.etzhayyim.apps.shinkansen.getOperation", {});
+      const result = await invokeQuery("com.etzhayyim.apps.shinkansen.getOperation", {});
       expect(result).toHaveProperty("operations");
     });
   });
@@ -193,7 +193,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
 
   describe("Commands", () => {
     it("createReservation writes reservation record", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.shinkansen.createReservation", {
+      const result = await invokeCommand("com.etzhayyim.apps.shinkansen.createReservation", {
         trainNumber: "のぞみ1号",
         departureStation: "東京",
         arrivalStation: "新大阪",
@@ -205,7 +205,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       });
       expect(result.reservationId).toBeDefined();
       expect(result.status).toBe("confirmed");
-      const written = writtenRecords.find((r) => r.collection === "app.etzhayyim.apps.shinkansen.reservation");
+      const written = writtenRecords.find((r) => r.collection === "com.etzhayyim.apps.shinkansen.reservation");
       expect(written).toBeDefined();
       expect(written!.record.trainNumber).toBe("のぞみ1号");
       expect(written!.record.departureStation).toBe("東京");
@@ -215,7 +215,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
     });
 
     it("cancelReservation writes cancelled record", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.shinkansen.cancelReservation", {
+      const result = await invokeCommand("com.etzhayyim.apps.shinkansen.cancelReservation", {
         reservationId: "rsv-test123",
         reason: "schedule change",
       });
@@ -227,7 +227,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
     });
 
     it("selectSeat writes seat assignment", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.shinkansen.selectSeat", {
+      const result = await invokeCommand("com.etzhayyim.apps.shinkansen.selectSeat", {
         reservationId: "rsv-test123",
         carNumber: 7,
         seatNumber: "3A",
@@ -239,7 +239,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
     });
 
     it("reportOperation writes operation status", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.shinkansen.reportOperation", {
+      const result = await invokeCommand("com.etzhayyim.apps.shinkansen.reportOperation", {
         lineId: "tokaido",
         status: "delay",
         detail: "強風のため15分遅延",
@@ -248,24 +248,24 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       });
       expect(result.lineId).toBe("tokaido");
       expect(result.status).toBe("delay");
-      const written = writtenRecords.find((r) => r.collection === "app.etzhayyim.apps.shinkansen.operation");
+      const written = writtenRecords.find((r) => r.collection === "com.etzhayyim.apps.shinkansen.operation");
       expect(written).toBeDefined();
       expect(written!.record.lineName).toBe("東海道新幹線");
     });
 
     it("seedTimetable writes timetable record", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.shinkansen.seedTimetable", {
+      const result = await invokeCommand("com.etzhayyim.apps.shinkansen.seedTimetable", {
         lineId: "tohoku",
       });
       expect(result.lineId).toBe("tohoku");
       expect(result.status).toBe("seeded");
-      const written = writtenRecords.find((r) => r.collection === "app.etzhayyim.apps.shinkansen.timetable");
+      const written = writtenRecords.find((r) => r.collection === "com.etzhayyim.apps.shinkansen.timetable");
       expect(written).toBeDefined();
       expect(written!.record.lineName).toBe("東北新幹線");
     });
 
     it("seedTimetable returns error for unknown line", async () => {
-      const result = await invokeCommand("app.etzhayyim.apps.shinkansen.seedTimetable", {
+      const result = await invokeCommand("com.etzhayyim.apps.shinkansen.seedTimetable", {
         lineId: "nonexistent",
       });
       expect(result.error).toContain("unknown line");
@@ -279,7 +279,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       await commitFn(
         {
           action: "create",
-          collection: "app.etzhayyim.apps.calendar.event",
+          collection: "com.etzhayyim.apps.calendar.event",
           recordJson: JSON.stringify({ title: "大阪出張" }),
         },
         sdk,
@@ -292,7 +292,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       await commitFn(
         {
           action: "create",
-          collection: "app.etzhayyim.apps.calendar.event",
+          collection: "com.etzhayyim.apps.calendar.event",
           recordJson: JSON.stringify({ title: "新幹線で京都へ" }),
         },
         sdk,
@@ -305,7 +305,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       await commitFn(
         {
           action: "create",
-          collection: "app.etzhayyim.apps.calendar.event",
+          collection: "com.etzhayyim.apps.calendar.event",
           recordJson: JSON.stringify({ title: "チーム定例" }),
         },
         sdk,
@@ -317,7 +317,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       await commitFn(
         {
           action: "create",
-          collection: "app.etzhayyim.apps.shinkansen.operation",
+          collection: "com.etzhayyim.apps.shinkansen.operation",
           recordJson: JSON.stringify({ lineName: "東海道新幹線", status: "delay", detail: "強風15分遅延" }),
         },
         sdk,
@@ -331,7 +331,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       await commitFn(
         {
           action: "create",
-          collection: "app.etzhayyim.apps.shinkansen.operation",
+          collection: "com.etzhayyim.apps.shinkansen.operation",
           recordJson: JSON.stringify({ lineName: "東海道新幹線", status: "normal", detail: "平常運転" }),
         },
         sdk,
@@ -343,7 +343,7 @@ describe("Shinkansen Reservation Intelligence — Integration Tests", () => {
       await commitFn(
         {
           action: "delete",
-          collection: "app.etzhayyim.apps.shinkansen.operation",
+          collection: "com.etzhayyim.apps.shinkansen.operation",
           recordJson: JSON.stringify({ lineName: "東海道新幹線", status: "delay", detail: "test" }),
         },
         sdk,

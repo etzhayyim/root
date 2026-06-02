@@ -5,7 +5,7 @@ Per ADR-2605312700 (兆 kizashi). Cell §3 #1; Murakumo node `naphtali`.
 Purpose: orchestrate a non-invasive multimodal scan session — verify per-scan
 consent, drive per-modality capture (R0..R2: non-ionizing non-regulated only),
 emit the encrypted session attestation. Emits
-`app.etzhayyim.kizashi.scanSessionAttestation`.
+`com.etzhayyim.kizashi.scanSessionAttestation`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G2 biometric scan = 要配慮 PII,
 encrypted envelope MANDATORY (ADR-2605181100), 30-day rotating pseudonym DID
@@ -13,7 +13,7 @@ encrypted envelope MANDATORY (ADR-2605181100), 30-day rotating pseudonym DID
 (default-deny, revocable; minors via guardian + hagukumi); G4 R0..R2 admit only
 non-ionizing non-regulated modalities (regulated = R3 licensed pathway);
 G11 real member scans require Council + licensed oversight + R3.
-Output Lexicon(s): app.etzhayyim.kizashi.scanSessionAttestation.
+Output Lexicon(s): com.etzhayyim.kizashi.scanSessionAttestation.
 
 R0 scaffold — import-time RuntimeError until R2.
 """

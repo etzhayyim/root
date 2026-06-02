@@ -3,9 +3,9 @@
 // Mirror of shinshi-mcp.ts pattern for the SES 案件 AppView.
 
 export const SES_MCP_TOOLS = {
-  listAnken: 'app.etzhayyim.apps.ses.listAnken',
-  getAnken: 'app.etzhayyim.apps.ses.getAnken',
-  listJokyo: 'app.etzhayyim.apps.ses.listJokyo',
+  listAnken: 'com.etzhayyim.apps.ses.listAnken',
+  getAnken: 'com.etzhayyim.apps.ses.getAnken',
+  listJokyo: 'com.etzhayyim.apps.ses.listJokyo',
 } as const;
 
 export type SesMcpToolName = typeof SES_MCP_TOOLS[keyof typeof SES_MCP_TOOLS];

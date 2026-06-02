@@ -45,15 +45,15 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.copyright.work",
-        "ai.gftd.apps.copyright.rightsHolder",
-        "ai.gftd.apps.copyright.registration",
-        "ai.gftd.apps.copyright.license",
-        "ai.gftd.apps.copyright.doi",
-        "ai.gftd.apps.copyright.isbn",
-        "ai.gftd.apps.copyright.isrc",
-        "ai.gftd.apps.copyright.iswc",
-        "ai.gftd.apps.copyright.coverageReport"
+        "com.etzhayyim.apps.copyright.work",
+        "com.etzhayyim.apps.copyright.rightsHolder",
+        "com.etzhayyim.apps.copyright.registration",
+        "com.etzhayyim.apps.copyright.license",
+        "com.etzhayyim.apps.copyright.doi",
+        "com.etzhayyim.apps.copyright.isbn",
+        "com.etzhayyim.apps.copyright.isrc",
+        "com.etzhayyim.apps.copyright.iswc",
+        "com.etzhayyim.apps.copyright.coverageReport"
       ]
     }
   },

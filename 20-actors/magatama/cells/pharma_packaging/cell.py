@@ -19,7 +19,7 @@ Pregel graph (4 nodes):
                                         厚紙箱 fold + 添付文書 insert + outer carton
         |
         v
-    emit_lot_attest               ->  MST PUT app.etzhayyim.pharma.lotAttestation
+    emit_lot_attest               ->  MST PUT com.etzhayyim.pharma.lotAttestation
                                       (full attestation chain: raw material CIDs →
                                        synthesis CIDs → purification CIDs → QC CID →
                                        fill-finish CID → label / packaging CIDs)

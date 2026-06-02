@@ -107,7 +107,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     en.robotSignatures = mock_sigs
     en.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.futawa.engineAttestation",
+        "$type": "com.etzhayyim.futawa.engineAttestation",
         "vehicleId": en.vehicleId,
         "powerplant": en.powerplant,
         "caseBlock": en.caseBlock,

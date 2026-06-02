@@ -73,15 +73,15 @@
     {"name": "vin_attestation_binder", "module": "sarutahiko.cells.vin_attestation_binder", "murakumoNode": "judah", "phase": "terminal — per-VIN yatachain anchor (G2 + G13)"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.sarutahiko.frameAttestation",
-    "app.etzhayyim.sarutahiko.powertrainAttestation",
-    "app.etzhayyim.sarutahiko.cabBodyAttestation",
-    "app.etzhayyim.sarutahiko.marriageAttestation",
-    "app.etzhayyim.sarutahiko.paintAttestation",
-    "app.etzhayyim.sarutahiko.electricalAttestation",
-    "app.etzhayyim.sarutahiko.roadTestRecord",
-    "app.etzhayyim.sarutahiko.emissionsAuditRecord",
-    "app.etzhayyim.sarutahiko.silenVehicleReview"
+    "com.etzhayyim.sarutahiko.frameAttestation",
+    "com.etzhayyim.sarutahiko.powertrainAttestation",
+    "com.etzhayyim.sarutahiko.cabBodyAttestation",
+    "com.etzhayyim.sarutahiko.marriageAttestation",
+    "com.etzhayyim.sarutahiko.paintAttestation",
+    "com.etzhayyim.sarutahiko.electricalAttestation",
+    "com.etzhayyim.sarutahiko.roadTestRecord",
+    "com.etzhayyim.sarutahiko.emissionsAuditRecord",
+    "com.etzhayyim.sarutahiko.silenVehicleReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605252500. Changes require Council Lv6+ supermajority + new ADR.",

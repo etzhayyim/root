@@ -18,7 +18,7 @@
     "APP_HANDLE": "open-rail.etzhayyim.com",
     "PRIMARY_DID": "did:web:open-rail.etzhayyim.com",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "observability": {
     "enabled": true

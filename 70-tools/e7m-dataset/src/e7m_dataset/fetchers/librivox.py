@@ -58,7 +58,7 @@ class LibrivoxSensor:
     source_archive = "librivox.org"
 
     def latest_pin(self) -> DatasetPin:
-        """Resolve latest app.etzhayyim.substrate.datasetPin for librivox source.
+        """Resolve latest com.etzhayyim.substrate.datasetPin for librivox source.
 
         Per ADR-2605241500 + ADR-2605262400 §G7 PASSIVE-ONLY discipline.
         TODO R1.1: implement via etzhayyim_sdk.substrate.resolve_latest_dataset_pin
@@ -83,7 +83,7 @@ class LibrivoxSensor:
 
 
 def _build_pd_attestation(work_metadata: dict, snapshot_cid: str) -> dict:
-    """Build app.etzhayyim.creative.publicDomainStatusAttestation record per LibriVox work.
+    """Build com.etzhayyim.creative.publicDomainStatusAttestation record per LibriVox work.
 
     G1: per-work attestation REQUIRED.
     G2: 7-jurisdiction pessimistic threshold.
@@ -94,7 +94,7 @@ def _build_pd_attestation(work_metadata: dict, snapshot_cid: str) -> dict:
     """
     return {
         "lexicon": 1,
-        "id": "app.etzhayyim.creative.publicDomainStatusAttestation",
+        "id": "com.etzhayyim.creative.publicDomainStatusAttestation",
         "createdAt": datetime.now(UTC).isoformat(),
         "workId": f"librivox:{work_metadata['id']}",
         "modality": "audio-speech",

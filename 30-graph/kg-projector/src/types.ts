@@ -1,8 +1,8 @@
 /**
- * Record shapes matching 00-contracts/lexicons/app/etzhayyim/kg/{node,edge}.json.
+ * Record shapes matching 00-contracts/lexicons/com/etzhayyim/kg/{node,edge}.json.
  *
- * The record body is what would land in a PDS under collection app.etzhayyim.kg.node /
- * app.etzhayyim.kg.edge at rkey <rkey>. The `$type` field is set so consumers can
+ * The record body is what would land in a PDS under collection com.etzhayyim.kg.node /
+ * com.etzhayyim.kg.edge at rkey <rkey>. The `$type` field is set so consumers can
  * route on it without external schema lookup.
  */
 
@@ -14,7 +14,7 @@ export type Source =
   | "manual";
 
 export interface KgNodeRecord {
-  $type: "app.etzhayyim.kg.node";
+  $type: "com.etzhayyim.kg.node";
   nodeId: string;
   nodeType: string;
   label?: string;
@@ -25,7 +25,7 @@ export interface KgNodeRecord {
 }
 
 export interface KgEdgeRecord {
-  $type: "app.etzhayyim.kg.edge";
+  $type: "com.etzhayyim.kg.edge";
   subject: string;
   predicate: string;
   object?: string;

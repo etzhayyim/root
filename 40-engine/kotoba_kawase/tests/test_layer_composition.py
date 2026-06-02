@@ -3,7 +3,7 @@
 Asserts the layers laid down in iterations 1-6 actually compose:
 
 - Iter 1: G7 lint hook exists and is executable
-- Iter 1: 8 Lexicons live under 00-contracts/lexicons/app/etzhayyim/kawase/
+- Iter 1: 8 Lexicons live under 00-contracts/lexicons/com/etzhayyim/kawase/
 - Iter 2: ConstitutionKeys.sol carries KAWASE_MAX_BAND_BPS + KAWASE_PER_MONTH_CAP_USD_MINOR
 - Iter 3: KawaseYuiPool.sol scaffold exists and references the Constitution keys
 - Iter 4: kotoba_kawase package importable and raises NotYetImplemented on send/claim
@@ -56,7 +56,7 @@ def test_g7_lint_hook_exists_and_runs_clean() -> None:
 
 
 # ---------------------------------------------------------------------
-#  Iter 1: 8 Lexicons under app.etzhayyim.kawase.*
+#  Iter 1: 8 Lexicons under com.etzhayyim.kawase.*
 # ---------------------------------------------------------------------
 
 
@@ -73,7 +73,7 @@ _EXPECTED_LEXICONS = (
 
 
 def test_all_eight_lexicons_present() -> None:
-    base = _REPO_ROOT / "00-contracts/lexicons/app/etzhayyim/kawase"
+    base = _REPO_ROOT / "00-contracts/lexicons/com/etzhayyim/kawase"
     assert base.is_dir(), f"Lexicon dir missing at {base}"
     for name in _EXPECTED_LEXICONS:
         lex_path = base / f"{name}.json"
@@ -81,7 +81,7 @@ def test_all_eight_lexicons_present() -> None:
         # Each Lexicon parses as JSON and carries the canonical id.
         with lex_path.open() as f:
             data = json.load(f)
-        expected_id = f"app.etzhayyim.kawase.{name}"
+        expected_id = f"com.etzhayyim.kawase.{name}"
         assert data.get("id") == expected_id, (
             f"{lex_path}: id={data.get('id')!r} expected={expected_id!r}"
         )
@@ -358,7 +358,7 @@ def test_lexicon_dir_has_readme() -> None:
     """Sibling actors (wakai / chigiri / mitate) all carry a README.md
     inside their Lexicon directory. kawase parity: same convention.
     """
-    readme = _REPO_ROOT / "00-contracts/lexicons/app/etzhayyim/kawase/README.md"
+    readme = _REPO_ROOT / "00-contracts/lexicons/com/etzhayyim/kawase/README.md"
     assert readme.is_file(), f"Lexicon dir README missing: {readme}"
     text = readme.read_text(encoding="utf-8")
     # Must enumerate all 8 Lexicons + reference the master ADR.

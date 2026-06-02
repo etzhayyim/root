@@ -8,7 +8,7 @@ CREATE VIEW IF NOT EXISTS view_nace_activity AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.nace.activity';
+    WHERE collection = 'com.etzhayyim.apps.nace.activity';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('nace', 'nace.etzhayyim.com', 997, 'industries', 'governance');

@@ -3,7 +3,7 @@
 mitate is the diagnostic-routing advisory actor (ADR-2605260100): symptom intake
 → Bayesian 鑑別 advisory → test-ordering routing → treatment-plan advisory →
 longitudinal followup. It is NOT a prescriber/surgeon. Health data is PHI and MUST
-stay in the app.etzhayyim.encrypted.* envelope (ADR-2605181100); plaintext
+stay in the com.etzhayyim.encrypted.* envelope (ADR-2605181100); plaintext
 symptom/診断/検査結果 on MST is prohibited (CLAUDE.md Boundaries). This suite pins
 the schema-enforceable invariants. Mirrors the karute/kokoro/iyashi lock-in suites.
 
@@ -23,7 +23,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "mitate"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "mitate"
 _MANIFEST = _REPO / "20-actors" / "mitate" / "manifest.jsonld"
 
 # Lexicon stem → its required encrypted-envelope field (PHI content carriers).
@@ -61,7 +61,7 @@ class TestPhiEncryption:
         req = set(_rec(stem)["required"])
         assert field in req, (
             f"{stem}: {field} must be required — clinical content stays in the "
-            "app.etzhayyim.encrypted.* envelope, never plaintext on MST (ADR-2605181100)"
+            "com.etzhayyim.encrypted.* envelope, never plaintext on MST (ADR-2605181100)"
         )
 
 
@@ -76,7 +76,7 @@ class TestLexiconHygiene:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.mitate.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.mitate.{p.stem}"
 
 
 # ─── 3. manifest ↔ disk consistency (the orphan this suite closed) ──────

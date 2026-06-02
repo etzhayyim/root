@@ -82,14 +82,14 @@
     {"name": "moto_provenance_binder", "module": "magatama.cells.moto_provenance_binder", "murakumoNode": "judah", "phase": "terminal — yatachain anchoring (material lots → VIN + parts catalog + tests + hodoki pre-reg)"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.futawa.frameAttestation",
-    "app.etzhayyim.futawa.engineAttestation",
-    "app.etzhayyim.futawa.electricalAttestation",
-    "app.etzhayyim.futawa.paintAttestation",
-    "app.etzhayyim.futawa.vehicleLotAttestation",
-    "app.etzhayyim.futawa.testRecord",
-    "app.etzhayyim.futawa.partsCatalog",
-    "app.etzhayyim.futawa.silenMobilityReview"
+    "com.etzhayyim.futawa.frameAttestation",
+    "com.etzhayyim.futawa.engineAttestation",
+    "com.etzhayyim.futawa.electricalAttestation",
+    "com.etzhayyim.futawa.paintAttestation",
+    "com.etzhayyim.futawa.vehicleLotAttestation",
+    "com.etzhayyim.futawa.testRecord",
+    "com.etzhayyim.futawa.partsCatalog",
+    "com.etzhayyim.futawa.silenMobilityReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261330. 4 constitutional firsts (G7, G8, G12, G14). Changes require Council Lv6+ supermajority + new ADR.",

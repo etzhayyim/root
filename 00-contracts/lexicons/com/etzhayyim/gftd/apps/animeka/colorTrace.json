@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.colorTrace",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a color-traced / finished frame (仕上げ / 色トレス). Output of the finisher actor (AI or human). Binds to a source frame (keyframe or inbetween) and the colorModel used.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["cutRef", "frameRef", "colorLayersCid", "createdAt"],
+        "properties": {
+          "cutRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "frameRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "strongRef to com.etzhayyim.apps.animeka.keyframe or .inbetween."
+          },
+          "colorModelRefs": {
+            "type": "array",
+            "description": "Color models used for each character appearing in this frame.",
+            "items": { "type": "ref", "ref": "com.atproto.repo.strongRef" }
+          },
+          "colorLayersCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the layered color doc (base / shadow1 / shadow2 / highlight / rim)."
+          },
+          "flatCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the flattened colored frame (for preview / composite input)."
+          },
+          "method": {
+            "type": "string",
+            "enum": ["manual", "aiAutoTrace", "floodFill", "hybrid"]
+          },
+          "author": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "approved", "rejected"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

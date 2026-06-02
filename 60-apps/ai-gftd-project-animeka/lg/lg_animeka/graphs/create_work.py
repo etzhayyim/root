@@ -1,6 +1,6 @@
 """animeka `createWork` graph — insert work record into vertex_animeka.
 
-NSID: app.etzhayyim.animeka.createWork
+NSID: com.etzhayyim.animeka.createWork
 """
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ async def _node_insert(state: _CreateWorkState) -> dict[str, Any]:
     rkey = state.get("id") or _gen_rkey("work")
     slug = state.get("slug") or rkey
     owner_did = _DEFAULT_APP_DID
-    collection = "app.etzhayyim.animeka.work"
+    collection = "com.etzhayyim.animeka.work"
     vertex_id = f"at://{owner_did}/{collection}/{rkey}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
     work_status = state.get("status") or "planning"

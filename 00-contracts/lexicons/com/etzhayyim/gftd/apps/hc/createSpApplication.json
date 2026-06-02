@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hc.createSpApplication",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string"
+            },
+            "contactEmail": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "documents": {
+              "type": "string"
+            },
+            "factoryType": {
+              "type": "string"
+            },
+            "isicCodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "legalName": {
+              "type": "string"
+            },
+            "lei": {
+              "type": "string"
+            },
+            "tradeName": {
+              "type": "string"
+            },
+            "website": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "category",
+            "countryIso3",
+            "legalName"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "applicationId": {
+              "type": "integer"
+            },
+            "kycTaskId": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

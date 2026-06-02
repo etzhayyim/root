@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.commodityFlowAggregate.flagDivergence",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Paper vs physical divergence (commodity-trade vs commodity-physical-delivery)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "divergenceId",
+            "rollupVid",
+            "paperVolumeBbl",
+            "physicalVolumeBbl",
+            "divergenceRatio",
+            "flaggedAt"
+          ],
+          "properties": {
+            "divergenceId": {
+              "type": "string"
+            },
+            "rollupVid": {
+              "type": "string",
+              "description": "bridges rollupTradeWindow"
+            },
+            "paperVolumeBbl": {
+              "type": "number"
+            },
+            "physicalVolumeBbl": {
+              "type": "number"
+            },
+            "divergenceRatio": {
+              "type": "number",
+              "description": "paper/physical"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "anomalyTier": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "significant",
+                "extreme"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

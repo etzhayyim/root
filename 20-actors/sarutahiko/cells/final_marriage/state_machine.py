@@ -94,7 +94,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = MarriagePhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.sarutahiko.marriageAttestation",
+        "$type": "com.etzhayyim.sarutahiko.marriageAttestation",
         "chassisId": s.chassisId,
         "inputs": s.inputs,
         "criticalTorques": s.criticalTorques,

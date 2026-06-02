@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.dodafv2.deployView": {
+    "/xrpc/com.etzhayyim.dodafv2.deployView": {
       "post": {
         "summary": "Deploy a DoDAF v2.02 architecture view for an actor DID. References to BPMN (OV-5b/OV-6c), DMN (OV-6a), and form schemas must be via their deployed IDs (bpmnProcessKey/dmnDecisionKey/formKey).",
-        "operationId": "app.etzhayyim.dodafv2.deployView",
+        "operationId": "com.etzhayyim.dodafv2.deployView",
         "requestBody": {
           "required": true,
           "content": {
@@ -192,10 +192,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dodafv2.getView": {
+    "/xrpc/com.etzhayyim.dodafv2.getView": {
       "get": {
         "summary": "Get a deployed DoDAF v2 view by viewId (optionally scoped to DID).",
-        "operationId": "app.etzhayyim.dodafv2.getView",
+        "operationId": "com.etzhayyim.dodafv2.getView",
         "parameters": [
           {
             "name": "viewId",
@@ -278,10 +278,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dodafv2.listViews": {
+    "/xrpc/com.etzhayyim.dodafv2.listViews": {
       "get": {
         "summary": "List deployed DoDAF v2 views, optionally filtered by DID or viewpoint (AV/CV/DIV/OV/PV/SV/StdV/SvcV).",
-        "operationId": "app.etzhayyim.dodafv2.listViews",
+        "operationId": "com.etzhayyim.dodafv2.listViews",
         "parameters": [
           {
             "name": "did",
@@ -394,10 +394,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dodafv2.validateViewset": {
+    "/xrpc/com.etzhayyim.dodafv2.validateViewset": {
       "get": {
         "summary": "Validate the DoDAF v2 viewset for a DID: checks AV-1 presence, OV↔SV traceability, CV-2 ↔ capability declarations, and BPMN/DMN/form ref integrity.",
-        "operationId": "app.etzhayyim.dodafv2.validateViewset",
+        "operationId": "com.etzhayyim.dodafv2.validateViewset",
         "parameters": [
           {
             "name": "did",

@@ -41,7 +41,7 @@ statements + IANA public-domain root zone.
 # OSM runbook; not part of the canonical OSM subdataset).
 [[source]]
 subdataset    = "geo/osm/europe-liechtenstein"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/osm-li-3kxxxxxxxx"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/osm-li-3kxxxxxxxx"
 shard_glob    = "*.geojsonl"
 tier          = "A"
 license       = "ODbL-1.0"
@@ -52,7 +52,7 @@ description   = "OSM Liechtenstein — ~86K GeoJSON features (buildings, roads, 
 # Net-registry bucket — IANA root + APNIC + ARIN + RIPE + AFRINIC + LACNIC.
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/iana-root-260526"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/iana-root-260526"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -61,7 +61,7 @@ description   = "IANA root zone snapshot 2026-05-26 — 1437 TLDs ⇒ authoritat
 
 [[source]]
 subdataset    = "netreg/rir-delegated-apnic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/apnic-260526"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/apnic-260526"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -70,7 +70,7 @@ description   = "APNIC delegated stats 2026-05-26 — Asia-Pacific IPv4/IPv6/ASN
 
 [[source]]
 subdataset    = "netreg/rir-delegated-arin"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/arin-260526"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/arin-260526"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -79,7 +79,7 @@ description   = "ARIN delegated stats 2026-05-26 — North America IPv4/IPv6/ASN
 
 [[source]]
 subdataset    = "netreg/rir-delegated-ripe"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/ripe-260526"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/ripe-260526"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -88,7 +88,7 @@ description   = "RIPE delegated stats 2026-05-26 — Europe / Middle East IPv4/I
 
 [[source]]
 subdataset    = "netreg/rir-delegated-afrinic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/afrinic-260526"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/afrinic-260526"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"
@@ -97,7 +97,7 @@ description   = "AFRINIC delegated stats 2026-05-26 — Africa IPv4/IPv6/ASN all
 
 [[source]]
 subdataset    = "netreg/rir-delegated-lacnic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/lacnic-260526"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/lacnic-260526"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"

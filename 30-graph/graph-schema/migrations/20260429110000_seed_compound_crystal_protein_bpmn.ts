@@ -142,25 +142,25 @@ const LINK_GRAPH_P2_BPMN = `<?xml version="1.0" encoding="UTF-8"?>
 export async function up(db: Kysely<unknown>): Promise<void> {
   const processes = [
     {
-      id: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-compound-seed-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-compound-seed-v1",
       bpmn_process_id: "science_compound_seed",
       xml: COMPOUND_SEED_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
     },
     {
-      id: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-crystal-seed-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-crystal-seed-v1",
       bpmn_process_id: "science_crystal_seed",
       xml: CRYSTAL_SEED_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
     },
     {
-      id: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-protein-seed-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-protein-seed-v1",
       bpmn_process_id: "science_protein_seed",
       xml: PROTEIN_SEED_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",
     },
     {
-      id: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-link-graph-phase2-v1",
+      id: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-link-graph-phase2-v1",
       bpmn_process_id: "science_link_graph_phase2",
       xml: LINK_GRAPH_P2_BPMN,
       source_path: "30-graph/graph-schema/migrations/20260429110000_seed_compound_crystal_protein_bpmn.ts",

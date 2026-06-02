@@ -1,5 +1,5 @@
 {
-  "$schema": "app.etzhayyim.kizashi.modalityCapability",
+  "$schema": "com.etzhayyim.kizashi.modalityCapability",
   "_comment": "R0 SEED modality capability ledger per ADR-2605312700 §2.F + G10. This is the HONESTY REGISTRY: each entry binds a sensing modality to its declared evidenceGrade + regulatoryClass + an explicit canDetect / cannotDetect map. G10 STRUCTURAL: a modalityId not present here with a defensible evidence grade may NOT emit a modalityObservation. Grade-X entries are recorded ONLY to document explicit EXCLUSION (pseudoscience) — they may never emit. ALL entries ship verificationStatus=unverified-seed: evidence grade + regulatory class + phase gate MUST be human/Council-verified (councilAttestationCid) before any R1+ emission. evidenceGrade/regulatoryClass below are best-effort references as of 2026-05-31 and are jurisdiction-dependent (esp. regulatory class) — treat as scaffolds, not authoritative. R0..R2 may use ONLY phaseGate∈{R1,R2} + regulatoryClass=non-regulated-wellness + ionizing=false (G4 + G9). honest framing: the strongest cause-finding modalities (elastography / rhinometry / IgE / CRP) are exactly the regulated ones, R3-gated — see ADR Consequences.",
   "freshnessWindowDays": 365,
   "modalities": [

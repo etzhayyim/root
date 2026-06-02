@@ -43,10 +43,10 @@ const seeds: Seed[] = [
   { op: "seedWmiCodes", fn: "seed_wmi_codes", processId: "vin_seedWmiCodes", writeTableAllowlist: "vertex_vin_wmi_code" },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/vin/${s.op}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/vin/${s.op}.bpmn`;
 const slug = (s: Seed) => s.op.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/vin-${slug(s)}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/vin-${slug(s)}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/vin-${slug(s)}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/vin-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
@@ -75,7 +75,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.vin.${s.op}`}, ${s.processId}, 1,
+        ${bindingVertexId(s)}, ${ownerDid}, ${`com.etzhayyim.apps.vin.${s.op}`}, ${s.processId}, 1,
         30000, ${s.writeTableAllowlist}, 'active', ${createdAt},
         100, ${ownerDid}, ${ownerDid}, ${actorId}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (

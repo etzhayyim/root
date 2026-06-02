@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.vaacVolcanic.recordEruption",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Volcanic eruption event (Smithsonian GVP / VAAC / USGS VDAP — bridges disaster-response + aviation-safety + cyclone-prepo + air-quality)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "volcanoName",
+            "countryIso3",
+            "eruptionStartedAt",
+            "recordedAt"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "volcanoName": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "veiEstimate": {
+              "type": "integer",
+              "description": "Volcanic Explosivity Index 0-8"
+            },
+            "plumeAltitudeKm": {
+              "type": "number"
+            },
+            "vaacIssuer": {
+              "type": "string",
+              "enum": [
+                "anchorage",
+                "buenos_aires",
+                "darwin",
+                "london",
+                "montreal",
+                "tokyo",
+                "toulouse",
+                "washington",
+                "wellington"
+              ]
+            },
+            "eruptionStartedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "major",
+                "catastrophic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

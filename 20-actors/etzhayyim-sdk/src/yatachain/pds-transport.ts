@@ -17,11 +17,11 @@
  *       │                                              │
  *       │             ┌────────────────────────────────┤
  *       │             ▼                                │
- *       │   PDS: app.etzhayyim.yatachain.attestation   │
+ *       │   PDS: com.etzhayyim.yatachain.attestation   │
  *       │  (record at attestationRepo's PDS)           │
  *       │                                              │
  *       │  GET /xrpc/com.atproto.repo.listRecords      │
- *       │  collection=app.etzhayyim.yatachain.attestation
+ *       │  collection=com.etzhayyim.yatachain.attestation
  *       │  ──────────────────────────────────────────► │ (orchestrator's
  *       │  records[]                                   │  polling loop)
  *       │  ◄──────────────────────────────────────────│
@@ -47,11 +47,11 @@
  *     "recordUri": "at://...",
  *     "recordCid": "bafy...",
  *     "record": { ... },
- *     "rule": { ... app.etzhayyim.yatachain.membraneRule shape ... }
+ *     "rule": { ... com.etzhayyim.yatachain.membraneRule shape ... }
  *   }
  *
  *   202 Accepted → cell will publish an
- *                  app.etzhayyim.yatachain.attestation record asynchronously.
+ *                  com.etzhayyim.yatachain.attestation record asynchronously.
  *   4xx/5xx     → orchestrator logs + treats this cell as non-responsive
  *                  (its share of the quorum will time out and either reduce
  *                  to a quorum-of-N-1 or escalate per rule.escalationPolicy).
@@ -63,7 +63,7 @@ import type { Attestation } from "./quorum.js";
 import type { WitnessTransport } from "./orchestrator.js";
 import type { FleetCell } from "./witness-selector.js";
 
-const DEFAULT_COLLECTION = "app.etzhayyim.yatachain.attestation";
+const DEFAULT_COLLECTION = "com.etzhayyim.yatachain.attestation";
 const DEFAULT_POLL_INTERVAL_MS = 500;
 const DEFAULT_POLL_LIMIT = 50;
 const DEFAULT_REQUEST_TIMEOUT_MS = 10_000;
@@ -92,7 +92,7 @@ export interface PdsPollingTransportOpts {
    *  must write their attestations to this repo. (v1 simplification —
    *  multi-DID polling is a follow-up.) */
   attestationRepo: string;
-  /** Collection NSID. Default: `app.etzhayyim.yatachain.attestation`. */
+  /** Collection NSID. Default: `com.etzhayyim.yatachain.attestation`. */
   collection?: string;
   /** Per-cell HTTP endpoint that accepts the witness request POST body. */
   requestEndpoint: (cell: FleetCell) => string;

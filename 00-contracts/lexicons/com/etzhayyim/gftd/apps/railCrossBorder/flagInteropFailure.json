@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.railCrossBorder.flagInteropFailure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Interoperability failure (gauge change / ERTMS / ETCS — bridges space-weather + cyber-incident)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "failureId",
+            "flowVid",
+            "failureKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "failureId": {
+              "type": "string"
+            },
+            "flowVid": {
+              "type": "string",
+              "description": "bridges recordCorridorFlow"
+            },
+            "failureKind": {
+              "type": "string",
+              "enum": [
+                "gauge_mismatch",
+                "etcs_level",
+                "power_supply",
+                "traffic_mgmt",
+                "customs_doc",
+                "brakes",
+                "signalling"
+              ]
+            },
+            "delayHours": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

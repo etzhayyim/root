@@ -26,7 +26,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/llm-answer-with-knowledge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/llm-answer-with-knowledge-v1',
                  'did:web:llm.etzhayyim.com',
                  'llm_answer_with_knowledge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="llm_answer_with_knowledge" name="llm answer with knowledge" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.llm.answerWithKnowledge", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.llm.answerWithKnowledge", "version": 1, '
                  '"resultTimeoutMs": 90000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -119,13 +119,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3837,
-                 '00-contracts/bpmn/ai/gftd/llm/answerWithKnowledge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/llm/answerWithKnowledge.bpmn',
                  '2026-04-29T14:41:00+09:00',
                  'did:web:llm.etzhayyim.com',
                  'did:web:llm.etzhayyim.com',
                  'sys.bpmn.seed.llm-knowledge',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/llm-answer-with-knowledge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/llm-answer-with-knowledge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -140,21 +140,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/llm-answer-with-knowledge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/llm-answer-with-knowledge-v1',
                  'did:web:llm.etzhayyim.com',
-                 'app.etzhayyim.apps.llm.answerWithKnowledge',
+                 'com.etzhayyim.apps.llm.answerWithKnowledge',
                  'llm_answer_with_knowledge',
                  '2026-04-29T14:41:00+09:00',
                  'did:web:llm.etzhayyim.com',
                  'did:web:llm.etzhayyim.com',
                  'sys.bpmn.seed.llm-knowledge',
                  'did:web:llm.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/llm-answer-with-knowledge-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/llm-answer-with-knowledge-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/llm-answer-with-knowledge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/llm-answer-with-knowledge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/llm-answer-with-knowledge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/llm-answer-with-knowledge-v1']}]
 
 
 def upgrade() -> None:

@@ -24,20 +24,20 @@ const ownerDid = "did:web:lawfirm.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-engagement-close-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-engagement-close-v1",
   bpmnProcessId: "lawfirm_engagement_close",
-  sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/engagementClose.bpmn",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/lawfirm/engagementClose.bpmn",
 };
 const BINDINGS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-engagement-close-xrpc-v1",
-    nsid: "app.etzhayyim.apps.lawfirm.engagementClose",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-engagement-close-xrpc-v1",
+    nsid: "com.etzhayyim.apps.lawfirm.engagementClose",
     bpmnProcessId: "lawfirm_engagement_close",
     resultTimeoutMs: 600_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-mail-reply-webhook-xrpc-v1",
-    nsid: "app.etzhayyim.apps.lawfirm.mailReplyWebhook",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-mail-reply-webhook-xrpc-v1",
+    nsid: "com.etzhayyim.apps.lawfirm.mailReplyWebhook",
     bpmnProcessId: "lawfirm_payment_intake",
     resultTimeoutMs: 60_000,
   },

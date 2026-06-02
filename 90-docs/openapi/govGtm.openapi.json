@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govGtm.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govGtm.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Guatemala government.",
-        "operationId": "app.etzhayyim.govGtm.followSiteDeps",
+        "operationId": "com.etzhayyim.govGtm.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govGtm.heartbeatTick": {
       "post": {
         "summary": "Run the Guatemala government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govGtm.heartbeatTick",
+        "operationId": "com.etzhayyim.govGtm.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.listOrgs": {
+    "/xrpc/com.etzhayyim.govGtm.listOrgs": {
       "get": {
         "summary": "List Guatemala government organization graph records.",
-        "operationId": "app.etzhayyim.govGtm.listOrgs",
+        "operationId": "com.etzhayyim.govGtm.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.registerDIDs": {
+    "/xrpc/com.etzhayyim.govGtm.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Guatemala government organizations.",
-        "operationId": "app.etzhayyim.govGtm.registerDIDs",
+        "operationId": "com.etzhayyim.govGtm.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govGtm.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Guatemala government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govGtm.resolveOrgPath",
+        "operationId": "com.etzhayyim.govGtm.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.seedOrgs": {
+    "/xrpc/com.etzhayyim.govGtm.seedOrgs": {
       "post": {
         "summary": "Seed initial Guatemala government organization records into the graph.",
-        "operationId": "app.etzhayyim.govGtm.seedOrgs",
+        "operationId": "com.etzhayyim.govGtm.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.shinka": {
+    "/xrpc/com.etzhayyim.govGtm.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Guatemala government organization update.",
-        "operationId": "app.etzhayyim.govGtm.shinka",
+        "operationId": "com.etzhayyim.govGtm.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govGtm.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govGtm.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Guatemala government organization changes to graph.",
-        "operationId": "app.etzhayyim.govGtm.syncWetUpdates",
+        "operationId": "com.etzhayyim.govGtm.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

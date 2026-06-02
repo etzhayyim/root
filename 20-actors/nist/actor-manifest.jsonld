@@ -138,7 +138,7 @@
         },
         {
           "args": {
-            "template": "MERGE (i:NistInsight {did: $did}) SET i.analysis = $evaluate.text, i.repo = $did, i.collection = 'ai.gftd.apps.nist.insight'"
+            "template": "MERGE (i:NistInsight {did: $did}) SET i.analysis = $evaluate.text, i.repo = $did, i.collection = 'com.etzhayyim.apps.nist.insight'"
           },
           "fn": "graph.write",
           "id": "writeInsight"
@@ -156,7 +156,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.nist.csfAssessment"
+          "com.etzhayyim.apps.nist.csfAssessment"
         ],
         "type": "subscribeRepos"
       }
@@ -172,7 +172,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.nist.health",
+        "nsid": "com.etzhayyim.apps.nist.health",
         "type": "xrpc"
       }
     },
@@ -198,7 +198,7 @@
             "params": {
               "actorName": "nist",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.nist.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.nist.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "n1st0csf",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -256,7 +256,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.nist.coverage.get",
+        "nsid": "com.etzhayyim.apps.nist.coverage.get",
         "type": "xrpc"
       }
     }
@@ -275,8 +275,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -289,8 +289,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.nist.csfAssessment",
-        "ai.gftd.apps.completer.evaluation"
+        "com.etzhayyim.apps.nist.csfAssessment",
+        "com.etzhayyim.apps.completer.evaluation"
       ]
     }
   },

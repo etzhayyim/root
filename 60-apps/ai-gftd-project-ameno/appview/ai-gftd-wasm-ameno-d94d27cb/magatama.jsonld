@@ -23,7 +23,7 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.feed.like",
-        "ai.gftd.apps.ameno.inferenceResult"
+        "com.etzhayyim.apps.ameno.inferenceResult"
       ]
     }
   }

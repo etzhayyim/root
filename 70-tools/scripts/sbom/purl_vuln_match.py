@@ -73,7 +73,7 @@ def main():
 
     if entities:
         subprocess.run(
-            ["curl", "-s", "-XPOST", f"{URL}/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch",
+            ["curl", "-s", "-XPOST", f"{URL}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch",
              "-H", f"Authorization: Bearer {TOK}", "-H", "Content-Type: application/json",
              "--data", json.dumps({"entities": entities})],
             capture_output=True, text=True,

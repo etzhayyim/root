@@ -1,6 +1,6 @@
 // yatachain-projection: feed-discover
 //
-// Per ADR-2605231500 and lexicon `app.etzhayyim.projection.feedDiscover`.
+// Per ADR-2605231500 and lexicon `com.etzhayyim.projection.feedDiscover`.
 // This module is an L0-projection — derived hot-path read cache for the
 // Discover feed. The canonical state is each DID's `app.bsky.feed.post`
 // record in its own MST. This file MUST stay rebuildable from the firehose
@@ -19,8 +19,8 @@ import { AtpAgent } from "@atproto/api";
 import type { FirehoseEvent } from "./firehose.js";
 
 const FEED_POST_COLLECTION = "app.bsky.feed.post";
-const PROJECTION_COLLECTION = "app.etzhayyim.projection.feedDiscover";
-const VERDICT_COLLECTION = "app.etzhayyim.membrane.verdict";
+const PROJECTION_COLLECTION = "com.etzhayyim.projection.feedDiscover";
+const VERDICT_COLLECTION = "com.etzhayyim.membrane.verdict";
 type ProjectionLevel = "L0" | "L1" | "L2";
 // Bumped from L0 to L1 once `test/feed-discover.replay.test.ts` (CI-
 // exercised golden replay) landed. Per ADR-2605231500 §"Three conformance
@@ -147,7 +147,7 @@ export async function applyFeedPostEvent(
 
 /**
  * Apply a FeedPostCell verdict observation (membrane L3 sidecar) coming off
- * the firehose. Fetches the `app.etzhayyim.membrane.verdict` record via the
+ * the firehose. Fetches the `com.etzhayyim.membrane.verdict` record via the
  * supplied callback (firehose only carries the record CID, not the body),
  * pulls out `subject.uri` + `verdict`, then defers to {@link applyVerdict}.
  *
@@ -188,7 +188,7 @@ export async function applyVerdictEvent(
 
 /**
  * Apply a FeedPostCell verdict observation (membrane L3 sidecar).
- * The membrane verdict lives under `app.etzhayyim.membrane.verdict` records
+ * The membrane verdict lives under `com.etzhayyim.membrane.verdict` records
  * keyed by the original post URI in `subject.uri`.
  */
 export function applyVerdict(
@@ -335,7 +335,7 @@ export function makeAtpRecordFetcher(opts: EmitOpts) {
 }
 
 /**
- * Fetcher for `app.etzhayyim.membrane.verdict` records. Separate from
+ * Fetcher for `com.etzhayyim.membrane.verdict` records. Separate from
  * {@link makeAtpRecordFetcher} so the collection parameter is fixed at
  * its (different) NSID — the membrane verdict subscriber never reads
  * arbitrary collections.

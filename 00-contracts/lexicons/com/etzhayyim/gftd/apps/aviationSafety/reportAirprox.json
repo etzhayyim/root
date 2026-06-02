@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aviationSafety.reportAirprox",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Airprox / loss of separation report (bridges airplane + ai-governance if automation-related)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "airproxId",
+            "riskClass",
+            "occurredAt"
+          ],
+          "properties": {
+            "airproxId": {
+              "type": "string"
+            },
+            "flightVid": {
+              "type": "string",
+              "description": "bridges open-airplane flight"
+            },
+            "locationLat": {
+              "type": "number"
+            },
+            "locationLon": {
+              "type": "number"
+            },
+            "horizontalSepMeters": {
+              "type": "number"
+            },
+            "verticalSepFeet": {
+              "type": "number"
+            },
+            "riskClass": {
+              "type": "string",
+              "enum": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ]
+            },
+            "automationRelated": {
+              "type": "boolean"
+            },
+            "aiModelVid": {
+              "type": "string",
+              "description": "bridges open-ai-governance if ML-ATC"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "no_risk",
+                "safety_not_assured",
+                "serious_risk"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

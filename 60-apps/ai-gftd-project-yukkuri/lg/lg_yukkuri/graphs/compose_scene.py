@@ -1,6 +1,6 @@
 """yukkuri `composeScene` graph — per-scene composite (BG + L立ち絵 + R立ち絵).
 
-NSID: app.etzhayyim.apps.yukkuri.composeScene
+NSID: com.etzhayyim.apps.yukkuri.composeScene
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:editor
 

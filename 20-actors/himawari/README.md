@@ -1,9 +1,9 @@
 # himawari (向日葵) — Solar PV Module Manufacturing Tier-B Actor
 
 **DID**: `did:web:etzhayyim.com:himawari`
-**Namespace**: `app.etzhayyim.himawari.*`
+**Namespace**: `com.etzhayyim.himawari.*`
 **ADR**: ADR-2606021200 (R0 scaffold)
-**Status**: R0.1 (2026-06-02) — all 7 cell solvers + 7 lexicons **implemented** (129 standalone tests green — logic + kotoba write-path + graph-topology; cell.py line-coverage ≥93% per cell; import smoke clean). NOT operationally activated: no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization, deterministic-digest CIDs (not real IPFS/Base-L2 anchors). Gated upstream by the R1 activation conditions below.
+**Status**: R0.1 (2026-06-02) — all 7 cell solvers + 7 lexicons **implemented** (88 pure-logic tests green; import smoke clean). NOT operationally activated: no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization, deterministic-digest CIDs (not real IPFS/Base-L2 anchors). Gated upstream by the R1 activation conditions below.
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance energy gate via hikari)
 **Tightest sibling**: hikari (ADR-2605261100 — generation/install actor)
 
@@ -42,7 +42,7 @@ himawari **composes** these; it does not re-implement them (DRY + honest R0).
 
 ## Pregel Cells (7 — solvers implemented, R0.1)
 
-All 7 cells now have real `solve()` logic (R0 RuntimeError stubs removed) + standalone test files (`python3 test_*.py`; **129 tests total across 13 files, all green** — pure-logic solve() tests plus kotoba write-path tests that inject a fake host to exercise the `datalog.transact`/`ingest_batch` EAVT projections, and a fake-StateGraph topology test; cell.py line-coverage ≥93% per cell). Each emits its lexicon record and writes `:himawari.*` / per-namespace EAVT datoms to the kotoba host (`datalog.transact`); with no host binding (local dev) it degrades to compute-only / no-op and **never fakes a write**. CIDs are deterministic tamper-evident digests standing in for real IPFS CIDv1 / Base-L2 anchors (produced by the substrate at operator-gated anchor time). Cells **compose** the landed robotics/helpers below; they do not re-implement them.
+All 7 cells now have real `solve()` logic (R0 RuntimeError stubs removed) + a pure-logic standalone test file (`python3 test_*.py`; **88 tests total, all green**). Each emits its lexicon record and writes `:himawari.*` / per-namespace EAVT datoms to the kotoba host (`datalog.transact`); with no host binding (local dev) it degrades to compute-only / no-op and **never fakes a write**. CIDs are deterministic tamper-evident digests standing in for real IPFS CIDv1 / Base-L2 anchors (produced by the substrate at operator-gated anchor time). Cells **compose** the landed robotics/helpers below; they do not re-implement them.
 
 | Cell | Node | Phase | Input → Output (lexicon) | Composes | Tests |
 |---|---|---|---|---|---|
@@ -60,7 +60,7 @@ These three cells are the explicit "compose-not-clone" seams; the helpers/actors
 
 - **`supply_procurement` → okaimono + giemon (調達).** Routes each feedstock/consumable need through okaimono's commons-first ring ordering: `recycled-kerf` → commons (closed-loop), internal Ring-1 producers (kanayama/hikari) → internal via okaimono `check_sbt_eligibility` + `build_settlement_intent` (so the SBT↔SBT carve-out and the exact 10% TitheRouter split `gross == tithe + payout` are inherited; intent-only until an operator ref is present), else external operator-gated purchase handoff (no internal value inflow, no tithe). Emits a CycloneDX 1.5 SBOM projected to kotoba `:cdx/*` via the giemon `cyclonedx_to_ingest` bridge (ADR-2605312330, purl = CVE/recall join key) and a per-lot `polysiliconProvenanceAttestation` (XUAR-exclusion + §2(g) audit). G2 feedstock guards (N1 solar-grade-only, N6 no-XUAR) refuse before any order is built. Helper import is path-resolved relative to the cell file (cwd-independent); degrades to inline-equivalent logic if okaimono/giemon are absent.
 - **`panel_loading` → sarutahiko F10 (積込).** Mirrors the authoritative Rust `LoadPhase` enum (`ToPick/Carry/Lower/Done`) from the sarutahiko factory engine, consumes the loader's reported terminal phase, rejects invented phases, palletizes serials at tray capacity. Default `loaderRobotDid` points at the sarutahiko F10 lineage (does not mint a himawari one). G12 refuses non-internal carriers; G7 always content-addresses the displaced-manual-task manifest.
-- **`outbound_logistics` → kami-autodrive + customs + funadaiku (輸送).** 5-node pipeline `init → bind_carrier → customs_clear → plan_route → emit_manifest`. Selects a real kami-autodrive `VehicleClass` (`car/ship/drone/aircraft`); marine maps to the `ship` class (funadaiku/funamori R3+ seam). Cross-border legs build the input to the existing `app.etzhayyim.apps.customsClearance.lodgeDeclaration` against the `open-customs-clearance` BPMN (engine reused, not forked); domestic legs record `required: false`. G13/G12/N10: refuses any consignee not under `did:web:etzhayyim.com:hikari*`; sets `telemetryEncrypted=true`, `weaponizationPayload=false`.
+- **`outbound_logistics` → kami-autodrive + customs + funadaiku (輸送).** 5-node pipeline `init → bind_carrier → customs_clear → plan_route → emit_manifest`. Selects a real kami-autodrive `VehicleClass` (`car/ship/drone/aircraft`); marine maps to the `ship` class (funadaiku/funamori R3+ seam). Cross-border legs build the input to the existing `com.etzhayyim.apps.customsClearance.lodgeDeclaration` against the `open-customs-clearance` BPMN (engine reused, not forked); domestic legs record `required: false`. G13/G12/N10: refuses any consignee not under `did:web:etzhayyim.com:hikari*`; sets `telemetryEncrypted=true`, `weaponizationPayload=false`.
 
 ## Constitutional Gates (G1–G14)
 
@@ -81,7 +81,7 @@ N1 no logic-fab (silicon track) · N2 no CdTe · N3 no Pb-perovskite · N4 no ex
 | Phase | Timeline | Scope | Gate |
 |---|---|---|---|
 | **R0** | 2026-06-02 | Scaffold. 7 cells RuntimeError. Composes landed robotics. | — |
-| **R0.1** | 2026-06-02 | All 7 cell solvers + 7 lexicons implemented (129 tests green, cell.py ≥93% coverage). Procurement composes okaimono+giemon; loading composes sarutahiko F10; outbound composes kami-autodrive+customs+funadaiku ship class. Logic-only — no runtime/sim/live-kotoba, deterministic-digest CIDs. | (still gated on R1 conditions before operational activation) |
+| **R0.1** | 2026-06-02 | All 7 cell solvers + 7 lexicons implemented (88 logic tests green). Procurement composes okaimono+giemon; loading composes sarutahiko F10; outbound composes kami-autodrive+customs+funadaiku ship class. Logic-only — no runtime/sim/live-kotoba, deterministic-digest CIDs. | (still gated on R1 conditions before operational activation) |
 | **R1** | post-Council | Benchtop **module-assembly** line PoC (lowest capex) + panel_loading + outbound PoC; feeds hikari R1. **Design landed → [ADR-2606022300](../../90-docs/adr/2606022300-himawari-solar-pv-r1-benchtop-module-assembly-poc.md)** (activation gated A1 Council ∧ A2 PV-engineer ∧ A3 brownfield parcel) | future ADR **(✅ drafted)** + PV-process engineer + LANDS brownfield parcel |
 | **R2** | post-R1 | Pilot **cell + wafer** lines, ~MW/yr, hikari-R2-powered; supplies hikari R2 install | **L2 coupling** + 30-day comment + hikari R2 deployed |
 | **R3** | post-R2 | **Polysilicon** vertical integration — closes hikari §G2; multi-line + full outbound mesh | 60-day review + multi-domain vote + hodoki EOL contract |

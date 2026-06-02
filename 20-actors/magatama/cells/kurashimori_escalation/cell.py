@@ -10,7 +10,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE): G5 — kurashimori ROUTES, it d
 NOT represent the member (代理) or make a legal determination; representation +
 characterization happen at the destination (chigiri + licensed counsel); G6
 member PII stays encrypted; Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.kurashimori.escalationReferral.
+Output Lexicon(s): com.etzhayyim.kurashimori.escalationReferral.
 
 R0 scaffold — import-time RuntimeError until R2.
 """

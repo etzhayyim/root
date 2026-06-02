@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.class",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resolve a UNSPSC 6-digit class as a compliance-control business boundary under its family.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["code"],
+          "properties": {
+            "code": { "type": "string", "description": "UNSPSC 6-digit class code" },
+            "name": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object" }
+      }
+    }
+  }
+}

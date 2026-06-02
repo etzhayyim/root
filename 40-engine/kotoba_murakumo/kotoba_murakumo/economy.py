@@ -12,7 +12,7 @@ R1.3b — see ADR-2605282100 for the 6-layer charter. This module ships:
 R1.3b binds to a **local default tariff** loaded from
 :data:`DEFAULT_TARIFF_PATH` (development convenience). R1.3d-wiring replaces
 the loader with a CACAO-verified read from kotoba-server XRPC
-``app.etzhayyim.kotoba.economy.tariff``. The Python API signature is stable;
+``com.etzhayyim.kotoba.economy.tariff``. The Python API signature is stable;
 only the data source changes.
 
 Charter §1.5 + §2(b) compliance: mKOTO is an internal accounting Datom unit,
@@ -98,7 +98,7 @@ class Tariff:
     """Posted price schedule.
 
     R1.3b: loaded from a local JSON file. R1.3d-wiring: loaded via CACAO-
-    verified XRPC ``app.etzhayyim.kotoba.economy.tariff`` and verified
+    verified XRPC ``com.etzhayyim.kotoba.economy.tariff`` and verified
     against the Council signing-DID allow-list.
     """
 

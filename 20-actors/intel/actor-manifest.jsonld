@@ -65,7 +65,7 @@
         },
         {
           "args": {
-            "template": "MERGE (a:IntelAnalysis {did: $did}) SET a.entityName = $input.record.entityName, a.intDiscipline = $input.record.discipline, a.assessment = $fuse.text, a.confidence = $input.record.confidence, a.classification = 'cui', a.repo = $did, a.collection = 'ai.gftd.apps.intel.analysis'"
+            "template": "MERGE (a:IntelAnalysis {did: $did}) SET a.entityName = $input.record.entityName, a.intDiscipline = $input.record.discipline, a.assessment = $fuse.text, a.confidence = $input.record.confidence, a.classification = 'cui', a.repo = $did, a.collection = 'com.etzhayyim.apps.intel.analysis'"
           },
           "fn": "graph.write",
           "id": "writeAnalysis"
@@ -82,7 +82,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.intel.submitAnalysis",
+        "nsid": "com.etzhayyim.apps.intel.submitAnalysis",
         "type": "xrpc"
       }
     },
@@ -90,7 +90,7 @@
       "steps": [
         {
           "args": {
-            "template": "MERGE (p:IntelPending {did: $did}) SET p.sourceCollection = $input.collection, p.sourceDid = $input.record.did, p.payload = $input.record, p.status = 'pending', p.repo = $did, p.collection = 'ai.gftd.apps.intel.pending'"
+            "template": "MERGE (p:IntelPending {did: $did}) SET p.sourceCollection = $input.collection, p.sourceDid = $input.record.did, p.payload = $input.record, p.status = 'pending', p.repo = $did, p.collection = 'com.etzhayyim.apps.intel.pending'"
           },
           "fn": "graph.write",
           "id": "ingest"
@@ -105,7 +105,7 @@
         },
         {
           "args": {
-            "template": "MERGE (a:IntelAlert {did: $did}) SET a.sourceCollection = $input.collection, a.discipline = $triage.text, a.priority = 'pending', a.repo = $did, a.collection = 'ai.gftd.apps.intel.alert'"
+            "template": "MERGE (a:IntelAlert {did: $did}) SET a.sourceCollection = $input.collection, a.discipline = $triage.text, a.priority = 'pending', a.repo = $did, a.collection = 'com.etzhayyim.apps.intel.alert'"
           },
           "fn": "graph.write",
           "id": "writeAlert"
@@ -123,11 +123,11 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.handotai.article",
-          "ai.gftd.apps.malak.incident",
-          "ai.gftd.apps.yabai.risk",
-          "ai.gftd.apps.ctMonitor.alert",
-          "ai.gftd.apps.ipaddress.ipAnalysis"
+          "com.etzhayyim.apps.handotai.article",
+          "com.etzhayyim.apps.malak.incident",
+          "com.etzhayyim.apps.yabai.risk",
+          "com.etzhayyim.apps.ctMonitor.alert",
+          "com.etzhayyim.apps.ipaddress.ipAnalysis"
         ],
         "type": "subscribeRepos"
       }
@@ -195,7 +195,7 @@
             "params": {
               "actorName": "intel",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.intel.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.intel.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "i7n73l0x",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -253,7 +253,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.intel.coverage.get",
+        "nsid": "com.etzhayyim.apps.intel.coverage.get",
         "type": "xrpc"
       }
     }
@@ -273,8 +273,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -287,14 +287,14 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.intel.analysis",
-        "ai.gftd.apps.intel.source",
-        "ai.gftd.apps.intel.alert",
-        "ai.gftd.apps.handotai.article",
-        "ai.gftd.apps.malak.incident",
-        "ai.gftd.apps.yabai.risk",
-        "ai.gftd.apps.ctMonitor.alert",
-        "ai.gftd.apps.ipaddress.ipAnalysis"
+        "com.etzhayyim.apps.intel.analysis",
+        "com.etzhayyim.apps.intel.source",
+        "com.etzhayyim.apps.intel.alert",
+        "com.etzhayyim.apps.handotai.article",
+        "com.etzhayyim.apps.malak.incident",
+        "com.etzhayyim.apps.yabai.risk",
+        "com.etzhayyim.apps.ctMonitor.alert",
+        "com.etzhayyim.apps.ipaddress.ipAnalysis"
       ]
     }
   },

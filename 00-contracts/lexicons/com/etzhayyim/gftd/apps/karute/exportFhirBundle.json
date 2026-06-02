@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.exportFhirBundle",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Export patient timeline as FHIR R5 Bundle (type: collection). Caller MUST hold read-cap for each requested record; key-wrap discovery is server-assisted but decryption happens client-side. Output is application/fhir+json.",
+      "parameters": {
+        "type": "params",
+        "required": ["patientDid", "recipientDid"],
+        "properties": {
+          "patientDid": {"type": "string"},
+          "recipientDid": {"type": "string", "description": "Caller DID, used to locate matching key-wrap records"},
+          "includeKinds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Inner-type allowlist. Default: all karute inner types."
+          },
+          "fromDate": {"type": "string", "format": "datetime"},
+          "toDate": {"type": "string", "format": "datetime"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "envelopes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "innerType": {"type": "string"},
+                  "encryptedCid": {"type": "string"},
+                  "envelope": {"type": "unknown"},
+                  "keyWrapRecord": {"type": "string", "description": "AT URI of matching com.etzhayyim.encrypted.keyWrap record for recipientDid"}
+                }
+              }
+            },
+            "fhirBundleTemplate": {
+              "type": "object",
+              "description": "Pre-populated FHIR Bundle skeleton (type, timestamp, identifier). Client fills entry[] after decrypt."
+            },
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

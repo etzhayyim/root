@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.dns.getTransferRequest": {
+    "/xrpc/com.etzhayyim.dns.getTransferRequest": {
       "get": {
         "summary": "Server-side SELECT one transferRequest row by rkey (ADR-2605111200). Replaces direct Worker→Hyperdrive SELECT.",
-        "operationId": "app.etzhayyim.dns.getTransferRequest",
+        "operationId": "com.etzhayyim.dns.getTransferRequest",
         "parameters": [
           {
             "name": "rkey",
@@ -64,10 +64,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dns.putTransferOutcome": {
+    "/xrpc/com.etzhayyim.dns.putTransferOutcome": {
       "post": {
         "summary": "Server-side INSERT of a transferOutcome row into vertex_dns_transferOutcome (ADR-2605111200). Final terminal state of the Squarespace → Cloudflare transfer workflow.",
-        "operationId": "app.etzhayyim.dns.putTransferOutcome",
+        "operationId": "com.etzhayyim.dns.putTransferOutcome",
         "requestBody": {
           "required": true,
           "content": {
@@ -146,10 +146,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dns.putTransferStep": {
+    "/xrpc/com.etzhayyim.dns.putTransferStep": {
       "post": {
         "summary": "Server-side INSERT of a transferStep row into vertex_dns_transferStep (ADR-2605111200). Replaces direct Worker→Hyperdrive INSERT. Caller is sqExporter / cfRegistrar.",
-        "operationId": "app.etzhayyim.dns.putTransferStep",
+        "operationId": "com.etzhayyim.dns.putTransferStep",
         "requestBody": {
           "required": true,
           "content": {
@@ -241,10 +241,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.dns.transferFromSquarespace": {
+    "/xrpc/com.etzhayyim.dns.transferFromSquarespace": {
       "post": {
-        "summary": "Initiate a domain transfer from Squarespace to Cloudflare. Creates the app.etzhayyim.apps.dns.transferRequest record on the cfRegistrar sub-DID; the yorishiro-squarespace sqExporter picks it up via Follow and drives the 5-step release workflow. Requires ClassA (3 signers, high) approval before status transitions to approved.",
-        "operationId": "app.etzhayyim.dns.transferFromSquarespace",
+        "summary": "Initiate a domain transfer from Squarespace to Cloudflare. Creates the com.etzhayyim.apps.dns.transferRequest record on the cfRegistrar sub-DID; the yorishiro-squarespace sqExporter picks it up via Follow and drives the 5-step release workflow. Requires ClassA (3 signers, high) approval before status transitions to approved.",
+        "operationId": "com.etzhayyim.dns.transferFromSquarespace",
         "requestBody": {
           "required": true,
           "content": {
@@ -446,7 +446,7 @@
         "properties": {
           "transferRequestUri": {
             "type": "string",
-            "description": "AT URI of the parent app.etzhayyim.apps.dns.transferRequest"
+            "description": "AT URI of the parent com.etzhayyim.apps.dns.transferRequest"
           },
           "step": {
             "type": "string",

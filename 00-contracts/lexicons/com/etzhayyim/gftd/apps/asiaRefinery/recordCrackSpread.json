@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.asiaRefinery.recordCrackSpread",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "refinery margin crack spread",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "quoteId",
+            "refineryCode",
+            "benchmark",
+            "spreadUsdBbl",
+            "quotedAt"
+          ],
+          "properties": {
+            "quoteId": {
+              "type": "string"
+            },
+            "refineryCode": {
+              "type": "string"
+            },
+            "benchmark": {
+              "type": "string",
+              "description": "singapore-321 / arab-light-brent / dubai / etc"
+            },
+            "spreadUsdBbl": {
+              "type": "number",
+              "description": "USD/bbl"
+            },
+            "quotedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "healthTier": {
+              "type": "string",
+              "enum": [
+                "distressed",
+                "weak",
+                "healthy",
+                "boom"
+              ]
+            },
+            "requireAlert": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

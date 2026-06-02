@@ -28,7 +28,7 @@ const SCRIPT = resolve(
   "transparency-floor-and-gate.mjs",
 );
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const LEX_REL = "00-contracts/lexicons/app/etzhayyim/transparency";
+const LEX_REL = "00-contracts/lexicons/com/etzhayyim/transparency";
 
 function runIn(cwd, args = []) {
   const r = spawnSync("node", [SCRIPT, ...args], { cwd, encoding: "utf8" });
@@ -63,20 +63,20 @@ function goodTree(overrides = {}) {
   mkdirSync(lexDir, { recursive: true });
   const files = {
     "ingressDisclosureNotice.json": lex(
-      "app.etzhayyim.transparency.ingressDisclosureNotice",
+      "com.etzhayyim.transparency.ingressDisclosureNotice",
     ),
     "accessLogPublication.json": lex(
-      "app.etzhayyim.transparency.accessLogPublication",
+      "com.etzhayyim.transparency.accessLogPublication",
       {
         secretsRedacted: { type: "boolean", const: true },
         ingressConsentBasis: { type: "string", const: "ingress-act" },
       },
     ),
     "covenantTransparencyAttestation.json": lex(
-      "app.etzhayyim.transparency.covenantTransparencyAttestation",
+      "com.etzhayyim.transparency.covenantTransparencyAttestation",
     ),
     "redactionMethodNote.json": lex(
-      "app.etzhayyim.transparency.redactionMethodNote",
+      "com.etzhayyim.transparency.redactionMethodNote",
       { failClosed: { type: "boolean", const: true } },
     ),
     ...overrides,
@@ -100,7 +100,7 @@ test("clean fixture tree passes (exit 0)", () => {
 
 // ── Check A: §5 ratification gate ────────────────────────────────────
 test("ratificationStatus const != proposed-unratified fails (§5)", () => {
-  const poisoned = lex("app.etzhayyim.transparency.ingressDisclosureNotice");
+  const poisoned = lex("com.etzhayyim.transparency.ingressDisclosureNotice");
   poisoned.defs.main.record.properties.ratificationStatus.const = "ratified";
   const { code, out } = runIn(
     goodTree({ "ingressDisclosureNotice.json": poisoned }),
@@ -112,7 +112,7 @@ test("ratificationStatus const != proposed-unratified fails (§5)", () => {
 test("missing ratificationStatus fails (§5)", () => {
   const poisoned = {
     lexicon: 1,
-    id: "app.etzhayyim.transparency.covenantTransparencyAttestation",
+    id: "com.etzhayyim.transparency.covenantTransparencyAttestation",
     defs: { main: { type: "record", record: { type: "object", properties: {} } } },
   };
   const { code } = runIn(
@@ -123,7 +123,7 @@ test("missing ratificationStatus fails (§5)", () => {
 
 // ── Check B: §4 floor ────────────────────────────────────────────────
 test("secretsRedacted const false fails (§4)", () => {
-  const poisoned = lex("app.etzhayyim.transparency.accessLogPublication", {
+  const poisoned = lex("com.etzhayyim.transparency.accessLogPublication", {
     secretsRedacted: { type: "boolean", const: false },
     ingressConsentBasis: { type: "string", const: "ingress-act" },
   });
@@ -135,7 +135,7 @@ test("secretsRedacted const false fails (§4)", () => {
 });
 
 test("ingressConsentBasis wrong const fails (§3/§4)", () => {
-  const poisoned = lex("app.etzhayyim.transparency.accessLogPublication", {
+  const poisoned = lex("com.etzhayyim.transparency.accessLogPublication", {
     secretsRedacted: { type: "boolean", const: true },
     ingressConsentBasis: { type: "string", const: "membership" },
   });
@@ -147,7 +147,7 @@ test("ingressConsentBasis wrong const fails (§3/§4)", () => {
 });
 
 test("failClosed missing on redactionMethodNote fails (§4)", () => {
-  const poisoned = lex("app.etzhayyim.transparency.redactionMethodNote");
+  const poisoned = lex("com.etzhayyim.transparency.redactionMethodNote");
   const { code, out } = runIn(
     goodTree({ "redactionMethodNote.json": poisoned }),
   );

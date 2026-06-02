@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airCargo.assignUld",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assign a Unit Load Device (ULD) to a cargo shipment on a flight.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["awb_no", "uld_no", "flight_no"],
+          "properties": {
+            "awb_no": { "type": "string" },
+            "uld_no": { "type": "string" },
+            "uld_type": { "type": "string" },
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

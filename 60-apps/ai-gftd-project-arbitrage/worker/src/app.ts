@@ -1,7 +1,7 @@
 // arb.etzhayyim.com thin edge facade (ADR-2604282300).
 //
 // Business logic lives in BPMN + Python LangServer:
-//   - BPMN: etzhayyim-root/00-contracts/bpmn/ai/gftd/arb
+//   - BPMN: etzhayyim-root/00-contracts/bpmn/com/etzhayyim/arb
 //   - Python: pymagatama.ingest.arbitrage
 
 interface SecretBinding {
@@ -16,7 +16,7 @@ interface Env {
 }
 
 const OWNER_DID = "did:web:arb.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.apps.arb.";
+const NSID_PREFIX = "com.etzhayyim.apps.arb.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -30,7 +30,7 @@ export default {
         displayName: env.APP_DISPLAY_NAME ?? "Arb - Cross-Asset Arbitrage Signals",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/arbitrage.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/arb",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/arb",
         adr: "ADR-0036, ADR-2604282300",
       });
     }

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govLux.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govLux.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Luxembourg government.",
-        "operationId": "app.etzhayyim.govLux.followSiteDeps",
+        "operationId": "com.etzhayyim.govLux.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govLux.heartbeatTick": {
       "post": {
         "summary": "Run the Luxembourg government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govLux.heartbeatTick",
+        "operationId": "com.etzhayyim.govLux.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.listOrgs": {
+    "/xrpc/com.etzhayyim.govLux.listOrgs": {
       "get": {
         "summary": "List Luxembourg government organization graph records.",
-        "operationId": "app.etzhayyim.govLux.listOrgs",
+        "operationId": "com.etzhayyim.govLux.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.registerDIDs": {
+    "/xrpc/com.etzhayyim.govLux.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Luxembourg government organizations.",
-        "operationId": "app.etzhayyim.govLux.registerDIDs",
+        "operationId": "com.etzhayyim.govLux.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govLux.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Luxembourg government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govLux.resolveOrgPath",
+        "operationId": "com.etzhayyim.govLux.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.seedOrgs": {
+    "/xrpc/com.etzhayyim.govLux.seedOrgs": {
       "post": {
         "summary": "Seed initial Luxembourg government organization records into the graph.",
-        "operationId": "app.etzhayyim.govLux.seedOrgs",
+        "operationId": "com.etzhayyim.govLux.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.shinka": {
+    "/xrpc/com.etzhayyim.govLux.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Luxembourg government organization update.",
-        "operationId": "app.etzhayyim.govLux.shinka",
+        "operationId": "com.etzhayyim.govLux.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLux.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govLux.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Luxembourg government organization changes to graph.",
-        "operationId": "app.etzhayyim.govLux.syncWetUpdates",
+        "operationId": "com.etzhayyim.govLux.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

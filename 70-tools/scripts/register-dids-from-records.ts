@@ -476,7 +476,7 @@ async function registerDIDsBatch(
         headers: AUTH_HEADERS,
         body: JSON.stringify({
           repo: appDid,
-          collection: "app.etzhayyim.wproto.did",
+          collection: "com.etzhayyim.wproto.did",
           record: didRecord,
         }),
       });

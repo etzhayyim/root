@@ -7,7 +7,7 @@ const DISPATCHER_FALLBACK_URLS = [
   'http://149.28.89.211:8080',
   'http://45.77.121.69:8080',
 ];
-const NSID_PREFIX = 'app.etzhayyim.apps.mailer.';
+const NSID_PREFIX = 'com.etzhayyim.apps.mailer.';
 const PDS_ORIGIN = 'https://atproto.etzhayyim.com';
 
 type SecretBinding = { get(): Promise<string> };
@@ -28,7 +28,7 @@ export function metaResponse(platform: PlatformLike | undefined): Response {
     nanoid: platform?.env?.APP_NANOID ?? 'a8wwtz73',
     execution: 'edge-assets+xrpc-proxy+bpmn+langserver',
     businessLogic: '20-actors/magatama/py/src/pymagatama/ingest/mailer.py',
-    bpmn: 'etzhayyim-root/00-contracts/bpmn/ai/gftd/mailer',
+    bpmn: 'etzhayyim-root/00-contracts/bpmn/com/etzhayyim/mailer',
   });
 }
 
@@ -65,10 +65,10 @@ export async function proxyXrpc(
 }
 
 async function directMailerRead(nsid: string, url: URL): Promise<Response | null> {
-  if (nsid === 'app.etzhayyim.apps.mailer.health') {
+  if (nsid === 'com.etzhayyim.apps.mailer.health') {
     return json({ ok: true, app: 'mailer', ts: new Date().toISOString() });
   }
-  if (nsid === 'app.etzhayyim.apps.mailer.listBindings') {
+  if (nsid === 'com.etzhayyim.apps.mailer.listBindings') {
     return json({ items: [], count: 0 });
   }
   return null;

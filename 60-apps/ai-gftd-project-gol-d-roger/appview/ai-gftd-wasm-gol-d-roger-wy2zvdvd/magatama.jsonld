@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.golUdUroger.gol_d_roger_entity",
-        "ai.gftd.apps.golUdUroger.gol_d_roger_event",
-        "ai.gftd.apps.golUdUroger.gol_d_roger_report"
+        "com.etzhayyim.apps.golUdUroger.gol_d_roger_entity",
+        "com.etzhayyim.apps.golUdUroger.gol_d_roger_event",
+        "com.etzhayyim.apps.golUdUroger.gol_d_roger_report"
       ]
     }
   },

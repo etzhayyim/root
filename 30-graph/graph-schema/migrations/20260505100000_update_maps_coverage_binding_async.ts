@@ -15,8 +15,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     UPDATE vertex_bpmn_lexicon_binding
     SET result_timeout_ms = 0
     WHERE nsid IN (
-      'app.etzhayyim.apps.maps.batchCoverageCycle',
-      'app.etzhayyim.apps.maps.refreshCoverageStats'
+      'com.etzhayyim.apps.maps.batchCoverageCycle',
+      'com.etzhayyim.apps.maps.refreshCoverageStats'
     )
   `.execute(db);
 }
@@ -25,13 +25,13 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`
     UPDATE vertex_bpmn_lexicon_binding
     SET result_timeout_ms = CASE nsid
-      WHEN 'app.etzhayyim.apps.maps.batchCoverageCycle'  THEN 120000
-      WHEN 'app.etzhayyim.apps.maps.refreshCoverageStats' THEN 90000
+      WHEN 'com.etzhayyim.apps.maps.batchCoverageCycle'  THEN 120000
+      WHEN 'com.etzhayyim.apps.maps.refreshCoverageStats' THEN 90000
       ELSE result_timeout_ms
     END
     WHERE nsid IN (
-      'app.etzhayyim.apps.maps.batchCoverageCycle',
-      'app.etzhayyim.apps.maps.refreshCoverageStats'
+      'com.etzhayyim.apps.maps.batchCoverageCycle',
+      'com.etzhayyim.apps.maps.refreshCoverageStats'
     )
   `.execute(db);
 }

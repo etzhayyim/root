@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilCoverage.registerOrchestration",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register country×segment baseline for oil supply chain coverage. Tracks 6 oil-* peer actors (upstream/midstream/refining/shipping/distribution/trading) freshness and graph backbone readiness.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jurisdiction"],
+          "properties": {
+            "jurisdiction": { "type": "string", "description": "ISO 3166-1 alpha-3" },
+            "segment": { "type": "string", "enum": ["upstream", "midstream", "refining", "shipping", "distribution", "trading", "all"] },
+            "baselineCount": { "type": "integer" },
+            "actorFreshness": { "type": "string", "enum": ["fresh", "stale", "missing"] },
+            "lastIngestedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

@@ -3,7 +3,7 @@
 
 ADR-2606021200 + ADR-2606015000 (PDS refactor onto kotoba-server).
 
-Reads the seven app.etzhayyim.himawari.* record types from seed.edn, projects each
+Reads the seven com.etzhayyim.himawari.* record types from seed.edn, projects each
 entity map into a kotoba KG-ingest entity (id + claims + relations), and writes
 them into the canonical kotoba Datom log via the kotoba-server PDS XRPC write path:
 
@@ -23,11 +23,11 @@ NO non-kotoba store is ever used (substrate boundary).
 
 Usage:
     # dry run (no token): parse + project + count only
-    python3 ingest_records.py [--url http://127.0.0.1:8077] [--graph app.etzhayyim.himawari]
+    python3 ingest_records.py [--url http://127.0.0.1:8077] [--graph com.etzhayyim.himawari]
 
     # live ingest (operator session PoP present)
     KOTOBA_SESSION_POP=<compact-eddsa-jws> \\
-      python3 ingest_records.py --url http://127.0.0.1:8077 --graph app.etzhayyim.himawari
+      python3 ingest_records.py --url http://127.0.0.1:8077 --graph com.etzhayyim.himawari
 """
 from __future__ import annotations
 
@@ -272,7 +272,7 @@ def ingest_entity(base_url: str, graph: str, entity: dict, pop_token: str) -> tu
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", default=os.environ.get("KOTOBA_URL", "http://127.0.0.1:8077"))
-    ap.add_argument("--graph", default=os.environ.get("HIMAWARI_GRAPH", "app.etzhayyim.himawari"))
+    ap.add_argument("--graph", default=os.environ.get("HIMAWARI_GRAPH", "com.etzhayyim.himawari"))
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 

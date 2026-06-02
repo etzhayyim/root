@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawyer-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawyer-health-v1',
                  'did:web:lawyer.etzhayyim.com',
                  'lawyer_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -114,11 +114,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2507,
-                 '00-contracts/bpmn/ai/gftd/lawyer/health.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/lawyer/health.bpmn',
                  '2026-04-23T23:00:00Z',
                  'did:web:lawyer.etzhayyim.com',
                  'did:web:lawyer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawyer-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawyer-health-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -151,20 +151,20 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawyer-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawyer-health-v1',
                  'did:web:lawyer.etzhayyim.com',
-                 'app.etzhayyim.apps.lawyer.health',
+                 'com.etzhayyim.apps.lawyer.health',
                  'lawyer_health',
                  5000,
                  '2026-04-23T23:00:00Z',
                  'did:web:lawyer.etzhayyim.com',
                  'did:web:lawyer.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawyer-health-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawyer-health-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawyer-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawyer-health-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawyer-health-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawyer-health-v1']}]
 
 
 def upgrade() -> None:

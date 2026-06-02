@@ -13,11 +13,11 @@ const recruitManifest = readFileSync(
   "utf-8",
 );
 const ingestJobPostingsLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/ingestJobPostings.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/ingestJobPostings.json"),
   "utf-8",
 );
 const listJobIngestRunsLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/listJobIngestRuns.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/listJobIngestRuns.json"),
   "utf-8",
 );
 const atsIngestScript = readFileSync(
@@ -63,8 +63,8 @@ describe("Recruit real job ingest", () => {
   });
 
   it("registers an allowlisted ingestJobPostings entrypoint", () => {
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.ingestJobPostings");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.listJobIngestRuns");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.ingestJobPostings");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.listJobIngestRuns");
     expect(recruitManifest).toContain("recruitIngestJobPostings");
     expect(recruitManifest).toContain("recruit-job-ingester.recruit-actors.svc.cluster.local");
     expect(recruitManifest).toContain("RecruitJobIngestRun");
@@ -118,7 +118,7 @@ describe("Recruit real job ingest", () => {
     expect(ingestWorkerScript).toContain("createServer");
     expect(ingestWorkerScript).toContain("/healthz");
     expect(ingestWorkerScript).toContain("/readyz");
-    expect(ingestWorkerScript).toContain("/xrpc/app.etzhayyim.apps.recruit.ingestJobPostings");
+    expect(ingestWorkerScript).toContain("/xrpc/com.etzhayyim.apps.recruit.ingestJobPostings");
     expect(ingestWorkerScript).toContain("ingest already running");
     expect(ingestWorkerScript).toContain("allowUnanchored");
     expect(ingestWorkerScript).toContain("ignoreCheckpoint");
@@ -135,7 +135,7 @@ describe("Recruit real job ingest", () => {
     expect(cronJobManifest).toContain("concurrencyPolicy: Forbid");
     expect(cronJobManifest).toContain("curlimages/curl");
     expect(cronJobManifest).toContain("recruit-job-ingester.recruit-actors.svc.cluster.local");
-    expect(cronJobManifest).toContain("/xrpc/app.etzhayyim.apps.recruit.ingestJobPostings");
+    expect(cronJobManifest).toContain("/xrpc/com.etzhayyim.apps.recruit.ingestJobPostings");
     expect(kustomizationManifest).toContain("deployment.yaml");
     expect(kustomizationManifest).toContain("cronjob.yaml");
     expect(cronDockerfile).toContain("recruit-run-job-ingest.mjs");

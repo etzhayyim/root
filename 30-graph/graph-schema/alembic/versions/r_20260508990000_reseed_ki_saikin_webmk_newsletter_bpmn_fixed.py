@@ -13,7 +13,7 @@ branch_labels = None
 depends_on = None
 
 UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -25,7 +25,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'ki_vascular_synthesis_cycle',
                  2,
@@ -174,13 +174,13 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6016,
-                 '00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/ki/vascular-synthesis-cycle.bpmn',
                  '2026-05-08T09:50:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,7 +192,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'saikin_horizontal_transfer_cycle',
                  2,
@@ -363,13 +363,13 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  7037,
-                 '00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/saikin/horizontal-transfer-cycle.bpmn',
                  '2026-05-08T09:50:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -381,7 +381,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'webmk_create_proposal',
                  2,
@@ -394,7 +394,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  'targetNamespace="https://etzhayyim.com/bpmn/webmk">\n'
                  '  <bpmn:process id="webmk_create_proposal" name="webmk createProposal" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.webmk.createProposal", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.webmk.createProposal", '
                  '"version": 1, "resultTimeoutMs": 180000, "adr": '
                  '"2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>\n'
                  '\n'
@@ -458,13 +458,13 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3022,
-                 '00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/webmk/createProposal.bpmn',
                  '2026-05-08T09:50:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -476,7 +476,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
          '        1, $9, $10, $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'newsletter_weekly_send',
                  2,
@@ -487,7 +487,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  'targetNamespace="https://etzhayyim.com/bpmn/newsletter">\n'
                  '  <bpmn:process id="newsletter_weekly_send" name="newsletter weeklySend" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.newsletter.weeklySend", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.newsletter.weeklySend", '
                  '"version": 1, "schedule": "0 0 * * 2", "tz": "Asia/Tokyo", "adr": '
                  '"2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>\n'
                  '\n'
@@ -553,20 +553,20 @@ UP = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2867,
-                 '00-contracts/bpmn/ai/gftd/newsletter/weeklySend.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/newsletter/weeklySend.bpmn',
                  '2026-05-08T09:50:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.reseed.phase4-fix']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-weeklySend-v1']}]
 
 
 def upgrade() -> None:

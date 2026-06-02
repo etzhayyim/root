@@ -13,8 +13,8 @@
     <bpmn:businessRuleTask id="Task_ClassifyLeak" name="Leak severity (DMN)"
                            camunda:decisionRef="openWater.leakSeverity"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_ClassifyLeak" targetRef="Task_PersistLeak"/>
-    <bpmn:serviceTask id="Task_PersistLeak" name="ai.gftd.apps.openWater.reportLeak"
-                      camunda:topic="ai.gftd.apps.openWater.reportLeak"/>
+    <bpmn:serviceTask id="Task_PersistLeak" name="com.etzhayyim.apps.openWater.reportLeak"
+                      camunda:topic="com.etzhayyim.apps.openWater.reportLeak"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_PersistLeak" targetRef="Gateway_Notice"/>
     <bpmn:exclusiveGateway id="Gateway_Notice" name="Public notice required?" default="f5b"/>
     <bpmn:sequenceFlow id="f5a" sourceRef="Gateway_Notice" targetRef="Task_AuditPost">

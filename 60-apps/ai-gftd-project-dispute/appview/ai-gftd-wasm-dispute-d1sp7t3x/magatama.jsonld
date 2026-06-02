@@ -80,12 +80,12 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.dispute.caseRecord",
-        "ai.gftd.apps.dispute.evidence",
-        "ai.gftd.apps.dispute.payment",
-        "ai.gftd.apps.dispute.threat",
-        "ai.gftd.apps.dispute.response",
-        "ai.gftd.apps.dispute.timeline"
+        "com.etzhayyim.apps.dispute.caseRecord",
+        "com.etzhayyim.apps.dispute.evidence",
+        "com.etzhayyim.apps.dispute.payment",
+        "com.etzhayyim.apps.dispute.threat",
+        "com.etzhayyim.apps.dispute.response",
+        "com.etzhayyim.apps.dispute.timeline"
       ]
     }
   },

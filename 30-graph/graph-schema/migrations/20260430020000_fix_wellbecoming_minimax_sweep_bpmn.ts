@@ -17,7 +17,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/wellbecoming/minimaxSweep.bpmn"),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/wellbecoming/minimaxSweep.bpmn"),
     "utf8",
   );
   const size = Buffer.byteLength(xml, "utf8");

@@ -14,23 +14,23 @@ const actorId = "sys.mcp.seed.copyright";
 const createdAt = "2026-04-30T15:00:00+09:00";
 
 const nsids = [
-  "app.etzhayyim.apps.copyright.resolve",
-  "app.etzhayyim.apps.copyright.list",
-  "app.etzhayyim.apps.copyright.coverage",
-  "app.etzhayyim.apps.copyright.ingestCrossref",
-  "app.etzhayyim.apps.copyright.ingestDatacite",
-  "app.etzhayyim.apps.copyright.socialCoverageReport",
-  "app.etzhayyim.apps.copyright.chat",
+  "com.etzhayyim.apps.copyright.resolve",
+  "com.etzhayyim.apps.copyright.list",
+  "com.etzhayyim.apps.copyright.coverage",
+  "com.etzhayyim.apps.copyright.ingestCrossref",
+  "com.etzhayyim.apps.copyright.ingestDatacite",
+  "com.etzhayyim.apps.copyright.socialCoverageReport",
+  "com.etzhayyim.apps.copyright.chat",
 ];
 
 function lexiconPath(nsid: string): string {
   const parts = nsid.split(".");
   const action = parts[parts.length - 1];
-  return `00-contracts/lexicons/ai/gftd/apps/copyright/${action}.json`;
+  return `00-contracts/lexicons/com/etzhayyim/apps/copyright/${action}.json`;
 }
 
 function mcpVertexId(nsid: string): string {
-  return `at://did:web:copyright.etzhayyim.com/app.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
+  return `at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
 }
 
 function stableStringify(value: unknown): string {

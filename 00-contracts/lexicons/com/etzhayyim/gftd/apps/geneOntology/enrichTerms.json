@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.geneOntology.enrichTerms",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GO/KEGG/Reactome pathway enrichment analysis. Auto-generated stub (coverage expansion 2026-04-17).",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["geneList"],
+          "properties": {
+            "geneList": { "type": "array", "items": { "type": "string" } },
+            "ontology": { "type": "string", "enum": ["GO-BP", "GO-MF", "GO-CC", "KEGG", "Reactome", "MSigDB"] },
+            "organism": { "type": "string", "default": "human" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "terms": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "pValue": { "type": "number" },
+                  "fdr": { "type": "number" },
+                  "overlap": { "type": "integer" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

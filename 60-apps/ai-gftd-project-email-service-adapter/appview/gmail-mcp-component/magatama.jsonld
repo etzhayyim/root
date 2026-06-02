@@ -54,9 +54,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.emailUserviceUadapter.email_service_adapter_entity",
-        "ai.gftd.apps.emailUserviceUadapter.email_service_adapter_event",
-        "ai.gftd.apps.emailUserviceUadapter.email_service_adapter_report"
+        "com.etzhayyim.apps.emailUserviceUadapter.email_service_adapter_entity",
+        "com.etzhayyim.apps.emailUserviceUadapter.email_service_adapter_event",
+        "com.etzhayyim.apps.emailUserviceUadapter.email_service_adapter_report"
       ]
     }
   },

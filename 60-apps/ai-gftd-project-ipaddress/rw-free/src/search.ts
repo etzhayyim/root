@@ -24,8 +24,8 @@ import {
   type SearchProvidersOutput,
 } from "./types.js";
 
-const PREFIX_COLLECTION = "app.etzhayyim.apps.ipaddress.prefix";
-const PROVIDER_COLLECTION = "app.etzhayyim.apps.ipaddress.provider";
+const PREFIX_COLLECTION = "com.etzhayyim.apps.ipaddress.prefix";
+const PROVIDER_COLLECTION = "com.etzhayyim.apps.ipaddress.provider";
 
 export async function searchProviders(
   e: Etzhayyim,

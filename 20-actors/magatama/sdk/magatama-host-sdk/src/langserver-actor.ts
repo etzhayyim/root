@@ -3,7 +3,7 @@
 //
 // The actor is a thin HTTP client targeting an in-cluster langserver
 // Service DNS. Each method corresponds 1:1 to a lexicon under
-// `00-contracts/lexicons/ai/gftd/apps/{taxonomy}/`, so request shapes
+// `00-contracts/lexicons/com/etzhayyim/apps/{taxonomy}/`, so request shapes
 // stay drift-free with the XRPC and MCP surfaces.
 //
 //   const unispsc = createUnispscActor({
@@ -150,7 +150,7 @@ export class LangserverActorError extends Error {
 const DEFAULT_TIMEOUT_MS = 8_000;
 
 function nsidPath(taxonomy: Taxonomy, action: string): string {
-  return `/xrpc/app.etzhayyim.apps.${taxonomy}.${action}`;
+  return `/xrpc/com.etzhayyim.apps.${taxonomy}.${action}`;
 }
 
 function urlWithQuery(base: string, params: Record<string, unknown>): string {

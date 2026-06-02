@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-daily-pulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-daily-pulse-v1',
                  'did:web:nogu.etzhayyim.com',
                  'nogu_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -152,12 +152,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5277,
-                 '00-contracts/bpmn/ai/gftd/nogu/dailyPulse.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/nogu/dailyPulse.bpmn',
                  '2026-04-28T22:03:00Z',
                  'did:web:nogu.etzhayyim.com',
                  'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-daily-pulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-daily-pulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -171,12 +171,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-schedule-inspection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-schedule-inspection-v1',
                  'did:web:nogu.etzhayyim.com',
                  'nogu_schedule_inspection',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  scheduleInspection — XRPC app.etzhayyim.apps.nogu.scheduleInspection で起動。\n'
+                 '  scheduleInspection — XRPC com.etzhayyim.apps.nogu.scheduleInspection で起動。\n'
                  '  対象農具の次回点検日を設定し inspection レコードを DB 予約、audit emit。\n'
                  '\n'
                  '  Inputs:\n'
@@ -296,12 +296,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4853,
-                 '00-contracts/bpmn/ai/gftd/nogu/scheduleInspection.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/nogu/scheduleInspection.bpmn',
                  '2026-04-28T22:03:00Z',
                  'did:web:nogu.etzhayyim.com',
                  'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -315,12 +315,12 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-record-lease-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-record-lease-v1',
                  'did:web:nogu.etzhayyim.com',
                  'nogu_record_lease',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  recordLease — XRPC app.etzhayyim.apps.nogu.recordLease で起動。\n'
+                 '  recordLease — XRPC com.etzhayyim.apps.nogu.recordLease で起動。\n'
                  '  農機リースの開始または返却を記録。status=return の場合、\n'
                  '  conditionOnReturn=damaged なら maintenance を自動起票。\n'
                  '\n'
@@ -462,12 +462,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6014,
-                 '00-contracts/bpmn/ai/gftd/nogu/recordLease.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/nogu/recordLease.bpmn',
                  '2026-04-28T22:03:00Z',
                  'did:web:nogu.etzhayyim.com',
                  'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-record-lease-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-record-lease-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -481,16 +481,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-dailyPulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-dailyPulse-v1',
                  'did:web:nogu.etzhayyim.com',
-                 'app.etzhayyim.apps.nogu.dailyPulse',
+                 'com.etzhayyim.apps.nogu.dailyPulse',
                  'nogu_daily_pulse',
                  30000,
                  '2026-04-28T22:03:00Z',
                  'did:web:nogu.etzhayyim.com',
                  'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -504,16 +504,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-scheduleInspection-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-scheduleInspection-v1',
                  'did:web:nogu.etzhayyim.com',
-                 'app.etzhayyim.apps.nogu.scheduleInspection',
+                 'com.etzhayyim.apps.nogu.scheduleInspection',
                  'nogu_schedule_inspection',
                  30000,
                  '2026-04-28T22:03:00Z',
                  'did:web:nogu.etzhayyim.com',
                  'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-scheduleInspection-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-scheduleInspection-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -527,29 +527,29 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-recordLease-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-recordLease-v1',
                  'did:web:nogu.etzhayyim.com',
-                 'app.etzhayyim.apps.nogu.recordLease',
+                 'com.etzhayyim.apps.nogu.recordLease',
                  'nogu_record_lease',
                  30000,
                  '2026-04-28T22:03:00Z',
                  'did:web:nogu.etzhayyim.com',
                  'did:web:nogu.etzhayyim.com',
                  'sys.bpmn.seed.nogu',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-recordLease-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-recordLease-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-scheduleInspection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-scheduleInspection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/nogu-recordLease-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/nogu-recordLease-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-daily-pulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-daily-pulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-schedule-inspection-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/nogu-record-lease-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/nogu-record-lease-v1']}]
 
 
 def upgrade() -> None:

@@ -56,7 +56,7 @@ def classify_inspection(
         'hazards': hazards,
         'policy': policy,
         'mass_g': inspection.get('mass_g'),
-        'toshi_kozan_lexicon': 'app.etzhayyim.apps.toshiKozan.registerEwasteStream',
+        'toshi_kozan_lexicon': 'com.etzhayyim.apps.toshiKozan.registerEwasteStream',
     }
 
 
@@ -140,5 +140,5 @@ def build_audit_event(classification: dict[str, Any], command: dict[str, Any]) -
         'confidence': command.get('confidence') or classification.get('confidence'),
         'hazards': command.get('hazards') or classification.get('hazards', []),
         'policy': command.get('policy') or classification.get('policy'),
-        'toshi_kozan_lexicon': 'app.etzhayyim.apps.toshiKozan.registerEwasteStream',
+        'toshi_kozan_lexicon': 'com.etzhayyim.apps.toshiKozan.registerEwasteStream',
     }

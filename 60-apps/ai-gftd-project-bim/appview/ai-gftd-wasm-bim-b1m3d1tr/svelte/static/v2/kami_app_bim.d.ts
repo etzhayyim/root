@@ -10,7 +10,7 @@ export function run_bim_v2(canvas_id: string): Promise<void>;
 
 /**
  * JS entry (XRPC-fed): parses a JSON string produced by
- * `ai.gftd.apps.bim.getStoreyScene` into a `kami_bim::StoreyScene`
+ * `com.etzhayyim.apps.bim.getStoreyScene` into a `kami_bim::StoreyScene`
  * and feeds it to the `BimSceneAdapter`. Mouse-projected click =
  * pick + amber highlight + JS bridge publish.
  */

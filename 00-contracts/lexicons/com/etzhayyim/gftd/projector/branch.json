@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.branch",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "sourceConvoId": {
+            "type": "string"
+          },
+          "branchConvoId": {
+            "type": "string"
+          },
+          "branchPointRkey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sourceConvoId",
+          "branchConvoId"
+        ]
+      }
+    }
+  }
+}

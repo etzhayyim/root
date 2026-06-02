@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordUsage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a CDR (Call Detail Record) for voice / SMS / data / IoT usage.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["subscriberId", "serviceId", "usageType", "units", "startedAt"],
+          "properties": {
+            "subscriberId": { "type": "string" },
+            "serviceId": { "type": "string" },
+            "usageType": { "type": "string", "enum": ["voice", "sms", "data", "iot"] },
+            "units": { "type": "number" },
+            "unitOfMeasure": { "type": "string", "enum": ["seconds", "messages", "bytes", "events"] },
+            "peerMsisdn": { "type": "string" },
+            "startedAt": { "type": "string", "format": "datetime" },
+            "endedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "cdrId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

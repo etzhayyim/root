@@ -8,7 +8,7 @@
 -- Behaviour preservation: spec is identical to v1 (state_keys, entry, edges,
 -- conditional_edges). Only the kind/ref/config of each node row changes.
 -- Each node:
---   ref    = mcp://ai.gftd.apps.saikin.<method>
+--   ref    = mcp://com.etzhayyim.apps.saikin.<method>
 --   config = { input_keys: [...], result_key: <state_field>,
 --              args: { name: "<nsid>" } }
 --
@@ -18,7 +18,7 @@
 -- consumption time, with the gates still reading state["signalCount"]).
 --
 -- Runtime caveat: this is a PoC. The saikin Worker today proxies XRPC to
--- a Python dispatcher that does NOT yet handle ai.gftd.mcp.message —
+-- a Python dispatcher that does NOT yet handle com.etzhayyim.mcp.message —
 -- end-to-end will fail until that wiring is added (deps.toml
 -- saikin-cycle-mcp-migration §2). Until then, keep v1 deployed.
 
@@ -40,24 +40,24 @@ INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
 VALUES
   ('saikin.cycle.v2:probe',       0, 0, 'saikin.cycle.v2', 'probe',
-   'mcp_tool', 'mcp://ai.gftd.apps.saikin.probeEnvironment',
-   '{"input_keys":[],"result_key":"probeOut","args":{"name":"ai.gftd.apps.saikin.probeEnvironment"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.saikin.probeEnvironment',
+   '{"input_keys":[],"result_key":"probeOut","args":{"name":"com.etzhayyim.apps.saikin.probeEnvironment"}}',
    '2026-05-09T00:00:00Z'),
   ('saikin.cycle.v2:transfer',    0, 0, 'saikin.cycle.v2', 'transfer',
-   'mcp_tool', 'mcp://ai.gftd.apps.saikin.transferSignal',
-   '{"input_keys":["signals"],"result_key":"transferOut","args":{"name":"ai.gftd.apps.saikin.transferSignal"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.saikin.transferSignal',
+   '{"input_keys":["signals"],"result_key":"transferOut","args":{"name":"com.etzhayyim.apps.saikin.transferSignal"}}',
    '2026-05-09T00:00:00Z'),
   ('saikin.cycle.v2:form_colony', 0, 0, 'saikin.cycle.v2', 'form_colony',
-   'mcp_tool', 'mcp://ai.gftd.apps.saikin.formColony',
-   '{"input_keys":["signals"],"result_key":"formColonyOut","args":{"name":"ai.gftd.apps.saikin.formColony"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.saikin.formColony',
+   '{"input_keys":["signals"],"result_key":"formColonyOut","args":{"name":"com.etzhayyim.apps.saikin.formColony"}}',
    '2026-05-09T00:00:00Z'),
   ('saikin.cycle.v2:handoff',     0, 0, 'saikin.cycle.v2', 'handoff',
-   'mcp_tool', 'mcp://ai.gftd.apps.saikin.handoffToKi',
-   '{"input_keys":["colonyId","signalId"],"result_key":"handoffOut","args":{"name":"ai.gftd.apps.saikin.handoffToKi"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.saikin.handoffToKi',
+   '{"input_keys":["colonyId","signalId"],"result_key":"handoffOut","args":{"name":"com.etzhayyim.apps.saikin.handoffToKi"}}',
    '2026-05-09T00:00:00Z'),
   ('saikin.cycle.v2:lyse',        0, 0, 'saikin.cycle.v2', 'lyse',
-   'mcp_tool', 'mcp://ai.gftd.apps.saikin.lyse',
-   '{"input_keys":["signalId"],"result_key":"lyseOut","args":{"name":"ai.gftd.apps.saikin.lyse"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.saikin.lyse',
+   '{"input_keys":["signalId"],"result_key":"lyseOut","args":{"name":"com.etzhayyim.apps.saikin.lyse"}}',
    '2026-05-09T00:00:00Z');
 
 -- Mark v1 as superseded by v2 (lineage trace per ADR-2605082000 §1).

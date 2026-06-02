@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.trustedFlagger.recordDesignation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DSA trusted flagger / DSC designation (bridges dsaVlop.flagSystemicRisk + dpa-authority + cross-border-transfer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "designationId",
+            "flaggerKind",
+            "memberStateIso3",
+            "dscIssuingAuthority",
+            "designatedAt"
+          ],
+          "properties": {
+            "designationId": {
+              "type": "string"
+            },
+            "flaggerKind": {
+              "type": "string",
+              "enum": [
+                "ngo",
+                "minor_protect",
+                "csam_iwf",
+                "internet_org",
+                "industry_alliance",
+                "interpol",
+                "europol",
+                "eu_law_enforce",
+                "national_csb",
+                "trade_assoc",
+                "media_council",
+                "fact_checker"
+              ]
+            },
+            "memberStateIso3": {
+              "type": "string"
+            },
+            "dscIssuingAuthority": {
+              "type": "string"
+            },
+            "systemicRiskVid": {
+              "type": "string",
+              "description": "bridges dsaVlop.flagSystemicRisk"
+            },
+            "designatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

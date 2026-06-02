@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.settleWlanRoamingInvoice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Aggregate Wi-Fi roaming exchanges per partner over a period and emit a settlement invoice. Mirrors Phase 3 settleRoamingInvoice (cellular TAP) for Wi-Fi traffic. Designed for timer-start (R/P1M).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["partnerOrgId", "periodStart", "periodEnd"],
+          "properties": {
+            "invoiceId": { "type": "string" },
+            "partnerOrgId": { "type": "string" },
+            "periodStart": { "type": "string", "format": "date" },
+            "periodEnd": { "type": "string", "format": "date" },
+            "currency": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "invoiceId": { "type": "string" },
+          "netAmount": { "type": "number" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govNld.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govNld.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Netherlands government.",
-        "operationId": "app.etzhayyim.govNld.followSiteDeps",
+        "operationId": "com.etzhayyim.govNld.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govNld.heartbeatTick": {
       "post": {
         "summary": "Run the Netherlands government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govNld.heartbeatTick",
+        "operationId": "com.etzhayyim.govNld.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.listOrgs": {
+    "/xrpc/com.etzhayyim.govNld.listOrgs": {
       "get": {
         "summary": "List Netherlands government organization graph records.",
-        "operationId": "app.etzhayyim.govNld.listOrgs",
+        "operationId": "com.etzhayyim.govNld.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.registerDIDs": {
+    "/xrpc/com.etzhayyim.govNld.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Netherlands government organizations.",
-        "operationId": "app.etzhayyim.govNld.registerDIDs",
+        "operationId": "com.etzhayyim.govNld.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govNld.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Netherlands government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govNld.resolveOrgPath",
+        "operationId": "com.etzhayyim.govNld.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.seedOrgs": {
+    "/xrpc/com.etzhayyim.govNld.seedOrgs": {
       "post": {
         "summary": "Seed initial Netherlands government organization records into the graph.",
-        "operationId": "app.etzhayyim.govNld.seedOrgs",
+        "operationId": "com.etzhayyim.govNld.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.shinka": {
+    "/xrpc/com.etzhayyim.govNld.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Netherlands government organization update.",
-        "operationId": "app.etzhayyim.govNld.shinka",
+        "operationId": "com.etzhayyim.govNld.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNld.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govNld.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Netherlands government organization changes to graph.",
-        "operationId": "app.etzhayyim.govNld.syncWetUpdates",
+        "operationId": "com.etzhayyim.govNld.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

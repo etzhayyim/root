@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.wrpc.call": {
+    "/xrpc/com.etzhayyim.wrpc.call": {
       "post": {
-        "summary": "app.etzhayyim.wrpc.call",
-        "operationId": "app.etzhayyim.wrpc.call",
+        "summary": "com.etzhayyim.wrpc.call",
+        "operationId": "com.etzhayyim.wrpc.call",
         "requestBody": {
           "required": true,
           "content": {

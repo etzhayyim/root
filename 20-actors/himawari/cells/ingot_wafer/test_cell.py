@@ -5,7 +5,7 @@ Pure-logic tests over IngotWaferCell.solve; no kotoba host bindings required
 (the datalog import degrades to None in local dev). Verifies the constitutional
 invariants of the ingot growth + wire-saw wafering + kerf-Si recovery cell:
 
-  - emits an app.etzhayyim.himawari.waferBatchRecord with all required fields
+  - emits an com.etzhayyim.himawari.waferBatchRecord with all required fields
   - models per-wafer Si mass + saw kerf (mass balance is honest, never faked)
   - G5: rejects a batch whose kerf-Si recovery is < 90% circular (≥9000 bps)
   - G5: recovered kerf routes back to polysilicon_refine as recycled feedstock
@@ -28,7 +28,7 @@ IngotWaferCell = _mod.IngotWaferCell
 # Matching lexicon for the conformance test.
 _LEXICON_PATH = (
     pathlib.Path(__file__).resolve().parents[4]
-    / "00-contracts/lexicons/app/etzhayyim/himawari/waferBatchRecord.json"
+    / "00-contracts/lexicons/com/etzhayyim/himawari/waferBatchRecord.json"
 )
 
 
@@ -60,7 +60,7 @@ def test_emits_wafer_batch_record_with_required_fields():
     out = IngotWaferCell().solve(_base_state())
     assert out["accepted"] is True
     rec = out["waferBatchRecord"]
-    assert rec["$type"] == "app.etzhayyim.himawari.waferBatchRecord"
+    assert rec["$type"] == "com.etzhayyim.himawari.waferBatchRecord"
     for field in ("batchId", "polysiliconLotId", "ingotMethod", "waferCount", "attestingRobots"):
         assert field in rec and rec[field], f"required lexicon field {field} missing/empty"
     assert len(rec["attestingRobots"]) >= 2
@@ -191,7 +191,7 @@ def test_transact_off_does_not_fake_persistence():
 
 # --------------------------------------------------------------------------- #
 # Lexicon conformance — emitted record carries every required field with the
-# correct type/shape per app.etzhayyim.himawari.waferBatchRecord.
+# correct type/shape per com.etzhayyim.himawari.waferBatchRecord.
 # --------------------------------------------------------------------------- #
 _JSON_TYPE = {
     "string": str,

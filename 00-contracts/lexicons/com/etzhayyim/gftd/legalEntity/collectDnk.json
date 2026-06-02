@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectDnk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect Danish corporate data from CVR (Central Business Register) via Virk.dk API. CVR number as primary key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 1000)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 0)" },
+            "virksomhedsform": { "type": "string", "description": "Filter by company form (A/S, ApS, I/S, etc.)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

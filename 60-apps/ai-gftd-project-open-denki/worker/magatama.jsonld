@@ -37,14 +37,14 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openDenki.genNode",
-        "ai.gftd.apps.openDenki.substation",
-        "ai.gftd.apps.openDenki.feeder",
-        "ai.gftd.apps.openDenki.smartMeter",
-        "ai.gftd.apps.openDenki.meterReading",
-        "ai.gftd.apps.openDenki.fault",
-        "ai.gftd.apps.openDenki.demandResponse",
-        "ai.gftd.apps.openDenki.renewableOutput"
+        "com.etzhayyim.apps.openDenki.genNode",
+        "com.etzhayyim.apps.openDenki.substation",
+        "com.etzhayyim.apps.openDenki.feeder",
+        "com.etzhayyim.apps.openDenki.smartMeter",
+        "com.etzhayyim.apps.openDenki.meterReading",
+        "com.etzhayyim.apps.openDenki.fault",
+        "com.etzhayyim.apps.openDenki.demandResponse",
+        "com.etzhayyim.apps.openDenki.renewableOutput"
       ]
     }
   },

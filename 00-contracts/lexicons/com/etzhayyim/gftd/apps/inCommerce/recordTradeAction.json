@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.inCommerce.recordTradeAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "India Ministry of Commerce & Industry action (bridges tradeRemedy + criticalMinerals + customs-declaration)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "departmentKind",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "departmentKind": {
+              "type": "string",
+              "enum": [
+                "dgft",
+                "commerce_dept",
+                "dipp_industry_promotion",
+                "dpiit",
+                "exim_bank",
+                "mof_jab_traffic",
+                "sez_devp",
+                "fci_food_corp",
+                "msme_dept",
+                "invest_india",
+                "spices_board",
+                "tea_coffee",
+                "tobacco_board",
+                "apeda_agri_export",
+                "india_brand_equity"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "fta_signed_uk",
+                "fta_signed_eu",
+                "fta_signed_efta",
+                "cepa_uae",
+                "ecta_australia",
+                "sez_amendment",
+                "pli_scheme_extend",
+                "dgci_export_ban_wheat",
+                "dgci_export_ban_rice",
+                "atmanirbhar_bharat",
+                "make_in_india_2_0",
+                "sez_to_dta",
+                "semiconductor_pli",
+                "specialty_steel_pli",
+                "drone_pli",
+                "chemical_pli"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges tradeRemedy / criticalMinerals"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.validateCameraPlan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "P10.2 validator between cinematography (LLM, kind='llm') and simulate_one fan-out. Clamps + validates the raw LLM camera output (`shot` enum, `fov_deg` ∈ [15,85], `roll_deg` ∈ [-25,25], 3-float vectors, light role/colour/direction shape) and replaces malformed light arrays with the 3-point default. Output is the runtime `camera_plan` channel consumed by simulate_one + render_keyframes. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_validate_camera_plan.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cameraPlanRaw"],
+          "properties": {
+            "cameraPlanRaw": {
+              "type": "unknown",
+              "description": "Raw JSON object emitted by the cinematography LLM node — pre-clamp, may carry malformed fields."
+            },
+            "fallbackShot": {
+              "type": "string",
+              "description": "Manga-grammar enum to fall back to when the LLM's `shot` field is unknown or missing. Default MediumShot."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cameraPlan"],
+          "properties": {
+            "cameraPlan": {
+              "type": "ref",
+              "ref": "#cameraPlan"
+            }
+          }
+        }
+      }
+    },
+    "cameraPlan": {
+      "type": "object",
+      "required": ["camera", "lights"],
+      "properties": {
+        "camera": {
+          "type": "object",
+          "description": "{shot, eye, target, up, fov_deg, roll_deg, dof}. dof is null unless DoF is engaged."
+        },
+        "lights": {
+          "type": "array",
+          "description": "3-point lighting set; each entry carries role∈{Key,Fill,Rim,Ambient} + direction[3] + colour[3] + intensity.",
+          "items": { "type": "unknown" }
+        },
+        "llm": {
+          "type": "boolean",
+          "description": "True when the LLM produced a non-empty cameraPlanRaw; false when the validator fell back to pure presets."
+        }
+      }
+    }
+  }
+}

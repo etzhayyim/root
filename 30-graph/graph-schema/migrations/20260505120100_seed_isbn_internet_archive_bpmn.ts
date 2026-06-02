@@ -21,9 +21,9 @@ const ownerDid = "did:web:isbn.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.isbn-internet-archive";
 
 const seeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-internet-archive-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-internet-archive-v1",
     bpmnProcessId: "isbn_ingest_internet_archive",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isbn/ingestInternetArchive.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isbn/ingestInternetArchive.bpmn", ownerDid },
 ];
 
 async function insertProcessDef(db: Kysely<unknown>, s: P): Promise<void> {

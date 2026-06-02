@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.lifehack.submitTip",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a new lifehack tip with at least one source URL (authority-chain compliance). LLM-graded effectiveness; tip persists to vertex_lifehack_tip with content-addressed PK.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["topicId", "bodyJa", "sourceUrl"],
+          "properties": {
+            "topicId": {"type": "string"},
+            "bodyJa": {"type": "string", "maxLength": 4000},
+            "bodyEn": {"type": "string", "maxLength": 4000},
+            "sourceUrl": {"type": "string", "format": "uri"},
+            "sourceAuthority": {
+              "type": "string",
+              "enum": ["primary", "secondary", "llm-synth"],
+              "default": "secondary"
+            },
+            "evidenceSummary": {"type": "string", "maxLength": 2000},
+            "costJpyMin": {"type": "number"},
+            "costJpyMax": {"type": "number"},
+            "difficulty": {
+              "type": "string",
+              "enum": ["easy", "medium", "hard"],
+              "default": "easy"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "tipId", "vertexId", "effectivenessScore"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "tipId": {"type": "string"},
+            "vertexId": {"type": "string"},
+            "effectivenessScore": {"type": "number"},
+            "graderModel": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.copyright.chat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Chat with the Copyright Registry agent. Ask about works, licenses, DOI/ISBN resolution, orphan works detection, and CMO coverage.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["user"],
+          "properties": {
+            "user": {"type": "string", "maxLength": 4000, "description": "User message"},
+            "system": {"type": "string", "maxLength": 2000, "description": "Optional system override"},
+            "tier": {"type": "string", "description": "LLM tier: fast | standard | precise"},
+            "maxTokens": {"type": "integer", "default": 600},
+            "temperature": {"type": "number", "default": 0.3}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["content"],
+          "properties": {
+            "content": {"type": "string"},
+            "model": {"type": "string"},
+            "latencyMs": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

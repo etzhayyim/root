@@ -91,7 +91,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = MeltingPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.meltingAttestation",
+        "$type": "com.etzhayyim.kanayama.meltingAttestation",
         "lotId": s.lotId,
         "chargeMassKg": s.chargeMassKg,
         "furnaceTempC": s.furnaceTempC,

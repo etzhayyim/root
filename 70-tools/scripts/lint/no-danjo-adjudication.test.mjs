@@ -27,7 +27,7 @@ const SCRIPT = resolve(
   "no-danjo-adjudication.mjs",
 );
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const LEX_REL = "00-contracts/lexicons/app/etzhayyim/danjo";
+const LEX_REL = "00-contracts/lexicons/com/etzhayyim/danjo";
 
 function runIn(cwd, args = []) {
   const r = spawnSync("node", [SCRIPT, ...args], { cwd, encoding: "utf8" });
@@ -53,7 +53,7 @@ function makeTree(observationDoc, reportDoc) {
 
 const GOOD_OBSERVATION = {
   lexicon: 1,
-  id: "app.etzhayyim.danjo.discrepancyObservation",
+  id: "com.etzhayyim.danjo.discrepancyObservation",
   defs: {
     main: {
       type: "record",
@@ -72,7 +72,7 @@ const GOOD_OBSERVATION = {
 };
 const GOOD_REPORT = {
   lexicon: 1,
-  id: "app.etzhayyim.danjo.oversightReport",
+  id: "com.etzhayyim.danjo.oversightReport",
   defs: {
     main: {
       record: { properties: { nonAdjudicatingNotice: { const: true } } },

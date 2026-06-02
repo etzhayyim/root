@@ -842,7 +842,7 @@ async function dispatchLiveAudioIngest(
   const dispatcherSecret = await envString((sdk.env as Record<string, unknown>).BPMN_DISPATCHER_SECRET);
   const headers: Record<string, string> = { "content-type": "application/json" };
   if (dispatcherSecret) headers["x-internal-trust"] = dispatcherSecret;
-  const res = await fetch(`${baseUrl}/xrpc/app.etzhayyim.apps.news.liveAudioIngest`, {
+  const res = await fetch(`${baseUrl}/xrpc/com.etzhayyim.apps.news.liveAudioIngest`, {
     method: "POST",
     headers,
     body: JSON.stringify(payload),
@@ -944,7 +944,7 @@ async function exportNewsEntitiesToMaps(
       payload.lng = lng;
     }
     try {
-      const res = await fetch(`${baseUrl}/xrpc/app.etzhayyim.apps.maps.spatialEventRecord`, {
+      const res = await fetch(`${baseUrl}/xrpc/com.etzhayyim.apps.maps.spatialEventRecord`, {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
@@ -1044,7 +1044,7 @@ async function publishIntelPost(
 // ── Commands ─────────────────────────────────────────────────────────────────
 
 async function cmdIngest(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.ingest", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.ingest", body);
   const sourceId = str(args.sourceId ?? "");
   // Allow targeting a single source or all sources
   const targets = sourceId
@@ -1063,7 +1063,7 @@ async function cmdIngest(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdLiveAudioIngest(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.liveAudioIngest", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.liveAudioIngest", body);
   const sourceId = str(args.sourceId ?? "").trim();
   const sourceName = str(args.sourceName ?? sourceId).trim();
   const streamUrl = str(args.streamUrl ?? "").trim();
@@ -1077,8 +1077,8 @@ async function cmdLiveAudioIngest(_sdk: HostSDK, body: Uint8Array): Promise<unkn
     taskTypes: [
       "news.liveAudio.transcribeWindow",
       "generic.llm.json",
-      "xrpc.app.etzhayyim.apps.news.analyzeIntel",
-      "xrpc.app.etzhayyim.apps.news.publishIntel",
+      "xrpc.com.etzhayyim.apps.news.analyzeIntel",
+      "xrpc.com.etzhayyim.apps.news.publishIntel",
       "generic.audit.emit",
     ],
     sourceId,
@@ -1098,7 +1098,7 @@ async function cmdRegisterLiveAudioSource(
   let record: LiveAudioSource;
   try {
     record = liveAudioRecordFromArgs(
-      parseLexiconInput("app.etzhayyim.apps.news.registerLiveAudioSource", body)
+      parseLexiconInput("com.etzhayyim.apps.news.registerLiveAudioSource", body)
     );
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : String(error) };
@@ -1106,10 +1106,10 @@ async function cmdRegisterLiveAudioSource(
   const rkey = registryKey(record.sourceId);
   try {
     await sdk.pds.comAtprotoRepoPutRecord(
-      "app.etzhayyim.apps.news.liveAudioSource",
+      "com.etzhayyim.apps.news.liveAudioSource",
       rkey,
       {
-        $type: "app.etzhayyim.apps.news.liveAudioSource",
+        $type: "com.etzhayyim.apps.news.liveAudioSource",
         ...record,
       }
     );
@@ -1129,7 +1129,7 @@ async function cmdCommitArticle(
   sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.commitArticle", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.commitArticle", body);
   const sourceId = str(args.sourceId ?? "").trim();
   const sourceName = str(args.sourceName ?? sourceId).trim();
   const lang = str(args.lang ?? "en").trim() || "en";
@@ -1185,10 +1185,10 @@ async function cmdCommitArticle(
   };
   try {
     await sdk.pds.comAtprotoRepoPutRecord(
-      "app.etzhayyim.apps.news.article",
+      "com.etzhayyim.apps.news.article",
       rkey,
       {
-        $type: "app.etzhayyim.apps.news.article",
+        $type: "com.etzhayyim.apps.news.article",
         displayName: title.slice(0, 1024),
         description: description.slice(0, 4096),
         text: str(args.text ?? `${title} ${description}`).slice(0, 8192),
@@ -1247,7 +1247,7 @@ async function cmdListArticles(
   _sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.listArticles", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.listArticles", body);
   const limit = Math.min(Number(args.limit) || 50, 200);
   const offset = Number(args.offset) || 0;
   const db = createKyselyDb();
@@ -1266,7 +1266,7 @@ async function cmdGetArticle(
   _sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.getArticle", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.getArticle", body);
   const id = str(args.id ?? "");
   if (!id) return { error: "id required" };
   const db = createKyselyDb();
@@ -1325,13 +1325,13 @@ async function cmdListLiveAudioSources(
   sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.listLiveAudioSources", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.listLiveAudioSources", body);
   const limit = clampInt(args.limit, 50, 1, 100);
   const status = str(args.status ?? "").toLowerCase();
   const region = str(args.region ?? "").toLowerCase();
   const topic = str(args.topic ?? "").toLowerCase();
   try {
-    const result = await sdk.pds.listRecords("app.etzhayyim.apps.news.liveAudioSource", {
+    const result = await sdk.pds.listRecords("com.etzhayyim.apps.news.liveAudioSource", {
       limit,
       cursor: str(args.cursor ?? "") || undefined,
       reverse: true,
@@ -1392,14 +1392,14 @@ async function cmdAuditLiveAudioPolicies(
   sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.auditLiveAudioPolicies", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.auditLiveAudioPolicies", body);
   const limit = clampInt(args.limit, 100, 1, 100);
   const status = str(args.status ?? "").toLowerCase();
   const region = str(args.region ?? "").toLowerCase();
   const topic = str(args.topic ?? "").toLowerCase();
   const onlyBlocked = args.onlyBlocked === true;
   try {
-    const result = await sdk.pds.listRecords("app.etzhayyim.apps.news.liveAudioSource", {
+    const result = await sdk.pds.listRecords("com.etzhayyim.apps.news.liveAudioSource", {
       limit,
       cursor: str(args.cursor ?? "") || undefined,
       reverse: true,
@@ -1479,7 +1479,7 @@ async function cmdScheduleLiveAudioIngest(
   sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.scheduleLiveAudioIngest", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.scheduleLiveAudioIngest", body);
   const sourceId = registryKey(str(args.sourceId ?? ""));
   const region = str(args.region ?? "").toLowerCase();
   const topic = str(args.topic ?? "").toLowerCase();
@@ -1490,11 +1490,11 @@ async function cmdScheduleLiveAudioIngest(
   const nowMs = Date.now();
   try {
     const [sourceResult, stateResult] = await Promise.all([
-      sdk.pds.listRecords("app.etzhayyim.apps.news.liveAudioSource", {
+      sdk.pds.listRecords("com.etzhayyim.apps.news.liveAudioSource", {
         limit,
         reverse: true,
       }),
-      sdk.pds.listRecords("app.etzhayyim.apps.news.liveAudioScheduleState", {
+      sdk.pds.listRecords("com.etzhayyim.apps.news.liveAudioScheduleState", {
         limit: 100,
         reverse: true,
       }),
@@ -1554,10 +1554,10 @@ async function cmdScheduleLiveAudioIngest(
       const nextState = nextScheduleState(source, state, dispatch, nowMs);
       if (!dryRun) {
         await sdk.pds.comAtprotoRepoPutRecord(
-          "app.etzhayyim.apps.news.liveAudioScheduleState",
+          "com.etzhayyim.apps.news.liveAudioScheduleState",
           id,
           {
-            $type: "app.etzhayyim.apps.news.liveAudioScheduleState",
+            $type: "com.etzhayyim.apps.news.liveAudioScheduleState",
             ...nextState,
           }
         );
@@ -1596,7 +1596,7 @@ async function cmdAnalyzeIntel(
   sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.analyzeIntel", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.analyzeIntel", body);
   const title = str(args.title ?? "").trim();
   const sourceUrl = str(args.url ?? "").trim();
   if (!title || !sourceUrl)
@@ -1710,10 +1710,10 @@ async function cmdAnalyzeIntel(
   try {
     await (sdk.env as any).PDS_RPC.comAtprotoRepoPutRecord(
       sdk.pds.selfRepo,
-      "app.etzhayyim.apps.intel.report",
+      "com.etzhayyim.apps.intel.report",
       id.replace(/[^a-zA-Z0-9-]/g, "").slice(0, 64),
       {
-        $type: "app.etzhayyim.apps.intel.report",
+        $type: "com.etzhayyim.apps.intel.report",
         title: report.title,
         summary: report.summary,
         classification: report.classification,
@@ -1781,7 +1781,7 @@ async function cmdPublishIntel(
   sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.publishIntel", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.publishIntel", body);
   const title = str(args.title ?? "").trim();
   const sourceUrl = str(args.url ?? "").trim();
   if (!title || !sourceUrl)
@@ -1817,7 +1817,7 @@ async function cmdArticleDiag(
   _sdk: HostSDK,
   body: Uint8Array
 ): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.articleDiag", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.articleDiag", body);
   const rkey = str(args.rkey ?? "");
   // Sample Articles - check all accessible properties
   const db = createKyselyDb();
@@ -1839,7 +1839,7 @@ async function cmdArticleDiag(
 
 /** Diagnostic: list PDS records directly (bypasses graph, checks PDS write path) */
 async function cmdPdsDiag(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.news.pdsDiag", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.news.pdsDiag", body);
   const sourceId = str(args.sourceId ?? "gematsu");
   const writerRepo = writerDID(sourceId);
   const primaryRepo = sdk.pds.selfRepo;
@@ -1851,7 +1851,7 @@ async function cmdPdsDiag(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
     ["primary", primaryRepo],
   ] as const) {
     try {
-      const result = await sdk.pds.listRecords("app.etzhayyim.apps.news.article", {
+      const result = await sdk.pds.listRecords("com.etzhayyim.apps.news.article", {
         repo,
         limit: 3,
       });
@@ -1880,7 +1880,7 @@ function handleComAtprotoSyncSubscribeReposCommit(
     return { ok: true, detail: "skip non-create" };
   const collection = str(commit.collection ?? "");
 
-  if (collection === "app.etzhayyim.apps.news.article") {
+  if (collection === "com.etzhayyim.apps.news.article") {
     // Own article created — social evolution (like/repost by nwscr001 primary DID)
     return { ok: true, detail: "ownArticle" };
   }
@@ -1954,7 +1954,7 @@ export { handleComAtprotoSyncSubscribeReposCommit };
 const _workerInner = createWorkerExport((sdk) => {
   sdk.app
     .command(
-      nsid("app.etzhayyim.apps.news.ingest"),
+      nsid("com.etzhayyim.apps.news.ingest"),
       (_ctx, body) => cmdIngest(sdk, body),
       asAgentTool(
         "Start RSS ingest through the LangServer pipeline. Edge worker no longer fetches/translates feeds directly."
@@ -1962,7 +1962,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("pipeline", "ingest", "rss")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.liveAudioIngest"),
+      nsid("com.etzhayyim.apps.news.liveAudioIngest"),
       (_ctx, body) => cmdLiveAudioIngest(sdk, body),
       asAgentTool(
         "Start public live-news/radio audio ingestion through LangServer: capture, transcribe, extract, and analyze as news intel."
@@ -1970,7 +1970,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("pipeline", "ingest", "audio", "radio", "intel")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.registerLiveAudioSource"),
+      nsid("com.etzhayyim.apps.news.registerLiveAudioSource"),
       (_ctx, body) => cmdRegisterLiveAudioSource(sdk, body),
       asAgentTool(
         "Register or update a public live-news/radio stream source for scheduled live audio ingest."
@@ -1978,7 +1978,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("write", "news", "sources", "audio", "radio")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.scheduleLiveAudioIngest"),
+      nsid("com.etzhayyim.apps.news.scheduleLiveAudioIngest"),
       (_ctx, body) => cmdScheduleLiveAudioIngest(sdk, body),
       asAgentTool(
         "Dispatch due active live-news/radio sources to the live audio ingest BPMN process with cadence and cooldown state."
@@ -1986,7 +1986,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("pipeline", "scheduler", "news", "audio", "radio")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.commitArticle"),
+      nsid("com.etzhayyim.apps.news.commitArticle"),
       (_ctx, body) => cmdCommitArticle(sdk, body),
       asAgentTool(
         "Thin edge write boundary for LangServer RSS pipeline. Writes article record and optional social post."
@@ -1994,7 +1994,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("edge", "write", "news", "rss")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.listArticles"),
+      nsid("com.etzhayyim.apps.news.listArticles"),
       (_ctx, body) => cmdListArticles(sdk, body),
       asAgentTool(
         "List ingested news articles (filter by sourceId, lang, category)"
@@ -2002,34 +2002,34 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("query", "news")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.getArticle"),
+      nsid("com.etzhayyim.apps.news.getArticle"),
       (_ctx, body) => cmdGetArticle(sdk, body),
       asAgentTool("Get news article by ID"),
       withCapabilityTags("query", "news")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.listSources"),
+      nsid("com.etzhayyim.apps.news.listSources"),
       (_ctx, body) => cmdListSources(sdk, body),
       asAgentTool("List all RSS sources with writer DIDs"),
       withCapabilityTags("query", "news", "sources")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.stats"),
+      nsid("com.etzhayyim.apps.news.stats"),
       (_ctx, body) => cmdStats(sdk, body),
       asAgentTool("News ingestion stats (total articles, per-source counts)"),
       withCapabilityTags("analytics", "news")
     )
-    .query(nsid("app.etzhayyim.apps.news.listIntelSources"), (_ctx, body) =>
+    .query(nsid("com.etzhayyim.apps.news.listIntelSources"), (_ctx, body) =>
       cmdListIntelSources(sdk, body)
     )
-    .query(nsid("app.etzhayyim.apps.news.listLiveAudioSources"), (_ctx, body) =>
+    .query(nsid("com.etzhayyim.apps.news.listLiveAudioSources"), (_ctx, body) =>
       cmdListLiveAudioSources(sdk, body)
     )
-    .query(nsid("app.etzhayyim.apps.news.auditLiveAudioPolicies"), (_ctx, body) =>
+    .query(nsid("com.etzhayyim.apps.news.auditLiveAudioPolicies"), (_ctx, body) =>
       cmdAuditLiveAudioPolicies(sdk, body)
     )
     .command(
-      nsid("app.etzhayyim.apps.news.analyzeIntel"),
+      nsid("com.etzhayyim.apps.news.analyzeIntel"),
       (_ctx, body) => cmdAnalyzeIntel(sdk, body),
       asAgentTool(
         "Analyze primary/official-source evidence into an attributed intel report and optionally publish it."
@@ -2037,7 +2037,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("pipeline", "intel", "analysis")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.publishIntel"),
+      nsid("com.etzhayyim.apps.news.publishIntel"),
       (_ctx, body) => cmdPublishIntel(sdk, body),
       asAgentTool(
         "Publish a prepared intel brief through a news.etzhayyim.com writer DID."
@@ -2045,7 +2045,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("publish", "intel", "news")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.articleDiag"),
+      nsid("com.etzhayyim.apps.news.articleDiag"),
       (_ctx, body) => cmdArticleDiag(sdk, body),
       asAgentTool(
         "Diagnostic: sample Article nodes to inspect their properties"
@@ -2053,7 +2053,7 @@ const _workerInner = createWorkerExport((sdk) => {
       withCapabilityTags("debug", "news")
     )
     .command(
-      nsid("app.etzhayyim.apps.news.pdsDiag"),
+      nsid("com.etzhayyim.apps.news.pdsDiag"),
       (_ctx, body) => cmdPdsDiag(sdk, body),
       asAgentTool("Diagnostic: check PDS records directly for a source"),
       withCapabilityTags("debug", "news")

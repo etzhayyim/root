@@ -185,7 +185,7 @@
         "datasetPin_at": {
           "type": "string",
           "pattern": "^at://.+",
-          "description": "AT URI of the app.etzhayyim.substrate.datasetPin receipt. Placeholder `<rkey-placeholder>` is permitted at W1 path-reserved stage."
+          "description": "AT URI of the com.etzhayyim.substrate.datasetPin receipt. Placeholder `<rkey-placeholder>` is permitted at W1 path-reserved stage."
         },
         "tier": {
           "type": "string",

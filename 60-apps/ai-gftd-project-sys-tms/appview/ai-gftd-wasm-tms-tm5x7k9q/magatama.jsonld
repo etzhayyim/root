@@ -75,9 +75,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.sysUtms.sys_tms_entity",
-        "ai.gftd.apps.sysUtms.sys_tms_event",
-        "ai.gftd.apps.sysUtms.sys_tms_report"
+        "com.etzhayyim.apps.sysUtms.sys_tms_entity",
+        "com.etzhayyim.apps.sysUtms.sys_tms_event",
+        "com.etzhayyim.apps.sysUtms.sys_tms_report"
       ]
     }
   },

@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.createTree",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Insert a tree (directory snapshot). Hash is sha256 over canonical-sorted (path ASC) entry list. Idempotent.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerDid", "entries"],
+          "properties": {
+            "ownerDid": { "type": "string", "format": "did" },
+            "entries": {
+              "type": "array",
+              "description": "Directory entries. MUST NOT contain duplicate paths.",
+              "items": { "type": "ref", "ref": "#treeEntry" }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["treeHash", "entryCount"],
+          "properties": {
+            "treeHash": { "type": "string", "description": "sha256 hex of canonical entry list" },
+            "entryCount": { "type": "integer" },
+            "deduplicated": { "type": "boolean" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "UnauthorizedWriter" },
+        { "name": "DuplicatePath", "description": "Two entries share the same path." },
+        { "name": "MissingObject", "description": "Referenced blob/tree hash does not exist." }
+      ]
+    },
+    "treeEntry": {
+      "type": "object",
+      "required": ["path", "mode", "targetHash"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path segment relative to this tree (no leading slash, no '..')."
+        },
+        "mode": {
+          "type": "string",
+          "knownValues": ["blob", "exec", "tree"],
+          "description": "blob = regular file, exec = executable file, tree = nested directory"
+        },
+        "targetHash": {
+          "type": "string",
+          "description": "sha256 of blob (mode=blob|exec) or tree (mode=tree)."
+        }
+      }
+    }
+  }
+}

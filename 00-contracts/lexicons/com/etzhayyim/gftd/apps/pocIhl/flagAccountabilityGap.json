@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pocIhl.flagAccountabilityGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Accountability gap / ICC referral / universal jurisdiction (bridges humanitarianCorridor.flagAccessDenial + federal-court-docket + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "incidentVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "incidentVid": {
+              "type": "string",
+              "description": "bridges recordIncident"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "icc_non_party",
+                "security_council_veto",
+                "domestic_immunity",
+                "universal_jurisdiction_declined",
+                "military_justice_cover",
+                "amnesty_law",
+                "evidence_destroyed",
+                "witness_intimidation",
+                "command_responsibility_dispute",
+                "statute_barred"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

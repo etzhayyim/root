@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.manga.listChapters",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List chapters for a manga title",
+      "parameters": {
+        "type": "params",
+        "required": ["title_id"],
+        "properties": {
+          "title_id": { "type": "string" },
+          "status": { "type": "string" },
+          "offset": { "type": "integer" },
+          "limit": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapters", "total", "offset", "limit"],
+          "properties": {
+            "chapters": { "type": "array", "items": { "type": "object" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

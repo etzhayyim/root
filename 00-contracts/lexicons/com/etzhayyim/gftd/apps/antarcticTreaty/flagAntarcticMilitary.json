@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.antarcticTreaty.flagAntarcticMilitary",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave4 (stub): 南極条約違反. Starts BPMN process open_antarctic_treaty_flag_antarctic_military.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "incidentVid": { "type": "string" },
+            "country": { "type": "string" }
+          },
+          "required": ["vertexId", "incidentVid", "country"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

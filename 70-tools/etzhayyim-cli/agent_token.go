@@ -12,7 +12,7 @@ package main
 //	  "sub": "did:web:<agent>",           // who is authorized (Agent)
 //	  "aud": "did:web:<target>",          // who must verify (target actor / Worker)
 //	  "lxm": "deploy.cfWorker:karute-did-web", // single scope per token
-//	  "cap": "at://did:plc:.../app.etzhayyim.consent.capability/abc", // parent capability URI
+//	  "cap": "at://did:plc:.../com.etzhayyim.consent.capability/abc", // parent capability URI
 //	  "iat": <unix>,
 //	  "exp": <unix + ttl>,
 //	  "jti": "<uuid>"
@@ -37,7 +37,7 @@ import (
 
 func runAgentToken(args []string) error {
 	fs := flag.NewFlagSet("agent-token", flag.ContinueOnError)
-	lxm := fs.String("lxm", "", "scope NSID (single value; e.g. 'deploy.cfWorker:karute-did-web' or 'app.etzhayyim.apps.karute.createSoapNote')")
+	lxm := fs.String("lxm", "", "scope NSID (single value; e.g. 'deploy.cfWorker:karute-did-web' or 'com.etzhayyim.apps.karute.createSoapNote')")
 	ttl := fs.Int("ttl", 60, "lifetime in seconds (default 60)")
 	issuer := fs.String("issuer", "", "issuer DID (default: $ETZ_STEWARD_DID)")
 	agent := fs.String("agent", "", "agent DID being authorized (default: $ETZ_AGENT_DID)")
@@ -149,23 +149,23 @@ OPTIONAL:
 
 EXAMPLES:
   # Mint a 60s token for one karute write XRPC
-  AT_TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.karute.createSoapNote)
+  AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.karute.createSoapNote)
   curl -H "Authorization: Bearer $AT_TOKEN" https://karute.etzhayyim.com/xrpc/... -d '…'
 
   # Agent-led deploy stage
   TOKEN=$(gftd agent-token \
     --lxm deploy.cfWorker:karute-did-web \
-    --capability at://did:web:steward.etzhayyim.com/app.etzhayyim.consent.capability/3lzw1 \
+    --capability at://did:web:steward.etzhayyim.com/com.etzhayyim.consent.capability/3lzw1 \
     --ttl 300)
   gftd actor deploy --actor karute --only did-worker --agent-token "$TOKEN"
 `)
 }
 
 func inferAudienceFromLxm(lxm string) string {
-	// "app.etzhayyim.apps.karute.createSoapNote" → did:web:karute.etzhayyim.com
+	// "com.etzhayyim.apps.karute.createSoapNote" → did:web:karute.etzhayyim.com
 	// "deploy.cfWorker:karute-did-web"    → did:web:karute-did-web.etzhayyim.com
 	// "deploy.k8s:lg-karute"              → did:web:karute.etzhayyim.com (back-reference)
-	if strings.HasPrefix(lxm, "app.etzhayyim.apps.") {
+	if strings.HasPrefix(lxm, "com.etzhayyim.apps.") {
 		parts := strings.Split(lxm, ".")
 		if len(parts) >= 4 {
 			return "did:web:" + parts[3] + ".etzhayyim.com"

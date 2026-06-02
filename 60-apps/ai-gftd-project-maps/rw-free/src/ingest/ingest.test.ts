@@ -68,7 +68,7 @@ function mockRule(nsid: string): MembraneRule {
   };
 }
 
-const DATASET_PIN_URI = "at://did:web:etzhayyim.com/app.etzhayyim.substrate.datasetPin/r0001";
+const DATASET_PIN_URI = "at://did:web:etzhayyim.com/com.etzhayyim.substrate.datasetPin/r0001";
 
 // ─── id + pctBps + payloadRef validators ────────────────────────────
 
@@ -149,7 +149,7 @@ describe("registerVisionResult", () => {
       },
       { client: mockClient(captured) },
     );
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.visionResult");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.visionResult");
     expect(captured[0].rkey).toBe("fuji-classify-r0001");
     const v = captured[0].value;
     expect(v.analysisKind).toBe("classification");
@@ -319,7 +319,7 @@ describe("registerWebCrawlGeoEntity", () => {
         lat: 35.65696,
         nerConfidence: 0.97,
         wetPayloadKind: "cross-actor",
-        wetRecordUri: "at://did:web:site.etzhayyim.com/app.etzhayyim.site.wetRecord/r0042",
+        wetRecordUri: "at://did:web:site.etzhayyim.com/com.etzhayyim.site.wetRecord/r0042",
         crawledAt: "2026-05-23T00:00:00Z",
       },
       { client: mockClient(captured as any) },
@@ -398,7 +398,7 @@ describe("L1 witnessed end-to-end — registerSatelliteScene", () => {
         payloadKind: "stac-url",
         stacItemUrl: "https://test.example/stac/sentinel-2-l2a/items/x",
       },
-      { client: mockClient(), witness: { fleet, transport, rule: mockRule("app.etzhayyim.maps.satelliteScene") } },
+      { client: mockClient(), witness: { fleet, transport, rule: mockRule("com.etzhayyim.maps.satelliteScene") } },
     );
     expect(result.witnessState!.kind).toBe("witnessed");
   });

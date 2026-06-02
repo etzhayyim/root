@@ -3,11 +3,11 @@
 -- bulk-51: query_oa_works → fetch_fulltext → store_blobs → emit_audit → END
 --
 -- v2:
---   query_oa_works → mcp://ai.gftd.tools.sql.query (clean SELECT)
+--   query_oa_works → mcp://com.etzhayyim.tools.sql.query (clean SELECT)
 --   fetch_fulltext → py_primitive grandfathered (httpx fetch, refactor needed)
 --   store_blobs    → py_primitive grandfathered (sa_executemany INSERT,
 --                    needs `tools.sql.exec` primitive — Phase C scope)
---   emit_audit     → mcp://ai.gftd.tools.audit.emit
+--   emit_audit     → mcp://com.etzhayyim.tools.audit.emit
 --
 -- 2/4 nodes data-resolved. The remaining 2 require either Phase B
 -- primitive extraction (httpx wrapper, INSERT primitive) or a 5th
@@ -18,14 +18,14 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:copyright.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-copyright-queryOaWorks',
-   0, 0, 'ai.gftd.apps.copyright.queryOaWorks',
+  ('at://did:web:copyright.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-copyright-queryOaWorks',
+   0, 0, 'com.etzhayyim.apps.copyright.queryOaWorks',
    'did:web:copyright.etzhayyim.com', 'copyright.etzhayyim.com', 'procedure',
    'copyright — find Berne-automatic Open Access works lacking blobs.',
    '{"type":"object","properties":{"batchSize":{"type":"integer"}}}',
    '{"type":"object","properties":{"rows":{"type":"array"},"rowCount":{"type":"integer"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/copyright/queryOaWorks.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/copyright/queryOaWorks.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 INSERT INTO vertex_langgraph_assistant
@@ -41,8 +41,8 @@ INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
 VALUES
   ('copyright_fulltext.v2:query_oa_works', 0, 0, 'copyright_fulltext.v2', 'query_oa_works',
-   'mcp_tool', 'mcp://ai.gftd.tools.sql.query',
-   '{"input_keys":[],"result_key":"queryOut","args":{"name":"ai.gftd.tools.sql.query","sql":"SELECT w.vertex_id, w.doi, w.registry FROM vertex_work w WHERE w.berne_automatic = true AND w.doi IS NOT NULL AND NOT EXISTS (SELECT 1 FROM vertex_work_blob wb WHERE wb.work_vertex_id = w.vertex_id) LIMIT 50"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.tools.sql.query',
+   '{"input_keys":[],"result_key":"queryOut","args":{"name":"com.etzhayyim.tools.sql.query","sql":"SELECT w.vertex_id, w.doi, w.registry FROM vertex_work w WHERE w.berne_automatic = true AND w.doi IS NOT NULL AND NOT EXISTS (SELECT 1 FROM vertex_work_blob wb WHERE wb.work_vertex_id = w.vertex_id) LIMIT 50"}}',
    '2026-05-09T00:00:00Z'),
   -- grandfathered: httpx fetch (no generic primitive yet)
   ('copyright_fulltext.v2:fetch_fulltext', 0, 0, 'copyright_fulltext.v2', 'fetch_fulltext',
@@ -51,8 +51,8 @@ VALUES
   ('copyright_fulltext.v2:store_blobs', 0, 0, 'copyright_fulltext.v2', 'store_blobs',
    'py_primitive', 'pymagatama.langgraph_graphs.copyright_fulltext:store_blobs', NULL, '2026-05-09T00:00:00Z'), -- lint-py-primitive-ok
   ('copyright_fulltext.v2:emit_audit', 0, 0, 'copyright_fulltext.v2', 'emit_audit',
-   'mcp_tool', 'mcp://ai.gftd.tools.audit.emit',
-   '{"input_keys":[],"result_key":"auditOut","args":{"name":"ai.gftd.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"ai.gftd.apps.copyright.audit","action":"fulltext"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.tools.audit.emit',
+   '{"input_keys":[],"result_key":"auditOut","args":{"name":"com.etzhayyim.tools.audit.emit","repo":"did:web:copyright.etzhayyim.com","collection":"com.etzhayyim.apps.copyright.audit","action":"fulltext"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'copyright_fulltext.v2'

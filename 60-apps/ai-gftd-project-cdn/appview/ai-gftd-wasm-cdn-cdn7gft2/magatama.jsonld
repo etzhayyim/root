@@ -71,9 +71,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.cdn.cdnEntity",
-        "ai.gftd.apps.cdn.cdnEvent",
-        "ai.gftd.apps.cdn.cdnReport"
+        "com.etzhayyim.apps.cdn.cdnEntity",
+        "com.etzhayyim.apps.cdn.cdnEvent",
+        "com.etzhayyim.apps.cdn.cdnReport"
       ]
     }
   },

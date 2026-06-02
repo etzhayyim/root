@@ -23,9 +23,9 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_actor_tool_grants AS
     FROM vertex_capability g
     JOIN vertex_capability t
       ON t.name = g.name
-     AND t.collection = 'ai.gftd.tool.tool'
+     AND t.collection = 'com.etzhayyim.tool.tool'
      AND t.status = 'active'
-    WHERE g.collection = 'ai.gftd.actor.toolGrant'
+    WHERE g.collection = 'com.etzhayyim.actor.toolGrant'
       AND g.status = 'active';
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_actor_governance_policy AS

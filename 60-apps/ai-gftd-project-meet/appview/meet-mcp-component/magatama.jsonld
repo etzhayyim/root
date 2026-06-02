@@ -25,8 +25,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.meet.account",
-        "ai.gftd.apps.meet.syncJob"
+        "com.etzhayyim.apps.meet.account",
+        "com.etzhayyim.apps.meet.syncJob"
       ]
     }
   }

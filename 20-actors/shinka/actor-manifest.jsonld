@@ -95,7 +95,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.shinka.propagationJob"
+          "com.etzhayyim.apps.shinka.propagationJob"
         ],
         "type": "subscribeRepos"
       }
@@ -167,7 +167,7 @@
             "params": {
               "actorName": "shinka",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.shinka.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.shinka.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "sh1nk4ev",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -227,7 +227,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.shinka.coverage.get",
+        "nsid": "com.etzhayyim.apps.shinka.coverage.get",
         "type": "xrpc"
       }
     }
@@ -251,8 +251,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -265,8 +265,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.shinka.propagationEvent",
-        "ai.gftd.apps.shinka.propagationJob"
+        "com.etzhayyim.apps.shinka.propagationEvent",
+        "com.etzhayyim.apps.shinka.propagationJob"
       ]
     }
   },

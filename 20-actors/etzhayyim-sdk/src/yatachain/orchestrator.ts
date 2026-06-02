@@ -40,7 +40,7 @@ export interface WitnessRequest {
 
 /** Transport abstraction. Production uses PDS XRPC (`requestAttestation`
  *  hits a per-cell endpoint, `subscribeAttestations` reads the
- *  `app.etzhayyim.yatachain.attestation` firehose filtered by `quorumGroup`).
+ *  `com.etzhayyim.yatachain.attestation` firehose filtered by `quorumGroup`).
  *  Tests use the in-memory transport in `createInMemoryWitnessTransport`. */
 export interface WitnessTransport {
   requestAttestation(req: WitnessRequest): Promise<void>;

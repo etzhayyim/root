@@ -23,30 +23,30 @@ const seeds: Seed[] = [
   {
     file: "queueSeeds",
     processId: "ir_scrape_queue_seeds",
-    nsid: "app.etzhayyim.apps.irScrape.queueSeeds",
+    nsid: "com.etzhayyim.apps.irScrape.queueSeeds",
     writeTableAllowlist: "vertex_ir_company,vertex_ir_scraper_run",
     resultTimeoutMs: 120_000,
   },
   {
     file: "processQueue",
     processId: "ir_scrape_process_queue",
-    nsid: "app.etzhayyim.apps.irScrape.processQueue",
+    nsid: "com.etzhayyim.apps.irScrape.processQueue",
     writeTableAllowlist: "vertex_ir_scraper_run,vertex_ir_pressrelease",
     resultTimeoutMs: 300_000,
   },
 ];
 
 const sourcePath = (s: Seed) =>
-  `00-contracts/bpmn/ai/gftd/irScrape/${s.file}.bpmn`;
+  `00-contracts/bpmn/com/etzhayyim/irScrape/${s.file}.bpmn`;
 
 const slug = (s: Seed) =>
   s.file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 
 const processVid = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ir-scrape-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ir-scrape-${slug(s)}-v1`;
 
 const bindingVid = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ir-scrape-${slug(s)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ir-scrape-${slug(s)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

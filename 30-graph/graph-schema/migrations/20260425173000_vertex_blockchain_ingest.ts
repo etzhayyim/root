@@ -14,16 +14,16 @@ const actorTag = "sys.bpmn.seed.blockchain-ingest";
 
 const seeds = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1",
-    bindingId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/blockchain-bitcoin-head-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-bitcoin-head-delta-v1",
     processId: "blockchain_bitcoin_head_delta",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/blockchainBitcoinHeadDelta.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/blockchainBitcoinHeadDelta.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1",
-    bindingId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/blockchain-ethereum-head-delta-v1",
+    bindingId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ingest-start-blockchain-ethereum-head-delta-v1",
     processId: "blockchain_ethereum_head_delta",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ingest/blockchainEthereumHeadDelta.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ingest/blockchainEthereumHeadDelta.bpmn",
   },
 ];
 
@@ -108,7 +108,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id,
         actor_id, write_table_allowlist
       )
-      SELECT ${seed.bindingId}, ${ingestDid}, 'app.etzhayyim.apps.ingest.start',
+      SELECT ${seed.bindingId}, ${ingestDid}, 'com.etzhayyim.apps.ingest.start',
              ${seed.processId}, 1, CAST(0 AS integer), 'active',
              ${createdAt}, 1, ${ingestDid}, ${ingestDid}, ${actorTag},
              'vertex_blockchain_block,vertex_blockchain_tx,vertex_ingest_cursor,vertex_ingest_run,vertex_ingest_artifact'

@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.businessManager.allocateBudget",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "department": {
+              "type": "string"
+            },
+            "fiscalPeriod": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "allocatedAmount": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "department",
+            "fiscalPeriod"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "error": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "000": {
+              "type": "string"
+            },
+            "allocationId": {
+              "type": "integer"
+            },
+            "department": {
+              "type": "string"
+            },
+            "fiscalPeriod": {
+              "type": "string"
+            },
+            "allocatedAmount": {
+              "type": "number"
+            },
+            "category": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

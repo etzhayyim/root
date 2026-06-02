@@ -12,7 +12,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/demining.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/demining"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/demining"
   },
   "profile": {
     "displayName": "Demining — Humanitarian Mine Action",
@@ -49,15 +49,15 @@
   "derive": {
     "social": [
       {
-        "when": { "collection": "ai.gftd.apps.demining.landReleaseDecision" },
+        "when": { "collection": "com.etzhayyim.apps.demining.landReleaseDecision" },
         "post": "Land Released per IMAS 07.11: {{areaLabel}} — {{releasedSqm}} sqm cleared. Method: {{releaseMethod}}."
       },
       {
-        "when": { "collection": "ai.gftd.apps.demining.eoreSession" },
+        "when": { "collection": "com.etzhayyim.apps.demining.eoreSession" },
         "post": "EORE session (IMAS 12.10) delivered — {{beneficiaries}} beneficiaries reached at {{locationLabel}}."
       },
       {
-        "when": { "collection": "ai.gftd.apps.demining.surveyRecord", "stage": "ts" },
+        "when": { "collection": "com.etzhayyim.apps.demining.surveyRecord", "stage": "ts" },
         "post": "Technical survey progress: {{areaLabel}} ({{imasStage}}). Coordinates withheld until Land Release."
       }
     ]
@@ -70,13 +70,13 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.demining.hazardArea",
-        "ai.gftd.apps.demining.surveyRecord",
-        "ai.gftd.apps.demining.detectionEvent",
-        "ai.gftd.apps.demining.clearanceTask",
-        "ai.gftd.apps.demining.landReleaseDecision",
-        "ai.gftd.apps.demining.eoreSession",
-        "ai.gftd.apps.demining.victimRecord"
+        "com.etzhayyim.apps.demining.hazardArea",
+        "com.etzhayyim.apps.demining.surveyRecord",
+        "com.etzhayyim.apps.demining.detectionEvent",
+        "com.etzhayyim.apps.demining.clearanceTask",
+        "com.etzhayyim.apps.demining.landReleaseDecision",
+        "com.etzhayyim.apps.demining.eoreSession",
+        "com.etzhayyim.apps.demining.victimRecord"
       ]
     }
   }

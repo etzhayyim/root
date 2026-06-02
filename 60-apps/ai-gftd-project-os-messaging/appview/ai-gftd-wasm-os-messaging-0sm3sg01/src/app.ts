@@ -3,7 +3,7 @@
  *
  * Receives webhooks from 5 platforms (Discord, Telegram, Slack, LINE, WhatsApp),
  * converts to UnifiedMessage, resolves the user's etzhayyim DID via platform mapping,
- * dispatches to PDS app.etzhayyim.convo.send (→ agentInfer), and relays the reply
+ * dispatches to PDS com.etzhayyim.convo.send (→ agentInfer), and relays the reply
  * back to the originating platform.
  *
  * Data path:
@@ -11,7 +11,7 @@
  *   Read:  createKyselyDb → RisingWave (platform user mapping lookup)
  *
  * Architecture (Path F Phase 3):
- *   Platform webhook → this Worker → PDS app.etzhayyim.convo.send → agentInferV2
+ *   Platform webhook → this Worker → PDS com.etzhayyim.convo.send → agentInferV2
  *     → memory + consent + audit + tool chain → reply
  *   → this Worker → platform API → user
  */
@@ -195,7 +195,7 @@ async function replyToPlatform(
       data = { platform: msg.platform, channel_id: msg.channelId, user_id: msg.userId, text: replyText, sent_at: nowISO() };
   }
   await db.insertInto("vertex_os_messaging_outbound" as any).values({
-    vertex_id: `at://${ownerDid}/app.etzhayyim.apps.osMessaging.outbound/${outId}`,
+    vertex_id: `at://${ownerDid}/com.etzhayyim.apps.osMessaging.outbound/${outId}`,
     sensitivity_ord: 2,
     owner_did: ownerDid,
     org_id: "anon",
@@ -218,13 +218,13 @@ async function dispatchToAgent(
   // Resolve user's etzhayyim DID
   const userDid = msg.userDid || await resolveUserDid(msg.platform, msg.userId);
 
-  // Dispatch to PDS app.etzhayyim.convo.send → agentInfer pipeline
+  // Dispatch to PDS com.etzhayyim.convo.send → agentInfer pipeline
   // The PDS handler auto-detects peer agent DID and runs agentInfer
   const inboundId = genID("in");
   const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
   const db = createKyselyDb();
   await db.insertInto("vertex_os_messaging_inbound" as any).values({
-    vertex_id: `at://${selfDid}/app.etzhayyim.apps.osMessaging.inbound/${inboundId}`,
+    vertex_id: `at://${selfDid}/com.etzhayyim.apps.osMessaging.inbound/${inboundId}`,
     sensitivity_ord: 2,
     owner_did: selfDid,
     platform: msg.platform,
@@ -251,7 +251,7 @@ export default createWorkerExport((sdk) => {
   // ── Platform webhook commands ──
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.webhookDiscord",
+    "com.etzhayyim.apps.osMessaging.webhookDiscord",
     asAgentTool(
       withCapabilityTags(["webhook-receiver"])(
         withOCELEvent("osMessaging:webhookDiscord")(async (input: Record<string, unknown>) => {
@@ -268,7 +268,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.webhookTelegram",
+    "com.etzhayyim.apps.osMessaging.webhookTelegram",
     asAgentTool(
       withCapabilityTags(["webhook-receiver"])(
         withOCELEvent("osMessaging:webhookTelegram")(async (input: Record<string, unknown>) => {
@@ -283,7 +283,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.webhookSlack",
+    "com.etzhayyim.apps.osMessaging.webhookSlack",
     asAgentTool(
       withCapabilityTags(["webhook-receiver"])(
         withOCELEvent("osMessaging:webhookSlack")(async (input: Record<string, unknown>) => {
@@ -300,7 +300,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.webhookLine",
+    "com.etzhayyim.apps.osMessaging.webhookLine",
     asAgentTool(
       withCapabilityTags(["webhook-receiver"])(
         withOCELEvent("osMessaging:webhookLine")(async (input: Record<string, unknown>) => {
@@ -315,7 +315,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.webhookWhatsapp",
+    "com.etzhayyim.apps.osMessaging.webhookWhatsapp",
     asAgentTool(
       withCapabilityTags(["webhook-receiver"])(
         withOCELEvent("osMessaging:webhookWhatsapp")(async (input: Record<string, unknown>) => {
@@ -332,7 +332,7 @@ export default createWorkerExport((sdk) => {
   // ── Platform connection management ──
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.connectPlatform",
+    "com.etzhayyim.apps.osMessaging.connectPlatform",
     asAgentTool(
       withCapabilityTags(["platform-user-mapping"])(
         withOCELEvent("osMessaging:connectPlatform")(async (input: {
@@ -344,7 +344,7 @@ export default createWorkerExport((sdk) => {
           const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
           const db = createKyselyDb();
           await db.insertInto("vertex_os_messaging_platform_mapping" as any).values({
-            vertex_id: `at://${selfDid}/app.etzhayyim.apps.osMessaging.platformMapping/${mappingId}`,
+            vertex_id: `at://${selfDid}/com.etzhayyim.apps.osMessaging.platformMapping/${mappingId}`,
             sensitivity_ord: 2,
             owner_did: selfDid,
             platform: input.platform,
@@ -365,7 +365,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.command(
-    "app.etzhayyim.apps.osMessaging.disconnectPlatform",
+    "com.etzhayyim.apps.osMessaging.disconnectPlatform",
     asAgentTool(
       withCapabilityTags(["platform-user-mapping"])(
         withOCELEvent("osMessaging:disconnectPlatform")(async (input: { platform: Platform; platformUid: string }) => {
@@ -373,7 +373,7 @@ export default createWorkerExport((sdk) => {
           const selfDid = sdk.pds.selfRepo ?? "did:web:0sm3sg01.etzhayyim.com";
           const db = createKyselyDb();
           await db.insertInto("vertex_os_messaging_platform_mapping" as any).values({
-            vertex_id: `at://${selfDid}/app.etzhayyim.apps.osMessaging.platformMapping/${disconnectId}`,
+            vertex_id: `at://${selfDid}/com.etzhayyim.apps.osMessaging.platformMapping/${disconnectId}`,
             sensitivity_ord: 2,
             owner_did: selfDid,
             platform: input.platform,
@@ -394,7 +394,7 @@ export default createWorkerExport((sdk) => {
   );
 
   sdk.app.query(
-    "app.etzhayyim.apps.osMessaging.listConnections",
+    "com.etzhayyim.apps.osMessaging.listConnections",
     asAgentTool(
       withCapabilityTags(["platform-user-mapping"])(
         withOCELEvent("osMessaging:listConnections")(async (input: { gftdDid?: string; platform?: string }) => {
@@ -436,7 +436,7 @@ async function handleComAtprotoSyncSubscribeReposCommit(
   if (commit.action !== "create") return;
 
   // Outbound message delivery: osMessaging.outbound record → platform API
-  if (commit.collection === "app.etzhayyim.apps.osMessaging.outbound") {
+  if (commit.collection === "com.etzhayyim.apps.osMessaging.outbound") {
     const record = decodeJson(commit.recordJson);
     const platform = str(record.platform ?? "") as Platform;
     const text = str(record.text ?? "");

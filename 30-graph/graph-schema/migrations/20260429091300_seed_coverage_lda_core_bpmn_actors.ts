@@ -25,22 +25,22 @@ const seeds: Seed[] = [
   {
     proc: "inferLdaSignals",
     bpmnProcessId: "coverage_infer_lda_signals",
-    nsid: "app.etzhayyim.apps.coverage.inferLdaSignals",
-    sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaSignals.bpmn",
+    nsid: "com.etzhayyim.apps.coverage.inferLdaSignals",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaSignals.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "inferLdaTopics",
     bpmnProcessId: "coverage_infer_lda_topics",
-    nsid: "app.etzhayyim.apps.coverage.inferLdaTopics",
-    sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaTopics.bpmn",
+    nsid: "com.etzhayyim.apps.coverage.inferLdaTopics",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaTopics.bpmn",
     resultTimeoutMs: 600000,
   },
   {
     proc: "inferLdaEntities",
     bpmnProcessId: "coverage_infer_lda_entities",
-    nsid: "app.etzhayyim.apps.coverage.inferLdaEntities",
-    sourcePath: "00-contracts/bpmn/ai/gftd/coverage/inferLdaEntities.bpmn",
+    nsid: "com.etzhayyim.apps.coverage.inferLdaEntities",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/coverage/inferLdaEntities.bpmn",
     resultTimeoutMs: 300000,
   },
 ];
@@ -50,9 +50,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

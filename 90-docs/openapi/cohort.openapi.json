@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.cohort.emitEvidence": {
+    "/xrpc/com.etzhayyim.cohort.emitEvidence": {
       "post": {
-        "summary": "app.etzhayyim.cohort.emitEvidence",
-        "operationId": "app.etzhayyim.cohort.emitEvidence",
+        "summary": "com.etzhayyim.cohort.emitEvidence",
+        "operationId": "com.etzhayyim.cohort.emitEvidence",
         "requestBody": {
           "required": true,
           "content": {
@@ -81,10 +81,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.cohort.fission": {
+    "/xrpc/com.etzhayyim.cohort.fission": {
       "post": {
-        "summary": "app.etzhayyim.cohort.fission",
-        "operationId": "app.etzhayyim.cohort.fission",
+        "summary": "com.etzhayyim.cohort.fission",
+        "operationId": "com.etzhayyim.cohort.fission",
         "requestBody": {
           "required": true,
           "content": {
@@ -160,10 +160,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.cohort.lineageStats": {
+    "/xrpc/com.etzhayyim.cohort.lineageStats": {
       "get": {
-        "summary": "app.etzhayyim.cohort.lineageStats",
-        "operationId": "app.etzhayyim.cohort.lineageStats",
+        "summary": "com.etzhayyim.cohort.lineageStats",
+        "operationId": "com.etzhayyim.cohort.lineageStats",
         "parameters": [
           {
             "name": "pcfL1",
@@ -242,10 +242,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.cohort.listCohorts": {
+    "/xrpc/com.etzhayyim.cohort.listCohorts": {
       "get": {
-        "summary": "app.etzhayyim.cohort.listCohorts",
-        "operationId": "app.etzhayyim.cohort.listCohorts",
+        "summary": "com.etzhayyim.cohort.listCohorts",
+        "operationId": "com.etzhayyim.cohort.listCohorts",
         "parameters": [
           {
             "name": "kind",
@@ -400,10 +400,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.cohort.listEvidence": {
+    "/xrpc/com.etzhayyim.cohort.listEvidence": {
       "get": {
-        "summary": "app.etzhayyim.cohort.listEvidence",
-        "operationId": "app.etzhayyim.cohort.listEvidence",
+        "summary": "com.etzhayyim.cohort.listEvidence",
+        "operationId": "com.etzhayyim.cohort.listEvidence",
         "parameters": [
           {
             "name": "cohortDid",
@@ -519,10 +519,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.cohort.repairEdge": {
+    "/xrpc/com.etzhayyim.cohort.repairEdge": {
       "post": {
-        "summary": "app.etzhayyim.cohort.repairEdge",
-        "operationId": "app.etzhayyim.cohort.repairEdge",
+        "summary": "com.etzhayyim.cohort.repairEdge",
+        "operationId": "com.etzhayyim.cohort.repairEdge",
         "requestBody": {
           "required": true,
           "content": {
@@ -585,10 +585,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.cohort.seed": {
+    "/xrpc/com.etzhayyim.cohort.seed": {
       "post": {
-        "summary": "app.etzhayyim.cohort.seed",
-        "operationId": "app.etzhayyim.cohort.seed",
+        "summary": "com.etzhayyim.cohort.seed",
+        "operationId": "com.etzhayyim.cohort.seed",
         "requestBody": {
           "required": true,
           "content": {

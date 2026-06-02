@@ -1,0 +1,80 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.esgSovereign.recordEsgSovereignScore",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ESG sovereign rating / PRI / S&P ESG (bridges sovereignRating.flagMethodologyConcern + esg-rating + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scoreId",
+            "countryIso3",
+            "provider",
+            "asOfDate"
+          ],
+          "properties": {
+            "scoreId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string",
+              "enum": [
+                "sp_esg",
+                "sustainalytics",
+                "moodys_esg",
+                "fitch_esg",
+                "msci_esg",
+                "robecosam_csa",
+                "verisk_maplecroft",
+                "pri_trase",
+                "fao_sdg"
+              ]
+            },
+            "axisE": {
+              "type": "number"
+            },
+            "axisS": {
+              "type": "number"
+            },
+            "axisG": {
+              "type": "number"
+            },
+            "methodologyConcernVid": {
+              "type": "string",
+              "description": "bridges sovereignRating.flagMethodologyConcern"
+            },
+            "asOfDate": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

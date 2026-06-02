@@ -21,9 +21,9 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^25.9.1",
     "ts-node": "^10.9.0",
-    "typescript": "^5.0.0"
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "@etzhayyim/bpmn-sdk-core": "workspace:*"

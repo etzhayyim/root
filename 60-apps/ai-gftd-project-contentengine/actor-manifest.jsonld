@@ -9,9 +9,9 @@
   "performerType": "service",
   "domain": "contentengine.etzhayyim.com",
   "capabilities": [
-    "ai.gftd.apps.contentengine.generateContent",
-    "ai.gftd.apps.contentengine.getContent",
-    "ai.gftd.apps.contentengine.listContent",
-    "ai.gftd.apps.contentengine.registerCohortProfile"
+    "com.etzhayyim.apps.contentengine.generateContent",
+    "com.etzhayyim.apps.contentengine.getContent",
+    "com.etzhayyim.apps.contentengine.listContent",
+    "com.etzhayyim.apps.contentengine.registerCohortProfile"
   ]
 }

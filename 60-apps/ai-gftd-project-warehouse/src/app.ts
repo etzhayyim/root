@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.warehouse.";
+const NSID_PREFIX = "com.etzhayyim.apps.warehouse.";
 const ACTOR_DID = "did:web:warehouse.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "w4r3h0u5",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/warehouse",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/warehouse",
         methods: ["registerSku", "putaway", "pick", "getInventory"],
       });
     }

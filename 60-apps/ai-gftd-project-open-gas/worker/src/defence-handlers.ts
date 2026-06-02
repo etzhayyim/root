@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openGas.reportPipelineSabotage — ガス管破壊 報告
+// com.etzhayyim.apps.openGas.reportPipelineSabotage — ガス管破壊 報告
 export async function handle_reportPipelineSabotage(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.segmentVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openGas.reportPipelineSabotage/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openGas.reportPipelineSabotage/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-gas",
-      nsid: "app.etzhayyim.apps.openGas.reportPipelineSabotage",
+      nsid: "com.etzhayyim.apps.openGas.reportPipelineSabotage",
       bpmnProcessId: "open_gas_report_pipeline_sabotage",
       subjectVid,
       actionClass: "openGas.pipeline.reportSabotage",
@@ -82,5 +82,5 @@ export async function handle_reportPipelineSabotage(env: DefenceEnv, body: any):
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openGas.reportPipelineSabotage": handle_reportPipelineSabotage,
+  "com.etzhayyim.apps.openGas.reportPipelineSabotage": handle_reportPipelineSabotage,
 };

@@ -124,7 +124,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     qc.robotSignatures = mock_sigs
     qc.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.makura.qcRecord",
+        "$type": "com.etzhayyim.makura.qcRecord",
         "lotId": qc.lotId,
         "pillowSerial": qc.pillowSerial,
         "pillowDid": f"did:web:etzhayyim.com:makura:pillow:{qc.pillowSerial}",

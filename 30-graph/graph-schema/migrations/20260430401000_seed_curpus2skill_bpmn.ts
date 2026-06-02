@@ -12,9 +12,9 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 const createdAt = "2026-04-30T12:35:00Z";
 const ownerDid = "did:web:recruit.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.curpus2skill";
-const processVertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/curpus2skill-extractEvidence-v1";
+const processVertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/curpus2skill-extractEvidence-v1";
 const bpmnProcessId = "curpus2skill_extract_evidence";
-const sourcePath = "00-contracts/bpmn/ai/gftd/curpus2skill/extractEvidence.bpmn";
+const sourcePath = "00-contracts/bpmn/com/etzhayyim/curpus2skill/extractEvidence.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readContract(sourcePath);

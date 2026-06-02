@@ -14,12 +14,12 @@ Pregel graph (3 nodes):
                             silicon_etch in feed-back loop) emits via MST
         |
         v
-    dispatch_exposure   ->  XRPC: app.etzhayyim.apps.tsukuru.equipment.dispatch
+    dispatch_exposure   ->  XRPC: com.etzhayyim.apps.tsukuru.equipment.dispatch
                             (litho recipe + reticle ref + dose + focus offset)
                             telemetry stream subscribed via libp2p
         |
         v
-    emit_wafer_lot      ->  MST PUT app.etzhayyim.silicon.waferLotAttestation
+    emit_wafer_lot      ->  MST PUT com.etzhayyim.silicon.waferLotAttestation
                             (this exposure as one process_history entry)
                         ->  next-cell message (typically silicon_metrology)
 
@@ -27,7 +27,7 @@ Tier: B (Per-Domain).
 Murakumo node (proposed): judah (fab subcluster, ADR-2605242545 §Decision 5).
 Charter Rider §2(a)(c): HIGH (EUV optics is dual-use radar/laser). Every
 silen-force-attest gate-pass is recorded in
-app.etzhayyim.silicon.silenForceReview.
+com.etzhayyim.silicon.silenForceReview.
 """
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ from __future__ import annotations
 #      assignment (judah).
 #
 #   2. EUV / DUV design intent attestation has been recorded as a baseline
-#      app.etzhayyim.silicon.silenForceReview record (CID below).
+#      com.etzhayyim.silicon.silenForceReview record (CID below).
 
 COUNCIL_FLEET_ATTESTATION_TX_HASH: str | None = None
 SILEN_FORCE_BASELINE_REVIEW_CID: str | None = None

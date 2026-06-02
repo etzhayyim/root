@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.getProcessTrace",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch the OCEL 2.0 process-mining trace for a manga episode. Returns the activity timeline (case_id = episode_uri, event_type = task name, timestamp, duration, status, object_refs). Use this for process mining (PM4PY/Celonis), bottleneck analysis, or debugging stuck pipelines. Reads from mv_mangaka_process_trace (RisingWave streaming MV over vertex_audit_event).",
+      "parameters": {
+        "type": "params",
+        "required": ["episodeUri"],
+        "properties": {
+          "episodeUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the episode (work record). Used as OCEL case_id."
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["caseId", "events", "summary"],
+          "properties": {
+            "caseId": { "type": "string", "description": "Episode AT URI (= OCEL case_id)." },
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "activity": { "type": "string", "description": "OCEL activity name (e.g. mangaka.scriptGenerated)." },
+                  "actorDid": { "type": "string" },
+                  "timestamp": { "type": "string", "format": "datetime" },
+                  "durationMs": { "type": "integer" },
+                  "status": { "type": "string", "enum": ["ok", "error", "pending"] },
+                  "objectRefs": { "type": "string", "description": "JSON object {Episode, Page, Panel, Character, Setting} per OCEL 2.0." }
+                }
+              }
+            },
+            "summary": {
+              "type": "object",
+              "properties": {
+                "totalDurationMs": { "type": "integer" },
+                "phaseCount": { "type": "integer" },
+                "errorCount": { "type": "integer" },
+                "status": { "type": "string", "enum": ["complete", "running", "failed"] }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "$type": "app.etzhayyim.projection.feedDiscover",
+  "$type": "com.etzhayyim.projection.feedDiscover",
   "cursor": "10",
   "items": [
     {

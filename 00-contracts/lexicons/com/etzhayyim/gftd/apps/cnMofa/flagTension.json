@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnMofa.flagTension",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Diplomatic tension / wolf-warrior / consular incident (bridges transnationalRepression + universalJurisdiction + minorityRights)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "tensionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordDiplomatic"
+            },
+            "tensionKind": {
+              "type": "string",
+              "enum": [
+                "wolf_warrior",
+                "spat_us",
+                "spat_jp",
+                "spat_in",
+                "spat_au",
+                "spat_kr",
+                "spat_eu",
+                "spat_uk",
+                "ambassador_recall",
+                "persona_non_grata",
+                "journalist_expulsion",
+                "secrecy_law_invocation",
+                "exit_ban",
+                "consular_dispute",
+                "abducted_diaspora"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

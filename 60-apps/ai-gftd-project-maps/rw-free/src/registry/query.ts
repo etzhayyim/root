@@ -19,9 +19,9 @@ import type {
   RegistryRecord,
 } from "./types.js";
 
-const COLLECTION_ENTITY = "app.etzhayyim.maps.legalEntity";
-const COLLECTION_REGISTRY = "app.etzhayyim.maps.registry";
-const COLLECTION_OWNERSHIP = "app.etzhayyim.maps.ownership";
+const COLLECTION_ENTITY = "com.etzhayyim.maps.legalEntity";
+const COLLECTION_REGISTRY = "com.etzhayyim.maps.registry";
+const COLLECTION_OWNERSHIP = "com.etzhayyim.maps.ownership";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:maps.etzhayyim.com",

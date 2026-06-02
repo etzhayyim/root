@@ -7,7 +7,7 @@ import { sql } from "kysely";
 // ADR-0056: register yukkuriCompose BPMN so the F5 watcher deploys it to Zeebe.
 // XRPC-triggered pipeline: scene.persist → voice.synthesize → image.generate
 // → video.assemble → critic.review → audit.emit.
-// Lexicon binding: app.etzhayyim.apps.yukkuri.composeVideo → yukkuri_compose process.
+// Lexicon binding: com.etzhayyim.apps.yukkuri.composeVideo → yukkuri_compose process.
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,12 +21,12 @@ const createdAt = "2026-04-29T20:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1";
 const BPMN_PROCESS_ID = "yukkuri_compose";
-const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/yukkuri/yukkuriCompose.bpmn";
-const NSID = "app.etzhayyim.apps.yukkuri.composeVideo";
+const SOURCE_PATH = "00-contracts/bpmn/com/etzhayyim/yukkuri/yukkuriCompose.bpmn";
+const NSID = "com.etzhayyim.apps.yukkuri.composeVideo";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readContract(SOURCE_PATH);

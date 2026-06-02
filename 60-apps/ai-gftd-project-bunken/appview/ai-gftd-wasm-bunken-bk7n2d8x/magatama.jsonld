@@ -37,9 +37,9 @@
     },
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.bunken.document",
-        "ai.gftd.apps.bunken.collectionJob",
-        "ai.gftd.apps.bunken.schemeRecord"
+        "com.etzhayyim.apps.bunken.document",
+        "com.etzhayyim.apps.bunken.collectionJob",
+        "com.etzhayyim.apps.bunken.schemeRecord"
       ]
     }
   },

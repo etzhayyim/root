@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.codexStandard.recordStandardAdoption",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Codex Alimentarius / CCGP / CCFAC standard adoption (bridges foodFraud.flagNetwork + residue-mrl + rasff-food-safety)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "adoptionId",
+            "committee",
+            "standardKind",
+            "adoptedAt"
+          ],
+          "properties": {
+            "adoptionId": {
+              "type": "string"
+            },
+            "committee": {
+              "type": "string",
+              "enum": [
+                "cac",
+                "ccgp",
+                "ccfac",
+                "ccpr",
+                "ccrvdf",
+                "ccrol",
+                "ccmas",
+                "ccffp",
+                "ccfh",
+                "ccfl",
+                "ccnfsdu",
+                "ccgen",
+                "ccsis",
+                "ccasia",
+                "ccafrica",
+                "ccnea",
+                "ccnasma",
+                "cclac",
+                "ccexec"
+              ]
+            },
+            "standardKind": {
+              "type": "string",
+              "enum": [
+                "max_residue",
+                "hygiene_practice",
+                "labeling",
+                "sampling",
+                "contamination",
+                "additives",
+                "novel_food",
+                "traceability",
+                "authentication",
+                "species_id",
+                "allergen",
+                "supplement"
+              ]
+            },
+            "foodFraudVid": {
+              "type": "string",
+              "description": "bridges foodFraud.flagNetwork"
+            },
+            "adoptedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

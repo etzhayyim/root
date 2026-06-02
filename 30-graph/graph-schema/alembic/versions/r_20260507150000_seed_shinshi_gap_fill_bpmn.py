@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1',
                  'did:web:shinshi.etzhayyim.com',
                  'shinshi_seed_gap_fill',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -40,9 +40,9 @@ UP = [{'sql': '\n'
                  '  No XRPC binding (timer-start only). Operator override: kick\n'
                  '  seedScenesWithImages.bpmn directly.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.shinshi.seedGapFill (informational, no XRPC)\n'
+                 '  NSID: com.etzhayyim.apps.shinshi.seedGapFill (informational, no XRPC)\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="shinshi_seed_gap_fill" name="shinshi seedGapFill" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shinshi.seedGapFill", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shinshi.seedGapFill", "version": 1, '
                  '"resultTimeoutMs": 900000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -134,7 +134,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shinshi.seedGapFill&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shinshi.seedGapFill&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ totalIncomplete: totalIncomplete, checked: '
                  'checked, picked: count(slugs), posted: bulkTotalPosted, skipped: '
@@ -152,7 +152,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:shinshi.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shinshi.seedGapFill&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shinshi.seedGapFill&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ totalIncomplete: totalIncomplete, checked: '
                  'checked, picked: 0, skipReason: &quot;all-complete-or-error&quot; }" '
@@ -172,15 +172,15 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6382,
-                 '00-contracts/bpmn/ai/gftd/shinshi/seedGapFill.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shinshi/seedGapFill.bpmn',
                  '2026-05-07T15:00:00Z',
                  'did:web:shinshi.etzhayyim.com',
                  'did:web:shinshi.etzhayyim.com',
                  'sys.bpmn.seed.shinshi.gap-fill',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1']}]
 
 
 def upgrade() -> None:

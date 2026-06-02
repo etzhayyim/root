@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.work",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Manga work (= one episode). Persisted in vertex_mangaka_work (RisingWave via Hyperdrive, ADR-0036). Tier 2 Domain — non-federable.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "genre", "protagonist", "pageCount", "panelCount", "createdAt"],
+        "properties": {
+          "title": { "type": "string", "maxLength": 200 },
+          "genre": { "type": "string", "enum": ["shonen", "shojo", "seinen"] },
+          "protagonist": { "type": "string", "description": "Character display name." },
+          "protagonistDid": { "type": "string", "description": "Character path-DID (did:web:sh1n5h1x.etzhayyim.com:{slug})." },
+          "setting": { "type": "string" },
+          "pageCount": { "type": "integer" },
+          "panelCount": { "type": "integer" },
+          "status": { "type": "string", "enum": ["pending", "rendering", "published", "failed"] },
+          "coverCid": { "type": "string", "format": "cid" },
+          "scriptCid": { "type": "string", "format": "cid", "description": "Optional: script JSON blob for replay/audit." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

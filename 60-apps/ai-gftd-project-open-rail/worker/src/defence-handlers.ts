@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openRail.flagCriticalAssetIncident — 重要インフラ事案 フラグ
+// com.etzhayyim.apps.openRail.flagCriticalAssetIncident — 重要インフラ事案 フラグ
 export async function handle_flagCriticalAssetIncident(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.stationVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openRail.flagCriticalAssetIncident/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openRail.flagCriticalAssetIncident/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-rail",
-      nsid: "app.etzhayyim.apps.openRail.flagCriticalAssetIncident",
+      nsid: "com.etzhayyim.apps.openRail.flagCriticalAssetIncident",
       bpmnProcessId: "open_rail_flag_critical_asset_incident",
       subjectVid,
       actionClass: "openRail.asset.flagIncident",
@@ -82,5 +82,5 @@ export async function handle_flagCriticalAssetIncident(env: DefenceEnv, body: an
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openRail.flagCriticalAssetIncident": handle_flagCriticalAssetIncident,
+  "com.etzhayyim.apps.openRail.flagCriticalAssetIncident": handle_flagCriticalAssetIncident,
 };

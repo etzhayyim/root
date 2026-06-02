@@ -52,7 +52,7 @@ test.describe("did:gftd identity lifecycle", () => {
         return Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
       };
 
-      const begin = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.passkeyBeginRegister`, {
+      const begin = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.passkeyBeginRegister`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -81,7 +81,7 @@ test.describe("did:gftd identity lifecycle", () => {
       })) as PublicKeyCredential;
 
       const att = cred.response as AuthenticatorAttestationResponse;
-      const verify = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.passkeyVerifyRegister`, {
+      const verify = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.passkeyVerifyRegister`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -127,7 +127,7 @@ test.describe("did:gftd identity lifecycle", () => {
 
     const didDoc = await page.evaluate(async (did) => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did }),
@@ -167,7 +167,7 @@ test.describe("did:gftd identity lifecycle", () => {
     // ── Step 3: Resolve activeDid (Person sub-actor) ──
     const activeDoc = await page.evaluate(async (did) => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did }),
@@ -186,7 +186,7 @@ test.describe("did:gftd identity lifecycle", () => {
       const resp = await fetch(`${AUTH}/xrpc/com.atproto.server.getServiceAuth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ iss, aud: aud ?? "did:web:atproto.etzhayyim.com", lxm: "app.etzhayyim.apps.test.query" }),
+        body: JSON.stringify({ iss, aud: aud ?? "did:web:atproto.etzhayyim.com", lxm: "com.etzhayyim.apps.test.query" }),
       });
       return { ok: resp.ok, status: resp.status, body: await resp.json().catch(() => ({})) };
     }, { iss: accountDid, aud: "did:web:atproto.etzhayyim.com" });
@@ -204,7 +204,7 @@ test.describe("did:gftd identity lifecycle", () => {
     const payload = JSON.parse(atob(jwtParts[1].replace(/-/g, "+").replace(/_/g, "/")));
     expect(payload.iss).toBe(accountDid);
     expect(payload.aud).toBe("did:web:atproto.etzhayyim.com");
-    expect(payload.lxm).toBe("app.etzhayyim.apps.test.query");
+    expect(payload.lxm).toBe("com.etzhayyim.apps.test.query");
     expect(payload.exp).toBeGreaterThan(Math.floor(Date.now() / 1000));
 
     test.info().annotations.push({
@@ -220,7 +220,7 @@ test.describe("did:gftd identity lifecycle", () => {
 
     const result = await page.evaluate(async () => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did: "did:gftd:000000000000000000000000" }),
@@ -245,7 +245,7 @@ test.describe("did:gftd identity lifecycle", () => {
 
     const result = await page.evaluate(async () => {
       const AUTH = location.origin;
-      const resp = await fetch(`${AUTH}/xrpc/app.etzhayyim.auth.resolveetzhayyimDid`, {
+      const resp = await fetch(`${AUTH}/xrpc/com.etzhayyim.auth.resolveetzhayyimDid`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ did: "did:web:example.com" }),

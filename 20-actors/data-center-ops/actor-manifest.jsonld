@@ -123,14 +123,14 @@
           "id": "materializeIncident",
           "fn": "graph.write",
           "args": {
-            "template": "MERGE (i:DataCenterIncident {incidentId: $record.incidentId}) SET i.severity = $record.severity, i.siteCode = $record.siteCode, i.startedAt = $record.startedAt, i.resolvedAt = $record.resolvedAt, i.summary = $record.summary, i.status = coalesce($record.status, 'open'), i.repo = $did, i.collection = 'ai.gftd.apps.dataCenterOps.incident'"
+            "template": "MERGE (i:DataCenterIncident {incidentId: $record.incidentId}) SET i.severity = $record.severity, i.siteCode = $record.siteCode, i.startedAt = $record.startedAt, i.resolvedAt = $record.resolvedAt, i.summary = $record.summary, i.status = coalesce($record.status, 'open'), i.repo = $did, i.collection = 'com.etzhayyim.apps.dataCenterOps.incident'"
           }
         }
       ],
       "trigger": {
         "type": "subscribeRepos",
         "collections": [
-          "ai.gftd.apps.dataCenterOps.incident"
+          "com.etzhayyim.apps.dataCenterOps.incident"
         ]
       }
     },
@@ -146,7 +146,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.infrastructure.getFacility"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.infrastructure.getFacility"
       }
     },
     {
@@ -161,7 +161,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.infrastructure.listFacilities"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.infrastructure.listFacilities"
       }
     },
     {
@@ -176,7 +176,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.infrastructure.listRacks"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.infrastructure.listRacks"
       }
     },
     {
@@ -191,7 +191,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.infrastructure.getPowerZones"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.infrastructure.getPowerZones"
       }
     },
     {
@@ -206,7 +206,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.infrastructure.getSlaSummary"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.infrastructure.getSlaSummary"
       }
     },
     {
@@ -231,7 +231,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.dependency.seedBaseline"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.dependency.seedBaseline"
       }
     },
     {
@@ -246,7 +246,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.dependency.listNodes"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.dependency.listNodes"
       }
     },
     {
@@ -261,7 +261,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.dependency.listEdges"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.dependency.listEdges"
       }
     },
     {
@@ -284,7 +284,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.dependency.collectGlobal"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.dependency.collectGlobal"
       }
     },
     {
@@ -299,7 +299,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.dependency.getReverseTopo"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo"
       }
     },
     {
@@ -314,7 +314,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.health"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.health"
       }
     },
     {
@@ -345,7 +345,7 @@
             "params": {
               "actorName": "data-center-ops",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.dataCenterOps.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.dataCenterOps.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "dc0psmcp",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -378,7 +378,7 @@
       ],
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.dataCenterOps.coverage.get"
+        "nsid": "com.etzhayyim.apps.dataCenterOps.coverage.get"
       }
     }
   ],
@@ -398,8 +398,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -412,13 +412,13 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.dataCenterOps.facility",
-        "ai.gftd.apps.dataCenterOps.rack",
-        "ai.gftd.apps.dataCenterOps.powerZone",
-        "ai.gftd.apps.dataCenterOps.slaWindow",
-        "ai.gftd.apps.dataCenterOps.incident",
-        "ai.gftd.apps.dataCenterOps.dependencyNode",
-        "ai.gftd.apps.dataCenterOps.dependencyEdge"
+        "com.etzhayyim.apps.dataCenterOps.facility",
+        "com.etzhayyim.apps.dataCenterOps.rack",
+        "com.etzhayyim.apps.dataCenterOps.powerZone",
+        "com.etzhayyim.apps.dataCenterOps.slaWindow",
+        "com.etzhayyim.apps.dataCenterOps.incident",
+        "com.etzhayyim.apps.dataCenterOps.dependencyNode",
+        "com.etzhayyim.apps.dataCenterOps.dependencyEdge"
       ]
     }
   },

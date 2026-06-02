@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-airplane/scheduleFlight.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-airplane/scheduleFlight.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-airplane/reportIncident.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-airplane/reportIncident.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-airplane BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-airplane-schedule-flight-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_airplane_schedule_flight"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-airplane/scheduleFlight.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-airplane/scheduleFlight.bpmn"');
     expect(migrationSource).toContain("open-airplane-report-incident-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_airplane_report_incident"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-airplane/reportIncident.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-airplane/reportIncident.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openAirplane.scheduleFlight"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openAirplane.reportIncident"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openAirplane.scheduleFlight"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openAirplane.reportIncident"');
   });
 
   it("uses open-airplane-specific actor_id + owner_did", () => {

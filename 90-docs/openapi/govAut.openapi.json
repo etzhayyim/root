@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govAut.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govAut.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Austria government.",
-        "operationId": "app.etzhayyim.govAut.followSiteDeps",
+        "operationId": "com.etzhayyim.govAut.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govAut.heartbeatTick": {
       "post": {
         "summary": "Run the Austria government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govAut.heartbeatTick",
+        "operationId": "com.etzhayyim.govAut.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.listOrgs": {
+    "/xrpc/com.etzhayyim.govAut.listOrgs": {
       "get": {
         "summary": "List Austria government organization graph records.",
-        "operationId": "app.etzhayyim.govAut.listOrgs",
+        "operationId": "com.etzhayyim.govAut.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.registerDIDs": {
+    "/xrpc/com.etzhayyim.govAut.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Austria government organizations.",
-        "operationId": "app.etzhayyim.govAut.registerDIDs",
+        "operationId": "com.etzhayyim.govAut.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govAut.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Austria government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govAut.resolveOrgPath",
+        "operationId": "com.etzhayyim.govAut.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.seedOrgs": {
+    "/xrpc/com.etzhayyim.govAut.seedOrgs": {
       "post": {
         "summary": "Seed initial Austria government organization records into the graph.",
-        "operationId": "app.etzhayyim.govAut.seedOrgs",
+        "operationId": "com.etzhayyim.govAut.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.shinka": {
+    "/xrpc/com.etzhayyim.govAut.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Austria government organization update.",
-        "operationId": "app.etzhayyim.govAut.shinka",
+        "operationId": "com.etzhayyim.govAut.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govAut.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govAut.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Austria government organization changes to graph.",
-        "operationId": "app.etzhayyim.govAut.syncWetUpdates",
+        "operationId": "com.etzhayyim.govAut.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

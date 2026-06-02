@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.tools.transform.map": {
+    "/xrpc/com.etzhayyim.tools.transform.map": {
       "post": {
         "summary": "Generic per-row transform — applies a declarative mapping to each input row. Bridges fetched arrays (e.g. http.fetch + json.extract output) and downstream sql.exec INSERT rows that need restructured fields. Mapping grammar (Python-free, defensive subset):\n\n  - `\"$.path[0].key\"` → copy from input row at the given dotted path (same grammar as json.extract)\n  - `{\"const\": <any>}` → literal constant value\n  - `{\"fmt\": \"prefix-{a.b}-suffix\"}` → format string with {paths} substituted from input row\n  - `{\"path\": \"$.x\", \"default\": <any>}` → path with fallback when missing\n\n`defaults` is a dict of constant fields applied to every output row (overridden by `mapping`).",
-        "operationId": "app.etzhayyim.tools.transform.map",
+        "operationId": "com.etzhayyim.tools.transform.map",
         "requestBody": {
           "required": true,
           "content": {
@@ -72,10 +72,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.sql.exec": {
+    "/xrpc/com.etzhayyim.tools.sql.exec": {
       "post": {
         "summary": "Generic write SQL primitive (INSERT / UPDATE / UPSERT only). Strict guards: rejects SELECT (use sql.query) / DELETE / DROP / TRUNCATE / GRANT / DDL. Requires `confirmWrite=true` defense-in-depth flag. If `rows` is supplied, runs executemany() batch INSERT; otherwise single execute. Replaces per-actor sa_executemany / sa_rowcount py_primitive nodes (copyright_ingest insert_crossref, etc.).",
-        "operationId": "app.etzhayyim.tools.sql.exec",
+        "operationId": "com.etzhayyim.tools.sql.exec",
         "requestBody": {
           "required": true,
           "content": {
@@ -135,10 +135,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.sql.query": {
+    "/xrpc/com.etzhayyim.tools.sql.query": {
       "post": {
         "summary": "Generic read-only SQL SELECT primitive (ADR-2605082000 §2 follow-up). Wraps `pymagatama.db_alchemy.sa_query` so LangGraph topology nodes can run a parameterised SELECT without per-actor py_primitive code. Strict guards: only statements starting with SELECT / WITH are accepted; INSERT / UPDATE / DELETE / DDL are rejected. For domain writes use the actor-specific MCP tool (or `tools.audit.emit` for OCEL rows).",
-        "operationId": "app.etzhayyim.tools.sql.query",
+        "operationId": "com.etzhayyim.tools.sql.query",
         "requestBody": {
           "required": true,
           "content": {
@@ -194,10 +194,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.llm.chat": {
+    "/xrpc/com.etzhayyim.tools.llm.chat": {
       "post": {
         "summary": "Generic free-form LLM chat primitive (ADR-2605082000 §2 follow-up). Wraps task_generic_llm_chat — replaces per-actor LLM-only py_primitive nodes (animeka_*.generate_storyboard / generate_background / generate_scene_text, etc.) with a single data-resolved tool. Config-only prompt + tier; node binders pass `system` / `user` / `maxTokens` / `temperature` / `tier` via config.args.",
-        "operationId": "app.etzhayyim.tools.llm.chat",
+        "operationId": "com.etzhayyim.tools.llm.chat",
         "requestBody": {
           "required": true,
           "content": {
@@ -255,10 +255,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.json.extract": {
+    "/xrpc/com.etzhayyim.tools.json.extract": {
       "post": {
         "summary": "Generic JSON extract primitive — navigate a parsed-JSON object via a safe dotted path. Bridges `http.fetch` (which returns body string) and downstream nodes that need a sub-tree (e.g. `message.items` from a Crossref response). Path syntax: `a.b.c` walks objects; `a.b[2].c` walks list indices; `a.*` flattens an object's values into a list. No eval, no JSONPath/JMESPath language — defensive subset only.",
-        "operationId": "app.etzhayyim.tools.json.extract",
+        "operationId": "com.etzhayyim.tools.json.extract",
         "requestBody": {
           "required": true,
           "content": {
@@ -307,10 +307,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.http.fetch": {
+    "/xrpc/com.etzhayyim.tools.http.fetch": {
       "post": {
         "summary": "Generic HTTP fetch primitive (ADR-2605082000 §2 follow-up). Wraps httpx for outbound requests. Read-only by default (GET / HEAD); POST/PUT/DELETE require explicit `method` arg + `allowWrite=true` flag (no implicit writes). Replaces per-actor httpx py_primitive nodes (copyright_*, isbn_*, …). Body-bytes are returned as a base64 string when not text.",
-        "operationId": "app.etzhayyim.tools.http.fetch",
+        "operationId": "com.etzhayyim.tools.http.fetch",
         "requestBody": {
           "required": true,
           "content": {
@@ -383,10 +383,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.const.echo": {
+    "/xrpc/com.etzhayyim.tools.const.echo": {
       "post": {
         "summary": "Generic constant-return / identity primitive for LangGraph topology nodes (ADR-2605082000 §2.6 PoC follow-up). Returns whatever is in `constant` verbatim. Lets identity / no-op nodes (e.g. ki.cycle.skip_bloom) live as data without requiring per-actor code. Inputs other than `constant` are ignored.",
-        "operationId": "app.etzhayyim.tools.const.echo",
+        "operationId": "com.etzhayyim.tools.const.echo",
         "requestBody": {
           "required": true,
           "content": {
@@ -430,10 +430,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.tools.audit.emit": {
+    "/xrpc/com.etzhayyim.tools.audit.emit": {
       "post": {
         "summary": "Generic OCEL audit-row emitter. Writes one row to vertex_repo_commit. Replaces per-actor `emit_audit` py_primitive nodes (e.g. shosha_*, isbn_*, animeka_*) with a single data-resolved primitive — ADR-2605082000 §2.5 compliance for audit logging without per-actor code.",
-        "operationId": "app.etzhayyim.tools.audit.emit",
+        "operationId": "com.etzhayyim.tools.audit.emit",
         "requestBody": {
           "required": true,
           "content": {
@@ -447,7 +447,7 @@
                   },
                   "collection": {
                     "type": "string",
-                    "description": "AT collection NSID (e.g. app.etzhayyim.apps.shosha.audit)"
+                    "description": "AT collection NSID (e.g. com.etzhayyim.apps.shosha.audit)"
                   },
                   "rkey": {
                     "type": "string",

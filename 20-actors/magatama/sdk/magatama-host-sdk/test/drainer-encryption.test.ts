@@ -25,7 +25,7 @@ describe("OrganismPostDrainer Wave 3.2 Signal-keywrap Mock", () => {
       ts: Date.now(),
       actorDid: "did:web:sender",
       recipientDid: "did:web:recipient",
-      lexicon: "app.etzhayyim.organism.message",
+      lexicon: "com.etzhayyim.organism.message",
       text: "Secret contract proposal",
       createdAt: new Date().toISOString()
     };
@@ -39,7 +39,7 @@ describe("OrganismPostDrainer Wave 3.2 Signal-keywrap Mock", () => {
     expect(mockSdk.write).toHaveBeenCalled();
 
     const writeCall = mockSdk.write.mock.calls[0][0];
-    expect(writeCall.collection).toBe("app.etzhayyim.organism.message");
+    expect(writeCall.collection).toBe("com.etzhayyim.organism.message");
 
     // The payload should be encrypted and no longer raw text
     const record = writeCall.record;
@@ -59,7 +59,7 @@ describe("OrganismPostDrainer Wave 3.2 Signal-keywrap Mock", () => {
       ts: Date.now(),
       actorDid: "did:web:sender",
       recipientDid: "did:web:recipient",
-      lexicon: "app.etzhayyim.organism.message",
+      lexicon: "com.etzhayyim.organism.message",
       encryptedPayload: "mock-signal-keywrap-v1(already)",
       createdAt: new Date().toISOString()
     };

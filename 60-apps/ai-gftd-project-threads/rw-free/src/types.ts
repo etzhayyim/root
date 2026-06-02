@@ -1,6 +1,6 @@
 /**
- * Mirrors the app.etzhayyim.apps.threads.post Lexicon record shape.
- * Source: 00-contracts/lexicons/ai/gftd/apps/threads/post.json
+ * Mirrors the com.etzhayyim.apps.threads.post Lexicon record shape.
+ * Source: 00-contracts/lexicons/com/etzhayyim/apps/threads/post.json
  */
 export interface StrongRef {
   uri: string;

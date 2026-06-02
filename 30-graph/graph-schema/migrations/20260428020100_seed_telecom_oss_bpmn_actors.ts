@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "raiseAlarm", bpmnProcessId: "telecom_raise_alarm",
-    nsid: "app.etzhayyim.apps.telecom.raiseAlarm", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.raiseAlarm", resultTimeoutMs: 15000 },
   { proc: "correlateAlarms", bpmnProcessId: "telecom_correlate_alarms",
-    nsid: "app.etzhayyim.apps.telecom.correlateAlarms", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.correlateAlarms", resultTimeoutMs: 30000 },
   { proc: "suppressAlarm", bpmnProcessId: "telecom_suppress_alarm",
-    nsid: "app.etzhayyim.apps.telecom.suppressAlarm", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.suppressAlarm", resultTimeoutMs: 15000 },
   { proc: "clearAlarm", bpmnProcessId: "telecom_clear_alarm",
-    nsid: "app.etzhayyim.apps.telecom.clearAlarm", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.clearAlarm", resultTimeoutMs: 15000 },
   { proc: "submitChangeRequest", bpmnProcessId: "telecom_submit_change_request",
-    nsid: "app.etzhayyim.apps.telecom.submitChangeRequest", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.submitChangeRequest", resultTimeoutMs: 30000 },
   { proc: "approveChangeRequest", bpmnProcessId: "telecom_approve_change_request",
-    nsid: "app.etzhayyim.apps.telecom.approveChangeRequest", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.approveChangeRequest", resultTimeoutMs: 30000 },
   { proc: "snapshotConfiguration", bpmnProcessId: "telecom_snapshot_configuration",
-    nsid: "app.etzhayyim.apps.telecom.snapshotConfiguration", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.snapshotConfiguration", resultTimeoutMs: 30000 },
   { proc: "forecastCapacity", bpmnProcessId: "telecom_forecast_capacity",
-    nsid: "app.etzhayyim.apps.telecom.forecastCapacity", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.forecastCapacity", resultTimeoutMs: 30000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

@@ -24,7 +24,7 @@
  * ║      <source>.toml) supersedes the implicit cron-driven scheduling    ║
  * ║      (operators explicitly accept upstream ToS once, then the         ║
  * ║      e7m-dataset CLI handles cadence-respect)                         ║
- * ║    - State now lives in `app.etzhayyim.substrate.datasetPin` PDS      ║
+ * ║    - State now lives in `com.etzhayyim.substrate.datasetPin` PDS      ║
  * ║      records + IPFS revision-content-hash (NOT /tmp/*.json)           ║
  * ║                                                                       ║
  * ║  Operator action:                                                     ║

@@ -16,8 +16,8 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 ## Manufacturer Registry Rules
 
-- Active collection name: `app.etzhayyim.apps.tsukuru.manufacturer`.
-- Historical collection for migration/read-compat: `app.etzhayyim.apps.tsukuru-api.manufacturer`.
+- Active collection name: `com.etzhayyim.apps.tsukuru.manufacturer`.
+- Historical collection for migration/read-compat: `com.etzhayyim.apps.tsukuru-api.manufacturer`.
 - Registry scale assumption: 460+ manufacturer DIDs across 30+ countries.
 
 ## Write Buffer Rule
@@ -38,7 +38,7 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 **WIT**: `gftd:tsukuru-production-order@1.0.0` — production-order, production-progress, quality-inspection
 
-**Record kinds** (`app.etzhayyim.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
+**Record kinds** (`com.etzhayyim.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
 
 **Flow**: okaimono order (paid) → `create-production-order` → factory DID Invoke → progress updates → QC → ship
 
@@ -53,13 +53,13 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 **WIT surface**: `gftd:tsukuru-process-registry@1.0.0` + `gftd:tsukuru-production-order@1.0.0`
 
 **XRPC**:
-- `app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow`
-- `app.etzhayyim.apps.tsukuru.cnt.planAutomation`
-- `app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage`
-- `app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage`
-- `app.etzhayyim.apps.tsukuru.cnt.getProcessCatalog`
-- `app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage`
-- `app.etzhayyim.apps.tsukuru.cnt.validateRunPackage`
+- `com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow`
+- `com.etzhayyim.apps.tsukuru.cnt.planAutomation`
+- `com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage`
+- `com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage`
+- `com.etzhayyim.apps.tsukuru.cnt.getProcessCatalog`
+- `com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage`
+- `com.etzhayyim.apps.tsukuru.cnt.validateRunPackage`
 
 **BPMN**:
 - `tsukuru_cnt_fiber_manufacturing_flow`

@@ -33,7 +33,7 @@ Pregel graph (5 nodes):
                                         determinism
         |
         v
-    emit_paint_attest              ->  MST PUT app.etzhayyim.suki.paintAttestation
+    emit_paint_attest              ->  MST PUT com.etzhayyim.suki.paintAttestation
                                         (paint ID, KTL primer batch, base
                                         coat color, clear coat batch, VOC
                                         measurement, cure profile CID,

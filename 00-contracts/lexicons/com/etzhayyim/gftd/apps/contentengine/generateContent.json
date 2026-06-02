@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.contentengine.generateContent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generate personalized content for a cohort. Triggers LangGraph profile→match→draft→rank→store loop via POD-side LangServer.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cohortName", "contentType", "topic"],
+          "properties": {
+            "cohortName": { "type": "string", "maxLength": 100, "description": "Target cohort (ADR-0018)" },
+            "contentType": { "type": "string", "enum": ["blog_post", "social_thread", "email_body", "report_summary"], "default": "blog_post" },
+            "topic": { "type": "string", "maxLength": 500 },
+            "tone": { "type": "string", "enum": ["professional", "casual", "technical", "inspirational"], "default": "professional" },
+            "maxWords": { "type": "integer", "minimum": 50, "maximum": 2000, "default": 500 },
+            "includeSponsorSlot": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["contentId", "status"],
+          "properties": {
+            "contentId": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

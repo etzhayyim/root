@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.kobo.agent", "ai.gftd.apps.kabi.hypha"]
+      "collections": ["com.etzhayyim.apps.kobo.agent", "com.etzhayyim.apps.kabi.hypha"]
     }
   }
 }

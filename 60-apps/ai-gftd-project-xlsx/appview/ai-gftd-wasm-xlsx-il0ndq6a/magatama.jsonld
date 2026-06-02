@@ -65,14 +65,14 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.xlsx.workbook",
-        "ai.gftd.apps.xlsx.sheet",
-        "ai.gftd.apps.xlsx.cell",
-        "ai.gftd.apps.xlsx.style",
-        "ai.gftd.apps.xlsx.chart",
-        "ai.gftd.apps.xlsx.table",
-        "ai.gftd.apps.xlsx.definedName",
-        "ai.gftd.apps.xlsx.workbookTemplate"
+        "com.etzhayyim.apps.xlsx.workbook",
+        "com.etzhayyim.apps.xlsx.sheet",
+        "com.etzhayyim.apps.xlsx.cell",
+        "com.etzhayyim.apps.xlsx.style",
+        "com.etzhayyim.apps.xlsx.chart",
+        "com.etzhayyim.apps.xlsx.table",
+        "com.etzhayyim.apps.xlsx.definedName",
+        "com.etzhayyim.apps.xlsx.workbookTemplate"
       ]
     }
   },

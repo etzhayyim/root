@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.elvIntakeRecord",
+  "description": "ELV intake audit (L1a). VIN + title + prior-owner consent + Charter §2(a-h) scan + initial data-wipe request. Per ADR-2605261215 L1a (G5 + N1 + N7 + N8 + G11).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "vehicleDid": {"type": "string"},
+          "vinRecord": {
+            "type": "object",
+            "properties": {
+              "vin": {"type": "string", "minLength": 17, "maxLength": 17},
+              "vehicleClass": {"type": "string", "knownValues": ["M1", "M2-deferred-wave2", "N1-deferred-wave2"]},
+              "make": {"type": "string"},
+              "model": {"type": "string"},
+              "modelYear": {"type": "integer"},
+              "curbWeightKg": {"type": "integer"},
+              "g11M1Class": {"type": "boolean"},
+              "g11CurbWeightWithinCap": {"type": "boolean"},
+              "titleChainDocumented": {"type": "boolean", "const": true},
+              "n7TitleVerified": {"type": "boolean", "const": true},
+              "stolenRegistryCheck": {"type": "string", "knownValues": ["clear", "flagged"]},
+              "previousOwnerDid": {"type": "string"}
+            },
+            "required": ["vin", "vehicleClass", "g11M1Class", "n7TitleVerified", "stolenRegistryCheck"]
+          },
+          "consentRecord": {
+            "type": "object",
+            "properties": {
+              "consentDocCid": {"type": "string"},
+              "ownerSbtDid": {"type": "string"},
+              "consentSignedAt": {"type": "string", "format": "datetime"},
+              "dataWipeAuthorized": {"type": "boolean", "const": true},
+              "partsResaleAuthorized": {"type": "boolean"},
+              "materialRecoveryAuthorized": {"type": "boolean"},
+              "rightToRescindWindowDays": {"type": "integer"}
+            }
+          },
+          "charterScan": {
+            "type": "object",
+            "properties": {
+              "scannerVersion": {"type": "string"},
+              "section2aWeapons": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2bSecrecy": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2cSurveillance": {"type": "string", "knownValues": ["clear", "warn-telemetry-detected", "violation"]},
+              "section2dInfrastructureAttack": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2eAntiGatekeeping": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2fHarm": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2gEnvironmental": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2hMedicalHarm": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "militaryConversionDetected": {"type": "boolean"},
+              "weaponMountDetected": {"type": "boolean"},
+              "covertModificationDetected": {"type": "boolean"},
+              "overallVerdict": {"type": "string", "knownValues": ["pass", "warn", "block"]}
+            }
+          },
+          "dataWipeRequest": {"type": "unknown"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "vehicleDid", "vinRecord", "consentRecord", "charterScan", "attestingRobots"]
+      }
+    }
+  }
+}
