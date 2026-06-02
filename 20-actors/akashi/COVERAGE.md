@@ -78,7 +78,7 @@ A platform source can move from `candidate` to `covered-r1` only when:
   live collection.
 - Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every
   cell raises at import until ADR-2606022300 R1 activation gates are attested.
-- Lexicon-specific invariant test exists (`test_akashi_invariants.py`), but no
-  fixture parser tests exist yet.
+- Lexicon-specific invariant and fixture parser tests exist in
+  `test_akashi_invariants.py`.
 - `source-catalog.seed.json` is planning metadata only; it does not authorize
   collection.
