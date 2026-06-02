@@ -70,8 +70,8 @@
 
 ## Lexicons (kotoba-native)
 
-`com.etzhayyim.kabuto.{registerCompany,registerSupplyEdge,publishIntelReport,publishSupplyChainViz,socialPost}`
-— `00-contracts/lexicons/com/etzhayyim/kabuto/`.
+`app.etzhayyim.kabuto.{registerCompany,registerSupplyEdge,publishIntelReport,publishSupplyChainViz,socialPost}`
+— `00-contracts/lexicons/app/etzhayyim/kabuto/`.
 
 ## Run
 
@@ -88,7 +88,7 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ## Honesty (R0)
 
-Bounded illustrative seed of **446 real public companies** + **172 disclosed supplier edges** across
+Bounded illustrative seed of **488 real public companies** + **185 disclosed supplier edges** across
 **15 sectors** and **52 countries** (growing each `/loop` iteration toward full global coverage) — **not** exhaustive coverage. HQ coordinates rounded to the campus/city. Supplier edges
 are public/disclosed `:representative` estimates, not an exhaustive BOM; criticality is a bounded
 estimate, never a contract figure. BPMN templates are `:synthesized` generic models, not a company's

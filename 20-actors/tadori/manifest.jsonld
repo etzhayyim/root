@@ -10,7 +10,7 @@
   "displayNameJa": "辿",
   "displayNameEn": "Tadori",
   "nanoid": "t4d0r1tr",
-  "description": "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements (EAVT/AEVT/AVET/VAET; VAET reverse-edge = yabai correlate-ip-activity, 2-hop). Authorized-investigation-only, open-source, on-chain-monitorable, PII-encrypted, evidence-producing (NOT enforcement). 6 cells / 4 Lexicons under com.etzhayyim.tadori.* / 12 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT yata SQL / RisingWave).",
+  "description": "Non-profit religious-corp authorized, case-anchored on-chain transaction-tracing + actor-attribution actor. kotoba-EAVT-native consolidation point for the malak pursuit Pregel output (ADR-2605152000), ipaddress 1次 IP/WHOIS/GeoIP collection, and yabai CTI/DNS/IP-history/access-audit. Owns the durable case graph + the cross-store attribution join (address → cluster → ip-obs → dns-obs → person) that no single store produces today, expressed as kotoba-kqe Datalog rules over the four arrangements (EAVT/AEVT/AVET/VAET; VAET reverse-edge = yabai correlate-ip-activity, 2-hop). Authorized-investigation-only, open-source, on-chain-monitorable, PII-encrypted, evidence-producing (NOT enforcement). 6 cells / 4 Lexicons under app.etzhayyim.tadori.* / 12 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT yata SQL / RisingWave).",
   "descriptionJa": "非営利 religious-corp の許可済み・case-anchored なオンチェーン取引追跡 + actor 帰属 actor。malak pursuit Pregel 出力 (ADR-2605152000)・ipaddress 1次 IP/WHOIS/GeoIP・yabai CTI/DNS/IP履歴/access-audit を kotoba-EAVT 上に統合する。現状どの単一ストアも生成しない cross-store 帰属 join (address → cluster → ip-obs → dns-obs → person) を kotoba-kqe Datalog rule (4 arrangement EAVT/AEVT/AVET/VAET; VAET 逆引き = yabai correlate-ip-activity 2-hop) として所有する。許可済み調査のみ・open-source・on-chain 監視可能・PII 暗号化・evidence 生成のみ (enforcement はしない)。6 cells / 4 Lexicons / 12 不変ゲート / 12 non-goals。kotoba-native (datom/EAVT + MST; yata SQL / RisingWave ではない)。",
   "adr": {
     "master": "etzhayyim:adr:2605301400",
@@ -42,7 +42,7 @@
     "authorizedInvestigationOnly": "Every live write MUST reference an active caseMandate carrying an authorizationRef (fraud-victim-recovery / aml-cti-duty / sanctioned-entity-tracing / council-transparent-force). No case → Phase 0 dry-run only. Structural: caseMandate required; silenTadoriReview.noncaseWriteCount const 0 (G3).",
     "openSource": "No proprietary chain-analysis algorithm is the system of record. External paid sources (Chainalysis / Elliptic / TRM / Crystal) are feature-flagged INPUTS to a label/traceReport only, recorded in externalSourcesUsed. silenTadoriReview.proprietarySorCount const 0 (G4).",
     "onChainMonitorable": "Every case action emits an on-chain-anchored Transparent Force audit datom (Charter §1.12 + ADR-2605192315). caseMandate.transparentForceLogged const true (G5).",
-    "piiEncrypted": "person / IP / device attribution datoms are written under the com.etzhayyim.encrypted.* envelope, Signal-wrapped to the authorized case-member DIDs only (ADR-2605181100). attributionFinding.encrypted required true for those objectKinds; silenTadoriReview.plaintextPiiCount const 0 (G6).",
+    "piiEncrypted": "person / IP / device attribution datoms are written under the app.etzhayyim.encrypted.* envelope, Signal-wrapped to the authorized case-member DIDs only (ADR-2605181100). attributionFinding.encrypted required true for those objectKinds; silenTadoriReview.plaintextPiiCount const 0 (G6).",
     "evidenceOnlyNotEnforcement": "tadori produces evidence datoms. It MUST NOT initiate enforcement; enforcement routes through yabai (risk) + Council. silenTadoriReview.enforcementActionCount const 0 (G7).",
     "noPlatformHeldKey": "Writes are member-signed (case-member DID) or community-operator DID (bulk ingest). tadori holds no platform private key (ADR-2605231525). silenTadoriReview.platformHeldKeyCount const 0 (G8)."
   },
@@ -55,7 +55,7 @@
       "untargeted / non-case-scoped mass surveillance",
       "de-anonymizing an etzhayyim adherent",
       "proprietary chain-analysis as the system of record (Chainalysis / Elliptic / TRM / Crystal — feature-flagged input only)",
-      "plaintext PII (person / IP / device) — must use com.etzhayyim.encrypted.*",
+      "plaintext PII (person / IP / device) — must use app.etzhayyim.encrypted.*",
       "holding any platform master/signing key (ADR-2605231525)",
       "live write without an active caseMandate",
       "vendor / commercial-GPU LLM callout (Murakumo-only per ADR-2605215000)",
@@ -117,16 +117,27 @@
     }
   ],
   "lexiconNamespaces": [
-    "com.etzhayyim.tadori.caseMandate",
-    "com.etzhayyim.tadori.attributionFinding",
-    "com.etzhayyim.tadori.traceReport",
-    "com.etzhayyim.tadori.silenTadoriReview"
+    "app.etzhayyim.tadori.caseMandate",
+    "app.etzhayyim.tadori.attributionFinding",
+    "app.etzhayyim.tadori.traceReport",
+    "app.etzhayyim.tadori.silenTadoriReview"
   ],
   "dataSubstrate": {
-    "engine": "kotoba (ADR-2605262130) — datom/EAVT on kotoba-kqe (4 arrangements EAVT/AEVT/AVET/VAET) + MST records com.etzhayyim.tadori.*; NOT yata SQL / RisingWave",
+    "engine": "kotoba (ADR-2605262130) — datom/EAVT on kotoba-kqe (4 arrangements EAVT/AEVT/AVET/VAET) + MST records app.etzhayyim.tadori.*; NOT yata SQL / RisingWave",
     "entityClasses": "8 EAVT classes (tadori/*): tx / addr / cluster / label / case / ip-obs / dns-obs / attribution (ADR-2605301400 §D2)",
-    "vault": "PII attribution payloads (person/IP/device) as com.etzhayyim.encrypted.* ciphertext, Signal-wrapped to case-member DIDs (ADR-2605181100)",
-    "inferencePath": "Murakumo only (ADR-2605215000) — LiteLLM 127.0.0.1:4000; NO vendor / commercial-GPU LLM callout (G9)"
+    "vault": "PII attribution payloads (person/IP/device) as app.etzhayyim.encrypted.* ciphertext, Signal-wrapped to case-member DIDs (ADR-2605181100)",
+    "inferencePath": "Murakumo only (ADR-2605215000) — LiteLLM 127.0.0.1:4000; NO vendor / commercial-GPU LLM callout (G9)",
+    "datomicApiBridge": {
+      "schema": "20-actors/tadori/kotoba/schema.edn",
+      "seed": "20-actors/tadori/kotoba/seed.threat-intel.jsonl",
+      "ingest": "20-actors/tadori/kotoba/ingest_threat_intel.py",
+      "deploy": "20-actors/tadori/kotoba/deploy.sh",
+      "writeNsid": "ai.gftd.apps.kotoba.datomic.transact",
+      "readNsid": "ai.gftd.apps.kotoba.datomic.datoms",
+      "verification": "deploy.sh live mode uses --verify-readback to confirm source/DNS/IP/indicator datoms after transact.",
+      "graph": "etzhayyim/tadori/threat-intel",
+      "sourcePolicy": "SecurityTrails/DNSDB/Recorded-Future-shaped feeds are feature-flagged-input only, never system-of-record; operator-staged passive archives only."
+    }
   },
   "constitutionalGates": {
     "description": "12 immutable gates per ADR-2605301400 §D1. Council Lv6+ supermajority + new ADR to amend; §1.12 Transparent-Force items are Lv7+ (Preamble §0.4).",
@@ -136,7 +147,7 @@
       "G3": "AUTHORIZED-INVESTIGATION-ONLY — every live write references an active caseMandate + authorizationRef; no case → Phase 0 dry-run; noncaseWriteCount=0",
       "G4": "OPEN-SOURCE — no proprietary chain-analysis as system of record; external paid sources feature-flagged inputs only; proprietarySorCount=0",
       "G5": "ON-CHAIN-MONITORABLE — Transparent Force audit datom per case action (Charter §1.12 + ADR-2605192315); caseMandate.transparentForceLogged const true",
-      "G6": "PII-ENCRYPTED — person/IP/device attribution under com.etzhayyim.encrypted.* Signal-wrapped to case-members (ADR-2605181100); plaintextPiiCount=0",
+      "G6": "PII-ENCRYPTED — person/IP/device attribution under app.etzhayyim.encrypted.* Signal-wrapped to case-members (ADR-2605181100); plaintextPiiCount=0",
       "G7": "EVIDENCE-ONLY / NO ENFORCEMENT — enforcement routes via yabai + Council; enforcementActionCount=0",
       "G8": "NO PLATFORM-HELD KEY (ADR-2605231525) — member / community-operator signed; platformHeldKeyCount=0",
       "G9": "Murakumo-only inference (ADR-2605215000); murakumoBypassCount=0",
@@ -165,8 +176,8 @@
   "roadmap": [
     {
       "phase": "R0 / T0",
-      "date": "2026-05-30",
-      "scope": "Scaffold only. 6 cells path-reserved under 20-actors/magatama/cells/tadori_*/ (import-time RuntimeError). 4 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/tadori/. manifest + CLAUDE.md. deps.toml [[adrs]] + [[modules]] registration. No data moved.",
+      "date": "2026-05-30 / 2026-06-02",
+      "scope": "Scaffold plus Datomic API bridge. 6 cells path-reserved under 20-actors/magatama/cells/tadori_*/ (import-time RuntimeError). 4 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/tadori/. Datomic threat-intel bridge under 20-actors/tadori/kotoba/ (schema.edn + JSONL seed + tx_edn generator + ai.gftd.apps.kotoba.datomic.transact deploy wrapper). No legacy data moved.",
       "murakumoFleet": "No deployment",
       "gate": "ADR-2605301400 (PROPOSED)"
     },
@@ -217,7 +228,7 @@
     },
     "self": {
       "claude": "/20-actors/tadori/CLAUDE.md",
-      "lexicons": "/00-contracts/lexicons/com/etzhayyim/tadori/"
+      "lexicons": "/00-contracts/lexicons/app/etzhayyim/tadori/"
     }
   }
 }

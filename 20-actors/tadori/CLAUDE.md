@@ -35,6 +35,39 @@ Full attribute list → ADR-2605301400 §D2. Reads use the four `kotoba-kqe` arr
 - **VAET** — reverse edge = `correlate-ip-activity` (2-hop traversal ~748 ns), replaces
   yabai's bespoke cross-correlation SQL
 
+### Threat-intel Datomic API bridge
+
+`kotoba/` now contains the T3 bridge for passive threat-intel observations:
+
+| File | Purpose |
+|---|---|
+| `kotoba/schema.edn` | Datomic schema for `tadori.source/*`, `tadori.obs/*`, `tadori.dns/*`, `tadori.ip/*`, and `tadori.indicator/*`. |
+| `kotoba/seed.threat-intel.jsonl` | Operator-staged JSONL sample for public-archive and SecurityTrails-shaped compatibility records. |
+| `kotoba/ingest_threat_intel.py` | JSONL validator + `tx_edn` generator + live `ai.gftd.apps.kotoba.datomic.transact` writer with optional `datomic.datoms` readback. |
+| `kotoba/deploy.sh` | Dry-run/live wrapper for a running kotoba node; live runs verify readback. |
+
+Dry-run:
+
+```sh
+20-actors/tadori/kotoba/deploy.sh
+```
+
+Live writes require a running kotoba node plus `KOTOBA_SESSION_POP` or `KOTOBA_TOKEN`.
+If `KOTOBA_SESSION_POP` is supplied, the script first verifies it through
+`ai.gftd.pds.session.verify`, then posts schema and data through
+`ai.gftd.apps.kotoba.datomic.transact`. Live data writes require `TADORI_CASE_ID`
+or per-record `case_id`; the script rejects any collection mode other than
+`operator-staged-passive-archive`. `deploy.sh` runs with `--verify-readback`, so
+each live run also confirms the staged source, DNS, IP, and indicator datoms via
+`ai.gftd.apps.kotoba.datomic.datoms`.
+
+Vendor-shaped feeds (`securitytrails-compatible`, `dnsdb-compatible`,
+`recordedfuture-compatible`) are accepted only as `source_role:
+feature-flagged-input`, never `system-of-record`. Tier-D sources require explicit
+`--allow-tier-d` and remain non-SoR. This preserves G3/G4/G10/G11: no live DNS /
+WHOIS / RDAP / DoH / probe is performed by this bridge, and all writes land only
+in kotoba Datomic state.
+
 ## Migration (ADR-2605301400 §D3) — yata SQL / RisingWave → kotoba
 
 | Phase | Scope | Acceptance gate |
