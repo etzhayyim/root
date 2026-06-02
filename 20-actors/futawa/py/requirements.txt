@@ -1,0 +1,3 @@
+# futawa 二輪 — Python dependencies (R0 scaffold, offline tests only)
+# No external deps for test_agent.py (offline, no network, no LLM, no kotoba host)
+# Agent in-WASM runtime (py/agent.py) imports kotoba host bindings at runtime
