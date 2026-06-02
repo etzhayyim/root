@@ -50,7 +50,7 @@ export interface SignalSession {
 
 // ── IndexedDB Storage ──
 
-const DB_NAME = 'gftd-signal-v1';
+const DB_NAME = 'etzhayyim-signal-v1';
 const DB_VERSION = 1;
 
 function openDB(): Promise<IDBDatabase> {
@@ -270,7 +270,7 @@ export async function deriveFieldKey(did: string, convoId: string): Promise<Cryp
 	const keyMaterial = await crypto.subtle.importKey(
 		'raw', identity.identityKeyPrivate.buffer as ArrayBuffer, 'HKDF', false, ['deriveKey'],
 	);
-	const info = new TextEncoder().encode(`gftd:field-encrypt:${convoId}`);
+	const info = new TextEncoder().encode(`etzhayyim:field-encrypt:${convoId}`);
 	return crypto.subtle.deriveKey(
 		{ name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(32), info },
 		keyMaterial,

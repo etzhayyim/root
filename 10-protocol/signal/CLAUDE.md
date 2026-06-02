@@ -9,7 +9,7 @@ convention** per ADR-2604261110 (2026-04-26).
 - Double Ratchet (1:1)
 - Sender Keys (group)
 - Field-level AES-GCM (`signal:v1:` envelope)
-- IndexedDB key storage (`gftd-signal-v1`)
+- IndexedDB key storage (`etzhayyim-signal-v1`)
 
 ## Out of scope
 
