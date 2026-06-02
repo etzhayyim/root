@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 96 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 39 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 50 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 38 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 51 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 39 apps** (C + D = 0 + 39; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 38 apps** (C + D = 0 + 38; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -70,7 +70,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (50)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (51)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -466,6 +466,15 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   same GCC `credits` references), NOT an AT-PDS rw-free registry; the
   inference/expert compute stays gftd. Records are platform compute-network state
   + on-chain contracts, not open-data (carry-forward test fails). No rw-free built.
+- **wire** (Bucket D → V) — axes: **Settlement (wire transfers + balance ledger)
+  + Custody (balance + transfer records + messages) + Liability (money-transfer
+  善管注意義務)**. Wire Transfer & Messaging Platform (`wire.gftd.ai`): 8 methods —
+  createTransfer / listTransfers / getTransfer / confirmTransfer / createMessage /
+  listMessages / getBalance / getTransferHistory. Money-transfer infrastructure
+  with a balance ledger + transfer confirmation/history (messaging = transfer-
+  attached memos). Transfer records + balances are confidential financial state,
+  never a public registry (carry-forward test fails). Same financial family as
+  `harai` / `credits` / `shiharai`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -493,7 +502,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (39, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (38, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -502,8 +511,8 @@ These are mechanical import-removal chores on already-migrated/vendor apps, not
 > `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
 > gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
 
-**TRANSFORM-pending (9)**:
-wire, worlds,
+**TRANSFORM-pending (8)**:
+worlds,
 yabai, yatabase
 
 **Ad-pixel codemod complete (26)**: animeka*, briefing*, communicator,
