@@ -1,0 +1,147 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: storyboard-editor
+
+build:
+  local:
+    push: false
+  artifacts:
+    - image: storyboard-editor/server
+      context: ./backend
+      docker:
+        dockerfile: Dockerfile.server
+        target: production
+      sync:
+        manual:
+          - src: "**/*.go"
+            dest: /app
+          - src: "**/*.mod"
+            dest: /app
+          - src: "**/*.sum"
+            dest: /app
+    - image: storyboard-editor/worker
+      context: ./backend
+      docker:
+        dockerfile: Dockerfile.worker
+        target: production
+      sync:
+        manual:
+          - src: "**/*.go"
+            dest: /app
+          - src: "**/*.mod"
+            dest: /app
+          - src: "**/*.sum"
+            dest: /app
+    - image: storyboard-editor/frontend
+      context: .
+      docker:
+        dockerfile: Dockerfile.frontend
+      sync:
+        manual:
+          - src: "src/**/*.{ts,svelte,js,css}"
+            dest: /app/src
+          - src: "package.json"
+            dest: /app
+          - src: "vite.config.ts"
+            dest: /app
+          - src: "svelte.config.js"
+            dest: /app
+
+deploy:
+  kubectl:
+    manifests:
+      - k8s/namespace.yaml
+      - k8s/postgresql.yaml
+      - k8s/scaffold-install.yaml
+      - k8s/temporal-cluster.yaml
+      - k8s/server-deployment.yaml
+      - k8s/server-service.yaml
+      - k8s/worker-deployment.yaml
+      - k8s/frontend-deployment.yaml
+      - k8s/frontend-service.yaml
+
+portForward:
+  - resourceType: service
+    resourceName: storyboard-server
+    namespace: storyboard-editor
+    port: 8081
+    localPort: 8081
+  - resourceType: service
+    resourceName: storyboard-frontend
+    namespace: storyboard-editor
+    port: 1421
+    localPort: 1421
+  - resourceType: service
+    resourceName: storyboard-temporal-ui
+    namespace: temporal-system
+    port: 8080
+    localPort: 8080
+  - resourceType: service
+    resourceName: storyboard-temporal-frontend
+    namespace: temporal-system
+    port: 7233
+    localPort: 7233
+
+profiles:
+  - name: dev
+    build:
+      local:
+        push: false
+      artifacts:
+        - image: storyboard-editor/server
+          context: ./backend
+          docker:
+            dockerfile: Dockerfile.server
+            target: development
+          sync:
+            manual:
+              - src: "**/*.go"
+                dest: /app
+              - src: "**/*.mod"
+                dest: /app
+              - src: "**/*.sum"
+                dest: /app
+        - image: storyboard-editor/worker
+          context: ./backend
+          docker:
+            dockerfile: Dockerfile.worker
+            target: development
+          sync:
+            manual:
+              - src: "**/*.go"
+                dest: /app
+              - src: "**/*.mod"
+                dest: /app
+              - src: "**/*.sum"
+                dest: /app
+        - image: storyboard-editor/frontend
+          context: .
+          docker:
+            dockerfile: Dockerfile.frontend
+            target: development
+          sync:
+            manual:
+              - src: "src/**/*.{ts,svelte,js,css}"
+                dest: /app/src
+              - src: "package.json"
+                dest: /app
+              - src: "vite.config.ts"
+                dest: /app
+              - src: "svelte.config.js"
+                dest: /app
+    deploy:
+      kubectl:
+        manifests:
+          - k8s/namespace.yaml
+          - k8s/postgresql.yaml
+          - k8s/scaffold-install.yaml
+          - k8s/temporal-cluster.yaml
+          - k8s/server-deployment.yaml
+          - k8s/server-service.yaml
+          - k8s/worker-deployment.yaml
+          - k8s/frontend-deployment.yaml
+          - k8s/frontend-service.yaml
+        flags:
+          global:
+            - --namespace=storyboard-editor

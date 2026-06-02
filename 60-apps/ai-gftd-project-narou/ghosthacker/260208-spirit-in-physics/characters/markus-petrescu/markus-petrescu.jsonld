@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:markus-petrescu",
+  "@type": "Person",
+  "name": "Father Markus Petrescu",
+  "gh:callsign": "SHEPHERD",
+  "description": "48歳、男性、ルーマニア出身。聖職者。テーマ: 宗教的権威・沈黙・信頼崩壊。",
+  "age": 48,
+  "gender": "Male",
+  "nationality": "Romanian",
+  "occupation": "Priest",
+  "gh:persona": "沈黙の羊飼い",
+  "gh:ghost": {
+    "@id": "ghost:silent-pulpit"
+  },
+  "gh:theme": "宗教的権威・沈黙・信頼崩壊",
+  "fullText": "Father Markus Petrescuは、ルーマニア出身の聖職者。48歳の男性で、callsignは「SHEPHERD」。宗教的権威、沈黙、信頼崩壊をテーマとする。彼のGhostは「Silent Pulpit」で、語られない真実と隠蔽された罪を象徴する。Markusは、教会の権威を守るために沈黙を選び、被害者の声を封じてきた。その結果、信頼は崩壊し、彼自身も孤立している。"
+}

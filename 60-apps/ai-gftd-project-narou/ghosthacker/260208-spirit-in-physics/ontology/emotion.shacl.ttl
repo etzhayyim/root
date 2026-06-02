@@ -1,0 +1,60 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://gftd.ai/gh#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# EmotionalPlan must have ≥3 beats and a final target favoring release/joy/hope
+gh:EmotionalPlanShape a sh:NodeShape ;
+  sh:targetClass gh:EmotionalPlan ;
+  sh:property [ sh:path gh:beats ; sh:minCount 3 ] ;
+  sh:property [ sh:path schema:name ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:episode ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:beats ;
+    sh:qualifiedMinCount 1 ;
+    sh:qualifiedValueShape [
+      sh:property [ sh:path gh:position ; sh:minInclusive 3 ] ;
+      sh:property [ sh:path gh:targetVector ; sh:minCount 1 ]
+    ]
+  ] .
+
+# Require final beat targetVector to include relief/joy/hope and avoid fear/anger (via SPARQL)
+gh:FinalBeatTargetShape a sh:NodeShape ;
+  sh:targetClass gh:EmotionalPlan ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Final beat should include relief/joy/hope and low fear/anger." ;
+    sh:select """
+      PREFIX gh: <https://gftd.ai/gh#>
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+      SELECT ?this WHERE {
+        ?this gh:beats ?b .
+        ?b gh:position ?pos .
+        FILTER NOT EXISTS {
+          ?this gh:beats ?last .
+          ?last gh:position ?p2 . FILTER(?p2 > ?pos)
+        }
+        # now ?b is last beat
+        FILTER NOT EXISTS {
+          ?b gh:targetVector ?tv1 . ?tv1 gh:emotion "relief" ; gh:score ?sr . FILTER(xsd:float(?sr) >= 0.25)
+        }
+        UNION
+        FILTER NOT EXISTS {
+          ?b gh:targetVector ?tv2 . ?tv2 gh:emotion "joy" ; gh:score ?sj . FILTER(xsd:float(?sj) >= 0.18)
+        }
+        UNION
+        FILTER NOT EXISTS {
+          ?b gh:targetVector ?tv3 . ?tv3 gh:emotion "hope" ; gh:score ?sh . FILTER(xsd:float(?sh) >= 0.18)
+        }
+        UNION
+        FILTER EXISTS {
+          ?b gh:targetVector ?tvf . ?tvf gh:emotion "fear" ; gh:score ?sf . FILTER(xsd:float(?sf) > 0.15)
+        }
+        UNION
+        FILTER EXISTS {
+          ?b gh:targetVector ?tva . ?tva gh:emotion "anger" ; gh:score ?sa . FILTER(xsd:float(?sa) > 0.15)
+        }
+      }
+    """
+  ] .
+
+

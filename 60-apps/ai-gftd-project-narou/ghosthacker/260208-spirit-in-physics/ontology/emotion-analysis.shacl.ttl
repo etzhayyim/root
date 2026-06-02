@@ -1,0 +1,233 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# ========================================
+# Emotion Analysis Shape
+# ========================================
+
+gh:EmotionAnalysisShape
+  a sh:NodeShape ;
+  sh:targetClass gh:EmotionAnalysis ;
+  sh:property [
+    sh:path gh:episode ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "EmotionAnalysis must reference exactly one episode" ;
+  ] ;
+  sh:property [
+    sh:path gh:hasEmotionProfile ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "EmotionAnalysis must have at least one emotion profile" ;
+  ] ;
+  sh:property [
+    sh:path gh:hasProcessScore ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "EmotionAnalysis can have at most one process score" ;
+  ] .
+
+# ========================================
+# Emotion Profile Shape
+# ========================================
+
+gh:EmotionProfileShape
+  a sh:NodeShape ;
+  sh:targetClass gh:EmotionProfile ;
+  sh:property [
+    sh:path gh:episode ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "EmotionProfile must reference exactly one episode" ;
+  ] ;
+  sh:property [
+    sh:path gh:emotionVector ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:message "EmotionProfile must have at least one emotion score" ;
+  ] ;
+  sh:property [
+    sh:path gh:language ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:message "EmotionProfile can have at most one language" ;
+  ] ;
+  sh:property [
+    sh:path gh:createdAt ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:dateTime ;
+    sh:message "EmotionProfile can have at most one creation timestamp" ;
+  ] .
+
+# ========================================
+# Emotion Score Shape
+# ========================================
+
+gh:EmotionScoreShape
+  a sh:NodeShape ;
+  sh:targetClass gh:EmotionScore ;
+  sh:property [
+    sh:path gh:emotion ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ( "joy" "sadness" "fear" "anger" "surprise" "trust" "anticipation" "disgust" "relief" "hope" ) ;
+    sh:message "EmotionScore must have exactly one emotion from the valid set" ;
+  ] ;
+  sh:property [
+    sh:path gh:score ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:float ;
+    sh:minInclusive 0.0 ;
+    sh:maxInclusive 1.0 ;
+    sh:message "EmotionScore must have exactly one score between 0.0 and 1.0" ;
+  ] .
+
+# ========================================
+# Process Score Shape
+# ========================================
+
+gh:ProcessScoreShape
+  a sh:NodeShape ;
+  sh:targetClass gh:ProcessScore ;
+  sh:property [
+    sh:path gh:finalSimilarity ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:float ;
+    sh:minInclusive 0.0 ;
+    sh:maxInclusive 1.0 ;
+    sh:message "ProcessScore must have finalSimilarity between 0.0 and 1.0" ;
+  ] ;
+  sh:property [
+    sh:path gh:posGrowth ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:float ;
+    sh:minInclusive 0.0 ;
+    sh:message "ProcessScore must have posGrowth >= 0.0" ;
+  ] ;
+  sh:property [
+    sh:path gh:negDecline ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:float ;
+    sh:minInclusive 0.0 ;
+    sh:message "ProcessScore must have negDecline >= 0.0" ;
+  ] ;
+  sh:property [
+    sh:path gh:smoothness ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:float ;
+    sh:minInclusive 0.0 ;
+    sh:maxInclusive 1.0 ;
+    sh:message "ProcessScore must have smoothness between 0.0 and 1.0" ;
+  ] ;
+  sh:property [
+    sh:path gh:processScore ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:float ;
+    sh:minInclusive 0.0 ;
+    sh:maxInclusive 1.0 ;
+    sh:message "ProcessScore must have processScore between 0.0 and 1.0" ;
+  ] ;
+  sh:property [
+    sh:path gh:benchmarkedAgainst ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "ProcessScore must reference exactly one benchmark" ;
+  ] .
+
+# ========================================
+# Process Score Quality Constraints
+# ========================================
+
+gh:ProcessScoreQualityShape
+  a sh:NodeShape ;
+  sh:targetClass gh:ProcessScore ;
+  sh:sparql [
+    sh:message "High-quality episode should have processScore >= 0.6" ;
+    sh:severity sh:Warning ;
+    sh:select """
+      PREFIX gh: <https://ghosthacker.junkawasaki.com/gh#>
+      SELECT $this
+      WHERE {
+        $this gh:processScore ?score .
+        FILTER (?score < 0.6)
+      }
+    """ ;
+  ] ;
+  sh:sparql [
+    sh:message "Excellent episode should have posGrowth >= 0.5" ;
+    sh:severity sh:Info ;
+    sh:select """
+      PREFIX gh: <https://ghosthacker.junkawasaki.com/gh#>
+      SELECT $this
+      WHERE {
+        $this gh:posGrowth ?growth .
+        FILTER (?growth < 0.5)
+      }
+    """ ;
+  ] .
+
+# ========================================
+# Emotion Trajectory Coherence
+# ========================================
+
+gh:EmotionTrajectoryCoherenceShape
+  a sh:NodeShape ;
+  sh:targetClass gh:EmotionProfile ;
+  sh:sparql [
+    sh:message "Emotion trajectory should show positive growth (final > initial)" ;
+    sh:severity sh:Info ;
+    sh:select """
+      PREFIX gh: <https://ghosthacker.junkawasaki.com/gh#>
+      SELECT $this
+      WHERE {
+        $this gh:trajectory ?traj1 .
+        $this gh:trajectory ?traj2 .
+        ?traj1 gh:position 1 .
+        ?traj1 gh:emotionVector ?ev1 .
+        ?ev1 gh:emotion ?emotion .
+        ?ev1 gh:score ?score1 .
+        ?traj2 gh:position ?lastPos .
+        ?traj2 gh:emotionVector ?ev2 .
+        ?ev2 gh:emotion ?emotion .
+        ?ev2 gh:score ?score2 .
+        FILTER (?emotion IN ("relief", "hope", "joy", "trust"))
+        FILTER (?score2 <= ?score1)
+        {
+          SELECT $this (MAX(?pos) AS ?lastPos)
+          WHERE {
+            $this gh:trajectory ?t .
+            ?t gh:position ?pos .
+          }
+          GROUP BY $this
+        }
+      }
+    """ ;
+  ] .
+
+# ========================================
+# Conformance to Emotional Plan
+# ========================================
+
+gh:EmotionalPlanConformanceShape
+  a sh:NodeShape ;
+  sh:targetClass gh:EmotionProfile ;
+  sh:property [
+    sh:path gh:conformsTo ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "EmotionProfile can conform to at most one EmotionalPlan" ;
+  ] .
+

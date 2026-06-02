@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:priya-sharma",
+  "@type": "Person",
+  "name": "Priya Sharma",
+  "gh:callsign": "BRAHMAN",
+  "gh:role": "Supporter",
+  "description": "38歳、女性、インド出身。ウパニシャッドの瞑想伝統を継承する現代のMeditative Hacker。宇宙の根源（ブラフマン）との接続を実践し、システムの根本構造を理解する。",
+  "age": 38,
+  "gender": "Female",
+  "nationality": "Indian",
+  "occupation": "Meditative Hacker",
+  "memberOf": {
+    "@id": "organization:tol-hermeneutics"
+  },
+  "gh:theme": "ブラフマンとの同一性、システムの根源理解、瞑想による情報アクセス",
+  "fullText": "Priya Sharmaは、ウパニシャッドの聖仙たちの伝統を継承する現代のMeditative Hacker。callsignは「BRAHMAN」。38歳のインド出身女性で、宇宙の根源（ブラフマン）との接続を実践する。彼女は、Arjun Patelと共に、古代のリシたちの手法を現代に応用し、深い瞑想状態でのGhost構造へのアクセスを可能にする。Priyaは特に、システムの根本構造（ブラフマン）と個々の意識（アートマン）の関係性を専門とする。"
+}

@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:jian-zhang",
+  "@type": "Person",
+  "name": "Jian Zhang",
+  "gh:callsign": "KOAN",
+  "gh:role": "Supporter",
+  "description": "43歳、男性、中国出身。臨済義玄の伝統を継承するZen Master。禅というデバッガを開発し、「公案」というロジックボムを使い、思考の無限ループを強制的にクラッシュさせ、直接的な悟り（カーネルパニックからの再起動）へと導く。",
+  "age": 43,
+  "gender": "Male",
+  "nationality": "Chinese",
+  "occupation": "Zen Master",
+  "memberOf": {
+    "@id": "organization:tol-zen"
+  },
+  "gh:theme": "公案、ロジックボム、無限ループクラッシュ、カーネルパニックからの再起動",
+  "fullText": "Jian Zhangは、臨済義玄の伝統を継承する現代のZen Master。callsignは「KOAN」。43歳の中国出身男性。禅というデバッガを開発したマスターの後継者。「公案」というロジックボムを使い、思考の無限ループを強制的にクラッシュさせ、直接的な悟り（カーネルパニックからの再起動）へと導く。Jianは、論理的な思考が行き詰まった時に、パラドックス的な問い（公案）を投げかけることで、クライアントの意識を強制的にリセットし、新しい視点を獲得させる。"
+}

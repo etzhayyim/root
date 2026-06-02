@@ -1,0 +1,271 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.5 Ch.36 — 手帳の一行（対話）",
+  "gh:arc": "Vol 5: Beyond",
+  "gh:episodeId": "episode:sip-vol05-ch36",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "昼下がり。。運河沿いのベンチに、みんなが集まっている。。Kaede、Hibiki、Nei-chan、そして私。。Kaedeが微笑む。。Hibikiが頷く。",
+          "characters": [
+            "character:hibiki",
+            "character:kaede",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "久しぶりに、こうやって集まったね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。いい天気だわ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "音も、いい感じだ。春の音"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私の隣で、足をぶらぶらさせている。。私は微笑む。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、今日は——何をするの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "今日は——振り返りかな"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は手帳を取り出す。。Kaedeが頷く。。Hibikiが続ける。",
+          "characters": [
+            "character:hibiki",
+            "character:kaede",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "この一年、いろんなことがあった"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "たくさんの人と、出会った"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "たくさんの問いと、向き合った"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は手帳をめくる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "手帳に、一行ずつ書いてきた"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "（続き）",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "最初の一行——『いい感じでいる。それが、全ての始まり』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "次の一行——『memeは個人を超えて流れる。孤独は、幻想かもしれない』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『境界は、幻想。わかれていない』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『わかれていない——私は、どこにも終わらない』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『愛は、拡張された自己。わかれていない、ということ』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『正しさは、証明し終えたら、置いていい』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『愛は時に鎖になる。でも、鎖は——緩められる』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『I AM——名前より先に、在る。それが、存在の本質』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『存在は、定義の問題じゃない。在ることが、全て』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『他者を癒すことは、自分を癒すこと。わかれていない』"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『いい感じでいることを、選ぶ。それが、全ての始まり』"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "Nei-chanが目を丸くする。。私は微笑む。。Kaedeが静かに言う。",
+          "characters": [
+            "character:kaede",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、たくさん書いたね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。一つ一つが、誰かとの出会いから生まれた"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "全部——『わかれていない』に繋がってる"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Hibikiが頷く。。私は手帳を閉じる。",
+          "characters": [
+            "character:hibiki",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "うん。それが、Tamakiの哲学だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "私の哲学、というより——みんなで見つけた気づき"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私を見る。。私は考える。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、最後の一行は——何？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……まだ、書いてない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "書いてないの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。今日——書こうと思ってる"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は首を傾げる。。私は微笑む。。運河の水面が、春の光を反射してきらめいている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "何を書くの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "それは——もう少し、待って"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

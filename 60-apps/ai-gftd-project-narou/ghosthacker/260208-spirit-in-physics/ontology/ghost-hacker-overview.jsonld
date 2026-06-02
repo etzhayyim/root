@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "CreativeWork": "https://schema.org/CreativeWork",
+    "name": {
+      "@id": "https://schema.org/name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "https://schema.org/description",
+      "@type": "xsd:string"
+    },
+    "about": {
+      "@id": "https://schema.org/about",
+      "@type": "@id"
+    },
+    "isPartOf": {
+      "@id": "https://schema.org/isPartOf",
+      "@type": "@id"
+    },
+    "inLanguage": {
+      "@id": "https://schema.org/inLanguage",
+      "@type": "xsd:string"
+    },
+    "dateCreated": {
+      "@id": "https://schema.org/dateCreated",
+      "@type": "xsd:gYear"
+    },
+    "sameAs": {
+      "@id": "https://schema.org/sameAs",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "doc:Ghost-Hacker-Overview",
+      "@type": "CreativeWork",
+      "name": "Ghost Hacker 概要",
+      "description": "情報生命（Ghost）が公認された2065年の東京。タマキは『Ghost Hacker』としてバイトし、ネエチャンと共に相談案件に向き合う。国家資格TOL認定（二回試験）。",
+      "about": [
+        {
+          "@id": "project:ghost-hacker"
+        },
+        {
+          "@id": "setting:tokyo"
+        },
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:Nei-chan"
+        },
+        {
+          "@id": "company:schwa"
+        }
+      ],
+      "inLanguage": "ja",
+      "dateCreated": 2065,
+      "sameAs": "250806/Ghost Hacker.md"
+    },
+    {
+      "@id": "doc:Ghost-Hacker-Tokyo",
+      "@type": "CreativeWork",
+      "name": "Ghost Hacker in 水の都・東京",
+      "description": "タマキ（21、日蘭ハーフ）が父の遺した事務所でバイト。先輩カエデ、後輩アオイ、社長Ren（Ghost化）と共に案件に挑む。ネエチャンは人気アバターとして家計を支える。",
+      "about": [
+        {
+          "@id": "project:ghost-hacker"
+        },
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:kaede"
+        },
+        {
+          "@id": "character:aoi"
+        },
+        {
+          "@id": "character:Nei-chan"
+        },
+        {
+          "@id": "character:akito"
+        },
+        {
+          "@id": "company:schwa"
+        }
+      ],
+      "isPartOf": {
+        "@id": "project:ghost-hacker"
+      },
+      "inLanguage": "ja",
+      "sameAs": "250806/Ghost_Hacker_Tokyo.md"
+    }
+  ]
+}

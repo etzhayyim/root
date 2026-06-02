@@ -1,0 +1,23 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gh:EpisodeShape a sh:NodeShape ;
+  sh:targetNode <https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E0> ;
+  sh:property [ sh:path schema:name ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasCharacter ; sh:hasValue gh:character:tamaki ] ;
+  sh:property [ sh:path gh:techRefs ; sh:hasValue gh:Tech/SIP ] ;
+  sh:property [ sh:path gh:processRefs ; sh:hasValue gh:Process/MemorySpace1024D ] .
+
+gh:DiveShape a sh:NodeShape ;
+  sh:targetNode <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01> ;
+  sh:property [ sh:path gh:operator ; sh:hasValue gh:character:tamaki ] ;
+  sh:property [ sh:path gh:support ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:method ; sh:minCount 2 ] ;
+  sh:property [ sh:path gh:ascDepth ; sh:datatype xsd:decimal ; sh:minInclusive 0.7 ] ;
+  sh:property [ sh:path gh:contaminationRisk ; sh:datatype xsd:decimal ; sh:maxInclusive 0.3 ] ;
+  sh:property [ sh:path gh:hasStep ; sh:minCount 4 ] ;
+  sh:property [ sh:path gh:emergent ; sh:hasValue true ] ;
+  sh:property [ sh:path gh:authorizationBy ; sh:hasValue gh:character:kaede ] .
+

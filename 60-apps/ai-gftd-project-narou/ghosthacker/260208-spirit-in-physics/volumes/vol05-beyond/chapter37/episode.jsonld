@@ -1,0 +1,484 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.5 Ch.37 — Together（終わりと始まり）",
+  "gh:arc": "Vol 5: Beyond",
+  "gh:episodeId": "episode:sip-vol05-ch37",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "夕暮れ。。空がオレンジ色に染まっている。最初の朝と、同じ色。。でも——終わりではなく、始まり。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "夕暮れ。。空がオレンジ色に染まっている。最初の朝と、同じ色。。でも——終わりではなく、始まり。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "私たちは、運河沿いを歩いている。。Kaede、Hibiki、Nei-chan、そして私。。Kaedeが微笑む。。Hibikiが頷く。",
+          "characters": [
+            "character:hibiki",
+            "character:kaede",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "今日は——いい日だったね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。特別なことは、なかった。でも——いい日だった"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何もないことが、いいこと。呼吸できるから"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私の手を握る。。私は微笑む。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、最後の一行——書いた？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "まだ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "いつ書くの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "今から"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "私は立ち止まる。。運河の水面が、夕陽を反射してきらめいている。。私は手帳を取り出す。ペンを持つ。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "みんな、見ててね"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は、最後の一行を書く。。私たちは、一つにすることができない。なぜなら——すでに、一つだから。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "We can't put it together. It is together."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが首を傾げる。。私は微笑む。。Kaedeが静かに言う。",
+          "characters": [
+            "character:kaede",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、どういう意味？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "私たちは——すでに、繋がっている。わかれていない。だから——一つにする必要がない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "最初から、Together"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Hibikiが頷く。。私は頷く。",
+          "characters": [
+            "character:hibiki",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "そう。It is together"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "一年かけて——その事実に、追いついた"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが微笑む。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "じゃあ——わたしとタマも、最初から一緒だったんだね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "これからも？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "これからも"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は私に抱きつく。。私は彼女を抱きしめる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、大好き"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "私も、大好きだよ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Two Shot",
+          "visual": "Kaedeが微笑む。。Hibikiが微笑む。",
+          "characters": [
+            "character:hibiki",
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "Tamaki、いい仕事だったわ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "みんなのおかげ"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "これからも、一緒に"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん。一緒に"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 8,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "夕陽が沈んでいく。空が、オレンジから紫へと変わっていく。。でも——終わりではない。。明日も、太陽は昇る。。運河には、また朝霧が立ち込める。。私たちは——また、いい感じから始める。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "夕陽が沈んでいく。空が、オレンジから紫へと変わっていく。。でも——終わりではない。。明日も、太陽は昇る。。運河には、また朝霧が立ち込める。。私たちは——また、いい感じから始める。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 9,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は手帳を閉じる。。Nei-chanが頷く。。Kaedeが笑う。",
+          "characters": [
+            "character:kaede",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "さあ、帰ろうか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん！ おなかすいた"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ごはん、一緒に食べましょう"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Hibikiが頷く。",
+          "characters": [
+            "character:hibiki",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "いい感じだね"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 10,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私たちは、家に向かって歩き始める。。四人で、一緒に。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "私たちは、家に向かって歩き始める。。四人で、一緒に。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 11,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "運河の水面が、最後の夕陽を映している。。空に、一番星が輝き始めている。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "運河の水面が、最後の夕陽を映している。。空に、一番星が輝き始めている。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 12,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "その一言が、全てを包んでいる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "いっしょに"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 13,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は、深呼吸をする。。吸って、吐いて。。それだけで、十分。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "私は、深呼吸をする。。吸って、吐いて。。それだけで、十分。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 14,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "それは、誰にでも言える言葉。。Neroにも、私にも、あなたにも。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "わたしは、在る"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 15,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私たちは、その事実に追いついた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "We can't put it together. It is together."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 16,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "次も、いい感じから始めよう。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "次も、いい感じから始めよう。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 17,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "**[手帳の最後の一行: We can't put it together. It is together.]**",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "**[手帳の最後の一行: We can't put it together. It is together.]**"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 18,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "**[終]**",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "**[終]**"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

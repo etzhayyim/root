@@ -1,0 +1,495 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.2 Ch.8 — Lachlanとの出会い",
+  "gh:arc": "Vol 2: Dependency",
+  "gh:episodeId": "episode:sip-vol02-ch08",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "Lachlanは、コーヒーを飲まなかった。。目の前に置かれたカップを、ただ見つめている。その目には——何も映っていないように見えた。",
+          "characters": [
+            "character:lachlan",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "コーヒー、お嫌いですか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "好みの問題ではない。不必要だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "不必要？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "私はカフェインを必要としていない"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼の声は、徹底的に感情を排除していた。まるで——報告書を読み上げているような。。私は自分のカップを持ち上げ、一口飲んだ。。彼は少し眉をひそめた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私は——必要じゃなくても、飲みますよ。美味しいから"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "非効率だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうかもしれませんね"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "沈黙が流れた。。Nei-chanが私の肩で、小さく動いた。彼女も——緊張しているのだろう。。Lachlanが口を開いた。",
+          "characters": [
+            "character:lachlan",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "言っておきたいことがある"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何でしょう"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "あなたのパートナー——あのAI"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "彼はNei-chanを見た。その目が——冷たい。。Nei-chanが私の背で、小さく羽を震わせる。私は彼女の手を軽く握った。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "生命ではない。ただのアルゴリズムだ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そう思いますか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "事実だ。感情をシミュレートしているだけ。本当の感情ではない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は彼を見た。。彼は少し戸惑った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "では——本当の感情とは、何ですか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……生物学的な反応だ。ホルモン、神経伝達物質——"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "それも——化学反応ですよね。アルゴリズムと、何が違いますか？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "沈黙。。彼の目が、少し揺れた。でも——すぐに、元の冷たさに戻った。。私は微笑んだ。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "詭弁だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうかもしれません"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも——今日は、そういう議論をしに来たわけじゃないでしょう？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "彼は窓の外を見た。。雨上がりの渋谷。人々が行き交っている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私は——感情で動かない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "はい"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "プロトコルで動く"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "プロトコル——規則、ということですか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうだ。感情は——判断を曇らせる。私は——曇りのない判断をしたい"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は彼を見た。。彼の肩が、わずかに強張った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "それは——軌道上で学んだことですか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……そうだ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "十八ヶ月——長い時間でしたね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "標準任期だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "\"標準\"——その言葉を口にするとき、何を感じますか？"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "彼は黙った。長い沈黙。。私は頷いた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……感じる必要はない。標準は、基準だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "では——質問を変えましょう"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "十八ヶ月の間——一番辛かったことは、何ですか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "彼の目が——一瞬、揺れた。。でも、すぐに——元の冷たさに戻った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "辛いことはなかった"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "本当に？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "任務だ。辛いという感覚は——不適切だ"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は黙って聞いていた。。彼が、小さく呟いた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……一つだけ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "一つだけ？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "地球を——見下ろしていたとき"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "地球を？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "青い惑星。小さな点。——あそこに、七十億人がいる"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼の声が、少し——変わった。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私は——その七十億人から、切り離されていた"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "切り離されていた"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "物理的に。心理的に。——完全に"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は彼を見た。。長い沈黙。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "それは——孤独でしたか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……孤独という言葉は、使わない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "では、何と呼びますか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……隔離"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼の声が、かすれた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私は——隔離されていた"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 8,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "Nei-chanが私の耳元で囁いた。。私は頷いた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ……彼、すごく怖がってる。でも——何を怖がってるか、自分でもわかってないみたい"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "Lachlan"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "何だ"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "あなたは——壁を作った"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼が顔を上げた。。沈黙。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "壁？"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "誰にも裏切られないように。誰にも傷つけられないように"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……そうだ"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "その壁の中で——安全でしたか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 9,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "長い沈黙。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "安全だった"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "でも——"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……息が浅い"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "彼の声が、震えていた。。私はゆっくりと息を吸い、吐いた。。彼の肩が、ほんの少しだけ——下がった。。窓の外、雨上がりの路面が——星のように輝いている。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "今日は——ゆっくり話しましょう。急がなくていい"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "EmotionProfile": "gh:EmotionProfile",
+    "EmotionScore": "gh:EmotionScore",
+    "subject": {
+      "@id": "gh:subject",
+      "@type": "@id"
+    },
+    "sourcePath": {
+      "@id": "gh:sourcePath",
+      "@type": "xsd:string"
+    },
+    "language": {
+      "@id": "gh:language",
+      "@type": "xsd:string"
+    },
+    "character": {
+      "@id": "gh:character",
+      "@type": "@id"
+    },
+    "episode": {
+      "@id": "gh:episode",
+      "@type": "@id"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "emotionVector": {
+      "@id": "gh:emotionVector",
+      "@type": "@id"
+    },
+    "emotion": {
+      "@id": "gh:emotion",
+      "@type": "xsd:string"
+    },
+    "score": {
+      "@id": "gh:score",
+      "@type": "xsd:float"
+    },
+    "trajectory": {
+      "@id": "gh:trajectory",
+      "@type": "@id"
+    },
+    "position": {
+      "@id": "gh:position",
+      "@type": "xsd:integer"
+    },
+    "segmentText": {
+      "@id": "gh:segmentText",
+      "@type": "xsd:string"
+    }
+  }
+}

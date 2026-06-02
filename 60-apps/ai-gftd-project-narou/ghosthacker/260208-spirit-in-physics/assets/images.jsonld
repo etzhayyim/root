@@ -1,0 +1,993 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#"
+  },
+  "@id": "gh:ImageCatalog",
+  "@type": "gh:Catalog",
+  "@graph": [
+    {
+      "@id": "gh:Image/Character/elias/portrait_gen4",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:CharacterPortrait"
+      ],
+      "gh:filePath": "251022/assets/characters/elias/portrait_gen4.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "a7a0effcb1a976a86710374a6dc58905c21d9b001aded4e568e64b256ba05dac",
+      "exif:width": 1024,
+      "exif:height": 1280,
+      "gh:styleTag": "Gen4,Tokyo-healing,ghost-hacking",
+      "gh:colorTheme": "#47c3d1",
+      "gh:derivedFrom": {
+        "@id": "250806/character/elias/Gen4 # Elias- 名前 Elias (エリアス)- 職業 物理学者- 背景  - 家系 現代芸術家の母と、伝説的 a-2, 1608193274.png"
+      },
+      "gh:forCharacter": {
+        "@id": "character:elias"
+      }
+    },
+    {
+      "@id": "gh:Image/Character/hibiki/portrait_gen4",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:CharacterPortrait"
+      ],
+      "gh:filePath": "251022/assets/characters/hibiki/portrait_gen4.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "5300addafb9e7eeb3a5c855604245ae0577ac668113b317439e41bf5d0102ab7",
+      "exif:width": 1024,
+      "exif:height": 1280,
+      "gh:styleTag": "Gen4,Tokyo-healing,ghost-hacking",
+      "gh:colorTheme": "#d14753",
+      "gh:derivedFrom": {
+        "@id": "250806/character/hibiki/Gen4 コンセプト 東京の静かで「癒し系（いやしけい）」の美しさと、混沌としていながらも美しいデジタル世界「ゴーストハッキング s-light-anime, a-2, 1095780929 (1).png"
+      },
+      "gh:forCharacter": {
+        "@id": "character:hibiki"
+      }
+    },
+    {
+      "@id": "gh:Image/Character/kaede/portrait_gen4",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:CharacterPortrait"
+      ],
+      "gh:filePath": "251022/assets/characters/kaede/portrait_gen4.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "e2d9316892bea583bdf8b2b393be2829f84bd02a25086c4f5d8ef7723f0f092a",
+      "exif:width": 1024,
+      "exif:height": 1280,
+      "gh:styleTag": "Gen4,Tokyo-healing,ghost-hacking",
+      "gh:colorTheme": "#d147c3",
+      "gh:derivedFrom": {
+        "@id": "250806/character/kaede/Gen4 緑の女性が振り返って、挨拶を返している。 2285487563.png"
+      },
+      "gh:forCharacter": {
+        "@id": "character:kaede"
+      }
+    },
+    {
+      "@id": "gh:Image/Character/tamaki/portrait_gen4",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:CharacterPortrait"
+      ],
+      "gh:filePath": "251022/assets/characters/tamaki/portrait_gen4.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "60b3c7937a517521ae1adcedc09cb2788e6bfa14ce74c232af98f4c4cc20579a",
+      "exif:width": 1024,
+      "exif:height": 1280,
+      "gh:styleTag": "Gen4,Tokyo-healing,ghost-hacking",
+      "gh:colorTheme": "#47d18f",
+      "gh:derivedFrom": {
+        "@id": "250806/character/tamaki/Gen4 コンセプト 4D空間の時間的区間的な奥行きとダイナミックなカメラワークに、2Dイラストレーションの繊細な感情表現を融合させた「24D」スタイルを基軸とする。人 137052695 (1).png"
+      },
+      "gh:forCharacter": {
+        "@id": "character:tamaki"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep01/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep01/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "73c6d8e9e0ede81626682c6155a93e00ef845efbd9842671eef8f21f7633e66a",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#c8d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP01"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep01/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep01/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "c3ae4026ac6c96e20747a2dd68c84d148a70a532481c46afb37f4ad61ea46fef",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#c8d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP01:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep01/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep01/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "c3ae4026ac6c96e20747a2dd68c84d148a70a532481c46afb37f4ad61ea46fef",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#c8d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP01:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep01/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep01/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "c3ae4026ac6c96e20747a2dd68c84d148a70a532481c46afb37f4ad61ea46fef",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#c8d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP01:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep02/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep02/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0ef37e07f195d4d3ac7831021f2a4edb79dce3fa8a6d57e46850ddaab4b6a9f5",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#d147a3",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP02"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep02/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep02/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "7f202172ba42e3ac07f6a3ec5f017eb1859c81ad4d4857d3ae0f21d4a85a1f6f",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147a3",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP02:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep02/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep02/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "7f202172ba42e3ac07f6a3ec5f017eb1859c81ad4d4857d3ae0f21d4a85a1f6f",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147a3",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP02:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep02/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep02/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "7f202172ba42e3ac07f6a3ec5f017eb1859c81ad4d4857d3ae0f21d4a85a1f6f",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147a3",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP02:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep03/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep03/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "3d7c77b08b5368deb3f775ac85ac3df10ac9822dfa889eaff6d8552f623519a8",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP03"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep03/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep03/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP03:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep03/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep03/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP03:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep03/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep03/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP03:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep03/part4",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep03/part4.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP03:Part:4"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep04/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep04/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "2ebba2b0ceaff275678eba33b3bcef369ef1e7f1945cbad86392902cfae2e37b",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#d147ca",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP04"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep04/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep04/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "a8837b845a1595739063a70c939fd59a3e1bd7225dd8a4222cec5662bf51a879",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147ca",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP04:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep04/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep04/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "a8837b845a1595739063a70c939fd59a3e1bd7225dd8a4222cec5662bf51a879",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147ca",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP04:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep04/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep04/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "a8837b845a1595739063a70c939fd59a3e1bd7225dd8a4222cec5662bf51a879",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147ca",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP04:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep05/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep05/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "5a25da4078a2a333d59a0e1f10eb36da1effe0661918f1e2a1ac812b64ed4be5",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#a347d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP05"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep05/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep05/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "ced4e15060c14fd966a32d903f49fd85c2637180383e1bd1758db29f7a588606",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#a347d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP05:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep05/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep05/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "ced4e15060c14fd966a32d903f49fd85c2637180383e1bd1758db29f7a588606",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#a347d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP05:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep05/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep05/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "ced4e15060c14fd966a32d903f49fd85c2637180383e1bd1758db29f7a588606",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#a347d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP05:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep06/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep06/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "e83056caf8ef14fb9b68103e8b451a466fa9b0c7465d2a2f70fa89a060551187",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#47d193",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP06"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep06/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep06/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "fc0a6c911394bee441a29f49be6b44e3ced981103d1afe0c332080d359bf1275",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#47d193",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP06:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep06/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep06/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "fc0a6c911394bee441a29f49be6b44e3ced981103d1afe0c332080d359bf1275",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#47d193",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP06:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep06/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep06/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "fc0a6c911394bee441a29f49be6b44e3ced981103d1afe0c332080d359bf1275",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#47d193",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP06:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep07/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep07/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "e2df4c03d61872112717fc9210c9d602a36d87db86758c71680359bd84f9e1ab",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#b6d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP07"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep07/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep07/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "169adc808514c2e8c6e3ff2bd3dc6924536d7518f0280cc38171d6176c2f2c95",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#b6d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP07:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep07/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep07/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "169adc808514c2e8c6e3ff2bd3dc6924536d7518f0280cc38171d6176c2f2c95",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#b6d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP07:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep07/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep07/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "169adc808514c2e8c6e3ff2bd3dc6924536d7518f0280cc38171d6176c2f2c95",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#b6d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP07:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep08/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep08/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "e57975780766186a32004d37dd3b60211768d848cebd20f0563002f0043f6aaa",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#cf47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP08"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep08/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep08/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "57b20f393ba31f4e5b0282fc6e7ebecd9b01acf1cde5a4eb961364d1f9d78b6a",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#cf47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP08:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep08/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep08/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "57b20f393ba31f4e5b0282fc6e7ebecd9b01acf1cde5a4eb961364d1f9d78b6a",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#cf47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP08:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep08/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep08/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "57b20f393ba31f4e5b0282fc6e7ebecd9b01acf1cde5a4eb961364d1f9d78b6a",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#cf47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP08:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep09/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep09/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "98013a7d99689bdc4221f89c4b2d54067fe42015f33c35ad89ec00ab57c5e093",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#5e47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP09"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep09/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep09/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "3926e51b2dab5b521785c0d47dee0a25d6758159f1f56804d6dc440afe68d643",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#5e47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP09:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep09/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep09/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "3926e51b2dab5b521785c0d47dee0a25d6758159f1f56804d6dc440afe68d643",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#5e47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP09:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep09/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep09/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "3926e51b2dab5b521785c0d47dee0a25d6758159f1f56804d6dc440afe68d643",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#5e47d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP09:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep10/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep10/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "3d7c77b08b5368deb3f775ac85ac3df10ac9822dfa889eaff6d8552f623519a8",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP10"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep10/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep10/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP10:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep10/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep10/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP10:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep10/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep10/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "0bb4063d7fe07f2c9c02bcb3f9516647569df14cf3dab6dd454e66bf5a503386",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147cf",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP10:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep11/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep11/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "7cb5810a665ec18142f33562248609492d8c00cc284c75096252d8b8d313e510",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#d147ba",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP11"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep11/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep11/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "c23724f558b11a610aff5bb2059870c59a00ea4bc42bb1ab883f102d11cb5fb6",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147ba",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP11:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep11/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep11/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "c23724f558b11a610aff5bb2059870c59a00ea4bc42bb1ab883f102d11cb5fb6",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147ba",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP11:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep11/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep11/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "c23724f558b11a610aff5bb2059870c59a00ea4bc42bb1ab883f102d11cb5fb6",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#d147ba",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP11:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep12/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep12/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "936a648591d7d7b49e4f96db57b6dd518cd93dc3ab3992008962f96d92902c7b",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#a1d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/EP12"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep12/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep12/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "4d58d16f279b5e07298abbeaa22a7dded2b686dd42029efe8a9a1dea71be7b89",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#a1d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP12:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep12/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep12/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "4d58d16f279b5e07298abbeaa22a7dded2b686dd42029efe8a9a1dea71be7b89",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#a1d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP12:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep12/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep12/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "4d58d16f279b5e07298abbeaa22a7dded2b686dd42029efe8a9a1dea71be7b89",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#a1d147",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/EP12:Part:3"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep_new_dualist/hero",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:EpisodeIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep_new_dualist/hero.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "8e1df090c775caebfd87d4a0955584970e606093c112d9bf8701ca0de0f21750",
+      "exif:width": 1920,
+      "exif:height": 1080,
+      "gh:colorTheme": "#47a3d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forEpisode": {
+        "@id": "gh:Episode/ep_new_dualist"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep_new_dualist/part1",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep_new_dualist/part1.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "2c1fbc7121ec8b2ea20c0460263b7a7267a8f4687805d920876b333573da980b",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#47a3d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/ep_new_dualist:Part:1"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep_new_dualist/part2",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep_new_dualist/part2.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "2c1fbc7121ec8b2ea20c0460263b7a7267a8f4687805d920876b333573da980b",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#47a3d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/ep_new_dualist:Part:2"
+      }
+    },
+    {
+      "@id": "gh:Image/Episode/ep_new_dualist/part3",
+      "@type": [
+        "gh:ImageAsset",
+        "gh:PartIllustration"
+      ],
+      "gh:filePath": "251022/assets/episodes/ep_new_dualist/part3.webp",
+      "gh:format": "image/webp",
+      "gh:checksumSha256": "2c1fbc7121ec8b2ea20c0460263b7a7267a8f4687805d920876b333573da980b",
+      "exif:width": 1600,
+      "exif:height": 900,
+      "gh:colorTheme": "#47a3d1",
+      "gh:styleTag": "placeholder,solid-color",
+      "gh:forPart": {
+        "@id": "gh:Episode/ep_new_dualist:Part:3"
+      }
+    }
+  ]
+}

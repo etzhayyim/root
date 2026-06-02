@@ -1,0 +1,42 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:millia-stuart",
+  "@type": "Person",
+  "name": "Millia Stuart",
+  "gh:role": "Antagonist",
+  "description": "個人の自由を渇望するが、家族との精神的な癒着に苦しむデジタルアーティスト。J.S.ミルの哲学と、儒教的家父長制のGhost『祖霊の鎖』を持つ。",
+  "age": 30,
+  "gender": "Female",
+  "nationality": "British (Japanese roots)",
+  "occupation": "Digital Artist",
+  "gh:ghost": [
+    {
+      "@id": "ghost:js-mill"
+    },
+    {
+      "@id": "ghost:the-ancestors-chain"
+    }
+  ],
+  "knows": [
+    {
+      "@id": "character:leo-kazan"
+    }
+  ],
+  "gh:sessionBookedFor": {
+    "@id": "character:leo-kazan"
+  },
+  "gh:sessionMotive": "Leoの家族・親友との関係性は健全で、彼が仕事の選択で迷い苦しむのを見るのが辛く、相談を予約した（自身の家の問題は当初は秘匿）",
+  "gh:emotionToward": [
+    {
+      "@id": "character:leo-kazan",
+      "gh:emotionType": "AdmiringEnvy",
+      "gh:description": "Leoの家族関係の温かさを羨ましく思い、同時に安心を感じる"
+    }
+  ],
+  "fullText": "Millia Stuartは、30歳のイギリス人女性（日本にルーツを持つ）。繊細な感性を持つデジタルアーティストだが、日本の「家」制度を色濃く受け継ぐ母親との間で精神的な癒着（Complex）を抱えている。J.S.ミルのように個人の自由を渇望する一方で、儒教的家父長制のGhost『祖霊の鎖』(ghost:the-ancestors-chain)によって家族という集団的自我から抜け出せずにいる。パートナーであるLeo Kazanのことは愛しているが、彼の「共感」が自分自身ではなく、「かわいそうなMillia」という役割に向けられていることに気づき始めている。彼女のリストカットの跡は、魂の癒着を切ろうとした葛藤の証。"
+}

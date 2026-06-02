@@ -1,0 +1,66 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "age": {
+      "@id": "https://schema.org/age",
+      "@type": "xsd:integer"
+    },
+    "occupation": {
+      "@id": "schema:occupation",
+      "@type": "xsd:string"
+    },
+    "knows": {
+      "@id": "schema:knows",
+      "@type": "@id"
+    },
+    "worksFor": {
+      "@id": "schema:worksFor",
+      "@type": "@id"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "character:kaede",
+      "@type": "Person",
+      "name": "Kaede",
+      "age": 25,
+      "occupation": "Senior Ghost Hacker",
+      "description": "冷静沈着で分析的。後輩を静かに導く頼れる先輩。Renからタマキの後見を託されている。",
+      "knows": [
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:aoi"
+        },
+        {
+          "@id": "character:ren"
+        }
+      ],
+      "worksFor": {
+        "@id": "company:schwa"
+      },
+      "fullText": "# kaede (カエデ)\n\n## Character\n\n- **Role:** 先輩\n- **Name:** kaede\n- **Age:** 25\n- **Occupation:** Ghost Hacker (階級: 高)\n- **Personality:**\n  - 冷静沈着で、常に状況を客観的に分析する能力に長けている。\n  - 口数は少ないが、的確なアドバイスと指示でチームを導く。\n  - 仲間思いで、特に後輩のtamakiとaoiのことは気にかけており、彼らの成長を静かに見守っている。\n  - 責任感が強く、一度引き受けた依頼は最後までやり遂げる。\n- **Style:**\n  - シンプルかつ機能的な、大人の女性らしい服装を好む。\n  - 常にタブレットPCを持ち歩き、情報収集を怠らない。\n  - イメージカラーは深い緑。\n- **Relationships:**\n  - **tamaki:** 後輩として、その才能と潜在能力を高く評価している。危なっかしい一面を心配しつつも、彼女の成長を暖かく見守る。\n  - **aoi:** 新人のaoiを指導する立場。彼の素直さと熱心さを評価している。\n  - **Ren:** 事務所の創設者であり、tamakiの父。彼から直接tamakiの後見を頼まれている。Renが情報生命体として生き続けていることを知る数少ない人物の一人。\n- **Ghost:**\n  - \"Yatagarasu\" (ヤタガラス)\n  - 偵察・情報収集に特化した鳥類のGhost。\n  - ネットワークの深層まで潜り込み、あらゆる情報をkaedeにもたらす。\n\n## Background\nRenが事務所を設立した当初からのメンバー。The Silent Code事件も経験しており、その実力は折り紙付き。Renからの信頼も厚く、事務所の要とも言える存在。"
+    }
+  ]
+}

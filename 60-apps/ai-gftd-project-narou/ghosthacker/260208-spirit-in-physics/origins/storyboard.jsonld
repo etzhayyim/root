@@ -1,0 +1,103 @@
+{
+  "@context": {
+    "audio": "gh:audio",
+    "description": "schema:description",
+    "emotions": "gh:emotions",
+    "fps": "gh:fps",
+    "gh": "https://gftd.ai/ghost-hacker/ontology/",
+    "items": "gh:involvedItems",
+    "persons": "gh:involvedPersons",
+    "places": "gh:involvedPlaces",
+    "scenes": "gh:scenes",
+    "schema": "https://schema.org/",
+    "timing": "gh:timing",
+    "visual": "gh:visual"
+  },
+  "@type": "gh:Storyboard",
+  "gh:projectId": "251022",
+  "gh:scenes": [
+    {
+      "$typeName": "gftd.ghosthacker.zeneditor.v1.StoryboardScene",
+      "audio": "",
+      "description": "aaa",
+      "emotions": [],
+      "fps": 24,
+      "id": 1,
+      "isGenerating": false,
+      "items": [],
+      "persons": [],
+      "places": [],
+      "timing": "0s",
+      "visual": ""
+    },
+    {
+      "$typeName": "gftd.ghosthacker.zeneditor.v1.StoryboardScene",
+      "audio": "",
+      "description": "Bbb",
+      "emotions": [],
+      "fps": 24,
+      "id": 2,
+      "isGenerating": false,
+      "items": [],
+      "persons": [],
+      "places": [],
+      "timing": "0s",
+      "visual": ""
+    },
+    {
+      "$typeName": "gftd.ghosthacker.zeneditor.v1.StoryboardScene",
+      "audio": "",
+      "description": "Confrontation in the server room",
+      "emotions": [],
+      "fps": 24,
+      "id": 3,
+      "isGenerating": false,
+      "items": [],
+      "persons": [],
+      "places": [],
+      "timing": "0s",
+      "visual": ""
+    },
+    {
+      "$typeName": "gftd.ghosthacker.zeneditor.v1.StoryboardScene",
+      "audio": "",
+      "description": "Confrontation in the server room",
+      "emotions": [],
+      "fps": 24,
+      "id": 4,
+      "isGenerating": false,
+      "items": [],
+      "persons": [],
+      "places": [],
+      "timing": "0s",
+      "visual": ""
+    },
+    {
+      "$typeName": "gftd.ghosthacker.zeneditor.v1.StoryboardScene",
+      "audio": "",
+      "description": "Confrontation in the server room",
+      "emotions": [],
+      "fps": 24,
+      "id": 5,
+      "isGenerating": false,
+      "items": [],
+      "persons": [],
+      "places": [],
+      "timing": "0s",
+      "visual": ""
+    },
+    {
+      "audio": "",
+      "description": "Confrontation in the server room",
+      "emotions": [],
+      "fps": 24,
+      "id": 6,
+      "items": [],
+      "persons": [],
+      "places": [],
+      "timing": "0s",
+      "visual": ""
+    }
+  ],
+  "updatedAt": "2026-01-12T10:01:15+09:00"
+}

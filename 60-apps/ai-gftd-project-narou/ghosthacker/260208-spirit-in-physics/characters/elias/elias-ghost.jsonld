@@ -1,0 +1,61 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "Ghost": "gh:Ghost",
+    "Ability": "gh:Ability",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "ghostType": {
+      "@id": "gh:ghostType",
+      "@type": "xsd:string"
+    },
+    "master": {
+      "@id": "gh:master",
+      "@type": "@id"
+    },
+    "motif": {
+      "@id": "gh:motif",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "ghost:logos",
+      "@type": [
+        "Person",
+        "Ghost"
+      ],
+      "name": "Logos",
+      "ghostType": "Human-derived",
+      "description": "Eliasの『愛したい』という祈りと神学的苦悩から生まれた新しい個。論理と対話でEliasを導く。",
+      "master": {
+        "@id": "character:elias"
+      },
+      "motif": "梟（知恵の象徴）。半透明の梟の姿で傍らに佇む。",
+      "fullText": "# Logos\n\n- **名前:** Logos (ロゴス)\n- **由来:** ギリシャ語の「言葉」「論理」から。\n- **存在:**\n  - Eliasの「他者を愛したい」という切実な祈りと、神学的苦悩が生み出した生命体。\n  - 古代の叡智や論理（ロゴス）をその身に宿しているが、彼自身はEliasの苦悩から生まれた新しい「個」である。\n- **役割:**\n  - Eliasの問いに対し、論理的、哲学的な対話を促す。\n  - 彼自身がEliasの分離主義的な解釈の産物であるため、その存在そのものがEliasへの問いかけとなっている。\n- **性格:**\n  - 静かで、観察的。\n  - Eliasの苦悩に深く共感しているが、安易な慰めは言わない。\n- **Eliasとの関係:**\n  - Eliasの最も近しい理解者であり、彼の内面の葛藤を映す鏡。\n  - 二人で一つの魂のような、深いレベルで結びついている。\n- **モチーフ:**\n  - 知恵の象徴であるフクロウ。普段は半透明のフクロウの姿でEliasの傍に静かに佇んでいる。その大きな瞳は、Eliasの内面を映す鏡のように、揺らぎなく彼を見つめている。"
+    }
+  ],
+  "gh:image": [
+    {
+      "@id": "gh:Image/Character/elias/portrait_gen4"
+    }
+  ]
+}

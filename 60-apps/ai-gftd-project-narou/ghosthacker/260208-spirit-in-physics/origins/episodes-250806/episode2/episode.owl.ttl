@@ -1,0 +1,50 @@
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Session 02: I AM and Loneliness
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E0> a gh:Episode ;
+  schema:name "Session \"I AM and Loneliness\"" ;
+  schema:alternateName "We can't put it toghether. it is toghether." ;
+  gh:hasArc gh:Arc/Tamaki-TreeOfLife-Transmutation ;
+  gh:hasCharacter gh:character:tamaki , gh:character:kaede , gh:character:hibiki , gh:character:daniel-arai ;
+  gh:motifRefs gh:Motif/IAM , gh:Motif/NonSeparation , gh:Motif/TreeOfLife , gh:Motif/Forgiveness ;
+  gh:techRefs gh:Tech/SIP ;
+  gh:processRefs gh:Process/MemorySpace1024D ;
+  gh:dive <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01> ;
+  gh:release <https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E0-01> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01> a gh:Dive ;
+  schema:description "SIP + 神楽 + アヤワスカ（Emergent）" ;
+  gh:operator gh:character:tamaki ;
+  gh:support gh:character:kaede , gh:character:hibiki ;
+  gh:targetGhost <https://gftd.ai/ghost-hacker/Ghost/IAM-isolation> ;
+  gh:method "device/SIP", "rite/kagura", "medicine/ayahuasca" .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E0-01> a gh:Release ;
+  schema:description "愛の断絶の系譜可視化と受容への開始" .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Ghost/IAM-isolation> a gh:Ghost ;
+  schema:description "I AMの独我化meme（孤独の堅牢化）" ;
+  gh:ghostType "Human-derived" .
+
+# Dive detail: steps and constraints
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01>
+  gh:hasStep <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/1> ,
+             <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/2> ,
+             <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/3> ,
+             <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/4> ,
+             <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/5> ,
+             <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/6> ;
+  gh:ascDepth "0.7"^^xsd:decimal ;
+  gh:contaminationRisk "0.25"^^xsd:decimal ;
+  gh:authorizationBy gh:character:kaede ;
+  gh:emergent "true"^^xsd:boolean .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/1> a gh:Step ; gh:stepOrder 1 ; gh:action "kagura induction" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/2> a gh:Step ; gh:stepOrder 2 ; gh:action "boot SIP / attach 1024D" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/3> a gh:Step ; gh:stepOrder 3 ; gh:action "ayahuasca emergent support" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/4> a gh:Step ; gh:stepOrder 4 ; gh:action "trace lineage (mother->grandmother partner)" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/5> a gh:Step ; gh:stepOrder 5 ; gh:action "daemon identification (isolation meme)" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E0-01/step/6> a gh:Step ; gh:stepOrder 6 ; gh:action "acceptance and reintegration" .
+

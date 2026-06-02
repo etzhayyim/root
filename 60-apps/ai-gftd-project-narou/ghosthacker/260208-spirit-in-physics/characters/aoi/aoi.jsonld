@@ -1,0 +1,77 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "age": {
+      "@id": "https://schema.org/age",
+      "@type": "xsd:integer"
+    },
+    "occupation": {
+      "@id": "schema:occupation",
+      "@type": "xsd:string"
+    },
+    "knows": {
+      "@id": "schema:knows",
+      "@type": "@id"
+    },
+    "worksFor": {
+      "@id": "schema:worksFor",
+      "@type": "@id"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "character:aoi",
+      "@type": "Person",
+      "name": "Aoi",
+      "gh:role": [
+        "Confidant",
+        "Audience surrogate"
+      ],
+      "age": 18,
+      "occupation": "Junior Ghost Hacker",
+      "description": "純朴で素直。新技術を貪欲に学び、タマキとカエデを尊敬する。地方から上京し、伝説のRenに憧れ事務所の門を叩いた。Tamakiの信頼できる相談役（Confidant）であり、読者の視点を代表する存在（Audience surrogate）。",
+      "knows": [
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:kaede"
+        }
+      ],
+      "worksFor": {
+        "@id": "company:schwa"
+      },
+      "gh:relatesTo": [
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Confidant"
+        },
+        {
+          "@id": "character:kaede",
+          "gh:relationshipType": "Mentor"
+        }
+      ],
+      "fullText": "# aoi (アオイ)\n\n## Character\n\n- **Role:** 後輩\n- **Name:** aoi\n- **Age:** 18\n- **Occupation:** Ghost Hacker (駆け出し)\n- **Personality:**\n  - 純朴で素直な性格。\n  - 好奇心旺盛で、新しい技術や知識を積極的に学ぼうとする姿勢がある。\n  - tamakiやkaedeを心から尊敬しており、いつか二人のような立派なHackerになることを夢見ている。\n  - 少しドジな一面もあり、時々トラブルに巻き込まれるが、持ち前の明るさで乗り越える。\n- **Style:**\n  - ファッションにはまだ疎いが、機能性を重視したシンプルな服装を好む。\n  - デバイスやガジェットが好きで、常に最新のものをチェックしている。\n- **Relationships:**\n  - **tamaki:** 先輩として尊敬し、憧れている。彼女のハッキング技術や、困難な状況でも諦めない姿勢に感銘を受けている。\n  - **kaede:** もう一人の先輩として、その冷静な判断力と知識の深さを尊敬している。kaedeから与えられるアドバイスを素直に聞き入れる。\n- **Ghost:**\n  - まだ自分のGhostを持っていない。\n  - いつか自分の手で最高のGhostを育てるのが夢。\n\n## Background\n地方出身で、伝説のHackerであるRenに憧れて上京してきた。Renが創設した事務所の門を叩き、tamakiやkaedeと出会う。実戦経験はまだ浅いが、その潜在能力は未知数。"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+@prefix gh: <https://gftd.ai/gh#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Classes
+gh:Scene a rdfs:Class ;
+  rdfs:label "Scene"@en .
+
+gh:Cut a rdfs:Class ;
+  rdfs:label "Cut"@en .
+
+gh:MusicCue a rdfs:Class ;
+  rdfs:label "Music Cue"@en .
+
+# Properties
+gh:orderInOpening a rdf:Property ;
+  rdfs:label "order in opening"@en ;
+  rdfs:domain gh:Scene ;
+  rdfs:range xsd:integer .
+
+gh:durationSeconds a rdf:Property ;
+  rdfs:label "duration (seconds)"@en ;
+  rdfs:domain gh:Scene ;
+  rdfs:range xsd:integer .
+
+gh:hasCut a rdf:Property ;
+  rdfs:label "has cut"@en ;
+  rdfs:domain gh:Scene ;
+  rdfs:range gh:Cut .
+
+gh:musicCue a rdf:Property ;
+  rdfs:label "music cue"@en ;
+  rdfs:domain gh:Scene ;
+  rdfs:range gh:MusicCue .
+
+gh:featuredCharacters a rdf:Property ;
+  rdfs:label "featured characters"@en ;
+  rdfs:domain gh:Scene ;
+  rdfs:range rdfs:Resource .
+
+gh:phase a rdf:Property ;
+  rdfs:label "phase"@en ;
+  rdfs:domain gh:Cut ;
+  rdfs:range xsd:string .
+
+gh:timeOfDay a rdf:Property ;
+  rdfs:label "time of day"@en ;
+  rdfs:domain gh:Cut ;
+  rdfs:range xsd:string .
+
+gh:place a rdf:Property ;
+  rdfs:label "place"@en ;
+  rdfs:domain gh:Cut ;
+  rdfs:range xsd:string .
+
+gh:emotion a rdf:Property ;
+  rdfs:label "emotion"@en ;
+  rdfs:domain gh:Cut ;
+  rdfs:range xsd:string .
+
+gh:innerState a rdf:Property ;
+  rdfs:label "inner state"@en ;
+  rdfs:domain gh:Cut ;
+  rdfs:range xsd:string .
+
+gh:visualPrompt a rdf:Property ;
+  rdfs:label "visual prompt"@en ;
+  rdfs:domain gh:Cut ;
+  rdfs:range xsd:string .
+
+gh:bpm a rdf:Property ;
+  rdfs:label "beats per minute"@en ;
+  rdfs:domain gh:MusicCue ;
+  rdfs:range xsd:integer .
+
+gh:cueText a rdf:Property ;
+  rdfs:label "cue text"@en ;
+  rdfs:domain gh:MusicCue ;
+  rdfs:range xsd:string .
+
+

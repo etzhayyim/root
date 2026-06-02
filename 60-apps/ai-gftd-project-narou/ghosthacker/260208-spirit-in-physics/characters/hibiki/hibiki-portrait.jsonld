@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "PortraitPrompt": "gh:PortraitPrompt",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "about": {
+      "@id": "schema:about",
+      "@type": "@id"
+    },
+    "appearance": {
+      "@id": "gh:appearance",
+      "@type": "xsd:string"
+    },
+    "style": {
+      "@id": "gh:style",
+      "@type": "xsd:string"
+    },
+    "setting": {
+      "@id": "gh:setting",
+      "@type": "xsd:string"
+    },
+    "lighting": {
+      "@id": "gh:lighting",
+      "@type": "xsd:string"
+    },
+    "composition": {
+      "@id": "gh:composition",
+      "@type": "xsd:string"
+    },
+    "mood": {
+      "@id": "gh:mood",
+      "@type": "xsd:string"
+    },
+    "quality": {
+      "@id": "gh:quality",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "gh:PortraitPrompt/hibiki",
+      "@type": "PortraitPrompt",
+      "name": "Hibiki Portrait Prompt",
+      "about": {
+        "@id": "character:hibiki"
+      },
+      "appearance": "温かくフレンドリーな顔立ち。少し長めのウェーブ。引き締まった体。",
+      "style": "エスニック/ボヘミアンのカラフルな服。天然素材のアクセ。常に高品質ヘッドフォン。",
+      "setting": "代々木公園の野外イベント、または機材と植物に満ちたDJブース。",
+      "lighting": "ゴールデンアワーの暖かな日差し。",
+      "composition": "ミディアムショット。歓迎する笑顔でカメラを見る。",
+      "mood": "楽しくスピリチュアル、リズムに満ちる。『Tudo bem?』",
+      "quality": "写実的、鮮やかな色彩、8K。",
+      "fullText": "# 響のポートレートプロンプト\n\n## 主題\n- 28歳の日系ブラジル人DJであり、シャーマン的なゴーストハッカー。陽気でカリスマ性があり、精神的に同調している。\n\n## 外見\n- **顔:** 温かく、フレンドリーで、オープンな顔立ち。常に気さくな笑顔を浮かべている。目は明るく生命力に満ちており、陽気さと深く直感的な知恵の両方を伝えている。\n- **髪:** スタイリッシュで、おそらく少し長めのウェーブのかかった髪。彼の芸術的で自由な精神を反映している。\n- **体格:** 引き締まっていてエネルギッシュ。\n\n## 服装とスタイル\n- **服装:** エスニックまたはボヘミアンな雰囲気のある、カラフルで快適な服装。明るい色（オレンジや深緑）の柄物シャツを部分的に開襟し、リラックスフィットのズボンかジーンズを着用。\n- **アクセサリー:** 高品質のヘッドフォンが常に首にかかっている。木や石などの天然素材で作られたブレスレットやネックレスをいくつか身につけている。\n\n## 背景と照明\n- **背景:** 週末の音楽イベントが開催されている東京の公園（例：代々木公園）のような、活気に満ちた太陽が降り注ぐ屋外の環境、またはレコードや機材で満たされ、植物で飾られた彼自身のDJブース。背景は色彩と動きに満ちている。\n- **照明:** シーン全体に美しく魅力的な輝きを与える、暖かいゴールデンアワーの日差し。光は自然で気分を高揚させる感じであるべき。\n\n## 構図と雰囲気\n- **ショット:** ミディアムショット。歓迎するような、伝染性のある笑顔でカメラをまっすぐ見ており、まるで良い雰囲気に誘うかのようなジェスチャーの途中かもしれない。\n- **ムード:** 楽しく、スピリチュアルで、リズムに満ちている。ポートレートは、音楽と自然と調和して生きるという彼の哲学を捉えるべき。彼はポジティブなエネルギーの源。「トゥード・ベン！」\n- **品質:** 写実的で、鮮やかな色彩、8K。スナップ写真のように、自然で生命力に満ちた画像にすべき。"
+    }
+  ]
+}

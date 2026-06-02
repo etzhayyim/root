@@ -1,0 +1,19 @@
+@prefix gh: <https://gftd.ai/gh#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gh:ObjectDesign a rdfs:Class ; rdfs:label "Object Design"@en .
+gh:VehicleDesign a rdfs:Class ; rdfs:subClassOf gh:ObjectDesign ; rdfs:label "Vehicle Design"@en .
+gh:BuildingDesign a rdfs:Class ; rdfs:subClassOf gh:ObjectDesign ; rdfs:label "Building Design"@en .
+gh:Infrastructure a rdfs:Class ; rdfs:subClassOf gh:ObjectDesign ; rdfs:label "Infrastructure"@en .
+
+gh:concept a rdf:Property ; rdfs:domain gh:ObjectDesign ; rdfs:range xsd:string .
+gh:designPrinciples a rdf:Property ; rdfs:domain gh:ObjectDesign .
+gh:generationPrompt a rdf:Property ; rdfs:domain gh:ObjectDesign ; rdfs:range xsd:string .
+gh:propulsionSystem a rdf:Property ; rdfs:domain gh:VehicleDesign ; rdfs:range xsd:string .
+gh:structure a rdf:Property ; rdfs:domain gh:ObjectDesign ; rdfs:range xsd:string .
+gh:energy a rdf:Property ; rdfs:domain gh:ObjectDesign ; rdfs:range xsd:string .
+gh:interior a rdf:Property ; rdfs:domain gh:ObjectDesign ; rdfs:range xsd:string .
+
+

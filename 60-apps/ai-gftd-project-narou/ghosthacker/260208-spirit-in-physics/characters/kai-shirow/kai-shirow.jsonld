@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:kai-shirow",
+  "@type": "Person",
+  "name": "Kai Shirow",
+  "gh:callsign": "GHOSTNAME",
+  "gh:role": "Supporter",
+  "description": "39歳、ノンバイナリー、日本出身。士郎正宗の伝統を継承するManga Creator。「ゴースト」という概念そのものに名前を与え、サイバーパンクという未来の風景の中にその実存的問いを配置した預言者の後継者。",
+  "age": 39,
+  "gender": "Non-binary",
+  "nationality": "Japanese",
+  "occupation": "Manga Creator",
+  "memberOf": {
+    "@id": "organization:tol-comics"
+  },
+  "gh:theme": "ゴースト概念の命名、サイバーパンクビジョン、記憶ハッキング、実存的問い",
+  "fullText": "Kai Shirowは、士郎正宗の伝統を継承する現代のManga Creator。callsignは「GHOSTNAME」。39歳のノンバイナリー、日本出身。「ゴースト」という概念そのものに名前を与え、サイバーパンクという未来の風景の中にその実存的問いを配置した預言者の後継者。『攻殻機動隊』は、ネットワーク化された意識が直面するバグ（記憶の改竄）や脆弱性（ゴーストハック）を描き出し、我々の探求の直接的なインスピレーションとなった。Kaiは、物語を通じて、Ghostの本質的な問いを提示し続ける。"
+}

@@ -1,0 +1,33 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:kaede",
+  "@type": "Person",
+  "name": "Kaede Sharma",
+  "alternateName": "काएदे शर्मा",
+  "gh:callsign": "UPA",
+  "gh:role": ["Tritagonist", "Mentor"],
+  "description": "37歳、女性、インド・日本ハーフ。頼れる先輩Ghost Hacker。救急・外科・産婦人科の医師免許を持つ。ToL臨床リード（"Upanishad"）としてTamakiの上司。ケースリード・倫理境界を担当。物語の第三主人公（Tritagonist）であり、Tamakiの導師（Mentor）。",
+  "age": 37,
+  "gender": "Female",
+  "nationality": "Indian-Japanese",
+  "occupation": "Senior Ghost Hacker / Case Lead / Emergency & Surgical Physician",
+  "gh:medicalLicense": true,
+  "gh:medicalSpecialty": ["救急", "外科", "産婦人科"],
+  "worksFor": {"@id": "company:schwa"},
+  "knows": [
+    {"@id": "character:tamaki"},
+    {"@id": "character:aoi"}
+  ],
+  "gh:relatesTo": [
+    { "@id": "character:tamaki", "gh:relationshipType": "Mentor" },
+    { "@id": "character:tamaki", "gh:relationshipType": "Tritagonist-Protagonist" },
+    { "@id": "character:aoi", "gh:relationshipType": "Mentor" }
+  ],
+  "fullText": "Kaede Sharma（काएदे शर्मा）は、37歳の女性Ghost Hacker。callsignは「UPA」（Upanishad）。インド・日本ハーフで、頼れる先輩としてTamakiの上司を務める。救急医学、外科、産婦人科の医師免許を持ち、医療とGhost Hackingの両面から患者をサポートする。ToL臨床リードとして、ケースリードと倫理境界を担当。彼女の名前「Upanishad」は、インドの古代哲学文献に由来し、深い洞察と倫理的判断力を象徴している。\n\n## 医療背景\n\n救急医療の現場で培った迅速な判断力と、外科医としての精密な技術、産婦人科医としての生命の誕生に寄り添う経験が、彼女のGhost Hackingスタイルに深く影響している。緊急事態においても冷静さを保ち、複雑な倫理的ジレンマに直面したときにチームの羅針盤となる。医療現場で培った「トリアージ」の思考法を、Ghost Hackingのケース管理にも応用している。特に、魂の手術や緊急のGhost介入が必要な場合、医療資格を持つ彼女の判断が重要な役割を果たす。"
+}
+

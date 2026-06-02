@@ -1,0 +1,25 @@
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+
+# Session 07: Mirror Soldier
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E7> a gh:Episode ;
+  schema:name "Session \"Mirror Soldier\"" ;
+  gh:hasArc gh:Arc/Tamaki-TreeOfLife-Transmutation ;
+  gh:hasCharacter gh:character:tamaki , gh:character:diego-ortega ;
+  gh:motifRefs gh:Motif/Angel ;
+  gh:techRefs gh:Tech/SIP ;
+  gh:processRefs gh:Process/MemorySpace1024D ;
+  gh:dive <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E7-01> ;
+  gh:release <https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E7-01> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E7-01> a gh:Dive ;
+  gh:operator gh:character:tamaki ;
+  gh:method "device/SIP", "trauma/branch-merge" ;
+  gh:hasStep <https://gftd.ai/ghost-hacker/Dive/S1E7-01/step/1> , <https://gftd.ai/ghost-hacker/Dive/S1E7-01/step/2> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E7-01/step/1> a gh:Step ; gh:stepOrder 1 ; gh:action "map splits" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E7-01/step/2> a gh:Step ; gh:stepOrder 2 ; gh:action "merge safe core" .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E7-01> a gh:Release ;
+  schema:description "影の戦友の統合" .
+

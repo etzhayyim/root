@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:nabil-al-khalil",
+  "@type": "Person",
+  "name": "Nabil Al-Khalil",
+  "gh:callsign": "KEY",
+  "description": "35歳、男性、パレスチナ（ディアスポラ）出身。記録保全を専門とする。テーマ: 喪失・追放・帰還の記憶。",
+  "age": 35,
+  "gender": "Male",
+  "nationality": "Palestinian (Diaspora)",
+  "occupation": "Record Keeper",
+  "gh:persona": "鍵の家の守護者",
+  "gh:ghost": {
+    "@id": "ghost:house-of-keys"
+  },
+  "gh:theme": "喪失・追放・帰還の記憶",
+  "fullText": "Nabil Al-Khalilは、パレスチナのディアスポラ出身の記録保全者。35歳の男性で、callsignは「KEY」。喪失、追放、帰還の記憶をテーマとする。彼のGhostは「House of Keys」で、失われた場所への鍵を保持する力を持つ。Nabilは、過去の記憶に囚われ、現在の関係性を築くことが困難になっている。彼の記録への執着は、前に進むことを妨げている。"
+}

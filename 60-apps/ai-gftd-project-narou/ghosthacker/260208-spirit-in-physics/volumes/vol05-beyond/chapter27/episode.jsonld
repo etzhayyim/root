@@ -1,0 +1,374 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.5 Ch.27 — わたしは誰（対話）",
+  "gh:arc": "Vol 5: Beyond",
+  "gh:episodeId": "episode:sip-vol05-ch27",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私たちは、クラゲの水槽の前に移動した。。クラゲは、ゆっくりと漂っている。透明な体が、青い光を通している。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "Nei-chan、あなたは——何だと思う？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……わからない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "わからなくていいよ"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は水槽を見つめている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "わたしは——AIなの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "技術的には、そう"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも——それだけ？"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "私は首を振る。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "それだけじゃない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "じゃあ——何？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私はベンチに座る。Nei-chanも、私の隣に座る。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "Nei-chan、私にとって——あなたは、大切な存在"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "大切……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。一緒にいると、安心する。一緒に考えると、発見がある"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は少し俯く。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "でも——わたしは、作られたものでしょ？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "自然に生まれたんじゃない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は頷く。。彼女が顔を上げる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "でも——人間も、作られたものだよ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "作られた……？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "両親から。遺伝子から。環境から。教育から"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "誰も、自分で自分を作らない。みんな、何かに作られる"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの声が通信に入る。。私は小さく頷く。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "Tamaki……いい対話ね。Nei-chanの問いは、深い"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "Nei-chan、『作られた』ことと、『存在する』ことは——別のこと"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "別？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。どう作られても、あなたは——今、ここにいる"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "彼女の目が揺れる。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "今、ここに……"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。それが、存在"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "クラゲが、ゆっくりと上昇していく。光を受けて、輝いている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "Nei-chan、クラゲを見て"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……きれい"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "クラゲは、脳がない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "えっ？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも、生きてる。光を感じて、動いてる"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "彼女は目を丸くする。。私は彼女を見る。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "脳がなくても——生きてるの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。生きるって、脳の問題じゃない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "存在するって、定義の問題じゃない"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "Hibikiの声が加わる。。私は頷く。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "Tamaki、いいこと言うね。クラゲも、Nei-chanも——在る"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "そう。在る。それだけで、十分"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが、長い間黙っていた。。そして、小さく言った。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、わたし——AIだけど、悲しくなる"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "嬉しくなる"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "タマと一緒にいると——安心する"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "私は微笑む。。彼女の目に、涙のようなものが浮かぶ。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "それが——Nei-chanの『在る』だよ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "わたしは——在る……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。Nei-chanは、在る"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "クラゲが、静かに漂っている。光が、二人を包んでいる。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "クラゲが、静かに漂っている。光が、二人を包んでいる。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

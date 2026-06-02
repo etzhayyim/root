@@ -1,0 +1,52 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gh: <https://ghosthacker.example.com/vocab#> .
+@prefix exif: <http://www.w3.org/2003/12/exif/ns#> .
+
+gh:ImageAssetShape a sh:NodeShape ;
+  sh:targetClass gh:ImageAsset ;
+  sh:property [ sh:path gh:filePath ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:format ;   sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path exif:width ;  sh:datatype xsd:integer ; sh:minCount 1 ] ;
+  sh:property [ sh:path exif:height ; sh:datatype xsd:integer ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:checksumSha256 ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:styleTag ; sh:datatype xsd:string ; sh:minCount 0 ] ;
+  sh:or (
+      [ sh:property [ sh:path gh:forCharacter ; sh:minCount 1 ; sh:maxCount 1 ] ]
+      [ sh:property [ sh:path gh:forEpisode   ; sh:minCount 1 ; sh:maxCount 1 ] ]
+      [ sh:property [ sh:path gh:forPart      ; sh:minCount 1 ; sh:maxCount 1 ] ]
+  ) ;
+  sh:rule [
+    a sh:SPARQLRule ;
+    sh:message "format must be image/webp" ;
+    sh:prefixes ( gh ) ;
+    sh:construct """ CONSTRUCT { ?this gh:format ?fmt } WHERE { BIND(?fmt as ?fmt) } """ ;
+  ] ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Image format must be image/webp and filePath must end with .webp" ;
+    sh:select """
+      PREFIX gh: <https://ghosthacker.example.com/vocab#>
+      PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+      SELECT $this WHERE {
+        $this gh:format ?fmt ; gh:filePath ?p .
+        FILTER( ?fmt != "image/webp" || !STRENDS(STR(?p), ".webp") )
+      }
+    """
+  ] .
+
+gh:CharacterPortraitShape a sh:NodeShape ;
+  sh:targetClass gh:CharacterPortrait ;
+  sh:property [ sh:path gh:forCharacter ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+gh:EpisodeIllustrationShape a sh:NodeShape ;
+  sh:targetClass gh:EpisodeIllustration ;
+  sh:property [ sh:path gh:forEpisode ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+gh:PartIllustrationShape a sh:NodeShape ;
+  sh:targetClass gh:PartIllustration ;
+  sh:property [ sh:path gh:forPart ; sh:minCount 1 ; sh:maxCount 1 ] .
+
+

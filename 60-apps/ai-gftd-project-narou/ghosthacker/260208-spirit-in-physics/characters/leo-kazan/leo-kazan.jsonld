@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:leo-kazan",
+  "@type": "Person",
+  "name": "Leo Kazan",
+  "gh:role": "Antagonist",
+  "description": "情に厚いが、『共感されるべき自分』を演じることに疲弊している人道支援NGOのディレクター。アダム・スミスの哲学を体現したGhost『共感と道徳感情』を持つ。",
+  "age": 38,
+  "gender": "Male",
+  "nationality": "French (Russian descendant)",
+  "occupation": "Director of a Humanitarian NGO",
+  "gh:ghost": {
+    "@id": "ghost:adam-smith"
+  },
+  "knows": [
+    {
+      "@id": "character:millia-stuart"
+    }
+  ],
+  "gh:familySupport": true,
+  "gh:familyContext": "家族・親友からの支援が厚く、本人は前向きで快活。家族問題は抱えていない",
+  "fullText": "Leo Kazanは、38歳のフランス人男性（ロシア系）。人道支援NGOのディレクターとして、常に他者のために行動する情に厚い人物。彼の行動原理はアダム・スミスの「道徳感情論」に根ざしており、常に他者からの「共感」を求め、「公平な観察者」に恥じない行動をしようとする。しかし、それが過剰になり、「共感されるべき自分」を演じることに疲弊している。個人の自由な感情と、社会から共感されるであろう道徳的行動との間で常に葛藤している。Tamakiとのセッションで「拡張した自己」という概念に気づき、真の共感と選択の自由を得る。"
+}

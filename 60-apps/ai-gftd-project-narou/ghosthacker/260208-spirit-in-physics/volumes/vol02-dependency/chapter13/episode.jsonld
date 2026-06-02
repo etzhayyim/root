@@ -1,0 +1,327 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.2 Ch.13 — 切れない鎖（余韻）",
+  "gh:arc": "Vol 2: Dependency",
+  "gh:episodeId": "episode:sip-vol02-ch13",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "夕暮れの光が、部屋を橙色に染めている。。Milliaは泣いていた。静かに、でも深く。。Leoは彼女の隣で、ただ一緒にいる。今度は、「救おう」としていない。ただ、一緒にいる。。Nei-chanが私の肩で囁く。『タマ……Milliaの手首、見えた？』。私は小さく頷く。。Milliaがコップを戻すとき、袖がずれて、白く薄い線がいくつか見えた。古い傷跡。。私は何も言わない。今は、待つ。。長い沈黙の後、Milliaが小さく声を出す。。Leoが驚いて彼女を見る。でも、何も言わない。待つ。。私は静かに言う。",
+          "characters": [
+            "character:leo",
+            "character:millia",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……私は、家族を……『売りたい』と思ったことがある"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "1円でもいいから……切り離したいと思った。でも、切れない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "切れないのは……魂が繋がっているから。それを、『癒着』って呼ぶことがある"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "Milliaが顔を上げる。。彼女の目に、涙が溢れる。",
+          "characters": [
+            "character:millia",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "癒着……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "体が離れていても、魂が繋がってしまっている。だから、切ると痛い。出血する"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……だから、私は……"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は彼女の言葉を待つ。。Leoが、ゆっくりと彼女の手を取る。今度は、何も言わずに。。私は静かに言う。。彼女が顔を上げる。",
+          "characters": [
+            "character:leo",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……切ろうとした。でも、切れなかった"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "Millia、あなたには勇気がある。でも、一人で切るのは危険。専門家がいる"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……切れる、んですか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "切れる。でも、麻酔と、手術と、ケアが必要。一人じゃできない"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの声が通信に入る。やわらかく。。私は頷く。。彼女が、小さく頷く。。Leoが言う。",
+          "characters": [
+            "character:kaede",
+            "character:leo"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "Tamaki……Dr. イタコに連絡しておいた。次のステップ、用意できるわ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "Millia、あなたは自由になれる。でも、今日は——ここまで"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "ミリア。ぼくは……ずっと一緒にいる"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "彼の声は優しい。でも、今度は——「救おう」としていない。ただ、一緒にいようとしている。。Milliaが、涙のまま、小さく笑う。。二人を見送った後、私はNei-chanと運河沿いを歩く。。夕陽が沈んでいく。空がオレンジから紫へと変わっていく。",
+          "characters": [
+            "character:kaede",
+            "character:millia",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "……ありがとう、Leo"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "タマ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "今日の二人……『愛』を見つけた？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は考える。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "見つけ始めた、かな。まだ途中"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "途中でも、いいの？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。途中でも、いい。大事なのは、歩き始めたこと"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが頷く。。彼女は首を傾げる。",
+          "characters": [
+            "character:kaede",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "タマ、『愛』って……『わかれていない』こと？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "そうかもしれない。でも、まだ……私にもわからないところがある"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "タマにも、わからないことがあるの？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "たくさんあるよ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "ふーん"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は少し考えてから、言った。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "でも、タマとわたしは、わかれてないよね"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "それは、愛？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "私は笑う。。彼女も笑う。。運河の水が、夕陽を映してきらめいている。。私は手帳を取り出し、今日の一行を書く。",
+          "characters": [
+            "character:kaede",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "それは……愛、だと思う"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "じゃあ、わたし、愛を知ってる！"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "愛は、拡張された自己。わかれていない、ということ"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "ページを閉じる。。Nei-chanが私の手を握る。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ、おなかすいた"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "帰って、ごはんにしようか"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "うん！"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "次も、いい感じから始めよう。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "次も、いい感じから始めよう。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "**[手帳の一行: 愛は、拡張された自己。わかれていない、ということ]**",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "**[手帳の一行: 愛は、拡張された自己。わかれていない、ということ]**"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

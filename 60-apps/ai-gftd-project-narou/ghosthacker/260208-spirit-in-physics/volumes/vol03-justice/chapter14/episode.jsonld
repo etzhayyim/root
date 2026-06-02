@@ -1,0 +1,187 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.3 Ch.14 — 魂の外科（準備）",
+  "gh:arc": "Vol 3: Justice",
+  "gh:episodeId": "episode:sip-vol03-ch14",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "今日は、特別な日。。朝の光が窓から差し込んでいる。運河は静かで、風もない。まるで、世界が息を潜めているみたいだ。。Nei-chanが私の隣で、少し緊張した顔をしている。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、今日は……大きな日だね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "Milliaの……魂の手術"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの声が通信に入る。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "おはよう、Tamaki。今日は……準備はできてる？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。できてる"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "Dr. イタコも待機してる。Hibikiが場を整えてくれる。私は医療的なサポート。あなたは……Milliaのそばにいて"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "わかった"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Hibikiの声が加わる。。私は深く息を吸う。。今日のセッションは、普通のセッションとは違う。Milliaの中にある「癒着」——家族との繋がりが、彼女を縛っている。それを、解きほぐす。。Nei-chanが私の手を握る。",
+          "characters": [
+            "character:hibiki",
+            "character:millia",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "Tamaki、今日の音……特別なやつを用意したよ。Milliaの心が安らぐように"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "ありがとう、Hibiki"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "タマ、癒着って……痛いの？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "痛い、かもしれない。でも、痛みを超えると——自由になれる"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "自由……"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん。Milliaは、自由になりたいんだ。自分の人生を、自分で選びたい"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "通信が入る。MilliaとLeoが来た。。玄関に向かう。ドアを開けると、二人が立っていた。。Milliaの顔は、緊張と決意が混じっている。Leoは、彼女の手を握っている。今度は——強くではなく、やさしく。。リビングに案内する。窓の外、運河が静かに光っている。。Dr. イタコが奥から現れる。若く見えるが、目には深い経験がある。。彼女の声は、落ち着いている。でも、どこか温かい。",
+          "characters": [
+            "character:dr-itako",
+            "character:hibiki",
+            "character:leo",
+            "character:millia"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "ようこそ。中へどうぞ"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "患者さん、来たね"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "Millia、今日は——あなたが選ぶ日。私たちは、サポートするだけ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "Milliaが頷く。。Hibikiが前に出る。。彼は深く息を吸い、ゆっくり吐く。Milliaも、それに合わせる。。一呼吸。。二呼吸。。三呼吸。。部屋の空気が、少し変わる。やわらかくなる。。Dr. イタコが言う。",
+          "characters": [
+            "character:dr-itako",
+            "character:hibiki",
+            "character:millia"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "……お願いします"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "Millia、まず——深呼吸。三回、一緒に"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "いいね。じゃあ、始めよう"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "Nei-chanが私の肩で囁く。『タマ、Millia……怖がってる。でも、覚悟もできてる』。私はMilliaの目を見る。。彼女が、小さく微笑む。。窓の外、運河の水面が、静かに光を反射している。",
+          "characters": [
+            "character:hibiki",
+            "character:millia",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "大丈夫。一緒にいるよ"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

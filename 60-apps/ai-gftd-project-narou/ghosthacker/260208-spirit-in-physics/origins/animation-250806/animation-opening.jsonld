@@ -1,0 +1,536 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "source": {
+      "@id": "gh:source",
+      "@type": "@id"
+    },
+    "Scene": "gh:Scene",
+    "Cut": "gh:Cut",
+    "MusicCue": "gh:MusicCue",
+    "orderInOpening": {
+      "@id": "gh:orderInOpening",
+      "@type": "xsd:integer"
+    },
+    "durationSeconds": {
+      "@id": "gh:durationSeconds",
+      "@type": "xsd:integer"
+    },
+    "hasCut": {
+      "@id": "gh:hasCut",
+      "@type": "@id"
+    },
+    "musicCue": {
+      "@id": "gh:musicCue",
+      "@type": "@id"
+    },
+    "featuredCharacters": {
+      "@id": "gh:featuredCharacters",
+      "@type": "@id"
+    },
+    "phase": {
+      "@id": "gh:phase",
+      "@type": "xsd:string"
+    },
+    "timeOfDay": {
+      "@id": "gh:timeOfDay",
+      "@type": "xsd:string"
+    },
+    "place": {
+      "@id": "gh:place",
+      "@type": "xsd:string"
+    },
+    "emotion": {
+      "@id": "gh:emotion",
+      "@type": "xsd:string"
+    },
+    "innerState": {
+      "@id": "gh:innerState",
+      "@type": "xsd:string"
+    },
+    "visualPrompt": {
+      "@id": "gh:visualPrompt",
+      "@type": "xsd:string"
+    },
+    "bpm": {
+      "@id": "gh:bpm",
+      "@type": "xsd:integer"
+    },
+    "cueText": {
+      "@id": "gh:cueText",
+      "@type": "xsd:string"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "gh:Scene/Opening/op01",
+      "@type": "Scene",
+      "name": "水の都",
+      "orderInOpening": 1,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op01#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "早朝",
+          "place": "未来的東京、運河の上空",
+          "emotion": "静寂、希望、世界の美しさ",
+          "visualPrompt": "傑作、感情豊かな映画的アニメスタイル。水の都ベネチアと日本の近代建築が融合した、ガラス張りの超高層ビルが立ち並ぶ未来の東京の壮大なパノラマショット。街は透き通った青い運河が縦横に走り、鮮やかな空を完璧に反射している。ドラマチックな光、雲を貫く光芒が、都市全体の清潔で明るく、平和な雰囲気を強調している。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op01#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "早朝",
+          "place": "未来的東京、運河",
+          "emotion": "都市の穏やかな生活感と、そこに流れる空気感",
+          "visualPrompt": "傑作、インダストリアルデザイン。現代の洗練された路面電車のような、機能的で直線的なデザインの箱型水上バス（パブリッククルーザー）に焦点を合わせたショット。側面は全面ガラス張りで、多くの乗客のシルエットが見える。停留所で人々が乗り降りしており、都市の穏やかな生活感を切り取る。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op01#music",
+        "@type": "MusicCue",
+        "bpm": 70,
+        "cueText": "幻想的で穏やかなアンビエント音楽。温かいシンセパッドと、シンプルで反響するピアノのメロディが続く。"
+      },
+      "sameAs": "scene:op01",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op02",
+      "@type": "Scene",
+      "name": "ハッカーの眼差し",
+      "orderInOpening": 2,
+      "durationSeconds": 5,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op02#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "innerState": "世界と静かに対話するような、穏やかで思慮深い表情",
+          "visualPrompt": "傑作、感情的で超詳細な描写。柔らかな自然光に照らされたタマキの顔の感情的なクローズアップ。運河を見下ろす大きな窓がある、ミニマルだが温かみのあるオフィス。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op02#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "emotion": "深い共感と繋がり",
+          "visualPrompt": "カメラが彼女の瞳に極限まで寄る。驚くほど緻密に描かれた瞳には、輝く青い水面が映り、静かな宇宙が宿っている。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op02#music",
+        "@type": "MusicCue",
+        "cueText": "ピアノのメロディに、柔らかく繊細なエレクトロニックアルペジオが絡み合い始める。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:tamaki"
+        }
+      ],
+      "sameAs": "scene:op02",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op03",
+      "@type": "Scene",
+      "name": "チーム",
+      "orderInOpening": 3,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op03#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "innerState": "集中、知性、頼もしさ",
+          "visualPrompt": "傑作、穏やかで優しいアニメ aesthetic。星座のような美しいホログラムデータに囲まれたカエデ。集中した微笑みでタイピングし、その知性と頼もしさが視線から伝わる。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op03#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "innerState": "没頭、創造、聖域",
+          "visualPrompt": "日の光で暖かく照らされた部屋で目を閉じ、DJミキサーにそっと触れているヒビキ。彼を中心に、空間の周波数を整えるような、暖色の光を帯びた音の波紋が空気中に穏やかに広がっていく。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op03#music",
+        "@type": "MusicCue",
+        "cueText": "ミニマルでクリーンなビート（キックとハイハット）が定着し、浮遊感のあるシンセパッドが加わる。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:kaede"
+        },
+        {
+          "@id": "character:hibiki"
+        }
+      ],
+      "sameAs": "scene:op03",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op04",
+      "@type": "Scene",
+      "name": "パートナー",
+      "orderInOpening": 4,
+      "durationSeconds": 5,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op04#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "emotion": "遊び心、親愛",
+          "visualPrompt": "傑作、穏やかで優しいアニメ aesthetic。タマキの肩の周りを、小さく輝く妖精のようなネエチャンが飛び回っているミディアムショット。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op04#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "emotion": "暖かな愛情",
+          "visualPrompt": "タマキの優しい笑顔のクローズアップ。ネエチャンが彼女の頬をつつき、きらきらと光の軌跡を残す。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op04#music",
+        "@type": "MusicCue",
+        "cueText": "ビートは続く。ネエチャンの動きに合わせて、軽やかでキラキラしたシンセベルの音色が加わる。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:Nei-chan"
+        }
+      ],
+      "sameAs": "scene:op04",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op05",
+      "@type": "Scene",
+      "name": "孤独な思索者",
+      "orderInOpening": 5,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op05#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "不明（精神世界）",
+          "place": "エリアスの精神図書館",
+          "emotion": "知性の迷宮に閉じ込められた孤立感",
+          "visualPrompt": "傑作、感情的な映画的映像。ボルヘスのバベルの図書館のように、天まで届く無限の本棚がある巨大な図書館のローアングル・ワイドショット。中央に立つエリアスの姿は小さく、彼の孤独を際立たせる。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op05#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "不明（精神世界）",
+          "place": "エリアスの精神図書館",
+          "emotion": "深い悲しみと知的な絶望",
+          "visualPrompt": "エリアスの顔へのスローなドリーインからのクローズアップ。鋭く知性的でありながら、孤独の宇宙を宿した瞳が、明滅する複雑な宇宙のホログラムモデルを反射している。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op05#music",
+        "@type": "MusicCue",
+        "cueText": "低く、不穏なシンセベースラインが入り、緊張感が高まる。背景でライザーシンセが静かに上昇を始める。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:elias"
+        }
+      ],
+      "sameAs": "scene:op05",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op06",
+      "@type": "Scene",
+      "name": "世界の衝突",
+      "orderInOpening": 6,
+      "durationSeconds": 5,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op06#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "不明（精神世界）",
+          "place": "抽象空間",
+          "emotion": "決意",
+          "visualPrompt": "傑作、ドラマチックな映像、美しくダイナミックな分割画面。左：タマキが決意に満ちた瞳で手を差し伸べる。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op06#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "不明（精神世界）",
+          "place": "抽象空間",
+          "emotion": "苦悩",
+          "visualPrompt": "右：エリアスが苦悩に顔を歪め、拳を握りしめると、背後のモデルが美しくも暴力的に砕け散る。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op06#music",
+        "@type": "MusicCue",
+        "cueText": "ライザーシンセがクレッシェンドし、ビートが少し強まる。シーンの終わりにグリッチノイズが一瞬入る。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:elias"
+        }
+      ],
+      "sameAs": "scene:op06",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op07",
+      "@type": "Scene",
+      "name": "汚染とトラウマ",
+      "orderInOpening": 7,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op07#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "不明（精神世界）",
+          "place": "崩壊する図書館",
+          "emotion": "混乱、苦痛",
+          "visualPrompt": "傑作、抽象映像。カメラがエリアスの閉じた瞳にダイブし、彼の精神世界へ。美しい図書館が、芸術的かつ抽象的にグリッチし、崩壊し始める。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op07#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "不明（精神世界）",
+          "place": "崩壊する図書館",
+          "emotion": "孤独、痛み",
+          "visualPrompt": "グリッチしたデータ汚染から、半透明な少年の影が形成される。その瞳は空虚だが、深い孤独と痛みを伝える。彼は声なく叫び、衝撃波を放つ。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op07#music",
+        "@type": "MusicCue",
+        "cueText": "突然のドロップ。ビートはより激しくシンコペーションを刻み、グリッチホップに移行。歪んだ脅威的なシンセリードがループし始める。"
+      },
+      "sameAs": "scene:op07",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op08",
+      "@type": "Scene",
+      "name": "攻防と決断",
+      "orderInOpening": 8,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op08#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "不明（精神世界）",
+          "place": "崩壊した図書館",
+          "innerState": "諦めない強い意志",
+          "visualPrompt": "傑作、映画的なアニメアクション。デジタルアバター姿のタマキが、黒い結晶の嵐に立ち向かい、紫の光の盾を形成する。彼女の瞳は強い決意に燃えている。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op08#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "innerState": "友を救うための、重い決断",
+          "visualPrompt": "盾が攻撃を受けてガラスのようにひび割れ、苦悶の表情を浮かべるタマキ。そこから現実世界のカエデへのクイックカット。心配と決意に満ちた表情で、最後の手段を指示する。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op08#music",
+        "@type": "MusicCue",
+        "cueText": "音楽は攻撃性のピークに。ドラムは重く歪み、ボーカルチョップが闘争感を煽る。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:kaede"
+        }
+      ],
+      "sameAs": "scene:op08",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op09",
+      "@type": "Scene",
+      "name": "解放の引き金",
+      "orderInOpening": 9,
+      "durationSeconds": 5,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op09#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "emotion": "悲しみと決意",
+          "visualPrompt": "傑作、ドラマチックなアニメのクローズアップ。ヒビキが目を見開く。その瞳の中に、鮮やかな光が宿る。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op09#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "午前",
+          "place": "オフィス",
+          "emotion": "後戻りできない解放",
+          "visualPrompt": "彼がコンソールに触れると、「アヤワスカ」が起動し、圧倒的な虹色の光が部屋を満たす。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op09#music",
+        "@type": "MusicCue",
+        "cueText": "ビートが止まり、逆再生シンバルとシステム起動音。シーンの終わりにパワフルなサブベースのドロップが響く。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:hibiki"
+        }
+      ],
+      "sameAs": "scene:op09",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op10",
+      "@type": "Scene",
+      "name": "解放と再生",
+      "orderInOpening": 10,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op10#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "不明（サイケデリック空間）",
+          "place": "宇宙的空間",
+          "emotion": "破壊と創造",
+          "visualPrompt": "傑作、サイケデリック、抽象映像。美しく、圧倒的な光と色の爆発が画面を覆う。エリアスの図書館が水彩のテクスチャと幾何学的な光のパターンとなって溶けていく。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op10#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "不明（サイケデリック空間）",
+          "place": "生命の樹",
+          "emotion": "カタルシスと畏怖",
+          "visualPrompt": "色彩の渦の中心に、巨大で光り輝く生命の樹が現れる。その枝は純粋な光の流れでできており、混沌に秩序をもたらす。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op10#music",
+        "@type": "MusicCue",
+        "bpm": 140,
+        "cueText": "パワフルで陶酔的なトランス/サイトランスのビートが爆発。高揚感のあるエモーショナルなシンセリードがカタルシスのあるメロディを奏で、聖歌隊のようなパッドが精神的な解放感を演出する。"
+      },
+      "sameAs": "scene:op10",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    },
+    {
+      "@id": "gh:Scene/Opening/op11",
+      "@type": "Scene",
+      "name": "余韻とタイトル",
+      "orderInOpening": 11,
+      "durationSeconds": 10,
+      "hasCut": [
+        {
+          "@id": "gh:Scene/Opening/op11#start",
+          "@type": "Cut",
+          "phase": "start",
+          "timeOfDay": "午後",
+          "place": "オフィス",
+          "emotion": "安堵、共感、問いかけ",
+          "visualPrompt": "傑作、超詳細で感情的なアニメのクローズアップ。突然の静寂。柔らかな日差しに照らされた現実世界のタマキの顔。完璧に描かれた一筋の涙が頬を伝う。"
+        },
+        {
+          "@id": "gh:Scene/Opening/op11#end",
+          "@type": "Cut",
+          "phase": "end",
+          "timeOfDay": "午後",
+          "place": "未来的東京、運河の上空",
+          "emotion": "複雑な余韻",
+          "visualPrompt": "カメラがタマキが見つめる窓からゆっくりと引き、息をのむほど平和な水の都・東京の全景が再び現れる。その静かな景色の上に、「Ghost Hacker」のタイトルが静かにフェードインする。"
+        }
+      ],
+      "musicCue": {
+        "@id": "gh:Scene/Opening/op11#music",
+        "@type": "MusicCue",
+        "cueText": "突然の静寂。その後、冒頭のシンプルで優しいピアノのメロディが、ゆっくりと思慮深く戻ってきて、余韻を残しながら静かに消えていく。"
+      },
+      "featuredCharacters": [
+        {
+          "@id": "character:tamaki"
+        }
+      ],
+      "sameAs": "scene:op11",
+      "source": {
+        "@id": "gh:Source/opening"
+      }
+    }
+  ],
+  "fullText": "# Ghost Hacker - オープニングアニメーション絵コンテ\n\n**全長:** 90秒\n\n**コンセプト:** 東京の静かで「癒し系（いやしけい）」の美しさと、混沌としていながらも美しいデジタル世界「ゴーストハッキング」が融合する。ビジュアルスタイルは感情豊かで日本アニメ映画的な美学を基調とし、ドラマチックでノスタルジックな光、空気感のある映像表現を持つ。そして青を印象的に使った表現が特徴。時空間は微細なプロセスで緻密に構築、描写され、没入感と安定したクオリティを両立させる。特に登場人物の瞳の中まで緻密で感情豊かな描写に重点を置き、その瞳や視線が彼らの内面世界や感情の窓となる。登場人物は時空間に「居る」こと自体が表現となる。身体の重心や手のしぐさ、視線の向きといった静かな身体言語で内面の感情を伝え、時空間との距離や沈黙が感情の余韻を作り出す。衣服や装飾も機能と文脈に基づき、空間との関係を象徴する。言葉で語らず、存在そのもので物語る映像を目指す。カメラワークは常に大胆で斬新な角度から人物と時空間を切り出し、視聴者に驚きを与える.\n\n---\n\n## **シーン詳細**\n\n（op01〜op11 の本文は各 Scene ノードに反映済み）\n\n---\n\n## **Suno.ai用 統合音楽プロンプト**\n\n`[Style: Cinematic Anime Opening, Ethereal Ambient, Glitch Hop, Psytrance, Emotional] [Instrumental]`\n\n`[Intro (0-15s)]`\n`BPM 70。幻想的で穏やか。温かいシンセパッドとシンプルなピアノのメロディで始まり、繊細な電子アルペジオが加わる。`\n\n`[Verse (15-45s)]`\n`ミニマルな電子ビートが始まる。低く不穏なシンセベースが緊張感を高め、ライザーシンセがクレッシェンドし、ビートが強まり、最後にグリッチノイズが入る。`\n\n`[Chorus / Drop 1 (45-65s)]`\n`攻撃的なグリッチホップビートへ突然ドロップ。歪んだ脅威的なシンセリードがループし、ドラムは重く歪む。フィルターのかかったボーカルチョップが闘争感を煽る。`\n\n`[Bridge (65-70s)]`\n`ビートが停止。ドラマチックな逆再生シンバルとシステム起動音。力強いサブベースのドロップで終わる。`\n\n`[Chorus / Drop 2 (70-80s)]`\n`BPM 140。陶酔的なサイトランスビートへ爆発。高揚感のあるエモーショナルなシンセリード、豊かなパッド、天国のようなボーカルチョップ、聖歌隊のようなシンセが精神的な解放感を演出。`\n\n`[Outro (80-90s)]`\n`突然の静寂。その後、冒頭のシンプルで優しいピアノのメロディが、ゆっくりと思慮深く戻ってきて、静寂の中に消えていく。`"
+}

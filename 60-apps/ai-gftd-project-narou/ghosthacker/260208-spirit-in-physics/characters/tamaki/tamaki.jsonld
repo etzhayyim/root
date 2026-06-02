@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "alternateName": {
+      "@id": "https://schema.org/alternateName",
+      "@type": "xsd:string"
+    },
+    "age": {
+      "@id": "https://schema.org/age",
+      "@type": "xsd:integer"
+    },
+    "nationality": {
+      "@id": "https://schema.org/nationality",
+      "@type": "xsd:string"
+    },
+    "occupation": {
+      "@id": "schema:occupation",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "knows": {
+      "@id": "schema:knows",
+      "@type": "@id"
+    },
+    "ghost": {
+      "@id": "gh:ghost",
+      "@type": "@id"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "character:tamaki",
+      "@type": "Person",
+      "name": "Tamaki Vermeer",
+      "alternateName": "N-Chan",
+      "age": 21,
+      "nationality": "Japanese / Dutch",
+      "occupation": "Medical student / Ghost Hacker (apprentice)",
+      "description": "共感能力に優れ、Ghostの心に寄り添うスタイルのハックを得意とする。『いい感じ』を最も大切にする感性の持ち主。",
+      "ghost": {
+        "@id": "character:Nei-chan"
+      },
+      "knows": [
+        {
+          "@id": "character:kaede"
+        },
+        {
+          "@id": "character:aoi"
+        },
+        {
+          "@id": "character:akito"
+        }
+      ],
+      "fullText": "# Tamaki (タマキ)\n\n- **フルネーム:** Tamaki Vermeer (タマキ・フェルメール)\n- **コードネーム:** N-Chan\n- **年齢:** 21歳\n- **国籍:** 日本 (父: 日本人, 母: オランダ人)\n- **職業:** 大学生 (医学部) / ゴーストハッカー (見習い)\n- **イメージカラー:** 薄い紫色\n\n## 容姿・ファッション\n\n- かわいい感じ\n- 色素の薄い黒髪に、青みがかった瞳。\n- ファッションは、特定のスタイルに固執せず、古着からハイブランドまでを自由に組み合わせるのが得意。特に、ミニマルなデザインの日本のブランドに、ヴィンテージのアクセサリーを合わせるのを好む。今日の服装は、淡い紫色のオーバーサイズシャツに、黒のワイドパンツ。\n\n## 性格・信条\n\n- 感情表現が非常に豊か。好きなものは「大好き」、嫌いなものは「大嫌い」とはっきり言葉や態度で示す。\n- 共感能力が非常に高いが、それは純粋な心を持つ相手に対してのみ。\n- 鋭い直感の持ち主で、相手が何かを隠していたり、下心を持っていたりすると「やな感じ」を察知する。\n- 「やな感じ」がする相手には、隠すことなくあからさまに嫌な態度をとる。\n- 根は優しくお人好しだが、自分の感情に正直で、決して万人受けするタイプではない。\n- 「いい感じ」を何よりも大切にする感性の持ち主。\n- 「夢は世界で一番、私を愛してくれている人を見つけること」と公言してはいるが、本心では「この街の皆が、毎日いい感じで過ごせますように」と願っている。\n\n## 能力・スキル\n\n- **Ghost Hack:** まだ見習いだが、共感能力が非常に高く、Ghostの心に寄り添うスタイルのハッキングを得意とする。論理的な解析はNei-Chanに任せている。\n- **語学:** 日本語、オランダ語、英語を話すトリリンガル。\n\n## 他キャラクターとの関係\n\n- **Nei-Chan:** 最高のパートナーであり、一心同体の存在。生活を支えてくれる保護者でもある。\n- **kaede:** 頼れる先輩。口では厳しいことを言いながらも、いつもtamakiのことを気にかけてくれている。\n- **aoi:** 可愛い後輩。彼の純粋さに癒されることも多い。\n- **Ren:** 亡くなった、尊敬する父親。事務所は父が遺してくれた大切な場所だと思っている。まさかGhostとして今も見守ってくれているとは夢にも思っていない。\n- **Akito:** 「父の古い兄弟で、Nei-Chanの制作者」という認識。少し気難しそうな人だなと思っている。"
+    }
+  ]
+}

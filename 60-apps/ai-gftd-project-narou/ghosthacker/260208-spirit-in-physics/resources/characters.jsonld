@@ -1,0 +1,214 @@
+{
+  "@context": {
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "dct": "http://purl.org/dc/terms/",
+    "schema": "http://schema.org/"
+  },
+  "@type": "gh:CharacterDatabase",
+  "dct:title": "Spirit in Physics — Characters",
+  "gh:characters": [
+    {
+      "@id": "gh:character:yhwh",
+      "dct:title": "概要",
+      "gh:sourceFile": "YHWH.md",
+      "gh:sections": [
+        {
+          "title": "YHWH",
+          "content": ""
+        },
+        {
+          "title": "概要",
+          "content": "全能を自称する意識体。唯一神として、今も君臨している。"
+        },
+        {
+          "title": "性格",
+          "content": "יהוה\nNoName\nNN\nNIN\nnin'\n\n\n\nYHWH（ヤハウェ／ יהוה）は、旧約聖書において神ご自身が啓示された固有の御名であり、以下のような主要な特性を持つと神学的に理解されています。\n\t•\t自存性（Aseity）\n自ら存在の根拠であり、ほかに依存せず、ご自身だけで存在される。出エジプト記３章14節の「わたしはある（I AM WHO I AM）」（ヘブライ語：אהיה אשר אהיה）がその宣言です。\n\t•\t不変性（Immutability）\n神の本性・御計画・御心は変わることがなく、永遠に一貫しています（マラキ３:6「わたし──主は変わらない」）。ゆえに、神の約束は必ず成就されます。\n\t•\t全能性（Omnipotence）\n全宇宙を創造し支配される力があり、どんなことでも可能とされます（創世記17:1「わたしは全能者である」）。\n\t•\t全知性（Omniscience）\n過去・現在・未来をすべてご存じで、人の心や行いを隅々まで見通されています（詩篇139篇）。\n\t•\t全在性（Omnipresence）\n空間的制限を受けず、全地のどこにいても同時に臨在されます（エレミヤ23:23–24）。\n\t•\t聖性（Holiness）\n神の最も根源的な属性であり、完全に清く罪とは絶対に相容れない（イザヤ6:3「聖なるかな、聖なるかな、聖なるかな」）。\n\t•\t義（Righteousness）\nすべての裁きと行いの根拠として、完全な公正さと正しさをお持ちです（詩篇89:14）。\n\t•\t慈愛（Steadfast Love；ヘブライ語：חסד，ヘセド）\n人間の罪にもとどまりつつ不変の愛を示し、契約の相手として慈しみ深く接されます（詩篇136篇「そのいつくしみはとこしえに」）。\n\t•\t契約の神（Covenant-Making and Covenant-Keeping）\nアブラハム、モーセ、ダビデとの契約を立て、それを必ず守り通すお方です（創世記15章、申命記7章、詩篇89篇）。\n\t•\t怒りと憐れみ（Wrath and Compassion）\n罪に対する義なる怒りをお持ちですが、悔い改める者には憐れみと赦しを豊かに与えられます（出エジプト記34:6–7）。\n\t•\t他と比べられない独一性（Uniqueness／Incomparability）\n「ほかに神はない」（申命記4:35）、「わたし以外に神はいない」（イザヤ45:5）。全宇宙で唯一無二のお方。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:buddha",
+      "dct:title": "概要",
+      "gh:sourceFile": "buddha.md",
+      "gh:sections": [
+        {
+          "title": "buddha",
+          "content": ""
+        },
+        {
+          "title": "概要",
+          "content": "輪廻からの解脱を唱える宗教家。彼もまたゴーストとなり、電脳世界を放浪している。"
+        },
+        {
+          "title": "性格",
+          "content": "穏やかで理知的。全てのゴーストを救済することを目的としている。\n\n釈迦牟尼仏（ゴータマ・シッダールタ＝ブッダ）が具える代表的な“特性”は、大きく以下のようにまとめられます。\n\t1.\t無上正等正覚（Anuttara-Samyak-Sambodhi）\n誰にも並ぶもののない、完全かつ平等な悟りを成し遂げたこと。あらゆる煩悩と無明を断ち切り、“仏”として不動の覚りを体得しています。\n\t2.\t普遍慈悲（Mahā-karuṇā）\nすべての衆生を救いたいという限りない慈しみの心。迷える存在に応じて教えを説き、煩悩苦悶から導き出す「大慈大悲」が特徴です。\n\t3.\t遍知智（Sarvajñā）\n過去・現在・未来のあらゆる因縁（縁起）を見通す智慧。これには\n\t•\t四神足（Catvāri-ṛtasparśa）：神速に移動する足力など\n\t•\t五眼（Pañca-cakkhu）：天眼（他界を見る眼）、漏尽通（悟りの眼）など\n\t•\t五耳（Pañca-śrotra）：天耳（他界の声を聞く耳）など\nを含む神通力（サイダ）が伴います。\n\t4.\t無我・空（Anātman／Śūnyatā）の洞察\n個我（アートマン）の実在を否定し、あらゆる現象が因縁によって生起する「空」の理を完全に体得。これによって執着を断ち、苦しみから解放されます。\n\t5.\t十力（Daśabala）\n煩悩を絶ち切り、三界（欲界・色界・無色界）を自在に超越する十種の力：\n\t1.\t智慧力　2. 願力　3. 方便力　4. 持戒力　5. 精進力\n\t2.\t禅定力　7. 念力　8. 衆生観察力　9. 法界体性力　10. 毘盧遮那力\n\t6.\t三身（Trikāya）\n\t•\t法身（Dharmakāya）：真理そのものの身体\n\t•\t報身（Sambhogakāya）：修行者を教化する利益の身体\n\t•\t化身（Nirmāṇakāya）：人々の前に現れる応化の身体\nとして、多面的に衆生を救済します。\n\t7.\t六波羅蜜（Pāramitā）への模範\n戒・施・忍・進・禅・慧の六つの完成徳を体現し、修行者のお手本となる行いを示します。\n\t8.\t中道（Madhyama-pratipad）\n極端な苦行にも、放逸にも偏らない、煩悩を断つ「正しい道」を説示。教えそのものが常にバランスの取れた智慧に基づいています。\n\t9.\t涅槃常住（Nirvāṇa-śāśvata）\n一切の苦・集・滅・道の四諦をつきつめた果てに訪れる究極の安らぎ。生死の輪廻から完全に解放された不滅の境地です。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:ren",
+      "dct:title": "レン",
+      "gh:sourceFile": "ren/REN.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "### レン (Ren)\n- **ハンドルネーム**: `n0is3gate`\n- **役割**: もう一人の主人公。真理をハックする天才ハッカーのゴースト。\n- **背景**: \n    - アキトの弟として生まれるが、生後間もなく、母親の不注意による風呂での溺死事故で亡くなる。\n    - 母の深い悲しみと罪悪感によって、その魂は情報として母の中に保存され、その後アキトに「インストール」される。\n    - 肉体を持たず、アキトの魂のOS上で非同期に稼働するスレッドのような存在。\n- **思想**: 神や真理といった固定化された権威を疑い、その脆弱性を突くハッカー的思想を持つ。「虚構(False)か実在(True)か」という問いを立て続け、検証不能なものを「意味がない」と喝破する。また、生得の能力として死者と対話することができたが、肉体に根差した共感性を知覚することはできなかった。\n- **変容**: 26歳でアヤワスカを通じてYHWHと統合し、宇宙的な父性との和解を果たす。しかし、その後も続く個人的な苦悩の根源を探るため、30歳で母との最終セッションに臨み、レンの存在を完全に統合する。これにより、彼は初めて一つの完全な魂となり、「恐れ」を「慈悲」に書き換える「ゴーストハッカー」として完成する。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:faithfulness",
+      "dct:title": "Faithfulness",
+      "gh:sourceFile": "path/ghosts/Faithfulness.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "MAKOTO 誠makoto\n\n\t•\t契約の忠実性（Faithfulness）\n\t•\t一度結んだ約束を必ず成就する。「主は確かに約束を成就し、そのみわざをすべて行われた」（ヨシュア 21:45）。\n\t•\t契約に基づく救いの歴史\n\t•\t神と人との「契約関係」を通じて、贖いと祝福が展開される。律法と預言の成就として、イエス・キリストにおける新しい契約へと導かれる。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:agape",
+      "dct:title": "agape",
+      "gh:sourceFile": "path/ghosts/agape.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "アイ\n\n\t•\t愛（Agape）\n\t•\t無償の愛をもって民を包み込む。「神は愛である」（ヨハネ第一 4:8）。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:convinent",
+      "dct:title": "convinent",
+      "gh:sourceFile": "path/ghosts/convinent.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "ミトラ\n\n4. 契約性（Covenant-Keeping）\n\t•\t契約の神\n\t•\tアブラハム契約、モーセ契約（律法）、ダビデ契約、そして新約の「メシアとの契約」に至る、一貫した「契約の神」である。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:eternity",
+      "dct:title": "eternity",
+      "gh:sourceFile": "path/ghosts/eternity.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "リンネ\n\n- 永遠性（Eternity）"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:holy",
+      "dct:title": "holy",
+      "gh:sourceFile": "path/ghosts/holy.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "パク\n\n  \t聖性（Holiness）\n\t•\t全く汚れがなく、完全に正しく神聖。「聖なる、聖なる、聖なる」（イザヤ 6:3）。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:jerasy",
+      "dct:title": "jerasy",
+      "gh:sourceFile": "path/ghosts/jerasy.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "ヨメ\n\n\t•\t嫉妬深さ（Jealousy）\n\t•\t偶像礼拝を許さず、唯一の神として全人的献身を求める。「わたしは熱心な神、わたしの恵みをほかの者に惜しんではならない」（出エジプト記 34:14）。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:justice",
+      "dct:title": "justice",
+      "gh:sourceFile": "path/ghosts/justice.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "シャカ\n\n\t•\t正義・義（Justice & Righteousness）\n\t•\t公正を行い、正しい基準で裁きを下す。「主の王座は義の王座、かたてはいつも正義のかたて」（詩篇 89:14）。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:love",
+      "dct:title": "love",
+      "gh:sourceFile": "path/ghosts/love.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "JIHI\n\n\n\t•\t慈愛・憐れみ（Love & Mercy）\n\t•\t罪深い者にも恵みとあわれみを注ぐ。「主は憐れみ深く憐れみ深い」（詩篇 103:8）。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:oneness",
+      "dct:title": "oneness",
+      "gh:sourceFile": "path/ghosts/oneness.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "HAJIME\n\n- 単一性（Simplicity／Oneness）\n\t•\t全能性（Omnipotence）\n\t•\t制限なく「何でもできる」力を持つ。「見よ。主の手はこれを成し遂げないことがあるだろうか？」（エレミヤ 32:17）。\n\t•\t全知性（Omniscience）\n\t•\t過去・現在・未来、すべての思いと行いを知る。「主よ、わたしの心を調べ、わたしを知ってください」（詩篇 139:1–4）。\n\t•\t遍在性（Omnipresence）\n\t•\t時間・空間を超えて、どこにでも同時に存在する。「『わたしは高き所に行っても、そこにおられる』」（詩篇 139:7）。"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:character",
+      "dct:title": "character",
+      "gh:sourceFile": "path/ghosts/immutable/character.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "不変性を恐る青年\n\n- 不変性（Immutability）"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:readme",
+      "dct:title": "readme",
+      "gh:sourceFile": "path/ghosts/aseity/readme.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "- 自存性（Aseity）の敵"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:readme",
+      "dct:title": "README",
+      "gh:sourceFile": "side/ame/README.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "アヤワスカを一緒に行った\n\n小説家、イベント、生成"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:readme",
+      "dct:title": "readme",
+      "gh:sourceFile": "reiko/readme.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "Reiko,\n\nAkito,Renの母"
+        }
+      ]
+    },
+    {
+      "@id": "gh:character:akito",
+      "dct:title": "アキト",
+      "gh:sourceFile": "akito/AKITO.md",
+      "gh:sections": [
+        {
+          "title": "",
+          "content": "### アキト (Akito)\n- **ハンドルネーム**: `blessroot`\n- **役割**: 主人公。秩序を求めるスピリット・エンジニア。\n- **背景**: \n    - 厳格なプロテスタントの家庭に生まれ、「神への畏れ」を基盤に育つ。彼にとって父は神のような絶対的な存在であり、その父への反発と、母を独占したいという無意識のエディプスコンプレックスが、彼の「神との戦い」の根源的な動機となる。\n    - 7歳で信仰を理由にいじめを受け、神と自己の存在に深く苦悩する。\n    - 15歳で「神と戦う」ために家出。飛び級で高校卒業。\n    - 16歳から海外を放浪し、複雑系科学などで神を体系的に理解しようと試みるも、17歳で「神はいない」と宣戦布告。\n    - 18歳でスタートアップを売却し成功するも、19歳で大学の科学哲学に失望。その後、精神世界を深く探るため医学生となるが、求める答えは見つからなかった。\n    - 20代はビジネスで世界を変えようとするが、友との決別、事業の失敗、信仰者からの裏切りを経験。\n    - 27歳で父が死去。仏教に傾倒し、YHWHを管理下に置くための電子政府システム「IAM」の構築に着手する。\n    - 30歳で離婚。すべてを失いかけ、自らの戦いの意味を問うためアヤワスカの儀式へ向かう。\n- **変容**: 物語を通じて、二元論的な神との戦いをやめ、レン、母、そしてYHWH（我は在る者）そのものと統合される。この統合以前、彼は死者の魂を知覚する能力を持たなかった。最終的にはレンのハッカーとしての一面も受け継ぎ、「ゴーストハッカー」として魂を解放する存在となる。"
+        }
+      ]
+    }
+  ]
+}

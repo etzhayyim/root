@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:diego-ortega",
+  "@type": "Person",
+  "name": "Diego Ortega",
+  "gh:callsign": "SPLIT",
+  "description": "29歳、男性、米墨出身。元兵士、DID傾向。テーマ: トラウマ・暴力連鎖・二重人格。",
+  "age": 29,
+  "gender": "Male",
+  "nationality": "US-Mexican",
+  "occupation": "Former Soldier",
+  "gh:persona": "分裂した兵士",
+  "gh:ghost": {
+    "@id": "ghost:mirror-soldier"
+  },
+  "gh:theme": "トラウマ・暴力連鎖・二重人格",
+  "fullText": "Diego Ortegaは、米墨出身の元兵士。29歳の男性で、callsignは「SPLIT」。トラウマ、暴力連鎖、二重人格（DID傾向）をテーマとする。彼のGhostは「Mirror Soldier」で、彼の内なる暴力性を映し出す。Diegoは、戦場でのトラウマから、自己を分裂させることで生き延びてきた。しかし、その分裂は彼を孤立させ、暴力の連鎖を断ち切ることを困難にしている。"
+}

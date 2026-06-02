@@ -1,0 +1,25 @@
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+
+# Session 11: Compliance Ogre
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E11> a gh:Episode ;
+  schema:name "Session \"Compliance Ogre\"" ;
+  gh:hasArc gh:Arc/Tamaki-TreeOfLife-Transmutation ;
+  gh:hasCharacter gh:character:tamaki , gh:character:nero-ops ;
+  gh:motifRefs gh:Motif/King ;
+  gh:techRefs gh:Tech/SIP ;
+  gh:processRefs gh:Process/MemorySpace1024D ;
+  gh:dive <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E11-01> ;
+  gh:release <https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E11-01> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E11-01> a gh:Dive ;
+  gh:operator gh:character:tamaki ;
+  gh:method "device/SIP", "policy/decompile" ;
+  gh:hasStep <https://gftd.ai/ghost-hacker/Dive/S1E11-01/step/1> , <https://gftd.ai/ghost-hacker/Dive/S1E11-01/step/2> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E11-01/step/1> a gh:Step ; gh:stepOrder 1 ; gh:action "decompile compliance" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E11-01/step/2> a gh:Step ; gh:stepOrder 2 ; gh:action "reclaim justice" .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E11-01> a gh:Release ;
+  schema:description "偽の正義の剥離と再構成" .
+

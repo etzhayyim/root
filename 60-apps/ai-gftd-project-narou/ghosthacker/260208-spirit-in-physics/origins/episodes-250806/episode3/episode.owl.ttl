@@ -1,0 +1,28 @@
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+
+# Session 03: Chain of Care
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E3> a gh:Episode ;
+  schema:name "Session \"Chain of Care\"" ;
+  gh:hasArc gh:Arc/Tamaki-TreeOfLife-Transmutation ;
+  gh:hasCharacter gh:character:tamaki , gh:character:kaede , gh:character:owner-of-love ;
+  gh:motifRefs gh:Motif/TreeOfLife , gh:Motif/GoodFeeling ;
+  gh:techRefs gh:Tech/SIP ;
+  gh:processRefs gh:Process/MemorySpace1024D ;
+  gh:dive <https://gftd.ai/ghost-hacker/Dive/S1E3-01> ;
+  gh:release <https://gftd.ai/ghost-hacker/Release/S1E3-01> .
+
+<https://gftd.ai/ghost-hacker/Dive/S1E3-01> a gh:Dive ;
+  gh:operator gh:character:tamaki ;
+  gh:support gh:character:kaede ;
+  gh:method "device/SIP", "sound/serpente" ;
+  gh:ascDepth "0.6" ;
+  gh:hasStep <https://gftd.ai/ghost-hacker/Dive/S1E3-01/step/1> , <https://gftd.ai/ghost-hacker/Dive/S1E3-01/step/2> , <https://gftd.ai/ghost-hacker/Dive/S1E3-01/step/3> .
+
+<https://gftd.ai/ghost-hacker/Dive/S1E3-01/step/1> a gh:Step ; gh:stepOrder 1 ; gh:action "separate care vs control" .
+<https://gftd.ai/ghost-hacker/Dive/S1E3-01/step/2> a gh:Step ; gh:stepOrder 2 ; gh:action "redefine boundary" .
+<https://gftd.ai/ghost-hacker/Dive/S1E3-01/step/3> a gh:Step ; gh:stepOrder 3 ; gh:action "reintegrate relation" .
+
+<https://gftd.ai/ghost-hacker/Release/S1E3-01> a gh:Release ;
+  schema:description "ケアを所有から関係へ再定義し、release" .
+

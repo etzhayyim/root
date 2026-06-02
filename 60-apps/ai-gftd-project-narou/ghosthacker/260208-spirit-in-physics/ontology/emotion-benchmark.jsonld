@@ -1,0 +1,276 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "EmotionalBenchmarkSet": "gh:EmotionalBenchmarkSet",
+    "EmotionalBenchmark": "gh:EmotionalBenchmark",
+    "EmotionScore": "gh:EmotionScore",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "order": {
+      "@id": "gh:order",
+      "@type": "xsd:integer"
+    },
+    "weight": {
+      "@id": "gh:weight",
+      "@type": "xsd:float"
+    },
+    "items": {
+      "@id": "gh:items",
+      "@type": "@id"
+    },
+    "finalTarget": {
+      "@id": "gh:finalTarget",
+      "@type": "@id"
+    },
+    "curveTemplate": {
+      "@id": "gh:curveTemplate",
+      "@type": "@id"
+    },
+    "segment": {
+      "@id": "gh:segment",
+      "@type": "xsd:string"
+    },
+    "emotion": {
+      "@id": "gh:emotion",
+      "@type": "xsd:string"
+    },
+    "score": {
+      "@id": "gh:score",
+      "@type": "xsd:float"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "gh:EmotionalBenchmarkSet/Gold-Plus",
+      "@type": "EmotionalBenchmarkSet",
+      "name": "Emotional Benchmarks (Gold+Aux)",
+      "description": "Gold: 君の名は。/ Aux: ARIA, 聲の形, Arrival, Shawshank",
+      "items": [
+        {
+          "@id": "gh:EmotionalBenchmark/KimiNoNaWa"
+        },
+        {
+          "@id": "gh:EmotionalBenchmark/ARIA"
+        },
+        {
+          "@id": "gh:EmotionalBenchmark/KoeNoKatachi"
+        },
+        {
+          "@id": "gh:EmotionalBenchmark/Arrival"
+        },
+        {
+          "@id": "gh:EmotionalBenchmark/Shawshank"
+        }
+      ]
+    },
+    {
+      "@id": "gh:EmotionalBenchmark/KimiNoNaWa",
+      "@type": "EmotionalBenchmark",
+      "name": "君の名は。",
+      "order": 1,
+      "weight": 0.4,
+      "finalTarget": [
+        {
+          "@type": "EmotionScore",
+          "emotion": "relief",
+          "score": 0.4
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "joy",
+          "score": 0.3
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "hope",
+          "score": 0.2
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "trust",
+          "score": 0.1
+        }
+      ],
+      "curveTemplate": [
+        {
+          "segment": "tension"
+        },
+        {
+          "segment": "turn"
+        },
+        {
+          "segment": "release"
+        },
+        {
+          "segment": "quiet"
+        }
+      ]
+    },
+    {
+      "@id": "gh:EmotionalBenchmark/ARIA",
+      "@type": "EmotionalBenchmark",
+      "name": "ARIA The Origination",
+      "order": 2,
+      "weight": 0.15,
+      "finalTarget": [
+        {
+          "@type": "EmotionScore",
+          "emotion": "relief",
+          "score": 0.42
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "joy",
+          "score": 0.26
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "trust",
+          "score": 0.22
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "hope",
+          "score": 0.1
+        }
+      ],
+      "curveTemplate": [
+        {
+          "segment": "release"
+        },
+        {
+          "segment": "quiet"
+        }
+      ]
+    },
+    {
+      "@id": "gh:EmotionalBenchmark/KoeNoKatachi",
+      "@type": "EmotionalBenchmark",
+      "name": "聲の形",
+      "order": 3,
+      "weight": 0.15,
+      "finalTarget": [
+        {
+          "@type": "EmotionScore",
+          "emotion": "relief",
+          "score": 0.38
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "joy",
+          "score": 0.22
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "hope",
+          "score": 0.2
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "trust",
+          "score": 0.2
+        }
+      ],
+      "curveTemplate": [
+        {
+          "segment": "tension"
+        },
+        {
+          "segment": "release"
+        },
+        {
+          "segment": "quiet"
+        }
+      ]
+    },
+    {
+      "@id": "gh:EmotionalBenchmark/Arrival",
+      "@type": "EmotionalBenchmark",
+      "name": "Arrival",
+      "order": 4,
+      "weight": 0.15,
+      "finalTarget": [
+        {
+          "@type": "EmotionScore",
+          "emotion": "relief",
+          "score": 0.36
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "joy",
+          "score": 0.18
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "hope",
+          "score": 0.26
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "trust",
+          "score": 0.2
+        }
+      ],
+      "curveTemplate": [
+        {
+          "segment": "tension"
+        },
+        {
+          "segment": "turn"
+        },
+        {
+          "segment": "quiet"
+        }
+      ]
+    },
+    {
+      "@id": "gh:EmotionalBenchmark/Shawshank",
+      "@type": "EmotionalBenchmark",
+      "name": "The Shawshank Redemption",
+      "order": 5,
+      "weight": 0.15,
+      "finalTarget": [
+        {
+          "@type": "EmotionScore",
+          "emotion": "relief",
+          "score": 0.34
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "joy",
+          "score": 0.18
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "hope",
+          "score": 0.3
+        },
+        {
+          "@type": "EmotionScore",
+          "emotion": "trust",
+          "score": 0.18
+        }
+      ],
+      "curveTemplate": [
+        {
+          "segment": "tension"
+        },
+        {
+          "segment": "release"
+        },
+        {
+          "segment": "quiet"
+        }
+      ]
+    }
+  ]
+}

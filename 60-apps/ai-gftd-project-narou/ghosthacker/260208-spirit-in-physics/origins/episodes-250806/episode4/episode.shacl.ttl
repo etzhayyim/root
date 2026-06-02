@@ -1,0 +1,9 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+
+gh:EpisodeShape a sh:NodeShape ;
+  sh:targetNode <https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E4> ;
+  sh:property [ sh:path schema:name ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasCharacter ; sh:hasValue gh:character:tamaki ] .
+

@@ -1,0 +1,315 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.5 Ch.33 — 振り返り（対話）",
+  "gh:arc": "Vol 5: Beyond",
+  "gh:episodeId": "episode:sip-vol05-ch33",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "昼下がり。。私たちは運河沿いのベンチに座っている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、たくさんの人に会ったね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "Eliasさん、Soraさん、Lachlanさん、LeoとMillia、Kenjiさん、Shioriさん……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "みんな、それぞれの問いを持っていた"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanは空を見上げる。。私は微笑む。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "みんな——元気かな"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "きっと、それぞれの場所で、呼吸してる"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの声が通信に入る。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "Tamaki、振り返りの時間？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。Nei-chanと、話してた"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "いいわね。私も——たくさんのことを学んだわ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "学んだ？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。Ghost Healerの仕事は——医療とは違う。でも、根っこは同じ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "根っこ？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "人が、呼吸できるようになること"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は頷く。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "そうだね"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Hibikiの声が加わる。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "Tamaki、僕も——たくさんの音を聴いた"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "どんな音？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "悲しみの音、怒りの音、恐れの音。でも——全部の奥に、希望の音があった"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "希望の音"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん。小さいけど、確かにある"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "それを聴けるHibikiは——すごいね"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "Tamakiに見えるものも、僕には見えないよ。だから——一緒にやってる"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "わかれていない"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "そう。わかれていない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私を見る。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、わたしも——学んだよ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何を？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "愛って何か、とか。わたしは誰か、とか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "答えは、見つかった？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は考える。。私は頷く。。彼女は微笑む。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……まだ、途中。でも——見つけなくても、いいのかも"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうかもしれない。問いを持っていること自体が——大切なのかも"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "タマも、そう思う？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。答えより、問いの方が——長く一緒にいてくれる"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "運河の水面に、雲が映っている。ゆっくりと、形を変えながら、流れていく。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、これからも——一緒にいてくれる？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "もちろん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ずっと？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は彼女を見る。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "ずっと、は——わからない。でも、今は——一緒にいる"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "今だけ？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "今が、全部だから"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "彼女は少し考える。そして、微笑む。。運河の水面が、雲を映しながら、静かに輝いている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "じゃあ——今、一緒にいるね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。一緒にいるよ"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

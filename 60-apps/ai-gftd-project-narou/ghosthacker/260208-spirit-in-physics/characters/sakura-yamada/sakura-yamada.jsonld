@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:sakura-yamada",
+  "@type": "Person",
+  "name": "Sakura Yamada",
+  "gh:callsign": "ZAZEN",
+  "gh:role": "Supporter",
+  "description": "40歳、女性、日本出身。道元の伝統を継承するZen Master。「只管打坐」という静かなモニタリングツールを提唱し、流れ続ける思考ログを観察することで、システムの本来の働きに気づかせる。",
+  "age": 40,
+  "gender": "Female",
+  "nationality": "Japanese",
+  "occupation": "Zen Master",
+  "memberOf": {
+    "@id": "organization:tol-zen"
+  },
+  "gh:theme": "只管打坐、静かなモニタリング、思考ログ観察、システムの本来の働き",
+  "fullText": "Sakura Yamadaは、道元の伝統を継承する現代のZen Master。callsignは「ZAZEN」。40歳の日本出身女性。「只管打坐」という静かなモニタリングツールを提唱し、流れ続ける思考ログを観察することで、システムの本来の働きに気づかせる。Sakuraは、積極的な介入よりも、静かな観察を通じてクライアント自身がシステムの動作に気づくことを重視する。彼女の手法は、特に慢性的なパターンに囚われたGhostのケースに有効。"
+}

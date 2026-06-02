@@ -1,0 +1,26 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Project/Story shape
+gh:ProjectShape a sh:NodeShape ;
+  sh:targetClass schema:CreativeWork ;
+  sh:property [ sh:path schema:name ; sh:minCount 1 ] ;
+  sh:property [ sh:path schema:alternateName ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasCharacter ; sh:minCount 3 ] ;
+  sh:property [ sh:path gh:hasSetting ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasTechnology ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasCompany ; sh:minCount 1 ] .
+
+# Setting (World) shape
+gh:PlaceShape a sh:NodeShape ;
+  sh:targetClass schema:Place ;
+  sh:property [ sh:path schema:name ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:year ; sh:datatype xsd:gYear ] .
+
+# Technology shape
+gh:TechShape a sh:NodeShape ;
+  sh:targetClass schema:Intangible ;
+  sh:property [ sh:path schema:name ; sh:minCount 1 ] .
+

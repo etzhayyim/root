@@ -1,0 +1,25 @@
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+
+# Session 04: Paper Walls
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E4> a gh:Episode ;
+  schema:name "Session \"Paper Walls\"" ;
+  gh:hasArc gh:Arc/Tamaki-TreeOfLife-Transmutation ;
+  gh:hasCharacter gh:character:tamaki , gh:character:mina-cho ;
+  gh:motifRefs gh:Motif/Forgiveness ;
+  gh:techRefs gh:Tech/SIP ;
+  gh:processRefs gh:Process/MemorySpace1024D ;
+  gh:dive <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E4-01> ;
+  gh:release <https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E4-01> .
+
+<https://gftd.ai/ghost-hacker/Dive/S1E4-01> a gh:Dive ;
+  gh:operator gh:character:tamaki ;
+  gh:method "device/SIP", "document/reclaim" ;
+  gh:hasStep <https://gftd.ai/ghost-hacker/Dive/S1E4-01/step/1> , <https://gftd.ai/ghost-hacker/Dive/S1E4-01/step/2> .
+
+<https://gftd.ai/ghost-hacker/Dive/S1E4-01/step/1> a gh:Step ; gh:stepOrder 1 ; gh:action "recover records" .
+<https://gftd.ai/ghost-hacker/Dive/S1E4-01/step/2> a gh:Step ; gh:stepOrder 2 ; gh:action "re-author identity" .
+
+<https://gftd.ai/ghost-hacker/Release/S1E4-01> a gh:Release ;
+  schema:description "不可視化の解除と物語の回復" .
+

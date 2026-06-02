@@ -1,0 +1,640 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "gh": "https://ghosthacker.junkawasaki.com/gh#",
+    "schema": "http://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "EpisodeStructure": "gh:EpisodeStructure",
+    "EpisodePart": "gh:EpisodePart",
+    "episode": {
+      "@id": "gh:episode",
+      "@type": "@id"
+    },
+    "part": {
+      "@id": "gh:part",
+      "@type": "@id"
+    },
+    "position": {
+      "@id": "gh:position",
+      "@type": "xsd:integer"
+    },
+    "wordCount": {
+      "@id": "gh:wordCount",
+      "@type": "xsd:integer"
+    },
+    "readingUnits": {
+      "@id": "gh:readingUnits",
+      "@type": "xsd:integer"
+    },
+    "language": {
+      "@id": "gh:language",
+      "@type": "xsd:string"
+    },
+    "beatsCount": {
+      "@id": "gh:beatsCount",
+      "@type": "xsd:integer"
+    },
+    "antagonistBlock": {
+      "@id": "gh:antagonistBlock",
+      "@type": "xsd:boolean"
+    },
+    "sourcePath": {
+      "@id": "gh:sourcePath",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP01"
+      },
+      "part": {
+        "@id": "gh:Episode/EP01/part1"
+      },
+      "position": 1,
+      "wordCount": 450,
+      "readingUnits": 450,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep01/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP01"
+      },
+      "part": {
+        "@id": "gh:Episode/EP01/part2"
+      },
+      "position": 2,
+      "wordCount": 524,
+      "readingUnits": 524,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep01/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP01"
+      },
+      "part": {
+        "@id": "gh:Episode/EP01/part3"
+      },
+      "position": 3,
+      "wordCount": 257,
+      "readingUnits": 257,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep01/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP02"
+      },
+      "part": {
+        "@id": "gh:Episode/EP02/part1"
+      },
+      "position": 1,
+      "wordCount": 192,
+      "readingUnits": 192,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep02/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP02"
+      },
+      "part": {
+        "@id": "gh:Episode/EP02/part2"
+      },
+      "position": 2,
+      "wordCount": 273,
+      "readingUnits": 273,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep02/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP02"
+      },
+      "part": {
+        "@id": "gh:Episode/EP02/part3"
+      },
+      "position": 3,
+      "wordCount": 143,
+      "readingUnits": 143,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep02/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP03"
+      },
+      "part": {
+        "@id": "gh:Episode/EP03/part1"
+      },
+      "position": 1,
+      "wordCount": 576,
+      "readingUnits": 576,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep03/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP03"
+      },
+      "part": {
+        "@id": "gh:Episode/EP03/part2"
+      },
+      "position": 2,
+      "wordCount": 397,
+      "readingUnits": 397,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep03/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP03"
+      },
+      "part": {
+        "@id": "gh:Episode/EP03/part3"
+      },
+      "position": 3,
+      "wordCount": 267,
+      "readingUnits": 267,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep03/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP03"
+      },
+      "part": {
+        "@id": "gh:Episode/EP03/part4"
+      },
+      "position": 4,
+      "wordCount": 398,
+      "readingUnits": 398,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep03/part4.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP04"
+      },
+      "part": {
+        "@id": "gh:Episode/EP04/part1"
+      },
+      "position": 1,
+      "wordCount": 795,
+      "readingUnits": 795,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep04/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP04"
+      },
+      "part": {
+        "@id": "gh:Episode/EP04/part2"
+      },
+      "position": 2,
+      "wordCount": 840,
+      "readingUnits": 840,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep04/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP04"
+      },
+      "part": {
+        "@id": "gh:Episode/EP04/part3"
+      },
+      "position": 3,
+      "wordCount": 977,
+      "readingUnits": 977,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep04/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP05"
+      },
+      "part": {
+        "@id": "gh:Episode/EP05/part1"
+      },
+      "position": 1,
+      "wordCount": 830,
+      "readingUnits": 830,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep05/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP05"
+      },
+      "part": {
+        "@id": "gh:Episode/EP05/part2"
+      },
+      "position": 2,
+      "wordCount": 485,
+      "readingUnits": 485,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep05/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP05"
+      },
+      "part": {
+        "@id": "gh:Episode/EP05/part3"
+      },
+      "position": 3,
+      "wordCount": 897,
+      "readingUnits": 897,
+      "language": "ja",
+      "beatsCount": 0,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep05/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP06"
+      },
+      "part": {
+        "@id": "gh:Episode/EP06/part1"
+      },
+      "position": 1,
+      "wordCount": 123,
+      "readingUnits": 123,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep06/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP06"
+      },
+      "part": {
+        "@id": "gh:Episode/EP06/part2"
+      },
+      "position": 2,
+      "wordCount": 411,
+      "readingUnits": 411,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep06/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP06"
+      },
+      "part": {
+        "@id": "gh:Episode/EP06/part3"
+      },
+      "position": 3,
+      "wordCount": 470,
+      "readingUnits": 470,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep06/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP07"
+      },
+      "part": {
+        "@id": "gh:Episode/EP07/part1"
+      },
+      "position": 1,
+      "wordCount": 95,
+      "readingUnits": 95,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep07/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP07"
+      },
+      "part": {
+        "@id": "gh:Episode/EP07/part2"
+      },
+      "position": 2,
+      "wordCount": 428,
+      "readingUnits": 428,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep07/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP07"
+      },
+      "part": {
+        "@id": "gh:Episode/EP07/part3"
+      },
+      "position": 3,
+      "wordCount": 424,
+      "readingUnits": 424,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep07/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP08"
+      },
+      "part": {
+        "@id": "gh:Episode/EP08/part1"
+      },
+      "position": 1,
+      "wordCount": 137,
+      "readingUnits": 137,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep08/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP08"
+      },
+      "part": {
+        "@id": "gh:Episode/EP08/part2"
+      },
+      "position": 2,
+      "wordCount": 443,
+      "readingUnits": 443,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep08/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP08"
+      },
+      "part": {
+        "@id": "gh:Episode/EP08/part3"
+      },
+      "position": 3,
+      "wordCount": 434,
+      "readingUnits": 434,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep08/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP09"
+      },
+      "part": {
+        "@id": "gh:Episode/EP09/part1"
+      },
+      "position": 1,
+      "wordCount": 368,
+      "readingUnits": 368,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep09/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP09"
+      },
+      "part": {
+        "@id": "gh:Episode/EP09/part2"
+      },
+      "position": 2,
+      "wordCount": 419,
+      "readingUnits": 419,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep09/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP09"
+      },
+      "part": {
+        "@id": "gh:Episode/EP09/part3"
+      },
+      "position": 3,
+      "wordCount": 463,
+      "readingUnits": 463,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep09/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP10"
+      },
+      "part": {
+        "@id": "gh:Episode/EP10/part1"
+      },
+      "position": 1,
+      "wordCount": 255,
+      "readingUnits": 255,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep10/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP10"
+      },
+      "part": {
+        "@id": "gh:Episode/EP10/part2"
+      },
+      "position": 2,
+      "wordCount": 385,
+      "readingUnits": 385,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep10/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP10"
+      },
+      "part": {
+        "@id": "gh:Episode/EP10/part3"
+      },
+      "position": 3,
+      "wordCount": 420,
+      "readingUnits": 420,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep10/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP11"
+      },
+      "part": {
+        "@id": "gh:Episode/EP11/part1"
+      },
+      "position": 1,
+      "wordCount": 166,
+      "readingUnits": 166,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep11/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP11"
+      },
+      "part": {
+        "@id": "gh:Episode/EP11/part2"
+      },
+      "position": 2,
+      "wordCount": 406,
+      "readingUnits": 406,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep11/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP11"
+      },
+      "part": {
+        "@id": "gh:Episode/EP11/part3"
+      },
+      "position": 3,
+      "wordCount": 460,
+      "readingUnits": 460,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep11/part3.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP12"
+      },
+      "part": {
+        "@id": "gh:Episode/EP12/part1"
+      },
+      "position": 1,
+      "wordCount": 124,
+      "readingUnits": 124,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": true,
+      "sourcePath": "251022/wattpad/episodes/ep12/part1.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP12"
+      },
+      "part": {
+        "@id": "gh:Episode/EP12/part2"
+      },
+      "position": 2,
+      "wordCount": 367,
+      "readingUnits": 367,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep12/part2.md"
+    },
+    {
+      "@type": "EpisodePart",
+      "episode": {
+        "@id": "gh:Episode/EP12"
+      },
+      "part": {
+        "@id": "gh:Episode/EP12/part3"
+      },
+      "position": 3,
+      "wordCount": 448,
+      "readingUnits": 448,
+      "language": "ja",
+      "beatsCount": 1,
+      "antagonistBlock": false,
+      "sourcePath": "251022/wattpad/episodes/ep12/part3.md"
+    }
+  ]
+}

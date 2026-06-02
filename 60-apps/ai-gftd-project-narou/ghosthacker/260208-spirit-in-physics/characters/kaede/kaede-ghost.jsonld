@@ -1,0 +1,85 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "Ghost": "gh:Ghost",
+    "Ability": "gh:Ability",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "ghostType": {
+      "@id": "gh:ghostType",
+      "@type": "xsd:string"
+    },
+    "master": {
+      "@id": "gh:master",
+      "@type": "@id"
+    },
+    "hasAbility": {
+      "@id": "gh:hasAbility",
+      "@type": "@id"
+    },
+    "appearance": {
+      "@id": "gh:appearance",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "ghost:yatagarasu",
+      "@type": [
+        "Person",
+        "Ghost"
+      ],
+      "name": "Yatagarasu",
+      "ghostType": "鳥類 / 情報収集特化型",
+      "description": "導きの神『八咫烏』の名を冠するベテランGhost。深層潜航・抽出・ステルスに長ける。",
+      "master": {
+        "@id": "character:kaede"
+      },
+      "hasAbility": [
+        {
+          "@id": "gh:Ability/DeepDive",
+          "@type": "Ability",
+          "name": "深層潜航",
+          "description": "暗号化・隔離領域へ潜入。"
+        },
+        {
+          "@id": "gh:Ability/DataExtraction",
+          "@type": "Ability",
+          "name": "情報抽出",
+          "description": "必要情報を高精度で抽出。"
+        },
+        {
+          "@id": "gh:Ability/Stealth",
+          "@type": "Ability",
+          "name": "ステルス",
+          "description": "存在痕跡を残さない活動。"
+        }
+      ],
+      "appearance": "漆黒の三本足の烏。冷静な眼。",
+      "fullText": "# Ghost: Yatagarasu (ヤタガラス)\n\n- **種別:** 鳥類 / 情報収集特化型\n- **所有者:** Kaede\n\n## 概要\nKaedeが長年育て上げてきた、彼女の右腕とも言えるベテランGhost。日本神話に登場する導きの神「八咫烏」の名を冠する通り、ネットワークという広大な荒野において、正確な情報を持ち帰るナビゲーターとしての役割を担う。\n\n## 能力・特性\n- **深層潜航 (Deep Dive):** 通常のGhostではアクセス不可能な、暗号化された深層ネットワークや隔離されたサーバー領域にさえ潜入する能力を持つ。\n- **情報抽出 (Data Extraction):** 膨大なデータの中から、Kaedeが必要とする情報だけを極めて高い精度でフィルタリングし、抽出することができる。\n- **ステルス機能:** 自らの存在を完全に隠蔽し、痕跡を残さずに情報収集活動を行う。\n- **忠誠心:** Kaedeに対して絶対的な忠誠を誓っており、彼女の命令であればどんな危険な任務も遂行する。\n\n## 外見\n漆黒の羽を持つ、三本足の烏の姿をしている。その目は常に冷静な光を宿しており、周囲の情報を余すところなく捉えている。普段はKaedeの肩に止まっているか、彼女のデバイスの中で待機している。"
+    }
+  ],
+  "gh:image": [
+    {
+      "@id": "gh:Image/Character/kaede/portrait_gen4"
+    }
+  ]
+}

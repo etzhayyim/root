@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "Ghost": "gh:Ghost",
+    "Ability": "gh:Ability",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "ghostType": {
+      "@id": "gh:ghostType",
+      "@type": "xsd:string"
+    },
+    "master": {
+      "@id": "gh:master",
+      "@type": "@id"
+    },
+    "hasAbility": {
+      "@id": "gh:hasAbility",
+      "@type": "@id"
+    },
+    "appearance": {
+      "@id": "gh:appearance",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "ghost:sudama",
+      "@type": [
+        "Person",
+        "Ghost"
+      ],
+      "name": "Sudama (スダマ)",
+      "ghostType": "精霊型 / 共感増幅型",
+      "description": "Aoiの純粋な魂に呼応して生まれた幼いGhost。木霊（すだま）に由来。",
+      "master": {
+        "@id": "character:aoi"
+      },
+      "hasAbility": [
+        {
+          "@id": "gh:Ability/EmotionVisualization",
+          "@type": "Ability",
+          "name": "感情の可視化",
+          "description": "感情を色として感じ取り伝達。"
+        },
+        {
+          "@id": "gh:Ability/PotentialGrowth",
+          "@type": "Ability",
+          "name": "成長性",
+          "description": "Aoiの成長に伴い能力が発達。"
+        },
+        {
+          "@id": "gh:Ability/PurityShield",
+          "@type": "Ability",
+          "name": "純粋性の盾",
+          "description": "悪意あるGhostの精神攻撃を無意識に弾くことがある。"
+        }
+      ],
+      "appearance": "淡い光に包まれた小さな子の姿。感情で光の色が変化し、Aoiの周囲を漂う。",
+      "fullText": "# Ghost: Sudama (スダマ)\n\n- **種別:** 精霊型 / 共感増幅型\n- **所有者:** Aoi\n\n## 概要\nGhost Hackerとしての一歩を踏み出したAoiの、純粋でまっすぐな魂に呼応して生まれたばかりの幼いGhost。日本の民間伝承に登場する、木や岩に宿る精霊「木霊（すだま）」に由来する。\n\n## 能力・特性\n- **感情の可視化 (Emotion Visualization):** 他のGhostや人間の感情を、オーラのような「色」として感じ取り、Aoiに伝える能力を持つ。ただし、まだ幼いため、その色の意味を正確に解釈することはできない。\n- **成長性 (Potential):** AoiのHackerとしての成長と経験を糧にして、Sudama自身も成長していく。将来的には、強力なヒーリング能力や防御能力に目覚める可能性を秘めている。\n- **純粋性の盾 (Purity Shield):** Aoiの純粋な心を守るように、悪意あるGhostからの精神攻撃を無意識に弾くことがある。\n\n## 外見\n淡い光に包まれた、小さな人の子のような姿をしている。性別や明確な特徴はなく、Aoiの感情 状態によって、その光の色や揺らぎが変化する。いつもAoiの周りをふわふわと漂っている。"
+    }
+  ]
+}

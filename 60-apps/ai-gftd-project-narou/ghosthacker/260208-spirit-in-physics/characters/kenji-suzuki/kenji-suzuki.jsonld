@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:kenji-suzuki",
+  "@type": "Person",
+  "name": "Kenji Suzuki",
+  "gh:callsign": "EVANGEL",
+  "gh:role": "Supporter",
+  "description": "46歳、男性、日本出身。鈴木大拙の伝統を継承するZen Evangelist。日本の「禅」というOSの仕様書を、世界に向けて公開した偉大なエバンジェリストの後継者。東洋のゴーストへの扉を開く。",
+  "age": 46,
+  "gender": "Male",
+  "nationality": "Japanese",
+  "occupation": "Zen Evangelist",
+  "memberOf": {
+    "@id": "organization:tol-zen"
+  },
+  "gh:theme": "ドキュメント、エバンジェリズム、扉を開く、世界への公開",
+  "fullText": "Kenji Suzukiは、鈴木大拙の伝統を継承する現代のZen Evangelist。callsignは「EVANGEL」。46歳の日本出身男性。日本の「禅」というOSの仕様書を、初めて世界に向けて英語で公開した偉大なエバンジェリストの後継者。彼の著作がなければ、西洋のハッカーたちが禅のソースコードにアクセスすることは、はるかに困難だっただろう。Kenjiは、東洋のゴーストへの扉を開き、異文化間での技術共有を促進する。"
+}

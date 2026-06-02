@@ -1,0 +1,179 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#"
+  },
+  "@id": "gh:ImageOntology",
+  "@type": "gh:Ontology",
+  "rdfs:comment": "Image asset ontology for Ghost Hacker. Defines classes and properties to describe character portraits and episode/part illustrations, with derivation from source images and technical metadata.",
+  "@graph": [
+    {
+      "@id": "gh:ImageAsset",
+      "@type": "rdfs:Class",
+      "rdfs:label": "Image Asset",
+      "rdfs:comment": "Generic image file asset (webp/png) with technical metadata and semantic links."
+    },
+    {
+      "@id": "gh:CharacterPortrait",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:label": "Character Portrait",
+      "rdfs:comment": "Portrait image primarily representing a single character."
+    },
+    {
+      "@id": "gh:EpisodeIllustration",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:label": "Episode Illustration",
+      "rdfs:comment": "Illustration image representing an episode (hero/OG)."
+    },
+    {
+      "@id": "gh:PartIllustration",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:label": "Part Illustration",
+      "rdfs:comment": "Illustration image representing an episode part (section/thumbnail)."
+    },
+    {
+      "@id": "gh:forCharacter",
+      "@type": "rdf:Property",
+      "rdfs:label": "forCharacter",
+      "rdfs:comment": "Link to represented character",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "schema:Person"
+      }
+    },
+    {
+      "@id": "gh:forEpisode",
+      "@type": "rdf:Property",
+      "rdfs:label": "forEpisode",
+      "rdfs:comment": "Link to represented episode",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "gh:Episode"
+      }
+    },
+    {
+      "@id": "gh:forPart",
+      "@type": "rdf:Property",
+      "rdfs:label": "forPart",
+      "rdfs:comment": "Link to represented episode part",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "gh:EpisodePart"
+      }
+    },
+    {
+      "@id": "gh:derivedFrom",
+      "@type": "rdf:Property",
+      "rdfs:label": "derivedFrom",
+      "rdfs:comment": "Source image the asset is derived from (e.g., original Gen4 png)",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "schema:MediaObject"
+      }
+    },
+    {
+      "@id": "gh:filePath",
+      "@type": "rdf:Property",
+      "rdfs:label": "filePath",
+      "rdfs:comment": "Repository-relative file path",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      }
+    },
+    {
+      "@id": "gh:format",
+      "@type": "rdf:Property",
+      "rdfs:label": "format",
+      "rdfs:comment": "Image file format (e.g., image/webp)",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      }
+    },
+    {
+      "@id": "gh:checksumSha256",
+      "@type": "rdf:Property",
+      "rdfs:label": "checksumSha256",
+      "rdfs:comment": "SHA-256 checksum of the binary file",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      }
+    },
+    {
+      "@id": "gh:colorTheme",
+      "@type": "rdf:Property",
+      "rdfs:label": "colorTheme",
+      "rdfs:comment": "Primary hex color (e.g., #0ea5e9)",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      }
+    },
+    {
+      "@id": "gh:styleTag",
+      "@type": "rdf:Property",
+      "rdfs:label": "styleTag",
+      "rdfs:comment": "Style/prompt tags (e.g., Gen4, Tokyo-healing, ghost-hacking)",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      }
+    },
+    {
+      "@id": "exif:width",
+      "@type": "rdf:Property",
+      "rdfs:label": "width",
+      "rdfs:comment": "Pixel width",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:integer"
+      }
+    },
+    {
+      "@id": "exif:height",
+      "@type": "rdf:Property",
+      "rdfs:label": "height",
+      "rdfs:comment": "Pixel height",
+      "rdfs:domain": {
+        "@id": "gh:ImageAsset"
+      },
+      "rdfs:range": {
+        "@id": "xsd:integer"
+      }
+    }
+  ]
+}

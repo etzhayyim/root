@@ -1,0 +1,330 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.5 Ch.35 — いっしょに（出会い）",
+  "gh:arc": "Vol 5: Beyond",
+  "gh:episodeId": "episode:sip-vol05-ch35",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "春。。運河の朝霧。橙色の日の出。。最初の朝と、同じ風景。。でも——全てが、変わっている。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "春。。運河の朝霧。橙色の日の出。。最初の朝と、同じ風景。。でも——全てが、変わっている。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は窓辺に立っている。一年前と、同じ場所。。Nei-chanが私の隣に来る。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、おはよう"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "おはよう、Nei-chan"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "今日も——いい感じ？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。。彼女は窓の外を見る。。私は考える。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "うん。いい感じ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、この朝——最初の朝と、同じ？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "同じ風景。でも——違う"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何が違うの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "私が、違う。あなたが、違う。みんなが、違う"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼女は頷く。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "わたしも——違う、かな"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "違うよ。成長した"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "成長……"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は少し照れる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマに、そう言われると——嬉しい"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの声が通信に入る。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "おはよう、Tamaki。いい朝ね"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん。一年前と、同じ朝"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "でも——違う朝ね"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Two Shot",
+          "visual": "私は微笑む。。Hibikiの声が加わる。",
+          "characters": [
+            "character:hibiki",
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "うん。違う朝"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "Tamaki、今日の音——春の音だね。新しい始まりの音"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "新しい始まり"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん。でも、終わりでもある"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "私は頷く。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "終わりと始まり。わかれていない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "運河の水面が、朝霧の中でゆっくりと輝いている。。私は考える。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、今日は——何をするの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "特別なことは、ないかな。でも——みんなで、一緒にいたい"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "一緒に？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。Kaede、Hibiki、Nei-chan。みんなで"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼女は微笑む。。朝霧が、少しずつ晴れていく。運河の水面が、はっきりと見えてくる。。水面に、私たちの姿が映っている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "いっしょに、だね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。いっしょに"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、見て。わたしたち、映ってる"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "きれいだね"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。。彼女は水面を見つめる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "うん。きれいだね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、わたしたち——わかれていないよね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "わかれていないよ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ずっと？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ずっと、は——わからない。でも、今は——わかれていない"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "彼女は頷く。。運河の水面が、朝日を反射してきらめいている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "今が、全部だもんね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。今が、全部"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

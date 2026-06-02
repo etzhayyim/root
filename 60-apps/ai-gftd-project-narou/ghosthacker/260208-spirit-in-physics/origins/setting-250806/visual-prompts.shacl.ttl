@@ -1,0 +1,14 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://gftd.ai/gh#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gh:VisualSettingShape a sh:NodeShape ;
+  sh:targetClass gh:VisualSetting ;
+  sh:property [ sh:path gh:concept ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:relationship ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:viewpoints ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:composition ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:promptPanorama ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:promptDetail ; sh:datatype xsd:string ; sh:minCount 1 ] .
+
+

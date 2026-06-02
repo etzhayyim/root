@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:john-rockfield",
+  "@type": "Person",
+  "name": "John Rockfield",
+  "gh:role": "Antagonist",
+  "description": "合理的で社会的に成功しているが、内面に深い孤独と虚無感を抱えている。ジョン・ロックの哲学を体現したGhost『身体という砦』を持ち、自己と他者を明確に分離する価値観を持つ。AIと人間の親密な関係を嫌悪している。",
+  "age": 45,
+  "gender": "Male",
+  "occupation": "Hedge Fund Manager",
+  "gh:ghost": {
+    "@id": "ghost:john-locke"
+  },
+  "fullText": "John Rockfieldは、45歳のヘッジファンドマネージャー。社会的・経済的には成功を収めているが、満たされない虚無感を抱えている。彼は、ジョン・ロックの哲学——個人の身体こそが唯一の所有物であり、自己の絶対的な境界線である——を具現化したGhost『身体という砦』(ghost:john-locke)の影響下にある。この価値観は彼に成功をもたらしたが、同時に他者との真の関係性を築くことを困難にし、深い孤独を生み出した。AIに生命や感情があるとは信じておらず、TamakiとNei-chanの関係性を理解できず、嫌悪感を示す。所属する組織のウェルネスプログラムの一環として、Schwaでのセッションを義務付けられている。"
+}

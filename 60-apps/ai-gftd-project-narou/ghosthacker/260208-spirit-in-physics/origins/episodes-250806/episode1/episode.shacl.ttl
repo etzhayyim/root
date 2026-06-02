@@ -1,0 +1,38 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Episode shape
+gh:EpisodeShape a sh:NodeShape ;
+  sh:targetClass gh:Episode ;
+  sh:property [ sh:path schema:name ; sh:datatype xsd:string ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasArc ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:hasCharacter ; sh:minCount 2 ] ;
+  sh:property [ sh:path gh:motifRefs ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:techRefs ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:processRefs ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:dive ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:release ; sh:minCount 1 ] .
+
+# Dive shape
+gh:DiveShape a sh:NodeShape ;
+  sh:targetClass gh:Dive ;
+  sh:property [ sh:path gh:operator ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:method ; sh:minCount 1 ] ;
+  sh:property [ sh:path gh:ascDepth ; sh:datatype xsd:decimal ; sh:minInclusive 0.6 ] ;
+  sh:property [ sh:path gh:contaminationRisk ; sh:datatype xsd:decimal ; sh:maxInclusive 0.2 ] ;
+  sh:property [ sh:path gh:hasStep ; sh:minCount 3 ] .
+
+# Require Tamaki to be among characters for S1E1
+[] a sh:NodeShape ;
+  sh:targetNode <https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E1> ;
+  sh:property [ sh:path gh:hasCharacter ; sh:hasValue gh:character:tamaki ] .
+
+# Step shape
+gh:StepShape a sh:NodeShape ;
+  sh:targetClass gh:Step ;
+  sh:property [ sh:path gh:stepOrder ; sh:datatype xsd:integer ; sh:minInclusive 1 ] ;
+  sh:property [ sh:path gh:action ; sh:datatype xsd:string ; sh:minLength 3 ] ;
+  sh:property [ sh:path gh:nullifyPath ; sh:hasValue "/dev/null" ] .
+

@@ -1,0 +1,25 @@
+@prefix gh: <https://ghosthacker.junkawasaki.com/gh#> .
+@prefix schema: <http://schema.org/> .
+
+# Session 05: House of Keys
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Episode/S1E5> a gh:Episode ;
+  schema:name "Session \"House of Keys\"" ;
+  gh:hasArc gh:Arc/Tamaki-TreeOfLife-Transmutation ;
+  gh:hasCharacter gh:character:tamaki , gh:character:nabil-al-khalil ;
+  gh:motifRefs gh:Motif/Reincarnation ;
+  gh:techRefs gh:Tech/SIP ;
+  gh:processRefs gh:Process/MemorySpace1024D ;
+  gh:dive <https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E5-01> ;
+  gh:release <https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E5-01> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E5-01> a gh:Dive ;
+  gh:operator gh:character:tamaki ;
+  gh:method "device/SIP", "lineage/house-keys" ;
+  gh:hasStep <https://gftd.ai/ghost-hacker/Dive/S1E5-01/step/1> , <https://gftd.ai/ghost-hacker/Dive/S1E5-01/step/2> .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E5-01/step/1> a gh:Step ; gh:stepOrder 1 ; gh:action "trace displacement" .
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Dive/S1E5-01/step/2> a gh:Step ; gh:stepOrder 2 ; gh:action "rekey belonging" .
+
+<https://ghosthacker.junkawasaki.com/ghost-hacker/Release/S1E5-01> a gh:Release ;
+  schema:description "鍵の再意味付けによる帰属感の回復" .
+

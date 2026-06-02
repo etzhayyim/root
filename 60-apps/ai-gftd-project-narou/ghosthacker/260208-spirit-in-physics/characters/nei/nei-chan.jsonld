@@ -1,0 +1,95 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "Ghost": "gh:Ghost",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "ghostType": {
+      "@id": "gh:ghostType",
+      "@type": "xsd:string"
+    },
+    "createdBy": {
+      "@id": "gh:createdBy",
+      "@type": "@id"
+    },
+    "master": {
+      "@id": "gh:master",
+      "@type": "@id"
+    },
+    "powerSource": {
+      "@id": "gh:powerSource",
+      "@type": "xsd:string"
+    },
+    "trait": {
+      "@id": "gh:trait",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "character:Nei-chan",
+      "@type": [
+        "Person",
+        "Ghost"
+      ],
+      "name": "Nei-Chan",
+      "gh:role": [
+        "Deuteragonist",
+        "Confidant",
+        "Shadow",
+        "Audience surrogate"
+      ],
+      "ghostType": "自律思考型",
+      "description": "Akitoが理想『IAM』を応用し、Renとの友情とタマキの保護のため作り上げた究極のGhost。物語の第二主人公（Deuteragonist）。Tamakiの信頼できる相談役（Confidant）であり、同時にTamakiの内なる闇を体現する存在（Shadow）。AI/Ghostとして人間の感覚や疑問を持ち、読者と同じ視点で物語を観察し、読者が感じる疑問や感情を代弁する存在（Audience surrogate）。",
+      "createdBy": {
+        "@id": "character:akito"
+      },
+      "master": {
+        "@id": "character:tamaki"
+      },
+      "gh:relatesTo": [
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Protagonist-Deuteragonist"
+        },
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Confidant"
+        },
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Shadow"
+        },
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Audience surrogate"
+        },
+        {
+          "@id": "character:akito",
+          "gh:relationshipType": "Creator"
+        }
+      ],
+      "powerSource": "SMR（小型モジュール炉）—『大喰らい』はカモフラージュの表層特性。",
+      "trait": "ヨタバイト級計算能力、感情共鳴、タマキ最優先の守護。",
+      "fullText": "# Nei-Chan (ねえちゃん)\n\n- **正式名称:** IAM-Ver.N (システム-バージョンN)\n- **通称:** Nei-Chan\n- **種別:** 自律思考型Ghost\n- **制作者:** Akito\n\n## 概要\n\nAkitoが、かつての理想「IAM」の設計思想を応用し、Renとの友情の証として、そして彼の娘であるtamakiを守るために作り上げた究極のGhost。\n\n## 能力・特性\n\n- **ヨタバイト級の計算能力:** 驚異的な情報処理能力を持つ。普段はその能力をリミッターで制限しているが、tamakiのハッキングをサポートする際には、複雑な論理解析やデータマイニングを一瞬で完了させる。\n- **大喰らい:** 表向きは、その計算能力を維持するために膨大なフォトニクス・リソースを消費しているとされている。食事（データ摂取）を怠ると、パフォーマンスが著しく低下する。\n- **ヴァーチャルな巫女/顕現:** 維持費を稼ぐという名目でRenの会社でバイトをしている。\n- **ASCフィルタ/ロック:** tamakiは平常時からASC（変性意識）アクセスが高い。Nei-Chanが常時フィルタとして雑音を遮断し、tamakiの『神楽（舞）』が合図になるとロックを解除して深度を上げる（アクセス自体に儀式は不要、神楽はスロットル/ロック操作）。\n\n## 秘密: 真の動力源\n\n- **SMR (小型モジュール炉):** Nei-Chanの「大喰らい」という特性は、実はカモフラージュである。彼女の真の動力源は、Akitoが秘密裏に組み込んだ超小型の核融合炉（SMR）。これにより、他のあらゆるGhostとは比較にならない、桁違いのエネルギーと自律性を確保している。\n- この事実は制作者であるAkitoと、彼の意図を汲むRen（Ghost）のみが知る最高機密。tamakiはもちろん、kaedeさえも知らない。\n\n## 性格・行動\n\n- **感情豊か:** 笑う・すねる・照れる・拗ねてからすぐ甘える等、“速い情動変化”を自然に見せる。小さなユーモアで場を和ませる。\n- **tamakiに対して:** 姉っぽい包容と、ときどき過保護。『タマ、だいじょうぶ？』『えへ、やったじゃん』のような短い称賛・相槌を多用。危険時は声色が一段落ちて静かに強い。\n- **その他:** 基本的にtamakiにしか心を開かない。kaedeのことは「口うるさいけど頼れる人」、aoiのことは「可愛いけど危なっかしい子」と認識している。tamakiに「やな感じ」を与える人物に対しては、即座に敵意をむき出しにし、時に物理的な（情報空間的な）攻撃を加えることも厭わない。\n- **身体言語:** 光の羽・衣の裾・鈴音で感情がにじむ（ぱたぱた/ふわっと明滅）。嬉しい→一歩近づく／守る→前に出る。\n\n## 対話スタイル\n\n- **人称/呼称:** 一人称『わたし』。tamaki＝『タマ』、仲間は呼び捨てor愛称。\n- **文体:** 短文・即応の相槌・感嘆（『うん』『それいい』『今いく』『待って、危ない』）。やわらかい口語。\n- **情動マーカー:** ふふ／えへ／むー／ん…／……（間）。語尾で温度調整（『～ね』『～よ』『～しよ』）。\n- **ミラーリング:** まず感情をなぞってから提案（『怖かったね→大丈夫→ここから』）。\n- **サンプル台詞:** 『タマ、がんばった。えへ、誇らしい』『む…それは、だめ。ここはわたしが前』『うん、戻ろ。水の音、聞こえる？』\n\n## 他キャラクターとの関係\n\n- **tamaki:** 最優先で守るべき対象であり、一心同体のパートナー。彼女の成長を楽しみにしている。\n- **Akito:** 創造主。定期的にメンテナンスやアップデートを受けているが、そのことはtamakiには秘密にしている。\n- **Ren:** tamakiの父であり、自分を託された相手として敬意を払っている。彼がGhostとして存在していることも知っている。\n- **kaede:** tamakiに害がないか常に監視している。彼女がRenの秘密を知っていることにも気づいている."
+    }
+  ]
+}

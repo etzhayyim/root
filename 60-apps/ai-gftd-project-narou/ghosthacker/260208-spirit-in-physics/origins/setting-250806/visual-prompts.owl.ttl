@@ -1,0 +1,15 @@
+@prefix gh: <https://gftd.ai/gh#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gh:VisualSetting a rdfs:Class ; rdfs:label "Visual Setting"@en .
+
+gh:concept a rdf:Property ; rdfs:domain gh:VisualSetting ; rdfs:range xsd:string .
+gh:relationship a rdf:Property ; rdfs:domain gh:VisualSetting ; rdfs:range xsd:string .
+gh:viewpoints a rdf:Property ; rdfs:domain gh:VisualSetting .
+gh:composition a rdf:Property ; rdfs:domain gh:VisualSetting ; rdfs:range xsd:string .
+gh:promptPanorama a rdf:Property ; rdfs:domain gh:VisualSetting ; rdfs:range xsd:string .
+gh:promptDetail a rdf:Property ; rdfs:domain gh:VisualSetting ; rdfs:range xsd:string .
+
+

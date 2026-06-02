@@ -1,0 +1,591 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.2 Ch.9 — 身体という境界",
+  "gh:arc": "Vol 2: Dependency",
+  "gh:episodeId": "episode:sip-vol02-ch09",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "二度目のセッション。。今日は——水の都に彼を招いた。私のアパートメント。窓の外に、運河が見える。。Lachlanは窓際に立っていた。運河を見下ろしている。",
+          "characters": [
+            "character:lachlan",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……水が、ある"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ええ。運河です"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "地球には——水が多い"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうですね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "宇宙から見ると——青い。水の惑星"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私はソファに座り、彼を見ていた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "軌道上では——水は貴重でしたか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "リサイクルされる。汗も、尿も——すべて、水に戻る"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "それは——閉じた系ですね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうだ。完全に閉じた系。外部との交換は——最小限に"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼は窓から離れ、私の向かいに座った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私は——閉じた系が好きだ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "どうして？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "予測可能だから。入力と出力が——計算できる"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "私は頷いた。。彼の目が、少し曇った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "では——人間関係は、どうですか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "人間関係は——予測できない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "だから——避けている？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "長い沈黙。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……避けている"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私の隣に座っている。彼女は黙って、Lachlanを見ていた。",
+          "characters": [
+            "character:lachlan",
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "Lachlan"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "あなたは——自分の身体だけが自分だと言いましたね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうだ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "\"私の身体\"——どこからどこまでですか"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は少し驚いた顔をした。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……皮膚だ。皮膚が、境界だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "皮膚"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そうだ。皮膚の内側が私で、外側は他者だ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は彼を見た。。私はテーブルの上のコップを指差した。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "では——質問です"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "この水は——あなたですか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "違う。当然だ"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑んだ。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "一口、飲んでみてください"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼は少し躊躇した。でも——やがて、コップを手に取り、水を飲んだ。。沈黙。。彼の額に、皺が寄った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "飲みました"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "はい。では——その飲んだ水は、あなたですか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……違う、と思う"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "どこにありますか、今"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……胃の中だ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "胃は——あなたの身体の一部ですか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……そうだ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "では——胃の中の水は、あなたですか"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "沈黙が、長く続いた。。Nei-chanが私の肩で、息を潜めている。。彼はコップを持ち上げた。唇に触れる。。その瞬間、私は問うた。。彼の時間が、止まった。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "もう一口——どうぞ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "その水は——『どこからどこまで』があなたですか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "唇はコップに触れたまま。数秒——永遠のように長い。。やがて、彼はコップを置いた。両手を組む。。声が、震えていた。。私は視線を外さなかった。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……わからない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "わからない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "そう。わからない。——分けることは、できないんです"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "分けることが——できない？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ええ。水と、あなたを。——境界は、曖昧です"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は自分の手を見た。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……私は、ずっと——境界を引いてきた"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "皮膚が境界だと。それ以外は、他者だと"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも——"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Close-up",
+          "visual": "彼の目が、私を見た。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "水と——わかれていない？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ええ。わかれていません"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 8,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "沈黙が流れた。。窓の外で、風が吹いた。運河の水面が、小さく揺れた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "もしかして——私は、水と……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "水と？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……一つなのか"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑んだ。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "そうかもしれません"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "いや、しかし——"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "論理的じゃない——と言いたいですか"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 9,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼は黙った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "論理は——大事です。でも、論理だけでは——説明できないこともある"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "説明できないこと？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ええ。たとえば——今、あなたが感じていること"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は自分の胸に手を当てた。。長い沈黙。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……感じている？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何か——ありませんか。胸の奥に"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……ある"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何ですか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……わからない。でも——何かが、動いている"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 10,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが小さく微笑んだ。。私は頷いた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ……彼の呼吸、深くなってきた"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "今日は——ここまでにしましょう"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "もう——終わりか"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "はい。また——話しましょう"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は立ち上がった。窓の外を見た。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "……水が、きれいだ"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "ええ。きれいです"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "私は——水を、見ていなかった"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "どういう意味ですか"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "ただの——H2Oだと思っていた。でも——今は、違って見える"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 11,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は微笑んだ。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "それは——いいことですね"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

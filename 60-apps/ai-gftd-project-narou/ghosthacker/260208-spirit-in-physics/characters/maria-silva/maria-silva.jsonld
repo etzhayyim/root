@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:maria-silva",
+  "@type": "Person",
+  "name": "Maria Silva",
+  "gh:callsign": "PLANTCODE",
+  "gh:role": "Supporter",
+  "description": "34歳、女性、ペルー出身。アマゾンのシャーマンの伝統を継承するEthnobotanist。植物の「コード」を読み解き、意識のネットワークとの接続を実現する。",
+  "age": 34,
+  "gender": "Female",
+  "nationality": "Peruvian",
+  "occupation": "Ethnobotanist",
+  "memberOf": {
+    "@id": "organization:tol-amazon"
+  },
+  "gh:theme": "植物コード、意識ネットワーク、自然との接続",
+  "fullText": "Maria Silvaは、アマゾンのシャーマンの伝統を継承する現代のEthnobotanist。callsignは「PLANTCODE」。34歳のペルー出身女性。植物の「コード」を読み解き、意識のネットワークとの接続を実現する。Mariaは、Carlos Santosと共に、南米の伝統的な植物療法を現代のGhost Hacking技術と融合させている。彼女は特に、アマゾンの多様な植物種の特性を理解し、各Ghostの個別のニーズに応じた「ソフトウェア」を選択する。"
+}

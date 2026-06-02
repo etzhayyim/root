@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:oliver-watts",
+  "@type": "Person",
+  "name": "Oliver Watts",
+  "gh:callsign": "TRANSLATOR",
+  "gh:role": "Supporter",
+  "description": "44歳、ノンバイナリー、イギリス出身。アラン・ワッツの伝統を継承するInterpreter of Zen。鈴木大拙が開いた扉を通り、東洋思想、特に「禅」のカーネルロジックを西洋のOSでも理解可能な言語に翻訳した、天才的なリバースエンジニア。",
+  "age": 44,
+  "gender": "Non-binary",
+  "nationality": "British",
+  "occupation": "Interpreter of Zen",
+  "memberOf": {
+    "@id": "organization:tol-zen"
+  },
+  "gh:theme": "翻訳、リバースエンジニアリング、ファイアウォール越え、異文化理解",
+  "fullText": "Oliver Wattsは、アラン・ワッツの伝統を継承する現代のInterpreter of Zen。callsignは「TRANSLATOR」。44歳のノンバイナリー、イギリス出身。鈴木大拙が開いた扉を通り、東洋思想、特に「禅」のカーネルロジックを西洋のOSでも理解可能な言語に翻訳した、天才的なリバースエンジニア。Oliverは、ロジックという名のファイアウォールを越えてみせた。彼らは、異文化間の技術共有を促進し、西洋と東洋のハッキング手法を橋渡しする。"
+}

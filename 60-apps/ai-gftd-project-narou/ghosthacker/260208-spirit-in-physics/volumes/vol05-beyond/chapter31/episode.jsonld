@@ -1,0 +1,356 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.5 Ch.31 — 月と水面（余韻）",
+  "gh:arc": "Vol 5: Beyond",
+  "gh:episodeId": "episode:sip-vol05-ch31",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "月が、少しずつ沈んでいく。。水面の月も、一緒に沈んでいく。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、月が——沈むよ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "寂しくない？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "また、明日も昇る。月は、いつもそこにある"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "見えなくても——ある？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。Nei-chanが教えてくれたこと、覚えてる？ 星も、見えなくてもある"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "彼女は頷く。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "じゃあ——タマの見えない部分も、いつもある？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。いつも、ここにある"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は、最後にもう一度、水面の自分を見る。。水面の私が、小さく頷く。。風が吹いて、水面が揺れる。私の姿が、ゆらゆらと揺れる。。でも、消えない。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "ありがとう"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "また、話そう"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの声が通信に入る。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "Tamaki……いい夜だったね"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "うん"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "自分と向き合うのは——勇気がいること"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Two Shot",
+          "visual": "Hibikiの声が加わる。。私は頷く。",
+          "characters": [
+            "character:hibiki",
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "でも、Tamakiは——いつも他者と向き合ってきた。今夜は、自分と向き合った"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "同じことなのかもしれない"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "同じ？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "他者と向き合うことと、自分と向き合うこと。わかれていない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私の手を握る。。私は考える。",
+          "characters": [
+            "character:nei",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、今——どう感じる？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……軽い。でも、深い"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "変な感じ？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は笑う。。彼女も笑う。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "うん。でも、いい感じ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "じゃあ、いい感じだね！"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "空が、少しずつ白み始めている。月が沈んで、星が消えていく。。私は立ち上がる。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "タマ、次は——何をするの？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "次も——いい感じから始める"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "それって——答えになってないよ"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑む。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "でも、それが——全てなんだ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "私は手帳を取り出し、今日の一行を書く。。ページを閉じる。。夜明けの光が、運河を照らし始めている。水面が、オレンジ色に染まっていく。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "他者を癒すことは、自分を癒すこと。わかれていない"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ、きれい"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "うん。きれいだね"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私たちは、夜明けの運河を見つめている。。月は沈んだ。でも、太陽が昇る。。終わりは、始まり。。わかれていない。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "私たちは、夜明けの運河を見つめている。。月は沈んだ。でも、太陽が昇る。。終わりは、始まり。。わかれていない。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は笑う。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "帰ろうか、Nei-chan"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん！ おなかすいた"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "朝ごはん、何がいい？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "卵焼き！"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "了解"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私たちは、家に向かって歩き始める。。運河の水面が、朝日を反射してきらめいている。。次も、いい感じから始めよう。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "私たちは、家に向かって歩き始める。。運河の水面が、朝日を反射してきらめいている。。次も、いい感じから始めよう。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 8,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "**[手帳の一行: 他者を癒すことは、自分を癒すこと。わかれていない]**",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "**[手帳の一行: 他者を癒すことは、自分を癒すこと。わかれていない]**"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

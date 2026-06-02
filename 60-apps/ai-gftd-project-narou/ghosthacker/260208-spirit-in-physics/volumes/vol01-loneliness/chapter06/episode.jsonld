@@ -1,0 +1,702 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.1 Ch.6 — 輪廻の恐怖",
+  "gh:arc": "Vol 1: Loneliness",
+  "gh:episodeId": "episode:sip-vol01-ch06",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "翌週。。Soraは約束通り、またやって来た。。前回よりも、少しだけ——顔色が良くなっているように見えた。目の下の影は、まだ残っているけれど。。彼はリビングに入り、前回と同じソファに座った。窓の外を見る。今日も夕暮れ時だ。運河が、オレンジ色に染まっている。",
+          "characters": [
+            "character:sora",
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "いらっしゃい、Soraさん"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……どうも"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "少し——眠れましたか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……少しだけ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "よかった"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は向かいに座った。Nei-chanが私の隣に来て、小さく座る。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "私は向かいに座った。Nei-chanが私の隣に来て、小さく座る。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "沈黙が流れた。。でも、前回のような重い沈黙ではなかった。少しだけ——柔らかい。。彼が口を開いた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私——この一週間、考えていました"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何を？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "あなたが言った言葉。『星も、いつかは消える』って"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は頷いた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……本当に、そうなんですか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "本当ですよ。星にも——寿命があります"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "寿命……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何十億年という——長い時間だけど。でも、いつかは——燃え尽きる"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "彼は窓の外を見た。まだ明るくて、星は見えない。。彼は黙った。何かを考えているようだった。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "永遠じゃ——ないんですね"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "永遠のものなんて——ないんですよ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……でも"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "私の恐怖は——消えないんです"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は彼を見た。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "もう少し——詳しく聞かせてください"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "詳しく？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "あなたの恐怖。——何が、一番怖いですか？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は少し考えた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……繰り返すこと、だと思います"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "繰り返すこと"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ええ。同じことを——何度も、何度も。永遠に"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "同じこと——というのは？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "生まれて、生きて、死んで。また生まれて、生きて、死んで——"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "彼の声が、少し震えた。。私は黙って聞いていた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "終わりがないんです。どこにも——ゴールがない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "人生の意味って——何なんでしょうか"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "意味？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ええ。もし、永遠に繰り返すなら——一つの人生に、意味なんてあるんでしょうか"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "彼の目が、私を見た。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私は——そう思えないんです。だから——怖い"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Nei-chanが私の膝の上で、小さく動いた。。私は彼に聞いた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ……彼、人生の意味が見つからないんだ"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "Soraさん"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……はい"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "あなたは——何のために、生きていますか？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は驚いた顔をした。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "……何のため？"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "はい"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……わかりません。それが——問題なんです"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "わからない"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "ええ。目標もない。夢もない。ただ——惰性で、生きているだけ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼は窓の外を見た。夕陽が沈み始めている。。私は少し考えた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "だから——永遠が、怖いんです。目的もなく——ただ、続いていくことが"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "Soraさん"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……はい"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "『同じ廊下を歩いている』——そう言いましたよね。前回"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……ええ"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "同じ扉、同じ窓、同じ光。どこまで進んでも——景色が変わらない"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "はい"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "それは——夢の中で？"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "夢でも——起きていても。いつも、そんな感覚なんです"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は窓際に立った。運河を見下ろす。。彼が顔を上げた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "その廊下を歩いているのは——誰ですか？"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……私、です"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "その『私』は——ずっと同じ人？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "沈黙が流れた。。窓の外で、鳥が飛んでいった。夕陽を背に、黒いシルエット。。彼の声は、小さかった。。私は彼を見た。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……同じ、です"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ずっと——同じ私が、歩き続ける"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "本当に——同じですか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……え？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "一年前の Sora さんと、今の Sora さん。同じですか？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は少し考えた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……同じ、だと思います"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "十年前は？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "子供の頃は？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 8,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼は黙った。何かに気づいたような顔。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……違う、かもしれません"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "どう違いますか？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "子供の頃の私は——もっと、無邪気だった。祖母が死ぬ前は"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "じゃあ——祖母が亡くなった後は？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "……変わりました。恐怖を——抱えるようになった"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は頷いた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "Soraさん——あなたは、変わっているんです"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "変わっている？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "ずっと同じ廊下を歩いているように見えて——あなた自身が、少しずつ変わっている"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 9,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "彼は窓の外を見ていた。。夕陽が沈み、空が紫色に染まっている。最初の星が、一つ見え始めた。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……変わっている"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "はい。同じ廊下に見えても——歩いているあなたは、同じじゃない"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも——"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "同じ人生を繰り返すとしても——あなた自身が変わっていれば、それは——同じ人生じゃない"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼は黙った。長い沈黙。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "……考えたことが、なかった"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "何を？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "『私』が——変わっているということを"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 10,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "私は彼の隣に座った。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "私たちは——常に変化しています。昨日の私と、今日の私は——違う"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "違う？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "はい。経験が増える。記憶が増える。考え方が変わる。——少しずつ、少しずつ"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "でも——それなら"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "それなら？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "永遠に繰り返しても——同じ繰り返しには、ならない？"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は微笑んだ。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "そうかもしれませんね"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 11,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "Nei-chanが小さく呟いた。。彼の目が、少し——変わっていた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ……彼、何か——気づき始めてる"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……不思議です"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "何が？"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "今——少しだけ、楽になった気がします"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "よかった"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "でも——まだ、怖いんです"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "うん。それは——簡単には消えないから"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は立ち上がった。。彼は頷いた。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "今日は——ここまでにしましょう。また、来てください"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "……また、来ます"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "ゆっくり、進みましょう"
+            }
+          ]
+        },
+        {
+          "panel": 3,
+          "shot": "Medium Shot",
+          "visual": "彼は立ち上がって、窓の外を見た。星が、少しずつ増えている。。彼は小さく笑った。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "……星が——前より、きれいに見えます"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "それは——いいことですね"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "ありがとう、Tamakiさん"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

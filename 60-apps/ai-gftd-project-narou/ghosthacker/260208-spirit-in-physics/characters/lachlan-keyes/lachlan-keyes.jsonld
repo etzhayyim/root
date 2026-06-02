@@ -1,0 +1,21 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:lachlan-keyes",
+  "@type": "Person",
+  "name": "Lachlan Keyes",
+  "gh:role": "Antagonist",
+  "description": "合理的で、感情をリスク要因と見なす軌道上施設のセキュリティアーキテクト。ジョン・ロックの哲学を体現したGhost『分離と自己所有の論理』を持つ。",
+  "age": 42,
+  "gender": "Male",
+  "nationality": "Australian",
+  "occupation": "Orbital Facilities Security Architect",
+  "gh:ghost": {
+    "@id": "ghost:john-locke"
+  },
+  "fullText": "Lachlan Keyesは、42歳のオーストラリア人男性。軌道上施設のセキュリティアーキテクトとして、宇宙空間という究極の「分離」環境で物理的・デジタル的な境界線を設計する専門家。彼の哲学はジョン・ロックに根ざしており、「自己の身体こそが唯一管理できる領域である」という信念を持つ。極めて合理的で、感情をリスク要因と見なす。TamakiとNei-chanの「わかれていない」関係性を非論理的で危険なものと捉え、嫌悪感を示す。軌道上での長期任務による精神的ストレスのケアプログラムの一環で、Schwaのセッションを受ける。"
+}

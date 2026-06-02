@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "Ghost": "gh:Ghost",
+    "Ability": "gh:Ability",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "ghostType": {
+      "@id": "gh:ghostType",
+      "@type": "xsd:string"
+    },
+    "master": {
+      "@id": "gh:master",
+      "@type": "@id"
+    },
+    "hasAbility": {
+      "@id": "gh:hasAbility",
+      "@type": "@id"
+    },
+    "appearance": {
+      "@id": "gh:appearance",
+      "@type": "xsd:string"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "ghost:kageboushi",
+      "@type": [
+        "Person",
+        "Ghost"
+      ],
+      "name": "Kageboushi (カゲボウシ)",
+      "ghostType": "感情投影型",
+      "description": "Akitoの喪失感と後悔が無意識に形となったGhost。Akito自身の影法師であり、封印した情熱や悲しみの化身。",
+      "master": {
+        "@id": "character:akito"
+      },
+      "hasAbility": [
+        {
+          "@id": "gh:Ability/FormMimicry",
+          "@type": "Ability",
+          "name": "形態模倣 (Form Mimicry)",
+          "description": "Akitoの感情に呼応し、記憶の人物や風景、抽象イメージを断片的に映し出す。若き日のRenの姿をとることが多い。"
+        },
+        {
+          "@id": "gh:Ability/NonInterference",
+          "@type": "Ability",
+          "name": "無干渉",
+          "description": "外界に物理・情報的干渉を行わない。傍らに在り、心を映す鏡として機能する。"
+        },
+        {
+          "@id": "gh:Ability/Uncontrollable",
+          "@type": "Ability",
+          "name": "制御不能",
+          "description": "AkitoもこのGhostを明確に認識できず、意図的制御はできない。睡眠や深い思索時にふと現れる。"
+        }
+      ],
+      "appearance": "定まった姿を持たない黒い影。輪郭は揺らぎ、人型やノイズのように掻き消える。声は発さないが存在自体が感情を物語る。",
+      "fullText": "# Ghost: Kageboushi (カゲボウシ)\n\n- **種別:** 不定形 / 感情投影型\n- **所有者:** Akito\n\n## 概要\n兄弟Renを失った（と思っている）Akitoの、深い喪失感、後悔、そしてRenへの断ち切れない想いが無意識のうちに形となったGhost。それはAkito自身の「影法師」であり、彼が封印した情熱や悲しみの化身でもある。\n\n## 能力・特性\n- **形態模倣 (Form Mimicry):** Akitoの感情に呼応し、彼の記憶の中にある人物や風景、あるいは抽象的なイメージを断片的に映し出す。特に、若き日のRenの姿をとることが多い。\n- **無干渉:** 基本的に外部の世界に物理的・情報的な干渉を行うことはない。ただ、Akitoの傍らに存在し、彼の心を映し出す鏡として機能する。\n- **制御不能:** Akito自身も、このGhostの存在を明確には認識しておらず、意図的に制御することはできない。Kageboushiは、Akitoが眠っている時や、深く物思いに沈んでいる時に、ふと姿を現す。\n\n## 外見\n定まった姿を持たない、黒い影そのもの。輪郭は常に揺らいでおり、時に人型になったり、ノイズのように掻き消えたりする。声を発することはないが、その存在自体が、Akitoの言葉にならない感情を雄弁に物語っている。"
+    }
+  ]
+}

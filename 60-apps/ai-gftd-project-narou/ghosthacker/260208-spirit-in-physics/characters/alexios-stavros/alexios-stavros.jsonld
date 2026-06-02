@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:alexios-stavros",
+  "@type": "Person",
+  "name": "Alexios Stavros",
+  "gh:callsign": "LOGOS",
+  "gh:role": "Supporter",
+  "description": "45歳、ノンバイナリー、ギリシャ出身。プロセス哲学者。ヘラクレイトスの伝統を継承し、「万物は流転する」と看破する。現実が静的なものではなく、絶えず変化するプロセス（実行中のプログラム）であることを見抜き、その変化を支配する根源的な論理（ロゴス）の存在を指摘する。",
+  "age": 45,
+  "gender": "Non-binary",
+  "nationality": "Greek",
+  "occupation": "Process Philosopher",
+  "memberOf": {
+    "@id": "organization:tol-hermeneutics"
+  },
+  "gh:theme": "プロセス哲学、変化、ロゴス、OSのカーネル構造",
+  "fullText": "Alexios Stavrosは、ヘラクレイトスの伝統を継承する現代のプロセス哲学者。callsignは「LOGOS」。45歳のノンバイナリー、ギリシャ出身。「万物は流転する」と看破し、現実が静的なものではなく、絶えず変化するプロセス（実行中のプログラム）であることを見抜いた。彼は、その変化を支配する根源的な論理（ロゴス）の存在を指摘し、OSのカーネル構造を初めて推論した。Alexiosは、Ghostの構造も絶えず変化するプロセスとして理解し、静的な「修復」ではなく、流れに沿った「最適化」を提唱する。"
+}

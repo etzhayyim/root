@@ -1,0 +1,38 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.server
+      target: development
+    env_file:
+      - .env
+    environment:
+      - PORT=8081
+      - SERVER_URL=http://localhost:8081
+      - WORKSPACE_ROOT=/workspace
+      - PROJECT_DIR=${PROJECT_DIR:-260123-jump}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./server:/app
+      - ..:/workspace
+
+  frontend:
+    build:
+      context: ./web
+      dockerfile: ../Dockerfile.frontend
+      target: development
+    env_file:
+      - .env
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8081
+      - VITE_OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    ports:
+      - "1421:1421"
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+      - ./resources:/app/src/lib/resources
+    depends_on:
+      - server

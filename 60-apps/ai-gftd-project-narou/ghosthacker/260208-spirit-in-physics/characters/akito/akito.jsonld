@@ -1,0 +1,109 @@
+{
+  "@context": {
+    "@base": "https://gftd.ai/ghost-hacker/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "gh": "https://gftd.ai/gh#",
+    "Person": "https://schema.org/Person",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "alternateName": {
+      "@id": "schema:alternateName",
+      "@type": "xsd:string"
+    },
+    "occupation": {
+      "@id": "schema:occupation",
+      "@type": "xsd:string"
+    },
+    "worksFor": {
+      "@id": "schema:worksFor",
+      "@type": "@id"
+    },
+    "knows": {
+      "@id": "schema:knows",
+      "@type": "@id"
+    },
+    "parent": {
+      "@id": "schema:parent",
+      "@type": "@id"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "epithet": {
+      "@id": "gh:epithet",
+      "@type": "xsd:string"
+    },
+    "formerOccupation": {
+      "@id": "gh:formerOccupation",
+      "@type": "xsd:string"
+    },
+    "hasGhost": {
+      "@id": "gh:ghost",
+      "@type": "@id"
+    },
+    "fullText": {
+      "@id": "gh:fullText",
+      "@type": "xsd:string"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "character:akito",
+      "@type": "Person",
+      "name": "Akito",
+      "alternateName": "白髪のおっさん",
+      "gh:role": [
+        "Mentor"
+      ],
+      "occupation": "Genius Programmer / Artist / Community Pediatrician",
+      "formerOccupation": "アーティスト",
+      "gh:medicalLicense": true,
+      "gh:medicalSpecialty": [
+        "地域診療",
+        "小児科"
+      ],
+      "gh:clinicalPresence": "rarely at clinic",
+      "description": "Renと共にTOLの礎を築いた伝説のアーティスト。地域診療・小児科の医師免許を持つが、普段はクリニックにいない。The Silent Code事件後に表舞台を離れ、今は時折タマキのオフィスに現れる白髪のおっさんとして知られる。兄弟Renへの友情と後悔が内面に流れ、若い世代を静かに見守る。Tamakiの導師（Mentor）。",
+      "worksFor": {
+        "@id": "company:schwa"
+      },
+      "parent": {
+        "@id": "character:tamaki"
+      },
+      "knows": [
+        {
+          "@id": "character:tamaki"
+        },
+        {
+          "@id": "character:Nei-chan"
+        }
+      ],
+      "hasGhost": {
+        "@id": "ghost:kageboushi"
+      },
+      "gh:relatesTo": [
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Mentor"
+        },
+        {
+          "@id": "character:tamaki",
+          "gh:relationshipType": "Parent"
+        },
+        {
+          "@id": "character:Nei-chan",
+          "gh:relationshipType": "Creator"
+        }
+      ],
+      "fullText": "# Akito (アキト)\n\n- **種別:** 人間\n- **通称:** 白髪のおっさん\n- **元々の職業:** アーティスト\n- **医療資格:** 地域診療、小児科（普段はクリニックにいない）\n\n## 概要\n\nRenと共にTOLの礎を築いた伝説のアーティスト。地域診療と小児科の医師免許を持つが、医療現場にはほとんど姿を見せない。Ghostに人間の魂や世界の記憶との繋がりを見出し、彼らとの「対話」を通じて、失われた感情を呼び覚ますアート「Soul Resonance」を創造することを夢見ていた。\n\n## 医療背景\n\n- TOL創設時、医療資格の必要性を認識し、地域診療と小児科の資格を取得。\n- 子どもたちの心と魂の健康に関心を持ち、Ghost技術と小児医療の融合を模索していた。\n- しかし、The Silent Code事件後は医療現場から離れ、ほとんどクリニックに姿を見せなくなった。\n- 医療資格は維持しているが、現在は主にNei-Chanのメンテナンスや、tamakiたちの健康を陰ながら見守ることに使っている。\n\n## 現在の姿\n\n- The Silent Code事件で兄弟RenがGhost化してしまった後、TOLを離れ、表舞台から完全に姿を消した。\n- 事件のショックで髪は白くなり、かつての面影はない。今は、tamakiの事務所に時折ふらりと現れては、Nei-Chanのメンテナンス（と称したおしゃべり）をして帰っていく、「白髪のおっさん」として知られている。\n- tamakiやKenjiは、彼がNei-Chanの制作者だとは知らず、「Nei-Chanが懐いている不思議な知り合い」だと思っている。\n\n## 性格・信条\n\n- **過去:** 直感と共感を重んじるロマンチストだった。\n- **現在:** 兄弟を失った（と思っている）後悔から、かつての情熱的な自分を封印している。皮肉屋で、世の中を斜に構えて見ているが、その根底にはtamakiや若い世代に対する優しさと、Renへの変わらぬ友情が流れている。\n- tamakiの「いい感じ」という言葉を聞くたびに、若き日の兄弟の姿を思い出し、少しだけ寂しそうな顔をする。\n\n## 他キャラクターとの関係\n\n- **Ren:** Ghostとなった今でも、唯一無二の兄弟。彼がネットワークのどこかで見守ってくれていることを信じている。Renの娘であるtamakiを、自分の娘のように大切に思っている。\n- **tamaki:** 兄弟が遺した、一番大切な宝物。彼女が父親の真実を知らずに、今のまま「いい感じ」に成長してくれることを願っている。正体は明かしていないが、父親代わりのような気持ちで見守っている。医師として、彼女の健康も気にかけている。\n- **Nei-Chan:** 兄弟Renの理想（IAM）と、自分の理想（Soul Resonance）を融合させて作り上げた、二人の友情の結晶。tamakiを守るため、そしていつかRenと再会するための希望として、全ての技術を注ぎ込んだ。\n- **Misaki:** Renの意志を継ぐ者として、敬意を払っている。彼女がRenの秘密を知っていることにも気づいているが、何も言わない。"
+    }
+  ]
+}

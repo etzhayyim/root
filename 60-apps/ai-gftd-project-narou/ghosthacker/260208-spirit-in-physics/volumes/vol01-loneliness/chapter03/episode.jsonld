@@ -1,0 +1,284 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.1 Ch.3 — チームSchwa",
+  "gh:arc": "Vol 1: Loneliness",
+  "gh:episodeId": "episode:sip-vol01-ch03",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Tamakiがソファに座り、Kaedeから送られたファイルを見ている。Nei-chanが隣で覗き込んでいる。",
+          "characters": [
+            "character:tamaki",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "六十五歳。元大学教授。専門は理論物理学。十年前に引退してから、図書館で過ごすことが多い。"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "孤独な人だなあ……"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "Nei-chanがファイルを見ている表情。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ、この人——すごく頭いいんだね"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "でも、一人なんだね"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "通信ウィンドウ。Hibikiの明るい声。ラテンの陽気さ。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "Tamaki、聴こえる？ 今日のセッション、場所は図書館だって？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "了解。じゃあ、音を調整しておくね。古い図書館は、独特の響きがあるから"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "Hibikiの笑顔。音の描写——紙が擦れる音、ページをめくる音、時計の音が光の粒子として表現。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "古い本の匂いがする音、かな"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "紙が擦れる音、ページをめくる音、時計の音……全部が混ざって、一つの『場所』を作ってる"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Tamakiの心象。人の感情が色や形として見える描写。怒りは赤い棘、悲しみは青い水滴、孤独は灰色の霧。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "私には、人の感情が色や形として見えることがある。怒りは赤い棘。悲しみは青い水滴。孤独は——灰色の霧。"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "恐怖。押し込めた恐怖の音がする"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの通信。落ち着いた、冷静な声。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "彼、最近——不眠が続いてるらしいわ。睡眠薬を処方されてるけど、あまり効かない"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "本人曰く、『眠ると、もう目が覚めないんじゃないかと怖くなる』って"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Tamakiが窓の外を見ている。運河がきらめいている。",
+          "characters": [
+            "character:tamaki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Tamaki",
+              "text": "死への恐怖が、眠りを奪ってる……"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "心が、体を支配してる——その通り"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "Kaedeのアドバイス。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "焦らないこと。彼が必要としてるのは、論理じゃない。安心よ"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "……それと、Tamaki。無理しないで。あなたも、自分を大事にしてね"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "Nei-chanの鋭い観察。",
+          "characters": [
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ、Kaedeってやさしいね"
+            },
+            {
+              "speaker": "Nei-chan",
+              "text": "言葉は冷たいけど、心配してる感じがする"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 6,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "チームSchwaの説明。シュワー——最も基本的な母音。どんな言語にも存在する自然な音。",
+          "characters": [],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "チームSchwa。名前の由来は「シュワー」——言語学で使われる、最も基本的な母音の名前。どんな言語にも存在する、最も自然な音。"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "Kaedeの説明。息を吐くだけで出る音。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "私たちの仕事は、クライアントが息を吐けるようにすること。自然に、楽に"
+            },
+            {
+              "speaker": "Narration",
+              "text": "Ghost Healer——私たちは、心の中にある「澱み」を解きほぐす仕事をしている。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 7,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "運河沿いの道。昼の日差し。水面を照らす光。どこかでアコーディオンの音。",
+          "characters": [
+            "character:tamaki",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Nei-chan",
+              "text": "タマ、行こう？"
+            },
+            {
+              "speaker": "Tamaki",
+              "text": "うん。行こう"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Extreme Wide Shot",
+          "visual": "水の都の風景。Tamakiが深呼吸をしている。Nei-chanが隣にいる。",
+          "characters": [
+            "character:tamaki",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Narration",
+              "text": "いい感じでいよう。今日も、ここから始める。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:anika-bose",
+  "@type": "Person",
+  "name": "Anika Bose",
+  "gh:callsign": "FEED",
+  "description": "34歳、女性、印英出身。プラットフォーム安全担当。テーマ: 孤独・アルゴリズム誘導・過激化。",
+  "age": 34,
+  "gender": "Female",
+  "nationality": "Indian-British",
+  "occupation": "Platform Safety Officer",
+  "gh:persona": "フィードの管理者",
+  "gh:ghost": {
+    "@id": "ghost:rage-engine"
+  },
+  "gh:theme": "孤独・アルゴリズム誘導・過激化",
+  "fullText": "Anika Boseは、印英出身のプラットフォーム安全担当者。34歳の女性で、callsignは「FEED」。孤独、アルゴリズム誘導、過激化をテーマとする。彼女のGhostは「Rage Engine」で、人々の怒りを増幅させるアルゴリズムを象徴する。Anikaは、プラットフォームの安全を守るという名目で、実際には人々の孤独と怒りを利用し、エンゲージメントを最大化している。その結果、社会の分断と過激化が進んでいる。"
+}

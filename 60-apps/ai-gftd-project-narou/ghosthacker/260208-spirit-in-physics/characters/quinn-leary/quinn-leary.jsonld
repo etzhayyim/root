@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:quinn-leary",
+  "@type": "Person",
+  "name": "Quinn Leary",
+  "gh:callsign": "UPGRADE",
+  "gh:role": "Supporter",
+  "description": "35歳、ノンバイナリー、アメリカ出身。ティモシー・リアリーの伝統を継承するPsychedelic Advocate。「精神のOSをアップグレードせよ」と説き、LSDという新たなソフトウェアを用いて意識の拡張を試みたサイケデリックの預言者の後継者。",
+  "age": 35,
+  "gender": "Non-binary",
+  "nationality": "American",
+  "occupation": "Psychedelic Advocate",
+  "memberOf": {
+    "@id": "organization:tol-psychedelic"
+  },
+  "gh:theme": "OSアップグレード、サイケデリックソフトウェア、システム解放",
+  "fullText": "Quinn Learyは、ティモシー・リアリーの伝統を継承する現代のPsychedelic Advocate。callsignは「UPGRADE」。35歳のノンバイナリー、アメリカ出身。「精神のOSをアップグレードせよ」と説き、LSDという新たなソフトウェアを用いて意識の拡張を試みたサイケデリックの預言者の後継者。「Tune in, turn on, drop out」は、既存の社会システムから自らを解放するためのコマンドだった。Quinnは、現代のサイケデリック技術を用いて、Ghostの意識状態を拡張し、新しい視点を獲得させる。"
+}

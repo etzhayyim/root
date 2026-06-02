@@ -1,0 +1,255 @@
+{
+  "@context": {
+    "character": "gh:character/",
+    "characters": "gh:characters",
+    "dct": "http://purl.org/dc/terms/",
+    "dialogue": "gh:dialogue",
+    "env": "gh:environment/",
+    "environment": "gh:environment",
+    "gh": "https://ghosthacker.gftd.ai/ns/",
+    "panel": "gh:panelIndex",
+    "schema": "http://schema.org/",
+    "shot": "gh:shotType",
+    "speaker": "gh:speaker",
+    "text": "gh:text",
+    "visual": "gh:visual"
+  },
+  "dct:title": "Vol.3 Ch.17 — 組織の人（出会い）",
+  "gh:arc": "Vol 3: Justice",
+  "gh:episodeId": "episode:sip-vol03-ch17",
+  "gh:pages": [
+    {
+      "gh:pageNumber": 1,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Wide Shot",
+          "visual": "秋の夕暮れ。。オフィス街を歩いている。ビルの谷間を、冷たい風が吹き抜ける。街灯が、一つずつ灯り始めている。。今日のクライアントは、ここで待っている。。Kaedeの声が通信に入る。",
+          "characters": [
+            "character:kaede"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Kaede",
+              "text": "今日の人……企業で働いていた人。不正に巻き込まれて、傷ついている"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "どんな不正？"
+            },
+            {
+              "speaker": "Kaede",
+              "text": "詳しくは、本人から聞いて。でも……『正しいことをした』のに、罰せられた"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "Hibikiの声が加わる。。Nei-chanが私の肩で囁く。",
+          "characters": [
+            "character:hibiki",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "Tamaki、この辺り……音が重いよ。たくさんの人の疲れが、溜まってる"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん。感じる"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "タマ、あの人かな"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 2,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "小さな公園のベンチに、男性が座っている。スーツ姿。でも、どこか疲れている。肩が落ちている。。私は近づく。。彼が顔を上げる。目の下に、深い影がある。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "こんばんは。Tamaki Mizunoです"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "……ああ、来てくれたんですね"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "座っていい？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "どうぞ"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "私は隣に座る。街灯の光が、彼の顔を照らしている。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "名前、聞いてもいい？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "……Kenjiです。Kenji Yamamoto"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "Kenji。今日は、何から話したい？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 3,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼は黙る。長い沈黙。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "……正しいことをしたんです"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "会社の不正を、報告した。内部告発。それが、正しいことだと思った"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "でも——"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Close-up",
+          "visual": "彼の声が震える。。Nei-chanが私の肩で囁く。『タマ……彼、すごく傷ついてる。でも、怒りもある』。私は頷く。",
+          "characters": [
+            "character:hibiki",
+            "character:nei"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "罰せられたのは、私でした"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "正しいことをして、罰せられた。それは、痛かった？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "痛かった。今も、痛い"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 4,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Close-up",
+          "visual": "彼の目に、涙が浮かぶ。でも、流れない。溜まったまま。。私は首を振る。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "……私は、間違っていたんでしょうか"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "間違ってない。正しいことをした"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "でも——"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "正しいことをしても、報われないことがある。世界は、いつも公平じゃない"
+            }
+          ]
+        },
+        {
+          "panel": 2,
+          "shot": "Medium Shot",
+          "visual": "彼が顔を上げる。。街灯の光が、ゆっくりと揺れている。風が、木の葉を散らしている。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "……それでも、正しかった？"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "うん。正しかった。それは、変わらない"
+            },
+            {
+              "speaker": "Hibiki",
+              "text": "Kenji、今日は——話を聞かせて。全部"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "gh:pageNumber": 5,
+      "gh:panels": [
+        {
+          "panel": 1,
+          "shot": "Medium Shot",
+          "visual": "彼が頷く。。秋の夜が、静かに深まっていく。",
+          "characters": [
+            "character:hibiki"
+          ],
+          "dialogue": [
+            {
+              "speaker": "Hibiki",
+              "text": "……はい"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

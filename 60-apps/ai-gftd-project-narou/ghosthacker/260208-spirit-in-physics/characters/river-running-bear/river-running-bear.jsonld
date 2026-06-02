@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "@base": "https://ghosthacker.example.com/",
+    "@vocab": "https://schema.org/",
+    "gh": "https://ghosthacker.example.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@id": "character:river-running-bear",
+  "@type": "Person",
+  "name": "River Running Bear",
+  "gh:callsign": "SWEATLODGE",
+  "gh:role": "Supporter",
+  "description": "41歳、ノンバイナリー、ネイティブアメリカン（ラコタ）出身。ネイティブアメリカンのメディスンマンの伝統を継承するRitual Healer。「スウェット・ロッジ」という名のポータブルなサウナ兼チャンバーを用い、極限状態での発汗を通じて肉体と精神のデトックス（デフラグ）を行い、自己と宇宙（グレート・スピリット）との接続をリセットする。",
+  "age": 41,
+  "gender": "Non-binary",
+  "nationality": "Native American (Lakota)",
+  "occupation": "Ritual Healer",
+  "memberOf": {
+    "@id": "organization:tol-native"
+  },
+  "gh:theme": "スウェットロッジ、デトックス、デフラグ、グレートスピリットとの接続",
+  "fullText": "River Running Bearは、ネイティブアメリカンのメディスンマンの伝統を継承する現代のRitual Healer。callsignは「SWEATLODGE」。41歳のノンバイナリー、ラコタ出身。「スウェット・ロッジ」という名のポータブルなサウナ兼チャンバーを用い、極限状態での発汗を通じて肉体と精神のデトックス（デフラグ）を行い、自己と宇宙（グレート・スピリット）との接続をリセットする、北米大陸の伝統的ハッカーの後継者。Riverは、物理的な苦痛を通じて精神のOSをクリーンインストールするプロセスを実践する。"
+}
