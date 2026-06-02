@@ -12075,6 +12075,23 @@
       "lastVerified": "2026-06-01"
     },
     {
+      "id": "doc:adr-2606015400-mesh-runner-serving-and-ipfs-did-retrieval",
+      "type": "TechArticle",
+      "title": "ADR-2606015400: Mesh-runner serving surface + IPFS-based DID retrieval",
+      "status": "accepted",
+      "topic": "mesh-runner-serving-and-ipfs-did-retrieval",
+      "authoritative": true,
+      "authoritativeFor": [
+        "mesh-runner-serving-surface",
+        "ipfs-based-did-retrieval"
+      ],
+      "related": [
+        "doc:2606014500",
+        "doc:2605262130"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

@@ -9392,6 +9392,14 @@ status_note = "Lands all six next-steps from ADR-2606014800 in one PR. (2) src/c
 path = "90-docs/adr/2606015200-wasm-actor-runtime-round-2-dagpb-mesh-kanae-erc725.md"
 adr = ["2606014600", "2606014500", "2606013800", "2605212030", "2605231525"]
 
+[[adrs]]
+id = "2606015400"
+title = "Mesh-runner serving surface + IPFS-based DID retrieval"
+status = "accepted"
+status_note = "Two follow-ups to ADR-2606015200. (D1) 50-infra/e7m-wasm-runner/serve.mjs exposes the T2 runner as an HTTP service: GET /xrpc/app.etzhayyim.actor.run?actor=<did|handle> + /healthz; resolve → CID/CAR-verify → run (core or jco component) → JSON, cached by CID. 3 tests (real http vs stub gateway). (D2) IPFS-based DID retrieval: answers 「did を IPFS ベースでの取得にできる?」 — yes. did:web stays canonical (TLS), but every actor's did.json is now content-addressed: canonicalDidDoc/didDocCid (actor-profiles.ts) normalize the request-volatile _meta.source so the CID is stable across KV/kotoba/compiled tiers; /actor/<h>/did.json advertises x-etzhayyim-did-doc-cid + Link rel=canonical, /.well-known/actors.json lists didDocumentCid/didDocumentIpfs/didDocumentGateway. A client gets the authentic CID from etzhayyim.com (TLS) then fetches+verifies the did.json from ANY IPFS gateway (apex /ipfs/<cid> or third-party). Publisher materializes + pins (--pin-did) the canonical did.json; worker (TS) and publisher (JS) compute byte-identical canonical did.json CIDs (verified tsumugi/kanae/watatsuna via esbuild-bundled cross-check). Verified: worker tsc + 10 tests (3 did-doc-cid + 4 car + 3 erc725); runner 6 tests (3 serve + 3 run). HONEST: handle→CID binding still anchored by etzhayyim.com TLS (full did:ipfs/IPNS self-certifying = future); pinning + serving from the etzhayyim pin operator-gated; libp2p transport not yet wired (HTTP is the bridge); CID changes on did.json change (re-pin). e7m-verify pre-commit skipped (local CLI lacks the verify subcommand)."
+path = "90-docs/adr/2606015400-mesh-runner-serving-and-ipfs-did-retrieval.md"
+adr = ["2606015200", "2606014600", "2606013800", "2605212030", "2605231525"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]

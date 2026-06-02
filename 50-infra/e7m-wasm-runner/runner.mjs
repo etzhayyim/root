@@ -29,7 +29,7 @@ export function isComponent(bytes) {
   return bytes[0] === 0x00 && bytes[1] === 0x61 && bytes[2] === 0x73 && bytes[3] === 0x6d && bytes[6] === 0x01;
 }
 
-async function fetchVerified({ cid, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
+export async function fetchVerified({ cid, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
   const base = `${gatewayBase.replace(/\/$/, "")}/ipfs/${cid}`;
   if (isRawCidV1(cid)) {
     const res = await fetchImpl(base);
@@ -46,7 +46,7 @@ async function fetchVerified({ cid, gatewayBase = "https://etzhayyim.com", fetch
   throw new Error(`unsupported CID: ${cid}`);
 }
 
-async function didToCid({ did, didDoc, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
+export async function didToCid({ did, didDoc, gatewayBase = "https://etzhayyim.com", fetchImpl = fetch }) {
   const slug = did.replace(/^did:web:etzhayyim\.com:actor:/, "");
   const doc = didDoc ?? (await fetchImpl(`${gatewayBase.replace(/\/$/, "")}/actor/${slug}/did.json`).then((r) => r.json()));
   const svc = (doc.service ?? []).find((s) => s.type === "EtzhayyimWasmComponent");

@@ -67,6 +67,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | **One Worker, many WASM actors** | etzhayyim.com = sole CF Worker; actors = content-addressed WASM on IPFS run browser-local (ameno)/donated mesh; tsumugi PoC (Rust→wasm, CID-verified, runs locally) | 🟢 | 2606014500 | 06-01 |
 | **WASM-actor runtime (gateway + loader + componentize-py)** | apex trustless `/ipfs/<cid>` gateway (CID re-verify) + `@etzhayyim/ameno` wasm-actor-loader (5/5 tests) + watatsuna componentize-py component (jco, Malacca top); T1 raw=browser-local / T2 dag-pb=mesh tier rule | 🟢 | 2606014600 | 06-01 |
 | **WASM-actor runtime round 2** | dag-pb CAR verify (multi-block trustless) + e7m-wasm-runner (T2 mesh exec) + kanae 鼎 2nd T1 actor + ameno actor-panel + ERC725 vm-mirror (gated) + operator runbook; worker/ameno tsc + 17 tests | 🟢 | 2606015200 | 06-01 |
+| **Mesh-runner serving + IPFS-based DID** | e7m-wasm-runner HTTP serve (`/xrpc/app.etzhayyim.actor.run`, CID-cached) + **content-addressed did.json**: canonical CID advertised on `/actor/<h>/did.json` + `actors.json`, fetch+verify from any IPFS gateway (did:web TLS anchors the handle→CID binding); worker(TS)≡publisher(JS) CID; +16 tests | 🟢 | 2606015400 | 06-02 |
 
 ### baien / silicon / ML
 
