@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 65 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 65 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 11 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 64 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 12 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 106 apps** (C + D = 41 + 65; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 105 apps** (C + D = 41 + 64; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -51,7 +51,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (11)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (12)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -126,6 +126,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   revenue optimization (pricing / fare filing / revenue accounting) + overbooking
   denied-boarding consumer-protection liability. The public fare-OFFER display
   belongs to flight-offer (consumer search), not this backend engine. Stays gftd.
+- **business-edge** — axes: **Custody + Settlement + Liability** (all three). The
+  developer-facing edge-compute PaaS control plane (multi-tenant KV/Graph/CDN/
+  PubSub/Lock/Secrets/VirtualActor): tenant API-key + Secrets-primitive custody,
+  usage metering→billing, multi-tenant WASM runtime SLA. This IS the gftd
+  infra-vendor ("Infura") layer of the Consensys pattern — structurally cannot
+  move etzhayyim-front. Stays gftd.
 
 ## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
@@ -145,10 +151,10 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (65, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (64, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (35)**:
-business-edge, business-person, collector,
+**TRANSFORM-pending (34)**:
+business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
 resource-provider, robot, scheduler, shiharai, tia, web4, webpage, wire, worlds,
