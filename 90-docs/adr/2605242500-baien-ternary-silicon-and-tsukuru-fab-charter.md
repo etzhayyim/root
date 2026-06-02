@@ -30,6 +30,14 @@ supersedes: []
 superseded_by: []
 ---
 
+> **Namespace update (2026-06-02 — ADR-2606021139 supersedes Decision 2 の該当条項)**:
+> 本 ADR の **Decision 2「tsukuru.etzhayyim.com を一気通貫 orchestration の単一 SSoT に確定」は
+> 撤回された**。fab orchestration は独立 actor **`silicon`（`did:web:silicon.etzhayyim.com`,
+> `20-actors/silicon/manifest.edn`）** が所有し、`tsukuru` は B2B factory-direct ordering 専用に
+> 戻る。理由は名前衝突（tsukuru が 発注 と fab の 2 ドメインを背負い root CLAUDE.md でも別物参照）
+> と Gen-3 移行の意味論汚染。本 ADR の silicon / RTL / fab-charter としての技術内容は有効。
+> 詳細は ADR-2606021139。
+
 # Context
 
 ## ADR-2605241900 で baien は 1.58-bit ternary trunk + frozen modality encoder + ≤2 GB RAM の edge invariant を constitutional に固定した

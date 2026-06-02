@@ -1,0 +1,55 @@
+;; makura 枕 — actor manifest (Gen-3 kotoba-native)
+;; Wellbecoming sleep/rest foundation — foam pillow manufacturing
+;; ADR-2605261115 (R0 scaffold)
+{:actor/id        "makura"
+ :actor/glyph     "枕"
+ :actor/tier      :tier-b
+ :actor/domain    "makura.etzhayyim.com"
+ :actor/purpose   "Wellbecoming sleep/rest foundation — foam pillow manufacturing, 9 Pregel cells implementing 5-layer foam-pillow assembly."
+ :actor/status    :r0
+ :actor/adr       "2605261115"
+ :actor/related   ["2605261115"]
+
+ :actor/charter-rider
+ {:rider/version "2.0"
+  :rider/applied true}
+
+ :actor/gates
+ [{:gate/id "G1"  :gate/name "open-source-firmware-recipes" :gate/rule "All foam chemistry recipes (polyol formulation, catalyst, surfactant) + shell-pattern CAD + fill-line firmware open-source"}
+  {:gate/id "G3"  :gate/name "witness-quorum-robots"       :gate/rule "Witness quorum ≥2 distinct robots per pillow lot (Otete fill + Mimi QC canonical)"}
+  {:gate/id "G6"  :gate/name "closed-loop-isocyanate-handling" :gate/rule "Closed-loop isocyanate handling; worker exposure ≤ 5 ppb MDI / ≤ 2 ppb TDI 8h TWA; MDI preferred over TDI"}
+  {:gate/id "G7"  :gate/name "voc-emission-standards"      :gate/rule "VOC emission ≤ CertiPUR-US / OEKO-TEX Standard 100 equivalent"}
+  {:gate/id "G8"  :gate/name "fr-chemistry-exclusion"      :gate/rule "No PBDE / TDCPP / TCEP / Sb₂O₃ FR chemistry; baseline FR-free"}
+  {:gate/id "G11" :gate/name "kpi-caps"                    :gate/rule "KPI caps — max foam mass 2.0 kg / max dims 80 × 50 × 25 cm / max combined 4.0 kg"}
+  {:gate/id "G12" :gate/name "bom-disclosure"              :gate/rule "Full BoM disclosure on every pillow tag"}
+  {:gate/id "G13" :gate/name "ipfs-pinned-take-back-qr"    :gate/rule "IPFS-pinned take-back QR; ≥10% recycled crumb mass by R3"}
+  {:gate/id "G14" :gate/name "no-embedded-sensors"         :gate/rule "No embedded sensors / RFID / NFC / smart-IoT (anti-surveillance applied to consumer goods)"}
+  {:gate/id "G15" :gate/name "murakumo-only"               :gate/rule "Inference is Murakumo-only (KotobaLLM 127.0.0.1:4000); external LLM prohibited"}
+  {:gate/id "G16" :gate/name "kotoba-eavt-native"          :gate/rule "State is kotoba EAVT Datoms (no SQL/RisingWave/Cypher)"}
+  {:gate/id "G17" :gate/name "tithe-non-fiat"              :gate/rule "Payments are USDC Base L2 + ERC-4337 + TitheRouter 10% (no Stripe/fiat)"}
+  {:gate/id "G18" :gate/name "no-server-key"               :gate/rule "Platform holds no key (member/operator signs)"}
+  {:gate/id "G19" :gate/name "consent-bound"               :gate/rule "Real outward actions stay gated (compute-only R0; settlement stops at 'intent')"}
+  {:gate/id "G20" :gate/name "pii-encrypted"               :gate/rule "PII is encrypted"}
+  ]
+
+ :actor/cells
+ [{:cell/id "pillow_polyol_attestation"  :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_isocyanate_dispensing" :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_foam_blowing"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_foam_shredding"      :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_fabric_attestation"  :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_shell_sewing"        :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_filling_close"       :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_qc"                  :cell/kind :langgraph :cell/runtime :wasm}
+  {:cell/id "pillow_packaging"           :cell/kind :langgraph :cell/runtime :wasm}]
+
+ :actor/lex
+ [{:lex/id "foamBatchAttestation"}
+  {:lex/id "fabricAttestation"}
+  {:lex/id "pillowLotAttestation"}
+  {:lex/id "qcRecord"}
+  {:lex/id "packagingRecord"}
+  {:lex/id "recyclingCertificate"}
+  {:lex/id "workerExposureRecord"}
+  {:lex/id "silenComfortReview"}]
+}

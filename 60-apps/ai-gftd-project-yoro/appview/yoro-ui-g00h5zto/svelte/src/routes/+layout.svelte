@@ -115,6 +115,16 @@
 
 	/** Clean up shinka & evolution on layout destroy (e.g. full page unload). */
 	onMount(() => {
+		// kotoba browser node (ADR-2606013600): a module Service Worker at the
+		// origin root that serves /xrpc/...searchActors from the live server when
+		// online and from the in-browser kotoba-wasm read engine when offline
+		// (network-first; no staleness while online). @etzhayyim/yoro-rw-free is
+		// unchanged. Best-effort — failure to register never blocks the app.
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker
+				.register('/kotoba-sw.js', { type: 'module', scope: '/' })
+				.catch((e) => console.warn('[kotoba-sw] register failed', e));
+		}
 		// Auto-init embedding model (45MB, cached in OPFS after first download)
 		if (embeddingModel.state === 'idle') void embeddingModel.init();
 		hitl.start();

@@ -400,10 +400,14 @@
 			<div class="divide-y divide-gv2-border/10">
 				{#each projects as project (project.convoId)}
 					{@const k = getKind(project.kind)}
-					<button type="button"
-						class="flex w-full items-center gap-3 px-4 py-3.5 text-left touch-manipulation active:bg-gv2-bg-hover/40 transition-colors"
+					<!-- div role=button (not <button>): the row contains nested action
+					     buttons, and button-in-button is invalid HTML (Svelte 5 SSR
+					     node_invalid_placement_ssr). -->
+					<div role="button" tabindex="0"
+						class="flex w-full items-center gap-3 px-4 py-3.5 text-left touch-manipulation active:bg-gv2-bg-hover/40 transition-colors cursor-pointer"
 						in:fly={{ y: 8, duration: 200 }}
-						onclick={() => openChat(project.convoId)}>
+						onclick={() => openChat(project.convoId)}
+						onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openChat(project.convoId); } }}>
 						<!-- Kind icon -->
 						<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" style="background: {k.color}15">
 							<svg class="h-5 w-5" style="color: {k.color}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{k.icon}" /></svg>
@@ -452,7 +456,7 @@
 								<span class="text-[10px] text-gv2-text-muted/40">{project.memberCount} members</span>
 							{/if}
 						</div>
-					</button>
+					</div>
 				{/each}
 			</div>
 		{/if}
