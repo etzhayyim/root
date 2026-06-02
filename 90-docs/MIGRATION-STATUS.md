@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 92 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 4 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 3 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 35 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 36 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 59 apps** (C + D = 4 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 58 apps** (C + D = 3 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -66,7 +66,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (35)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (36)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -316,8 +316,19 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   private CRM data**, not open-data — a proposal's `sourceUrl` would point at our
   own Claude run (carry-forward test fails). Same generation-agent family as
   `voxelforge`. Stays gftd.
+- **webya** — axes: **RisingWave + LLM generation-compute + Custody (hosted site
+  content + custom-domain) + Liability/Settlement (website-hosting SaaS)**.
+  Homepage-generation SaaS (ウェブ屋) for 士業 + 一般企業: a LangGraph loop
+  (createSite/reviseSite) generates site HTML, `provisionDomain` sets up custom
+  domains (CF for SaaS CNAME), and pages are served at edge via Hyperdrive SELECT
+  on `vertex_webya_page.html_content`. Tables (`vertex_webya_site` /
+  `vertex_webya_page` / `vertex_webya_domain`) are **generated client website
+  content + client-domain hosting config** — webya HOSTS client production sites
+  (availability/fulfillment liability + paid custom-domain provisioning). Not
+  open-data — a site's authority is our own generation run (carry-forward test
+  fails). Same generation + hosting family as `webmk`. Stays gftd.
 
-## Bucket C — NEEDS-CODEMOD (4) — active backlog
+## Bucket C — NEEDS-CODEMOD (3) — active backlog
 
 > **False-positive removed**: `open-ot` (WASM-PLC OSS spec, Apache-2.0) was
 > labelled "(RW)" but is spec + Rust crates only — no TS app, no AT collections,
@@ -330,14 +341,14 @@ Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 
 common-crawl (RW, legacy src), cpc (legacy src),
 email-service-adapter (stripe),
-webya, xlsx,
+xlsx,
 yorishiro, yukkuri
 
 > **Count correction (2026-06-02)**: the header C count had drifted *below* the
 > real backlog (mechanical per-fire decrements assumed the tail names were
 > legacy-cleanup-only with existing rw-free; they are not). Verified un-resolved
-> build-targets **webya / xlsx / yorishiro / yukkuri** (4)
-> genuinely lack `rw-free/src` (voxelforge + watashi + webmk judged (b) vendor-resident).
+> build-targets **xlsx / yorishiro / yukkuri** (3)
+> genuinely lack `rw-free/src` (voxelforge + watashi + webmk + webya judged (b) vendor-resident).
 > `common-crawl` +
 > `cpc` are legacy-src codemod-only (rw-free already exists); `email-service-adapter`
 > is a stripe codemod-only item (also in Bucket D). C count = the 7 build-targets.
