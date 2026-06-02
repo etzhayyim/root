@@ -47,3 +47,6 @@ NON-adjudicating / observational 境界 re-check を明記。
 実際の verification 実行は R1(Council ratify + fiscal-source-verification
 maintainer DID 登録後)。danjo finds + cross-references; kanae renders; neither
 adjudicates。
+
+### mid-tier jurisdiction deepening (2026-06-02)
+`registry/sources.seed.json` を mid-tier jurisdiction で deepen: 166 → 304 件 (+138)、distinct jurisdiction 34 → 61 へ拡張。`test_danjo_registry_seed.py` の worldwide-coverage 閾値を `>=12` → `>=50` へ引き上げ (actual 61、安全マージン確保)。他の assertion は不変。8 test 全 green。

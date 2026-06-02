@@ -24,7 +24,7 @@ Invariants under test:
      unverified/stale source).
   4. every entry has a non-empty https provenance URL + a lastVerified stamp.
   5. every entry has a `jurisdiction`, and the registry spans MULTIPLE
-     jurisdictions (>= 12 distinct) — proves worldwide coverage / guards against
+     jurisdictions (>= 50 distinct) — proves worldwide coverage / guards against
      regression to JP-only.
   6. every entry's `sourceKind` is in the allowed catalog set.
   7. boundary caveat present: every entry's `notes` is non-empty, and the
@@ -128,7 +128,7 @@ def test_every_entry_has_provenance_and_last_verified():
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# 5. worldwide coverage — >= 12 distinct jurisdictions
+# 5. worldwide coverage — >= 50 distinct jurisdictions
 # ─────────────────────────────────────────────────────────────────────────
 
 
@@ -139,8 +139,8 @@ def test_registry_spans_multiple_jurisdictions():
             f"{s.get('sourceId')}: MUST declare a jurisdiction"
         )
     jurisdictions = {s["jurisdiction"] for s in srcs}
-    assert len(jurisdictions) >= 12, (
-        "WORLDWIDE coverage invariant: registry MUST span >= 12 distinct "
+    assert len(jurisdictions) >= 50, (
+        "WORLDWIDE coverage invariant: registry MUST span >= 50 distinct "
         "jurisdictions (guards against regression to JP-only; danjo is a "
         f"global fiscal-flow catalog per ADR-2605302245); got "
         f"{sorted(jurisdictions)}"
