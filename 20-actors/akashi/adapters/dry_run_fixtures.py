@@ -18,6 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 REPO = Path(__file__).resolve().parents[3]
 LEX = REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "akashi"
 REGULATOR_FIXTURE = ROOT / "fixtures" / "regulator_bulk" / "sample.json"
+REGULATOR_MISSING_OPTIONAL_FIXTURE = (
+    ROOT / "fixtures" / "regulator_bulk" / "missing_optional_fields.json"
+)
 CLOSURE_FIXTURE = ROOT / "fixtures" / "closure" / "sample.json"
 
 ATTESTING_DID = "did:web:akashi.etzhayyim.com"
@@ -34,9 +37,16 @@ def load_dry_run_records() -> dict[str, Any]:
         source_policy_cid=SOURCE_POLICY_CID,
         method_note_cid=METHOD_NOTE_CID,
     )
+    missing_optional_payload = _load(REGULATOR_MISSING_OPTIONAL_FIXTURE)
+    missing_optional = parse_regulator_bulk_fixture(
+        missing_optional_payload,
+        attesting_did=ATTESTING_DID,
+        source_policy_cid=SOURCE_POLICY_CID,
+        method_note_cid=METHOD_NOTE_CID,
+    )
 
     closure = _load(CLOSURE_FIXTURE)["records"]
-    output = {**parsed, **closure}
+    output = _merge_outputs(parsed, missing_optional, closure)
     _validate_output(output)
     return output
 
@@ -78,6 +88,17 @@ def main(argv: list[str] | None = None) -> int:
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text())
+
+
+def _merge_outputs(*outputs: dict[str, Any]) -> dict[str, Any]:
+    merged: dict[str, Any] = {}
+    for output in outputs:
+        for name, value in output.items():
+            if isinstance(value, list):
+                merged.setdefault(name, []).extend(value)
+            else:
+                merged.setdefault(name, value)
+    return merged
 
 
 def _validate_output(output: dict[str, Any]) -> None:

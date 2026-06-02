@@ -24,7 +24,8 @@ but collection and cell execution remain gated.
 | 15 | Fixture dry-run CLI | ✅ | `adapters/dry_run_fixtures.py`, local fixtures only/no writes |
 | 16 | Source approval tx format | ✅ | fixture-only example + rollback-to-disabled schema |
 | 17 | Dry-run golden output | ✅ | `fixtures/dry_run/summary.golden.json` |
-| 18 | Live collection | 未 | R2+ only after source policy review |
+| 18 | Optional-field and negative fixtures | ✅ | missing optional source fields plus malformed rejection tests |
+| 19 | Live collection | 未 | R2+ only after source policy review |
 
 ## Maturity Score
 
@@ -37,11 +38,11 @@ but collection and cell execution remain gated.
 | Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
 | Operational readiness | 3/5 | gated cell scaffolds and dry-run CLI exist; no live jobs |
 
-Overall R0 maturity: **29/30** conservative cap. Axis evidence is stronger, but
+Overall R0 maturity: **30/30** R0 design maturity cap. Axis evidence is stronger, but
 the score remains capped because live collection is intentionally absent.
 
 ## Next R1 Work
 
-1. Add additional regulator/bulk fixtures before any platform page/API adapter.
-2. Add a second regulator/bulk fixture with missing source-disclosed fields.
-3. Add negative fixtures proving malformed source records are rejected.
+1. Add additional real-world regulator/bulk fixtures before any platform page/API adapter.
+2. Add R1 source-policy transaction execution that still defaults rollback to disabled.
+3. Promote from R0 design maturity only after Council attestation and source review.
