@@ -44,15 +44,15 @@ const kebabToSlug = (kebab: string, proc: string): string =>
 const ownerDidOf = (project: string) => `did:web:${project}.etzhayyim.com:ops`;
 
 const processSeeds: ProcessSeed[] = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${kebabToSlug(e.project, e.proc)}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${kebabToSlug(e.project, e.proc)}`,
   bpmnProcessId: e.bpmnProcessId,
-  sourcePath: `00-contracts/bpmn/ai/gftd/${e.project}/${e.proc}.bpmn`,
+  sourcePath: `00-contracts/bpmn/com/etzhayyim/${e.project}/${e.proc}.bpmn`,
   ownerDid: ownerDidOf(e.project),
 }));
 
 const bindingSeeds: BindingSeed[] = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${e.project}-${e.proc}-v1`,
-  nsid: `app.etzhayyim.apps.${e.nsidNs}.${e.proc}`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${e.project}-${e.proc}-v1`,
+  nsid: `com.etzhayyim.apps.${e.nsidNs}.${e.proc}`,
   bpmnProcessId: e.bpmnProcessId,
   ownerDid: ownerDidOf(e.project),
   resultTimeoutMs: e.timeoutMs,

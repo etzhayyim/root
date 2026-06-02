@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const ACTOR_DID = "did:web:rou-state.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.govRou.";
+const NSID_PREFIX = "com.etzhayyim.govRou.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -29,7 +29,7 @@ export default {
         nanoid: env.APP_NANOID ?? "",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/gov_rou.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/govRou",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govRou",
       });
     }
 

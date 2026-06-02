@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.chemicalsManagement.reportRelease",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Chemical release / PRTR report (bridges mining + water-scarcity + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "releaseId",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "releaseId": {
+              "type": "string"
+            },
+            "facilityLei": {
+              "type": "string"
+            },
+            "listingVid": {
+              "type": "string",
+              "description": "bridges listChemical"
+            },
+            "mediaAir": {
+              "type": "number",
+              "description": "tonnes"
+            },
+            "mediaWater": {
+              "type": "number"
+            },
+            "mediaLand": {
+              "type": "number"
+            },
+            "mediaTransferredOffsite": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

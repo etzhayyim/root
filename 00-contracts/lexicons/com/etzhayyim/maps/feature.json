@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.feature",
+  "description": "One spatial feature = one AT record. Consumed by mst-projector under shardKey = 'com.etzhayyim.maps.feature' which projects the collection into an atproto MST and emits com.etzhayyim.substrate.shardSnapshot (ADR-2605171800 + ADR-2605191655). geometry is GeoJSON-string-encoded and bbox is integer microdegrees (×1e7) because the AT lexicon schema does not support float arrays or float numbers.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [
+          "label",
+          "geometryGeoJson",
+          "h3Cell",
+          "h3Resolution"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Feature kind: Building / Road / River / Place / AdminArea / Spot / Port / Airport / Station / Coastline / Mountain / Lake / Railway / SeaRoute / AirRoute / BusRoute / BusStop / etc.",
+            "maxLength": 64
+          },
+          "geometryGeoJson": {
+            "type": "string",
+            "description": "GeoJSON Geometry object (Point / LineString / Polygon / MultiPolygon) encoded as JSON string. AT lexicon cannot hold float arrays natively.",
+            "maxLength": 65536
+          },
+          "h3Cell": {
+            "type": "string",
+            "description": "H3 cell id (hex string) at the resolution declared by h3Resolution. Carried in the record so projector indexers (kg / spatial side-index) can partition without re-parsing geometry.",
+            "maxLength": 32
+          },
+          "h3Resolution": {
+            "type": "integer",
+            "description": "H3 resolution (0-15). 8 ≈ neighborhood, 10 ≈ block, 12 ≈ building footprint.",
+            "minimum": 0,
+            "maximum": 15
+          },
+          "bboxWestE7": {
+            "type": "integer",
+            "description": "Bounding-box west longitude in degrees × 1e7 (integer-encoded; AT lexicon disallows floats)."
+          },
+          "bboxSouthE7": { "type": "integer" },
+          "bboxEastE7":  { "type": "integer" },
+          "bboxNorthE7": { "type": "integer" },
+          "name": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "properties": {
+            "type": "string",
+            "description": "Arbitrary feature properties as JSON-encoded string. Keep <16KB; larger blobs (e.g. raster tiles, photogrammetry chunks) should be pinned to IPFS separately and referenced by CID inside this field.",
+            "maxLength": 16384
+          },
+          "sourceDid": {
+            "type": "string",
+            "description": "Provenance DID. Examples: did:web:maps.etzhayyim.com:source:osm-overpass / :wikidata / :mapraly / :user-exif."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

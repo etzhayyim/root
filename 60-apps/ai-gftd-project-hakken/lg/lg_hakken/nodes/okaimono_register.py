@@ -25,7 +25,7 @@ async def okaimono_register(state: HakkenState) -> dict:
                 continue
             try:
                 resp = await client.post(
-                    f"{OKAIMONO_XRPC}/xrpc/ai.gftd.apps.okaimono.publishCatalogItem",
+                    f"{OKAIMONO_XRPC}/xrpc/com.etzhayyim.apps.okaimono.publishCatalogItem",
                     json={"item_id": item_id},
                 )
                 if not resp.is_success:

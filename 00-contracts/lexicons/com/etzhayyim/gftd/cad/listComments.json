@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cad.listComments",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List comments for a revision (optionally filtered by part occurrence path or resolution status). Paginated with offset/limit per 60-apps rules.",
+      "parameters": {
+        "type": "params",
+        "required": ["revisionId"],
+        "properties": {
+          "revisionId": { "type": "string" },
+          "partOccurrencePath": {
+            "type": "string",
+            "description": "prefix match on assembly path"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["open", "resolved", "all"],
+            "default": "open"
+          },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items", "total", "offset", "limit"],
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["rkey", "authorDid", "text", "createdAt"],
+                "properties": {
+                  "rkey": { "type": "string" },
+                  "authorDid": { "type": "string", "format": "did" },
+                  "text": { "type": "string" },
+                  "partOccurrencePath": { "type": "string" },
+                  "topologyRef": { "type": "unknown" },
+                  "worldPosition": { "type": "array", "items": { "type": "number" } },
+                  "cameraSnapshot": { "type": "unknown" },
+                  "replyTo": { "type": "string" },
+                  "status": { "type": "string", "enum": ["open", "resolved"] },
+                  "createdAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "RevisionNotFound" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gyosei.startProcedure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a Japanese administrative procedure / adverse disposition workflow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "agencyOrgId": { "type": "string" },
+            "domain": { "type": "string" },
+            "partyDid": { "type": "string", "description": "Applicant / respondent DID." }
+          },
+          "required": ["agencyOrgId", "domain"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "caseId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,8 +25,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.fleamarket.listing",
-        "ai.gftd.apps.fleamarket.transaction"
+        "com.etzhayyim.apps.fleamarket.listing",
+        "com.etzhayyim.apps.fleamarket.transaction"
       ]
     }
   }

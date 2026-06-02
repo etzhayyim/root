@@ -88,9 +88,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.joucho.jouchoEntity",
-        "ai.gftd.joucho.jouchoEvent",
-        "ai.gftd.joucho.jouchoReport"
+        "com.etzhayyim.joucho.jouchoEntity",
+        "com.etzhayyim.joucho.jouchoEvent",
+        "com.etzhayyim.joucho.jouchoReport"
       ]
     }
   },

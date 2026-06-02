@@ -1,6 +1,6 @@
 """animeka `resolveRetake` graph — mark retake resolved/acknowledged.
 
-NSID: app.etzhayyim.animeka.resolveRetake
+NSID: com.etzhayyim.animeka.resolveRetake
 Updates retake.status and un-flips cut.priority if no open retakes remain.
 """
 from __future__ import annotations
@@ -58,7 +58,7 @@ async def _node_update(state: _ResolveRetakeState) -> dict[str, Any]:
             # Fetch current retake to get cut_id
             await cur.execute(
                 """SELECT vertex_id, cut_id FROM vertex_animeka
-                   WHERE collection='app.etzhayyim.animeka.retake' AND rkey=%s LIMIT 1""",
+                   WHERE collection='com.etzhayyim.animeka.retake' AND rkey=%s LIMIT 1""",
                 [retake_rkey],
             )
             row = await cur.fetchone()
@@ -86,7 +86,7 @@ async def _node_update(state: _ResolveRetakeState) -> dict[str, Any]:
             if cut_vertex_id:
                 await cur.execute(
                     """SELECT COUNT(*) FROM vertex_animeka
-                       WHERE collection='app.etzhayyim.animeka.retake'
+                       WHERE collection='com.etzhayyim.animeka.retake'
                          AND cut_id=%s
                          AND COALESCE(status,'open') IN ('open','acknowledged','inProgress')""",
                     [cut_vertex_id],

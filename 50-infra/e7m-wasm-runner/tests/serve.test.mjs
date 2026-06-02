@@ -1,6 +1,6 @@
 // Serving-surface tests (ADR-2606015400): start the HTTP server with a stub
 // gateway (serves the committed kanae did.json + WASM), then make REAL http
-// requests to /xrpc/app.etzhayyim.actor.run and /healthz. Proves a donated mesh
+// requests to /xrpc/com.etzhayyim.actor.run and /healthz. Proves a donated mesh
 // node serves CID-verified actor results over the network.
 //   node --experimental-strip-types --test tests/serve.test.mjs
 import { test, after } from "node:test";
@@ -54,7 +54,7 @@ test("serve: /healthz", async () => {
 test("serve: actor.run resolves + verifies + runs kanae, then caches", async () => {
   const { server, port, gw } = await startServer();
   after(() => server.close());
-  const base = `http://localhost:${port}/xrpc/app.etzhayyim.actor.run?actor=kanae`;
+  const base = `http://localhost:${port}/xrpc/com.etzhayyim.actor.run?actor=kanae`;
 
   const a = await (await fetch(base)).json();
   assert.equal(a.cid, KANAE_CID);
@@ -70,7 +70,7 @@ test("serve: actor.run resolves + verifies + runs kanae, then caches", async () 
 test("serve: bad actor → 502 RunFailed", async () => {
   const { server, port } = await startServer();
   after(() => server.close());
-  const res = await fetch(`http://localhost:${port}/xrpc/app.etzhayyim.actor.run?actor=Invalid_Handle`);
+  const res = await fetch(`http://localhost:${port}/xrpc/com.etzhayyim.actor.run?actor=Invalid_Handle`);
   assert.equal(res.status, 502);
   const j = await res.json();
   assert.equal(j.error, "RunFailed");

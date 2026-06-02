@@ -4,7 +4,7 @@ interface SecretBinding { get(): Promise<string>; }
 interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
 
 const APP = "shiharai";
-const NSID_PREFIX = "app.etzhayyim.apps.shiharai.";
+const NSID_PREFIX = "com.etzhayyim.apps.shiharai.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -16,7 +16,7 @@ export default {
         nanoid: env.APP_NANOID ?? "sh1h4r41",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/shiharai.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/shiharai",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/shiharai",
       });
     }
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";

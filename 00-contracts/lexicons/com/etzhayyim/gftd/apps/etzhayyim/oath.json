@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.oath",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "etzhayyim 信者 membership oath record. Per ADR-2605172600. Recorded on the aspirant's PDS at the time of joining, carries the signed oath + on-chain join() tx reference.",
+      "record": {
+        "type": "object",
+        "required": [
+          "oathTextVersion",
+          "oathTextLanguage",
+          "oathText",
+          "oathHashKeccak256Hex",
+          "did",
+          "chainId",
+          "membershipContract",
+          "membershipTxHash",
+          "joinedAt"
+        ],
+        "properties": {
+          "oathTextVersion": {
+            "type": "integer",
+            "description": "Lexicon-tracked oath text version. v1 = the original 2026-05-17 text. Bumps when canonical text revises.",
+            "minimum": 1
+          },
+          "oathTextLanguage": {
+            "type": "string",
+            "enum": ["ja", "en"],
+            "description": "Language variant the aspirant signed. Both ja and en are canonical; aspirant signs one (their choice)."
+          },
+          "oathText": {
+            "type": "string",
+            "description": "Full oath text as signed. Must match the canonical text for the (version, language) pair byte-exact.",
+            "maxLength": 2000
+          },
+          "oathHashKeccak256Hex": {
+            "type": "string",
+            "description": "keccak256(utf8(oathText)) lower-case hex without 0x prefix. Used as the bytes32 argument to EtzhayyimMembership.join().",
+            "minLength": 64,
+            "maxLength": 64
+          },
+          "did": {
+            "type": "string",
+            "description": "Aspirant's DID. did:web:* / did:plc:* / did:key:* accepted."
+          },
+          "didSignatureBase64url": {
+            "type": "string",
+            "description": "DID-bound signature over the oathText bytes. Verification: resolve did → publicKey → verify against oathText. base64url no padding."
+          },
+          "chainId": {
+            "type": "integer",
+            "description": "EVM chain ID. v0.1 = 8453 (Base mainnet) or 84532 (Base Sepolia testnet)."
+          },
+          "membershipContract": {
+            "type": "string",
+            "description": "0x-prefixed EtzhayyimMembership contract address on chainId."
+          },
+          "membershipTxHash": {
+            "type": "string",
+            "description": "0x-prefixed transaction hash of the EtzhayyimMembership.join() call."
+          },
+          "smartWalletAddress": {
+            "type": "string",
+            "description": "0x-prefixed ERC-4337 Smart Account address that signed the on-chain join()."
+          },
+          "githubUsername": {
+            "type": "string",
+            "description": "Optional github handle. Matches the second argument to join() if provided. Used by MEMBERS.md PR validation.",
+            "maxLength": 39
+          },
+          "joinedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

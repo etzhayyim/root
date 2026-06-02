@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tools.json.extract",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generic JSON extract primitive — navigate a parsed-JSON object via a safe dotted path. Bridges `http.fetch` (which returns body string) and downstream nodes that need a sub-tree (e.g. `message.items` from a Crossref response). Path syntax: `a.b.c` walks objects; `a.b[2].c` walks list indices; `a.*` flattens an object's values into a list. No eval, no JSONPath/JMESPath language — defensive subset only.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "json": {
+              "type": "string",
+              "description": "Parsed-JSON source. Either a string (will be JSON.parse-d) or an already-decoded object/array."
+            },
+            "path": {
+              "type": "string",
+              "description": "Dotted path (e.g. `message.items[0].DOI` or `data.*.attributes`)."
+            },
+            "default": {
+              "description": "Value to return when the path doesn't resolve. Default: null."
+            }
+          },
+          "required": ["json", "path"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "description": "Extracted sub-tree (object / array / scalar / null)."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

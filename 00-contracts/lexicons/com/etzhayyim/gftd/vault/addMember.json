@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.vault.addMember",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Add a member to a vault by providing a vaultKey wrapped to their device key. Caller must be admin/owner. Recipient pubkey is fetched via com.etzhayyim.signal.getPrekeyBundle.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vaultId": { "type": "string" },
+            "memberDid": { "type": "string" },
+            "wrappedVaultKey": {
+              "type": "string",
+              "description": "AES-key-wrap(vaultKey, sharedSecret) where sharedSecret = X3DH(callerIdentityKey, recipientPrekeyBundle)"
+            },
+            "memberDeviceKeyId": {
+              "type": "string",
+              "description": "Identifier for the recipient device key (X3DH bundle hash)"
+            },
+            "role": {
+              "type": "string",
+              "description": "owner | admin | reader (default: reader)"
+            }
+          },
+          "required": ["vaultId", "memberDid", "wrappedVaultKey", "memberDeviceKeyId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "memberId": { "type": "string" },
+            "addedAt": { "type": "string" }
+          },
+          "required": ["memberId", "addedAt"]
+        }
+      }
+    }
+  }
+}

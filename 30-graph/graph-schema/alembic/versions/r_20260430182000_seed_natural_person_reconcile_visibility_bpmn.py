@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-reconcile-visibility-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-reconcile-visibility-v1',
                  'did:web:natural-person.etzhayyim.com',
                  'natural_person_reconcile_visibility_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
                  '    public_searchable. Business-person rows remain audit-only until source\n'
                  '    allow-listing is explicit.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.naturalPerson.reconcileVisibility\n'
+                 '  NSID: com.etzhayyim.apps.naturalPerson.reconcileVisibility\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -141,12 +141,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5013,
-                 '00-contracts/bpmn/ai/gftd/natural-person/reconcileVisibility.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/natural-person/reconcileVisibility.bpmn',
                  '2026-04-30T18:20:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-reconcile-visibility-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-reconcile-visibility-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -160,21 +160,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-reconcileVisibility-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-reconcileVisibility-v1',
                  'did:web:natural-person.etzhayyim.com',
-                 'app.etzhayyim.apps.naturalPerson.reconcileVisibility',
+                 'com.etzhayyim.apps.naturalPerson.reconcileVisibility',
                  'natural_person_reconcile_visibility_v1',
                  300000,
                  '2026-04-30T18:20:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-reconcileVisibility-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-reconcileVisibility-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-reconcileVisibility-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-reconcileVisibility-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-reconcile-visibility-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-reconcile-visibility-v1']}]
 
 
 def upgrade() -> None:

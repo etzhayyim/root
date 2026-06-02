@@ -1,6 +1,6 @@
 """media-gamers `autopilot` graph — fully autonomous guide generation + social post.
 
-NSID: app.etzhayyim.apps.media_gamers.autopilot
+NSID: com.etzhayyim.apps.media_gamers.autopilot
 Cron: */30 * * * * (every 30 minutes)
 
 Each cron fire:
@@ -46,7 +46,7 @@ _LLM_MODEL = os.environ.get("LLM_MODEL", "qwen3.5-4b")
 _LLM_TIMEOUT = float(os.environ.get("LLM_TIMEOUT_SEC", "60"))
 _COMMIT_GUIDE_XRPC = os.environ.get(
     "COMMIT_GUIDE_XRPC_URL",
-    "https://media-gamers.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.guide.commitGuide",
+    "https://media-gamers.etzhayyim.com/xrpc/com.etzhayyim.apps.media_gamers.guide.commitGuide",
 )
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
 

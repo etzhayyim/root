@@ -8,7 +8,7 @@
  * trust question without trusting the operator.
  *
  * Usage:
- *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.threads.post/3kabc...
+ *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/com.etzhayyim.apps.threads.post/3kabc...
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";

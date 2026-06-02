@@ -44,9 +44,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.yorishiro.flyio.cancellationJob",
-        "ai.gftd.yorishiro.flyio.appDeleteJob",
-        "ai.gftd.yorishiro.flyio.orgDeleteJob"
+        "com.etzhayyim.yorishiro.flyio.cancellationJob",
+        "com.etzhayyim.yorishiro.flyio.appDeleteJob",
+        "com.etzhayyim.yorishiro.flyio.orgDeleteJob"
       ]
     }
   }

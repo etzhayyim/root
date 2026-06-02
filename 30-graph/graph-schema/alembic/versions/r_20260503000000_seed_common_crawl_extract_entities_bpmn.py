@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/common-crawl-extract-entities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/common-crawl-extract-entities-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'common_crawl_extract_entities',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -41,7 +41,7 @@ UP = [{'sql': '\n'
                  '  exporterVersion="2.0">\n'
                  '\n'
                  '  <bpmn:process id="common_crawl_extract_entities" '
-                 'name="app.etzhayyim.apps.commonCrawl.extractEntities" isExecutable="true">\n'
+                 'name="com.etzhayyim.apps.commonCrawl.extractEntities" isExecutable="true">\n'
                  '\n'
                  '    <!-- none-start: triggered by CF Worker XRPC extractEntities call via '
                  'proxyToBpmn() -->\n'
@@ -84,7 +84,7 @@ UP = [{'sql': '\n'
                  'target="event_type" />\n'
                  '          <zeebe:input source="=domain"                                      '
                  'target="subject_id" />\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.commonCrawl&quot;"        '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.commonCrawl&quot;"        '
                  'target="actor" />\n'
                  '          <zeebe:input source="=extract_status"                              '
                  'target="result" />\n'
@@ -111,12 +111,12 @@ UP = [{'sql': '\n'
                  '\n'
                  '</bpmn:definitions>\n',
                  3450,
-                 '00-contracts/bpmn/ai/gftd/common-crawl/extractEntities.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/common-crawl/extractEntities.bpmn',
                  '2026-05-03T00:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.common-crawl',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/common-crawl-extract-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/common-crawl-extract-entities-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -130,15 +130,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/common-crawl-extractEntities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/common-crawl-extractEntities-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.commonCrawl.extractEntities',
+                 'com.etzhayyim.apps.commonCrawl.extractEntities',
                  'common_crawl_extract_entities',
                  '2026-05-03T00:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.common-crawl',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/common-crawl-extractEntities-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/common-crawl-extractEntities-v1']}]
 
 DOWN = [{'sql': '\n'
          "    UPDATE vertex_bpmn_process_def SET status = 'inactive'\n"
@@ -149,7 +149,7 @@ DOWN = [{'sql': '\n'
          "    UPDATE vertex_bpmn_lexicon_binding SET status = 'inactive'\n"
          '    WHERE nsid = $1\n'
          '  ',
-  'parameters': ['app.etzhayyim.apps.commonCrawl.extractEntities']}]
+  'parameters': ['com.etzhayyim.apps.commonCrawl.extractEntities']}]
 
 
 def upgrade() -> None:

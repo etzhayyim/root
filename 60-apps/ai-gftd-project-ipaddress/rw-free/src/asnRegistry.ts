@@ -32,7 +32,7 @@ import {
   type RegisterAsnOutput,
 } from "./types.js";
 
-const ASN_COLLECTION = "app.etzhayyim.apps.ipaddress.asn";
+const ASN_COLLECTION = "com.etzhayyim.apps.ipaddress.asn";
 
 /**
  * Register an ASN. Uses rkey = "asn-{number}" so re-registration with

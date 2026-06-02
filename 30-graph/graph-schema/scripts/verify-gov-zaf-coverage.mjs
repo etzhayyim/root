@@ -17,23 +17,23 @@ const rkeys = [
 const collections = {
   page: {
     table: "vertex_page",
-    nsid: "app.etzhayyim.apps.site.page",
+    nsid: "com.etzhayyim.apps.site.page",
     columns: "rkey, url, domain, title, status_code, content_type",
   },
   wet: {
     table: "vertex_wet_chunk",
-    nsid: "app.etzhayyim.apps.site.wetChunk",
+    nsid: "com.etzhayyim.apps.site.wetChunk",
     columns: "page_rkey, url, domain, title, chunk_index, total_chunks",
     keyColumn: "page_rkey",
   },
   wat: {
     table: "vertex_wat",
-    nsid: "app.etzhayyim.apps.site.wat",
+    nsid: "com.etzhayyim.apps.site.wat",
     columns: "rkey",
   },
   screenshot: {
     table: "vertex_screenshot",
-    nsid: "app.etzhayyim.apps.site.screenshot",
+    nsid: "com.etzhayyim.apps.site.screenshot",
     columns: 'rkey, blob_ref, "format", file_size',
   },
 };
@@ -102,7 +102,7 @@ async function verifyGovSources() {
   const errors = [];
 
   for (const rkey of rkeys) {
-    const id = vertexId("app.etzhayyim.gov.source", rkey);
+    const id = vertexId("com.etzhayyim.gov.source", rkey);
     try {
       const result = await client.query(
         `

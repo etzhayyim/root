@@ -23,13 +23,13 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const BPMN_PROCESS_ID = "llm_classifier_gate_pattern";
 const BPMN_FILE = path.resolve(
   repoRoot,
-  "00-contracts/bpmn/ai/gftd/llm/classifierGatePattern.bpmn",
+  "00-contracts/bpmn/com/etzhayyim/llm/classifierGatePattern.bpmn",
 );
 
 const DMN_DECISION_ID = "llm_classifier_gate";
 const DMN_FILE = path.resolve(
   repoRoot,
-  "00-contracts/dmn/ai/gftd/llm/classifierGate.dmn",
+  "00-contracts/dmn/com/etzhayyim/llm/classifierGate.dmn",
 );
 
 export async function up(db: Kysely<unknown>): Promise<void> {
@@ -53,7 +53,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // Insert DMN into vertex_bpmn_process_def.
   // The dispatcher's _detect_resource_kind() reads the DMN namespace from the XML
   // to branch deploy logic; bpmn_process_id holds the decision ID for DMN rows.
-  const dmnVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${DMN_DECISION_ID}-v1`;
+  const dmnVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${DMN_DECISION_ID}-v1`;
   await sql`
     INSERT INTO vertex_bpmn_process_def (
       vertex_id,
@@ -71,7 +71,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       1,
       ${dmnXml},
       CAST(${dmnSize} AS integer),
-      '00-contracts/dmn/ai/gftd/llm/classifierGate.dmn',
+      '00-contracts/dmn/com/etzhayyim/llm/classifierGate.dmn',
       'active',
       NULL,
       NULL

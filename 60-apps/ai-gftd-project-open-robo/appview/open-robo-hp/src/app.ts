@@ -1,7 +1,7 @@
 import { createWorkerExport } from '@etzhayyim/magatama-host-sdk';
 
 const _inner = createWorkerExport((sdk) => {
-  sdk.app.query('app.etzhayyim.apps.openRoboHp.getProduct', async (_input, _ctx) => {
+  sdk.app.query('com.etzhayyim.apps.openRoboHp.getProduct', async (_input, _ctx) => {
     return {
       name: 'Giemon Otete',
       version: '1.0.0',

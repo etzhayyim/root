@@ -117,11 +117,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.shidemori.memorialNftAttestation",
-    "app.etzhayyim.shidemori.cemeteryLandAttestation",
-    "app.etzhayyim.shidemori.chinkonRemembranceAttestation",
-    "app.etzhayyim.shidemori.externalMortuaryEngagement",
-    "app.etzhayyim.shidemori.silenShidemoriReview"
+    "com.etzhayyim.shidemori.memorialNftAttestation",
+    "com.etzhayyim.shidemori.cemeteryLandAttestation",
+    "com.etzhayyim.shidemori.chinkonRemembranceAttestation",
+    "com.etzhayyim.shidemori.externalMortuaryEngagement",
+    "com.etzhayyim.shidemori.silenShidemoriReview"
   ],
   "constitutionalGates": {
     "description": "13 immutable gates per ADR-2605263800. Council Lv6+ supermajority + new ADR to amend.",

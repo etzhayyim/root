@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govPry.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govPry.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Paraguay government.",
-        "operationId": "app.etzhayyim.govPry.followSiteDeps",
+        "operationId": "com.etzhayyim.govPry.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govPry.heartbeatTick": {
       "post": {
         "summary": "Run the Paraguay government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govPry.heartbeatTick",
+        "operationId": "com.etzhayyim.govPry.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.listOrgs": {
+    "/xrpc/com.etzhayyim.govPry.listOrgs": {
       "get": {
         "summary": "List Paraguay government organization graph records.",
-        "operationId": "app.etzhayyim.govPry.listOrgs",
+        "operationId": "com.etzhayyim.govPry.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.registerDIDs": {
+    "/xrpc/com.etzhayyim.govPry.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Paraguay government organizations.",
-        "operationId": "app.etzhayyim.govPry.registerDIDs",
+        "operationId": "com.etzhayyim.govPry.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govPry.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Paraguay government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govPry.resolveOrgPath",
+        "operationId": "com.etzhayyim.govPry.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.seedOrgs": {
+    "/xrpc/com.etzhayyim.govPry.seedOrgs": {
       "post": {
         "summary": "Seed initial Paraguay government organization records into the graph.",
-        "operationId": "app.etzhayyim.govPry.seedOrgs",
+        "operationId": "com.etzhayyim.govPry.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.shinka": {
+    "/xrpc/com.etzhayyim.govPry.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Paraguay government organization update.",
-        "operationId": "app.etzhayyim.govPry.shinka",
+        "operationId": "com.etzhayyim.govPry.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPry.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govPry.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Paraguay government organization changes to graph.",
-        "operationId": "app.etzhayyim.govPry.syncWetUpdates",
+        "operationId": "com.etzhayyim.govPry.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

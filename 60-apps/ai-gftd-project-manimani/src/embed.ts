@@ -5,12 +5,12 @@
 //   /embed                 expects parent to postMessage gftd:embed:auth
 //
 // What the UI shows:
-//   1. Project list  → /xrpc/app.etzhayyim.apps.manimani.listProjects
-//   2. Coverage      → /xrpc/app.etzhayyim.apps.manimani.coverage
+//   1. Project list  → /xrpc/com.etzhayyim.apps.manimani.listProjects
+//   2. Coverage      → /xrpc/com.etzhayyim.apps.manimani.coverage
 //   3. Run detail    → /runs/{run_id}
 //        when status=interrupted, render pendingClassification.rationale
 //        + new project proposal + 3 HITL buttons (approve / reject /
-//        reassign) → /xrpc/app.etzhayyim.apps.manimani.resumeRun
+//        reassign) → /xrpc/com.etzhayyim.apps.manimani.resumeRun
 //
 // Auth model:
 //   - The parent (yoro AppShell) iframes /embed and posts
@@ -142,7 +142,7 @@ pre { background:rgba(127,127,127,.08); padding:10px; border-radius:6px; overflo
 
   async function loadPendingQueue() {
     try {
-      const data = await call("/xrpc/app.etzhayyim.apps.manimani.listPendingRuns?limit=25");
+      const data = await call("/xrpc/com.etzhayyim.apps.manimani.listPendingRuns?limit=25");
       const root = $("pending");
       const runs = (data && data.runs) || [];
       $("pendingCount").textContent = runs.length ? "(" + runs.length + ")" : "";
@@ -238,7 +238,7 @@ pre { background:rgba(127,127,127,.08); padding:10px; border-radius:6px; overflo
 
   async function loadCoverage() {
     try {
-      const cov = await call("/xrpc/app.etzhayyim.apps.manimani.coverage?windowDays=7");
+      const cov = await call("/xrpc/com.etzhayyim.apps.manimani.coverage?windowDays=7");
       const root = $("cov");
       root.innerHTML = "";
       const kpis = [
@@ -262,7 +262,7 @@ pre { background:rgba(127,127,127,.08); padding:10px; border-radius:6px; overflo
 
   async function loadProjects() {
     try {
-      const data = await call("/xrpc/app.etzhayyim.apps.manimani.listProjects?limit=50");
+      const data = await call("/xrpc/com.etzhayyim.apps.manimani.listProjects?limit=50");
       const tbl = document.createElement("table");
       tbl.innerHTML = "<thead><tr><th>slug</th><th>title</th><th>kind</th><th>status</th><th>30d</th><th>last intake</th></tr></thead>";
       const tbody = document.createElement("tbody");
@@ -418,7 +418,7 @@ pre { background:rgba(127,127,127,.08); padding:10px; border-radius:6px; overflo
         if (!targetProjectId) return alert("targetProjectId required");
         body.targetProjectId = targetProjectId;
       }
-      const r = await call("/xrpc/app.etzhayyim.apps.manimani.resumeRun", {
+      const r = await call("/xrpc/com.etzhayyim.apps.manimani.resumeRun", {
         method: "POST",
         body: JSON.stringify(body),
       });

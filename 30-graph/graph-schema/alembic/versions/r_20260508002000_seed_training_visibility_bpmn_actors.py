@@ -19,13 +19,13 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1',
                  'did:web:training.etzhayyim.com',
                  'training_list_snapshots',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  training.etzhayyim.com - listSnapshots query (XRPC '
-                 'app.etzhayyim.apps.training.listSnapshots).\n'
+                 'com.etzhayyim.apps.training.listSnapshots).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Read-only SELECT over vertex_training_dataset_snapshot. Audit omitted.\n'
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.training.listSnapshots", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.training.listSnapshots", "version": 1, '
                  '"resultTimeoutMs": 15000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -75,12 +75,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1965,
-                 '00-contracts/bpmn/ai/gftd/training/listSnapshots.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/training/listSnapshots.bpmn',
                  '2026-05-08T00:20:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training.visibility',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -88,12 +88,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-coverage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-coverage-v1',
                  'did:web:training.etzhayyim.com',
                  'training_coverage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  training.etzhayyim.com - coverage query (XRPC app.etzhayyim.apps.training.coverage).\n'
+                 '  training.etzhayyim.com - coverage query (XRPC com.etzhayyim.apps.training.coverage).\n'
                  '  ADR-2605070700.\n'
                  '\n'
                  '  Single-shot summary aggregate. Audit omitted (high-frequency probe).\n'
@@ -110,7 +110,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.training.coverage", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.training.coverage", "version": 1, '
                  '"resultTimeoutMs": 15000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -158,12 +158,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2819,
-                 '00-contracts/bpmn/ai/gftd/training/coverage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/training/coverage.bpmn',
                  '2026-05-08T00:20:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training.visibility',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-coverage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-coverage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -171,16 +171,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1',
                  'did:web:training.etzhayyim.com',
-                 'app.etzhayyim.apps.training.listSnapshots',
+                 'com.etzhayyim.apps.training.listSnapshots',
                  'training_list_snapshots',
                  15000,
                  '2026-05-08T00:20:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training.visibility',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -188,25 +188,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-coverage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-coverage-v1',
                  'did:web:training.etzhayyim.com',
-                 'app.etzhayyim.apps.training.coverage',
+                 'com.etzhayyim.apps.training.coverage',
                  'training_coverage',
                  15000,
                  '2026-05-08T00:20:00Z',
                  'did:web:training.etzhayyim.com',
                  'did:web:training.etzhayyim.com',
                  'sys.bpmn.seed.training.visibility',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-coverage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-coverage-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-listSnapshots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/training-coverage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/training-coverage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-list-snapshots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-coverage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-coverage-v1']}]
 
 
 def upgrade() -> None:

@@ -15,7 +15,7 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION gmail_upsert_contact(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.gmail.upsertContact'\n"
+         "      AS 'com.etzhayyim.apps.gmail.upsertContact'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

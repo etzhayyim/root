@@ -14,7 +14,7 @@ import { buildPinRecord } from "./emit.js";
 const BASE = {
   did: "did:web:pinner.etzhayyim.com",
   pdsUrl: "https://pds.etzhayyim.com",
-  shardKey: "app.etzhayyim.apps.threads.post",
+  shardKey: "com.etzhayyim.apps.threads.post",
   rootCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   carCid: "bafyreigh2akiscaildc7obb6q3vbiqd5gukvvr44e7lsdgowf2c5sb6e44",
   providers: ["kubo"],
@@ -24,7 +24,7 @@ const BASE = {
 
 test("buildPinRecord emits the lexicon $type + required fields", () => {
   const body = buildPinRecord(BASE);
-  assert.equal(body.$type, "app.etzhayyim.substrate.ipfsPin");
+  assert.equal(body.$type, "com.etzhayyim.substrate.ipfsPin");
   assert.equal(body.shardKey, BASE.shardKey);
   assert.equal(body.rootCid, BASE.rootCid);
   assert.equal(body.carCid, BASE.carCid);
@@ -44,12 +44,12 @@ test("buildPinRecord carries optional blockCount + snapshotUri when present", ()
     ...BASE,
     blockCount: 7,
     snapshotUri:
-      "at://did:web:projector.etzhayyim.com/app.etzhayyim.substrate.shardSnapshot/3kabcd",
+      "at://did:web:projector.etzhayyim.com/com.etzhayyim.substrate.shardSnapshot/3kabcd",
   });
   assert.equal(body.blockCount, 7);
   assert.equal(
     body.snapshotUri,
-    "at://did:web:projector.etzhayyim.com/app.etzhayyim.substrate.shardSnapshot/3kabcd",
+    "at://did:web:projector.etzhayyim.com/com.etzhayyim.substrate.shardSnapshot/3kabcd",
   );
 });
 

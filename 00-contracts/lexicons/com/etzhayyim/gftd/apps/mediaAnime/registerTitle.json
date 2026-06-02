@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mediaAnime.registerTitle",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register an anime title. Path-based DID: did:web:media-anime.etzhayyim.com:title:{slug}. Sources: MAL + AniList + Annict + AniDB.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["title"],
+          "properties": {
+            "title": { "type": "string" },
+            "titleEnglish": { "type": "string" },
+            "titleJapanese": { "type": "string" },
+            "titleRomaji": { "type": "string" },
+            "type": { "type": "string", "enum": ["tv", "movie", "ova", "ona", "special", "music"] },
+            "season": { "type": "string", "description": "winter-2026 / spring-2026 / summer-2026 / fall-2026" },
+            "episodeCount": { "type": "integer" },
+            "studioDids": { "type": "array", "items": { "type": "string", "format": "did" } },
+            "sourceMaterial": { "type": "string", "enum": ["original", "manga", "light-novel", "novel", "web-novel", "visual-novel", "game", "music"] },
+            "malId": { "type": "integer" },
+            "anilistId": { "type": "integer" },
+            "annictId": { "type": "integer" },
+            "genres": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

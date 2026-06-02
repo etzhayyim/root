@@ -67,7 +67,7 @@ function validate(lexicon, path) {
   // Religious-corp wave Lexicons typically reference an ADR — emit a hint if not
   if (lexicon.defs?.main?.description) {
     const desc = lexicon.defs.main.description;
-    if (!desc.match(/ADR-\d{10}/) && lexicon.id.startsWith("app.etzhayyim.apps.etzhayyim.")) {
+    if (!desc.match(/ADR-\d{10}/) && lexicon.id.startsWith("com.etzhayyim.apps.etzhayyim.")) {
       // not an error, but flag
     }
   }

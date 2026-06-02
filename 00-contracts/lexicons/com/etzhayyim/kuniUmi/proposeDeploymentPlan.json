@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kuniUmi.proposeDeploymentPlan",
+  "description": "Deployment plan proposal emitted by DeploymentPlanningCell (phase 2) and consumed by ConstructionOrchestrationCell (phase 3, leaderNode joseph). Bundles UNSPSC procurement sub-graph + Giemon robot fleet assignment + Council Lv6+ sign-off requirements. Per ADR-2605201400 §7: first deployment site requires ≥3 Council Lv6+ signatures.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "planId",
+          "siteId",
+          "surveyId",
+          "unispscProcurementBundleCid",
+          "giemonFleetAssignment",
+          "councilSignatures",
+          "deploymentPlanningCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "planId": {"type": "string"},
+          "siteId": {
+            "type": "string",
+            "description": "Parent defineDeploymentSite.siteId."
+          },
+          "surveyId": {
+            "type": "string",
+            "description": "Survey this plan is derived from."
+          },
+          "unispscProcurementBundleCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "IPFS CID of the UNSPSC procurement sub-graph bundle (per ADR-2605171300). Lists all commodity codes + quantities for the deployment."
+          },
+          "giemonFleetAssignment": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#giemonUnitAssignment"
+            },
+            "minLength": 1,
+            "description": "Giemon Otete robot DIDs assigned to the deployment (per `20-actors/kuni-umi/CLAUDE.md` phasing gate: ≥1 unit with valid Ed25519 key required)."
+          },
+          "estimatedDurationDays": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "councilSignatures": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#councilSignature"
+            },
+            "minLength": 3,
+            "description": "G3 + ADR-2605201400 §7: ≥3 Council Lv6+ sign-offs required for first deployment. Each councilLevel MUST be ≥ 6."
+          },
+          "deploymentPlanningCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          }
+        }
+      }
+    },
+    "giemonUnitAssignment": {
+      "type": "object",
+      "required": ["robotDid", "rolePhase"],
+      "properties": {
+        "robotDid": {
+          "type": "string",
+          "description": "DID of the form `did:web:etzhayyim.com:kuniumi:robot:<serial>` per CLAUDE.md."
+        },
+        "rolePhase": {
+          "type": "string",
+          "knownValues": ["construction", "audit", "commissioning", "decommission"]
+        }
+      }
+    },
+    "councilSignature": {
+      "type": "object",
+      "required": ["councilDid", "councilLevel", "signedAt", "signature"],
+      "properties": {
+        "councilDid": {"type": "string"},
+        "councilLevel": {
+          "type": "integer",
+          "minimum": 6,
+          "maximum": 7,
+          "description": "Council level. ADR-2605201400 §7 requires Lv6+ for deployment sign-off."
+        },
+        "signedAt": {"type": "string", "format": "datetime"},
+        "signature": {"type": "string"}
+      }
+    }
+  }
+}

@@ -90,28 +90,28 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.seibutsu.taxon",
-        "ai.gftd.apps.seibutsu.traits",
-        "ai.gftd.apps.seibutsu.observation"
+        "com.etzhayyim.apps.seibutsu.taxon",
+        "com.etzhayyim.apps.seibutsu.traits",
+        "com.etzhayyim.apps.seibutsu.observation"
       ]
     }
   },
   "derive": [
     {
-      "on": "ai.gftd.apps.seibutsu.observation",
+      "on": "com.etzhayyim.apps.seibutsu.observation",
       "emit": "app.bsky.feed.post",
       "as": "observerDid",
       "template": "Observed {{taxon.commonName}} ({{taxon.scientificName}}) at {{geoH3}}"
     },
     {
-      "on": "ai.gftd.apps.seibutsu.taxon",
+      "on": "com.etzhayyim.apps.seibutsu.taxon",
       "where": "rank == 'species'",
       "emit": "tool.invoke",
       "target": "researcher-bio-gene",
       "method": "lookupGenome"
     },
     {
-      "on": "ai.gftd.apps.seibutsu.traits",
+      "on": "com.etzhayyim.apps.seibutsu.traits",
       "emit": "stream.publish",
       "channel": "stream-taxa"
     }

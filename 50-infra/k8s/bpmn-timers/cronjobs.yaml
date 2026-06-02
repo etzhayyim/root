@@ -35,7 +35,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshGtfsJp
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshGtfsJp
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -68,7 +68,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.refreshCoverageStats
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.refreshCoverageStats
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -101,7 +101,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.computeAircraftTrack
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.computeAircraftTrack
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -134,7 +134,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshWikipedia
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshWikipedia
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -167,7 +167,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.ingestCelestialCatalogs
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.ingestCelestialCatalogs
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -200,7 +200,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.scienceTaxonSync
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.scienceTaxonSync
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -233,7 +233,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshOsmPlanet
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshOsmPlanet
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -266,7 +266,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.sentinelIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.sentinelIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -299,7 +299,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.runPendingCoverageJobs
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.runPendingCoverageJobs
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -332,7 +332,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.sciencePaperIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.sciencePaperIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -365,7 +365,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.refreshTleCatalog
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.refreshTleCatalog
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -398,7 +398,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.advanceCoverage
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.advanceCoverage
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -431,7 +431,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.backfillAircraftRegistry
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.backfillAircraftRegistry
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -464,7 +464,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshGeonames
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshGeonames
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -497,7 +497,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.buildingIngest3d
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.buildingIngest3d
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -530,7 +530,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshFerryRoutes
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshFerryRoutes
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -563,7 +563,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshWikidata
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshWikidata
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -596,7 +596,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.bulkRefreshOpenflights
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.bulkRefreshOpenflights
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -629,7 +629,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.precomputeSatellitePasses
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.precomputeSatellitePasses
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -662,7 +662,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.purgeStaleLiveTracker
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.purgeStaleLiveTracker
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -695,7 +695,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.liveTrackAircraft
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.liveTrackAircraft
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -728,7 +728,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.scienceElementSeed
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.scienceElementSeed
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -761,7 +761,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.aismarine.refreshVesselDensity
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.aismarine.refreshVesselDensity
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -794,7 +794,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.aismarine.voyageDetector
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.aismarine.voyageDetector
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -827,7 +827,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps.aismarine.refreshVesselMaster
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps.aismarine.refreshVesselMaster
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -860,7 +860,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.tasks.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.tasks.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -893,7 +893,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.calendar.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.calendar.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -926,7 +926,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.sheets.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.sheets.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -959,7 +959,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.murakumo.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.murakumo.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -992,7 +992,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.murakumo.fleetHealthCheck
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.murakumo.fleetHealthCheck
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1025,7 +1025,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.otakiage.matsuriSchedule
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.matsuriSchedule
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1058,7 +1058,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.otakiage.reuseExpire
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.reuseExpire
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1091,7 +1091,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.otakiage.certificateAnchorSweep
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.certificateAnchorSweep
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1124,7 +1124,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.otakiage.reuseMatch
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.otakiage.reuseMatch
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1157,7 +1157,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.meet.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.meet.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1190,7 +1190,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.ingest.netintelFingerprintDelta
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelFingerprintDelta
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1223,7 +1223,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.ingest.netintelWhoisDelta
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelWhoisDelta
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1256,7 +1256,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.ingest.netintelIpEnrichDelta
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelIpEnrichDelta
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1289,7 +1289,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.ingest.netintelScanBannerDelta
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelScanBannerDelta
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1322,7 +1322,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.ingest.netintelDnsDelta
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.ingest.netintelDnsDelta
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1355,7 +1355,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.contacts.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.contacts.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1388,7 +1388,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.graph.expandTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.graph.expandTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1421,7 +1421,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.graph.consumeRepoCommits
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.graph.consumeRepoCommits
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1454,7 +1454,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.minimaxSweep
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.minimaxSweep
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1487,7 +1487,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.beliefNoiseInject
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.beliefNoiseInject
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1520,7 +1520,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.processMining
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.processMining
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1553,7 +1553,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.floorViolationAlert
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.floorViolationAlert
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1586,7 +1586,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.trustWeightUpdate
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.trustWeightUpdate
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1619,7 +1619,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.beliefInfluencePropagate
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.beliefInfluencePropagate
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1652,7 +1652,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.detectBottleneck
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.detectBottleneck
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1685,7 +1685,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.beliefRestoringCapture
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.beliefRestoringCapture
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1718,7 +1718,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.wellbecoming.proactiveConnect
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.wellbecoming.proactiveConnect
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1751,7 +1751,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.science.sciencePaperIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.science.sciencePaperIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1784,7 +1784,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.science.kamiSeedScientific
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.science.kamiSeedScientific
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1817,7 +1817,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.lifehack.dailyDustPost
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.lifehack.dailyDustPost
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1850,7 +1850,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.pds.resyncMitamaCronTriggers
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.resyncMitamaCronTriggers
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1883,7 +1883,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.pds.warmDiscoverCache
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.warmDiscoverCache
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1916,7 +1916,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.pds.syncWriteOutbox
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.syncWriteOutbox
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1949,7 +1949,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.pds.runHeartbeatCron
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.runHeartbeatCron
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -1982,7 +1982,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.pds.rotateSigningKeys
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.pds.rotateSigningKeys
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2015,7 +2015,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.openSmartphoneSoc.fetchRiscvEcosystemDelta
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.openSmartphoneSoc.fetchRiscvEcosystemDelta
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2048,7 +2048,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.docs.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.docs.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2081,7 +2081,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.yoro.platformPulse
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.yoro.platformPulse
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2114,7 +2114,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.atproto.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.atproto.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2147,7 +2147,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.slides.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.slides.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2180,7 +2180,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.hanrei.hanreiIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.hanrei.hanreiIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2213,7 +2213,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.businessPerson.enrichOrgLei
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.enrichOrgLei
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2246,7 +2246,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.businessPerson.scoreInfluence
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.scoreInfluence
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2279,7 +2279,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.businessPerson.enrichGlobalPersons
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.enrichGlobalPersons
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2312,7 +2312,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.businessPerson.enrichCareerLLM
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.businessPerson.enrichCareerLLM
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2345,7 +2345,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.jpCorpFinance.startDailyIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpCorpFinance.startDailyIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2378,7 +2378,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.attentionIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.attentionIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2411,7 +2411,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.marketIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.marketIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2444,7 +2444,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.emotionIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.emotionIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2477,7 +2477,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.requestIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.requestIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2510,7 +2510,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.influenceIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.influenceIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2543,7 +2543,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.moneyFlowIngest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.moneyFlowIngest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2576,7 +2576,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.aria.minimaxSweep
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.aria.minimaxSweep
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2609,7 +2609,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.bluesky.refreshStalest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.bluesky.refreshStalest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2642,7 +2642,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.hf.modelScan
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.hf.modelScan
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2675,7 +2675,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.hf.datasetScan
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.hf.datasetScan
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2708,7 +2708,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.irScrape.processQueue
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.irScrape.processQueue
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2741,7 +2741,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.irScrape.queueSeeds
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.irScrape.queueSeeds
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2774,7 +2774,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.handotai.handotaiCollect
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.handotai.handotaiCollect
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2807,7 +2807,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.market.chainDemandPoll
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.market.chainDemandPoll
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2840,7 +2840,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.market.internetDemandPoll
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.market.internetDemandPoll
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2873,7 +2873,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.market.settlementBundle
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.market.settlementBundle
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2906,7 +2906,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.scanRealEstate
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanRealEstate
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2939,7 +2939,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.scanEquities
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanEquities
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -2972,7 +2972,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.scanCommodities
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanCommodities
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3005,7 +3005,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.publishDigest
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.publishDigest
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3038,7 +3038,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.scanFx
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanFx
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3071,7 +3071,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.scanFutures
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanFutures
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3104,7 +3104,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arb.scanCrypto
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arb.scanCrypto
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3137,7 +3137,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.copyright.socialCoverageReport
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.copyright.socialCoverageReport
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3170,7 +3170,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.copyright.ingestDatacite
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.copyright.ingestDatacite
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3203,7 +3203,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.copyright.ingestCrossref
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.copyright.ingestCrossref
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3236,7 +3236,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.flightOffer.cleanupRuns
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.flightOffer.cleanupRuns
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3269,7 +3269,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.flightOffer.pollWatchlist
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.flightOffer.pollWatchlist
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3302,7 +3302,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.magatama.organizerRun
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.magatama.organizerRun
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3335,7 +3335,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.arms.scanExpiredPermits
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.arms.scanExpiredPermits
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3368,7 +3368,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.drive.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.drive.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3401,7 +3401,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.resourceFlow.detectAnomaly
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.resourceFlow.detectAnomaly
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3434,7 +3434,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.isin.isinCollect
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.isin.isinCollect
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3467,7 +3467,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.maps3d.processTile
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.maps3d.processTile
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3500,7 +3500,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.jpFiscal.fiscalEdinetDaily
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpFiscal.fiscalEdinetDaily
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3533,7 +3533,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.jpFiscal.runScrapers
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpFiscal.runScrapers
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3566,7 +3566,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.jpFiscal.fiscalContractWeekly
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.jpFiscal.fiscalContractWeekly
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3599,7 +3599,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferKdrift
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferKdrift
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3632,7 +3632,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferPersonCohorts
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferPersonCohorts
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3665,7 +3665,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferLdaTopics
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaTopics
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3698,7 +3698,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.coverageGapBridge
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.coverageGapBridge
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3731,7 +3731,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferDeceasedCohorts
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferDeceasedCohorts
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3764,7 +3764,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferLdaSignals
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaSignals
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3797,7 +3797,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferLdaEntities
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaEntities
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3830,7 +3830,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferLdaIncremental
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferLdaIncremental
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3863,7 +3863,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.coverage.inferFission
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.coverage.inferFission
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3896,7 +3896,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.gmail.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.gmail.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3929,7 +3929,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.rl.collectTrajectories
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.collectTrajectories
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3962,7 +3962,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.rl.aifAttributeOutcomes
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.aifAttributeOutcomes
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -3995,7 +3995,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.rl.aifLearnModel
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.aifLearnModel
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -4028,7 +4028,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.rl.policyDispatch
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.policyDispatch
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -4061,7 +4061,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.rl.generatePreferences
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.generatePreferences
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -4094,7 +4094,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.rl.aifUpdateBeliefs
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.rl.aifUpdateBeliefs
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -4127,7 +4127,7 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.claim.cronTick
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.claim.cronTick
           restartPolicy: OnFailure
 ---
 apiVersion: batch/v1
@@ -4160,5 +4160,5 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/app.etzhayyim.apps.claim.unchallengedSweep
+                - curl -X POST -sS -o /dev/null -w '%{http_code}\n' http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.claim.unchallengedSweep
           restartPolicy: OnFailure

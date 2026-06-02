@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * Seed vertex_bpmn_process_def for media-gamers chart analysis BPMNs.
  *
  *   chartFetch.bpmn    — R/P7D timer-start; fetchAndPersist + analyze + post.
- *   chartAnalyze.bpmn  — none-start (XRPC app.etzhayyim.apps.media_gamers.analyzeChart).
+ *   chartAnalyze.bpmn  — none-start (XRPC com.etzhayyim.apps.media_gamers.analyzeChart).
  *
  * F5 watcher deploys each to Zeebe within 30s of insert.
  * ADR-0056 (BPMN-as-actor), INSERT 2 rows convention.
@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..", "..");
 const readBpmn = (file: string) =>
   readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/media-gamers", file),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/media-gamers", file),
     "utf8",
   );
 
@@ -28,12 +28,12 @@ const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.media-gamers-chart";
 
 const FETCH_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-fetch-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/media-gamers-chart-fetch-v1";
 const ANALYZE_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/media-gamers-chart-analyze-v1";
 const ANALYZE_BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
-const ANALYZE_NSID = "app.etzhayyim.apps.media_gamers.analyzeChart";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-media-gamers-analyzeChart-v1";
+const ANALYZE_NSID = "com.etzhayyim.apps.media_gamers.analyzeChart";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── chartFetch.bpmn (timer R/P7D) ──────────────────────────────────────
@@ -45,7 +45,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        source_path, status, created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT ${FETCH_VERTEX_ID}, ${OWNER_DID}, ${"media_gamers_chart_fetch"}, 1,
            ${fetchXml}, CAST(${fetchSize} AS integer),
-           ${"00-contracts/bpmn/ai/gftd/media-gamers/chartFetch.bpmn"},
+           ${"00-contracts/bpmn/com/etzhayyim/media-gamers/chartFetch.bpmn"},
            ${"active"}, ${CREATED_AT}, 1,
            ${OWNER_DID}, ${OWNER_DID}, ${ACTOR_TAG}
     WHERE NOT EXISTS (
@@ -62,7 +62,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        source_path, status, created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT ${ANALYZE_VERTEX_ID}, ${OWNER_DID}, ${"media_gamers_chart_analyze"}, 1,
            ${analyzeXml}, CAST(${analyzeSize} AS integer),
-           ${"00-contracts/bpmn/ai/gftd/media-gamers/chartAnalyze.bpmn"},
+           ${"00-contracts/bpmn/com/etzhayyim/media-gamers/chartAnalyze.bpmn"},
            ${"active"}, ${CREATED_AT}, 1,
            ${OWNER_DID}, ${OWNER_DID}, ${ACTOR_TAG}
     WHERE NOT EXISTS (

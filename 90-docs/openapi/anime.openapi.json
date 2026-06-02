@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.anime.createEpisode": {
+    "/xrpc/com.etzhayyim.anime.createEpisode": {
       "post": {
         "summary": "Register an episode under an anime season.",
-        "operationId": "app.etzhayyim.anime.createEpisode",
+        "operationId": "com.etzhayyim.anime.createEpisode",
         "requestBody": {
           "required": true,
           "content": {
@@ -72,10 +72,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.createSchedule": {
+    "/xrpc/com.etzhayyim.anime.createSchedule": {
       "post": {
         "summary": "Register a broadcast schedule slot for an anime title.",
-        "operationId": "app.etzhayyim.anime.createSchedule",
+        "operationId": "com.etzhayyim.anime.createSchedule",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.createSeason": {
+    "/xrpc/com.etzhayyim.anime.createSeason": {
       "post": {
         "summary": "Register a season under an anime title.",
-        "operationId": "app.etzhayyim.anime.createSeason",
+        "operationId": "com.etzhayyim.anime.createSeason",
         "requestBody": {
           "required": true,
           "content": {
@@ -202,10 +202,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.createTitle": {
+    "/xrpc/com.etzhayyim.anime.createTitle": {
       "post": {
         "summary": "Register a new anime title.",
-        "operationId": "app.etzhayyim.anime.createTitle",
+        "operationId": "com.etzhayyim.anime.createTitle",
         "requestBody": {
           "required": true,
           "content": {
@@ -273,10 +273,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.getTitle": {
+    "/xrpc/com.etzhayyim.anime.getTitle": {
       "get": {
         "summary": "Get an anime title by ID including its seasons.",
-        "operationId": "app.etzhayyim.anime.getTitle",
+        "operationId": "com.etzhayyim.anime.getTitle",
         "parameters": [
           {
             "name": "id",
@@ -315,10 +315,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.listEpisodes": {
+    "/xrpc/com.etzhayyim.anime.listEpisodes": {
       "get": {
         "summary": "List episodes for a season.",
-        "operationId": "app.etzhayyim.anime.listEpisodes",
+        "operationId": "com.etzhayyim.anime.listEpisodes",
         "parameters": [
           {
             "name": "season_id",
@@ -376,10 +376,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.listSchedules": {
+    "/xrpc/com.etzhayyim.anime.listSchedules": {
       "get": {
         "summary": "List broadcast schedules with optional filters by title and day of week.",
-        "operationId": "app.etzhayyim.anime.listSchedules",
+        "operationId": "com.etzhayyim.anime.listSchedules",
         "parameters": [
           {
             "name": "title_id",
@@ -445,10 +445,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.listTitles": {
+    "/xrpc/com.etzhayyim.anime.listTitles": {
       "get": {
         "summary": "List anime titles with optional genre and status filters.",
-        "operationId": "app.etzhayyim.anime.listTitles",
+        "operationId": "com.etzhayyim.anime.listTitles",
         "parameters": [
           {
             "name": "genre",
@@ -514,10 +514,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.searchTitles": {
+    "/xrpc/com.etzhayyim.anime.searchTitles": {
       "get": {
         "summary": "Search anime titles by keyword across title, tags, and synopsis.",
-        "operationId": "app.etzhayyim.anime.searchTitles",
+        "operationId": "com.etzhayyim.anime.searchTitles",
         "parameters": [
           {
             "name": "q",
@@ -586,10 +586,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.anime.submitReview": {
+    "/xrpc/com.etzhayyim.anime.submitReview": {
       "post": {
         "summary": "Submit a viewer review for an anime title.",
-        "operationId": "app.etzhayyim.anime.submitReview",
+        "operationId": "com.etzhayyim.anime.submitReview",
         "requestBody": {
           "required": true,
           "content": {

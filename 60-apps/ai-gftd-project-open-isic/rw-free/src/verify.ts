@@ -8,7 +8,7 @@
  * a proof anyone can re-check.
  *
  * Usage:
- *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/app.etzhayyim.apps.openIsic.class/2520
+ *   pnpm tsx src/verify.ts at://did:web:etzhayyim.com/com.etzhayyim.apps.openIsic.class/2520
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";

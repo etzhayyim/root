@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps3d.replanReconstruction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "LangGraph failure replanner. Takes a structured COLMAP failure (errorCode + errorMessage from `colmapTile`) and decides: retry-with-relaxed-thresholds | request-more-images | downgrade-to-osm-extrude | mark-unrecoverable. State is checkpointed to `vertex_langgraph_state` so a Pod restart resumes the same decision. The BPMN exclusive gateway routes accordingly; today the loop short-circuits to End on first failure (single-pass) — multi-pass replanning is deferred until the steady-state success rate is measured.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "errorCode"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "errorCode": { "type": "string" },
+            "errorMessage": { "type": "string" },
+            "imageCount": { "type": "integer" },
+            "attempt": { "type": "integer", "description": "1-based retry counter (default 1)." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tileH3", "action"],
+          "properties": {
+            "tileH3": { "type": "string" },
+            "action": { "type": "string", "description": "retry | requestMore | downgradeOsm | abort." },
+            "retryHints": {
+              "type": "object",
+              "description": "Optional knobs the next colmapTile attempt should use."
+            },
+            "rationale": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

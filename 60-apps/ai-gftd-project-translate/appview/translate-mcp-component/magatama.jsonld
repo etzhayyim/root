@@ -75,9 +75,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.translate.translateEntity",
-        "ai.gftd.apps.translate.translateEvent",
-        "ai.gftd.apps.translate.translateReport"
+        "com.etzhayyim.apps.translate.translateEntity",
+        "com.etzhayyim.apps.translate.translateEvent",
+        "com.etzhayyim.apps.translate.translateReport"
       ]
     }
   },

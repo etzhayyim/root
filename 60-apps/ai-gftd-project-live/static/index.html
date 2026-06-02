@@ -375,7 +375,7 @@
           } catch (e) { /* fall through to HTTP */ }
         }
         try {
-          await fetch('/xrpc/ai.gftd.apps.live.sendCheer', {
+          await fetch('/xrpc/com.etzhayyim.apps.live.sendCheer', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ roomDid: ROOM_DID, kind, weight }),
@@ -399,7 +399,7 @@
       const XRPC_BASES = ['', 'https://live.gftd.ai', 'https://l1ve9pq4.gftd.ai'];
       for (const base of XRPC_BASES) {
         try {
-          const r = await fetch(`${base}/xrpc/ai.gftd.apps.live.joinRoom`, {
+          const r = await fetch(`${base}/xrpc/com.etzhayyim.apps.live.joinRoom`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ roomDid: ROOM_DID }),

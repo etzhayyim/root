@@ -9,7 +9,7 @@ imputed value of the SBT-bound NON-ALIENABLE access rights an adherent holds
 substrate / hikari energy infra) — using the ``stock`` section of the open
 valuation tables under ``20-actors/toritate/valuation/``. Feeds the aggregate
 ``basicHighIncome.commonsAssetAccessMedianUsdMicros`` of
-``app.etzhayyim.liberation.metricReport``.
+``com.etzhayyim.liberation.metricReport``.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE):
   - ACCESS, NEVER TITLE (ADR-2605301020 §2): commons-asset access is an access
@@ -21,7 +21,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE):
   - AGGREGATE-ONLY (ADR-2605301020 §7 + N6): per-adherent figures encrypted
     (ADR-2605181100), never published per-adherent.
   - Murakumo-only inference (ADR-2605215000); valuation tables open + citable (G3/G4).
-Output Lexicon(s): aggregated into app.etzhayyim.liberation.metricReport.basicHighIncome.
+Output Lexicon(s): aggregated into com.etzhayyim.liberation.metricReport.basicHighIncome.
 Murakumo node: gad (toritate accounting tribe, per ADR-2605262900).
 
 R0 scaffold — import-time RuntimeError until R1.

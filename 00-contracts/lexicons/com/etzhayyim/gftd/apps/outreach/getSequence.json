@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.outreach.getSequence",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get outreach sequence status and step history.",
+      "parameters": {
+        "type": "params",
+        "required": ["sequenceId"],
+        "properties": {
+          "sequenceId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sequenceId", "status"],
+          "properties": {
+            "sequenceId": { "type": "string" },
+            "prospectId": { "type": "string" },
+            "sequenceName": { "type": "string" },
+            "goal": { "type": "string" },
+            "status": { "type": "string" },
+            "currentStep": { "type": "integer" },
+            "maxSteps": { "type": "integer" },
+            "replyDetected": { "type": "boolean" },
+            "adCampaignId": { "type": "string" },
+            "createdAt": { "type": "string" },
+            "updatedAt": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

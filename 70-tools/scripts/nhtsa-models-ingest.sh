@@ -27,7 +27,7 @@ MAKERS=(
 )
 
 REPO="did:web:kuruma.etzhayyim.com"
-COLL="app.etzhayyim.apps.kuruma.model"
+COLL="com.etzhayyim.apps.kuruma.model"
 TMP=$(mktemp)
 trap "rm -f $TMP" EXIT
 

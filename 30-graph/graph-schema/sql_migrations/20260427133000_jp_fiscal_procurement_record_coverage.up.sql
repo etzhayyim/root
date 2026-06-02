@@ -24,7 +24,7 @@ CREATE MATERIALIZED VIEW mv_jp_fiscal_record_document_coverage AS
       e.confidence AS record_evidence_confidence
     FROM (
       SELECT
-        'ai.gftd.apps.jpFiscal.budgetBook' AS collection,
+        'com.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
         vertex_id,
         fiscal_year,
         account_type,
@@ -36,7 +36,7 @@ CREATE MATERIALIZED VIEW mv_jp_fiscal_record_document_coverage AS
       FROM vertex_jp_fiscal_budget_book
       UNION ALL
       SELECT
-        'ai.gftd.apps.jpFiscal.appropriation' AS collection,
+        'com.etzhayyim.apps.jpFiscal.appropriation' AS collection,
         vertex_id,
         fiscal_year,
         account_type,
@@ -48,7 +48,7 @@ CREATE MATERIALIZED VIEW mv_jp_fiscal_record_document_coverage AS
       FROM vertex_jp_fiscal_appropriation
       UNION ALL
       SELECT
-        'ai.gftd.apps.jpFiscal.procurementBid' AS collection,
+        'com.etzhayyim.apps.jpFiscal.procurementBid' AS collection,
         vertex_id,
         CASE
           WHEN EXTRACT(MONTH FROM opened_at) >= 4 THEN EXTRACT(YEAR FROM opened_at)::int
@@ -117,7 +117,7 @@ CREATE MATERIALIZED VIEW mv_jp_fiscal_budget_pipeline_coverage AS
     LEFT JOIN (
       SELECT fiscal_year, account_type, doc_type, COUNT(*) AS document_record_evidence_count
       FROM mv_jp_fiscal_record_document_coverage
-      WHERE collection IN ('ai.gftd.apps.jpFiscal.budgetBook', 'ai.gftd.apps.jpFiscal.appropriation')
+      WHERE collection IN ('com.etzhayyim.apps.jpFiscal.budgetBook', 'com.etzhayyim.apps.jpFiscal.appropriation')
         AND has_record_evidence_edge = true
       GROUP BY fiscal_year, account_type, doc_type
     ) e

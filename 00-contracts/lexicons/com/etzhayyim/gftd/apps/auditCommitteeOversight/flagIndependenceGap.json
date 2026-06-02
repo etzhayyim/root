@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.auditCommitteeOversight.flagIndependenceGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Independence / expert gap / whistleblower oversight (bridges sox404Icfr.flagWeaknessRemediation + whistleblower-protect + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "charterVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "charterVid": {
+              "type": "string",
+              "description": "bridges recordCharter"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "non_indep_chair",
+                "family_relation",
+                "cross_director_network",
+                "interlock",
+                "undisclosed_comp",
+                "material_relationship",
+                "expertise_gap",
+                "overboarding",
+                "non_us_exemption",
+                "passively_active",
+                "missed_meetings",
+                "rushed_pre_vote"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ import { Kysely, sql } from 'kysely';
  *
  * Prior to this migration yabai T3 writes flowed via PDS createRecord but
  * reads returned [] because no vertex tables existed. The graph-worker
- * convention fallback (`app.etzhayyim.apps.yabai.{entity}` → `vertex_yabai_{snake(entity)}`)
+ * convention fallback (`com.etzhayyim.apps.yabai.{entity}` → `vertex_yabai_{snake(entity)}`)
  * now has landing tables.
  *
  * Columns match fields emitted by

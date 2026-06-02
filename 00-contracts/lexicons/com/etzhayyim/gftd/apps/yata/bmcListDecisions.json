@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.bmcListDecisions",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List persevere/pivot/kill/extend decisions ordered by created_at DESC. Filter by hypothesis slug if provided.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "hypothesisSlug": {"type": "string"},
+          "action":         {"type": "string", "knownValues": ["persevere", "pivot", "kill", "extend"]},
+          "offset":         {"type": "integer", "minimum": 0, "default": 0},
+          "limit":          {"type": "integer", "minimum": 1, "maximum": 200, "default": 50}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["decisions", "offset", "limit", "total"],
+          "properties": {
+            "decisions": {"type": "array", "items": {"type": "ref", "ref": "#decisionItem"}},
+            "offset":    {"type": "integer"},
+            "limit":     {"type": "integer"},
+            "total":     {"type": "integer"}
+          }
+        }
+      }
+    },
+    "decisionItem": {
+      "type": "object",
+      "required": ["vertexId", "iterationVertexId", "hypothesisSlug", "action", "rationale", "authoredBy", "appliedAt", "createdAt"],
+      "properties": {
+        "vertexId":          {"type": "string"},
+        "iterationVertexId": {"type": "string"},
+        "hypothesisSlug":    {"type": "string"},
+        "action":            {"type": "string", "knownValues": ["persevere", "pivot", "kill", "extend"]},
+        "rationale":         {"type": "string"},
+        "authoredBy":        {"type": "string"},
+        "appliedAt":         {"type": "string", "format": "datetime"},
+        "createdAt":         {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.listBusStops",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List registered bus stops with optional geographic and operator filters.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "operator": { "type": "string" },
+          "city": { "type": "string" },
+          "prefecture": { "type": "string" },
+          "status": { "type": "string", "enum": ["active", "temporarily-closed", "removed"] }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "stops": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "stopId": { "type": "string" },
+                  "stopCode": { "type": "string" },
+                  "name": { "type": "string" },
+                  "operator": { "type": "string" },
+                  "lat": { "type": "number" },
+                  "lon": { "type": "number" },
+                  "city": { "type": "string" },
+                  "ward": { "type": "string" },
+                  "prefecture": { "type": "string" },
+                  "status": { "type": "string" },
+                  "updatedAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["stops", "total", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

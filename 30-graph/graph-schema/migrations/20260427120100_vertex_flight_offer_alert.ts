@@ -6,7 +6,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * Flight offer drop-alert log:
  * - one row per detected price drop above the configured threshold
- * - powers `app.etzhayyim.apps.flightOffer.checkPriceDrop` BPMN + downstream
+ * - powers `com.etzhayyim.apps.flightOffer.checkPriceDrop` BPMN + downstream
  *   notification fan-out (kept narrow; presentation layer joins as needed)
  */
 export async function up(db: Kysely<unknown>): Promise<void> {

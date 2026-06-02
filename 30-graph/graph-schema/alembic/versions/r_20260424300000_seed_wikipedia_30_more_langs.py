@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-simple:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-simple:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:simple',
                  'Spot',
                  150000,
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ml:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ml:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ml',
                  'Spot',
                  90000,
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ta:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ta:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ta',
                  'Spot',
                  200000,
@@ -72,7 +72,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-te:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-te:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:te',
                  'Spot',
                  80000,
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-kn:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-kn:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:kn',
                  'Spot',
                  35000,
@@ -106,7 +106,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-mr:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-mr:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:mr',
                  'Spot',
                  90000,
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-gu:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-gu:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:gu',
                  'Spot',
                  30000,
@@ -140,7 +140,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-pa:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-pa:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:pa',
                  'Spot',
                  45000,
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ur:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ur:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ur',
                  'Spot',
                  210000,
@@ -174,7 +174,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-fa:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-fa:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:fa',
                  'Spot',
                  900000,
@@ -191,7 +191,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-uz:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-uz:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:uz',
                  'Spot',
                  220000,
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ka:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ka:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ka',
                  'Spot',
                  170000,
@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-my:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-my:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:my',
                  'Spot',
                  120000,
@@ -242,7 +242,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-km:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-km:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:km',
                  'Spot',
                  12000,
@@ -259,7 +259,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-si:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-si:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:si',
                  'Spot',
                  24000,
@@ -276,7 +276,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ne:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ne:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ne',
                  'Spot',
                  35000,
@@ -293,7 +293,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-jv:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-jv:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:jv',
                  'Spot',
                  75000,
@@ -310,7 +310,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-su:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-su:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:su',
                  'Spot',
                  65000,
@@ -327,7 +327,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ms:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ms:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ms',
                  'Spot',
                  370000,
@@ -344,7 +344,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-mn:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-mn:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:mn',
                  'Spot',
                  22000,
@@ -361,7 +361,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-mk:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-mk:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:mk',
                  'Spot',
                  140000,
@@ -378,7 +378,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-sr:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-sr:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:sr',
                  'Spot',
                  670000,
@@ -395,7 +395,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-hr:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-hr:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:hr',
                  'Spot',
                  220000,
@@ -412,7 +412,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-sl:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-sl:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:sl',
                  'Spot',
                  180000,
@@ -429,7 +429,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-lv:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-lv:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:lv',
                  'Spot',
                  115000,
@@ -446,7 +446,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-lt:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-lt:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:lt',
                  'Spot',
                  210000,
@@ -463,7 +463,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-et:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-et:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:et',
                  'Spot',
                  225000,
@@ -480,7 +480,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-is:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-is:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:is',
                  'Spot',
                  55000,
@@ -497,7 +497,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-ga:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-ga:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:ga',
                  'Spot',
                  58000,
@@ -514,7 +514,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikipedia-cy:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikipedia-cy:Spot',
                  'did:web:maps.etzhayyim.com:wikipedia:cy',
                  'Spot',
                  160000,

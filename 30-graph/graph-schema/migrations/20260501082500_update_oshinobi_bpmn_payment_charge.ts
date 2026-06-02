@@ -22,14 +22,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   const updates = [
     {
-      vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/oshinobi-subscribe-v1",
+      vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/oshinobi-subscribe-v1",
       bpmnProcessId: "oshinobi_subscribe",
-      sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/subscribe.bpmn",
+      sourcePath: "00-contracts/bpmn/com/etzhayyim/oshinobi/subscribe.bpmn",
     },
     {
-      vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/oshinobi-tip-creator-v1",
+      vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/oshinobi-tip-creator-v1",
       bpmnProcessId: "oshinobi_tip_creator",
-      sourcePath: "00-contracts/bpmn/ai/gftd/oshinobi/tipCreator.bpmn",
+      sourcePath: "00-contracts/bpmn/com/etzhayyim/oshinobi/tipCreator.bpmn",
     },
   ];
 

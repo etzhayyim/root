@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * sbom.etzhayyim.com — Phase B BPMN-as-actor seed (ADR-0056).
  *
  * 1 process_def + 1 binding so the F5 watcher deploys the BPMN to
- * Zeebe within 30s and `dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.sbom.registerArtifact`
+ * Zeebe within 30s and `dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.sbom.registerArtifact`
  * starts routing to the pyzeebe handler.
  */
 
@@ -32,17 +32,17 @@ const actorTag = "sys.bpmn.seed.sbom-register-artifact";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/sbom-register-artifact-v1",
     bpmnProcessId: "sbom_register_artifact",
-    sourcePath: "00-contracts/bpmn/ai/gftd/sbom/registerArtifact.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/sbom/registerArtifact.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1",
-    nsid: "app.etzhayyim.apps.sbom.registerArtifact",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/sbom-registerArtifact-v1",
+    nsid: "com.etzhayyim.apps.sbom.registerArtifact",
     bpmnProcessId: "sbom_register_artifact",
     ownerDid,
     // 5 min — fan-out can be large for software lockfile SBOMs (1000+

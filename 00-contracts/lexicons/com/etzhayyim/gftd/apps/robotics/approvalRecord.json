@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.approval.record",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create an auditable approval record for robotics motion, transport, quality, or finance gates.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "requestId": { "type": "string" },
+            "decision": { "type": "string", "enum": ["approve", "reject", "hold"] },
+            "approverDid": { "type": "string" },
+            "scope": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "approvalId": { "type": "string" },
+            "requestId": { "type": "string" },
+            "decision": { "type": "string" },
+            "approverDid": { "type": "string" },
+            "approvedAt": { "type": "string" },
+            "auditAction": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

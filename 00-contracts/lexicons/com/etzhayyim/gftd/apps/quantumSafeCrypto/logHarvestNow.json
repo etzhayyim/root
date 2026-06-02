@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.quantumSafeCrypto.logHarvestNow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Harvest-now-decrypt-later intelligence signal",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "signalId",
+            "migrationVid",
+            "interceptionVector",
+            "detectedAt"
+          ],
+          "properties": {
+            "signalId": {
+              "type": "string"
+            },
+            "migrationVid": {
+              "type": "string",
+              "description": "bridges registerPqcMigration"
+            },
+            "adversaryActorCode": {
+              "type": "string",
+              "description": "MITRE ATT&CK group"
+            },
+            "interceptionVector": {
+              "type": "string",
+              "enum": [
+                "cable_tap",
+                "mitm",
+                "cloud_storage",
+                "routing",
+                "satellite",
+                "other"
+              ]
+            },
+            "estimatedExposureRecords": {
+              "type": "integer"
+            },
+            "detectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

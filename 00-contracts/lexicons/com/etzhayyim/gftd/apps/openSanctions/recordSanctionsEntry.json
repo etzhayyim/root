@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSanctions.recordSanctionsEntry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an authority-published sanctions list entry (OFAC SDN / EU / UN / UK HM Treasury). Starts BPMN open_sanctions_record_entry.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["program","listId","entityName","entityType","listedAt"],
+          "properties": {
+            "program":      { "type": "string", "description": "OFAC / EU / UN / UK / JP" },
+            "listId":       { "type": "string" },
+            "entityName":   { "type": "string" },
+            "entityType":   { "type": "string", "enum": ["individual","entity","vessel","aircraft"] },
+            "country":      { "type": "string" },
+            "sanctionType": { "type": "string" },
+            "aliases":      { "type": "string", "description": "pipe-delimited" },
+            "listedAt":     { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectGlobalGleif-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectGlobalGleif-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_global_gleif',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -81,12 +81,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2342,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectGlobalGleif.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectGlobalGleif.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectGlobalGleif-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectGlobalGleif-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -100,16 +100,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectGlobalGleif-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectGlobalGleif-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectGlobalGleif',
+                 'com.etzhayyim.apps.legalEntity.collectGlobalGleif',
                  'legal_entity_collect_global_gleif',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectGlobalGleif-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectGlobalGleif-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-registerGleifDids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-registerGleifDids-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_register_gleif_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -179,12 +179,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2365,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/registerGleifDids.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/registerGleifDids.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-registerGleifDids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-registerGleifDids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -198,16 +198,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-registerGleifDids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-registerGleifDids-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.registerGleifDids',
+                 'com.etzhayyim.apps.legalEntity.registerGleifDids',
                  'legal_entity_register_gleif_dids',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-registerGleifDids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-registerGleifDids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -221,7 +221,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectUsaEdgar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectUsaEdgar-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_usa_edgar',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -278,12 +278,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2355,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectUsaEdgar.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectUsaEdgar.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectUsaEdgar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectUsaEdgar-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -297,16 +297,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectUsaEdgar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectUsaEdgar-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectUsaEdgar',
+                 'com.etzhayyim.apps.legalEntity.collectUsaEdgar',
                  'legal_entity_collect_usa_edgar',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectUsaEdgar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectUsaEdgar-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -320,7 +320,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-ingestSecDisclosure-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-ingestSecDisclosure-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_ingest_sec_disclosure',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -378,12 +378,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2440,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/ingestSecDisclosure.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/ingestSecDisclosure.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-ingestSecDisclosure-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-ingestSecDisclosure-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -397,16 +397,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-ingestSecDisclosure-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-ingestSecDisclosure-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.ingestSecDisclosure',
+                 'com.etzhayyim.apps.legalEntity.ingestSecDisclosure',
                  'legal_entity_ingest_sec_disclosure',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-ingestSecDisclosure-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-ingestSecDisclosure-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -420,7 +420,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectJpn-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectJpn-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_jpn',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -465,12 +465,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2310,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectJpn.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectJpn.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectJpn-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectJpn-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -484,16 +484,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectJpn-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectJpn-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectJpn',
+                 'com.etzhayyim.apps.legalEntity.collectJpn',
                  'legal_entity_collect_jpn',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectJpn-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectJpn-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -507,7 +507,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectGbr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectGbr-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_gbr',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -548,12 +548,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2271,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectGbr.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectGbr.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectGbr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectGbr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -567,16 +567,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectGbr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectGbr-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectGbr',
+                 'com.etzhayyim.apps.legalEntity.collectGbr',
                  'legal_entity_collect_gbr',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectGbr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectGbr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -590,7 +590,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectFra-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectFra-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_fra',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -627,12 +627,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2182,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectFra.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectFra.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectFra-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectFra-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -646,16 +646,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectFra-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectFra-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectFra',
+                 'com.etzhayyim.apps.legalEntity.collectFra',
                  'legal_entity_collect_fra',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectFra-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectFra-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -669,7 +669,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNor-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_nor',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -703,12 +703,12 @@ UP = [{'sql': '\n'
                  'name="NOR registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2115,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectNor.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectNor.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -722,16 +722,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNor-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectNor',
+                 'com.etzhayyim.apps.legalEntity.collectNor',
                  'legal_entity_collect_nor',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -745,7 +745,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectDnk-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectDnk-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_dnk',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -779,12 +779,12 @@ UP = [{'sql': '\n'
                  'name="DNK registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2109,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectDnk.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectDnk.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectDnk-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectDnk-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -798,16 +798,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectDnk-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectDnk-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectDnk',
+                 'com.etzhayyim.apps.legalEntity.collectDnk',
                  'legal_entity_collect_dnk',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectDnk-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectDnk-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -821,7 +821,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectFin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectFin-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_fin',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -855,12 +855,12 @@ UP = [{'sql': '\n'
                  'name="FIN registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2103,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectFin.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectFin.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectFin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectFin-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -874,16 +874,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectFin-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectFin-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectFin',
+                 'com.etzhayyim.apps.legalEntity.collectFin',
                  'legal_entity_collect_fin',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectFin-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectFin-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -897,7 +897,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectEst-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectEst-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_est',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -931,12 +931,12 @@ UP = [{'sql': '\n'
                  'name="EST registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2099,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectEst.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectEst.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectEst-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectEst-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -950,16 +950,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectEst-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectEst-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectEst',
+                 'com.etzhayyim.apps.legalEntity.collectEst',
                  'legal_entity_collect_est',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectEst-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectEst-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -973,7 +973,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectCze-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectCze-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_cze',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1007,12 +1007,12 @@ UP = [{'sql': '\n'
                  'name="CZE registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2105,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectCze.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectCze.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectCze-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectCze-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1026,16 +1026,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectCze-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectCze-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectCze',
+                 'com.etzhayyim.apps.legalEntity.collectCze',
                  'legal_entity_collect_cze',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectCze-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectCze-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1049,7 +1049,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNzl-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNzl-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_nzl',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1084,12 +1084,12 @@ UP = [{'sql': '\n'
                  'name="NZL registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2160,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectNzl.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectNzl.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNzl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNzl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1103,16 +1103,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNzl-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNzl-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectNzl',
+                 'com.etzhayyim.apps.legalEntity.collectNzl',
                  'legal_entity_collect_nzl',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNzl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNzl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1126,7 +1126,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectChe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectChe-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_che',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1161,12 +1161,12 @@ UP = [{'sql': '\n'
                  'name="CHE registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2201,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectChe.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectChe.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectChe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectChe-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1180,16 +1180,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectChe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectChe-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectChe',
+                 'com.etzhayyim.apps.legalEntity.collectChe',
                  'legal_entity_collect_che',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectChe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectChe-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1203,7 +1203,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNld-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNld-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_nld',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1237,12 +1237,12 @@ UP = [{'sql': '\n'
                  'name="NLD registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2105,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectNld.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectNld.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNld-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNld-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1256,16 +1256,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNld-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNld-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectNld',
+                 'com.etzhayyim.apps.legalEntity.collectNld',
                  'legal_entity_collect_nld',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNld-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNld-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -1279,7 +1279,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectIsr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectIsr-v1',
                  'did:web:legal-entity.etzhayyim.com',
                  'legal_entity_collect_isr',
                  '<?xml version="1.0" encoding="UTF-8"?><bpmn:definitions '
@@ -1314,12 +1314,12 @@ UP = [{'sql': '\n'
                  'name="ISR registry collection '
                  'committed"><bpmn:incoming>Flow_End</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  2150,
-                 '00-contracts/bpmn/ai/gftd/legal-entity/collectIsr.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-entity/collectIsr.bpmn',
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectIsr-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectIsr-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1333,81 +1333,81 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectIsr-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectIsr-v1',
                  'did:web:legal-entity.etzhayyim.com',
-                 'app.etzhayyim.apps.legalEntity.collectIsr',
+                 'com.etzhayyim.apps.legalEntity.collectIsr',
                  'legal_entity_collect_isr',
                  120000,
                  '2026-04-29T09:05:00Z',
                  'did:web:legal-entity.etzhayyim.com',
                  'did:web:legal-entity.etzhayyim.com',
                  'sys.bpmn.seed.legal-entity',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectIsr-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectIsr-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectGlobalGleif-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectGlobalGleif-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectGlobalGleif-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectGlobalGleif-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-registerGleifDids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-registerGleifDids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-registerGleifDids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-registerGleifDids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectUsaEdgar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectUsaEdgar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectUsaEdgar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectUsaEdgar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-ingestSecDisclosure-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-ingestSecDisclosure-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-ingestSecDisclosure-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-ingestSecDisclosure-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectJpn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectJpn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectJpn-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectJpn-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectGbr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectGbr-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectGbr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectGbr-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectFra-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectFra-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectFra-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectFra-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectDnk-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectDnk-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectDnk-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectDnk-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectFin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectFin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectFin-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectFin-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectEst-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectEst-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectEst-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectEst-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectCze-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectCze-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectCze-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectCze-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNzl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNzl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNzl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNzl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectChe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectChe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectChe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectChe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectNld-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectNld-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectNld-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectNld-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-entity-collectIsr-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-entity-collectIsr-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-entity-collectIsr-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-entity-collectIsr-v1']}]
 
 
 def upgrade() -> None:

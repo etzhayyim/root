@@ -260,7 +260,7 @@ type Ctx = { sdk: HostSDK; db: any; appId: string; post: (text: string) => void 
 // advances the MapsJob. Dispatched by SQL UDF maps_source_dispatch_kind so
 // BPMN and handler share one routing table.
 //
-// Called by etzhayyim-root/00-contracts/bpmn/ai/gftd/maps/runPendingCoverageJobs.bpmn every
+// Called by etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/runPendingCoverageJobs.bpmn every
 // 3 min (multi-instance parallel, cap 5 jobs/tick).
 interface MapsJobRow {
   job_id: string;
@@ -574,7 +574,7 @@ function cyclicBboxIdx(jobId: string): number {
 const DEFAULT_BBOX_JP = JP_CITY_BBOXES[0]; // Tokyo fallback (dense).
 
 async function cmdRunCoverageJob(ctx: Ctx, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("ai.gftd.apps.maps.runCoverageJob", payload) as Record<string, unknown>;
+  const req = parseLexiconInput("com.etzhayyim.apps.maps.runCoverageJob", payload) as Record<string, unknown>;
   if (!req.jobId) return { error: "jobId required" };
   const jobId = str(req.jobId);
   const maxRecords = Math.max(1, Math.min(Number(req.maxRecords ?? 100), 500));
@@ -1988,7 +1988,7 @@ function hashString(s: string): number {
 
 // ── Auto-expand frontier to cover all Worker-declared variations ───────
 async function proxyCollectionCommand(ctx: Ctx, command: string, payload: Uint8Array): Promise<unknown> {
-  const nsidValue = `ai.gftd.apps.maps.${command}`;
+  const nsidValue = `com.etzhayyim.apps.maps.${command}`;
   let body: Record<string, unknown> = {};
   try {
     const text = new TextDecoder().decode(payload);
@@ -2024,84 +2024,84 @@ export function registerCollectionCommands(
 ): void {
   const ctx: Ctx = { sdk, db, appId, post };
   sdk.app
-    .command(nsid("ai.gftd.apps.maps.registerSource"),
+    .command(nsid("com.etzhayyim.apps.maps.registerSource"),
       (_, body) => proxyCollectionCommand(ctx, "registerSource", body),
       asAgentTool("Register map data source"), withCapabilityTags("source", "write"), withOCELEvent("governance.audit"))
-    .command(nsid("ai.gftd.apps.maps.listSources"),
+    .command(nsid("com.etzhayyim.apps.maps.listSources"),
       (_, body) => proxyCollectionCommand(ctx, "listSources", body),
       asAgentTool("List map data sources"), withCapabilityTags("source", "query"))
-    .command(nsid("ai.gftd.apps.maps.createCollectionJob"),
+    .command(nsid("com.etzhayyim.apps.maps.createCollectionJob"),
       (_, body) => proxyCollectionCommand(ctx, "createCollectionJob", body),
       asAgentTool("Create collection job"), withCapabilityTags("collection", "write"))
-    .command(nsid("ai.gftd.apps.maps.advanceJob"),
+    .command(nsid("com.etzhayyim.apps.maps.advanceJob"),
       (_, body) => proxyCollectionCommand(ctx, "advanceJob", body),
       asAgentTool("Advance job status"), withCapabilityTags("collection", "write"))
-    .command(nsid("ai.gftd.apps.maps.advanceCoverage"),
+    .command(nsid("com.etzhayyim.apps.maps.advanceCoverage"),
       (_, body) => proxyCollectionCommand(ctx, "advanceCoverage", body),
       asAgentTool("Pick top coverage gap via UDF and create a collection job for it (called by BPMN timer)"),
       withCapabilityTags("coverage", "udf", "bpmn", "write"),
-      withOCELEvent("ai.gftd.apps.maps.coverage.advance"))
-    .command(nsid("ai.gftd.apps.maps.refreshCoverageStats"),
+      withOCELEvent("com.etzhayyim.apps.maps.coverage.advance"))
+    .command(nsid("com.etzhayyim.apps.maps.refreshCoverageStats"),
       (_, body) => proxyCollectionCommand(ctx, "refreshCoverageStats", body),
       asAgentTool("Re-count vertex_spatial into coverage target collected_count (closes advance feedback loop)"),
       withCapabilityTags("coverage", "udf", "bpmn", "write"),
-      withOCELEvent("ai.gftd.apps.maps.coverage.stats"))
-    .command(nsid("ai.gftd.apps.maps.runCoverageJob"),
+      withOCELEvent("com.etzhayyim.apps.maps.coverage.stats"))
+    .command(nsid("com.etzhayyim.apps.maps.runCoverageJob"),
       (_, body) => cmdRunCoverageJob(ctx, body),
       asAgentTool("Execute a pending MapsJob: fetch from source (Overpass/GLEIF/Wikidata), parse, write vertex_spatial, advance job"),
       withCapabilityTags("coverage", "udf", "bpmn", "write", "ingest"),
-      withOCELEvent("ai.gftd.apps.maps.coverage.run"))
-    .command(nsid("ai.gftd.apps.maps.getCoverageStatus"),
+      withOCELEvent("com.etzhayyim.apps.maps.coverage.run"))
+    .command(nsid("com.etzhayyim.apps.maps.getCoverageStatus"),
       (_, body) => proxyCollectionCommand(ctx, "getCoverageStatus", body),
       asAgentTool("Get live coverage frontier leaderboard (read-only)"),
       withCapabilityTags("coverage", "query"))
-    .command(nsid("ai.gftd.apps.maps.batchCoverageCycle"),
+    .command(nsid("com.etzhayyim.apps.maps.batchCoverageCycle"),
       (_, body) => proxyCollectionCommand(ctx, "batchCoverageCycle", body),
       asAgentTool("Run one full coverage cycle (advance+runN+refresh) in a single XRPC call"),
       withCapabilityTags("coverage", "batch", "write"),
-      withOCELEvent("ai.gftd.apps.maps.coverage.cycle"))
-    .command(nsid("ai.gftd.apps.maps.expandFrontier"),
+      withOCELEvent("com.etzhayyim.apps.maps.coverage.cycle"))
+    .command(nsid("com.etzhayyim.apps.maps.expandFrontier"),
       (_, body) => proxyCollectionCommand(ctx, "expandFrontier", body),
       asAgentTool("Declaratively seed vertex_maps_coverage_target rows; idempotent"),
       withCapabilityTags("coverage", "seed", "write"))
-    .command(nsid("ai.gftd.apps.maps.seedAllKnownVariations"),
+    .command(nsid("com.etzhayyim.apps.maps.seedAllKnownVariations"),
       (_, body) => proxyCollectionCommand(ctx, "seedAllKnownVariations", body),
       asAgentTool("Auto-expand frontier to cover every Worker-declared source×label variation (Wikidata/STAC/Overpass). Idempotent."),
       withCapabilityTags("coverage", "seed", "auto", "write"))
-    .command(nsid("ai.gftd.apps.maps.listJobs"),
+    .command(nsid("com.etzhayyim.apps.maps.listJobs"),
       (_, body) => proxyCollectionCommand(ctx, "listJobs", body),
       asAgentTool("List collection jobs"), withCapabilityTags("collection", "query"))
-    .command(nsid("ai.gftd.apps.maps.getJobStatus"),
+    .command(nsid("com.etzhayyim.apps.maps.getJobStatus"),
       (_, body) => proxyCollectionCommand(ctx, "getJobStatus", body),
       asAgentTool("Get job status"), withCapabilityTags("collection", "query"))
-    .command(nsid("ai.gftd.apps.maps.storeDataset"),
+    .command(nsid("com.etzhayyim.apps.maps.storeDataset"),
       (_, body) => proxyCollectionCommand(ctx, "storeDataset", body),
       asAgentTool("Store map dataset"), withCapabilityTags("dataset", "write"))
-    .command(nsid("ai.gftd.apps.maps.getDataset"),
+    .command(nsid("com.etzhayyim.apps.maps.getDataset"),
       (_, body) => proxyCollectionCommand(ctx, "getDataset", body),
       asAgentTool("Get dataset details"), withCapabilityTags("dataset", "query"))
-    .command(nsid("ai.gftd.apps.maps.listDatasets"),
+    .command(nsid("com.etzhayyim.apps.maps.listDatasets"),
       (_, body) => proxyCollectionCommand(ctx, "listDatasets", body),
       asAgentTool("List datasets"), withCapabilityTags("dataset", "query"))
-    .command(nsid("ai.gftd.apps.maps.getPipelineStats"),
+    .command(nsid("com.etzhayyim.apps.maps.getPipelineStats"),
       (_, body) => proxyCollectionCommand(ctx, "getPipelineStats", body),
       asAgentTool("Collection pipeline stats"), withCapabilityTags("analytics", "query"))
-    .command(nsid("ai.gftd.apps.maps.importOsmPois"),
+    .command(nsid("com.etzhayyim.apps.maps.importOsmPois"),
       (_, body) => proxyCollectionCommand(ctx, "importOsmPois", body),
       asAgentTool("Import parsed Overpass API response as POI records"), withCapabilityTags("poi", "osm", "import"))
-    .command(nsid("ai.gftd.apps.maps.importWikidataPois"),
+    .command(nsid("com.etzhayyim.apps.maps.importWikidataPois"),
       (_, body) => proxyCollectionCommand(ctx, "importWikidataPois", body),
       asAgentTool("Import parsed Wikidata SPARQL response as POI records"), withCapabilityTags("poi", "wikidata", "import"))
-    .command(nsid("ai.gftd.apps.maps.searchPoi"),
+    .command(nsid("com.etzhayyim.apps.maps.searchPoi"),
       (_, body) => proxyCollectionCommand(ctx, "searchPoi", body),
       asAgentTool("Search POIs by name/category/bbox/source"), withCapabilityTags("poi", "search", "query"))
-    .command(nsid("ai.gftd.apps.maps.getPoi"),
+    .command(nsid("com.etzhayyim.apps.maps.getPoi"),
       (_, body) => proxyCollectionCommand(ctx, "getPoi", body),
       asAgentTool("Get POI by poiId"), withCapabilityTags("poi", "query"))
-    .command(nsid("ai.gftd.apps.maps.listPoiTypes"),
+    .command(nsid("com.etzhayyim.apps.maps.listPoiTypes"),
       (_, body) => proxyCollectionCommand(ctx, "listPoiTypes", body),
       asAgentTool("List available OSM POI types for collection"), withCapabilityTags("poi", "meta"))
-    .command(nsid("ai.gftd.apps.maps.registerWriterProfiles"),
+    .command(nsid("com.etzhayyim.apps.maps.registerWriterProfiles"),
       (_, body) => proxyCollectionCommand(ctx, "registerWriterProfiles", body),
       asAgentTool("Register all source sub-DID profiles"), withCapabilityTags("sources", "wDid"));
 }

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govMkd.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govMkd.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for North Macedonia government.",
-        "operationId": "app.etzhayyim.govMkd.followSiteDeps",
+        "operationId": "com.etzhayyim.govMkd.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govMkd.heartbeatTick": {
       "post": {
         "summary": "Run the North Macedonia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govMkd.heartbeatTick",
+        "operationId": "com.etzhayyim.govMkd.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.listOrgs": {
+    "/xrpc/com.etzhayyim.govMkd.listOrgs": {
       "get": {
         "summary": "List North Macedonia government organization graph records.",
-        "operationId": "app.etzhayyim.govMkd.listOrgs",
+        "operationId": "com.etzhayyim.govMkd.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.registerDIDs": {
+    "/xrpc/com.etzhayyim.govMkd.registerDIDs": {
       "post": {
         "summary": "Register DIDs for North Macedonia government organizations.",
-        "operationId": "app.etzhayyim.govMkd.registerDIDs",
+        "operationId": "com.etzhayyim.govMkd.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govMkd.resolveOrgPath": {
       "get": {
         "summary": "Resolve a North Macedonia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govMkd.resolveOrgPath",
+        "operationId": "com.etzhayyim.govMkd.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.seedOrgs": {
+    "/xrpc/com.etzhayyim.govMkd.seedOrgs": {
       "post": {
         "summary": "Seed initial North Macedonia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govMkd.seedOrgs",
+        "operationId": "com.etzhayyim.govMkd.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.shinka": {
+    "/xrpc/com.etzhayyim.govMkd.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible North Macedonia government organization update.",
-        "operationId": "app.etzhayyim.govMkd.shinka",
+        "operationId": "com.etzhayyim.govMkd.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMkd.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govMkd.syncWetUpdates": {
       "post": {
         "summary": "Sync recent North Macedonia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govMkd.syncWetUpdates",
+        "operationId": "com.etzhayyim.govMkd.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

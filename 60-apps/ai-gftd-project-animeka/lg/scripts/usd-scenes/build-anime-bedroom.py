@@ -18,7 +18,7 @@ Room layout (typical anime teen bedroom):
   Manga shelf  west wall, 0.6m × 0.3m × 1.2m
   Smartphone on desk
 
-Cameras (5 — used for app.etzhayyim.animeka.cut camera selection):
+Cameras (5 — used for com.etzhayyim.animeka.cut camera selection):
   /Bedroom/Cameras/wide         wide-angle establishing
   /Bedroom/Cameras/character_at_desk    OTS of character at desk
   /Bedroom/Cameras/phone_closeup  tight on smartphone

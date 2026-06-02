@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.transferEsimOwnership",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Transfer eSIM profile ownership from one MNO SM-DP+ to another (MNO-to-MNO porting, GSMA SGP.22 Annex H). Records transfer audit trail. EID/ICCID sha256: hashed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["transferId", "eid", "iccid", "sourceMno", "targetMno", "targetSmdpAddress"],
+          "properties": {
+            "transferId": { "type": "string" },
+            "eid": { "type": "string", "description": "sha256: hashed EID" },
+            "iccid": { "type": "string", "description": "sha256: hashed ICCID" },
+            "sourceMno": { "type": "string" },
+            "targetMno": { "type": "string" },
+            "targetSmdpAddress": { "type": "string" },
+            "portingRef": { "type": "string", "description": "Number portability reference" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "transferId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

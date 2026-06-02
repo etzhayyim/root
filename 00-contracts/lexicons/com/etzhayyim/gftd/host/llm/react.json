@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.llm.react",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ReAct loop: LLM → tool → observe → repeat until stop condition or max iterations.",
+      "x-hostImportsMethod": "agentReact",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "taskJson": {
+              "type": "string"
+            },
+            "optionsJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "taskJson",
+            "optionsJson"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "resultJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "resultJson"
+          ]
+        }
+      }
+    }
+  }
+}

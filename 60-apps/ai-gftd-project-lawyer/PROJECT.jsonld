@@ -11,7 +11,7 @@
   "performerType": "service",
   "runtimeType": "worker",
   "lexicon": {
-    "inherits": "ai.gftd.apps.lawfirm",
+    "inherits": "com.etzhayyim.apps.lawfirm",
     "note": "独自 NSID は作らず、lawfirm lexicon を SSoT として共有 (η最大化)"
   },
   "relatedActors": [

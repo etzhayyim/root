@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.passkeyBeginAuth",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Begin WebAuthn/FIDO2 passkey authentication. Returns challenge and credential request options for navigator.credentials.get().",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["challenge", "rpId"],
+          "properties": {
+            "challenge": { "type": "string", "description": "Base64url-encoded challenge" },
+            "rpId": { "type": "string", "description": "Relying party ID (etzhayyim.com)" },
+            "allowCredentials": { "type": "array" },
+            "userVerification": { "type": "string" },
+            "timeout": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

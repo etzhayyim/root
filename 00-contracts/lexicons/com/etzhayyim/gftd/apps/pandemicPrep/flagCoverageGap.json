@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pandemicPrep.flagCoverageGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Preparedness coverage gap (bridges one-health.flagSpilloverRisk + vaccine-equity + amr-surveillance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "programVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "programVid": {
+              "type": "string",
+              "description": "bridges recordPrepProgram"
+            },
+            "spilloverSignalVid": {
+              "type": "string",
+              "description": "bridges one-health.flagSpilloverRisk"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "lmic_access",
+                "cold_chain",
+                "workforce",
+                "genomic_sequencing",
+                "regulatory_path",
+                "countermeasure_stockpile",
+                "ppe",
+                "indigenous_reach"
+              ]
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "significant",
+                "severe"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

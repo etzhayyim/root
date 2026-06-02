@@ -16,9 +16,9 @@
 
 export const MINPAKU_DID_PREFIX = "did:web:minpaku.etzhayyim.com:" as const;
 
-export const LISTING_COLLECTION = "app.etzhayyim.apps.minpaku.listing";
-export const BOOKING_COLLECTION = "app.etzhayyim.apps.minpaku.booking";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.minpaku.payment";
+export const LISTING_COLLECTION = "com.etzhayyim.apps.minpaku.listing";
+export const BOOKING_COLLECTION = "com.etzhayyim.apps.minpaku.booking";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.minpaku.payment";
 
 export type MinpakuPaymentPurpose = "internal-purchase" | "escrow-refund";
 

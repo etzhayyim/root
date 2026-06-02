@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.joucho.scoring.submitReview",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "imageBase64": {
+              "type": "string"
+            },
+            "rating": {
+              "type": "number"
+            },
+            "reviewText": {
+              "type": "string"
+            },
+            "targetName": {
+              "type": "string"
+            },
+            "targetType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "targetType"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "target_type": {
+              "type": "string"
+            },
+            "target_name": {
+              "type": "string"
+            },
+            "review_text": {
+              "type": "string"
+            },
+            "rating": {
+              "type": "string"
+            },
+            "reviewer_emotions": {
+              "type": "string"
+            },
+            "reviewer_axes": {
+              "type": "string"
+            },
+            "wb_score": {
+              "type": "number"
+            },
+            "wb_grade": {
+              "type": "string"
+            },
+            "wb_axes": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "grade": {
+              "type": "string"
+            },
+            "axes": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

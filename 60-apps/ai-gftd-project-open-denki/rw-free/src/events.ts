@@ -44,13 +44,13 @@ import {
   type SmartMeterRecord,
 } from "./types.js";
 
-const FEEDER_COLLECTION = "app.etzhayyim.apps.openDenki.feeder";
-const METER_COLLECTION = "app.etzhayyim.apps.openDenki.smartMeter";
-const GEN_COLLECTION = "app.etzhayyim.apps.openDenki.generationNode";
-const READING_COLLECTION = "app.etzhayyim.apps.openDenki.meterReading";
-const FAULT_COLLECTION = "app.etzhayyim.apps.openDenki.fault";
-const DR_COLLECTION = "app.etzhayyim.apps.openDenki.demandResponse";
-const OUTPUT_COLLECTION = "app.etzhayyim.apps.openDenki.renewableOutput";
+const FEEDER_COLLECTION = "com.etzhayyim.apps.openDenki.feeder";
+const METER_COLLECTION = "com.etzhayyim.apps.openDenki.smartMeter";
+const GEN_COLLECTION = "com.etzhayyim.apps.openDenki.generationNode";
+const READING_COLLECTION = "com.etzhayyim.apps.openDenki.meterReading";
+const FAULT_COLLECTION = "com.etzhayyim.apps.openDenki.fault";
+const DR_COLLECTION = "com.etzhayyim.apps.openDenki.demandResponse";
+const OUTPUT_COLLECTION = "com.etzhayyim.apps.openDenki.renewableOutput";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govNpl.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govNpl.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Nepal government.",
-        "operationId": "app.etzhayyim.govNpl.followSiteDeps",
+        "operationId": "com.etzhayyim.govNpl.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govNpl.heartbeatTick": {
       "post": {
         "summary": "Run the Nepal government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govNpl.heartbeatTick",
+        "operationId": "com.etzhayyim.govNpl.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.listOrgs": {
+    "/xrpc/com.etzhayyim.govNpl.listOrgs": {
       "get": {
         "summary": "List Nepal government organization graph records.",
-        "operationId": "app.etzhayyim.govNpl.listOrgs",
+        "operationId": "com.etzhayyim.govNpl.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.registerDIDs": {
+    "/xrpc/com.etzhayyim.govNpl.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Nepal government organizations.",
-        "operationId": "app.etzhayyim.govNpl.registerDIDs",
+        "operationId": "com.etzhayyim.govNpl.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govNpl.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Nepal government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govNpl.resolveOrgPath",
+        "operationId": "com.etzhayyim.govNpl.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.seedOrgs": {
+    "/xrpc/com.etzhayyim.govNpl.seedOrgs": {
       "post": {
         "summary": "Seed initial Nepal government organization records into the graph.",
-        "operationId": "app.etzhayyim.govNpl.seedOrgs",
+        "operationId": "com.etzhayyim.govNpl.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.shinka": {
+    "/xrpc/com.etzhayyim.govNpl.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Nepal government organization update.",
-        "operationId": "app.etzhayyim.govNpl.shinka",
+        "operationId": "com.etzhayyim.govNpl.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNpl.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govNpl.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Nepal government organization changes to graph.",
-        "operationId": "app.etzhayyim.govNpl.syncWetUpdates",
+        "operationId": "com.etzhayyim.govNpl.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_market_intelligence_ingest',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -102,7 +102,7 @@ UP = [{'sql': '\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.shosha.marketIntelligenceIngest&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.shosha.marketIntelligenceIngest&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;priceRows&quot;: priceRows, '
                  '&quot;freightRows&quot;: freightRows, &quot;viewsWritten&quot;: viewsWritten }" '
@@ -122,12 +122,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4005,
-                 '00-contracts/bpmn/ai/gftd/shosha/marketIntelligenceIngest.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/marketIntelligenceIngest.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -135,7 +135,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-trade-book-recompute-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-trade-book-recompute-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_trade_book_recompute',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -204,7 +204,7 @@ UP = [{'sql': '\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.shosha.tradeBookRecompute&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.shosha.tradeBookRecompute&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;exposureRows&quot;: exposureRows, '
                  '&quot;tradesUpdated&quot;: tradesUpdated, &quot;totalUnrealized&quot;: '
@@ -224,12 +224,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3346,
-                 '00-contracts/bpmn/ai/gftd/shosha/tradeBookRecompute.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/tradeBookRecompute.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -237,7 +237,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_trade_idea_synthesize',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -334,7 +334,7 @@ UP = [{'sql': '\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.shosha.tradeIdeaSynthesize&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.shosha.tradeIdeaSynthesize&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;ideaCount&quot;: ideaCount }" '
                  'target="attributes"/>\n'
@@ -352,12 +352,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4540,
-                 '00-contracts/bpmn/ai/gftd/shosha/tradeIdeaSynthesize.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/tradeIdeaSynthesize.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -365,7 +365,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-daily-report-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-daily-report-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_daily_report',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -455,7 +455,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.dailyReport&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.dailyReport&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tradesCount&quot;: tradesCount, '
                  '&quot;totalUnrealized&quot;: totalUnrealized }" target="attributes"/>\n'
@@ -474,12 +474,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4314,
-                 '00-contracts/bpmn/ai/gftd/shosha/dailyShoshaReport.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/dailyShoshaReport.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-daily-report-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-daily-report-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -487,12 +487,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-submit-trade-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-submit-trade-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_submit_trade',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.etzhayyim.com — submitTrade workflow (XRPC app.etzhayyim.apps.shosha.submitTrade).\n'
+                 '  shosha.etzhayyim.com — submitTrade workflow (XRPC com.etzhayyim.apps.shosha.submitTrade).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.comply.sanctionsCheck    counterparty + commodity sanctions match\n'
@@ -518,7 +518,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shosha.submitTrade", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shosha.submitTrade", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -599,7 +599,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.submitTrade&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.submitTrade&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;tradeId&quot;: tradeId, '
                  '&quot;approvalState&quot;: approvalState, &quot;amountUsd&quot;: amountUsd }" '
@@ -618,7 +618,7 @@ UP = [{'sql': '\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.shosha.submitTrade.complyFail&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.shosha.submitTrade.complyFail&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;counterparty&quot;: counterparty, '
                  '&quot;commodity&quot;: commodity, &quot;flags&quot;: complyFlags }" '
@@ -640,12 +640,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6457,
-                 '00-contracts/bpmn/ai/gftd/shosha/submitTrade.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/submitTrade.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-submit-trade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-submit-trade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -653,13 +653,13 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-propose-hedge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-propose-hedge-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_propose_hedge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  shosha.etzhayyim.com — proposeHedge workflow (XRPC '
-                 'app.etzhayyim.apps.shosha.proposeHedge).\n'
+                 'com.etzhayyim.apps.shosha.proposeHedge).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.exposure.recompute   ensure exposure snapshot is fresh for '
@@ -681,7 +681,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shosha.proposeHedge", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shosha.proposeHedge", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -733,7 +733,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.proposeHedge&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.proposeHedge&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;hedgeId&quot;: hedgeId, '
                  '&quot;commodity&quot;: commodity, &quot;notional&quot;: notional, '
@@ -753,12 +753,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3958,
-                 '00-contracts/bpmn/ai/gftd/shosha/proposeHedge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/proposeHedge.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-propose-hedge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-propose-hedge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -766,12 +766,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-comply-check-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-comply-check-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_comply_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.etzhayyim.com — complyCheck workflow (XRPC app.etzhayyim.apps.shosha.complyCheck).\n'
+                 '  shosha.etzhayyim.com — complyCheck workflow (XRPC com.etzhayyim.apps.shosha.complyCheck).\n'
                  '\n'
                  '  Standalone sanctions / comply check (also invoked inline by submitTrade).\n'
                  '  Returns: complyOk + flags + rationale.\n'
@@ -788,7 +788,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shosha.complyCheck", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shosha.complyCheck", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -823,7 +823,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.complyCheck&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.complyCheck&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;counterparty&quot;: counterparty, '
                  '&quot;complyOk&quot;: complyOk, &quot;flags&quot;: flags }" '
@@ -843,12 +843,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2994,
-                 '00-contracts/bpmn/ai/gftd/shosha/complyCheck.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/complyCheck.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-comply-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-comply-check-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -856,12 +856,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-agent-loop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-agent-loop-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_agent_loop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.etzhayyim.com — agentLoop (XRPC app.etzhayyim.apps.shosha.agentLoop).\n'
+                 '  shosha.etzhayyim.com — agentLoop (XRPC com.etzhayyim.apps.shosha.agentLoop).\n'
                  '\n'
                  '  Path F unified agent loop entry (ADR 260413). The pyzeebe handler\n'
                  '  shosha.agent.chat:\n'
@@ -884,7 +884,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shosha.agentLoop", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shosha.agentLoop", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -922,7 +922,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '                    <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.agentLoop&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.agentLoop&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;model&quot;: model, '
                  '&quot;latencyMs&quot;: latencyMs, &quot;intelRowsUsed&quot;: intelRowsUsed, '
@@ -943,12 +943,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3469,
-                 '00-contracts/bpmn/ai/gftd/shosha/agentLoop.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/agentLoop.bpmn',
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-agent-loop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-agent-loop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -956,16 +956,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-submitTrade-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-submitTrade-v1',
                  'did:web:shosha.etzhayyim.com',
-                 'app.etzhayyim.apps.shosha.submitTrade',
+                 'com.etzhayyim.apps.shosha.submitTrade',
                  'shosha_submit_trade',
                  60000,
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-submitTrade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-submitTrade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -973,16 +973,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-proposeHedge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-proposeHedge-v1',
                  'did:web:shosha.etzhayyim.com',
-                 'app.etzhayyim.apps.shosha.proposeHedge',
+                 'com.etzhayyim.apps.shosha.proposeHedge',
                  'shosha_propose_hedge',
                  30000,
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-proposeHedge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-proposeHedge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -990,16 +990,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-complyCheck-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-complyCheck-v1',
                  'did:web:shosha.etzhayyim.com',
-                 'app.etzhayyim.apps.shosha.complyCheck',
+                 'com.etzhayyim.apps.shosha.complyCheck',
                  'shosha_comply_check',
                  30000,
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-complyCheck-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-complyCheck-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1007,41 +1007,41 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-agentLoop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-agentLoop-v1',
                  'did:web:shosha.etzhayyim.com',
-                 'app.etzhayyim.apps.shosha.agentLoop',
+                 'com.etzhayyim.apps.shosha.agentLoop',
                  'shosha_agent_loop',
                  60000,
                  '2026-05-06T10:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-agentLoop-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-agentLoop-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-submitTrade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-submitTrade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-proposeHedge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-proposeHedge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-complyCheck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-complyCheck-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-agentLoop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-agentLoop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-market-intelligence-ingest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-trade-book-recompute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-trade-idea-synthesize-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-daily-report-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-daily-report-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-submit-trade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-submit-trade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-propose-hedge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-propose-hedge-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-comply-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-comply-check-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-agent-loop-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-agent-loop-v1']}]
 
 
 def upgrade() -> None:

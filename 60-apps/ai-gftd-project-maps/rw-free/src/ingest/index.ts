@@ -18,7 +18,7 @@
  *      `90-docs/baien/datasets/vision-2026Q2/qwen3-vl/r0001.json`).
  *   2. `datalad save -m "..." && datalad publish` or run `e7m-dataset
  *      publish-ipfs` to mirror to IPFS via the sidecar pinner.
- *   3. The sidecar emits an `app.etzhayyim.substrate.datasetPin` record
+ *   3. The sidecar emits an `com.etzhayyim.substrate.datasetPin` record
  *      to PDS, returning its AT URI.
  *   4. Caller passes that URI as `datasetPinUri` to the helper here;
  *      the maps record then carries the cross-reference.
@@ -77,10 +77,10 @@ export {
   validateVisionPayloadRef,
 } from "./types.js";
 
-const COLLECTION_VISION = "app.etzhayyim.maps.visionResult";
-const COLLECTION_SATELLITE = "app.etzhayyim.maps.satelliteScene";
-const COLLECTION_MAPRALY = "app.etzhayyim.maps.mapralyPoi";
-const COLLECTION_WEB_CRAWL = "app.etzhayyim.maps.webCrawlGeoEntity";
+const COLLECTION_VISION = "com.etzhayyim.maps.visionResult";
+const COLLECTION_SATELLITE = "com.etzhayyim.maps.satelliteScene";
+const COLLECTION_MAPRALY = "com.etzhayyim.maps.mapralyPoi";
+const COLLECTION_WEB_CRAWL = "com.etzhayyim.maps.webCrawlGeoEntity";
 
 // ─── shared client + opts ───────────────────────────────────────────
 

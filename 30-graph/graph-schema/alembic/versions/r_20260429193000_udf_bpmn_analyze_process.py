@@ -15,7 +15,7 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION bpmn_analyze_process(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.bpmn.analyzeProcess'\n"
+         "      AS 'com.etzhayyim.apps.bpmn.analyzeProcess'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

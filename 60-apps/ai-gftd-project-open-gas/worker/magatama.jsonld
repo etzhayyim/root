@@ -35,11 +35,11 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openGas.node",
-        "ai.gftd.apps.openGas.segment",
-        "ai.gftd.apps.openGas.meterReading",
-        "ai.gftd.apps.openGas.leak",
-        "ai.gftd.apps.openGas.pressureLog"
+        "com.etzhayyim.apps.openGas.node",
+        "com.etzhayyim.apps.openGas.segment",
+        "com.etzhayyim.apps.openGas.meterReading",
+        "com.etzhayyim.apps.openGas.leak",
+        "com.etzhayyim.apps.openGas.pressureLog"
       ]
     }
   },

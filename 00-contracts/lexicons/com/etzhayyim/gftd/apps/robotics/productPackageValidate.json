@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.robotics.product.package.validate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Validate a robotics product manufacturing package manifest for robot arm, drone, AGV, AMR, or autonomous-vehicle production.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["packageId", "packageManifest"],
+          "properties": {
+            "requestId": { "type": "string" },
+            "packageId": { "type": "string" },
+            "assetKind": { "type": "string" },
+            "packageManifest": { "type": "unknown" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "roboticsProductPackageValidation": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

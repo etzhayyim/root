@@ -28,7 +28,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.form.task/itr1-form-v1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/com.etzhayyim.form.task/itr1-form-v1',
                  20260427001000,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'itr1-form-v1',
@@ -148,7 +148,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.form.task/itr1-self-review-v1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/com.etzhayyim.form.task/itr1-self-review-v1',
                  20260427001001,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'itr1-self-review-v1',
@@ -213,7 +213,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.form.task/itr1-amend-v1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/com.etzhayyim.form.task/itr1-amend-v1',
                  20260427001002,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'itr1-amend-v1',
@@ -264,7 +264,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/app.etzhayyim.form.task/gstr3b-form-v1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/com.etzhayyim.form.task/gstr3b-form-v1',
                  20260427001003,
                  'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'gstr3b-form-v1',
@@ -400,7 +400,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/app.etzhayyim.form.task/gstr3b-review-v1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/com.etzhayyim.form.task/gstr3b-review-v1',
                  20260427001004,
                  'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'gstr3b-review-v1',
@@ -452,7 +452,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/app.etzhayyim.form.task/gstr3b-amend-v1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/com.etzhayyim.form.task/gstr3b-amend-v1',
                  20260427001005,
                  'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'gstr3b-amend-v1',
@@ -501,7 +501,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/app.etzhayyim.form.task/epfo-ecr-form-v1',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/com.etzhayyim.form.task/epfo-ecr-form-v1',
                  20260427001006,
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'epfo-ecr-form-v1',
@@ -570,7 +570,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/app.etzhayyim.form.task/epfo-review-v1',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/com.etzhayyim.form.task/epfo-review-v1',
                  20260427001007,
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'epfo-review-v1',
@@ -621,7 +621,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/app.etzhayyim.form.task/epfo-amend-v1',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/com.etzhayyim.form.task/epfo-amend-v1',
                  20260427001008,
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'epfo-amend-v1',
@@ -668,7 +668,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/app.etzhayyim.form.task/esic-monthly-form-v1',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/com.etzhayyim.form.task/esic-monthly-form-v1',
                  20260427001009,
                  'did:web:ind-payroll.etzhayyim.com:esic',
                  'esic-monthly-form-v1',
@@ -739,7 +739,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/app.etzhayyim.form.task/esic-review-v1',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/com.etzhayyim.form.task/esic-review-v1',
                  20260427001010,
                  'did:web:ind-payroll.etzhayyim.com:esic',
                  'esic-review-v1',
@@ -792,7 +792,7 @@ UP = [{'sql': '\n      DELETE FROM vertex_form_task WHERE form_key = $1\n    ',
          "        'active', '2026-04-27T00:10:00Z'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/app.etzhayyim.form.task/esic-amend-v1',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/com.etzhayyim.form.task/esic-amend-v1',
                  20260427001011,
                  'did:web:ind-payroll.etzhayyim.com:esic',
                  'esic-amend-v1',

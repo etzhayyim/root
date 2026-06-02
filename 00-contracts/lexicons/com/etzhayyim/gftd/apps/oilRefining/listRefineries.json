@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilRefining.listRefineries",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List oil refineries with optional country/operator/status filter.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "country": { "type": "string" },
+          "operatorDid": { "type": "string", "format": "did" },
+          "operatingStatus": { "type": "string" },
+          "minCapacityBopd": { "type": "number" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["refineries", "total", "offset", "limit"], "properties": { "refineries": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "name": { "type": "string" }, "country": { "type": "string" }, "capacityBopd": { "type": "number" }, "complexity": { "type": "number" }, "operatingStatus": { "type": "string" } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

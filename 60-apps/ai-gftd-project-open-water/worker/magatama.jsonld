@@ -35,11 +35,11 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openWater.node",
-        "ai.gftd.apps.openWater.main",
-        "ai.gftd.apps.openWater.meterReading",
-        "ai.gftd.apps.openWater.leak",
-        "ai.gftd.apps.openWater.qualitySample"
+        "com.etzhayyim.apps.openWater.node",
+        "com.etzhayyim.apps.openWater.main",
+        "com.etzhayyim.apps.openWater.meterReading",
+        "com.etzhayyim.apps.openWater.leak",
+        "com.etzhayyim.apps.openWater.qualitySample"
       ]
     }
   },

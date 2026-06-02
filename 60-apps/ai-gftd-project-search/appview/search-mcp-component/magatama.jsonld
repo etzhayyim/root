@@ -71,9 +71,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.search.searchEntity",
-        "ai.gftd.apps.search.searchEvent",
-        "ai.gftd.apps.search.searchReport"
+        "com.etzhayyim.apps.search.searchEntity",
+        "com.etzhayyim.apps.search.searchEvent",
+        "com.etzhayyim.apps.search.searchReport"
       ]
     }
   },

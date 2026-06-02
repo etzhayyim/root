@@ -1,7 +1,7 @@
-;; app.etzhayyim.okaimono.assist — lexicon (EDN form) — R3 assisted secure checkout
+;; com.etzhayyim.okaimono.assist — lexicon (EDN form) — R3 assisted secure checkout
 ;; ADR-2606012100 §R3  ·  member-principal (G14) · no-server-key (G15) · encrypted (G9)
 {:lexicon 1
- :id "app.etzhayyim.okaimono.assist"
+ :id "com.etzhayyim.okaimono.assist"
  :defs
  {:main
   {:type "record"
@@ -15,7 +15,7 @@
      :mode          {:type "string" :description "assisted-secure-checkout"}
      :principal     {:type "string" :description "always \"member\" — okaimono is never the buyer (G14)"}
      :state         {:type "string" :description "awaiting-member-authorization|authorized-pending-operator|submitted|refused"}
-     :encryptedRef  {:type "string" :description "app.etzhayyim.encrypted.* envelope ref; no plaintext PII (G9)"}
+     :encryptedRef  {:type "string" :description "com.etzhayyim.encrypted.* envelope ref; no plaintext PII (G9)"}
      :handoffUri    {:type "string" :description "affiliate-stripped retailer deep-link (G3)"}
      :payment       {:type "object"
                      :required ["instrument" "principal" "serverHeldKey" "signed"]

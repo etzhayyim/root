@@ -10,7 +10,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_mangaka_process_trace AS
       (value_json::jsonb -> 'objectRefs')::varchar AS object_refs_json,
       value_json                                   AS payload_json
     FROM vertex_repo_commit
-    WHERE collection = 'ai.gftd.bpmn.audit'
+    WHERE collection = 'com.etzhayyim.bpmn.audit'
       AND (value_json::jsonb -> 'action')::varchar LIKE 'mangaka.%';
 
 CREATE MATERIALIZED VIEW IF NOT EXISTS mv_mangaka_process_kpi AS

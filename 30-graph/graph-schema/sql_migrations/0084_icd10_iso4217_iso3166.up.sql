@@ -9,7 +9,7 @@ CREATE VIEW IF NOT EXISTS view_icd10_disease AS
       value_json::jsonb->>'code_range' AS code_range,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.icd10.disease';
+    WHERE collection = 'com.etzhayyim.apps.icd10.disease';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('icd10', 'icd10.etzhayyim.com', 90168, 'ICD-10-CM disease codes', 'healthcare');

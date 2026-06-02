@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.kabi.hypha", "ai.gftd.apps.kinoko.block"]
+      "collections": ["com.etzhayyim.apps.kabi.hypha", "com.etzhayyim.apps.kinoko.block"]
     }
   }
 }

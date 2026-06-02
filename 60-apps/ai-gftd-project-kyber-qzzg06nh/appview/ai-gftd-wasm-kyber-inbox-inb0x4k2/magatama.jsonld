@@ -32,11 +32,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kyber.inbox.emailSignal",
-        "ai.gftd.apps.kyber.inbox.calendarSignal",
-        "ai.gftd.apps.kyber.inbox.documentSignal",
-        "ai.gftd.apps.emailServiceAdapter.syncJob",
-        "ai.gftd.apps.calendar.event"
+        "com.etzhayyim.apps.kyber.inbox.emailSignal",
+        "com.etzhayyim.apps.kyber.inbox.calendarSignal",
+        "com.etzhayyim.apps.kyber.inbox.documentSignal",
+        "com.etzhayyim.apps.emailServiceAdapter.syncJob",
+        "com.etzhayyim.apps.calendar.event"
       ]
     }
   },

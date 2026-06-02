@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-naics/classifyEntity.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-naics/classifyEntity.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-naics/recordConcordance.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-naics/recordConcordance.bpmn"),
   "utf-8",
 );
 
@@ -25,8 +25,8 @@ describe("Seed open-naics BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_naics_record_concordance"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNaics.classifyEntity"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNaics.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openNaics.classifyEntity"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openNaics.recordConcordance"');
   });
   it("uses open-naics-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-naics');

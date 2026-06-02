@@ -36,9 +36,9 @@ import {
   type RuleBundleView,
 } from "./types.js";
 
-const DOCUMENT_COLLECTION = "app.etzhayyim.houki.document";
-const RULE_COLLECTION = "app.etzhayyim.houki.rule";
-const RULE_BUNDLE_COLLECTION = "app.etzhayyim.houki.ruleBundle";
+const DOCUMENT_COLLECTION = "com.etzhayyim.houki.document";
+const RULE_COLLECTION = "com.etzhayyim.houki.rule";
+const RULE_BUNDLE_COLLECTION = "com.etzhayyim.houki.ruleBundle";
 
 function ruleRkey(docId: string, ruleSeq: number): string {
   const padded = String(ruleSeq).padStart(6, "0");

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>watashi</string>
 	<key>CFBundleIdentifier</key>
-	<string>ai.gftd.watashi</string>
+	<string>com.etzhayyim.watashi</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

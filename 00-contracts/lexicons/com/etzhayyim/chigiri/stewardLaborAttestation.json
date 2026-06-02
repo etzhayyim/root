@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.stewardLaborAttestation",
+  "description": "Steward labor classification per Liberation Ladder L0..L6 (ADR-2605261000). G13 structural enforcement: employmentRelation enum DELIBERATELY EXCLUDES 'employee' — constructive-employment drift is prevented at the schema layer, not at policy layer. External employment relationships are recorded separately via externalEmployerDid + externalEmploymentRelation; the religious-corp relation remains volunteer / subsistence / vocation / none. Companion to liberation/stageAdvanceAttestation (which tracks L-level transitions; this Lexicon tracks current classification state).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "stewardDid",
+          "lLevel",
+          "classification",
+          "employmentRelation",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "stewardDid": {
+            "type": "string"
+          },
+          "lLevel": {
+            "type": "string",
+            "knownValues": ["L0", "L1", "L2", "L3", "L4", "L5", "L6"],
+            "description": "Liberation Ladder level per ADR-2605261000."
+          },
+          "classification": {
+            "type": "string",
+            "knownValues": [
+              "witness",
+              "adherent",
+              "sustenance-recipient",
+              "shelter-recipient",
+              "care-recipient",
+              "care-giver",
+              "vocation-internal",
+              "liberated"
+            ],
+            "description": "Functional role classification. care-recipient + care-giver are both at L4; care-giver attestation cross-links to hagukumi.caregiverAttestation."
+          },
+          "employmentRelation": {
+            "type": "string",
+            "knownValues": [
+              "none",
+              "volunteer",
+              "subsistence-flow",
+              "vocation-flow"
+            ],
+            "description": "G13 INVARIANT: 'employee' is NOT a valid value. Religious-corp internal relations are always volunteer / subsistence-flow / vocation-flow / none. Wage-employment is a state legal relation, NOT a religious-corp relation."
+          },
+          "subsistenceFlowDetails": {
+            "type": "object",
+            "properties": {
+              "foodAccessLandCid": {"type": "string"},
+              "shelterAccessLandCid": {"type": "string"},
+              "publicFundGrantCids": {"type": "array", "items": {"type": "string"}}
+            },
+            "description": "When employmentRelation=subsistence-flow, the specific subsistence-flow components."
+          },
+          "vocationFlowDetails": {
+            "type": "object",
+            "properties": {
+              "vocationDomain": {"type": "string", "knownValues": ["education", "care", "agriculture", "construction", "manufacturing", "religious-practice", "council-administration", "other"]},
+              "vocationLandCid": {"type": "string"},
+              "publicFundVocationGrantCid": {"type": "string"}
+            }
+          },
+          "externalEmployerDid": {
+            "type": "string",
+            "description": "Optional. External employer DID. The religious-corp relation is INDEPENDENT of external employment; this field documents parallel external relationships only."
+          },
+          "externalEmploymentRelation": {
+            "type": "string",
+            "knownValues": ["full-time-employee", "part-time-employee", "contractor", "self-employed", "unemployed", "retired", "student", "not-disclosed"],
+            "description": "External (non-religious-corp) employment relation. May include 'employee' values — those refer to the EXTERNAL state-legal relation, not the chigiri relation."
+          },
+          "caregiverAttestationCrossLinkCid": {
+            "type": "string",
+            "description": "When classification=care-giver, the hagukumi.caregiverAttestation CID."
+          },
+          "constructiveEmploymentDriftCheckPass": {
+            "type": "boolean",
+            "description": "Continuous monitoring result: did the steward's subsistence/vocation flow drift toward constructive employment (wage-like fixed schedule, performance reviews, etc.)? Fail = mediation cell escalation."
+          },
+          "attestingDid": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

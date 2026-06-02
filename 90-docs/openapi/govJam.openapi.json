@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govJam.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govJam.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Jamaica government.",
-        "operationId": "app.etzhayyim.govJam.followSiteDeps",
+        "operationId": "com.etzhayyim.govJam.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govJam.heartbeatTick": {
       "post": {
         "summary": "Run the Jamaica government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govJam.heartbeatTick",
+        "operationId": "com.etzhayyim.govJam.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.listOrgs": {
+    "/xrpc/com.etzhayyim.govJam.listOrgs": {
       "get": {
         "summary": "List Jamaica government organization graph records.",
-        "operationId": "app.etzhayyim.govJam.listOrgs",
+        "operationId": "com.etzhayyim.govJam.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.registerDIDs": {
+    "/xrpc/com.etzhayyim.govJam.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Jamaica government organizations.",
-        "operationId": "app.etzhayyim.govJam.registerDIDs",
+        "operationId": "com.etzhayyim.govJam.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govJam.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Jamaica government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govJam.resolveOrgPath",
+        "operationId": "com.etzhayyim.govJam.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.seedOrgs": {
+    "/xrpc/com.etzhayyim.govJam.seedOrgs": {
       "post": {
         "summary": "Seed initial Jamaica government organization records into the graph.",
-        "operationId": "app.etzhayyim.govJam.seedOrgs",
+        "operationId": "com.etzhayyim.govJam.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.shinka": {
+    "/xrpc/com.etzhayyim.govJam.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Jamaica government organization update.",
-        "operationId": "app.etzhayyim.govJam.shinka",
+        "operationId": "com.etzhayyim.govJam.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govJam.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govJam.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Jamaica government organization changes to graph.",
-        "operationId": "app.etzhayyim.govJam.syncWetUpdates",
+        "operationId": "com.etzhayyim.govJam.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

@@ -2,12 +2,12 @@
 # ameno live smoke test — verify the Phase 1-5f end-to-end XRPC chain.
 #
 # What it checks (in order):
-#   1. POST /xrpc/app.etzhayyim.apps.ameno.saveResult         — Worker → bpmn-dispatcher
+#   1. POST /xrpc/com.etzhayyim.apps.ameno.saveResult         — Worker → bpmn-dispatcher
 #                                                          → ameno-langserver pod
 #                                                          → INSERT vertex_ameno_inferenceresult
-#   2. GET  /xrpc/app.etzhayyim.apps.ameno.listHistory        — same path, SELECT
+#   2. GET  /xrpc/com.etzhayyim.apps.ameno.listHistory        — same path, SELECT
 #                                                          (asserts row from #1 is back)
-#   3. GET  /xrpc/app.etzhayyim.apps.ameno.subscribeBriefs    — SSE stream, must
+#   3. GET  /xrpc/com.etzhayyim.apps.ameno.subscribeBriefs    — SSE stream, must
 #                                                          emit `event: ready`
 #                                                          (proves NATS path)
 #
@@ -69,7 +69,7 @@ printf 'probe:     %s\n' "$PROBE_PROMPT"
 printf 'sseWait:   %ss\n' "$SSE_TIMEOUT_SEC"
 
 # ── 1. saveResult ─────────────────────────────────────────────────────────────
-header "1. saveResult — POST /xrpc/app.etzhayyim.apps.ameno.saveResult"
+header "1. saveResult — POST /xrpc/com.etzhayyim.apps.ameno.saveResult"
 cat > "${TMP}/save.json" <<EOF
 {
   "modelId": "gemma-4-e2b-it",
@@ -84,7 +84,7 @@ cat > "${TMP}/save.json" <<EOF
 }
 EOF
 status=$(curl -sS --max-time 30 -L \
-  -X POST "${BASE}/xrpc/app.etzhayyim.apps.ameno.saveResult" \
+  -X POST "${BASE}/xrpc/com.etzhayyim.apps.ameno.saveResult" \
   -H 'content-type: application/json' \
   --data-binary @"${TMP}/save.json" \
   -o "${TMP}/save.resp" -w '%{http_code}')
@@ -101,9 +101,9 @@ fi
 RESULT_ID=$(echo "$body" | sed -n 's/.*"resultId"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
 
 # ── 2. listHistory ────────────────────────────────────────────────────────────
-header "2. listHistory — GET /xrpc/app.etzhayyim.apps.ameno.listHistory"
+header "2. listHistory — GET /xrpc/com.etzhayyim.apps.ameno.listHistory"
 status=$(curl -sS --max-time 15 -L -G \
-  "${BASE}/xrpc/app.etzhayyim.apps.ameno.listHistory" \
+  "${BASE}/xrpc/com.etzhayyim.apps.ameno.listHistory" \
   --data-urlencode "actorDid=${ACTOR_DID}" \
   --data-urlencode "limit=20" \
   -H 'accept: application/json' \
@@ -127,11 +127,11 @@ else
 fi
 
 # ── 3. subscribeBriefs ────────────────────────────────────────────────────────
-header "3. subscribeBriefs — GET /xrpc/app.etzhayyim.apps.ameno.subscribeBriefs (SSE)"
+header "3. subscribeBriefs — GET /xrpc/com.etzhayyim.apps.ameno.subscribeBriefs (SSE)"
 # -N disables curl buffering so we see SSE frames as they arrive.
 # --max-time bounds the test even if the server keeps the stream alive.
 curl -sS -N --max-time "${SSE_TIMEOUT_SEC}" -L \
-  "${BASE}/xrpc/app.etzhayyim.apps.ameno.subscribeBriefs?collection=app.bsky.feed.post&maxEvents=2&idleTimeoutSec=${SSE_TIMEOUT_SEC}" \
+  "${BASE}/xrpc/com.etzhayyim.apps.ameno.subscribeBriefs?collection=app.bsky.feed.post&maxEvents=2&idleTimeoutSec=${SSE_TIMEOUT_SEC}" \
   -H 'accept: text/event-stream' \
   > "${TMP}/sse.txt" 2>/dev/null || true
 sse_body="$(cat "${TMP}/sse.txt" 2>/dev/null || echo "")"

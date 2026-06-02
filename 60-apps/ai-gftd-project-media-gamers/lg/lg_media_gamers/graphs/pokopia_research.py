@@ -1,6 +1,6 @@
 """media-gamers `pokopia_research` graph — game knowledge research via Pregel provenance loop.
 
-NSID: app.etzhayyim.apps.media_gamers.researchPokopia
+NSID: com.etzhayyim.apps.media_gamers.researchPokopia
 Actor: did:web:media-gamers-research.etzhayyim.com
 
 Nodes (7):

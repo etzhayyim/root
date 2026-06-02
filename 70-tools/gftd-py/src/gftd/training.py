@@ -40,7 +40,7 @@ def training_list(pds: str | None, json_out: bool, filter_status: str) -> None:
     if filter_status:
         params["status"] = filter_status
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.training.listJobs",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.training.listJobs",
                          params=params, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -63,7 +63,7 @@ def training_get(job_id: str, pds: str | None, json_out: bool) -> None:
     """Get training job details."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.get(f"{pds_url}/xrpc/app.etzhayyim.training.getJob",
+        resp = httpx.get(f"{pds_url}/xrpc/com.etzhayyim.training.getJob",
                          params={"id": job_id}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -77,9 +77,9 @@ def training_get(job_id: str, pds: str | None, json_out: bool) -> None:
 
 
 _TRAINING_NSID: dict[str, str] = {
-    "sft": "app.etzhayyim.apps.training.runSft",
-    "lora": "app.etzhayyim.apps.training.runLora",
-    "distill": "app.etzhayyim.apps.training.runDistill",
+    "sft": "com.etzhayyim.apps.training.runSft",
+    "lora": "com.etzhayyim.apps.training.runLora",
+    "distill": "com.etzhayyim.apps.training.runDistill",
 }
 
 
@@ -115,7 +115,7 @@ def training_run(kind: str, base_model: str, student_base: str, dataset: str,
                  hyperparams: str, eval_benches: str, rationale: str,
                  teacher_kind: str, teacher_run_id: str, teacher_actor: str,
                  distill_method: str, pds: str | None, json_out: bool) -> None:
-    """Start a training run (sft | lora | distill) via app.etzhayyim.apps.training.*."""
+    """Start a training run (sft | lora | distill) via com.etzhayyim.apps.training.*."""
     if not dataset:
         raise click.ClickException("--dataset is required")
     if kind in ("sft", "lora") and not base_model:
@@ -170,7 +170,7 @@ def training_start(job_type: str, model: str, dataset: str, pds: str | None, jso
     pds_url = (pds or resolve_pds()).rstrip("/")
     payload = {"type": job_type, "model": model, "dataset": dataset}
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.training.startJob",
+        resp = httpx.post(f"{pds_url}/xrpc/com.etzhayyim.training.startJob",
                           json=payload, headers=_auth_headers(), timeout=60)
         resp.raise_for_status()
         data = resp.json()
@@ -189,7 +189,7 @@ def training_cancel(job_id: str, pds: str | None) -> None:
     """Cancel a training job."""
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
-        resp = httpx.post(f"{pds_url}/xrpc/app.etzhayyim.training.cancelJob",
+        resp = httpx.post(f"{pds_url}/xrpc/com.etzhayyim.training.cancelJob",
                           json={"id": job_id}, headers=_auth_headers(), timeout=30)
         resp.raise_for_status()
         click.echo(f"cancelled: {job_id}")
@@ -234,7 +234,7 @@ def training_promote(checkpoint_id: str, alias: str, target: str, by: str,
         payload["promotedBy"] = by
     if rationale:
         payload["rationale"] = rationale
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.promote", payload, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.promote", payload, json_out)
 
 
 @training.command("eval")
@@ -264,7 +264,7 @@ def training_eval(checkpoint_id: str, bench: str, eval_dataset: str,
         payload["sampleLimit"] = limit
     if gpu:
         payload["gpuTarget"] = gpu
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.runEval", payload, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.runEval", payload, json_out)
 
 
 @training.command("list-runs")
@@ -286,7 +286,7 @@ def training_list_runs(kind: str, filter_status: str, limit: int,
         payload["kind"] = kind
     if filter_status:
         payload["status"] = filter_status
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.listRuns", payload, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.listRuns", payload, json_out)
 
 
 @training.command("list-checkpoints")
@@ -303,7 +303,7 @@ def training_list_checkpoints(run: str, only_final: bool, limit: int,
     payload: dict = {"limit": limit, "onlyFinal": only_final}
     if run:
         payload["runId"] = run
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.listCheckpoints", payload, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.listCheckpoints", payload, json_out)
 
 
 @training.command("list-snapshots")
@@ -323,7 +323,7 @@ def training_list_snapshots(dataset: str, filter_status: str, limit: int,
         payload["datasetName"] = dataset
     if filter_status:
         payload["status"] = filter_status
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.listSnapshots", payload, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.listSnapshots", payload, json_out)
 
 
 @training.command("coverage")
@@ -332,7 +332,7 @@ def training_list_snapshots(dataset: str, filter_status: str, limit: int,
 def training_coverage(pds: str | None, json_out: bool) -> None:
     """Training data coverage report."""
     pds_url = (pds or resolve_pds()).rstrip("/")
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.coverage", {}, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.coverage", {}, json_out)
 
 
 @training.command("serving")
@@ -345,4 +345,4 @@ def training_serving(alias: str, pds: str | None, json_out: bool) -> None:
     payload: dict = {}
     if alias:
         payload["alias"] = alias
-    _post_training_xrpc(pds_url, "app.etzhayyim.apps.training.serving", payload, json_out)
+    _post_training_xrpc(pds_url, "com.etzhayyim.apps.training.serving", payload, json_out)

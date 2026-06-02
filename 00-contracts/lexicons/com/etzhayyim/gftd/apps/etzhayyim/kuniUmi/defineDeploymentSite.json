@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Declare a planetary-infrastructure deployment site. Returns siteDid. Synchronously runs the jurisdiction-eligibility DMN (ADR-2605201400 §5) — sites without a stewardship claim (LandRegistry / OceanStewardship / RiverStewardship / AtmosphereStewardship / OrbitalSlot) or that violate Charter Rider §2 are rejected. ADR-2605201400.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["siteCode", "name", "geo", "utilityClass", "domain", "jurisdictionDid", "stewardDid", "intendedUse", "intendedBeneficiaryDids"],
+          "properties": {
+            "siteCode": { "type": "string", "description": "Unique uppercase alphanumeric site code (A-Z0-9-, 2..64)" },
+            "name": { "type": "string" },
+            "geo": { "type": "string", "description": "GeoJSON Feature (Polygon or MultiPolygon for terrestrial / aquatic; Point + altitude for orbital)" },
+            "utilityClass": { "type": "string", "enum": ["electric", "gas", "water", "network", "power", "rail", "airplane", "port", "multi"] },
+            "domain": { "type": "string", "enum": ["terrestrial", "ocean", "river", "atmosphere", "orbit"] },
+            "jurisdictionDid": { "type": "string", "description": "DID of the stewardship registry entry covering this site" },
+            "stewardDid": { "type": "string", "description": "Steward (Lv5+) DID" },
+            "intendedUse": { "type": "string", "description": "Free-form intended-use statement; gated against Charter Rider §2(a-h)" },
+            "intendedBeneficiaryDids": { "type": "array", "items": { "type": "string" }, "description": "Community DIDs that will benefit from the deployment" },
+            "lifespanYears": { "type": "integer", "description": "Planned operational lifespan in years (default 30)", "default": 30 },
+            "localLawAttestationCid": { "type": "string", "description": "IPFS CID — Steward Lv5+ attestation of local-law compliance (required for restricted utilities: electric / gas / airplane / network-spectrum / orbit)" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "siteDid": { "type": "string" },
+            "siteCode": { "type": "string" },
+            "accepted": { "type": "boolean" },
+            "decision": { "type": "string", "enum": ["accept", "reject", "escalate"] },
+            "escalationPath": { "type": "string", "enum": ["council-lv6", "regular-governance", "extended-sovereignty", "force-authorization", "public-fund"], "description": "When decision=escalate" },
+            "rejectionReason": { "type": "string" },
+            "definedAt": { "type": "string", "format": "datetime" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 // storage-rest.ts — Supabase-shape `/storage/v1/*` REST handlers.
 //
-// Translates HTTP requests into app.etzhayyim.apps.yata.{put,get,delete,head,
+// Translates HTTP requests into com.etzhayyim.apps.yata.{put,get,delete,head,
 // list,presign} XRPC calls dispatched via bpmn-dispatcher (dispatcher.ts).
 // Response shape mirrors Supabase Storage REST so existing
 // @supabase/storage-js clients can talk to yatabase with only a base URL
@@ -205,7 +205,7 @@ async function handleMultipart(
     try { body = (await req.json()) as typeof body; } catch { /* ignore */ }
     const result = await dispatchYataXrpc<{ ok?: boolean; uploadId?: string; expiresAt?: string; error?: string }>(
       env,
-      "app.etzhayyim.apps.yata.multipartInit",
+      "com.etzhayyim.apps.yata.multipartInit",
       { bucketName: bucket, objectKey: key, contentType: body.contentType, encryption: body.encryption },
       caller,
       { timeoutMs: 30_000 },
@@ -230,7 +230,7 @@ async function handleMultipart(
     const data = btoa(bin);
     const result = await dispatchYataXrpc<{ partNumber?: number; etag?: string; sizeBytes?: number; error?: string }>(
       env,
-      "app.etzhayyim.apps.yata.multipartPart",
+      "com.etzhayyim.apps.yata.multipartPart",
       { uploadId, partNumber, data },
       caller,
       { timeoutMs: 60_000 },
@@ -252,7 +252,7 @@ async function handleMultipart(
       ok?: boolean; bucketName?: string; objectKey?: string; etag?: string; sizeBytes?: number; error?: string;
     }>(
       env,
-      "app.etzhayyim.apps.yata.multipartComplete",
+      "com.etzhayyim.apps.yata.multipartComplete",
       { uploadId: body.uploadId, parts: body.parts ?? [] },
       caller,
       { timeoutMs: 120_000 },
@@ -272,7 +272,7 @@ async function handleMultipart(
   if (!body.uploadId) return badRequest("uploadId required");
   const result = await dispatchYataXrpc(
     env,
-    "app.etzhayyim.apps.yata.multipartAbort",
+    "com.etzhayyim.apps.yata.multipartAbort",
     { uploadId: body.uploadId },
     caller,
     { timeoutMs: 30_000 },
@@ -297,7 +297,7 @@ async function handleObject(
     const ifNoneMatch = req.headers.get("if-none-match") ?? undefined;
     const result = await dispatchYataXrpc<PutObjectOk & { error?: string }>(
       env,
-      "app.etzhayyim.apps.yata.putObject",
+      "com.etzhayyim.apps.yata.putObject",
       {
         bucketName: bucket,
         objectKey: key,
@@ -369,7 +369,7 @@ async function handleObject(
     const ifNoneMatch = req.headers.get("if-none-match") ?? undefined;
     const result = await dispatchYataXrpc<GetObjectOk & { error?: string }>(
       env,
-      "app.etzhayyim.apps.yata.getObject",
+      "com.etzhayyim.apps.yata.getObject",
       {
         bucketName: bucket,
         objectKey: key,
@@ -483,7 +483,7 @@ async function handleObject(
     const purge = new URL(req.url).searchParams.get("purge") === "true";
     const result = await dispatchYataXrpc(
       env,
-      "app.etzhayyim.apps.yata.deleteObject",
+      "com.etzhayyim.apps.yata.deleteObject",
       { bucketName: bucket, objectKey: key, purge },
       caller,
       { timeoutMs: 30_000 },
@@ -529,7 +529,7 @@ async function handleList(
   const cursor = url.searchParams.get("cursor") ?? undefined;
   const result = await dispatchYataXrpc(
     env,
-    "app.etzhayyim.apps.yata.listObjects",
+    "com.etzhayyim.apps.yata.listObjects",
     { bucketName: bucket, prefix, limit, cursor },
     caller,
     { timeoutMs: 30_000 },
@@ -578,7 +578,7 @@ async function handleSign(
   const method = body.method ?? "GET";
   const result = await dispatchYataXrpc(
     env,
-    "app.etzhayyim.apps.yata.presignUrl",
+    "com.etzhayyim.apps.yata.presignUrl",
     { bucketName: bucket, objectKey: key, method, expiresInSec: expiresIn, contentType: body.contentType },
     caller,
     { timeoutMs: 15_000 },
@@ -606,7 +606,7 @@ async function handleSign(
 async function handleBucket(env: StorageEnv, caller: DispatcherCallerContext): Promise<Response> {
   const result = await dispatchYataXrpc(
     env,
-    "app.etzhayyim.apps.yata.listBuckets",
+    "com.etzhayyim.apps.yata.listBuckets",
     {},
     caller,
     { timeoutMs: 15_000 },

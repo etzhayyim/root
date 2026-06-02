@@ -23,7 +23,7 @@
 <body>
 <header>
   <h1>ISEKAI World Map — ADR-0040 Phase 1 preview</h1>
-  <p>200 m × 200 m map. Scene placements read live from <code>ai.gftd.isekai.listScenes</code>. Click a circle to jump to the scene page. Hover for details.</p>
+  <p>200 m × 200 m map. Scene placements read live from <code>com.etzhayyim.isekai.listScenes</code>. Click a circle to jump to the scene page. Hover for details.</p>
 </header>
 <div id="wrap">
   <div id="stage"><canvas id="map"></canvas></div>
@@ -41,10 +41,10 @@
 </div>
 <script type="module">
   const WORLD_W_M = 200, WORLD_H_M = 200;
-  const WORLD_MAP_URI = 'at://did:web:isekai.gftd.ai/ai.gftd.isekai.worldMap/world-v1';
+  const WORLD_MAP_URI = 'at://did:web:isekcom.etzhayyim.ai/com.etzhayyim.isekai.worldMap/world-v1';
   // Direct Worker endpoint (same-origin). PDS pipethrough (atproto.gftd.ai)
   // picks up new NSIDs asynchronously; direct route is deterministic.
-  const XRPC_ENDPOINT = '/xrpc/ai.gftd.isekai.listScenes';
+  const XRPC_ENDPOINT = '/xrpc/com.etzhayyim.isekai.listScenes';
 
   // Fallback seed — used only if the XRPC call fails (offline / cold start).
   // Keep in sync with /tmp/isekai-world-seed.sql so preview still works.

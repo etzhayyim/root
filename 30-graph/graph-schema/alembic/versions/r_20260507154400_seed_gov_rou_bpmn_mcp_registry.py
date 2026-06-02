@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-seedOrgs-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>\n'
                  '    <bpmn:serviceTask id="Task_Seed" name="seed orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.seedOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.seedOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -61,12 +61,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1361,
-                 '00-contracts/bpmn/ai/gftd/govRou/seedOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/seedOrgs.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -80,7 +80,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-registerDIDs-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -100,7 +100,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Register"/>\n'
                  '    <bpmn:serviceTask id="Task_Register" name="register DIDs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.registerDIDs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.registerDIDs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=registered" target="registered"/>\n'
@@ -118,12 +118,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1403,
-                 '00-contracts/bpmn/ai/gftd/govRou/registerDIDs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/registerDIDs.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-followSiteDeps-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Follow"/>\n'
                  '    <bpmn:serviceTask id="Task_Follow" name="follow site deps">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.followSiteDeps"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.followSiteDeps"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=followed" target="followed"/>\n'
@@ -173,12 +173,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1344,
-                 '00-contracts/bpmn/ai/gftd/govRou/followSiteDeps.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/followSiteDeps.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -192,7 +192,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-resolveOrgPath-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Resolve"/>\n'
                  '    <bpmn:serviceTask id="Task_Resolve" name="resolve org path">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.resolveOrgPath"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.resolveOrgPath"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=did" target="did"/>\n'
                  '          <zeebe:output source="=name" target="name"/>\n'
@@ -231,12 +231,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1519,
-                 '00-contracts/bpmn/ai/gftd/govRou/resolveOrgPath.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/resolveOrgPath.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -250,7 +250,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-listOrgs-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.listOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.listOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=orgs" target="orgs"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -285,12 +285,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1298,
-                 '00-contracts/bpmn/ai/gftd/govRou/listOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/listOrgs.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -304,7 +304,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-syncWetUpdates-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -323,7 +323,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>\n'
                  '    <bpmn:serviceTask id="Task_Sync" name="sync wet updates">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.syncWetUpdates"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.syncWetUpdates"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=checked" target="checked"/>\n'
@@ -341,12 +341,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1452,
-                 '00-contracts/bpmn/ai/gftd/govRou/syncWetUpdates.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/syncWetUpdates.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-shinka-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_shinka',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -379,7 +379,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Shinka"/>\n'
                  '    <bpmn:serviceTask id="Task_Shinka" name="shinka">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.shinka"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.shinka"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=posted" target="posted"/>\n'
@@ -396,12 +396,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1351,
-                 '00-contracts/bpmn/ai/gftd/govRou/shinka.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/shinka.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -415,7 +415,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeatTick-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -444,7 +444,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>\n'
                  '    <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.heartbeatTick"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.heartbeatTick"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -465,12 +465,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2098,
-                 '00-contracts/bpmn/ai/gftd/govRou/heartbeatTick.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/heartbeatTick.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -484,7 +484,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-seed-orgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-seed-orgs-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_seed_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -503,7 +503,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Seed"/>\n'
                  '    <bpmn:serviceTask id="Task_Seed" name="seed orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.seedOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.seedOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -520,12 +520,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1361,
-                 '00-contracts/bpmn/ai/gftd/govRou/seedOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/seedOrgs.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-seed-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-seed-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -539,7 +539,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-register-dids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-register-dids-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -559,7 +559,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Register"/>\n'
                  '    <bpmn:serviceTask id="Task_Register" name="register DIDs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.registerDIDs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.registerDIDs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=registered" target="registered"/>\n'
@@ -577,12 +577,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1403,
-                 '00-contracts/bpmn/ai/gftd/govRou/registerDIDs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/registerDIDs.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-register-dids-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -596,7 +596,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-follow-site-deps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-follow-site-deps-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_follow_site_deps',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -616,7 +616,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Follow"/>\n'
                  '    <bpmn:serviceTask id="Task_Follow" name="follow site deps">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.followSiteDeps"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.followSiteDeps"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=followed" target="followed"/>\n'
@@ -632,12 +632,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1344,
-                 '00-contracts/bpmn/ai/gftd/govRou/followSiteDeps.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/followSiteDeps.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-follow-site-deps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-follow-site-deps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -651,7 +651,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-resolve-org-path-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-resolve-org-path-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_resolve_org_path',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_Resolve"/>\n'
                  '    <bpmn:serviceTask id="Task_Resolve" name="resolve org path">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.resolveOrgPath"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.resolveOrgPath"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=did" target="did"/>\n'
                  '          <zeebe:output source="=name" target="name"/>\n'
@@ -690,12 +690,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1519,
-                 '00-contracts/bpmn/ai/gftd/govRou/resolveOrgPath.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/resolveOrgPath.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-resolve-org-path-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-resolve-org-path-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -709,7 +709,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-list-orgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-list-orgs-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_list_orgs',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -728,7 +728,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_List"/>\n'
                  '    <bpmn:serviceTask id="Task_List" name="list orgs">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.listOrgs"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.listOrgs"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=orgs" target="orgs"/>\n'
                  '          <zeebe:output source="=total" target="total"/>\n'
@@ -744,12 +744,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1298,
-                 '00-contracts/bpmn/ai/gftd/govRou/listOrgs.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/listOrgs.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-list-orgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-list-orgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -763,7 +763,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-sync-wet-updates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-sync-wet-updates-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_sync_wet_updates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -782,7 +782,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Sync"/>\n'
                  '    <bpmn:serviceTask id="Task_Sync" name="sync wet updates">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.syncWetUpdates"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.syncWetUpdates"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=checked" target="checked"/>\n'
@@ -800,12 +800,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1452,
-                 '00-contracts/bpmn/ai/gftd/govRou/syncWetUpdates.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/syncWetUpdates.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-sync-wet-updates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-sync-wet-updates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -819,7 +819,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeat-tick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeat-tick-v1',
                  'did:web:rou-state.etzhayyim.com',
                  'gov_rou_heartbeat_tick',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -848,7 +848,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:sequenceFlow id="Flow_Task" sourceRef="Start" targetRef="Task_Tick"/>\n'
                  '    <bpmn:serviceTask id="Task_Tick" name="heartbeat tick">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.govRou.heartbeatTick"/>\n'
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.govRou.heartbeatTick"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:output source="=ok" target="ok"/>\n'
                  '          <zeebe:output source="=seeded" target="seeded"/>\n'
@@ -869,12 +869,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2098,
-                 '00-contracts/bpmn/ai/gftd/govRou/heartbeatTick.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/govRou/heartbeatTick.bpmn',
                  '2026-05-07T15:44:00Z',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeat-tick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeat-tick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -889,9 +889,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.seedOrgs',
+                 'com.etzhayyim.govRou.seedOrgs',
                  'gov_rou_seed_orgs',
                  90000,
                  '2026-05-07T15:44:00Z',
@@ -899,7 +899,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -914,9 +914,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.registerDIDs',
+                 'com.etzhayyim.govRou.registerDIDs',
                  'gov_rou_register_dids',
                  90000,
                  '2026-05-07T15:44:00Z',
@@ -924,7 +924,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -939,9 +939,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.followSiteDeps',
+                 'com.etzhayyim.govRou.followSiteDeps',
                  'gov_rou_follow_site_deps',
                  90000,
                  '2026-05-07T15:44:00Z',
@@ -949,7 +949,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -964,9 +964,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.resolveOrgPath',
+                 'com.etzhayyim.govRou.resolveOrgPath',
                  'gov_rou_resolve_org_path',
                  60000,
                  '2026-05-07T15:44:00Z',
@@ -974,7 +974,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -989,9 +989,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.listOrgs',
+                 'com.etzhayyim.govRou.listOrgs',
                  'gov_rou_list_orgs',
                  60000,
                  '2026-05-07T15:44:00Z',
@@ -999,7 +999,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1014,9 +1014,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.syncWetUpdates',
+                 'com.etzhayyim.govRou.syncWetUpdates',
                  'gov_rou_sync_wet_updates',
                  180000,
                  '2026-05-07T15:44:00Z',
@@ -1024,7 +1024,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1039,9 +1039,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-shinka-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-shinka-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.shinka',
+                 'com.etzhayyim.govRou.shinka',
                  'gov_rou_shinka',
                  180000,
                  '2026-05-07T15:44:00Z',
@@ -1049,7 +1049,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-shinka-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-shinka-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1064,9 +1064,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.heartbeatTick',
+                 'com.etzhayyim.govRou.heartbeatTick',
                  'gov_rou_heartbeat_tick',
                  180000,
                  '2026-05-07T15:44:00Z',
@@ -1074,7 +1074,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1089,9 +1089,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.seedOrgs',
+                 'com.etzhayyim.govRou.seedOrgs',
                  'gov_rou_seed_orgs',
                  90000,
                  '2026-05-07T15:44:00Z',
@@ -1099,7 +1099,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1114,9 +1114,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.registerDIDs',
+                 'com.etzhayyim.govRou.registerDIDs',
                  'gov_rou_register_dids',
                  90000,
                  '2026-05-07T15:44:00Z',
@@ -1124,7 +1124,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1139,9 +1139,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.followSiteDeps',
+                 'com.etzhayyim.govRou.followSiteDeps',
                  'gov_rou_follow_site_deps',
                  90000,
                  '2026-05-07T15:44:00Z',
@@ -1149,7 +1149,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1164,9 +1164,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.resolveOrgPath',
+                 'com.etzhayyim.govRou.resolveOrgPath',
                  'gov_rou_resolve_org_path',
                  60000,
                  '2026-05-07T15:44:00Z',
@@ -1174,7 +1174,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1189,9 +1189,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.listOrgs',
+                 'com.etzhayyim.govRou.listOrgs',
                  'gov_rou_list_orgs',
                  60000,
                  '2026-05-07T15:44:00Z',
@@ -1199,7 +1199,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1214,9 +1214,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.syncWetUpdates',
+                 'com.etzhayyim.govRou.syncWetUpdates',
                  'gov_rou_sync_wet_updates',
                  180000,
                  '2026-05-07T15:44:00Z',
@@ -1224,7 +1224,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1239,9 +1239,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1',
                  'did:web:rou-state.etzhayyim.com',
-                 'app.etzhayyim.govRou.heartbeatTick',
+                 'com.etzhayyim.govRou.heartbeatTick',
                  'gov_rou_heartbeat_tick',
                  180000,
                  '2026-05-07T15:44:00Z',
@@ -1249,7 +1249,7 @@ UP = [{'sql': '\n'
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  'vertex_gov_org,edge_gov_org_site_dependency',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1266,23 +1266,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs',
-                 'app.etzhayyim.govRou.seedOrgs',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs',
+                 'com.etzhayyim.govRou.seedOrgs',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Romania government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"remaining":{"type":"integer"},"seeded":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.seedOrgs',
-                 '00-contracts/lexicons/ai/gftd/govRou/seedOrgs.json',
+                 'com.etzhayyim.govRou.seedOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/seedOrgs.json',
                  'd15b1ee842a71136',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1299,23 +1299,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs',
-                 'app.etzhayyim.govRou.registerDIDs',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs',
+                 'com.etzhayyim.govRou.registerDIDs',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Romania government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"dids":{"items":{"type":"string"},"type":"array"},"ok":{"type":"boolean"},"registered":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.registerDIDs',
-                 '00-contracts/lexicons/ai/gftd/govRou/registerDIDs.json',
+                 'com.etzhayyim.govRou.registerDIDs',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/registerDIDs.json',
                  '845d45865c52821d',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1332,23 +1332,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps',
-                 'app.etzhayyim.govRou.followSiteDeps',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps',
+                 'com.etzhayyim.govRou.followSiteDeps',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Romania government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.followSiteDeps',
-                 '00-contracts/lexicons/ai/gftd/govRou/followSiteDeps.json',
+                 'com.etzhayyim.govRou.followSiteDeps',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/followSiteDeps.json',
                  '8710d4c2a60ea9f3',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1365,23 +1365,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath',
-                 'app.etzhayyim.govRou.resolveOrgPath',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath',
+                 'com.etzhayyim.govRou.resolveOrgPath',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'query',
                  'Resolve a Romania government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
                  '{"properties":{"did":{"type":"string"},"error":{"type":"string"},"name":{"type":"string"},"nameEn":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.resolveOrgPath',
-                 '00-contracts/lexicons/ai/gftd/govRou/resolveOrgPath.json',
+                 'com.etzhayyim.govRou.resolveOrgPath',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/resolveOrgPath.json',
                  '927d85c0851ec6d7',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1398,23 +1398,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs',
-                 'app.etzhayyim.govRou.listOrgs',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs',
+                 'com.etzhayyim.govRou.listOrgs',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'query',
                  'List Romania government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
                  '{"properties":{"orgs":{"items":{"properties":{"did":{"type":"string"},"name":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"total":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.listOrgs',
-                 '00-contracts/lexicons/ai/gftd/govRou/listOrgs.json',
+                 'com.etzhayyim.govRou.listOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/listOrgs.json',
                  '075b9226fb6c29a8',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1431,23 +1431,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates',
-                 'app.etzhayyim.govRou.syncWetUpdates',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates',
+                 'com.etzhayyim.govRou.syncWetUpdates',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Romania government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"checked":{"type":"integer"},"ok":{"type":"boolean"},"posted":{"type":"integer"},"updated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.syncWetUpdates',
-                 '00-contracts/lexicons/ai/gftd/govRou/syncWetUpdates.json',
+                 'com.etzhayyim.govRou.syncWetUpdates',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/syncWetUpdates.json',
                  '9a15d3126759c4f4',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1464,23 +1464,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-shinka',
-                 'app.etzhayyim.govRou.shinka',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-shinka',
+                 'com.etzhayyim.govRou.shinka',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Post a periodic graph-visible Romania government organization update.',
                  '{"properties":{"limit":{"default":1,"maximum":5,"minimum":1,"type":"integer"},"postUpdates":{"default":true,"type":"boolean"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"posted":{"type":"integer"},"touched":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.shinka',
-                 '00-contracts/lexicons/ai/gftd/govRou/shinka.json',
+                 'com.etzhayyim.govRou.shinka',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/shinka.json',
                  'a5aec22827c01002',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-shinka']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-shinka']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1497,23 +1497,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick',
-                 'app.etzhayyim.govRou.heartbeatTick',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick',
+                 'com.etzhayyim.govRou.heartbeatTick',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Run the Romania government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"},"registered":{"type":"integer"},"seeded":{"type":"integer"},"shinkaPosted":{"type":"integer"},"wetUpdated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.heartbeatTick',
-                 '00-contracts/lexicons/ai/gftd/govRou/heartbeatTick.json',
+                 'com.etzhayyim.govRou.heartbeatTick',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/heartbeatTick.json',
                  '3983f4f9b16fff27',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1530,23 +1530,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs',
-                 'app.etzhayyim.govRou.seedOrgs',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs',
+                 'com.etzhayyim.govRou.seedOrgs',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Seed initial Romania government organization records into the graph.',
                  '{"properties":{"limit":{"default":50,"maximum":200,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"ok":{"type":"boolean"},"remaining":{"type":"integer"},"seeded":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.seedOrgs',
-                 '00-contracts/lexicons/ai/gftd/govRou/seedOrgs.json',
+                 'com.etzhayyim.govRou.seedOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/seedOrgs.json',
                  'd15b1ee842a71136',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1563,23 +1563,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs',
-                 'app.etzhayyim.govRou.registerDIDs',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs',
+                 'com.etzhayyim.govRou.registerDIDs',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Register DIDs for Romania government organizations.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"dids":{"items":{"type":"string"},"type":"array"},"ok":{"type":"boolean"},"registered":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.registerDIDs',
-                 '00-contracts/lexicons/ai/gftd/govRou/registerDIDs.json',
+                 'com.etzhayyim.govRou.registerDIDs',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/registerDIDs.json',
                  '845d45865c52821d',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1596,23 +1596,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps',
-                 'app.etzhayyim.govRou.followSiteDeps',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps',
+                 'com.etzhayyim.govRou.followSiteDeps',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Follow site dependency actors for Romania government.',
                  '{"properties":{"limit":{"default":15,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.followSiteDeps',
-                 '00-contracts/lexicons/ai/gftd/govRou/followSiteDeps.json',
+                 'com.etzhayyim.govRou.followSiteDeps',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/followSiteDeps.json',
                  '8710d4c2a60ea9f3',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1629,23 +1629,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath',
-                 'app.etzhayyim.govRou.resolveOrgPath',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath',
+                 'com.etzhayyim.govRou.resolveOrgPath',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'query',
                  'Resolve a Romania government organization path to its graph record.',
                  '{"properties":{"lang":{"type":"string"},"path":{"type":"string"}},"required":["path"],"type":"params"}',
                  '{"properties":{"did":{"type":"string"},"error":{"type":"string"},"name":{"type":"string"},"nameEn":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.resolveOrgPath',
-                 '00-contracts/lexicons/ai/gftd/govRou/resolveOrgPath.json',
+                 'com.etzhayyim.govRou.resolveOrgPath',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/resolveOrgPath.json',
                  '927d85c0851ec6d7',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1662,23 +1662,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs',
-                 'app.etzhayyim.govRou.listOrgs',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs',
+                 'com.etzhayyim.govRou.listOrgs',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'query',
                  'List Romania government organization graph records.',
                  '{"properties":{"limit":{"default":50,"maximum":100,"minimum":1,"type":"integer"},"offset":{"default":0,"minimum":0,"type":"integer"},"q":{"type":"string"}},"required":[],"type":"params"}',
                  '{"properties":{"orgs":{"items":{"properties":{"did":{"type":"string"},"name":{"type":"string"},"website":{"type":"string"}},"required":[],"type":"object"},"type":"array"},"total":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.listOrgs',
-                 '00-contracts/lexicons/ai/gftd/govRou/listOrgs.json',
+                 'com.etzhayyim.govRou.listOrgs',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/listOrgs.json',
                  '075b9226fb6c29a8',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1695,23 +1695,23 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates',
-                 'app.etzhayyim.govRou.syncWetUpdates',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates',
+                 'com.etzhayyim.govRou.syncWetUpdates',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Sync recent Romania government organization changes to graph.',
                  '{"properties":{"limit":{"default":10,"maximum":50,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"checked":{"type":"integer"},"ok":{"type":"boolean"},"posted":{"type":"integer"},"updated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.syncWetUpdates',
-                 '00-contracts/lexicons/ai/gftd/govRou/syncWetUpdates.json',
+                 'com.etzhayyim.govRou.syncWetUpdates',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/syncWetUpdates.json',
                  '9a15d3126759c4f4',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
  {'sql': '\n'
          '    INSERT INTO vertex_mcp_tool_def (\n'
          '      vertex_id, nsid, actor_did, actor_host, lexicon_type, description,\n'
@@ -1728,114 +1728,114 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_mcp_tool_def WHERE vertex_id = $17\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick',
-                 'app.etzhayyim.govRou.heartbeatTick',
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick',
+                 'com.etzhayyim.govRou.heartbeatTick',
                  'did:web:rou-state.etzhayyim.com',
                  'rou-state.etzhayyim.com',
                  'procedure',
                  'Run the Romania government actor scheduled maintenance loop through Zeebe.',
                  '{"properties":{"followLimit":{"default":15,"maximum":50,"minimum":1,"type":"integer"},"ingestLimit":{"default":5,"maximum":50,"minimum":1,"type":"integer"},"registerLimit":{"default":10,"maximum":50,"minimum":1,"type":"integer"},"seedLimit":{"default":30,"maximum":100,"minimum":1,"type":"integer"},"shinkaLimit":{"default":1,"maximum":5,"minimum":1,"type":"integer"}},"required":[],"type":"object"}',
                  '{"properties":{"followed":{"type":"integer"},"ok":{"type":"boolean"},"registered":{"type":"integer"},"seeded":{"type":"integer"},"shinkaPosted":{"type":"integer"},"wetUpdated":{"type":"integer"}},"required":[],"type":"object"}',
-                 'app.etzhayyim.govRou.heartbeatTick',
-                 '00-contracts/lexicons/ai/gftd/govRou/heartbeatTick.json',
+                 'com.etzhayyim.govRou.heartbeatTick',
+                 '00-contracts/lexicons/com/etzhayyim/govRou/heartbeatTick.json',
                  '3983f4f9b16fff27',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'did:web:rou-state.etzhayyim.com',
                  'sys.bpmn.seed.gov-rou',
                  '2026-05-07T15:44:00Z',
-                 'at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']}]
+                 'at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-shinka']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-shinka']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-seedOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-registerDIDs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-followSiteDeps']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-resolveOrgPath']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-listOrgs']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-syncWetUpdates']},
  {'sql': 'DELETE FROM vertex_mcp_tool_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:rou-state.etzhayyim.com/app.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']},
+  'parameters': ['at://did:web:rou-state.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-govRou-heartbeatTick']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-govRou-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-seedOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-seedOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-registerDIDs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-registerDIDs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-followSiteDeps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-followSiteDeps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-resolveOrgPath-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-resolveOrgPath-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-listOrgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-listOrgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-syncWetUpdates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-syncWetUpdates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-shinka-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-shinka-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeatTick-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeatTick-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-seed-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-seed-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-follow-site-deps-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-follow-site-deps-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-resolve-org-path-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-resolve-org-path-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-list-orgs-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-list-orgs-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-sync-wet-updates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-sync-wet-updates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeat-tick-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-rou-heartbeat-tick-v1']}]
 
 
 def upgrade() -> None:

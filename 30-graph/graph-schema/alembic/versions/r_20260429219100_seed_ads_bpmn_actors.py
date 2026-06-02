@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-create-campaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-create-campaign-v1',
                  'did:web:ads.etzhayyim.com',
                  'ads_create_campaign',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/ads"><bpmn:process '
                  'id="ads_create_campaign" name="ads createCampaign" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.ads.createCampaign", "version": 1, "resultTimeoutMs": 120000 '
+                 '"com.etzhayyim.apps.ads.createCampaign", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1001,
-                 '00-contracts/bpmn/ai/gftd/ads/createCampaign.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/ads/createCampaign.bpmn',
                  '2026-04-29T22:30:00+09:00',
                  'did:web:ads.etzhayyim.com',
                  'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
                  'did:web:ads.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-create-campaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-create-campaign-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-createCampaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-createCampaign-v1',
                  'did:web:ads.etzhayyim.com',
-                 'app.etzhayyim.apps.ads.createCampaign',
+                 'com.etzhayyim.apps.ads.createCampaign',
                  'ads_create_campaign',
                  120000,
                  'vertex_ads_campaign',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
                  'did:web:ads.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-createCampaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-createCampaign-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-post-sponsored-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-post-sponsored-v1',
                  'did:web:ads.etzhayyim.com',
                  'ads_post_sponsored',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ads_post_sponsored" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ads"><bpmn:process id="ads_post_sponsored" '
                  'name="ads postSponsored" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.ads.postSponsored", "version": 1, "resultTimeoutMs": 120000 '
+                 '"com.etzhayyim.apps.ads.postSponsored", "version": 1, "resultTimeoutMs": 120000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -112,13 +112,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  995,
-                 '00-contracts/bpmn/ai/gftd/ads/postSponsored.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/ads/postSponsored.bpmn',
                  '2026-04-29T22:30:00+09:00',
                  'did:web:ads.etzhayyim.com',
                  'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
                  'did:web:ads.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-post-sponsored-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-post-sponsored-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -133,9 +133,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-postSponsored-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-postSponsored-v1',
                  'did:web:ads.etzhayyim.com',
-                 'app.etzhayyim.apps.ads.postSponsored',
+                 'com.etzhayyim.apps.ads.postSponsored',
                  'ads_post_sponsored',
                  120000,
                  'vertex_ads_sponsored_post',
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
                  'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
                  'did:web:ads.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-postSponsored-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-postSponsored-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -160,7 +160,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-list-campaigns-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-list-campaigns-v1',
                  'did:web:ads.etzhayyim.com',
                  'ads_list_campaigns',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -169,7 +169,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_ads_list_campaigns" '
                  'targetNamespace="https://etzhayyim.com/bpmn/ads"><bpmn:process id="ads_list_campaigns" '
                  'name="ads listCampaigns" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.ads.listCampaigns", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.ads.listCampaigns", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -178,13 +178,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  994,
-                 '00-contracts/bpmn/ai/gftd/ads/listCampaigns.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/ads/listCampaigns.bpmn',
                  '2026-04-29T22:30:00+09:00',
                  'did:web:ads.etzhayyim.com',
                  'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
                  'did:web:ads.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-list-campaigns-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-list-campaigns-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -199,9 +199,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-listCampaigns-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-listCampaigns-v1',
                  'did:web:ads.etzhayyim.com',
-                 'app.etzhayyim.apps.ads.listCampaigns',
+                 'com.etzhayyim.apps.ads.listCampaigns',
                  'ads_list_campaigns',
                  30000,
                  '',
@@ -210,20 +210,20 @@ UP = [{'sql': '\n'
                  'did:web:ads.etzhayyim.com',
                  'sys.bpmn.seed.ads',
                  'did:web:ads.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-listCampaigns-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-listCampaigns-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-createCampaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-createCampaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-create-campaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-create-campaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-postSponsored-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-postSponsored-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-post-sponsored-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-post-sponsored-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ads-listCampaigns-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ads-listCampaigns-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ads-list-campaigns-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ads-list-campaigns-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectEst",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect Estonian corporate data from e-Business Register (ariregister.rik.ee). Registry code as primary key.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 100)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 0)" },
+            "legalForm": { "type": "string", "description": "Filter by legal form (OU, AS, TU, etc.)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

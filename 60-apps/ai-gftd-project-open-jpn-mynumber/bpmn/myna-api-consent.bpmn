@@ -3,7 +3,7 @@
   <bpmn:process id="open_jpn_mynumber_myna_api_consent" name="Myna Portal-style API Consent Session" isExecutable="true">
     <bpmn:startEvent id="Start_Consent" name="API data access requested" />
     <bpmn:sequenceFlow id="f_consent_01" sourceRef="Start_Consent" targetRef="Task_CreateConsent" />
-    <bpmn:serviceTask id="Task_CreateConsent" name="Create consent session" camunda:topic="ai.gftd.apps.openJpnMynumber.createConsentSession"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.createConsentSession" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_CreateConsent" name="Create consent session" camunda:topic="com.etzhayyim.apps.openJpnMynumber.createConsentSession"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.createConsentSession" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_consent_02" sourceRef="Task_CreateConsent" targetRef="Task_UserAuth" />
     <bpmn:userTask id="Task_UserAuth" name="User authenticates and approves scope" camunda:formKey="openJpnMynumber.apiConsent.v1" />
     <bpmn:sequenceFlow id="f_consent_03" sourceRef="Task_UserAuth" targetRef="Gateway_Approved" />

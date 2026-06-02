@@ -101,7 +101,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hs.getNode",
+        "nsid": "com.etzhayyim.apps.hs.getNode",
         "type": "xrpc"
       }
     },
@@ -116,7 +116,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hs.getChildren",
+        "nsid": "com.etzhayyim.apps.hs.getChildren",
         "type": "xrpc"
       }
     },
@@ -131,7 +131,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hs.resolveConcordance",
+        "nsid": "com.etzhayyim.apps.hs.resolveConcordance",
         "type": "xrpc"
       }
     },
@@ -146,7 +146,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hs.getPolicyOverlay",
+        "nsid": "com.etzhayyim.apps.hs.getPolicyOverlay",
         "type": "xrpc"
       }
     },
@@ -161,7 +161,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.hs.health",
+        "nsid": "com.etzhayyim.apps.hs.health",
         "type": "xrpc"
       }
     }
@@ -181,8 +181,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -195,10 +195,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.hs.node",
-        "ai.gftd.apps.hs.concordance",
-        "ai.gftd.apps.hs.tradeEvidence",
-        "ai.gftd.apps.hs.policyOverlay"
+        "com.etzhayyim.apps.hs.node",
+        "com.etzhayyim.apps.hs.concordance",
+        "com.etzhayyim.apps.hs.tradeEvidence",
+        "com.etzhayyim.apps.hs.policyOverlay"
       ]
     }
   },

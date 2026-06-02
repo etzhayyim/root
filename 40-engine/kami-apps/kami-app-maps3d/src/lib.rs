@@ -5,7 +5,7 @@
 //!   - Sky + Water shared from `kami-pipelines`.
 //!   - Building extrude pipeline (`buildings.rs`) consuming JSON injected
 //!     from JS via `set_buildings_json` (data origin: maps-ui XRPC
-//!     `app.etzhayyim.apps.maps.getChunk` — see `maps-3d.htm` shell).
+//!     `com.etzhayyim.apps.maps.getChunk` — see `maps-3d.htm` shell).
 //!   - Buildings double as wall colliders + walkable rooftops.
 //!
 //! Out of scope (Phase 2+):

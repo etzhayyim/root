@@ -26,7 +26,7 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.tia.signal"
+        "com.etzhayyim.apps.tia.signal"
       ]
     }
   }

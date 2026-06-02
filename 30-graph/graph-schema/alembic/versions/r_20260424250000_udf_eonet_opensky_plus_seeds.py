@@ -77,7 +77,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/eonet:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet',
                  'SpatialEvent',
                  500,
@@ -94,7 +94,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-wildfires:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/eonet-wildfires:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:wildfires',
                  'SpatialEvent',
                  300,
@@ -111,7 +111,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-severeStorms:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/eonet-severeStorms:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:severeStorms',
                  'SpatialEvent',
                  50,
@@ -128,7 +128,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/eonet-volcanoes:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/eonet-volcanoes:SpatialEvent',
                  'did:web:maps.etzhayyim.com:eonet:volcanoes',
                  'SpatialEvent',
                  50,
@@ -145,7 +145,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/opensky:Aircraft',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/opensky:Aircraft',
                  'did:web:maps.etzhayyim.com:opensky',
                  'Aircraft',
                  15000,

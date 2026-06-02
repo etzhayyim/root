@@ -101,8 +101,8 @@
       const params: Record<string, unknown> = { limit: 500 };
       if (episodeId && episodeId !== 'latest') params.episodeId = episodeId;
       const [cutsResp, retakesResp] = await Promise.all([
-        atQuery<{ items: Cut[] }>('app.etzhayyim.animeka.listCuts', params),
-        atQuery<{ items: Retake[] }>('app.etzhayyim.animeka.listRetakes', { status: 'open', limit: 500 }),
+        atQuery<{ items: Cut[] }>('com.etzhayyim.animeka.listCuts', params),
+        atQuery<{ items: Retake[] }>('com.etzhayyim.animeka.listRetakes', { status: 'open', limit: 500 }),
       ]);
 
       cuts = (cutsResp.items ?? [])
@@ -143,7 +143,7 @@
     messages = [...messages, { sender: 'You', text: `${targetLabel} ${text}`, isUser: true, actorSlug: slug ?? undefined }];
     try {
       const r = await atProcedure<{ reply?: string; sender?: string; actorSlug?: ActorSlug }>(
-        'app.etzhayyim.animeka.chat',
+        'com.etzhayyim.animeka.chat',
         { message: text, actorSlug: slug ?? undefined, episodeId: episodeId ?? 'latest' },
       );
       const replySlug = (r?.actorSlug as ActorSlug | undefined) ?? slug ?? undefined;
@@ -248,7 +248,7 @@
             <div class="row" class:has-retake={hasRetake}>
               <button
                 class="cutcol"
-                onclick={() => go(`/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.cut/${cut.rkey}`)}
+                onclick={() => go(`/at/an1m3k4x.etzhayyim.com/com.etzhayyim.animeka.cut/${cut.rkey}`)}
                 title={cut.rkey}
               >
                 <span class="cut-num">{cutLabel(cut, idx)}</span>

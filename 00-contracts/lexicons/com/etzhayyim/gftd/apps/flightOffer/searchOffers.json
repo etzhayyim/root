@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.flightOffer.searchOffers",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fetch flight offers for a route/date and persist them to vertex_flight_offer. Starts BPMN process flight_offer_search_offers. Provider integration is stubbed; configure provider+credentials before live use.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["originIata", "destinationIata", "outboundDate"],
+          "properties": {
+            "originIata":      { "type": "string", "minLength": 3, "maxLength": 3 },
+            "destinationIata": { "type": "string", "minLength": 3, "maxLength": 3 },
+            "outboundDate":    { "type": "string", "format": "datetime" },
+            "returnDate":      { "type": "string", "format": "datetime" },
+            "currency":        { "type": "string", "minLength": 3, "maxLength": 3 },
+            "provider":        { "type": "string", "description": "Source identifier (amadeus | duffel | kiwi | stub). Defaults to amadeus when AMADEUS_CLIENT_ID/SECRET env are set, else stub." },
+            "maxOffers":       { "type": "integer", "minimum": 1, "maximum": 50, "description": "Cap on offers returned by the upstream provider (default 20)." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":           { "type": "boolean" },
+            "provider":     { "type": "string" },
+            "offersFetched":{ "type": "integer" },
+            "offersWritten":{ "type": "integer" },
+            "instanceKey":  { "type": "integer" },
+            "error":        { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

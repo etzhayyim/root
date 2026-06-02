@@ -20,7 +20,7 @@ SIAC/ICC arbitration rules (open publishing). Apache 2.0 + Rider.
 
 [[source]]
 subdataset    = "law/procedures/us-cfr-procedures"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CFR_PROC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CFR_PROC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -28,7 +28,7 @@ weight        = 0.12
 
 [[source]]
 subdataset    = "law/procedures/us-federal-rules"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_FED_RULES"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_FED_RULES"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -36,7 +36,7 @@ weight        = 0.12
 
 [[source]]
 subdataset    = "law/procedures/uk-gov-procedures"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_GOV_PROC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_GOV_PROC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "OGL-v3.0"
@@ -44,7 +44,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "law/procedures/international-arbitration-rules"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_INTL_ARB_RULES"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_INTL_ARB_RULES"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "open-publishing"
@@ -52,7 +52,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "law/templates/apache-2.0-licenses"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_APACHE2"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_APACHE2"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "Apache-2.0"
@@ -60,7 +60,7 @@ weight        = 0.05
 
 [[source]]
 subdataset    = "law/templates/creative-commons-licenses"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_CC_LICENSES"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_CC_LICENSES"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC"
@@ -68,7 +68,7 @@ weight        = 0.05
 
 [[source]]
 subdataset    = "law/templates/etzhayyim-charter-rider"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RIDER"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RIDER"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "Apache-2.0-with-Charter-Rider-v2.0"
@@ -76,7 +76,7 @@ weight        = 0.05
 
 [[source]]
 subdataset    = "law/templates/covenant-ceremony"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_COVENANT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_COVENANT"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "Apache-2.0-with-Charter-Rider-v2.0"
@@ -84,7 +84,7 @@ weight        = 0.06
 
 [[source]]
 subdataset    = "law/templates/dispute-mediation"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_MEDIATION"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_MEDIATION"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "Apache-2.0-with-Charter-Rider-v2.0"

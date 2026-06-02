@@ -1,7 +1,7 @@
 /**
  * Substrate-mode anchor commit.
  *
- * Writes `app.etzhayyim.substrate.l2Anchor` records under the
+ * Writes `com.etzhayyim.substrate.l2Anchor` records under the
  * anchorer's DID after a successful (or alreadyAnchored=true)
  * EtzhayyimAnchor.anchor() call. Mirror of `sidecarClient.anchorCommit`
  * for the firehose-driven substrate pipeline.
@@ -13,7 +13,7 @@ import type {AtpAgent} from "@atproto/api";
 
 import type {SubmitResult} from "./submit.js";
 
-const COLLECTION = "app.etzhayyim.substrate.l2Anchor";
+const COLLECTION = "com.etzhayyim.substrate.l2Anchor";
 
 export interface L2AnchorRecordInput {
   shardKey: string;

@@ -1,7 +1,7 @@
 // s3-rest.ts — AWS S3-compatible /s3/{bucket}/{key} routes (P3.2).
 //
 // Translates inbound boto3 / aws-sdk-js / mc requests into internal
-// `app.etzhayyim.apps.yata.{put,get,delete,head}` XRPC dispatches via
+// `com.etzhayyim.apps.yata.{put,get,delete,head}` XRPC dispatches via
 // bpmn-dispatcher.
 //
 // Auth: AWS SigV4 only (Bearer is handled by the /storage/v1/* path).
@@ -216,7 +216,7 @@ async function handleS3ListV2(
     error?: string;
   }>(
     env,
-    "app.etzhayyim.apps.yata.listObjects",
+    "com.etzhayyim.apps.yata.listObjects",
     { bucketName: bucket, prefix, delimiter, limit: maxKeys, cursor: startAfter },
     caller,
     { timeoutMs: 30_000 },
@@ -273,7 +273,7 @@ async function handleMultipartInit(
 ): Promise<Response> {
   const result = await dispatchYataXrpc<{ ok?: boolean; uploadId?: string; expiresAt?: string; error?: string }>(
     env,
-    "app.etzhayyim.apps.yata.multipartInit",
+    "com.etzhayyim.apps.yata.multipartInit",
     { bucketName: bucket, objectKey: key, contentType: headers.get("content-type") ?? "application/octet-stream" },
     caller,
     { timeoutMs: 30_000 },
@@ -309,7 +309,7 @@ async function handleMultipartPart(
   const data = btoa(bin);
   const result = await dispatchYataXrpc<{ partNumber?: number; etag?: string; sizeBytes?: number; error?: string }>(
     env,
-    "app.etzhayyim.apps.yata.multipartPart",
+    "com.etzhayyim.apps.yata.multipartPart",
     { uploadId, partNumber, data },
     caller,
     { timeoutMs: 60_000 },
@@ -346,7 +346,7 @@ async function handleMultipartComplete(
     ok?: boolean; bucketName?: string; objectKey?: string; etag?: string; sizeBytes?: number; error?: string;
   }>(
     env,
-    "app.etzhayyim.apps.yata.multipartComplete",
+    "com.etzhayyim.apps.yata.multipartComplete",
     { uploadId, parts },
     caller,
     { timeoutMs: 120_000 },
@@ -372,7 +372,7 @@ async function handleMultipartAbort(
 ): Promise<Response> {
   const result = await dispatchYataXrpc(
     env,
-    "app.etzhayyim.apps.yata.multipartAbort",
+    "com.etzhayyim.apps.yata.multipartAbort",
     { uploadId },
     caller,
     { timeoutMs: 30_000 },
@@ -393,7 +393,7 @@ async function handleS3Get(
   const ifNoneMatch = req.headers.get("if-none-match") ?? undefined;
   const result = await dispatchYataXrpc<GetOk & { error?: string }>(
     env,
-    "app.etzhayyim.apps.yata.getObject",
+    "com.etzhayyim.apps.yata.getObject",
     {
       bucketName: bucket,
       objectKey: key,
@@ -459,7 +459,7 @@ async function handleS3Get(
     // client.
     const presign = await dispatchYataXrpc<{ url?: string; expiresAt?: string; error?: string }>(
       env,
-      "app.etzhayyim.apps.yata.presignUrl",
+      "com.etzhayyim.apps.yata.presignUrl",
       { bucketName: bucket, objectKey: key, method: "GET", expiresInSec: 3600 },
       caller,
       { timeoutMs: 15_000 },
@@ -516,7 +516,7 @@ async function handleS3Put(
   const data = btoa(bin);
   const result = await dispatchYataXrpc<PutOk & { error?: string }>(
     env,
-    "app.etzhayyim.apps.yata.putObject",
+    "com.etzhayyim.apps.yata.putObject",
     { bucketName: bucket, objectKey: key, data, contentType },
     caller,
     { timeoutMs: 120_000 },
@@ -556,7 +556,7 @@ async function handleS3Delete(
 ): Promise<Response> {
   const result = await dispatchYataXrpc(
     env,
-    "app.etzhayyim.apps.yata.deleteObject",
+    "com.etzhayyim.apps.yata.deleteObject",
     { bucketName: bucket, objectKey: key, purge: false },
     caller,
     { timeoutMs: 30_000 },

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airportNaritaOps.flagArmsCargoCustoms",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave3 arms (stub): 成田 武器貨物 通関. Starts BPMN process open_airport_narita_ops_flag_arms_cargo_customs.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "cargoVid": { "type": "string" },
+            "hsCode": { "type": "string" },
+            "shipperLei": { "type": "string" },
+            "consigneeLei": { "type": "string" }
+          },
+          "required": ["vertexId", "cargoVid", "hsCode"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

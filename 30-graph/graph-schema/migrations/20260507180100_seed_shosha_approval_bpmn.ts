@@ -24,30 +24,30 @@ const actorTag = "sys.bpmn.seed.shosha.phase2d";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1",
     bpmnProcessId: "shosha_approve_trade",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shosha/approveTrade.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shosha/approveTrade.bpmn",
     ownerDid,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1",
     bpmnProcessId: "shosha_reject_trade",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shosha/rejectTrade.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shosha/rejectTrade.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1",
-    nsid: "app.etzhayyim.apps.shosha.approveTrade",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1",
+    nsid: "com.etzhayyim.apps.shosha.approveTrade",
     bpmnProcessId: "shosha_approve_trade",
     ownerDid,
     resultTimeoutMs: 30_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1",
-    nsid: "app.etzhayyim.apps.shosha.rejectTrade",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1",
+    nsid: "com.etzhayyim.apps.shosha.rejectTrade",
     bpmnProcessId: "shosha_reject_trade",
     ownerDid,
     resultTimeoutMs: 30_000,

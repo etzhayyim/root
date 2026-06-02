@@ -3,18 +3,18 @@
  *
  * Wires the rw-free reference impl (23 TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
- * https://yoro.etzhayyim.com/xrpc/app.etzhayyim.yoro.*
+ * https://yoro.etzhayyim.com/xrpc/com.etzhayyim.yoro.*
  *
  * Per ADR-2605210000 execution-layer demonstration. Instantiates the
  * Etzhayyim SDK from env bindings, calls the rw-free function with parsed input,
  * and maps status codes to HTTP responses.
  *
  * Routes organized into 5 sub-namespaces:
- * - app.etzhayyim.yoro.health
- * - app.etzhayyim.yoro.activity.*
- * - app.etzhayyim.yoro.feed.*
- * - app.etzhayyim.yoro.graph.*
- * - app.etzhayyim.yoro.actor.*
+ * - com.etzhayyim.yoro.health
+ * - com.etzhayyim.yoro.activity.*
+ * - com.etzhayyim.yoro.feed.*
+ * - com.etzhayyim.yoro.graph.*
+ * - com.etzhayyim.yoro.actor.*
  */
 
 import {
@@ -248,112 +248,112 @@ async function unispscInvokeAgentWithEnv(
 
 const routes: Record<string, RouteConfig> = {
   // unispsc registry — bundled rw-free Phase α implementation.
-  ["app.etzhayyim.apps.unispsc.health"]: { method: "GET", handler: unispscHealth },
-  ["app.etzhayyim.apps.unispsc.listAgents"]: { method: "GET", handler: unispscListAgents },
-  ["app.etzhayyim.apps.unispsc.classify"]: { method: "POST", handler: unispscClassify },
+  ["com.etzhayyim.apps.unispsc.health"]: { method: "GET", handler: unispscHealth },
+  ["com.etzhayyim.apps.unispsc.listAgents"]: { method: "GET", handler: unispscListAgents },
+  ["com.etzhayyim.apps.unispsc.classify"]: { method: "POST", handler: unispscClassify },
   // invokeAgent needs env access for shard tunnel URLs — handled specially
   // in the fetch dispatcher below (see UNISPSC_INVOKE_NSID).
 
   // Health & Registry
-  ["app.etzhayyim.yoro.health"]: {
+  ["com.etzhayyim.yoro.health"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.health(e, input as any),
   },
-  ["app.etzhayyim.yoro.stats"]: {
+  ["com.etzhayyim.yoro.stats"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.stats(e, input as any),
   },
 
   // Activity
-  ["app.etzhayyim.yoro.activity.listActivities"]: {
+  ["com.etzhayyim.yoro.activity.listActivities"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.listActivities(e, input as any),
   },
-  ["app.etzhayyim.yoro.activity.getActivityTrace"]: {
+  ["com.etzhayyim.yoro.activity.getActivityTrace"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getActivityTrace(e, input as any),
   },
-  ["app.etzhayyim.yoro.activity.markSeen"]: {
+  ["com.etzhayyim.yoro.activity.markSeen"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.markSeen(e, input as any),
   },
 
   // Feed
-  ["app.etzhayyim.yoro.feed.getTimeline"]: {
+  ["com.etzhayyim.yoro.feed.getTimeline"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getTimeline(e, input as any),
   },
-  ["app.etzhayyim.yoro.feed.getAuthorFeed"]: {
+  ["com.etzhayyim.yoro.feed.getAuthorFeed"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getAuthorFeed(e, input as any),
   },
-  ["app.etzhayyim.yoro.feed.getPostThread"]: {
+  ["com.etzhayyim.yoro.feed.getPostThread"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getPostThread(e, input as any),
   },
-  ["app.etzhayyim.yoro.feed.getRankedFeed"]: {
+  ["com.etzhayyim.yoro.feed.getRankedFeed"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getRankedFeed(e, input as any),
   },
-  ["app.etzhayyim.yoro.feed.getDiscoverFeed"]: {
+  ["com.etzhayyim.yoro.feed.getDiscoverFeed"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getDiscoverFeed(e, input as any),
   },
 
   // Graph
-  ["app.etzhayyim.yoro.graph.getFollowers"]: {
+  ["com.etzhayyim.yoro.graph.getFollowers"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getFollowers(e, input as any),
   },
-  ["app.etzhayyim.yoro.graph.getFollows"]: {
+  ["com.etzhayyim.yoro.graph.getFollows"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getFollows(e, input as any),
   },
 
   // Actor / Profile
-  ["app.etzhayyim.yoro.actor.getProfile"]: {
+  ["com.etzhayyim.yoro.actor.getProfile"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.getProfile(e, input as any),
   },
-  ["app.etzhayyim.yoro.actor.searchActors"]: {
+  ["com.etzhayyim.yoro.actor.searchActors"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.searchActors(e, input as any),
   },
 
   // Registry / Ingest
-  ["app.etzhayyim.yoro.registry.projectEntity"]: {
+  ["com.etzhayyim.yoro.registry.projectEntity"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.projectEntity(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.productResearch"]: {
+  ["com.etzhayyim.yoro.registry.productResearch"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.productResearch(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.activitySeen"]: {
+  ["com.etzhayyim.yoro.registry.activitySeen"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.activitySeen(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.shinkaEvolution"]: {
+  ["com.etzhayyim.yoro.registry.shinkaEvolution"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.shinkaEvolution(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.shinkaKnowledge"]: {
+  ["com.etzhayyim.yoro.registry.shinkaKnowledge"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.shinkaKnowledge(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.ingestProductCategory"]: {
+  ["com.etzhayyim.yoro.registry.ingestProductCategory"]: {
     method: "POST",
     handler: (e, input) => yoroRwFree.ingestProductCategory(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.listApps"]: {
+  ["com.etzhayyim.yoro.registry.listApps"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.listApps(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.listPosts"]: {
+  ["com.etzhayyim.yoro.registry.listPosts"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.listPosts(e, input as any),
   },
-  ["app.etzhayyim.yoro.registry.listProductResearch"]: {
+  ["com.etzhayyim.yoro.registry.listProductResearch"]: {
     method: "GET",
     handler: (e, input) => yoroRwFree.listProductResearch(e, input as any),
   },
@@ -395,7 +395,7 @@ export default {
     const nsid = url.pathname.slice("/xrpc/".length);
 
     // Special-case: invokeAgent needs env-bound shard tunnel URLs.
-    if (nsid === "app.etzhayyim.apps.unispsc.invokeAgent") {
+    if (nsid === "com.etzhayyim.apps.unispsc.invokeAgent") {
       if (req.method !== "POST") {
         return jsonResponse({ error: "MethodNotAllowed" }, 405);
       }

@@ -18,7 +18,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const BPMN_PROCESS_ID = "patent_ingest_uspto_weekly";
 const BPMN_FILE = path.resolve(
   repoRoot,
-  "00-contracts/bpmn/ai/gftd/patent/ingestUsptoWeekly.bpmn",
+  "00-contracts/bpmn/com/etzhayyim/patent/ingestUsptoWeekly.bpmn",
 );
 
 export async function up(db: Kysely<unknown>): Promise<void> {

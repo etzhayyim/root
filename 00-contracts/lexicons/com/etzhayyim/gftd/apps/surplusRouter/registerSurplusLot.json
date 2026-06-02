@@ -1,0 +1,169 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.surplusRouter.registerSurplusLot",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a globally surplus / dead-stock / overstock / unsold-inventory lot for donation-based redistribution within the religious-corp economy. Per ADR-2605211241. Donor must be SBT Adherent or attested non-Adherent commercial donor (donation-only, non-profit). Wellbecoming constraint: routing priority redistributed -> recycled (via toshiKozan) -> disposed-licensed; dispose-first is prohibited at the state-enum level (see flagDeadStock). 10% tithe coupling: emit com.etzhayyim.apps.payment.sent {purpose:donation, amountUsdcMicros: estimatedValueUsdcMicros} in the same batch and the TitheRouter splits 10% to the Public Fund per ADR-2605192130.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "lotId",
+            "category",
+            "quantity",
+            "unitOfMeasure",
+            "estimatedValueUsdcMicros",
+            "donorDid",
+            "originCountry",
+            "registeredAt"
+          ],
+          "properties": {
+            "lotId": {
+              "type": "string",
+              "description": "Donor-side stable identifier for the lot. Recommended: urn:uuid:..."
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "apparel",
+                "footwear",
+                "food-shelf-stable",
+                "food-perishable",
+                "consumer-electronics",
+                "home-appliance-white",
+                "home-appliance-brown",
+                "furniture",
+                "books-media",
+                "toys",
+                "cosmetics-hygiene",
+                "pharma-otc",
+                "industrial-component",
+                "construction-material",
+                "automotive-part",
+                "agricultural-input",
+                "ec-return-mixed",
+                "retail-closure-mixed",
+                "other"
+              ],
+              "description": "High-level product category. Drives downstream toshiKozan streamType mapping when state becomes flagged-dead-stock."
+            },
+            "skuCode": {
+              "type": "string",
+              "description": "Optional SKU code for catalog reference. May match an existing com.etzhayyim.apps.warehouse.registerSku record."
+            },
+            "warehouseSkuRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of an existing com.etzhayyim.apps.warehouse.registerSku record this lot pertains to. Avoids duplicating the SKU master."
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 1024,
+              "description": "Plain-language description. PII-free. No promotional / ad-style language (Charter Rider §2)."
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "unitOfMeasure": {
+              "type": "string",
+              "description": "Units of quantity. e.g., piece, kg, liter, m, pallet, container-20ft."
+            },
+            "weightKgTotal": {
+              "type": "number",
+              "description": "Total lot weight in kilograms. Used for cross-border / freight estimation."
+            },
+            "estimatedValueUsdcMicros": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Donor self-attested value of the lot in USDC base units (6 decimals). Drives the 10% in-kind tithe coupling. Inflation by donors is mitigated by valuationAttestationUri (third-party attestation, optional)."
+            },
+            "valuationAttestationUri": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of a third-party valuation attestation record. Recommended for lots above 10000 USDC."
+            },
+            "donorDid": {
+              "type": "string",
+              "format": "did",
+              "description": "DID of the donor. Must be either an Adherent SBT holder or an attested non-Adherent commercial donor (donation-only per ADR-2605192115)."
+            },
+            "donorKind": {
+              "type": "string",
+              "enum": [
+                "adherent-sbt",
+                "attested-commercial",
+                "attested-municipal",
+                "attested-ngo"
+              ],
+              "description": "Default: adherent-sbt. Non-Adherent donors require prior attestation by Council Lv6+ multisig."
+            },
+            "originCountry": {
+              "type": "string",
+              "description": "ISO 3166-1 alpha-2 origin country code."
+            },
+            "originWarehouseDid": {
+              "type": "string",
+              "format": "did",
+              "description": "Optional DID of the warehouse/facility where the lot is physically located."
+            },
+            "shelfLifeRemainingDays": {
+              "type": "integer",
+              "description": "Days until best-before / expiry. 0 or negative means already past nominal shelf life (still potentially donatable for non-food categories)."
+            },
+            "hazardFlags": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "li-ion-battery",
+                  "lead-acid-battery",
+                  "refrigerant",
+                  "flammable",
+                  "corrosive",
+                  "toxic-chemical",
+                  "radioactive",
+                  "biohazard",
+                  "sharp-edges",
+                  "pressurized",
+                  "none"
+                ]
+              },
+              "description": "Multi-select hazard flags. Drives routing constraints (e.g., li-ion-battery forces flagDeadStock direct path to toshiKozan if redistribution not safe)."
+            },
+            "dppBadgeRef": {
+              "type": "string",
+              "format": "at-uri",
+              "description": "Optional AT URI of an ESPR Digital Product Passport (com.etzhayyim.apps.textileCircularity.registerDppBadge) when applicable."
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "memo": {
+              "type": "string",
+              "maxLength": 280,
+              "description": "PII-free, ad-style language prohibited."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "did": { "type": "string", "format": "did", "description": "DID assigned to this surplus lot." },
+            "uri": { "type": "string", "format": "at-uri" },
+            "state": { "type": "string", "enum": ["registered"] },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

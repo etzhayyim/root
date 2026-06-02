@@ -147,7 +147,7 @@ describe('createDispense', () => {
       recipientDids: ['did:web:dr.example', 'did:web:ph-suzuki.etzhayyim.com'],
       publicMeta: {
         patientDid: 'did:plc:p',
-        medicationRequestUri: 'at://did:plc:p/app.etzhayyim.encrypted.record/rx-x',
+        medicationRequestUri: 'at://did:plc:p/com.etzhayyim.encrypted.record/rx-x',
         pharmacyDid: 'did:web:pharmacy.etzhayyim.com',
         pharmacistDid: 'did:web:ph-suzuki.etzhayyim.com',
         status: 'completed',
@@ -166,14 +166,14 @@ describe('grantConsent', () => {
     await grantConsent({
       granterDid: 'did:plc:p',
       granteeDid: 'did:web:iryo.etzhayyim.com',
-      scope: ['app.etzhayyim.karute.encounter', 'app.etzhayyim.karute.serviceRequest'],
+      scope: ['com.etzhayyim.karute.encounter', 'com.etzhayyim.karute.serviceRequest'],
       expiresAt: '2026-08-23T00:00:00Z',
       purpose: 'insurance-billing',
     });
     const body = captured[0].bodyJson as { purpose: string; granteeDid: string; scope: string[] };
     expect(body.purpose).toBe('insurance-billing');
     expect(body.granteeDid).toBe('did:web:iryo.etzhayyim.com');
-    expect(body.scope).toContain('app.etzhayyim.karute.encounter');
+    expect(body.scope).toContain('com.etzhayyim.karute.encounter');
   });
 });
 

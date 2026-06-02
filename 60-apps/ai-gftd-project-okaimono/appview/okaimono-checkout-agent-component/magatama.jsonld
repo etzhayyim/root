@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.okaimono.okaimonoEntity",
-        "ai.gftd.apps.okaimono.okaimonoEvent",
-        "ai.gftd.apps.okaimono.okaimonoReport"
+        "com.etzhayyim.apps.okaimono.okaimonoEntity",
+        "com.etzhayyim.apps.okaimono.okaimonoEvent",
+        "com.etzhayyim.apps.okaimono.okaimonoReport"
       ]
     }
   },

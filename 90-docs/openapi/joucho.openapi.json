@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.joucho.getScore": {
+    "/xrpc/com.etzhayyim.joucho.getScore": {
       "get": {
         "summary": "Get joucho (情緒) score for a subject DID.",
-        "operationId": "app.etzhayyim.joucho.getScore",
+        "operationId": "com.etzhayyim.joucho.getScore",
         "parameters": [
           {
             "name": "subjectDid",
@@ -106,10 +106,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.heartbeat": {
+    "/xrpc/com.etzhayyim.joucho.heartbeat": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.heartbeat",
+        "operationId": "com.etzhayyim.joucho.heartbeat",
         "requestBody": {
           "required": true,
           "content": {
@@ -171,10 +171,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.analyzeEmotions": {
+    "/xrpc/com.etzhayyim.joucho.scoring.analyzeEmotions": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.analyzeEmotions",
+        "operationId": "com.etzhayyim.joucho.scoring.analyzeEmotions",
         "requestBody": {
           "required": true,
           "content": {
@@ -236,10 +236,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.axisBreakdown": {
+    "/xrpc/com.etzhayyim.joucho.scoring.axisBreakdown": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.axisBreakdown",
+        "operationId": "com.etzhayyim.joucho.scoring.axisBreakdown",
         "requestBody": {
           "required": true,
           "content": {
@@ -280,10 +280,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.batchAnalyze": {
+    "/xrpc/com.etzhayyim.joucho.scoring.batchAnalyze": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.batchAnalyze",
+        "operationId": "com.etzhayyim.joucho.scoring.batchAnalyze",
         "requestBody": {
           "required": true,
           "content": {
@@ -327,10 +327,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.compare": {
+    "/xrpc/com.etzhayyim.joucho.scoring.compare": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.compare",
+        "operationId": "com.etzhayyim.joucho.scoring.compare",
         "requestBody": {
           "required": true,
           "content": {
@@ -380,10 +380,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.getEmotionProfile": {
+    "/xrpc/com.etzhayyim.joucho.scoring.getEmotionProfile": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.getEmotionProfile",
+        "operationId": "com.etzhayyim.joucho.scoring.getEmotionProfile",
         "parameters": [
           {
             "name": "actorDid",
@@ -419,10 +419,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.getScore": {
+    "/xrpc/com.etzhayyim.joucho.scoring.getScore": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.getScore",
+        "operationId": "com.etzhayyim.joucho.scoring.getScore",
         "parameters": [
           {
             "name": "actorDid",
@@ -458,10 +458,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.ranking": {
+    "/xrpc/com.etzhayyim.joucho.scoring.ranking": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.ranking",
+        "operationId": "com.etzhayyim.joucho.scoring.ranking",
         "requestBody": {
           "required": true,
           "content": {
@@ -505,10 +505,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.recommend": {
+    "/xrpc/com.etzhayyim.joucho.scoring.recommend": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.recommend",
+        "operationId": "com.etzhayyim.joucho.scoring.recommend",
         "requestBody": {
           "required": true,
           "content": {
@@ -558,10 +558,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.scoreTarget": {
+    "/xrpc/com.etzhayyim.joucho.scoring.scoreTarget": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.scoreTarget",
+        "operationId": "com.etzhayyim.joucho.scoring.scoreTarget",
         "requestBody": {
           "required": true,
           "content": {
@@ -653,10 +653,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.scoreTrend": {
+    "/xrpc/com.etzhayyim.joucho.scoring.scoreTrend": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.scoreTrend",
+        "operationId": "com.etzhayyim.joucho.scoring.scoreTrend",
         "requestBody": {
           "required": true,
           "content": {
@@ -709,10 +709,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.searchScores": {
+    "/xrpc/com.etzhayyim.joucho.scoring.searchScores": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.searchScores",
+        "operationId": "com.etzhayyim.joucho.scoring.searchScores",
         "parameters": [
           {
             "name": "axis",
@@ -781,10 +781,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.joucho.scoring.submitReview": {
+    "/xrpc/com.etzhayyim.joucho.scoring.submitReview": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.joucho.scoring.submitReview",
+        "operationId": "com.etzhayyim.joucho.scoring.submitReview",
         "requestBody": {
           "required": true,
           "content": {

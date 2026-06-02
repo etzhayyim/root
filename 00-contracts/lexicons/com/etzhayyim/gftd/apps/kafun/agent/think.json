@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kafun.agent.think",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run kafun-bokumetsu proposer LangGraph (kafun.think.v1). Synthesises seed findings into one insight + up to 3 proposals authored under did:web:n97ik10n.etzhayyim.com:actor:proposer.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "seed_findings": {
+              "type": "array",
+              "description": "vertex_kafun_research rows to synthesise from.",
+              "items": { "type": "unknown" }
+            }
+          },
+          "required": ["seed_findings"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":            { "type": "boolean" },
+            "insightCount":  { "type": "integer" },
+            "proposalCount": { "type": "integer" },
+            "insight":       { "type": "unknown" },
+            "proposals":     { "type": "array", "items": { "type": "unknown" } }
+          },
+          "required": ["ok", "insightCount", "proposalCount"]
+        }
+      }
+    }
+  }
+}

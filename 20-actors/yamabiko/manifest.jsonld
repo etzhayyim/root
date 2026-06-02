@@ -78,15 +78,15 @@
     {"name": "silen_rail_review", "module": "yamabiko.cells.silen_rail_review", "murakumoNode": "judah", "phase": "governance — Council 5-of-7 Safe"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.yamabiko.carbodyAttestation",
-    "app.etzhayyim.yamabiko.bogieAttestation",
-    "app.etzhayyim.yamabiko.interiorAttestation",
-    "app.etzhayyim.yamabiko.tractionElectricalAttestation",
-    "app.etzhayyim.yamabiko.finalAssemblyAttestation",
-    "app.etzhayyim.yamabiko.dynamicTestRecord",
-    "app.etzhayyim.yamabiko.acousticEmissionsAuditRecord",
-    "app.etzhayyim.yamabiko.homologationRecord",
-    "app.etzhayyim.yamabiko.silenRailReview"
+    "com.etzhayyim.yamabiko.carbodyAttestation",
+    "com.etzhayyim.yamabiko.bogieAttestation",
+    "com.etzhayyim.yamabiko.interiorAttestation",
+    "com.etzhayyim.yamabiko.tractionElectricalAttestation",
+    "com.etzhayyim.yamabiko.finalAssemblyAttestation",
+    "com.etzhayyim.yamabiko.dynamicTestRecord",
+    "com.etzhayyim.yamabiko.acousticEmissionsAuditRecord",
+    "com.etzhayyim.yamabiko.homologationRecord",
+    "com.etzhayyim.yamabiko.silenRailReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605252600. Changes require Council Lv6+ supermajority + new ADR.",

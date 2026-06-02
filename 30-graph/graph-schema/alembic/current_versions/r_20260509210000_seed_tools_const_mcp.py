@@ -1,4 +1,4 @@
-"""Seed app.etzhayyim.tools.const.echo generic primitive in vertex_mcp_tool_def."""
+"""Seed com.etzhayyim.tools.const.echo generic primitive in vertex_mcp_tool_def."""
 from __future__ import annotations
 from pathlib import Path
 from alembic import op

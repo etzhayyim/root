@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.meetingRecorder.transcriptSegment",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A single transcript segment produced by Murakumo MLX (whisper-large-v3) from a recordingChunk. Text is Signal-encrypted (`signal:v1:`) at write time; server never persists plaintext.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sessionDid", "chunkSeq", "seq", "startedAtMs", "endedAtMs", "textCipher"],
+        "properties": {
+          "sessionDid": {"type": "string"},
+          "chunkSeq": {"type": "integer"},
+          "seq": {"type": "integer"},
+          "startedAtMs": {"type": "integer"},
+          "endedAtMs": {"type": "integer"},
+          "speakerHash": {
+            "type": "string",
+            "description": "sha256(provider participantId + session salt). Not reversible, stable within a session."
+          },
+          "lang": {"type": "string", "description": "BCP-47 (e.g. ja, en-US)"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "textCipher": {
+            "type": "string",
+            "description": "`signal:v1:{ciphertext}` per 10-protocol/wproto signal.ts encryptFieldVal. Recipients = onBehalfOfDid + explicitly granted DIDs."
+          },
+          "model": {"type": "string", "description": "e.g. whisper-large-v3"}
+        }
+      }
+    }
+  }
+}

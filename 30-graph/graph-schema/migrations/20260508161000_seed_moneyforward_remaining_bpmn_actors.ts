@@ -44,9 +44,9 @@ const seeds: Seed[] = [
   { actor: "jinji", op: "completePayrollRun", slug: "complete-payroll-run", processId: "jinji_complete_payroll_run", timeoutMs: 120000, writeTableAllowlist: "vertex_atrecord_jinji_payroll_run,vertex_atrecord_kaikei_journal_entry" },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${s.actor}/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${s.actor}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${s.actor}-${s.op}-v1`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${s.actor}/${s.op}.bpmn`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${s.actor}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${s.actor}-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const existingProcesses = new Set(
@@ -91,7 +91,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
           sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
         )
         VALUES (
-          ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.${s.actor}.${s.op}`}, ${s.processId}, 1,
+          ${bindingVertexId(s)}, ${ownerDid}, ${`com.etzhayyim.apps.${s.actor}.${s.op}`}, ${s.processId}, 1,
           CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
           100, ${ownerDid}, ${ownerDid}, ${actorId}, ${actorDid}, 'anon'
         )

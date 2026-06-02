@@ -13,7 +13,7 @@
  *   - No persistence across deploys or isolate evictions.
  *
  * Upgrade path: replace the Map with either
- *   (a) a graph-backed lookup (`SELECT post_uri, post_cid FROM graphar.vertex_internal_derived_link WHERE source_uri = ? LIMIT 1`), populated via `comAtprotoRepoCreateRecord(env, repo, "app.etzhayyim.internal.derivedLink", …)` with deterministic rkey, or
+ *   (a) a graph-backed lookup (`SELECT post_uri, post_cid FROM graphar.vertex_internal_derived_link WHERE source_uri = ? LIMIT 1`), populated via `comAtprotoRepoCreateRecord(env, repo, "com.etzhayyim.internal.derivedLink", …)` with deterministic rkey, or
  *   (b) a Durable Object keyed by source URI for strong consistency across all isolates.
  *
  * The `recordLink` / `getLink` API is stable — consumers do not depend on
@@ -24,7 +24,7 @@ import type { SelfRef } from "./template.js";
 
 const CAP = 10_000;
 
-/** sourceUri (e.g. at://mng4k4x1.etzhayyim.com/app.etzhayyim.apps.mangaka.chapter/<rkey>) → derived post strongRef */
+/** sourceUri (e.g. at://mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/<rkey>) → derived post strongRef */
 const derivedLinks = new Map<string, SelfRef>();
 
 /** Insertion-order eviction when over CAP (simple LRU-ish bound). */

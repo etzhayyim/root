@@ -8,7 +8,7 @@ them one-by-one via the `kotoba_datom_create` tool, then `kotoba commit` seals
 them. Murakumo-only invariant is untouched (no LLM call here).
 
 Usage:
-    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph app.etzhayyim.haraedo] [--dry-run]
+    python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph com.etzhayyim.haraedo] [--dry-run]
 """
 from __future__ import annotations
 
@@ -203,7 +203,7 @@ def cli_put(url, graph, s, p, o):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", default=os.environ.get("KOTOBA_URL", "http://127.0.0.1:8077"))
-    ap.add_argument("--graph", default="app.etzhayyim.haraedo")
+    ap.add_argument("--graph", default="com.etzhayyim.haraedo")
     ap.add_argument("--token", default=os.environ.get("KOTOBA_TOKEN"))
     ap.add_argument("--via", choices=["cli", "mcp"], default="cli",
                     help="cli = `kotoba quad put` (auto-auth via Keychain); mcp = raw /mcp (needs --token JWT)")

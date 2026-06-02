@@ -2756,7 +2756,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "filePath", "object": "90-docs/adr/2605190900-kg-as-lexicon-ipld-oxigraph-appview.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "title", "object": "ADR-2605190900: Knowledge Graph as Lexicon — app.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "title", "object": "ADR-2605190900: Knowledge Graph as Lexicon — com.etzhayyim.kg.{node,edge} + IPLD payload + ephemeral OxiGraph AppView"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "topic", "object": "kg-as-lexicon-ipld-oxigraph-appview"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605190900", "predicate": "authoritative", "object": "true"}
@@ -2873,7 +2873,7 @@
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "filePath", "object": "90-docs/adr/2605191638-ameno-substrate-swarm-lease-lex.md"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "docType", "object": "adr"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "status", "object": "proposed"}
-{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "title", "object": "Ameno substrate-level swarm lease — app.etzhayyim.swarm.lease lex"}
+{"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "title", "object": "Ameno substrate-level swarm lease — com.etzhayyim.swarm.lease lex"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "ingestRun", "object": "ingest:12501b5:2026-05-28T08:30:34Z"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "topic", "object": "ameno-swarm"}
 {"graph": "kotoba:graph:etzhayyim-root", "subject": "adr:2605191638", "predicate": "authoritative", "object": "true"}

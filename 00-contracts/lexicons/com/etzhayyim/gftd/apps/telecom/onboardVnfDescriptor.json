@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.onboardVnfDescriptor",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ETSI MANO NFVO — onboard a VNFD (VM-based) or CNFD (cloud-native, helm chart) into the catalog. Body persisted via vault://+sha256 only.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vendor", "name", "version", "vnfKind", "descriptorFormat", "deploymentFlavors", "packageHash", "observedAt"],
+          "properties": {
+            "vnfdId": { "type": "string" },
+            "vendor": { "type": "string" },
+            "name": { "type": "string" },
+            "version": { "type": "string" },
+            "vnfKind": { "type": "string", "enum": ["vm_vnf", "container_cnf", "hybrid"] },
+            "descriptorFormat": { "type": "string", "enum": ["tosca", "yang", "heat", "helm"] },
+            "deploymentFlavors": { "type": "array", "items": { "type": "string" } },
+            "requiredVims": { "type": "array", "items": { "type": "string" } },
+            "packageHash": { "type": "string" },
+            "packageRef": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "vnfdId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const readBpmn = (file: string) =>
   readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/aidesk", file),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/aidesk", file),
     "utf8",
   );
 
@@ -24,16 +24,16 @@ const ACTOR_TAG = "sys.bpmn.seed.aidesk";
 const ENTRIES = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1",
     bpmnProcessId: "aidesk_synthesize_cad_from_image",
-    sourcePath: "00-contracts/bpmn/ai/gftd/aidesk/synthesizeCadFromImage.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/aidesk/synthesizeCadFromImage.bpmn",
     file: "synthesizeCadFromImage.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1",
     bpmnProcessId: "aidesk_export_to_tsukuru",
-    sourcePath: "00-contracts/bpmn/ai/gftd/aidesk/exportToTsukuru.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/aidesk/exportToTsukuru.bpmn",
     file: "exportToTsukuru.bpmn",
   },
 ];

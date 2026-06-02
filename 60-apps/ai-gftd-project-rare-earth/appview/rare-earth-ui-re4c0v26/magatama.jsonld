@@ -55,7 +55,7 @@
         "/_heartbeat",
         "/api/grpc/...",
         "/api/rare-earth/...",
-        "/xrpc/ai.gftd.apps.rareEarth....",
+        "/xrpc/com.etzhayyim.apps.rareEarth....",
         "/health",
         "/healthz",
         "/readyz",
@@ -70,9 +70,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.rareEarth.actor",
-        "ai.gftd.apps.rareEarth.flow",
-        "ai.gftd.apps.rareEarth.coverageSnapshot"
+        "com.etzhayyim.apps.rareEarth.actor",
+        "com.etzhayyim.apps.rareEarth.flow",
+        "com.etzhayyim.apps.rareEarth.coverageSnapshot"
       ]
     }
   },

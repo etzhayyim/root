@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.panamaTransit.recordReservation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ACP booking/auction slot",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reservationId",
+            "imo",
+            "bookingType",
+            "slotDate",
+            "lane",
+            "bookedAt"
+          ],
+          "properties": {
+            "reservationId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "bookingType": {
+              "type": "string",
+              "enum": [
+                "regular",
+                "condition-1",
+                "condition-2",
+                "special-auction"
+              ]
+            },
+            "slotDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "lane": {
+              "type": "string"
+            },
+            "auctionPriceUsd": {
+              "type": "number"
+            },
+            "bookedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "priorityTier": {
+              "type": "string",
+              "enum": [
+                "regular",
+                "premium",
+                "urgent"
+              ]
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ads.createCampaign",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a sponsored-post campaign. Issues a path-based DID `did:web:ads.etzhayyim.com:campaign:{id}` that becomes the advertiser identity for subsequent sponsored posts.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["name"],
+          "properties": {
+            "name":        { "type": "string", "maxLength": 120 },
+            "description": { "type": "string", "maxLength": 600 },
+            "advertiser":  { "type": "string", "description": "Advertiser's real-world name or controller DID." },
+            "budgetJpy":   { "type": "integer", "minimum": 0 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["campaignId", "did"],
+          "properties": {
+            "campaignId": { "type": "string" },
+            "did":        { "type": "string", "description": "Path-based advertiser DID." },
+            "createdAt":  { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

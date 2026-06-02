@@ -15,7 +15,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "lawfirm";
-const NSID_PREFIX = "app.etzhayyim.apps.lawfirm.";
+const NSID_PREFIX = "com.etzhayyim.apps.lawfirm.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -27,7 +27,7 @@ export default {
         nanoid: env.APP_NANOID ?? "lf1rm8k0",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "BPMN/LangServer",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/lawfirm",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/lawfirm",
       });
     }
 

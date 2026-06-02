@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.yorishiro.createYorishiro": {
+    "/xrpc/com.etzhayyim.yorishiro.createYorishiro": {
       "post": {
         "summary": "Create a yorishiro (依代) — anchor entity for AI agent personification. Path-based DID: did:web:yorishiro.etzhayyim.com:{type}:{slug}.",
-        "operationId": "app.etzhayyim.yorishiro.createYorishiro",
+        "operationId": "com.etzhayyim.yorishiro.createYorishiro",
         "requestBody": {
           "required": true,
           "content": {
@@ -104,10 +104,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.listYorishiros": {
+    "/xrpc/com.etzhayyim.yorishiro.listYorishiros": {
       "get": {
         "summary": "List yorishiro anchor entities with optional type/agent filter.",
-        "operationId": "app.etzhayyim.yorishiro.listYorishiros",
+        "operationId": "com.etzhayyim.yorishiro.listYorishiros",
         "parameters": [
           {
             "name": "type",
@@ -217,10 +217,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.flyio.closeAccount": {
+    "/xrpc/com.etzhayyim.yorishiro.flyio.closeAccount": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.yorishiro.flyio.closeAccount",
+        "operationId": "com.etzhayyim.yorishiro.flyio.closeAccount",
         "requestBody": {
           "required": true,
           "content": {
@@ -292,10 +292,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.flyio.deleteApp": {
+    "/xrpc/com.etzhayyim.yorishiro.flyio.deleteApp": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.yorishiro.flyio.deleteApp",
+        "operationId": "com.etzhayyim.yorishiro.flyio.deleteApp",
         "requestBody": {
           "required": true,
           "content": {
@@ -355,10 +355,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.flyio.deleteOrg": {
+    "/xrpc/com.etzhayyim.yorishiro.flyio.deleteOrg": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.yorishiro.flyio.deleteOrg",
+        "operationId": "com.etzhayyim.yorishiro.flyio.deleteOrg",
         "requestBody": {
           "required": true,
           "content": {
@@ -419,10 +419,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.flyio.getAccountInfo": {
+    "/xrpc/com.etzhayyim.yorishiro.flyio.getAccountInfo": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.yorishiro.flyio.getAccountInfo",
+        "operationId": "com.etzhayyim.yorishiro.flyio.getAccountInfo",
         "parameters": [
           {
             "name": "vaultRef",
@@ -461,10 +461,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.flyio.getJobStatus": {
+    "/xrpc/com.etzhayyim.yorishiro.flyio.getJobStatus": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.yorishiro.flyio.getJobStatus",
+        "operationId": "com.etzhayyim.yorishiro.flyio.getJobStatus",
         "parameters": [
           {
             "name": "jobId",
@@ -500,10 +500,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.yorishiro.flyio.listApps": {
+    "/xrpc/com.etzhayyim.yorishiro.flyio.listApps": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.yorishiro.flyio.listApps",
+        "operationId": "com.etzhayyim.yorishiro.flyio.listApps",
         "parameters": [
           {
             "name": "limit",

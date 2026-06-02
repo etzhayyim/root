@@ -17,7 +17,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   ];
   for (const [suffix, worldTotal, priority] of seed) {
     const sourceDid = `did:web:maps.etzhayyim.com:${suffix}`;
-    const vid = `at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/${suffix.replace(/:/g, "-")}:Spot`;
+    const vid = `at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/${suffix.replace(/:/g, "-")}:Spot`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

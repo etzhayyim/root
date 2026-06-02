@@ -63,25 +63,25 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.animeka.work",
-        "ai.gftd.animeka.episode",
-        "ai.gftd.animeka.script",
-        "ai.gftd.animeka.scene",
-        "ai.gftd.animeka.cut",
-        "ai.gftd.animeka.storyboard",
-        "ai.gftd.animeka.layout",
-        "ai.gftd.animeka.keyframe",
-        "ai.gftd.animeka.inbetween",
-        "ai.gftd.animeka.colorModel",
-        "ai.gftd.animeka.colorTrace",
-        "ai.gftd.animeka.background",
-        "ai.gftd.animeka.composite",
-        "ai.gftd.animeka.soundCue",
-        "ai.gftd.animeka.retake",
-        "ai.gftd.animeka.character",
-        "ai.gftd.animeka.asset",
-        "ai.gftd.animeka.project",
-        "ai.gftd.animeka.chatMessage"
+        "com.etzhayyim.animeka.work",
+        "com.etzhayyim.animeka.episode",
+        "com.etzhayyim.animeka.script",
+        "com.etzhayyim.animeka.scene",
+        "com.etzhayyim.animeka.cut",
+        "com.etzhayyim.animeka.storyboard",
+        "com.etzhayyim.animeka.layout",
+        "com.etzhayyim.animeka.keyframe",
+        "com.etzhayyim.animeka.inbetween",
+        "com.etzhayyim.animeka.colorModel",
+        "com.etzhayyim.animeka.colorTrace",
+        "com.etzhayyim.animeka.background",
+        "com.etzhayyim.animeka.composite",
+        "com.etzhayyim.animeka.soundCue",
+        "com.etzhayyim.animeka.retake",
+        "com.etzhayyim.animeka.character",
+        "com.etzhayyim.animeka.asset",
+        "com.etzhayyim.animeka.project",
+        "com.etzhayyim.animeka.chatMessage"
       ]
     }
   },
@@ -91,14 +91,14 @@
         "id": "episode-published-social",
         "description": "Tier 1 social announcement of a newly published episode. Auto-emits an app.bsky.feed.post authored by the work's path-based DID.",
         "on": {
-          "collection": "ai.gftd.animeka.episode",
+          "collection": "com.etzhayyim.animeka.episode",
           "action": "create",
           "where": { "record.status": "published" }
         },
         "emit": {
           "type": "app.bsky.feed.post",
           "did": "{{resolve(record.workRef).workDid}}",
-          "text": "🎬 #{{record.episodeNum}} {{record.titleJP}} 公開\nwatch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/ai.gftd.animeka.episode/{{self.rkey}}",
+          "text": "🎬 #{{record.episodeNum}} {{record.titleJP}} 公開\nwatch → https://animeka.etzhayyim.com/at/an1m3k4x.etzhayyim.com/com.etzhayyim.animeka.episode/{{self.rkey}}",
           "embed": {
             "$type": "app.bsky.embed.recordWithMedia",
             "record": {
@@ -124,17 +124,17 @@
       }
     ],
     "_pipelineIntent": {
-      "note": "ADR-2604231328 — 12-stage animeka pipeline handoff. MVP triggers each stage via /cuts UI Generate button (XRPC POST to dispatcher.etzhayyim.com:8080/xrpc/ai.gftd.animeka.<stage>). Auto-derive chain below is Phase 2 (requires dispatcher emit type support).",
+      "note": "ADR-2604231328 — 12-stage animeka pipeline handoff. MVP triggers each stage via /cuts UI Generate button (XRPC POST to dispatcher.etzhayyim.com:8080/xrpc/com.etzhayyim.animeka.<stage>). Auto-derive chain below is Phase 2 (requires dispatcher emit type support).",
       "handoffRules": [
-        { "on": "scene.create",                      "invoke": "ai.gftd.animeka.breakdownScene" },
-        { "on": "cut.create",                        "invokeN": 3, "invoke": "ai.gftd.animeka.generateStoryboard", "fanoutVar": "candidateNum" },
-        { "on": "storyboard.update status=approved", "invoke": "ai.gftd.animeka.generateLayout" },
-        { "on": "layout.update status=approved",     "parallel": ["ai.gftd.animeka.generateKeyframe", "ai.gftd.animeka.generateBackground"] },
-        { "on": "keyframe.pair_committed",           "invoke": "ai.gftd.animeka.generateInbetween" },
-        { "on": "colorModel.update status=ready",    "invoke": "ai.gftd.animeka.autoTrace",     "fanoutOver": "keyframes" },
-        { "on": "colorTrace.ready && background.ready", "invoke": "ai.gftd.animeka.renderComposite" },
-        { "on": "cut.update status=approved",        "invoke": "ai.gftd.animeka.generateSoundCue", "fanoutOver": "soundCues" },
-        { "on": "episode.update status=ready",       "invoke": "ai.gftd.animeka.publishEpisode", "hitl": true }
+        { "on": "scene.create",                      "invoke": "com.etzhayyim.animeka.breakdownScene" },
+        { "on": "cut.create",                        "invokeN": 3, "invoke": "com.etzhayyim.animeka.generateStoryboard", "fanoutVar": "candidateNum" },
+        { "on": "storyboard.update status=approved", "invoke": "com.etzhayyim.animeka.generateLayout" },
+        { "on": "layout.update status=approved",     "parallel": ["com.etzhayyim.animeka.generateKeyframe", "com.etzhayyim.animeka.generateBackground"] },
+        { "on": "keyframe.pair_committed",           "invoke": "com.etzhayyim.animeka.generateInbetween" },
+        { "on": "colorModel.update status=ready",    "invoke": "com.etzhayyim.animeka.autoTrace",     "fanoutOver": "keyframes" },
+        { "on": "colorTrace.ready && background.ready", "invoke": "com.etzhayyim.animeka.renderComposite" },
+        { "on": "cut.update status=approved",        "invoke": "com.etzhayyim.animeka.generateSoundCue", "fanoutOver": "soundCues" },
+        { "on": "episode.update status=ready",       "invoke": "com.etzhayyim.animeka.publishEpisode", "hitl": true }
       ]
     },
     "_helpers": {

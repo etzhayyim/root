@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kanayama.silenRecyclingReview",
+  "description": "Council 5-of-7 Safe attestation review for every new Wave / new alloy / new feedstock / new robot class. Required before activation per ADR-2605252400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "reviewSubjectId": {"type": "string"},
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "r0-scaffold-baseline",
+              "r1-benchtop-pot-melt",
+              "r2-pilot-100kg-day",
+              "r3-community-10t-day-mill",
+              "wave-1-ubc-aluminum-recycling",
+              "wave-2-steel-iron-recycling-baseline",
+              "wave-3-copper-brass-bronze-baseline",
+              "wave-4-rare-earth-recovery-baseline",
+              "new-alloy-introduction",
+              "new-feedstock-stream-introduction",
+              "robot-class-activation-kamado",
+              "robot-class-activation-yokin",
+              "robot-class-activation-migaki",
+              "non-goal-amendment-mining-carve-out",
+              "gate-amendment-G12-recovery-rate"
+            ]
+          },
+          "councilSafeAddress": {"type": "string"},
+          "councilSignatures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "councilMemberDid": {"type": "string", "format": "did"},
+                "signature": {"type": "string"},
+                "timestamp": {"type": "string", "format": "datetime"}
+              }
+            },
+            "minItems": 5
+          },
+          "decision": {"type": "string", "knownValues": ["approve", "reject", "request-revision"]},
+          "rationale": {"type": "string"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["reviewSubjectId", "scope", "councilSignatures", "decision", "recordedAt"]
+      }
+    }
+  }
+}

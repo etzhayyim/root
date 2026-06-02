@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govHti.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govHti.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Haiti government.",
-        "operationId": "app.etzhayyim.govHti.followSiteDeps",
+        "operationId": "com.etzhayyim.govHti.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govHti.heartbeatTick": {
       "post": {
         "summary": "Run the Haiti government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govHti.heartbeatTick",
+        "operationId": "com.etzhayyim.govHti.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.listOrgs": {
+    "/xrpc/com.etzhayyim.govHti.listOrgs": {
       "get": {
         "summary": "List Haiti government organization graph records.",
-        "operationId": "app.etzhayyim.govHti.listOrgs",
+        "operationId": "com.etzhayyim.govHti.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.registerDIDs": {
+    "/xrpc/com.etzhayyim.govHti.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Haiti government organizations.",
-        "operationId": "app.etzhayyim.govHti.registerDIDs",
+        "operationId": "com.etzhayyim.govHti.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govHti.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Haiti government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govHti.resolveOrgPath",
+        "operationId": "com.etzhayyim.govHti.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.seedOrgs": {
+    "/xrpc/com.etzhayyim.govHti.seedOrgs": {
       "post": {
         "summary": "Seed initial Haiti government organization records into the graph.",
-        "operationId": "app.etzhayyim.govHti.seedOrgs",
+        "operationId": "com.etzhayyim.govHti.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.shinka": {
+    "/xrpc/com.etzhayyim.govHti.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Haiti government organization update.",
-        "operationId": "app.etzhayyim.govHti.shinka",
+        "operationId": "com.etzhayyim.govHti.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHti.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govHti.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Haiti government organization changes to graph.",
-        "operationId": "app.etzhayyim.govHti.syncWetUpdates",
+        "operationId": "com.etzhayyim.govHti.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

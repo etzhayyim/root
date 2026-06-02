@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.condition",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 Condition (病名・問題リスト). Inner type of com.etzhayyim.encrypted.record envelope.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "code", "clinicalStatus", "recordedAt"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "Condition"},
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string"},
+          "clinicalStatus": {
+            "type": "string",
+            "enum": ["active", "recurrence", "relapse", "inactive", "remission", "resolved"]
+          },
+          "verificationStatus": {
+            "type": "string",
+            "enum": ["unconfirmed", "provisional", "differential", "confirmed", "refuted", "entered-in-error"]
+          },
+          "category": {
+            "type": "string",
+            "enum": ["problem-list-item", "encounter-diagnosis", "health-concern"]
+          },
+          "severity": {"type": "string", "enum": ["mild", "moderate", "severe"]},
+          "code": {
+            "type": "object",
+            "properties": {
+              "icd10": {"type": "string", "description": "ICD-10-CM or ICD-10-JP"},
+              "snomedCt": {"type": "string"},
+              "display": {"type": "string"}
+            }
+          },
+          "bodySite": {"type": "array", "items": {"type": "string"}, "description": "SNOMED CT body-site codes"},
+          "onsetDateTime": {"type": "string", "format": "datetime"},
+          "abatementDateTime": {"type": "string", "format": "datetime"},
+          "recordedByDid": {"type": "string"},
+          "recordedAt": {"type": "string", "format": "datetime"},
+          "notes": {"type": "string", "maxLength": 10000}
+        }
+      }
+    }
+  }
+}

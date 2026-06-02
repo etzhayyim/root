@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govEsp.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govEsp.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Spain government.",
-        "operationId": "app.etzhayyim.govEsp.followSiteDeps",
+        "operationId": "com.etzhayyim.govEsp.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govEsp.heartbeatTick": {
       "post": {
         "summary": "Run the Spain government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govEsp.heartbeatTick",
+        "operationId": "com.etzhayyim.govEsp.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.listOrgs": {
+    "/xrpc/com.etzhayyim.govEsp.listOrgs": {
       "get": {
         "summary": "List Spain government organization graph records.",
-        "operationId": "app.etzhayyim.govEsp.listOrgs",
+        "operationId": "com.etzhayyim.govEsp.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.registerDIDs": {
+    "/xrpc/com.etzhayyim.govEsp.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Spain government organizations.",
-        "operationId": "app.etzhayyim.govEsp.registerDIDs",
+        "operationId": "com.etzhayyim.govEsp.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govEsp.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Spain government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govEsp.resolveOrgPath",
+        "operationId": "com.etzhayyim.govEsp.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.seedOrgs": {
+    "/xrpc/com.etzhayyim.govEsp.seedOrgs": {
       "post": {
         "summary": "Seed initial Spain government organization records into the graph.",
-        "operationId": "app.etzhayyim.govEsp.seedOrgs",
+        "operationId": "com.etzhayyim.govEsp.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.shinka": {
+    "/xrpc/com.etzhayyim.govEsp.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Spain government organization update.",
-        "operationId": "app.etzhayyim.govEsp.shinka",
+        "operationId": "com.etzhayyim.govEsp.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govEsp.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govEsp.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Spain government organization changes to graph.",
-        "operationId": "app.etzhayyim.govEsp.syncWetUpdates",
+        "operationId": "com.etzhayyim.govEsp.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

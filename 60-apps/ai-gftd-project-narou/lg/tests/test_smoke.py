@@ -32,9 +32,9 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "agent_chat"}
 
 _EXPECTED_NSID_MAP = {
-    "ai.gftd.narou.health":    "health",
-    "ai.gftd.narou.chat":      "agent_chat",
-    "ai.gftd.narou.agentChat": "agent_chat",
+    "com.etzhayyim.narou.health":    "health",
+    "com.etzhayyim.narou.chat":      "agent_chat",
+    "com.etzhayyim.narou.agentChat": "agent_chat",
 }
 
 
@@ -122,5 +122,5 @@ def test_ok_endpoint_lists_graphs(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/ai.gftd.narou.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.narou.unknownMethod", json={})
     assert r.status_code == 404

@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.msSpec.interpretSpectrum",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Interpret mass spectrum (GC-MS/LC-MS/MALDI-TOF). Auto-generated stub (coverage expansion 2026-04-17).",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["peaks"],
+          "properties": {
+            "ionizationMode": { "type": "string", "enum": ["EI", "ESI-pos", "ESI-neg", "APCI", "MALDI"] },
+            "peaks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["mz", "intensity"],
+                "properties": {
+                  "mz": { "type": "number" },
+                  "intensity": { "type": "number" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "candidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "formula": { "type": "string" },
+                  "casRn": { "type": "string" },
+                  "score": { "type": "number" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

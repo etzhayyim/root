@@ -83,14 +83,14 @@ const writeTableAllowlist = [
 const seeds: Seed[] = procs.map((proc) => ({
   proc,
   bpmnProcessId: `organizer_${snake(proc)}`,
-  nsid: `app.etzhayyim.apps.organizer.${proc}`,
+  nsid: `com.etzhayyim.apps.organizer.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? writeTableAllowlist : "",
 }));
 
-const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/organizer/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/organizer-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/organizer-${slug(s.proc)}-v1`;
+const bpmnPath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/organizer/${s.proc}.bpmn`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/organizer-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/organizer-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

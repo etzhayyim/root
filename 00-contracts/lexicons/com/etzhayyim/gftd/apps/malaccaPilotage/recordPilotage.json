@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.malaccaPilotage.recordPilotage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "パイロット乗下船",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "pilotageId",
+            "imo",
+            "authority",
+            "boardingAt"
+          ],
+          "properties": {
+            "pilotageId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "authority": {
+              "type": "string",
+              "enum": [
+                "MPA-SG",
+                "MMEA-MY",
+                "BAKAMLA-ID"
+              ]
+            },
+            "pilotStation": {
+              "type": "string"
+            },
+            "boardingAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "disembarkAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

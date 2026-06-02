@@ -41,7 +41,7 @@ function listLexiconFiles() {
   return out
     .split("\n")
     .filter(Boolean)
-    .filter((file) => file.startsWith("00-contracts/lexicons/ai/gftd/"))
+    .filter((file) => file.startsWith("00-contracts/lexicons/com/etzhayyim/"))
     .sort();
 }
 

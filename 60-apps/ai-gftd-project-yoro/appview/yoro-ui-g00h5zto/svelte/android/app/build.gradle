@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "ai.gftd.yoro"
+    namespace "com.etzhayyim.yoro"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "ai.gftd.yoro"
+        applicationId "com.etzhayyim.yoro"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode Integer.parseInt(System.getenv("ANDROID_VERSION_CODE") ?: "1")

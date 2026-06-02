@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govBol.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govBol.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Bolivia government.",
-        "operationId": "app.etzhayyim.govBol.followSiteDeps",
+        "operationId": "com.etzhayyim.govBol.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govBol.heartbeatTick": {
       "post": {
         "summary": "Run the Bolivia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govBol.heartbeatTick",
+        "operationId": "com.etzhayyim.govBol.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.listOrgs": {
+    "/xrpc/com.etzhayyim.govBol.listOrgs": {
       "get": {
         "summary": "List Bolivia government organization graph records.",
-        "operationId": "app.etzhayyim.govBol.listOrgs",
+        "operationId": "com.etzhayyim.govBol.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.registerDIDs": {
+    "/xrpc/com.etzhayyim.govBol.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Bolivia government organizations.",
-        "operationId": "app.etzhayyim.govBol.registerDIDs",
+        "operationId": "com.etzhayyim.govBol.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govBol.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Bolivia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govBol.resolveOrgPath",
+        "operationId": "com.etzhayyim.govBol.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.seedOrgs": {
+    "/xrpc/com.etzhayyim.govBol.seedOrgs": {
       "post": {
         "summary": "Seed initial Bolivia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govBol.seedOrgs",
+        "operationId": "com.etzhayyim.govBol.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.shinka": {
+    "/xrpc/com.etzhayyim.govBol.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Bolivia government organization update.",
-        "operationId": "app.etzhayyim.govBol.shinka",
+        "operationId": "com.etzhayyim.govBol.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBol.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govBol.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Bolivia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govBol.syncWetUpdates",
+        "operationId": "com.etzhayyim.govBol.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

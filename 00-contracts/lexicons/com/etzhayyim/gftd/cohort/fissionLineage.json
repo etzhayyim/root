@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cohort.fissionLineage",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "properties": {
+          "individualDid": {
+            "type": "string"
+          },
+          "derivedFrom": {
+            "type": "string"
+          },
+          "posteriorAtFission": {
+            "type": "number",
+            "minimum": 0.95,
+            "maximum": 1
+          },
+          "judgeAgreement": {
+            "type": "boolean",
+            "const": true
+          },
+          "evidenceUris": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "fissionAt": {
+            "type": "string"
+          },
+          "parentSegmentHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "individualDid",
+          "derivedFrom",
+          "posteriorAtFission",
+          "judgeAgreement",
+          "evidenceUris",
+          "fissionAt"
+        ]
+      }
+    }
+  }
+}

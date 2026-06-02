@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'open_rail_define_line',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -80,12 +80,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2490,
-                 '00-contracts/bpmn/ai/gftd/open-rail/defineLine.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-rail/defineLine.bpmn',
                  '2026-04-24T14:30:00Z',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-rail',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -93,7 +93,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'open_rail_report_incident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -224,12 +224,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5425,
-                 '00-contracts/bpmn/ai/gftd/open-rail/reportIncident.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-rail/reportIncident.bpmn',
                  '2026-04-24T14:30:00Z',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-rail',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -237,16 +237,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1',
                  'did:web:open-rail.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openRail.defineLine',
+                 'com.etzhayyim.apps.openRail.defineLine',
                  'open_rail_define_line',
                  15000,
                  '2026-04-24T14:30:00Z',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-rail',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -254,25 +254,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1',
                  'did:web:open-rail.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.openRail.reportIncident',
+                 'com.etzhayyim.apps.openRail.reportIncident',
                  'open_rail_report_incident',
                  30000,
                  '2026-04-24T14:30:00Z',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'did:web:open-rail.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-rail',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1']}]
 
 
 def upgrade() -> None:

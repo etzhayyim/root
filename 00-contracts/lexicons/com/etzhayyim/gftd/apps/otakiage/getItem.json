@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.otakiage.getItem",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "単一 item の詳細取得。state machine 全 history と関連 reuse_request / handover / ritual / certificate URI を返す。",
+      "parameters": {
+        "type": "params",
+        "required": ["uri"],
+        "properties": {
+          "uri": {"type": "string", "description": "at:// 形式 item URI"}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["item"],
+          "properties": {
+            "item": {
+              "type": "object",
+              "properties": {
+                "uri": {"type": "string"},
+                "category": {"type": "string"},
+                "title": {"type": "string"},
+                "storyText": {"type": "string"},
+                "photoBlobKeys": {"type": "array", "items": {"type": "string"}},
+                "h3Cell": {"type": "string"},
+                "weightKgClass": {"type": "string"},
+                "mode": {"type": "string"},
+                "state": {"type": "string"},
+                "ownerDid": {"type": "string"},
+                "createdAt": {"type": "string", "format": "date-time"}
+              }
+            },
+            "reuseRequests": {"type": "array", "items": {"type": "object"}},
+            "handoverUri": {"type": "string"},
+            "ritualUri": {"type": "string"},
+            "certificateUri": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

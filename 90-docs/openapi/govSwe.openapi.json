@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govSwe.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govSwe.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Sweden government.",
-        "operationId": "app.etzhayyim.govSwe.followSiteDeps",
+        "operationId": "com.etzhayyim.govSwe.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govSwe.heartbeatTick": {
       "post": {
         "summary": "Run the Sweden government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govSwe.heartbeatTick",
+        "operationId": "com.etzhayyim.govSwe.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.listOrgs": {
+    "/xrpc/com.etzhayyim.govSwe.listOrgs": {
       "get": {
         "summary": "List Sweden government organization graph records.",
-        "operationId": "app.etzhayyim.govSwe.listOrgs",
+        "operationId": "com.etzhayyim.govSwe.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.registerDIDs": {
+    "/xrpc/com.etzhayyim.govSwe.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Sweden government organizations.",
-        "operationId": "app.etzhayyim.govSwe.registerDIDs",
+        "operationId": "com.etzhayyim.govSwe.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govSwe.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Sweden government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govSwe.resolveOrgPath",
+        "operationId": "com.etzhayyim.govSwe.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.seedOrgs": {
+    "/xrpc/com.etzhayyim.govSwe.seedOrgs": {
       "post": {
         "summary": "Seed initial Sweden government organization records into the graph.",
-        "operationId": "app.etzhayyim.govSwe.seedOrgs",
+        "operationId": "com.etzhayyim.govSwe.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.shinka": {
+    "/xrpc/com.etzhayyim.govSwe.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Sweden government organization update.",
-        "operationId": "app.etzhayyim.govSwe.shinka",
+        "operationId": "com.etzhayyim.govSwe.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSwe.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govSwe.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Sweden government organization changes to graph.",
-        "operationId": "app.etzhayyim.govSwe.syncWetUpdates",
+        "operationId": "com.etzhayyim.govSwe.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

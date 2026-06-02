@@ -1,6 +1,6 @@
 """animeka `generateKeyframe` graph — ComfyUI 1024×1024 anime keyframe image.
 
-NSID: app.etzhayyim.animeka.generateKeyframe
+NSID: com.etzhayyim.animeka.generateKeyframe
 
 Takes a cut_id and optional frame_num (default 1). Reads the visual
 description from the layout record (or cut description). Renders a
@@ -70,7 +70,7 @@ async def _node_fetch_prompt(state: _State) -> dict[str, Any]:
             # Prefer layout description (rich visual prompt from generate_layout)
             await cur.execute(
                 """SELECT description FROM vertex_animeka
-                   WHERE collection='app.etzhayyim.animeka.layout' AND cut_id=%s
+                   WHERE collection='com.etzhayyim.animeka.layout' AND cut_id=%s
                    ORDER BY created_at DESC LIMIT 1""",
                 [cut_id],
             )
@@ -79,7 +79,7 @@ async def _node_fetch_prompt(state: _State) -> dict[str, Any]:
                 # Fallback to cut description
                 await cur.execute(
                     "SELECT description FROM vertex_animeka "
-                    "WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
+                    "WHERE collection='com.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
                     [rkey],
                 )
                 row = await cur.fetchone()
@@ -87,7 +87,7 @@ async def _node_fetch_prompt(state: _State) -> dict[str, Any]:
                 # Final fallback: autopilot cuts store scene text in camera_note
                 await cur.execute(
                     "SELECT camera_note FROM vertex_animeka "
-                    "WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
+                    "WHERE collection='com.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
                     [rkey],
                 )
                 row = await cur.fetchone()
@@ -137,7 +137,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     cut_id = state.get("cut_id") or ""
     frame_num = int(state.get("frame_num") or 1)
     rkey = f"kf-{secrets.token_hex(4)}"
-    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.keyframe/{rkey}"
+    vertex_id = f"at://{_REPO}/com.etzhayyim.animeka.keyframe/{rkey}"
     blob_cid = state.get("blob_cid", "")
     rkey_cut = cut_id.rsplit("/", 1)[-1] if "/" in cut_id else cut_id
     try:
@@ -148,7 +148,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
                 """INSERT INTO vertex_animeka
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     cut_id, image_cid, frame_num, status, created_at)
-                   VALUES (%s, %s, %s, 'app.etzhayyim.animeka.keyframe', 'keyframe',
+                   VALUES (%s, %s, %s, 'com.etzhayyim.animeka.keyframe', 'keyframe',
                            %s, %s, %s, %s, 'draft', %s)""",
                 [vertex_id, _REPO, rkey, _DEFAULT_APP_DID,
                  cut_id, blob_cid, frame_num,
@@ -157,7 +157,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
             # Also update the cut record's image_cid so kaizen_compositor picks it up
             await conn.execute(
                 "UPDATE vertex_animeka SET image_cid=%s "
-                "WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s",
+                "WHERE collection='com.etzhayyim.animeka.cut' AND rkey=%s",
                 [blob_cid, rkey_cut],
             )
         finally:

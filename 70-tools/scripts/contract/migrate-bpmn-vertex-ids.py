@@ -7,8 +7,8 @@ addendum). Additive + transactional — never mutates XML or routing,
 only renames the primary-key row.
 
 Canonical scheme:
-  process_def  at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/{slug}-v{N}
-  binding      at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/{ns-action}-v{N}
+  process_def  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/{slug}-v{N}
+  binding      at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/{ns-action}-v{N}
 
 Pattern per row:
 
@@ -54,7 +54,7 @@ import subprocess
 import sys
 from typing import Any
 
-BPMN_REPO_PREFIX = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn"
+BPMN_REPO_PREFIX = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn"
 
 CANONICAL_DEF_VID_RE = re.compile(
     r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"

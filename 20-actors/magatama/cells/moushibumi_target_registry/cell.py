@@ -5,14 +5,14 @@ concierge; the citizen's voice into the state, sibling to toritsugi and
 counterpart to danjo).
 
 Purpose: maintain + resolve the coded democratic-participation target catalog
-(`app.etzhayyim.moushibumi.participationTarget` — organ / channel / 根拠法令 /
+(`com.etzhayyim.moushibumi.participationTarget` — organ / channel / 根拠法令 /
 様式 / 期限 / 紹介議員-flag) and enforce the G14 verification gate.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G8 non-fabrication (every target
 cites legalBasis + provenance), G14 verified-target-only, G3 election entries
 are INFO-ONLY (no campaigning), kotoba-EAVT-native (ADR-2605262130; no RW),
 Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.moushibumi.participationTarget.
+Output Lexicon(s): com.etzhayyim.moushibumi.participationTarget.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

@@ -26,7 +26,7 @@ Pregel graph (5 nodes):
                                       in-process: weight, headspace, leak test
         |
         v
-    emit_fill_finish_attest       ->  MST PUT app.etzhayyim.pharma.fillFinishAttestation
+    emit_fill_finish_attest       ->  MST PUT com.etzhayyim.pharma.fillFinishAttestation
                                       with dosageForm = "topical-{cream|gel|ointment}"
                                       (sterility = "na" for intact-skin scope;
                                        microbial limit, viscosity, pH in qcAttestation)

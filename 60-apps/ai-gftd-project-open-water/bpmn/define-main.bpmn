@@ -10,8 +10,8 @@
     <bpmn:userTask id="Task_CollectMainForm" name="Collect main form"
                    camunda:formKey="openWater.defineMain.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectMainForm" targetRef="Task_DefineMain"/>
-    <bpmn:serviceTask id="Task_DefineMain" name="ai.gftd.apps.openWater.defineMain"
-                      camunda:topic="ai.gftd.apps.openWater.defineMain"/>
+    <bpmn:serviceTask id="Task_DefineMain" name="com.etzhayyim.apps.openWater.defineMain"
+                      camunda:topic="com.etzhayyim.apps.openWater.defineMain"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_DefineMain" targetRef="EndEvent_Defined"/>
     <bpmn:endEvent id="EndEvent_Defined" name="Main defined"/>
   </bpmn:process>

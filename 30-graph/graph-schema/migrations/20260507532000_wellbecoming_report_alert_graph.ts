@@ -98,7 +98,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         owner_did,
         CAST(sensitivity_ord AS integer)
       FROM vertex_wellbecoming_record
-      WHERE record_kind = 'app.etzhayyim.apps.wellbecoming.proactiveMessage'
+      WHERE record_kind = 'com.etzhayyim.apps.wellbecoming.proactiveMessage'
       ON CONFLICT (vertex_id) DO NOTHING
     `.execute(db);
 
@@ -123,7 +123,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         owner_did,
         CAST(sensitivity_ord AS integer)
       FROM vertex_wellbecoming_record
-      WHERE record_kind = 'app.etzhayyim.apps.wellbecoming.floorAlert'
+      WHERE record_kind = 'com.etzhayyim.apps.wellbecoming.floorAlert'
       ON CONFLICT (vertex_id) DO NOTHING
     `.execute(db);
 
@@ -150,7 +150,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         owner_did,
         CAST(sensitivity_ord AS integer)
       FROM vertex_wellbecoming_record
-      WHERE record_kind = 'app.etzhayyim.apps.wellbecoming.processMiningReport'
+      WHERE record_kind = 'com.etzhayyim.apps.wellbecoming.processMiningReport'
       ON CONFLICT (vertex_id) DO NOTHING
     `.execute(db);
   }
@@ -193,10 +193,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     UPDATE vertex_bpmn_lexicon_binding
     SET write_table_allowlist = ${allowlist}
     WHERE nsid IN (
-      'app.etzhayyim.apps.wellbecoming.agentLoop',
-      'app.etzhayyim.apps.wellbecoming.proactiveConnect',
-      'app.etzhayyim.apps.wellbecoming.floorViolationAlert',
-      'app.etzhayyim.apps.wellbecoming.processMining'
+      'com.etzhayyim.apps.wellbecoming.agentLoop',
+      'com.etzhayyim.apps.wellbecoming.proactiveConnect',
+      'com.etzhayyim.apps.wellbecoming.floorViolationAlert',
+      'com.etzhayyim.apps.wellbecoming.processMining'
     )
   `.execute(db);
 }

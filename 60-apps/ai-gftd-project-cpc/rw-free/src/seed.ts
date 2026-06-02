@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import { cpcLevel, isValidCpcCode, parentOf, type CpcProduct } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.cpc.product";
+const COLLECTION = "com.etzhayyim.apps.cpc.product";
 const CPC_PUBLISHED_AT_DEFAULT = "2015-01-01T00:00:00Z"; // CPC Ver.2.1
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

@@ -33,7 +33,7 @@ Pregel graph (5 nodes):
                                         vehicle:<vin> reserved for binder cell
         |
         v
-    emit_cab_attest                ->  MST PUT app.etzhayyim.suki.cabAttestation
+    emit_cab_attest                ->  MST PUT com.etzhayyim.suki.cabAttestation
                                         (cab ID, ROPS/FOPS cert CID, interior
                                         component DIDs, open serial reserve,
                                         Otete + Mimi witness DIDs per G4)

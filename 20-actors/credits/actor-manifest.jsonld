@@ -38,7 +38,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.credits.getBalance",
+        "nsid": "com.etzhayyim.apps.credits.getBalance",
         "type": "xrpc"
       }
     },
@@ -53,7 +53,7 @@
         },
         {
           "args": {
-            "template": "MERGE (w:CreditWallet {userId: $input.userId}) SET w.balance = coalesce(w.balance, 0) + $input.amount CREATE (t:CreditTransaction {did: $did, userId: $input.userId, type: 'earn', amount: $input.amount, source: $input.source, repo: $did, collection: 'ai.gftd.apps.credits.transaction'})"
+            "template": "MERGE (w:CreditWallet {userId: $input.userId}) SET w.balance = coalesce(w.balance, 0) + $input.amount CREATE (t:CreditTransaction {did: $did, userId: $input.userId, type: 'earn', amount: $input.amount, source: $input.source, repo: $did, collection: 'com.etzhayyim.apps.credits.transaction'})"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -81,7 +81,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.credits.earnCredits",
+        "nsid": "com.etzhayyim.apps.credits.earnCredits",
         "type": "xrpc"
       }
     },
@@ -96,7 +96,7 @@
         },
         {
           "args": {
-            "template": "MATCH (w:CreditWallet {userId: $input.userId}) SET w.balance = w.balance - $input.amount CREATE (t:CreditTransaction {did: $did, userId: $input.userId, type: 'spend', amount: $input.amount, action: $input.action, repo: $did, collection: 'ai.gftd.apps.credits.transaction'}) CREATE (a:PublicFundAllocation {did: $did, amount: $input.amount * 0.1, destinationId: $input.destinationId, repo: $did, collection: 'ai.gftd.apps.credits.allocation'})"
+            "template": "MATCH (w:CreditWallet {userId: $input.userId}) SET w.balance = w.balance - $input.amount CREATE (t:CreditTransaction {did: $did, userId: $input.userId, type: 'spend', amount: $input.amount, action: $input.action, repo: $did, collection: 'com.etzhayyim.apps.credits.transaction'}) CREATE (a:PublicFundAllocation {did: $did, amount: $input.amount * 0.1, destinationId: $input.destinationId, repo: $did, collection: 'com.etzhayyim.apps.credits.allocation'})"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -124,7 +124,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.credits.spendCredits",
+        "nsid": "com.etzhayyim.apps.credits.spendCredits",
         "type": "xrpc"
       }
     },
@@ -193,7 +193,7 @@
             "params": {
               "actorName": "credits",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.credits.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.credits.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "credits-mcp",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -251,7 +251,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.credits.coverage.get",
+        "nsid": "com.etzhayyim.apps.credits.coverage.get",
         "type": "xrpc"
       }
     }
@@ -270,8 +270,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -284,8 +284,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.credits.transaction",
-        "ai.gftd.apps.hc.task"
+        "com.etzhayyim.apps.credits.transaction",
+        "com.etzhayyim.apps.hc.task"
       ]
     }
   },

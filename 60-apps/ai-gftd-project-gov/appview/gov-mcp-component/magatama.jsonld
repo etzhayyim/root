@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.gov.agency",
-        "ai.gftd.apps.gov.consult"
+        "com.etzhayyim.apps.gov.agency",
+        "com.etzhayyim.apps.gov.consult"
       ]
     }
   }

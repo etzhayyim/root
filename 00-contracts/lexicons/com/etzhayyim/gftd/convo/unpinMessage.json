@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.unpinMessage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": {
+              "type": "string"
+            },
+            "messageId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "convoId",
+            "messageId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": {
+              "type": "string"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "cid": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "rkey",
+            "uri",
+            "cid"
+          ]
+        }
+      }
+    }
+  }
+}

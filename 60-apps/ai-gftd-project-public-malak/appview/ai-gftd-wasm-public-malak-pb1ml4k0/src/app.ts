@@ -37,7 +37,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "public-malak";
-const NSID_PREFIX = "ai.gftd.apps.publicMalak.";
+const NSID_PREFIX = "com.etzhayyim.apps.publicMalak.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -53,7 +53,7 @@ export default {
         nanoid: env.APP_NANOID ?? "pb1ml4k0",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/public_malak_ads.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/public-malak",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/public-malak",
       });
     }
 
@@ -1150,7 +1150,7 @@ function dashboardHtml(): string {
       const wasPipeline = els.runPipeline.disabled;
       if (!wasPipeline) setOpsBusy(true, title);
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak." + shortName, payload, "POST");
+        const data = await xrpc("com.etzhayyim.apps.publicMalak." + shortName, payload, "POST");
         appendLog(title, data);
         setText(els.opsStatus, "Done");
         await loadRuns();
@@ -1170,7 +1170,7 @@ function dashboardHtml(): string {
       els.refresh.disabled = true;
       setText(els.status, "Loading");
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak.listCampaignClusters", {
+        const data = await xrpc("com.etzhayyim.apps.publicMalak.listCampaignClusters", {
           platformScope: els.platformScope.value,
           landingDomain: els.landingDomain.value.trim(),
           minCreativeCount: els.minCreativeCount.value,
@@ -1199,7 +1199,7 @@ function dashboardHtml(): string {
     async function loadRuns() {
       setText(els.runsStatus, "Loading");
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak.listScraperRuns", {
+        const data = await xrpc("com.etzhayyim.apps.publicMalak.listScraperRuns", {
           platform: els.opPlatform.value,
           limit: 12,
         });
@@ -1266,7 +1266,7 @@ function dashboardHtml(): string {
       if (!runId) return;
       setText(els.snapshotsStatus, "Loading");
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak.listSnapshots", {
+        const data = await xrpc("com.etzhayyim.apps.publicMalak.listSnapshots", {
           scraperRunId: runId,
           limit: 12,
         });
@@ -1280,7 +1280,7 @@ function dashboardHtml(): string {
     async function loadAds(platform) {
       setText(els.adsStatus, "Loading");
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak.listAds", {
+        const data = await xrpc("com.etzhayyim.apps.publicMalak.listAds", {
           platform: platform || els.opPlatform.value,
           limit: 12,
         });
@@ -1294,7 +1294,7 @@ function dashboardHtml(): string {
     async function loadAnalyses(filters) {
       setText(els.analysesStatus, "Loading");
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak.listAnalyses", {
+        const data = await xrpc("com.etzhayyim.apps.publicMalak.listAnalyses", {
           platform: filters && filters.platform ? filters.platform : els.opPlatform.value,
           creativeVertexId: filters && filters.creativeVertexId ? filters.creativeVertexId : "",
           analysisKind: filters && filters.analysisKind ? filters.analysisKind : "",
@@ -1502,7 +1502,7 @@ function dashboardHtml(): string {
       els.detailBody.className = "empty";
       els.detailBody.textContent = "Loading cluster.";
       try {
-        const data = await xrpc("ai.gftd.apps.publicMalak.getCampaignCluster", {
+        const data = await xrpc("com.etzhayyim.apps.publicMalak.getCampaignCluster", {
           vertexId,
           creativeLimit: 20,
           analysisLimit: 100,

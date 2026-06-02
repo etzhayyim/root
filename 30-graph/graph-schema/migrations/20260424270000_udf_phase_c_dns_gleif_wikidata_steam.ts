@@ -27,35 +27,35 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION dns_resolve(VARCHAR, VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.dns.resolve'
+      AS 'com.etzhayyim.apps.dns.resolve'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION dns_resolve_json(VARCHAR, VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.dns.resolveJson'
+      AS 'com.etzhayyim.apps.dns.resolveJson'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION gleif_lei_lookup(VARCHAR, VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.gleif.lookup'
+      AS 'com.etzhayyim.apps.gleif.lookup'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION wikidata_entity_claims(VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.wikidata.entityClaims'
+      AS 'com.etzhayyim.apps.wikidata.entityClaims'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 
   await sql`
     CREATE FUNCTION steam_release_date(VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.steam.releaseDate'
+      AS 'com.etzhayyim.apps.steam.releaseDate'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

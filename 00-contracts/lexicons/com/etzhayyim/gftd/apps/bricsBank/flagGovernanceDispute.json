@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bricsBank.flagGovernanceDispute",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Governance / veto / non-Western alignment (bridges mbridgeSettlement.flagDedollarization + sovereign-debt + imf-article-iv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "projectVid",
+            "disputeKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "projectVid": {
+              "type": "string",
+              "description": "bridges recordProjectFinance"
+            },
+            "disputeKind": {
+              "type": "string",
+              "enum": [
+                "veto_exercised",
+                "non_western_borrower_block",
+                "sanctions_override",
+                "ida_overlap",
+                "russian_chair",
+                "brics_plus_admission",
+                "new_member_conflict",
+                "lending_threshold",
+                "dollar_default_dispute",
+                "reserve_currency_alt"
+              ]
+            },
+            "affectedVoteShare": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,15 +29,15 @@ const ACTOR_TAG = "sys.bpmn.reseed.outgoing-order-fix";
 const ENTRIES = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
     processId: "ki_vascular_synthesis_cycle",
-    bpmnPath: "00-contracts/bpmn/ai/gftd/ki/vascular-synthesis-cycle.bpmn",
+    bpmnPath: "00-contracts/bpmn/com/etzhayyim/ki/vascular-synthesis-cycle.bpmn",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
     processId: "saikin_horizontal_transfer_cycle",
-    bpmnPath: "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn",
+    bpmnPath: "00-contracts/bpmn/com/etzhayyim/saikin/horizontal-transfer-cycle.bpmn",
   },
 ];
 

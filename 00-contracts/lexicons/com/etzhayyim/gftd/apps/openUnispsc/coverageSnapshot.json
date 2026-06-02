@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.coverageSnapshot",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Return openUnispsc MCP coverage across dispatcher handlers, lexicons, BPMN references, and graph write targets.",
+      "parameters": {
+        "type": "object",
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "toolCount": { "type": "integer" },
+            "graphTargetCount": { "type": "integer" },
+            "tools": { "type": "array" },
+            "graphTargets": { "type": "array", "items": { "type": "string" } },
+            "missing": { "type": "array", "items": { "type": "string" } },
+            "dispatcherError": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

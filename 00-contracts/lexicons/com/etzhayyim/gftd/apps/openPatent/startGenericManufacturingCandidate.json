@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.startGenericManufacturingCandidate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a generic / biosimilar manufacturing candidate from an expired pharmaceutical patent screen.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["expiryScreenVid", "productId", "candidateKind"],
+          "properties": {
+            "expiryScreenVid": { "type": "string" },
+            "productId": { "type": "string" },
+            "candidateKind": { "type": "string", "enum": ["generic", "biosimilar", "api_source"] },
+            "manufacturerOrgId": { "type": "string" },
+            "plantOrgId": { "type": "string" },
+            "dosageForm": { "type": "string" },
+            "processType": { "type": "string" },
+            "targetMarket": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "seiyakuProcessId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

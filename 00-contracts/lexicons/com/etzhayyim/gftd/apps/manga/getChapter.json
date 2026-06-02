@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.manga.getChapter",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a chapter by ID",
+      "parameters": {
+        "type": "params",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "title_id": { "type": "string" },
+            "chapter_num": { "type": "integer" },
+            "episode_title": { "type": "string" },
+            "status": { "type": "string" },
+            "asset_manifest_uri": { "type": "string" },
+            "page_count": { "type": "integer" },
+            "published_at": { "type": "string" },
+            "created_at": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

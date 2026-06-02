@@ -31,7 +31,7 @@ import {
   type ValidateGtinOutput,
 } from "./types.js";
 
-const PRODUCT_COLLECTION = "app.etzhayyim.gtin.product";
+const PRODUCT_COLLECTION = "com.etzhayyim.gtin.product";
 
 function pickGtin(input: RegisterProductInput): {
   digits: string;

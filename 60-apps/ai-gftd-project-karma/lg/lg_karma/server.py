@@ -127,63 +127,63 @@ def _make_health_graph():
 
 
 # ---------------------------------------------------------------------------
-# TASKS dict: NSID → handler (task type karma.X.Y → app.etzhayyim.apps.karma.XY)
+# TASKS dict: NSID → handler (task type karma.X.Y → com.etzhayyim.apps.karma.XY)
 # ---------------------------------------------------------------------------
 
 TASKS: dict[str, Any] = {
     # karma.py
-    "app.etzhayyim.apps.karma.inputValidate":        task_karma_input_validate,
-    "app.etzhayyim.apps.karma.floorGate":            task_karma_floor_gate,
-    "app.etzhayyim.apps.karma.edgePersist":          task_karma_edge_persist,
-    "app.etzhayyim.apps.karma.organismDissolve":     task_karma_organism_dissolve,
-    "app.etzhayyim.apps.karma.witnessPersist":       task_karma_witness_persist,
-    "app.etzhayyim.apps.karma.ipfsFindUnpinned":     task_karma_ipfs_find_unpinned,
-    "app.etzhayyim.apps.karma.ipfsPinBatch":         task_karma_ipfs_pin_batch,
-    "app.etzhayyim.apps.karma.atrepoFindUnlifted":   task_karma_atrepo_find_unlifted,
-    "app.etzhayyim.apps.karma.atrepoLiftBatch":      task_karma_atrepo_lift_batch,
-    "app.etzhayyim.apps.karma.anchorComputeRoot":    task_karma_anchor_compute_root,
-    "app.etzhayyim.apps.karma.anchorSubmitTx":       task_karma_anchor_submit_tx,
-    "app.etzhayyim.apps.karma.anchorBacklinkEdges":  task_karma_anchor_backlink_edges,
-    "app.etzhayyim.apps.karma.ipfsVerifyRandom":     task_karma_ipfs_verify_random,
-    "app.etzhayyim.apps.karma.coverageSnapshot":     task_karma_coverage_snapshot,
-    "app.etzhayyim.apps.karma.rebirthPrecheck":      task_karma_rebirth_precheck,
-    "app.etzhayyim.apps.karma.rebirthForfeit":       task_karma_rebirth_forfeit,
-    "app.etzhayyim.apps.karma.rebirthSeverFollows":  task_karma_rebirth_sever_follows,
-    "app.etzhayyim.apps.karma.rebirthWipeAgents":    task_karma_rebirth_wipe_agents,
-    "app.etzhayyim.apps.karma.rebirthEmerge":        task_karma_rebirth_emerge,
+    "com.etzhayyim.apps.karma.inputValidate":        task_karma_input_validate,
+    "com.etzhayyim.apps.karma.floorGate":            task_karma_floor_gate,
+    "com.etzhayyim.apps.karma.edgePersist":          task_karma_edge_persist,
+    "com.etzhayyim.apps.karma.organismDissolve":     task_karma_organism_dissolve,
+    "com.etzhayyim.apps.karma.witnessPersist":       task_karma_witness_persist,
+    "com.etzhayyim.apps.karma.ipfsFindUnpinned":     task_karma_ipfs_find_unpinned,
+    "com.etzhayyim.apps.karma.ipfsPinBatch":         task_karma_ipfs_pin_batch,
+    "com.etzhayyim.apps.karma.atrepoFindUnlifted":   task_karma_atrepo_find_unlifted,
+    "com.etzhayyim.apps.karma.atrepoLiftBatch":      task_karma_atrepo_lift_batch,
+    "com.etzhayyim.apps.karma.anchorComputeRoot":    task_karma_anchor_compute_root,
+    "com.etzhayyim.apps.karma.anchorSubmitTx":       task_karma_anchor_submit_tx,
+    "com.etzhayyim.apps.karma.anchorBacklinkEdges":  task_karma_anchor_backlink_edges,
+    "com.etzhayyim.apps.karma.ipfsVerifyRandom":     task_karma_ipfs_verify_random,
+    "com.etzhayyim.apps.karma.coverageSnapshot":     task_karma_coverage_snapshot,
+    "com.etzhayyim.apps.karma.rebirthPrecheck":      task_karma_rebirth_precheck,
+    "com.etzhayyim.apps.karma.rebirthForfeit":       task_karma_rebirth_forfeit,
+    "com.etzhayyim.apps.karma.rebirthSeverFollows":  task_karma_rebirth_sever_follows,
+    "com.etzhayyim.apps.karma.rebirthWipeAgents":    task_karma_rebirth_wipe_agents,
+    "com.etzhayyim.apps.karma.rebirthEmerge":        task_karma_rebirth_emerge,
     # karma_agent.py
-    "app.etzhayyim.apps.karma.agentEvaluate":        task_karma_agent_evaluate,
+    "com.etzhayyim.apps.karma.agentEvaluate":        task_karma_agent_evaluate,
     # karma_dao.py
-    "app.etzhayyim.apps.karma.daoFindVoters":        task_karma_dao_find_voters,
-    "app.etzhayyim.apps.karma.daoOpenArbitration":   task_karma_dao_open_arbitration,
-    "app.etzhayyim.apps.karma.daoCastVote":          task_karma_dao_cast_vote,
-    "app.etzhayyim.apps.karma.daoFinalize":          task_karma_dao_finalize,
-    "app.etzhayyim.apps.karma.daoSweepExpired":      task_karma_dao_sweep_expired,
+    "com.etzhayyim.apps.karma.daoFindVoters":        task_karma_dao_find_voters,
+    "com.etzhayyim.apps.karma.daoOpenArbitration":   task_karma_dao_open_arbitration,
+    "com.etzhayyim.apps.karma.daoCastVote":          task_karma_dao_cast_vote,
+    "com.etzhayyim.apps.karma.daoFinalize":          task_karma_dao_finalize,
+    "com.etzhayyim.apps.karma.daoSweepExpired":      task_karma_dao_sweep_expired,
     # karma_wbt.py
-    "app.etzhayyim.apps.karma.wbtBalanceGet":        task_karma_wbt_balance_get,
-    "app.etzhayyim.apps.karma.wbtTransfer":          task_karma_wbt_transfer,
-    "app.etzhayyim.apps.karma.wbtForfeitToCommons":  task_karma_wbt_forfeit_to_commons,
+    "com.etzhayyim.apps.karma.wbtBalanceGet":        task_karma_wbt_balance_get,
+    "com.etzhayyim.apps.karma.wbtTransfer":          task_karma_wbt_transfer,
+    "com.etzhayyim.apps.karma.wbtForfeitToCommons":  task_karma_wbt_forfeit_to_commons,
     # karma_witness.py
-    "app.etzhayyim.apps.karma.witnessInviteFanOut":          task_karma_witness_invite_fan_out,
-    "app.etzhayyim.apps.karma.witnessRespondToInvitation":   task_karma_witness_respond_to_invitation,
-    "app.etzhayyim.apps.karma.witnessSweepExpired":          task_karma_witness_sweep_expired,
+    "com.etzhayyim.apps.karma.witnessInviteFanOut":          task_karma_witness_invite_fan_out,
+    "com.etzhayyim.apps.karma.witnessRespondToInvitation":   task_karma_witness_respond_to_invitation,
+    "com.etzhayyim.apps.karma.witnessSweepExpired":          task_karma_witness_sweep_expired,
     # karma_zk.py
-    "app.etzhayyim.apps.karma.zkRebirthVerify":      task_karma_zk_rebirth_verify,
-    "app.etzhayyim.apps.karma.zkRebirthProofLookup": task_karma_zk_rebirth_proof_lookup,
+    "com.etzhayyim.apps.karma.zkRebirthVerify":      task_karma_zk_rebirth_verify,
+    "com.etzhayyim.apps.karma.zkRebirthProofLookup": task_karma_zk_rebirth_proof_lookup,
     # karma_filecoin.py
-    "app.etzhayyim.apps.karma.filecoinProposeBatch":  task_karma_filecoin_propose_batch,
-    "app.etzhayyim.apps.karma.filecoinRenewExpiring": task_karma_filecoin_renew_expiring,
-    "app.etzhayyim.apps.karma.filecoinStatusGet":     task_karma_filecoin_status_get,
+    "com.etzhayyim.apps.karma.filecoinProposeBatch":  task_karma_filecoin_propose_batch,
+    "com.etzhayyim.apps.karma.filecoinRenewExpiring": task_karma_filecoin_renew_expiring,
+    "com.etzhayyim.apps.karma.filecoinStatusGet":     task_karma_filecoin_status_get,
     # karma_resident.py
-    "app.etzhayyim.apps.karma.organismSpawn":            task_karma_organism_spawn,
-    "app.etzhayyim.apps.karma.organismTick":             task_karma_organism_tick,
-    "app.etzhayyim.apps.karma.organismTickBatch":        task_karma_organism_tick_batch,
-    "app.etzhayyim.apps.karma.organismCheckpoint":       task_karma_organism_checkpoint,
-    "app.etzhayyim.apps.karma.organismResume":           task_karma_organism_resume,
-    "app.etzhayyim.apps.karma.organismHarvest":          task_karma_organism_harvest,
-    "app.etzhayyim.apps.karma.organismDissolveRuntime":  task_karma_organism_dissolve_runtime,
-    "app.etzhayyim.apps.karma.cohortFission":            task_karma_cohort_fission,
-    "app.etzhayyim.apps.karma.cohortFissionScan":        task_karma_cohort_fission_scan,
+    "com.etzhayyim.apps.karma.organismSpawn":            task_karma_organism_spawn,
+    "com.etzhayyim.apps.karma.organismTick":             task_karma_organism_tick,
+    "com.etzhayyim.apps.karma.organismTickBatch":        task_karma_organism_tick_batch,
+    "com.etzhayyim.apps.karma.organismCheckpoint":       task_karma_organism_checkpoint,
+    "com.etzhayyim.apps.karma.organismResume":           task_karma_organism_resume,
+    "com.etzhayyim.apps.karma.organismHarvest":          task_karma_organism_harvest,
+    "com.etzhayyim.apps.karma.organismDissolveRuntime":  task_karma_organism_dissolve_runtime,
+    "com.etzhayyim.apps.karma.cohortFission":            task_karma_cohort_fission,
+    "com.etzhayyim.apps.karma.cohortFissionScan":        task_karma_cohort_fission_scan,
 }
 
 
@@ -197,7 +197,7 @@ GRAPHS.update({
     for nsid, handler in TASKS.items()
 })
 
-_NSID_TO_ASSISTANT: dict[str, str] = {"app.etzhayyim.apps.karma.health": "health"}
+_NSID_TO_ASSISTANT: dict[str, str] = {"com.etzhayyim.apps.karma.health": "health"}
 for _nsid in TASKS:
     _NSID_TO_ASSISTANT[_nsid] = _nsid.rsplit(".", 1)[-1]
 

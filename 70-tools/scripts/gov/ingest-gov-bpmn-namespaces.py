@@ -18,7 +18,7 @@ DIRNAME_RE = re.compile(r'^gov([A-Z][a-z][a-z])$')
 
 # ISO 3166-1 alpha-3 → canonical short English name.
 # Source: ISO short-form where common; UN names otherwise. Covers all 196
-# country namespaces present under 00-contracts/bpmn/ai/gftd/gov*.
+# country namespaces present under 00-contracts/bpmn/com/etzhayyim/gov*.
 ISO3_TO_NAME: dict[str, str] = {
     'afg': 'Afghanistan',
     'ago': 'Angola',
@@ -257,7 +257,7 @@ def ingest_namespaces(source: Path, created_at: str) -> list[dict[str, Any]]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Walk BPMN gov<ISO3> namespaces and emit app.etzhayyim.gov.agency NDJSON.'
+        description='Walk BPMN gov<ISO3> namespaces and emit com.etzhayyim.gov.agency NDJSON.'
     )
     parser.add_argument('--source', type=Path, default=DEFAULT_SOURCE)
     parser.add_argument('--out', type=Path, default=None)

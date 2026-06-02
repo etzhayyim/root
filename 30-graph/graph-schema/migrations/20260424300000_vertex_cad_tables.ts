@@ -6,7 +6,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * ADR 2604241500 — CAD persistence (Worker-direct Hyperdrive per ADR-0036).
  *
- * Feeds `app.etzhayyim.apps.cad.*` XRPC surface at `cad.etzhayyim.com`:
+ * Feeds `com.etzhayyim.apps.cad.*` XRPC surface at `cad.etzhayyim.com`:
  *   - importCadFile / getRevisionScene / addAnchoredComment / listComments / requestExport
  *
  * Tables:

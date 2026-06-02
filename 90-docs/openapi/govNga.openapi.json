@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govNga.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govNga.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Nigeria government.",
-        "operationId": "app.etzhayyim.govNga.followSiteDeps",
+        "operationId": "com.etzhayyim.govNga.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govNga.heartbeatTick": {
       "post": {
         "summary": "Run the Nigeria government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govNga.heartbeatTick",
+        "operationId": "com.etzhayyim.govNga.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.listOrgs": {
+    "/xrpc/com.etzhayyim.govNga.listOrgs": {
       "get": {
         "summary": "List Nigeria government organization graph records.",
-        "operationId": "app.etzhayyim.govNga.listOrgs",
+        "operationId": "com.etzhayyim.govNga.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.registerDIDs": {
+    "/xrpc/com.etzhayyim.govNga.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Nigeria government organizations.",
-        "operationId": "app.etzhayyim.govNga.registerDIDs",
+        "operationId": "com.etzhayyim.govNga.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govNga.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Nigeria government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govNga.resolveOrgPath",
+        "operationId": "com.etzhayyim.govNga.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.seedOrgs": {
+    "/xrpc/com.etzhayyim.govNga.seedOrgs": {
       "post": {
         "summary": "Seed initial Nigeria government organization records into the graph.",
-        "operationId": "app.etzhayyim.govNga.seedOrgs",
+        "operationId": "com.etzhayyim.govNga.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.shinka": {
+    "/xrpc/com.etzhayyim.govNga.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Nigeria government organization update.",
-        "operationId": "app.etzhayyim.govNga.shinka",
+        "operationId": "com.etzhayyim.govNga.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govNga.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govNga.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Nigeria government organization changes to graph.",
-        "operationId": "app.etzhayyim.govNga.syncWetUpdates",
+        "operationId": "com.etzhayyim.govNga.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

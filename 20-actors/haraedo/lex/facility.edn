@@ -1,7 +1,7 @@
-;; app.etzhayyim.haraedo.facility — lexicon (EDN form)
+;; com.etzhayyim.haraedo.facility — lexicon (EDN form)
 ;; ADR-2606010200
 {:lexicon 1
- :id "app.etzhayyim.haraedo.facility"
+ :id "com.etzhayyim.haraedo.facility"
  :defs
  {:main
   {:type "record"

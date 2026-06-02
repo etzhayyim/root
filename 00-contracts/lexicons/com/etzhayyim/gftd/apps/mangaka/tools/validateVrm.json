@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.tools.validateVrm",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "P16 step 8 of com.etzhayyim.apps.mangaka.composeCharacterVrm. Parses the bound VRM with `kami_vrm::parse_vrm` (in-repo) and checks VRM 1.0 magic + humanoid bone coverage (≥18 required bones) + ARKit blendshape minimum set (Happy/Angry/Sad/…) + polygon budget (<50k tris). The conditional edge `dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0` routes `valid=false` back to bindVrm for one retry, otherwise the Pregel moves on to attachCharacterVrm. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_validate_vrm.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vrmB64"],
+          "properties": {
+            "vrmB64": {
+              "type": "string",
+              "description": "Base64-encoded VRM 1.0 binary from bindVrm."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "valid": { "type": "boolean" },
+            "warnings": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "errors": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "stats": {
+              "type": "unknown",
+              "description": "{ humanoidBoneCount, blendshapeCount, triCount, byteSize }."
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

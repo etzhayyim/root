@@ -6,7 +6,7 @@ ADR-2605011500 §Phase-1.2.
 yatachain port (TBD): this pod is Phase 1 Tier A in
 ``60-apps/ai-gftd-project-maps/MIGRATION-TODO.md``. Target migration is
 ``edge_vessel_owned_by`` / ``edge_vessel_operated_by`` INSERTs →
-``app.etzhayyim.maps.ownership`` records via ``pymagatama.substrate``.
+``com.etzhayyim.maps.ownership`` records via ``pymagatama.substrate``.
 Recipe + per-site row-to-record converter design in
 ``bulk-ingest/PORT-NOTES.md`` (apply the same 5-step pattern as
 ``geonames_dumper.py`` shipped 2026-05-23). Two INSERT call sites

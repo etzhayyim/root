@@ -31,7 +31,7 @@ export function edgeCanonicalKey(rec: KgEdgeRecord): string {
 }
 
 export function rkeyFor(rec: KgRecord): string {
-  if (rec.$type === "app.etzhayyim.kg.node") {
+  if (rec.$type === "com.etzhayyim.kg.node") {
     return deterministicRkey(nodeCanonicalKey(rec));
   }
   return deterministicRkey(edgeCanonicalKey(rec));

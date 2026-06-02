@@ -21,9 +21,9 @@ UPDATE dim_world_domain SET app_host = 'gov.etzhayyim.com', world_total = 500000
 DELETE FROM dim_world_domain_collection
      WHERE domain IN ('gov', 'gov_admin_area')
         OR collection IN (
-          'ai.gftd.apps.gov.entity',
-          'ai.gftd.apps.gov.agency',
-          'ai.gftd.apps.gov.ministry',
+          'com.etzhayyim.apps.gov.entity',
+          'com.etzhayyim.apps.gov.agency',
+          'com.etzhayyim.apps.gov.ministry',
           'govOrg',
           'govOrgSiteDep',
           'governanceContract'
@@ -31,9 +31,9 @@ DELETE FROM dim_world_domain_collection
 
 INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES
-      ('gov', 'gov', 'ai.gftd.apps.gov.entity', 500000, 'government agencies', 'governance'),
-      ('gov', 'gov', 'ai.gftd.apps.gov.agency', 500000, 'government agencies', 'governance'),
-      ('gov', 'gov', 'ai.gftd.apps.gov.ministry', 500000, 'government agencies', 'governance');
+      ('gov', 'gov', 'com.etzhayyim.apps.gov.entity', 500000, 'government agencies', 'governance'),
+      ('gov', 'gov', 'com.etzhayyim.apps.gov.agency', 500000, 'government agencies', 'governance'),
+      ('gov', 'gov', 'com.etzhayyim.apps.gov.ministry', 500000, 'government agencies', 'governance');
 
 CREATE VIEW mv_world_coverage_live AS
     SELECT

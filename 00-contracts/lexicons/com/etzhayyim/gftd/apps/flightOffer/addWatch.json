@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.flightOffer.addWatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a route+date pair to be polled by flight_offer_poll_watchlist. Inserts (or updates) one row in vertex_flight_offer_watch.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["originIata", "destinationIata", "outboundDate"],
+          "properties": {
+            "originIata":      { "type": "string", "minLength": 3, "maxLength": 3 },
+            "destinationIata": { "type": "string", "minLength": 3, "maxLength": 3 },
+            "outboundDate":    { "type": "string", "format": "datetime" },
+            "returnDate":      { "type": "string", "format": "datetime" },
+            "currency":        { "type": "string", "minLength": 3, "maxLength": 3 },
+            "thresholdPct":    { "type": "number", "minimum": 0, "description": "Drop % required to fire an alert + AT post (default 10)." },
+            "cadenceMinutes":  { "type": "integer", "minimum": 30, "description": "Polling cadence in minutes (default 360 = 6h)." },
+            "providerHint":    { "type": "string" },
+            "maxOffers":       { "type": "integer", "minimum": 1, "maximum": 50 },
+            "notifyDid":       { "type": "string", "description": "DID to post drop alerts as. Defaults to flight-offer.etzhayyim.com actor DID." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":       { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "created":  { "type": "boolean" },
+            "error":    { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.voxelforge.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Aggregate counters for designs / runs / artifacts + format breakdown + recent failure rate. Per ADR-2605080700.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "windowDays": { "type": "integer", "default": 7, "minimum": 1, "maximum": 90 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["designs", "runs", "artifacts", "byFormat", "byGenerator", "windowDays"],
+          "properties": {
+            "designs": { "type": "integer" },
+            "runs": { "type": "integer" },
+            "runsByStatus": {
+              "type": "object",
+              "properties": {
+                "pending": { "type": "integer" },
+                "running": { "type": "integer" },
+                "completed": { "type": "integer" },
+                "failed": { "type": "integer" },
+                "interrupted": { "type": "integer" }
+              }
+            },
+            "artifacts": { "type": "integer" },
+            "byFormat": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["format", "count", "totalByteSize"],
+                "properties": {
+                  "format": { "type": "string" },
+                  "count": { "type": "integer" },
+                  "totalByteSize": { "type": "integer" }
+                }
+              }
+            },
+            "byGenerator": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["generator", "count"],
+                "properties": {
+                  "generator": { "type": "string" },
+                  "count": { "type": "integer" }
+                }
+              }
+            },
+            "windowDays": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

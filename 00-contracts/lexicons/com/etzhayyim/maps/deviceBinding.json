@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.deviceBinding",
+  "description": "Physical-device-to-asset binding record. Connects a Device feature (sensor / actuator / camera / charger / etc.) to the PhysicalAsset / Building / BuildingFloor it monitors or actuates. Append-only TID-keyed; revisions = new record with `supersededByUri`. Per maps CLAUDE.md §Digital Twin + ADR-2605231400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "deviceUri",
+          "assetUri",
+          "relation",
+          "boundAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "deviceUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the Device feature (label=Sensor / Camera / EvCharger / etc.)."
+          },
+          "assetUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the PhysicalAsset / Building / BuildingFloor / Station / etc. this device serves."
+          },
+          "relation": {
+            "type": "string",
+            "knownValues": [
+              "Monitors",
+              "Actuates",
+              "InstalledIn",
+              "InstalledOn",
+              "Mirrors",
+              "Maintains"
+            ]
+          },
+          "boundAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "unboundAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When set, the binding is no longer in effect. Caller publishes a new record to supersede rather than mutating; this field is for soft-delete on the prior record only."
+          },
+          "operatorDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the entity that installed / configured the binding."
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "supersededByUri": {
+            "type": "string",
+            "format": "at-uri"
+          }
+        }
+      }
+    }
+  }
+}

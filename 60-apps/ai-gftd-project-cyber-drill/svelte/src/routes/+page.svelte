@@ -33,7 +33,7 @@
       cineBridge,
       onScene: (scene: SceneDescriptor) => handle?.update(scene),
       onOpLog: (e) => {
-        // Optional XRPC sink: dispatch to app.etzhayyim.apps.cyberDrill.recordDecision
+        // Optional XRPC sink: dispatch to com.etzhayyim.apps.cyberDrill.recordDecision
         // via Worker. Stubbed here.
         // eslint-disable-next-line no-console
         console.debug('[op-log]', e);

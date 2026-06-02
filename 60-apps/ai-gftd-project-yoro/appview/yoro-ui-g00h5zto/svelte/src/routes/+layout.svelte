@@ -223,7 +223,7 @@
 				onclick={() => {
 					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 					const redirectUrl = isNative
-						? `app.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
+						? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 						: window.location.href;
 					window.location.href = `https://authn.etzhayyim.com/sign-in?redirect_url=${encodeURIComponent(redirectUrl)}`;
 				}}
@@ -236,7 +236,7 @@
 				onclick={() => {
 					const isNative = !!(window as any).Capacitor?.isNativePlatform?.();
 					const redirectUrl = isNative
-						? `app.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
+						? `com.etzhayyim.yoro://callback?target=${encodeURIComponent(window.location.pathname || '/')}`
 						: window.location.href;
 					window.location.href = `https://authn.etzhayyim.com/sign-up?redirect_url=${encodeURIComponent(redirectUrl)}`;
 				}}

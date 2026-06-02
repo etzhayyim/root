@@ -1,0 +1,232 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.kamiConfig",
+  "defs": {
+    "terrainRuntimeAsset": {
+      "type": "object",
+      "properties": {
+        "assetId": { "type": "string" },
+        "role": { "type": "string" },
+        "kind": { "type": "string" },
+        "provider": { "type": "string" },
+        "format": { "type": "string" },
+        "mediaType": { "type": "string" },
+        "href": { "type": "string" },
+        "hrefTemplate": { "type": "string" },
+        "band": { "type": "string" },
+        "encoding": { "type": "string" },
+        "nodata": { "type": "number" },
+        "resolutionM": { "type": "number" },
+        "minZoom": { "type": "integer" },
+        "maxZoom": { "type": "integer" },
+        "tileSize": { "type": "integer" },
+        "crs": { "type": "string" },
+        "tileMatrixSet": { "type": "string" }
+      }
+    },
+    "terrainRuntimeSource": {
+      "type": "object",
+      "properties": {
+        "sourceId": { "type": "string" },
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "displayName": { "type": "string" },
+        "description": { "type": "string" },
+        "provider": { "type": "string" },
+        "format": { "type": "string" },
+        "sourceKind": { "type": "string" },
+        "terrainRole": { "type": "string" },
+        "assemblyStrategy": { "type": "string" },
+        "status": { "type": "string" },
+        "stacApiUrl": { "type": "string" },
+        "stacCollectionId": { "type": "string" },
+        "tilejsonUrl": { "type": "string" },
+        "priority": { "type": "integer" },
+        "isDefault": { "type": "boolean" },
+        "minZoom": { "type": "integer" },
+        "maxZoom": { "type": "integer" },
+        "demTileUrl": { "type": "string" },
+        "assets": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "#terrainRuntimeAsset" }
+        }
+      }
+    },
+    "vectorRuntimeAsset": {
+      "type": "object",
+      "properties": {
+        "assetId": { "type": "string" },
+        "role": { "type": "string" },
+        "kind": { "type": "string" },
+        "provider": { "type": "string" },
+        "format": { "type": "string" },
+        "mediaType": { "type": "string" },
+        "href": { "type": "string" },
+        "hrefTemplate": { "type": "string" },
+        "checksumUrl": { "type": "string" },
+        "manifestUrl": { "type": "string" },
+        "updateCadence": { "type": "string" },
+        "minZoom": { "type": "integer" },
+        "maxZoom": { "type": "integer" },
+        "tileSize": { "type": "integer" }
+      }
+    },
+    "vectorRuntimeSource": {
+      "type": "object",
+      "properties": {
+        "sourceId": { "type": "string" },
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "displayName": { "type": "string" },
+        "description": { "type": "string" },
+        "provider": { "type": "string" },
+        "format": { "type": "string" },
+        "sourceKind": { "type": "string" },
+        "lineageRole": { "type": "string" },
+        "assemblyStrategy": { "type": "string" },
+        "updateCadence": { "type": "string" },
+        "status": { "type": "string" },
+        "diffUrl": { "type": "string" },
+        "tilejsonUrl": { "type": "string" },
+        "priority": { "type": "integer" },
+        "isDefault": { "type": "boolean" },
+        "minZoom": { "type": "integer" },
+        "maxZoom": { "type": "integer" },
+        "vectorTileUrl": { "type": "string" },
+        "assets": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "#vectorRuntimeAsset" }
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "chunkSizeMeters": { "type": "integer" },
+        "targetRuntimeClass": { "type": "string" },
+        "maxCompressedBytes": { "type": "integer" },
+        "maxMaterials": { "type": "integer" },
+        "maxAtlasCount": { "type": "integer" },
+        "maxDrawCallsNearField": { "type": "integer" },
+        "maxTrianglesLod0": { "type": "integer" },
+        "maxTrianglesLod1": { "type": "integer" },
+        "maxTrianglesLod2": { "type": "integer" },
+        "maxTrianglesLod3": { "type": "integer" },
+        "maxPropsInstanced": { "type": "integer" },
+        "maxCollisionBytes": { "type": "integer" }
+      }
+    },
+    "main": {
+      "type": "procedure",
+      "description": "Return the KAMI street-runtime package descriptor consumed by maps and KAMI clients.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "tileUrl": {
+              "type": "string"
+            },
+            "tile_url": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "schemaVersion": {
+              "type": "string"
+            },
+            "packageKind": {
+              "type": "string"
+            },
+            "targetRuntime": {
+              "type": "string"
+            },
+            "chunking": {
+              "type": "object",
+              "properties": {
+                "chunkSizeMeters": { "type": "integer" },
+                "chunkKeyFormat": { "type": "string" },
+                "coordinateSystem": { "type": "string" }
+              }
+            },
+            "formats": {
+              "type": "object",
+              "properties": {
+                "mesh": { "type": "string" },
+                "texture": { "type": "string" },
+                "geometryCompression": { "type": "string" },
+                "textureCompression": { "type": "string" },
+                "metadata": { "type": "string" }
+              }
+            },
+            "lodPolicy": {
+              "type": "object",
+              "properties": {
+                "levels": { "type": "integer" },
+                "switchDistancesMeters": {
+                  "type": "array",
+                  "items": { "type": "integer" }
+                },
+                "impostorStartMeters": { "type": "integer" }
+              }
+            },
+            "budget": {
+              "type": "ref",
+              "ref": "#budget"
+            },
+            "entrypoints": {
+              "type": "object",
+              "properties": {
+                "vectorTileUrl": { "type": "string" },
+                "demTileUrl": { "type": "string" },
+                "styleUrl": { "type": "string" }
+              }
+            },
+            "vectorSource": {
+              "type": "ref",
+              "ref": "#vectorRuntimeSource"
+            },
+            "vector_source": {
+              "type": "ref",
+              "ref": "#vectorRuntimeSource"
+            },
+            "vectorSources": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#vectorRuntimeSource" }
+            },
+            "vector_sources": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#vectorRuntimeSource" }
+            },
+            "terrainSource": {
+              "type": "ref",
+              "ref": "#terrainRuntimeSource"
+            },
+            "terrain_source": {
+              "type": "ref",
+              "ref": "#terrainRuntimeSource"
+            },
+            "terrainSources": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#terrainRuntimeSource" }
+            },
+            "terrain_sources": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#terrainRuntimeSource" }
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

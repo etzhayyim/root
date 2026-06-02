@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airBook.addAncillary",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Add an ancillary service (baggage, meal, lounge) to a booking.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["pnr_ref", "ancillary_type", "quantity"],
+          "properties": {
+            "pnr_ref": { "type": "string" },
+            "ancillary_type": { "type": "string" },
+            "quantity": { "type": "integer" },
+            "price": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

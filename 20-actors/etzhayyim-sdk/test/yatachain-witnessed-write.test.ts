@@ -440,7 +440,7 @@ describe("Attestation shape contract", () => {
       rule: mockMembraneRule("test.example.foo"),
       signer: makeDeterministicTestSigner(cell.cellId),
     });
-    // Required fields per app.etzhayyim.yatachain.attestation lexicon
+    // Required fields per com.etzhayyim.yatachain.attestation lexicon
     expect(att).toHaveProperty("v");
     expect(att).toHaveProperty("recordUri");
     expect(att).toHaveProperty("recordCid");

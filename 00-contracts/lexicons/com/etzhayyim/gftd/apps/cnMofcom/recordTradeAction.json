@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnMofcom.recordTradeAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "中国商务部 (MOFCOM) trade action / export control / FDI (bridges criticalMinerals + tradeRemedy + customsDeclaration)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "departmentKind",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "departmentKind": {
+              "type": "string",
+              "enum": [
+                "foreign_trade",
+                "export_control",
+                "fdi_review",
+                "fta",
+                "unreliable_entity_list",
+                "investigation_review",
+                "caac_aircraft_intl",
+                "mfn_review",
+                "intellectual_property_office",
+                "domestic_trade",
+                "prc_taiwan_trade",
+                "intl_econ_coop"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "export_control_germanium",
+                "export_control_gallium",
+                "export_control_graphite",
+                "export_control_drone",
+                "export_control_ev",
+                "unreliable_entity_addition",
+                "fdi_review_extra",
+                "wto_dispute_filed",
+                "ad_cvd_initiated",
+                "ftae_amendment",
+                "one_country_one_export_license",
+                "data_export_review",
+                "outbound_review_under_security_law"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges criticalMinerals / tradeRemedy"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

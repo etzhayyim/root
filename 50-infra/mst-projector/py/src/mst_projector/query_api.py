@@ -4,10 +4,10 @@ aiohttp server exposing 4 NSIDs over /xrpc/* for filtered queries against
 the indexed LanceDB tables maintained by the subscriber.
 
 Endpoints:
-  POST /xrpc/app.etzhayyim.mstProjector.queryByCollection
-  POST /xrpc/app.etzhayyim.mstProjector.queryByDid
-  POST /xrpc/app.etzhayyim.mstProjector.queryByField
-  POST /xrpc/app.etzhayyim.mstProjector.countByCollection
+  POST /xrpc/com.etzhayyim.mstProjector.queryByCollection
+  POST /xrpc/com.etzhayyim.mstProjector.queryByDid
+  POST /xrpc/com.etzhayyim.mstProjector.queryByField
+  POST /xrpc/com.etzhayyim.mstProjector.countByCollection
 
 Run via main.py entry point or directly:
   python -m mst_projector.query_api
@@ -35,7 +35,7 @@ _SAFE_FIELD_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 
 async def _query_by_collection(request: web.Request) -> web.Response:
-    """POST /xrpc/app.etzhayyim.mstProjector.queryByCollection
+    """POST /xrpc/com.etzhayyim.mstProjector.queryByCollection
 
     Input:  collection: str, limit: int=50, cursor: str?
     Output: records: list, cursor: str?
@@ -94,7 +94,7 @@ async def _query_by_collection(request: web.Request) -> web.Response:
 
 
 async def _query_by_did(request: web.Request) -> web.Response:
-    """POST /xrpc/app.etzhayyim.mstProjector.queryByDid
+    """POST /xrpc/com.etzhayyim.mstProjector.queryByDid
 
     Input:  did: str, collection?: str, limit: int=50, cursor?: str
     Output: records: list, cursor: str?
@@ -176,7 +176,7 @@ async def _query_by_did(request: web.Request) -> web.Response:
 
 
 async def _query_by_field(request: web.Request) -> web.Response:
-    """POST /xrpc/app.etzhayyim.mstProjector.queryByField
+    """POST /xrpc/com.etzhayyim.mstProjector.queryByField
 
     Input:  collection: str, fieldName: str, fieldValue: str, limit: int=50
     Output: records: list
@@ -270,7 +270,7 @@ async def _healthz(request: web.Request) -> web.Response:
 
 
 async def _count_by_collection(request: web.Request) -> web.Response:
-    """POST /xrpc/app.etzhayyim.mstProjector.countByCollection
+    """POST /xrpc/com.etzhayyim.mstProjector.countByCollection
 
     Input:  collection: str, asOf?: str (ignored — reserved for future)
     Output: count: int, asOf: str
@@ -315,19 +315,19 @@ def build_app() -> web.Application:
     app = web.Application()
     app.router.add_get("/healthz", _healthz)
     app.router.add_post(
-        "/xrpc/app.etzhayyim.mstProjector.queryByCollection",
+        "/xrpc/com.etzhayyim.mstProjector.queryByCollection",
         _query_by_collection,
     )
     app.router.add_post(
-        "/xrpc/app.etzhayyim.mstProjector.queryByDid",
+        "/xrpc/com.etzhayyim.mstProjector.queryByDid",
         _query_by_did,
     )
     app.router.add_post(
-        "/xrpc/app.etzhayyim.mstProjector.queryByField",
+        "/xrpc/com.etzhayyim.mstProjector.queryByField",
         _query_by_field,
     )
     app.router.add_post(
-        "/xrpc/app.etzhayyim.mstProjector.countByCollection",
+        "/xrpc/com.etzhayyim.mstProjector.countByCollection",
         _count_by_collection,
     )
     return app

@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legal.outboundLegalAct",
+  "description": "An outbound artifact that constitutes a LEGAL ACT (court filing / postulation, pleading / 準備書面, formal notice / 内容証明, demand or representation letter) transmitted through the etzhayyim counsel-operated comms gateway (fax / email / e-filing). R0 skeleton per ADR-2605302345 §D2. CONSTITUTIONAL (G18): every legal-act artifact MUST be actuated and signed by a HUMAN lawyer licensed in the destination jurisdiction, using their own credential — etzhayyim holds NO signing key, seal or credential for any legal act (extends no-server-key ADR-2605231525). `counselActuation` is required and carries the actuating lawyer's DID + license jurisdiction + their signature reference; `actuatedByLicensedCounsel` MUST be true; the record carries NO corp-held signing-key property (those are unrepresentable at the schema layer). Non-legal-act material (scheduling, adherent-authored document delivery) does NOT use this record. The corp orchestrates; counsel acts. UPL (G14) and the lawyer monopoly on reserved activities are preserved.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "destinationJurisdiction",
+          "artifactClass",
+          "transport",
+          "counselActuation",
+          "actuatedByLicensedCounsel",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "destinationJurisdiction": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "ISO jurisdiction of the receiving court/party, e.g. jpn"
+          },
+          "artifactClass": {
+            "type": "string",
+            "description": "Class of legal act. Each value is a RESERVED activity that only licensed counsel may perform (ADR-2605302200).",
+            "knownValues": [
+              "court-filing",
+              "pleading",
+              "formal-notice",
+              "demand-letter",
+              "representation-letter",
+              "appeal-document"
+            ]
+          },
+          "transport": {
+            "type": "string",
+            "knownValues": ["fax", "email", "e-filing", "secure-message", "postal"],
+            "description": "Gateway transport used. Transport is a PIPE; lawfulness comes from counselActuation, not the pipe."
+          },
+          "actuatedByLicensedCounsel": {
+            "type": "boolean",
+            "const": true,
+            "description": "G18 anchor — MUST be true. A legal act with no licensed-counsel actuation is unrepresentable."
+          },
+          "counselActuation": {
+            "type": "ref",
+            "ref": "#counselActuation",
+            "description": "DID-bound attestation that a human licensed lawyer actuated and signed this artifact with their own credential."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "counselActuation": {
+      "type": "object",
+      "required": [
+        "counselDid",
+        "licenseJurisdiction",
+        "counselSignatureRef",
+        "actuatedAt"
+      ],
+      "properties": {
+        "counselDid": {
+          "type": "string",
+          "format": "did",
+          "description": "DID of the human lawyer licensed in destinationJurisdiction who actuated the act."
+        },
+        "licenseJurisdiction": {
+          "type": "string",
+          "maxLength": 8,
+          "description": "Jurisdiction of the actuating lawyer's license; MUST match destinationJurisdiction (or DE: Befähigung zum Richteramt; US: bar admission)."
+        },
+        "counselSignatureRef": {
+          "type": "string",
+          "description": "Reference to the lawyer's OWN signature/credential on the artifact. The platform holds no signing key (no-server-key ADR-2605231525)."
+        },
+        "actuatedAt": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

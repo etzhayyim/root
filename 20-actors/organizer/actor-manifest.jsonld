@@ -77,7 +77,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.organizer.item"
+          "com.etzhayyim.apps.organizer.item"
         ],
         "type": "subscribeRepos"
       }
@@ -111,7 +111,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.mailer.inboundEmail"
+          "com.etzhayyim.apps.mailer.inboundEmail"
         ],
         "type": "subscribeRepos"
       }
@@ -167,7 +167,7 @@
             "params": {
               "actorName": "organizer",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.organizer.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.organizer.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "org4n1z3",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -225,7 +225,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.organizer.coverage.get",
+        "nsid": "com.etzhayyim.apps.organizer.coverage.get",
         "type": "xrpc"
       }
     }
@@ -248,8 +248,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -262,10 +262,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.organizer.item",
-        "ai.gftd.apps.organizer.classification",
-        "ai.gftd.apps.organizer.subscriptionItem",
-        "ai.gftd.apps.mailer.inboundEmail"
+        "com.etzhayyim.apps.organizer.item",
+        "com.etzhayyim.apps.organizer.classification",
+        "com.etzhayyim.apps.organizer.subscriptionItem",
+        "com.etzhayyim.apps.mailer.inboundEmail"
       ]
     }
   },

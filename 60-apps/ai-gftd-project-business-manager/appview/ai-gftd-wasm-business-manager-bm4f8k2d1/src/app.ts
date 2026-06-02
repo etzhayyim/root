@@ -10,18 +10,18 @@ const ACTOR = {
 };
 
 const NSIDS = new Set([
-  "ai.gftd.apps.businessManager.health",
-  "ai.gftd.apps.businessManager.describe",
-  "ai.gftd.apps.businessManager.wave",
-  "ai.gftd.apps.businessManager.echo",
-  "ai.gftd.apps.businessManager.createJournalEntry",
-  "ai.gftd.apps.businessManager.createInvoice",
-  "ai.gftd.apps.businessManager.recordPayment",
-  "ai.gftd.apps.businessManager.registerEmployee",
-  "ai.gftd.apps.businessManager.createPurchaseOrder",
-  "ai.gftd.apps.businessManager.approvePurchaseOrder",
-  "ai.gftd.apps.businessManager.allocateBudget",
-  "ai.gftd.apps.businessManager.coverageStats",
+  "com.etzhayyim.apps.businessManager.health",
+  "com.etzhayyim.apps.businessManager.describe",
+  "com.etzhayyim.apps.businessManager.wave",
+  "com.etzhayyim.apps.businessManager.echo",
+  "com.etzhayyim.apps.businessManager.createJournalEntry",
+  "com.etzhayyim.apps.businessManager.createInvoice",
+  "com.etzhayyim.apps.businessManager.recordPayment",
+  "com.etzhayyim.apps.businessManager.registerEmployee",
+  "com.etzhayyim.apps.businessManager.createPurchaseOrder",
+  "com.etzhayyim.apps.businessManager.approvePurchaseOrder",
+  "com.etzhayyim.apps.businessManager.allocateBudget",
+  "com.etzhayyim.apps.businessManager.coverageStats",
 ]);
 
 const corsHeaders = {

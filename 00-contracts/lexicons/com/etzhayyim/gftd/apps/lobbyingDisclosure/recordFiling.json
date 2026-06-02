@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.lobbyingDisclosure.recordFiling",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Lobbying disclosure (LDA LD-1/LD-2 / EU Transparency / UK ORCL / FARA — bridges ethicsDisclosure.flagDisclosureGap + judicial-influence + press-freedom)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "filingId",
+            "regime",
+            "issueArea",
+            "filedAt"
+          ],
+          "properties": {
+            "filingId": {
+              "type": "string"
+            },
+            "registrantLei": {
+              "type": "string"
+            },
+            "regime": {
+              "type": "string",
+              "enum": [
+                "us_lda",
+                "us_fara",
+                "eu_transparency_reg",
+                "uk_orcl",
+                "ca_lobbying_act",
+                "fr_hatvp",
+                "de_lobbyregister",
+                "au_federal_register",
+                "jp_lobby_code",
+                "in_rti_lobby"
+              ]
+            },
+            "issueArea": {
+              "type": "string",
+              "enum": [
+                "tax",
+                "budget",
+                "healthcare",
+                "defense",
+                "energy_climate",
+                "trade",
+                "immigration",
+                "judicial",
+                "antitrust",
+                "labor",
+                "education",
+                "securities",
+                "ai_tech",
+                "crypto",
+                "agriculture",
+                "pharma",
+                "telecom"
+              ]
+            },
+            "disclosureGapVid": {
+              "type": "string",
+              "description": "bridges ethicsDisclosure.flagDisclosureGap"
+            },
+            "amountUsd": {
+              "type": "number"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

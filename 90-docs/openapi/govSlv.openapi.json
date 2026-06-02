@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govSlv.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govSlv.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for El Salvador government.",
-        "operationId": "app.etzhayyim.govSlv.followSiteDeps",
+        "operationId": "com.etzhayyim.govSlv.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govSlv.heartbeatTick": {
       "post": {
         "summary": "Run the El Salvador government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govSlv.heartbeatTick",
+        "operationId": "com.etzhayyim.govSlv.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.listOrgs": {
+    "/xrpc/com.etzhayyim.govSlv.listOrgs": {
       "get": {
         "summary": "List El Salvador government organization graph records.",
-        "operationId": "app.etzhayyim.govSlv.listOrgs",
+        "operationId": "com.etzhayyim.govSlv.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.registerDIDs": {
+    "/xrpc/com.etzhayyim.govSlv.registerDIDs": {
       "post": {
         "summary": "Register DIDs for El Salvador government organizations.",
-        "operationId": "app.etzhayyim.govSlv.registerDIDs",
+        "operationId": "com.etzhayyim.govSlv.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govSlv.resolveOrgPath": {
       "get": {
         "summary": "Resolve a El Salvador government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govSlv.resolveOrgPath",
+        "operationId": "com.etzhayyim.govSlv.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.seedOrgs": {
+    "/xrpc/com.etzhayyim.govSlv.seedOrgs": {
       "post": {
         "summary": "Seed initial El Salvador government organization records into the graph.",
-        "operationId": "app.etzhayyim.govSlv.seedOrgs",
+        "operationId": "com.etzhayyim.govSlv.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.shinka": {
+    "/xrpc/com.etzhayyim.govSlv.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible El Salvador government organization update.",
-        "operationId": "app.etzhayyim.govSlv.shinka",
+        "operationId": "com.etzhayyim.govSlv.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govSlv.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govSlv.syncWetUpdates": {
       "post": {
         "summary": "Sync recent El Salvador government organization changes to graph.",
-        "operationId": "app.etzhayyim.govSlv.syncWetUpdates",
+        "operationId": "com.etzhayyim.govSlv.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

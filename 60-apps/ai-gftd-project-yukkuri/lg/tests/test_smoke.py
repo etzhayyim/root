@@ -90,16 +90,16 @@ def test_compose_graph_node_topology():
 
 def test_nsid_to_assistant_mapping():
     from lg_yukkuri.server import _NSID_TO_ASSISTANT
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.health"] == "health"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.listVideos"] == "list_videos"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.getVideo"] == "get_video"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.compose"] == "compose"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.generateScript"] == "generate_script"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.synthesizeVoice"] == "synthesize_voice"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.generateVisual"] == "generate_visual"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.generateBgm"] == "generate_bgm"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.renderVideo"] == "render_video"
-    assert _NSID_TO_ASSISTANT["app.etzhayyim.apps.yukkuri.reviewVideo"] == "review_video"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.health"] == "health"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.listVideos"] == "list_videos"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.getVideo"] == "get_video"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.compose"] == "compose"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.generateScript"] == "generate_script"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.synthesizeVoice"] == "synthesize_voice"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.generateVisual"] == "generate_visual"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.generateBgm"] == "generate_bgm"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.renderVideo"] == "render_video"
+    assert _NSID_TO_ASSISTANT["com.etzhayyim.apps.yukkuri.reviewVideo"] == "review_video"
     assert len(_NSID_TO_ASSISTANT) == 10
 
 
@@ -176,7 +176,7 @@ def test_unknown_assistant_404(client_no_lifespan):
 
 def test_unknown_nsid_xrpc_404(client_no_lifespan):
     r = client_no_lifespan.post(
-        "/xrpc/app.etzhayyim.apps.yukkuri.unknownMethod",
+        "/xrpc/com.etzhayyim.apps.yukkuri.unknownMethod",
         json={},
     )
     assert r.status_code == 404

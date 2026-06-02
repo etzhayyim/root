@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.paintAttestation",
+  "description": "Body panel + 2K acrylic urethane paint + G5 Charter §2(a-h) artwork scan (L4). Per ADR-2605261330 L4 (G5 + G7 + G13).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "panel": {"type": "unknown"},
+          "charterScan": {
+            "type": "object",
+            "properties": {
+              "artworkCid": {"type": "string"},
+              "scannerVersion": {"type": "string"},
+              "section2aWeapons": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2bSecrecy": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2cSurveillance": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2dInfrastructureAttack": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2eAntiGatekeeping": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2fHarm": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2gEnvironmental": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "section2hMedicalHarm": {"type": "string", "knownValues": ["clear", "warn", "violation"]},
+              "militaryInsigniaDetected": {"type": "boolean", "const": false},
+              "licensedIpDetected": {"type": "boolean", "const": false},
+              "addictiveThrillImageryDetected": {"type": "boolean", "const": false},
+              "racingGlorificationDetected": {"type": "boolean", "const": false},
+              "overallVerdict": {"type": "string", "knownValues": ["pass", "warn", "block"]}
+            }
+          },
+          "paintApplication": {"type": "unknown"},
+          "cureQa": {"type": "unknown"},
+          "g5CharterPass": {"type": "boolean", "const": true},
+          "g7VocCompliant": {"type": "boolean", "const": true},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "charterScan", "g5CharterPass", "attestingRobots"]
+      }
+    }
+  }
+}

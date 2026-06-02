@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-df-1" sourceRef="start-draw-fortune" targetRef="task-draw-fortune"/>
     <bpmn:serviceTask id="task-draw-fortune" name="Draw Fortune">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.drawFortune"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.drawFortune"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-df-2" sourceRef="task-draw-fortune" targetRef="end-draw-fortune"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-lf-1" sourceRef="start-list-fortunes" targetRef="task-list-fortunes"/>
     <bpmn:serviceTask id="task-list-fortunes" name="List Fortunes">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.listFortunes"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.listFortunes"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lf-2" sourceRef="task-list-fortunes" targetRef="end-list-fortunes"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-gf-1" sourceRef="start-get-fortune" targetRef="task-get-fortune"/>
     <bpmn:serviceTask id="task-get-fortune" name="Get Fortune">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.getFortune"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.getFortune"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gf-2" sourceRef="task-get-fortune" targetRef="end-get-fortune"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-rf-1" sourceRef="start-reset-fortune" targetRef="task-reset-fortune"/>
     <bpmn:serviceTask id="task-reset-fortune" name="Reset Fortune">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.resetFortune"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.resetFortune"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rf-2" sourceRef="task-reset-fortune" targetRef="end-reset-fortune"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-cs-1" sourceRef="start-create-shrine" targetRef="task-create-shrine"/>
     <bpmn:serviceTask id="task-create-shrine" name="Create Shrine">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.createShrine"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.createShrine"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cs-2" sourceRef="task-create-shrine" targetRef="end-create-shrine"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-us-1" sourceRef="start-update-shrine" targetRef="task-update-shrine"/>
     <bpmn:serviceTask id="task-update-shrine" name="Update Shrine">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.updateShrine"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.updateShrine"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-us-2" sourceRef="task-update-shrine" targetRef="end-update-shrine"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-ls-1" sourceRef="start-list-shrines" targetRef="task-list-shrines"/>
     <bpmn:serviceTask id="task-list-shrines" name="List Shrines">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.listShrines"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.listShrines"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ls-2" sourceRef="task-list-shrines" targetRef="end-list-shrines"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-gs-1" sourceRef="start-get-shrine" targetRef="task-get-shrine"/>
     <bpmn:serviceTask id="task-get-shrine" name="Get Shrine">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.omikuji.getShrine"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.omikuji.getShrine"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gs-2" sourceRef="task-get-shrine" targetRef="end-get-shrine"/>

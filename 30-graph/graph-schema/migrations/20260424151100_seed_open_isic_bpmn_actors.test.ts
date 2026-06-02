@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-isic/classifyEntity.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-isic/recordConcordance.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-isic BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-isic-classify-entity-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_isic_classify_entity"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-isic/classifyEntity.bpmn"');
     expect(migrationSource).toContain("open-isic-record-concordance-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_isic_record_concordance"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-isic/recordConcordance.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsic.classifyEntity"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openIsic.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openIsic.classifyEntity"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openIsic.recordConcordance"');
   });
 
   it("uses open-isic-specific actor_id + owner_did", () => {

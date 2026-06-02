@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.wproto.did",
+  "description": "W Protocol DID document record. Extends com.atproto.identity.defs#identityInfo with full DID document storage.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "did": {
+            "type": "string",
+            "format": "did",
+            "description": "The DID. Compatible with com.atproto.identity.defs#identityInfo.did."
+          },
+          "handle": {
+            "type": "string",
+            "format": "handle",
+            "description": "The handle. Compatible with com.atproto.identity.defs#identityInfo.handle."
+          },
+          "document": {
+            "type": "unknown",
+            "description": "Full DID document. Compatible with com.atproto.identity.defs#identityInfo.didDoc."
+          }
+        },
+        "required": [
+          "did",
+          "document"
+        ]
+      }
+    }
+  }
+}

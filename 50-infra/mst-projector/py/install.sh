@@ -121,7 +121,7 @@ if launchctl list | grep -q "${LABEL}"; then
     echo "  ${LOG_DIR}/mst-projector.err.log"
     echo ""
     echo "Test:"
-    echo "  curl -s -X POST http://localhost:${PORT}/xrpc/app.etzhayyim.mstProjector.countByCollection \\"
+    echo "  curl -s -X POST http://localhost:${PORT}/xrpc/com.etzhayyim.mstProjector.countByCollection \\"
     echo "    -H 'Content-Type: application/json' -d '{\"collection\":\"app.bsky.feed.post\"}'"
 else
     echo "ERROR: service failed to load. Check logs:" >&2

@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.antimicrobialStewardship.recordFacilityProgram",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AMS program (CDC Core Elements / ECDC / Japan AMR Action Plan — bridges amr-surveillance + universal-health-coverage + pharma-supply)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "programId",
+            "jurisdictionIso3",
+            "facilityType",
+            "coreElementsImplemented",
+            "startedAt"
+          ],
+          "properties": {
+            "programId": {
+              "type": "string"
+            },
+            "facilityLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "facilityType": {
+              "type": "string",
+              "enum": [
+                "hospital",
+                "nursing_home",
+                "outpatient",
+                "livestock",
+                "aquaculture",
+                "community_pharmacy"
+              ]
+            },
+            "coreElementsImplemented": {
+              "type": "integer",
+              "description": "count of CDC Core Elements 0-7"
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "maturityTier": {
+              "type": "string",
+              "enum": [
+                "basic",
+                "developing",
+                "established",
+                "full"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

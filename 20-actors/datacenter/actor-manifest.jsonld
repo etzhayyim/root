@@ -78,30 +78,30 @@
   "triggers": {
     "xrpc": {
       "procedures": [
-        "ai.gftd.apps.datacenter.startOperation",
-        "ai.gftd.apps.datacenter.submitIntake",
-        "ai.gftd.apps.datacenter.reviewChange",
-        "ai.gftd.apps.datacenter.reportExecution",
-        "ai.gftd.apps.datacenter.reportHealthCheck",
-        "ai.gftd.apps.datacenter.stabilizeIncident",
-        "ai.gftd.apps.datacenter.requestAccess",
-        "ai.gftd.apps.datacenter.submitAccessDraft",
-        "ai.gftd.apps.datacenter.reviewAccess",
-        "ai.gftd.apps.datacenter.reserveCapacity",
-        "ai.gftd.apps.datacenter.reviewCapacity",
-        "ai.gftd.apps.datacenter.purgeAccessPii"
+        "com.etzhayyim.apps.datacenter.startOperation",
+        "com.etzhayyim.apps.datacenter.submitIntake",
+        "com.etzhayyim.apps.datacenter.reviewChange",
+        "com.etzhayyim.apps.datacenter.reportExecution",
+        "com.etzhayyim.apps.datacenter.reportHealthCheck",
+        "com.etzhayyim.apps.datacenter.stabilizeIncident",
+        "com.etzhayyim.apps.datacenter.requestAccess",
+        "com.etzhayyim.apps.datacenter.submitAccessDraft",
+        "com.etzhayyim.apps.datacenter.reviewAccess",
+        "com.etzhayyim.apps.datacenter.reserveCapacity",
+        "com.etzhayyim.apps.datacenter.reviewCapacity",
+        "com.etzhayyim.apps.datacenter.purgeAccessPii"
       ],
       "queries": [
-        "ai.gftd.apps.datacenter.getOperation",
-        "ai.gftd.apps.datacenter.listForFacility",
-        "ai.gftd.apps.datacenter.getMyAccessRequest",
-        "ai.gftd.apps.datacenter.listAccessForFacility"
+        "com.etzhayyim.apps.datacenter.getOperation",
+        "com.etzhayyim.apps.datacenter.listForFacility",
+        "com.etzhayyim.apps.datacenter.getMyAccessRequest",
+        "com.etzhayyim.apps.datacenter.listAccessForFacility"
       ]
     }
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",

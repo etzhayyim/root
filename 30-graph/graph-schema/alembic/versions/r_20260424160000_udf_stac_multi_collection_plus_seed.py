@@ -48,7 +48,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite-sentinel2:SatelliteScene',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/satellite-sentinel2:SatelliteScene',
                  'did:web:maps.etzhayyim.com:satellite:sentinel2',
                  'SatelliteScene',
                  5000000,
@@ -65,7 +65,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite-landsat:SatelliteScene',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/satellite-landsat:SatelliteScene',
                  'did:web:maps.etzhayyim.com:satellite:landsat',
                  'SatelliteScene',
                  2000000,
@@ -82,7 +82,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite-sentinel1:SatelliteScene',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/satellite-sentinel1:SatelliteScene',
                  'did:web:maps.etzhayyim.com:satellite:sentinel1',
                  'SatelliteScene',
                  1500000,
@@ -99,7 +99,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite-naip:SatelliteScene',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/satellite-naip:SatelliteScene',
                  'did:web:maps.etzhayyim.com:satellite:naip',
                  'SatelliteScene',
                  500000,
@@ -116,7 +116,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Hospital',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Hospital',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Hospital',
                  150000,
@@ -133,7 +133,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:School',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:School',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'School',
                  1000000,
@@ -150,7 +150,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Museum',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Museum',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Museum',
                  50000,
@@ -167,7 +167,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Cafe',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Cafe',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Cafe',
                  3000000,
@@ -184,7 +184,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Restaurant',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Restaurant',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Restaurant',
                  5000000,

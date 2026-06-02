@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rasffFoodSafety.recordAlert",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU RASFF / INFOSAN / FAO IPC food safety alert (bridges chemicals-management + livestock-antibiotics + pharma-supply + icpen-consumer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "alertId",
+            "network",
+            "classification",
+            "productCategory",
+            "notifiedAt"
+          ],
+          "properties": {
+            "alertId": {
+              "type": "string"
+            },
+            "network": {
+              "type": "string",
+              "enum": [
+                "rasff",
+                "infosan",
+                "fao_ipc",
+                "fda_imports",
+                "ciqa",
+                "mhlw_import"
+              ]
+            },
+            "classification": {
+              "type": "string",
+              "enum": [
+                "alert",
+                "border_rejection",
+                "information_attention",
+                "information_follow_up",
+                "news",
+                "notification"
+              ]
+            },
+            "productCategory": {
+              "type": "string"
+            },
+            "hazardCategory": {
+              "type": "string",
+              "enum": [
+                "microbiological",
+                "pesticide",
+                "heavy_metal",
+                "mycotoxin",
+                "allergen",
+                "food_additive",
+                "foreign_body",
+                "veterinary_residue",
+                "composition"
+              ]
+            },
+            "originCountryIso3": {
+              "type": "string"
+            },
+            "notifiedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

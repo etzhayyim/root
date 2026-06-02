@@ -197,33 +197,33 @@ async def stream_run(body: dict[str, Any]) -> StreamingResponse:
 # ── XRPC-compat surface (NSID → assistant_id) ──────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "app.etzhayyim.animeka.health":            "health",
-    "app.etzhayyim.animeka.listWorks":         "list_works",
-    "app.etzhayyim.animeka.chat":              "agent_chat",
-    "app.etzhayyim.animeka.getCut":            "get_cut",
-    "app.etzhayyim.animeka.listCuts":          "list_cuts",
-    "app.etzhayyim.animeka.listEpisodes":      "list_episodes",
-    "app.etzhayyim.animeka.listRetakes":       "list_retakes",
-    "app.etzhayyim.animeka.createWork":        "create_work",
-    "app.etzhayyim.animeka.addEpisode":        "add_episode",
-    "app.etzhayyim.animeka.addCut":            "add_cut",
-    "app.etzhayyim.animeka.updateCutStage":    "update_cut_stage",
-    "app.etzhayyim.animeka.submitRetake":      "submit_retake",
-    "app.etzhayyim.animeka.resolveRetake":     "resolve_retake",
-    "app.etzhayyim.animeka.generateScript":      "generate_script",
-    "app.etzhayyim.animeka.generateStoryboard":  "generate_storyboard",
-    "app.etzhayyim.animeka.generateLayout":      "generate_layout",
-    "app.etzhayyim.animeka.generateKeyframe":    "generate_keyframe",
-    "app.etzhayyim.animeka.generateInbetween":   "generate_inbetween",
-    "app.etzhayyim.animeka.generateBackground":  "generate_background",
-    "app.etzhayyim.animeka.designColorModel":    "design_color_model",
-    "app.etzhayyim.animeka.autopilot":           "autopilot",
-    "app.etzhayyim.animeka.cutRunner":           "cut_runner",
-    "app.etzhayyim.animeka.autoTraceCut":        "auto_trace_cut",
-    "app.etzhayyim.animeka.breakdownScene":      "breakdown_scene",
-    "app.etzhayyim.animeka.generateAudio":       "generate_audio",
-    "app.etzhayyim.animeka.assembleEpisode":     "assemble_episode",
-    "app.etzhayyim.animeka.publishEpisode":      "publish_episode",
+    "com.etzhayyim.animeka.health":            "health",
+    "com.etzhayyim.animeka.listWorks":         "list_works",
+    "com.etzhayyim.animeka.chat":              "agent_chat",
+    "com.etzhayyim.animeka.getCut":            "get_cut",
+    "com.etzhayyim.animeka.listCuts":          "list_cuts",
+    "com.etzhayyim.animeka.listEpisodes":      "list_episodes",
+    "com.etzhayyim.animeka.listRetakes":       "list_retakes",
+    "com.etzhayyim.animeka.createWork":        "create_work",
+    "com.etzhayyim.animeka.addEpisode":        "add_episode",
+    "com.etzhayyim.animeka.addCut":            "add_cut",
+    "com.etzhayyim.animeka.updateCutStage":    "update_cut_stage",
+    "com.etzhayyim.animeka.submitRetake":      "submit_retake",
+    "com.etzhayyim.animeka.resolveRetake":     "resolve_retake",
+    "com.etzhayyim.animeka.generateScript":      "generate_script",
+    "com.etzhayyim.animeka.generateStoryboard":  "generate_storyboard",
+    "com.etzhayyim.animeka.generateLayout":      "generate_layout",
+    "com.etzhayyim.animeka.generateKeyframe":    "generate_keyframe",
+    "com.etzhayyim.animeka.generateInbetween":   "generate_inbetween",
+    "com.etzhayyim.animeka.generateBackground":  "generate_background",
+    "com.etzhayyim.animeka.designColorModel":    "design_color_model",
+    "com.etzhayyim.animeka.autopilot":           "autopilot",
+    "com.etzhayyim.animeka.cutRunner":           "cut_runner",
+    "com.etzhayyim.animeka.autoTraceCut":        "auto_trace_cut",
+    "com.etzhayyim.animeka.breakdownScene":      "breakdown_scene",
+    "com.etzhayyim.animeka.generateAudio":       "generate_audio",
+    "com.etzhayyim.animeka.assembleEpisode":     "assemble_episode",
+    "com.etzhayyim.animeka.publishEpisode":      "publish_episode",
 }
 
 
@@ -289,7 +289,7 @@ async def nats_publish(body: dict[str, Any]) -> dict[str, Any]:
     """Enqueue a graph invocation via NATS JetStream.
 
     Body: {"assistant_id": "autopilot", "input": {}}
-    Equivalent to: nats pub app.etzhayyim.animeka.autopilot '{}'
+    Equivalent to: nats pub com.etzhayyim.animeka.autopilot '{}'
     """
     assistant_id = str(body.get("assistant_id") or "")
     if assistant_id not in CONSUMER_GRAPHS:

@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cnMofa.recordDiplomatic",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "中国外交部 (Ministry of Foreign Affairs) diplomatic action (bridges sovereignDebt + transnationalRepression + extraditionTreaty)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "departmentKind",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "departmentKind": {
+              "type": "string",
+              "enum": [
+                "minister_office",
+                "american_oceania",
+                "european_division",
+                "west_asian_north_african",
+                "african",
+                "asian",
+                "russian_central_asian",
+                "arms_control",
+                "international_economy",
+                "intl_law",
+                "consular",
+                "information",
+                "ngo",
+                "frontier_maritime",
+                "macau_hk_taiwan",
+                "embassy_office_us",
+                "embassy_office_eu"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "bilateral_summit",
+                "brics_summit_chair",
+                "sco_summit",
+                "aiib_governance",
+                "ndr_summit",
+                "fonops_protest",
+                "prc_taiwan_strait",
+                "spokesperson_briefing",
+                "strategic_dialog",
+                "embassy_protest",
+                "white_paper_publication",
+                "arms_export_position",
+                "outer_space_position",
+                "data_position",
+                "cyber_position"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges sovereignDebt / transnational-repression"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

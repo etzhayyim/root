@@ -22,8 +22,8 @@ import {
   type JobStatusSummary,
 } from "./types.js";
 
-const COLLECTION_JOB = "app.etzhayyim.maps.collectionJob";
-const COLLECTION_EVENT = "app.etzhayyim.maps.jobEvent";
+const COLLECTION_JOB = "com.etzhayyim.maps.collectionJob";
+const COLLECTION_EVENT = "com.etzhayyim.maps.jobEvent";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:maps.etzhayyim.com",

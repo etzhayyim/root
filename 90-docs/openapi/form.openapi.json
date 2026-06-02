@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.form.getForm": {
+    "/xrpc/com.etzhayyim.form.getForm": {
       "get": {
         "summary": "Get a Camunda form definition by form key. Returns form schema, components, and variable mappings.",
-        "operationId": "app.etzhayyim.form.getForm",
+        "operationId": "com.etzhayyim.form.getForm",
         "parameters": [
           {
             "name": "formKey",
@@ -82,10 +82,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.form.listPending": {
+    "/xrpc/com.etzhayyim.form.listPending": {
       "get": {
         "summary": "List pending form tasks awaiting user submission.",
-        "operationId": "app.etzhayyim.form.listPending",
+        "operationId": "com.etzhayyim.form.listPending",
         "parameters": [
           {
             "name": "did",
@@ -184,10 +184,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.form.submit": {
+    "/xrpc/com.etzhayyim.form.submit": {
       "post": {
         "summary": "Submit form data for a pending FormTask. Updates the task status to 'submitted' and stores variable mappings.",
-        "operationId": "app.etzhayyim.form.submit",
+        "operationId": "com.etzhayyim.form.submit",
         "requestBody": {
           "required": true,
           "content": {

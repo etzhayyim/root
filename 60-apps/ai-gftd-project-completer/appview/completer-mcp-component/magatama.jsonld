@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.app.service",
-        "ai.gftd.apps.completer.audit"
+        "com.etzhayyim.app.service",
+        "com.etzhayyim.apps.completer.audit"
       ]
     }
   }

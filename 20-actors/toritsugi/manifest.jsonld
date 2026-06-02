@@ -30,19 +30,19 @@
     "did:web:musubi.etzhayyim.com (life-events 婚姻/出生/死亡/育児: musubi performs the covenant ceremony, toritsugi handles the corresponding government 届出; ADR-2605263400)",
     "ubusuna §1.16 social-security pipeline (toritsugi is the government-procedure execution arm complementing etzhayyim's own in-kind social security; ADR-2605302357 + 2605302358)",
     "did:web:danjo.etzhayyim.com (opposite posture — danjo watches the state, toritsugi serves the citizen; deliberately separated; ADR-2605301600)",
-    "app.etzhayyim.encrypted.* (member PII + 申請内容 + 結果 land ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100)",
+    "com.etzhayyim.encrypted.* (member PII + 申請内容 + 結果 land ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100)",
     "did:web:manimani.etzhayyim.com (a member's OWN procedure history may be ingested into that member's personal knowledge graph with consent; ADR-2605291100)",
     "kotoba QuadStore EAVT (procedure catalog + guide/draft/submission lifecycle datoms; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "consumesAuth": {
-    "app.etzhayyim.gov.mynumberBinding": "ADR-2605260000; L5 Gov-Auth — MyNumber + WebAuthn binding consumed (not issued) to identify the member as 申請者本人 where a procedure requires it."
+    "com.etzhayyim.gov.mynumberBinding": "ADR-2605260000; L5 Gov-Auth — MyNumber + WebAuthn binding consumed (not issued) to identify the member as 申請者本人 where a procedure requires it."
   },
   "form": "任意団体 internal member-service substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a 行政書士/司法書士/税理士/弁護士 firm — 行政書士法/UPL boundary G5; NOT an official 自治体 channel — unofficial assistant)",
   "constitutionalDiscipline": {
     "consentGatedOwnProcedureOnly": "G3 — every guide/draft/submission is member-initiated with explicit consent + Adherent-SBT/DID binding and concerns the member's OWN procedure; NEVER for a non-consenting person; NEVER a third party's procedure or data.",
     "transparentNonPretext": "G4 — the member is always the named 申請者本人; no impersonation / sockpuppet / false identity (§2(c)); toritsugi never represents itself as an official 自治体 channel (unofficial assistant).",
     "gyouseishoshiUplBoundary": "G5 — toritsugi provides 情報提供 + 案内 + 入力補助 + 伴走; renders NO legal/tax advice and performs NO 官公署提出書類の作成代理 reserved to 行政書士/弁護士/税理士. Legal characterization + 作成代理 + appeals → chigiri + licensed counsel (Public Fund Council Lv6+); tax → toritate.",
-    "piiConfidentiality": "G6 — member PII + 申請内容 + 結果 land ONLY in app.etzhayyim.encrypted.* (XChaCha20-Poly1305, DID-bound to the member; ADR-2605181100); NEVER plaintext PII on MST.",
+    "piiConfidentiality": "G6 — member PII + 申請内容 + 結果 land ONLY in com.etzhayyim.encrypted.* (XChaCha20-Poly1305, DID-bound to the member; ADR-2605181100); NEVER plaintext PII on MST.",
     "murakumoOnlyInference": "G7 — Murakumo-only inference per ADR-2605215000; no vendor LLM API callout.",
     "nonFabrication": "G8 — never invent 手続き/様式/根拠法令/手数料/期限; every procedure cites 根拠法令 + provenance; the member ALWAYS confirms before any submission; no hallucinated legal facts.",
     "nonCommercial": "G9 — non-profit; no paid filing-mill; no fee for the service (donation-only); no resale of member or 制度 data (Charter Rider §2(e)).",
@@ -74,7 +74,7 @@
     ]
   },
   "codedProcedureRegistry": {
-    "description": "The LINE-like core: every government / municipal procedure encoded as app.etzhayyim.toritsugi.procedure records holding 窓口 / 所管 / オンライン申請URL / 必要書類 / 様式 / 手数料 / 法定処理期間 / 根拠法令 / channel so a cell can guide + (eventually) file procedurally. Seed at registry/procedures.seed.json.",
+    "description": "The LINE-like core: every government / municipal procedure encoded as com.etzhayyim.toritsugi.procedure records holding 窓口 / 所管 / オンライン申請URL / 必要書類 / 様式 / 手数料 / 法定処理期間 / 根拠法令 / channel so a cell can guide + (eventually) file procedurally. Seed at registry/procedures.seed.json.",
     "seedFile": "/20-actors/toritsugi/registry/procedures.seed.json",
     "seedProcedures": ["住民票の写し交付請求", "転入届", "出生届", "マイナンバーカード交付申請", "児童手当認定請求", "確定申告 (e-Tax → toritate)"],
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live submission until maintainer-verified (public procedure) / council-verified (代行) within freshnessWindowDays."
@@ -89,12 +89,12 @@
     {"name": "status_track", "module": "magatama.cells.toritsugi_status_track", "murakumoNode": "naphtali", "phase": "continuous", "io": "処理状況 / 法定処理期間 clock + follow-up + 結果 intake (ENCRYPTED PII, G6); refusal → lawful appeal route via chigiri"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.toritsugi.procedure",
-    "app.etzhayyim.toritsugi.benefitMatch",
-    "app.etzhayyim.toritsugi.procedureGuide",
-    "app.etzhayyim.toritsugi.applicationDraft",
-    "app.etzhayyim.toritsugi.submissionRecord",
-    "app.etzhayyim.toritsugi.statusTrack"
+    "com.etzhayyim.toritsugi.procedure",
+    "com.etzhayyim.toritsugi.benefitMatch",
+    "com.etzhayyim.toritsugi.procedureGuide",
+    "com.etzhayyim.toritsugi.applicationDraft",
+    "com.etzhayyim.toritsugi.submissionRecord",
+    "com.etzhayyim.toritsugi.statusTrack"
   ],
   "constitutionalGates": {
     "description": "15 immutable gates per ADR-2605312030 §4. Council Lv6+ supermajority + new ADR to amend.",
@@ -104,7 +104,7 @@
       "G3": "Consent-gated + identity-bound, OWN procedure only — member-initiated, consent + Adherent-SBT/DID bound; never a non-consenting person; never a third party's procedure or data",
       "G4": "Transparent + non-pretextual — member always the named 申請者本人; no impersonation (§2(c)); never poses as an official 自治体 channel",
       "G5": "行政書士法 / UPL-equivalent boundary — 案内 + 入力補助 + 伴走; NO legal/tax advice; NO 官公署提出書類の作成代理 → chigiri + licensed 行政書士/弁護士/税理士",
-      "G6": "PII confidentiality — member PII + 申請内容 + 結果 ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext PII on MST",
+      "G6": "PII confidentiality — member PII + 申請内容 + 結果 ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext PII on MST",
       "G7": "Murakumo-only inference (ADR-2605215000)",
       "G8": "Non-fabrication / accuracy — never invent 手続き/様式/根拠法令/手数料/期限; cite 根拠法令 + provenance; member always confirms before submission",
       "G9": "No commercialization — non-profit; no paid filing-mill; donation-only; no resale of member/制度 data",

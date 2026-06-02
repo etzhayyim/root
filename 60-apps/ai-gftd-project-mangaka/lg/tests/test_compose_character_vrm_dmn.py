@@ -3,7 +3,7 @@
 P16-e of ADR-2605141200. Locks consistency across four SSoT artifacts
 that must agree for Phase C activation of compose_character_vrm:
 
-  1. DMN XML at `00-contracts/dmn/ai/gftd/policies/mangaka/vrmBindRetry.dmn`
+  1. DMN XML at `00-contracts/dmn/com/etzhayyim/policies/mangaka/vrmBindRetry.dmn`
   2. Seed migration at
      `30-graph/graph-schema/sql_migrations/20260514200000_seed_mangaka_vrm_bind_retry_dmn.up.sql`
      (decision_key + version + structured rules_json + embedded dmn_xml)
@@ -58,7 +58,7 @@ _TOPOLOGY_PATH = (
     _LG_DIR / "lg_mangaka" / "graphs" / "compose_character_vrm.topology.yaml"
 )
 _DMN_NS = {"dmn": "https://www.omg.org/spec/DMN/20191111/MODEL/"}
-_DECISION_KEY = "app.etzhayyim.policies.mangaka.vrmBindRetry"
+_DECISION_KEY = "com.etzhayyim.policies.mangaka.vrmBindRetry"
 _DECISION_VERSION = 1
 
 

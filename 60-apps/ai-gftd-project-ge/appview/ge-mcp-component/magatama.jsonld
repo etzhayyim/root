@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.ge.org",
-        "ai.gftd.apps.ge.project"
+        "com.etzhayyim.apps.ge.org",
+        "com.etzhayyim.apps.ge.project"
       ]
     }
   }

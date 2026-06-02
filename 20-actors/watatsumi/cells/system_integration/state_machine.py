@@ -130,7 +130,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     si.phase = SystemIntegrationPhase.ATTESTATION_EMITTED
     si.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.watatsumi.systemIntegrationAttestation",
+        "$type": "com.etzhayyim.watatsumi.systemIntegrationAttestation",
         "craftId": si.craftId,
         "propulsion": si.propulsion,
         "lifeSupport": si.lifeSupport,

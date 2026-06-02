@@ -132,7 +132,7 @@ pub enum AggOp {
 pub struct SecurityScope {
     /// Maximum sensitivity ordinal the viewer can access (0=public, 1=internal, 2=confidential, 3=restricted).
     pub max_sensitivity_ord: u8,
-    /// Collection prefixes the viewer's RBAC roles grant access to (e.g., "app.etzhayyim.apps.yabai.").
+    /// Collection prefixes the viewer's RBAC roles grant access to (e.g., "com.etzhayyim.apps.yabai.").
     /// Empty = no RBAC scope restriction (public-only access enforced by sensitivity).
     pub collection_scopes: Vec<String>,
     /// FNV-1a hashes of repo DIDs the viewer has consent grants for.

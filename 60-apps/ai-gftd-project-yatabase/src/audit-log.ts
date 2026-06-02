@@ -110,7 +110,7 @@ export async function emitAudit(env: AuditEnv, event: AuditEvent): Promise<void>
 
   const nowIso = new Date(tsMs).toISOString().slice(0, 19).replace("T", " ");
   const idDigest = await sha256Hex(`${event.orgDid}|${tsMs}|${event.path}|${Math.random()}`);
-  const vertexId = `at://did:web:audit.etzhayyim.com/app.etzhayyim.apps.audit.event/${idDigest.slice(0, 32)}`;
+  const vertexId = `at://did:web:audit.etzhayyim.com/com.etzhayyim.apps.audit.event/${idDigest.slice(0, 32)}`;
 
   try {
     const q = sqlTag`

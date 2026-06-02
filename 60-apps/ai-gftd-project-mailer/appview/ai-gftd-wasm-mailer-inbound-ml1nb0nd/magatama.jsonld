@@ -64,9 +64,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.feed.like",
-        "ai.gftd.apps.mailer.mailerEntity",
-        "ai.gftd.apps.mailer.mailerEvent",
-        "ai.gftd.apps.mailer.mailerReport"
+        "com.etzhayyim.apps.mailer.mailerEntity",
+        "com.etzhayyim.apps.mailer.mailerEvent",
+        "com.etzhayyim.apps.mailer.mailerReport"
       ]
     }
   },

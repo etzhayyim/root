@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.states.bpmnProcess",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "BPMN process definition attached to a govOrg. Maps to vertex_bpmn_process.",
+      "x-bootstrap": true,
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["process_key"],
+        "properties": {
+          "process_key": { "type": "string" },
+          "name": { "type": "string" },
+          "version_tag": { "type": "string" },
+          "version": { "type": "integer" },
+          "is_executable": { "type": "string", "enum": ["true", "false"] },
+          "is_subprocess": { "type": "string", "enum": ["true", "false"] },
+          "candidate_starter_groups": { "type": "string" },
+          "candidate_starter_users": { "type": "string" },
+          "bpmn_xml": { "type": "string" },
+          "lane_json": { "type": "string" },
+          "execution_tier": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

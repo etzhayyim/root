@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govPrk.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govPrk.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for North Korea government organizations.",
-        "operationId": "app.etzhayyim.govPrk.followSiteDeps",
+        "operationId": "com.etzhayyim.govPrk.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govPrk.heartbeatTick": {
       "post": {
         "summary": "Run the North Korea government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govPrk.heartbeatTick",
+        "operationId": "com.etzhayyim.govPrk.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.ingestOfficialSources": {
+    "/xrpc/com.etzhayyim.govPrk.ingestOfficialSources": {
       "post": {
         "summary": "Queue official North Korea government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "app.etzhayyim.govPrk.ingestOfficialSources",
+        "operationId": "com.etzhayyim.govPrk.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.listOrgs": {
+    "/xrpc/com.etzhayyim.govPrk.listOrgs": {
       "get": {
         "summary": "List North Korea government organizations by tier.",
-        "operationId": "app.etzhayyim.govPrk.listOrgs",
+        "operationId": "com.etzhayyim.govPrk.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.registerDIDs": {
+    "/xrpc/com.etzhayyim.govPrk.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for North Korea government organizations.",
-        "operationId": "app.etzhayyim.govPrk.registerDIDs",
+        "operationId": "com.etzhayyim.govPrk.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govPrk.resolveOrgPath": {
       "get": {
         "summary": "Resolve a North Korea government organization path to its actor DID and display metadata.",
-        "operationId": "app.etzhayyim.govPrk.resolveOrgPath",
+        "operationId": "com.etzhayyim.govPrk.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.seedOrgs": {
+    "/xrpc/com.etzhayyim.govPrk.seedOrgs": {
       "post": {
         "summary": "Seed North Korea central ministry and province organization rows into the graph.",
-        "operationId": "app.etzhayyim.govPrk.seedOrgs",
+        "operationId": "com.etzhayyim.govPrk.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.shinka": {
+    "/xrpc/com.etzhayyim.govPrk.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible North Korea government organization update.",
-        "operationId": "app.etzhayyim.govPrk.shinka",
+        "operationId": "com.etzhayyim.govPrk.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govPrk.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govPrk.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated North Korea government organization content.",
-        "operationId": "app.etzhayyim.govPrk.syncWetUpdates",
+        "operationId": "com.etzhayyim.govPrk.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

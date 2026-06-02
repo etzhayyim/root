@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.methaneTracker.flagMitigationAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Mitigation action / MARS alert response",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "eventVid",
+            "actionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges reportEmissionEvent"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "shut_in",
+                "equipment_repair",
+                "vent_to_flare",
+                "ldar_upgrade",
+                "abandoned_well_plug",
+                "livestock_diet",
+                "manure_digester",
+                "landfill_capture"
+              ]
+            },
+            "reductionKgPerHour": {
+              "type": "number"
+            },
+            "responseHours": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

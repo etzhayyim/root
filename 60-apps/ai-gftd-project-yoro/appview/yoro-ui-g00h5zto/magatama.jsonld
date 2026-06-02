@@ -53,7 +53,7 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.yoro.driveItem",
+        "com.etzhayyim.apps.yoro.driveItem",
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow"

@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.massAutonomousShip.certifyAutonomyLevel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMO MASS Code autonomy certification (bridges carrier-fleet + aviation-safety + laws-autonomous-weapons + ai-governance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "certificationId",
+            "imo",
+            "imoMassLevel",
+            "flagStateIso3",
+            "certifiedAt"
+          ],
+          "properties": {
+            "certificationId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "imoMassLevel": {
+              "type": "integer",
+              "description": "1-4 per IMO MSC.1/Circ.1638"
+            },
+            "autonomyDescription": {
+              "type": "string"
+            },
+            "shoreControlCenterLei": {
+              "type": "string"
+            },
+            "flagStateIso3": {
+              "type": "string"
+            },
+            "certifyingAuthorityLei": {
+              "type": "string"
+            },
+            "certifiedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "autonomyTier": {
+              "type": "string",
+              "enum": [
+                "assisted",
+                "remote_manned",
+                "remote_unmanned",
+                "fully_autonomous"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

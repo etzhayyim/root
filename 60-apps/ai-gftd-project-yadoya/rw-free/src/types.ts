@@ -16,9 +16,9 @@
 
 export const YADOYA_DID_PREFIX = "did:web:yadoya.etzhayyim.com:" as const;
 
-export const LISTING_COLLECTION = "app.etzhayyim.apps.yadoya.listing";
-export const BOOKING_COLLECTION = "app.etzhayyim.apps.yadoya.booking";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.yadoya.payment";
+export const LISTING_COLLECTION = "com.etzhayyim.apps.yadoya.listing";
+export const BOOKING_COLLECTION = "com.etzhayyim.apps.yadoya.booking";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.yadoya.payment";
 
 export type YadoyaPaymentPurpose = "internal-purchase" | "escrow-refund";
 

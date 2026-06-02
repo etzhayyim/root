@@ -24,7 +24,7 @@ export interface Env {
   KOTOBA_URL: string;
 }
 
-const INTAKE_NSID = "app.etzhayyim.chigiri.legalAidMatter";
+const INTAKE_NSID = "com.etzhayyim.chigiri.legalAidMatter";
 
 const NO_ADVICE_NOTICE =
   "etzhayyim provides no legal advice at this step. Your matter is routed to " +
@@ -46,7 +46,7 @@ export default {
 
     // ── POST intake — open a free matter (member-signed) ──
     if (req.method === "POST" &&
-        url.pathname === "/xrpc/app.etzhayyim.chigiri.legalAid.intake") {
+        url.pathname === "/xrpc/com.etzhayyim.chigiri.legalAid.intake") {
       const auth = req.headers.get("authorization"); // member session (ES256)
       if (!auth) {
         return json({ error: "AuthRequired",
@@ -90,7 +90,7 @@ export default {
 
     // ── GET status — read-only matter status ──
     if (req.method === "GET" &&
-        url.pathname === "/xrpc/app.etzhayyim.chigiri.legalAid.status") {
+        url.pathname === "/xrpc/com.etzhayyim.chigiri.legalAid.status") {
       // no-server-key: read-only — anonymous read through the SDK seam.
       const matter = url.searchParams.get("matter");
       if (!matter) return json({ error: "BadRequest", message: "matter uri required" }, 400);

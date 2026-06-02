@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.lo.shipment",
-        "ai.gftd.apps.lo.route"
+        "com.etzhayyim.apps.lo.shipment",
+        "com.etzhayyim.apps.lo.route"
       ]
     }
   }

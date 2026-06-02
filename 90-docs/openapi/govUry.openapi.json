@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govUry.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govUry.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Uruguay government.",
-        "operationId": "app.etzhayyim.govUry.followSiteDeps",
+        "operationId": "com.etzhayyim.govUry.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govUry.heartbeatTick": {
       "post": {
         "summary": "Run the Uruguay government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govUry.heartbeatTick",
+        "operationId": "com.etzhayyim.govUry.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.listOrgs": {
+    "/xrpc/com.etzhayyim.govUry.listOrgs": {
       "get": {
         "summary": "List Uruguay government organization graph records.",
-        "operationId": "app.etzhayyim.govUry.listOrgs",
+        "operationId": "com.etzhayyim.govUry.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.registerDIDs": {
+    "/xrpc/com.etzhayyim.govUry.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Uruguay government organizations.",
-        "operationId": "app.etzhayyim.govUry.registerDIDs",
+        "operationId": "com.etzhayyim.govUry.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govUry.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Uruguay government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govUry.resolveOrgPath",
+        "operationId": "com.etzhayyim.govUry.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.seedOrgs": {
+    "/xrpc/com.etzhayyim.govUry.seedOrgs": {
       "post": {
         "summary": "Seed initial Uruguay government organization records into the graph.",
-        "operationId": "app.etzhayyim.govUry.seedOrgs",
+        "operationId": "com.etzhayyim.govUry.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.shinka": {
+    "/xrpc/com.etzhayyim.govUry.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Uruguay government organization update.",
-        "operationId": "app.etzhayyim.govUry.shinka",
+        "operationId": "com.etzhayyim.govUry.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUry.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govUry.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Uruguay government organization changes to graph.",
-        "operationId": "app.etzhayyim.govUry.syncWetUpdates",
+        "operationId": "com.etzhayyim.govUry.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

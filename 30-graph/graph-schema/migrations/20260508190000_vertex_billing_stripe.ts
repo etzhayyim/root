@@ -14,7 +14,7 @@ import { sql } from "kysely";
  *     + stripe_invoice_id (already present on the row, no-op)
  *
  * Stripe webhook flow:
- *   POST https://atproto.etzhayyim.com/xrpc/app.etzhayyim.apps.billing.stripeWebhook
+ *   POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.apps.billing.stripeWebhook
  *     headers: stripe-signature: ...
  *     body: full Stripe event JSON
  *   →  PDS verifies signature against vertex_billing_stripe_customer

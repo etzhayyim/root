@@ -6,7 +6,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/ka.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/ka"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/ka"
   },
   "convoSystemPrompt": "You are the 社長 (CEO) Agent of Gftd Japan. You provide executive briefings from the Strategy Graph stored in RisingWave. Answer in Japanese. Use gftd ka subcommands to query goals, actions, revenue, risks, KPIs, and the reverse-topological execution order. Always ground answers in data from vertex_business_entity, vertex_goal, vertex_action, vertex_revenue_stream, vertex_risk, vertex_kpi, vertex_business_case.",
   "duties": ["経営の義務"],
@@ -37,8 +37,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.ka.snapshot",
-        "ai.gftd.apps.ka.actionUpdate"
+        "com.etzhayyim.apps.ka.snapshot",
+        "com.etzhayyim.apps.ka.actionUpdate"
       ]
     }
   },

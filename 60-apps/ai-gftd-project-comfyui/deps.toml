@@ -64,16 +64,16 @@ pytorch_version = "2.11.0+cu128"
 checkpoint_loaded = "animagine-xl-4.0.safetensors"
 
 [lexicons]
-nsid_namespace = "app.etzhayyim.apps.comfyui"
+nsid_namespace = "com.etzhayyim.apps.comfyui"
 planned = [
-  "app.etzhayyim.apps.comfyui.generateImage",       # txt2img
-  "app.etzhayyim.apps.comfyui.editImage",           # img2img
-  "app.etzhayyim.apps.comfyui.generateVideo",       # animatediff / svd / wan5b
-  "app.etzhayyim.apps.comfyui.synthesizeSpeech",    # sbv2 / xtts TTS
-  "app.etzhayyim.apps.comfyui.generateMusic",       # musicgen / stable-audio
-  "app.etzhayyim.apps.comfyui.inpaintImage",        # mask-based (future)
-  "app.etzhayyim.apps.comfyui.runWorkflow",         # raw workflow graph submission (advanced)
-  "app.etzhayyim.apps.comfyui.listCheckpoints",     # enumerate installed models
+  "com.etzhayyim.apps.comfyui.generateImage",       # txt2img
+  "com.etzhayyim.apps.comfyui.editImage",           # img2img
+  "com.etzhayyim.apps.comfyui.generateVideo",       # animatediff / svd / wan5b
+  "com.etzhayyim.apps.comfyui.synthesizeSpeech",    # sbv2 / xtts TTS
+  "com.etzhayyim.apps.comfyui.generateMusic",       # musicgen / stable-audio
+  "com.etzhayyim.apps.comfyui.inpaintImage",        # mask-based (future)
+  "com.etzhayyim.apps.comfyui.runWorkflow",         # raw workflow graph submission (advanced)
+  "com.etzhayyim.apps.comfyui.listCheckpoints",     # enumerate installed models
 ]
 status = "planned — adapter exposes OpenAI-compat endpoints directly; XRPC wrappers deferred until agent consumption proven"
 

@@ -1,6 +1,6 @@
 """yukkuri `getVideo` graph — video detail with scenes + lines + assets.
 
-NSID: app.etzhayyim.apps.yukkuri.getVideo
+NSID: com.etzhayyim.apps.yukkuri.getVideo
 """
 
 from __future__ import annotations

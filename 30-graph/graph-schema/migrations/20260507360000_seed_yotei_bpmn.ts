@@ -62,14 +62,14 @@ const seeds: Seed[] = [
 ].map((proc) => ({
   proc,
   bpmnProcessId: `yotei_${snake(proc)}`,
-  nsid: `app.etzhayyim.apps.yotei.${proc}`,
+  nsid: `com.etzhayyim.apps.yotei.${proc}`,
   resultTimeoutMs: 30000,
   writeTableAllowlist: writeProcs.has(proc) ? writeAllowlist : "",
 }));
 
-const bpmnPath = (s: Seed) => `00-contracts/bpmn/ai/gftd/yotei/${s.proc}.bpmn`;
-const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-${slug(s.proc)}-v1`;
-const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-${slug(s.proc)}-v1`;
+const bpmnPath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/yotei/${s.proc}.bpmn`;
+const processVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-${slug(s.proc)}-v1`;
+const bindingVid = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-${slug(s.proc)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

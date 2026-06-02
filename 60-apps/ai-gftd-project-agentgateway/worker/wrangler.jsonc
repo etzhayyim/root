@@ -8,7 +8,7 @@
   },
   "routes": [
     {
-      "pattern": "mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+      "pattern": "mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
       "zone_name": "etzhayyim.com"
     }
   ],
@@ -20,6 +20,6 @@
   },
   "vars": {
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   }
 }

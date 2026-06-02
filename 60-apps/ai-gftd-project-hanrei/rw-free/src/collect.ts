@@ -37,8 +37,8 @@ import {
   type CaseRecord,
 } from "./types.js";
 
-const CASE_COLLECTION = "app.etzhayyim.hanrei.case";
-const COLLECT_RUN_COLLECTION = "app.etzhayyim.hanrei.collectRun";
+const CASE_COLLECTION = "com.etzhayyim.hanrei.case";
+const COLLECT_RUN_COLLECTION = "com.etzhayyim.hanrei.collectRun";
 
 function collectRunSlug(runId: string): string {
   return runId.toLowerCase().replace(/[^a-z0-9]/g, "-");

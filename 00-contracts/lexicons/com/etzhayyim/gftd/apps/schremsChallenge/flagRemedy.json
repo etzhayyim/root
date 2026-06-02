@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.schremsChallenge.flagRemedy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Fine / injunction / data flow cessation (bridges crossBorderTransfer.flagScaleRisk + enforcementAction + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "caseVid",
+            "remedyKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "caseVid": {
+              "type": "string",
+              "description": "bridges recordCase"
+            },
+            "remedyKind": {
+              "type": "string",
+              "enum": [
+                "record_fine",
+                "injunction_halt",
+                "cease_transfer",
+                "algorithm_suspension",
+                "delete_data",
+                "uhc_restriction",
+                "processing_ban",
+                "representation_obligation",
+                "public_warning",
+                "deletion_fragment",
+                "consent_reset"
+              ]
+            },
+            "fineMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.antarcticTreaty.flagMadridViolation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Madrid Protocol environmental violation (ATCM Recommendation XV-1 / CEP)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "violationId",
+            "activityVid",
+            "annexViolated",
+            "severity",
+            "reportedAt"
+          ],
+          "properties": {
+            "violationId": {
+              "type": "string"
+            },
+            "activityVid": {
+              "type": "string",
+              "description": "bridges recordActivity"
+            },
+            "annexViolated": {
+              "type": "string",
+              "enum": [
+                "I_eia",
+                "II_flora_fauna",
+                "III_waste",
+                "IV_marine_pollution",
+                "V_protected_area",
+                "VI_liability"
+              ]
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "transitory",
+                "more_than_minor_or_transitory"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "concernTier": {
+              "type": "string",
+              "enum": [
+                "monitor",
+                "elevated",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

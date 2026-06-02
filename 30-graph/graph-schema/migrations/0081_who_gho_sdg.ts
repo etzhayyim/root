@@ -10,8 +10,8 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                       | Rows  | Source                                    |
  * |----------------------------------|-------|-------------------------------------------|
- * | app.etzhayyim.apps.who.gho_indicator   | 3,057 | WHO GHO API (ghoapi.azureedge.net)        |
- * | app.etzhayyim.apps.sdg.indicator       |   437 | UN SDG API (unstats.un.org/sdgs)          |
+ * | com.etzhayyim.apps.who.gho_indicator   | 3,057 | WHO GHO API (ghoapi.azureedge.net)        |
+ * | com.etzhayyim.apps.sdg.indicator       |   437 | UN SDG API (unstats.un.org/sdgs)          |
  *
  * ### WHO Global Health Observatory (GHO) indicators
  * 3,057 unique health indicators (English, deduplicated by IndicatorCode).
@@ -32,8 +32,8 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New views
  *
- * - view_who_gho_indicator: projection of app.etzhayyim.apps.who.gho_indicator
- * - view_sdg_indicator: projection of app.etzhayyim.apps.sdg.indicator
+ * - view_who_gho_indicator: projection of com.etzhayyim.apps.who.gho_indicator
+ * - view_sdg_indicator: projection of com.etzhayyim.apps.sdg.indicator
  *
  * ## Topology integrity
  *
@@ -52,7 +52,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'group' AS indicator_group,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.who.gho_indicator'
+    WHERE collection = 'com.etzhayyim.apps.who.gho_indicator'
   `.execute(db);
 
   await sql`
@@ -67,7 +67,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'parent' AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.sdg.indicator'
+    WHERE collection = 'com.etzhayyim.apps.sdg.indicator'
   `.execute(db);
 
   await sql`
@@ -84,7 +84,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_who_gho_indicator`.execute(db);
   await sql`DROP VIEW IF EXISTS view_sdg_indicator`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.who.gho_indicator'`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.sdg.indicator'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.who.gho_indicator'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.sdg.indicator'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain IN ('who_gho','sdg')`.execute(db);
 }

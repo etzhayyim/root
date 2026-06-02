@@ -42,7 +42,7 @@ def run(name, args, graph="etzhayyim-legal-comms"):
     ctx_b64=base64.b64encode(ctx_cbor(graph,args)).decode()
     body=json.dumps({"program_cid":"chigiri-legal-comms-v0.1.0","program_type":"wasm-node",
         "agent_did":OP_DID,"wasm_b64":wasm_b64,"ctx_b64":ctx_b64}).encode()
-    req=urllib.request.Request(URL+"/xrpc/ai.gftd.apps.kotoba.invoke.run",data=body,
+    req=urllib.request.Request(URL+"/xrpc/com.etzhayyim.apps.kotoba.invoke.run",data=body,
         headers={"Content-Type":"application/json","Authorization":"Bearer "+jwt()},method="POST")
     try:
         j=json.load(urllib.request.urlopen(req,timeout=60))

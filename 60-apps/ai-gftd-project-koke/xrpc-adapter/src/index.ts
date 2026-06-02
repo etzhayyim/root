@@ -20,7 +20,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "app.etzhayyim.koke";
+const NSID_BASE = "com.etzhayyim.koke";
 
 interface RouteConfig {
   method: "POST" | "GET";

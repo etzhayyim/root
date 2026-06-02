@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govCol.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govCol.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Colombia government.",
-        "operationId": "app.etzhayyim.govCol.followSiteDeps",
+        "operationId": "com.etzhayyim.govCol.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govCol.heartbeatTick": {
       "post": {
         "summary": "Run the Colombia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govCol.heartbeatTick",
+        "operationId": "com.etzhayyim.govCol.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.listOrgs": {
+    "/xrpc/com.etzhayyim.govCol.listOrgs": {
       "get": {
         "summary": "List Colombia government organization graph records.",
-        "operationId": "app.etzhayyim.govCol.listOrgs",
+        "operationId": "com.etzhayyim.govCol.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.registerDIDs": {
+    "/xrpc/com.etzhayyim.govCol.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Colombia government organizations.",
-        "operationId": "app.etzhayyim.govCol.registerDIDs",
+        "operationId": "com.etzhayyim.govCol.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govCol.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Colombia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govCol.resolveOrgPath",
+        "operationId": "com.etzhayyim.govCol.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.seedOrgs": {
+    "/xrpc/com.etzhayyim.govCol.seedOrgs": {
       "post": {
         "summary": "Seed initial Colombia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govCol.seedOrgs",
+        "operationId": "com.etzhayyim.govCol.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.shinka": {
+    "/xrpc/com.etzhayyim.govCol.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Colombia government organization update.",
-        "operationId": "app.etzhayyim.govCol.shinka",
+        "operationId": "com.etzhayyim.govCol.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCol.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govCol.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Colombia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govCol.syncWetUpdates",
+        "operationId": "com.etzhayyim.govCol.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

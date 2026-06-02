@@ -15,7 +15,7 @@ import {
   type HostSDK,
 } from "@etzhayyim/magatama-host-sdk";
 
-const NS = "app.etzhayyim.apps.sharemouse";
+const NS = "com.etzhayyim.apps.sharemouse";
 
 /** Register a peer device with its screen geometries. */
 async function cmdRegisterPeer(

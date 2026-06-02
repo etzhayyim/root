@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.psd3OpenFinance.flagInteropIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Open finance interoperability / fraud incident (bridges cyber-incident + fatf-travel-rule + data-adequacy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "apiVid",
+            "incidentKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "apiVid": {
+              "type": "string",
+              "description": "bridges registerApi"
+            },
+            "incidentKind": {
+              "type": "string",
+              "enum": [
+                "screen_scraping_block",
+                "tpp_outage",
+                "consent_revocation_failure",
+                "api_degradation",
+                "fraud_apf",
+                "account_takeover",
+                "push_payment_scam"
+              ]
+            },
+            "affectedUsers": {
+              "type": "integer"
+            },
+            "lossUsd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "major",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 """animeka `generateScript` graph — LLM screenplay generation for an episode.
 
-NSID: app.etzhayyim.animeka.generateScript
+NSID: com.etzhayyim.animeka.generateScript
 
 Given an episode_id, reads the episode title/synopsis from RW and
 generates a structured screenplay (scene descriptions + dialogue
 placeholders) using vLLM. Inserts the result into vertex_animeka
-collection=app.etzhayyim.animeka.script.
+collection=com.etzhayyim.animeka.script.
 """
 
 from __future__ import annotations
@@ -59,7 +59,7 @@ async def _node_fetch_episode(state: _State) -> dict[str, Any]:
         try:
             cur = conn.cursor()
             await cur.execute(
-                "SELECT title, synopsis FROM vertex_animeka WHERE collection='app.etzhayyim.animeka.episode' AND rkey=%s LIMIT 1",
+                "SELECT title, synopsis FROM vertex_animeka WHERE collection='com.etzhayyim.animeka.episode' AND rkey=%s LIMIT 1",
                 [rkey],
             )
             row = await cur.fetchone()
@@ -120,7 +120,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     import secrets
     from datetime import datetime, timezone
     rkey = f"script-{secrets.token_hex(4)}"
-    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.script/{rkey}"
+    vertex_id = f"at://{_REPO}/com.etzhayyim.animeka.script/{rkey}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
         import psycopg
@@ -130,7 +130,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
                 """INSERT INTO vertex_animeka
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     episode_id, scene_count, body, status, created_at)
-                   VALUES (%s, %s, %s, 'app.etzhayyim.animeka.script', 'script',
+                   VALUES (%s, %s, %s, 'com.etzhayyim.animeka.script', 'script',
                            %s, %s, %s, %s, 'draft', %s)""",
                 [vertex_id, _REPO, rkey, _DEFAULT_APP_DID,
                  episode_id, state.get("scene_count_actual"),

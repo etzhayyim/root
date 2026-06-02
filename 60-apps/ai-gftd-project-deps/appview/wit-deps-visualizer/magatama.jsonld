@@ -47,9 +47,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.deps.depsEntity",
-        "ai.gftd.apps.deps.depsEvent",
-        "ai.gftd.apps.deps.depsReport"
+        "com.etzhayyim.apps.deps.depsEntity",
+        "com.etzhayyim.apps.deps.depsEvent",
+        "com.etzhayyim.apps.deps.depsReport"
       ]
     }
   },

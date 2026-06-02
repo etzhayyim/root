@@ -146,14 +146,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1',
                  'did:web:fund.etzhayyim.com',
                  'fund_manager_discovery',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Fund manager discovery pilot.\n'
                  '\n'
-                 '  NSID:       app.etzhayyim.apps.fund.managerDiscovery\n'
+                 '  NSID:       com.etzhayyim.apps.fund.managerDiscovery\n'
                  '  Owner DID:  did:web:fund.etzhayyim.com\n'
                  '  Process ID: fund_manager_discovery\n'
                  '\n'
@@ -328,13 +328,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  7702,
-                 '00-contracts/bpmn/ai/gftd/fund/managerDiscovery.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/fund/managerDiscovery.bpmn',
                  '2026-04-27T04:00:00Z',
                  2,
                  'did:web:fund.etzhayyim.com',
                  'did:web:fund.etzhayyim.com',
                  'sys.bpmn.seed.fund',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -349,14 +349,14 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1',
                  'did:web:ma.etzhayyim.com',
                  'ma_start_deal_workflow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Global M&A brokerage workflow.\n'
                  '\n'
-                 '  NSID:       app.etzhayyim.apps.ma.startDealWorkflow\n'
+                 '  NSID:       com.etzhayyim.apps.ma.startDealWorkflow\n'
                  '  Owner DID:  did:web:ma.etzhayyim.com\n'
                  '  Process ID: ma_start_deal_workflow\n'
                  '\n'
@@ -585,13 +585,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  9840,
-                 '00-contracts/bpmn/ai/gftd/ma/startDealWorkflow.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/ma/startDealWorkflow.bpmn',
                  '2026-04-27T04:00:00Z',
                  3,
                  'did:web:ma.etzhayyim.com',
                  'did:web:ma.etzhayyim.com',
                  'sys.bpmn.seed.ma',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -607,9 +607,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1',
                  'did:web:fund.etzhayyim.com',
-                 'app.etzhayyim.apps.fund.managerDiscovery',
+                 'com.etzhayyim.apps.fund.managerDiscovery',
                  'fund_manager_discovery',
                  600000,
                  '2026-04-27T04:00:00Z',
@@ -618,7 +618,7 @@ UP = [{'sql': '\n'
                  'did:web:fund.etzhayyim.com',
                  'sys.bpmn.seed.fund',
                  'vertex_fund,vertex_fund_manager,vertex_fund_investor,vertex_fund_investee,edge_fund_managed_by,edge_fund_backed_by,edge_fund_invests_in,edge_fund_sponsored_by',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -634,9 +634,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1',
                  'did:web:ma.etzhayyim.com',
-                 'app.etzhayyim.apps.ma.startDealWorkflow',
+                 'com.etzhayyim.apps.ma.startDealWorkflow',
                  'ma_start_deal_workflow',
                  900000,
                  '2026-04-27T04:00:00Z',
@@ -645,16 +645,16 @@ UP = [{'sql': '\n'
                  'did:web:ma.etzhayyim.com',
                  'sys.bpmn.seed.ma',
                  'vertex_ma_deal,vertex_ma_candidate,vertex_ma_valuation,vertex_ma_match,edge_ma_deal_candidate,edge_ma_deal_buyer',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1']},
  {'sql': 'DROP TABLE IF EXISTS edge_ma_deal_buyer', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS edge_ma_deal_candidate', 'parameters': []},
  {'sql': 'DROP TABLE IF EXISTS vertex_ma_match', 'parameters': []},

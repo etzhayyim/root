@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpnMlitRoad.issueTrafficRestriction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "国土交通省 交通規制",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restrictionId",
+            "roadCode",
+            "restrictionType",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "restrictionId": {
+              "type": "string"
+            },
+            "roadCode": {
+              "type": "string"
+            },
+            "restrictionType": {
+              "type": "string",
+              "enum": [
+                "speed",
+                "lane",
+                "weight",
+                "full-closure",
+                "detour"
+              ]
+            },
+            "reason": {
+              "type": "string"
+            },
+            "sectionFrom": {
+              "type": "string"
+            },
+            "sectionTo": {
+              "type": "string"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major"
+              ]
+            },
+            "requirePublicNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

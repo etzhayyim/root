@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.flightOffer.sourceHealth",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Per-source success rate, average latency, and last-success timestamps. Reads mv_flight_offer_source_health (rolled up from vertex_flight_offer_source_run).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": { "type": "integer", "minimum": 1, "maximum": 500 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":    { "type": "boolean" },
+            "count": { "type": "integer" },
+            "items": { "type": "array", "items": { "type": "object" } },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

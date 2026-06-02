@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.packagingRecord",
+  "description": "Per-pillow packaging record (L5c). Vacuum compression + carton + pallet + IPFS-pinned take-back QR. Per ADR-2605261115 L5c (G13).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {"type": "string"},
+          "pillowSerial": {"type": "string"},
+          "vacuumCompression": {
+            "type": "object",
+            "properties": {
+              "originalVolumeL": {"type": "number"},
+              "compressedVolumeL": {"type": "number"},
+              "compressionRatio": {"type": "number"},
+              "specMaxRatio": {"type": "number", "const": 0.40},
+              "withinSpec": {"type": "boolean"},
+              "vacuumBagMaterial": {"type": "string"},
+              "vacuumBagBiocontentPct": {"type": "integer"}
+            }
+          },
+          "carton": {
+            "type": "object",
+            "properties": {
+              "cartonMaterial": {"type": "string"},
+              "cartonRecycledContentPct": {"type": "integer"},
+              "pillowsPerCarton": {"type": "integer"},
+              "cartonMassKg": {"type": "number"}
+            }
+          },
+          "pallet": {
+            "type": "object",
+            "properties": {
+              "palletStandard": {"type": "string"},
+              "palletMaterial": {"type": "string"},
+              "cartonsPerLayer": {"type": "integer"},
+              "layersPerPallet": {"type": "integer"},
+              "totalCartons": {"type": "integer"},
+              "totalPillows": {"type": "integer"},
+              "totalMassKg": {"type": "number"},
+              "palletizingRobot": {"type": "string"}
+            }
+          },
+          "qrPin": {
+            "type": "object",
+            "properties": {
+              "pillowDid": {"type": "string"},
+              "takeBackQrCid": {"type": "string"},
+              "takeBackChainEntryCid": {"type": "string"},
+              "g13ChainEntryConfirmed": {"type": "boolean"},
+              "g13RecycledTargetPctByR3": {"type": "number", "const": 10.0}
+            },
+            "required": ["pillowDid", "takeBackQrCid", "g13ChainEntryConfirmed"]
+          },
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["lotId", "pillowSerial", "vacuumCompression", "qrPin", "attestingRobots"]
+      }
+    }
+  }
+}

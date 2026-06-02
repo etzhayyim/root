@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.createWork",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create an anime work (series). Kysely-direct write to vertex_animeka_work + registers path-based DID did:web:animeka.etzhayyim.com:work:{slug}.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["title"],
+          "properties": {
+            "id": { "type": "string", "description": "Optional rkey; server-generated if omitted." },
+            "title": { "type": "string" },
+            "titleEN": { "type": "string" },
+            "slug": { "type": "string" },
+            "genre": { "type": "string" },
+            "status": { "type": "string", "enum": ["planning", "production", "airing", "completed", "archived"] },
+            "synopsis": { "type": "string" },
+            "episodeCount": { "type": "integer" },
+            "fps": { "type": "integer" },
+            "resolution": { "type": "string" },
+            "coverCid": { "type": "string", "format": "cid" },
+            "coverAlt": { "type": "string" },
+            "trailerUri": { "type": "string", "format": "uri" },
+            "studioName": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["id", "status"],
+          "properties": {
+            "id": { "type": "string" },
+            "did": { "type": "string", "description": "Registered path-based work DID." },
+            "title": { "type": "string" },
+            "status": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

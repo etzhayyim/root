@@ -10,10 +10,10 @@
   let { xrpcBase = '', embed = false, onResult }: Props = $props();
 
   const nsid = {
-    listEvents: 'app.etzhayyim.apps.calendar.listEvents',
-    createEvent: 'app.etzhayyim.apps.calendar.createEvent',
-    updateEvent: 'app.etzhayyim.apps.calendar.updateEvent',
-    deleteEvent: 'app.etzhayyim.apps.calendar.deleteEvent'
+    listEvents: 'com.etzhayyim.apps.calendar.listEvents',
+    createEvent: 'com.etzhayyim.apps.calendar.createEvent',
+    updateEvent: 'com.etzhayyim.apps.calendar.updateEvent',
+    deleteEvent: 'com.etzhayyim.apps.calendar.deleteEvent'
   } as const;
 
   type View = 'day' | 'week' | 'month' | 'schedule';

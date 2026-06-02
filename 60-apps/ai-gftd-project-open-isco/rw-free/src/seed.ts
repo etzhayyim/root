@@ -14,7 +14,7 @@ import { readFile } from "node:fs/promises";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { Occupation } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.openIsco.occupation";
+const COLLECTION = "com.etzhayyim.apps.openIsco.occupation";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_SEEDER_DID ?? "did:web:etzhayyim.com",

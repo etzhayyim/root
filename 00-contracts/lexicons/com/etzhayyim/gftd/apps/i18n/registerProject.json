@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.i18n.registerProject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated i18n lexicon for registerProject (F-Plan F2 holdout migration 2026-04-13). Tighten schema when the handler is audited.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "projectId": {
+              "type": "integer"
+            },
+            "projectPath": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "projectId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "integer"
+            },
+            "totalKeys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "creditJobId": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.securitiesInvestor.flagLowRecovery",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Low recovery rate / forgotten claimant / claim fatigue (bridges soxBounty.flagAwardDispute + consumer-protection + class-settlement)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "disbursementVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "disbursementVid": {
+              "type": "string",
+              "description": "bridges recordDisbursement"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "low_claim_rate",
+                "expired_claims",
+                "unreachable_investor",
+                "burden_docs",
+                "cy_pres_leftover",
+                "administrator_profit",
+                "gross_net_spread",
+                "plan_delayed",
+                "tax_treatment_confusion",
+                "foreign_cap"
+              ]
+            },
+            "unrecoveredMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

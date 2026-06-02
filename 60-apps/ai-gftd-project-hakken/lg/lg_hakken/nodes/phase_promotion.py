@@ -100,7 +100,7 @@ async def _promote(
 
         if okaimono_id:
             await client.post(
-                f"{OKAIMONO_XRPC}/xrpc/ai.gftd.apps.okaimono.updateFulfillment",
+                f"{OKAIMONO_XRPC}/xrpc/com.etzhayyim.apps.okaimono.updateFulfillment",
                 json={"item_id": okaimono_id, "phase": label},
             )
     except Exception as exc:

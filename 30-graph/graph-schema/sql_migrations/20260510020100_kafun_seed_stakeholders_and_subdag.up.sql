@@ -66,11 +66,11 @@ INSERT INTO vertex_kafun_stakeholder (vertex_id, _seq, sensitivity_ord, kind, na
 -- Topo DAG extension: 5 sub-nodes
 -- ─────────────────────────────────────────────────────────────────────────
 INSERT INTO vertex_agent_topo_node (vertex_id, _seq, sensitivity_ord, app_did, node_id, layer, category, title, description, status, bottleneck_rank, kpi_weight, target_metric, target_value, target_unit, owner_actor_did, created_at) VALUES
-  ('at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1a', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1a', 0, 'evidence', '衛星画像取り込み',       'Sentinel-2 / ALOS / ASTER tile を B2 に取り込み',          'planned', 0, 0.6, 'satellite_tiles_ingested', 50000, 'tiles', 'did:web:n97ik10n.gftd.ai:actor:scout',     '2026-05-10T00:00:00Z'),
-  ('at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1b', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1b', 0, 'evidence', 'スギ・ヒノキ canopy 検出',  'ML 検出器で sugi/hinoki canopy polygon を生成',            'planned', 0, 0.7, 'canopy_segments_detected', 1000000, 'segments', 'did:web:n97ik10n.gftd.ai:actor:scout',     '2026-05-10T00:00:00Z'),
-  ('at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1c', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1c', 0, 'evidence', 'canopy → 地番 (parcel) 紐付け','MLIT 国土数値情報 + 法務省登記で parcel ↔ canopy resolve',   'planned', 0, 0.7, 'attributed_canopy_pct',     90, '%',        'did:web:n97ik10n.gftd.ai:actor:cadastral', '2026-05-10T00:00:00Z'),
-  ('at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1d', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1d', 0, 'evidence', '地主 (landowner) 解決',     'parcel → 国/県/市町村/民有 に分解、民有はLEI/連絡先まで',   'planned', 0, 0.8, 'landowners_identified',     50000, 'owners', 'did:web:n97ik10n.gftd.ai:actor:cadastral', '2026-05-10T00:00:00Z'),
-  ('at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L1-0', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L1-0', 1, 'capacity', 'Stakeholder outreach',    '林野庁・連合会・大手林業 etc に envoy DID 経由で接触',         'planned', 0, 0.9, 'in_dialogue_count',         200, 'orgs',  'did:web:n97ik10n.gftd.ai:actor:envoy',     '2026-05-10T00:00:00Z');
+  ('at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1a', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1a', 0, 'evidence', '衛星画像取り込み',       'Sentinel-2 / ALOS / ASTER tile を B2 に取り込み',          'planned', 0, 0.6, 'satellite_tiles_ingested', 50000, 'tiles', 'did:web:n97ik10n.gftd.ai:actor:scout',     '2026-05-10T00:00:00Z'),
+  ('at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1b', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1b', 0, 'evidence', 'スギ・ヒノキ canopy 検出',  'ML 検出器で sugi/hinoki canopy polygon を生成',            'planned', 0, 0.7, 'canopy_segments_detected', 1000000, 'segments', 'did:web:n97ik10n.gftd.ai:actor:scout',     '2026-05-10T00:00:00Z'),
+  ('at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1c', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1c', 0, 'evidence', 'canopy → 地番 (parcel) 紐付け','MLIT 国土数値情報 + 法務省登記で parcel ↔ canopy resolve',   'planned', 0, 0.7, 'attributed_canopy_pct',     90, '%',        'did:web:n97ik10n.gftd.ai:actor:cadastral', '2026-05-10T00:00:00Z'),
+  ('at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1d', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L0-1d', 0, 'evidence', '地主 (landowner) 解決',     'parcel → 国/県/市町村/民有 に分解、民有はLEI/連絡先まで',   'planned', 0, 0.8, 'landowners_identified',     50000, 'owners', 'did:web:n97ik10n.gftd.ai:actor:cadastral', '2026-05-10T00:00:00Z'),
+  ('at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L1-0', 0, 0, 'did:web:n97ik10n.gftd.ai', 'L1-0', 1, 'capacity', 'Stakeholder outreach',    '林野庁・連合会・大手林業 etc に envoy DID 経由で接触',         'planned', 0, 0.9, 'in_dialogue_count',         200, 'orgs',  'did:web:n97ik10n.gftd.ai:actor:envoy',     '2026-05-10T00:00:00Z');
 
 -- Sub-DAG dependency edges:
 --   L0-1a → (none)         leaf
@@ -81,12 +81,12 @@ INSERT INTO vertex_agent_topo_node (vertex_id, _seq, sensitivity_ord, app_did, n
 --   L1-1  → L1-0  soft     (nursery scaling is helped by outreach but not blocked)
 --   L3-1  → L1-0  hard     (主伐再造林 cannot proceed without landowner agreements)
 INSERT INTO edge_agent_topo_depends (edge_id, _seq, sensitivity_ord, src_vid, dst_vid, dep_kind, weight, created_at) VALUES
-  ('L0-1b->L0-1a', 0, 0, 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1b', 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1a', 'hard', 1.0, '2026-05-10T00:00:00Z'),
-  ('L0-1c->L0-1b', 0, 0, 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1c', 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1b', 'hard', 1.0, '2026-05-10T00:00:00Z'),
-  ('L0-1d->L0-1c', 0, 0, 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1d', 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1c', 'hard', 1.0, '2026-05-10T00:00:00Z'),
-  ('L1-0->L0-1d',  0, 0, 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L1-0',  'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L0-1d', 'hard', 1.0, '2026-05-10T00:00:00Z'),
-  ('L1-1->L1-0',   0, 0, 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L1-1',  'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L1-0',  'soft', 0.5, '2026-05-10T00:00:00Z'),
-  ('L3-1->L1-0',   0, 0, 'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L3-1',  'at://did:web:n97ik10n.gftd.ai/ai.gftd.agent.topoNode/L1-0',  'hard', 1.0, '2026-05-10T00:00:00Z');
+  ('L0-1b->L0-1a', 0, 0, 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1b', 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1a', 'hard', 1.0, '2026-05-10T00:00:00Z'),
+  ('L0-1c->L0-1b', 0, 0, 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1c', 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1b', 'hard', 1.0, '2026-05-10T00:00:00Z'),
+  ('L0-1d->L0-1c', 0, 0, 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1d', 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1c', 'hard', 1.0, '2026-05-10T00:00:00Z'),
+  ('L1-0->L0-1d',  0, 0, 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L1-0',  'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L0-1d', 'hard', 1.0, '2026-05-10T00:00:00Z'),
+  ('L1-1->L1-0',   0, 0, 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L1-1',  'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L1-0',  'soft', 0.5, '2026-05-10T00:00:00Z'),
+  ('L3-1->L1-0',   0, 0, 'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L3-1',  'at://did:web:n97ik10n.gftd.ai/com.etzhayyim.agent.topoNode/L1-0',  'hard', 1.0, '2026-05-10T00:00:00Z');
 
 -- L0-1 (existing parent) becomes complete when all sub-nodes are done — represented by
 -- adding it as the parent via concerns edges. (Not changing its status here; the agent

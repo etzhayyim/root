@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.accessibilityServices.registerService",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Accessibility service provider (sign language / braille / real-time captioning / EAS — bridges digital-accessibility + crc-children-digital + language-preservation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "serviceId",
+            "countryIso3",
+            "serviceKind",
+            "registeredAt"
+          ],
+          "properties": {
+            "serviceId": {
+              "type": "string"
+            },
+            "providerLei": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "serviceKind": {
+              "type": "string",
+              "enum": [
+                "sign_language_relay",
+                "real_time_captioning",
+                "audio_description",
+                "braille_transcription",
+                "alt_text_generation",
+                "sensory_room",
+                "mobility_assistant",
+                "easy_read"
+              ]
+            },
+            "languagesSupported": {
+              "type": "string",
+              "description": "comma ISO 639"
+            },
+            "aiAssisted": {
+              "type": "boolean"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

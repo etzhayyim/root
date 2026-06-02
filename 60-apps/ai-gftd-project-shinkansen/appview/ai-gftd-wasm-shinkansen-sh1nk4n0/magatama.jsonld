@@ -81,16 +81,16 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.shinkansen.reservation",
-        "ai.gftd.apps.shinkansen.operation",
-        "ai.gftd.apps.shinkansen.timetable",
-        "ai.gftd.apps.calendar.event"
+        "com.etzhayyim.apps.shinkansen.reservation",
+        "com.etzhayyim.apps.shinkansen.operation",
+        "com.etzhayyim.apps.shinkansen.timetable",
+        "com.etzhayyim.apps.calendar.event"
       ]
     }
   },
   "derive": [
     {
-      "when": "ai.gftd.apps.shinkansen.operation",
+      "when": "com.etzhayyim.apps.shinkansen.operation",
       "condition": "record.status === 'delay' || record.status === 'suspended'",
       "then": "app.bsky.feed.post",
       "template": "{{line}} {{status}}: {{detail}}"

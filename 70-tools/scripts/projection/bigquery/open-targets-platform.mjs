@@ -13,7 +13,7 @@ import {
 const INGEST_FAMILY = "bigquery.public_dataset.projection";
 const DATASET_ID = "bigquery-public-data:open_targets_platform";
 const ACTOR_HOST = "open-targets";
-const COLLECTION = "app.etzhayyim.apps.bio.target_evidence";
+const COLLECTION = "com.etzhayyim.apps.bio.target_evidence";
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

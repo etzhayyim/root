@@ -97,7 +97,7 @@ function lexiconPropertyToZod(p: LexiconProperty): ZodTypeAny {
  * @example
  * const lexicons = [...];
  * const validators = buildValidatorMap(lexicons);
- * const v = validators["app.etzhayyim.apps.openBanking.transfer"];
+ * const v = validators["com.etzhayyim.apps.openBanking.transfer"];
  * if (v.input) {
  *   const parsed = v.input.safeParse(userInput);
  * }
@@ -143,7 +143,7 @@ export function buildValidatorMap(
  * Returns `{ data: T }` on success, `{ error: ZodError }` on failure.
  *
  * @example
- * const v = validateInput(validators, "app.etzhayyim.apps.openBanking.transfer", userInput);
+ * const v = validateInput(validators, "com.etzhayyim.apps.openBanking.transfer", userInput);
  * if ("error" in v) {
  *   console.error(v.error.issues);
  * } else {

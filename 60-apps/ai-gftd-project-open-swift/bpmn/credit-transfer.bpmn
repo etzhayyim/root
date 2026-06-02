@@ -18,8 +18,8 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${decision == "APPROVE"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="f4b" sourceRef="Gateway_Decision" targetRef="EndEvent_Rejected"/>
-    <bpmn:serviceTask id="Task_Send" name="ai.gftd.apps.openSwift.sendCustomerCreditTransfer"
-                      camunda:topic="ai.gftd.apps.openSwift.sendCustomerCreditTransfer"/>
+    <bpmn:serviceTask id="Task_Send" name="com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer"
+                      camunda:topic="com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer"/>
     <bpmn:sequenceFlow id="f5" sourceRef="Task_Send" targetRef="Task_AuditPost"/>
     <bpmn:serviceTask id="Task_AuditPost" name="Emit app.bsky.feed.post (participant feed)"
                       camunda:topic="app.bsky.feed.post"/>

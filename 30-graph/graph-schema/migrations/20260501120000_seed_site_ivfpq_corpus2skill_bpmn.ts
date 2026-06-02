@@ -24,19 +24,19 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-ivfPqReindex-v1",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/site-ivfPqReindex-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/site-ivfPqReindex-v1",
     processId: "site_ivf_pq_reindex",
-    nsid: "app.etzhayyim.apps.site.ivfPqReindex",
-    sourcePath: "00-contracts/bpmn/ai/gftd/site/ivfPqReindex.bpmn",
+    nsid: "com.etzhayyim.apps.site.ivfPqReindex",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/site/ivfPqReindex.bpmn",
     resultTimeoutMs: 14_400_000,
   },
   {
-    processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/site-corpus2skillDistill-v1",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/site-corpus2skillDistill-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/site-corpus2skillDistill-v1",
     processId: "site_corpus2skill_distill",
-    nsid: "app.etzhayyim.apps.site.corpus2skillDistill",
-    sourcePath: "00-contracts/bpmn/ai/gftd/site/corpus2skillDistill.bpmn",
+    nsid: "com.etzhayyim.apps.site.corpus2skillDistill",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/site/corpus2skillDistill.bpmn",
     resultTimeoutMs: 28_800_000,
   },
 ];

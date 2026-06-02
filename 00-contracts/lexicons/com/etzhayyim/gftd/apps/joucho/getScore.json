@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.joucho.getScore",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get joucho (情緒) score for a subject DID.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["subjectDid"], "properties": { "subjectDid": { "type": "string", "format": "did" }, "window": { "type": "string", "enum": ["1h", "24h", "7d", "30d", "90d", "all"], "default": "24h" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "subjectDid": { "type": "string", "format": "did" }, "window": { "type": "string" }, "mood": { "type": "string", "enum": ["calm", "uplifted", "tense", "distressed", "focused", "contemplative"] }, "intensity": { "type": "number", "minimum": 0, "maximum": 1 }, "cadenceHz": { "type": "number", "description": "heartbeat cadence derived from mood" }, "signals": { "type": "array", "items": { "type": "object", "properties": { "kind": { "type": "string" }, "weight": { "type": "number" } } } }, "computedAt": { "type": "string", "format": "datetime" } } } }
+    }
+  }
+}

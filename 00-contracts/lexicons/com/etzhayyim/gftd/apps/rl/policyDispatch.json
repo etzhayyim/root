@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rl.policyDispatch",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Phase 2 AIF policy dispatch: ε-greedy sample from π(a)=softmax(−γ·G(a)) and POST to bpmn-dispatcher for each actor with live EFE data.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "batch_size": {
+              "type": "integer",
+              "description": "Max actors to dispatch per invocation.",
+              "default": 10
+            },
+            "epsilon": {
+              "type": "number",
+              "description": "Exploration probability (ε-greedy). 0=pure exploit, 1=pure explore.",
+              "default": 0.2
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "actors_checked", "dispatched", "errors"],
+          "properties": {
+            "ok":             { "type": "boolean" },
+            "actors_checked": { "type": "integer" },
+            "dispatched":     { "type": "integer" },
+            "errors":         { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

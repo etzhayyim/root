@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spaceTraffic.catalogObject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Space-Track.org / 18 SDS catalog (bridges ai-supply-chain + cyber-compliance via NORAD ID)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "objectId",
+            "objectType",
+            "catalogedAt"
+          ],
+          "properties": {
+            "objectId": {
+              "type": "string",
+              "description": "NORAD catalog number"
+            },
+            "intlDesignator": {
+              "type": "string",
+              "description": "COSPAR YYYY-NNNX"
+            },
+            "objectType": {
+              "type": "string",
+              "enum": [
+                "payload",
+                "rocket_body",
+                "debris",
+                "tba",
+                "unknown"
+              ]
+            },
+            "ownerIso3": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "apogeeKm": {
+              "type": "number"
+            },
+            "perigeeKm": {
+              "type": "number"
+            },
+            "inclinationDeg": {
+              "type": "number"
+            },
+            "rcsSize": {
+              "type": "string",
+              "enum": [
+                "small",
+                "medium",
+                "large"
+              ]
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "catalogedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "orbitTier": {
+              "type": "string",
+              "enum": [
+                "LEO",
+                "MEO",
+                "GEO",
+                "HEO"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -74,7 +74,7 @@ const IMPORT_RE =
   /(?:^\s*(?:import|from)\s+|require\(\s*["'`]|import\(\s*["'`])([\w.\-/@]+)/gm;
 
 // ── Check B: G4 non-adjudication schema invariant ────────────────────
-const LEX_DIR = "00-contracts/lexicons/app/etzhayyim/danjo";
+const LEX_DIR = "00-contracts/lexicons/com/etzhayyim/danjo";
 const OBSERVATION_LEX = `${LEX_DIR}/discrepancyObservation.json`;
 const REPORT_LEX = `${LEX_DIR}/oversightReport.json`;
 const NON_ADJ_LEXICONS = [OBSERVATION_LEX, REPORT_LEX];

@@ -7,7 +7,7 @@ import { Kysely, sql } from 'kysely';
  * vertex_nokyo_* tables for Nokyo (JA 農業協同組合) actor.
  *
  * 9 landing tables matching AT Record lexicons at
- *   00-contracts/lexicons/ai/gftd/apps/nokyo/*.json
+ *   00-contracts/lexicons/com/etzhayyim/apps/nokyo/*.json
  *
  * Promoted-column / typed / GraphAr-native. RLS 3-col (owner_did + rkey + repo)
  * + created_date + sensitivity_ord + actor_id follow house convention.

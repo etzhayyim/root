@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-list-offer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-list-offer-v1',
                  'did:web:market.etzhayyim.com',
                  'market_list_offer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listOffer" />\n'
                  '    <bpmn:serviceTask id="Task_listOffer" name="market.listOffer">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.market.listOffer" retries="2" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.market.listOffer" retries="2" '
                  '/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Start_Task</bpmn:incoming>\n'
@@ -58,13 +58,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1098,
-                 '00-contracts/bpmn/ai/gftd/market/listOffer.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/market/listOffer.bpmn',
                  '2026-05-07T01:05:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-list-offer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-list-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -79,9 +79,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-list-offer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-list-offer-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.listOffer',
+                 'com.etzhayyim.market.listOffer',
                  'market_list_offer',
                  30000,
                  '',
@@ -90,7 +90,7 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-list-offer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-list-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -106,7 +106,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-observe-demand-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-observe-demand-v1',
                  'did:web:market.etzhayyim.com',
                  'market_observe_demand',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_observeDemand" />\n'
                  '    <bpmn:serviceTask id="Task_observeDemand" name="market.observeDemand">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.market.observeDemand" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.market.observeDemand" '
                  'retries="2" />\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Start_Task</bpmn:incoming>\n'
@@ -137,13 +137,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1130,
-                 '00-contracts/bpmn/ai/gftd/market/observeDemand.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/market/observeDemand.bpmn',
                  '2026-05-07T01:05:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-observe-demand-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-observe-demand-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,9 +158,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-observe-demand-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-observe-demand-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.observeDemand',
+                 'com.etzhayyim.market.observeDemand',
                  'market_observe_demand',
                  30000,
                  'vertex_market_demand_signal',
@@ -169,7 +169,7 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-observe-demand-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-observe-demand-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -185,7 +185,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-publish-offer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-publish-offer-v1',
                  'did:web:market.etzhayyim.com',
                  'market_publish_offer',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -202,7 +202,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_publishOffer" />\n'
                  '    <bpmn:serviceTask id="Task_publishOffer" name="market.publishOffer">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.market.publishOffer" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.market.publishOffer" '
                  'retries="2" />\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Start_Task</bpmn:incoming>\n'
@@ -216,13 +216,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1122,
-                 '00-contracts/bpmn/ai/gftd/market/publishOffer.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/market/publishOffer.bpmn',
                  '2026-05-07T01:05:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-publish-offer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-publish-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -237,9 +237,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-publish-offer-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-publish-offer-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.publishOffer',
+                 'com.etzhayyim.market.publishOffer',
                  'market_publish_offer',
                  30000,
                  'vertex_market_listing',
@@ -248,7 +248,7 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-publish-offer-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-publish-offer-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -264,7 +264,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-quote-price-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-quote-price-v1',
                  'did:web:market.etzhayyim.com',
                  'market_quote_price',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -281,7 +281,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_quotePrice" />\n'
                  '    <bpmn:serviceTask id="Task_quotePrice" name="market.quotePrice">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.market.quotePrice" retries="2" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.market.quotePrice" retries="2" '
                  '/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Start_Task</bpmn:incoming>\n'
@@ -295,13 +295,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1106,
-                 '00-contracts/bpmn/ai/gftd/market/quotePrice.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/market/quotePrice.bpmn',
                  '2026-05-07T01:05:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-quote-price-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-quote-price-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -316,9 +316,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-quote-price-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-quote-price-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.quotePrice',
+                 'com.etzhayyim.market.quotePrice',
                  'market_quote_price',
                  30000,
                  '',
@@ -327,7 +327,7 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-quote-price-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-quote-price-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -343,7 +343,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settle-invoice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settle-invoice-v1',
                  'did:web:market.etzhayyim.com',
                  'market_settle_invoice',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -360,7 +360,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_settleInvoice" />\n'
                  '    <bpmn:serviceTask id="Task_settleInvoice" name="market.settleInvoice">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.market.settleInvoice" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.market.settleInvoice" '
                  'retries="2" />\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Start_Task</bpmn:incoming>\n'
@@ -374,13 +374,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1130,
-                 '00-contracts/bpmn/ai/gftd/market/settleInvoice.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/market/settleInvoice.bpmn',
                  '2026-05-07T01:05:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settle-invoice-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settle-invoice-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -395,9 +395,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-settle-invoice-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-settle-invoice-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.settleInvoice',
+                 'com.etzhayyim.market.settleInvoice',
                  'market_settle_invoice',
                  30000,
                  'vertex_market_settlement',
@@ -406,7 +406,7 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-settle-invoice-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-settle-invoice-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -422,7 +422,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-well-known-market-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-well-known-market-v1',
                  'did:web:market.etzhayyim.com',
                  'market_well_known_market',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -439,7 +439,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_wellKnownMarket" />\n'
                  '    <bpmn:serviceTask id="Task_wellKnownMarket" name="market.wellKnownMarket">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.market.wellKnownMarket" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.market.wellKnownMarket" '
                  'retries="2" />\n'
                  '      </bpmn:extensionElements>\n'
                  '      <bpmn:incoming>Flow_Start_Task</bpmn:incoming>\n'
@@ -453,13 +453,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1148,
-                 '00-contracts/bpmn/ai/gftd/market/wellKnownMarket.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/market/wellKnownMarket.bpmn',
                  '2026-05-07T01:05:00Z',
                  'did:web:market.etzhayyim.com',
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-well-known-market-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-well-known-market-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -474,9 +474,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-well-known-market-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-well-known-market-v1',
                  'did:web:market.etzhayyim.com',
-                 'app.etzhayyim.market.wellKnownMarket',
+                 'com.etzhayyim.market.wellKnownMarket',
                  'market_well_known_market',
                  30000,
                  '',
@@ -485,32 +485,32 @@ UP = [{'sql': '\n'
                  'did:web:market.etzhayyim.com',
                  'sys.bpmn.seed.market',
                  'did:web:market.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-well-known-market-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-well-known-market-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-list-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-list-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-list-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-list-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-observe-demand-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-observe-demand-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-observe-demand-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-observe-demand-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-publish-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-publish-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-publish-offer-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-publish-offer-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-quote-price-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-quote-price-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-quote-price-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-quote-price-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-settle-invoice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-settle-invoice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-settle-invoice-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settle-invoice-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/market-well-known-market-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/market-well-known-market-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/market-well-known-market-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-well-known-market-v1']}]
 
 
 def upgrade() -> None:

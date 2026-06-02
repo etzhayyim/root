@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airYield.fileFare",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "File a fare with ATPCO for a carrier route.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["carrier_code", "origin", "dest", "fare_basis"],
+          "properties": {
+            "carrier_code": { "type": "string" },
+            "origin": { "type": "string" },
+            "dest": { "type": "string" },
+            "fare_basis": { "type": "string" },
+            "atpco_rule_no": { "type": "string" },
+            "fare_amount": { "type": "string" },
+            "currency": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

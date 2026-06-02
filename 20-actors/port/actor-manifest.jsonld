@@ -114,7 +114,7 @@
       "steps": [
         {
           "args": {
-            "template": "MERGE (pce:PortCallEvent {callId: $input.record.callId, portLocode: $input.record.portLocode}) SET pce.imoNumber = $input.record.imoNumber, pce.status = $input.record.status, pce.eta = $input.record.eta, pce.ata = $input.record.ata, pce.nodeLabel = 'PortCallEvent', pce.repo = $did, pce.collection = 'ai.gftd.apps.port.portCallEvent'"
+            "template": "MERGE (pce:PortCallEvent {callId: $input.record.callId, portLocode: $input.record.portLocode}) SET pce.imoNumber = $input.record.imoNumber, pce.status = $input.record.status, pce.eta = $input.record.eta, pce.ata = $input.record.ata, pce.nodeLabel = 'PortCallEvent', pce.repo = $did, pce.collection = 'com.etzhayyim.apps.port.portCallEvent'"
           },
           "fn": "graph.write",
           "id": "recordEvent"
@@ -122,7 +122,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vessel.portCall"
+          "com.etzhayyim.apps.vessel.portCall"
         ],
         "type": "subscribeRepos"
       }
@@ -138,7 +138,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.infrastructure.getPort",
+        "nsid": "com.etzhayyim.apps.port.infrastructure.getPort",
         "type": "xrpc"
       }
     },
@@ -153,7 +153,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.infrastructure.listPorts",
+        "nsid": "com.etzhayyim.apps.port.infrastructure.listPorts",
         "type": "xrpc"
       }
     },
@@ -168,7 +168,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.infrastructure.searchPorts",
+        "nsid": "com.etzhayyim.apps.port.infrastructure.searchPorts",
         "type": "xrpc"
       }
     },
@@ -183,7 +183,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.infrastructure.getPortBerths",
+        "nsid": "com.etzhayyim.apps.port.infrastructure.getPortBerths",
         "type": "xrpc"
       }
     },
@@ -198,7 +198,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.infrastructure.getPortTerminals",
+        "nsid": "com.etzhayyim.apps.port.infrastructure.getPortTerminals",
         "type": "xrpc"
       }
     },
@@ -213,7 +213,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.portCallTracking.getVesselsAtPort",
+        "nsid": "com.etzhayyim.apps.port.portCallTracking.getVesselsAtPort",
         "type": "xrpc"
       }
     },
@@ -244,7 +244,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.portCallTracking.getPortOccupancy",
+        "nsid": "com.etzhayyim.apps.port.portCallTracking.getPortOccupancy",
         "type": "xrpc"
       }
     },
@@ -259,7 +259,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.getDashboard",
+        "nsid": "com.etzhayyim.apps.port.getDashboard",
         "type": "xrpc"
       }
     },
@@ -274,7 +274,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.health",
+        "nsid": "com.etzhayyim.apps.port.health",
         "type": "xrpc"
       }
     },
@@ -300,7 +300,7 @@
             "params": {
               "actorName": "port",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.port.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.port.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "p0rt7890",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -338,7 +338,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.port.coverage.get",
+        "nsid": "com.etzhayyim.apps.port.coverage.get",
         "type": "xrpc"
       }
     }
@@ -358,8 +358,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -372,11 +372,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.port.port",
-        "ai.gftd.apps.port.berth",
-        "ai.gftd.apps.port.terminal",
-        "ai.gftd.apps.port.portCallEvent",
-        "ai.gftd.apps.vessel.portCall"
+        "com.etzhayyim.apps.port.port",
+        "com.etzhayyim.apps.port.berth",
+        "com.etzhayyim.apps.port.terminal",
+        "com.etzhayyim.apps.port.portCallEvent",
+        "com.etzhayyim.apps.vessel.portCall"
       ]
     }
   },

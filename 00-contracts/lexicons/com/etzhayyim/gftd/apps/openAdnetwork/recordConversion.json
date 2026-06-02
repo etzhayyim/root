@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openAdnetwork.recordConversion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Conversion イベントを記録する。Starts BPMN process open_adnetwork_record_conversion.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["convId", "campaignId", "convType", "tsMsVal"],
+          "properties": {
+            "convId":        { "type": "string", "description": "Conversion unique identifier" },
+            "clickId":       { "type": "string", "description": "Click identifier that triggered this conversion" },
+            "campaignId":    { "type": "string", "description": "Campaign identifier" },
+            "convType": {
+              "type": "string",
+              "knownValues": ["lead", "purchase", "signup", "install"],
+              "description": "Conversion type"
+            },
+            "convValueUsd":  { "type": "number", "description": "Conversion value in USD" },
+            "tsMsVal":       { "type": "integer", "description": "Conversion timestamp in milliseconds since epoch" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status":   { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

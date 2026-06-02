@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOrcid.recordAffiliation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "所属記録 - Starts BPMN open_orcid_record_affiliation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "orcidId",
+            "orgName",
+            "affiliationType"
+          ],
+          "properties": {
+            "orcidId": {
+              "type": "string"
+            },
+            "orgRorId": {
+              "type": "string"
+            },
+            "orgName": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "affiliationType": {
+              "type": "string",
+              "enum": [
+                "employment",
+                "education",
+                "membership",
+                "service"
+              ]
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "confidence": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

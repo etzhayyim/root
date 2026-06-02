@@ -5,7 +5,7 @@
 // ai-gftd-project-open-cofog — UN COFOG (Classification of the Functions of
 // Government, 1999/2014) open taxonomy.
 //
-// 4 XRPC methods under app.etzhayyim.apps.openCofog.*:
+// 4 XRPC methods under com.etzhayyim.apps.openCofog.*:
 //   listDivisions  (query) — 10 divisions (01–10)
 //   listGroups     (query) — ~65 groups, filterable by division
 //   listClasses    (query) — 4-digit classes, filterable by division/group
@@ -124,10 +124,10 @@ export default {
           did: env.PRIMARY_DID,
           handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openCofog.listDivisions",
-            "app.etzhayyim.apps.openCofog.listGroups",
-            "app.etzhayyim.apps.openCofog.listClasses",
-            "app.etzhayyim.apps.openCofog.getClass",
+            "com.etzhayyim.apps.openCofog.listDivisions",
+            "com.etzhayyim.apps.openCofog.listGroups",
+            "com.etzhayyim.apps.openCofog.listClasses",
+            "com.etzhayyim.apps.openCofog.getClass",
           ],
           cofogVersion: "1999 (rev. 2014)",
           divisions: DIVISIONS.length,
@@ -142,10 +142,10 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method !== "GET") return err("InvalidRequest", "GET only", 405);
       switch (nsid) {
-        case "app.etzhayyim.apps.openCofog.listDivisions": return listDivisions();
-        case "app.etzhayyim.apps.openCofog.listGroups":    return listGroups(url.searchParams);
-        case "app.etzhayyim.apps.openCofog.listClasses":   return listClasses(url.searchParams);
-        case "app.etzhayyim.apps.openCofog.getClass":      return getClass(url.searchParams);
+        case "com.etzhayyim.apps.openCofog.listDivisions": return listDivisions();
+        case "com.etzhayyim.apps.openCofog.listGroups":    return listGroups(url.searchParams);
+        case "com.etzhayyim.apps.openCofog.listClasses":   return listClasses(url.searchParams);
+        case "com.etzhayyim.apps.openCofog.getClass":      return getClass(url.searchParams);
         default: return err("InvalidRequest", `unknown NSID: ${nsid}`, 404);
       }
     } catch (e: any) {

@@ -38,6 +38,6 @@
     "90-docs/adr/0019-atproto-native-identifier-topology.md",
     "90-docs/adr/0010-per-did-signing-key-custody.md",
     "90-docs/adr/0002-persistence-risingwave-graphar.md",
-    "00-contracts/lexicons/ai/gftd/repository/"
+    "00-contracts/lexicons/com/etzhayyim/repository/"
   ]
 }

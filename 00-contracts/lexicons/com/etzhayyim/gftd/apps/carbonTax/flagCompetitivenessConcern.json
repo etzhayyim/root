@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.carbonTax.flagCompetitivenessConcern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Competitiveness / carbon leakage concern (bridges eu-cbam + wto-dispute + merger-review + green-steel)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "concernId",
+            "instrumentVid",
+            "sectorIsic",
+            "leakageRiskTier",
+            "reportedAt"
+          ],
+          "properties": {
+            "concernId": {
+              "type": "string"
+            },
+            "instrumentVid": {
+              "type": "string",
+              "description": "bridges recordTaxInstrument"
+            },
+            "sectorIsic": {
+              "type": "string"
+            },
+            "leakageRiskTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "extreme"
+              ]
+            },
+            "eitcMeasureApplied": {
+              "type": "string",
+              "enum": [
+                "free_allocation",
+                "rebate",
+                "border_adjustment",
+                "benchmarking",
+                "no_measure"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

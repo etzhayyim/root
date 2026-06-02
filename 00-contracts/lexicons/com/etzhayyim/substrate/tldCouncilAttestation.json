@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.substrate.tldCouncilAttestation",
+  "description": "Per-TLD Council Lv6+ attestation gating ICANN CZDS zone-file ingestion. Per ADR-2605262400 W4. Each enabled TLD requires (1) the operator's per-TLD acceptance flag at ~/.etzhayyim/source-acceptance/czds-<tld>.toml AND (2) a Council Lv6+ attestation record under this lexicon. The fetcher refuses to start until both gates pass. The attestation is on-chain visible (PDS-anchored) so the Council decision trail is auditable. Records are immutable; revocation is recorded as a new record with `status = 'revoked'`.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [
+          "tld",
+          "status",
+          "councilSeatDids",
+          "decidedAt",
+          "tier",
+          "expectedLicense"
+        ],
+        "properties": {
+          "tld": {
+            "type": "string",
+            "description": "TLD slug in lowercase ASCII, no leading dot (e.g. `com`, `org`, `nz`, `xn--p1ai`)."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "revoked",
+              "pending-review"
+            ],
+            "description": "Lifecycle state. Only `approved` permits ingestion. `revoked` halts new fetches and (per ADR-2605262400 §6 + W4) requires the operator to issue a tombstone in `datasets.jsonl` for any already-pinned shards."
+          },
+          "councilSeatDids": {
+            "type": "array",
+            "minLength": 4,
+            "maxLength": 7,
+            "items": {
+              "type": "string",
+              "description": "DID of a Council Seat that voted in favor. ADR-2605192300 §Council protocol: Lv6+ supermajority requires ≥4 of 7 seats."
+            }
+          },
+          "decidedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "RFC3339 instant of the Council vote."
+          },
+          "tier": {
+            "type": "string",
+            "enum": [
+              "C",
+              "D"
+            ],
+            "description": "Per-TLD effective tier. The CZDS agreement varies per TLD; some are pure research-use (C), some carry redistribution restrictions that map to D. Tier D zones are admitted only to fleet-internal inference paths AND with stricter Charter Rider §2(c) review."
+          },
+          "expectedLicense": {
+            "type": "string",
+            "description": "Free-form slug of the upstream license / TOS clause the Council attested to (e.g. 'czds-research-use', 'czds-com-extended-restrictions'). Stored verbatim from the upstream registration text."
+          },
+          "noteCid": {
+            "type": "string",
+            "description": "Optional IPFS CID of a public note explaining the rationale + scope of the per-TLD approval. Recommended for any Tier-D approval and for any TLD where Council members declared a conflict of interest."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Optional RFC3339 expiry instant. After this time the fetcher MUST treat the approval as `revoked` and refuse new fetches until a new attestation lands."
+          }
+        }
+      }
+    }
+  }
+}

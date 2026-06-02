@@ -121,7 +121,7 @@ export async function persistPlan(
     const now = Date.now();
     const nowIso = new Date(now).toISOString();
     const rules = PLAN_RULES[plan];
-    const vertexId = `at://did:web:billing.etzhayyim.com/app.etzhayyim.apps.billing.org_plan/${encodeURIComponent(orgDid)}-${now}`;
+    const vertexId = `at://did:web:billing.etzhayyim.com/com.etzhayyim.apps.billing.org_plan/${encodeURIComponent(orgDid)}-${now}`;
     await db.insertInto("vertex_org_plan").values({
       vertex_id: vertexId,
       org_did: orgDid,

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.koke.getFixation",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get fixation status and metadata for a given fixation ID.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "fixationId": { "type": "string", "description": "Fixation ID to retrieve" }
+        },
+        "required": ["fixationId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "found": { "type": "boolean" },
+            "fixationId": { "type": "string" },
+            "inputKind": { "type": "string" },
+            "signalHash": { "type": "string" },
+            "classification": { "type": "string" },
+            "status": { "type": "string" },
+            "fixedAt": { "type": "string" },
+            "releasedAt": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["found"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSmartphoneSoc.trackFabOrder",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Track a chip fabrication order placed with an EMS/fab",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orderId", "chipDid", "fabDid"],
+          "properties": {
+            "orderId": { "type": "string" },
+            "chipDid": { "type": "string", "format": "did" },
+            "fabDid": { "type": "string", "format": "did" },
+            "processNodeNm": { "type": "integer" },
+            "waferQty": { "type": "integer" },
+            "deliveryEstimate": { "type": "string" },
+            "priceUsdK": { "type": "number", "description": "Price in thousands USD" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

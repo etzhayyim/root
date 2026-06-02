@@ -41,7 +41,7 @@ describe("writePrivate", () => {
     const result = await writePrivate({
       db,
       table: "vertex_gov_record",
-      values: { vertex_id: "gov:1", record_kind: "app.etzhayyim.gov.test", value_json: "{}" },
+      values: { vertex_id: "gov:1", record_kind: "com.etzhayyim.gov.test", value_json: "{}" },
     });
 
     expect(result).toEqual({ table: "vertex_gov_record", inserted: 1 });
@@ -49,7 +49,7 @@ describe("writePrivate", () => {
       {
         op: "insert",
         table: "vertex_gov_record",
-        payload: [{ vertex_id: "gov:1", record_kind: "app.etzhayyim.gov.test", value_json: "{}" }],
+        payload: [{ vertex_id: "gov:1", record_kind: "com.etzhayyim.gov.test", value_json: "{}" }],
       },
     ]);
   });

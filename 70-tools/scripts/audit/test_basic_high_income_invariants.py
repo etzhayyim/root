@@ -306,7 +306,7 @@ def test_give_readme_indexes_every_lexicon():
     missing = []
     for lex in sorted(give.rglob("*.json")):
         nsid = _load(lex)["id"]
-        short = nsid.removeprefix("app.etzhayyim.give.")  # e.g. usdc.donation / vendorSurplusPolicy
+        short = nsid.removeprefix("com.etzhayyim.give.")  # e.g. usdc.donation / vendorSurplusPolicy
         if short not in readme:
             missing.append(short)
     assert not missing, f"give/README.md must index every lexicon; missing: {missing}"

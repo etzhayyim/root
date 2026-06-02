@@ -21,7 +21,7 @@ Pregel graph (3 nodes):
         |
         v
     on_redflag_escalate         ->  if red-flag detected:
-                                      MST PUT app.etzhayyim.mitate.emergencyEscalation
+                                      MST PUT com.etzhayyim.mitate.emergencyEscalation
                                       → on-call DID notification (urgency-only push, G11)
                                       → patient PWA: 即 ER routing instruction display
                                       → STOP downstream pipeline (no triage / no order)

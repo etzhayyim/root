@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.hanrei.collectCaseDetail": {
+    "/xrpc/com.etzhayyim.hanrei.collectCaseDetail": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectCaseDetail",
+        "operationId": "com.etzhayyim.hanrei.collectCaseDetail",
         "requestBody": {
           "required": true,
           "content": {
@@ -66,10 +66,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectCases": {
+    "/xrpc/com.etzhayyim.hanrei.collectCases": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectCases",
+        "operationId": "com.etzhayyim.hanrei.collectCases",
         "requestBody": {
           "required": true,
           "content": {
@@ -113,10 +113,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectCasesBatch": {
+    "/xrpc/com.etzhayyim.hanrei.collectCasesBatch": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectCasesBatch",
+        "operationId": "com.etzhayyim.hanrei.collectCasesBatch",
         "requestBody": {
           "required": true,
           "content": {
@@ -169,10 +169,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectEgovLaws": {
+    "/xrpc/com.etzhayyim.hanrei.collectEgovLaws": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectEgovLaws",
+        "operationId": "com.etzhayyim.hanrei.collectEgovLaws",
         "requestBody": {
           "required": true,
           "content": {
@@ -216,10 +216,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectGazette": {
+    "/xrpc/com.etzhayyim.hanrei.collectGazette": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectGazette",
+        "operationId": "com.etzhayyim.hanrei.collectGazette",
         "requestBody": {
           "required": true,
           "content": {
@@ -255,10 +255,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectJurisdictionCases": {
+    "/xrpc/com.etzhayyim.hanrei.collectJurisdictionCases": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectJurisdictionCases",
+        "operationId": "com.etzhayyim.hanrei.collectJurisdictionCases",
         "requestBody": {
           "required": true,
           "content": {
@@ -311,10 +311,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectJurisdictionGazette": {
+    "/xrpc/com.etzhayyim.hanrei.collectJurisdictionGazette": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectJurisdictionGazette",
+        "operationId": "com.etzhayyim.hanrei.collectJurisdictionGazette",
         "requestBody": {
           "required": true,
           "content": {
@@ -364,10 +364,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectJurisdictionLegislation": {
+    "/xrpc/com.etzhayyim.hanrei.collectJurisdictionLegislation": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectJurisdictionLegislation",
+        "operationId": "com.etzhayyim.hanrei.collectJurisdictionLegislation",
         "requestBody": {
           "required": true,
           "content": {
@@ -417,10 +417,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectLegislation": {
+    "/xrpc/com.etzhayyim.hanrei.collectLegislation": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectLegislation",
+        "operationId": "com.etzhayyim.hanrei.collectLegislation",
         "requestBody": {
           "required": true,
           "content": {
@@ -456,10 +456,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.collectWikidataCourts": {
+    "/xrpc/com.etzhayyim.hanrei.collectWikidataCourts": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.collectWikidataCourts",
+        "operationId": "com.etzhayyim.hanrei.collectWikidataCourts",
         "requestBody": {
           "required": true,
           "content": {
@@ -495,10 +495,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.compareJurisdictions": {
+    "/xrpc/com.etzhayyim.hanrei.compareJurisdictions": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.compareJurisdictions",
+        "operationId": "com.etzhayyim.hanrei.compareJurisdictions",
         "requestBody": {
           "required": true,
           "content": {
@@ -542,10 +542,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.coverageStats": {
+    "/xrpc/com.etzhayyim.hanrei.coverageStats": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.coverageStats",
+        "operationId": "com.etzhayyim.hanrei.coverageStats",
         "requestBody": {
           "required": true,
           "content": {
@@ -596,10 +596,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.createInformationHunt": {
+    "/xrpc/com.etzhayyim.hanrei.createInformationHunt": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.createInformationHunt",
+        "operationId": "com.etzhayyim.hanrei.createInformationHunt",
         "requestBody": {
           "required": true,
           "content": {
@@ -655,10 +655,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.extractCasePersons": {
+    "/xrpc/com.etzhayyim.hanrei.extractCasePersons": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.extractCasePersons",
+        "operationId": "com.etzhayyim.hanrei.extractCasePersons",
         "requestBody": {
           "required": true,
           "content": {
@@ -708,10 +708,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.getCase": {
+    "/xrpc/com.etzhayyim.hanrei.getCase": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.getCase",
+        "operationId": "com.etzhayyim.hanrei.getCase",
         "parameters": [
           {
             "name": "caseId",
@@ -744,10 +744,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.getDigest": {
+    "/xrpc/com.etzhayyim.hanrei.getDigest": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.getDigest",
+        "operationId": "com.etzhayyim.hanrei.getDigest",
         "parameters": [
           {
             "name": "date",
@@ -783,10 +783,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.getJurisdiction": {
+    "/xrpc/com.etzhayyim.hanrei.getJurisdiction": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.getJurisdiction",
+        "operationId": "com.etzhayyim.hanrei.getJurisdiction",
         "parameters": [
           {
             "name": "iso3",
@@ -819,10 +819,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.huntCoverageStats": {
+    "/xrpc/com.etzhayyim.hanrei.huntCoverageStats": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.huntCoverageStats",
+        "operationId": "com.etzhayyim.hanrei.huntCoverageStats",
         "requestBody": {
           "required": true,
           "content": {
@@ -867,10 +867,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.listCases": {
+    "/xrpc/com.etzhayyim.hanrei.listCases": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.listCases",
+        "operationId": "com.etzhayyim.hanrei.listCases",
         "parameters": [
           {
             "name": "caseType",
@@ -936,10 +936,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.listCourts": {
+    "/xrpc/com.etzhayyim.hanrei.listCourts": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.listCourts",
+        "operationId": "com.etzhayyim.hanrei.listCourts",
         "parameters": [],
         "responses": {
           "200": {
@@ -966,10 +966,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.listGazetteEntries": {
+    "/xrpc/com.etzhayyim.hanrei.listGazetteEntries": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.listGazetteEntries",
+        "operationId": "com.etzhayyim.hanrei.listGazetteEntries",
         "parameters": [
           {
             "name": "limit",
@@ -1019,10 +1019,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.listJurisdictions": {
+    "/xrpc/com.etzhayyim.hanrei.listJurisdictions": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.listJurisdictions",
+        "operationId": "com.etzhayyim.hanrei.listJurisdictions",
         "parameters": [
           {
             "name": "legalSystem",
@@ -1080,10 +1080,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.listLaws": {
+    "/xrpc/com.etzhayyim.hanrei.listLaws": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.listLaws",
+        "operationId": "com.etzhayyim.hanrei.listLaws",
         "parameters": [
           {
             "name": "limit",
@@ -1133,10 +1133,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.listSources": {
+    "/xrpc/com.etzhayyim.hanrei.listSources": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.listSources",
+        "operationId": "com.etzhayyim.hanrei.listSources",
         "parameters": [],
         "responses": {
           "200": {
@@ -1166,10 +1166,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.putRecord": {
+    "/xrpc/com.etzhayyim.hanrei.putRecord": {
       "post": {
         "summary": "Generic domain vertex write for hanrei tables (ADR-2605111200 Phase 2).",
-        "operationId": "app.etzhayyim.hanrei.putRecord",
+        "operationId": "com.etzhayyim.hanrei.putRecord",
         "requestBody": {
           "required": true,
           "content": {
@@ -1225,10 +1225,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.receiveHuntResult": {
+    "/xrpc/com.etzhayyim.hanrei.receiveHuntResult": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.receiveHuntResult",
+        "operationId": "com.etzhayyim.hanrei.receiveHuntResult",
         "requestBody": {
           "required": true,
           "content": {
@@ -1336,10 +1336,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.registerCourtProfiles": {
+    "/xrpc/com.etzhayyim.hanrei.registerCourtProfiles": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.registerCourtProfiles",
+        "operationId": "com.etzhayyim.hanrei.registerCourtProfiles",
         "requestBody": {
           "required": true,
           "content": {
@@ -1375,10 +1375,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.registerJurisdictions": {
+    "/xrpc/com.etzhayyim.hanrei.registerJurisdictions": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.registerJurisdictions",
+        "operationId": "com.etzhayyim.hanrei.registerJurisdictions",
         "requestBody": {
           "required": true,
           "content": {
@@ -1417,10 +1417,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.searchCases": {
+    "/xrpc/com.etzhayyim.hanrei.searchCases": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.searchCases",
+        "operationId": "com.etzhayyim.hanrei.searchCases",
         "parameters": [
           {
             "name": "limit",
@@ -1478,10 +1478,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.searchDecisions": {
+    "/xrpc/com.etzhayyim.hanrei.searchDecisions": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.searchDecisions",
+        "operationId": "com.etzhayyim.hanrei.searchDecisions",
         "parameters": [
           {
             "name": "limit",
@@ -1545,10 +1545,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.searchJurisdictions": {
+    "/xrpc/com.etzhayyim.hanrei.searchJurisdictions": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.searchJurisdictions",
+        "operationId": "com.etzhayyim.hanrei.searchJurisdictions",
         "parameters": [
           {
             "name": "limit",
@@ -1606,10 +1606,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.hanrei.seedCases": {
+    "/xrpc/com.etzhayyim.hanrei.seedCases": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.hanrei.seedCases",
+        "operationId": "com.etzhayyim.hanrei.seedCases",
         "requestBody": {
           "required": true,
           "content": {

@@ -21,7 +21,7 @@ export {
 import { Etzhayyim } from "@etzhayyim/sdk";
 import { isValidCpcCode, type CpcProduct } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.cpc.product";
+const COLLECTION = "com.etzhayyim.apps.cpc.product";
 
 function defaultClient(): Etzhayyim {
   return new Etzhayyim({

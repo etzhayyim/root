@@ -46,7 +46,7 @@
         },
         {
           "args": {
-            "template": "MERGE (c:OsConsentRequest {did: $did}) SET c.requesterDid = $input.record.requesterDid, c.scope = $input.record.scope, c.decision = $evaluate.text, c.repo = $did, c.collection = 'ai.gftd.apps.os.consentRequest'"
+            "template": "MERGE (c:OsConsentRequest {did: $did}) SET c.requesterDid = $input.record.requesterDid, c.scope = $input.record.scope, c.decision = $evaluate.text, c.repo = $did, c.collection = 'com.etzhayyim.apps.os.consentRequest'"
           },
           "fn": "graph.write",
           "id": "writeDecision"
@@ -64,7 +64,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.os.consentRequest"
+          "com.etzhayyim.apps.os.consentRequest"
         ],
         "type": "subscribeRepos"
       }
@@ -87,7 +87,7 @@
         },
         {
           "args": {
-            "template": "MERGE (a:OsAgent {did: $input.record.agentDid}) SET a.displayName = $input.record.displayName, a.status = $input.record.action, a.tier = $input.record.tier, a.repo = $did, a.collection = 'ai.gftd.apps.os.agent'"
+            "template": "MERGE (a:OsAgent {did: $input.record.agentDid}) SET a.displayName = $input.record.displayName, a.status = $input.record.action, a.tier = $input.record.tier, a.repo = $did, a.collection = 'com.etzhayyim.apps.os.agent'"
           },
           "depends_on": [
             "lifecycle"
@@ -97,7 +97,7 @@
         },
         {
           "args": {
-            "template": "CREATE (e:OsAuditEntry {did: $did, action: $input.record.action, agentDid: $input.record.agentDid, detail: $lifecycle.text, repo: $did, collection: 'ai.gftd.apps.os.auditEntry'})"
+            "template": "CREATE (e:OsAuditEntry {did: $did, action: $input.record.action, agentDid: $input.record.agentDid, detail: $lifecycle.text, repo: $did, collection: 'com.etzhayyim.apps.os.auditEntry'})"
           },
           "depends_on": [
             "lifecycle"
@@ -118,7 +118,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.os.agent"
+          "com.etzhayyim.apps.os.agent"
         ],
         "type": "subscribeRepos"
       }
@@ -188,7 +188,7 @@
             "params": {
               "actorName": "os",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.os.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.os.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "os-gftd-01",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -248,7 +248,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.os.coverage.get",
+        "nsid": "com.etzhayyim.apps.os.coverage.get",
         "type": "xrpc"
       }
     }
@@ -269,8 +269,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -283,10 +283,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.os.agent",
-        "ai.gftd.apps.os.consentRequest",
-        "ai.gftd.apps.os.budgetAllocation",
-        "ai.gftd.apps.os.directoryEntry"
+        "com.etzhayyim.apps.os.agent",
+        "com.etzhayyim.apps.os.consentRequest",
+        "com.etzhayyim.apps.os.budgetAllocation",
+        "com.etzhayyim.apps.os.directoryEntry"
       ]
     }
   },

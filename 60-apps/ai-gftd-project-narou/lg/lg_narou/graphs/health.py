@@ -1,6 +1,6 @@
 """narou `health` graph — simplest possible end-to-end probe.
 
-Replaces BPMN `narou_health` (NSID: ai.gftd.narou.health).
+Replaces BPMN `narou_health` (NSID: com.etzhayyim.narou.health).
 Confirms the server can:
   1. Compile a graph
   2. Reach RW (SELECT 1)

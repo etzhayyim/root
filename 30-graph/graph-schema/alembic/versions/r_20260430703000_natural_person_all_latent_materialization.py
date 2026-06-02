@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1',
                  'did:web:natural-person.etzhayyim.com',
                  'natural_person_materialize_all_latent_entities_v1',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -65,7 +65,7 @@ UP = [{'sql': '\n'
                  '    in vertex_natural_person_latent_materialization_cursor, so the job is\n'
                  '    idempotent and resumable.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.naturalPerson.materializeAllLatentEntities\n'
+                 '  NSID: com.etzhayyim.apps.naturalPerson.materializeAllLatentEntities\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -101,7 +101,7 @@ UP = [{'sql': '\n'
                  'sensitivity_ord, owner_did, actor_did, org_did, created_at, updated_at, '
                  'cohort_vid, cohort_hash, target_count, next_ordinal, materialized_count, '
                  'batch_size, status) SELECT '
-                 "'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.latentCursor/' "
+                 "'at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.latentCursor/' "
                  "|| c.cohort_hash, 1, 300, 'did:web:natural-person.etzhayyim.com', "
                  "'did:web:natural-person.etzhayyim.com', 'did:web:natural-person.etzhayyim.com', NOW(), "
                  'NOW(), c.vertex_id, c.cohort_hash, GREATEST(COALESCE(c.intel_estimated_count, '
@@ -150,7 +150,7 @@ UP = [{'sql': '\n'
                  'entity_kind, canonical_label, existence_probability, k_evidence_count, '
                  'viewpoint_consensus, fission_eligible, status, primary_topic_vid, '
                  'individual_did) SELECT '
-                 "'at://did:web:coverage.etzhayyim.com/app.etzhayyim.apps.coverage.latentEntity/natural-person-individual-' "
+                 "'at://did:web:coverage.etzhayyim.com/com.etzhayyim.apps.coverage.latentEntity/natural-person-individual-' "
                  "|| w.cohort_hash || '-' || LPAD(g.i::VARCHAR, 12, '0'), g.i, 300, "
                  "'did:web:coverage.etzhayyim.com', 'did:web:coverage.etzhayyim.com', "
                  "'did:web:coverage.etzhayyim.com', NOW(), 'natural_person_individual_latent', 'natural "
@@ -262,12 +262,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  10242,
-                 '00-contracts/bpmn/ai/gftd/natural-person/materializeAllLatentEntities.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/natural-person/materializeAllLatentEntities.bpmn',
                  '2026-04-30T20:30:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -281,21 +281,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1',
                  'did:web:natural-person.etzhayyim.com',
-                 'app.etzhayyim.apps.naturalPerson.materializeAllLatentEntities',
+                 'com.etzhayyim.apps.naturalPerson.materializeAllLatentEntities',
                  'natural_person_materialize_all_latent_entities_v1',
                  300000,
                  '2026-04-30T20:30:00Z',
                  'did:web:natural-person.etzhayyim.com',
                  'did:web:natural-person.etzhayyim.com',
                  'sys.bpmn.seed.natural-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/natural-person-materializeAllLatentEntities-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-materialize-all-latent-entities-v1']},
  {'sql': 'DROP TABLE IF EXISTS vertex_natural_person_latent_materialization_cursor',
   'parameters': []}]
 

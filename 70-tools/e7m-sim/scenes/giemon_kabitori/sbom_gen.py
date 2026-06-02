@@ -6,7 +6,7 @@ self-contained EDN reader for the controlled subset used by that file) and
 emits:
   - kabitori.cdx.json   — CycloneDX 1.5 SBOM (per-part product / manufacturer /
                           purl / procurement)
-  - kotoba_ingest.json  — body for POST /xrpc/ai.gftd.apps.kotobase.kg.ingest_batch
+  - kotoba_ingest.json  — body for POST /xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch
                           (one entity per part; claims become kg/claim/part/* datoms)
 
 Usage:  python3 sbom_gen.py [parts.edn] [out_dir]

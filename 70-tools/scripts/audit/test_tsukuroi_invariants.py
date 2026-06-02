@@ -197,7 +197,7 @@ class TestManifestConsistency:
 
     def test_each_lexicon_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.tsukuroi.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.tsukuroi.{p.stem}"
 
     def test_did_name_tier(self):
         m = _load(_MANIFEST)

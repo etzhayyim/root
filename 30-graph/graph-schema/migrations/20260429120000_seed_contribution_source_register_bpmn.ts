@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 // ADR-2604281400 Phase 3 — seed contributionSourceRegister BPMN actor.
 // One process_def + one lexicon_binding (XRPC-triggered, no timer).
-// NSID: app.etzhayyim.authz.registerContributionSource
+// NSID: com.etzhayyim.authz.registerContributionSource
 // Zeebe task: contribution.registerSource (off-chain DB write only)
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,13 +16,13 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const CREATED_AT = "2026-04-29T12:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const BPMN_PROCESS_ID = "contribution_source_register";
-const NSID = "app.etzhayyim.authz.registerContributionSource";
-const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/contribution/contributionSourceRegister.bpmn";
+const NSID = "com.etzhayyim.authz.registerContributionSource";
+const SOURCE_PATH = "00-contracts/bpmn/com/etzhayyim/contribution/contributionSourceRegister.bpmn";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/contribution-source-register-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/contribution-source-register-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/contribution-registerSource-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/contribution-registerSource-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(path.resolve(repoRoot, SOURCE_PATH), "utf8");

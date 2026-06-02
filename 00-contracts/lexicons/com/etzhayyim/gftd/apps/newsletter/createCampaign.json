@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.newsletter.createCampaign",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a newsletter campaign. LangGraph curation loop ingests news.etzhayyim.com + narou.etzhayyim.com signals, ranks content, drafts and personalizes per cohort, then delivers via Resend.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["name", "topic"],
+          "properties": {
+            "name":          { "type": "string", "maxLength": 120 },
+            "topic":         { "type": "string", "maxLength": 500, "description": "Content topic / theme for this campaign." },
+            "cohortName":    { "type": "string", "maxLength": 120, "description": "Target cohort from cohort-apqc-3-market-sell-* table. Empty = all subscribers." },
+            "scheduleIso":   { "type": "string", "description": "ISO 8601 send time. Empty = send immediately." },
+            "includeAdSlot": { "type": "boolean", "description": "If true, creates an ads.etzhayyim.com sponsor slot in the newsletter." },
+            "subjectLine":   { "type": "string", "maxLength": 200, "description": "Override subject line. Empty = LangGraph generates." }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["campaignId", "status"],
+          "properties": {
+            "campaignId": { "type": "string" },
+            "status":     { "type": "string", "enum": ["queued", "curating", "sending", "sent", "failed"] },
+            "createdAt":  { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

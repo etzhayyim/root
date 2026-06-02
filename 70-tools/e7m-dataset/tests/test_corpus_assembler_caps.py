@@ -80,7 +80,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"

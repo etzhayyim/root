@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.nogu.listItems",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "農具・農機具一覧を ownerDid / category / status でフィルタ。",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "ownerDid": { "type": "string" },
+          "category": { "type": "string" },
+          "status": { "type": "string" },
+          "dueBefore": { "type": "string", "format": "date", "description": "nextInspectionDate がこの日付以前のもの" },
+          "limit": { "type": "integer", "default": 50, "maximum": 500 },
+          "offset": { "type": "integer", "default": 0 }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["items"],
+          "properties": {
+            "items": { "type": "array", "items": { "type": "unknown" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

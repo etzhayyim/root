@@ -5,7 +5,7 @@
   "jurisdiction": "global",
   "status": "draft-pending-council-attestation",
   "councilAttestation": [],
-  "basis": "Open, versioned aggregation + narrative-prompt heuristics for kanae fundFlowEdge assembly + flowNarrative generation over the global open-government fiscal corpus (ADR-2605263900: USAspending / EU FTS / IMF SDMX / World Bank / OECD / UN + JP 予算書 / 政府調達) and the danjo cross-reference graph (ADR-2605301600 + ADR-2605302245). Each method conforms to app.etzhayyim.kanae.methodNote. CONSTITUTIONAL: every method is NON-adjudicating (G4) — it describes a FACTUAL aggregation or flow pattern only, never a finding of wrongdoing; knownFalsePositiveModes are mandatory and document why a hit / pattern is NOT, by itself, evidence of a crime / 不正. Method = open (G6); the public audits the aggregation, not only the picture. Narrative generation is Murakumo-only (G7).",
+  "basis": "Open, versioned aggregation + narrative-prompt heuristics for kanae fundFlowEdge assembly + flowNarrative generation over the global open-government fiscal corpus (ADR-2605263900: USAspending / EU FTS / IMF SDMX / World Bank / OECD / UN + JP 予算書 / 政府調達) and the danjo cross-reference graph (ADR-2605301600 + ADR-2605302245). Each method conforms to com.etzhayyim.kanae.methodNote. CONSTITUTIONAL: every method is NON-adjudicating (G4) — it describes a FACTUAL aggregation or flow pattern only, never a finding of wrongdoing; knownFalsePositiveModes are mandatory and document why a hit / pattern is NOT, by itself, evidence of a crime / 不正. Method = open (G6); the public audits the aggregation, not only the picture. Narrative generation is Murakumo-only (G7).",
   "notes": [
     "DRAFT / 雛形. Every threshold + aggregation choice here is a placeholder planning figure pending (a) Council Lv6+ ≥3 attestation and (b) calibration against real pinned gov.dataset.* + danjo records. Do NOT treat as authoritative until status flips to 'attested' and councilAttestation lists ≥3 Lv6+ DIDs.",
     "A method produces kanae.fundFlowEdge datoms and/or a kanae.flowNarrative (nonAdjudicatingNotice=true, ≥2 sourceRecordCids, this methodNoteCid, murakumoInferenceAttestation). It is a FACT about public fiscal records, NOT a verdict. Legal characterization, if ever sought, routes to external counsel via chigiri + Public Fund (G4).",
@@ -19,7 +19,7 @@
       "title": "Assemble the domestic fiscal chain appropriation → outlay → subaward → procurement-award → recipient",
       "appliesToFlowClass": ["appropriation", "outlay", "subaward", "procurement-award"],
       "definition": "Join danjo budget_ledger datoms (appropriation ↔ outlay ↔ recipientLei ↔ program) with danjo procurement_graph datoms (authority ↔ award ↔ awardeeLei ↔ amount) on shared recipientLei / awardeeLei + fiscal period, per jurisdiction, into a connected fundFlowEdge chain. This is a FACTUAL reconstruction of the public spending chain; gaps in the chain are descriptive (e.g. an outlay whose appropriation line is not present in the pinned corpus) — see knownFalsePositiveModes.",
-      "inputs": ["app.etzhayyim.danjo.crossReferenceLink", "app.etzhayyim.gov.dataset.budgetRecord", "app.etzhayyim.gov.dataset.procurementRecord", "app.etzhayyim.corp.leiReference"],
+      "inputs": ["com.etzhayyim.danjo.crossReferenceLink", "com.etzhayyim.gov.dataset.budgetRecord", "com.etzhayyim.gov.dataset.procurementRecord", "com.etzhayyim.corp.leiReference"],
       "thresholdParams": "{\"joinOn\":[\"recipientLei\",\"fiscalPeriod\"],\"minEdgeAmount\":0,\"perJurisdiction\":true}",
       "knownFalsePositiveModes": [
         "Corpus coverage gaps — the pinned bulk archive may not include every appropriation/outlay line, so a missing chain link reflects data availability, NOT a concealed flow.",
@@ -34,7 +34,7 @@
       "title": "Assemble inter-governmental transfer / aid / loan flows donor-juris → recipient-juris",
       "appliesToFlowClass": ["intergovernmental-transfer", "aid-disbursement", "loan", "repayment"],
       "definition": "From gov.dataset.statisticsObservation (IMF SDMX / World Bank / OECD.Stat / UN data), assemble donor-jurisdiction ↔ recipient-jurisdiction ↔ instrument ↔ amount ↔ period fundFlowEdge datoms. instrument ∈ {grant, loan, SDR-allocation, aid-disbursement, repayment, quota-subscription}. This is a FACTUAL aggregation of published inter-governmental statistics; magnitudes are reporting figures from the IGO, NOT independently audited by kanae.",
-      "inputs": ["app.etzhayyim.gov.dataset.statisticsObservation"],
+      "inputs": ["com.etzhayyim.gov.dataset.statisticsObservation"],
       "thresholdParams": "{\"sources\":[\"imf-sdmx\",\"worldbank-open-data\",\"oecd-stat\",\"un-data\"],\"normalizeCurrencyTo\":\"USD\",\"period\":\"annual\"}",
       "knownFalsePositiveModes": [
         "Double-counting across IGO sources — the same flow may be reported by both OECD DAC and the World Bank with different classifications; dedup is heuristic.",
@@ -49,7 +49,7 @@
       "title": "Aggregate recipient concentration within an authority / program (descriptive, aggregate-first)",
       "appliesToFlowClass": ["outlay", "procurement-award", "subaward"],
       "definition": "For a (contractingAuthority OR program, fiscalPeriod), aggregate total flow by recipient class and compute a concentration measure (e.g. top-5 recipient share, HHI) for visualization as a treemap. This is a DESCRIPTIVE distribution of public spending; high concentration is lawful and common in specialized markets — see knownFalsePositiveModes. Aggregate-first (G10): recipient classes, not individuals, unless the source already names them and Council review applies.",
-      "inputs": ["app.etzhayyim.kanae.fundFlowEdge"],
+      "inputs": ["com.etzhayyim.kanae.fundFlowEdge"],
       "thresholdParams": "{\"groupBy\":[\"authorityOrProgram\",\"fiscalPeriod\"],\"measures\":[\"top5Share\",\"hhi\"],\"vizType\":\"treemap\"}",
       "knownFalsePositiveModes": [
         "Naturally concentrated markets — defense, aerospace, large-infrastructure procurement legitimately have few eligible suppliers.",
@@ -64,7 +64,7 @@
       "title": "Murakumo-only narrative prompt for a fundFlowEdge subgraph (factual, non-adjudicating)",
       "appliesToFlowClass": ["appropriation", "outlay", "subaward", "procurement-award", "intergovernmental-transfer", "aid-disbursement", "loan", "repayment"],
       "definition": "Given a fundFlowEdge subgraph + its ≥2 sourceRecordCids, generate a FACTUAL natural-language description on the Murakumo fleet (G7): what flowed, from which authority/jurisdiction, to which recipient class/jurisdiction, in what amount and period, citing the source records. The prompt template FORBIDS legal-conclusion language and any assertion of crime / 不正 / violation (G4); it instructs the model to describe magnitudes and routes only and to surface knownFalsePositiveModes as caveats. Output is a kanae.flowNarrative with nonAdjudicatingNotice=true + murakumoInferenceAttestation.",
-      "inputs": ["app.etzhayyim.kanae.fundFlowEdge"],
+      "inputs": ["com.etzhayyim.kanae.fundFlowEdge"],
       "thresholdParams": "{\"murakumoNode\":\"gad\",\"model\":\"gemma3:4b-or-fleet-default\",\"forbidLegalConclusion\":true,\"requireSourceCitation\":true}",
       "knownFalsePositiveModes": [
         "LLM hallucination of an amount or endpoint — mitigated by ≥2 sourceRecordCids (G5) + Council review at R2 before publication.",

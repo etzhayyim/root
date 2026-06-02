@@ -3,7 +3,7 @@
 Install the zero-emission powertrain (G13): wind-assist rig, solar deck, PEM H2 fuel cell, LFP battery, electric azimuth pods, autonomous GNC.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.powertrainIntegrationAttestation.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.powertrainIntegrationAttestation.
 """
 
 from typing import Any

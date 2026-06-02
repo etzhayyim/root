@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fxSwapLines.recordSwapLine",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Central bank FX swap / repo line (Fed FIMA / ECB / BoJ / PBoC yuan swaps / ChiangMai — bridges sovereignDebt.recordDebtRestructure + digitalEuroBrics.recordCorridor)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "lineId",
+            "providerCb",
+            "recipientCountryIso3",
+            "currency",
+            "activatedAt"
+          ],
+          "properties": {
+            "lineId": {
+              "type": "string"
+            },
+            "providerCb": {
+              "type": "string",
+              "enum": [
+                "fed",
+                "ecb",
+                "boj",
+                "boe",
+                "pboc",
+                "snb",
+                "rbi",
+                "cmim",
+                "imf_fcl",
+                "imf_psi"
+              ]
+            },
+            "recipientCountryIso3": {
+              "type": "string"
+            },
+            "currency": {
+              "type": "string",
+              "enum": [
+                "usd",
+                "eur",
+                "jpy",
+                "cny",
+                "gbp",
+                "chf",
+                "inr",
+                "krw",
+                "sdr"
+              ]
+            },
+            "notionalBusd": {
+              "type": "number"
+            },
+            "termDays": {
+              "type": "integer"
+            },
+            "activatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

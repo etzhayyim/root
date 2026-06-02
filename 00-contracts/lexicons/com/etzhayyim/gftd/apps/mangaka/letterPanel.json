@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.letterPanel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 6/8 — Lettering (写植). Claude deep picks speech balloon kind + placement; outputs overlay JSON the composePage stage renders. Writes one vertex_mangaka row (kind=lettering).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["panelUri"],
+          "properties": {
+            "panelUri": { "type": "string", "format": "at-uri", "description": "Toned panel from Stage 5." },
+            "dialogue": { "type": "string", "description": "Speaker:text lines separated by newline." },
+            "sfx": { "type": "string", "description": "Onomatopoeia (e.g. 'ドン', 'ズシン'). Japanese preferred." },
+            "narration": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "letteringVertexId": { "type": "string", "format": "at-uri" },
+            "overlayJson": { "type": "string", "description": "Stringified JSON {balloons:[{speaker,text,shape,tail,x,y,w,h,fontSize}], sfx:[{text,x,y,rotation,style}]}" }
+          }
+        }
+      }
+    }
+  }
+}

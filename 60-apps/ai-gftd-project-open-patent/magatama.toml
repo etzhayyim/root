@@ -12,13 +12,13 @@ dispatcher = "bpmn-dispatcher"
 graph = "risingwave"
 
 [[langgraph_graphs]]
-nsid = "app.etzhayyim.apps.openPatent.ingestMulti"
+nsid = "com.etzhayyim.apps.openPatent.ingestMulti"
 module = "pymagatama.langgraph_graphs.open_patent_ingest_multi"
 description = "Multi-jurisdiction patent enrichment coordinator (Follow-based)"
 cron = "0 2 * * *"
 
 [[langgraph_graphs]]
-nsid = "app.etzhayyim.apps.openPatent.synthesizeInvention"
+nsid = "com.etzhayyim.apps.openPatent.synthesizeInvention"
 module = "pymagatama.langgraph_graphs.open_patent_synthesize_invention"
 description = "LLM-driven invention seed generation + novelty assessment Pregel"
 cron = "0 3 * * 1"

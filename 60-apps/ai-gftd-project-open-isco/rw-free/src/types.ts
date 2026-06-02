@@ -1,6 +1,6 @@
 /**
- * Mirrors the app.etzhayyim.apps.openIsco.occupation Lexicon record shape.
- * Source: 00-contracts/lexicons/ai/gftd/apps/openIsco/occupation.json
+ * Mirrors the com.etzhayyim.apps.openIsco.occupation Lexicon record shape.
+ * Source: 00-contracts/lexicons/com/etzhayyim/apps/openIsco/occupation.json
  */
 export interface Occupation {
   /** ISCO-08 numeric code, 4 digits. e.g. "2511". */

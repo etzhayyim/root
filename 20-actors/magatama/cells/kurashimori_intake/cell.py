@@ -8,7 +8,7 @@ open a `complaintSession`. The member is the named complainant.
 Constitutional ceiling (CRITICAL — IMMUTABLE): G3 consent-gated + own-matter-only;
 G4 transparent (member is the named complainant; kurashimori is an unofficial
 assistant, never 消費生活センター); kotoba-EAVT-native (ADR-2605262130).
-Output Lexicon(s): app.etzhayyim.kurashimori.complaintSession.
+Output Lexicon(s): com.etzhayyim.kurashimori.complaintSession.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

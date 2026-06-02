@@ -66,8 +66,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.aidesk.designJob",
-        "ai.gftd.apps.aidesk.artifact"
+        "com.etzhayyim.apps.aidesk.designJob",
+        "com.etzhayyim.apps.aidesk.artifact"
       ]
     }
   },

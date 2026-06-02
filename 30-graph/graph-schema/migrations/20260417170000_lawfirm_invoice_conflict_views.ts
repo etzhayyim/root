@@ -25,7 +25,7 @@ import { Kysely, sql } from 'kysely';
  * barrier" for these JOIN shapes. Promote to MV under the same trigger
  * condition documented there.
  *
- * Spec: 00-contracts/lexicons/ai/gftd/apps/lawfirm/{listInvoices,listConflictChecks}.json
+ * Spec: 00-contracts/lexicons/com/etzhayyim/apps/lawfirm/{listInvoices,listConflictChecks}.json
  */
 
 export async function up(db: Kysely<any>): Promise<void> {

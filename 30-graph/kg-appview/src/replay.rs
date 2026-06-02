@@ -61,12 +61,12 @@ mod tests {
         let mut f = std::fs::File::create(&bundle).unwrap();
         writeln!(
             f,
-            r#"{{"$type":"app.etzhayyim.kg.node","nodeId":"urn:adr:test-1","nodeType":"adr","source":"adr-frontmatter","createdAt":"2026-05-19T00:00:00.000Z"}}"#
+            r#"{{"$type":"com.etzhayyim.kg.node","nodeId":"urn:adr:test-1","nodeType":"adr","source":"adr-frontmatter","createdAt":"2026-05-19T00:00:00.000Z"}}"#
         )
         .unwrap();
         writeln!(
             f,
-            r#"{{"$type":"app.etzhayyim.kg.edge","subject":"urn:adr:test-1","predicate":"depends_on","object":"urn:adr:test-2","createdAt":"2026-05-19T00:00:00.000Z"}}"#
+            r#"{{"$type":"com.etzhayyim.kg.edge","subject":"urn:adr:test-1","predicate":"depends_on","object":"urn:adr:test-2","createdAt":"2026-05-19T00:00:00.000Z"}}"#
         )
         .unwrap();
         drop(f);

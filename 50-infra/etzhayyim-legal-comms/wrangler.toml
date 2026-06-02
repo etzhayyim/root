@@ -3,7 +3,7 @@ main = "src/worker.ts"
 compatibility_date = "2026-05-30"
 
 # Counsel-operated comms gateway (ADR-2605302345 §D2, G18).
-# XRPC base: https://legal-comms.etzhayyim.com/xrpc/app.etzhayyim.legal.*
+# XRPC base: https://legal-comms.etzhayyim.com/xrpc/com.etzhayyim.legal.*
 # DNS + route binding deferred to deploy.
 
 # no-server-key: this Worker holds NO legal-act signing key, seal or credential.

@@ -15,7 +15,7 @@ depends_on = None
 UP = [{'sql': '\n'
          '    CREATE FUNCTION shinka_tick_actor(VARCHAR)\n'
          '      RETURNS VARCHAR\n'
-         "      AS 'app.etzhayyim.apps.shinka.tickActor'\n"
+         "      AS 'com.etzhayyim.apps.shinka.tickActor'\n"
          "      USING LINK 'http://udf-cluster.mitama-udf.svc:8815'\n"
          '  ',
   'parameters': []}]

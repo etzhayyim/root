@@ -56,7 +56,7 @@ def make_stub(iso: str, display_name: str) -> dict:
             "name": display_name
         },
         "triggers": {
-            "subscribeRepos": {"collections": ["app.bsky.feed.post", "app.bsky.feed.like", "app.bsky.graph.follow", "app.etzhayyim.apps.site.wet", "app.etzhayyim.apps.site.wat", "app.etzhayyim.apps.site.page", "app.etzhayyim.apps.site.domain"]}
+            "subscribeRepos": {"collections": ["app.bsky.feed.post", "app.bsky.feed.like", "app.bsky.graph.follow", "com.etzhayyim.apps.site.wet", "com.etzhayyim.apps.site.wat", "com.etzhayyim.apps.site.page", "com.etzhayyim.apps.site.domain"]}
         },
         "uiType": "yoro",
         "version": "1.0.0"

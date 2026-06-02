@@ -9,7 +9,7 @@
  *   3. on flush boundary (records-since-flush ≥ N or wall ≥ T seconds):
  *      - serialise the shard to a CAR file (root + unstored MST blocks)
  *      - pin the CAR to IPFS (best-effort)
- *      - emit `app.etzhayyim.substrate.shardSnapshot` AT record under the
+ *      - emit `com.etzhayyim.substrate.shardSnapshot` AT record under the
  *        projector's DID with `phase: 2`, `rootCid`, `snapshotCid`
  *   4. on SIGTERM: flush in-flight shards + exit
  */
@@ -82,10 +82,10 @@ function loadConfig(): ResolvedConfig {
       process.env.ETZ_PROJECTOR_COLLECTIONS ??
       // `app.bsky.feed.` is included so the feed-discover yatachain-projection
       // (see src/feed-discover.ts + projection/yatachain-projection.toml) can
-      // index posts. `app.etzhayyim.membrane.` is the FeedPostCell verdict
+      // index posts. `com.etzhayyim.membrane.` is the FeedPostCell verdict
       // sidecar that drives applyVerdict on the projection. Per ADR-2605231500
       // + ADR-2605231400 SPEC §4.
-      "app.etzhayyim.,app.etzhayyim.apps.,app.bsky.feed.,app.etzhayyim.membrane."
+      "com.etzhayyim.,com.etzhayyim.apps.,app.bsky.feed.,com.etzhayyim.membrane."
     )
       .split(",")
       .map((s) => s.trim())
@@ -175,7 +175,7 @@ async function main() {
       // Membrane → projection wire: a FeedPostCell verdict observation
       // drops (reject) or annotates (approve / escalate) the projection.
       // Per ADR-2605231400 SPEC §4 + lexicon
-      // `app.etzhayyim.projection.feedDiscover` feedItem.verdict.
+      // `com.etzhayyim.projection.feedDiscover` feedItem.verdict.
       const vRes = await applyVerdictEvent(ev, verdictFetcher);
       if (!vRes.applied && vRes.reason !== "skip-non-create") {
         console.warn(

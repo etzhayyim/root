@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.claim.challengeStakedAttestation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-2604261717 Phase 1 — challenge a staked claim. Caller must already hold a passkey-bearer session AND have approved ClaimStakeEscrow to transfer `counterBond` GCC. Calls ClaimStakeEscrow.challenge(claimId, challengerDidHash, counterBond) which moves the claim into Challenged state and starts the arbiter resolution window.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["claimId", "counterBond", "rebuttal"],
+          "properties": {
+            "claimId":     { "type": "string" },
+            "counterBond": { "type": "string" },
+            "rebuttal":    { "type": "string", "maxLength": 4096 },
+            "evidence":    { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "claimId", "txHash", "challengerDidHash"],
+          "properties": {
+            "ok":                { "type": "boolean" },
+            "claimId":           { "type": "string" },
+            "txHash":            { "type": "string" },
+            "challengerDidHash": { "type": "string" },
+            "receiptStatus":     { "type": "string" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "AuthRequired" },
+        { "name": "ConfigError" },
+        { "name": "ClaimNotFound" },
+        { "name": "ChallengeWindowClosed" },
+        { "name": "AlreadyChallenged" },
+        { "name": "CounterBondTooSmall" },
+        { "name": "TxRevert" },
+        { "name": "RpcError" }
+      ]
+    }
+  }
+}

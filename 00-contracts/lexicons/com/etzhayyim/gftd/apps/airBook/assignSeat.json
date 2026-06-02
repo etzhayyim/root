@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airBook.assignSeat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assign a seat to a ticketed passenger.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["pnr_ref", "ticket_no", "seat_no"],
+          "properties": {
+            "pnr_ref": { "type": "string" },
+            "ticket_no": { "type": "string" },
+            "seat_no": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

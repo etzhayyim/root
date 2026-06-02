@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fedSwapUsage.flagPolicyTradeoff",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Policy tradeoff / balance sheet footprint / treaty risk (bridges xccyBasis.flagBlowout + sovereign-debt + liquidity-facility)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "usageVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "usageVid": {
+              "type": "string",
+              "description": "bridges recordUsage"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "reserve_accumulation_vs_dollar",
+                "balance_sheet_footprint",
+                "congressional_pushback",
+                "moral_hazard_em",
+                "treaty_capacity",
+                "pragmatic_vs_legal",
+                "swap_reserves_blur",
+                "reciprocity_weak",
+                "policy_divergence",
+                "rate_arbitrage"
+              ]
+            },
+            "usageRatePct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

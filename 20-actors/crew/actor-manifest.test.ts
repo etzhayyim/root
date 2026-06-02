@@ -22,14 +22,14 @@ describe("Crew Actor Manifest", () => {
   });
   it("subscribes to vessel.portCall for crew change", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.vessel.portCall");
+    expect(sub.trigger.collections).toContain("com.etzhayyim.apps.vessel.portCall");
   });
   it("xrpc covers seafarer, certs, manifest, crew changes", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("app.etzhayyim.apps.crew.management.getSeafarer");
-    expect(nsids).toContain("app.etzhayyim.apps.crew.management.listCertificates");
-    expect(nsids).toContain("app.etzhayyim.apps.crew.management.getCrewManifest");
-    expect(nsids).toContain("app.etzhayyim.apps.crew.management.listCrewChanges");
+    expect(nsids).toContain("com.etzhayyim.apps.crew.management.getSeafarer");
+    expect(nsids).toContain("com.etzhayyim.apps.crew.management.listCertificates");
+    expect(nsids).toContain("com.etzhayyim.apps.crew.management.getCrewManifest");
+    expect(nsids).toContain("com.etzhayyim.apps.crew.management.listCrewChanges");
   });
   it("5 actors (deck/engine officers, deck/engine ratings, STCW)", () => { expect(m.actors).toHaveLength(5); });
   it("STCW + MLC compliance", () => {

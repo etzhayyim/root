@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.deploy.agentToken",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Ephemeral scoped JWT issued by `e7m agent-token` for agent-led deploy steps. Per ADR-2605232000. The token itself is a JWS (Ed25519); this record captures the audit-meta projection of issued tokens (token CID is hash-of-JWS-payload). Lives in the issuer's PDS, NOT the agent's — issuer-DID is the principal of record.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["version", "issuerDid", "agentDid", "capabilityUri", "scopes", "issuedAt", "expiresAt", "jwsHash"],
+        "properties": {
+          "version": {"type": "integer", "const": 1},
+          "issuerDid": {"type": "string", "description": "DID of the human or system that issued the token (typically a Steward)"},
+          "agentDid": {"type": "string", "description": "DID of the agent the token is bound to (e.g., did:web:claude-agent.etzhayyim.com)"},
+          "capabilityUri": {"type": "string", "description": "AT URI of the parent com.etzhayyim.consent.capability authorizing this token issuance"},
+          "scopes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Action NSIDs the token permits. e.g., ['deploy.cfWorker:karute-did-web', 'deploy.k8s:lg-karute', 'deploy.pages:karute']"
+          },
+          "issuedAt": {"type": "string", "format": "datetime"},
+          "expiresAt": {"type": "string", "format": "datetime"},
+          "jwsHash": {"type": "string", "description": "SHA-256 hex of the issued JWS string (the token value never persists; only its hash for audit correlation)"},
+          "auditEventUri": {"type": "string", "description": "AT URI of the com.etzhayyim.audit.event record for this issuance (eventType='deploy.token.issued')"}
+        }
+      }
+    }
+  }
+}

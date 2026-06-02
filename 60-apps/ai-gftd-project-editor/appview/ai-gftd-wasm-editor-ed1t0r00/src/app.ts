@@ -33,7 +33,7 @@ function fileRkey(projectId: string, path: string): string {
 // ── Commands ──
 
 async function cmdCreateProject(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.editor.createProject", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.editor.createProject", body);
   if (!args.name) return { error: "name required" };
   const projectId = genID("proj");
   const rls = rlsDefaults(actorNanoid);
@@ -49,7 +49,7 @@ async function cmdCreateProject(sdk: HostSDK, body: Uint8Array): Promise<unknown
 }
 
 async function cmdListProjects(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.editor.listProjects", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.editor.listProjects", body);
   const limit = Math.min(Number(args.limit) || 50, 100);
   const offset = Number(args.offset) || 0;
   const db = createKyselyDb();
@@ -89,13 +89,13 @@ async function writeFileImpl(sdk: HostSDK, args: WriteFileArgs): Promise<Record<
 }
 
 async function cmdWriteFile(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.editor.writeFile", body) as WriteFileArgs;
+  const args = parseLexiconInput("com.etzhayyim.apps.editor.writeFile", body) as WriteFileArgs;
   if (!args.projectId || !args.path) return { error: "projectId and path required" };
   return writeFileImpl(sdk, args);
 }
 
 async function cmdReadFile(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.editor.readFile", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.editor.readFile", body);
   if (!args.projectId || !args.path) return { error: "projectId and path required" };
   const db = createKyselyDb();
   const rows = await db.selectFrom("vertex_editor_file").selectAll().where("project_id","=",args.projectId as string).where("path","=",args.path as string).where("actor_id","=",actorNanoid).orderBy("updated_at","desc").limit(1).execute();
@@ -103,7 +103,7 @@ async function cmdReadFile(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdListFiles(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.editor.listFiles", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.editor.listFiles", body);
   if (!args.projectId) return { error: "projectId required" };
   const limit = Math.min(Number(args.limit) || 200, 1000);
   const offset = Number(args.offset) || 0;
@@ -113,7 +113,7 @@ async function cmdListFiles(_sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 }
 
 async function cmdGenerate(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.apps.editor.generate", body);
+  const args = parseLexiconInput("com.etzhayyim.apps.editor.generate", body);
   if (!args.projectId || !args.prompt) return { error: "projectId and prompt required" };
 
   const ai = (_env as any).AI;
@@ -318,7 +318,7 @@ function openFile(path) {
 document.getElementById("newProject").onclick = async () => {
   const name = prompt("Project name?");
   if (!name) return;
-  const res = await xrpc("app.etzhayyim.apps.editor.createProject", { name, template: "react" });
+  const res = await xrpc("com.etzhayyim.apps.editor.createProject", { name, template: "react" });
   if (!res.projectId) { toast("create failed: " + JSON.stringify(res)); return; }
   state.projectId = res.projectId;
   state.projectName = name;
@@ -342,7 +342,7 @@ document.getElementById("saveBtn").onclick = async () => {
   if (!state.projectId || !state.currentPath) return toast("no file selected");
   const content = view.state.doc.toString();
   state.files[state.currentPath] = content;
-  const res = await xrpc("app.etzhayyim.apps.editor.writeFile", {
+  const res = await xrpc("com.etzhayyim.apps.editor.writeFile", {
     projectId: state.projectId,
     path: state.currentPath,
     content,
@@ -360,7 +360,7 @@ document.getElementById("generateBtn").onclick = async () => {
   const framework = document.getElementById("framework").value;
   btn.disabled = true; btn.textContent = "Generating...";
   try {
-    const res = await xrpc("app.etzhayyim.apps.editor.generate", {
+    const res = await xrpc("com.etzhayyim.apps.editor.generate", {
       projectId: state.projectId, prompt: promptText, framework,
     });
     if (!res.code) { toast("generate failed: " + JSON.stringify(res).slice(0, 100)); return; }
@@ -415,20 +415,20 @@ function handleBlobPath(request: Request): Response | null {
 const _inner = createWorkerExport((sdk) => {
   actorNanoid = sdk.pds.selfNanoid ?? "";
   sdk.app
-    .command(nsid("app.etzhayyim.apps.editor.createProject"), (_ctx, body) => cmdCreateProject(sdk, body),
+    .command(nsid("com.etzhayyim.apps.editor.createProject"), (_ctx, body) => cmdCreateProject(sdk, body),
       asAgentTool("Create a new code editor project"),
       withCapabilityTags("editor", "project", "create"),
       withOCELEvent("editor.project.created"),
     )
-    .query(nsid("app.etzhayyim.apps.editor.listProjects"), (_ctx, body) => cmdListProjects(sdk, body))
-    .command(nsid("app.etzhayyim.apps.editor.writeFile"), (_ctx, body) => cmdWriteFile(sdk, body),
+    .query(nsid("com.etzhayyim.apps.editor.listProjects"), (_ctx, body) => cmdListProjects(sdk, body))
+    .command(nsid("com.etzhayyim.apps.editor.writeFile"), (_ctx, body) => cmdWriteFile(sdk, body),
       asAgentTool("Write or update a file in a project (content-addressed blob)"),
       withCapabilityTags("editor", "file", "write"),
       withOCELEvent("editor.file.written"),
     )
-    .query(nsid("app.etzhayyim.apps.editor.readFile"), (_ctx, body) => cmdReadFile(sdk, body))
-    .query(nsid("app.etzhayyim.apps.editor.listFiles"), (_ctx, body) => cmdListFiles(sdk, body))
-    .command(nsid("app.etzhayyim.apps.editor.generate"), (_ctx, body) => cmdGenerate(sdk, body),
+    .query(nsid("com.etzhayyim.apps.editor.readFile"), (_ctx, body) => cmdReadFile(sdk, body))
+    .query(nsid("com.etzhayyim.apps.editor.listFiles"), (_ctx, body) => cmdListFiles(sdk, body))
+    .command(nsid("com.etzhayyim.apps.editor.generate"), (_ctx, body) => cmdGenerate(sdk, body),
       asAgentTool("v0.dev-style code generation from a natural-language prompt"),
       withCapabilityTags("editor", "llm", "codegen"),
       withOCELEvent("editor.code.generated"),

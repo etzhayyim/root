@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectBel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Return the Belgium KBO/BCE bulk-ingest workflow contract. This command does not parse CSV data directly; stage the bulk snapshot and commit Zeebe output with commitEntities.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "bulkManifestUri": { "type": "string", "description": "R2 or object-storage URI for the staged KBO/BCE bulk manifest" },
+            "sourceSnapshotId": { "type": "string", "description": "Operator-assigned source snapshot/version identifier" },
+            "dryRun": { "type": "boolean", "description": "Return the contract without starting a bulk workflow" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "unsupported": { "type": "boolean" },
+            "bulkRequired": { "type": "boolean" },
+            "movedToZeebe": { "type": "boolean" },
+            "requiredMode": { "type": "string" },
+            "sourceEstimate": { "type": "integer" },
+            "message": { "type": "string" },
+            "acceptedInput": { "type": "object" },
+            "commitCommand": { "type": "string" },
+            "ts": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,7 +12,7 @@
   "name": "Hospitality — Hotel / OTA Actor Roster & Resource-Flow Emitter",
   "identifier": "ai-gftd-project-hospitality",
   "url": "https://hospitality.etzhayyim.com",
-  "description": "Hospitality umbrella project. ADR-0028 Phase 1 pilot. Path-based actor DIDs (chain / OTA / property) emit ai.gftd.apps.resourceFlow.legalEntity{Currency,Personnel,Service}Flow to resource-flow.etzhayyim.com. Responsibility split: yadoya = booking, minpaku = OSM collection, hospitality = actor roster + flow emission.",
+  "description": "Hospitality umbrella project. ADR-0028 Phase 1 pilot. Path-based actor DIDs (chain / OTA / property) emit com.etzhayyim.apps.resourceFlow.legalEntity{Currency,Personnel,Service}Flow to resource-flow.etzhayyim.com. Responsibility split: yadoya = booking, minpaku = OSM collection, hospitality = actor roster + flow emission.",
   "status": "Scaffold",
   "dateCreated": "2026-04-15",
   "gftd:authoritativeAdr": "adr:0028-resource-flow-private-sector-extension",
@@ -43,9 +43,9 @@
     }
   },
   "gftd:emits": [
-    "ai.gftd.apps.resourceFlow.legalEntityCurrencyFlow",
-    "ai.gftd.apps.resourceFlow.legalEntityPersonnelFlow",
-    "ai.gftd.apps.resourceFlow.legalEntityServiceFlow"
+    "com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow",
+    "com.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow",
+    "com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow"
   ],
   "gftd:piiPolicy": {
     "tier": 1,

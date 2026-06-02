@@ -86,11 +86,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.mitsuho.parcelAttestation",
-    "app.etzhayyim.mitsuho.cropPlanAttestation",
-    "app.etzhayyim.mitsuho.harvestAttestation",
-    "app.etzhayyim.mitsuho.foodLotAttestation",
-    "app.etzhayyim.mitsuho.silenAgricultureReview"
+    "com.etzhayyim.mitsuho.parcelAttestation",
+    "com.etzhayyim.mitsuho.cropPlanAttestation",
+    "com.etzhayyim.mitsuho.harvestAttestation",
+    "com.etzhayyim.mitsuho.foodLotAttestation",
+    "com.etzhayyim.mitsuho.silenAgricultureReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261015. Council Lv6+ supermajority + new ADR to amend.",

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.pipelineChat",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pipeline chat — BPMN-backed assistant for manga production context. Defaults to mid tier (Qwen 7B @ pod n911oglid03v5n:8001). Pass tier='deep' for Claude editor critique. Distinct from projectChat (Worker-native, project-scoped chatMessage records).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["user"],
+          "properties": {
+            "user": { "type": "string" },
+            "system": { "type": "string" },
+            "tier": { "type": "string", "enum": ["classifier", "mid", "deep"], "default": "classifier" },
+            "chapterContext": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["content"],
+          "properties": {
+            "content": { "type": "string" },
+            "model": { "type": "string" },
+            "latencyMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

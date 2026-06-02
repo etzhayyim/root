@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.meetingRecorder.recordingChunk",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A single media chunk (default 60s) written by the recorder bot. Body lives in B2 (`meeting-recorder/{sessionDid}/{seq}.{opus|webm}`); this record is the graph-addressable pointer.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sessionDid", "provider", "seq", "kind", "b2Key", "sha256", "startedAt", "durationMs"],
+        "properties": {
+          "sessionDid": {"type": "string"},
+          "provider": {"type": "string", "enum": ["teams", "meet", "zoom"]},
+          "seq": {"type": "integer", "minimum": 0},
+          "kind": {"type": "string", "enum": ["audio", "video", "mixed"]},
+          "codec": {"type": "string", "description": "opus / vp8 / vp9 / h264"},
+          "b2Bucket": {"type": "string"},
+          "b2Key": {"type": "string"},
+          "sha256": {"type": "string"},
+          "sizeBytes": {"type": "integer"},
+          "startedAt": {"type": "string"},
+          "durationMs": {"type": "integer"},
+          "participantHashes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Hashed provider participant IDs present during this chunk (PII Tier 1)."
+          }
+        }
+      }
+    }
+  }
+}

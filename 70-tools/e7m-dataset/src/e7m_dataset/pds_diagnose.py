@@ -12,7 +12,7 @@ Usage:
 
   # 2. Parse an at-uri to (repo, collection, rkey):
   python3 -m e7m_dataset.pds_diagnose parse \
-      at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kpqab
+      at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kpqab
   # → prints components; exit 0 = valid, 2 = malformed
 
   # 3. Resolve an at-uri against the configured PDS:
@@ -139,9 +139,9 @@ def _cmd_parse(args: argparse.Namespace) -> int:
         print(f"repo:       {repo}")
         print(f"collection: {collection}")
         print(f"rkey:       {rkey}")
-        if collection != "app.etzhayyim.substrate.datasetPin":
+        if collection != "com.etzhayyim.substrate.datasetPin":
             print(f"  ⚠ collection differs from expected "
-                  f"`app.etzhayyim.substrate.datasetPin`")
+                  f"`com.etzhayyim.substrate.datasetPin`")
     return 0
 
 

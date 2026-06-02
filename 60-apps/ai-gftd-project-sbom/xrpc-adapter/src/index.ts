@@ -2,7 +2,7 @@ import { createAuthedEtzhayyim, extractBearerToken } from "@etzhayyim/sdk-auth";
 import * as sbomRwFree from "@etzhayyim/sbom-rw-free";
 interface Env { ACTOR_DID: string; PDS_URL: string; L2_RPC_URL: string; PDS_ACCESS_JWT?: string; PDS_REFRESH_JWT?: string; }
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
-const NSID_BASE = "app.etzhayyim.apps.sbom";
+const NSID_BASE = "com.etzhayyim.apps.sbom";
 interface RouteConfig { method: "POST" | "GET"; handler: Handler; }
 const routes: Record<string, RouteConfig> = {
   [`${NSID_BASE}.registerArtifact`]: { method: "POST", handler: (e, input) => sbomRwFree.registerArtifact(e, input as any) },

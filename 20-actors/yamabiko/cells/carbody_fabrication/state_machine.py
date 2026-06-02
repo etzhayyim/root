@@ -92,7 +92,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = CarbodyPhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.carbodyAttestation",
+        "$type": "com.etzhayyim.yamabiko.carbodyAttestation",
         "trainsetId": s.trainsetId,
         "carIndex": s.carIndex,
         "extrusionLot": s.extrusionLot,

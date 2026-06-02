@@ -231,7 +231,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.cpc.product'
+    WHERE collection = 'com.etzhayyim.apps.cpc.product'
   `.execute(db);
 
   await sql`

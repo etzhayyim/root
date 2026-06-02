@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.indigenousRights.registerTerritory",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Indigenous territory registration (UNDRIP / ILO 169 — bridges mining + cultural-heritage + biodiversity-gbf)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "territoryId",
+            "peopleName",
+            "countryIso3",
+            "recognitionStatus",
+            "registeredAt"
+          ],
+          "properties": {
+            "territoryId": {
+              "type": "string"
+            },
+            "peopleName": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "areaHectares": {
+              "type": "number"
+            },
+            "recognitionStatus": {
+              "type": "string",
+              "enum": [
+                "titled",
+                "recognized_unregistered",
+                "claimed",
+                "overlap_protected",
+                "contested",
+                "unrecognized"
+              ]
+            },
+            "legalInstrument": {
+              "type": "string"
+            },
+            "miningOverlapVid": {
+              "type": "string",
+              "description": "bridges open-mining-operation"
+            },
+            "gbfProtectedVid": {
+              "type": "string",
+              "description": "bridges open-biodiversity-gbf"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.airOps.";
+const NSID_PREFIX = "com.etzhayyim.apps.airOps.";
 const ACTOR_DID = "did:web:air-ops.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "a1r0ps01",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/air-ops",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/air-ops",
         methods: ["fileFlightPlan", "createDispatchBrief", "fetchNotam", "fetchWeatherBrief", "recordTechLog", "orderFuel", "submitPirep", "monitorFlight"],
       });
     }

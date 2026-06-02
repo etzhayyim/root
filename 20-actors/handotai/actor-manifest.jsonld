@@ -97,7 +97,7 @@
         },
         {
           "args": {
-            "template": "MERGE (a:HandotaiArticle {url: $input.url}) SET a.title = $input.title, a.summary = $input.summary, a.source = $input.source, a.entities = $input.entities, a.topic = $input.topic, a.createdAt = toString(timestamp()), a.repo = $did, a.collection = 'ai.gftd.apps.handotai.article'"
+            "template": "MERGE (a:HandotaiArticle {url: $input.url}) SET a.title = $input.title, a.summary = $input.summary, a.source = $input.source, a.entities = $input.entities, a.topic = $input.topic, a.createdAt = toString(timestamp()), a.repo = $did, a.collection = 'com.etzhayyim.apps.handotai.article'"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -137,7 +137,7 @@
         },
         {
           "args": {
-            "template": "MERGE (e:HandotaiEntity {name: $input.record.primaryEntity}) SET e.articleCount = coalesce(e.articleCount, 0) + 1, e.lastMentionedAt = toString(timestamp()), e.repo = $did, e.collection = 'ai.gftd.apps.handotai.entity'"
+            "template": "MERGE (e:HandotaiEntity {name: $input.record.primaryEntity}) SET e.articleCount = coalesce(e.articleCount, 0) + 1, e.lastMentionedAt = toString(timestamp()), e.repo = $did, e.collection = 'com.etzhayyim.apps.handotai.entity'"
           },
           "depends_on": [],
           "fn": "graph.write",
@@ -156,7 +156,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.handotai.article"
+          "com.etzhayyim.apps.handotai.article"
         ],
         "type": "subscribeRepos"
       }
@@ -172,7 +172,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.handotai.listArticles",
+        "nsid": "com.etzhayyim.apps.handotai.listArticles",
         "type": "xrpc"
       }
     },
@@ -198,7 +198,7 @@
             "params": {
               "actorName": "handotai",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.handotai.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.handotai.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "dtyy44cr",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -256,7 +256,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.handotai.coverage.get",
+        "nsid": "com.etzhayyim.apps.handotai.coverage.get",
         "type": "xrpc"
       }
     }
@@ -276,8 +276,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -290,9 +290,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.handotai.article",
-        "ai.gftd.apps.handotai.source",
-        "ai.gftd.apps.handotai.entity"
+        "com.etzhayyim.apps.handotai.article",
+        "com.etzhayyim.apps.handotai.source",
+        "com.etzhayyim.apps.handotai.entity"
       ]
     }
   },

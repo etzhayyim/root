@@ -13,7 +13,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_createNovel" name="createNovel">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.createNovel" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.createNovel" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_createNovel_1</bpmn:incoming>
       <bpmn:outgoing>Flow_createNovel_2</bpmn:outgoing>
@@ -32,7 +32,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_createChapter" name="createChapter">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.createChapter" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.createChapter" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_createChapter_1</bpmn:incoming>
       <bpmn:outgoing>Flow_createChapter_2</bpmn:outgoing>
@@ -51,7 +51,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_generateChapter" name="generateChapter">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.generateChapter" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.generateChapter" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_generateChapter_1</bpmn:incoming>
       <bpmn:outgoing>Flow_generateChapter_2</bpmn:outgoing>
@@ -70,7 +70,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_publishChapter" name="publishChapter">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.publishChapter" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.publishChapter" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_publishChapter_1</bpmn:incoming>
       <bpmn:outgoing>Flow_publishChapter_2</bpmn:outgoing>
@@ -89,7 +89,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_createCharacter" name="createCharacter">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.createCharacter" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.createCharacter" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_createCharacter_1</bpmn:incoming>
       <bpmn:outgoing>Flow_createCharacter_2</bpmn:outgoing>
@@ -108,7 +108,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_createWorldSetting" name="createWorldSetting">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.createWorldSetting" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.createWorldSetting" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_createWorldSetting_1</bpmn:incoming>
       <bpmn:outgoing>Flow_createWorldSetting_2</bpmn:outgoing>
@@ -127,7 +127,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_getNovel" name="getNovel">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.getNovel" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.getNovel" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_getNovel_1</bpmn:incoming>
       <bpmn:outgoing>Flow_getNovel_2</bpmn:outgoing>
@@ -146,7 +146,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_listNovels" name="listNovels">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.listNovels" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.listNovels" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_listNovels_1</bpmn:incoming>
       <bpmn:outgoing>Flow_listNovels_2</bpmn:outgoing>
@@ -165,7 +165,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_getChapter" name="getChapter">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.getChapter" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.getChapter" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_getChapter_1</bpmn:incoming>
       <bpmn:outgoing>Flow_getChapter_2</bpmn:outgoing>
@@ -184,7 +184,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_listChapters" name="listChapters">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.listChapters" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.listChapters" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_listChapters_1</bpmn:incoming>
       <bpmn:outgoing>Flow_listChapters_2</bpmn:outgoing>
@@ -203,7 +203,7 @@
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_searchNovels" name="searchNovels">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.narou.searchNovels" />
+        <zeebe:taskDefinition type="com.etzhayyim.apps.narou.searchNovels" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_searchNovels_1</bpmn:incoming>
       <bpmn:outgoing>Flow_searchNovels_2</bpmn:outgoing>

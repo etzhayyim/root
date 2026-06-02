@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
                  '  training.startExport — LLM training data export to B2 → HuggingFace Hub.\n'
                  '\n'
                  '  Manually triggered via:\n'
-                 '    POST /xrpc/app.etzhayyim.apps.training.startExport\n'
+                 '    POST /xrpc/com.etzhayyim.apps.training.startExport\n'
                  '    { dataset_name, label, start_shard, max_shards }\n'
                  '\n'
                  '  Flow (text loop, then triple loop, then HF push):\n'
@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="training_export" name="training startExport" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.training.startExport", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.training.startExport", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -242,8 +242,8 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  9560,
-                 '00-contracts/bpmn/ai/gftd/training/trainingExport.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/training-export-v1']}]
+                 '00-contracts/bpmn/com/etzhayyim/training/trainingExport.bpmn',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/training-export-v1']}]
 
 DOWN = []
 

@@ -320,7 +320,7 @@ def emit_at_record(state: SiteSurveyState) -> dict[str, Any]:
     site_did = state.get("site_did") or "did:web:etzhayyim.com:site:unknown"
     survey_did = f"{site_did}:survey:{int(time.time())}"
     submission_uri = (
-        f"at://{site_did}/app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey/"
+        f"at://{site_did}/com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey/"
         f"{int(time.time() * 1000)}"
     )
     return {
@@ -388,7 +388,7 @@ graph = build_graph()
 def state_from_event(event: dict[str, Any]) -> SiteSurveyState:
     """Map an MST event payload into the cell's TypedDict state.
 
-    The submitSiteSurvey lexicon (app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey)
+    The submitSiteSurvey lexicon (com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey)
     carries witnessAttestations on the record; fold them in so the witness
     quorum fixed-point can advance on the first super-step (otherwise the
     graph spins on witness_attestation until recursion-limit).

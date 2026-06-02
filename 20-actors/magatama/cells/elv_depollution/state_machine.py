@@ -156,7 +156,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     de.completionPct = 100
 
     wipe_record = {
-        "$type": "app.etzhayyim.hodoki.dataWipeAttestation",
+        "$type": "com.etzhayyim.hodoki.dataWipeAttestation",
         "vehicleId": de.vehicleId,
         "ecuWipes": de.dataWipe["ecuWipes"] if de.dataWipe else [],
         "g8Compliant": True,
@@ -165,7 +165,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "recordedAt": "2026-05-26T11:30:10Z",
     }
     depollution_record = {
-        "$type": "app.etzhayyim.hodoki.depollutionAttestation",
+        "$type": "com.etzhayyim.hodoki.depollutionAttestation",
         "vehicleId": de.vehicleId,
         "fluids": de.fluidsDrain,
         "fgasCapture": de.fgasCapture,

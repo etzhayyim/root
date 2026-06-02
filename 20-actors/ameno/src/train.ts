@@ -21,7 +21,7 @@
  * Loss + grad-norm fields in the returned `TrainRoundResult` are
  * integer-scaled by 1_000_000 to match the lexicon (the AT Lexicon v1
  * schema forbids floats — see
- * 00-contracts/lexicons/app/etzhayyim/baien/distributedTrainDelta.json).
+ * 00-contracts/lexicons/com/etzhayyim/baien/distributedTrainDelta.json).
  *
  * `signDeltaManifest` and `publishDeltaRecord` STAY throws — those belong
  * to R2 (ES256 passkey signing + firehose publish).
@@ -91,7 +91,7 @@ export const DEVICE_STEP_BUDGET: Record<TrainDeviceClass, number> = {
 } as const;
 
 export interface TrainShardRef {
-  /** IPFS CID of the dataset shard (resolved via app.etzhayyim.substrate.datasetPin). */
+  /** IPFS CID of the dataset shard (resolved via com.etzhayyim.substrate.datasetPin). */
   datasetShardCid: string;
   /** Size in bytes; informational. */
   sizeBytes: number;
@@ -299,7 +299,7 @@ export async function signDeltaManifest(
 
 /**
  * Publish the signed delta record to the contributor's AT repo under
- * the lexicon `app.etzhayyim.baien.distributedTrainDelta`. The
+ * the lexicon `com.etzhayyim.baien.distributedTrainDelta`. The
  * aggregator subscribes to the firehose and picks it up from there.
  *
  * NOTE: R2 — throws. Real implementation lands with the aggregator.

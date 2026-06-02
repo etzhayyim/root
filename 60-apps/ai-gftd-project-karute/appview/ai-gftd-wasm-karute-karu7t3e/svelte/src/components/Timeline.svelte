@@ -11,12 +11,12 @@
   const { items }: Props = $props();
 
   const KIND_LABEL: Record<string, { label: string; icon: string; color: string }> = {
-    'app.etzhayyim.karute.encounter': { label: '受診', icon: '🏥', color: '#0ea5e9' },
-    'app.etzhayyim.karute.soapNote': { label: 'SOAP', icon: '📝', color: '#10b981' },
-    'app.etzhayyim.karute.observation': { label: 'バイタル/検査', icon: '📊', color: '#8b5cf6' },
-    'app.etzhayyim.karute.condition': { label: '病名', icon: '🩺', color: '#f59e0b' },
-    'app.etzhayyim.karute.medicationRequest': { label: '処方', icon: '💊', color: '#ec4899' },
-    'app.etzhayyim.karute.serviceRequest': { label: 'オーダー', icon: '📋', color: '#06b6d4' },
+    'com.etzhayyim.karute.encounter': { label: '受診', icon: '🏥', color: '#0ea5e9' },
+    'com.etzhayyim.karute.soapNote': { label: 'SOAP', icon: '📝', color: '#10b981' },
+    'com.etzhayyim.karute.observation': { label: 'バイタル/検査', icon: '📊', color: '#8b5cf6' },
+    'com.etzhayyim.karute.condition': { label: '病名', icon: '🩺', color: '#f59e0b' },
+    'com.etzhayyim.karute.medicationRequest': { label: '処方', icon: '💊', color: '#ec4899' },
+    'com.etzhayyim.karute.serviceRequest': { label: 'オーダー', icon: '📋', color: '#06b6d4' },
   };
 
   function kindFor(t: string) {

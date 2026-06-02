@@ -1,0 +1,115 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sovereignRating.recordRatingAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "S&P / Moody's / Fitch / Scope / DBRS sovereign rating action (bridges fatfGreylist.flagReputationSpillover + sovereign-debt + imf-article-iv)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "cra",
+            "countryIso3",
+            "ratingScale",
+            "outlook",
+            "publishedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "cra": {
+              "type": "string",
+              "enum": [
+                "sp",
+                "moody",
+                "fitch",
+                "scope",
+                "dbrs",
+                "cci",
+                "rating_ru",
+                "dagong",
+                "arc",
+                "jcr",
+                "pra_china"
+              ]
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "ratingScale": {
+              "type": "string",
+              "enum": [
+                "aaa",
+                "aa_plus",
+                "aa",
+                "aa_minus",
+                "a_plus",
+                "a",
+                "a_minus",
+                "bbb_plus",
+                "bbb",
+                "bbb_minus",
+                "bb_plus",
+                "bb",
+                "bb_minus",
+                "b_plus",
+                "b",
+                "b_minus",
+                "ccc_plus",
+                "ccc",
+                "ccc_minus",
+                "cc",
+                "c",
+                "sd_d"
+              ]
+            },
+            "outlook": {
+              "type": "string",
+              "enum": [
+                "positive",
+                "stable",
+                "negative",
+                "developing",
+                "watch_positive",
+                "watch_negative",
+                "watch_developing"
+              ]
+            },
+            "greylistVid": {
+              "type": "string",
+              "description": "bridges fatfGreylist.flagReputationSpillover"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// items.mjs — Serebii items DB → app.etzhayyim.apps.media_gamers.knowledge.publishGameItem
+// items.mjs — Serebii items DB → com.etzhayyim.apps.media_gamers.knowledge.publishGameItem
 //
 // Usage:
-//   etzhayyim_TOKEN=$(gftd agent-token --lxm app.etzhayyim.apps.media_gamers.knowledge.publishGameItem) \
+//   etzhayyim_TOKEN=$(gftd agent-token --lxm com.etzhayyim.apps.media_gamers.knowledge.publishGameItem) \
 //     node 70-tools/scripts/media-gamers-ingest/items.mjs \
 //     --game pokemon-pokopia \
 //     --index https://www.serebii.net/pokemonpokopia/items.shtml \
@@ -18,7 +18,7 @@ import {
   requireToken, paced, abortIfMostlyFail,
 } from "./lib.mjs";
 
-const NSID = "app.etzhayyim.apps.media_gamers.knowledge.publishGameItem";
+const NSID = "com.etzhayyim.apps.media_gamers.knowledge.publishGameItem";
 
 const args = parseArgs(process.argv);
 const game = args.game;

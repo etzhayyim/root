@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.completer.remediate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Generate a remediation action plan for a specific compliance finding.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["finding_id"],
+          "properties": {
+            "finding_id": { "type": "string" },
+            "rule_title": { "type": "string" },
+            "summary": { "type": "string" },
+            "risk_level": { "type": "string" },
+            "org_id": { "type": "string" },
+            "user_id": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "remediation_id": { "type": "string" },
+            "action_plan": { "type": "string" },
+            "priority": { "type": "string" },
+            "estimated_effort": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
  *
  * Wires the rw-free reference impl (5 pure TS functions) into a deployable
  * CF Worker that exposes each function as an XRPC endpoint at
- * https://open-banking.etzhayyim.com/xrpc/app.etzhayyim.apps.openBanking.<cmd>
+ * https://open-banking.etzhayyim.com/xrpc/com.etzhayyim.apps.openBanking.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
  * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
@@ -62,7 +62,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "app.etzhayyim.apps.openBanking";
+const NSID_BASE = "com.etzhayyim.apps.openBanking";
 
 interface RouteConfig {
   method: "POST" | "GET";

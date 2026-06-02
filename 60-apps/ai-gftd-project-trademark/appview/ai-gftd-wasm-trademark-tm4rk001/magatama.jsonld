@@ -42,13 +42,13 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.trademark.trademark",
-        "ai.gftd.apps.trademark.owner",
-        "ai.gftd.apps.trademark.niceClass",
-        "ai.gftd.apps.trademark.viennaCode",
-        "ai.gftd.apps.trademark.madridRegistration",
-        "ai.gftd.apps.trademark.opposition",
-        "ai.gftd.apps.trademark.coverageReport"
+        "com.etzhayyim.apps.trademark.trademark",
+        "com.etzhayyim.apps.trademark.owner",
+        "com.etzhayyim.apps.trademark.niceClass",
+        "com.etzhayyim.apps.trademark.viennaCode",
+        "com.etzhayyim.apps.trademark.madridRegistration",
+        "com.etzhayyim.apps.trademark.opposition",
+        "com.etzhayyim.apps.trademark.coverageReport"
       ]
     }
   },

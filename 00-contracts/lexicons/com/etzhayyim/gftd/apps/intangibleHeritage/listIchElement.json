@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.intangibleHeritage.listIchElement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UNESCO Intangible Heritage / Memory of the World listing (bridges cultural-heritage + language-preservation + indigenous-rights)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "elementId",
+            "elementName",
+            "countryIso3",
+            "domain",
+            "listType",
+            "inscribedAt"
+          ],
+          "properties": {
+            "elementId": {
+              "type": "string"
+            },
+            "elementName": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string",
+              "enum": [
+                "oral_traditions",
+                "performing_arts",
+                "social_practices",
+                "nature_knowledge",
+                "traditional_craftsmanship"
+              ]
+            },
+            "listType": {
+              "type": "string",
+              "enum": [
+                "representative",
+                "urgent_safeguarding",
+                "good_safeguarding_practices",
+                "mow"
+              ]
+            },
+            "inscribedYear": {
+              "type": "integer"
+            },
+            "communityLei": {
+              "type": "string"
+            },
+            "inscribedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

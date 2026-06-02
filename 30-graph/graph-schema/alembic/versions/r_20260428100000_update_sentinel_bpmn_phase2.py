@@ -42,9 +42,9 @@ UP = [{'sql': '\n'
                  '  Cadence: R/PT24H. AOI list comes from env SENTINEL_AOIS_JSON (falls back\n'
                  '  to 12 KAMI layer coordinator centroids). One BPMN instance per day.\n'
                  '\n'
-                 '  ADR-2604271800. NSID: app.etzhayyim.apps.maps.sentinelIngest.\n'
+                 '  ADR-2604271800. NSID: com.etzhayyim.apps.maps.sentinelIngest.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -58,7 +58,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.sentinelIngest", "version": 2, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.sentinelIngest", "version": 2, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -124,7 +124,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.maps.sentinel.ingest&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.sentinel.ingest&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;scenesFound&quot;: scenesFound, &quot;scenesIngested&quot;: '
@@ -144,8 +144,8 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5557,
-                 '00-contracts/bpmn/ai/gftd/maps/sentinelIngest.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
+                 '00-contracts/bpmn/com/etzhayyim/maps/sentinelIngest.bpmn',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET "xml" = $1,\n'
@@ -171,12 +171,12 @@ UP = [{'sql': '\n'
                  '  Note: Task_PersistResult removed in Phase 2. The analyze primitive\n'
                  '  writes to vertex_satellite_analysis internally via sync_cursor.\n'
                  '\n'
-                 '  XRPC entry: POST /xrpc/app.etzhayyim.apps.maps.sentinelAnalyze.\n'
+                 '  XRPC entry: POST /xrpc/com.etzhayyim.apps.maps.sentinelAnalyze.\n'
                  '  Process timeout 10 min.\n'
                  '\n'
-                 '  ADR-2604271800. NSID: app.etzhayyim.apps.maps.sentinelAnalyze.\n'
+                 '  ADR-2604271800. NSID: com.etzhayyim.apps.maps.sentinelAnalyze.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -190,7 +190,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.sentinelAnalyze", "version": 2, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.sentinelAnalyze", "version": 2, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -274,7 +274,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.maps.sentinel.analyze&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.sentinel.analyze&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;sceneUri&quot;: sceneUri, '
                  '&quot;analysisUri&quot;: analysisUri, &quot;analysisType&quot;: analysisType, '
@@ -297,21 +297,21 @@ UP = [{'sql': '\n'
                  'errorCode="maps.sentinel.scene.notFound"/>\n'
                  '</bpmn:definitions>\n',
                  6301,
-                 '00-contracts/bpmn/ai/gftd/maps/sentinelAnalyze.bpmn',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
+                 '00-contracts/bpmn/com/etzhayyim/maps/sentinelAnalyze.bpmn',
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
 
 DOWN = [{'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-ingest-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET version = 1\n'
          '      WHERE vertex_id = $1\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-sentinel-analyze-v1']}]
 
 
 def upgrade() -> None:

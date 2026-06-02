@@ -28,7 +28,7 @@
     "etzhayyim_REGO_ARBITER_ADDR": "0x53E29CA12Bd77fD35926627318036c7B2BBE245d",
     "etzhayyim_MURAKUMO_BRIDGE_ADDR": "0xE10149ECCdF963092a0C9DC99D72C8ADb860C04c",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "d1_databases": [
     {

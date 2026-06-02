@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.arcticTrafficForecast.recordPilotSubsidy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Government pilot subsidy for NSR / NWP (cofog expenditure bridge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "subsidyId",
+            "forecastVid",
+            "jurisdictionIso3",
+            "subsidyUsd",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "subsidyId": {
+              "type": "string"
+            },
+            "forecastVid": {
+              "type": "string",
+              "description": "bridges forecastSeason"
+            },
+            "cofogExpenditureVid": {
+              "type": "string",
+              "description": "bridges open-cofog"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "subsidyUsd": {
+              "type": "number"
+            },
+            "recipientLei": {
+              "type": "string"
+            },
+            "effectiveFrom": {
+              "type": "string"
+            },
+            "effectiveUntil": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -235,7 +235,7 @@ export interface SearchActorsOutput {
 //
 // Per ADR-2605231500. When the caller configures a `FEED_DISCOVER_DID`
 // pointing to a mst-projector instance emitting
-// `app.etzhayyim.projection.feedDiscover` snapshots, getTimeline /
+// `com.etzhayyim.projection.feedDiscover` snapshots, getTimeline /
 // getDiscoverFeed read the latest snapshot instead of the single-actor
 // `collectFeed`. Falls back to single-actor on miss so existing behaviour
 // is preserved when no projector is configured. The projection daemon
@@ -260,7 +260,7 @@ async function tryProjectionRead(
     }> }).pds();
     const res = await agent.com.atproto.repo.listRecords({
       repo: projectorDid,
-      collection: "app.etzhayyim.projection.feedDiscover",
+      collection: "com.etzhayyim.projection.feedDiscover",
       limit: 1,
       reverse: true,
     });

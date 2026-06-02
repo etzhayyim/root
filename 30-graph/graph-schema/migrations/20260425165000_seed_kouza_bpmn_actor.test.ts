@@ -9,7 +9,7 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/kouza/syncDueConnections.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/kouza/syncDueConnections.bpmn"),
   "utf-8",
 );
 
@@ -18,12 +18,12 @@ describe("Seed kouza BPMN actor migration", () => {
     expect(migrationSource).toContain("kouza-sync-due-connections-v1");
     expect(migrationSource).toContain('bpmnProcessId: "kouza_sync_due_connections"');
     expect(migrationSource).toContain(
-      'sourcePath: "00-contracts/bpmn/ai/gftd/kouza/syncDueConnections.bpmn"',
+      'sourcePath: "00-contracts/bpmn/com/etzhayyim/kouza/syncDueConnections.bpmn"',
     );
   });
 
   it("seeds the MCP/lexicon binding", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.kouza.syncDueConnections"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.kouza.syncDueConnections"');
     expect(migrationSource).toContain("did:web:kouza.etzhayyim.com");
     expect(migrationSource).toContain("sys.bpmn.seed.kouza");
   });
@@ -32,7 +32,7 @@ describe("Seed kouza BPMN actor migration", () => {
     expect(bpmn).toContain('id="kouza_sync_due_connections"');
     expect(bpmn).toContain("<bpmn:timerEventDefinition");
     expect(bpmn).toContain("R/PT30M");
-    expect(bpmn).toContain('type="app.etzhayyim.kouza.syncDueConnections"');
+    expect(bpmn).toContain('type="com.etzhayyim.kouza.syncDueConnections"');
     expect(bpmn).toContain('type="generic.audit.emit"');
   });
 });

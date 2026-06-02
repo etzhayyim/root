@@ -21,19 +21,19 @@ const canonicalManifest: McpManifest = {
 	appName: "lawfirm",
 	mcpTools: [
 		{
-			name: "app.etzhayyim.apps.lawfirm.createCase",
+			name: "com.etzhayyim.apps.lawfirm.createCase",
 			description: "Open a new client matter",
 			inputSchema: { type: "object", properties: { domain: { type: "string" } } },
 		},
 		{
-			name: "app.etzhayyim.apps.lawfirm.listMatters",
+			name: "com.etzhayyim.apps.lawfirm.listMatters",
 			description: "List matters",
 			inputSchema: { type: "object", properties: {} },
 		},
 	],
 	knownNsids: new Set([
-		"app.etzhayyim.apps.lawfirm.createCase",
-		"app.etzhayyim.apps.lawfirm.listMatters",
+		"com.etzhayyim.apps.lawfirm.createCase",
+		"com.etzhayyim.apps.lawfirm.listMatters",
 	]),
 };
 
@@ -89,7 +89,7 @@ describe("dispatchMcp — tools/list", () => {
 		}));
 		const tools = (resp!.result as { tools: unknown[] }).tools;
 		expect(tools).toHaveLength(2);
-		expect((tools[0] as { name: string }).name).toBe("app.etzhayyim.apps.lawfirm.createCase");
+		expect((tools[0] as { name: string }).name).toBe("com.etzhayyim.apps.lawfirm.createCase");
 	});
 });
 
@@ -134,11 +134,11 @@ describe("dispatchMcp — tools/call", () => {
 			id: "call-1",
 			method: "tools/call",
 			params: {
-				name: "app.etzhayyim.apps.lawfirm.createCase",
+				name: "com.etzhayyim.apps.lawfirm.createCase",
 				arguments: { domain: "ni138", state: "IN-MH", lang: "hi" },
 			},
 		}));
-		expect(seen.path).toBe("/xrpc/app.etzhayyim.apps.lawfirm.createCase");
+		expect(seen.path).toBe("/xrpc/com.etzhayyim.apps.lawfirm.createCase");
 		expect(seen.args).toEqual({ domain: "ni138", state: "IN-MH", lang: "hi" });
 		const result = resp!.result as { content: Array<{ type: string; text: string }>; isError: boolean };
 		expect(result.isError).toBe(false);
@@ -157,7 +157,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: 7,
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
+			params: { name: "com.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
 		}));
 		const result = resp!.result as { isError: boolean };
 		expect(result.isError).toBe(true);
@@ -169,7 +169,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: 8,
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.noSuchTool", arguments: {} },
+			params: { name: "com.etzhayyim.apps.lawfirm.noSuchTool", arguments: {} },
 		}));
 		expect(resp!.error?.code).toBe(-32601);
 		expect(resp!.error?.message).toContain("tool not registered");
@@ -196,7 +196,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: 10,
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.listMatters" },
+			params: { name: "com.etzhayyim.apps.lawfirm.listMatters" },
 		}));
 		expect(seen.args).toEqual({});
 	});
@@ -205,7 +205,7 @@ describe("dispatchMcp — tools/call", () => {
 
 	it("G4: routes to bpmn-dispatcher when binding exists", async () => {
 		bpmnRouterMocks.lookup.mockResolvedValue({
-			nsid: "app.etzhayyim.apps.lawfirm.createCase",
+			nsid: "com.etzhayyim.apps.lawfirm.createCase",
 			bpmnProcessId: "lawfirm-create-case",
 			timeoutMs: 30000,
 		});
@@ -224,7 +224,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: "g4-1",
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.createCase", arguments: { domain: "ni138" } },
+			params: { name: "com.etzhayyim.apps.lawfirm.createCase", arguments: { domain: "ni138" } },
 		}));
 
 		expect(bpmnRouterMocks.lookup).toHaveBeenCalledOnce();
@@ -251,7 +251,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: "g4-2",
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
+			params: { name: "com.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
 		}));
 
 		expect(bpmnRouterMocks.lookup).toHaveBeenCalledOnce();
@@ -263,7 +263,7 @@ describe("dispatchMcp — tools/call", () => {
 
 	it("G4: falls through to handleXRPC when dispatcher returns null (5xx)", async () => {
 		bpmnRouterMocks.lookup.mockResolvedValue({
-			nsid: "app.etzhayyim.apps.lawfirm.createCase",
+			nsid: "com.etzhayyim.apps.lawfirm.createCase",
 			bpmnProcessId: "p1",
 			timeoutMs: 30000,
 		});
@@ -279,7 +279,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: "g4-3",
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.createCase", arguments: {} },
+			params: { name: "com.etzhayyim.apps.lawfirm.createCase", arguments: {} },
 		}));
 
 		expect(bpmnRouterMocks.dispatch).toHaveBeenCalledOnce();
@@ -298,7 +298,7 @@ describe("dispatchMcp — tools/call", () => {
 			jsonrpc: "2.0",
 			id: "g4-4",
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
+			params: { name: "com.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
 		}));
 
 		expect(bpmnRouterMocks.lookup).not.toHaveBeenCalled();
@@ -359,7 +359,7 @@ describe("dispatchMcp — notifications and malformed input", () => {
 			jsonrpc: "2.0",
 			id: 12,
 			method: "tools/call",
-			params: { name: "app.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
+			params: { name: "com.etzhayyim.apps.lawfirm.listMatters", arguments: {} },
 		}));
 		expect(resp!.error?.code).toBe(-32603);
 		expect(resp!.error?.message).toContain("downstream boom");

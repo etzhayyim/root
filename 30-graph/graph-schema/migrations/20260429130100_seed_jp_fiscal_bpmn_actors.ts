@@ -24,15 +24,15 @@ const seeds: Seed[] = [
   {
     proc: "edinet-daily",
     bpmnProcessId: "jp_fiscal_edinet_daily",
-    nsid: "app.etzhayyim.apps.jpFiscal.fiscalEdinetDaily",
-    sourcePath: "00-contracts/bpmn/ai/gftd/jp-fiscal/fiscalEdinetDaily.bpmn",
+    nsid: "com.etzhayyim.apps.jpFiscal.fiscalEdinetDaily",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/jp-fiscal/fiscalEdinetDaily.bpmn",
     resultTimeoutMs: 300000,
   },
   {
     proc: "contract-weekly",
     bpmnProcessId: "jp_fiscal_contract_weekly",
-    nsid: "app.etzhayyim.apps.jpFiscal.fiscalContractWeekly",
-    sourcePath: "00-contracts/bpmn/ai/gftd/jp-fiscal/fiscalContractWeekly.bpmn",
+    nsid: "com.etzhayyim.apps.jpFiscal.fiscalContractWeekly",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/jp-fiscal/fiscalContractWeekly.bpmn",
     resultTimeoutMs: 600000,
   },
 ];
@@ -42,9 +42,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

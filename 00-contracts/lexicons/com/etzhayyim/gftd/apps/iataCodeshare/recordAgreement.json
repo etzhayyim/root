@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.iataCodeshare.recordAgreement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IATA codeshare / interline / SPA / IT (Industry Traffic) agreement (bridges airline-jal-ops + airline-ana-ops + airplane-flight)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "agreementId",
+            "agreementKind",
+            "operatingCarrier",
+            "marketingCarrier",
+            "scope",
+            "agreementAt"
+          ],
+          "properties": {
+            "agreementId": {
+              "type": "string"
+            },
+            "agreementKind": {
+              "type": "string",
+              "enum": [
+                "codeshare_block_seat",
+                "codeshare_free_sale",
+                "interline_e_ticket",
+                "interline_baggage",
+                "spa_special_prorate",
+                "ssim_industry_traffic",
+                "mitt_minimum_interline",
+                "virtual_codeshare",
+                "franchise",
+                "wet_lease_codeshare",
+                "mctd_minimum_connect",
+                "sla_redirect",
+                "mvp_min_volume",
+                "jba_joint_business"
+              ]
+            },
+            "operatingCarrier": {
+              "type": "string"
+            },
+            "marketingCarrier": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "bilateral",
+                "multilateral_alliance",
+                "oneworld",
+                "star_alliance",
+                "skyteam",
+                "value_alliance",
+                "independent",
+                "specific_route",
+                "seasonal",
+                "cargo",
+                "jba_atlantic",
+                "jba_pacific",
+                "jba_japan_us"
+              ]
+            },
+            "agreementAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -80,14 +80,14 @@
     {"name": "elv_provenance_binder", "module": "magatama.cells.elv_provenance_binder", "murakumoNode": "judah", "phase": "terminal — full chain DID anchoring on yatachain (input VIN → parts catalog + material lots + emissions + ASR mass)"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.hodoki.elvIntakeRecord",
-    "app.etzhayyim.hodoki.depollutionAttestation",
-    "app.etzhayyim.hodoki.batteryHandlingRecord",
-    "app.etzhayyim.hodoki.partsHarvestCatalog",
-    "app.etzhayyim.hodoki.catalystRecoveryRecord",
-    "app.etzhayyim.hodoki.shredOutputAttestation",
-    "app.etzhayyim.hodoki.dataWipeAttestation",
-    "app.etzhayyim.hodoki.silenDeconstructionReview"
+    "com.etzhayyim.hodoki.elvIntakeRecord",
+    "com.etzhayyim.hodoki.depollutionAttestation",
+    "com.etzhayyim.hodoki.batteryHandlingRecord",
+    "com.etzhayyim.hodoki.partsHarvestCatalog",
+    "com.etzhayyim.hodoki.catalystRecoveryRecord",
+    "com.etzhayyim.hodoki.shredOutputAttestation",
+    "com.etzhayyim.hodoki.dataWipeAttestation",
+    "com.etzhayyim.hodoki.silenDeconstructionReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261215. Changes require Council Lv6+ supermajority + new ADR.",

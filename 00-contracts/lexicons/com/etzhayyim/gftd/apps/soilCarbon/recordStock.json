@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.soilCarbon.recordStock",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Soil organic carbon stock (FAO GSOC / 4p1000 — bridges agri-food-security + biodiversity-gbf + climate-carbon-market)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "stockId",
+            "parcelId",
+            "countryIso3",
+            "landUse",
+            "socTonnesPerHa",
+            "measuredYear",
+            "recordedAt"
+          ],
+          "properties": {
+            "stockId": {
+              "type": "string"
+            },
+            "parcelId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "landUse": {
+              "type": "string",
+              "enum": [
+                "cropland",
+                "grassland",
+                "forest",
+                "wetland",
+                "settlement",
+                "bare"
+              ]
+            },
+            "depthCm": {
+              "type": "integer"
+            },
+            "socTonnesPerHa": {
+              "type": "number"
+            },
+            "measurementMethod": {
+              "type": "string",
+              "enum": [
+                "in_situ",
+                "nir",
+                "xrf",
+                "remote_sensing",
+                "model_estimate"
+              ]
+            },
+            "measuredYear": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "fertilityTier": {
+              "type": "string",
+              "enum": [
+                "severe",
+                "depleted",
+                "moderate",
+                "rich"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

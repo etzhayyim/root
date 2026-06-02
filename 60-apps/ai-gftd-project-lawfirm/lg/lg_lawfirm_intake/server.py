@@ -3,7 +3,7 @@
 Surface:
   GET  /health /ok
   POST /runs
-  POST /xrpc/app.etzhayyim.apps.lawfirm.triageIntake   ← main XRPC entry
+  POST /xrpc/com.etzhayyim.apps.lawfirm.triageIntake   ← main XRPC entry
 
 Auth: DISPATCHER_INTERNAL_SECRET in x-internal-trust header.
 """
@@ -24,7 +24,7 @@ from lg_lawfirm_intake.graph import build_graph  # type: ignore[import-untyped]
 _log = logging.getLogger(__name__)
 
 _GRAPH = build_graph()
-_NSID_TRIAGE = "/xrpc/app.etzhayyim.apps.lawfirm.triageIntake"
+_NSID_TRIAGE = "/xrpc/com.etzhayyim.apps.lawfirm.triageIntake"
 
 
 def _enforce_auth(

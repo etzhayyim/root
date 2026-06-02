@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ses.getAnken",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "案件 ID → 案件詳細 + 状況ログ全件",
+      "parameters": {
+        "type": "params",
+        "required": ["ankenId"],
+        "properties": {
+          "ankenId": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "anken": {
+              "type": "object",
+              "properties": {
+                "vertexId": { "type": "string" },
+                "clientName": { "type": "string" },
+                "clientCompany": { "type": "string" },
+                "skillCsv": { "type": "string" },
+                "jokyoCurrent": { "type": "string" },
+                "startMonth": { "type": "string" },
+                "endMonth": { "type": "string" },
+                "rateLowerYen": { "type": "integer" },
+                "rateUpperYen": { "type": "integer" },
+                "workLocation": { "type": "string" },
+                "remoteOk": { "type": "boolean" },
+                "notes": { "type": "string" },
+                "sourceKind": { "type": "string" },
+                "sourceEmailFrom": { "type": "string" },
+                "sourceEmailSubject": { "type": "string" },
+                "createdAt": { "type": "string" }
+              }
+            },
+            "jokyoLog": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "vertexId": { "type": "string" },
+                  "jokyo": { "type": "string" },
+                  "jokyoPrev": { "type": "string" },
+                  "notes": { "type": "string" },
+                  "createdAt": { "type": "string" }
+                }
+              }
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

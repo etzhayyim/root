@@ -22,11 +22,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.saiban.court",
-        "ai.gftd.apps.saiban.judge",
-        "ai.gftd.apps.saiban.jiken",
-        "ai.gftd.apps.saiban.trialEvent",
-        "ai.gftd.apps.saiban.jurisdictionMap"
+        "com.etzhayyim.apps.saiban.court",
+        "com.etzhayyim.apps.saiban.judge",
+        "com.etzhayyim.apps.saiban.jiken",
+        "com.etzhayyim.apps.saiban.trialEvent",
+        "com.etzhayyim.apps.saiban.jurisdictionMap"
       ]
     }
   },

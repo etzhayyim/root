@@ -28,7 +28,7 @@ async function ensurePathDids(sdk: HostSDK): Promise<void> {
   pathDidsReady = true;
 }
 
-// ── app.etzhayyim.apps.bim.importIfc ──
+// ── com.etzhayyim.apps.bim.importIfc ──
 async function cmdImportIfc(sdk: HostSDK, env: Record<string, unknown>, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     projectId: "",
@@ -101,7 +101,7 @@ async function cmdImportIfc(sdk: HostSDK, env: Record<string, unknown>, body: Ui
   }
 }
 
-// ── app.etzhayyim.apps.bim.getStoreyScene ──
+// ── com.etzhayyim.apps.bim.getStoreyScene ──
 async function qGetStoreyScene(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const _ = sdk;
   const input = decodeJson(body, {
@@ -125,7 +125,7 @@ async function qGetStoreyScene(sdk: HostSDK, body: Uint8Array): Promise<string> 
   });
 }
 
-// ── app.etzhayyim.apps.bim.listSpaces ──
+// ── com.etzhayyim.apps.bim.listSpaces ──
 async function qListSpaces(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const _ = sdk;
   const input = decodeJson(body, { projectId: "", storeyId: "", category: "", offset: 0, limit: 100 });
@@ -135,7 +135,7 @@ async function qListSpaces(sdk: HostSDK, body: Uint8Array): Promise<string> {
   return JSON.stringify({ items: [], total: 0, offset, limit, note: "Phase 0 stub" });
 }
 
-// ── app.etzhayyim.apps.bim.annotateElement ──
+// ── com.etzhayyim.apps.bim.annotateElement ──
 async function cmdAnnotateElement(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     elementId: "",
@@ -154,13 +154,13 @@ async function cmdAnnotateElement(sdk: HostSDK, body: Uint8Array): Promise<strin
   // TODO: Hyperdrive INSERT vertex_bim_annotation; Phase 0 returns the id only.
   const _reviewer = REVIEWER_DID;
   return JSON.stringify({
-    annotationUri: `at://${PRIMARY_DID}/app.etzhayyim.apps.bim.annotation/${rkey}`,
+    annotationUri: `at://${PRIMARY_DID}/com.etzhayyim.apps.bim.annotation/${rkey}`,
     rkey,
     createdAt,
   });
 }
 
-// ── app.etzhayyim.apps.bim.requestExport ──
+// ── com.etzhayyim.apps.bim.requestExport ──
 async function cmdRequestExport(sdk: HostSDK, env: Record<string, unknown>, body: Uint8Array): Promise<string> {
   const input = decodeJson(body, {
     revisionId: "",
@@ -201,36 +201,36 @@ async function cmdHealth(): Promise<string> {
 export default createWorkerExport((sdk) => {
   const env = (sdk as unknown as { env?: Record<string, unknown> }).env ?? {};
   sdk.app.command(
-    nsid("app.etzhayyim.apps.bim.importIfc"),
+    nsid("com.etzhayyim.apps.bim.importIfc"),
     async (_ctx: unknown, body: Uint8Array) => cmdImportIfc(sdk, env, body),
     asAgentTool("Import an IFC file (STEP / XML / ZIP) into a BIM project; returns a job id."),
     withCapabilityTags("write", "bim", "ifc", "import"),
   );
   sdk.app.query(
-    nsid("app.etzhayyim.apps.bim.getStoreyScene"),
+    nsid("com.etzhayyim.apps.bim.getStoreyScene"),
     async (_ctx: unknown, body: Uint8Array) => qGetStoreyScene(sdk, body),
     asAgentTool("Return a scene-graph projection of a single IfcBuildingStorey for WebGPU rendering."),
     withCapabilityTags("read", "bim", "scene"),
   );
   sdk.app.query(
-    nsid("app.etzhayyim.apps.bim.listSpaces"),
+    nsid("com.etzhayyim.apps.bim.listSpaces"),
     async (_ctx: unknown, body: Uint8Array) => qListSpaces(sdk, body),
     asAgentTool("List IfcSpace entities (room schedule / area take-off)."),
     withCapabilityTags("read", "bim", "spaces"),
   );
   sdk.app.command(
-    nsid("app.etzhayyim.apps.bim.annotateElement"),
+    nsid("com.etzhayyim.apps.bim.annotateElement"),
     async (_ctx: unknown, body: Uint8Array) => cmdAnnotateElement(sdk, body),
     asAgentTool("Attach a BCF-style annotation (comment / issue / RFI) to a BIM element."),
     withCapabilityTags("write", "bim", "annotation", "bcf"),
   );
   sdk.app.command(
-    nsid("app.etzhayyim.apps.bim.requestExport"),
+    nsid("com.etzhayyim.apps.bim.requestExport"),
     async (_ctx: unknown, body: Uint8Array) => cmdRequestExport(sdk, env, body),
     asAgentTool("Enqueue an IFC / glTF / BCF / xlsx / PDF export job."),
     withCapabilityTags("write", "bim", "export"),
   );
-  sdk.app.command(nsid("app.etzhayyim.apps.bim.health"), async () => cmdHealth());
+  sdk.app.command(nsid("com.etzhayyim.apps.bim.health"), async () => cmdHealth());
 
   // ── Internal callback: bim-job container → Worker ───────────────────
   // Container POSTs the parse catalog here when a job flips to `ready`;
@@ -323,7 +323,7 @@ async function ingestCatalog(env: Record<string, unknown>, body: JobCompleteBody
   for (const proj of body.catalog.projects ?? []) {
     for (const site of proj.sites ?? []) {
       for (const bldg of site.buildings ?? []) {
-        const buildingId = `at://${owner}/app.etzhayyim.apps.bim.building/${bldg.globalId ?? genID()}`;
+        const buildingId = `at://${owner}/com.etzhayyim.apps.bim.building/${bldg.globalId ?? genID()}`;
         try {
           await sql`
             INSERT INTO vertex_bim_building (
@@ -341,7 +341,7 @@ async function ingestCatalog(env: Record<string, unknown>, body: JobCompleteBody
         }
 
         for (const st of bldg.storeys ?? []) {
-          const storeyId = `at://${owner}/app.etzhayyim.apps.bim.storey/${st.globalId ?? genID()}`;
+          const storeyId = `at://${owner}/com.etzhayyim.apps.bim.storey/${st.globalId ?? genID()}`;
           try {
             await sql`
               INSERT INTO vertex_bim_storey (
@@ -360,7 +360,7 @@ async function ingestCatalog(env: Record<string, unknown>, body: JobCompleteBody
           }
 
           for (const sp of st.spaces ?? []) {
-            const spaceId = `at://${owner}/app.etzhayyim.apps.bim.space/${sp.globalId ?? genID()}`;
+            const spaceId = `at://${owner}/com.etzhayyim.apps.bim.space/${sp.globalId ?? genID()}`;
             try {
               await sql`
                 INSERT INTO vertex_bim_space (

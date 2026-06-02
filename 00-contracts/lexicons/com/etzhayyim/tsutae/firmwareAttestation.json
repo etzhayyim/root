@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.tsutae.firmwareAttestation",
+  "description": "Firmware load attestation. Open bootloader + open OS + crypto hash + bootloader-unlock-default invariant. Per ADR-2605261300 G2 + G7 + G8.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "deviceId": {"type": "string"},
+          "firmwareImageCid": {"type": "string"},
+          "firmwareSha256": {"type": "string"},
+          "bootloader": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string", "knownValues": ["U-Boot", "coreboot", "EDK2-OSS", "Trusted-Firmware-A-open-build"]},
+              "version": {"type": "string"},
+              "sourceCid": {"type": "string", "description": "G2: open-source bootloader source CID"},
+              "unlockStateAtShipDefault": {"type": "boolean", "description": "G2: MUST be true (bootloader unlock = default state per N2 anti-Samsung-Knox/SEP)"}
+            },
+            "required": ["name", "version", "sourceCid", "unlockStateAtShipDefault"]
+          },
+          "osKernel": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string", "knownValues": ["Linux-mainline", "AOSP-derivative", "GrapheneOS-class", "LineageOS-verified", "postmarketOS"]},
+              "version": {"type": "string"},
+              "sourceCid": {"type": "string"}
+            },
+            "required": ["name", "version", "sourceCid"]
+          },
+          "userspace": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "version": {"type": "string"},
+              "hardeningClass": {"type": "string", "knownValues": ["GrapheneOS-class", "LineageOS-verified", "postmarketOS", "vanilla-AOSP-derivative"]}
+            }
+          },
+          "g7BinaryBlobAudit": {
+            "type": "object",
+            "properties": {
+              "blobRatioPercent": {"type": "number", "description": "G7: ≤5% invariant"},
+              "blobs": {"type": "array", "items": {"type": "string"}, "description": "Per-blob: vendor + reason + replacement-effort + Council waiver CID"}
+            },
+            "required": ["blobRatioPercent"]
+          },
+          "g8CalmDefaultConfig": {
+            "type": "object",
+            "properties": {
+              "notificationBatchingMinutesDefault": {"type": "integer", "description": "G8: ≥15 min default invariant"},
+              "infiniteScrollOsApiInstalled": {"type": "boolean", "description": "G8: MUST be false"},
+              "dopamineLoopApiInstalled": {"type": "boolean", "description": "G8: MUST be false"},
+              "screenTimeAggregateSelfReportOnly": {"type": "boolean", "description": "G8: MUST be true"},
+              "autoPlayMediaOnLockScreen": {"type": "boolean", "description": "G8: MUST be false"}
+            },
+            "required": ["notificationBatchingMinutesDefault", "infiniteScrollOsApiInstalled", "dopamineLoopApiInstalled"]
+          },
+          "operatorDid": {"type": "string"},
+          "witnessRobotDids": {"type": "array", "items": {"type": "string"}, "minItems": 2}
+        },
+        "required": ["deviceId", "firmwareImageCid", "firmwareSha256", "bootloader", "osKernel", "g7BinaryBlobAudit", "g8CalmDefaultConfig", "operatorDid", "witnessRobotDids"]
+      }
+    }
+  }
+}

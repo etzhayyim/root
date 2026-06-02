@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.selectNetworkSlice",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G Core NSSF — record a network slice selection (S-NSSAI mapping) for a UE registration.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["registrationId", "profileId", "selectedSnssai", "nssfNfId", "observedAt"],
+          "properties": {
+            "selectionId": { "type": "string" },
+            "registrationId": { "type": "string" },
+            "profileId": { "type": "string" },
+            "requestedNssaiList": { "type": "array", "items": { "type": "string" } },
+            "allowedNssaiList": { "type": "array", "items": { "type": "string" } },
+            "selectedSnssai": { "type": "string" },
+            "nssfNfId": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "selectionId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

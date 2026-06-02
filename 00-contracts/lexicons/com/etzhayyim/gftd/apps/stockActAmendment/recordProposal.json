@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.stockActAmendment.recordProposal",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "STOCK Act amendment / ethics reform proposal (bridges congressionalStock.flagLateFiling + ethicsDisclosure + judicialInfluence)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "proposalId",
+            "chamber",
+            "reformKind",
+            "introducedAt"
+          ],
+          "properties": {
+            "proposalId": {
+              "type": "string"
+            },
+            "chamber": {
+              "type": "string",
+              "enum": [
+                "us_senate",
+                "us_house",
+                "joint_chamber",
+                "eu_parliament",
+                "uk_commons",
+                "uk_lords",
+                "bundestag",
+                "national_assembly_fr",
+                "diet_japan",
+                "knesset",
+                "canada_parliament"
+              ]
+            },
+            "reformKind": {
+              "type": "string",
+              "enum": [
+                "pelosi_act",
+                "etico_act",
+                "tradeable_ban",
+                "pre_disclosure_ban",
+                "trust_only",
+                "divestment_mandate",
+                "spouse_inclusion",
+                "cabinet_extension",
+                "judicial_extension",
+                "fed_inclusion",
+                "crypto_inclusion",
+                "blind_trust"
+              ]
+            },
+            "lateFilingVid": {
+              "type": "string",
+              "description": "bridges congressionalStock.flagLateFiling"
+            },
+            "introducedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -77,7 +77,7 @@ def test_g15_emitted_record_is_gratuitous():
 def test_g15_port_put_rejects_consideration():
     port = KotobaMstPort(url="http://localhost:1")  # guard fires before any I/O
     with pytest.raises(ValueError):
-        port.put("app.etzhayyim.chigiri.legalAidMatter",
+        port.put("com.etzhayyim.chigiri.legalAidMatter",
                  {"adherentDid": "did:a", "fee": 1000})
 
 

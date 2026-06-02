@@ -16,11 +16,11 @@ const ownerDid = "did:web:maps.etzhayyim.com";
 const actorId = "sys.bpmn.seed.maps-celestial";
 
 const seed = {
-  processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1",
-  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1",
+  processVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-ingestCelestialCatalogs-v1",
+  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-ingestCelestialCatalogs-v1",
   processId: "maps_ingest_celestial_catalogs",
-  nsid: "app.etzhayyim.apps.maps.ingestCelestialCatalogs",
-  sourcePath: "00-contracts/bpmn/ai/gftd/maps/ingestCelestialCatalogs.bpmn",
+  nsid: "com.etzhayyim.apps.maps.ingestCelestialCatalogs",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/maps/ingestCelestialCatalogs.bpmn",
   resultTimeoutMs: 1_800_000,
   writeTableAllowlist: "vertex_celestial_catalog,vertex_celestial_object",
 };

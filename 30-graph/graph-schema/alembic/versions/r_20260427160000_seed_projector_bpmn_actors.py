@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1',
                  'did:web:projector.etzhayyim.com',
                  'projector_send_project_message',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -33,7 +33,7 @@ UP = [{'sql': '\n'
                  '  projector.sendProjectMessage — root router for /projects chat.\n'
                  '\n'
                  '  Single entry point for the yoro `/projects/{convoId}` UI. CF Worker\n'
-                 '  (atproto.etzhayyim.com) receives the XRPC `app.etzhayyim.projector.sendProjectMessage`,\n'
+                 '  (atproto.etzhayyim.com) receives the XRPC `com.etzhayyim.projector.sendProjectMessage`,\n'
                  '  publishes the message + variables to Zeebe, and returns 202 Accepted.\n'
                  '  Reply is delivered async via SSE / poll.\n'
                  '\n'
@@ -47,9 +47,9 @@ UP = [{'sql': '\n'
                  '    default    → projector.agentLoop       (Phase 1, LangGraph ReAct + CoT + '
                  'Reflexion)\n'
                  '\n'
-                 '  NSID:      app.etzhayyim.apps.projector.sendProjectMessage\n'
+                 '  NSID:      com.etzhayyim.apps.projector.sendProjectMessage\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="projector_send_project_message" name="projector '
                  'sendProjectMessage" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.projector.sendProjectMessage", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.projector.sendProjectMessage", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -242,7 +242,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.projector.sendProjectMessage.completed&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.projector.sendProjectMessage.completed&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;convoId&quot;: convoId, '
                  '&quot;callerDid&quot;: callerDid, &quot;command&quot;: command, '
@@ -261,19 +261,19 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '\n'
                  '  <bpmn:message id="Message_sendProjectMessage" '
-                 'name="app.etzhayyim.apps.projector.sendProjectMessage">\n'
+                 'name="com.etzhayyim.apps.projector.sendProjectMessage">\n'
                  '    <bpmn:extensionElements>\n'
                  '      <zeebe:subscription correlationKey="=convoId"/>\n'
                  '    </bpmn:extensionElements>\n'
                  '  </bpmn:message>\n'
                  '</bpmn:definitions>\n',
                  10508,
-                 '00-contracts/bpmn/ai/gftd/projector/sendProjectMessage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/projector/sendProjectMessage.bpmn',
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -287,7 +287,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1',
                  'did:web:projector.etzhayyim.com',
                  'projector_agent_loop',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -306,9 +306,9 @@ UP = [{'sql': '\n'
                  '<reasoning>...</reasoning>;\n'
                  '      the loop captures it into vars.reasoning.\n'
                  '\n'
-                 '  NSID:      app.etzhayyim.apps.projector.agentLoop\n'
+                 '  NSID:      com.etzhayyim.apps.projector.agentLoop\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -321,7 +321,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="projector_agent_loop" name="projector agentLoop" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.projector.agentLoop", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.projector.agentLoop", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -355,7 +355,7 @@ UP = [{'sql': '\n'
                  'target="table"/>\n'
                  '          <zeebe:input source="=&quot;collection = %s AND repo = %s&quot;" '
                  'target="whereExpr"/>\n'
-                 '          <zeebe:input source="=[&quot;app.etzhayyim.convo.message&quot;, callerDid]" '
+                 '          <zeebe:input source="=[&quot;com.etzhayyim.convo.message&quot;, callerDid]" '
                  'target="whereParams"/>\n'
                  '          <zeebe:input source="=&quot;value_json,created_at&quot;" '
                  'target="columns"/>\n'
@@ -432,12 +432,12 @@ UP = [{'sql': '\n'
                  'errorCode="agent.guardrail.denied"/>\n'
                  '</bpmn:definitions>\n',
                  6344,
-                 '00-contracts/bpmn/ai/gftd/projector/agentLoop.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/projector/agentLoop.bpmn',
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -451,7 +451,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1',
                  'did:web:projector.etzhayyim.com',
                  'projector_tree_of_thoughts',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -464,9 +464,9 @@ UP = [{'sql': '\n'
                  '  + `tot.thought.ranked`) sits at the same boundary as every other\n'
                  '  projector flow.\n'
                  '\n'
-                 '  NSID:      app.etzhayyim.apps.projector.treeOfThoughts\n'
+                 '  NSID:      com.etzhayyim.apps.projector.treeOfThoughts\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -479,7 +479,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="projector_tree_of_thoughts" name="projector treeOfThoughts" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.projector.treeOfThoughts", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.projector.treeOfThoughts", "version": 1, '
                  '"resultTimeoutMs": 90000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -517,12 +517,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2592,
-                 '00-contracts/bpmn/ai/gftd/projector/treeOfThoughts.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/projector/treeOfThoughts.bpmn',
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -536,7 +536,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1',
                  'did:web:projector.etzhayyim.com',
                  'projector_self_consistency',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -547,9 +547,9 @@ UP = [{'sql': '\n'
                  '  LangGraph + asyncio.gather; BPMN keeps the OCEL boundary (one\n'
                  '  `sc.path.sampled` × N + one `sc.vote.tallied`).\n'
                  '\n'
-                 '  NSID:      app.etzhayyim.apps.projector.selfConsistency\n'
+                 '  NSID:      com.etzhayyim.apps.projector.selfConsistency\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -562,7 +562,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="projector_self_consistency" name="projector selfConsistency" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.projector.selfConsistency", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.projector.selfConsistency", "version": 1, '
                  '"resultTimeoutMs": 90000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -601,12 +601,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2573,
-                 '00-contracts/bpmn/ai/gftd/projector/selfConsistency.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/projector/selfConsistency.bpmn',
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -620,16 +620,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-sendProjectMessage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-sendProjectMessage-v1',
                  'did:web:projector.etzhayyim.com',
-                 'app.etzhayyim.apps.projector.sendProjectMessage',
+                 'com.etzhayyim.apps.projector.sendProjectMessage',
                  'projector_send_project_message',
                  60000,
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-sendProjectMessage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-sendProjectMessage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -643,16 +643,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-agentLoop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-agentLoop-v1',
                  'did:web:projector.etzhayyim.com',
-                 'app.etzhayyim.apps.projector.agentLoop',
+                 'com.etzhayyim.apps.projector.agentLoop',
                  'projector_agent_loop',
                  60000,
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-agentLoop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-agentLoop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -666,16 +666,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-treeOfThoughts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-treeOfThoughts-v1',
                  'did:web:projector.etzhayyim.com',
-                 'app.etzhayyim.apps.projector.treeOfThoughts',
+                 'com.etzhayyim.apps.projector.treeOfThoughts',
                  'projector_tree_of_thoughts',
                  90000,
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-treeOfThoughts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-treeOfThoughts-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -689,33 +689,33 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-selfConsistency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-selfConsistency-v1',
                  'did:web:projector.etzhayyim.com',
-                 'app.etzhayyim.apps.projector.selfConsistency',
+                 'com.etzhayyim.apps.projector.selfConsistency',
                  'projector_self_consistency',
                  90000,
                  '2026-04-27T16:00:00Z',
                  'did:web:projector.etzhayyim.com',
                  'did:web:projector.etzhayyim.com',
                  'sys.bpmn.seed.projector',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-selfConsistency-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-selfConsistency-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-sendProjectMessage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-sendProjectMessage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-agentLoop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-agentLoop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-treeOfThoughts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-treeOfThoughts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/projector-selfConsistency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/projector-selfConsistency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-send-project-message-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-agent-loop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-tree-of-thoughts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/projector-self-consistency-v1']}]
 
 
 def upgrade() -> None:

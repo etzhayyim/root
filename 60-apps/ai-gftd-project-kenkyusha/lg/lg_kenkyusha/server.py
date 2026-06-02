@@ -277,17 +277,17 @@ async def _list_frontiers(
 # ── XRPC NSID surface (Phase 2A MCP facade) ──────────────────────────────────
 #
 # atproto.etzhayyim.com/mcp tools/call dispatches to
-# https://kenkyusha.etzhayyim.com/xrpc/app.etzhayyim.apps.kenkyusha.<method>. The pod
+# https://kenkyusha.etzhayyim.com/xrpc/com.etzhayyim.apps.kenkyusha.<method>. The pod
 # (this server) is the canonical owner of vertex_kenkyusha_* (ADR-2605111200),
 # so these routes are NSID-style aliases for /frontiers/* with input shape
-# matching 00-contracts/lexicons/ai/gftd/apps/kenkyusha/<method>.json.
+# matching 00-contracts/lexicons/com/etzhayyim/apps/kenkyusha/<method>.json.
 #
 # Auth: X-Magatama-Internal-Token from app-worker-proxy.ts is accepted in lieu
 # of x-api-key (see _enforce_auth).
 
-_NSID_PUBLISH = "/xrpc/app.etzhayyim.apps.kenkyusha.publishFrontier"
-_NSID_GET     = "/xrpc/app.etzhayyim.apps.kenkyusha.getFrontier"
-_NSID_LIST    = "/xrpc/app.etzhayyim.apps.kenkyusha.listFrontiers"
+_NSID_PUBLISH = "/xrpc/com.etzhayyim.apps.kenkyusha.publishFrontier"
+_NSID_GET     = "/xrpc/com.etzhayyim.apps.kenkyusha.getFrontier"
+_NSID_LIST    = "/xrpc/com.etzhayyim.apps.kenkyusha.listFrontiers"
 
 
 @app.post(_NSID_PUBLISH)

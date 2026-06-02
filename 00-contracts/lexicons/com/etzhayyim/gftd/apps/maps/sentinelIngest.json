@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.sentinelIngest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Trigger a Sentinel STAC ingest run. Searches Sentinel-2 L2A (Element84) + Sentinel-1 GRD (Copernicus) catalogs over the configured AOIs, persists each matching scene as com.etzhayyim.apps.maps.satelliteScene records. Timer-start BPMN sentinelIngest.bpmn invokes this same NSID for the daily R/PT24H run; manual POST is allowed for backfill. ADR-2604271800.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "aois": {
+              "type": "array",
+              "description": "Optional override AOI list (geohash strings or bbox 'minLon,minLat,maxLon,maxLat'). Falls back to env MAPS_SENTINEL_AOIS.",
+              "items": { "type": "string" }
+            },
+            "timeRangeDays": {
+              "type": "integer",
+              "description": "Look back N days from now. Default 1 (matches R/PT24H cadence).",
+              "minimum": 1,
+              "maximum": 365,
+              "default": 1
+            },
+            "maxScenesPerAoi": {
+              "type": "integer",
+              "description": "Cap scenes returned per AOI per platform.",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 10
+            },
+            "platforms": {
+              "type": "array",
+              "description": "Subset of {sentinel-2-l2a, sentinel-1-grd}.",
+              "items": { "type": "string" }
+            },
+            "maxCloudCover": {
+              "type": "integer",
+              "description": "Max cloud cover percent for optical scenes.",
+              "minimum": 0,
+              "maximum": 100,
+              "default": 30
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "runId": { "type": "string" },
+            "scenesIngested": { "type": "integer" },
+            "scenesScanned": { "type": "integer" },
+            "byPlatform": {
+              "type": "object",
+              "description": "Platform → ingested count map."
+            }
+          },
+          "required": ["runId", "scenesIngested"]
+        }
+      }
+    }
+  }
+}

@@ -35,11 +35,11 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openNetwork.site",
-        "ai.gftd.apps.openNetwork.link",
-        "ai.gftd.apps.openNetwork.utilization",
-        "ai.gftd.apps.openNetwork.incident",
-        "ai.gftd.apps.openNetwork.change"
+        "com.etzhayyim.apps.openNetwork.site",
+        "com.etzhayyim.apps.openNetwork.link",
+        "com.etzhayyim.apps.openNetwork.utilization",
+        "com.etzhayyim.apps.openNetwork.incident",
+        "com.etzhayyim.apps.openNetwork.change"
       ]
     }
   },

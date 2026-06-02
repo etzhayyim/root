@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.vault.createVault",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "wrappedVaultKey": {
+              "type": "string",
+              "description": "AES-key-wrap(vaultKey, callerMemberDeviceKey), base64url"
+            },
+            "memberDeviceKeyId": {
+              "type": "string",
+              "description": "Identifier for the device key used to wrap (passkey credentialId or X3DH bundle hash)"
+            }
+          },
+          "required": ["name", "wrappedVaultKey", "memberDeviceKeyId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vaultId": { "type": "string" },
+            "createdAt": { "type": "string" }
+          },
+          "required": ["vaultId", "createdAt"]
+        }
+      }
+    }
+  }
+}

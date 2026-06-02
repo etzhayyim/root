@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cargo.getCargo",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a cargo manifest by DID or bill of lading number.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "properties": { "did": { "type": "string", "format": "did" }, "billOfLadingNo": { "type": "string", "description": "alternative lookup key" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "cargoType": { "type": "string" }, "vesselDid": { "type": "string", "format": "did" }, "loadingPortDid": { "type": "string", "format": "did" }, "dischargePortDid": { "type": "string", "format": "did" }, "shipperDid": { "type": "string", "format": "did" }, "consigneeDid": { "type": "string", "format": "did" }, "billOfLadingNo": { "type": "string" }, "containerNumbers": { "type": "array", "items": { "type": "string" } }, "teu": { "type": "integer" }, "weightTonnes": { "type": "number" }, "hsCode": { "type": "string" }, "imdgClass": { "type": "string" }, "etd": { "type": "string", "format": "datetime" }, "eta": { "type": "string", "format": "datetime" } } } }
+    }
+  }
+}

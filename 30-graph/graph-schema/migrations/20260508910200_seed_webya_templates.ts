@@ -269,7 +269,7 @@ type TemplateRow = {
 
 const templates: TemplateRow[] = [
   {
-    vertexId: "at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/law-firm-v1",
+    vertexId: "at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/law-firm-v1",
     templateId: "template_law_firm_v1",
     professionKind: "law_firm",
     pagesJson: LAW_FIRM_PAGES,
@@ -277,7 +277,7 @@ const templates: TemplateRow[] = [
     slotSchemaJson: LAW_FIRM_SLOT_SCHEMA,
   },
   {
-    vertexId: "at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/accounting-firm-v1",
+    vertexId: "at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/accounting-firm-v1",
     templateId: "template_accounting_firm_v1",
     professionKind: "accounting_firm",
     pagesJson: ACCOUNTING_FIRM_PAGES,
@@ -285,7 +285,7 @@ const templates: TemplateRow[] = [
     slotSchemaJson: ACCOUNTING_FIRM_SLOT_SCHEMA,
   },
   {
-    vertexId: "at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/scrivener-v1",
+    vertexId: "at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/scrivener-v1",
     templateId: "template_scrivener_v1",
     professionKind: "judicial_scrivener",
     pagesJson: SCRIVENER_PAGES,
@@ -293,7 +293,7 @@ const templates: TemplateRow[] = [
     slotSchemaJson: SCRIVENER_SLOT_SCHEMA,
   },
   {
-    vertexId: "at://did:web:webya.etzhayyim.com/app.etzhayyim.apps.webya.template/company-v1",
+    vertexId: "at://did:web:webya.etzhayyim.com/com.etzhayyim.apps.webya.template/company-v1",
     templateId: "template_company_v1",
     professionKind: "general_company",
     pagesJson: COMPANY_PAGES,

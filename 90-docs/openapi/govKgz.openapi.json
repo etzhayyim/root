@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govKgz.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govKgz.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Kyrgyzstan government.",
-        "operationId": "app.etzhayyim.govKgz.followSiteDeps",
+        "operationId": "com.etzhayyim.govKgz.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govKgz.heartbeatTick": {
       "post": {
         "summary": "Run the Kyrgyzstan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govKgz.heartbeatTick",
+        "operationId": "com.etzhayyim.govKgz.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.listOrgs": {
+    "/xrpc/com.etzhayyim.govKgz.listOrgs": {
       "get": {
         "summary": "List Kyrgyzstan government organization graph records.",
-        "operationId": "app.etzhayyim.govKgz.listOrgs",
+        "operationId": "com.etzhayyim.govKgz.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.registerDIDs": {
+    "/xrpc/com.etzhayyim.govKgz.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Kyrgyzstan government organizations.",
-        "operationId": "app.etzhayyim.govKgz.registerDIDs",
+        "operationId": "com.etzhayyim.govKgz.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govKgz.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Kyrgyzstan government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govKgz.resolveOrgPath",
+        "operationId": "com.etzhayyim.govKgz.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.seedOrgs": {
+    "/xrpc/com.etzhayyim.govKgz.seedOrgs": {
       "post": {
         "summary": "Seed initial Kyrgyzstan government organization records into the graph.",
-        "operationId": "app.etzhayyim.govKgz.seedOrgs",
+        "operationId": "com.etzhayyim.govKgz.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.shinka": {
+    "/xrpc/com.etzhayyim.govKgz.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Kyrgyzstan government organization update.",
-        "operationId": "app.etzhayyim.govKgz.shinka",
+        "operationId": "com.etzhayyim.govKgz.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKgz.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govKgz.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Kyrgyzstan government organization changes to graph.",
-        "operationId": "app.etzhayyim.govKgz.syncWetUpdates",
+        "operationId": "com.etzhayyim.govKgz.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

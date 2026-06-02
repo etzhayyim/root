@@ -26,7 +26,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'yukkuri_compose',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -57,13 +57,13 @@ UP = [{'sql': '\n'
                  'vertex_repo_record.\n'
                  '                                   Visible on yoro.etzhayyim.com.\n'
                  '\n'
-                 '  XRPC entry: POST /xrpc/app.etzhayyim.apps.yukkuri.composeVideo\n'
+                 '  XRPC entry: POST /xrpc/com.etzhayyim.apps.yukkuri.composeVideo\n'
                  '  Process timeout: 10 min.\n'
                  '\n'
                  '  ADR-0056 BPMN-as-actor.\n'
-                 '  NSID: app.etzhayyim.apps.yukkuri.composeVideo\n'
+                 '  NSID: com.etzhayyim.apps.yukkuri.composeVideo\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.yukkuri.composeVideo", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.yukkuri.composeVideo", "version": 1, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -262,11 +262,11 @@ UP = [{'sql': '\n'
                  '\n'
                  '</bpmn:definitions>\n',
                  10468,
-                 '00-contracts/bpmn/ai/gftd/yukkuri/yukkuriCompose.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yukkuri/yukkuriCompose.bpmn',
                  '2026-04-29T20:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id,\n'
@@ -280,19 +280,19 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $8\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.yukkuri.composeVideo',
+                 'com.etzhayyim.apps.yukkuri.composeVideo',
                  'yukkuri_compose',
                  '2026-04-29T20:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/yukkuri-compose-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1']}]
 
 
 def upgrade() -> None:

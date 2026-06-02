@@ -30,11 +30,11 @@ export async function bootstrapDodaf(env: BootstrapEnv) {
   const did = env.PRIMARY_DID;
   const errors: string[] = [];
   for (const v of DODAF_VIEWS) {
-    try { await xrpc(env.PDS, "app.etzhayyim.dodafv2.deployView", { did, ...v }); }
+    try { await xrpc(env.PDS, "com.etzhayyim.dodafv2.deployView", { did, ...v }); }
     catch (e: any) { errors.push(`dodafv2.deployView ${(v as any).viewId}: ${e?.message}`); }
   }
   for (const f of FORMS) {
-    try { await xrpc(env.PDS, "app.etzhayyim.form.register", { did, ...f }); }
+    try { await xrpc(env.PDS, "com.etzhayyim.form.register", { did, ...f }); }
     catch (e: any) { errors.push(`form.register ${(f as any).formKey}: ${e?.message}`); }
   }
   return { ok: errors.length === 0, errors };

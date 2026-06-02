@@ -3,7 +3,7 @@
 Phase 2 production handler. Wraps the seven-step COLMAP CPU pipeline
 (`_colmap.py`), Open3D quadric-decimation (`_mesh.py`), and B2 upload
 (`_b2.py`) into two LangServer handlers that match the lexicon
-contracts in `00-contracts/lexicons/ai/gftd/apps/maps3d/`.
+contracts in `00-contracts/lexicons/com/etzhayyim/apps/maps3d/`.
 
 Operational notes:
   - SCRATCH_DIR (default /scratch) holds the per-tile work tree;

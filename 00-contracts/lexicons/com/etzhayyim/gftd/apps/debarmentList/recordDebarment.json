@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.debarmentList.recordDebarment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Multilateral debarment listing (World Bank / IDB / ADB / AfDB / EBRD cross-debarment — bridges complianceMonitor.flagBreachOfTerms + enforcement-action + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "debarmentId",
+            "mdb",
+            "sanctionKind",
+            "imposedAt"
+          ],
+          "properties": {
+            "debarmentId": {
+              "type": "string"
+            },
+            "respondentLei": {
+              "type": "string"
+            },
+            "mdb": {
+              "type": "string",
+              "enum": [
+                "world_bank",
+                "idb",
+                "adb",
+                "afdb",
+                "ebrd",
+                "iadb_invest",
+                "wbg_cross_debar",
+                "imf",
+                "eib",
+                "iib"
+              ]
+            },
+            "sanctionKind": {
+              "type": "string",
+              "enum": [
+                "debarment",
+                "debarment_with_conditional_release",
+                "conditional_non_debarment",
+                "letter_of_reprimand",
+                "restitution",
+                "cross_debarment_honored"
+              ]
+            },
+            "monitorReportVid": {
+              "type": "string",
+              "description": "bridges complianceMonitor.flagBreachOfTerms"
+            },
+            "debarmentDurationMo": {
+              "type": "integer"
+            },
+            "imposedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

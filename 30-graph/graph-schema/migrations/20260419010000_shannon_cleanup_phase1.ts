@@ -85,7 +85,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`FLUSH`.execute(db);
 
   // ── 3. Extend vertex_gftd_identity with capability / profile surface ──
-  // capabilities: JSON array of MCP tool NSIDs (app.etzhayyim.*.xxx) — replaces
+  // capabilities: JSON array of MCP tool NSIDs (com.etzhayyim.*.xxx) — replaces
   // vertex_actor.{agent_tools, capability_declare, social_post, ...} (14 bool cols).
   // profile_json: compat surface for actor-manifest.jsonld during cutover.
   await sql`ALTER TABLE vertex_gftd_identity ADD COLUMN capabilities VARCHAR`.execute(db);

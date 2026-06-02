@@ -40,7 +40,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     CREATE FUNCTION classify_t3_phishing(VARCHAR)
       RETURNS VARCHAR
-      AS 'app.etzhayyim.apps.yabaiClassifier.phishingT3'
+      AS 'com.etzhayyim.apps.yabaiClassifier.phishingT3'
       USING LINK ${sql.lit(UDF_LINK)}
   `.execute(db);
 }

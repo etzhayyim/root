@@ -8,7 +8,7 @@
   "vars": {
     "VAULT_AUDIT_HASH_SALT": "vault-audit-v1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "routes": [
     {

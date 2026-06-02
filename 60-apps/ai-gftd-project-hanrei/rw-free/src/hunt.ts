@@ -27,8 +27,8 @@ import {
   type ReceiveHuntResultOutput,
 } from "./types.js";
 
-const HUNT_COLLECTION = "app.etzhayyim.hanrei.hunt";
-const HUNT_RESULT_COLLECTION = "app.etzhayyim.hanrei.huntResult";
+const HUNT_COLLECTION = "com.etzhayyim.hanrei.hunt";
+const HUNT_RESULT_COLLECTION = "com.etzhayyim.hanrei.huntResult";
 
 function huntSlug(huntId: string): string {
   return huntId.toLowerCase().replace(/[^a-z0-9]/g, "-");

@@ -36,7 +36,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/credits.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/credits"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/credits"
   },
   "space": {
     "channels": [
@@ -65,9 +65,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.feed.like",
-        "ai.gftd.apps.credits.creditsEntity",
-        "ai.gftd.apps.credits.creditsEvent",
-        "ai.gftd.apps.credits.creditsReport"
+        "com.etzhayyim.apps.credits.creditsEntity",
+        "com.etzhayyim.apps.credits.creditsEvent",
+        "com.etzhayyim.apps.credits.creditsReport"
       ]
     }
   },

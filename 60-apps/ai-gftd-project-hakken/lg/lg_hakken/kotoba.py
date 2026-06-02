@@ -46,7 +46,7 @@ async def kg_ingest_batch(
                   relations:[{pred,dstId}], labelVec:[f32]}.
     """
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch",
         headers=_auth_headers(),
         json={"entities": entities},
     )
@@ -60,7 +60,7 @@ async def kg_ingest(
 ) -> dict[str, Any]:
     """POST kg.ingest (single entity). Use kg_ingest_batch for >1 entity."""
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotobase.kg.ingest",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest",
         headers=_auth_headers(),
         json=entity,
     )
@@ -83,7 +83,7 @@ async def kg_sparql(
       ASK       → {form:"ask",       result:bool}
     """
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.graph.sparql",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.graph.sparql",
         headers=_auth_headers(),
         json={"query": query, "limit": limit, "maxHops": max_hops},
     )
@@ -101,7 +101,7 @@ async def kg_entity(
     if entity_id is not None: params["id"] = entity_id
     if qid       is not None: params["qid"] = qid
     resp = await client.get(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotobase.kg.entity",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotobase.kg.entity",
         headers=_auth_headers(),
         params=params,
     )
@@ -117,7 +117,7 @@ async def kg_catalog(
 ) -> dict[str, Any]:
     """GET kg.catalog. Returns aggregate stats + recent sources."""
     resp = await client.get(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotobase.kg.catalog",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotobase.kg.catalog",
         headers=_auth_headers(),
         params={"limit": limit},
     )
@@ -128,7 +128,7 @@ async def kg_catalog(
 async def kg_delete(client: httpx.AsyncClient, entity_id: str) -> bool:
     """POST kg.delete. Returns True on success."""
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotobase.kg.delete",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotobase.kg.delete",
         headers=_auth_headers(),
         json={"id": entity_id},
     )

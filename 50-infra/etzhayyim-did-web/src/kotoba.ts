@@ -3,7 +3,7 @@
  * Per ADR-2606013800 + ADR-2605312345 (Datom log = first-class canonical state).
  *
  * Reads a single actor entity from the public `actors-v1` kotoba graph over the
- * kotoba XRPC surface (`ai.gftd.apps.kotobase.kg.entity`). Public graph → no
+ * kotoba XRPC surface (`com.etzhayyim.apps.kotobase.kg.entity`). Public graph → no
  * auth / CACAO needed. Best-effort: ANY failure (endpoint unset, network error,
  * unexpected shape) returns null so the caller falls through to the compiled
  * INFRA_ACTORS fallback and did:web resolution never goes dark.
@@ -102,7 +102,7 @@ export async function fetchKotobaActorRecord(
   const base = env.KOTOBA_ENDPOINT;
   if (!base) return null;
   const url =
-    `${base.replace(/\/$/, "")}/xrpc/ai.gftd.apps.kotobase.kg.entity` +
+    `${base.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kotobase.kg.entity` +
     `?id=${encodeURIComponent(`actor.${handle}`)}`;
   try {
     const res = await fetch(url, {

@@ -1,4 +1,4 @@
--- ADR-2605082000 follow-up — register the generic ai.gftd.tools.const.echo
+-- ADR-2605082000 follow-up — register the generic com.etzhayyim.tools.const.echo
 -- primitive in vertex_mcp_tool_def.
 --
 -- This is the data-driven replacement for identity / no-op nodes (the
@@ -6,9 +6,9 @@
 -- a topology node binds as:
 --
 --   kind=mcp_tool
---   ref=mcp://ai.gftd.tools.const.echo
+--   ref=mcp://com.etzhayyim.tools.const.echo
 --   config={"input_keys":[],"result_key":"<state_field>",
---           "args":{"name":"ai.gftd.tools.const.echo",
+--           "args":{"name":"com.etzhayyim.tools.const.echo",
 --                   "constant":{"bloomSkipped":true,"bloomId":null}}}
 --
 -- Note: `constant` is supplied via config.args (not state) because the
@@ -29,14 +29,14 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:ki.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-tools-const-echo',
+  ('at://did:web:ki.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-const-echo',
    0, 0,
-   'ai.gftd.tools.const.echo', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
+   'com.etzhayyim.tools.const.echo', 'did:web:ki.gftd.ai', 'ki.gftd.ai', 'procedure',
    'Identity / constant-return primitive for LangGraph topology no-op nodes.',
    '{"type":"object","properties":{"constant":{"type":"object"}},"required":["constant"]}',
    '{"type":"object","description":"Echoes the input constant verbatim."}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/tools/const/echo.json',
+   '00-contracts/lexicons/com/etzhayyim/tools/const/echo.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 FLUSH;

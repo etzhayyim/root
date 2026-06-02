@@ -27,7 +27,7 @@ const PRINCIPAL_etzhayyim_JAPAN = "did:web:gftd-japan.etzhayyim.com";
 
 const CONTRACTS = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/kbakshi-labor-notice-2025-05-08",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/kbakshi-labor-notice-2025-05-08",
     contractId: "kbakshi-labor-notice-2025-05-08",
     contractKind: "labor_condition_notice",
     title: "労働条件通知書 (Kuunal Bakshi)",
@@ -38,7 +38,7 @@ const CONTRACTS = [
     contractUrl: "sharepoint://etzhayyim.com/Shared%20Documents/HR/GJ_労働条件通知書_バクシ・クナル様.pdf",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/kbakshi-employment-2025-06-01",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/kbakshi-employment-2025-06-01",
     contractId: "kbakshi-employment-2025-06-01",
     contractKind: "employment",
     title: "雇用契約書兼労働条件通知書 (Kuunal Bakshi, v1 期間定めなし)",
@@ -49,7 +49,7 @@ const CONTRACTS = [
     contractUrl: "sharepoint://etzhayyim.com/Shared%20Documents/HR/20250601_GJ_雇用契約書兼労働条件通知書_クナル・バクシ.pdf",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/kbakshi-employment-2025-06-01-amended-1y",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/kbakshi-employment-2025-06-01-amended-1y",
     contractId: "kbakshi-employment-2025-06-01-amended-1y",
     contractKind: "employment",
     title: "雇用契約書兼労働条件通知書 (Kuunal Bakshi, v2 1年契約)",

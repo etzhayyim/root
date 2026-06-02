@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-goc-1" sourceRef="start-get-oauth-config" targetRef="task-get-oauth-config"/>
     <bpmn:serviceTask id="task-get-oauth-config" name="Get OAuth Config">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.get.oauth.config"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.get.oauth.config"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-goc-2" sourceRef="task-get-oauth-config" targetRef="end-get-oauth-config"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-sta-1" sourceRef="start-start-auth" targetRef="task-start-auth"/>
     <bpmn:serviceTask id="task-start-auth" name="Start Auth">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.start.auth"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.start.auth"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sta-2" sourceRef="task-start-auth" targetRef="end-start-auth"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-ec-1" sourceRef="start-exchange-code" targetRef="task-exchange-code"/>
     <bpmn:serviceTask id="task-exchange-code" name="Exchange Code">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.exchange.code"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.exchange.code"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ec-2" sourceRef="task-exchange-code" targetRef="end-exchange-code"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-gas-1" sourceRef="start-get-auth-status" targetRef="task-get-auth-status"/>
     <bpmn:serviceTask id="task-get-auth-status" name="Get Auth Status">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.get.auth.status"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.get.auth.status"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gas-2" sourceRef="task-get-auth-status" targetRef="end-get-auth-status"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-gc-1" sourceRef="start-get-connection" targetRef="task-get-connection"/>
     <bpmn:serviceTask id="task-get-connection" name="Get Connection">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.get.connection"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.get.connection"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gc-2" sourceRef="task-get-connection" targetRef="end-get-connection"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-sm-1" sourceRef="start-sync-mailbox" targetRef="task-sync-mailbox"/>
     <bpmn:serviceTask id="task-sync-mailbox" name="Sync Mailbox">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.sync.mailbox"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.sync.mailbox"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sm-2" sourceRef="task-sync-mailbox" targetRef="end-sync-mailbox"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-ch-1" sourceRef="start-card-home" targetRef="task-card-home"/>
     <bpmn:serviceTask id="task-card-home" name="Card Home">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.card.home"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.card.home"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ch-2" sourceRef="task-card-home" targetRef="end-card-home"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-ca-1" sourceRef="start-card-action" targetRef="task-card-action"/>
     <bpmn:serviceTask id="task-card-action" name="Card Action">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.outlook.card.action"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.outlook.card.action"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ca-2" sourceRef="task-card-action" targetRef="end-card-action"/>

@@ -1,0 +1,131 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.pharma.lotAttestation",
+  "description": "Final per-lot release attestation with full upstream attestation chain CIDs. Per ADR-2605250500 §Decision 3 G4 (QP co-sign per lot) + G9 (witness N≥2) + ADR-2605250545 §Decision 3 (attestation chain). Once released, a lot may be distributed under TitheRouter (donation / kisha / internal-promo / grant) per G12.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "lotId",
+          "productCode",
+          "apiInn",
+          "fillFinishUri",
+          "labelContentCid",
+          "packageInsertCid",
+          "expiryDate",
+          "qpEquivalentDid",
+          "witnessDid",
+          "releaseVerdict",
+          "releasedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "lotId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "productCode": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "apiInn": {
+            "type": "string",
+            "knownValues": [
+              "sodium-cromoglicate",
+              "naphazoline-hydrochloride",
+              "chlorpheniramine-maleate",
+              "acetaminophen",
+              "aspirin",
+              "ibuprofen",
+              "diphenhydramine-hydrochloride",
+              "cetirizine-dihydrochloride",
+              "loratadine",
+              "famotidine",
+              "clotrimazole",
+              "diclofenac-sodium"
+            ]
+          },
+          "dosageForm": {
+            "type": "string",
+            "knownValues": [
+              "eye-drop-sterile-bfs-multi-dose",
+              "eye-drop-sterile-unit-dose",
+              "tablet-uncoated",
+              "tablet-film-coated",
+              "tablet-enteric-coated",
+              "capsule-hard-gelatin",
+              "topical-cream",
+              "topical-gel",
+              "topical-ointment",
+              "topical-spray"
+            ],
+            "description": "Wave 1 = sterile eye drop. Wave 1b adds tablet + topical. Determines storage condition + expiry rules + label warnings."
+          },
+          "fillFinishUri": {
+            "type": "string",
+            "format": "at-uri"
+          },
+          "labelContentCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "G11 wellbecoming-compliant label content. naphazoline ≥ 0.05% MUST include 連用警告."
+          },
+          "packageInsertCid": {
+            "type": "string",
+            "format": "cid"
+          },
+          "expiryDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "DSCG cold-chain: 24 mo at 2-8°C / 1 mo at 25°C; naphazoline & chlorpheniramine: 24 mo at 15-25°C."
+          },
+          "qpEquivalentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "QP-equivalent (薬機法 製造管理者 / EU GMP Qualified Person 相当) DID. Required for release."
+          },
+          "witnessDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "releaseVerdict": {
+            "type": "string",
+            "knownValues": ["release", "hold-for-investigation", "reject-scrap"]
+          },
+          "releaseNarrative": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "councilAttestationUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Required when releaseVerdict = 'hold-for-investigation' OR if any upstream attestation has a non-'ok' outcome. Points to silenPharmaReview."
+          },
+          "storageConditionLabel": {
+            "type": "string",
+            "knownValues": [
+              "2-8C-cold-chain",
+              "15-25C-room-temp",
+              "below-30C-room-temp",
+              "below-25C-tablet",
+              "below-25C-topical-protect-from-light"
+            ],
+            "description": "Wave 1: 2-8°C (DSCG eye drop default) / 15-25°C (naphazoline + chlorpheniramine eye drop). Wave 1b: <25°C dry (tablet) / <25°C protect-from-light (topical diclofenac photosensitive)."
+          },
+          "releasedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

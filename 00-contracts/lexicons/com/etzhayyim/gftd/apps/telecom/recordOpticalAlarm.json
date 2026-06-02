@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordOpticalAlarm",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an optical-layer alarm (LOS / LOF / LOS-P / BDI / TIM / DEG / BER / OSNR-min). Auto-mints a ticketId for downstream Phase 7 alarm correlation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sourceKind", "sourceVid", "alarmKind", "severity", "observedAt"],
+          "properties": {
+            "alarmId": { "type": "string" },
+            "sourceKind": { "type": "string", "enum": ["roadm", "fiber_span", "dwdm_channel", "otn_connection", "ols", "amplifier", "transponder"] },
+            "sourceVid": { "type": "string" },
+            "alarmKind": { "type": "string", "enum": ["los", "lof", "los_p", "bdi", "tim", "deg", "ber_excessive", "osnr_min", "rx_power_low", "tx_power_high", "amplifier_gain_drift", "wavelength_drift"] },
+            "severity": { "type": "string", "enum": ["warning", "minor", "major", "critical"] },
+            "observedValue": { "type": "number" },
+            "observedUnit": { "type": "string" },
+            "ticketId": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "alarmId": { "type": "string" },
+          "ticketId": { "type": "string" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

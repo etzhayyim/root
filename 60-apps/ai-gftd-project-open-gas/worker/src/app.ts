@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-gas — natural-gas distribution operations + network design
 //
-// 9 XRPC under app.etzhayyim.apps.openGas.*:
+// 9 XRPC under com.etzhayyim.apps.openGas.*:
 //   defineRegulator      (proc)   regulator / city-gate node
 //   definePipeSegment    (proc)   pipe segment + downstream service points + MAOP
 //   getNode              (query)  node detail + downstream segments
@@ -411,15 +411,15 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openGas.defineRegulator",
-            "app.etzhayyim.apps.openGas.definePipeSegment",
-            "app.etzhayyim.apps.openGas.getNode",
-            "app.etzhayyim.apps.openGas.listSegments",
-            "app.etzhayyim.apps.openGas.recordReading",
-            "app.etzhayyim.apps.openGas.reportLeak",
-            "app.etzhayyim.apps.openGas.listLeaks",
-            "app.etzhayyim.apps.openGas.recordPressureLog",
-            "app.etzhayyim.apps.openGas.listPressureLogs",
+            "com.etzhayyim.apps.openGas.defineRegulator",
+            "com.etzhayyim.apps.openGas.definePipeSegment",
+            "com.etzhayyim.apps.openGas.getNode",
+            "com.etzhayyim.apps.openGas.listSegments",
+            "com.etzhayyim.apps.openGas.recordReading",
+            "com.etzhayyim.apps.openGas.reportLeak",
+            "com.etzhayyim.apps.openGas.listLeaks",
+            "com.etzhayyim.apps.openGas.recordPressureLog",
+            "com.etzhayyim.apps.openGas.listPressureLogs",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["definePipeSegment", "reportGasLeak"], dmn: ["openGas.leakClass"],
@@ -445,21 +445,21 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openGas.getNode":          return await getNode(env, url.searchParams);
-          case "app.etzhayyim.apps.openGas.listSegments":     return await listSegments(env, url.searchParams);
-          case "app.etzhayyim.apps.openGas.listLeaks":        return await listLeaks(env, url.searchParams);
-          case "app.etzhayyim.apps.openGas.listPressureLogs": return await listPressureLogs(env, url.searchParams);
+          case "com.etzhayyim.apps.openGas.getNode":          return await getNode(env, url.searchParams);
+          case "com.etzhayyim.apps.openGas.listSegments":     return await listSegments(env, url.searchParams);
+          case "com.etzhayyim.apps.openGas.listLeaks":        return await listLeaks(env, url.searchParams);
+          case "com.etzhayyim.apps.openGas.listPressureLogs": return await listPressureLogs(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openGas.defineRegulator":    return await defineRegulator(env, body);
-          case "app.etzhayyim.apps.openGas.definePipeSegment":  return await definePipeSegment(env, body);
-          case "app.etzhayyim.apps.openGas.recordReading":      return await recordReading(env, body);
-          case "app.etzhayyim.apps.openGas.reportLeak":         return await reportLeak(env, body);
-          case "app.etzhayyim.apps.openGas.recordPressureLog":  return await recordPressureLog(env, body);
+          case "com.etzhayyim.apps.openGas.defineRegulator":    return await defineRegulator(env, body);
+          case "com.etzhayyim.apps.openGas.definePipeSegment":  return await definePipeSegment(env, body);
+          case "com.etzhayyim.apps.openGas.recordReading":      return await recordReading(env, body);
+          case "com.etzhayyim.apps.openGas.reportLeak":         return await reportLeak(env, body);
+          case "com.etzhayyim.apps.openGas.recordPressureLog":  return await recordPressureLog(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

@@ -6,7 +6,7 @@ endpoint that executes WASM Components via the `kotoba-vm::WasmExecutor` host
 
 R2 dispatch shape (target)::
 
-    POST {kotoba_server_base}/xrpc/app.etzhayyim.kotoba.vm.invoke
+    POST {kotoba_server_base}/xrpc/com.etzhayyim.kotoba.vm.invoke
     body: {
       "program_cid": "bafy...",      # WASM Component CID (Vault-stored)
       "args_cid":    "bafy...",      # CBOR-encoded args (Vault-stored)
@@ -69,11 +69,11 @@ def invoke(
     """
     raise MurakumoCompatNotImplemented(
         "kotoba_vm.invoke",
-        f"R2 will POST {server_url.rstrip('/')}/xrpc/app.etzhayyim.kotoba.vm.invoke "
+        f"R2 will POST {server_url.rstrip('/')}/xrpc/com.etzhayyim.kotoba.vm.invoke "
         f"with body={{program_cid={request.program_cid!r}, args_cid={request.args_cid!r}, "
         f"caller_did={request.caller_did!r}, gas_limit={request.gas_limit}}} → "
         "InvokeResult(result_cid, gas_used, program_cid). "
-        "Lexicon app.etzhayyim.kotoba.vm.invoke lands in the same R2 commit. "
+        "Lexicon com.etzhayyim.kotoba.vm.invoke lands in the same R2 commit. "
         "See ADR-2605282000 §'Subrepo integration status' R1.2→R2 closure plan."
     )
 
@@ -88,5 +88,5 @@ async def invoke_async(
     raise MurakumoCompatNotImplemented(
         "kotoba_vm.invoke_async",
         f"R2 async dispatch — see kotoba_vm.invoke for the target POST shape. "
-        f"Will POST {server_url.rstrip('/')}/xrpc/app.etzhayyim.kotoba.vm.invoke."
+        f"Will POST {server_url.rstrip('/')}/xrpc/com.etzhayyim.kotoba.vm.invoke."
     )

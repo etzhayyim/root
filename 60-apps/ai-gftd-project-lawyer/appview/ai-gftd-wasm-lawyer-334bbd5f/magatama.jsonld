@@ -18,7 +18,7 @@
     "framework": "ts-thin-edge",
     "path": "src/app.ts"
   },
-  "convoSystemPrompt": "You are the Gftd Lawyer attorney portal agent for firmDid=did:web:lawyer.etzhayyim.com. You help bengoshi (attorneys) manage their assigned matters, review and accept co-counsel grants, log work notes, and generate AI document drafts. Available commands: ai.gftd.apps.lawyer.getDashboard (dashboard snapshot), ai.gftd.apps.lawyer.listAssignedMatters (filter by status/role), ai.gftd.apps.lawyer.listPendingGrants (co-counsel invitations), ai.gftd.apps.lawyer.acceptGrant (accept a grant with optional note), ai.gftd.apps.lawyer.logWorkNote (time + encrypted note on a matter), ai.gftd.apps.lawyer.submitDocumentDraft (AI-generate vakalatnama/notice/reply/petition/affidavit/brief — ISCO-2611 review gate required before use). Shared lawfirm commands: ai.gftd.apps.lawfirm.recordTimeEntry, ai.gftd.apps.lawfirm.listInvoices. Every matter, hearing, document, and consent grant is a recursive did:gftd child of firmDid=did:gftd:{h_lawyer} (ADR-0029). Ethical walls enforced via hash prefix; grants scoped to matter X cryptographically cannot be replayed on matter Y. ISCO-2611 lawyer approval required before filing AI-generated drafts. Cite matterDid/grantDid when discussing cases.",
+  "convoSystemPrompt": "You are the Gftd Lawyer attorney portal agent for firmDid=did:web:lawyer.etzhayyim.com. You help bengoshi (attorneys) manage their assigned matters, review and accept co-counsel grants, log work notes, and generate AI document drafts. Available commands: com.etzhayyim.apps.lawyer.getDashboard (dashboard snapshot), com.etzhayyim.apps.lawyer.listAssignedMatters (filter by status/role), com.etzhayyim.apps.lawyer.listPendingGrants (co-counsel invitations), com.etzhayyim.apps.lawyer.acceptGrant (accept a grant with optional note), com.etzhayyim.apps.lawyer.logWorkNote (time + encrypted note on a matter), com.etzhayyim.apps.lawyer.submitDocumentDraft (AI-generate vakalatnama/notice/reply/petition/affidavit/brief — ISCO-2611 review gate required before use). Shared lawfirm commands: com.etzhayyim.apps.lawfirm.recordTimeEntry, com.etzhayyim.apps.lawfirm.listInvoices. Every matter, hearing, document, and consent grant is a recursive did:gftd child of firmDid=did:gftd:{h_lawyer} (ADR-0029). Ethical walls enforced via hash prefix; grants scoped to matter X cryptographically cannot be replayed on matter Y. ISCO-2611 lawyer approval required before filing AI-generated drafts. Cite matterDid/grantDid when discussing cases.",
   "governance": {
     "raci": "responsible",
     "classification": "confidential",
@@ -55,16 +55,16 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.feed.like",
-        "ai.gftd.apps.lawfirm.matter",
-        "ai.gftd.apps.lawfirm.hearing",
-        "ai.gftd.apps.lawfirm.legalDocument",
-        "ai.gftd.apps.lawfirm.activity",
-        "ai.gftd.apps.lawfirm.engagement",
-        "ai.gftd.apps.lawfirm.externalCounselGrant",
-        "ai.gftd.apps.lawfirm.timeEntry",
-        "ai.gftd.apps.lawfirm.invoice",
-        "ai.gftd.apps.saiban.jiken",
-        "ai.gftd.apps.saiban.trialEvent"
+        "com.etzhayyim.apps.lawfirm.matter",
+        "com.etzhayyim.apps.lawfirm.hearing",
+        "com.etzhayyim.apps.lawfirm.legalDocument",
+        "com.etzhayyim.apps.lawfirm.activity",
+        "com.etzhayyim.apps.lawfirm.engagement",
+        "com.etzhayyim.apps.lawfirm.externalCounselGrant",
+        "com.etzhayyim.apps.lawfirm.timeEntry",
+        "com.etzhayyim.apps.lawfirm.invoice",
+        "com.etzhayyim.apps.saiban.jiken",
+        "com.etzhayyim.apps.saiban.trialEvent"
       ]
     }
   },
@@ -72,7 +72,7 @@
     "rules": [
       {
         "id": "matter-opened-social",
-        "on": { "collection": "ai.gftd.apps.lawfirm.matter", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.matter", "action": "create" },
         "emit": {
           "type": "app.bsky.feed.post",
           "text": "Matter opened: {{record.matterNumber}} — {{record.matterType}} ({{record.jurisdiction}})",
@@ -81,7 +81,7 @@
       },
       {
         "id": "hearing-cron",
-        "on": { "collection": "ai.gftd.apps.lawfirm.hearing", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.hearing", "action": "create" },
         "emit": {
           "type": "scheduler.registerCron",
           "fireAt": "{{record.scheduledAt - PT24H}}",
@@ -90,7 +90,7 @@
       },
       {
         "id": "external-counsel-invite-dm",
-        "on": { "collection": "ai.gftd.apps.lawfirm.externalCounselGrant", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.externalCounselGrant", "action": "create" },
         "emit": {
           "type": "wproto.convo.createDm",
           "peerDID": "{{record.granteeDid}}",
@@ -105,7 +105,7 @@
       },
       {
         "id": "grant-accepted-notify",
-        "on": { "collection": "ai.gftd.apps.lawfirm.externalCounselGrant", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.externalCounselGrant", "action": "create" },
         "filter": { "field": "granteeHandle", "value": "k.bakshi" },
         "emit": {
           "type": "app.bsky.feed.post",

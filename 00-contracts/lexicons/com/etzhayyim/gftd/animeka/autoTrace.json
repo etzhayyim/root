@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.autoTrace",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Invoke the finisher AI actor to auto-color-trace a keyframe or inbetween frame using the given color model. Produces com.etzhayyim.apps.animeka.colorTrace record with method='aiAutoTrace' and status='review'.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["frameUri"],
+          "properties": {
+            "frameUri": { "type": "string", "format": "at-uri", "description": "keyframe or inbetween AT URI." },
+            "colorModelUris": {
+              "type": "array",
+              "items": { "type": "string", "format": "at-uri" },
+              "description": "Color models for each character. If omitted, resolves via characterRef."
+            },
+            "lightingCondition": {
+              "type": "string",
+              "enum": ["normal", "dusk", "night", "monoBlue", "monoRed", "backlight", "underwater", "fire"]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri"],
+          "properties": {
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" },
+            "elapsedMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

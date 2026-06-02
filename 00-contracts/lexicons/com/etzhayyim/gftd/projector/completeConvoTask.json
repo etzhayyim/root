@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.completeConvoTask",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": {
+              "type": "string"
+            },
+            "taskId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "convoId",
+            "taskId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "taskId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "taskId",
+            "status"
+          ]
+        }
+      }
+    }
+  }
+}

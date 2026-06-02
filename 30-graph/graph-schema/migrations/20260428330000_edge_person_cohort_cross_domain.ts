@@ -66,11 +66,11 @@ export async function up(db: Kysely<any>): Promise<void> {
   const NOW = '2026-04-28T00:00:00Z';
 
   // Belief vertex IDs from vertex_belief_system
-  const BELIEF_YHWH = `at://${NP_DID}/app.etzhayyim.apps.naturalPerson.beliefSystem/yhwh`;
-  const BELIEF_DHARMA = `at://${NP_DID}/app.etzhayyim.apps.naturalPerson.beliefSystem/dharma`;
-  const BELIEF_SECULAR = `at://${NP_DID}/app.etzhayyim.apps.naturalPerson.beliefSystem/secular`;
-  const BELIEF_DIALECTICAL = `at://${NP_DID}/app.etzhayyim.apps.naturalPerson.beliefSystem/dialectical-materialism`;
-  const BELIEF_CONFUCIAN = `at://${NP_DID}/app.etzhayyim.apps.naturalPerson.beliefSystem/confucian`;
+  const BELIEF_YHWH = `at://${NP_DID}/com.etzhayyim.apps.naturalPerson.beliefSystem/yhwh`;
+  const BELIEF_DHARMA = `at://${NP_DID}/com.etzhayyim.apps.naturalPerson.beliefSystem/dharma`;
+  const BELIEF_SECULAR = `at://${NP_DID}/com.etzhayyim.apps.naturalPerson.beliefSystem/secular`;
+  const BELIEF_DIALECTICAL = `at://${NP_DID}/com.etzhayyim.apps.naturalPerson.beliefSystem/dialectical-materialism`;
+  const BELIEF_CONFUCIAN = `at://${NP_DID}/com.etzhayyim.apps.naturalPerson.beliefSystem/confucian`;
 
   type BeliefEdge = {
     eraLabel: string;
@@ -121,8 +121,8 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   for (const e of beliefEdges) {
     const srcRkey = `${e.eraLabel}-001-${Math.abs(e.eraStartYear)}`;
-    const srcVid = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/${srcRkey}`;
-    const edgeId = `${REPO}/app.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-${e.eraLabel}-${e.beliefLabel}`;
+    const srcVid = `${REPO}/com.etzhayyim.apps.naturalPerson.populationCohort/${srcRkey}`;
+    const edgeId = `${REPO}/com.etzhayyim.apps.naturalPerson.cohortBeliefSystem/bel-${e.eraLabel}-${e.beliefLabel}`;
 
     await sql`
       INSERT INTO edge_cohort_belief_system (
@@ -182,7 +182,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   for (const r of regionCohorts) {
     const rkey = `contemporary-${r.region_m49}-2000`;
-    const vertex_id = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/${rkey}`;
+    const vertex_id = `${REPO}/com.etzhayyim.apps.naturalPerson.populationCohort/${rkey}`;
     const cohort_did = `${NP_DID}:pop:${rkey}`;
 
     await sql`
@@ -210,8 +210,8 @@ export async function up(db: Kysely<any>): Promise<void> {
     `.execute(db);
 
     // Edge: world cohort → region cohort (ancestor_of in spatial sense)
-    const worldVid = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000`;
-    const edgeId = `${REPO}/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-${r.region_m49}`;
+    const worldVid = `${REPO}/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000`;
+    const edgeId = `${REPO}/com.etzhayyim.apps.naturalPerson.cohortAncestorOf/reg-contemporary-${r.region_m49}`;
 
     await sql`
       INSERT INTO edge_cohort_ancestor_of (
@@ -242,8 +242,8 @@ export async function up(db: Kysely<any>): Promise<void> {
       generation_offset, temporal_gap_years, confidence, lineage_type,
       actor_did, org_did, at_did, created_at
     ) VALUES (
-      'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/pop-to-cohort-coordinator',
-      'at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
+      'at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.cohortAncestorOf/pop-to-cohort-coordinator',
+      'at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.populationCohort/contemporary-001-2000',
       'did:web:natural-person.etzhayyim.com',
       1, '2026-04-28', 0, 'did:web:natural-person.etzhayyim.com',
       1, 0, 0.95, 'direct',

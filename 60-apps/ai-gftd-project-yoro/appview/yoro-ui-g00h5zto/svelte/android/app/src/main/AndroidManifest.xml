@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:scheme="ai.gftd.yoro"
+                    android:scheme="com.etzhayyim.yoro"
                     android:host="auth"
                     android:pathPrefix="/callback" />
             </intent-filter>
@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:scheme="ai.gftd.yoro"
+                    android:scheme="com.etzhayyim.yoro"
                     android:host="callback" />
             </intent-filter>
 

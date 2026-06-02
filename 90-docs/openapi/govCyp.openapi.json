@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govCyp.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govCyp.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Cyprus government.",
-        "operationId": "app.etzhayyim.govCyp.followSiteDeps",
+        "operationId": "com.etzhayyim.govCyp.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govCyp.heartbeatTick": {
       "post": {
         "summary": "Run the Cyprus government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govCyp.heartbeatTick",
+        "operationId": "com.etzhayyim.govCyp.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.listOrgs": {
+    "/xrpc/com.etzhayyim.govCyp.listOrgs": {
       "get": {
         "summary": "List Cyprus government organization graph records.",
-        "operationId": "app.etzhayyim.govCyp.listOrgs",
+        "operationId": "com.etzhayyim.govCyp.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.registerDIDs": {
+    "/xrpc/com.etzhayyim.govCyp.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Cyprus government organizations.",
-        "operationId": "app.etzhayyim.govCyp.registerDIDs",
+        "operationId": "com.etzhayyim.govCyp.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govCyp.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Cyprus government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govCyp.resolveOrgPath",
+        "operationId": "com.etzhayyim.govCyp.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.seedOrgs": {
+    "/xrpc/com.etzhayyim.govCyp.seedOrgs": {
       "post": {
         "summary": "Seed initial Cyprus government organization records into the graph.",
-        "operationId": "app.etzhayyim.govCyp.seedOrgs",
+        "operationId": "com.etzhayyim.govCyp.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.shinka": {
+    "/xrpc/com.etzhayyim.govCyp.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Cyprus government organization update.",
-        "operationId": "app.etzhayyim.govCyp.shinka",
+        "operationId": "com.etzhayyim.govCyp.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCyp.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govCyp.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Cyprus government organization changes to graph.",
-        "operationId": "app.etzhayyim.govCyp.syncWetUpdates",
+        "operationId": "com.etzhayyim.govCyp.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

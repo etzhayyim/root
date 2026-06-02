@@ -5,7 +5,7 @@ interface Fetcher { fetch(req: Request): Promise<Response>; }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 interface Env { ASSETS?: Fetcher; DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | SecretBinding; APP_NANOID?: string; }
 const APP = "drive";
-const NSID_PREFIX = "app.etzhayyim.apps.drive.";
+const NSID_PREFIX = "com.etzhayyim.apps.drive.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -16,7 +16,7 @@ export default {
       nanoid: env.APP_NANOID ?? "dr1v3st0",
       execution: "edge-proxy+agentgateway-mcp+langserver",
       businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py",
-      bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/drive",
+      bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/drive",
       kaizen: {
         primaryFlow: "connect workspace, review recent files, launch sync",
         uxSurface: "svelte static app",

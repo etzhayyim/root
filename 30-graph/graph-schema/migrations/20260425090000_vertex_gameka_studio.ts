@@ -9,10 +9,10 @@ import { sql } from "kysely";
  * playtestGame / publishGame phases land without follow-up migrations.
  *
  * vertex_id convention (ADR-0036 + ADR-0056 addendum):
- *   at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.gameSpec/{rkey}
- *   at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.buildArtifact/{rkey}
- *   at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.gameQa/{rkey}
- *   at://did:web:gameka.etzhayyim.com/app.etzhayyim.apps.gameka.gameTitle/{slug}
+ *   at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.gameSpec/{rkey}
+ *   at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.buildArtifact/{rkey}
+ *   at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.gameQa/{rkey}
+ *   at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.gameTitle/{slug}
  *
  * RW caveats honoured: VARCHAR for JSON payload columns, DOUBLE PRECISION
  * for monetary / score, no MV (ADR-0026 §MV Memory Safety Guardrails).

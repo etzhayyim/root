@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ocdsProcurement.flagDefenceProcurement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave3 arms (stub): OCDS 防衛調達 フラグ. Starts BPMN process open_ocds_procurement_flag_defence_procurement.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "tenderId": { "type": "string" },
+            "buyerLei": { "type": "string" },
+            "supplierLei": { "type": "string" },
+            "amount": { "type": "number" }
+          },
+          "required": ["vertexId", "tenderId", "buyerLei"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

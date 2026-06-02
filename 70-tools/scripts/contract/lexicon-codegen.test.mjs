@@ -263,13 +263,13 @@ function testRegressionStructure() {
 
   // Namespace sections
   const expectedNamespaces = [
-    "app.etzhayyim.consent",
-    "app.etzhayyim.convo",
-    "app.etzhayyim.governance",
-    "app.etzhayyim.kagami",
-    "app.etzhayyim.projector",
-    "app.etzhayyim.rtc",
-    "app.etzhayyim.signal",
+    "com.etzhayyim.consent",
+    "com.etzhayyim.convo",
+    "com.etzhayyim.governance",
+    "com.etzhayyim.kagami",
+    "com.etzhayyim.projector",
+    "com.etzhayyim.rtc",
+    "com.etzhayyim.signal",
   ];
   for (const ns of expectedNamespaces) {
     assert(content.includes(`── ${ns} ──`), `Has namespace section: ${ns}`);

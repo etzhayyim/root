@@ -86,9 +86,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.society6.society6_entity",
-        "ai.gftd.apps.society6.society6_event",
-        "ai.gftd.apps.society6.society6_report"
+        "com.etzhayyim.apps.society6.society6_entity",
+        "com.etzhayyim.apps.society6.society6_event",
+        "com.etzhayyim.apps.society6.society6_report"
       ]
     }
   },

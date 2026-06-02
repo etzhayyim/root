@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.playwright.snapshot",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Capture sanitized HTML (password/card redacted) to B2. Returns CID.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId"],
+          "properties": { "sessionId": { "type": "string" } }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "artifactCid": { "type": "string" },
+            "byteSize": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

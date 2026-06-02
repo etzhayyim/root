@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govTha.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govTha.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Thailand government.",
-        "operationId": "app.etzhayyim.govTha.followSiteDeps",
+        "operationId": "com.etzhayyim.govTha.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govTha.heartbeatTick": {
       "post": {
         "summary": "Run the Thailand government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govTha.heartbeatTick",
+        "operationId": "com.etzhayyim.govTha.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.listOrgs": {
+    "/xrpc/com.etzhayyim.govTha.listOrgs": {
       "get": {
         "summary": "List Thailand government organization graph records.",
-        "operationId": "app.etzhayyim.govTha.listOrgs",
+        "operationId": "com.etzhayyim.govTha.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.registerDIDs": {
+    "/xrpc/com.etzhayyim.govTha.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Thailand government organizations.",
-        "operationId": "app.etzhayyim.govTha.registerDIDs",
+        "operationId": "com.etzhayyim.govTha.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govTha.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Thailand government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govTha.resolveOrgPath",
+        "operationId": "com.etzhayyim.govTha.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.seedOrgs": {
+    "/xrpc/com.etzhayyim.govTha.seedOrgs": {
       "post": {
         "summary": "Seed initial Thailand government organization records into the graph.",
-        "operationId": "app.etzhayyim.govTha.seedOrgs",
+        "operationId": "com.etzhayyim.govTha.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.shinka": {
+    "/xrpc/com.etzhayyim.govTha.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Thailand government organization update.",
-        "operationId": "app.etzhayyim.govTha.shinka",
+        "operationId": "com.etzhayyim.govTha.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTha.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govTha.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Thailand government organization changes to graph.",
-        "operationId": "app.etzhayyim.govTha.syncWetUpdates",
+        "operationId": "com.etzhayyim.govTha.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

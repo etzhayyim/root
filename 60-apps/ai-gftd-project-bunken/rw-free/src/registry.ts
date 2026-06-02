@@ -30,7 +30,7 @@ import {
   type StatsOutput,
 } from "./types.js";
 
-const BUNKEN_COLLECTION = "app.etzhayyim.apps.bunken.record";
+const BUNKEN_COLLECTION = "com.etzhayyim.apps.bunken.record";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

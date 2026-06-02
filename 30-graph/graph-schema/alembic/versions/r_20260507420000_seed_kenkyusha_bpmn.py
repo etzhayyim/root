@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-collect-evidence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-collect-evidence-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_collect_evidence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_collectEvidence" '
                  'name="kenkyusha.collectEvidence">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.collectEvidence" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.collectEvidence" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -56,13 +56,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1122,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/collectEvidence.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/collectEvidence.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-collect-evidence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-collect-evidence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -77,9 +77,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-collect-evidence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-collect-evidence-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.collectEvidence',
+                 'com.etzhayyim.apps.kenkyusha.collectEvidence',
                  'kenkyusha_collect_evidence',
                  30000,
                  'vertex_kenkyusha_discipline,vertex_kenkyusha_frontier,vertex_kenkyusha_hypothesis,vertex_kenkyusha_evidence,vertex_kenkyusha_did_registration,edge_kenkyusha_frontier_discipline,edge_kenkyusha_hypothesis_frontier,edge_kenkyusha_evidence_hypothesis',
@@ -88,7 +88,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-collect-evidence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-collect-evidence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-coverage-map-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-coverage-map-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_coverage_map',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -120,7 +120,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_coverageMap" />\n'
                  '    <bpmn:serviceTask id="Task_coverageMap" name="kenkyusha.coverageMap">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.coverageMap" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.coverageMap" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -132,13 +132,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1090,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/coverageMap.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/coverageMap.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-coverage-map-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-coverage-map-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -153,9 +153,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-coverage-map-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-coverage-map-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.coverageMap',
+                 'com.etzhayyim.apps.kenkyusha.coverageMap',
                  'kenkyusha_coverage_map',
                  30000,
                  '',
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-coverage-map-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-coverage-map-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -180,7 +180,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-detect-frontiers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-detect-frontiers-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_detect_frontiers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -197,7 +197,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_detectFrontiers" '
                  'name="kenkyusha.detectFrontiers">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.detectFrontiers" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.detectFrontiers" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -209,13 +209,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1122,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/detectFrontiers.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/detectFrontiers.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-detect-frontiers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-detect-frontiers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -230,9 +230,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-detect-frontiers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-detect-frontiers-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.detectFrontiers',
+                 'com.etzhayyim.apps.kenkyusha.detectFrontiers',
                  'kenkyusha_detect_frontiers',
                  30000,
                  'vertex_kenkyusha_discipline,vertex_kenkyusha_frontier,vertex_kenkyusha_hypothesis,vertex_kenkyusha_evidence,vertex_kenkyusha_did_registration,edge_kenkyusha_frontier_discipline,edge_kenkyusha_hypothesis_frontier,edge_kenkyusha_evidence_hypothesis',
@@ -241,7 +241,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-detect-frontiers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-detect-frontiers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -257,7 +257,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-evaluate-hypothesis-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-evaluate-hypothesis-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_evaluate_hypothesis',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -274,7 +274,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_evaluateHypothesis" '
                  'name="kenkyusha.evaluateHypothesis">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.evaluateHypothesis" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.evaluateHypothesis" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -286,13 +286,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1146,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/evaluateHypothesis.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/evaluateHypothesis.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-evaluate-hypothesis-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-evaluate-hypothesis-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -307,9 +307,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-evaluate-hypothesis-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-evaluate-hypothesis-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.evaluateHypothesis',
+                 'com.etzhayyim.apps.kenkyusha.evaluateHypothesis',
                  'kenkyusha_evaluate_hypothesis',
                  30000,
                  'vertex_kenkyusha_discipline,vertex_kenkyusha_frontier,vertex_kenkyusha_hypothesis,vertex_kenkyusha_evidence,vertex_kenkyusha_did_registration,edge_kenkyusha_frontier_discipline,edge_kenkyusha_hypothesis_frontier,edge_kenkyusha_evidence_hypothesis',
@@ -318,7 +318,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-evaluate-hypothesis-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-evaluate-hypothesis-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -334,7 +334,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-generate-hypothesis-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-generate-hypothesis-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_generate_hypothesis',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -351,7 +351,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_generateHypothesis" '
                  'name="kenkyusha.generateHypothesis">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.generateHypothesis" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.generateHypothesis" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -363,13 +363,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1146,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/generateHypothesis.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/generateHypothesis.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-generate-hypothesis-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-generate-hypothesis-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -384,9 +384,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-generate-hypothesis-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-generate-hypothesis-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.generateHypothesis',
+                 'com.etzhayyim.apps.kenkyusha.generateHypothesis',
                  'kenkyusha_generate_hypothesis',
                  30000,
                  'vertex_kenkyusha_discipline,vertex_kenkyusha_frontier,vertex_kenkyusha_hypothesis,vertex_kenkyusha_evidence,vertex_kenkyusha_did_registration,edge_kenkyusha_frontier_discipline,edge_kenkyusha_hypothesis_frontier,edge_kenkyusha_evidence_hypothesis',
@@ -395,7 +395,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-generate-hypothesis-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-generate-hypothesis-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -411,7 +411,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-get-frontier-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-get-frontier-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_get_frontier',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -427,7 +427,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getFrontier" />\n'
                  '    <bpmn:serviceTask id="Task_getFrontier" name="kenkyusha.getFrontier">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.getFrontier" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.getFrontier" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -439,13 +439,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1090,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/getFrontier.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/getFrontier.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-get-frontier-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-get-frontier-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -460,9 +460,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-get-frontier-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-get-frontier-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.getFrontier',
+                 'com.etzhayyim.apps.kenkyusha.getFrontier',
                  'kenkyusha_get_frontier',
                  30000,
                  '',
@@ -471,7 +471,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-get-frontier-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-get-frontier-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -487,7 +487,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-list-disciplines-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-list-disciplines-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_list_disciplines',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -504,7 +504,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_listDisciplines" '
                  'name="kenkyusha.listDisciplines">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.listDisciplines" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.listDisciplines" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -516,13 +516,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1122,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/listDisciplines.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/listDisciplines.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-list-disciplines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-list-disciplines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -537,9 +537,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-list-disciplines-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-list-disciplines-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.listDisciplines',
+                 'com.etzhayyim.apps.kenkyusha.listDisciplines',
                  'kenkyusha_list_disciplines',
                  30000,
                  '',
@@ -548,7 +548,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-list-disciplines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-list-disciplines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -564,7 +564,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-list-frontiers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-list-frontiers-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_list_frontiers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -580,7 +580,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listFrontiers" />\n'
                  '    <bpmn:serviceTask id="Task_listFrontiers" name="kenkyusha.listFrontiers">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.listFrontiers" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.listFrontiers" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -592,13 +592,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1106,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/listFrontiers.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/listFrontiers.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-list-frontiers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-list-frontiers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -613,9 +613,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-list-frontiers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-list-frontiers-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.listFrontiers',
+                 'com.etzhayyim.apps.kenkyusha.listFrontiers',
                  'kenkyusha_list_frontiers',
                  30000,
                  '',
@@ -624,7 +624,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-list-frontiers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-list-frontiers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -640,7 +640,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-register-dids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-register-dids-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_register_dids',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -656,7 +656,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_registerDids" />\n'
                  '    <bpmn:serviceTask id="Task_registerDids" name="kenkyusha.registerDids">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.registerDids" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.registerDids" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -668,13 +668,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1098,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/registerDids.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/registerDids.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-register-dids-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -689,9 +689,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-register-dids-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-register-dids-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.registerDids',
+                 'com.etzhayyim.apps.kenkyusha.registerDids',
                  'kenkyusha_register_dids',
                  30000,
                  'vertex_kenkyusha_discipline,vertex_kenkyusha_frontier,vertex_kenkyusha_hypothesis,vertex_kenkyusha_evidence,vertex_kenkyusha_did_registration,edge_kenkyusha_frontier_discipline,edge_kenkyusha_hypothesis_frontier,edge_kenkyusha_evidence_hypothesis',
@@ -700,7 +700,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-register-dids-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-register-dids-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -716,7 +716,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-search-evidence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-search-evidence-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_search_evidence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -732,7 +732,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_searchEvidence" />\n'
                  '    <bpmn:serviceTask id="Task_searchEvidence" name="kenkyusha.searchEvidence">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.searchEvidence" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.searchEvidence" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -744,13 +744,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1114,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/searchEvidence.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/searchEvidence.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-search-evidence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-search-evidence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -765,9 +765,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-search-evidence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-search-evidence-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.searchEvidence',
+                 'com.etzhayyim.apps.kenkyusha.searchEvidence',
                  'kenkyusha_search_evidence',
                  30000,
                  '',
@@ -776,7 +776,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-search-evidence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-search-evidence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -792,7 +792,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-seed-disciplines-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-seed-disciplines-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_seed_disciplines',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -809,7 +809,7 @@ UP = [{'sql': '\n'
                  '    <bpmn:serviceTask id="Task_seedDisciplines" '
                  'name="kenkyusha.seedDisciplines">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.seedDisciplines" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.seedDisciplines" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -821,13 +821,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1122,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/seedDisciplines.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/seedDisciplines.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-seed-disciplines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-seed-disciplines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -842,9 +842,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-seed-disciplines-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-seed-disciplines-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.seedDisciplines',
+                 'com.etzhayyim.apps.kenkyusha.seedDisciplines',
                  'kenkyusha_seed_disciplines',
                  30000,
                  'vertex_kenkyusha_discipline,vertex_kenkyusha_frontier,vertex_kenkyusha_hypothesis,vertex_kenkyusha_evidence,vertex_kenkyusha_did_registration,edge_kenkyusha_frontier_discipline,edge_kenkyusha_hypothesis_frontier,edge_kenkyusha_evidence_hypothesis',
@@ -853,7 +853,7 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-seed-disciplines-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-seed-disciplines-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -869,7 +869,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-stats-v1',
                  'did:web:kenkyusha.etzhayyim.com',
                  'kenkyusha_stats',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -885,7 +885,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_stats" />\n'
                  '    <bpmn:serviceTask id="Task_stats" name="kenkyusha.stats">\n'
                  '      <bpmn:extensionElements><zeebe:taskDefinition '
-                 'type="xrpc.app.etzhayyim.apps.kenkyusha.stats" retries="2" '
+                 'type="xrpc.com.etzhayyim.apps.kenkyusha.stats" retries="2" '
                  '/></bpmn:extensionElements>\n'
                  '      '
                  '<bpmn:incoming>Flow_Start_Task</bpmn:incoming><bpmn:outgoing>Flow_Task_End</bpmn:outgoing>\n'
@@ -897,13 +897,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1040,
-                 '00-contracts/bpmn/ai/gftd/kenkyusha/stats.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kenkyusha/stats.bpmn',
                  '2026-05-07T01:35:00Z',
                  'did:web:kenkyusha.etzhayyim.com',
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-stats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -918,9 +918,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-stats-v1',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'app.etzhayyim.apps.kenkyusha.stats',
+                 'com.etzhayyim.apps.kenkyusha.stats',
                  'kenkyusha_stats',
                  30000,
                  '',
@@ -929,56 +929,56 @@ UP = [{'sql': '\n'
                  'did:web:kenkyusha.etzhayyim.com',
                  'sys.bpmn.seed.kenkyusha',
                  'did:web:kenkyusha.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-stats-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-stats-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-collect-evidence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-collect-evidence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-collect-evidence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-collect-evidence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-coverage-map-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-coverage-map-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-coverage-map-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-coverage-map-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-detect-frontiers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-detect-frontiers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-detect-frontiers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-detect-frontiers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-evaluate-hypothesis-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-evaluate-hypothesis-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-evaluate-hypothesis-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-evaluate-hypothesis-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-generate-hypothesis-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-generate-hypothesis-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-generate-hypothesis-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-generate-hypothesis-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-get-frontier-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-get-frontier-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-get-frontier-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-get-frontier-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-list-disciplines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-list-disciplines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-list-disciplines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-list-disciplines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-list-frontiers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-list-frontiers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-list-frontiers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-list-frontiers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-register-dids-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-register-dids-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-search-evidence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-search-evidence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-search-evidence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-search-evidence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-seed-disciplines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-seed-disciplines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-seed-disciplines-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-seed-disciplines-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kenkyusha-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kenkyusha-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kenkyusha-stats-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kenkyusha-stats-v1']}]
 
 
 def upgrade() -> None:

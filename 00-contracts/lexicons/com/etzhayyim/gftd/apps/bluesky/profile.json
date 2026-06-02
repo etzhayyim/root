@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bluesky.profile",
+  "description": "Bluesky 公開 profile snapshot (ADR-0037)。T2 public metadata のみ (displayName / description / handle / did / avatar CID)。email / phoneNumber は禁止。opt-out label 検知で即 purge。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["sourceDid", "handle", "indexedAt"],
+        "properties": {
+          "sourceDid": { "type": "string" },
+          "handle": { "type": "string" },
+          "displayName": { "type": "string" },
+          "description": { "type": "string" },
+          "avatarCid": { "type": "string", "description": "avatar blob CID (Bluesky CDN 側)" },
+          "bannerCid": { "type": "string" },
+          "pds": { "type": "string", "description": "原典 PDS endpoint" },
+          "labels": { "type": "array", "items": { "type": "string" }, "description": "actor labels snapshot (opt-out 判定用)" },
+          "optOutSignal": { "type": "string", "enum": ["none", "no-unauthenticated", "no-search", "self-labeler"], "description": "検出した opt-out 種別 (none 以外は ingest 停止)" },
+          "indexedAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

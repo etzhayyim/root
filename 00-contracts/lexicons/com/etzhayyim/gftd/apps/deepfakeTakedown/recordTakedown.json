@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.deepfakeTakedown.recordTakedown",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Deepfake / synthetic media takedown order (bridges aiWatermark.flagEvasion + dsa-vlop + transnational-repression)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "takedownId",
+            "targetCategory",
+            "modality",
+            "orderedAt"
+          ],
+          "properties": {
+            "takedownId": {
+              "type": "string"
+            },
+            "targetCategory": {
+              "type": "string",
+              "enum": [
+                "politician",
+                "celebrity",
+                "journalist",
+                "minor_csam",
+                "financial_fraud",
+                "election_meddle",
+                "corporate_executive",
+                "ambassador",
+                "activist",
+                "scientist",
+                "public_figure",
+                "private_individual"
+              ]
+            },
+            "modality": {
+              "type": "string",
+              "enum": [
+                "voice_clone_video",
+                "voice_only",
+                "face_swap",
+                "talking_head",
+                "whole_body",
+                "text_to_video",
+                "real_time_avatar",
+                "puppet_video",
+                "ai_news",
+                "mash_up",
+                "audio_endorse"
+              ]
+            },
+            "evasionVid": {
+              "type": "string",
+              "description": "bridges aiWatermark.flagEvasion"
+            },
+            "orderedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

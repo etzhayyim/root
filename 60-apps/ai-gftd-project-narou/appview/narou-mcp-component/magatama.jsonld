@@ -58,8 +58,8 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.narou.novel",
-        "ai.gftd.narou.chapter"
+        "com.etzhayyim.narou.novel",
+        "com.etzhayyim.narou.chapter"
       ]
     }
   },

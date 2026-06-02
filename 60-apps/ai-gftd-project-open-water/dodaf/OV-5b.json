@@ -7,30 +7,30 @@
   "content": {
     "activities": [
       { "id": "act.defineReservoir", "name": "Define Reservoir", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openWater.defineReservoir" }] },
+        "realisedBy": [{ "xrpc": "com.etzhayyim.apps.openWater.defineReservoir" }] },
       { "id": "act.defineMain", "name": "Define Main", "type": "bpmn",
         "bpmnProcessKey": "defineMain", "source": "bpmn/define-main.bpmn",
         "realisedBy": [
-          { "xrpc": "app.etzhayyim.apps.openWater.defineMain" },
+          { "xrpc": "com.etzhayyim.apps.openWater.defineMain" },
           { "form": "openWater.defineMain.v1" }
         ] },
       { "id": "act.recordReading", "name": "Record Meter Reading", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openWater.recordReading" }] },
+        "realisedBy": [{ "xrpc": "com.etzhayyim.apps.openWater.recordReading" }] },
       { "id": "act.reportLeak", "name": "Report Leak", "type": "bpmn",
         "bpmnProcessKey": "reportLeak", "source": "bpmn/report-leak.bpmn",
         "realisedBy": [
-          { "xrpc": "app.etzhayyim.apps.openWater.reportLeak" },
+          { "xrpc": "com.etzhayyim.apps.openWater.reportLeak" },
           { "form": "openWater.reportLeak.v1" },
           { "dmn":  "openWater.leakSeverity" }
         ] },
       { "id": "act.recordQualitySample", "name": "Record Quality Sample", "type": "xrpc",
-        "realisedBy": [{ "xrpc": "app.etzhayyim.apps.openWater.recordQualitySample" }] },
+        "realisedBy": [{ "xrpc": "com.etzhayyim.apps.openWater.recordQualitySample" }] },
       { "id": "act.queryNetwork", "name": "Query Nodes / Mains / Leaks / Quality", "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "app.etzhayyim.apps.openWater.getNode" },
-          { "xrpc": "app.etzhayyim.apps.openWater.listMains" },
-          { "xrpc": "app.etzhayyim.apps.openWater.listLeaks" },
-          { "xrpc": "app.etzhayyim.apps.openWater.listQualitySamples" }
+          { "xrpc": "com.etzhayyim.apps.openWater.getNode" },
+          { "xrpc": "com.etzhayyim.apps.openWater.listMains" },
+          { "xrpc": "com.etzhayyim.apps.openWater.listLeaks" },
+          { "xrpc": "com.etzhayyim.apps.openWater.listQualitySamples" }
         ] }
     ]
   },

@@ -30,7 +30,7 @@ const SCRIPT = resolve(
   "no-kanae-adjudication.mjs",
 );
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const LEX_REL = "00-contracts/lexicons/app/etzhayyim/kanae";
+const LEX_REL = "00-contracts/lexicons/com/etzhayyim/kanae";
 
 function runIn(cwd, args = []) {
   const r = spawnSync("node", [SCRIPT, ...args], { cwd, encoding: "utf8" });
@@ -56,7 +56,7 @@ function makeTree(edgeDoc, narrativeDoc) {
 
 const GOOD_EDGE = {
   lexicon: 1,
-  id: "app.etzhayyim.kanae.fundFlowEdge",
+  id: "com.etzhayyim.kanae.fundFlowEdge",
   defs: {
     main: {
       type: "record",
@@ -74,7 +74,7 @@ const GOOD_EDGE = {
 };
 const GOOD_NARRATIVE = {
   lexicon: 1,
-  id: "app.etzhayyim.kanae.flowNarrative",
+  id: "com.etzhayyim.kanae.flowNarrative",
   defs: {
     main: {
       type: "record",

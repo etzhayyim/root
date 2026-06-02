@@ -10,13 +10,13 @@ Each Tier-B actor under `20-actors/<actor>/` ships a `manifest.jsonld`
 that declares which lexicons the actor implements:
 
     "lexicons": [
-      "app.etzhayyim.supply.supplierSelection",
-      "app.etzhayyim.supply.purchaseOrder",
+      "com.etzhayyim.supply.supplierSelection",
+      "com.etzhayyim.supply.purchaseOrder",
       ...
     ]
 
-By convention the NSID `app.etzhayyim.X.Y` maps to the file
-`00-contracts/lexicons/app/etzhayyim/X/Y.json`. When the JSON file
+By convention the NSID `com.etzhayyim.X.Y` maps to the file
+`00-contracts/lexicons/com/etzhayyim/X/Y.json`. When the JSON file
 doesn't exist, the actor's contract surface is incomplete — clients
 can't validate writes/reads against a schema that isn't there.
 
@@ -55,7 +55,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 ACTORS_DIR = REPO_ROOT / "20-actors"
 LEXICONS_ROOT = REPO_ROOT / "00-contracts" / "lexicons"
 
-# NSID convention check — at least 3 dot-segments (e.g. app.etzhayyim.X.Y).
+# NSID convention check — at least 3 dot-segments (e.g. com.etzhayyim.X.Y).
 # Per AT Protocol Lexicon spec the last segment is camelCase/PascalCase
 # (a type identifier), while domain segments are reverse-domain lowercase.
 # This repo also uses camelCase in some MIDDLE segments (e.g. `kuniUmi`),
@@ -66,7 +66,7 @@ NSID_RE = re.compile(r"^[a-z][a-zA-Z0-9-]*(?:\.[a-zA-Z][a-zA-Z0-9-]*){2,}$")
 
 
 def nsid_to_lexicon_path(nsid: str) -> Path:
-    """Convert `app.etzhayyim.X.Y` to `00-contracts/lexicons/app/etzhayyim/X/Y.json`."""
+    """Convert `com.etzhayyim.X.Y` to `00-contracts/lexicons/com/etzhayyim/X/Y.json`."""
     parts = nsid.split(".")
     return LEXICONS_ROOT / Path(*parts[:-1]) / f"{parts[-1]}.json"
 

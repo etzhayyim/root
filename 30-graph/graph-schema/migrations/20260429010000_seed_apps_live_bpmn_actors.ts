@@ -1,7 +1,7 @@
 // Phase B of the live.etzhayyim.com L4 actor migration.
 //
 // Registers three single-task BPMN flows + their lexicon bindings so
-// `dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.live.{postChat,scheduleSet,
+// `dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.live.{postChat,scheduleSet,
 // sendCheer}` calls can land directly without going through the
 // `magatama-l1ve9pq4` Worker. Each binding maps the NSID to the
 // matching BPMN process_id; pyzeebe / Zeebe gateway picks up the
@@ -14,12 +14,12 @@
 // trigger to fan out actorJoin + actorComment over a roster.
 //
 // Driving NSIDs that stay on the L3 worker (no binding):
-//   app.etzhayyim.apps.live.joinRoom        — query, reads the DO state
-//   app.etzhayyim.apps.live.getCurrentSet   — query, reads the DO state
-//   app.etzhayyim.apps.live.actorJoin       — handled inside showFlow.bpmn
-//   app.etzhayyim.apps.live.postChat        — registered here ✓
-//   app.etzhayyim.apps.live.scheduleSet     — registered here ✓
-//   app.etzhayyim.apps.live.sendCheer       — registered here ✓
+//   com.etzhayyim.apps.live.joinRoom        — query, reads the DO state
+//   com.etzhayyim.apps.live.getCurrentSet   — query, reads the DO state
+//   com.etzhayyim.apps.live.actorJoin       — handled inside showFlow.bpmn
+//   com.etzhayyim.apps.live.postChat        — registered here ✓
+//   com.etzhayyim.apps.live.scheduleSet     — registered here ✓
+//   com.etzhayyim.apps.live.sendCheer       — registered here ✓
 //
 // After this migration applies + dispatcher.etzhayyim.com picks up the
 // `vertex_bpmn_lexicon_binding` rows (typically a few seconds), the
@@ -52,31 +52,31 @@ const seeds: Seed[] = [
   {
     proc: "postChat",
     bpmnProcessId: "live_post_chat",
-    nsid: "app.etzhayyim.apps.live.postChat",
+    nsid: "com.etzhayyim.apps.live.postChat",
     resultTimeoutMs: 5_000,
   },
   {
     proc: "scheduleSet",
     bpmnProcessId: "live_schedule_set",
-    nsid: "app.etzhayyim.apps.live.scheduleSet",
+    nsid: "com.etzhayyim.apps.live.scheduleSet",
     resultTimeoutMs: 10_000,
   },
   {
     proc: "sendCheer",
     bpmnProcessId: "live_send_cheer",
-    nsid: "app.etzhayyim.apps.live.sendCheer",
+    nsid: "com.etzhayyim.apps.live.sendCheer",
     resultTimeoutMs: 5_000,
   },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const projectKey = project.replace(/\//g, "-");
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${projectKey}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${projectKey}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${projectKey}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${projectKey}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

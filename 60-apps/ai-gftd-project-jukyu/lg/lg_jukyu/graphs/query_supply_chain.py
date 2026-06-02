@@ -1,6 +1,6 @@
 """jukyu `querySupplyChain` graph — read `mv_jukyu_supply_chain_trace`.
 
-NSID: app.etzhayyim.apps.jukyu.querySupplyChain
+NSID: com.etzhayyim.apps.jukyu.querySupplyChain
 Filters: domain, countryCode, productFamily, nodeCode; limit 1000.
 """
 

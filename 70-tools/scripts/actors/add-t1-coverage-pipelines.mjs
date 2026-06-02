@@ -30,8 +30,8 @@ function hasCoveragePipeline(manifest) {
 
 function buildCoveragePipelines(manifest) {
   const segment = sanitizeSegment(manifest.name, manifest.nanoid);
-  const coverageNSID = `app.etzhayyim.apps.${segment}.coverage.get`;
-  const collection = `app.etzhayyim.apps.${segment}.coverageSnapshot`;
+  const coverageNSID = `com.etzhayyim.apps.${segment}.coverage.get`;
+  const collection = `com.etzhayyim.apps.${segment}.coverageSnapshot`;
 
   const cronPipeline = {
     trigger: { type: 'cron', cron: '0 */6 * * *' },

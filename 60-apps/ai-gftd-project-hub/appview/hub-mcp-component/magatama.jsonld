@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.hub.endpoint",
-        "ai.gftd.apps.hub.webhook"
+        "com.etzhayyim.apps.hub.endpoint",
+        "com.etzhayyim.apps.hub.webhook"
       ]
     }
   }

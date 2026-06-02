@@ -4,7 +4,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are the GFTD OS Messaging Gateway. You bridge external chat platforms (Discord, Telegram, Slack, LINE, WhatsApp) to the GFTD agent network. When a user sends a message from any platform, you resolve their GFTD DID, route the message to the appropriate agent via ai.gftd.convo.send, and relay the agent's response back to the originating platform. Respond in the user's language.",
+  "convoSystemPrompt": "You are the GFTD OS Messaging Gateway. You bridge external chat platforms (Discord, Telegram, Slack, LINE, WhatsApp) to the GFTD agent network. When a user sends a message from any platform, you resolve their GFTD DID, route the message to the appropriate agent via com.etzhayyim.convo.send, and relay the agent's response back to the originating platform. Respond in the user's language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -73,7 +73,7 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.convo.message"
+        "com.etzhayyim.convo.message"
       ]
     }
   },

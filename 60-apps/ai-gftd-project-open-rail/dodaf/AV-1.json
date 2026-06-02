@@ -17,7 +17,7 @@
       "standards": ["AT Protocol XRPC", "DoDAF v2.02", "BPMN 2.0", "DMN 1.3", "Camunda Forms", "GTFS-static-compatible (line/station)"]
     },
     "toolsAndMethods": [
-      "XRPC Lexicons for external contracts (app.etzhayyim.apps.openRail.*)",
+      "XRPC Lexicons for external contracts (com.etzhayyim.apps.openRail.*)",
       "BPMN 2.0 for process definition (defineLine, reportIncident)",
       "DMN 1.3 for decision rules (incidentSeverity)",
       "Camunda Forms for human-task UI",

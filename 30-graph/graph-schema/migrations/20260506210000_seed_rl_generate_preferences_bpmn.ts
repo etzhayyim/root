@@ -15,13 +15,13 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const CREATED_AT = "2026-05-06T21:00:00Z";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/rl-generate-preferences-v1";
 const BINDING_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/rl-generate-preferences-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/rl-generate-preferences-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/rl/rlGeneratePreferences.bpmn"),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/rl/rlGeneratePreferences.bpmn"),
     "utf8",
   );
   const size = Buffer.byteLength(xml, "utf8");
@@ -33,7 +33,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       ${PROCESS_VERTEX_ID}, ${OWNER_DID}, 'rl_generate_preferences', 1,
       ${xml}, CAST(${size} AS integer),
-      '00-contracts/bpmn/ai/gftd/rl/rlGeneratePreferences.bpmn',
+      '00-contracts/bpmn/com/etzhayyim/rl/rlGeneratePreferences.bpmn',
       'active', ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = ${PROCESS_VERTEX_ID}
@@ -46,7 +46,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT
       ${BINDING_VERTEX_ID}, ${OWNER_DID}, 'rl_generate_preferences',
-      'app.etzhayyim.apps.rl.generatePreferences',
+      'com.etzhayyim.apps.rl.generatePreferences',
       ${CREATED_AT}, 1, ${OWNER_DID}, ${OWNER_DID}, 'sys.bpmn.seed.rl'
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${BINDING_VERTEX_ID}

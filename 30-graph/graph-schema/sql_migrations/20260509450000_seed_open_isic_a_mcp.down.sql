@@ -1,9 +1,9 @@
 DELETE FROM vertex_mcp_tool_def
 WHERE nsid IN (
-  'ai.gftd.apps.openIsicA.classifyCrop',
-  'ai.gftd.apps.openIsicA.classifyLivestock',
-  'ai.gftd.apps.openIsicA.classifyForestry',
-  'ai.gftd.apps.openIsicA.classifyFishing'
+  'com.etzhayyim.apps.openIsicA.classifyCrop',
+  'com.etzhayyim.apps.openIsicA.classifyLivestock',
+  'com.etzhayyim.apps.openIsicA.classifyForestry',
+  'com.etzhayyim.apps.openIsicA.classifyFishing'
 );
 
 FLUSH;

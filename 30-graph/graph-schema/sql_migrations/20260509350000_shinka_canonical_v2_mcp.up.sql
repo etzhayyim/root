@@ -11,36 +11,36 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:shinka.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinka-tick',
-   0, 0, 'ai.gftd.apps.shinka.tick', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
+  ('at://did:web:shinka.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-shinka-tick',
+   0, 0, 'com.etzhayyim.apps.shinka.tick', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
    'shinka cron tick — call shinka_tick_actor SQL UDF for the target actor.',
    '{"type":"object","properties":{"actor":{"type":"string"}}}',
    '{"type":"object","properties":{"mood":{"type":"string"},"actions":{"type":"array"},"heartbeatWritten":{"type":"boolean"},"evolutionWritten":{"type":"boolean"},"tickMs":{"type":"integer"},"error":{"type":"string"}}}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinka/tick.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/shinka/tick.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:shinka.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinka-loadAndResolve',
-   0, 0, 'ai.gftd.apps.shinka.loadAndResolve', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
+  ('at://did:web:shinka.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-shinka-loadAndResolve',
+   0, 0, 'com.etzhayyim.apps.shinka.loadAndResolve', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
    'shinka load + resolve actor evolution graph (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinka/loadAndResolve.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/shinka/loadAndResolve.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:shinka.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinka-compose',
-   0, 0, 'ai.gftd.apps.shinka.compose', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
+  ('at://did:web:shinka.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-shinka-compose',
+   0, 0, 'com.etzhayyim.apps.shinka.compose', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
    'shinka compose actor mood / action plan (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinka/compose.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/shinka/compose.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:shinka.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinka-writeHeartbeat',
-   0, 0, 'ai.gftd.apps.shinka.writeHeartbeat', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
+  ('at://did:web:shinka.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-shinka-writeHeartbeat',
+   0, 0, 'com.etzhayyim.apps.shinka.writeHeartbeat', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
    'shinka write heartbeat (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinka/writeHeartbeat.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/shinka/writeHeartbeat.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:shinka.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-shinka-emitEvolution',
-   0, 0, 'ai.gftd.apps.shinka.emitEvolution', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
+  ('at://did:web:shinka.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-shinka-emitEvolution',
+   0, 0, 'com.etzhayyim.apps.shinka.emitEvolution', 'did:web:shinka.etzhayyim.com', 'shinka.etzhayyim.com', 'procedure',
    'shinka emit evolution event (shelf-stocked).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/shinka/emitEvolution.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/shinka/emitEvolution.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 INSERT INTO vertex_langgraph_assistant
@@ -56,8 +56,8 @@ INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
 VALUES
   ('shinka_cron_tick.v2:shinka_tick', 0, 0, 'shinka_cron_tick.v2', 'shinka_tick',
-   'mcp_tool', 'mcp://ai.gftd.apps.shinka.tick',
-   '{"input_keys":["actor"],"result_key":"tickOut","args":{"name":"ai.gftd.apps.shinka.tick"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.shinka.tick',
+   '{"input_keys":["actor"],"result_key":"tickOut","args":{"name":"com.etzhayyim.apps.shinka.tick"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'shinka_cron_tick.v2'

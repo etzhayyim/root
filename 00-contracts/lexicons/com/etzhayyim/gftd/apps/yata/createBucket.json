@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.createBucket",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a new bucket inside the caller's yatabase tenant. Bucket name MUST be unique within the org_did. Idempotent on (org_did, bucketName).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["bucketName"],
+          "properties": {
+            "bucketName": {"type": "string", "minLength": 3, "maxLength": 63, "description": "S3-compatible bucket name (lowercase / digits / hyphen)."},
+            "region": {"type": "string", "default": "lax-01"},
+            "encryption": {"type": "string", "enum": ["none", "aes256", "vault-e2e"], "default": "aes256"},
+            "tierPolicy": {"type": "string", "enum": ["hot", "warm", "cold", "auto"], "default": "auto", "description": "auto = lifecycle WARM → COLD after 30d idle"},
+            "versioningEnabled": {"type": "boolean", "default": false},
+            "publicRead": {"type": "boolean", "default": false},
+            "corsJson": {"type": "string", "description": "Optional CORS rules JSON."},
+            "lifecycleJson": {"type": "string", "description": "Optional lifecycle rules JSON."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "bucketId", "bucketName"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "bucketId": {"type": "string"},
+            "bucketName": {"type": "string"},
+            "endpointUrl": {"type": "string", "description": "Full S3-compat URL: https://yatabase.etzhayyim.com/s3/{bucket}/"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -72,7 +72,7 @@ class TestPhiEncryption:
         req = set(_rec(stem)["required"])
         assert field in req, (
             f"{stem}: {field} must be required — session content stays in the "
-            "app.etzhayyim.encrypted.* envelope, never plaintext on MST (ADR-2605181100)"
+            "com.etzhayyim.encrypted.* envelope, never plaintext on MST (ADR-2605181100)"
         )
 
     def test_subjects_are_pseudonymized(self):
@@ -135,7 +135,7 @@ class TestLexiconHygiene:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.kokoro.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.kokoro.{p.stem}"
 
     def test_manifest_namespaces_match_disk(self):
         declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}

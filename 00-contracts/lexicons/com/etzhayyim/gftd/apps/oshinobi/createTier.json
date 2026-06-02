@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oshinobi.createTier",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Define a subscription tier for the caller creator. Price is integer USD cents; float prohibited (AT Lexicon + currency precision).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["name", "priceUsdCents", "billingPeriod"],
+          "properties": {
+            "name":           { "type": "string", "maxLength": 64 },
+            "description":    { "type": "string", "maxLength": 500 },
+            "priceUsdCents":  { "type": "integer", "minimum": 299, "maximum": 9999900 },
+            "billingPeriod":  { "type": "string", "enum": ["monthly", "quarterly", "yearly"], "default": "monthly" },
+            "benefits":       { "type": "array", "items": { "type": "string" }, "maxLength": 12 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tierId", "uri"],
+          "properties": {
+            "tierId": { "type": "string" },
+            "uri":    { "type": "string", "format": "at-uri" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "NotCreator",    "description": "caller is not a registered creator" },
+        { "name": "PriceOutOfRange", "description": "price below floor or above processor ceiling" }
+      ]
+    }
+  }
+}

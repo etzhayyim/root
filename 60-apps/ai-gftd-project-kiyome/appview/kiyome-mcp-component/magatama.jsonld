@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kiyome.clearance",
-        "ai.gftd.apps.kiyome.auditLog"
+        "com.etzhayyim.apps.kiyome.clearance",
+        "com.etzhayyim.apps.kiyome.auditLog"
       ]
     }
   }

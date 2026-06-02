@@ -58,9 +58,9 @@ data:
     no-autoupdate: true
 
     # Ingress routing (cloudflared evaluates in order, first match wins):
-    # mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message            → bpmn-dispatcher MCP router
-    # dispatcher.etzhayyim.com/xrpc/app.etzhayyim.apps.shinshi.*  → lg-shinshi LangGraph
-    # dispatcher.etzhayyim.com/xrpc/app.etzhayyim.animeka.*       → lg-animeka LangGraph
+    # mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message            → bpmn-dispatcher MCP router
+    # dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.shinshi.*  → lg-shinshi LangGraph
+    # dispatcher.etzhayyim.com/xrpc/com.etzhayyim.animeka.*       → lg-animeka LangGraph
     # dispatcher.etzhayyim.com/* and mcp.etzhayyim.com/*    → bpmn-dispatcher (default)
     # Anything else (catch-all) returns 404.
     #

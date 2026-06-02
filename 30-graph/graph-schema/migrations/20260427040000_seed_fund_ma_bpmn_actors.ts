@@ -31,18 +31,18 @@ const createdAt = "2026-04-27T04:00:00Z";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/fund-managerDiscovery-v1",
     ownerDid: "did:web:fund.etzhayyim.com",
     bpmnProcessId: "fund_manager_discovery",
-    sourcePath: "00-contracts/bpmn/ai/gftd/fund/managerDiscovery.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/fund/managerDiscovery.bpmn",
     sensitivityOrd: 2,
     actorTag: "sys.bpmn.seed.fund",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ma-startDealWorkflow-v1",
     ownerDid: "did:web:ma.etzhayyim.com",
     bpmnProcessId: "ma_start_deal_workflow",
-    sourcePath: "00-contracts/bpmn/ai/gftd/ma/startDealWorkflow.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/ma/startDealWorkflow.bpmn",
     sensitivityOrd: 3,
     actorTag: "sys.bpmn.seed.ma",
   },
@@ -50,9 +50,9 @@ const processSeeds: ProcessSeed[] = [
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/fund-managerDiscovery-v1",
     ownerDid: "did:web:fund.etzhayyim.com",
-    nsid: "app.etzhayyim.apps.fund.managerDiscovery",
+    nsid: "com.etzhayyim.apps.fund.managerDiscovery",
     bpmnProcessId: "fund_manager_discovery",
     resultTimeoutMs: 600_000,
     sensitivityOrd: 2,
@@ -69,9 +69,9 @@ const bindingSeeds: BindingSeed[] = [
     ].join(","),
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ma-startDealWorkflow-v1",
     ownerDid: "did:web:ma.etzhayyim.com",
-    nsid: "app.etzhayyim.apps.ma.startDealWorkflow",
+    nsid: "com.etzhayyim.apps.ma.startDealWorkflow",
     bpmnProcessId: "ma_start_deal_workflow",
     resultTimeoutMs: 900_000,
     sensitivityOrd: 3,

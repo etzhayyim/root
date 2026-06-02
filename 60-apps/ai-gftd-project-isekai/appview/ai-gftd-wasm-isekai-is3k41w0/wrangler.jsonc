@@ -21,7 +21,7 @@
     "APP_NANOID": "is3k41w0",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "game",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -37,7 +37,7 @@
       "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "isekapp.etzhayyim.ai/*",
+      "pattern": "isekcom.etzhayyim.ai/*",
       "zone_name": "etzhayyim.com"
     }
   ]

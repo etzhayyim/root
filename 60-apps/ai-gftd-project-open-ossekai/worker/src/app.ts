@@ -69,7 +69,7 @@ async function proxyToBpmn(sdk: HostSDK, toolNsid: string, input: unknown): Prom
 }
 
 async function getOssekaiStatus(_sdk: HostSDK, body: Uint8Array): Promise<string> {
-  const p = parseLexiconInput("app.etzhayyim.apps.openOssekai.getOssekaiStatus", coerceQueryParams(body)) as any;
+  const p = parseLexiconInput("com.etzhayyim.apps.openOssekai.getOssekaiStatus", coerceQueryParams(body)) as any;
   const targetDid = String(p.targetDid ?? "");
   if (!targetDid) return JSON.stringify({ error: "targetDid required" });
 
@@ -118,7 +118,7 @@ function coerceQueryParams(body: Uint8Array): Uint8Array {
 }
 
 async function listIntelBriefs(_sdk: HostSDK, body: Uint8Array): Promise<string> {
-  const p = parseLexiconInput("app.etzhayyim.apps.openOssekai.listIntelBriefs", coerceQueryParams(body)) as any;
+  const p = parseLexiconInput("com.etzhayyim.apps.openOssekai.listIntelBriefs", coerceQueryParams(body)) as any;
   const limit = clampLimit(p.limit, 20);
   const offset = Math.max(0, Math.floor(Number(p.offset ?? 0) || 0));
   const db = createKyselyDb();
@@ -152,7 +152,7 @@ async function listIntelBriefs(_sdk: HostSDK, body: Uint8Array): Promise<string>
 }
 
 async function listArbitrageOpportunities(_sdk: HostSDK, body: Uint8Array): Promise<string> {
-  const p = parseLexiconInput("app.etzhayyim.apps.openOssekai.listArbitrageOpportunities", coerceQueryParams(body)) as any;
+  const p = parseLexiconInput("com.etzhayyim.apps.openOssekai.listArbitrageOpportunities", coerceQueryParams(body)) as any;
   const limit = clampLimit(p.limit, 20);
   const offset = Math.max(0, Math.floor(Number(p.offset ?? 0) || 0));
   const db = createKyselyDb();
@@ -188,50 +188,50 @@ async function listArbitrageOpportunities(_sdk: HostSDK, body: Uint8Array): Prom
 export default createWorkerExport((sdk) => {
   sdk.app
     .command(
-      nsid("app.etzhayyim.apps.openOssekai.generateIntelBrief"),
-      (_ctx, body) => proxyToBpmn(sdk, "app.etzhayyim.apps.openOssekai.generateIntelBrief",
-        parseLexiconInput("app.etzhayyim.apps.openOssekai.generateIntelBrief", body)),
+      nsid("com.etzhayyim.apps.openOssekai.generateIntelBrief"),
+      (_ctx, body) => proxyToBpmn(sdk, "com.etzhayyim.apps.openOssekai.generateIntelBrief",
+        parseLexiconInput("com.etzhayyim.apps.openOssekai.generateIntelBrief", body)),
       asAgentTool("Generate an LLM-powered intel brief for a target actor (L1 OSINT)."),
       withCapabilityTags("ossekai", "intel", "l1", "bpmn"),
     )
     .command(
-      nsid("app.etzhayyim.apps.openOssekai.proposeArbitrageBrief"),
-      (_ctx, body) => proxyToBpmn(sdk, "app.etzhayyim.apps.openOssekai.proposeArbitrageBrief",
-        parseLexiconInput("app.etzhayyim.apps.openOssekai.proposeArbitrageBrief", body)),
+      nsid("com.etzhayyim.apps.openOssekai.proposeArbitrageBrief"),
+      (_ctx, body) => proxyToBpmn(sdk, "com.etzhayyim.apps.openOssekai.proposeArbitrageBrief",
+        parseLexiconInput("com.etzhayyim.apps.openOssekai.proposeArbitrageBrief", body)),
       asAgentTool("Propose an LLM-powered arbitrage action for a supply/demand gap (L2)."),
       withCapabilityTags("ossekai", "arbitrage", "l2", "bpmn"),
     )
     .command(
-      nsid("app.etzhayyim.apps.openOssekai.requestOssekaiConsent"),
-      (_ctx, body) => proxyToBpmn(sdk, "app.etzhayyim.apps.openOssekai.requestOssekaiConsent",
-        parseLexiconInput("app.etzhayyim.apps.openOssekai.requestOssekaiConsent", body)),
+      nsid("com.etzhayyim.apps.openOssekai.requestOssekaiConsent"),
+      (_ctx, body) => proxyToBpmn(sdk, "com.etzhayyim.apps.openOssekai.requestOssekaiConsent",
+        parseLexiconInput("com.etzhayyim.apps.openOssekai.requestOssekaiConsent", body)),
       asAgentTool("Request consent for Well-Becoming coaching (L3, ADR-0018 Tier 3 PII gate)."),
       withCapabilityTags("ossekai", "consent", "l3", "pii-tier3", "bpmn"),
     )
     .command(
-      nsid("app.etzhayyim.apps.openOssekai.scoreJocho"),
-      (_ctx, body) => proxyToBpmn(sdk, "app.etzhayyim.apps.openOssekai.scoreJocho",
-        parseLexiconInput("app.etzhayyim.apps.openOssekai.scoreJocho", body)),
+      nsid("com.etzhayyim.apps.openOssekai.scoreJocho"),
+      (_ctx, body) => proxyToBpmn(sdk, "com.etzhayyim.apps.openOssekai.scoreJocho",
+        parseLexiconInput("com.etzhayyim.apps.openOssekai.scoreJocho", body)),
       asAgentTool("Score a consented actor on 5 jocho axes: engagement, competence, contribution, growth, resilience (L3)."),
       withCapabilityTags("ossekai", "jocho", "l3", "wellbecoming", "bpmn"),
     )
     .command(
-      nsid("app.etzhayyim.apps.openOssekai.generateWellBecomingPlan"),
-      (_ctx, body) => proxyToBpmn(sdk, "app.etzhayyim.apps.openOssekai.generateWellBecomingPlan",
-        parseLexiconInput("app.etzhayyim.apps.openOssekai.generateWellBecomingPlan", body)),
+      nsid("com.etzhayyim.apps.openOssekai.generateWellBecomingPlan"),
+      (_ctx, body) => proxyToBpmn(sdk, "com.etzhayyim.apps.openOssekai.generateWellBecomingPlan",
+        parseLexiconInput("com.etzhayyim.apps.openOssekai.generateWellBecomingPlan", body)),
       asAgentTool("Generate a Well-Becoming kyu/dan coaching roadmap with 30-day action items (L3)."),
       withCapabilityTags("ossekai", "wellbecoming", "kyu-dan", "l3", "bpmn"),
     )
     .query(
-      nsid("app.etzhayyim.apps.openOssekai.getOssekaiStatus"),
+      nsid("com.etzhayyim.apps.openOssekai.getOssekaiStatus"),
       (_ctx, body) => getOssekaiStatus(sdk, body),
     )
     .query(
-      nsid("app.etzhayyim.apps.openOssekai.listIntelBriefs"),
+      nsid("com.etzhayyim.apps.openOssekai.listIntelBriefs"),
       (_ctx, body) => listIntelBriefs(sdk, body),
     )
     .query(
-      nsid("app.etzhayyim.apps.openOssekai.listArbitrageOpportunities"),
+      nsid("com.etzhayyim.apps.openOssekai.listArbitrageOpportunities"),
       (_ctx, body) => listArbitrageOpportunities(sdk, body),
     );
 }, { mcpRegistry: {} });

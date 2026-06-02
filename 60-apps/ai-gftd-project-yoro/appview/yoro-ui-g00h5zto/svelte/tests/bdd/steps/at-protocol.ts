@@ -28,7 +28,7 @@ function resolveConvoId(body: Record<string, unknown> | null): string {
 // ── DM ──
 
 Given('I create a DM with peer {string}', async ({ apiState, apiBase }, peerDid: string) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.createConvo', { kind: 'direct', peerDid });
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.createConvo', { kind: 'direct', peerDid });
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
 	apiState.createdConvoId = resolveConvoId(apiState.lastBody);
@@ -49,7 +49,7 @@ Then('the DM should be marked as existing', async ({ apiState }) => {
 When(
 	'I update the created channel with name {string} and description {string}',
 	async ({ apiState, apiBase }, name: string, description: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.updateConvo', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.updateConvo', {
 			convoId: apiState.createdConvoId,
 			name,
 			description,
@@ -62,7 +62,7 @@ When(
 // ── Convo Details ──
 
 When('I get the created channel details', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.getConvo', {
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.getConvo', {
 		convoId: apiState.createdConvoId,
 	});
 	apiState.lastResponse = res;
@@ -84,7 +84,7 @@ Then('the channel type should be {string}', async ({ apiState }, type: string) =
 // ── Members ──
 
 When('I list members of the created channel', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.listMembers', {
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.listMembers', {
 		convoId: apiState.createdConvoId,
 	});
 	apiState.lastResponse = res;
@@ -109,7 +109,7 @@ Then('the first member should have role {string}', async ({ apiState }, role: st
 // ── Unread ──
 
 When('I get unread counts', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.getUnread', {});
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.getUnread', {});
 	apiState.lastResponse = res;
 	apiState.lastBody = await readJsonSafe(res);
 });
@@ -124,7 +124,7 @@ Then('the unread map should contain the created convo', async ({ apiState }) => 
 // ── Search ──
 
 When('I search messages for {string}', async ({ apiState, apiBase }, query: string) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.search', {
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.search', {
 		q: query,
 		limit: 20,
 	});
@@ -138,7 +138,7 @@ When(
 	'I upload a blob with filename {string} and contentType {string}',
 	async ({ apiState, apiBase }, filename: string, contentType: string) => {
 		const dataB64 = btoa('BDD test blob content');
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.uploadBlob', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.uploadBlob', {
 			convoId: apiState.createdConvoId,
 			contentType,
 			filename,
@@ -174,7 +174,7 @@ Then(
 Given(
 	'I send a root message {string} to the created channel',
 	async ({ apiState, apiBase }, body: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.send', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.send', {
 			convoId: apiState.createdConvoId,
 			body,
 		});
@@ -190,7 +190,7 @@ Given(
 Given(
 	'I send a reply {string} to the root message in the created channel',
 	async ({ apiState, apiBase }, body: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.send', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.send', {
 			convoId: apiState.createdConvoId,
 			body,
 			replyTo: apiState.rootMessageRkey || apiState.rootMessageId,
@@ -204,7 +204,7 @@ Given(
 );
 
 When('I get the thread for the root message', async ({ apiState, apiBase }) => {
-	const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.getThread', {
+	const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.getThread', {
 		convoId: apiState.createdConvoId,
 		rootRkey: apiState.rootMessageRkey,
 	});

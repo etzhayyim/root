@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
 // tier: B
 
 /**
- * ADR-0034 — typed projection table for `app.etzhayyim.apps.media_gamers.record.translationLink`.
+ * ADR-0034 — typed projection table for `com.etzhayyim.apps.media_gamers.record.translationLink`.
  *
  * Replaces value_json parsing in cmdListLinks with typed Kysely queries.
  * Graph worker handleCollection() routes the 6-segment NSID directly to

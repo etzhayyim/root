@@ -21,7 +21,7 @@
   "layer": "edge-dispatcher",
   "atStandard": false,
   "nsidPrefixes": [
-    "ai.gftd.apps.yata"
+    "com.etzhayyim.apps.yata"
   ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",

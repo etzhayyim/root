@@ -3,7 +3,7 @@
  * transparency-floor-and-gate lint — enforce ADR-2605310100 §4 + §5.
  *
  * Pre-commit gate for the Covenant Transparency Doctrine
- * (`app.etzhayyim.transparency.*`). The doctrine amends a constitutional
+ * (`com.etzhayyim.transparency.*`). The doctrine amends a constitutional
  * invariant (ADR-2605181100 confidentiality) and therefore MUST NOT
  * self-execute: nothing flips until Council Lv7+ unanimity (Charter §0.4)
  * is recorded on-chain (§5). This guard makes that gate — and the §4
@@ -12,7 +12,7 @@
  * Three precise checks (designed for ~zero false positives):
  *
  *   Check A — §5 ratification gate (schema anchor, runs always).
- *     Every `app.etzhayyim.transparency.*` Lexicon record MUST carry a
+ *     Every `com.etzhayyim.transparency.*` Lexicon record MUST carry a
  *     `ratificationStatus` property with `const: "proposed-unratified"`.
  *     The doctrine cannot be flipped to a ratified state at the schema
  *     layer; flipping requires a deliberate edit this guard will catch.
@@ -42,7 +42,7 @@ import { resolve, basename } from "node:path";
 const args = process.argv.slice(2);
 
 // ── Canonical lexicon anchors (Checks A + B, always) ─────────────────
-const LEX_DIR = "00-contracts/lexicons/app/etzhayyim/transparency";
+const LEX_DIR = "00-contracts/lexicons/com/etzhayyim/transparency";
 const INGRESS_LEX = `${LEX_DIR}/ingressDisclosureNotice.json`;
 const ACCESSLOG_LEX = `${LEX_DIR}/accessLogPublication.json`;
 const ATTEST_LEX = `${LEX_DIR}/covenantTransparencyAttestation.json`;

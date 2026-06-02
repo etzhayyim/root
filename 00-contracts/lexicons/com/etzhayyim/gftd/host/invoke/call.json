@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.invoke.call",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DID-addressed RPC call. Governance-gated. Empty did = host auto-discovers provider.",
+      "x-hostImportsMethod": "invoke",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string"
+            },
+            "params": {
+              "type": "string",
+              "description": "base64-encoded bytes"
+            }
+          },
+          "required": [
+            "did",
+            "method",
+            "params"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "result": {
+              "type": "string",
+              "description": "base64-encoded bytes"
+            }
+          },
+          "required": [
+            "result"
+          ]
+        }
+      }
+    }
+  }
+}

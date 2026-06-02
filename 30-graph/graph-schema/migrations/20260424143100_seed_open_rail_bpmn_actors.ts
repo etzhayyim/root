@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-rail.etzhayyim.com:ops";
 const actorTag = "sys.bpmn.seed.open-rail";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-define-line-v1",
     bpmnProcessId: "open_rail_define_line",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-rail/defineLine.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-rail/defineLine.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-rail-report-incident-v1",
     bpmnProcessId: "open_rail_report_incident",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-rail/reportIncident.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-rail/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1",
-    nsid: "app.etzhayyim.apps.openRail.defineLine", bpmnProcessId: "open_rail_define_line",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-defineLine-v1",
+    nsid: "com.etzhayyim.apps.openRail.defineLine", bpmnProcessId: "open_rail_define_line",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1",
-    nsid: "app.etzhayyim.apps.openRail.reportIncident", bpmnProcessId: "open_rail_report_incident",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-rail-reportIncident-v1",
+    nsid: "com.etzhayyim.apps.openRail.reportIncident", bpmnProcessId: "open_rail_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

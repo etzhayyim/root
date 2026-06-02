@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sarutahiko.powertrainAttestation",
+  "description": "Powertrain assembly attestation (L2). Engine + transmission + axle + brake. G7 fuel guard: R0/R1 B100 biodiesel + diesel hybrid acceptable; R2+ LFP / H₂ / NH₃ / methanol fuel-cell only. Per ADR-2605252500 L2.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "chassisId": {"type": "string"},
+          "powerTrainType": {
+            "type": "string",
+            "knownValues": [
+              "B100-biodiesel-hybrid",
+              "diesel-hybrid",
+              "LFP-battery",
+              "H2-fuel-cell",
+              "NH3-fuel-cell",
+              "methanol-fuel-cell"
+            ],
+            "description": "G7: pure-fossil and nuclear powertrain prohibited. B100 + diesel hybrid acceptable as R0/R1 transition only."
+          },
+          "fuelGuard": {
+            "type": "object",
+            "properties": {
+              "g7Enforcement": {"type": "string", "const": "active"},
+              "accept": {"type": "boolean"},
+              "pureFossilGuard": {"type": "string"}
+            },
+            "required": ["g7Enforcement", "accept"]
+          },
+          "engineLot": {"type": "unknown"},
+          "transmissionLot": {"type": "unknown"},
+          "axleLots": {"type": "array", "items": {"type": "unknown"}},
+          "brakeSystem": {"type": "unknown"},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["chassisId", "powerTrainType", "fuelGuard"]
+      }
+    }
+  }
+}

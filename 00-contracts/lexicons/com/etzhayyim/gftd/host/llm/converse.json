@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.llm.converse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Multi-turn structured LLM conversation. Routes to Murakumo or CF Workers AI per llm-model-registry. In-process capability (BindingTransport).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "messages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "role",
+                  "content"
+                ]
+              }
+            },
+            "model": {
+              "type": "string"
+            },
+            "useCase": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "messages"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "response"
+          ]
+        }
+      }
+    }
+  }
+}

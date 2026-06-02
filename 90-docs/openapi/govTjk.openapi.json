@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govTjk.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govTjk.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Tajikistan government.",
-        "operationId": "app.etzhayyim.govTjk.followSiteDeps",
+        "operationId": "com.etzhayyim.govTjk.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govTjk.heartbeatTick": {
       "post": {
         "summary": "Run the Tajikistan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govTjk.heartbeatTick",
+        "operationId": "com.etzhayyim.govTjk.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.listOrgs": {
+    "/xrpc/com.etzhayyim.govTjk.listOrgs": {
       "get": {
         "summary": "List Tajikistan government organization graph records.",
-        "operationId": "app.etzhayyim.govTjk.listOrgs",
+        "operationId": "com.etzhayyim.govTjk.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.registerDIDs": {
+    "/xrpc/com.etzhayyim.govTjk.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Tajikistan government organizations.",
-        "operationId": "app.etzhayyim.govTjk.registerDIDs",
+        "operationId": "com.etzhayyim.govTjk.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govTjk.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Tajikistan government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govTjk.resolveOrgPath",
+        "operationId": "com.etzhayyim.govTjk.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.seedOrgs": {
+    "/xrpc/com.etzhayyim.govTjk.seedOrgs": {
       "post": {
         "summary": "Seed initial Tajikistan government organization records into the graph.",
-        "operationId": "app.etzhayyim.govTjk.seedOrgs",
+        "operationId": "com.etzhayyim.govTjk.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.shinka": {
+    "/xrpc/com.etzhayyim.govTjk.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Tajikistan government organization update.",
-        "operationId": "app.etzhayyim.govTjk.shinka",
+        "operationId": "com.etzhayyim.govTjk.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTjk.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govTjk.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Tajikistan government organization changes to graph.",
-        "operationId": "app.etzhayyim.govTjk.syncWetUpdates",
+        "operationId": "com.etzhayyim.govTjk.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

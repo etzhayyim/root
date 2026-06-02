@@ -4,7 +4,7 @@ Per ADR-2605301020 (Basic High Income doctrine) §5/§8 + ADR-2605261000 (Labor
 Liberation ladder L0..L6, §4 Liberation Metric).
 
 Purpose: assemble the aggregate ``basicHighIncome`` block of the quarterly
-``app.etzhayyim.liberation.metricReport`` from the toritate per-adherent outputs
+``com.etzhayyim.liberation.metricReport`` from the toritate per-adherent outputs
 (``toritate_imputed_income_compute`` FLOW + ``toritate_commons_asset_value`` STOCK)
 — emitting only median/percentile figures, never per-adherent identity. Computes
 ``highIncomeBenchmarkRatioPermille`` against the OECD upper-income-decile basket
@@ -19,7 +19,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE):
     per-adherent identity (cf. ADR-2605260215 aggregation pattern).
   - Wellbecoming guard (ADR-2605301020 §6): a rise in imputed income that coincides
     with a Wellbecoming decline flags `holdStage` review, not celebration.
-Output Lexicon(s): app.etzhayyim.liberation.metricReport (basicHighIncome block).
+Output Lexicon(s): com.etzhayyim.liberation.metricReport (basicHighIncome block).
 Murakumo node: levi (liberation metric tribe, per ADR-2605301020 §8).
 
 R0 scaffold — import-time RuntimeError until R1.

@@ -37,7 +37,7 @@ Pregel graph (5 nodes):
                                         (TÜV / VCA / etc.) recorded
         |
         v
-    emit_emissions_audit           ->  MST PUT app.etzhayyim.suki.emissionsAuditRecord
+    emit_emissions_audit           ->  MST PUT com.etzhayyim.suki.emissionsAuditRecord
                                         (test ID, NOx + PM + CO + HC g/kWh
                                         measurements, cycle (NRSC + NRTC)
                                         results, jurisdiction certifications

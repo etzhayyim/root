@@ -42,46 +42,46 @@ interface BindingSeed {
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-createProposal-v1",
     ownerDid,
     bpmnProcessId: "webmk_create_proposal",
-    sourcePath: "00-contracts/bpmn/ai/gftd/webmk/createProposal.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/webmk/createProposal.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/webmk-deliverProposal-v1",
     ownerDid,
     bpmnProcessId: "webmk_deliver_proposal",
-    sourcePath: "00-contracts/bpmn/ai/gftd/webmk/deliverProposal.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/webmk/deliverProposal.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/newsletter-sendCampaign-v1",
     ownerDid,
     bpmnProcessId: "newsletter_send_campaign",
-    sourcePath: "00-contracts/bpmn/ai/gftd/newsletter/sendCampaign.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/newsletter/sendCampaign.bpmn",
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-createProposal-v1",
     ownerDid,
-    nsid: "app.etzhayyim.apps.webmk.createProposal",
+    nsid: "com.etzhayyim.apps.webmk.createProposal",
     bpmnProcessId: "webmk_create_proposal",
     resultTimeoutMs: 180_000,
     routingTarget: "langgraph",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/webmk-deliverProposal-v1",
     ownerDid,
-    nsid: "app.etzhayyim.apps.webmk.deliverProposal",
+    nsid: "com.etzhayyim.apps.webmk.deliverProposal",
     bpmnProcessId: "webmk_deliver_proposal",
     resultTimeoutMs: 60_000,
     routingTarget: "zeebe",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/newsletter-sendCampaign-v1",
     ownerDid,
-    nsid: "app.etzhayyim.apps.newsletter.sendCampaign",
+    nsid: "com.etzhayyim.apps.newsletter.sendCampaign",
     bpmnProcessId: "newsletter_send_campaign",
     resultTimeoutMs: 60_000,
     routingTarget: "zeebe",

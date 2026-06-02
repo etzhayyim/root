@@ -1,6 +1,6 @@
 """media-gamers `guide_generator` graph — on-demand game guide generation.
 
-NSID: app.etzhayyim.apps.media_gamers.generateGuide
+NSID: com.etzhayyim.apps.media_gamers.generateGuide
 
 Nodes:
   resolve   → look up game from SEED_GAMES by slug.
@@ -40,7 +40,7 @@ _LLM_MODEL = os.environ.get("LLM_MODEL", "qwen3.5-4b")
 _LLM_TIMEOUT = float(os.environ.get("LLM_TIMEOUT_SEC", "60"))
 _COMMIT_GUIDE_XRPC = os.environ.get(
     "COMMIT_GUIDE_XRPC_URL",
-    "https://media-gamers.etzhayyim.com/xrpc/app.etzhayyim.apps.media_gamers.guide.commitGuide",
+    "https://media-gamers.etzhayyim.com/xrpc/com.etzhayyim.apps.media_gamers.guide.commitGuide",
 )
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
 

@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-define-pipe-segment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-define-pipe-segment-v1',
                  'did:web:open-gas.etzhayyim.com:network',
                  'open_gas_define_pipe_segment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -129,12 +129,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4648,
-                 '00-contracts/bpmn/ai/gftd/open-gas/definePipeSegment.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-gas/definePipeSegment.bpmn',
                  '2026-04-24T14:30:00Z',
                  'did:web:open-gas.etzhayyim.com:network',
                  'did:web:open-gas.etzhayyim.com:network',
                  'sys.bpmn.seed.open-gas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-define-pipe-segment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-define-pipe-segment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -142,7 +142,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-report-leak-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-report-leak-v1',
                  'did:web:open-gas.etzhayyim.com:network',
                  'open_gas_report_leak',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -272,12 +272,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5290,
-                 '00-contracts/bpmn/ai/gftd/open-gas/reportLeak.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-gas/reportLeak.bpmn',
                  '2026-04-24T14:30:00Z',
                  'did:web:open-gas.etzhayyim.com:network',
                  'did:web:open-gas.etzhayyim.com:network',
                  'sys.bpmn.seed.open-gas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-report-leak-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-report-leak-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -285,16 +285,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-definePipeSegment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-definePipeSegment-v1',
                  'did:web:open-gas.etzhayyim.com:network',
-                 'app.etzhayyim.apps.openGas.definePipeSegment',
+                 'com.etzhayyim.apps.openGas.definePipeSegment',
                  'open_gas_define_pipe_segment',
                  15000,
                  '2026-04-24T14:30:00Z',
                  'did:web:open-gas.etzhayyim.com:network',
                  'did:web:open-gas.etzhayyim.com:network',
                  'sys.bpmn.seed.open-gas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-definePipeSegment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-definePipeSegment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -302,25 +302,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-reportLeak-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-reportLeak-v1',
                  'did:web:open-gas.etzhayyim.com:network',
-                 'app.etzhayyim.apps.openGas.reportLeak',
+                 'com.etzhayyim.apps.openGas.reportLeak',
                  'open_gas_report_leak',
                  30000,
                  '2026-04-24T14:30:00Z',
                  'did:web:open-gas.etzhayyim.com:network',
                  'did:web:open-gas.etzhayyim.com:network',
                  'sys.bpmn.seed.open-gas',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-reportLeak-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-reportLeak-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-definePipeSegment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-definePipeSegment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gas-reportLeak-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gas-reportLeak-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-define-pipe-segment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-define-pipe-segment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gas-report-leak-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gas-report-leak-v1']}]
 
 
 def upgrade() -> None:

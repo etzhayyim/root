@@ -17,7 +17,7 @@
     "APP_CAPABILITIES": "[\"repository-object-store\",\"repository-ref-dispatch\",\"repository-history-query\",\"commit-es256-verify\",\"faas-build-dispatch\"]",
     "APP_DEPLOY_AT": "2026-05-07T02:39:04Z",
     "APP_DEPLOY_SHA": "da3a5f5ff71",
-    "APP_DESCRIPTION": "ADR-0039 git object model over Actor DID. Content-addressed blob/tree/commit storage + ref dispatch + commit ES256 signature verify. FaaS build trigger for Cloudflare Workers for Platforms. 12 XRPC methods + 1 firehose record type (app.etzhayyim.repository.*).",
+    "APP_DESCRIPTION": "ADR-0039 git object model over Actor DID. Content-addressed blob/tree/commit storage + ref dispatch + commit ES256 signature verify. FaaS build trigger for Cloudflare Workers for Platforms. 12 XRPC methods + 1 firehose record type (com.etzhayyim.repository.*).",
     "APP_DISPLAY_NAME": "Repository — Git Object Graph + FaaS Dispatch",
     "APP_EMBED_URL": "https://r3p0s1t0.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
@@ -28,7 +28,7 @@
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
     "INTERFACES_REQUIRES": "[\"gftd:collection/collection@1.0.0\"]",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

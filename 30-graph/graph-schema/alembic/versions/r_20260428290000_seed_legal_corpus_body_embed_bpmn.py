@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetchAndEmbed-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetchAndEmbed-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_fetch_and_embed',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -101,12 +101,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3562,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/fetchAndEmbed.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchAndEmbed.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus-embed',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetchAndEmbed-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetchAndEmbed-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -114,7 +114,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-backfillBodyText-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-backfillBodyText-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_backfill_body_text',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -168,17 +168,17 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2417,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/backfillBodyText.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/backfillBodyText.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus-embed',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-backfillBodyText-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-backfillBodyText-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetchAndEmbed-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetchAndEmbed-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-backfillBodyText-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-backfillBodyText-v1']}]
 
 
 def upgrade() -> None:

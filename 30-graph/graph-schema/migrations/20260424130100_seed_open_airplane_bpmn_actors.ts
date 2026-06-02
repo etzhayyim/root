@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-airplane.etzhayyim.com:ops";
 const actorTag = "sys.bpmn.seed.open-airplane";
 
 const processSeeds: ProcessSeed[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-schedule-flight-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-schedule-flight-v1",
     bpmnProcessId: "open_airplane_schedule_flight",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-airplane/scheduleFlight.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-airplane-report-incident-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-airplane/scheduleFlight.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-airplane-report-incident-v1",
     bpmnProcessId: "open_airplane_report_incident",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-airplane/reportIncident.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-airplane/reportIncident.bpmn", ownerDid },
 ];
 
 const bindingSeeds: BindingSeed[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-scheduleFlight-v1",
-    nsid: "app.etzhayyim.apps.openAirplane.scheduleFlight", bpmnProcessId: "open_airplane_schedule_flight",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-scheduleFlight-v1",
+    nsid: "com.etzhayyim.apps.openAirplane.scheduleFlight", bpmnProcessId: "open_airplane_schedule_flight",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-airplane-reportIncident-v1",
-    nsid: "app.etzhayyim.apps.openAirplane.reportIncident", bpmnProcessId: "open_airplane_report_incident",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-airplane-reportIncident-v1",
+    nsid: "com.etzhayyim.apps.openAirplane.reportIncident", bpmnProcessId: "open_airplane_report_incident",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

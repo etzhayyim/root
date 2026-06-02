@@ -8,7 +8,7 @@
  */
 
 const DEFAULT_DATABASE_URL = process.env.DATABASE_URL ?? process.env.RW_URL ?? process.env.RW_CONN;
-const NSID = "app.etzhayyim.apps.yoro.actorQualityEnrich";
+const NSID = "com.etzhayyim.apps.yoro.actorQualityEnrich";
 
 function parseArgs(argv) {
   const out = {

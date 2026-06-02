@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gov.registerAgency",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a government agency. Path-based DID: did:web:gov.etzhayyim.com:{iso3}:{cofog}:{slug}. Sources: CIA + national government directories + UN COFOG.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["name", "jurisdiction", "branch"],
+          "properties": {
+            "name": { "type": "string" },
+            "nameLocal": { "type": "string" },
+            "abbreviation": { "type": "string" },
+            "jurisdiction": { "type": "string", "description": "ISO 3166-1 alpha-3" },
+            "branch": { "type": "string", "enum": ["executive", "legislative", "judicial", "independent", "central-bank", "supreme-audit"] },
+            "level": { "type": "string", "enum": ["national", "subnational", "municipal", "regional", "supranational"] },
+            "cofog": { "type": "string", "description": "UN COFOG function code (01-10)" },
+            "parentAgencyDid": { "type": "string", "format": "did" },
+            "establishedAt": { "type": "string", "format": "date" },
+            "legalBasis": { "type": "string", "description": "設置法 / enabling statute" },
+            "websiteUri": { "type": "string", "format": "uri" },
+            "headquartersAddress": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "uri"],
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "uri": { "type": "string", "format": "at-uri" }
+          }
+        }
+      }
+    }
+  }
+}

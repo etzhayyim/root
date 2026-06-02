@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.web4.expert",
-        "ai.gftd.apps.web4.inferenceJob"
+        "com.etzhayyim.apps.web4.expert",
+        "com.etzhayyim.apps.web4.inferenceJob"
       ]
     }
   }

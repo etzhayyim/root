@@ -6,14 +6,14 @@
   },
   "servers": [
     {
-      "url": "https://app.etzhayyim.com"
+      "url": "https://com.etzhayyim.com"
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.apps.kyber.initApqcProjector": {
+    "/xrpc/com.etzhayyim.apps.kyber.initApqcProjector": {
       "post": {
         "summary": "Cross-project bootstrap: kyber ERP follows kyber-projector and writes an apqcBootstrap record. Projector's onCommit sees the follow + record and auto-registers the 13 APQC L1 DIDs plus the 3 APQC LangServer BPMN bindings (idempotent).",
-        "operationId": "app.etzhayyim.apps.kyber.initApqcProjector",
+        "operationId": "com.etzhayyim.apps.kyber.initApqcProjector",
         "requestBody": {
           "required": true,
           "content": {
@@ -77,10 +77,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.assignSkill": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.assignSkill": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.assignSkill",
+        "operationId": "com.etzhayyim.app.kyber.hr.assignSkill",
         "requestBody": {
           "required": true,
           "content": {
@@ -152,10 +152,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.completeTraining": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.completeTraining": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.completeTraining",
+        "operationId": "com.etzhayyim.app.kyber.hr.completeTraining",
         "requestBody": {
           "required": true,
           "content": {
@@ -220,10 +220,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.coverageStats": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.coverageStats": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.coverageStats",
+        "operationId": "com.etzhayyim.app.kyber.hr.coverageStats",
         "requestBody": {
           "required": true,
           "content": {
@@ -271,10 +271,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.createEvaluation": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.createEvaluation": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.createEvaluation",
+        "operationId": "com.etzhayyim.app.kyber.hr.createEvaluation",
         "requestBody": {
           "required": true,
           "content": {
@@ -362,10 +362,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.createPosition": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.createPosition": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.createPosition",
+        "operationId": "com.etzhayyim.app.kyber.hr.createPosition",
         "requestBody": {
           "required": true,
           "content": {
@@ -446,10 +446,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.describe": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.describe": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.describe",
+        "operationId": "com.etzhayyim.app.kyber.hr.describe",
         "parameters": [],
         "responses": {
           "200": {
@@ -491,10 +491,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.enrollTraining": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.enrollTraining": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.enrollTraining",
+        "operationId": "com.etzhayyim.app.kyber.hr.enrollTraining",
         "requestBody": {
           "required": true,
           "content": {
@@ -572,10 +572,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.health": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.health": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.health",
+        "operationId": "com.etzhayyim.app.kyber.hr.health",
         "requestBody": {
           "required": true,
           "content": {
@@ -620,10 +620,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.listEmployees": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.listEmployees": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.listEmployees",
+        "operationId": "com.etzhayyim.app.kyber.hr.listEmployees",
         "parameters": [
           {
             "name": "department",
@@ -692,10 +692,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.listEvaluations": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.listEvaluations": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.listEvaluations",
+        "operationId": "com.etzhayyim.app.kyber.hr.listEvaluations",
         "parameters": [
           {
             "name": "employeeId",
@@ -750,10 +750,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.listPositions": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.listPositions": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.listPositions",
+        "operationId": "com.etzhayyim.app.kyber.hr.listPositions",
         "parameters": [
           {
             "name": "department",
@@ -808,10 +808,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.registerEmployee": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.registerEmployee": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.registerEmployee",
+        "operationId": "com.etzhayyim.app.kyber.hr.registerEmployee",
         "requestBody": {
           "required": true,
           "content": {
@@ -902,10 +902,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.registerSkill": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.registerSkill": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.registerSkill",
+        "operationId": "com.etzhayyim.app.kyber.hr.registerSkill",
         "requestBody": {
           "required": true,
           "content": {
@@ -970,10 +970,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.skillGapAnalysis": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.skillGapAnalysis": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.skillGapAnalysis",
+        "operationId": "com.etzhayyim.app.kyber.hr.skillGapAnalysis",
         "requestBody": {
           "required": true,
           "content": {
@@ -1042,10 +1042,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.app.kyber.hr.updateEmployeeStatus": {
+    "/xrpc/com.etzhayyim.app.kyber.hr.updateEmployeeStatus": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.app.kyber.hr.updateEmployeeStatus",
+        "operationId": "com.etzhayyim.app.kyber.hr.updateEmployeeStatus",
         "requestBody": {
           "required": true,
           "content": {

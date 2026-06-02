@@ -4,7 +4,7 @@
 
   Loads kami-app-maps3d (WebGPU), anchors the world at Tokyo Station,
   fetches buildings for the player's current XZ via
-  ai.gftd.apps.maps.getChunk, and pushes AABB extrudes to the WASM.
+  com.etzhayyim.apps.maps.getChunk, and pushes AABB extrudes to the WASM.
 
   Build:
     cd 40-engine/kami-engine
@@ -140,7 +140,7 @@ function worldToLngLat(x, z) {
 
 // ── XRPC client (maps-ui = same origin, AT-native) ──
 async function getChunk(params) {
-  const url = new URL('/xrpc/ai.gftd.apps.maps.getChunk', location.origin);
+  const url = new URL('/xrpc/com.etzhayyim.apps.maps.getChunk', location.origin);
   url.searchParams.set('h3Cells', JSON.stringify(params.h3Cells));
   url.searchParams.set('lod', String(params.lod));
   url.searchParams.set('labels', JSON.stringify(params.labels));
@@ -265,11 +265,11 @@ async function fetchAndPushMeshTiles() {
     const ll = worldToLngLat(h.x, h.z);
     const centre = latLngToCell(ll.lat, ll.lng, 12);
     const cells = gridDisk(centre, 4); // tighter ring for mesh — heavier per tile
-    // Phase 2 endpoint: ai.gftd.apps.maps3d.listProcessedTiles. The
+    // Phase 2 endpoint: com.etzhayyim.apps.maps3d.listProcessedTiles. The
     // BPMN-as-actor publishes mesh_uri into vertex_maps3d_tile, this
     // XRPC reads it back. If unavailable (pipeline not yet running),
     // we silently skip and try again next tick.
-    const url = new URL('/xrpc/ai.gftd.apps.maps3d.listProcessedTiles', location.origin);
+    const url = new URL('/xrpc/com.etzhayyim.apps.maps3d.listProcessedTiles', location.origin);
     url.searchParams.set('h3Cells', JSON.stringify(cells));
     const res = await fetch(url.toString(), { credentials: 'same-origin' });
     if (!res.ok) return; // 404 is expected before backend ships
@@ -407,7 +407,7 @@ async function fetchAndPushGsplatTiles() {
       const splatCached = gsplatTileCache.has(tileH3);
       const meshCached = gsplatMeshTileCache.has(tileH3);
       if (splatCached && meshCached) return;
-      const url = new URL('/xrpc/ai.gftd.apps.maps.getGsplatAsset', location.origin);
+      const url = new URL('/xrpc/com.etzhayyim.apps.maps.getGsplatAsset', location.origin);
       url.searchParams.set('tileH3', tileH3);
       const res = await fetch(url.toString(), { credentials: 'same-origin' });
       if (!res.ok) {
@@ -548,7 +548,7 @@ async function pollJobStatus(jobId, label, tileH3) {
     let info = null;
     try {
       const res = await fetch(
-        '/xrpc/ai.gftd.apps.maps.getGsplatJobStatus?jobId=' + encodeURIComponent(jobId),
+        '/xrpc/com.etzhayyim.apps.maps.getGsplatJobStatus?jobId=' + encodeURIComponent(jobId),
         { credentials: 'same-origin' },
       );
       if (res.ok) info = await res.json().catch(() => null);
@@ -589,7 +589,7 @@ trainBtn?.addEventListener('click', async () => {
   const oldLabel = trainBtn.textContent;
   trainBtn.textContent = 'queueing…';
   try {
-    const res = await fetch('/xrpc/ai.gftd.apps.maps.trainGsplatFromMapillary', {
+    const res = await fetch('/xrpc/com.etzhayyim.apps.maps.trainGsplatFromMapillary', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       credentials: 'same-origin',
@@ -634,7 +634,7 @@ function jobKindIcon(k) { return k === 'bake' ? '🔨' : '📷'; }
 const jobsCost = document.getElementById('jobs-hud-cost');
 async function refreshJobsCost() {
   try {
-    const res = await fetch('/xrpc/ai.gftd.apps.maps.getGsplatCostSummary', {
+    const res = await fetch('/xrpc/com.etzhayyim.apps.maps.getGsplatCostSummary', {
       credentials: 'same-origin',
     });
     if (!res.ok) return;
@@ -650,7 +650,7 @@ async function refreshJobsCost() {
 async function refreshJobsHud() {
   refreshJobsCost();  // fire-and-forget, runs in parallel
   try {
-    const res = await fetch('/xrpc/ai.gftd.apps.maps.listGsplatJobs?limit=10', {
+    const res = await fetch('/xrpc/com.etzhayyim.apps.maps.listGsplatJobs?limit=10', {
       credentials: 'same-origin',
     });
     if (!res.ok) return;
@@ -702,7 +702,7 @@ bakeBtn?.addEventListener('click', async () => {
   const oldLabel = bakeBtn.textContent;
   bakeBtn.textContent = 'queueing…';
   try {
-    const res = await fetch('/xrpc/ai.gftd.apps.maps.bakeGsplatAsset', {
+    const res = await fetch('/xrpc/com.etzhayyim.apps.maps.bakeGsplatAsset', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       credentials: 'same-origin',

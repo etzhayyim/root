@@ -516,7 +516,7 @@ def _fetch_ocel_from_pds(token: str, pds_url: str, limit: int) -> dict:
     base = pds_url.rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "User-Agent": "gftd-py/1.0"}
     for endpoint in [f"{base}/_pds/ocel?limit={limit}",
-                     f"{base}/xrpc/app.etzhayyim.pds.getOcel?limit={limit}"]:
+                     f"{base}/xrpc/com.etzhayyim.pds.getOcel?limit={limit}"]:
         try:
             resp = httpx.get(endpoint, headers=headers, timeout=30)
             if resp.status_code == 404:
@@ -690,7 +690,7 @@ def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     click.echo("==> murakumo scoreDataQuality", err=True)
     try:
         resp = httpx.post(
-            f"{base}/xrpc/app.etzhayyim.murakumo.scoreDataQuality",
+            f"{base}/xrpc/com.etzhayyim.murakumo.scoreDataQuality",
             json={"minRows": 50, "sampleRows": 64, "maxLabels": 0},
             headers=headers, timeout=60,
         )
@@ -706,7 +706,7 @@ def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     click.echo("==> murakumo optimizeCycle", err=True)
     try:
         resp2 = httpx.post(
-            f"{base}/xrpc/app.etzhayyim.murakumo.optimizeCycle",
+            f"{base}/xrpc/com.etzhayyim.murakumo.optimizeCycle",
             json=opt_payload, headers=headers, timeout=60,
         )
         click.echo(resp2.text)

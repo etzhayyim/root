@@ -77,7 +77,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = EmissionsPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.sarutahiko.emissionsAuditRecord",
+        "$type": "com.etzhayyim.sarutahiko.emissionsAuditRecord",
         "chassisId": s.chassisId,
         "euro7Findings": s.euro7Findings,
         "japanPostNLTFindings": s.japanPostNLTFindings,

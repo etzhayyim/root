@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-withdraw-paper-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-withdraw-paper-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_withdraw_paper',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -43,7 +43,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_withdrawPaper"/>\n'
                  '    <bpmn:serviceTask id="Task_withdrawPaper" name="withdrawPaper">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.withdrawPaper" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.withdrawPaper" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -56,13 +56,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1125,
-                 '00-contracts/bpmn/ai/gftd/kiyo/withdrawPaper.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/withdrawPaper.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-withdraw-paper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-withdraw-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -77,9 +77,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-withdraw-paper-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-withdraw-paper-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.withdrawPaper',
+                 'com.etzhayyim.apps.kiyo.withdrawPaper',
                  'kiyo_withdraw_paper',
                  30000,
                  'vertex_kiyo_paper,vertex_kiyo_review,edge_kiyo_endorses',
@@ -88,7 +88,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-withdraw-paper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-withdraw-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-add-review-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-add-review-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_add_review',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -119,7 +119,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_addReview"/>\n'
                  '    <bpmn:serviceTask id="Task_addReview" name="addReview">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.addReview" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.addReview" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -132,13 +132,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1093,
-                 '00-contracts/bpmn/ai/gftd/kiyo/addReview.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/addReview.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-add-review-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-add-review-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -153,9 +153,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-add-review-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-add-review-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.addReview',
+                 'com.etzhayyim.apps.kiyo.addReview',
                  'kiyo_add_review',
                  30000,
                  'vertex_kiyo_paper,vertex_kiyo_review,edge_kiyo_endorses',
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-add-review-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-add-review-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -180,7 +180,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-endorse-paper-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-endorse-paper-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_endorse_paper',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -196,7 +196,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_endorsePaper"/>\n'
                  '    <bpmn:serviceTask id="Task_endorsePaper" name="endorsePaper">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.endorsePaper" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.endorsePaper" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -209,13 +209,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1117,
-                 '00-contracts/bpmn/ai/gftd/kiyo/endorsePaper.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/endorsePaper.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-endorse-paper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-endorse-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -230,9 +230,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-endorse-paper-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-endorse-paper-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.endorsePaper',
+                 'com.etzhayyim.apps.kiyo.endorsePaper',
                  'kiyo_endorse_paper',
                  30000,
                  'vertex_kiyo_paper,vertex_kiyo_review,edge_kiyo_endorses',
@@ -241,7 +241,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-endorse-paper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-endorse-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -257,7 +257,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_get_paper',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -272,7 +272,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getPaper"/>\n'
                  '    <bpmn:serviceTask id="Task_getPaper" name="getPaper">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.getPaper" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.getPaper" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -285,13 +285,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1085,
-                 '00-contracts/bpmn/ai/gftd/kiyo/getPaper.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/getPaper.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -306,9 +306,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-paper-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-paper-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.getPaper',
+                 'com.etzhayyim.apps.kiyo.getPaper',
                  'kiyo_get_paper',
                  30000,
                  '',
@@ -317,7 +317,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-paper-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-paper-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -333,7 +333,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-list-papers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-list-papers-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_list_papers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -348,7 +348,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listPapers"/>\n'
                  '    <bpmn:serviceTask id="Task_listPapers" name="listPapers">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.listPapers" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.listPapers" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -361,13 +361,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1101,
-                 '00-contracts/bpmn/ai/gftd/kiyo/listPapers.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/listPapers.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-list-papers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-list-papers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -382,9 +382,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-list-papers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-list-papers-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.listPapers',
+                 'com.etzhayyim.apps.kiyo.listPapers',
                  'kiyo_list_papers',
                  30000,
                  '',
@@ -393,7 +393,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-list-papers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-list-papers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -409,7 +409,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-search-papers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-search-papers-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_search_papers',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -425,7 +425,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_searchPapers"/>\n'
                  '    <bpmn:serviceTask id="Task_searchPapers" name="searchPapers">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.searchPapers" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.searchPapers" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -438,13 +438,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1117,
-                 '00-contracts/bpmn/ai/gftd/kiyo/searchPapers.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/searchPapers.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-search-papers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-search-papers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -459,9 +459,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-search-papers-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-search-papers-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.searchPapers',
+                 'com.etzhayyim.apps.kiyo.searchPapers',
                  'kiyo_search_papers',
                  30000,
                  '',
@@ -470,7 +470,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-search-papers-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-search-papers-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -486,7 +486,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-file-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-file-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_get_paper_file',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -502,7 +502,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getPaperFile"/>\n'
                  '    <bpmn:serviceTask id="Task_getPaperFile" name="getPaperFile">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.getPaperFile" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.getPaperFile" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -515,13 +515,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1119,
-                 '00-contracts/bpmn/ai/gftd/kiyo/getPaperFile.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/getPaperFile.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-file-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-file-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -536,9 +536,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-paper-file-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-paper-file-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.getPaperFile',
+                 'com.etzhayyim.apps.kiyo.getPaperFile',
                  'kiyo_get_paper_file',
                  30000,
                  '',
@@ -547,7 +547,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-paper-file-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-paper-file-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -563,7 +563,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-list-by-author-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-list-by-author-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_list_by_author',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -579,7 +579,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listByAuthor"/>\n'
                  '    <bpmn:serviceTask id="Task_listByAuthor" name="listByAuthor">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.listByAuthor" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.listByAuthor" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -592,13 +592,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1119,
-                 '00-contracts/bpmn/ai/gftd/kiyo/listByAuthor.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/listByAuthor.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-list-by-author-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-list-by-author-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -613,9 +613,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-list-by-author-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-list-by-author-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.listByAuthor',
+                 'com.etzhayyim.apps.kiyo.listByAuthor',
                  'kiyo_list_by_author',
                  30000,
                  '',
@@ -624,7 +624,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-list-by-author-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-list-by-author-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -640,7 +640,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-citation-graph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-citation-graph-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_get_citation_graph',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -657,7 +657,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getCitationGraph"/>\n'
                  '    <bpmn:serviceTask id="Task_getCitationGraph" name="getCitationGraph">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.getCitationGraph" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.getCitationGraph" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -670,13 +670,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1151,
-                 '00-contracts/bpmn/ai/gftd/kiyo/getCitationGraph.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/getCitationGraph.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-citation-graph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-citation-graph-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -691,9 +691,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-citation-graph-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-citation-graph-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.getCitationGraph',
+                 'com.etzhayyim.apps.kiyo.getCitationGraph',
                  'kiyo_get_citation_graph',
                  30000,
                  '',
@@ -702,7 +702,7 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-citation-graph-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-citation-graph-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -718,7 +718,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-stats-v1',
                  'did:web:kiyo.etzhayyim.com',
                  'kiyo_get_stats',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -733,7 +733,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getStats"/>\n'
                  '    <bpmn:serviceTask id="Task_getStats" name="getStats">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.kiyo.getStats" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.kiyo.getStats" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -746,13 +746,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1085,
-                 '00-contracts/bpmn/ai/gftd/kiyo/getStats.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kiyo/getStats.bpmn',
                  '2026-05-06T23:50:00Z',
                  'did:web:kiyo.etzhayyim.com',
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-stats-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-stats-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -767,9 +767,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-stats-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-stats-v1',
                  'did:web:kiyo.etzhayyim.com',
-                 'app.etzhayyim.apps.kiyo.getStats',
+                 'com.etzhayyim.apps.kiyo.getStats',
                  'kiyo_get_stats',
                  30000,
                  '',
@@ -778,48 +778,48 @@ UP = [{'sql': '\n'
                  'did:web:kiyo.etzhayyim.com',
                  'sys.bpmn.seed.kiyo-appview',
                  'did:web:kiyo.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-stats-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-stats-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-withdraw-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-withdraw-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-withdraw-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-withdraw-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-add-review-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-add-review-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-add-review-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-add-review-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-endorse-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-endorse-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-endorse-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-endorse-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-list-papers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-list-papers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-list-papers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-list-papers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-search-papers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-search-papers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-search-papers-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-search-papers-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-paper-file-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-paper-file-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-file-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-paper-file-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-list-by-author-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-list-by-author-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-list-by-author-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-list-by-author-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-citation-graph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-citation-graph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-citation-graph-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-citation-graph-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kiyo-get-stats-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kiyo-get-stats-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kiyo-get-stats-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-get-stats-v1']}]
 
 
 def upgrade() -> None:

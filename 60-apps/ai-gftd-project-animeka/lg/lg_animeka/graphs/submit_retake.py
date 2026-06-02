@@ -1,6 +1,6 @@
 """animeka `submitRetake` graph — file a retake against a cut layer.
 
-NSID: app.etzhayyim.animeka.submitRetake
+NSID: com.etzhayyim.animeka.submitRetake
 Inserts an animeka.retake record and marks the parent cut stage as 'retake'.
 """
 from __future__ import annotations
@@ -67,7 +67,7 @@ async def _node_insert(state: _SubmitRetakeState) -> dict[str, Any]:
         return {"error": "targetUri, stage and comment are required"}
 
     owner_did = _DEFAULT_APP_DID
-    collection = "app.etzhayyim.animeka.retake"
+    collection = "com.etzhayyim.animeka.retake"
     rkey = _gen_rkey("rt")
     vertex_id = f"at://{owner_did}/{collection}/{rkey}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
@@ -86,11 +86,11 @@ async def _node_insert(state: _SubmitRetakeState) -> dict[str, Any]:
             # Resolve cut vertex_id
             await cur.execute(
                 """SELECT vertex_id, stage_status FROM vertex_animeka
-                   WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1""",
+                   WHERE collection='com.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1""",
                 [cut_rkey],
             )
             cut_row = await cur.fetchone()
-            cut_vertex_id = cut_row[0] if cut_row else f"at://{owner_did}/app.etzhayyim.animeka.cut/{cut_rkey}"
+            cut_vertex_id = cut_row[0] if cut_row else f"at://{owner_did}/com.etzhayyim.animeka.cut/{cut_rkey}"
 
             # Insert retake record
             await cur.execute(

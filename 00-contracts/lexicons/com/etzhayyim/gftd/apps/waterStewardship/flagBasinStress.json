@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.waterStewardship.flagBasinStress",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Basin stress / withdrawal exceedance / community water conflict (bridges sbtnTarget.flagMiss + water-scarcity + fpic-consent)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "planVid",
+            "stressKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "planVid": {
+              "type": "string",
+              "description": "bridges recordStewardshipPlan"
+            },
+            "stressKind": {
+              "type": "string",
+              "enum": [
+                "withdrawal_exceed",
+                "groundwater_drawdown",
+                "community_conflict",
+                "indigenous_dispute",
+                "aquifer_contamination",
+                "salinization",
+                "ecosystem_collapse",
+                "dam_release_abuse",
+                "flow_regulation_bypass",
+                "prior_informed_consent"
+              ]
+            },
+            "affectedPersons": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

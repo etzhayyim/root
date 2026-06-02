@@ -18,7 +18,7 @@ const TALENT_DID = "did:web:talent.etzhayyim.com";
 const SOURCE = "eurostat";
 const LICENSE = "CC-BY-4.0";
 const HOMEPAGE = "https://ec.europa.eu/eurostat/";
-const COLLECTION = "app.etzhayyim.apps.talent.talentCohort";
+const COLLECTION = "com.etzhayyim.apps.talent.talentCohort";
 
 const args = process.argv.slice(2);
 const getArg = (k, d) => { const i = args.indexOf(`--${k}`); return i === -1 ? d : args[i + 1] ?? d; };

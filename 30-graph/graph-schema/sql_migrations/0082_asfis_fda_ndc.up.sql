@@ -11,7 +11,7 @@ CREATE VIEW IF NOT EXISTS view_asfis_species AS
       (value_json::jsonb->>'in_fishstat')::boolean AS in_fishstat,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.asfis.species';
+    WHERE collection = 'com.etzhayyim.apps.asfis.species';
 
 CREATE VIEW IF NOT EXISTS view_fda_ndc AS
     SELECT
@@ -27,7 +27,7 @@ CREATE VIEW IF NOT EXISTS view_fda_ndc AS
       value_json::jsonb->>'app_num'       AS application_number,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.fda.ndc';
+    WHERE collection = 'com.etzhayyim.apps.fda.ndc';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('asfis', 'asfis.etzhayyim.com', 13708, 'aquatic species', 'food');

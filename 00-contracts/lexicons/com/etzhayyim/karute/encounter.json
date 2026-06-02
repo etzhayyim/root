@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.encounter",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 Encounter resource (inner type of com.etzhayyim.encrypted.record). Represents a single visit/admission/home-care episode.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "status", "encounterClass", "occurredAt"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "Encounter"},
+          "patientDid": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["planned", "in-progress", "on-hold", "discharged", "completed", "cancelled", "discontinued", "entered-in-error", "unknown"]
+          },
+          "encounterClass": {
+            "type": "string",
+            "enum": ["ambulatory", "emergency", "field", "home", "inpatient", "observation", "preadmission", "shortStay", "virtual"],
+            "description": "FHIR encounter-class code"
+          },
+          "encounterType": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "SNOMED CT codes for visit purpose (e.g. 11429006 Consultation)"
+          },
+          "priority": {"type": "string", "enum": ["routine", "urgent", "asap", "stat"]},
+          "subjectChiefComplaint": {"type": "string", "description": "主訴 — PHI, free text"},
+          "occurredAt": {"type": "string", "format": "datetime", "description": "Start of encounter"},
+          "endedAt": {"type": "string", "format": "datetime"},
+          "lengthMinutes": {"type": "integer"},
+          "facilityDid": {"type": "string", "description": "did:web of practice/hospital"},
+          "department": {"type": "string", "description": "診療科 — e.g. 内科, 整形外科"},
+          "attendingDids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "DIDs of attending clinicians (MD/NP/RN)"
+          },
+          "reasonReferenceConditionRefs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "AT URIs of related Condition records (within encrypted scope)"
+          },
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

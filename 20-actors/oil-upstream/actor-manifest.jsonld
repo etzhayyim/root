@@ -117,7 +117,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.oilMidstream.flow"
+          "com.etzhayyim.apps.oilMidstream.flow"
         ],
         "type": "subscribeRepos"
       }
@@ -133,7 +133,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilUpstream.registry.getField",
+        "nsid": "com.etzhayyim.apps.oilUpstream.registry.getField",
         "type": "xrpc"
       }
     },
@@ -148,7 +148,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilUpstream.registry.listFields",
+        "nsid": "com.etzhayyim.apps.oilUpstream.registry.listFields",
         "type": "xrpc"
       }
     },
@@ -163,7 +163,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilUpstream.registry.listBasins",
+        "nsid": "com.etzhayyim.apps.oilUpstream.registry.listBasins",
         "type": "xrpc"
       }
     },
@@ -178,7 +178,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilUpstream.analytics.getProductionPressure",
+        "nsid": "com.etzhayyim.apps.oilUpstream.analytics.getProductionPressure",
         "type": "xrpc"
       }
     },
@@ -193,7 +193,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilUpstream.health",
+        "nsid": "com.etzhayyim.apps.oilUpstream.health",
         "type": "xrpc"
       }
     },
@@ -219,7 +219,7 @@
             "params": {
               "actorName": "oil-upstream",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.oilUpstream.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.oilUpstream.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "01lupstr",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -254,8 +254,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -268,11 +268,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.oilUpstream.basin",
-        "ai.gftd.apps.oilUpstream.field",
-        "ai.gftd.apps.oilUpstream.production",
-        "ai.gftd.apps.oilMidstream.flow",
-        "ai.gftd.apps.oilRefining.refinery"
+        "com.etzhayyim.apps.oilUpstream.basin",
+        "com.etzhayyim.apps.oilUpstream.field",
+        "com.etzhayyim.apps.oilUpstream.production",
+        "com.etzhayyim.apps.oilMidstream.flow",
+        "com.etzhayyim.apps.oilRefining.refinery"
       ]
     }
   },

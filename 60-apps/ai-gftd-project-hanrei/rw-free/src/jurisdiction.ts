@@ -33,7 +33,7 @@ import {
   type RegisterJurisdictionOutput,
 } from "./types.js";
 
-const JURISDICTION_COLLECTION = "app.etzhayyim.hanrei.jurisdiction";
+const JURISDICTION_COLLECTION = "com.etzhayyim.hanrei.jurisdiction";
 
 /**
  * Register a jurisdiction. Uses rkey = "jurisdiction-{iso3}" so re-

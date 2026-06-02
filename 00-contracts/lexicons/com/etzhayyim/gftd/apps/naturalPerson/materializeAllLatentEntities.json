@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.naturalPerson.materializeAllLatentEntities",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Continuously materialize individual natural-person latent vertices from cohort estimated counts using a resumable cursor.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "emitAudit": {
+              "type": "boolean",
+              "description": "When true, emit an OCEL audit event for the materialization run."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "plannedIndividuals": { "type": "integer" },
+            "insertedIndividuals": { "type": "integer" },
+            "totalIndividualLatentEntities": { "type": "integer" },
+            "remainingIndividuals": { "type": "integer" }
+          },
+          "required": ["totalIndividualLatentEntities", "remainingIndividuals"]
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1',
                  'did:web:yadoya.etzhayyim.com',
                  'yadoya_confirm_reservation',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -132,7 +132,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_yadoya_flow_event&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:yadoya.etzhayyim.com/app.etzhayyim.apps.yadoya.flowEvent/&quot; + '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.yadoya.flowEvent/&quot; + '
                  'reservationId, sensitivity_ord: 1, owner_did: '
                  '&quot;did:web:yadoya.etzhayyim.com&quot;, flow_event_id: reservationId, source_did: '
                  '&quot;did:web:yadoya.etzhayyim.com&quot;, counterparty_did: if reservation.chain_did '
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_resource_flow_currency&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:yadoya.etzhayyim.com/app.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow/&quot; '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow/&quot; '
                  '+ reservationId, sensitivity_ord: 1, owner_did: '
                  '&quot;did:web:yadoya.etzhayyim.com&quot;, source_did: '
                  '&quot;did:web:yadoya.etzhayyim.com&quot;, counterparty_did: if reservation.chain_did '
@@ -174,7 +174,7 @@ UP = [{'sql': '\n'
                  'null, source_url: &quot;https://yadoya.etzhayyim.com/about&quot;, source_license: '
                  '&quot;gftd-internal-aggregate-v1&quot;, note: &quot;yadoya reservation &quot; + '
                  'reservationId + &quot; confirmed&quot;, record_uri: '
-                 '&quot;at://did:web:yadoya.etzhayyim.com/app.etzhayyim.apps.yadoya.flowEvent/&quot; + '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.yadoya.flowEvent/&quot; + '
                  'reservationId, observed_at: createdAt, created_at: createdAt, org_id: orgId, '
                  'user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;, flow_type: '
                  '&quot;revenue&quot;, amount: 0, amount_bucket: reservation.amount_bucket, '
@@ -194,7 +194,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_resource_flow_service&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:yadoya.etzhayyim.com/app.etzhayyim.apps.resourceFlow.legalEntityServiceFlow/&quot; '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow/&quot; '
                  '+ reservationId, sensitivity_ord: 1, owner_did: '
                  '&quot;did:web:yadoya.etzhayyim.com&quot;, source_did: '
                  '&quot;did:web:yadoya.etzhayyim.com&quot;, counterparty_did: if reservation.chain_did '
@@ -207,7 +207,7 @@ UP = [{'sql': '\n'
                  'null, source_url: &quot;https://yadoya.etzhayyim.com/about&quot;, source_license: '
                  '&quot;gftd-internal-aggregate-v1&quot;, note: &quot;yadoya reservation &quot; + '
                  'reservationId, record_uri: '
-                 '&quot;at://did:web:yadoya.etzhayyim.com/app.etzhayyim.apps.yadoya.flowEvent/&quot; + '
+                 '&quot;at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.yadoya.flowEvent/&quot; + '
                  'reservationId, observed_at: createdAt, created_at: createdAt, org_id: orgId, '
                  'user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;, service_class: '
                  '&quot;room_night&quot;, service_count: reservation.nights, service_unit: '
@@ -242,12 +242,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  11424,
-                 '00-contracts/bpmn/ai/gftd/yadoya/confirmReservation.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yadoya/confirmReservation.bpmn',
                  '2026-04-28T15:01:00Z',
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-confirm',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -261,21 +261,21 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-confirmReservation-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yadoya-confirmReservation-v1',
                  'did:web:yadoya.etzhayyim.com',
-                 'app.etzhayyim.apps.yadoya.confirmReservation',
+                 'com.etzhayyim.apps.yadoya.confirmReservation',
                  'yadoya_confirm_reservation',
                  45000,
                  '2026-04-28T15:01:00Z',
                  'did:web:yadoya.etzhayyim.com',
                  'did:web:yadoya.etzhayyim.com',
                  'sys.bpmn.seed.yadoya-confirm',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-confirmReservation-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yadoya-confirmReservation-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yadoya-confirmReservation-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yadoya-confirmReservation-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yadoya-confirm-reservation-v1']}]
 
 
 def upgrade() -> None:

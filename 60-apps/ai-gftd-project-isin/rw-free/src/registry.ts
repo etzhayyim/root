@@ -48,8 +48,8 @@ import {
   type ValidateIsinOutput,
 } from "./types.js";
 
-const SECURITY_COLLECTION = "app.etzhayyim.isin.security";
-const ENTITY_COLLECTION = "app.etzhayyim.isin.entity";
+const SECURITY_COLLECTION = "com.etzhayyim.isin.security";
+const ENTITY_COLLECTION = "com.etzhayyim.isin.entity";
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;
 

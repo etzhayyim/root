@@ -32,7 +32,7 @@ def emit_agency_record(
     slug: str,
     created_at: str,
 ) -> dict[str, Any]:
-    """Build a single app.etzhayyim.gov.agency record."""
+    """Build a single com.etzhayyim.gov.agency record."""
     return {
         'name': name,
         'jurisdiction': jurisdiction,
@@ -68,7 +68,7 @@ def ingest_roster(roster_path: Path, created_at: str) -> list[dict[str, Any]]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Ingest Japanese ministries roster to app.etzhayyim.gov.agency Lexicon.'
+        description='Ingest Japanese ministries roster to com.etzhayyim.gov.agency Lexicon.'
     )
     parser.add_argument(
         '--roster',

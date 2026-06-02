@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpnJma.reportEarthquake",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "JMA 地震情報",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "eventId",
+            "originTime",
+            "epicenterLat",
+            "epicenterLon",
+            "magnitude",
+            "maxIntensity"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string"
+            },
+            "originTime": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "epicenterLat": {
+              "type": "number"
+            },
+            "epicenterLon": {
+              "type": "number"
+            },
+            "magnitude": {
+              "type": "number"
+            },
+            "depthKm": {
+              "type": "number"
+            },
+            "maxIntensity": {
+              "type": "string",
+              "description": "JMA 震度階 0/1/2/3/4/5-/5+/6-/6+/7"
+            },
+            "tsunamiPossibility": {
+              "type": "string",
+              "enum": [
+                "none",
+                "advisory",
+                "warning",
+                "major"
+              ]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "weak",
+                "moderate",
+                "strong",
+                "severe"
+              ]
+            },
+            "requireEmergencyNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

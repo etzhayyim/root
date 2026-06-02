@@ -27,7 +27,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '00-contracts/lexicons/app/etzhayyim/kawase/**'
+      - '00-contracts/lexicons/com/etzhayyim/kawase/**'
       - '20-actors/kawase-yui/**'
       - '20-actors/magatama/cells/kawase_**/**'
       - '40-engine/kotoba_kawase/**'
@@ -38,7 +38,7 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - '00-contracts/lexicons/app/etzhayyim/kawase/**'
+      - '00-contracts/lexicons/com/etzhayyim/kawase/**'
       - '20-actors/kawase-yui/**'
       - '20-actors/magatama/cells/kawase_**/**'
       - '40-engine/kotoba_kawase/**'
@@ -100,18 +100,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Validate every app.etzhayyim.kawase.* Lexicon
+      - name: Validate every com.etzhayyim.kawase.* Lexicon
         run: |
           python3 70-tools/scripts/validate-lexicons.py \
             --files \
-              00-contracts/lexicons/app/etzhayyim/kawase/depositAttestation.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/withdrawIntent.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/matchExecution.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/fxRateAttestation.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/poolStateReport.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/rebalanceAttestation.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/jurisdictionAttestation.json \
-              00-contracts/lexicons/app/etzhayyim/kawase/silenKawaseReview.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/depositAttestation.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/withdrawIntent.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/matchExecution.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/fxRateAttestation.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/poolStateReport.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/rebalanceAttestation.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/jurisdictionAttestation.json \
+              00-contracts/lexicons/com/etzhayyim/kawase/silenKawaseReview.json \
             --exit-on-error
           echo "✓ 8 kawase Lexicons all validate clean"
 

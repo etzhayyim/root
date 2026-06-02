@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_backfill_aircraft_registry',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,9 +44,9 @@ UP = [{'sql': '\n'
                  '  Cadence: R/P7D. 620K rows / 7d ingest amortizes RW Hummock pressure.\n'
                  '  This runs out of band from the live tracker R/PT10S poll.\n'
                  '\n'
-                 '  app.etzhayyim.apps.maps.backfillAircraftRegistry\n'
+                 '  com.etzhayyim.apps.maps.backfillAircraftRegistry\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -60,7 +60,7 @@ UP = [{'sql': '\n'
                  'aircraft registry" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.backfillAircraftRegistry", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.backfillAircraftRegistry", "version": 1, '
                  '"resultTimeoutMs": 1800000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -118,7 +118,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.maps.backfillAircraftRegistry&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.maps.backfillAircraftRegistry&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;aircraftIngested&quot;: aircraftIngested, &quot;skipped&quot;: skipped, '
@@ -137,12 +137,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4591,
-                 '00-contracts/bpmn/ai/gftd/maps/backfillAircraftRegistry.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/backfillAircraftRegistry.bpmn',
                  '2026-05-05T18:31:00Z',
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-aircraft-phase3',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -156,9 +156,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1',
                  'did:web:maps.etzhayyim.com',
-                 'app.etzhayyim.apps.maps.backfillAircraftRegistry',
+                 'com.etzhayyim.apps.maps.backfillAircraftRegistry',
                  'maps_backfill_aircraft_registry',
                  1800000,
                  'vertex_aircraft,edge_aircraft_state_for_aircraft',
@@ -167,12 +167,12 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-aircraft-phase3',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-backfillAircraftRegistry-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-backfillAircraftRegistry-v1']}]
 
 
 def upgrade() -> None:
