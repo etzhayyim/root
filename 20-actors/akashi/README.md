@@ -46,6 +46,17 @@ known phishing, malware, brand-abuse or fraud indicators.
 | `akashi_transparency_report` | periodic | `adTransparencyReport` |
 | `akashi_malak_evidence_bridge` | event-gated | `malakEvidenceCandidate` |
 
+## R0 Coverage
+
+R0 coverage is schema and planning coverage only. There are no live adapters,
+fixtures, or collection jobs yet. See:
+
+- `COVERAGE.md` — source / field coverage matrix
+- `MATURITY.md` — maturity scorecard and R1 work list
+- `registry/source-catalog.seed.json` — planning seed for Meta, X, LINE,
+  Google/YouTube, TikTok, and regulator repositories
+- `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
+
 ## Immutable Gates
 
 - passive public-source only

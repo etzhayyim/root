@@ -30,7 +30,8 @@
   "lexiconReadAccess": {
     "public.platform.adLibrary.*": "Already-public ad disclosure pages, public APIs or public bulk exports only. Adapter-specific sourcePolicySnapshot required before collection.",
     "public.regulator.adRepository.*": "Official public ad repository exports where available; preferred over scraping.",
-    "malak.publicIocFeed": "Read-only public IOC / phishing / malware indicators for candidate evidence linkage; no confidential malak data read at R0."
+    "malak.publicIocFeed": "Read-only public IOC / phishing / malware indicators for candidate evidence linkage; no confidential malak data read at R0.",
+    "20-actors/akashi/registry/source-catalog.seed.json": "Planning seed only; does not authorize collection. Each source requires sourcePolicySnapshot + methodNote before use."
   },
   "form": "任意団体 internal public-transparency substrate (NOT an ad network, NOT a regulator, NOT law-enforcement, NOT a commercial ad-intelligence service)",
   "constitutionalDiscipline": {
@@ -116,7 +117,10 @@
       "master": "/90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md",
       "danjoSibling": "/90-docs/adr/2605301600-danjo-public-accountability-oversight-tier-b-actor-r0.md",
       "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
-      "malakBoundary": "/60-apps/ai-gftd-project-malak/CLAUDE.md"
+      "malakBoundary": "/60-apps/ai-gftd-project-malak/CLAUDE.md",
+      "coverage": "/20-actors/akashi/COVERAGE.md",
+      "maturity": "/20-actors/akashi/MATURITY.md",
+      "lexicons": "/00-contracts/lexicons/app/etzhayyim/akashi/README.md"
     }
   }
 }
