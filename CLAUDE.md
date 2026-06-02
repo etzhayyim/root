@@ -68,6 +68,7 @@ This monorepo is the **canonical home for religious-corp open ADRs** per ADR-260
 | **WASM-actor runtime (gateway + loader + componentize-py)** | apex trustless `/ipfs/<cid>` gateway (CID re-verify) + `@etzhayyim/ameno` wasm-actor-loader (5/5 tests) + watatsuna componentize-py component (jco, Malacca top); T1 raw=browser-local / T2 dag-pb=mesh tier rule | 🟢 | 2606014600 | 06-01 |
 | **WASM-actor runtime round 2** | dag-pb CAR verify (multi-block trustless) + e7m-wasm-runner (T2 mesh exec) + kanae 鼎 2nd T1 actor + ameno actor-panel + ERC725 vm-mirror (gated) + operator runbook; worker/ameno tsc + 17 tests | 🟢 | 2606015200 | 06-01 |
 | **Mesh-runner serving + IPFS-based DID** | e7m-wasm-runner HTTP serve (`/xrpc/app.etzhayyim.actor.run`, CID-cached) + **content-addressed did.json**: canonical CID advertised on `/actor/<h>/did.json` + `actors.json`, fetch+verify from any IPFS gateway (did:web TLS anchors the handle→CID binding); worker(TS)≡publisher(JS) CID; +16 tests | 🟢 | 2606015400 | 06-02 |
+| **Self-certifying DID attestation** | actor's own ed25519 key (`did:key`) signs the did.json CID → handle→CID binding **trustless, no TLS anchor** (`diddoc-attest.ts` verify-only + `sign-diddoc.mjs` operator tool, server never signs); `toDidDoc` cross-links `did:key` in alsoKnownAs; e2e verified on kanae; +5 tests (15 worker total) | 🟢 | 2606015600 | 06-02 |
 
 ### baien / silicon / ML
 
