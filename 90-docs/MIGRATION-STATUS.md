@@ -11,14 +11,16 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 51 | has a `rw-free/` on-chain reference impl |
+| **A — DONE** | 52 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 44 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 43 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 88 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
 
-**Real remaining scope ≈ 132 apps** (C + D = 44 + 88). Buckets A + B (259) need no
-further substrate work. The open-* commodity-data backlog is down to its last
-member: **open-water** (all other open-* apps now have rw-free impls).
+**Real remaining scope ≈ 131 apps** (C + D = 43 + 88). Buckets A + B (260) need no
+further substrate work. The open-* commodity-data backlog is **fully cleared** —
+every open-* app now has an rw-free impl. The loop now proceeds over the
+remaining C/D apps with a per-app judgment gate (etzhayyim-front vs
+vendor-resident, per the Consensys pattern + 3-axis OR-test).
 
 > **Nuance**: an app can be in A *and* C — the `rw-free/` package is the clean
 > etzhayyim-compliant reimplementation, but the project's original (pre-migration)
@@ -26,21 +28,21 @@ member: **open-water** (all other open-* apps now have rw-free impls).
 > `common-crawl`, `sanctions`, `saiban`, `auth`, `coverage`, `kami`. For these the
 > on-chain path exists; the legacy src is residual cleanup, not a missing impl.
 
-## Bucket A — DONE (51, has rw-free/)
+## Bucket A — DONE (52, has rw-free/)
 
 anime, blockchain, bpmn, bunken, common-crawl, cpc, crowdfunding, dns, ec,
 gameka, gtin, hakkou, hanrei, houbun, houki, houshi, ipaddress, isbn, isin,
 issn, ki, kiyo, koke, legal-corpus, manga, maps, narou, ndc, nist, ocel,
 okaimono, open-airplane, open-apqc, open-banking, open-cofog, open-denki,
 open-gas, open-isco, open-isic, open-jpn-gov, open-network, open-ports,
-open-power, open-rail, open-swift, open-unispsc, otakiage, sbom, threads,
-threat-intelligence, tsukuru, yoro
+open-power, open-rail, open-swift, open-unispsc, open-water, otakiage, sbom,
+threads, threat-intelligence, tsukuru, yoro
 
 (51 incl. `ec`/`crowdfunding` (2026-06-02) and the 8 open-* commodity-data apps
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket C — NEEDS-CODEMOD (44) — active backlog
+## Bucket C — NEEDS-CODEMOD (43) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
@@ -53,7 +55,7 @@ scripts/sync-roster.ts)**, intel, itonami, jp-fiscal, jukyu (RW), kami,
 kenkyusha (RW), kyber-qzzg06nh, legal-entity (RW), llm (RW), manimani,
 open-kyber (stripe+RW),
 open-ossekai, open-ot (RW), open-patent (RW),
-open-water, os-messaging, patent (RW), pptx,
+os-messaging, patent (RW), pptx,
 public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
