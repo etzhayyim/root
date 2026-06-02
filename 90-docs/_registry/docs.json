@@ -20251,6 +20251,26 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/2606022500-organism-axis-affiliation-convention.md",
+      "id": "doc-2606022500-organism-axis-affiliation-convention",
+      "title": "Organism-axis affiliation convention for first-party package READMEs",
+      "status": "active",
+      "doc_type": "reference",
+      "topic": "organism-axis-affiliation-convention",
+      "authoritative": true,
+      "authoritative_for": [
+        "the one-line organism-axis affiliation declaration each first-party package README carries"
+      ],
+      "related": [
+        "adr-2605221411-etzhayyim-artificial-organism-ecosystem"
+      ],
+      "last_verified": "2026-06-02",
+      "supersedes": [],
+      "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/baien/adr-2605262500-implementation-retrospective-260527.md",
       "id": "doc-adr-2605262500-implementation-retrospective-260527",
       "title": "ADR-2605262500 Implementation Retrospective — 39-cycle production rollout",

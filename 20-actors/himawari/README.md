@@ -6,6 +6,7 @@
 **Status**: R0.1 (2026-06-02) — all 7 cell solvers + 7 lexicons **implemented** (146 standalone tests green — logic + kotoba write-path + graph-topology; cell.py line-coverage ≥96% per cell; import smoke clean). NOT operationally activated: no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization, deterministic-digest CIDs (not real IPFS/Base-L2 anchors). Gated upstream by the R1 activation conditions below.
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance energy gate via hikari)
 **Tightest sibling**: hikari (ADR-2605261100 — generation/install actor)
+**Organism axis**: Axis 2 — Metabolism (代謝 / 産霊 musuhi) — generative production cycle: metabolizes solar-grade feedstock into the PV modules the energy chain installs (see [`90-docs/2606022500-organism-axis-affiliation-convention.md`](../../90-docs/2606022500-organism-axis-affiliation-convention.md))
 
 ## Overview
 

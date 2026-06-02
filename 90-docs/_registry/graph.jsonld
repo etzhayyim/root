@@ -13143,6 +13143,19 @@
       "lastVerified": "2026-05-27"
     },
     {
+      "id": "doc:doc-2606022500-organism-axis-affiliation-convention",
+      "type": "TechArticle",
+      "title": "Organism-axis affiliation convention for first-party package READMEs",
+      "status": "active",
+      "topic": "organism-axis-affiliation-convention",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the one-line organism-axis affiliation declaration each first-party package README carries"
+      ],
+      "related": "doc:adr-2605221411-etzhayyim-artificial-organism-ecosystem",
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:doc-adr-2605262500-implementation-retrospective-260527",
       "type": "TechArticle",
       "title": "ADR-2605262500 Implementation Retrospective — 39-cycle production rollout",
