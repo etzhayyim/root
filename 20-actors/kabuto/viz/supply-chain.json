@@ -1151,7 +1151,7 @@
    "ticker": "PFE",
    "sector": ":pharma",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": {
     "street": "66 Hudson Boulevard East",
     "city": "New York",
@@ -1170,7 +1170,7 @@
    "ticker": "JNJ",
    "sector": ":pharma",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -1960,7 +1960,7 @@
    "ticker": "ERIC-B.ST",
    "sector": ":telecom",
    "country": "SE",
-   "out": 5,
+   "out": 6,
    "address": null,
    "contact": null
   },
@@ -1970,7 +1970,7 @@
    "ticker": "NOKIA.HE",
    "sector": ":telecom",
    "country": "FI",
-   "out": 2,
+   "out": 3,
    "address": null,
    "contact": null
   },
@@ -7842,6 +7842,340 @@
    "out": 0,
    "address": null,
    "contact": null
+  },
+  {
+   "id": "org.corp.us.equity-residential",
+   "name": "Equity Residential",
+   "ticker": "EQR",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.avalonbay",
+   "name": "AvalonBay Communities",
+   "ticker": "AVB",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.ventas",
+   "name": "Ventas",
+   "ticker": "VTR",
+   "sector": ":real-estate",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.unibail",
+   "name": "Unibail-Rodamco-Westfield",
+   "ticker": "URW.PA",
+   "sector": ":real-estate",
+   "country": "FR",
+   "out": 0,
+   "address": {
+    "street": "7 place du Chancelier Adenauer",
+    "city": "Paris",
+    "country": "FR",
+    "lat": 48.87,
+    "lon": 2.28
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.segro",
+   "name": "SEGRO",
+   "ticker": "SGRO.L",
+   "sector": ":real-estate",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.hk.sun-hung-kai",
+   "name": "Sun Hung Kai Properties",
+   "ticker": "0016.HK",
+   "sector": ":real-estate",
+   "country": "HK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.nippon-building",
+   "name": "Nippon Building Fund (Hulic-managed)",
+   "ticker": "8951.T",
+   "sector": ":real-estate",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ca.cibc",
+   "name": "Canadian Imperial Bank of Commerce (CIBC)",
+   "ticker": "CM.TO",
+   "sector": ":financials",
+   "country": "CA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.au.anz",
+   "name": "ANZ Group",
+   "ticker": "ANZ.AX",
+   "sector": ":financials",
+   "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.mizuho",
+   "name": "Mizuho Financial Group",
+   "ticker": "8411.T",
+   "sector": ":financials",
+   "country": "JP",
+   "out": 0,
+   "address": {
+    "street": "1-5-5 Otemachi, Chiyoda-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.69,
+    "lon": 139.76
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.kb-financial",
+   "name": "KB Financial Group",
+   "ticker": "105560.KS",
+   "sector": ":financials",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.shinhan",
+   "name": "Shinhan Financial Group",
+   "ticker": "055550.KS",
+   "sector": ":financials",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sa.snb",
+   "name": "Saudi National Bank",
+   "ticker": "1180.SR",
+   "sector": ":financials",
+   "country": "SA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.bank-of-baroda",
+   "name": "Bank of Baroda",
+   "ticker": "BANKBARODA.NS",
+   "sector": ":financials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.qa.qib",
+   "name": "Qatar Islamic Bank",
+   "ticker": "QIBK.QA",
+   "sector": ":financials",
+   "country": "QA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.aep",
+   "name": "American Electric Power",
+   "ticker": "AEP",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.exelon",
+   "name": "Exelon",
+   "ticker": "EXC",
+   "sector": ":utilities",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.terna",
+   "name": "Terna",
+   "ticker": "TRN.MI",
+   "sector": ":utilities",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kansai-electric",
+   "name": "Kansai Electric Power",
+   "ticker": "9503.T",
+   "sector": ":utilities",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.mckesson",
+   "name": "McKesson",
+   "ticker": "MCK",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "6555 State Highway 161",
+    "city": "Irving",
+    "country": "US",
+    "lat": 32.89,
+    "lon": -96.96
+   },
+   "contact": {
+    "website": "https://www.mckesson.com",
+    "ir": "https://investor.mckesson.com"
+   }
+  },
+  {
+   "id": "org.corp.us.cardinal-health",
+   "name": "Cardinal Health",
+   "ticker": "CAH",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.cencora",
+   "name": "Cencora",
+   "ticker": "COR",
+   "sector": ":healthcare",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.sysmex",
+   "name": "Sysmex",
+   "ticker": "6869.T",
+   "sector": ":healthcare",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kimberly-clark",
+   "name": "Kimberly-Clark",
+   "ticker": "KMB",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.hershey",
+   "name": "The Hershey Company",
+   "ticker": "HSY",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kellanova",
+   "name": "Kellanova",
+   "ticker": "K",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.abf",
+   "name": "Associated British Foods",
+   "ticker": "ABF.L",
+   "sector": ":consumer",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.kr.amorepacific",
+   "name": "AmorePacific",
+   "ticker": "090430.KS",
+   "sector": ":consumer",
+   "country": "KR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.br.tim-brasil",
+   "name": "TIM S.A. (Brasil)",
+   "ticker": "TIMS3.SA",
+   "sector": ":telecom",
+   "country": "BR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.mtn-group",
+   "name": "MTN Group",
+   "ticker": "MTN.JO",
+   "sector": ":telecom",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": {
+    "website": "https://www.mtn.com",
+    "ir": "https://www.mtn.com/investors/"
+   }
+  },
+  {
+   "id": "org.corp.cl.entel",
+   "name": "Entel",
+   "ticker": "ENTEL.SN",
+   "sector": ":telecom",
+   "country": "CL",
+   "out": 0,
+   "address": null,
+   "contact": null
   }
  ],
  "edges": [
@@ -9224,6 +9558,30 @@
    "to": "org.corp.in.varun-beverages",
    "commodity": "logistics",
    "criticality": 0.5
+  },
+  {
+   "from": "org.corp.us.pfizer",
+   "to": "org.corp.us.cardinal-health",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.jnj",
+   "to": "org.corp.us.mckesson",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.se.ericsson",
+   "to": "org.corp.za.mtn-group",
+   "commodity": "logistics",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.fi.nokia",
+   "to": "org.corp.br.tim-brasil",
+   "commodity": "logistics",
+   "criticality": 0.3
   }
  ],
  "jurisdictions": [
@@ -9233,7 +9591,7 @@
   },
   {
    "country": "US",
-   "load": 20.8
+   "load": 21.4
   },
   {
    "country": "TW",
@@ -9264,12 +9622,12 @@
    "load": 2.9
   },
   {
-   "country": "AU",
-   "load": 2.4
+   "country": "SE",
+   "load": 2.6
   },
   {
-   "country": "SE",
-   "load": 2.3
+   "country": "AU",
+   "load": 2.4
   },
   {
    "country": "IN",
@@ -9284,12 +9642,12 @@
    "load": 1.8
   },
   {
-   "country": "DK",
-   "load": 1.2
+   "country": "FI",
+   "load": 1.4
   },
   {
-   "country": "FI",
-   "load": 1.1
+   "country": "DK",
+   "load": 1.2
   },
   {
    "country": "CA",
