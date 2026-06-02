@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 103 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 10 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 72 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 9 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 73 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 10 apps** (C + D = 0 + 10; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 9 apps** (C + D = 0 + 9; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -77,7 +77,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (72)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (73)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -673,6 +673,15 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   network config (our dispatch partners), not external-authority open-data
   (carry-forward test fails). Same commerce-fulfillment pattern as `okaimono`
   (MoR/fulfillment stays gftd). No rw-free built.
+- **playwright** (Bucket D / substrate-boundary → V) — axes: **Infra
+  (browser-automation execution primitives) + Custody (session state + vault
+  credential injection)**. Browser automation primitives actor
+  (`playwright.etzhayyim.com`): 11 XRPC primitives (navigate/click/screenshot/…),
+  called by BPMN serviceTasks as a generic capability; execution on local Mac
+  daemon / cf-browser (delegates to `cloudflareBrowserRender`), credentials via
+  `vault://` ephemeral, session state in D1. Pure execution infra — no product
+  surface, not open-data (carry-forward test fails). Same family as
+  `cloudflare-browser-render` (V) / `yorishiro` / `hub`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -700,7 +709,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (10, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (9, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -724,7 +733,7 @@ microsoft-graph / ongakuka / outreach / phone / recap / ses / society6 / x
 (plus animeka/mangaka already in A; briefing already in V; email-service-adapter/fax
 legacy codemod-only).
 
-**Substrate-boundary violation flagged (un-resolved)**: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A),
+**Substrate-boundary violation flagged (un-resolved)**: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V),
 open-jpn-mynumber, playwright, repository, site
 
 ## In-progress (2026-06-02)
