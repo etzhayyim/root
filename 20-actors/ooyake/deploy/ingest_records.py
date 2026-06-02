@@ -145,6 +145,7 @@ NSID_INGEST = "ai.gftd.apps.kotobase.kg.ingest_batch"
 GOV_SEEDS = [
     os.path.join(_ACTOR, "registry", "gov-units.seed.edn"),
     os.path.join(_ACTOR, "registry", "gov-units.jp-central.seed.edn"),
+    os.path.join(_ACTOR, "registry", "gov-units.toritsugi-procedures.seed.edn"),
 ]
 ACTOR_SEED = os.path.join(_REPO, "00-contracts", "schemas", "actor-profile-seed.kotoba.edn")
 
