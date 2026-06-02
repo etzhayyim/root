@@ -9382,6 +9382,22 @@ status_note = "Tier-B actor ooyake 公 (= the public / officialdom) — governme
 path = "90-docs/adr/2606021600-ooyake-world-government-atlas-tier-b-actor-r0.md"
 adr = ["2606021600", "2606011000", "2605262130", "2605312345", "2605212100", "2606013800", "2605215000", "2605312030", "2605301600", "2605302300", "2606011800", "2605242330", "2605250680"]
 
+[[adrs]]
+id = "2606022300"
+title = "証 (akashi) — public ad-disclosure kotoba actor for platform ad libraries (R0)"
+status = "proposed"
+status_note = "Tier-B actor akashi 証 — kotoba-native public ad-disclosure transparency actor for already-public platform ad-library disclosures (Meta/Facebook/Instagram, X/Twitter, LINE, Google/YouTube, TikTok, regulator repositories). Sibling to danjo's public-record discipline; bounded away from malak except reviewed, source-cited, candidate-only fraud/malware-ad evidence. R0 matured to design cap: actor manifest/README + 10 app.etzhayyim.akashi.* lexicons + method seed + source catalog + source-policy review registry + source-policy approval tx schema (fixture-only example, rollback-to-disabled) + 7 import-raise magatama cell scaffolds + regulator bulk fixture parser + lexicon shape validator + closure fixtures + dry-run CLI + golden summary + optional-field and negative fixtures. Invariants pin passive-only/no-network dry-run, no voter/person profiling tokens, non-adjudicating const true for link/report/malak candidate records, live collection disabled, malak candidate-only at R0, and parser output validates against akashi lexicons. Verification: test_akashi_invariants.py 18 passed; dry-run emits networkAccess=false, writes=false, totalRecords=15. Honest R0: no live adapter, no platform API/page collection, no source marked covered-r1; all collection remains Council/source-policy gated."
+path = "90-docs/adr/2606022300-akashi-public-ad-disclosure-kotoba-actor-r0.md"
+adr = ["2606022300", "2605262130", "2605312345", "2605301600", "2605172000", "2605131600", "2605192100", "2605192200", "2605215000"]
+
+[[modules]]
+path = "20-actors/akashi"
+kind = "tier-b-actor-public-ad-disclosure-transparency"
+version = "0.0.0-r0-design-cap"
+status = "r0-design-maturity-cap"
+description = "証 akashi — passive public ad-disclosure transparency actor. Stores already-public platform/regulator ad disclosure evidence as source-cited kotoba EAVT records; emits non-adjudicating links/reports and candidate-only malak evidence packages. R0 assets: manifest/README/COVERAGE/MATURITY, 10 akashi lexicons, source catalog, source-policy review registry, approval tx schema, regulator bulk fixture parser, lexicon validator, local dry-run CLI, golden summary, optional-field + negative fixtures, and 7 import-time gated magatama cell scaffolds. No live adapter, no scraping, no login, no anti-bot bypass, no ad SDK, no commercial ad-intel, no voter/person profiling. Invariants: 18 pytest checks pass."
+adr = ["2606022300", "2605262130", "2605312345", "2605301600", "2605172000", "2605215000"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
