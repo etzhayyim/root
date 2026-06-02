@@ -1,5 +1,5 @@
 /**
- * Spec compliance tests for did:gftd (ADR-0029).
+ * Spec compliance tests for did:etzhayyim (ADR-0029).
  *
  * Run: pnpm -F @etzhayyim/did-etzhayyim test
  */
@@ -26,19 +26,19 @@ const SAMPLE_VM = [{
   publicKeyMultibase: "zDnaerDaTF5BXEavCrfRZEk316dpbLsfPDZ3WJ5hRTPFU2169",
 }];
 
-describe("did:gftd genesis", () => {
-  it("creates a root DID with did:gftd: prefix and bafy... CID", async () => {
+describe("did:etzhayyim genesis", () => {
+  it("creates a root DID with did:etzhayyim: prefix and bafy... CID", async () => {
     const g = await createGenesis({
       type: "root",
       vm: SAMPLE_VM,
       createdAt: "2026-04-17T00:00:00Z",
     });
     expect(g.did.startsWith(DID_etzhayyim_PREFIX)).toBe(true);
-    expect(g.did.startsWith("did:gftd:bafy")).toBe(true); // base32 multibase, dag-cbor codec? we use raw → "bafk"
+    expect(g.did.startsWith("did:etzhayyim:bafy")).toBe(true); // base32 multibase, dag-cbor codec? we use raw → "bafk"
     // raw codec CIDv1 bafkrei... base32 prefix:
     // multibase 'b' + version 0x01 + codec 0x55 + sha2-256 multihash
     // → "bafkrei..." (base32 of 0x01 0x55 0x12 0x20 ...)
-    expect(g.did).toMatch(/^did:gftd:bafkrei[a-z2-7]+$/);
+    expect(g.did).toMatch(/^did:etzhayyim:bafkrei[a-z2-7]+$/);
     expect(g.depth).toBe(0);
     expect(g.parent).toBeNull();
     expect(g.segment).toBeNull();
@@ -91,11 +91,11 @@ describe("did:gftd genesis", () => {
   });
 
   it("isValidDidetzhayyim accepts well-formed and rejects malformed", () => {
-    expect(isValidDidetzhayyim("did:gftd:bafkreiabcdef")).toBe(true);
-    expect(isValidDidetzhayyim("did:gftd:bafkreiabcdef:bafkreichild")).toBe(true);
+    expect(isValidDidetzhayyim("did:etzhayyim:bafkreiabcdef")).toBe(true);
+    expect(isValidDidetzhayyim("did:etzhayyim:bafkreiabcdef:bafkreichild")).toBe(true);
     expect(isValidDidetzhayyim("did:plc:abcdef")).toBe(false);
-    expect(isValidDidetzhayyim("did:gftd:")).toBe(false);
-    expect(isValidDidetzhayyim("did:gftd:has space")).toBe(false);
+    expect(isValidDidetzhayyim("did:etzhayyim:")).toBe(false);
+    expect(isValidDidetzhayyim("did:etzhayyim:has space")).toBe(false);
   });
 
   it("DID Document is W3C DID Core conformant (no proprietary top-level fields)", async () => {

@@ -1,7 +1,7 @@
 /**
- * did:gftd Resolver Worker — `did.etzhayyim.com` HTTP surface.
+ * did:etzhayyim Resolver Worker — `did.etzhayyim.com` HTTP surface.
  *
- * Implements W3C DID Resolution v0.3 for the did:gftd method (ADR-0029).
+ * Implements W3C DID Resolution v0.3 for the did:etzhayyim method (ADR-0029).
  *
  * Endpoints:
  *   GET  /1.0/identifiers/{did}              → application/did+ld+json (resolution result)
@@ -12,9 +12,9 @@
  *   GET  /health                             → "ok"
  *
  * Storage: HYPERDRIVE (RisingWave) + Kysely. Tables:
- *   - vertex_gftd_identity      (DID + path metadata)
- *   - vertex_gftd_op_log        (signed op history)
- *   - edge_gftd_path_child      (path lineage)
+ *   - vertex_etzhayyim_identity      (DID + path metadata)
+ *   - vertex_etzhayyim_op_log        (signed op history)
+ *   - edge_etzhayyim_path_child      (path lineage)
  */
 
 import {
@@ -91,7 +91,7 @@ function didDocResponse(body: unknown, status = 200): Response {
 
 function extractDid(pathname: string): { did: string; suffix: "" | "log" | "path-context" } | null {
   const stripped = pathname.replace(/^\/1\.0\/identifiers\//, "/");
-  const m = stripped.match(/^\/(did:gftd:[a-zA-Z0-9:]+?)(\/(log|path-context))?$/);
+  const m = stripped.match(/^\/(did:etzhayyim:[a-zA-Z0-9:]+?)(\/(log|path-context))?$/);
   if (!m) return null;
   return { did: m[1], suffix: (m[3] ?? "") as "" | "log" | "path-context" };
 }
@@ -122,7 +122,7 @@ export default {
         return didDocResponse(resolutionErr("invalidDid", "DID not parseable from URL"), 400);
       }
       if (!isValidDidetzhayyim(parsed.did)) {
-        return didDocResponse(resolutionErr("invalidDid", "did syntax invalid for did:gftd"), 400);
+        return didDocResponse(resolutionErr("invalidDid", "did syntax invalid for did:etzhayyim"), 400);
       }
       if (didDepth(parsed.did) > 6) {
         return didDocResponse(resolutionErr("invalidDid", "exceeds MAX_PATH_DEPTH"), 400);
@@ -134,7 +134,7 @@ export default {
         SELECT did, controller_did, root_did, parent_did, path_segment, depth,
                public_key_multibase, authentication_methods, status,
                created_at, updated_at, genesis_op_cid
-        FROM vertex_gftd_identity WHERE did = ${parsed.did} LIMIT 1
+        FROM vertex_etzhayyim_identity WHERE did = ${parsed.did} LIMIT 1
       `.execute(db);
       const row = idRows.rows[0];
       if (!row || row.status === "deleted") {
@@ -147,14 +147,14 @@ export default {
           op_cbor_hex: string; sig: string | null; sig_kid: string | null; created_at: string;
         }>`
           SELECT op_seq, op_type, op_cid, prev_cid, op_cbor_hex, sig, sig_kid, created_at
-          FROM vertex_gftd_op_log WHERE did = ${parsed.did} ORDER BY op_seq DESC LIMIT 1000
+          FROM vertex_etzhayyim_op_log WHERE did = ${parsed.did} ORDER BY op_seq DESC LIMIT 1000
         `.execute(db);
         return jsonResponse(log.rows);
       }
 
       if (parsed.suffix === "path-context") {
         const childRows = await sql<{ dst_vid: string; segment: string | null }>`
-          SELECT dst_vid, segment FROM edge_gftd_path_child
+          SELECT dst_vid, segment FROM edge_etzhayyim_path_child
           WHERE src_vid = ${parsed.did} LIMIT 5000
         `.execute(db);
         return jsonResponse({

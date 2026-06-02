@@ -1,5 +1,5 @@
 /**
- * Multihash encoder (subset for did:gftd genesis op CIDs).
+ * Multihash encoder (subset for did:etzhayyim genesis op CIDs).
  *
  * Spec: draft-multiformats-multihash-09
  * https://github.com/multiformats/multihash

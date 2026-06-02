@@ -1,9 +1,9 @@
 /**
- * W3C DID Core 1.0 conformant DID Document construction for did:gftd.
+ * W3C DID Core 1.0 conformant DID Document construction for did:etzhayyim.
  *
  * Returns ONLY standard DID Core properties (no proprietary top-level fields).
  * Path-related metadata (root / parent / segment / depth) lives in the platform
- * graph layer (RisingWave vertex_gftd_identity), NOT in this Document.
+ * graph layer (RisingWave vertex_etzhayyim_identity), NOT in this Document.
  *
  * Spec: https://www.w3.org/TR/did-core/
  */

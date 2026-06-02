@@ -1,7 +1,7 @@
 /**
- * @etzhayyim/did-gftd — did:gftd DID method reference implementation.
+ * @etzhayyim/did-etzhayyim — did:etzhayyim DID method reference implementation.
  *
- * Spec: 90-docs/adr/0029-did-gftd-method-specification.md
+ * Spec: 90-docs/adr/0029-did-etzhayyim-method-specification.md
  *
  * - W3C DID Core 1.0 conformant DID Document
  * - CIDv1 (multibase 'b' base32 + multicodec 'raw' + multihash sha2-256)

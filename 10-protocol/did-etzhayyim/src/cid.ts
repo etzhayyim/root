@@ -1,10 +1,10 @@
 /**
- * CIDv1 encoder/decoder (subset for did:gftd genesis ops).
+ * CIDv1 encoder/decoder (subset for did:etzhayyim genesis ops).
  *
  * Spec: https://github.com/multiformats/cid
  *
  * Layout:  varint(version) || varint(codec) || multihash
- * For did:gftd default form:
+ * For did:etzhayyim default form:
  *   0x01 (CIDv1) || 0x55 (raw codec) || multihash(sha2-256, 32B)
  *
  * String form: multibase('b', cid_bytes) → "bafy..." (base32 lowercase)

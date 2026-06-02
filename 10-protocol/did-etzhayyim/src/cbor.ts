@@ -1,5 +1,5 @@
 /**
- * Canonical DAG-CBOR encoder (subset sufficient for did:gftd genesis ops).
+ * Canonical DAG-CBOR encoder (subset sufficient for did:etzhayyim genesis ops).
  *
  * Spec: https://ipld.io/specs/codecs/dag-cbor/spec/
  *       RFC 8949 (CBOR)

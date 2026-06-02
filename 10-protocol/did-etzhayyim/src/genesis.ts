@@ -1,11 +1,11 @@
 /**
- * did:gftd genesis operation (ADR-0029).
+ * did:etzhayyim genesis operation (ADR-0029).
  *
  * Genesis op shape (canonical DAG-CBOR):
  *   {
  *     v:           1,
  *     type:        "root" | "child",
- *     parent:      "<parent did:gftd | null>",
+ *     parent:      "<parent did:etzhayyim | null>",
  *     segment:     "<utf-8 segment string | null>",
  *     vm:          [ { id, type, publicKeyMultibase } ],
  *     alsoKnownAs: [ "at://...", "did:web:..." ],
@@ -15,14 +15,14 @@
  *
  * DID derivation:
  *   cid = CIDv1(raw, sha2-256, dag_cbor_canonical(genesis_op))
- *   did = "did:gftd:" + cid_string                 (root)
+ *   did = "did:etzhayyim:" + cid_string                 (root)
  *       | parent_did + ":" + cid_string            (child)
  */
 
 import { encodeCanonicalCbor, type CborValue } from "./cbor";
 import { createCidV1, type CIDv1, cidv1ToString } from "./cid";
 
-export const DID_etzhayyim_PREFIX = "did:gftd:";
+export const DID_etzhayyim_PREFIX = "did:etzhayyim:";
 export const MAX_PATH_DEPTH = 6;
 
 export interface VerificationMethodInput {
@@ -41,7 +41,7 @@ export interface RootGenesisInput {
 
 export interface ChildGenesisInput {
   type: "child";
-  parent: string;        // did:gftd of the immediate parent (depth ≥ 0, < MAX_PATH_DEPTH)
+  parent: string;        // did:etzhayyim of the immediate parent (depth ≥ 0, < MAX_PATH_DEPTH)
   segment: string;       // UTF-8 segment, e.g. "wiki:1968_flu_pandemic"
   vm: VerificationMethodInput[];
   alsoKnownAs?: string[];
@@ -75,7 +75,7 @@ export function isValidDidetzhayyim(did: string): boolean {
 }
 
 export function didDepth(did: string): number {
-  if (!did.startsWith(DID_etzhayyim_PREFIX)) throw new Error(`not a did:gftd: ${did}`);
+  if (!did.startsWith(DID_etzhayyim_PREFIX)) throw new Error(`not a did:etzhayyim: ${did}`);
   return did.slice(DID_etzhayyim_PREFIX.length).split(":").length - 1;
 }
 
@@ -87,7 +87,7 @@ export function didParent(did: string): string | null {
 }
 
 export function didRoot(did: string): string {
-  if (!did.startsWith(DID_etzhayyim_PREFIX)) throw new Error(`not a did:gftd: ${did}`);
+  if (!did.startsWith(DID_etzhayyim_PREFIX)) throw new Error(`not a did:etzhayyim: ${did}`);
   const tail = did.slice(DID_etzhayyim_PREFIX.length);
   const rootSeg = tail.split(":")[0];
   return DID_etzhayyim_PREFIX + rootSeg;
@@ -114,7 +114,7 @@ function buildCanonicalOp(input: GenesisInput): Record<string, CborValue> {
 
 export async function createGenesis(input: GenesisInput): Promise<GenesisResult> {
   if (input.type === "child") {
-    if (!isValidDidetzhayyim(input.parent)) throw new Error(`invalid parent did:gftd: ${input.parent}`);
+    if (!isValidDidetzhayyim(input.parent)) throw new Error(`invalid parent did:etzhayyim: ${input.parent}`);
     if (didDepth(input.parent) >= MAX_PATH_DEPTH) {
       throw new Error(`MAX_PATH_DEPTH exceeded (${MAX_PATH_DEPTH})`);
     }
