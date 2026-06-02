@@ -5350,6 +5350,20 @@ status_note = "Sub-charter under ADR-2605261600 (e7m-sim R0) expanding R1 scope 
 path = "90-docs/adr/2605261800-nvidia-omniverse-stack-api-compat.md"
 
 [[modules]]
+path = "40-engine/kami-engine"
+adr = "ADR-2606015000"
+kind = "git-submodule"
+status = "submodule"
+description = "kami-engine — the reusable Rust game/robotics engine (wgpu + physics + WASM), extracted to the public remote github.com/etzhayyim/kami-engine and consumed as a git-submodule per ADR-2606011500 §4 / ADR-2606015000. kami-engine-sdk (L1 TS UI) is nested inside it. Clones: `git submodule update --init --recursive 40-engine/kami-engine`. The kami-engine/kami-* entries below are submodule-internal (the engine repo owns their registry); kept here as a monorepo-level index, resolved via the recursive submodule init."
+
+[[modules]]
+path = "40-engine/kami-apps"
+adr = "ADR-2606015000"
+kind = "cargo-workspace"
+status = "active"
+description = "kami-apps — etzhayyim L3 *.etzhayyim.com product apps (kami-app-{bim,cad,live,maps3d,animeka-timeline}); per ADR-2606011500 the robotics/sim apps are maintained in the kami-engine submodule, these product apps in the monorepo. Path-depends on the engine crates under ../kami-engine/."
+
+[[modules]]
 path = "40-engine/kami-engine/kami-rt"
 adr = "ADR-2605261800"
 kind = "webgpu-rt-primitive"
