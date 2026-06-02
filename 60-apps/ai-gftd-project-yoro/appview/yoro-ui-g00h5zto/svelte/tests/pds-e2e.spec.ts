@@ -99,8 +99,8 @@ test.describe('atproto.etzhayyim.com — Health', () => {
 // ─── Endpoint reachability (accepts 200 or 401) ─────────────────────────────
 
 	test.describe('atproto.etzhayyim.com — Endpoint Reachability', () => {
-	test('app.etzhayyim.convo.listPublicConvos is reachable', async () => {
-		const { status } = await xrpc('app.etzhayyim.convo.listPublicConvos', { limit: 5 });
+	test('com.etzhayyim.convo.listPublicConvos is reachable', async () => {
+		const { status } = await xrpc('com.etzhayyim.convo.listPublicConvos', { limit: 5 });
 		expect([200, 401]).toContain(status);
 	});
 
@@ -109,8 +109,8 @@ test.describe('atproto.etzhayyim.com — Health', () => {
 		expect([200, 401, 404]).toContain(status);
 	});
 
-	test('app.etzhayyim.convo.search is reachable', async () => {
-		const { status } = await xrpc('app.etzhayyim.convo.search', { q: 'hello', limit: 5 });
+	test('com.etzhayyim.convo.search is reachable', async () => {
+		const { status } = await xrpc('com.etzhayyim.convo.search', { q: 'hello', limit: 5 });
 		expect([200, 401]).toContain(status);
 	});
 
@@ -119,8 +119,8 @@ test.describe('atproto.etzhayyim.com — Health', () => {
 		expect([200, 401]).toContain(status);
 	});
 
-	test('app.etzhayyim.convo.getUnread is reachable', async () => {
-		const { status } = await xrpc('app.etzhayyim.convo.getUnread', {});
+	test('com.etzhayyim.convo.getUnread is reachable', async () => {
+		const { status } = await xrpc('com.etzhayyim.convo.getUnread', {});
 		expect([200, 401]).toContain(status);
 	});
 
@@ -139,8 +139,8 @@ test.describe('atproto.etzhayyim.com — Health', () => {
 		expect([200, 401]).toContain(status);
 	});
 
-	test('app.etzhayyim.convo.createConvo is reachable', async () => {
-		const { status } = await xrpc('app.etzhayyim.convo.createConvo', { name: `probe-${Date.now()}` });
+	test('com.etzhayyim.convo.createConvo is reachable', async () => {
+		const { status } = await xrpc('com.etzhayyim.convo.createConvo', { name: `probe-${Date.now()}` });
 		expect([200, 401, 403]).toContain(status);
 	});
 
@@ -216,7 +216,7 @@ test.describe('atproto.etzhayyim.com — Authenticated Round-Trip', () => {
 	let socialCid = '';
 
 	test('createConvo', async () => {
-		const { status, data } = await xrpc('app.etzhayyim.convo.createConvo', { name: `e2e-auth-${Date.now()}` });
+		const { status, data } = await xrpc('com.etzhayyim.convo.createConvo', { name: `e2e-auth-${Date.now()}` });
 		expect(status).toBe(200);
 		convoId = (data.convoId || data.rkey || data.id || '') as string;
 		expect(convoId).toBeTruthy();
@@ -224,7 +224,7 @@ test.describe('atproto.etzhayyim.com — Authenticated Round-Trip', () => {
 
 	test('Send message', async () => {
 		if (!convoId) test.skip();
-		const { status, data } = await xrpc('app.etzhayyim.convo.send', { convoId, body: 'E2E authenticated test' });
+		const { status, data } = await xrpc('com.etzhayyim.convo.send', { convoId, body: 'E2E authenticated test' });
 		expect(status).toBe(200);
 		rootRkey = (data.rkey || '') as string;
 		expect(rootRkey).toBeTruthy();
@@ -232,31 +232,31 @@ test.describe('atproto.etzhayyim.com — Authenticated Round-Trip', () => {
 
 	test('Send reply', async () => {
 		if (!convoId || !rootRkey) test.skip();
-		const { status } = await xrpc('app.etzhayyim.convo.send', { convoId, body: 'E2E reply', replyTo: rootRkey, threadId: rootRkey });
+		const { status } = await xrpc('com.etzhayyim.convo.send', { convoId, body: 'E2E reply', replyTo: rootRkey, threadId: rootRkey });
 		expect(status).toBe(200);
 	});
 
 	test('listEnvelopes', async () => {
 		if (!convoId) test.skip();
-		const { status } = await xrpc('app.etzhayyim.convo.listEnvelopes', { convoId, limit: 10 });
+		const { status } = await xrpc('com.etzhayyim.convo.listEnvelopes', { convoId, limit: 10 });
 		expect(status).toBe(200);
 	});
 
 	test('getThread', async () => {
 		if (!convoId || !rootRkey) test.skip();
-		const { status } = await xrpc('app.etzhayyim.convo.getThread', { convoId, rootRkey });
+		const { status } = await xrpc('com.etzhayyim.convo.getThread', { convoId, rootRkey });
 		expect(status).toBe(200);
 	});
 
 	test('react', async () => {
 		if (!convoId || !rootRkey) test.skip();
-		const { status } = await xrpc('app.etzhayyim.convo.react', { convoId, rkey: rootRkey, emoji: 'thumbsup' });
+		const { status } = await xrpc('com.etzhayyim.convo.react', { convoId, rkey: rootRkey, emoji: 'thumbsup' });
 		expect(status).toBe(200);
 	});
 
 	test('markRead', async () => {
 		if (!convoId || !rootRkey) test.skip();
-		const { status } = await xrpc('app.etzhayyim.convo.markRead', { convoId, lastRkey: rootRkey });
+		const { status } = await xrpc('com.etzhayyim.convo.markRead', { convoId, lastRkey: rootRkey });
 		expect(status).toBe(200);
 	});
 
@@ -268,12 +268,12 @@ test.describe('atproto.etzhayyim.com — Authenticated Round-Trip', () => {
 
 	test('listMembers', async () => {
 		if (!convoId) test.skip();
-		const { status } = await xrpc('app.etzhayyim.convo.listMembers', { convoId });
+		const { status } = await xrpc('com.etzhayyim.convo.listMembers', { convoId });
 		expect(status).toBe(200);
 	});
 
 	test('listPublicConvos (authenticated)', async () => {
-		const { status, data } = await xrpc('app.etzhayyim.convo.listPublicConvos', { limit: 10 });
+		const { status, data } = await xrpc('com.etzhayyim.convo.listPublicConvos', { limit: 10 });
 		expect(status).toBe(200);
 	});
 
@@ -284,7 +284,7 @@ test.describe('atproto.etzhayyim.com — Authenticated Round-Trip', () => {
 	});
 
 	test('Search messages', async () => {
-		const { status } = await xrpc('app.etzhayyim.convo.search', { q: 'E2E', limit: 5 });
+		const { status } = await xrpc('com.etzhayyim.convo.search', { q: 'E2E', limit: 5 });
 		expect(status).toBe(200);
 	});
 

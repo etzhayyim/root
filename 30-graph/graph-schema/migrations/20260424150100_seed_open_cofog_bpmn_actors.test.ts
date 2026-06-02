@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-cofog/recordExpenditure.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-cofog/recordExpenditure.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-cofog/recordConcordance.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-cofog/recordConcordance.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-cofog BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-cofog-record-expenditure-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_cofog_record_expenditure"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-cofog/recordExpenditure.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-cofog/recordExpenditure.bpmn"');
     expect(migrationSource).toContain("open-cofog-record-concordance-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_cofog_record_concordance"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-cofog/recordConcordance.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-cofog/recordConcordance.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openCofog.recordExpenditure"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openCofog.recordConcordance"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openCofog.recordExpenditure"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openCofog.recordConcordance"');
   });
 
   it("uses open-cofog-specific actor_id + owner_did", () => {

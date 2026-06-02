@@ -3,7 +3,7 @@
   "formKey": "openBanking.openAccount.v1",
   "name": "Open Account",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openBanking.createAccount",
+  "lexiconRef": "com.etzhayyim.apps.openBanking.createAccount",
   "components": [
     {
       "key": "ownerDid",

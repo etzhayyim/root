@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.livestockAbx.flagGrowthPromoter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Banned / misused growth promoter signal (bridges amrSurveillance.flagStewardshipBreach + food-safety + trade-sanitary)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "reportVid",
+            "compoundName",
+            "misuseKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges recordVeterinaryUse"
+            },
+            "stewardshipBreachVid": {
+              "type": "string",
+              "description": "bridges amrSurveillance.flagStewardshipBreach"
+            },
+            "compoundName": {
+              "type": "string"
+            },
+            "misuseKind": {
+              "type": "string",
+              "enum": [
+                "banned_growth_promoter",
+                "off_label",
+                "unregulated_import",
+                "counterfeit",
+                "residue_violation",
+                "withdrawal_breach"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

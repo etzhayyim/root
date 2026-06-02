@@ -76,7 +76,7 @@ pub enum PresenceStatus {
 pub struct WEnvelope {
     /// Envelope identity (ulid, idempotency key).
     pub id: String,
-    /// Message kind → AT collection NSID: `app.etzhayyim.w.{kind}`.
+    /// Message kind → AT collection NSID: `com.etzhayyim.w.{kind}`.
     pub kind: String,
 
     /// MDAG content address (Blake3 hash of CBOR-encoded EnvelopeBlock).

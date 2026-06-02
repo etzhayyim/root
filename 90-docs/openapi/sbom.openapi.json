@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.sbom.cveIngestOsv": {
+    "/xrpc/com.etzhayyim.sbom.cveIngestOsv": {
       "post": {
         "summary": "Ingest open-source vulnerabilities from osv.dev into vertex_cve_entry. Optionally restricted to a single OSV ecosystem (npm / PyPI / crates.io / Maven / Go / RubyGems / Hex / NuGet / Packagist / Pub / cargo) for incremental refresh. Synthesizes affected_purl_pattern (e.g. pkg:cargo/serde@%) per affected package. Idempotent: same vulnerability id overwrites by PK.",
-        "operationId": "app.etzhayyim.sbom.cveIngestOsv",
+        "operationId": "com.etzhayyim.sbom.cveIngestOsv",
         "requestBody": {
           "required": true,
           "content": {
@@ -72,10 +72,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.sbom.health": {
+    "/xrpc/com.etzhayyim.sbom.health": {
       "get": {
         "summary": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
-        "operationId": "app.etzhayyim.sbom.health",
+        "operationId": "com.etzhayyim.sbom.health",
         "parameters": [],
         "responses": {
           "200": {
@@ -121,10 +121,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.sbom.recall": {
+    "/xrpc/com.etzhayyim.sbom.recall": {
       "get": {
         "summary": "Blast-radius query for a supplier (and optionally MPN). Returns every SBOM artifact whose components reference the supplier — Takata-style hardware recall surface for vehicle BOMs and the equivalent software-side query for cargo SBOMs. Filters by kind (software | vehicle).",
-        "operationId": "app.etzhayyim.sbom.recall",
+        "operationId": "com.etzhayyim.sbom.recall",
         "parameters": [
           {
             "name": "supplier",
@@ -266,10 +266,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.sbom.registerArtifact": {
+    "/xrpc/com.etzhayyim.sbom.registerArtifact": {
       "post": {
         "summary": "Register a CycloneDX or SPDX SBOM artifact with sbom.etzhayyim.com. Software SBOMs (cargo-cyclonedx output) and vehicle BOMs (kami-cad-import output, type=device per part) flow through the same SbomArtifact graph and CVE / recall pipeline (60-apps/ai-gftd-project-sbom/CLAUDE.md). For vehicle BOMs the optional vehicle* fields capture the part-graph metadata needed for Takata-style supplier recall queries.",
-        "operationId": "app.etzhayyim.sbom.registerArtifact",
+        "operationId": "com.etzhayyim.sbom.registerArtifact",
         "requestBody": {
           "required": true,
           "content": {
@@ -344,7 +344,7 @@
                   "properties": {
                     "artifactUri": {
                       "type": "string",
-                      "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/app.etzhayyim.sbom.artifact/<rkey>)."
+                      "description": "AT URI of the SbomArtifact graph node (at://did:web:sbom.etzhayyim.com/com.etzhayyim.sbom.artifact/<rkey>)."
                     },
                     "componentCount": {
                       "type": "integer",

@@ -82,7 +82,7 @@ describe("bindDevice — L0", () => {
       { client: mockClient(captured) },
     );
     expect(captured).toHaveLength(1);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.deviceBinding");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.deviceBinding");
     expect(captured[0].rkey).toBeUndefined(); // TID assigned by PDS
     const v = captured[0].value;
     expect(v.v).toBe(1);
@@ -179,7 +179,7 @@ describe("setSensorAlert", () => {
       },
       { client: mockClient(captured as any) },
     );
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.sensorAlert");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.sensorAlert");
     expect(captured[0].rkey).toBe("co2-too-high-r408");
     const v = captured[0].value;
     expect(v.alertId).toBe("co2-too-high-r408");
@@ -252,7 +252,7 @@ describe("L1 witnessed (Tier B) — updateOccupancy end-to-end", () => {
       },
       {
         client: mockClient(captured as any),
-        witness: { fleet, transport, rule: mockRule("app.etzhayyim.maps.twinState") },
+        witness: { fleet, transport, rule: mockRule("com.etzhayyim.maps.twinState") },
       },
     );
     expect(captured[0].value.stateKind).toBe("occupancy");
@@ -285,7 +285,7 @@ describe("L1 witnessed — bindDevice end-to-end", () => {
       },
       {
         client: mockClient(),
-        witness: { fleet, transport, rule: mockRule("app.etzhayyim.maps.deviceBinding") },
+        witness: { fleet, transport, rule: mockRule("com.etzhayyim.maps.deviceBinding") },
       },
     );
     expect(result.witnessState!.kind).toBe("witnessed");

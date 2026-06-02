@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_analyze_schedule',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -44,7 +44,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_analyzeSchedule"/>\n'
                  '    <bpmn:serviceTask id="Task_analyzeSchedule" name="analyzeSchedule">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.analyzeSchedule" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.analyzeSchedule" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -56,20 +56,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/analyzeSchedule.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/analyzeSchedule.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1145,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -84,9 +84,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-analyze-schedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-analyze-schedule-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.analyzeSchedule',
+                 'com.etzhayyim.apps.yotei.analyzeSchedule',
                  'yotei_analyze_schedule',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-analyze-schedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-analyze-schedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -110,7 +110,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_auto_reschedule',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -127,7 +127,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_autoReschedule"/>\n'
                  '    <bpmn:serviceTask id="Task_autoReschedule" name="autoReschedule">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.autoReschedule" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.autoReschedule" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -139,20 +139,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/autoReschedule.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/autoReschedule.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1137,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -167,9 +167,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-auto-reschedule-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-auto-reschedule-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.autoReschedule',
+                 'com.etzhayyim.apps.yotei.autoReschedule',
                  'yotei_auto_reschedule',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -177,7 +177,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-auto-reschedule-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-auto-reschedule-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -193,7 +193,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_cancel_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -210,7 +210,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_cancelBooking"/>\n'
                  '    <bpmn:serviceTask id="Task_cancelBooking" name="cancelBooking">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.cancelBooking" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.cancelBooking" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -222,20 +222,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/cancelBooking.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/cancelBooking.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1129,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -250,9 +250,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-cancel-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-cancel-booking-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.cancelBooking',
+                 'com.etzhayyim.apps.yotei.cancelBooking',
                  'yotei_cancel_booking',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -260,7 +260,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-cancel-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-cancel-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -276,7 +276,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_cancel_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -291,7 +291,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_cancelEvent"/>\n'
                  '    <bpmn:serviceTask id="Task_cancelEvent" name="cancelEvent">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.cancelEvent" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.cancelEvent" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -303,20 +303,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/cancelEvent.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/cancelEvent.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1113,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -331,9 +331,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-cancel-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-cancel-event-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.cancelEvent',
+                 'com.etzhayyim.apps.yotei.cancelEvent',
                  'yotei_cancel_event',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -341,7 +341,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-cancel-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-cancel-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -357,7 +357,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_confirm_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -374,7 +374,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_confirmBooking"/>\n'
                  '    <bpmn:serviceTask id="Task_confirmBooking" name="confirmBooking">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.confirmBooking" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.confirmBooking" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -386,20 +386,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/confirmBooking.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/confirmBooking.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1137,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -414,9 +414,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-confirm-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-confirm-booking-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.confirmBooking',
+                 'com.etzhayyim.apps.yotei.confirmBooking',
                  'yotei_confirm_booking',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -424,7 +424,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-confirm-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-confirm-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -440,7 +440,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_create_calendar',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -457,7 +457,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_createCalendar"/>\n'
                  '    <bpmn:serviceTask id="Task_createCalendar" name="createCalendar">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.createCalendar" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.createCalendar" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -469,20 +469,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/createCalendar.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/createCalendar.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1137,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -497,9 +497,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-create-calendar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-create-calendar-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.createCalendar',
+                 'com.etzhayyim.apps.yotei.createCalendar',
                  'yotei_create_calendar',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -507,7 +507,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-create-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-create-calendar-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -523,7 +523,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_create_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -538,7 +538,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_createEvent"/>\n'
                  '    <bpmn:serviceTask id="Task_createEvent" name="createEvent">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.createEvent" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.createEvent" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -550,20 +550,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/createEvent.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/createEvent.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1113,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -578,9 +578,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-create-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-create-event-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.createEvent',
+                 'com.etzhayyim.apps.yotei.createEvent',
                  'yotei_create_event',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -588,7 +588,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-create-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-create-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -604,7 +604,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_delete_calendar',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -621,7 +621,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_deleteCalendar"/>\n'
                  '    <bpmn:serviceTask id="Task_deleteCalendar" name="deleteCalendar">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.deleteCalendar" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.deleteCalendar" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -633,20 +633,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/deleteCalendar.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/deleteCalendar.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1137,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -661,9 +661,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-delete-calendar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-delete-calendar-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.deleteCalendar',
+                 'com.etzhayyim.apps.yotei.deleteCalendar',
                  'yotei_delete_calendar',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -671,7 +671,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-delete-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-delete-calendar-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -687,7 +687,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-describe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-describe-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_describe',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -702,7 +702,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_describe"/>\n'
                  '    <bpmn:serviceTask id="Task_describe" name="describe">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.describe" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.describe" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -714,19 +714,19 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/describe.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/describe.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-describe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-describe-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1087, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-describe-v1']},
+  'parameters': [1087, 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-describe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -741,9 +741,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-describe-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-describe-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.describe',
+                 'com.etzhayyim.apps.yotei.describe',
                  'yotei_describe',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -751,7 +751,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-describe-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-describe-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -767,7 +767,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_get_availability',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -784,7 +784,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getAvailability"/>\n'
                  '    <bpmn:serviceTask id="Task_getAvailability" name="getAvailability">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.getAvailability" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.getAvailability" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -796,20 +796,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/getAvailability.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/getAvailability.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1145,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -824,9 +824,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-availability-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.getAvailability',
+                 'com.etzhayyim.apps.yotei.getAvailability',
                  'yotei_get_availability',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -834,7 +834,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-availability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -850,7 +850,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_get_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -865,7 +865,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getBooking"/>\n'
                  '    <bpmn:serviceTask id="Task_getBooking" name="getBooking">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.getBooking" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.getBooking" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -877,20 +877,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/getBooking.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/getBooking.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1105,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -905,9 +905,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-booking-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.getBooking',
+                 'com.etzhayyim.apps.yotei.getBooking',
                  'yotei_get_booking',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -915,7 +915,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -931,7 +931,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_get_calendar',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -946,7 +946,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getCalendar"/>\n'
                  '    <bpmn:serviceTask id="Task_getCalendar" name="getCalendar">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.getCalendar" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.getCalendar" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -958,20 +958,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/getCalendar.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/getCalendar.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1113,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -986,9 +986,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-calendar-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-calendar-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.getCalendar',
+                 'com.etzhayyim.apps.yotei.getCalendar',
                  'yotei_get_calendar',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -996,7 +996,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-calendar-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-calendar-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1012,7 +1012,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_get_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1027,7 +1027,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getEvent"/>\n'
                  '    <bpmn:serviceTask id="Task_getEvent" name="getEvent">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.getEvent" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.getEvent" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1039,20 +1039,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/getEvent.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/getEvent.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1089,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1067,9 +1067,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-event-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.getEvent',
+                 'com.etzhayyim.apps.yotei.getEvent',
                  'yotei_get_event',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1077,7 +1077,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1093,7 +1093,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_get_open_slots',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1110,7 +1110,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_getOpenSlots"/>\n'
                  '    <bpmn:serviceTask id="Task_getOpenSlots" name="getOpenSlots">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.getOpenSlots" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.getOpenSlots" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1122,20 +1122,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/getOpenSlots.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/getOpenSlots.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1123,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1150,9 +1150,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-open-slots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-open-slots-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.getOpenSlots',
+                 'com.etzhayyim.apps.yotei.getOpenSlots',
                  'yotei_get_open_slots',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1160,7 +1160,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-open-slots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-open-slots-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1176,7 +1176,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-health-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1191,7 +1191,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_health"/>\n'
                  '    <bpmn:serviceTask id="Task_health" name="health">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.health" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.health" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1203,19 +1203,19 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/health.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/health.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-health-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
-  'parameters': [1071, 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-health-v1']},
+  'parameters': [1071, 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1230,9 +1230,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-health-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.health',
+                 'com.etzhayyim.apps.yotei.health',
                  'yotei_health',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1240,7 +1240,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1256,7 +1256,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_list_bookings',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1273,7 +1273,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listBookings"/>\n'
                  '    <bpmn:serviceTask id="Task_listBookings" name="listBookings">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.listBookings" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.listBookings" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1285,20 +1285,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/listBookings.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/listBookings.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1121,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1313,9 +1313,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-bookings-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-bookings-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.listBookings',
+                 'com.etzhayyim.apps.yotei.listBookings',
                  'yotei_list_bookings',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1323,7 +1323,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-bookings-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-bookings-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1339,7 +1339,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_list_calendars',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1356,7 +1356,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listCalendars"/>\n'
                  '    <bpmn:serviceTask id="Task_listCalendars" name="listCalendars">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.listCalendars" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.listCalendars" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1368,20 +1368,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/listCalendars.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/listCalendars.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1129,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1396,9 +1396,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-calendars-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-calendars-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.listCalendars',
+                 'com.etzhayyim.apps.yotei.listCalendars',
                  'yotei_list_calendars',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1406,7 +1406,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-calendars-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-calendars-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1422,7 +1422,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_list_events',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1437,7 +1437,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_listEvents"/>\n'
                  '    <bpmn:serviceTask id="Task_listEvents" name="listEvents">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.listEvents" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.listEvents" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1449,20 +1449,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/listEvents.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/listEvents.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1105,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1477,9 +1477,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-events-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-events-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.listEvents',
+                 'com.etzhayyim.apps.yotei.listEvents',
                  'yotei_list_events',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1487,7 +1487,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-events-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-events-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1503,7 +1503,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_propose_booking',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1520,7 +1520,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_proposeBooking"/>\n'
                  '    <bpmn:serviceTask id="Task_proposeBooking" name="proposeBooking">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.proposeBooking" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.proposeBooking" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1532,20 +1532,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/proposeBooking.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/proposeBooking.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1137,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1560,9 +1560,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-propose-booking-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-propose-booking-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.proposeBooking',
+                 'com.etzhayyim.apps.yotei.proposeBooking',
                  'yotei_propose_booking',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -1570,7 +1570,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-propose-booking-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-propose-booking-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1586,7 +1586,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_remove_availability',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1603,7 +1603,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_removeAvailability"/>\n'
                  '    <bpmn:serviceTask id="Task_removeAvailability" name="removeAvailability">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.removeAvailability" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.removeAvailability" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1615,20 +1615,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/removeAvailability.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/removeAvailability.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1169,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1643,9 +1643,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-remove-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-remove-availability-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.removeAvailability',
+                 'com.etzhayyim.apps.yotei.removeAvailability',
                  'yotei_remove_availability',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -1653,7 +1653,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-remove-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-remove-availability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1669,7 +1669,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_set_availability',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1686,7 +1686,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_setAvailability"/>\n'
                  '    <bpmn:serviceTask id="Task_setAvailability" name="setAvailability">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.setAvailability" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.setAvailability" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1698,20 +1698,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/setAvailability.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/setAvailability.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1145,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1726,9 +1726,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-set-availability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-set-availability-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.setAvailability',
+                 'com.etzhayyim.apps.yotei.setAvailability',
                  'yotei_set_availability',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -1736,7 +1736,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-set-availability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-set-availability-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1752,7 +1752,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_suggest_slots',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1769,7 +1769,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_suggestSlots"/>\n'
                  '    <bpmn:serviceTask id="Task_suggestSlots" name="suggestSlots">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.suggestSlots" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.suggestSlots" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1781,20 +1781,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/suggestSlots.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/suggestSlots.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1121,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1809,9 +1809,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-suggest-slots-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-suggest-slots-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.suggestSlots',
+                 'com.etzhayyim.apps.yotei.suggestSlots',
                  'yotei_suggest_slots',
                  '',
                  '2026-05-07T00:20:00Z',
@@ -1819,7 +1819,7 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-suggest-slots-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-suggest-slots-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml,\n'
@@ -1835,7 +1835,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1',
                  'did:web:yotei.etzhayyim.com',
                  'yotei_update_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1850,7 +1850,7 @@ UP = [{'sql': '\n'
                  'targetRef="Task_updateEvent"/>\n'
                  '    <bpmn:serviceTask id="Task_updateEvent" name="updateEvent">\n'
                  '      <bpmn:extensionElements>\n'
-                 '        <zeebe:taskDefinition type="xrpc.app.etzhayyim.apps.yotei.updateEvent" '
+                 '        <zeebe:taskDefinition type="xrpc.com.etzhayyim.apps.yotei.updateEvent" '
                  'retries="2"/>\n'
                  '      </bpmn:extensionElements>\n'
                  '      '
@@ -1862,20 +1862,20 @@ UP = [{'sql': '\n'
                  'id="End"><bpmn:incoming>Flow_Task_End</bpmn:incoming></bpmn:endEvent>\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
-                 '00-contracts/bpmn/ai/gftd/yotei/updateEvent.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/yotei/updateEvent.bpmn',
                  '2026-05-07T00:20:00Z',
                  'did:web:yotei.etzhayyim.com',
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1']},
  {'sql': '\n'
          '      UPDATE vertex_bpmn_process_def\n'
          '      SET xml_byte_size = $1\n'
          '      WHERE vertex_id = $2 AND xml_byte_size IS NULL\n'
          '    ',
   'parameters': [1113,
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1890,9 +1890,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-update-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-update-event-v1',
                  'did:web:yotei.etzhayyim.com',
-                 'app.etzhayyim.apps.yotei.updateEvent',
+                 'com.etzhayyim.apps.yotei.updateEvent',
                  'yotei_update_event',
                  'vertex_yotei_calendar,vertex_yotei_availability,vertex_yotei_event,vertex_yotei_booking',
                  '2026-05-07T00:20:00Z',
@@ -1900,100 +1900,100 @@ UP = [{'sql': '\n'
                  'did:web:yotei.etzhayyim.com',
                  'sys.bpmn.seed.yotei',
                  'did:web:yotei.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-update-event-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-update-event-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-analyze-schedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-analyze-schedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-analyze-schedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-auto-reschedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-auto-reschedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-auto-reschedule-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-cancel-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-cancel-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-cancel-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-cancel-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-cancel-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-confirm-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-confirm-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-confirm-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-create-calendar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-create-calendar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-calendar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-create-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-create-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-create-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-delete-calendar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-delete-calendar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-delete-calendar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-describe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-describe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-describe-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-describe-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-calendar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-calendar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-calendar-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-get-open-slots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-get-open-slots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-get-open-slots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-bookings-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-bookings-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-bookings-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-calendars-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-calendars-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-calendars-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-list-events-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-list-events-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-list-events-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-propose-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-propose-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-propose-booking-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-remove-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-remove-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-remove-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-set-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-set-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-set-availability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-suggest-slots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-suggest-slots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-suggest-slots-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/yotei-update-event-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/yotei-update-event-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yotei-update-event-v1']}]
 
 
 def upgrade() -> None:

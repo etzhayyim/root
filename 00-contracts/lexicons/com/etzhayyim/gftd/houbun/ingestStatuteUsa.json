@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.houbun.ingestStatuteUsa",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Crawl US federal statutory material (CFR / USC) from GovInfo bulkdata. Phase 2 MVP ingests CFR title-level metadata from the free JSON index (https://www.govinfo.gov/bulkdata/json/CFR); full title XML parse (part / section / paragraph) follows in a later PR. Writes to vertex_houbun_statute. Public domain.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "collection": {
+              "type": "string",
+              "knownValues": ["CFR", "USCODE"],
+              "description": "GovInfo collection slug. Default 'CFR'."
+            },
+            "titleNumber": {
+              "type": "integer",
+              "description": "CFR title (1–50) or USC title (1–54). Omit to ingest the full title index."
+            },
+            "year": {
+              "type": "integer",
+              "description": "Edition year (e.g. 2024 for CFR, 2023 for USC)."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Max statutes to ingest in one call (default 50, max 500)."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "statutesFetched": { "type": "integer" },
+            "statutesInserted": { "type": "integer" },
+            "articlesInserted": { "type": "integer" },
+            "articlesSkipped": { "type": "integer" },
+            "errors": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

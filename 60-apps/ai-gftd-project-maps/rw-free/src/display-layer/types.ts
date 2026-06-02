@@ -1,6 +1,6 @@
 /**
- * Mirrors app.etzhayyim.maps.displayLayer.
- * Source lexicon: 00-contracts/lexicons/app/etzhayyim/maps/displayLayer.json
+ * Mirrors com.etzhayyim.maps.displayLayer.
+ * Source lexicon: 00-contracts/lexicons/com/etzhayyim/maps/displayLayer.json
  */
 
 export type DisplayLayerKind =

@@ -1,0 +1,69 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hodoki.shredOutputAttestation",
+  "description": "Hulk shred + sort attestation (L4). G13 ≥95% material recovery + ASR <5% to landfill + cross-actor handoff to kanayama (metals) + silicon Wave 2 (electronics PCB). Per ADR-2605261215 L4 (G13 cross-actor invariant).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "hulkLoad": {
+            "type": "object",
+            "properties": {
+              "preShredMassKg": {"type": "integer"},
+              "hulkConditionAfterHarvest": {"type": "string"},
+              "g8DataWipeVerified": {"type": "boolean", "const": true},
+              "g6FgasVerifiedCaptured": {"type": "boolean", "const": true},
+              "g7BatteryRemoved": {"type": "boolean", "const": true},
+              "asbestosCheck": {"type": "string", "knownValues": ["clear", "flagged"]}
+            }
+          },
+          "shred": {"type": "unknown"},
+          "sortStreams": {
+            "type": "object",
+            "properties": {
+              "ferrousMassKg": {"type": "number"},
+              "nonFerrousAlMassKg": {"type": "number"},
+              "copperWireMassKg": {"type": "number"},
+              "electronicsPcbMassKg": {"type": "number"},
+              "asrMassKg": {"type": "number"},
+              "totalOutMassKg": {"type": "number"},
+              "g13RecoveryRatePct": {"type": "number"},
+              "g13AsrPctOfInput": {"type": "number"},
+              "g13AsrMaxPctLimit": {"type": "number", "const": 5.0},
+              "g13Compliant": {"type": "boolean"}
+            },
+            "required": ["ferrousMassKg", "nonFerrousAlMassKg", "asrMassKg", "g13Compliant"]
+          },
+          "kanayamaHandoff": {
+            "type": "object",
+            "properties": {
+              "destinationActor": {"type": "string", "const": "kanayama"},
+              "destinationDid": {"type": "string"},
+              "streams": {"type": "unknown"},
+              "shippedAt": {"type": "string", "format": "datetime"},
+              "custodyChainCid": {"type": "string"}
+            }
+          },
+          "siliconHandoff": {
+            "type": "object",
+            "properties": {
+              "destinationActor": {"type": "string", "const": "silicon-wave2"},
+              "destinationDid": {"type": "string"},
+              "pcbMassKg": {"type": "number"},
+              "feedTarget": {"type": "string"},
+              "shippedAt": {"type": "string", "format": "datetime"},
+              "wave2GatedNote": {"type": "string"}
+            }
+          },
+          "g13Compliant": {"type": "boolean"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "sortStreams", "kanayamaHandoff", "g13Compliant", "attestingRobots"]
+      }
+    }
+  }
+}

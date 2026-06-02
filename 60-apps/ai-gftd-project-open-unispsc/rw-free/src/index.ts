@@ -8,7 +8,7 @@ export { cpcSectionFor, isValidCode, isValidSlug } from "./types.js";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { SegmentDef } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.openUnispsc.segmentDef";
+const COLLECTION = "com.etzhayyim.apps.openUnispsc.segmentDef";
 
 function defaultClient() {
   return new Etzhayyim({

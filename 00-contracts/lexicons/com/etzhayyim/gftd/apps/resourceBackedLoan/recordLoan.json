@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.resourceBackedLoan.recordLoan",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resource / commodity-collateralized sovereign loan (bridges southSouthCoop.flagDebtTrap + sovereign-debt + debt-rescheduling-contract)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "loanId",
+            "debtorCountryIso3",
+            "creditorEntityKind",
+            "collateralKind",
+            "originatedAt"
+          ],
+          "properties": {
+            "loanId": {
+              "type": "string"
+            },
+            "debtorCountryIso3": {
+              "type": "string"
+            },
+            "creditorEntityKind": {
+              "type": "string",
+              "enum": [
+                "china_dev_bank",
+                "china_exim",
+                "gcc_sovereign_fund",
+                "commodity_trader",
+                "mining_company",
+                "specific_lender",
+                "russia_finance",
+                "trafigura",
+                "glencore",
+                "vitol",
+                "oil_major",
+                "dev_bank_local"
+              ]
+            },
+            "collateralKind": {
+              "type": "string",
+              "enum": [
+                "oil",
+                "copper",
+                "cobalt",
+                "iron_ore",
+                "nickel",
+                "gold",
+                "gas",
+                "port_revenue",
+                "airport_revenue",
+                "mining_royalty",
+                "diamonds",
+                "uranium",
+                "timber",
+                "food_rights"
+              ]
+            },
+            "debtTrapVid": {
+              "type": "string",
+              "description": "bridges southSouthCoop.flagDebtTrap"
+            },
+            "originatedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

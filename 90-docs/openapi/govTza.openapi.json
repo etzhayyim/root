@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govTza.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govTza.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Tanzania government.",
-        "operationId": "app.etzhayyim.govTza.followSiteDeps",
+        "operationId": "com.etzhayyim.govTza.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govTza.heartbeatTick": {
       "post": {
         "summary": "Run the Tanzania government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govTza.heartbeatTick",
+        "operationId": "com.etzhayyim.govTza.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.listOrgs": {
+    "/xrpc/com.etzhayyim.govTza.listOrgs": {
       "get": {
         "summary": "List Tanzania government organization graph records.",
-        "operationId": "app.etzhayyim.govTza.listOrgs",
+        "operationId": "com.etzhayyim.govTza.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.registerDIDs": {
+    "/xrpc/com.etzhayyim.govTza.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Tanzania government organizations.",
-        "operationId": "app.etzhayyim.govTza.registerDIDs",
+        "operationId": "com.etzhayyim.govTza.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govTza.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Tanzania government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govTza.resolveOrgPath",
+        "operationId": "com.etzhayyim.govTza.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.seedOrgs": {
+    "/xrpc/com.etzhayyim.govTza.seedOrgs": {
       "post": {
         "summary": "Seed initial Tanzania government organization records into the graph.",
-        "operationId": "app.etzhayyim.govTza.seedOrgs",
+        "operationId": "com.etzhayyim.govTza.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.shinka": {
+    "/xrpc/com.etzhayyim.govTza.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Tanzania government organization update.",
-        "operationId": "app.etzhayyim.govTza.shinka",
+        "operationId": "com.etzhayyim.govTza.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTza.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govTza.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Tanzania government organization changes to graph.",
-        "operationId": "app.etzhayyim.govTza.syncWetUpdates",
+        "operationId": "com.etzhayyim.govTza.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

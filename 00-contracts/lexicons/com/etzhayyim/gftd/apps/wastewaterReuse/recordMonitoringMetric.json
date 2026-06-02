@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.wastewaterReuse.recordMonitoringMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Effluent / blended-water quality metric (bridges ocean-acidification + water-scarcity + food-waste-epr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "facilityVid",
+            "periodMonth",
+            "recordedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "facilityVid": {
+              "type": "string",
+              "description": "bridges registerFacility"
+            },
+            "periodMonth": {
+              "type": "string"
+            },
+            "reuseVolumeM3": {
+              "type": "number"
+            },
+            "bodMgL": {
+              "type": "number"
+            },
+            "codMgL": {
+              "type": "number"
+            },
+            "tssMgL": {
+              "type": "number"
+            },
+            "ecoliPer100ml": {
+              "type": "number"
+            },
+            "micropollutantExceedances": {
+              "type": "integer"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "qualityTier": {
+              "type": "string",
+              "enum": [
+                "compliant",
+                "marginal",
+                "non_compliant"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -31,7 +31,7 @@ Pregel graph (5 nodes):
                                         per material category
         |
         v
-    emit_recycling_certificate     ->  MST PUT app.etzhayyim.tsutae.recyclingCertificate
+    emit_recycling_certificate     ->  MST PUT com.etzhayyim.tsutae.recyclingCertificate
                                         (device DID being retired, per-material
                                         mass log, kanayama Al routing CID,
                                         battery recycling routing CID, repair-

@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'aidesk_synthesize_cad_from_image',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -189,12 +189,12 @@ UP = [{'sql': '\n'
                  '\n'
                  '</bpmn:definitions>\n',
                  7091,
-                 '00-contracts/bpmn/ai/gftd/aidesk/synthesizeCadFromImage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/aidesk/synthesizeCadFromImage.bpmn',
                  '2026-05-06T13:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.aidesk',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -206,7 +206,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'aidesk_export_to_tsukuru',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -295,17 +295,17 @@ UP = [{'sql': '\n'
                  '\n'
                  '</bpmn:definitions>\n',
                  3671,
-                 '00-contracts/bpmn/ai/gftd/aidesk/exportToTsukuru.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/aidesk/exportToTsukuru.bpmn',
                  '2026-05-06T13:00:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.aidesk',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-synthesize-cad-from-image-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aidesk-export-to-tsukuru-v1']}]
 
 
 def upgrade() -> None:

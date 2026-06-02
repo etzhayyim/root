@@ -117,7 +117,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vessel.voyage"
+          "com.etzhayyim.apps.vessel.voyage"
         ],
         "type": "subscribeRepos"
       }
@@ -133,7 +133,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.manifest.getBl",
+        "nsid": "com.etzhayyim.apps.cargo.manifest.getBl",
         "type": "xrpc"
       }
     },
@@ -148,7 +148,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.manifest.listBls",
+        "nsid": "com.etzhayyim.apps.cargo.manifest.listBls",
         "type": "xrpc"
       }
     },
@@ -163,7 +163,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.manifest.trackContainer",
+        "nsid": "com.etzhayyim.apps.cargo.manifest.trackContainer",
         "type": "xrpc"
       }
     },
@@ -178,7 +178,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.manifest.listContainers",
+        "nsid": "com.etzhayyim.apps.cargo.manifest.listContainers",
         "type": "xrpc"
       }
     },
@@ -209,7 +209,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.manifest.getVoyageManifest",
+        "nsid": "com.etzhayyim.apps.cargo.manifest.getVoyageManifest",
         "type": "xrpc"
       }
     },
@@ -224,7 +224,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.health",
+        "nsid": "com.etzhayyim.apps.cargo.health",
         "type": "xrpc"
       }
     },
@@ -250,7 +250,7 @@
             "params": {
               "actorName": "cargo",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.cargo.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.cargo.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "c4rg0m01",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -288,7 +288,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.cargo.coverage.get",
+        "nsid": "com.etzhayyim.apps.cargo.coverage.get",
         "type": "xrpc"
       }
     }
@@ -307,8 +307,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -321,12 +321,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.cargo.billOfLading",
-        "ai.gftd.apps.cargo.cargoItem",
-        "ai.gftd.apps.cargo.container",
-        "ai.gftd.apps.cargo.dangerousGoods",
-        "ai.gftd.apps.vessel.voyage",
-        "ai.gftd.apps.vessel.portCall"
+        "com.etzhayyim.apps.cargo.billOfLading",
+        "com.etzhayyim.apps.cargo.cargoItem",
+        "com.etzhayyim.apps.cargo.container",
+        "com.etzhayyim.apps.cargo.dangerousGoods",
+        "com.etzhayyim.apps.vessel.voyage",
+        "com.etzhayyim.apps.vessel.portCall"
       ]
     }
   },

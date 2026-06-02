@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.redseaSuez.recordToll",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Suez 通航料率",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "tollId",
+            "effectiveFrom",
+            "vesselType",
+            "rateUsdScnt"
+          ],
+          "properties": {
+            "tollId": {
+              "type": "string"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "date"
+            },
+            "vesselType": {
+              "type": "string",
+              "enum": [
+                "vlcc",
+                "suezmax",
+                "container",
+                "lng",
+                "bulker",
+                "ro-ro"
+              ]
+            },
+            "laden": {
+              "type": "boolean"
+            },
+            "rateUsdScnt": {
+              "type": "number",
+              "description": "USD per SCNT (Suez Canal Net Tonnage)"
+            },
+            "discountPct": {
+              "type": "number"
+            },
+            "surchargePct": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

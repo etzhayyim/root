@@ -1,0 +1,92 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fatfTravelRule.recordVaspTransfer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FATF Recommendation 16 travel rule VASP transfer (bridges mica-crypto + blockchain-mev + ofac-sanctions + data-adequacy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "transferId",
+            "originatorJurisdictionIso3",
+            "beneficiaryJurisdictionIso3",
+            "amountUsd",
+            "transferredAt"
+          ],
+          "properties": {
+            "transferId": {
+              "type": "string"
+            },
+            "originatorVaspLei": {
+              "type": "string"
+            },
+            "beneficiaryVaspLei": {
+              "type": "string"
+            },
+            "originatorJurisdictionIso3": {
+              "type": "string"
+            },
+            "beneficiaryJurisdictionIso3": {
+              "type": "string"
+            },
+            "amountUsd": {
+              "type": "number"
+            },
+            "chain": {
+              "type": "string"
+            },
+            "txHash": {
+              "type": "string"
+            },
+            "messagingProtocol": {
+              "type": "string",
+              "enum": [
+                "trp",
+                "ivms101",
+                "sumsub_travel",
+                "notabene",
+                "trust_chainalysis",
+                "shyft"
+              ]
+            },
+            "transferredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "standard",
+                "high_value",
+                "unhosted_wallet"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

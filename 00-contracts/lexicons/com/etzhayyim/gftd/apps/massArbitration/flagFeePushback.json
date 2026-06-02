@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.massArbitration.flagFeePushback",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Respondent fee pushback / carve-out attempt (bridges classSettlement.flagClaimRate + civil-liability + enforcement-action)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "batchVid",
+            "pushbackKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "batchVid": {
+              "type": "string",
+              "description": "bridges recordDemandBatch"
+            },
+            "pushbackKind": {
+              "type": "string",
+              "enum": [
+                "refuse_fee",
+                "lose_lose_judgment",
+                "tos_update_rule",
+                "bellwether_trial",
+                "fee_shifting",
+                "consolidation_attempt",
+                "court_motion",
+                "severance_argument",
+                "sanctions_motion"
+              ]
+            },
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "fees_paid",
+                "court_compelled",
+                "waiver_tos",
+                "bellwether_loss",
+                "bellwether_win",
+                "remand_class",
+                "settlement_reached"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

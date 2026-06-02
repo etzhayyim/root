@@ -754,7 +754,7 @@ def queue_seiyaku_batch_start_payload(payload: dict[str, Any]) -> dict[str, Any]
     for field in ("manufacturerOrgId", "plantOrgId", "productCode", "batchNumber"):
         if not str(request_payload.get(field) or "").strip():
             raise ValueError(f"batchPayload.{field} is required")
-    start_nsid = "app.etzhayyim.apps.openSeiyaku.startBatchRecord"
+    start_nsid = "com.etzhayyim.apps.openSeiyaku.startBatchRecord"
     bpmn_process_id = "seiyaku_register_batch"
     vertex_id = str(payload.get("vertexId") or new_id("open_patent_seiyaku_start", payload["batchDraftVid"], request_payload["batchNumber"]))
     status = "queued"

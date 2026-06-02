@@ -47,21 +47,21 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "app.etzhayyim.mitate.rhinitisIntake",
-        "app.etzhayyim.mitate.emergencyEscalation"
+        "com.etzhayyim.mitate.rhinitisIntake",
+        "com.etzhayyim.mitate.emergencyEscalation"
       ]
     }
   },
   "r1ActiveLexiconNsids": [
-    "app.etzhayyim.mitate.rhinitisIntake",
-    "app.etzhayyim.mitate.triageVerdict",
-    "app.etzhayyim.mitate.emergencyEscalation"
+    "com.etzhayyim.mitate.rhinitisIntake",
+    "com.etzhayyim.mitate.triageVerdict",
+    "com.etzhayyim.mitate.emergencyEscalation"
   ],
   "r1GatedLexiconNsids": [
-    "app.etzhayyim.mitate.diagnosticOrder",
-    "app.etzhayyim.mitate.diagnosticResult",
-    "app.etzhayyim.mitate.treatmentPlan",
-    "app.etzhayyim.mitate.outcomeFollowup"
+    "com.etzhayyim.mitate.diagnosticOrder",
+    "com.etzhayyim.mitate.diagnosticResult",
+    "com.etzhayyim.mitate.treatmentPlan",
+    "com.etzhayyim.mitate.outcomeFollowup"
   ],
   "phaseGate": {
     "current": "R0-scaffold-PWA-contract-locked",

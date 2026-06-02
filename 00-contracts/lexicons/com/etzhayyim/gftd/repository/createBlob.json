@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.repository.createBlob",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Insert a content-addressed blob (sha256 keyed). Idempotent — re-insert of same content returns existing hash. Large bytes tiered to B2; small bytes stored inline in vertex_repository_blob.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ownerDid", "content"],
+          "properties": {
+            "ownerDid": {
+              "type": "string",
+              "format": "did",
+              "description": "Owning Actor DID. Used for authorization scope; blobs themselves are globally deduplicated."
+            },
+            "content": {
+              "type": "bytes",
+              "description": "Blob bytes. Base64url-encoded on the wire. No size cap here — runtime tiers >16KB to B2."
+            },
+            "mimeType": {
+              "type": "string",
+              "description": "Optional hint used only for editor preview. Not part of the hash input."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["hash", "sizeBytes", "tier"],
+          "properties": {
+            "hash": { "type": "string", "description": "sha256 hex of content" },
+            "sizeBytes": { "type": "integer" },
+            "tier": {
+              "type": "string",
+              "knownValues": ["inline", "r2"],
+              "description": "inline = stored in vertex_repository_blob.inline_text; r2 = vertex_repository_blob.bytes_ref"
+            },
+            "deduplicated": {
+              "type": "boolean",
+              "description": "true if identical hash already existed (INSERT was no-op)."
+            }
+          }
+        }
+      },
+      "errors": [
+        { "name": "UnauthorizedWriter", "description": "Caller lacks write permission for ownerDid." },
+        { "name": "SizeLimit", "description": "Blob exceeds max configured byte size." }
+      ]
+    }
+  }
+}

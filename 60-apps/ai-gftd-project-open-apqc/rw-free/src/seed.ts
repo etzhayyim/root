@@ -23,7 +23,7 @@ import {
   type ProcessCategory,
 } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apqc.processCategory";
+const COLLECTION = "com.etzhayyim.apqc.processCategory";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_SEEDER_DID ?? "did:web:etzhayyim.com",

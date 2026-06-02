@@ -745,7 +745,7 @@ impl HostRuntime {
         }
 
         let url = std::env::var("MAGATAMA_YATA_CATALOG_URL")
-            .unwrap_or_else(|_| "https://atproto.etzhayyim.com/xrpc/app.etzhayyim.kagami.catalog".to_string());
+            .unwrap_or_else(|_| "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.kagami.catalog".to_string());
         let response = ureq::get(&url)
             .call()
             .map_err(|e| format!("fetch YATA catalog {url}: {e}"))?;

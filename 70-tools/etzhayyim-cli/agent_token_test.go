@@ -76,8 +76,8 @@ func TestInferAudienceFromLxm(t *testing.T) {
 		in  string
 		out string
 	}{
-		{"app.etzhayyim.apps.karute.createSoapNote", "did:web:karute.etzhayyim.com"},
-		{"app.etzhayyim.apps.hc.createTask", "did:web:hc.etzhayyim.com"},
+		{"com.etzhayyim.apps.karute.createSoapNote", "did:web:karute.etzhayyim.com"},
+		{"com.etzhayyim.apps.hc.createTask", "did:web:hc.etzhayyim.com"},
 		{"deploy.cfWorker:karute-did-web", "did:web:karute-did-web.etzhayyim.com"},
 		{"deploy.k8s:lg-karute", "did:web:lg-karute.etzhayyim.com"},
 		{"unknown.scope", ""},

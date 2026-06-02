@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          '           $6, 1, $7, $8, $9\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-check-price-drop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-check-price-drop-v1',
                  'did:web:flight-offer.etzhayyim.com',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<bpmn:definitions\n'
@@ -152,34 +152,34 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5712,
-                 '00-contracts/bpmn/ai/gftd/flight-offer/checkPriceDrop.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/flight-offer/checkPriceDrop.bpmn',
                  '2026-04-27T12:02:00Z',
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-check-price-drop-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-check-price-drop-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
          '      result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id, actor_id\n'
          '    )\n'
-         "    SELECT $1, $2, 'app.etzhayyim.apps.flightOffer.checkPriceDrop',\n"
+         "    SELECT $1, $2, 'com.etzhayyim.apps.flightOffer.checkPriceDrop',\n"
          "           'flight_offer_check_price_drop', 1, CAST(15000 AS integer), 'active',\n"
          '           $3, 1, $4, $5, $6\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $7)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-check-price-drop-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/flight-offer-check-price-drop-v1',
                  'did:web:flight-offer.etzhayyim.com',
                  '2026-04-27T12:02:00Z',
                  'did:web:flight-offer.etzhayyim.com',
                  'did:web:flight-offer.etzhayyim.com',
                  'sys.bpmn.seed.flight-offer',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-check-price-drop-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/flight-offer-check-price-drop-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/flight-offer-check-price-drop-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/flight-offer-check-price-drop-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/flight-offer-check-price-drop-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-check-price-drop-v1']}]
 
 
 def upgrade() -> None:

@@ -33,7 +33,7 @@ Pregel graph (5 nodes):
                                   squeeze plunger profile logged @ 1 kHz.
         |
         v
-    emit_shot_record          ->  MST PUT app.etzhayyim.igata.castShotRecord
+    emit_shot_record          ->  MST PUT com.etzhayyim.igata.castShotRecord
                                   (machine ID, alloy lot, die ID, full @ 1 kHz
                                    profile CID — position/velocity/pressure/temp
                                    per channel, vacuum-assist trace if enabled,

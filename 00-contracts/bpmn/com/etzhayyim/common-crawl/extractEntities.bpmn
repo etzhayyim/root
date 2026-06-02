@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_commonCrawlExtractEntities"
+  targetNamespace="http://bpmn.io/schema/bpmn"
+  exporter="Camunda Modeler"
+  exporterVersion="2.0">
+
+  <bpmn:process id="common_crawl_extract_entities" name="com.etzhayyim.apps.commonCrawl.extractEntities" isExecutable="true">
+
+    <!-- none-start: triggered by CF Worker XRPC extractEntities call via proxyToBpmn() -->
+    <bpmn:startEvent id="Start_Manual" name="extract triggered">
+      <bpmn:outgoing>Flow_manual_to_extract</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <!-- timer-start: autonomous R/PT1H cadence — runs all 4 domains -->
+    <bpmn:startEvent id="Start_Timer" name="hourly tick">
+      <bpmn:outgoing>Flow_timer_to_extract</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="Timer_Hourly">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/PT1H</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_ExtractEntities" name="Extract entities from pages">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="commonCrawl.entities.extract" retries="2" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=domain"    target="domain" />
+          <zeebe:input source="=limit"     target="limit" />
+          <zeebe:output source="=processed"  target="processed" />
+          <zeebe:output source="=extracted"  target="extracted" />
+          <zeebe:output source="=status"     target="extract_status" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_manual_to_extract</bpmn:incoming>
+      <bpmn:incoming>Flow_timer_to_extract</bpmn:incoming>
+      <bpmn:outgoing>Flow_extract_to_audit</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Audit" name="Emit audit event">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generic.audit.emit" retries="2" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=&quot;commonCrawl.extractEntities&quot;"   target="event_type" />
+          <zeebe:input source="=domain"                                      target="subject_id" />
+          <zeebe:input source="=&quot;com.etzhayyim.apps.commonCrawl&quot;"        target="actor" />
+          <zeebe:input source="=extract_status"                              target="result" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_extract_to_audit</bpmn:incoming>
+      <bpmn:outgoing>Flow_audit_to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="End_Extracted" name="entities extracted">
+      <bpmn:incoming>Flow_audit_to_end</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_manual_to_extract" sourceRef="Start_Manual"    targetRef="Task_ExtractEntities" />
+    <bpmn:sequenceFlow id="Flow_timer_to_extract"  sourceRef="Start_Timer"     targetRef="Task_ExtractEntities" />
+    <bpmn:sequenceFlow id="Flow_extract_to_audit"  sourceRef="Task_ExtractEntities" targetRef="Task_Audit" />
+    <bpmn:sequenceFlow id="Flow_audit_to_end"      sourceRef="Task_Audit"      targetRef="End_Extracted" />
+
+  </bpmn:process>
+
+</bpmn:definitions>

@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.surplusRouter.listSurplusLots",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List surplus lots with optional filters for demand-side matching. Per ADR-2605211241. Lots are returned in donation-only context; no commercial markup applies. Listings within the religious-corp economy may use SBT<->SBT internal-promo carve-out; external promotional surfacing is prohibited (Charter Rider §2).",
+      "parameters": {
+        "type": "params",
+        "required": [],
+        "properties": {
+          "category": {
+            "type": "string",
+            "description": "Filter by category enum (see registerSurplusLot)."
+          },
+          "originCountry": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 filter."
+          },
+          "donorDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "registered",
+              "matched",
+              "redistributed",
+              "flagged-dead-stock",
+              "kozan-handoff",
+              "recycled",
+              "disposed-licensed"
+            ]
+          },
+          "hazardFlag": {
+            "type": "string",
+            "description": "Filter to lots that include this single hazard flag."
+          },
+          "maxAgeDays": {
+            "type": "integer",
+            "description": "Only lots registered within the last N days."
+          },
+          "minShelfLifeRemainingDays": {
+            "type": "integer",
+            "description": "Only lots whose shelfLifeRemainingDays >= this value."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 50
+          },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lots": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "did": { "type": "string", "format": "did" },
+                  "lotId": { "type": "string" },
+                  "category": { "type": "string" },
+                  "quantity": { "type": "integer" },
+                  "unitOfMeasure": { "type": "string" },
+                  "estimatedValueUsdcMicros": { "type": "integer" },
+                  "originCountry": { "type": "string" },
+                  "state": { "type": "string" },
+                  "registeredAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "cursor": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

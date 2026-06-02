@@ -16,7 +16,7 @@
  *   4. upload .docx (single) or .zip (batch: csv + template)
  *   5. preview + confirm + pay
  *   6. capture 受領番号 + 受領 PDF
- *   7. callback app.etzhayyim.apps.yorishiroEnaiyo.recordReceipt via XRPC
+ *   7. callback com.etzhayyim.apps.yorishiroEnaiyo.recordReceipt via XRPC
  */
 
 import type { Browser, BrowserContext, Page } from "playwright";

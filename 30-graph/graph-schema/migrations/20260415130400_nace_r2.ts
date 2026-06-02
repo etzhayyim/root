@@ -14,7 +14,7 @@ import { Kysely, sql } from 'kysely';
  * difference is EU adds subdivisions (EU-specific 4-digit groups) not in ISIC.
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ 'app.etzhayyim.apps.nace.activity': 997 rows
+ *   - vertex_repo_record @ 'com.etzhayyim.apps.nace.activity': 997 rows
  *   - view_nace_activity: new (includes isic4_code projection)
  *   - edge_classified_as system='nace_r2': 679 edges
  *     src_vid = NACE uri → dst_vid = ISIC Rev.4 uri (code-matched)
@@ -33,7 +33,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.nace.activity'
+    WHERE collection = 'com.etzhayyim.apps.nace.activity'
   `.execute(db);
 
   // ── dim_world_domain ──────────────────────────────────────────────────
@@ -50,15 +50,15 @@ export async function up(db: Kysely<any>): Promise<void> {
   //   psql $PG_URL -c "INSERT INTO edge_classified_as ...
   //     SELECT ... FROM vertex_repo_record n JOIN vertex_repo_record i
   //     ON n.value_json::jsonb->>'isic4_code' = i.rkey
-  //     WHERE n.collection='app.etzhayyim.apps.nace.activity'
-  //     AND i.collection='app.etzhayyim.apps.open_isic.economic_activity'"
+  //     WHERE n.collection='com.etzhayyim.apps.nace.activity'
+  //     AND i.collection='com.etzhayyim.apps.open_isic.economic_activity'"
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DELETE FROM edge_classified_as WHERE system = 'nace_r2'`.execute(db);
   await sql`DROP VIEW IF EXISTS view_nace_activity`.execute(db);
   await sql`
-    DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.nace.activity'
+    DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.nace.activity'
   `.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'nace'`.execute(db);
 }

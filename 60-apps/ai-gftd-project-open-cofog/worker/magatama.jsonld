@@ -31,7 +31,7 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openCofog.class"
+        "com.etzhayyim.apps.openCofog.class"
       ]
     }
   },

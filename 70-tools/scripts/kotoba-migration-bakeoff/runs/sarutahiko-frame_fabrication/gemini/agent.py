@@ -87,7 +87,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = FramePhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.sarutahiko.frameAttestation",
+        "$type": "com.etzhayyim.sarutahiko.frameAttestation",
         "chassisId": s.chassisId,
         "steelLot": s.steelLot,
         "railPositions": s.railPositions,

@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.depositInsurance.flagCoverageRisk",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Coverage inadequacy / systemic bank expansion / FDIC SRE (bridges bankResolution.flagBailInDispute + sovereign-debt + subordinated-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "schemeVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "schemeVid": {
+              "type": "string",
+              "description": "bridges recordScheme"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "limit_too_low_given_inflation",
+                "uninsured_concentration",
+                "systemic_exception",
+                "recapitalization_needed",
+                "cross_border_double",
+                "foreign_branches",
+                "shadow_banking_deposit",
+                "sbl_subsidiary",
+                "fintech_non_member",
+                "digital_fast_outflow"
+              ]
+            },
+            "estExposureBusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,26 +25,26 @@
   let grantingConsent = $state(false);
   let consentTarget = $state('did:web:cardiology-clinic-example.etzhayyim.com');
   let consentPurpose = $state<ConsentCapabilityMeta['purpose']>('second-opinion');
-  let consentScope = $state(['app.etzhayyim.karute.condition', 'app.etzhayyim.karute.medicationRequest']);
+  let consentScope = $state(['com.etzhayyim.karute.condition', 'com.etzhayyim.karute.medicationRequest']);
   let consentDays = $state('30');
 
   // Mock fixture data — Phase 1 fallback.
   const granted = $state<ConsentCapabilityMeta[]>([
     {
-      capabilityUri: 'at://did:plc:self/app.etzhayyim.consent.capability/abc123',
+      capabilityUri: 'at://did:plc:self/com.etzhayyim.consent.capability/abc123',
       granterDid: 'did:plc:self',
       granteeDid: 'did:web:dr-yamada.etzhayyim.com',
-      scope: ['app.etzhayyim.karute.*'],
+      scope: ['com.etzhayyim.karute.*'],
       purpose: 'second-opinion',
       status: 'active',
       issuedAt: '2026-04-01T00:00:00Z',
       expiresAt: '2026-10-01T00:00:00Z',
     },
     {
-      capabilityUri: 'at://did:plc:self/app.etzhayyim.consent.capability/def456',
+      capabilityUri: 'at://did:plc:self/com.etzhayyim.consent.capability/def456',
       granterDid: 'did:plc:self',
       granteeDid: 'did:web:iryo.etzhayyim.com',
-      scope: ['app.etzhayyim.karute.encounter', 'app.etzhayyim.karute.serviceRequest'],
+      scope: ['com.etzhayyim.karute.encounter', 'com.etzhayyim.karute.serviceRequest'],
       purpose: 'insurance-billing',
       status: 'active',
       issuedAt: '2026-05-22T00:00:00Z',
@@ -65,11 +65,11 @@
           summary: '自分のカルテ・タイムライン (mock データ — 本番接続時は public meta から自動生成).',
           stats: { encountersTotal: 5, activeConditions: 2, activeMedications: 3, pendingOrders: 1, interactionFlagsMaxSeverity: 'minor' as const },
           timeline: [
-            { innerType: 'app.etzhayyim.karute.encounter', rkey: 'enc1', encryptedCid: 'bafy-mock-enc-x1', occurredAt: '2026-05-20T10:00:00Z' },
-            { innerType: 'app.etzhayyim.karute.condition', rkey: 'cond1', encryptedCid: 'bafy-mock-cond-x1', occurredAt: '2026-05-20T10:15:00Z' },
-            { innerType: 'app.etzhayyim.karute.medicationRequest', rkey: 'rx1', encryptedCid: 'bafy-mock-rx-x1', occurredAt: '2026-05-20T10:30:00Z' },
-            { innerType: 'app.etzhayyim.karute.observation', rkey: 'obs1', encryptedCid: 'bafy-mock-obs-x1', occurredAt: '2026-05-20T10:05:00Z' },
-            { innerType: 'app.etzhayyim.karute.encounter', rkey: 'enc2', encryptedCid: 'bafy-mock-enc-x2', occurredAt: '2026-04-12T14:00:00Z' },
+            { innerType: 'com.etzhayyim.karute.encounter', rkey: 'enc1', encryptedCid: 'bafy-mock-enc-x1', occurredAt: '2026-05-20T10:00:00Z' },
+            { innerType: 'com.etzhayyim.karute.condition', rkey: 'cond1', encryptedCid: 'bafy-mock-cond-x1', occurredAt: '2026-05-20T10:15:00Z' },
+            { innerType: 'com.etzhayyim.karute.medicationRequest', rkey: 'rx1', encryptedCid: 'bafy-mock-rx-x1', occurredAt: '2026-05-20T10:30:00Z' },
+            { innerType: 'com.etzhayyim.karute.observation', rkey: 'obs1', encryptedCid: 'bafy-mock-obs-x1', occurredAt: '2026-05-20T10:05:00Z' },
+            { innerType: 'com.etzhayyim.karute.encounter', rkey: 'enc2', encryptedCid: 'bafy-mock-enc-x2', occurredAt: '2026-04-12T14:00:00Z' },
           ],
         };
       }
@@ -123,7 +123,7 @@
         purpose: consentPurpose,
       }).catch(() => ({ capabilityUri: 'at://mock', capabilityCid: 'bafy-mock' }));
       granted.push({
-        capabilityUri: `at://did:plc:self/app.etzhayyim.consent.capability/${crypto.randomUUID().slice(0, 13)}`,
+        capabilityUri: `at://did:plc:self/com.etzhayyim.consent.capability/${crypto.randomUUID().slice(0, 13)}`,
         granterDid: selfDid,
         granteeDid: consentTarget,
         scope: consentScope,

@@ -29,7 +29,7 @@ CREATE VIEW IF NOT EXISTS view_cpc_product AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.cpc.commodity_item';
+    WHERE collection = 'com.etzhayyim.apps.cpc.commodity_item';
 
 CREATE VIEW IF NOT EXISTS view_isic_activity AS
     SELECT
@@ -40,7 +40,7 @@ CREATE VIEW IF NOT EXISTS view_isic_activity AS
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.open_isic.economic_activity';
+    WHERE collection = 'com.etzhayyim.apps.open_isic.economic_activity';
 
 UPDATE dim_world_domain SET world_total = 4596 WHERE domain = 'cpc';
 

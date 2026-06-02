@@ -1,6 +1,6 @@
 """yukkuri `generateCharacter` graph — L/R 立ち絵 via ComfyUI.
 
-NSID: app.etzhayyim.apps.yukkuri.generateCharacter
+NSID: com.etzhayyim.apps.yukkuri.generateCharacter
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:character
 

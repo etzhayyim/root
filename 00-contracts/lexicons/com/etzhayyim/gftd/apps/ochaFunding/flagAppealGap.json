@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ochaFunding.flagAppealGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OCHA HRP / flash appeal funding gap",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "gapId",
+            "emergencyCode",
+            "requestedUsd",
+            "fundedUsd",
+            "coveragePct",
+            "assessedAt"
+          ],
+          "properties": {
+            "gapId": {
+              "type": "string"
+            },
+            "emergencyCode": {
+              "type": "string"
+            },
+            "requestedUsd": {
+              "type": "number"
+            },
+            "fundedUsd": {
+              "type": "number"
+            },
+            "coveragePct": {
+              "type": "number"
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "urgencyTier": {
+              "type": "string",
+              "enum": [
+                "adequate",
+                "moderate",
+                "severe",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

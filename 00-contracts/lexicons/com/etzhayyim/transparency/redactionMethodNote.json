@@ -1,0 +1,91 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.transparency.redactionMethodNote",
+  "description": "Open, versioned definition of the §4 non-waivable-floor redaction filter applied to every accessLogPublication BEFORE publication, per ADR-2605310100 §4/§6 (Covenant Transparency Doctrine). R0 skeleton, analogous to danjo.methodNote. The Covenant Transparency Doctrine publishes identities, actions and their content; it MUST NEVER publish access-control material, because publishing the key to the door would hand the substrate to the very threat actors the doctrine targets. This record is the PUBLIC, AUDITABLE specification of exactly what the filter strips — so the membership can audit the redactor itself, not only its output. No closed / secret redaction logic is permitted. `ratificationStatus` MUST be `proposed-unratified` until Council Lv7+ unanimity (Charter §0.4) is recorded (§5); the filter's live application is gated with the rest of the doctrine.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "methodId",
+          "version",
+          "title",
+          "definition",
+          "redactedCategories",
+          "appliesToAccessKinds",
+          "ratificationStatus",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "methodId": {"type": "string", "description": "Stable slug, e.g. floor-secret-redaction"},
+          "version": {"type": "string", "description": "Semantic version, e.g. v1.0.0"},
+          "title": {"type": "string", "maxLength": 256},
+          "definition": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "Full open description of the redaction filter: what is detected, how, and why each category is access-control material rather than speech/action. Precise enough to reproduce. MUST make clear the filter is fail-closed (when in doubt, redact)."
+          },
+          "redactedCategories": {
+            "type": "array",
+            "minLength": 1,
+            "items": {"type": "string"},
+            "description": "The categories the filter strips. These are NEVER published under any ingress-consent (§4 floor).",
+            "knownValues": [
+              "did-private-key",
+              "cacao-signature-as-bearer",
+              "auth-token",
+              "session-secret",
+              "kotoba-env-secret",
+              "paymaster-key",
+              "api-credential",
+              "outbound-third-party-pii"
+            ]
+          },
+          "detectionPatterns": {
+            "type": "string",
+            "maxLength": 8000,
+            "description": "JSON-encoded open pattern set (header names, key prefixes, entropy heuristics, schema fields) used to detect each redacted category. Open and versioned; no closed scoring."
+          },
+          "failClosed": {
+            "type": "boolean",
+            "const": true,
+            "description": "MUST be true. On ANY detection uncertainty the filter redacts rather than publishes — the floor is non-waivable."
+          },
+          "knownFalseNegativeModes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Documented modes where a secret could slip through (transparency requirement; drives hardening). A false NEGATIVE here is a security incident, not a privacy one."
+          },
+          "appliesToAccessKinds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "accessLogPublication.accessKind values this filter version covers.",
+            "knownValues": [
+              "http-request",
+              "xrpc",
+              "mcp",
+              "wallet-tx",
+              "inbound-email"
+            ]
+          },
+          "outboundGateReferenceCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "For the `outbound-third-party-pii` category: CIDs of the tadori/danjo/himotoki gate ADRs that retain jurisdiction over data NOT brought in by ingress (§4(2)). This doctrine does not widen those gates."
+          },
+          "supersedesVersion": {"type": "string"},
+          "ratificationStatus": {
+            "type": "string",
+            "const": "proposed-unratified",
+            "description": "MUST be `proposed-unratified` at R0 (ADR-2605310100 §5)."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

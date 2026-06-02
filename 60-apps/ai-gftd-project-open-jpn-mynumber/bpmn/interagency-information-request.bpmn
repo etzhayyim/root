@@ -14,7 +14,7 @@
     </bpmn:sequenceFlow>
     <bpmn:userTask id="Task_ManualApproval" name="Approve special personal information release" camunda:formKey="openJpnMynumber.disclosureReview.v1" />
     <bpmn:sequenceFlow id="f_request_04" sourceRef="Task_ManualApproval" targetRef="Task_Broker" />
-    <bpmn:serviceTask id="Task_Broker" name="Broker information request" camunda:topic="ai.gftd.apps.openJpnMynumber.brokerInformationRequest"><bpmn:extensionElements><zeebe:taskDefinition type="ai.gftd.apps.openJpnMynumber.brokerInformationRequest" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_Broker" name="Broker information request" camunda:topic="com.etzhayyim.apps.openJpnMynumber.brokerInformationRequest"><bpmn:extensionElements><zeebe:taskDefinition type="com.etzhayyim.apps.openJpnMynumber.brokerInformationRequest" retries="3" /></bpmn:extensionElements></bpmn:serviceTask>
     <bpmn:sequenceFlow id="f_request_05" sourceRef="Task_Broker" targetRef="Gateway_Approved" />
     <bpmn:exclusiveGateway id="Gateway_Approved" name="Approved?" />
     <bpmn:sequenceFlow id="f_request_06a" sourceRef="Gateway_Approved" targetRef="End_ResponseRef" name="approved">

@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.logisticsLastmile.confirmDelivery",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Confirm last-mile delivery outcome",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "proofId",
+            "legVid",
+            "deliveredAt"
+          ],
+          "properties": {
+            "proofId": {
+              "type": "string"
+            },
+            "legVid": {
+              "type": "string",
+              "description": "bridges dispatchLeg"
+            },
+            "deliveredAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "minutesLate": {
+              "type": "integer"
+            },
+            "damageReported": {
+              "type": "boolean"
+            },
+            "signatureCid": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "slaTier": {
+              "type": "string",
+              "enum": [
+                "damaged",
+                "late",
+                "mild_late",
+                "on_time"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

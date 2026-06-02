@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.listEpisodes",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List manga episodes filtered by character slug or genre. Paginated via offset+limit (CLAUDE.md projects scope: required for all list APIs).",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "charSlug": {
+            "type": "string",
+            "description": "Filter by character slug (matches protagonistDid suffix)."
+          },
+          "genre": {
+            "type": "string",
+            "enum": ["shonen", "shojo", "seinen"]
+          },
+          "offset": { "type": "integer", "default": 0 },
+          "limit": { "type": "integer", "default": 20, "maximum": 100 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["episodes", "total", "offset", "limit"],
+          "properties": {
+            "episodes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": { "type": "string", "format": "at-uri" },
+                  "title": { "type": "string" },
+                  "genre": { "type": "string" },
+                  "protagonist": { "type": "string" },
+                  "coverCid": { "type": "string", "format": "cid" },
+                  "createdAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

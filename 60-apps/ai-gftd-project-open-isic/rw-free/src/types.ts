@@ -1,6 +1,6 @@
 /**
- * Mirrors the app.etzhayyim.apps.openIsic.class Lexicon record shape.
- * Source: 00-contracts/lexicons/ai/gftd/apps/openIsic/class.json
+ * Mirrors the com.etzhayyim.apps.openIsic.class Lexicon record shape.
+ * Source: 00-contracts/lexicons/com/etzhayyim/apps/openIsic/class.json
  */
 export interface IsicClass {
   /** ISIC Rev.4 4-digit class code (e.g. "0111", "2520"). */

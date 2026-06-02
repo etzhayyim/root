@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.playwright.sessionClose",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Close a Playwright session.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId"],
+          "properties": { "sessionId": { "type": "string" } }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sessionId": { "type": "string" },
+            "closed": { "type": "boolean" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bunker.getSupply",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a bunker fuel supply event by DID.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["did"], "properties": { "did": { "type": "string", "format": "did" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "vesselDid": { "type": "string", "format": "did" }, "portDid": { "type": "string", "format": "did" }, "supplierDid": { "type": "string", "format": "did" }, "fuelGrade": { "type": "string" }, "sulphurPct": { "type": "number" }, "tonnes": { "type": "number" }, "deliveredAt": { "type": "string", "format": "datetime" }, "bdnReference": { "type": "string", "description": "Bunker Delivery Note ref" }, "secaZone": { "type": "boolean" }, "co2EmissionsTonnes": { "type": "number" } } } }
+    }
+  }
+}

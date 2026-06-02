@@ -135,7 +135,7 @@ def anchor_rite(state: dict[str, Any]) -> dict[str, Any]:
     # anchor_bridge is None
     return {
         "rite_status": "active",
-        "rite_vertex_uri": f"at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.rite/{state.get('rite_id', 'unknown')}",
+        "rite_vertex_uri": f"at://did:web:yobel.etzhayyim.com/com.etzhayyim.apps.etzhayyim.yobel.rite/{state.get('rite_id', 'unknown')}",
         "base_l2_anchor_tx_hash": "",
     }
 

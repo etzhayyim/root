@@ -112,7 +112,7 @@ class TestHygieneAndManifest:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.futawa.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.futawa.{p.stem}"
 
     def test_manifest_namespaces_match_disk(self):
         declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}

@@ -19,9 +19,9 @@
     "framework": "ts-thin-edge",
     "edge": "60-apps/ai-gftd-project-vin/appview/ai-gftd-wasm-vin-v1n0g10b/src/app.ts",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/vin.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/vin"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vin"
   },
   "interfaces": {"provides":["gftd:vin/vehicle-registry@1.0.0","gftd:vin/plate-resolver@1.0.0","gftd:vin/production-flow@1.0.0"],"requires":[]},
   "routes": [{"host":"vin.etzhayyim.com","paths":["/"],"tls":true},{"host":"v1n0g10b.etzhayyim.com","paths":["/"],"tls":true}],
-  "triggers": {"subscribeRepos":{"collections":["app.bsky.feed.post","ai.gftd.apps.vin.vehicle","ai.gftd.apps.vin.manufacturer","ai.gftd.apps.vin.shipmentVolume"]}}
+  "triggers": {"subscribeRepos":{"collections":["app.bsky.feed.post","com.etzhayyim.apps.vin.vehicle","com.etzhayyim.apps.vin.manufacturer","com.etzhayyim.apps.vin.shipmentVolume"]}}
 }

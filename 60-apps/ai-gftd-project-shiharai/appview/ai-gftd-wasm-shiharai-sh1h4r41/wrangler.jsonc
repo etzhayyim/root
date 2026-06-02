@@ -19,7 +19,7 @@
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
     "INTERFACES_REQUIRES": "[\"gftd:collection/collection@1.0.0\",\"gftd:vault/vault@1.0.0\"]",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "routes": [
     {
@@ -27,7 +27,7 @@
       "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "shiharapp.etzhayyim.ai/*",
+      "pattern": "shiharcom.etzhayyim.ai/*",
       "zone_name": "etzhayyim.com"
     }
   ],

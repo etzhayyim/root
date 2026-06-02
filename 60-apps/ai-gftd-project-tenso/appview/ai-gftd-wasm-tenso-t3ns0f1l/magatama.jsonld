@@ -63,10 +63,10 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.tenso.transferRequest",
-        "ai.gftd.apps.tenso.fileManifest",
-        "ai.gftd.apps.tenso.transferLog",
-        "ai.gftd.apps.tenso.accessControl"
+        "com.etzhayyim.apps.tenso.transferRequest",
+        "com.etzhayyim.apps.tenso.fileManifest",
+        "com.etzhayyim.apps.tenso.transferLog",
+        "com.etzhayyim.apps.tenso.accessControl"
       ]
     }
   },
@@ -74,17 +74,17 @@
   "derive": {
     "social": [
       {
-        "on": "ai.gftd.apps.tenso.transferRequest",
+        "on": "com.etzhayyim.apps.tenso.transferRequest",
         "when": { "status": "completed" },
         "template": "File transfer completed: {{filename}} ({{sizeBytes}} bytes)"
       }
     ],
     "invoke": [
       {
-        "on": "ai.gftd.apps.tenso.transferLog",
+        "on": "com.etzhayyim.apps.tenso.transferLog",
         "when": { "eventType": "error" },
         "target": "did:web:yabai.etzhayyim.com",
-        "method": "ai.gftd.apps.yabai.assessRisk",
+        "method": "com.etzhayyim.apps.yabai.assessRisk",
         "map": {
           "entityDid": "{{actorDid}}",
           "event": "transfer_error",

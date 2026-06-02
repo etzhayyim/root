@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openNetwork.requestChange",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a change request on a site or link. Risk computed from change_type + affected customers — high-risk auto-routes to CAB approval. Starts BPMN process open_network_request_change.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "operatorOrgId":      { "type": "string" },
+            "targetVertexId":     { "type": "string", "description": "site or link DID" },
+            "changeType":         { "type": "string", "description": "software-upgrade / hardware-swap / capacity-add / emergency-patch / retire" },
+            "narrative":          { "type": "string" },
+            "affectedCustomers":  { "type": "integer" },
+            "requestedAt":        { "type": "string", "format": "datetime" }
+          },
+          "required": ["operatorOrgId", "targetVertexId", "changeType", "affectedCustomers", "requestedAt"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":                 { "type": "boolean" },
+            "vertexId":           { "type": "string" },
+            "risk":               { "type": "string", "enum": ["low", "medium", "high"] },
+            "requireCabApproval": { "type": "boolean" },
+            "instanceKey":        { "type": "integer" },
+            "error":              { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

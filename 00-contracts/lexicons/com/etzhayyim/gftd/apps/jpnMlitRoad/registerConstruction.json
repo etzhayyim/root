@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpnMlitRoad.registerConstruction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "国土交通省 道路工事届",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "constructionId",
+            "roadCode",
+            "workType",
+            "startDate",
+            "endDate",
+            "expectedImpact"
+          ],
+          "properties": {
+            "constructionId": {
+              "type": "string"
+            },
+            "roadCode": {
+              "type": "string"
+            },
+            "sectionFrom": {
+              "type": "string"
+            },
+            "sectionTo": {
+              "type": "string"
+            },
+            "workType": {
+              "type": "string",
+              "enum": [
+                "pavement",
+                "bridge",
+                "tunnel",
+                "sign",
+                "drainage",
+                "other"
+              ]
+            },
+            "contractorOrgId": {
+              "type": "string"
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "expectedImpact": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "lane-closure",
+                "full-closure"
+              ]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

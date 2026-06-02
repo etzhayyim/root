@@ -7,7 +7,7 @@ HTTP surface:
   GET  /threads/{tid}/state → fetch latest checkpoint
   GET  /ok / /health      → liveness / readiness
 
-NSID namespace: app.etzhayyim.apps.openPatent.*
+NSID namespace: com.etzhayyim.apps.openPatent.*
 Auth: optional LG_API_KEY env enforces x-api-key on /runs.
       /xrpc/{nsid} is unauthenticated (trust at cloudflared tunnel layer).
 """
@@ -39,8 +39,8 @@ GRAPHS: dict[str, Any] = {
 }
 
 NSID_MAP: dict[str, str] = {
-    "app.etzhayyim.apps.openPatent.ingestMulti":         "ingest_multi",
-    "app.etzhayyim.apps.openPatent.synthesizeInvention":  "synthesize_invention",
+    "com.etzhayyim.apps.openPatent.ingestMulti":         "ingest_multi",
+    "com.etzhayyim.apps.openPatent.synthesizeInvention":  "synthesize_invention",
 }
 
 _API_KEY = os.environ.get("LG_API_KEY", "").strip()

@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow",
+  "description": "Private-sector personnel flow (hire / retire / transfer / acquisition) emitted by legal-entity DIDs. ADR-0028. PII tier 1 — aggregate headcount delta only, no individual employee DID. ADR-0018 k-anonymity: cohort_size >= 5.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "sourceDid",
+          "fiscalPeriod",
+          "flowType",
+          "headcountDelta",
+          "industryCode",
+          "sourceUrl",
+          "sourceLicense"
+        ],
+        "properties": {
+          "sourceDid": {
+            "type": "string",
+            "description": "Legal-entity facade DID (LEI / national-reg / path-based sub-actor). Canonical key is sourceRootDid (ADR-0074)."
+          },
+          "sourceRootDid": {
+            "type": "string",
+            "description": "ADR-0074 canonical ERC725 root for sourceDid."
+          },
+          "counterpartyDid": {
+            "type": "string",
+            "description": "Destination / origin legal-entity facade DID for transfers. Individual DIDs forbidden."
+          },
+          "counterpartyRootDid": {
+            "type": "string",
+            "description": "ADR-0074 canonical ERC725 root for counterpartyDid."
+          },
+          "fiscalPeriod": {
+            "type": "string",
+            "description": "ISO 8601 period"
+          },
+          "flowType": {
+            "type": "string",
+            "enum": ["hire", "retire", "resign", "transfer_in", "transfer_out", "acquisition_absorbed", "layoff"]
+          },
+          "headcountDelta": {
+            "type": "integer",
+            "description": "Signed delta (positive = inflow, negative = outflow). Aggregate only."
+          },
+          "totalHeadcount": {
+            "type": "integer",
+            "description": "Optional snapshot headcount at end of fiscalPeriod"
+          },
+          "cohortId": {
+            "type": "string",
+            "description": "ISCO occupational cohort actor DID (optional)"
+          },
+          "cohortSize": {
+            "type": "integer",
+            "minimum": 5,
+            "description": "k-anonymity bucket size when cohortId is set (ADR-0018)"
+          },
+          "industryCode": {
+            "type": "string",
+            "description": "ISIC rev4 code"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "sourceLicense": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 1024
+          }
+        }
+      }
+    }
+  }
+}

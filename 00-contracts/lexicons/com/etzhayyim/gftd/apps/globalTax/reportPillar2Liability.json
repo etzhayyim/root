@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.globalTax.reportPillar2Liability",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "OECD Pillar 2 GloBE / QDMTT / IIR / UTPR (bridges lei + sovereign-debt + eu-cbam + esg-risk-rating)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "ultimateParentLei",
+            "jurisdictionIso3",
+            "rule",
+            "effectiveTaxRatePct",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "ultimateParentLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "rule": {
+              "type": "string",
+              "enum": [
+                "iir",
+                "utpr",
+                "qdmtt",
+                "gilti",
+                "btc",
+                "stss"
+              ]
+            },
+            "effectiveTaxRatePct": {
+              "type": "number"
+            },
+            "topUpTaxUsd": {
+              "type": "number"
+            },
+            "revenueEur": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "coverageTier": {
+              "type": "string",
+              "enum": [
+                "compliant",
+                "top_up_due"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

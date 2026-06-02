@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-network/defineLink.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-network/defineLink.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-network/requestChange.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-network/requestChange.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-network BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-network-define-link-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_network_define_link"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-network/defineLink.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-network/defineLink.bpmn"');
     expect(migrationSource).toContain("open-network-request-change-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_network_request_change"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-network/requestChange.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-network/requestChange.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNetwork.defineLink"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openNetwork.requestChange"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openNetwork.defineLink"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openNetwork.requestChange"');
   });
 
   it("uses open-network-specific actor_id + owner_did", () => {

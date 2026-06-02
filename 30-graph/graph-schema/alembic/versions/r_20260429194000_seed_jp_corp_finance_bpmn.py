@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-corp-finance-startDailyIngest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-corp-finance-startDailyIngest-v1',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'jp_corp_finance_daily',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="jp_corp_finance_daily" name="JP Corporate Finance Daily '
                  'Ingest" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.jpCorpFinance.startDailyIngest", "version": 1 }\n'
+                 '      { "nsid": "com.etzhayyim.apps.jpCorpFinance.startDailyIngest", "version": 1 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
                  '    <bpmn:startEvent id="Start_Timer" name="daily">\n'
@@ -263,12 +263,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  10430,
-                 '00-contracts/bpmn/ai/gftd/jp-corp-finance/dailyIngest.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/jp-corp-finance/dailyIngest.bpmn',
                  '2026-04-29T19:40:00Z',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'sys.bpmn.seed.jp-corp-finance',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-corp-finance-startDailyIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-corp-finance-startDailyIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -282,16 +282,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-corp-finance-startDailyIngest-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jp-corp-finance-startDailyIngest-v1',
                  'did:web:jp-corp-finance.etzhayyim.com',
-                 'app.etzhayyim.apps.jpCorpFinance.startDailyIngest',
+                 'com.etzhayyim.apps.jpCorpFinance.startDailyIngest',
                  'jp_corp_finance_daily',
                  600000,
                  '2026-04-29T19:40:00Z',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'sys.bpmn.seed.jp-corp-finance',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-corp-finance-startDailyIngest-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jp-corp-finance-startDailyIngest-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-corp-finance-repairCompany-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-corp-finance-repairCompany-v1',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'jp_corp_finance_repair_one',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -320,7 +320,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="jp_corp_finance_repair_one" name="JP Corporate Finance '
                  'Repair Company" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.jpCorpFinance.repairCompany", "version": 1 }\n'
+                 '      { "nsid": "com.etzhayyim.apps.jpCorpFinance.repairCompany", "version": 1 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
                  '    <bpmn:startEvent id="Start_Manual" name="manual">\n'
@@ -490,12 +490,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  8516,
-                 '00-contracts/bpmn/ai/gftd/jp-corp-finance/repairCompany.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/jp-corp-finance/repairCompany.bpmn',
                  '2026-04-29T19:40:00Z',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'sys.bpmn.seed.jp-corp-finance',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-corp-finance-repairCompany-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-corp-finance-repairCompany-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -509,25 +509,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-corp-finance-repairCompany-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jp-corp-finance-repairCompany-v1',
                  'did:web:jp-corp-finance.etzhayyim.com',
-                 'app.etzhayyim.apps.jpCorpFinance.repairCompany',
+                 'com.etzhayyim.apps.jpCorpFinance.repairCompany',
                  'jp_corp_finance_repair_one',
                  600000,
                  '2026-04-29T19:40:00Z',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'did:web:jp-corp-finance.etzhayyim.com',
                  'sys.bpmn.seed.jp-corp-finance',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-corp-finance-repairCompany-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jp-corp-finance-repairCompany-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-corp-finance-startDailyIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jp-corp-finance-startDailyIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-corp-finance-startDailyIngest-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-corp-finance-startDailyIngest-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jp-corp-finance-repairCompany-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jp-corp-finance-repairCompany-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jp-corp-finance-repairCompany-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-corp-finance-repairCompany-v1']}]
 
 
 def upgrade() -> None:

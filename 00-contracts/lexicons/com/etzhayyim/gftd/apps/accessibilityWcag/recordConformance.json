@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.accessibilityWcag.recordConformance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Web / app accessibility conformance (WCAG 2.2 / EN 301 549 / ADA / §508 — bridges biometricStandards.flagInclusionGap + digital-accessibility + crpd-disability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "auditId",
+            "productCategory",
+            "conformanceLevel",
+            "standard",
+            "auditedAt"
+          ],
+          "properties": {
+            "auditId": {
+              "type": "string"
+            },
+            "productCategory": {
+              "type": "string",
+              "enum": [
+                "government_web",
+                "banking_app",
+                "social_media",
+                "streaming",
+                "ecommerce",
+                "job_portal",
+                "education_lms",
+                "healthcare_app",
+                "transit_app",
+                "voting_system",
+                "gig_app"
+              ]
+            },
+            "conformanceLevel": {
+              "type": "string",
+              "enum": [
+                "a",
+                "aa",
+                "aaa",
+                "partial",
+                "non_conformant",
+                "tentative",
+                "under_review",
+                "eaa_compliant",
+                "ada_tested",
+                "wcag_22_new_criteria"
+              ]
+            },
+            "standard": {
+              "type": "string",
+              "enum": [
+                "wcag_22",
+                "wcag_21",
+                "en_301_549",
+                "ada_title_iii",
+                "section_508",
+                "tgsi_jp",
+                "bv_br",
+                "jis_x_8341",
+                "dac_canada",
+                "prodigal_asia"
+              ]
+            },
+            "inclusionGapVid": {
+              "type": "string",
+              "description": "bridges biometricStandards.flagInclusionGap"
+            },
+            "auditedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.applySupplementaryService",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMS TAS — record activation/deactivation/invocation of a supplementary service (call forward, hold, transfer, waiting, conference, CLIR/CLIP).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["subscriptionId", "serviceType", "action", "tasNfId", "observedAt"],
+          "properties": {
+            "eventId": { "type": "string" },
+            "callId": { "type": "string" },
+            "subscriptionId": { "type": "string" },
+            "serviceType": { "type": "string", "enum": ["call_forward", "call_hold", "call_transfer", "call_waiting", "conference", "clir", "clip", "do_not_disturb", "voicemail"] },
+            "action": { "type": "string", "enum": ["activate", "deactivate", "invoke", "modify"] },
+            "targetImpu": { "type": "string" },
+            "params": { "type": "string" },
+            "tasNfId": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "eventId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

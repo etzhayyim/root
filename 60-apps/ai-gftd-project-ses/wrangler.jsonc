@@ -14,7 +14,7 @@
     "APP_NANOID": "s3s4nk3n",
     "APP_PERFORMER_TYPE": "",
     "APP_UI_TYPE": "none",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "SES_MCP_URL": "https://ses-api.etzhayyim.com"
   },
   "rules": [

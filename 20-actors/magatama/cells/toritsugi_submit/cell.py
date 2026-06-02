@@ -7,7 +7,7 @@ Purpose: THE ONLY active-outbound cell. Default mode hands the applicationDraft
 back to the member for self-submission (mode=member-self-submit). The 代行
 (mode=agent-on-behalf) path — filing the member's OWN procedure via the official
 channel — is the GATED R3 exception and is OFF until the R3 gate is satisfied.
-Emits `app.etzhayyim.toritsugi.submissionRecord`.
+Emits `com.etzhayyim.toritsugi.submissionRecord`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G10 lawful-channel-only (the only
 external mutation is a lawful submission via an OFFICIAL channel with member
@@ -17,7 +17,7 @@ member-self-submission default (代行 requires per-submission consent +
 行政書士法 clearance + Council Lv7+ — `councilGateRef`); no platform-held
 signing key (ADR-2605231525; member/community-operator-signed); Murakumo-only
 inference (ADR-2605215000). Output Lexicon(s):
-app.etzhayyim.toritsugi.submissionRecord.
+com.etzhayyim.toritsugi.submissionRecord.
 
 R0 scaffold — import-time RuntimeError until R2 (self-submit) / R3 (代行).
 """

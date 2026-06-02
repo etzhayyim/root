@@ -24,9 +24,9 @@ const actorTag = "sys.bpmn.seed.shosha.phase2b";
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-refresh-sanctions-list-v1",
     bpmnProcessId: "shosha_refresh_sanctions_list",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shosha/refreshSanctionsList.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shosha/refreshSanctionsList.bpmn",
     ownerDid,
   },
 ];

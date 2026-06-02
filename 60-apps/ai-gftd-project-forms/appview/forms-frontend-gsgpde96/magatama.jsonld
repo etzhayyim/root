@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.forms.formsEntity",
-        "ai.gftd.apps.forms.formsEvent",
-        "ai.gftd.apps.forms.formsReport"
+        "com.etzhayyim.apps.forms.formsEntity",
+        "com.etzhayyim.apps.forms.formsEvent",
+        "com.etzhayyim.apps.forms.formsReport"
       ]
     }
   },

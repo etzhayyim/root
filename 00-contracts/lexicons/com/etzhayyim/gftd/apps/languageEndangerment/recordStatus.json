@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.languageEndangerment.recordStatus",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "UNESCO Atlas / Ethnologue language endangerment status (bridges intangibleSafeguard.flagSafeguardingRisk + cultural-heritage + fpic-consent)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "statusId",
+            "languageName",
+            "regionIso3",
+            "vitalityTier",
+            "assessedAt"
+          ],
+          "properties": {
+            "statusId": {
+              "type": "string"
+            },
+            "languageName": {
+              "type": "string"
+            },
+            "iso639_3": {
+              "type": "string"
+            },
+            "regionIso3": {
+              "type": "string"
+            },
+            "vitalityTier": {
+              "type": "string",
+              "enum": [
+                "safe",
+                "vulnerable",
+                "definitely_endangered",
+                "severely_endangered",
+                "critically_endangered",
+                "extinct",
+                "awakening",
+                "dormant",
+                "reclaiming"
+              ]
+            },
+            "speakersLiving": {
+              "type": "integer"
+            },
+            "safeguardRiskVid": {
+              "type": "string",
+              "description": "bridges intangibleSafeguard.flagSafeguardingRisk"
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

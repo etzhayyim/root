@@ -8,7 +8,7 @@
  * `sha256-...` hash and unblocks IPFS pin verification + L2 anchoring.
  *
  * Phase 1's record-list + JSON-canonical-hash path is removed entirely;
- * downstream lexicon (`app.etzhayyim.substrate.shardSnapshot`) was
+ * downstream lexicon (`com.etzhayyim.substrate.shardSnapshot`) was
  * already forward-compatible (`phase`, `rootCid`, `snapshotCid` slots
  * pre-defined) per ADR-2605191655.
  */

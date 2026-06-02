@@ -125,7 +125,7 @@ const CITES: Cite[] = [
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── clause inserts ──────────────────────────────────────────────────────────
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/${c.cid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/${c.cid}`;
     await sql`
       INSERT INTO vertex_etzhayyim_contract_clause
         (vertex_id, contract_id, clause_kind, ip_assigned_to, nda_scope,
@@ -142,8 +142,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── clause→hourei.jobun cite edges via existing edge_cites ────────────────
   for (const cite of CITES) {
-    const srcVid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/${cite.clauseCid}`;
-    const dstVid = `at://did:web:hourei.etzhayyim.com/app.etzhayyim.apps.hourei.article/${cite.hourei}--${cite.art}`;
+    const srcVid = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/${cite.clauseCid}`;
+    const dstVid = `at://did:web:hourei.etzhayyim.com/com.etzhayyim.apps.hourei.article/${cite.hourei}--${cite.art}`;
     const edgeId = `edge:${cite.clauseCid}:cites:${cite.hourei}--${cite.art}`;
     const label = `${cite.hourei} 第${cite.art}条 — ${cite.paragraph}`;
     await sql`
@@ -181,7 +181,7 @@ export async function down(db: Kysely<unknown>): Promise<void> {
     await sql`DELETE FROM edge_cites WHERE edge_id = ${edgeId}`.execute(db);
   }
   for (const c of CLAUSES) {
-    const vid = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/${c.cid}`;
+    const vid = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/${c.cid}`;
     await sql`DELETE FROM vertex_etzhayyim_contract_clause WHERE vertex_id = ${vid}`.execute(db);
   }
 }

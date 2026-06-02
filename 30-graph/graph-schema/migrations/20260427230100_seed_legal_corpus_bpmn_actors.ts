@@ -22,30 +22,30 @@ const project = "legal-corpus";
 
 const seeds: Seed[] = [
   { proc: "ingestDocument",          bpmnProcessId: "legal_corpus_ingest_document",
-    nsid: "app.etzhayyim.apps.legal-corpus.ingestDocument", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.ingestDocument", resultTimeoutMs: 30000 },
   { proc: "embedDocument",           bpmnProcessId: "legal_corpus_embed_document",
-    nsid: "app.etzhayyim.apps.legal-corpus.embedDocument", resultTimeoutMs: 60000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.embedDocument", resultTimeoutMs: 60000 },
   { proc: "registerSource",          bpmnProcessId: "legal_corpus_register_source",
-    nsid: "app.etzhayyim.apps.legal-corpus.registerSource", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.registerSource", resultTimeoutMs: 15000 },
   { proc: "fetchCourtListenerDelta", bpmnProcessId: "legal_corpus_fetch_courtlistener_delta",
-    nsid: "app.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta", resultTimeoutMs: 600000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta", resultTimeoutMs: 600000 },
   { proc: "fetchEurLexDelta",        bpmnProcessId: "legal_corpus_fetch_eur_lex_delta",
-    nsid: "app.etzhayyim.apps.legal-corpus.fetchEurLexDelta", resultTimeoutMs: 600000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.fetchEurLexDelta", resultTimeoutMs: 600000 },
   { proc: "fetchBailiiDelta",        bpmnProcessId: "legal_corpus_fetch_bailii_delta",
-    nsid: "app.etzhayyim.apps.legal-corpus.fetchBailiiDelta", resultTimeoutMs: 600000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.fetchBailiiDelta", resultTimeoutMs: 600000 },
   { proc: "fetchWorldLiiDelta",      bpmnProcessId: "legal_corpus_fetch_worldlii_delta",
-    nsid: "app.etzhayyim.apps.legal-corpus.fetchWorldLiiDelta", resultTimeoutMs: 600000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.fetchWorldLiiDelta", resultTimeoutMs: 600000 },
   { proc: "fetchCanLiiDelta",        bpmnProcessId: "legal_corpus_fetch_canlii_delta",
-    nsid: "app.etzhayyim.apps.legal-corpus.fetchCanLiiDelta", resultTimeoutMs: 600000 },
+    nsid: "com.etzhayyim.apps.legal-corpus.fetchCanLiiDelta", resultTimeoutMs: 600000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

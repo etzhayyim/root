@@ -9,11 +9,11 @@ DELETE FROM dim_world_domain_collection
 
 INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.fundProgram', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.fundCampaign', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.pledge', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.routedAllocation', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.eligibilityPolicy', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.application', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.decision', 150000, 'public funds', 'governance'),
-      ('public_fund', 'public-fund', 'ai.gftd.apps.publicFund.disbursement', 150000, 'public funds', 'governance');
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.fundProgram', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.fundCampaign', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.pledge', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.routedAllocation', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.eligibilityPolicy', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.application', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.decision', 150000, 'public funds', 'governance'),
+      ('public_fund', 'public-fund', 'com.etzhayyim.apps.publicFund.disbursement', 150000, 'public funds', 'governance');

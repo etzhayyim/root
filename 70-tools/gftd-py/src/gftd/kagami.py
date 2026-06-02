@@ -102,7 +102,7 @@ def kagami_diff(workspace_dir: str | None, pds: str | None, json_out: bool) -> N
 
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.actor.listActors",
+            f"{pds_url}/xrpc/com.etzhayyim.actor.listActors",
             params={"limit": 500},
             headers={"Authorization": f"Bearer {tok}"},
             timeout=30,

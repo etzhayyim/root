@@ -206,7 +206,7 @@ def dependency_hint(edge_table: str, predicate: str | None = None) -> dict[str, 
 
 
 def open_lei_vertex_id(lei: str) -> str:
-    return f"at://did:web:open-lei.etzhayyim.com/app.etzhayyim.apps.openLei.entity/{lei}"
+    return f"at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/{lei}"
 
 
 def flatten_gleif_lei_record(record: dict[str, Any]) -> dict[str, Any] | None:
@@ -419,7 +419,7 @@ class IntelStore:
 
     def create_run(self, scope: dict[str, Any], trigger_kind: str, dry_run: bool) -> dict[str, Any]:
         run_id = stable_id("intel-run", {"scope": scope, "trigger": trigger_kind, "ts": now_ms()})
-        vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.intel.inferenceRun/{run_id}"
+        vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferenceRun/{run_id}"
         with self.connect() as conn, conn.cursor() as cur:
             try:
                 cur.execute(
@@ -449,7 +449,7 @@ class IntelStore:
             except Exception as exc:
                 if not is_missing_relation_error(exc):
                     raise
-                legacy_vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.intel.inferenceChain/{run_id}"
+                legacy_vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferenceChain/{run_id}"
                 cur.execute(
                     """
                     INSERT INTO vertex_intel_inference_chain
@@ -900,7 +900,7 @@ class IntelStore:
                             edge_id,
                         ),
                     )
-                run_vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.intel.inferenceRun/{run_id}"
+                run_vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferenceRun/{run_id}"
                 cur.execute(
                     """
                     UPDATE vertex_intel_inference_run
@@ -934,7 +934,7 @@ class IntelStore:
                 "predicate": c.predicate,
                 "kind": c.dependency_kind,
             })
-            vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.intel.inferredCohort/{cohort_id}"
+            vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferredCohort/{cohort_id}"
             cur.execute(
                 """
                 INSERT INTO vertex_intel_inferred_cohort
@@ -969,7 +969,7 @@ class IntelStore:
                     vertex_id,
                 ),
             )
-        chain_vertex_id = f"at://{OWNER_DID}/app.etzhayyim.apps.intel.inferenceChain/{run_id}"
+        chain_vertex_id = f"at://{OWNER_DID}/com.etzhayyim.apps.intel.inferenceChain/{run_id}"
         cur.execute(
             """
             UPDATE vertex_intel_inference_chain

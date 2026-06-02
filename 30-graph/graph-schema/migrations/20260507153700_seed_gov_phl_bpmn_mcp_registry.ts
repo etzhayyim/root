@@ -27,108 +27,108 @@ const writeTableAllowlist = [
 
 const seeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-seedOrgs-v1",
-    nsid: "app.etzhayyim.govPhl.seedOrgs",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-seedOrgs-v1",
+    nsid: "com.etzhayyim.govPhl.seedOrgs",
     bpmnProcessId: "gov_phl_seed_orgs",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/seedOrgs.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-registerDIDs-v1",
-    nsid: "app.etzhayyim.govPhl.registerDIDs",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-registerDIDs-v1",
+    nsid: "com.etzhayyim.govPhl.registerDIDs",
     bpmnProcessId: "gov_phl_register_dids",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/registerDIDs.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-followSiteDeps-v1",
-    nsid: "app.etzhayyim.govPhl.followSiteDeps",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-followSiteDeps-v1",
+    nsid: "com.etzhayyim.govPhl.followSiteDeps",
     bpmnProcessId: "gov_phl_follow_site_deps",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/followSiteDeps.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-resolveOrgPath-v1",
-    nsid: "app.etzhayyim.govPhl.resolveOrgPath",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-resolveOrgPath-v1",
+    nsid: "com.etzhayyim.govPhl.resolveOrgPath",
     bpmnProcessId: "gov_phl_resolve_org_path",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/resolveOrgPath.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-listOrgs-v1",
-    nsid: "app.etzhayyim.govPhl.listOrgs",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-listOrgs-v1",
+    nsid: "com.etzhayyim.govPhl.listOrgs",
     bpmnProcessId: "gov_phl_list_orgs",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/listOrgs.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-syncWetUpdates-v1",
-    nsid: "app.etzhayyim.govPhl.syncWetUpdates",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-syncWetUpdates-v1",
+    nsid: "com.etzhayyim.govPhl.syncWetUpdates",
     bpmnProcessId: "gov_phl_sync_wet_updates",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/syncWetUpdates.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-shinka-v1",
-    nsid: "app.etzhayyim.govPhl.shinka",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-shinka-v1",
+    nsid: "com.etzhayyim.govPhl.shinka",
     bpmnProcessId: "gov_phl_shinka",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/shinka.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/shinka.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-heartbeatTick-v1",
-    nsid: "app.etzhayyim.govPhl.heartbeatTick",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-heartbeatTick-v1",
+    nsid: "com.etzhayyim.govPhl.heartbeatTick",
     bpmnProcessId: "gov_phl_heartbeat_tick",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/heartbeatTick.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/heartbeatTick.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-seed-orgs-v1",
-    nsid: "app.etzhayyim.govPhl.seedOrgs",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-seed-orgs-v1",
+    nsid: "com.etzhayyim.govPhl.seedOrgs",
     bpmnProcessId: "gov_phl_seed_orgs",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/seedOrgs.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/seedOrgs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-register-dids-v1",
-    nsid: "app.etzhayyim.govPhl.registerDIDs",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-register-dids-v1",
+    nsid: "com.etzhayyim.govPhl.registerDIDs",
     bpmnProcessId: "gov_phl_register_dids",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/registerDIDs.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/registerDIDs.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-follow-site-deps-v1",
-    nsid: "app.etzhayyim.govPhl.followSiteDeps",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-follow-site-deps-v1",
+    nsid: "com.etzhayyim.govPhl.followSiteDeps",
     bpmnProcessId: "gov_phl_follow_site_deps",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/followSiteDeps.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/followSiteDeps.bpmn",
     resultTimeoutMs: 90_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-resolve-org-path-v1",
-    nsid: "app.etzhayyim.govPhl.resolveOrgPath",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-resolve-org-path-v1",
+    nsid: "com.etzhayyim.govPhl.resolveOrgPath",
     bpmnProcessId: "gov_phl_resolve_org_path",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/resolveOrgPath.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/resolveOrgPath.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-list-orgs-v1",
-    nsid: "app.etzhayyim.govPhl.listOrgs",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-list-orgs-v1",
+    nsid: "com.etzhayyim.govPhl.listOrgs",
     bpmnProcessId: "gov_phl_list_orgs",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/listOrgs.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/listOrgs.bpmn",
     resultTimeoutMs: 60_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-sync-wet-updates-v1",
-    nsid: "app.etzhayyim.govPhl.syncWetUpdates",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-sync-wet-updates-v1",
+    nsid: "com.etzhayyim.govPhl.syncWetUpdates",
     bpmnProcessId: "gov_phl_sync_wet_updates",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/syncWetUpdates.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/syncWetUpdates.bpmn",
     resultTimeoutMs: 180_000,
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/gov-phl-heartbeat-tick-v1",
-    nsid: "app.etzhayyim.govPhl.heartbeatTick",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-phl-heartbeat-tick-v1",
+    nsid: "com.etzhayyim.govPhl.heartbeatTick",
     bpmnProcessId: "gov_phl_heartbeat_tick",
-    sourcePath: "00-contracts/bpmn/ai/gftd/govPhl/heartbeatTick.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/govPhl/heartbeatTick.bpmn",
     resultTimeoutMs: 180_000,
   },
 ];
@@ -142,11 +142,11 @@ function lexiconPath(nsid: string): string {
 }
 
 function mcpVertexId(nsid: string): string {
-  return `at://${ownerDid}/app.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
+  return `at://${ownerDid}/com.etzhayyim.mcp.toolDef/${nsid.replaceAll(".", "-")}`;
 }
 
 function bindingVertexId(nsid: string): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${nsid.replaceAll(".", "-")}-v1`;
 }
 
 function stableStringify(value: unknown): string {

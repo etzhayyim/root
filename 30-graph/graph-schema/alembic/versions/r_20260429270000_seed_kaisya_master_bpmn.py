@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '        WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_master_routine',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
                  'exporterVersion="2.0">\n'
                  '  <bpmn:process id="kaisya_master_routine" name="kaisya Master Routine" '
                  'isExecutable="true">\n'
-                 '    <bpmn:documentation>{ "nsid": "app.etzhayyim.apps.kaisya.masterRoutine", '
+                 '    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.kaisya.masterRoutine", '
                  '"version": 1, "resultTimeoutMs": 120000 }</bpmn:documentation>\n'
                  '\n'
                  '    <bpmn:startEvent id="Start_Timer" name="Every 30 min">\n'
@@ -137,15 +137,15 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5024,
-                 '00-contracts/bpmn/ai/gftd/kaisya/masterRoutine.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/masterRoutine.bpmn',
                  '2026-04-29T23:35:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-master-routine-v1']}]
 
 
 def upgrade() -> None:

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.vault.addMember": {
+    "/xrpc/com.etzhayyim.vault.addMember": {
       "post": {
-        "summary": "Add a member to a vault by providing a vaultKey wrapped to their device key. Caller must be admin/owner. Recipient pubkey is fetched via app.etzhayyim.signal.getPrekeyBundle.",
-        "operationId": "app.etzhayyim.vault.addMember",
+        "summary": "Add a member to a vault by providing a vaultKey wrapped to their device key. Caller must be admin/owner. Recipient pubkey is fetched via com.etzhayyim.signal.getPrekeyBundle.",
+        "operationId": "com.etzhayyim.vault.addMember",
         "requestBody": {
           "required": true,
           "content": {
@@ -79,10 +79,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.createVault": {
+    "/xrpc/com.etzhayyim.vault.createVault": {
       "post": {
-        "summary": "app.etzhayyim.vault.createVault",
-        "operationId": "app.etzhayyim.vault.createVault",
+        "summary": "com.etzhayyim.vault.createVault",
+        "operationId": "com.etzhayyim.vault.createVault",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.deleteItem": {
+    "/xrpc/com.etzhayyim.vault.deleteItem": {
       "post": {
-        "summary": "app.etzhayyim.vault.deleteItem",
-        "operationId": "app.etzhayyim.vault.deleteItem",
+        "summary": "com.etzhayyim.vault.deleteItem",
+        "operationId": "com.etzhayyim.vault.deleteItem",
         "requestBody": {
           "required": true,
           "content": {
@@ -198,10 +198,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.getItem": {
+    "/xrpc/com.etzhayyim.vault.getItem": {
       "get": {
-        "summary": "app.etzhayyim.vault.getItem",
-        "operationId": "app.etzhayyim.vault.getItem",
+        "summary": "com.etzhayyim.vault.getItem",
+        "operationId": "com.etzhayyim.vault.getItem",
         "parameters": [
           {
             "name": "vaultId",
@@ -294,10 +294,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.injectWorkerSecret": {
+    "/xrpc/com.etzhayyim.vault.injectWorkerSecret": {
       "post": {
         "summary": "Server-side: read item plaintext via vault key (caller provides unwrapped vaultKey one-shot, server wraps Cloudflare API call) and PUT to a Cloudflare Worker secret. Admin-only. Caller MUST be vault admin AND have wrangler-equivalent CF permissions for target Worker.",
-        "operationId": "app.etzhayyim.vault.injectWorkerSecret",
+        "operationId": "com.etzhayyim.vault.injectWorkerSecret",
         "requestBody": {
           "required": true,
           "content": {
@@ -366,10 +366,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.listAccessEvents": {
+    "/xrpc/com.etzhayyim.vault.listAccessEvents": {
       "get": {
-        "summary": "app.etzhayyim.vault.listAccessEvents",
-        "operationId": "app.etzhayyim.vault.listAccessEvents",
+        "summary": "com.etzhayyim.vault.listAccessEvents",
+        "operationId": "com.etzhayyim.vault.listAccessEvents",
         "parameters": [
           {
             "name": "vaultId",
@@ -492,10 +492,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.listItems": {
+    "/xrpc/com.etzhayyim.vault.listItems": {
       "get": {
-        "summary": "app.etzhayyim.vault.listItems",
-        "operationId": "app.etzhayyim.vault.listItems",
+        "summary": "com.etzhayyim.vault.listItems",
+        "operationId": "com.etzhayyim.vault.listItems",
         "parameters": [
           {
             "name": "vaultId",
@@ -603,10 +603,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.listVaults": {
+    "/xrpc/com.etzhayyim.vault.listVaults": {
       "get": {
-        "summary": "app.etzhayyim.vault.listVaults",
-        "operationId": "app.etzhayyim.vault.listVaults",
+        "summary": "com.etzhayyim.vault.listVaults",
+        "operationId": "com.etzhayyim.vault.listVaults",
         "parameters": [
           {
             "name": "limit",
@@ -703,10 +703,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.putItem": {
+    "/xrpc/com.etzhayyim.vault.putItem": {
       "post": {
-        "summary": "app.etzhayyim.vault.putItem",
-        "operationId": "app.etzhayyim.vault.putItem",
+        "summary": "com.etzhayyim.vault.putItem",
+        "operationId": "com.etzhayyim.vault.putItem",
         "requestBody": {
           "required": true,
           "content": {
@@ -792,10 +792,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.removeMember": {
+    "/xrpc/com.etzhayyim.vault.removeMember": {
       "post": {
         "summary": "Remove a member's wrappedVaultKey. Caller must rotate vault key separately (rotateVaultKey) to invalidate any keys the removed member may have cached.",
-        "operationId": "app.etzhayyim.vault.removeMember",
+        "operationId": "com.etzhayyim.vault.removeMember",
         "requestBody": {
           "required": true,
           "content": {
@@ -852,10 +852,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.vault.rotateVaultKey": {
+    "/xrpc/com.etzhayyim.vault.rotateVaultKey": {
       "post": {
         "summary": "Re-encrypt all items with a new vaultKey. Client computes per-item rewrapped keys and per-member rewrapped vaultKeys, then submits in a single atomic call.",
-        "operationId": "app.etzhayyim.vault.rotateVaultKey",
+        "operationId": "com.etzhayyim.vault.rotateVaultKey",
         "requestBody": {
           "required": true,
           "content": {

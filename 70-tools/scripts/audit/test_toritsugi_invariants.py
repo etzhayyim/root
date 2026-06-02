@@ -139,8 +139,8 @@ def test_lexicon_id_matches_namespace_and_is_v1_record():
     for path in files:
         lex = _load(path)
         assert lex.get("lexicon") == 1, f"{path.name}: must be Lexicon v1"
-        assert lex["id"] == f"app.etzhayyim.toritsugi.{path.stem}", (
-            f"{path.name}: id must equal app.etzhayyim.toritsugi.{path.stem}"
+        assert lex["id"] == f"com.etzhayyim.toritsugi.{path.stem}", (
+            f"{path.name}: id must equal com.etzhayyim.toritsugi.{path.stem}"
         )
         assert lex["defs"]["main"]["type"] == "record", f"{path.name}: main is a record"
         assert isinstance(_props(lex), dict) and _props(lex), (
@@ -234,7 +234,7 @@ def test_submit_cell_daikou_gate_present_and_none():
 
 
 def test_pii_only_via_encrypted_pointer():
-    # Each PII-bearing record references an app.etzhayyim.encrypted.* envelope
+    # Each PII-bearing record references an com.etzhayyim.encrypted.* envelope
     # via a *Ref pointer field, and carries no inline plaintext content field.
     expectations = {
         _DRAFT: "encryptedDraftRef",

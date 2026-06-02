@@ -24,7 +24,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_live_track_aircraft',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -41,9 +41,9 @@ UP = [{'sql': '\n'
                  '  Cadence: R/PT10S. OpenSky anonymous rate limit is 10s/req. One BPMN\n'
                  '  instance per tick; pyzeebe handler retries with adsb-fi if OpenSky 429.\n'
                  '\n'
-                 '  app.etzhayyim.apps.maps.liveTrackAircraft.\n'
+                 '  com.etzhayyim.apps.maps.liveTrackAircraft.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -57,7 +57,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.liveTrackAircraft", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.liveTrackAircraft", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -113,7 +113,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.maps.liveTrackAircraft&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.liveTrackAircraft&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;rowsIngested&quot;: rowsIngested, &quot;sourcedFrom&quot;: sourcedFrom }" '
@@ -133,12 +133,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4322,
-                 '00-contracts/bpmn/ai/gftd/maps/liveTrackAircraft.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/liveTrackAircraft.bpmn',
                  '2026-05-01T17:00:00Z',
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -152,9 +152,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1',
                  'did:web:maps.etzhayyim.com',
-                 'app.etzhayyim.apps.maps.liveTrackAircraft',
+                 'com.etzhayyim.apps.maps.liveTrackAircraft',
                  'maps_live_track_aircraft',
                  30000,
                  'vertex_aircraft_state',
@@ -163,7 +163,7 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -176,7 +176,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_compute_aircraft_track',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -190,9 +190,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: R/PT5M. Independent from polling cron.\n'
                  '\n'
-                 '  app.etzhayyim.apps.maps.computeAircraftTrack.\n'
+                 '  com.etzhayyim.apps.maps.computeAircraftTrack.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -206,7 +206,7 @@ UP = [{'sql': '\n'
                  'track" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.computeAircraftTrack", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.computeAircraftTrack", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -246,7 +246,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.maps.computeAircraftTrack&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.maps.computeAircraftTrack&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;tracksWritten&quot;: tracksWritten }" target="attributes"/>\n'
@@ -264,12 +264,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3320,
-                 '00-contracts/bpmn/ai/gftd/maps/computeAircraftTrack.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/computeAircraftTrack.bpmn',
                  '2026-05-01T17:00:00Z',
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -283,9 +283,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1',
                  'did:web:maps.etzhayyim.com',
-                 'app.etzhayyim.apps.maps.computeAircraftTrack',
+                 'com.etzhayyim.apps.maps.computeAircraftTrack',
                  'maps_compute_aircraft_track',
                  120000,
                  'vertex_aircraft_track',
@@ -294,7 +294,7 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -307,7 +307,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_refresh_tle_catalog',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -322,9 +322,9 @@ UP = [{'sql': '\n'
                  '\n'
                  '  Cadence: R/PT6H. CelesTrak refreshes ~every 4-8h, our cycle stays fresh.\n'
                  '\n'
-                 '  app.etzhayyim.apps.maps.refreshTleCatalog.\n'
+                 '  com.etzhayyim.apps.maps.refreshTleCatalog.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -338,7 +338,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.refreshTleCatalog", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.refreshTleCatalog", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -378,7 +378,7 @@ UP = [{'sql': '\n'
                  '      <bpmn:extensionElements>\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.maps.refreshTleCatalog&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.maps.refreshTleCatalog&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;tleIngested&quot;: tleIngested, &quot;byGroup&quot;: byGroup }" '
@@ -397,12 +397,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3390,
-                 '00-contracts/bpmn/ai/gftd/maps/refreshTleCatalog.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/refreshTleCatalog.bpmn',
                  '2026-05-01T17:00:00Z',
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -416,9 +416,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1',
                  'did:web:maps.etzhayyim.com',
-                 'app.etzhayyim.apps.maps.refreshTleCatalog',
+                 'com.etzhayyim.apps.maps.refreshTleCatalog',
                  'maps_refresh_tle_catalog',
                  300000,
                  'vertex_satellite_tle',
@@ -427,7 +427,7 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -440,7 +440,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1',
                  'did:web:maps.etzhayyim.com',
                  'maps_precompute_satellite_passes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -457,9 +457,9 @@ UP = [{'sql': '\n'
                  '  Cadence: R/PT1H. New TLEs every 6h, but observer-cell list can grow,\n'
                  '  so 1h cycle keeps cache warm.\n'
                  '\n'
-                 '  app.etzhayyim.apps.maps.precomputeSatellitePasses.\n'
+                 '  com.etzhayyim.apps.maps.precomputeSatellitePasses.\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -473,7 +473,7 @@ UP = [{'sql': '\n'
                  'satellite passes" isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.maps.precomputeSatellitePasses", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.maps.precomputeSatellitePasses", "version": 1, '
                  '"resultTimeoutMs": 600000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -518,7 +518,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:taskDefinition type="generic.audit.emit"/>\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.maps.precomputeSatellitePasses&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.maps.precomputeSatellitePasses&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;runId&quot;: runId, '
                  '&quot;passesWritten&quot;: passesWritten, &quot;observersCovered&quot;: '
@@ -537,12 +537,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3888,
-                 '00-contracts/bpmn/ai/gftd/maps/precomputeSatellitePasses.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/maps/precomputeSatellitePasses.bpmn',
                  '2026-05-01T17:00:00Z',
                  'did:web:maps.etzhayyim.com',
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -556,9 +556,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1',
                  'did:web:maps.etzhayyim.com',
-                 'app.etzhayyim.apps.maps.precomputeSatellitePasses',
+                 'com.etzhayyim.apps.maps.precomputeSatellitePasses',
                  'maps_precompute_satellite_passes',
                  600000,
                  'vertex_satellite_pass',
@@ -567,24 +567,24 @@ UP = [{'sql': '\n'
                  'did:web:maps.etzhayyim.com',
                  'sys.bpmn.seed.maps-live-tracker',
                  'did:web:maps.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-liveTrackAircraft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-liveTrackAircraft-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-computeAircraftTrack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-computeAircraftTrack-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-refreshTleCatalog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refreshTleCatalog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-precomputeSatellitePasses-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def   WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-precomputeSatellitePasses-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.govInd.getBpmnProcess",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get one Government of India BPMN process index entry by processId or bpmnRef.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "processId": { "type": "string" },
+          "bpmnRef": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "processId": { "type": "string" },
+            "processName": { "type": "string" },
+            "kind": { "type": "string" },
+            "bpmnRef": { "type": "string" },
+            "taskCount": { "type": "integer" },
+            "flowCount": { "type": "integer" },
+            "langserverTaskCount": { "type": "integer" },
+            "bpmnXmlAvailable": { "type": "boolean" },
+            "viewerUrl": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

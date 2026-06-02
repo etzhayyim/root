@@ -25,7 +25,7 @@ const INTERNAL_HEADERS = {
 };
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.actor.create`, {
+  const res = await fetch(`${PDS}/xrpc/com.etzhayyim.actor.create`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify({ did, projectId: PROJECT_ID, displayName, description, hasWorker: false }),
@@ -45,7 +45,7 @@ async function registerApp(body: Record<string, unknown>): Promise<void> {
 }
 
 async function toolRegister(tool: Record<string, unknown>): Promise<void> {
-  const res = await fetch(`${PDS}/xrpc/app.etzhayyim.tool.register`, {
+  const res = await fetch(`${PDS}/xrpc/com.etzhayyim.tool.register`, {
     method: 'POST',
     headers: INTERNAL_HEADERS,
     body: JSON.stringify(tool),
@@ -174,7 +174,7 @@ async function main(): Promise<void> {
       raci: 'responsible',
       complianceFrameworks: ['APPI', 'GDPR-public-interest'],
       deps: [
-        { to: 'did:web:business-manager.etzhayyim.com', type: 'data', sourceKind: 'graph', collection: 'app.etzhayyim.apps.businessManager.employee' },
+        { to: 'did:web:business-manager.etzhayyim.com', type: 'data', sourceKind: 'graph', collection: 'com.etzhayyim.apps.businessManager.employee' },
       ],
     },
     icon: '',
@@ -191,7 +191,7 @@ async function main(): Promise<void> {
   // 4. Seed Registry Sources
   console.log(`\n── 4. Registry Sources (${REGISTRY_SOURCES.length}) ──`);
   for (const src of REGISTRY_SOURCES) {
-    await createRecord('app.etzhayyim.apps.businessPerson.registrySource', {
+    await createRecord('com.etzhayyim.apps.businessPerson.registrySource', {
       ...src,
       ownerDid: ROOT_DID,
     });
@@ -201,7 +201,7 @@ async function main(): Promise<void> {
   // 5. Seed Role Types
   console.log(`\n── 5. Role Types (${ROLE_TYPES.length}) ──`);
   for (const role of ROLE_TYPES) {
-    await createRecord('app.etzhayyim.apps.businessPerson.roleType', {
+    await createRecord('com.etzhayyim.apps.businessPerson.roleType', {
       ...role,
       ownerDid: ROOT_DID,
     });
@@ -249,7 +249,7 @@ async function main(): Promise<void> {
   ];
 
   for (const job of HP_JOBS) {
-    await createRecord('app.etzhayyim.apps.businessPerson.collectionJob', {
+    await createRecord('com.etzhayyim.apps.businessPerson.collectionJob', {
       ...job,
       status: 'pending',
       phase: 1,

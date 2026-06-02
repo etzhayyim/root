@@ -1,0 +1,95 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.greenSteel.recordProductionMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Green steel production metric (ResponsibleSteel / GSC / Breakthrough Agenda — bridges hydrogen-economy + climate-carbon-market + eu-cbam + critical-minerals)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "countryIso3",
+            "route",
+            "annualOutputTonnes",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "plantLei": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "route": {
+              "type": "string",
+              "enum": [
+                "bf_bof",
+                "eaf_scrap",
+                "dri_ng",
+                "dri_h2",
+                "hisarna",
+                "ulcored",
+                "molten_oxide_electrolysis"
+              ]
+            },
+            "annualOutputTonnes": {
+              "type": "number"
+            },
+            "scope1IntensityTco2eT": {
+              "type": "number"
+            },
+            "scope2IntensityTco2eT": {
+              "type": "number"
+            },
+            "recycledContentPct": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "greenTier": {
+              "type": "string",
+              "enum": [
+                "legacy",
+                "transitional",
+                "low_carbon",
+                "near_zero"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

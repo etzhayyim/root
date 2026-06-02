@@ -120,16 +120,16 @@ GRAPHS: dict[str, Any] = {
 }
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "app.etzhayyim.apps.pdColor.health": "health",
-    "app.etzhayyim.apps.pdColor.videoSegmentShots": "videoSegmentShots",
-    "app.etzhayyim.apps.pdColor.videoRestoreFrames": "videoRestoreFrames",
-    "app.etzhayyim.apps.pdColor.videoColorizeFrames": "videoColorizeFrames",
-    "app.etzhayyim.apps.pdColor.videoEnhanceQuality": "videoEnhanceQuality",
-    "app.etzhayyim.apps.pdColor.videoEncodePackage": "videoEncodePackage",
-    "app.etzhayyim.apps.pdColor.videoMuxLocalizedPackages": "videoMuxLocalizedPackages",
-    "app.etzhayyim.apps.pdColor.audioExtractTimedText": "audioExtractTimedText",
-    "app.etzhayyim.apps.pdColor.audioGenerateDubbedAudio": "audioGenerateDubbedAudio",
-    "app.etzhayyim.apps.pdColor.localizationTranslateSubtitles": "localizationTranslateSubtitles",
+    "com.etzhayyim.apps.pdColor.health": "health",
+    "com.etzhayyim.apps.pdColor.videoSegmentShots": "videoSegmentShots",
+    "com.etzhayyim.apps.pdColor.videoRestoreFrames": "videoRestoreFrames",
+    "com.etzhayyim.apps.pdColor.videoColorizeFrames": "videoColorizeFrames",
+    "com.etzhayyim.apps.pdColor.videoEnhanceQuality": "videoEnhanceQuality",
+    "com.etzhayyim.apps.pdColor.videoEncodePackage": "videoEncodePackage",
+    "com.etzhayyim.apps.pdColor.videoMuxLocalizedPackages": "videoMuxLocalizedPackages",
+    "com.etzhayyim.apps.pdColor.audioExtractTimedText": "audioExtractTimedText",
+    "com.etzhayyim.apps.pdColor.audioGenerateDubbedAudio": "audioGenerateDubbedAudio",
+    "com.etzhayyim.apps.pdColor.localizationTranslateSubtitles": "localizationTranslateSubtitles",
 }
 
 

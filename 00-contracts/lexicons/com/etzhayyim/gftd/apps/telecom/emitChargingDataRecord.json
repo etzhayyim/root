@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.emitChargingDataRecord",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G Core CHF — emit a 5G charging data record (Nchf_ConvergedCharging). Bridges 5G PDU session usage to Phase 1 subscriber billing rollup.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId", "profileId", "subscriberId", "ratingGroup", "units", "currency", "amount", "chargingMethod", "startedAt"],
+          "properties": {
+            "chargingId": { "type": "string" },
+            "sessionId": { "type": "string" },
+            "profileId": { "type": "string" },
+            "subscriberId": { "type": "string" },
+            "ratingGroup": { "type": "string" },
+            "units": { "type": "number" },
+            "unitOfMeasure": { "type": "string", "enum": ["seconds", "messages", "bytes", "events"] },
+            "currency": { "type": "string" },
+            "amount": { "type": "number" },
+            "chargingMethod": { "type": "string", "enum": ["online", "offline", "converged"] },
+            "chfNfId": { "type": "string" },
+            "startedAt": { "type": "string", "format": "datetime" },
+            "endedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "chargingId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

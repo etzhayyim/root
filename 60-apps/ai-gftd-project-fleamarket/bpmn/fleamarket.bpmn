@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cl-1" sourceRef="start-create-listing" targetRef="task-create-listing"/>
     <bpmn:serviceTask id="task-create-listing" name="Create Listing">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.createListing"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.createListing"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cl-2" sourceRef="task-create-listing" targetRef="end-create-listing"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-ll-1" sourceRef="start-list-listings" targetRef="task-list-listings"/>
     <bpmn:serviceTask id="task-list-listings" name="List Listings">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.listListings"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.listListings"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ll-2" sourceRef="task-list-listings" targetRef="end-list-listings"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-gl-1" sourceRef="start-get-listing" targetRef="task-get-listing"/>
     <bpmn:serviceTask id="task-get-listing" name="Get Listing">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.getListing"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.getListing"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gl-2" sourceRef="task-get-listing" targetRef="end-get-listing"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-cb-1" sourceRef="start-create-bid" targetRef="task-create-bid"/>
     <bpmn:serviceTask id="task-create-bid" name="Create Bid">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.createBid"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.createBid"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cb-2" sourceRef="task-create-bid" targetRef="end-create-bid"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-lb-1" sourceRef="start-list-bids" targetRef="task-list-bids"/>
     <bpmn:serviceTask id="task-list-bids" name="List Bids">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.listBids"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.listBids"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lb-2" sourceRef="task-list-bids" targetRef="end-list-bids"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-clo-1" sourceRef="start-close-listing" targetRef="task-close-listing"/>
     <bpmn:serviceTask id="task-close-listing" name="Close Listing">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.closeListing"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.closeListing"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-clo-2" sourceRef="task-close-listing" targetRef="end-close-listing"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-ct-1" sourceRef="start-create-transaction" targetRef="task-create-transaction"/>
     <bpmn:serviceTask id="task-create-transaction" name="Create Transaction">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.createTransaction"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.createTransaction"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ct-2" sourceRef="task-create-transaction" targetRef="end-create-transaction"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-lt-1" sourceRef="start-list-transactions" targetRef="task-list-transactions"/>
     <bpmn:serviceTask id="task-list-transactions" name="List Transactions">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.fleamarket.listTransactions"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.fleamarket.listTransactions"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lt-2" sourceRef="task-list-transactions" targetRef="end-list-transactions"/>

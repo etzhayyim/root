@@ -1,4 +1,4 @@
--- ADR-2605082000 follow-up — register ai.gftd.tools.llm.chat primitive.
+-- ADR-2605082000 follow-up — register com.etzhayyim.tools.llm.chat primitive.
 --
 -- Generic LLM chat primitive that wraps task_generic_llm_chat. Replaces
 -- per-actor pure-LLM py_primitive nodes (animeka_autopilot.generate_*
@@ -13,13 +13,13 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:animeka.gftd.ai/ai.gftd.mcp.toolDef/ai-gftd-tools-llm-chat',
-   0, 0, 'ai.gftd.tools.llm.chat', 'did:web:animeka.gftd.ai', 'animeka.gftd.ai', 'procedure',
+  ('at://did:web:animeka.gftd.ai/com.etzhayyim.mcp.toolDef/ai-gftd-tools-llm-chat',
+   0, 0, 'com.etzhayyim.tools.llm.chat', 'did:web:animeka.gftd.ai', 'animeka.gftd.ai', 'procedure',
    'Generic free-form LLM chat — replaces per-actor LLM-only py_primitive nodes.',
    '{"type":"object","properties":{"tier":{"type":"string"},"system":{"type":"string"},"user":{"type":"string"},"maxTokens":{"type":"integer"},"temperature":{"type":"number"}},"required":["user"]}',
    '{"type":"object","properties":{"content":{"type":"string"},"error":{"type":"string"}}}',
    'public', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/tools/llm/chat.json',
+   '00-contracts/lexicons/com/etzhayyim/tools/llm/chat.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 FLUSH;

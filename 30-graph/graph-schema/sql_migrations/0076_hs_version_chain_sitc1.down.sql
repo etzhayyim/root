@@ -6,13 +6,13 @@ DROP VIEW IF EXISTS view_hs1996_commodity;
 
 DROP VIEW IF EXISTS view_sitc1_commodity;
 
-DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.hs.commodity2007';
+DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.hs.commodity2007';
 
-DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.hs.commodity2002';
+DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.hs.commodity2002';
 
-DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.hs.commodity1996';
+DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.hs.commodity1996';
 
-DELETE FROM vertex_repo_record WHERE collection = 'ai.gftd.apps.sitc.commodity_rev1';
+DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.sitc.commodity_rev1';
 
 DELETE FROM dim_world_domain WHERE domain IN ('hs2007','hs2002','hs1996','sitc1');
 

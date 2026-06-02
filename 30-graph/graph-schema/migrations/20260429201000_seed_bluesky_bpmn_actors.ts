@@ -21,26 +21,26 @@ const writeTableAllowlist = [
 const seeds = [
   {
     slug: "bluesky-ingest-actor",
-    sourcePath: "00-contracts/bpmn/ai/gftd/bluesky/ingestActor.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/bluesky/ingestActor.bpmn",
     processId: "bluesky_ingest_actor",
-    nsid: "app.etzhayyim.apps.bluesky.ingestActor",
+    nsid: "com.etzhayyim.apps.bluesky.ingestActor",
     timeoutMs: 120000,
   },
   {
     slug: "bluesky-refresh-stalest",
-    sourcePath: "00-contracts/bpmn/ai/gftd/bluesky/refreshStalest.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/bluesky/refreshStalest.bpmn",
     processId: "bluesky_refresh_stalest",
-    nsid: "app.etzhayyim.apps.bluesky.refreshStalest",
+    nsid: "com.etzhayyim.apps.bluesky.refreshStalest",
     timeoutMs: 300000,
   },
 ] as const;
 
 function processVertexId(seed: (typeof seeds)[number]): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${seed.slug}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${seed.slug}-v1`;
 }
 
 function bindingVertexId(seed: (typeof seeds)[number]): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${seed.slug}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${seed.slug}-v1`;
 }
 
 export async function up(db: Kysely<unknown>): Promise<void> {

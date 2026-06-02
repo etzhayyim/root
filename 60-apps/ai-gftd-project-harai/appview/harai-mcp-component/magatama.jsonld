@@ -1,6 +1,6 @@
 {
   "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:harai.gftd.ai",
+  "@id": "did:web:harcom.etzhayyim.ai",
   "name": "harai",
   "nanoid": "r3k9mwvx",
   "project": "harai",
@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.harai.payment",
-        "ai.gftd.apps.harai.transaction"
+        "com.etzhayyim.apps.harai.payment",
+        "com.etzhayyim.apps.harai.transaction"
       ]
     }
   }

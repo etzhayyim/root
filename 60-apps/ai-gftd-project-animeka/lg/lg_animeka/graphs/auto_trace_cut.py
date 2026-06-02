@@ -1,6 +1,6 @@
 """animeka `autoTraceCut` graph.
 
-NSID: app.etzhayyim.animeka.autoTraceCut
+NSID: com.etzhayyim.animeka.autoTraceCut
 
 Produces a color-traced finish layer for a cut:
   fetch_keyframe → llm_color_prompt → render_trace → insert → audit
@@ -65,7 +65,7 @@ async def _node_fetch_keyframe(state: _State) -> dict[str, Any]:
             # Fetch the most recent keyframe for this cut
             await cur.execute(
                 "SELECT image_cid, camera_note FROM vertex_animeka "
-                "WHERE collection='app.etzhayyim.animeka.keyframe' AND cut_id=%s "
+                "WHERE collection='com.etzhayyim.animeka.keyframe' AND cut_id=%s "
                 "ORDER BY created_at DESC LIMIT 1",
                 [rkey],
             )
@@ -74,7 +74,7 @@ async def _node_fetch_keyframe(state: _State) -> dict[str, Any]:
                 # Fallback: fetch cut camera_note for prompt generation
                 await cur.execute(
                     "SELECT camera_note FROM vertex_animeka "
-                    "WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
+                    "WHERE collection='com.etzhayyim.animeka.cut' AND rkey=%s LIMIT 1",
                     [rkey],
                 )
                 row2 = await cur.fetchone()
@@ -162,7 +162,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
     cut_id = state.get("cut_id") or ""
     rkey_cut = cut_id.rsplit("/", 1)[-1] if "/" in cut_id else cut_id
     rkey = f"ct-{secrets.token_hex(4)}"
-    vertex_id = f"at://{_REPO}/app.etzhayyim.animeka.colorTrace/{rkey}"
+    vertex_id = f"at://{_REPO}/com.etzhayyim.animeka.colorTrace/{rkey}"
     created_at = datetime.now(tz=timezone.utc).isoformat()
     try:
         import psycopg
@@ -172,7 +172,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
                 """INSERT INTO vertex_animeka
                    (vertex_id, repo, rkey, collection, kind, owner_did,
                     cut_id, color_layers_cid, status, created_at)
-                   VALUES (%s, %s, %s, 'app.etzhayyim.animeka.colorTrace', 'colorTrace',
+                   VALUES (%s, %s, %s, 'com.etzhayyim.animeka.colorTrace', 'colorTrace',
                            %s, %s, %s, 'draft', %s)""",
                 [vertex_id, _REPO, rkey, _APP_DID,
                  rkey_cut, state.get("color_layers_cid"), created_at],
@@ -181,7 +181,7 @@ async def _node_insert(state: _State) -> dict[str, Any]:
             await conn.execute(
                 """UPDATE vertex_animeka
                    SET stage_status = COALESCE(stage_status, '{}')
-                   WHERE collection='app.etzhayyim.animeka.cut' AND rkey=%s""",
+                   WHERE collection='com.etzhayyim.animeka.cut' AND rkey=%s""",
                 [rkey_cut],
             )
         finally:

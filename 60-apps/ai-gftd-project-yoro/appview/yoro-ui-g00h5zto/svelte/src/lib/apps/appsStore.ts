@@ -13,7 +13,7 @@ export async function loadAppsFromRegistry(): Promise<void> {
 	try {
 		const { atProcedure } = await import('$lib/atproto-agent');
 		const result = await atProcedure<{ items?: GfAppLink[]; total?: number }>(
-			'app.etzhayyim.apps.yoro.listApps',
+			'com.etzhayyim.apps.yoro.listApps',
 			{}
 		);
 		if (result?.items && result.items.length > 0) {

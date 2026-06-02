@@ -10,7 +10,7 @@
 
   function parsePath() {
     const { pathname } = window.location;
-    // /at/{authority}/app.etzhayyim.apps.yukkuri.video/{rkey}
+    // /at/{authority}/com.etzhayyim.apps.yukkuri.video/{rkey}
     const atMatch = pathname.match(/^\/at\/([^/]+)\/ai\.gftd\.apps\.yukkuri\.video\/([^/]+)$/);
     if (atMatch) {
       view = 'detail';

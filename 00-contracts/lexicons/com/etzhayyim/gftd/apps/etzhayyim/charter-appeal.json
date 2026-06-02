@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.etzhayyim.charter-appeal",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Subject entity's appeal against a charter-attestation. Submitted within 30-day appeal window. Per ADR-2605192230 §6 + 2605192200 §5.",
+      "record": {
+        "type": "object",
+        "required": ["attestationUri", "appellantDid", "counterEvidenceUris", "appealNarrative", "submittedAt"],
+        "properties": {
+          "attestationUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the charter-attestation record being appealed."
+          },
+          "appellantDid": {
+            "type": "string",
+            "description": "DID of the subject entity appealing (must control the address / SBT under attestation, or be authorized representative of the legal-entity)."
+          },
+          "appealNarrative": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Detailed counter-argument."
+          },
+          "counterEvidenceUris": {
+            "type": "array",
+            "minLength": 1,
+            "maxLength": 50,
+            "items": { "type": "string" },
+            "description": "Evidence URIs supporting the appeal."
+          },
+          "appellantSignature": {
+            "type": "string",
+            "description": "DID-bound signature over the appeal body (base64url)."
+          },
+          "submittedAt": { "type": "string", "format": "datetime" },
+          "councilResponse": {
+            "type": "string",
+            "enum": ["pending", "accepted", "rejected"],
+            "default": "pending",
+            "description": "Council's response after re-deliberation."
+          },
+          "councilResponseAt": { "type": "string", "format": "datetime" },
+          "councilResponseRationaleCid": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -100,7 +100,7 @@ export function hasLabel(label: string): boolean {
 
 export async function listAvailableLabels(): Promise<Array<{ label: string; count?: number }>> {
   try {
-    const res = await atProcedure<{ labels?: Array<{ label?: string; count?: number }> }>('app.etzhayyim.kagami.listLabels', {});
+    const res = await atProcedure<{ labels?: Array<{ label?: string; count?: number }> }>('com.etzhayyim.kagami.listLabels', {});
     const labels = Array.isArray(res?.labels) ? res.labels : [];
     return labels
       .map((l) => ({ label: String(l?.label ?? ''), count: l?.count }))

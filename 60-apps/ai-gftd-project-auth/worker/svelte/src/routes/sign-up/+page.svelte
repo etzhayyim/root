@@ -52,7 +52,7 @@
 
 	onMount(async () => {
 		try {
-			const cfg = await fetch(`${API}/xrpc/app.etzhayyim.auth.getConfig`).then((r) => r.json());
+			const cfg = await fetch(`${API}/xrpc/com.etzhayyim.auth.getConfig`).then((r) => r.json());
 			// Charter Rider §2: stripe_pk is intentionally empty.
 			// Treasury address comes from a (future) auth.getDonationConfig surface.
 			donateTreasury = (cfg.donate_treasury_base_l2 as string) || donateTreasury;
@@ -141,7 +141,7 @@
 			donateTxHash = r.txHash ?? r.paymentReceipt?.txHash ?? '';
 			status = 'Donation confirmed! Provisioning eSIM...';
 			statusKind = 'success';
-			const esim = await fetch(`${API}/xrpc/app.etzhayyim.auth.esimProvision`, {
+			const esim = await fetch(`${API}/xrpc/com.etzhayyim.auth.esimProvision`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: '{}',

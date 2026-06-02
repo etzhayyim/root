@@ -1,0 +1,143 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.pharma.purificationAttestation",
+  "description": "Attestation for API purification scheme execution per ADR-2605250515 §Decision 4. Records recrystallization solvent / yield, activated charcoal decolorization, filtration, and (chlorpheniramine only) prep-HPLC ICH M7 PGI removal step.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "purificationLotId",
+          "apiInn",
+          "upstreamSynthesisUri",
+          "scheme",
+          "operatorDid",
+          "witnessDid",
+          "outcome",
+          "completedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "purificationLotId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "apiInn": {
+            "type": "string",
+            "knownValues": [
+              "sodium-cromoglicate",
+              "naphazoline-hydrochloride",
+              "chlorpheniramine-maleate",
+              "acetaminophen",
+              "aspirin",
+              "ibuprofen",
+              "diphenhydramine-hydrochloride",
+              "cetirizine-dihydrochloride",
+              "loratadine",
+              "famotidine",
+              "clotrimazole",
+              "diclofenac-sodium"
+            ]
+          },
+          "upstreamSynthesisUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Final-step apiSynthesisAttestation AT URI."
+          },
+          "scheme": {
+            "type": "string",
+            "knownValues": [
+              "recryst-charcoal-filter",
+              "recryst-charcoal-filter-prephplc",
+              "recryst-only",
+              "recryst-double",
+              "recryst-charcoal-only",
+              "trituration-wash",
+              "vacuum-distillation",
+              "crystalline-resolution-mandelate",
+              "prep-hplc-chiral",
+              "SFC-supercritical"
+            ],
+            "description": "Wave 1: 'recryst-charcoal-filter' (DSCG / naphazoline); 'recryst-charcoal-filter-prephplc' (chlorpheniramine, ICH M7 4-chlorobenzyl chloride removal). Wave 1b extensions: 'recryst-only' (clotrimazole / diclofenac), 'recryst-double' (acetaminophen / aspirin), 'recryst-charcoal-only' (ibuprofen / famotidine), 'trituration-wash' (diphenhydramine HCl salt), 'vacuum-distillation' (loratadine / cetirizine). Wave 1c chiral: 'crystalline-resolution-mandelate' (omeprazole S-enantiomer via L-mandelic acid salt), 'prep-hplc-chiral' (Chiralcel OD-H or equiv), 'SFC-supercritical' (deferred Wave 1c+)."
+          },
+          "recrystSolvent": {
+            "type": "string",
+            "knownValues": [
+              "etoh-h2o",
+              "i-proh-etoac",
+              "acetone",
+              "meoh-h2o",
+              "etoac-hexane"
+            ]
+          },
+          "recoveryYieldBp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "Purification recovery yield in basis points (10000 = 100%)."
+          },
+          "charcoalLoadingBp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "Activated charcoal loading in basis points of crude mass (10000 = 100%)."
+          },
+          "filtrationPoreSizeNm": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "Filtration pore size in nanometers (integer). 450 = standard 0.45 µm clarification; 220 = 0.22 µm sterile-grade."
+          },
+          "prepHplcColumn": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Required when scheme = '*-prephplc'."
+          },
+          "prepHplcFractionPurityBp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "Required when scheme = '*-prephplc'. Purity in basis points (10000 = 100%)."
+          },
+          "residualSolventEstimatePpm": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Residual solvent estimate in parts per million (integer)."
+          },
+          "pgiEstimatePpb": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Required for chlorpheniramine (4-chlorobenzyl chloride). Estimate in parts per billion (integer; ppm × 1000 for trace-level precision). Auto-reject if computed daily exposure > ICH M7 Class 1B 1.5 µg/day."
+          },
+          "operatorDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "witnessDid": {
+            "type": "string",
+            "format": "did"
+          },
+          "outcome": {
+            "type": "string",
+            "knownValues": ["ok", "rework-required", "scrapped"]
+          },
+          "outcomeNarrative": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

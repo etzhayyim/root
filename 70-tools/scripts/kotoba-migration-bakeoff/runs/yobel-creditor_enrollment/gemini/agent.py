@@ -130,10 +130,10 @@ def anchor_enrollment(state):
         return {
             "enrollment_id": enrollment_id,
             "debt_count": len(state.get("debts", [])),
-            "enrollment_vertex_uri": f"at://{state['creditor_did']}/app.etzhayyim.apps.etzhayyim.yobel.creditorEnrollment/{enrollment_id}",
+            "enrollment_vertex_uri": f"at://{state['creditor_did']}/com.etzhayyim.apps.etzhayyim.yobel.creditorEnrollment/{enrollment_id}",
         }
     result = anchor_bridge.write_and_anchor(
-        collection="app.etzhayyim.apps.etzhayyim.yobel.creditorEnrollment",
+        collection="com.etzhayyim.apps.etzhayyim.yobel.creditorEnrollment",
         rkey=enrollment_id,
         payload={
             "rite_id": state["rite_id"],

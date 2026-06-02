@@ -35,7 +35,7 @@ function emitBudgetRecord(country, category, budget_level, fiscal_year) {
   const base_amount = Math.floor(Math.random() * 500000) + 10000;
 
   return {
-    $type: 'app.etzhayyim.gov.budget#budgetRecord',
+    $type: 'com.etzhayyim.gov.budget#budgetRecord',
     uri: `at://etzhayyim.com/gov/${country}/budget/${fiscal_year}/${++budget_count}`,
     countryIso3: country,
     budgetCategory: category.code,

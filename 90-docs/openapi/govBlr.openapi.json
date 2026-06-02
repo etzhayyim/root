@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govBlr.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govBlr.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Belarus government.",
-        "operationId": "app.etzhayyim.govBlr.followSiteDeps",
+        "operationId": "com.etzhayyim.govBlr.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govBlr.heartbeatTick": {
       "post": {
         "summary": "Run the Belarus government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govBlr.heartbeatTick",
+        "operationId": "com.etzhayyim.govBlr.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.listOrgs": {
+    "/xrpc/com.etzhayyim.govBlr.listOrgs": {
       "get": {
         "summary": "List Belarus government organization graph records.",
-        "operationId": "app.etzhayyim.govBlr.listOrgs",
+        "operationId": "com.etzhayyim.govBlr.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.registerDIDs": {
+    "/xrpc/com.etzhayyim.govBlr.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Belarus government organizations.",
-        "operationId": "app.etzhayyim.govBlr.registerDIDs",
+        "operationId": "com.etzhayyim.govBlr.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govBlr.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Belarus government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govBlr.resolveOrgPath",
+        "operationId": "com.etzhayyim.govBlr.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.seedOrgs": {
+    "/xrpc/com.etzhayyim.govBlr.seedOrgs": {
       "post": {
         "summary": "Seed initial Belarus government organization records into the graph.",
-        "operationId": "app.etzhayyim.govBlr.seedOrgs",
+        "operationId": "com.etzhayyim.govBlr.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.shinka": {
+    "/xrpc/com.etzhayyim.govBlr.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Belarus government organization update.",
-        "operationId": "app.etzhayyim.govBlr.shinka",
+        "operationId": "com.etzhayyim.govBlr.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBlr.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govBlr.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Belarus government organization changes to graph.",
-        "operationId": "app.etzhayyim.govBlr.syncWetUpdates",
+        "operationId": "com.etzhayyim.govBlr.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

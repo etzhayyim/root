@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sovereignDebt.flagRestructuring",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sovereign restructuring / common framework / Paris Club flag",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "restructuringId",
+            "issuerIso3",
+            "framework",
+            "announcedAt"
+          ],
+          "properties": {
+            "restructuringId": {
+              "type": "string"
+            },
+            "issuerIso3": {
+              "type": "string"
+            },
+            "framework": {
+              "type": "string",
+              "enum": [
+                "paris_club",
+                "common_framework",
+                "london_club",
+                "london_terms",
+                "naples_terms",
+                "evian",
+                "private_only",
+                "bondholder_committee"
+              ]
+            },
+            "imfProgram": {
+              "type": "string",
+              "description": "IMF arrangement name if any"
+            },
+            "hairCutPct": {
+              "type": "number"
+            },
+            "extendedMaturityYears": {
+              "type": "number"
+            },
+            "announcedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "reprofiling",
+                "significant",
+                "deep"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

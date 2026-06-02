@@ -3,7 +3,7 @@
 
 Reads Phase 3 output (domains_for_classification.jsonl.gz or Cypher batch files),
 creates DID actors (com.atproto.identity.create) and domain metadata records
-(app.etzhayyim.apps.site.domain) in PDS via XRPC.
+(com.etzhayyim.apps.site.domain) in PDS via XRPC.
 
 DID hierarchy:
   did:web:site.etzhayyim.com                          (APP primary, existing)
@@ -251,7 +251,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
         }
         xrpc_call("com.atproto.repo.createRecord", {
             "repo": SITE_APP_DID,
-            "collection": "app.etzhayyim.apps.site.domain",
+            "collection": "com.etzhayyim.apps.site.domain",
             "rkey": domain_name,  # use domain as rkey so mv_cc_domain_coverage JOIN matches
             "record": domain_record,
         }, token)
@@ -308,7 +308,7 @@ def load_domains_from_risingwave(limit: int = 0) -> list[dict]:
         SELECT vd.vertex_id, vd.domain, vd.topics
         FROM vertex_domain vd
         LEFT JOIN vertex_actor va
-          ON va.collection = 'app.etzhayyim.apps.site.domain' AND va.rkey = vd.domain
+          ON va.collection = 'com.etzhayyim.apps.site.domain' AND va.rkey = vd.domain
         WHERE va.rkey IS NULL
           AND vd.domain LIKE '%.%'
           AND vd.domain ~ '^[a-zA-Z0-9]'

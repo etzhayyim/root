@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gameka.publishGame",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Mint a per-game sub-DID, write a gameTitle record, and post the launch announcement as the sub-DID. Triggered by playtestGame on outcome='pass'.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "specId":     { "type": "string" },
+            "artifactId": { "type": "string" },
+            "qaId":       { "type": "string" }
+          },
+          "required": ["specId", "artifactId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "titleId":  { "type": "string" },
+            "uri":      { "type": "string" },
+            "subDid":   { "type": "string" },
+            "slug":     { "type": "string" },
+            "playUrl":  { "type": "string" },
+            "postUri":  { "type": "string" },
+            "version":  { "type": "string" }
+          },
+          "required": ["titleId", "uri", "subDid", "slug", "playUrl"]
+        }
+      }
+    }
+  }
+}

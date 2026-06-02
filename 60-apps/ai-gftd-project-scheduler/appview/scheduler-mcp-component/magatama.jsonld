@@ -26,7 +26,7 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.scheduler.job"
+        "com.etzhayyim.apps.scheduler.job"
       ]
     }
   }

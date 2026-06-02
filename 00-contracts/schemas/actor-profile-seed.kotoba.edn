@@ -27,7 +27,7 @@
    :actor/performer-type :service
    :actor/ui-type :none
    :actor/description "MST CAR pinner — pins shard CARs produced by mst-projector to IPFS."
-   :actor/primary-lexicon "app.etzhayyim.substrate.ipfsPin"
+   :actor/primary-lexicon "com.etzhayyim.substrate.ipfsPin"
    :actor/adr ["2605171800"]
    :actor/created-at "2026-05-17"
    :actor/vm []
@@ -39,8 +39,8 @@
    :actor/status :landed
    :actor/performer-type :service
    :actor/ui-type :none
-   :actor/description "Document-signing actor — issues, collects, completes app.etzhayyim.esign.* envelopes."
-   :actor/primary-lexicon "app.etzhayyim.esign"
+   :actor/description "Document-signing actor — issues, collects, completes com.etzhayyim.esign.* envelopes."
+   :actor/primary-lexicon "com.etzhayyim.esign"
    :actor/adr ["2605231230"]
    :actor/created-at "2026-05-23"
    :actor/vm []
@@ -52,8 +52,8 @@
    :actor/status :landed
    :actor/performer-type :service
    :actor/ui-type :none
-   :actor/description "Audit-event aggregator — substrate-wide app.etzhayyim.audit.event sink referenced by every actor manifest."
-   :actor/primary-lexicon "app.etzhayyim.audit.event"
+   :actor/description "Audit-event aggregator — substrate-wide com.etzhayyim.audit.event sink referenced by every actor manifest."
+   :actor/primary-lexicon "com.etzhayyim.audit.event"
    :actor/adr ["2605231700" "2605231900"]
    :actor/created-at "2026-05-23"
    :actor/vm []
@@ -65,8 +65,8 @@
    :actor/status :landed
    :actor/performer-type :service
    :actor/ui-type :none
-   :actor/description "Dataset pinner — mirrors DataLad/git-annex remote objects to IPFS and emits app.etzhayyim.substrate.datasetPin records."
-   :actor/primary-lexicon "app.etzhayyim.substrate.datasetPin"
+   :actor/description "Dataset pinner — mirrors DataLad/git-annex remote objects to IPFS and emits com.etzhayyim.substrate.datasetPin records."
+   :actor/primary-lexicon "com.etzhayyim.substrate.datasetPin"
    :actor/adr ["2605241500" "2605241800"]
    :actor/created-at "2026-05-24"
    :actor/vm []
@@ -118,7 +118,7 @@
    :actor/performer-type :service
    :actor/ui-type :none
    :actor/description "Karute electronic medical record actor (EMR / FHIR R5). PHI sealing mandatory."
-   :actor/primary-lexicon "app.etzhayyim.apps.karute"
+   :actor/primary-lexicon "com.etzhayyim.apps.karute"
    :actor/adr ["2605231100" "2605231900"]
    :actor/created-at "2026-05-23"
    :actor/vm []
@@ -136,7 +136,7 @@
    :actor/performer-type :system
    :actor/ui-type :appview
    :actor/description "World submarine-cable knowledge graph — surfaces chokepoint concentration routed to redundancy + faster repair. A resilience map, NEVER a target-list (watatsumi N8 pair)."
-   :actor/primary-lexicon "app.etzhayyim.cable"
+   :actor/primary-lexicon "com.etzhayyim.cable"
    :actor/primary-schema "00-contracts/schemas/submarine-cable-ontology.kotoba.edn"
    :actor/adr ["2606012600"]
    :actor/created-at "2026-06-01"
@@ -179,7 +179,7 @@
    :actor/performer-type :system
    :actor/ui-type :appview
    :actor/description "Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders)."
-   :actor/primary-lexicon "app.etzhayyim.kanae"
+   :actor/primary-lexicon "com.etzhayyim.kanae"
    :actor/adr ["2605302300"]
    :actor/created-at "2026-06-01"
    ;; content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact

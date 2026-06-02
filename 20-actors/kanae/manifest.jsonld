@@ -24,7 +24,7 @@
   "parentActor": null,
   "crossActorBoundary": [
     "did:web:danjo.etzhayyim.com (PRIMARY UPSTREAM + BOUNDARY: danjo = non-adjudicating cross-reference ENGINE emitting fiscal + intergov-fund-flow datoms; kanae = fiscal-flow ASSEMBLY + Murakumo NARRATIVE + kami-engine WASM VISUALIZATION. danjo finds, kanae renders. kanae reads danjo datoms read-only and never writes back; ADR-2605301600 + ADR-2605302245)",
-    "app.etzhayyim.gov.dataset.* corpus (ADR-2605263900): READ-ONLY budgetRecord / procurementRecord / statisticsObservation (IMF SDMX / World Bank / OECD / UN) — fiscal-flow input where danjo has not yet indexed a jurisdiction",
+    "com.etzhayyim.gov.dataset.* corpus (ADR-2605263900): READ-ONLY budgetRecord / procurementRecord / statisticsObservation (IMF SDMX / World Bank / OECD / UN) — fiscal-flow input where danjo has not yet indexed a jurisdiction",
     "did:web:ossekai.etzhayyim.com (kanae aggregate visualizations → ossekai §1.12 aggregate-anonymized publication; ADR-2605264000)",
     "did:web:kataribe.etzhayyim.com (kanae visualization artifacts = citable primary-source graphics for press / publishing)",
     "did:web:toritate.etzhayyim.com (∥ disjoint: toritate visualizes the religious-corp's OWN on-chain books; kanae visualizes the STATE's published fiscal flows)",
@@ -33,13 +33,13 @@
     "kotoba QuadStore EAVT (fund-flow graph store; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "lexiconReadAccess": {
-    "app.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY appropriation / outlay / subaward (USAspending / EU FTS / HM Treasury OSCAR / JP 予算書). Assembled into kotoba EAVT fundFlowEdge by kanae_flow_assembler.",
-    "app.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY tender / award (EU TED / US SAM.gov / UK Contracts Finder / JP 政府調達). awardeeLei cross-link to corp.leiReference.",
-    "app.etzhayyim.gov.dataset.statisticsObservation": "ADR-2605263900; READ-ONLY IMF SDMX / World Bank / OECD.Stat / UN data — inter-governmental transfer / aid / loan flows. Assembled by kanae_intergov_flow.",
-    "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient / awardee endpoint resolution. CC0 1.0.",
-    "app.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO / parent-subsidiary for flow-edge endpoint resolution. GLEIF L2 (CC0) + OpenCorporates open-data.",
-    "app.etzhayyim.danjo.crossReferenceLink": "ADR-2605301600; READ-ONLY danjo cross-reference edges (engine output).",
-    "app.etzhayyim.danjo.discrepancyObservation": "ADR-2605301600; READ-ONLY danjo non-adjudicating observations (engine output; kanae may surface them in a visualization, NON-adjudicating pass-through, never re-characterized)."
+    "com.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY appropriation / outlay / subaward (USAspending / EU FTS / HM Treasury OSCAR / JP 予算書). Assembled into kotoba EAVT fundFlowEdge by kanae_flow_assembler.",
+    "com.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY tender / award (EU TED / US SAM.gov / UK Contracts Finder / JP 政府調達). awardeeLei cross-link to corp.leiReference.",
+    "com.etzhayyim.gov.dataset.statisticsObservation": "ADR-2605263900; READ-ONLY IMF SDMX / World Bank / OECD.Stat / UN data — inter-governmental transfer / aid / loan flows. Assembled by kanae_intergov_flow.",
+    "com.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient / awardee endpoint resolution. CC0 1.0.",
+    "com.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO / parent-subsidiary for flow-edge endpoint resolution. GLEIF L2 (CC0) + OpenCorporates open-data.",
+    "com.etzhayyim.danjo.crossReferenceLink": "ADR-2605301600; READ-ONLY danjo cross-reference edges (engine output).",
+    "com.etzhayyim.danjo.discrepancyObservation": "ADR-2605301600; READ-ONLY danjo non-adjudicating observations (engine output; kanae may surface them in a visualization, NON-adjudicating pass-through, never re-characterized)."
   },
   "form": "任意団体 internal civic-transparency fiscal-flow visualization substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a state-recognized audit organ; NOT a commercial fiscal-intelligence product)",
   "constitutionalDiscipline": {
@@ -114,10 +114,10 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.kanae.fundFlowEdge",
-    "app.etzhayyim.kanae.flowNarrative",
-    "app.etzhayyim.kanae.visualizationManifest",
-    "app.etzhayyim.kanae.methodNote"
+    "com.etzhayyim.kanae.fundFlowEdge",
+    "com.etzhayyim.kanae.flowNarrative",
+    "com.etzhayyim.kanae.visualizationManifest",
+    "com.etzhayyim.kanae.methodNote"
   ],
   "constitutionalGates": {
     "description": "15 immutable gates per ADR-2605302300 §4 (G1–G13 inherit the danjo gate set; G14–G15 are visualization-specific). Council Lv6+ supermajority + new ADR to amend.",

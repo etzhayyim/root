@@ -1,0 +1,54 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.serviceRequest",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 ServiceRequest (検査・画像・処置・指導オーダー). Inner type of com.etzhayyim.encrypted.record envelope.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "status", "intent", "category", "code", "authoredOn"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "ServiceRequest"},
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string"},
+          "requesterDid": {"type": "string"},
+          "performerDids": {"type": "array", "items": {"type": "string"}},
+          "status": {
+            "type": "string",
+            "enum": ["draft", "active", "on-hold", "revoked", "completed", "entered-in-error", "unknown"]
+          },
+          "intent": {
+            "type": "string",
+            "enum": ["proposal", "plan", "directive", "order", "original-order", "reflex-order", "filler-order", "instance-order", "option"]
+          },
+          "category": {
+            "type": "string",
+            "enum": ["laboratory", "imaging", "procedure", "counselling", "education", "surgical-procedure", "diagnostic-test", "nursing", "rehabilitation"]
+          },
+          "priority": {"type": "string", "enum": ["routine", "urgent", "asap", "stat"]},
+          "code": {
+            "type": "object",
+            "properties": {
+              "loinc": {"type": "string"},
+              "snomedCt": {"type": "string"},
+              "jlac10": {"type": "string", "description": "JP 臨床検査コード"},
+              "cpt": {"type": "string", "description": "US CPT"},
+              "shinryoCode": {"type": "string", "description": "JP 診療行為コード"},
+              "display": {"type": "string"}
+            }
+          },
+          "bodySite": {"type": "array", "items": {"type": "string"}},
+          "reasonCode": {"type": "array", "items": {"type": "string"}},
+          "scheduledFor": {"type": "string", "format": "datetime"},
+          "specimenInstructions": {"type": "string"},
+          "patientInstructions": {"type": "string"},
+          "authoredOn": {"type": "string", "format": "datetime"},
+          "completedAt": {"type": "string", "format": "datetime"},
+          "resultObservationDids": {"type": "array", "items": {"type": "string"}, "description": "AT URIs of Observation records once result is in"}
+        }
+      }
+    }
+  }
+}

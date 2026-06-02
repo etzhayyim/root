@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.datacenterEnergy.recordLoad",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DC load measurement (AI training vs inference vs general compute)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "loadId",
+            "facilityVid",
+            "periodMonth",
+            "recordedAt"
+          ],
+          "properties": {
+            "loadId": {
+              "type": "string"
+            },
+            "facilityVid": {
+              "type": "string",
+              "description": "bridges registerFacility"
+            },
+            "periodMonth": {
+              "type": "string",
+              "description": "YYYY-MM"
+            },
+            "aiTrainingMwh": {
+              "type": "number"
+            },
+            "aiInferenceMwh": {
+              "type": "number"
+            },
+            "generalMwh": {
+              "type": "number"
+            },
+            "avgCarbonGCo2Kwh": {
+              "type": "number"
+            },
+            "waterConsumedLitres": {
+              "type": "number"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

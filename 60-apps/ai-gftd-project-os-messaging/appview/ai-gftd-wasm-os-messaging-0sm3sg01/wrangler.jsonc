@@ -15,7 +15,7 @@
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
     "MURAKUMO_URL": "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

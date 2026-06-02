@@ -1,6 +1,6 @@
 // Kysely is used here only as a client-side SQL string builder with DummyDriver
 // (no DB connection in this file). Compiled SQL is sent to PDS via XRPC
-// app.etzhayyim.kagami.sql, which routes to a yatachain-projection (RisingWave)
+// com.etzhayyim.kagami.sql, which routes to a yatachain-projection (RisingWave)
 // behind the PDS substrate seam. See ADR-2605231500.
 // yatachain-projection: client-side SQL compiler (DummyDriver, no DB connection)
 import { DummyDriver, Kysely, PostgresAdapter, PostgresQueryCompiler, sql } from 'kysely';
@@ -22,7 +22,7 @@ export const kyselyDb = new Kysely<any>({
 });
 
 export async function graphSql<T>(statement: string): Promise<T[]> {
-	const result = await atProcedure<{ rows?: T[] }>('app.etzhayyim.kagami.sql', { statement });
+	const result = await atProcedure<{ rows?: T[] }>('com.etzhayyim.kagami.sql', { statement });
 	return Array.isArray(result?.rows) ? result.rows : [];
 }
 

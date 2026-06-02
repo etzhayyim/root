@@ -17,7 +17,7 @@ world:
   layers:
     - kind: terrain
       source_subdataset: "geo/srtm/n35e138"
-      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
       tier: A
       shader: "kami-pbrt:Soil_Grass"
       mesh:
@@ -26,14 +26,14 @@ world:
 
     - kind: raster_overlay
       source_subdataset: "geo/sentinel2/T54SUE/261001"
-      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
       tier: A
       band_mix: "RGB-B432"
       uv_projection: "from_terrain_xy"
 
     - kind: vector_roads
       source_subdataset: "geo/overture/transportation/2604-release/jp"
-      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
       tier: A
       material: "kami-pbrt:Asphalt"
       ribbon:

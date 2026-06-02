@@ -16,7 +16,7 @@ import { sql } from "kysely";
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();
-  const vid = 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/adsk-ingest-3d-blob-v1';
+  const vid = 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/adsk-ingest-3d-blob-v1';
   await sql`
     INSERT INTO vertex_bpmn_process_def (
       vertex_id, sensitivity_ord, owner_did,
@@ -25,7 +25,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     SELECT
       ${vid}, 1, 'did:web:adsk.etzhayyim.com',
       'adsk_ingest_3d_blob', 1,
-      '00-contracts/bpmn/ai/gftd/adsk/ingest3DBlob.bpmn',
+      '00-contracts/bpmn/com/etzhayyim/adsk/ingest3DBlob.bpmn',
       '',
       'pending',
       ${now}

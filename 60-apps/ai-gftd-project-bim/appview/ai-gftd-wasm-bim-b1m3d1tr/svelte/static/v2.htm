@@ -79,7 +79,7 @@ const xrpcBase = params.get('xrpc') || '';
 
 async function loadScene() {
   if (!storeyId) return null;
-  const url = `${xrpcBase}/xrpc/ai.gftd.apps.bim.getStoreyScene?storeyId=${encodeURIComponent(storeyId)}`;
+  const url = `${xrpcBase}/xrpc/com.etzhayyim.apps.bim.getStoreyScene?storeyId=${encodeURIComponent(storeyId)}`;
   try {
     const resp = await fetch(url, { method: 'GET' });
     if (!resp.ok) throw new Error(`http ${resp.status}`);

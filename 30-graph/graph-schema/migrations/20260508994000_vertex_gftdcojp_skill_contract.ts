@@ -153,31 +153,31 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     INSERT INTO vertex_etzhayyim_skill (vertex_id, skill_id, name, name_ja, category, description, created_at, owner_did)
     VALUES
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/deploy-cf-worker', 'deploy.cf-worker', 'Cloudflare Worker Deploy', 'CF Worker デプロイ', 'deploy', 'wrangler / gftd deploy / VKE rollout', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/deploy-k8s-helm', 'deploy.k8s-helm', 'K8s Helm Operations', 'K8s Helm 運用', 'deploy', 'VKE / Helm / kubectl', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/review-code-quality', 'review.code-quality', 'Code Review (Quality)', 'コードレビュー (品質)', 'review', 'PR review / SOC2-grade audit trail', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/review-shannon-eta', 'review.shannon-eta', 'Shannon η Review', 'Shannon η レビュー', 'review', 'redundancy / 8-layer compliance', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/infra-risingwave', 'infra.risingwave', 'RisingWave Operations', 'RisingWave 運用', 'infra', 'streaming MV / Hyperdrive / B2 hummock', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/infra-vke', 'infra.vke', 'Vultr VKE Operations', 'Vultr VKE 運用', 'infra', 'BuildKit / cluster scaling', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/infra-security', 'infra.security', 'Infra Security', 'インフラセキュリティ', 'infra', 'IAM / vault / cert rotation', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/llm-langgraph', 'llm.langgraph', 'LangGraph Agent Design', 'LangGraph エージェント設計', 'llm', 'StateGraph / supervisor / HITL', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/bpmn-zeebe', 'bpmn.zeebe', 'BPMN-as-actor (Zeebe)', 'BPMN-as-actor (Zeebe)', 'workflow', 'pyzeebe / dispatcher / timer-start', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.skill/sql-kysely', 'sql.kysely', 'Kysely + RisingWave SQL', 'Kysely + RW SQL', 'data', 'type-safe query / MV design', now()::varchar, 'did:web:etzhayyim.etzhayyim.com')
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/deploy-cf-worker', 'deploy.cf-worker', 'Cloudflare Worker Deploy', 'CF Worker デプロイ', 'deploy', 'wrangler / gftd deploy / VKE rollout', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/deploy-k8s-helm', 'deploy.k8s-helm', 'K8s Helm Operations', 'K8s Helm 運用', 'deploy', 'VKE / Helm / kubectl', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/review-code-quality', 'review.code-quality', 'Code Review (Quality)', 'コードレビュー (品質)', 'review', 'PR review / SOC2-grade audit trail', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/review-shannon-eta', 'review.shannon-eta', 'Shannon η Review', 'Shannon η レビュー', 'review', 'redundancy / 8-layer compliance', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/infra-risingwave', 'infra.risingwave', 'RisingWave Operations', 'RisingWave 運用', 'infra', 'streaming MV / Hyperdrive / B2 hummock', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/infra-vke', 'infra.vke', 'Vultr VKE Operations', 'Vultr VKE 運用', 'infra', 'BuildKit / cluster scaling', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/infra-security', 'infra.security', 'Infra Security', 'インフラセキュリティ', 'infra', 'IAM / vault / cert rotation', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/llm-langgraph', 'llm.langgraph', 'LangGraph Agent Design', 'LangGraph エージェント設計', 'llm', 'StateGraph / supervisor / HITL', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/bpmn-zeebe', 'bpmn.zeebe', 'BPMN-as-actor (Zeebe)', 'BPMN-as-actor (Zeebe)', 'workflow', 'pyzeebe / dispatcher / timer-start', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/sql-kysely', 'sql.kysely', 'Kysely + RisingWave SQL', 'Kysely + RW SQL', 'data', 'type-safe query / MV design', now()::varchar, 'did:web:etzhayyim.etzhayyim.com')
   `.execute(db);
 
   // ── Seed: person × skill (chikada / tanaka / nishino — chartered roles) ────
   await sql`
     INSERT INTO vertex_etzhayyim_person_skill (vertex_id, person_did, skill_id, proficiency, self_reported, peer_verified, verified_by, last_used_at, created_at, owner_did)
     VALUES
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/chikada-deploy-cf', 'did:web:t-chikada.etzhayyim.com', 'deploy.cf-worker', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/chikada-deploy-k8s', 'did:web:t-chikada.etzhayyim.com', 'deploy.k8s-helm', 4, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/chikada-bpmn', 'did:web:t-chikada.etzhayyim.com', 'bpmn.zeebe', 4, true, false, NULL, now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/tanaka-review-quality', 'did:web:f-tanaka.etzhayyim.com', 'review.code-quality', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/tanaka-review-shannon', 'did:web:f-tanaka.etzhayyim.com', 'review.shannon-eta', 4, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/tanaka-sql', 'did:web:f-tanaka.etzhayyim.com', 'sql.kysely', 4, true, false, NULL, now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/nishino-infra-rw', 'did:web:y-nishino.etzhayyim.com', 'infra.risingwave', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/nishino-infra-vke', 'did:web:y-nishino.etzhayyim.com', 'infra.vke', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.personSkill/nishino-infra-sec', 'did:web:y-nishino.etzhayyim.com', 'infra.security', 4, true, true, 'did:web:n-takahashi.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com')
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/chikada-deploy-cf', 'did:web:t-chikada.etzhayyim.com', 'deploy.cf-worker', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/chikada-deploy-k8s', 'did:web:t-chikada.etzhayyim.com', 'deploy.k8s-helm', 4, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/chikada-bpmn', 'did:web:t-chikada.etzhayyim.com', 'bpmn.zeebe', 4, true, false, NULL, now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/tanaka-review-quality', 'did:web:f-tanaka.etzhayyim.com', 'review.code-quality', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/tanaka-review-shannon', 'did:web:f-tanaka.etzhayyim.com', 'review.shannon-eta', 4, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/tanaka-sql', 'did:web:f-tanaka.etzhayyim.com', 'sql.kysely', 4, true, false, NULL, now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/nishino-infra-rw', 'did:web:y-nishino.etzhayyim.com', 'infra.risingwave', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/nishino-infra-vke', 'did:web:y-nishino.etzhayyim.com', 'infra.vke', 5, true, true, 'did:web:j-kawasaki.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.personSkill/nishino-infra-sec', 'did:web:y-nishino.etzhayyim.com', 'infra.security', 4, true, true, 'did:web:n-takahashi.etzhayyim.com', now()::varchar, now()::varchar, 'did:web:etzhayyim.etzhayyim.com')
   `.execute(db);
 
   // ── Seed: vendor SOW for etzhayyim Japan engineering capacity ───────────────────
@@ -185,7 +185,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     INSERT INTO vertex_etzhayyim_contract (vertex_id, contract_id, contract_kind, principal_did, vendor_did, counterparty_did, title, summary, start_date, auto_renewal, monthly_rate_jpy, payment_terms, status, signed_at, created_at, owner_did)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
         'gftd-japan-vendor-sow-v1',
         'vendor_sow',
         'did:web:etz-hayim.etzhayyim.com',
@@ -209,7 +209,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     INSERT INTO vertex_etzhayyim_contract_clause (vertex_id, contract_id, clause_kind, ip_assigned_to, nda_scope, term_months, summary, summary_ja, severity, created_at, owner_did)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-ip-assignment',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-ip-assignment',
         'gftd-japan-vendor-sow-v1',
         'ip_assignment',
         'did:web:etz-hayim.etzhayyim.com',
@@ -221,7 +221,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'did:web:etz-hayim.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-nda',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-nda',
         'gftd-japan-vendor-sow-v1',
         'nda',
         NULL,
@@ -234,7 +234,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'did:web:etz-hayim.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-termination',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-termination',
         'gftd-japan-vendor-sow-v1',
         'termination',
         NULL, NULL, NULL,
@@ -253,7 +253,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (
         'edge://etzhayyim/personContract/chikada-vendor-sow',
         'did:web:t-chikada.etzhayyim.com',
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
         'did:web:t-chikada.etzhayyim.com',
         'gftd-japan-vendor-sow-v1',
         'eng-deploy',
@@ -263,7 +263,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (
         'edge://etzhayyim/personContract/tanaka-vendor-sow',
         'did:web:f-tanaka.etzhayyim.com',
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
         'did:web:f-tanaka.etzhayyim.com',
         'gftd-japan-vendor-sow-v1',
         'eng-review',
@@ -273,7 +273,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (
         'edge://etzhayyim/personContract/nishino-vendor-sow',
         'did:web:y-nishino.etzhayyim.com',
-        'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
         'did:web:y-nishino.etzhayyim.com',
         'gftd-japan-vendor-sow-v1',
         'eng-infra',

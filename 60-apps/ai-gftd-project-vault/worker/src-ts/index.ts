@@ -5,17 +5,17 @@
 // Identity is delegated to AUTH_SERVICE (auth.etzhayyim.com).
 //
 // Routes (XRPC):
-//   POST /xrpc/app.etzhayyim.vault.createVault
-//   GET  /xrpc/app.etzhayyim.vault.listVaults
-//   POST /xrpc/app.etzhayyim.vault.putItem
-//   GET  /xrpc/app.etzhayyim.vault.getItem
-//   GET  /xrpc/app.etzhayyim.vault.listItems
-//   POST /xrpc/app.etzhayyim.vault.deleteItem
-//   POST /xrpc/app.etzhayyim.vault.addMember
-//   POST /xrpc/app.etzhayyim.vault.removeMember
-//   POST /xrpc/app.etzhayyim.vault.rotateVaultKey
-//   GET  /xrpc/app.etzhayyim.vault.listAccessEvents
-//   POST /xrpc/app.etzhayyim.vault.injectWorkerSecret
+//   POST /xrpc/com.etzhayyim.vault.createVault
+//   GET  /xrpc/com.etzhayyim.vault.listVaults
+//   POST /xrpc/com.etzhayyim.vault.putItem
+//   GET  /xrpc/com.etzhayyim.vault.getItem
+//   GET  /xrpc/com.etzhayyim.vault.listItems
+//   POST /xrpc/com.etzhayyim.vault.deleteItem
+//   POST /xrpc/com.etzhayyim.vault.addMember
+//   POST /xrpc/com.etzhayyim.vault.removeMember
+//   POST /xrpc/com.etzhayyim.vault.rotateVaultKey
+//   GET  /xrpc/com.etzhayyim.vault.listAccessEvents
+//   POST /xrpc/com.etzhayyim.vault.injectWorkerSecret
 //
 // Health: GET /health
 
@@ -42,17 +42,17 @@ interface RouteEntry {
 }
 
 const ROUTES: Record<string, RouteEntry> = {
-  "/xrpc/app.etzhayyim.vault.createVault":        { method: "POST", handler: handleCreateVault },
-  "/xrpc/app.etzhayyim.vault.listVaults":         { method: "GET",  handler: handleListVaults },
-  "/xrpc/app.etzhayyim.vault.putItem":            { method: "POST", handler: handlePutItem },
-  "/xrpc/app.etzhayyim.vault.getItem":            { method: "GET",  handler: handleGetItem },
-  "/xrpc/app.etzhayyim.vault.listItems":          { method: "GET",  handler: handleListItems },
-  "/xrpc/app.etzhayyim.vault.deleteItem":         { method: "POST", handler: handleDeleteItem },
-  "/xrpc/app.etzhayyim.vault.addMember":          { method: "POST", handler: handleAddMember },
-  "/xrpc/app.etzhayyim.vault.removeMember":       { method: "POST", handler: handleRemoveMember },
-  "/xrpc/app.etzhayyim.vault.rotateVaultKey":     { method: "POST", handler: handleRotateVaultKey },
-  "/xrpc/app.etzhayyim.vault.listAccessEvents":   { method: "GET",  handler: handleListAccessEvents },
-  "/xrpc/app.etzhayyim.vault.injectWorkerSecret": { method: "POST", handler: handleInjectWorkerSecret },
+  "/xrpc/com.etzhayyim.vault.createVault":        { method: "POST", handler: handleCreateVault },
+  "/xrpc/com.etzhayyim.vault.listVaults":         { method: "GET",  handler: handleListVaults },
+  "/xrpc/com.etzhayyim.vault.putItem":            { method: "POST", handler: handlePutItem },
+  "/xrpc/com.etzhayyim.vault.getItem":            { method: "GET",  handler: handleGetItem },
+  "/xrpc/com.etzhayyim.vault.listItems":          { method: "GET",  handler: handleListItems },
+  "/xrpc/com.etzhayyim.vault.deleteItem":         { method: "POST", handler: handleDeleteItem },
+  "/xrpc/com.etzhayyim.vault.addMember":          { method: "POST", handler: handleAddMember },
+  "/xrpc/com.etzhayyim.vault.removeMember":       { method: "POST", handler: handleRemoveMember },
+  "/xrpc/com.etzhayyim.vault.rotateVaultKey":     { method: "POST", handler: handleRotateVaultKey },
+  "/xrpc/com.etzhayyim.vault.listAccessEvents":   { method: "GET",  handler: handleListAccessEvents },
+  "/xrpc/com.etzhayyim.vault.injectWorkerSecret": { method: "POST", handler: handleInjectWorkerSecret },
 };
 
 export default {

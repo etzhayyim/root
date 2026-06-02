@@ -1,0 +1,120 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.animeka.cut",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a cut (カット / ショット) — the atomic work unit of anime production. Each cut has a path-based DID `did:web:animeka.etzhayyim.com:cut:{rkey}` for per-cut addressing. Pipeline progress per stage lives in `stageStatus`; the Pipeline Board (UI B) renders one row per cut × 12 stage columns.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["sceneRef", "cutNum", "durationFrames", "fps", "createdAt"],
+        "properties": {
+          "sceneRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Parent scene."
+          },
+          "episodeRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Redundant pointer to episode for fast cross-scene query."
+          },
+          "cutNum": {
+            "type": "integer",
+            "description": "Cut number within the episode (1-indexed, globally unique per episode regardless of scene)."
+          },
+          "durationFrames": {
+            "type": "integer",
+            "description": "Cut length in frames. Duration in seconds = durationFrames / fps."
+          },
+          "fps": {
+            "type": "integer",
+            "description": "Frame rate for this cut (24 full / 12 limited / 8 super-limited). Overrides episode.fps."
+          },
+          "camera": {
+            "type": "ref",
+            "ref": "#cameraSpec",
+            "description": "Camera move spec (still / PAN / TU / TB / T-up / follow ...)."
+          },
+          "charactersAppearing": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Character slugs appearing in this cut."
+          },
+          "dialogueSummary": {
+            "type": "string",
+            "description": "One-line dialogue/action summary for board display."
+          },
+          "stageStatus": {
+            "type": "ref",
+            "ref": "#stageStatus",
+            "description": "Per-stage progress map. Rendered as kanban row on Pipeline Board."
+          },
+          "assignees": {
+            "type": "ref",
+            "ref": "#stageAssignees",
+            "description": "Per-stage assignee DIDs (human or AI actor)."
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "normal", "high", "retake"],
+            "description": "'retake' = outstanding retake exists; board highlights red."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "cameraSpec": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["still", "pan", "tu", "tb", "follow", "handheld", "crane", "dolly"]
+        },
+        "startFrame": { "type": "integer" },
+        "endFrame": { "type": "integer" },
+        "note": { "type": "string", "description": "Free-form camera instruction (e.g. 'PAN left-to-right, 24f')." }
+      }
+    },
+    "stageStatus": {
+      "type": "object",
+      "description": "Map of 12 pipeline stages to status enum. Each stage: 'none' | 'pending' | 'in_progress' | 'review' | 'approved' | 'retake'.",
+      "properties": {
+        "script": { "type": "string" },
+        "storyboard": { "type": "string" },
+        "layout": { "type": "string" },
+        "keyAnim": { "type": "string" },
+        "inbetween": { "type": "string" },
+        "colorDesign": { "type": "string" },
+        "finish": { "type": "string" },
+        "background": { "type": "string" },
+        "composite": { "type": "string" },
+        "edit": { "type": "string" },
+        "sound": { "type": "string" },
+        "delivery": { "type": "string" }
+      }
+    },
+    "stageAssignees": {
+      "type": "object",
+      "description": "Map of 12 pipeline stages to assignee DID (human user DID or AI actor DID).",
+      "properties": {
+        "script": { "type": "string" },
+        "storyboard": { "type": "string" },
+        "layout": { "type": "string" },
+        "keyAnim": { "type": "string" },
+        "inbetween": { "type": "string" },
+        "colorDesign": { "type": "string" },
+        "finish": { "type": "string" },
+        "background": { "type": "string" },
+        "composite": { "type": "string" },
+        "edit": { "type": "string" },
+        "sound": { "type": "string" },
+        "delivery": { "type": "string" }
+      }
+    }
+  }
+}

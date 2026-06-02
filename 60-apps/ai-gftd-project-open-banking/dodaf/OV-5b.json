@@ -13,7 +13,7 @@
         "bpmnProcessKey": "openAccount",
         "source": "bpmn/open-account.bpmn",
         "realisedBy": [
-          { "xrpc": "app.etzhayyim.apps.openBanking.createAccount" },
+          { "xrpc": "com.etzhayyim.apps.openBanking.createAccount" },
           { "form": "openBanking.openAccount.v1" }
         ]
       },
@@ -24,7 +24,7 @@
         "bpmnProcessKey": "transfer",
         "source": "bpmn/transfer.bpmn",
         "realisedBy": [
-          { "xrpc": "app.etzhayyim.apps.openBanking.transfer" },
+          { "xrpc": "com.etzhayyim.apps.openBanking.transfer" },
           { "form": "openBanking.transfer.v1" },
           { "dmn":  "openBanking.transferEligibility" }
         ]
@@ -34,9 +34,9 @@
         "name": "Query Balance / Transactions",
         "type": "xrpc",
         "realisedBy": [
-          { "xrpc": "app.etzhayyim.apps.openBanking.getAccount" },
-          { "xrpc": "app.etzhayyim.apps.openBanking.listAccounts" },
-          { "xrpc": "app.etzhayyim.apps.openBanking.listTransactions" }
+          { "xrpc": "com.etzhayyim.apps.openBanking.getAccount" },
+          { "xrpc": "com.etzhayyim.apps.openBanking.listAccounts" },
+          { "xrpc": "com.etzhayyim.apps.openBanking.listTransactions" }
         ]
       }
     ]

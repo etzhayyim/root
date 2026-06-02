@@ -33,8 +33,8 @@
           "event": "transfer_error",
           "transferId": "{{transferId}}"
         },
-        "method": "ai.gftd.apps.yabai.assessRisk",
-        "on": "ai.gftd.apps.tenso.transferLog",
+        "method": "com.etzhayyim.apps.yabai.assessRisk",
+        "on": "com.etzhayyim.apps.tenso.transferLog",
         "target": "did:web:yabai.etzhayyim.com",
         "when": {
           "eventType": "error"
@@ -43,7 +43,7 @@
     ],
     "social": [
       {
-        "on": "ai.gftd.apps.tenso.transferRequest",
+        "on": "com.etzhayyim.apps.tenso.transferRequest",
         "template": "File transfer completed: {{filename}} ({{sizeBytes}} bytes)",
         "when": {
           "status": "completed"
@@ -80,7 +80,7 @@
               "sizeBytes": "{{record.sizeBytes}}",
               "transferId": "{{record.transferId}}"
             },
-            "method": "ai.gftd.apps.tenso.notifyTransfer",
+            "method": "com.etzhayyim.apps.tenso.notifyTransfer",
             "target": "{{record.recipientDid}}"
           },
           "fn": "agent.invoke",
@@ -89,7 +89,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.tenso.transferRequest"
+          "com.etzhayyim.apps.tenso.transferRequest"
         ],
         "type": "subscribeRepos"
       }
@@ -103,7 +103,7 @@
               "event": "file_transfer",
               "transferId": "{{record.transferId}}"
             },
-            "method": "ai.gftd.apps.yabai.assessRisk",
+            "method": "com.etzhayyim.apps.yabai.assessRisk",
             "target": "did:web:yabai.etzhayyim.com"
           },
           "fn": "agent.invoke",
@@ -112,7 +112,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.tenso.transferLog"
+          "com.etzhayyim.apps.tenso.transferLog"
         ],
         "type": "subscribeRepos"
       }
@@ -150,7 +150,7 @@
         },
         {
           "args": {
-            "template": "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: 'default', actorName: 'tenso', nanoid: 'tenso', nodeCount: $coverageNodes.nodeCount, latestTs: $now, repo: $did, collection: 'ai.gftd.actor.coverage', status: 'active', snapshotTs: $now})"
+            "template": "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: 'default', actorName: 'tenso', nanoid: 'tenso', nodeCount: $coverageNodes.nodeCount, latestTs: $now, repo: $did, collection: 'com.etzhayyim.actor.coverage', status: 'active', snapshotTs: $now})"
           },
           "fn": "graph.write",
           "id": "coverageSnapshot"
@@ -180,8 +180,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -197,10 +197,10 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.tenso.transferRequest",
-        "ai.gftd.apps.tenso.fileManifest",
-        "ai.gftd.apps.tenso.transferLog",
-        "ai.gftd.apps.tenso.accessControl"
+        "com.etzhayyim.apps.tenso.transferRequest",
+        "com.etzhayyim.apps.tenso.fileManifest",
+        "com.etzhayyim.apps.tenso.transferLog",
+        "com.etzhayyim.apps.tenso.accessControl"
       ]
     }
   },

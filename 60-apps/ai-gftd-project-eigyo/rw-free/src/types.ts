@@ -16,9 +16,9 @@
 
 export const EIGYO_DID_PREFIX = "did:web:eigyo.etzhayyim.com:" as const;
 
-export const LEAD_COLLECTION = "app.etzhayyim.apps.eigyo.lead";
-export const DEAL_COLLECTION = "app.etzhayyim.apps.eigyo.deal";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.eigyo.payment";
+export const LEAD_COLLECTION = "com.etzhayyim.apps.eigyo.lead";
+export const DEAL_COLLECTION = "com.etzhayyim.apps.eigyo.deal";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.eigyo.payment";
 
 export type EigyoPaymentPurpose = "internal-purchase" | "escrow-refund";
 

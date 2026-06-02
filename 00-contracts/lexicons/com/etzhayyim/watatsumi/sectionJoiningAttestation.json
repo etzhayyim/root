@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.watatsumi.sectionJoiningAttestation",
+  "description": "Section joining attestation (L5a). Final ring-to-ring multi-pass TIG + 100% RT + PWHT. Per ADR-2605252200 L5a.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "craftId": {"type": "string"},
+          "sectionPairs": {"type": "array", "items": {"type": "unknown"}},
+          "multiPassDetails": {"type": "array", "items": {"type": "unknown"}},
+          "rtResults": {
+            "type": "array",
+            "description": "Each pair must have coveragePct === 100",
+            "items": {"type": "unknown"}
+          },
+          "pwhtRecord": {"type": "unknown"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["craftId", "sectionPairs", "rtResults", "pwhtRecord", "attestingRobots"]
+      }
+    }
+  }
+}

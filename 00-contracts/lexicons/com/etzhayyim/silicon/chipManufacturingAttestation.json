@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.silicon.chipManufacturingAttestation",
+  "description": "Per-chip (per-die) shipment attestation. Records lot ID, die XY coordinate, libp2p peer-ID burned at eFuse, bin result, Council §2(a)(c) review pointer, and the religious-corp adherent DID the chip is leased to. Per ADR-2605242500 §Decision 4 + 6, ADR-2605242545 §Decision 1 + 4, shared-ip/libp2p-nic peer-ID convention.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "chipType",
+          "lotId",
+          "dieXY",
+          "peerId",
+          "bin",
+          "silenForceReviewUri",
+          "leasedToDid",
+          "manufacturedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "chipType": {
+            "type": "string",
+            "knownValues": [
+              "iwakura-1",
+              "fuigo-1",
+              "fuigo-1-chiplet"
+            ],
+            "description": "Canonical chip family + generation. ADR-2605242515 / 2605242530."
+          },
+          "lotId": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Foundry lot identifier (tsukuru.production_order references this)."
+          },
+          "dieXY": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Die location on the wafer, e.g., 'x23y17'."
+          },
+          "peerId": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "ed25519 peer-ID burned at eFuse during shared-ip/libp2p-nic IP block init. Per ADR-2605242530 + shared-ip/libp2p-nic/README.md."
+          },
+          "bin": {
+            "type": "string",
+            "knownValues": [
+              "PASS",
+              "PARAMETRIC",
+              "FAIL",
+              "REJECT"
+            ]
+          },
+          "silenForceReviewUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the silenForceReview record that gates this lot. Per ADR-2605242500 §Decision 4 + ADR-2605242545 §Decision 4. REQUIRED — no silicon ships without a passing review."
+          },
+          "leasedToDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the religious-corp adherent (SBT holder) this chip is leased to. Donated silicon is inalienable (ADR-2605242500 §Decision 6) — lease, never sale."
+          },
+          "manufacturedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "tapeoutShuttle": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Optional. Foundry + shuttle identifier (e.g., 'TSMC-eShuttle-N5-2027Q1')."
+          },
+          "councilAttestationTxHash": {
+            "type": "string",
+            "maxLength": 80,
+            "description": "Optional. On-chain Council 5-of-7 Safe transaction hash that ratified this lot's manufacturing."
+          }
+        }
+      }
+    }
+  }
+}

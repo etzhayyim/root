@@ -1,6 +1,6 @@
 """kotoba datomic XRPC client — PRIMARY write/read surface for hakken.
 
-Wraps ``ai.gftd.apps.kotoba.datomic.{transact,q,pull,pullMany,entity,datoms,
+Wraps ``com.etzhayyim.apps.kotoba.datomic.{transact,q,pull,pullMany,entity,datoms,
 asOf,since,history,log,basisT,dbStats,ident,entid,with}``.
 
 Wire format (snake_case per kotoba lexicon JSON, NOT camelCase):
@@ -110,7 +110,7 @@ async def dm_transact(
     if expected_parent: body["expected_parent"] = expected_parent
     if cacao_b64:       body["cacao_b64"]       = cacao_b64
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.transact",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.transact",
         headers=_headers(),
         json=body,
     )
@@ -184,7 +184,7 @@ async def dm_q(
     if since:   body["since"]      = since
     if history: body["history"]    = True
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.q",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.q",
         headers=_headers(),
         json=body,
     )
@@ -210,7 +210,7 @@ async def dm_pull(
     if pattern_edn: body["pattern_edn"] = pattern_edn
     if as_of:       body["as_of"]       = as_of
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.pull",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.pull",
         headers=_headers(),
         json=body,
     )
@@ -230,7 +230,7 @@ async def dm_pull_many(
     body: dict[str, Any] = {"graph": graph, "entities": entities}
     if pattern_edn: body["pattern_edn"] = pattern_edn
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.pullMany",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.pullMany",
         headers=_headers(),
         json=body,
     )
@@ -249,7 +249,7 @@ async def dm_entity(
     body: dict[str, Any] = {"graph": graph, "entity": entity}
     if as_of: body["as_of"] = as_of
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.entity",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.entity",
         headers=_headers(),
         json=body,
     )
@@ -272,7 +272,7 @@ async def dm_datoms(
     if components_edn: body["components_edn"] = components_edn
     if limit:          body["limit"]          = limit
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.datoms",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.datoms",
         headers=_headers(),
         json=body,
     )
@@ -293,7 +293,7 @@ async def dm_log(
     if end:   body["end"]   = end
     if limit: body["limit"] = limit
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.log",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.log",
         headers=_headers(),
         json=body,
     )
@@ -307,7 +307,7 @@ async def dm_basis_t(
     graph: str = DEFAULT_GRAPH,
 ) -> str | None:
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.basisT",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.basisT",
         headers=_headers(),
         json={"graph": graph},
     )
@@ -321,7 +321,7 @@ async def dm_db_stats(
     graph: str = DEFAULT_GRAPH,
 ) -> dict[str, Any]:
     resp = await client.post(
-        f"{KOTOBA_XRPC}/xrpc/ai.gftd.apps.kotoba.datomic.dbStats",
+        f"{KOTOBA_XRPC}/xrpc/com.etzhayyim.apps.kotoba.datomic.dbStats",
         headers=_headers(),
         json={"graph": graph},
     )

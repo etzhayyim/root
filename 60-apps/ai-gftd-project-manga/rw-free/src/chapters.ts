@@ -20,8 +20,8 @@ import {
   type UpdateChapterStatusOutput,
 } from "./types.js";
 
-const CHAPTER_COLLECTION = "app.etzhayyim.manga.chapter";
-const TITLE_COLLECTION = "app.etzhayyim.manga.title";
+const CHAPTER_COLLECTION = "com.etzhayyim.manga.chapter";
+const TITLE_COLLECTION = "com.etzhayyim.manga.title";
 
 const VALID_TRANSITIONS: Record<ChapterStatus, ChapterStatus[]> = {
   draft: ["in_review", "published", "archived"],

@@ -75,9 +75,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.businessUmanager.business_manager_entity",
-        "ai.gftd.apps.businessUmanager.business_manager_event",
-        "ai.gftd.apps.businessUmanager.business_manager_report"
+        "com.etzhayyim.apps.businessUmanager.business_manager_entity",
+        "com.etzhayyim.apps.businessUmanager.business_manager_event",
+        "com.etzhayyim.apps.businessUmanager.business_manager_report"
       ]
     }
   },

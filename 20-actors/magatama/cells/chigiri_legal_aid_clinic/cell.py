@@ -30,7 +30,7 @@ INFERENCE DISCIPLINE (ADR-2605215000):
     disabled (Charter Rider §2(i)).
 
 Murakumo node: judah (leader), levi (mediation pair for Lane B handoff)
-Storage: legalAidMatter records → kotoba EAVT (app.etzhayyim.chigiri.legalAidMatter)
+Storage: legalAidMatter records → kotoba EAVT (com.etzhayyim.chigiri.legalAidMatter)
 """
 
 from __future__ import annotations
@@ -267,7 +267,7 @@ def route_after_counsel(state) -> Literal["emit_matter_record", "emit_rejection"
 def emit_matter_record(state, mst_port):
     """Write the legalAidMatter record (intakeState=counsel-assigned) to MST/kotoba.
 
-    Schema-validated against app.etzhayyim.chigiri.legalAidMatter
+    Schema-validated against com.etzhayyim.chigiri.legalAidMatter
     (zeroCompensation const true + supervisingCounsel required).
     """
     record = {
@@ -282,8 +282,8 @@ def emit_matter_record(state, mst_port):
         },
         "intakeState": "counsel-assigned",
     }
-    # TODO: cid = mst_port.put("app.etzhayyim.chigiri.legalAidMatter", record)
-    cid = mst_port.put("app.etzhayyim.chigiri.legalAidMatter", record) \
+    # TODO: cid = mst_port.put("com.etzhayyim.chigiri.legalAidMatter", record)
+    cid = mst_port.put("com.etzhayyim.chigiri.legalAidMatter", record) \
         if hasattr(mst_port, "put") else "at://stub"
     return {**state, "intake_state": "counsel-assigned", "matter_record_cid": cid}
 

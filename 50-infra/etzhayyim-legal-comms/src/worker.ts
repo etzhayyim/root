@@ -1,7 +1,7 @@
 /**
  * etzhayyim-legal-comms Worker — XRPC face of the counsel-operated gateway.
  *
- * POST /xrpc/app.etzhayyim.legal.sendLegalAct
+ * POST /xrpc/com.etzhayyim.legal.sendLegalAct
  *   body: { artifact: LegalActArtifact, counselActuation: CounselActuation }
  *   The request MUST carry a counselActuation; sendLegalAct (G18) throws
  *   otherwise. The Worker holds no signing key — the lawyer's signature
@@ -37,7 +37,7 @@ export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     if (req.method === "POST" &&
-        url.pathname === "/xrpc/app.etzhayyim.legal.sendLegalAct") {
+        url.pathname === "/xrpc/com.etzhayyim.legal.sendLegalAct") {
       let body: { artifact?: unknown; counselActuation?: unknown };
       try { body = await req.json(); } catch { return json({ error: "BadRequest" }, 400); }
       try {
@@ -56,7 +56,7 @@ export default {
     }
 
     if (req.method === "POST" &&
-        url.pathname === "/xrpc/app.etzhayyim.legal.sendNonLegalAct") {
+        url.pathname === "/xrpc/com.etzhayyim.legal.sendNonLegalAct") {
       const b = await req.json() as {
         kind: "appointment" | "document-delivery" | "scheduling";
         transport: never; endpoint: string; payloadCid: string;

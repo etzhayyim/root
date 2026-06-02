@@ -6,7 +6,7 @@ interface Env { DISPATCHER_URL?: string; DISPATCHER_INTERNAL_SECRET?: string | S
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const APP = "kamiKetsuGorilla";
-const NSID_PREFIX = "app.etzhayyim.apps.kami.ketsuGorilla.";
+const NSID_PREFIX = "com.etzhayyim.apps.kami.ketsuGorilla.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -18,7 +18,7 @@ export default {
         nanoid: env.APP_NANOID ?? "k3t5g0r1",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/kami_ketsu_gorilla.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/kamiKetsuGorilla",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kamiKetsuGorilla",
       });
     }
     const nsid = url.pathname.startsWith("/xrpc/") ? url.pathname.slice("/xrpc/".length) : "";

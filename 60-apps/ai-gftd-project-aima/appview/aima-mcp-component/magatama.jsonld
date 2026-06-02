@@ -85,9 +85,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.aima.aimaEntity",
-        "ai.gftd.apps.aima.aimaEvent",
-        "ai.gftd.apps.aima.aimaReport"
+        "com.etzhayyim.apps.aima.aimaEntity",
+        "com.etzhayyim.apps.aima.aimaEvent",
+        "com.etzhayyim.apps.aima.aimaReport"
       ]
     }
   },

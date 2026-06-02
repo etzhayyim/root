@@ -4,13 +4,13 @@
  *
  * P14 of ADR-2605141200. Different from `graph-m3.ts` (PEGEL with static
  * character refs): here the reference image is the headless 3D render
- * produced by `app.etzhayyim.mangaka.composeScene3d`. The 3D scene gives
+ * produced by `com.etzhayyim.mangaka.composeScene3d`. The 3D scene gives
  * the LLM diffusion model a concrete camera + character placement +
  * silhouette to copy, which (per ADR-0057) should amortise the upfront
  * VRM authoring cost over the rest of the series.
  *
  * Stages:
- *   1. fetchScene3d   — POST /xrpc/app.etzhayyim.mangaka.composeScene3d
+ *   1. fetchScene3d   — POST /xrpc/com.etzhayyim.mangaka.composeScene3d
  *                       against the lg-mangaka pod, pull best render PNG
  *                       to a temp file.
  *   2. editFromScene  — single `edit()` pass with the 3D PNG as the

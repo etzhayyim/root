@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.socialMediaInfluenceOp.flagPlatformResponse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Platform takedown / regulatory pressure / unmasking (bridges constituencyPressure.flagAstroturf + dataLocalization + transnational-repression)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "operationVid",
+            "responseKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "operationVid": {
+              "type": "string",
+              "description": "bridges recordOperation"
+            },
+            "responseKind": {
+              "type": "string",
+              "enum": [
+                "mass_takedown",
+                "reach_throttle",
+                "label_state_media",
+                "disclosure_published",
+                "attribution_named",
+                "dsa_fine",
+                "dsa_audit",
+                "political_ad_cap",
+                "fact_check_added",
+                "platform_ban",
+                "appeal_pending",
+                "reinstated"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

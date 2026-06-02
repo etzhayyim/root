@@ -6,9 +6,9 @@
  * rows into RisingWave via Hyperdrive (ADR-0036) under path-based actor DIDs
  * (ADR-0019).
  *
- *   app.etzhayyim.apps.kafun.agent.research → kafun.research.v1 → vertex_kafun_research[]
- *   app.etzhayyim.apps.kafun.agent.think    → kafun.think.v1    → vertex_kafun_insight + vertex_kafun_proposal[]
- *   app.etzhayyim.apps.kafun.agent.tick     → kafun.tick.v1     → vertex_kafun_action  (+ optional follow-on)
+ *   com.etzhayyim.apps.kafun.agent.research → kafun.research.v1 → vertex_kafun_research[]
+ *   com.etzhayyim.apps.kafun.agent.think    → kafun.think.v1    → vertex_kafun_insight + vertex_kafun_proposal[]
+ *   com.etzhayyim.apps.kafun.agent.tick     → kafun.tick.v1     → vertex_kafun_action  (+ optional follow-on)
  *
  * No business logic lives here — this Worker is a 3-tier-write thin
  * dispatcher per `60-apps/CLAUDE.md` §App Implementation Pattern.
@@ -131,7 +131,7 @@ async function sendEmailAndPublish(
   subject: string,
   body: string,
 ): Promise<void> {
-  // Outbound mail goes through the microsoft.etzhayyim.com actor (`app.etzhayyim.apps.microsoft.sendMail`).
+  // Outbound mail goes through the microsoft.etzhayyim.com actor (`com.etzhayyim.apps.microsoft.sendMail`).
   // Direct dispatch is intentional — we route through host-imports invoke so the
   // microsoft actor handles tenant binding (root CLAUDE.md §etzhayyim Agent).
   const params = { to: [to], subject, body };
@@ -140,7 +140,7 @@ async function sendEmailAndPublish(
     await (sdk.hostImports as unknown as { invoke?: (b: Uint8Array) => unknown }).invoke?.(
       new TextEncoder().encode(JSON.stringify({
         did: "did:web:microsoft.etzhayyim.com",
-        method: "app.etzhayyim.apps.microsoft.sendMail",
+        method: "com.etzhayyim.apps.microsoft.sendMail",
         params: paramsJson,
       })),
     );
@@ -169,7 +169,7 @@ async function writeRows(db: Db, table: string, rows: AnyRow[]): Promise<number>
 
 async function cmdResearch(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const { category, query } = decodeJson(body, { category: "biology", query: "" }) as { category: string; query: string };
-  const out = await dispatch("app.etzhayyim.apps.kafun.agent.research", { category, query });
+  const out = await dispatch("com.etzhayyim.apps.kafun.agent.research", { category, query });
   const findings = (out.findings ?? []) as AnyRow[];
 
   const db = createKyselyDb((sdk.env as Env).HYPERDRIVE);
@@ -191,7 +191,7 @@ async function cmdResearch(sdk: HostSDK, body: Uint8Array): Promise<string> {
 
 async function cmdThink(sdk: HostSDK, body: Uint8Array): Promise<string> {
   const { seed_findings = [] } = decodeJson(body, { seed_findings: [] as AnyRow[] });
-  const out = await dispatch("app.etzhayyim.apps.kafun.agent.think", { seed_findings });
+  const out = await dispatch("com.etzhayyim.apps.kafun.agent.think", { seed_findings });
   const insight   = (out.insight ?? null) as AnyRow | null;
   const proposals = (out.proposals ?? []) as AnyRow[];
 
@@ -252,7 +252,7 @@ async function cmdTick(sdk: HostSDK): Promise<string> {
     const rkey = Array.from(new Uint8Array(hashBuf))
       .map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 24);
     const action: AnyRow = {
-      vertex_id:        `at://${EXECUTOR_DID}/app.etzhayyim.apps.kafun.action/${rkey}`,
+      vertex_id:        `at://${EXECUTOR_DID}/com.etzhayyim.apps.kafun.action/${rkey}`,
       actor_did:        EXECUTOR_DID,
       from_proposal_id: String(topo.vertex_id ?? ""),
       action_type:      String(topo.category ?? "execution"),
@@ -285,7 +285,7 @@ async function cmdTick(sdk: HostSDK): Promise<string> {
     .where("status", "=", "draft").orderBy("priority", "asc").limit(50).execute();
 
   const fund_balance_jpy = 0;
-  const out = await dispatch("app.etzhayyim.apps.kafun.agent.tick", { pending_proposals: pending, fund_balance_jpy });
+  const out = await dispatch("com.etzhayyim.apps.kafun.agent.tick", { pending_proposals: pending, fund_balance_jpy });
   const decision = (out.decision ?? null) as AnyRow | null;
   if (!decision) return JSON.stringify({ ok: true, source: "proposal", decision: null });
 
@@ -361,21 +361,21 @@ export default createWorkerExport((sdk: HostSDK) => {
 
   sdk.app
     .command(
-      nsid("app.etzhayyim.apps.kafun.agent.research"),
+      nsid("com.etzhayyim.apps.kafun.agent.research"),
       (_: unknown, b: Uint8Array) => cmdResearch(sdk, b),
       asAgentTool("Run kafun research StateGraph (researcher actor)"),
       withCapabilityTags("kafun", "research", "langgraph"),
       withOCELEvent("kafun.research.completed"),
     )
     .command(
-      nsid("app.etzhayyim.apps.kafun.agent.think"),
+      nsid("com.etzhayyim.apps.kafun.agent.think"),
       (_: unknown, b: Uint8Array) => cmdThink(sdk, b),
       asAgentTool("Run kafun think StateGraph (proposer actor)"),
       withCapabilityTags("kafun", "think", "langgraph"),
       withOCELEvent("kafun.think.completed"),
     )
     .command(
-      nsid("app.etzhayyim.apps.kafun.agent.tick"),
+      nsid("com.etzhayyim.apps.kafun.agent.tick"),
       (_: unknown, _b: Uint8Array) => cmdTick(sdk),
       asAgentTool("Run kafun tick StateGraph (executor actor; cron-driven)"),
       withCapabilityTags("kafun", "tick", "langgraph"),

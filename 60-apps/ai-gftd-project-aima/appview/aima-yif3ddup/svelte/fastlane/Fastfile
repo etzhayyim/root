@@ -107,7 +107,7 @@ platform :ios do
 
     upload_to_testflight(
       api_key: api_key,
-      app_identifier: ENV.fetch("IOS_APP_IDENTIFIER", "ai.gftd.aima"),
+      app_identifier: ENV.fetch("IOS_APP_IDENTIFIER", "com.etzhayyim.aima"),
       apple_id: ENV.fetch("IOS_APPLE_ID", "6760442304"),
       app_platform: "ios",
       skip_waiting_for_build_processing: true,
@@ -145,7 +145,7 @@ platform :ios do
     upload_to_app_store(
       api_key: api_key,
       ipa: "dist/ios/AIMA.ipa",
-      app_identifier: ENV.fetch("IOS_APP_IDENTIFIER", "ai.gftd.aima"),
+      app_identifier: ENV.fetch("IOS_APP_IDENTIFIER", "com.etzhayyim.aima"),
       apple_id: ENV.fetch("IOS_APPLE_ID", "6760442304"),
       submit_for_review: ENV["IOS_SUBMIT_FOR_REVIEW"] == "1",
       automatic_release: ENV["IOS_AUTO_RELEASE"] == "1",
@@ -183,7 +183,7 @@ platform :android do
       aab: "android/app/build/outputs/bundle/release/app-release.aab",
       track: ENV["ANDROID_TRACK"] || "internal",
       json_key: play_store_key_file,
-      package_name: ENV.fetch("ANDROID_PACKAGE_NAME", "ai.gftd.aima"),
+      package_name: ENV.fetch("ANDROID_PACKAGE_NAME", "com.etzhayyim.aima"),
       release_status: ENV["ANDROID_RELEASE_STATUS"] || "completed"
     )
   end

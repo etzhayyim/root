@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-seed-allergen-catalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-seed-allergen-catalog-v1',
                  'did:web:mold-allergy.etzhayyim.com',
                  'mold_allergy_seed_allergen_catalog',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/moldAllergy"><bpmn:process '
                  'id="mold_allergy_seed_allergen_catalog" name="moldAllergy seedAllergenCatalog" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.moldAllergy.seedAllergenCatalog", "version": 1, "resultTimeoutMs": '
+                 '"com.etzhayyim.apps.moldAllergy.seedAllergenCatalog", "version": 1, "resultTimeoutMs": '
                  '120000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1084,
-                 '00-contracts/bpmn/ai/gftd/moldAllergy/seedAllergenCatalog.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/moldAllergy/seedAllergenCatalog.bpmn',
                  '2026-04-30T21:31:00+09:00',
                  'did:web:mold-allergy.etzhayyim.com',
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-seed-allergen-catalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-seed-allergen-catalog-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-seedAllergenCatalog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-seedAllergenCatalog-v1',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'app.etzhayyim.apps.moldAllergy.seedAllergenCatalog',
+                 'com.etzhayyim.apps.moldAllergy.seedAllergenCatalog',
                  'mold_allergy_seed_allergen_catalog',
                  120000,
                  'vertex_mold_allergen',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-seedAllergenCatalog-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-seedAllergenCatalog-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-record-air-sampling-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-record-air-sampling-v1',
                  'did:web:mold-allergy.etzhayyim.com',
                  'mold_allergy_record_air_sampling',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/moldAllergy"><bpmn:process '
                  'id="mold_allergy_record_air_sampling" name="moldAllergy recordAirSampling" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.moldAllergy.recordAirSampling", "version": 1, "resultTimeoutMs": '
+                 '"com.etzhayyim.apps.moldAllergy.recordAirSampling", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -113,13 +113,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1071,
-                 '00-contracts/bpmn/ai/gftd/moldAllergy/recordAirSampling.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/moldAllergy/recordAirSampling.bpmn',
                  '2026-04-30T21:31:00+09:00',
                  'did:web:mold-allergy.etzhayyim.com',
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-record-air-sampling-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-record-air-sampling-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-recordAirSampling-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-recordAirSampling-v1',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'app.etzhayyim.apps.moldAllergy.recordAirSampling',
+                 'com.etzhayyim.apps.moldAllergy.recordAirSampling',
                  'mold_allergy_record_air_sampling',
                  30000,
                  'vertex_mold_air_sampling',
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-recordAirSampling-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-recordAirSampling-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-propose-slit-candidate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-propose-slit-candidate-v1',
                  'did:web:mold-allergy.etzhayyim.com',
                  'mold_allergy_propose_slit_candidate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/moldAllergy"><bpmn:process '
                  'id="mold_allergy_propose_slit_candidate" name="moldAllergy proposeSlitCandidate" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.moldAllergy.proposeSlitCandidate", "version": 1, '
+                 '"com.etzhayyim.apps.moldAllergy.proposeSlitCandidate", "version": 1, '
                  '"resultTimeoutMs": 30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -180,13 +180,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1089,
-                 '00-contracts/bpmn/ai/gftd/moldAllergy/proposeSlitCandidate.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/moldAllergy/proposeSlitCandidate.bpmn',
                  '2026-04-30T21:31:00+09:00',
                  'did:web:mold-allergy.etzhayyim.com',
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-propose-slit-candidate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-propose-slit-candidate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,9 +201,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-proposeSlitCandidate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-proposeSlitCandidate-v1',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'app.etzhayyim.apps.moldAllergy.proposeSlitCandidate',
+                 'com.etzhayyim.apps.moldAllergy.proposeSlitCandidate',
                  'mold_allergy_propose_slit_candidate',
                  30000,
                  'vertex_mold_slit_candidate',
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-proposeSlitCandidate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-proposeSlitCandidate-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,7 +228,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-list-allergens-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-list-allergens-v1',
                  'did:web:mold-allergy.etzhayyim.com',
                  'mold_allergy_list_allergens',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/moldAllergy"><bpmn:process '
                  'id="mold_allergy_list_allergens" name="moldAllergy listAllergens" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.moldAllergy.listAllergens", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.moldAllergy.listAllergens", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -247,13 +247,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1044,
-                 '00-contracts/bpmn/ai/gftd/moldAllergy/listAllergens.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/moldAllergy/listAllergens.bpmn',
                  '2026-04-30T21:31:00+09:00',
                  'did:web:mold-allergy.etzhayyim.com',
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-list-allergens-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-list-allergens-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,9 +268,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-listAllergens-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-listAllergens-v1',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'app.etzhayyim.apps.moldAllergy.listAllergens',
+                 'com.etzhayyim.apps.moldAllergy.listAllergens',
                  'mold_allergy_list_allergens',
                  30000,
                  '',
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-listAllergens-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-listAllergens-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-list-slit-candidates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-list-slit-candidates-v1',
                  'did:web:mold-allergy.etzhayyim.com',
                  'mold_allergy_list_slit_candidates',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -305,7 +305,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/moldAllergy"><bpmn:process '
                  'id="mold_allergy_list_slit_candidates" name="moldAllergy listSlitCandidates" '
                  'isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.moldAllergy.listSlitCandidates", "version": 1, "resultTimeoutMs": '
+                 '"com.etzhayyim.apps.moldAllergy.listSlitCandidates", "version": 1, "resultTimeoutMs": '
                  '30000 }</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="F1" sourceRef="Start" targetRef="Task"/><bpmn:serviceTask id="Task" '
@@ -314,13 +314,13 @@ UP = [{'sql': '\n'
                  'id="F2" sourceRef="Task" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>F2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1077,
-                 '00-contracts/bpmn/ai/gftd/moldAllergy/listSlitCandidates.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/moldAllergy/listSlitCandidates.bpmn',
                  '2026-04-30T21:31:00+09:00',
                  'did:web:mold-allergy.etzhayyim.com',
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-list-slit-candidates-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-list-slit-candidates-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -335,9 +335,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-listSlitCandidates-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-listSlitCandidates-v1',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'app.etzhayyim.apps.moldAllergy.listSlitCandidates',
+                 'com.etzhayyim.apps.moldAllergy.listSlitCandidates',
                  'mold_allergy_list_slit_candidates',
                  30000,
                  '',
@@ -346,28 +346,28 @@ UP = [{'sql': '\n'
                  'did:web:mold-allergy.etzhayyim.com',
                  'sys.bpmn.seed.mold-allergy',
                  'did:web:mold-allergy.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-listSlitCandidates-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-listSlitCandidates-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-seedAllergenCatalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-seedAllergenCatalog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-seed-allergen-catalog-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-seed-allergen-catalog-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-recordAirSampling-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-recordAirSampling-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-record-air-sampling-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-record-air-sampling-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-proposeSlitCandidate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-proposeSlitCandidate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-propose-slit-candidate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-propose-slit-candidate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-listAllergens-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-listAllergens-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-list-allergens-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-list-allergens-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/mold-allergy-listSlitCandidates-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/mold-allergy-listSlitCandidates-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/mold-allergy-list-slit-candidates-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/mold-allergy-list-slit-candidates-v1']}]
 
 
 def upgrade() -> None:

@@ -74,7 +74,7 @@ export function getSankey(params: {
   limit?: number;
 }) {
   return xrpcQuery<SankeyResponse>(
-    'app.etzhayyim.apps.resourceFlow.getSankey',
+    'com.etzhayyim.apps.resourceFlow.getSankey',
     params as Record<string, string | number | undefined>,
   );
 }
@@ -87,7 +87,7 @@ export function listFlows(params: {
   offset?: number;
 }) {
   return xrpcQuery<{ flowClass: FlowClass; flows: any[]; total: number; offset: number; limit: number }>(
-    'app.etzhayyim.apps.resourceFlow.listFlows',
+    'com.etzhayyim.apps.resourceFlow.listFlows',
     params as Record<string, string | number | undefined>,
   );
 }
@@ -139,7 +139,7 @@ export async function reviewAnomaly(
 ): Promise<ReviewAnomalyOutput> {
   const headers: Record<string, string> = { 'content-type': 'application/json' };
   if (bearer) headers.authorization = `Bearer ${bearer}`;
-  const resp = await fetch(`${service()}/xrpc/app.etzhayyim.apps.resourceFlow.reviewAnomaly`, {
+  const resp = await fetch(`${service()}/xrpc/com.etzhayyim.apps.resourceFlow.reviewAnomaly`, {
     method: 'POST',
     headers,
     body: JSON.stringify(input),
@@ -168,14 +168,14 @@ export function listAnomalies(params: {
     limit: number;
     reviewed?: AnomalyReviewedFilter;
   }>(
-    'app.etzhayyim.apps.resourceFlow.listAnomalies',
+    'com.etzhayyim.apps.resourceFlow.listAnomalies',
     params as Record<string, string | number | undefined>,
   );
 }
 
 // ── Actor label resolution (ADR-0074) ──
 //
-// Single round-trip via app.etzhayyim.apps.resourceFlow.getActorLabels which
+// Single round-trip via com.etzhayyim.apps.resourceFlow.getActorLabels which
 // reads view_resource_flow_actor_label (vertex_profile + edge_erc725_facade_did).
 // Resolves both facade DIDs (did:web / did:plc) and ERC725 root DIDs to the
 // same display_name row. Falls back to per-DID app.bsky.actor.getProfile
@@ -199,7 +199,7 @@ async function getActorLabels(dids: string[]): Promise<ActorLabel[]> {
   // XRPC array params: repeated `?dids=...&dids=...` is the AT convention.
   const sp = new URLSearchParams();
   for (const d of dids) sp.append('dids', d);
-  const url = `${service()}/xrpc/app.etzhayyim.apps.resourceFlow.getActorLabels?${sp}`;
+  const url = `${service()}/xrpc/com.etzhayyim.apps.resourceFlow.getActorLabels?${sp}`;
   const resp = await fetch(url, { headers: { accept: 'application/json' } });
   if (!resp.ok) {
     throw new Error(`getActorLabels ${resp.status}`);

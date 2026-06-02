@@ -26,7 +26,7 @@
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
     "APP_MCP_REGISTRY": "1",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "observability": {
     "enabled": true

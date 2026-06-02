@@ -1,0 +1,104 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyclonePrepo.issueForecast",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Tropical cyclone forecast (JTWC / RSMC / NOAA NHC — bridges disaster-response + agri-food-security + refugee-unhcr)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "forecastId",
+            "stormId",
+            "basin",
+            "issuer",
+            "forecastValidUtc",
+            "issuedAt"
+          ],
+          "properties": {
+            "forecastId": {
+              "type": "string"
+            },
+            "stormId": {
+              "type": "string",
+              "description": "JTWC / RSMC storm ID"
+            },
+            "basin": {
+              "type": "string",
+              "enum": [
+                "NATL",
+                "EPAC",
+                "CPAC",
+                "WPAC",
+                "NIO",
+                "SIO",
+                "SPAC",
+                "AUS"
+              ]
+            },
+            "issuer": {
+              "type": "string",
+              "enum": [
+                "nhc",
+                "jtwc",
+                "jma",
+                "rsmc_lre",
+                "imd",
+                "bom",
+                "fiji_rsmc",
+                "mauritius_rsmc"
+              ]
+            },
+            "saffirSimpsonCategory": {
+              "type": "integer",
+              "description": "1-5"
+            },
+            "maxWindKmh": {
+              "type": "number"
+            },
+            "estimatedLandfallIso3": {
+              "type": "string"
+            },
+            "forecastValidUtc": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "intensityTier": {
+              "type": "string",
+              "enum": [
+                "tropical_storm",
+                "hurricane",
+                "major"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

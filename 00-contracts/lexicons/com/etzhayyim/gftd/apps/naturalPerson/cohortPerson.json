@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.naturalPerson.cohortPerson",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "cohortHash": { "type": "string" },
+          "country": { "type": "string" },
+          "region": { "type": "string" },
+          "municipality": { "type": "string" },
+          "age": { "type": "integer" },
+          "gender": { "type": "string" },
+          "incomeDecile": { "type": "integer" },
+          "educationIsced": { "type": "string" },
+          "occupationIsco": { "type": "string" },
+          "employmentStatus": { "type": "string" },
+          "maritalStatus": { "type": "string" },
+          "householdSize": { "type": "integer" },
+          "housingTenure": { "type": "string" },
+          "urbanRural": { "type": "string" },
+          "healthIcd10": { "type": "string" },
+          "disabilityType": { "type": "string" },
+          "migrationStatus": { "type": "string" },
+          "ethnicity": { "type": "string" },
+          "religion": { "type": "string" },
+          "languagePrimary": { "type": "string" },
+          "entityDid": { "type": "string" },
+          "communityId": { "type": "string" },
+          "vitalStatus": { "type": "string" },
+          "birthYear": { "type": "integer" },
+          "deathYear": { "type": "integer" },
+          "deathCauseIcd10": { "type": "string" },
+          "era": { "type": "string" },
+          "dataClassification": { "type": "string" },
+          "orgId": { "type": "string" },
+          "userId": { "type": "string" },
+          "actorId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        },
+        "required": ["cohortHash", "country", "vitalStatus", "era"]
+      }
+    }
+  }
+}

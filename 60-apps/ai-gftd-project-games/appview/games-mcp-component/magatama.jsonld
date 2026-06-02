@@ -25,8 +25,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.games.title",
-        "ai.gftd.apps.games.score"
+        "com.etzhayyim.apps.games.title",
+        "com.etzhayyim.apps.games.score"
       ]
     }
   }

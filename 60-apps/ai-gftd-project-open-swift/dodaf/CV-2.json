@@ -9,17 +9,17 @@
       {
         "id": "cap.directory", "name": "Participant directory",
         "children": [
-          { "id": "cap.regInst",  "name": "Register institution", "realisedBy": "app.etzhayyim.apps.openSwift.registerInstitution" },
-          { "id": "cap.listInst", "name": "List institutions",    "realisedBy": "app.etzhayyim.apps.openSwift.listInstitutions" }
+          { "id": "cap.regInst",  "name": "Register institution", "realisedBy": "com.etzhayyim.apps.openSwift.registerInstitution" },
+          { "id": "cap.listInst", "name": "List institutions",    "realisedBy": "com.etzhayyim.apps.openSwift.listInstitutions" }
         ]
       },
       {
         "id": "cap.messaging", "name": "Interbank messaging",
         "children": [
-          { "id": "cap.sendCct",   "name": "Send customer credit transfer", "realisedBy": "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer" },
-          { "id": "cap.ack",       "name": "Acknowledge / NACK",            "realisedBy": "app.etzhayyim.apps.openSwift.acknowledgeMessage" },
-          { "id": "cap.getMessage","name": "Query message",                 "realisedBy": "app.etzhayyim.apps.openSwift.getMessage" },
-          { "id": "cap.listMessage","name": "List messages",                "realisedBy": "app.etzhayyim.apps.openSwift.listMessages" }
+          { "id": "cap.sendCct",   "name": "Send customer credit transfer", "realisedBy": "com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer" },
+          { "id": "cap.ack",       "name": "Acknowledge / NACK",            "realisedBy": "com.etzhayyim.apps.openSwift.acknowledgeMessage" },
+          { "id": "cap.getMessage","name": "Query message",                 "realisedBy": "com.etzhayyim.apps.openSwift.getMessage" },
+          { "id": "cap.listMessage","name": "List messages",                "realisedBy": "com.etzhayyim.apps.openSwift.listMessages" }
         ]
       },
       {

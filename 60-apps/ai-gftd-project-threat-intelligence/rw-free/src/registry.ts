@@ -31,7 +31,7 @@ import {
   type Tlp,
 } from "./types.js";
 
-const IOC_COLLECTION = "app.etzhayyim.apps.threatIntelligence.indicator";
+const IOC_COLLECTION = "com.etzhayyim.apps.threatIntelligence.indicator";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

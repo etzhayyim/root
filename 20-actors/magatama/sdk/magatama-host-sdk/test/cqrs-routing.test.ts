@@ -88,15 +88,15 @@ describe("XRPC routing", () => {
     const handler = vi.fn((_ctx: AppContext, _payload: Uint8Array) => {
       return new TextEncoder().encode('{"generated":true}');
     });
-    app.command("app.etzhayyim.apps.news.generateArticle", handler);
-    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.news.generateArticle", [], new Uint8Array());
+    app.command("com.etzhayyim.apps.news.generateArticle", handler);
+    const res = await app.handleXRPC("/xrpc/com.etzhayyim.apps.news.generateArticle", [], new Uint8Array());
     expect(res.status).toBe(200);
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
   it("XRPC unknown method returns 404", async () => {
     const app = makeApp();
-    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.news.nonexistent", [], new Uint8Array());
+    const res = await app.handleXRPC("/xrpc/com.etzhayyim.apps.news.nonexistent", [], new Uint8Array());
     expect(res.status).toBe(404);
     const body = JSON.parse(new TextDecoder().decode(res.body));
     expect(body.error).toContain("unknown xrpc method");
@@ -104,8 +104,8 @@ describe("XRPC routing", () => {
 
   it("XRPC handler error returns 500", async () => {
     const app = makeApp();
-    app.command("app.etzhayyim.apps.news.failing", () => { throw new Error("handler boom"); });
-    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.news.failing", [], new Uint8Array());
+    app.command("com.etzhayyim.apps.news.failing", () => { throw new Error("handler boom"); });
+    const res = await app.handleXRPC("/xrpc/com.etzhayyim.apps.news.failing", [], new Uint8Array());
     expect(res.status).toBe(500);
     const body = JSON.parse(new TextDecoder().decode(res.body));
     expect(body.error).toContain("handler boom");
@@ -117,7 +117,7 @@ describe("XRPC routing", () => {
       return new TextEncoder().encode("{}");
     });
     app.command("generateArticle", handler);
-    const res = await app.handleXRPC("/xrpc/app.etzhayyim.apps.news.generateArticle", [], new Uint8Array());
+    const res = await app.handleXRPC("/xrpc/com.etzhayyim.apps.news.generateArticle", [], new Uint8Array());
     expect(res.status).toBe(404);
   });
 
@@ -139,11 +139,11 @@ describe("XRPC routing", () => {
       }),
     });
     const app = new App(createMockAppDef(), mockHost);
-    app.command("app.etzhayyim.apps.test.testCmd", (ctx, _payload) => {
+    app.command("com.etzhayyim.apps.test.testCmd", (ctx, _payload) => {
       capturedCtx = ctx;
       return new TextEncoder().encode("{}");
     });
-    await app.handleXRPC("/xrpc/app.etzhayyim.apps.test.testCmd", [
+    await app.handleXRPC("/xrpc/com.etzhayyim.apps.test.testCmd", [
       ["authorization", "Bearer test-jwt"],
       ["x-gftd-org-id", "org-abc"],
     ], new Uint8Array());

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.nogu.lease",
+  "description": "農機リース記録。農協単協から組合員への農機貸出。nokyo.purchaseOrder category=machinery と連携して一括発注後のリース管理を担う。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["itemId", "lesseeDidOrMemberId", "leaseStartDate"],
+        "properties": {
+          "itemId": { "type": "string" },
+          "lesseeDidOrMemberId": { "type": "string", "description": "借受人 DID または nokyo.member.memberId" },
+          "coopPath": { "type": "string", "description": "単協 path (nokyo.tanno:{pref}:{coop})" },
+          "leaseStartDate": { "type": "string", "format": "date" },
+          "leaseEndDate": { "type": "string", "format": "date" },
+          "leasePurpose": {
+            "type": "string",
+            "enum": ["paddy-planting", "harvest", "soil-prep", "spraying", "other"],
+            "description": "田植え/収穫/土壌準備/散布/その他"
+          },
+          "dailyRateJpy": { "type": "number" },
+          "depositJpy": { "type": "number" },
+          "status": { "type": "string", "enum": ["active", "returned", "extended", "overdue"] },
+          "returnedAt": { "type": "string", "format": "date" },
+          "conditionOnReturn": { "type": "string", "enum": ["good", "minor-damage", "major-damage"] },
+          "linkedPurchaseOrderId": { "type": "string", "description": "nokyo.purchaseOrder.orderId" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -83,13 +83,13 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.patent.patent",
-        "ai.gftd.apps.patent.applicant",
-        "ai.gftd.apps.patent.inventor",
-        "ai.gftd.apps.patent.ipcClass",
-        "ai.gftd.apps.patent.citation",
-        "ai.gftd.apps.patent.familyMember",
-        "ai.gftd.apps.patent.coverageReport"
+        "com.etzhayyim.apps.patent.patent",
+        "com.etzhayyim.apps.patent.applicant",
+        "com.etzhayyim.apps.patent.inventor",
+        "com.etzhayyim.apps.patent.ipcClass",
+        "com.etzhayyim.apps.patent.citation",
+        "com.etzhayyim.apps.patent.familyMember",
+        "com.etzhayyim.apps.patent.coverageReport"
       ]
     }
   },

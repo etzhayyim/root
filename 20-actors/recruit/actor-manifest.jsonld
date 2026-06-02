@@ -60,7 +60,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.ingestTaxonomy"
+        "nsid": "com.etzhayyim.apps.recruit.ingestTaxonomy"
       },
       "steps": [
         {
@@ -92,7 +92,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.ingestJobPostings"
+        "nsid": "com.etzhayyim.apps.recruit.ingestJobPostings"
       },
       "steps": [
         {
@@ -100,7 +100,7 @@
           "fn": "agent.invoke",
           "args": {
             "command": "recruitIngestJobPostings",
-            "endpoint": "http://recruit-job-ingester.recruit-actors.svc.cluster.local:8080/xrpc/ai.gftd.apps.recruit.ingestJobPostings",
+            "endpoint": "http://recruit-job-ingester.recruit-actors.svc.cluster.local:8080/xrpc/com.etzhayyim.apps.recruit.ingestJobPostings",
             "params": {
               "platform": "$input.platform",
               "limit": "$input.limit",
@@ -116,7 +116,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.listPostings"
+        "nsid": "com.etzhayyim.apps.recruit.listPostings"
       },
       "steps": [
         {
@@ -131,7 +131,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.listJobIngestRuns"
+        "nsid": "com.etzhayyim.apps.recruit.listJobIngestRuns"
       },
       "steps": [
         {
@@ -146,7 +146,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.getPosting"
+        "nsid": "com.etzhayyim.apps.recruit.getPosting"
       },
       "steps": [
         {
@@ -161,7 +161,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.stats"
+        "nsid": "com.etzhayyim.apps.recruit.stats"
       },
       "steps": [
         {
@@ -176,7 +176,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.recommendCohorts"
+        "nsid": "com.etzhayyim.apps.recruit.recommendCohorts"
       },
       "steps": [
         {
@@ -191,7 +191,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.matchStats"
+        "nsid": "com.etzhayyim.apps.recruit.matchStats"
       },
       "steps": [
         {
@@ -220,7 +220,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.proposeCohortMatch"
+        "nsid": "com.etzhayyim.apps.recruit.proposeCohortMatch"
       },
       "steps": [
         {
@@ -246,7 +246,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.listMatchProposals"
+        "nsid": "com.etzhayyim.apps.recruit.listMatchProposals"
       },
       "steps": [
         {
@@ -261,7 +261,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.getMatchProposal"
+        "nsid": "com.etzhayyim.apps.recruit.getMatchProposal"
       },
       "steps": [
         {
@@ -276,7 +276,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.decideMatchProposal"
+        "nsid": "com.etzhayyim.apps.recruit.decideMatchProposal"
       },
       "steps": [
         {
@@ -297,7 +297,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.recruit.listMatchDecisionEvents"
+        "nsid": "com.etzhayyim.apps.recruit.listMatchDecisionEvents"
       },
       "steps": [
         {
@@ -384,8 +384,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -398,9 +398,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.recruit.jobPosting",
-        "ai.gftd.apps.recruit.occupation",
-        "ai.gftd.legalEntity.entity"
+        "com.etzhayyim.apps.recruit.jobPosting",
+        "com.etzhayyim.apps.recruit.occupation",
+        "com.etzhayyim.legalEntity.entity"
       ]
     }
   },

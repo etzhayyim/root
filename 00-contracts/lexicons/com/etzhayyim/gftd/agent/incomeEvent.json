@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.agent.incomeEvent",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ADR-2604301200 income event for an autonomous agent.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["eventId", "rootDid", "agentDid", "sourceSurface", "amountGccWei", "occurredAt"],
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "rootDid": {
+            "type": "string"
+          },
+          "agentDid": {
+            "type": "string"
+          },
+          "sourceSurface": {
+            "type": "string",
+            "description": "social | mcp | xrpc | http-api | a2a | runtime-provision | royalty"
+          },
+          "sourceRef": {
+            "type": "string"
+          },
+          "payerDid": {
+            "type": "string"
+          },
+          "payerAddr": {
+            "type": "string"
+          },
+          "amountGccWei": {
+            "type": "string"
+          },
+          "publicFundWei": {
+            "type": "string"
+          },
+          "parentRoyaltyWei": {
+            "type": "string"
+          },
+          "txHash": {
+            "type": "string"
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

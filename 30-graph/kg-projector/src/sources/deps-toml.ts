@@ -38,7 +38,7 @@ function l2ContractNode(
   const status = asString(contract.deploy_status);
   if (status) tags.push(`status:${status}`);
   const node: KgNodeRecord = {
-    $type: "app.etzhayyim.kg.node",
+    $type: "com.etzhayyim.kg.node",
     nodeId,
     nodeType: "l2-contract",
     label: key,
@@ -51,7 +51,7 @@ function l2ContractNode(
   const adr = adrUrn(asString(contract.adr));
   if (adr) {
     adrEdges.push({
-      $type: "app.etzhayyim.kg.edge",
+      $type: "com.etzhayyim.kg.edge",
       subject: nodeId,
       predicate: "specified-by",
       object: adr,
@@ -63,7 +63,7 @@ function l2ContractNode(
   const src = asString(contract.source);
   if (src) {
     sourceEdges.push({
-      $type: "app.etzhayyim.kg.edge",
+      $type: "com.etzhayyim.kg.edge",
       subject: nodeId,
       predicate: "source-path",
       literal: src,
@@ -89,7 +89,7 @@ export async function projectDepsToml(repoRoot: string): Promise<KgProjection> {
     const form = asString(oe.form);
     if (form) tags.push(`form:${form}`);
     nodes.push({
-      $type: "app.etzhayyim.kg.node",
+      $type: "com.etzhayyim.kg.node",
       nodeId: orgNodeId,
       nodeType: "organization",
       label: asString(oe.name) ?? "etzhayyim",
@@ -102,7 +102,7 @@ export async function projectDepsToml(repoRoot: string): Promise<KgProjection> {
     const domain = asString(oe.domain);
     if (domain) {
       edges.push({
-        $type: "app.etzhayyim.kg.edge",
+        $type: "com.etzhayyim.kg.edge",
         subject: orgNodeId,
         predicate: "owns-domain",
         literal: domain,
@@ -120,7 +120,7 @@ export async function projectDepsToml(repoRoot: string): Promise<KgProjection> {
       nodes.push(node);
       edges.push(...adrEdges, ...sourceEdges);
       edges.push({
-        $type: "app.etzhayyim.kg.edge",
+        $type: "com.etzhayyim.kg.edge",
         subject: orgNodeId,
         predicate: "owns",
         object: node.nodeId,

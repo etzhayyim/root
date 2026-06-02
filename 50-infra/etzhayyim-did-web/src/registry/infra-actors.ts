@@ -63,7 +63,7 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   pinner: {
     description:
       "MST CAR pinner — pins shard CARs produced by mst-projector to IPFS. Per ADR-2605171800 Stage 4.",
-    primaryLexicon: "app.etzhayyim.substrate.ipfsPin",
+    primaryLexicon: "com.etzhayyim.substrate.ipfsPin",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:pinner#atproto_pds",
@@ -75,8 +75,8 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   },
   esign: {
     description:
-      "Document-signing actor — issues, collects, completes app.etzhayyim.esign.* envelopes. Per ADR-2605231230.",
-    primaryLexicon: "app.etzhayyim.esign",
+      "Document-signing actor — issues, collects, completes com.etzhayyim.esign.* envelopes. Per ADR-2605231230.",
+    primaryLexicon: "com.etzhayyim.esign",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:esign#atproto_pds",
@@ -88,8 +88,8 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   },
   audit: {
     description:
-      "Audit-event aggregator — substrate-wide app.etzhayyim.audit.event sink referenced by every actor manifest. Per ADR-2605231700 + 2605231900.",
-    primaryLexicon: "app.etzhayyim.audit.event",
+      "Audit-event aggregator — substrate-wide com.etzhayyim.audit.event sink referenced by every actor manifest. Per ADR-2605231700 + 2605231900.",
+    primaryLexicon: "com.etzhayyim.audit.event",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:audit#atproto_pds",
@@ -101,8 +101,8 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   },
   "dataset-pinner": {
     description:
-      "Dataset pinner — mirrors DataLad/git-annex `directory` remote objects to IPFS and emits app.etzhayyim.substrate.datasetPin records. Per ADR-2605241500.",
-    primaryLexicon: "app.etzhayyim.substrate.datasetPin",
+      "Dataset pinner — mirrors DataLad/git-annex `directory` remote objects to IPFS and emits com.etzhayyim.substrate.datasetPin records. Per ADR-2605241500.",
+    primaryLexicon: "com.etzhayyim.substrate.datasetPin",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds",
@@ -167,7 +167,7 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   karute: {
     description:
       "Karute electronic medical record actor (EMR / FHIR R5). PHI sealing mandatory. Per ADR-2605231100 + 2605231900.",
-    primaryLexicon: "app.etzhayyim.apps.karute",
+    primaryLexicon: "com.etzhayyim.apps.karute",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:karute#atproto_pds",
@@ -182,7 +182,7 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       "綿津綱 — world submarine-cable network knowledge graph. Datafies cable systems / landing stations / segments / fault bulletins into the kotoba Datom log; surfaces chokepoint single-point-of-failure concentration routed to redundancy + faster repair (a resilience map, NEVER a target-list — paired with watatsumi N8). Per ADR-2606012600.",
     glyph: "綿津綱",
     displayName: "Watatsuna — World Submarine-Cable Network Knowledge Graph",
-    primaryLexicon: "app.etzhayyim.cable",
+    primaryLexicon: "com.etzhayyim.cable",
     // componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
     // bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600).
     wasmCid: "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa",
@@ -230,7 +230,7 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       "鼎 — global government fiscal-flow VISUALIZATION. Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders). Per ADR-2605302300.",
     glyph: "鼎",
     displayName: "Kanae — Government Fiscal-Flow Visualization",
-    primaryLexicon: "app.etzhayyim.kanae",
+    primaryLexicon: "com.etzhayyim.kanae",
     // Content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
     // Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200).
     wasmCid: "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie",

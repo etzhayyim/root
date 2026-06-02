@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.agent.governanceRule",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "rules": {
+            "type": "unknown"
+          }
+        },
+        "required": [
+          "name",
+          "rules"
+        ]
+      }
+    }
+  }
+}

@@ -1029,359 +1029,359 @@
       "method": "AietzhayyimPdsHealth",
       "category": "gftd"
     },
-    "app.etzhayyim.governance.getPolicy": {
+    "com.etzhayyim.governance.getPolicy": {
       "method": "AietzhayyimGovernanceGetPolicy",
       "category": "governance"
     },
-    "app.etzhayyim.governance.checkAccess": {
+    "com.etzhayyim.governance.checkAccess": {
       "method": "AietzhayyimGovernanceCheckAccess",
       "category": "governance"
     },
-    "app.etzhayyim.governance.resolveActorVisibility": {
+    "com.etzhayyim.governance.resolveActorVisibility": {
       "method": "AietzhayyimGovernanceResolveActorVisibility",
       "category": "governance"
     },
-    "app.etzhayyim.governance.queryLabels": {
+    "com.etzhayyim.governance.queryLabels": {
       "method": "AietzhayyimGovernanceQueryLabels",
       "category": "governance"
     },
-    "app.etzhayyim.governance.registerPolicy": {
+    "com.etzhayyim.governance.registerPolicy": {
       "method": "AietzhayyimGovernanceRegisterPolicy",
       "category": "governance"
     },
-    "app.etzhayyim.governance.registerMethodPolicy": {
+    "com.etzhayyim.governance.registerMethodPolicy": {
       "method": "AietzhayyimGovernanceRegisterMethodPolicy",
       "category": "governance"
     },
-    "app.etzhayyim.governance.registerManifest": {
+    "com.etzhayyim.governance.registerManifest": {
       "method": "AietzhayyimGovernanceRegisterManifest",
       "category": "governance"
     },
-    "app.etzhayyim.governance.registerRoleBindings": {
+    "com.etzhayyim.governance.registerRoleBindings": {
       "method": "AietzhayyimGovernanceRegisterRoleBindings",
       "category": "governance"
     },
-    "app.etzhayyim.governance.setActorSensitivity": {
+    "com.etzhayyim.governance.setActorSensitivity": {
       "method": "AietzhayyimGovernanceSetActorSensitivity",
       "category": "governance"
     },
-    "app.etzhayyim.governance.createLabel": {
+    "com.etzhayyim.governance.createLabel": {
       "method": "AietzhayyimGovernanceCreateLabel",
       "category": "governance"
     },
-    "app.etzhayyim.governance.approveFollowRequest": {
+    "com.etzhayyim.governance.approveFollowRequest": {
       "method": "AietzhayyimGovernanceApproveFollowRequest",
       "category": "governance"
     },
-    "app.etzhayyim.governance.rejectFollowRequest": {
+    "com.etzhayyim.governance.rejectFollowRequest": {
       "method": "AietzhayyimGovernanceRejectFollowRequest",
       "category": "governance"
     },
-    "app.etzhayyim.governance.approveAllFollowRequests": {
+    "com.etzhayyim.governance.approveAllFollowRequests": {
       "method": "AietzhayyimGovernanceApproveAllFollowRequests",
       "category": "governance"
     },
-    "app.etzhayyim.identity.pullFeed": {
+    "com.etzhayyim.identity.pullFeed": {
       "method": "AietzhayyimIdentityPullFeed",
       "category": "platform_read"
     },
-    "app.etzhayyim.identity.getEngagement": {
+    "com.etzhayyim.identity.getEngagement": {
       "method": "AietzhayyimIdentityGetEngagement",
       "category": "platform_read"
     },
-    "app.etzhayyim.convo.sendMessage": {
+    "com.etzhayyim.convo.sendMessage": {
       "method": "AietzhayyimConvoSendMessage",
       "category": "convo"
     },
-    "app.etzhayyim.convo.createConvo": {
+    "com.etzhayyim.convo.createConvo": {
       "method": "AietzhayyimConvoCreateConvo",
       "category": "convo"
     },
-    "app.etzhayyim.convo.createDm": {
+    "com.etzhayyim.convo.createDm": {
       "method": "AietzhayyimConvoCreateDm",
       "category": "convo"
     },
-    "app.etzhayyim.convo.react": {
+    "com.etzhayyim.convo.react": {
       "method": "AietzhayyimConvoReact",
       "category": "convo"
     },
-    "app.etzhayyim.convo.unreact": {
+    "com.etzhayyim.convo.unreact": {
       "method": "AietzhayyimConvoUnreact",
       "category": "convo"
     },
-    "app.etzhayyim.convo.markRead": {
+    "com.etzhayyim.convo.markRead": {
       "method": "AietzhayyimConvoMarkRead",
       "category": "convo"
     },
-    "app.etzhayyim.convo.joinConvo": {
+    "com.etzhayyim.convo.joinConvo": {
       "method": "AietzhayyimConvoJoinConvo",
       "category": "convo"
     },
-    "app.etzhayyim.convo.leaveConvo": {
+    "com.etzhayyim.convo.leaveConvo": {
       "method": "AietzhayyimConvoLeaveConvo",
       "category": "convo"
     },
-    "app.etzhayyim.convo.updatePresence": {
+    "com.etzhayyim.convo.updatePresence": {
       "method": "AietzhayyimConvoUpdatePresence",
       "category": "convo"
     },
-    "app.etzhayyim.convo.sendTyping": {
+    "com.etzhayyim.convo.sendTyping": {
       "method": "AietzhayyimConvoSendTyping",
       "category": "convo"
     },
-    "app.etzhayyim.convo.setEncryption": {
+    "com.etzhayyim.convo.setEncryption": {
       "method": "AietzhayyimConvoSetEncryption",
       "category": "convo"
     },
-    "app.etzhayyim.convo.editMessage": {
+    "com.etzhayyim.convo.editMessage": {
       "method": "AietzhayyimConvoEditMessage",
       "category": "convo"
     },
-    "app.etzhayyim.convo.redactMessage": {
+    "com.etzhayyim.convo.redactMessage": {
       "method": "AietzhayyimConvoRedactMessage",
       "category": "convo"
     },
-    "app.etzhayyim.convo.updateConvo": {
+    "com.etzhayyim.convo.updateConvo": {
       "method": "AietzhayyimConvoUpdateConvo",
       "category": "convo"
     },
-    "app.etzhayyim.convo.archiveConvo": {
+    "com.etzhayyim.convo.archiveConvo": {
       "method": "AietzhayyimConvoArchiveConvo",
       "category": "convo"
     },
-    "app.etzhayyim.convo.inviteMember": {
+    "com.etzhayyim.convo.inviteMember": {
       "method": "AietzhayyimConvoInviteMember",
       "category": "convo"
     },
-    "app.etzhayyim.convo.updateMemberRole": {
+    "com.etzhayyim.convo.updateMemberRole": {
       "method": "AietzhayyimConvoUpdateMemberRole",
       "category": "convo"
     },
-    "app.etzhayyim.convo.setProfile": {
+    "com.etzhayyim.convo.setProfile": {
       "method": "AietzhayyimConvoSetProfile",
       "category": "convo"
     },
-    "app.etzhayyim.convo.pinMessage": {
+    "com.etzhayyim.convo.pinMessage": {
       "method": "AietzhayyimConvoPinMessage",
       "category": "convo"
     },
-    "app.etzhayyim.convo.unpinMessage": {
+    "com.etzhayyim.convo.unpinMessage": {
       "method": "AietzhayyimConvoUnpinMessage",
       "category": "convo"
     },
-    "app.etzhayyim.convo.forwardMessage": {
+    "com.etzhayyim.convo.forwardMessage": {
       "method": "AietzhayyimConvoForwardMessage",
       "category": "convo"
     },
-    "app.etzhayyim.signal.ensureDevice": {
+    "com.etzhayyim.signal.ensureDevice": {
       "method": "AietzhayyimSignalEnsureDevice",
       "category": "signal"
     },
-    "app.etzhayyim.signal.revokeDevice": {
+    "com.etzhayyim.signal.revokeDevice": {
       "method": "AietzhayyimSignalRevokeDevice",
       "category": "signal"
     },
-    "app.etzhayyim.signal.renameDevice": {
+    "com.etzhayyim.signal.renameDevice": {
       "method": "AietzhayyimSignalRenameDevice",
       "category": "signal"
     },
-    "app.etzhayyim.signal.verifyIdentity": {
+    "com.etzhayyim.signal.verifyIdentity": {
       "method": "AietzhayyimSignalVerifyIdentity",
       "category": "signal"
     },
-    "app.etzhayyim.signal.registerPrekeys": {
+    "com.etzhayyim.signal.registerPrekeys": {
       "method": "AietzhayyimSignalRegisterPrekeys",
       "category": "signal"
     },
-    "app.etzhayyim.signal.replenishOtpks": {
+    "com.etzhayyim.signal.replenishOtpks": {
       "method": "AietzhayyimSignalReplenishOtpks",
       "category": "signal"
     },
-    "app.etzhayyim.signal.rotateGroupKey": {
+    "com.etzhayyim.signal.rotateGroupKey": {
       "method": "AietzhayyimSignalRotateGroupKey",
       "category": "signal"
     },
-    "app.etzhayyim.rtc.subscribePush": {
+    "com.etzhayyim.rtc.subscribePush": {
       "method": "AietzhayyimRtcSubscribePush",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.unsubscribePush": {
+    "com.etzhayyim.rtc.unsubscribePush": {
       "method": "AietzhayyimRtcUnsubscribePush",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.sendOffer": {
+    "com.etzhayyim.rtc.sendOffer": {
       "method": "AietzhayyimRtcSendOffer",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.sendAnswer": {
+    "com.etzhayyim.rtc.sendAnswer": {
       "method": "AietzhayyimRtcSendAnswer",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.sendIce": {
+    "com.etzhayyim.rtc.sendIce": {
       "method": "AietzhayyimRtcSendIce",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.hangup": {
+    "com.etzhayyim.rtc.hangup": {
       "method": "AietzhayyimRtcHangup",
       "category": "rtc"
     },
-    "app.etzhayyim.files.initiateMultipart": {
+    "com.etzhayyim.files.initiateMultipart": {
       "method": "AietzhayyimFilesInitiateMultipart",
       "category": "files"
     },
-    "app.etzhayyim.files.checkExists": {
+    "com.etzhayyim.files.checkExists": {
       "method": "AietzhayyimFilesCheckExists",
       "category": "files"
     },
-    "app.etzhayyim.files.link": {
+    "com.etzhayyim.files.link": {
       "method": "AietzhayyimFilesLink",
       "category": "files"
     },
-    "app.etzhayyim.convo.listConvos": {
+    "com.etzhayyim.convo.listConvos": {
       "method": "AietzhayyimConvoListConvos",
       "category": "convo"
     },
-    "app.etzhayyim.convo.getConvo": {
+    "com.etzhayyim.convo.getConvo": {
       "method": "AietzhayyimConvoGetConvo",
       "category": "convo"
     },
-    "app.etzhayyim.convo.listEnvelopes": {
+    "com.etzhayyim.convo.listEnvelopes": {
       "method": "AietzhayyimConvoListEnvelopes",
       "category": "convo"
     },
-    "app.etzhayyim.convo.getThread": {
+    "com.etzhayyim.convo.getThread": {
       "method": "AietzhayyimConvoGetThread",
       "category": "convo"
     },
-    "app.etzhayyim.convo.search": {
+    "com.etzhayyim.convo.search": {
       "method": "AietzhayyimConvoSearch",
       "category": "convo"
     },
-    "app.etzhayyim.convo.listMembers": {
+    "com.etzhayyim.convo.listMembers": {
       "method": "AietzhayyimConvoListMembers",
       "category": "convo"
     },
-    "app.etzhayyim.convo.getUnread": {
+    "com.etzhayyim.convo.getUnread": {
       "method": "AietzhayyimConvoGetUnread",
       "category": "convo"
     },
-    "app.etzhayyim.convo.listPresence": {
+    "com.etzhayyim.convo.listPresence": {
       "method": "AietzhayyimConvoListPresence",
       "category": "convo"
     },
-    "app.etzhayyim.convo.listPublicConvos": {
+    "com.etzhayyim.convo.listPublicConvos": {
       "method": "AietzhayyimConvoListPublicConvos",
       "category": "convo"
     },
-    "app.etzhayyim.convo.getSyncState": {
+    "com.etzhayyim.convo.getSyncState": {
       "method": "AietzhayyimConvoGetSyncState",
       "category": "convo"
     },
-    "app.etzhayyim.convo.diff": {
+    "com.etzhayyim.convo.diff": {
       "method": "AietzhayyimConvoDiff",
       "category": "convo"
     },
-    "app.etzhayyim.convo.fetchBlocks": {
+    "com.etzhayyim.convo.fetchBlocks": {
       "method": "AietzhayyimConvoFetchBlocks",
       "category": "convo"
     },
-    "app.etzhayyim.signal.listDevices": {
+    "com.etzhayyim.signal.listDevices": {
       "method": "AietzhayyimSignalListDevices",
       "category": "signal"
     },
-    "app.etzhayyim.signal.getIdentityFingerprint": {
+    "com.etzhayyim.signal.getIdentityFingerprint": {
       "method": "AietzhayyimSignalGetIdentityFingerprint",
       "category": "signal"
     },
-    "app.etzhayyim.rtc.getVapidKey": {
+    "com.etzhayyim.rtc.getVapidKey": {
       "method": "AietzhayyimRtcGetVapidKey",
       "category": "rtc"
     },
-    "app.etzhayyim.signal.getPrekeyBundle": {
+    "com.etzhayyim.signal.getPrekeyBundle": {
       "method": "AietzhayyimSignalGetPrekeyBundle",
       "category": "signal"
     },
-    "app.etzhayyim.signal.getPrekeyBundles": {
+    "com.etzhayyim.signal.getPrekeyBundles": {
       "method": "AietzhayyimSignalGetPrekeyBundles",
       "category": "signal"
     },
-    "app.etzhayyim.kagami.graph.query": {
+    "com.etzhayyim.kagami.graph.query": {
       "method": "AietzhayyimKagamiGraphQuery",
       "category": "graph"
     },
-    "app.etzhayyim.murakumo.planPipeline": {
+    "com.etzhayyim.murakumo.planPipeline": {
       "method": "AietzhayyimMurakumoPlanPipeline",
       "category": "query"
     },
-    "app.etzhayyim.murakumo.graphExtract": {
+    "com.etzhayyim.murakumo.graphExtract": {
       "method": "AietzhayyimMurakumoGraphExtract",
       "category": "command"
     },
-    "app.etzhayyim.murakumo.graphIngest": {
+    "com.etzhayyim.murakumo.graphIngest": {
       "method": "AietzhayyimMurakumoGraphIngest",
       "category": "command"
     },
-    "app.etzhayyim.murakumo.coverageExport": {
+    "com.etzhayyim.murakumo.coverageExport": {
       "method": "AietzhayyimMurakumoCoverageExport",
       "category": "command"
     },
-    "app.etzhayyim.murakumo.fleetPlan": {
+    "com.etzhayyim.murakumo.fleetPlan": {
       "method": "AietzhayyimMurakumoFleetPlan",
       "category": "command"
     },
-    "app.etzhayyim.murakumo.trainExperts": {
+    "com.etzhayyim.murakumo.trainExperts": {
       "method": "AietzhayyimMurakumoTrainExperts",
       "category": "command"
     },
-    "app.etzhayyim.murakumo.evalV6": {
+    "com.etzhayyim.murakumo.evalV6": {
       "method": "AietzhayyimMurakumoEvalV6",
       "category": "query"
     },
-    "app.etzhayyim.murakumo.optimizeCycle": {
+    "com.etzhayyim.murakumo.optimizeCycle": {
       "method": "AietzhayyimMurakumoOptimizeCycle",
       "category": "command"
     },
-    "app.etzhayyim.murakumo.scoreDataQuality": {
+    "com.etzhayyim.murakumo.scoreDataQuality": {
       "method": "AietzhayyimMurakumoScoreDataQuality",
       "category": "query"
     },
-    "app.etzhayyim.murakumo.runPipeline": {
+    "com.etzhayyim.murakumo.runPipeline": {
       "method": "AietzhayyimMurakumoRunPipeline",
       "category": "command"
     },
-    "app.etzhayyim.rtc.shareScreen": {
+    "com.etzhayyim.rtc.shareScreen": {
       "method": "AietzhayyimRtcShareScreen",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.scheduleMeeting": {
+    "com.etzhayyim.rtc.scheduleMeeting": {
       "method": "AietzhayyimRtcScheduleMeeting",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.joinMeeting": {
+    "com.etzhayyim.rtc.joinMeeting": {
       "method": "AietzhayyimRtcJoinMeeting",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.admitParticipant": {
+    "com.etzhayyim.rtc.admitParticipant": {
       "method": "AietzhayyimRtcAdmitParticipant",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.createBreakout": {
+    "com.etzhayyim.rtc.createBreakout": {
       "method": "AietzhayyimRtcCreateBreakout",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.startRecording": {
+    "com.etzhayyim.rtc.startRecording": {
       "method": "AietzhayyimRtcStartRecording",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.raiseHand": {
+    "com.etzhayyim.rtc.raiseHand": {
       "method": "AietzhayyimRtcRaiseHand",
       "category": "rtc"
     },
-    "app.etzhayyim.rtc.openHuddle": {
+    "com.etzhayyim.rtc.openHuddle": {
       "method": "AietzhayyimRtcOpenHuddle",
       "category": "rtc"
     },
-    "app.etzhayyim.convo.subscribeStream": {
+    "com.etzhayyim.convo.subscribeStream": {
       "method": "AietzhayyimConvoSubscribeStream",
       "category": "stream"
     }

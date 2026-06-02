@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openAirplane.flagAirspaceViolation — 領空侵犯 フラグ
+// com.etzhayyim.apps.openAirplane.flagAirspaceViolation — 領空侵犯 フラグ
 export async function handle_flagAirspaceViolation(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.aircraftVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openAirplane.flagAirspaceViolation/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openAirplane.flagAirspaceViolation/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-airplane",
-      nsid: "app.etzhayyim.apps.openAirplane.flagAirspaceViolation",
+      nsid: "com.etzhayyim.apps.openAirplane.flagAirspaceViolation",
       bpmnProcessId: "open_airplane_flag_airspace_violation",
       subjectVid,
       actionClass: "openAirplane.airspace.flagViolation",
@@ -81,16 +81,16 @@ export async function handle_flagAirspaceViolation(env: DefenceEnv, body: any): 
   }
 }
 
-// app.etzhayyim.apps.openAirplane.notifyNoFlyZone — 制限空域 通知
+// com.etzhayyim.apps.openAirplane.notifyNoFlyZone — 制限空域 通知
 export async function handle_notifyNoFlyZone(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.zoneVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openAirplane.notifyNoFlyZone/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openAirplane.notifyNoFlyZone/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-airplane",
-      nsid: "app.etzhayyim.apps.openAirplane.notifyNoFlyZone",
+      nsid: "com.etzhayyim.apps.openAirplane.notifyNoFlyZone",
       bpmnProcessId: "open_airplane_notify_no_fly_zone",
       subjectVid,
       actionClass: "openAirplane.airspace.notifyNoFlyZone",
@@ -108,6 +108,6 @@ export async function handle_notifyNoFlyZone(env: DefenceEnv, body: any): Promis
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openAirplane.flagAirspaceViolation": handle_flagAirspaceViolation,
-  "app.etzhayyim.apps.openAirplane.notifyNoFlyZone": handle_notifyNoFlyZone,
+  "com.etzhayyim.apps.openAirplane.flagAirspaceViolation": handle_flagAirspaceViolation,
+  "com.etzhayyim.apps.openAirplane.notifyNoFlyZone": handle_notifyNoFlyZone,
 };

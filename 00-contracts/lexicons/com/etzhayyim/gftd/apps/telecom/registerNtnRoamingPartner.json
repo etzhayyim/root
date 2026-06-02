@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerNtnRoamingPartner",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NTN — register a satellite operator roaming partnership (Starlink / OneWeb / Iridium / SES / Inmarsat) under an existing Phase 3 interconnect agreement.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["operatorOrgId", "agreementId", "constellationKind", "plmnId", "settlementMode", "validUntil", "observedAt"],
+          "properties": {
+            "ntnPartnerId": { "type": "string" },
+            "operatorOrgId": { "type": "string" },
+            "agreementId": { "type": "string" },
+            "constellationKind": { "type": "string", "enum": ["leo_broadband", "leo_iot", "meo_broadband", "geo_broadband", "geo_messaging", "hybrid_constellation"] },
+            "supportedSatelliteIds": { "type": "array", "items": { "type": "string" } },
+            "supportedEarthStationIds": { "type": "array", "items": { "type": "string" } },
+            "plmnId": { "type": "string" },
+            "settlementMode": { "type": "string", "enum": ["per_byte", "per_minute", "flat_fee", "revenue_share", "settlement_free"] },
+            "validUntil": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "ntnPartnerId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

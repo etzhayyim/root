@@ -110,7 +110,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = TractionPhase.ATTESTATION_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.tractionElectricalAttestation",
+        "$type": "com.etzhayyim.yamabiko.tractionElectricalAttestation",
         "trainsetId": s.trainsetId,
         "propulsionType": s.propulsionType,
         "propulsionGuard": s.propulsionGuard,

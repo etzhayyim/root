@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mangaka.saveProject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Save (upsert) a project state blob keyed by string projectId. Tightened from F2 bootstrap stub on 2026-05-12.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "projectId": { "type": "string" },
+            "project": { "type": "string" }
+          },
+          "required": ["projectId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": { "type": "string" }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

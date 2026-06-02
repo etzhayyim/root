@@ -19,7 +19,7 @@ async def trend_scan(state: HakkenState) -> dict:
     try:
         async with httpx.AsyncClient(timeout=30) as client:
             resp = await client.get(
-                f"{KAKAKU_XRPC}/xrpc/ai.gftd.apps.kakaku.listOffers",
+                f"{KAKAKU_XRPC}/xrpc/com.etzhayyim.apps.kakaku.listOffers",
                 params={"category": category, "limit": 50},
             )
             resp.raise_for_status()

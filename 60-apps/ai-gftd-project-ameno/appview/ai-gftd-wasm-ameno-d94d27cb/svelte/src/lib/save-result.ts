@@ -1,5 +1,5 @@
 /**
- * save-result.ts — client helper for app.etzhayyim.apps.ameno.saveResult.
+ * save-result.ts — client helper for com.etzhayyim.apps.ameno.saveResult.
  *
  * Posts to the same-origin ameno.etzhayyim.com Worker which forwards via
  * sdk.pds.xrpc() → atproto.etzhayyim.com → bpmn-dispatcher → ameno-langserver pod
@@ -29,7 +29,7 @@ export interface SaveResultOutput {
 }
 
 export async function saveResult(input: SaveResultInput): Promise<SaveResultOutput> {
-  const res = await fetch("/xrpc/app.etzhayyim.apps.ameno.saveResult", {
+  const res = await fetch("/xrpc/com.etzhayyim.apps.ameno.saveResult", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(input),

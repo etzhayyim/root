@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.itemPlanProcurement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Apply open_unispsc_procurement BPMN amount, approval-tier, and CAB routing for a concrete UNSPSC item.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commodityCode", "buyerOrgId", "quantity", "unitPrice", "currency"],
+          "properties": {
+            "commodityCode": { "type": "string" },
+            "commodityName": { "type": "string" },
+            "buyerOrgId": { "type": "string" },
+            "quantity": { "type": "number" },
+            "unitPrice": { "type": "number" },
+            "currency": { "type": "string" },
+            "dangerousGoods": { "type": "boolean" },
+            "sanctionsCheck": { "type": "string" }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object" } }
+    }
+  }
+}

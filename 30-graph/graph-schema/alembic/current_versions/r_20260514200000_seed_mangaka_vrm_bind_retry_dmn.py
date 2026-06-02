@@ -2,7 +2,7 @@
 
 P16-e of ADR-2605141200. Registers the DMN decision referenced by
 `compose_character_vrm.topology.yaml` conditional_edges:
-  condition_ref: dmn:app.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
+  condition_ref: dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
 
 Routing logic (FIRST):
   valid=true            -> accept (attach_vrm)
@@ -10,7 +10,7 @@ Routing logic (FIRST):
   otherwise             -> reject (END, state.status='error')
 
 SSoT XML lives at
-`00-contracts/dmn/ai/gftd/policies/mangaka/vrmBindRetry.dmn` and is
+`00-contracts/dmn/com/etzhayyim/policies/mangaka/vrmBindRetry.dmn` and is
 duplicated verbatim inside `vertex_dmn_model.dmn_xml` for in-DB audit.
 
 Revision ID: r_20260514200000_seed_mangaka_vrm_bind_retry_dmn

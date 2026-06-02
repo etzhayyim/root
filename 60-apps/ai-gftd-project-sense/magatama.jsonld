@@ -74,12 +74,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.sense.scan",
-        "ai.gftd.apps.sense.building",
-        "ai.gftd.apps.sense.floor",
-        "ai.gftd.apps.sense.room",
-        "ai.gftd.apps.sense.structure",
-        "ai.gftd.apps.sense.sensor"
+        "com.etzhayyim.apps.sense.scan",
+        "com.etzhayyim.apps.sense.building",
+        "com.etzhayyim.apps.sense.floor",
+        "com.etzhayyim.apps.sense.room",
+        "com.etzhayyim.apps.sense.structure",
+        "com.etzhayyim.apps.sense.sensor"
       ]
     }
   },

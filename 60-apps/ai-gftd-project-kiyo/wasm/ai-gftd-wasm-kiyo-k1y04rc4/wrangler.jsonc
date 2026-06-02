@@ -17,7 +17,7 @@
     "APP_DID": "did:web:kiyo.etzhayyim.com",
     "IPFS_GATEWAY_URL": "https://ipfs.etzhayyim.com",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "assets": {
     "directory": "./svelte/.svelte-kit/cloudflare/client",

@@ -36,7 +36,7 @@ async def social_announce(state: HakkenState) -> dict:
             )
             try:
                 await client.post(
-                    f"{KAIMONO_REVIEW_XRPC}/xrpc/ai.gftd.apps.kaimono_review.postAnnouncement",
+                    f"{KAIMONO_REVIEW_XRPC}/xrpc/com.etzhayyim.apps.kaimono_review.postAnnouncement",
                     json={"category": "home", "text": text},
                 )
             except Exception as exc:

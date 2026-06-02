@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.rareEarthCoverage.registerSegment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a rare earth supply chain segment node (mining/separation/magnet/policy/finance/recycling). Sources: USGS + IEA + Adamas Intelligence + national mineral surveys.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["segment", "country"],
+          "properties": {
+            "segment": { "type": "string", "enum": ["mining", "separation", "metal-alloy", "magnet", "policy", "finance", "recycling", "downstream-oem"] },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-3" },
+            "operatorDid": { "type": "string", "format": "did", "description": "legal-entity DID" },
+            "elements": { "type": "array", "items": { "type": "string", "enum": ["nd", "pr", "dy", "tb", "sm", "eu", "gd", "y", "ce", "la", "sc"] } },
+            "annualCapacityTonnes": { "type": "number" },
+            "annualOutputTonnes": { "type": "number" },
+            "policyConstraints": { "type": "array", "items": { "type": "string", "enum": ["china-export-control", "us-defense-production-act", "eu-crma", "jp-stockpile-strategy"] } }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

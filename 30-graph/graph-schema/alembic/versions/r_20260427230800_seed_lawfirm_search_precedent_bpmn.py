@@ -20,7 +20,7 @@ UP = [{'sql': '\n'
          '1, $9, $10, $11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-search-precedent-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-search-precedent-v1',
                  'did:web:lawfirm.etzhayyim.com',
                  'lawfirm_search_precedent',
                  1,
@@ -79,12 +79,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2561,
-                 '00-contracts/bpmn/ai/gftd/lawfirm/searchPrecedent.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/lawfirm/searchPrecedent.bpmn',
                  '2026-04-27T23:08:00Z',
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm-search-precedent',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-search-precedent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-search-precedent-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -93,7 +93,7 @@ UP = [{'sql': '\n'
          '1, $9, $10, $11\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v2',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v2',
                  'did:web:lawfirm.etzhayyim.com',
                  'lawfirm_run_conflict_check',
                  2,
@@ -186,7 +186,7 @@ UP = [{'sql': '\n'
                  'checked_at, owner_did, sensitivity_ord, created_at) VALUES ($1, $2, $3, $4, $5, '
                  '$6, $7, $8, $9, $10, $11, $12, $13, $14)&quot;" target="sql"/>\n'
                  '          <zeebe:input source="=[&quot;at://&quot; + firmDid + '
-                 '&quot;/app.etzhayyim.apps.lawfirm.conflictCheck/&quot; + checkId, firmDid, callerDid, '
+                 '&quot;/com.etzhayyim.apps.lawfirm.conflictCheck/&quot; + checkId, firmDid, callerDid, '
                  'partyDids, subjectMatter, conflictResult.severity, conflictResult.status, '
                  'count(pastMatters), string join([for h in precedentHits return h.canonical_uri], '
                  '&quot;,&quot;), if precedentHits != null and precedentHits[1] != null then '
@@ -202,12 +202,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5152,
-                 '00-contracts/bpmn/ai/gftd/lawfirm/runConflictCheck.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/lawfirm/runConflictCheck.bpmn',
                  '2026-04-27T23:08:00Z',
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm-search-precedent',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v2']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v2']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -216,9 +216,9 @@ UP = [{'sql': '\n'
          '$8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-searchPrecedent-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-searchPrecedent-v1',
                  'did:web:lawfirm.etzhayyim.com',
-                 'app.etzhayyim.apps.lawfirm.searchPrecedent',
+                 'com.etzhayyim.apps.lawfirm.searchPrecedent',
                  'lawfirm_search_precedent',
                  1,
                  30000,
@@ -226,9 +226,9 @@ UP = [{'sql': '\n'
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm-search-precedent',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-searchPrecedent-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-searchPrecedent-v1']},
  {'sql': "UPDATE vertex_bpmn_lexicon_binding SET status = 'superseded' WHERE vertex_id = $1",
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -237,9 +237,9 @@ UP = [{'sql': '\n'
          '$8, $9, $10\n'
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v2',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v2',
                  'did:web:lawfirm.etzhayyim.com',
-                 'app.etzhayyim.apps.lawfirm.runConflictCheck',
+                 'com.etzhayyim.apps.lawfirm.runConflictCheck',
                  'lawfirm_run_conflict_check',
                  2,
                  60000,
@@ -247,18 +247,18 @@ UP = [{'sql': '\n'
                  'did:web:lawfirm.etzhayyim.com',
                  'did:web:lawfirm.etzhayyim.com',
                  'sys.bpmn.seed.lawfirm-search-precedent',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v2']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v2']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-searchPrecedent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-searchPrecedent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v2']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v2']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-search-precedent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-search-precedent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v2']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-run-conflict-check-v2']},
  {'sql': "UPDATE vertex_bpmn_lexicon_binding SET status = 'active' WHERE vertex_id = $1",
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-runConflictCheck-v1']}]
 
 
 def upgrade() -> None:

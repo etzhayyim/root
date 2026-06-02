@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govMne.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govMne.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Montenegro government.",
-        "operationId": "app.etzhayyim.govMne.followSiteDeps",
+        "operationId": "com.etzhayyim.govMne.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govMne.heartbeatTick": {
       "post": {
         "summary": "Run the Montenegro government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govMne.heartbeatTick",
+        "operationId": "com.etzhayyim.govMne.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.listOrgs": {
+    "/xrpc/com.etzhayyim.govMne.listOrgs": {
       "get": {
         "summary": "List Montenegro government organization graph records.",
-        "operationId": "app.etzhayyim.govMne.listOrgs",
+        "operationId": "com.etzhayyim.govMne.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.registerDIDs": {
+    "/xrpc/com.etzhayyim.govMne.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Montenegro government organizations.",
-        "operationId": "app.etzhayyim.govMne.registerDIDs",
+        "operationId": "com.etzhayyim.govMne.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govMne.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Montenegro government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govMne.resolveOrgPath",
+        "operationId": "com.etzhayyim.govMne.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.seedOrgs": {
+    "/xrpc/com.etzhayyim.govMne.seedOrgs": {
       "post": {
         "summary": "Seed initial Montenegro government organization records into the graph.",
-        "operationId": "app.etzhayyim.govMne.seedOrgs",
+        "operationId": "com.etzhayyim.govMne.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.shinka": {
+    "/xrpc/com.etzhayyim.govMne.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Montenegro government organization update.",
-        "operationId": "app.etzhayyim.govMne.shinka",
+        "operationId": "com.etzhayyim.govMne.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMne.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govMne.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Montenegro government organization changes to graph.",
-        "operationId": "app.etzhayyim.govMne.syncWetUpdates",
+        "operationId": "com.etzhayyim.govMne.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

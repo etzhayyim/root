@@ -330,7 +330,7 @@ function main() {
     const endpoint = process.env.KOTOBA_ENDPOINT;
     if (!endpoint) { console.error("KOTOBA_ENDPOINT unset — cannot ingest"); process.exit(2); }
     const batch = { entities: records.map(recordToKgEntity) };
-    const url = `${endpoint.replace(/\/$/, "")}/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch`;
+    const url = `${endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch`;
     console.log(`POST ${url} (${batch.entities.length} entities) …`);
     fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(batch) })
       .then(async (r) => console.log(`  → ${r.status} ${await r.text()}`))

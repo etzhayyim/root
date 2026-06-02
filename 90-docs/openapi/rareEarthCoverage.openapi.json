@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.rareEarthCoverage.getSegment": {
+    "/xrpc/com.etzhayyim.rareEarthCoverage.getSegment": {
       "get": {
         "summary": "Get a rare earth supply chain segment by DID.",
-        "operationId": "app.etzhayyim.rareEarthCoverage.getSegment",
+        "operationId": "com.etzhayyim.rareEarthCoverage.getSegment",
         "parameters": [
           {
             "name": "did",
@@ -76,10 +76,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.rareEarthCoverage.listSegments": {
+    "/xrpc/com.etzhayyim.rareEarthCoverage.listSegments": {
       "get": {
         "summary": "List rare earth supply chain segments with offset/limit pagination, optional filters.",
-        "operationId": "app.etzhayyim.rareEarthCoverage.listSegments",
+        "operationId": "com.etzhayyim.rareEarthCoverage.listSegments",
         "parameters": [
           {
             "name": "segment",
@@ -190,10 +190,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.rareEarthCoverage.registerSegment": {
+    "/xrpc/com.etzhayyim.rareEarthCoverage.registerSegment": {
       "post": {
         "summary": "Register a rare earth supply chain segment node (mining/separation/magnet/policy/finance/recycling). Sources: USGS + IEA + Adamas Intelligence + national mineral surveys.",
-        "operationId": "app.etzhayyim.rareEarthCoverage.registerSegment",
+        "operationId": "com.etzhayyim.rareEarthCoverage.registerSegment",
         "requestBody": {
           "required": true,
           "content": {

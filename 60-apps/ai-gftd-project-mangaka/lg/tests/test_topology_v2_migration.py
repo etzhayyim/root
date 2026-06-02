@@ -63,7 +63,7 @@ def test_revision_chain(revision_module):
 
 
 def test_assistant_id_constants(revision_module):
-    assert revision_module._ASSISTANT_ID == "app.etzhayyim.mangaka.composeScene3d"
+    assert revision_module._ASSISTANT_ID == "com.etzhayyim.mangaka.composeScene3d"
     assert revision_module._NSID == revision_module._ASSISTANT_ID
     assert revision_module._APP_DID == "did:web:mangaka.etzhayyim.com"
 

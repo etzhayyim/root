@@ -31,14 +31,14 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.legalEntity.legalEntity",
-        "ai.gftd.legalEntity.companyFiling",
-        "ai.gftd.legalEntity.companyFact",
-        "ai.gftd.legalEntity.entityOwnership",
-        "ai.gftd.legalEntity.entityTradeRelationship",
-        "ai.gftd.legalEntity.publicStatement",
-        "ai.gftd.legalEntity.entityMention",
-        "ai.gftd.legalEntity.entityRelation"
+        "com.etzhayyim.legalEntity.legalEntity",
+        "com.etzhayyim.legalEntity.companyFiling",
+        "com.etzhayyim.legalEntity.companyFact",
+        "com.etzhayyim.legalEntity.entityOwnership",
+        "com.etzhayyim.legalEntity.entityTradeRelationship",
+        "com.etzhayyim.legalEntity.publicStatement",
+        "com.etzhayyim.legalEntity.entityMention",
+        "com.etzhayyim.legalEntity.entityRelation"
       ]
     }
   },

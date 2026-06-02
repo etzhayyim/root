@@ -190,12 +190,12 @@ def _load_page_titles(lang: str, wanted: set[int]) -> dict[int, str]:
 
 def _row(lang: str, page_id: int, title: str, lat: float, lon: float) -> dict:
     return {
-        "vertex_id": f"at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.spot/wp-{lang}-{page_id}",
+        "vertex_id": f"at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.spot/wp-{lang}-{page_id}",
         "rkey": f"wp-{lang}-{page_id}",
         "repo": "did:web:maps.etzhayyim.com",
         "label": "Spot",
         "did": "did:web:maps.etzhayyim.com",
-        "collection": "app.etzhayyim.apps.maps.spot",
+        "collection": "com.etzhayyim.apps.maps.spot",
         "name": title[:200],
         "lat": lat,
         "lng": lon,

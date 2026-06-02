@@ -68,9 +68,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.bim.project",
-        "ai.gftd.apps.bim.revision",
-        "ai.gftd.apps.bim.annotation"
+        "com.etzhayyim.apps.bim.project",
+        "com.etzhayyim.apps.bim.revision",
+        "com.etzhayyim.apps.bim.annotation"
       ]
     }
   },

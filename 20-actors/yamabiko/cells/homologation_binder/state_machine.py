@@ -83,7 +83,7 @@ def transition_to_homologation_authority_review(state: dict[str, Any]) -> dict[s
 def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = HomologationState(**state.get("homologation_state", {}))
     s.yatachainAnchor = {
-        "membraneNamespace": "app.etzhayyim.yamabiko",
+        "membraneNamespace": "com.etzhayyim.yamabiko",
         "anchorTxHash": "0xYAMABIKOHOMOLOGATION...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
         "anchorBlockNumber": 0,
@@ -100,7 +100,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = HomologationPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.homologationRecord",
+        "$type": "com.etzhayyim.yamabiko.homologationRecord",
         "trainsetId": s.trainsetId,
         "serial": s.serial,
         "trainsetDid": s.trainsetDid,

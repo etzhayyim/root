@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.webpage.page",
-        "ai.gftd.apps.webpage.publish"
+        "com.etzhayyim.apps.webpage.page",
+        "com.etzhayyim.apps.webpage.publish"
       ]
     }
   }

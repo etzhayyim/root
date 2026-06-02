@@ -20,7 +20,7 @@ import { fileURLToPath } from "node:url";
 import { Etzhayyim } from "@etzhayyim/sdk";
 import { didForSlug, isValidTtl, type MapsSource, type MapsSourceCategory, type MapsSourceStatus } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.maps.source";
+const COLLECTION = "com.etzhayyim.maps.source";
 const REGISTERED_AT_DEFAULT = "2026-05-23T00:00:00Z";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

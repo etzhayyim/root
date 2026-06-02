@@ -55,13 +55,13 @@ NS_BPMN = "http://www.omg.org/spec/BPMN/20100524/MODEL"
 
 # Canonical vertex_id format (2026-04-23 decision, see ADR-0056 addendum).
 #
-#   process_def  at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/{slug}-v{N}
-#   binding      at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/{ns-action}-v{N}
+#   process_def  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/{slug}-v{N}
+#   binding      at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/{ns-action}-v{N}
 #
 # - `slug` in process_def is the kebab-case form of `bpmn_process_id`
 #   (underscores → hyphens).
 # - `{ns-action}` in binding is `{second-to-last}-{last}` segments of the
-#   NSID (e.g. `app.etzhayyim.apps.bot.ping` → `bot-ping`).
+#   NSID (e.g. `com.etzhayyim.apps.bot.ping` → `bot-ping`).
 #
 # Any other vertex_id shape in these two tables is `--strict` drift.
 CANONICAL_DEF_VID_RE = re.compile(
@@ -340,7 +340,7 @@ def print_report(d: dict[str, Any], only_drift: bool = False, strict: bool = Fal
         nc_bind = d["noncanonical_binds"]
         if nc_def or nc_bind:
             print(f"[F6 non-canonical vertex_ids ({len(nc_def) + len(nc_bind)})] — canonical form is")
-            print(f"     at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.{{processDef|binding}}/{{slug}}-v{{N}}")
+            print(f"     at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.{{processDef|binding}}/{{slug}}-v{{N}}")
             for d_ in nc_def:
                 print(f"  def   {d_['vertex_id']}")
             for b_ in nc_bind:

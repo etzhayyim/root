@@ -1,0 +1,61 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yamabiko.tractionElectricalAttestation",
+  "description": "Traction + electrical attestation (L4). Pantograph + inverter + ATP/ATO firmware. G1 + N5 enforcement: firmware Apache 2.0 + Charter Rider, no proprietary NDA. G7 propulsion guard. Per ADR-2605252600 L4.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "trainsetId": {"type": "string"},
+          "propulsionType": {
+            "type": "string",
+            "knownValues": [
+              "overhead-25kV-AC",
+              "overhead-1500V-DC",
+              "third-rail-750V-DC",
+              "BEMU-LFP",
+              "H2-fuel-cell-hybrid",
+              "NH3-fuel-cell-hybrid"
+            ],
+            "description": "G7: diesel locomotive prohibited at R2+ gate (N4). R0/R1 BEMU + H₂ acceptable as transition."
+          },
+          "propulsionGuard": {
+            "type": "object",
+            "properties": {
+              "g7Enforcement": {"type": "string", "const": "active"},
+              "accept": {"type": "boolean"}
+            },
+            "required": ["g7Enforcement", "accept"]
+          },
+          "pantograph": {"type": "unknown"},
+          "inverter": {"type": "unknown"},
+          "atpAtoFirmware": {
+            "type": "object",
+            "properties": {
+              "atpStandard": {"type": "string", "knownValues": ["ETCS-Level-1", "ETCS-Level-2", "ETCS-Level-3", "CBTC", "Digital-ATC", "PTC"]},
+              "atoLevel": {"type": "string", "knownValues": ["GoA-1", "GoA-2", "GoA-3"]},
+              "atoMaxLevel": {"type": "integer", "maximum": 3, "description": "G12: GoA 4 = N7 constitutional non-goal Wave 1"},
+              "firmwareCid": {"type": "string"},
+              "firmwareLicense": {"type": "string", "description": "G1 + N5: must include 'Apache 2.0' and 'Charter Compliance Rider'"}
+            },
+            "required": ["firmwareCid", "firmwareLicense", "atoMaxLevel"]
+          },
+          "openSourceVerification": {
+            "type": "object",
+            "properties": {
+              "g1Enforcement": {"type": "string", "const": "active"},
+              "n5Enforcement": {"type": "string", "const": "active"},
+              "proprietaryNdaPresent": {"type": "boolean", "const": false},
+              "accept": {"type": "boolean"}
+            },
+            "required": ["g1Enforcement", "n5Enforcement", "accept"]
+          },
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["trainsetId", "propulsionType", "atpAtoFirmware", "openSourceVerification"]
+      }
+    }
+  }
+}

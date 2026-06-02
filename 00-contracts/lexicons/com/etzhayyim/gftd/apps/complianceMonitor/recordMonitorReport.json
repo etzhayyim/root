@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.complianceMonitor.recordMonitorReport",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DOJ / SEC / OFAC independent compliance monitor report (bridges enforcementAction.flagCorporateResolution + fcpa + sanctions-screening)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "monitorKind",
+            "submittedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "companyLei": {
+              "type": "string"
+            },
+            "resolutionVid": {
+              "type": "string",
+              "description": "bridges enforcementAction.flagCorporateResolution"
+            },
+            "monitorKind": {
+              "type": "string",
+              "enum": [
+                "doj_independent",
+                "sec_consultant",
+                "ofac_compliance",
+                "fca_uk_skilled_person",
+                "cfius_mitigation",
+                "ftc_privacy_monitor",
+                "corporate_integrity_agreement",
+                "deferred_prosecution"
+              ]
+            },
+            "reportRound": {
+              "type": "integer"
+            },
+            "findingsCount": {
+              "type": "integer"
+            },
+            "submittedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

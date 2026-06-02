@@ -45,10 +45,10 @@ export class OrganismPostDrainer {
 
     if (record.lexicon === "app.bsky.feed.post") {
       await this.dispatchPost(record);
-    } else if (record.lexicon === "app.etzhayyim.organism.message") {
+    } else if (record.lexicon === "com.etzhayyim.organism.message") {
       const encrypted = await this.encryptMessage(record);
       await this.dispatchMessage(encrypted);
-    } else if (record.lexicon === "app.etzhayyim.organism.lifecycle") {
+    } else if (record.lexicon === "com.etzhayyim.organism.lifecycle") {
       await this.dispatchLifecycle(record);
     } else {
       console.warn(`Unknown lexicon: ${record.lexicon}`);
@@ -89,7 +89,7 @@ export class OrganismPostDrainer {
     console.log(`[Drainer] Dispatching message from ${record.actorDid} to ${record.recipientDid}`);
     const sdk = new Etzhayyim({ did: record.actorDid, pdsUrl: this.pdsUrl });
     await (sdk as any).write({
-      collection: "app.etzhayyim.organism.message",
+      collection: "com.etzhayyim.organism.message",
       record: {
         recipientDid: record.recipientDid,
         senderDid: record.actorDid,
@@ -103,7 +103,7 @@ export class OrganismPostDrainer {
     console.log(`[Drainer] Dispatching lifecycle event for ${record.actorDid}`);
     const sdk = new Etzhayyim({ did: record.actorDid, pdsUrl: this.pdsUrl });
     await (sdk as any).write({
-      collection: "app.etzhayyim.organism.lifecycle",
+      collection: "com.etzhayyim.organism.lifecycle",
       record: {
         ...record.event,
         createdAt: record.createdAt,

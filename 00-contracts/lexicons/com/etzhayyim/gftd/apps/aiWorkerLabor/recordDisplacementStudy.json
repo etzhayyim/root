@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aiWorkerLabor.recordDisplacementStudy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AI-driven workforce displacement study (ILO / OECD / MIT / BLS — bridges gig-worker + just-transition + ai-governance + credential-portability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "studyId",
+            "publishedAt"
+          ],
+          "properties": {
+            "studyId": {
+              "type": "string"
+            },
+            "publisherLei": {
+              "type": "string"
+            },
+            "regionIso3": {
+              "type": "string"
+            },
+            "occupationIsco": {
+              "type": "string"
+            },
+            "exposureIndex": {
+              "type": "number",
+              "description": "0-1 generative AI exposure"
+            },
+            "automationRiskPct": {
+              "type": "number"
+            },
+            "augmentationRiskPct": {
+              "type": "number"
+            },
+            "jobsImpactedCount": {
+              "type": "integer"
+            },
+            "timeHorizonYears": {
+              "type": "integer"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "impactTier": {
+              "type": "string",
+              "enum": [
+                "limited",
+                "moderate",
+                "high_exposure"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

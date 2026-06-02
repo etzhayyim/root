@@ -140,7 +140,7 @@ impl Guest for LegalCommsGuest {
                 kqe::assert_quad(&Quad {
                     graph: ctx.graph.clone(),
                     subject: format!("legalAct/{}", args.payload_cid),
-                    predicate: "app.etzhayyim.legal/outboundLegalAct".to_string(),
+                    predicate: "com.etzhayyim.legal/outboundLegalAct".to_string(),
                     object_cbor: rec_cbor.clone(),
                 })
                 .map_err(|e| format!("assert-quad: {e}"))?;

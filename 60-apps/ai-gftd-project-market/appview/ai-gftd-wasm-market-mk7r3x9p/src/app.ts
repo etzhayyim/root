@@ -11,11 +11,11 @@ const PRIMARY_DID = "did:web:market.etzhayyim.com";
 const NANOID = "mk7r3x9p";
 const VALID_LANES = ["vault", "sashiosae", "lawfirm", "bpmn", "murakumo"] as const;
 const MARKET_NSIDS = new Set([
-  "app.etzhayyim.market.listOffer",
-  "app.etzhayyim.market.publishOffer",
-  "app.etzhayyim.market.quotePrice",
-  "app.etzhayyim.market.settleInvoice",
-  "app.etzhayyim.market.observeDemand",
+  "com.etzhayyim.market.listOffer",
+  "com.etzhayyim.market.publishOffer",
+  "com.etzhayyim.market.quotePrice",
+  "com.etzhayyim.market.settleInvoice",
+  "com.etzhayyim.market.observeDemand",
 ]);
 
 function json(body: unknown, init: ResponseInit = {}): Response {
@@ -125,7 +125,7 @@ export default {
       });
     }
     if (url.pathname === "/.well-known/atproto-market.json") {
-      return dispatch(env, "app.etzhayyim.market.wellKnownMarket", {}, request);
+      return dispatch(env, "com.etzhayyim.market.wellKnownMarket", {}, request);
     }
     if (url.pathname.startsWith("/xrpc/")) {
       const nsid = url.pathname.slice("/xrpc/".length);

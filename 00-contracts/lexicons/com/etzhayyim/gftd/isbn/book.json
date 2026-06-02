@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.isbn.book",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ISO 2108 ISBN book record. Primary key = isbn13.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["isbn13", "title", "collectedAt"],
+        "properties": {
+          "isbn13": {"type": "string", "description": "ISBN-13 with no hyphens"},
+          "isbn10": {"type": "string"},
+          "title": {"type": "string", "maxLength": 1000},
+          "subtitle": {"type": "string", "maxLength": 1000},
+          "authors": {"type": "array", "items": {"type": "string"}},
+          "publisherPrefix": {"type": "string"},
+          "publicationYear": {"type": "integer"},
+          "language": {"type": "string", "description": "ISO 639-1 / 639-3"},
+          "registrationGroup": {"type": "string", "description": "ISBN registration group (0=eng, 4=jpn, etc.)"},
+          "pageCount": {"type": "integer"},
+          "bisacSubjects": {"type": "array", "items": {"type": "string"}},
+          "source": {"type": "string", "description": "openlibrary | aozora | gutenberg | ndl | hathitrust | europeana"},
+          "sourceUrl": {"type": "string", "format": "uri"},
+          "collectedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

@@ -35,7 +35,7 @@ Pregel graph (5 nodes):
                                         EoL routing
         |
         v
-    emit_vehicle_manufacture_record -> MST PUT app.etzhayyim.suki.vehicleManufactureRecord
+    emit_vehicle_manufacture_record -> MST PUT com.etzhayyim.suki.vehicleManufactureRecord
                                         (terminal record — sarutahiko binder
                                         parity)
                                         (vehicle DID, open VIN, full BoM

@@ -1,6 +1,6 @@
 {
   "@context": "https://magatama.etzhayyim.com/v1",
-  "@id": "ai.gftd.apps.kgCurator",
+  "@id": "com.etzhayyim.apps.kgCurator",
   "@type": "MagatamaApp",
   "nanoid": "kg7r4t0r",
   "displayName": "Knowledge Graph Curator",
@@ -10,7 +10,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/kg_curator.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/kgCurator"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kgCurator"
   },
   "performerType": "service",
   "runtimeType": "worker",
@@ -34,11 +34,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kgCurator.expansionRequest"
+        "com.etzhayyim.apps.kgCurator.expansionRequest"
       ]
     },
     "cron": [
-      { "schedule": "17 3 * * *", "method": "ai.gftd.apps.kgCurator.analyzeCoverage" }
+      { "schedule": "17 3 * * *", "method": "com.etzhayyim.apps.kgCurator.analyzeCoverage" }
     ]
   },
   "space": {

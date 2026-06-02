@@ -1,6 +1,6 @@
 """animeka `getCut` graph — fetch cut + full layer tree.
 
-NSID: app.etzhayyim.animeka.getCut
+NSID: com.etzhayyim.animeka.getCut
 """
 import logging
 import os
@@ -18,27 +18,27 @@ _RW_URL = os.environ.get("RW_URL") or os.environ.get("LG_CHECKPOINTER_URL", "")
 _DEFAULT_APP_DID = os.environ.get("ANIMEKA_APP_DID", "did:web:animeka.etzhayyim.com")
 
 _CHILD_COLLECTIONS = [
-    "app.etzhayyim.animeka.storyboard",
-    "app.etzhayyim.animeka.layout",
-    "app.etzhayyim.animeka.keyframe",
-    "app.etzhayyim.animeka.inbetween",
-    "app.etzhayyim.animeka.colorTrace",
-    "app.etzhayyim.animeka.background",
-    "app.etzhayyim.animeka.composite",
-    "app.etzhayyim.animeka.soundCue",
-    "app.etzhayyim.animeka.retake",
+    "com.etzhayyim.animeka.storyboard",
+    "com.etzhayyim.animeka.layout",
+    "com.etzhayyim.animeka.keyframe",
+    "com.etzhayyim.animeka.inbetween",
+    "com.etzhayyim.animeka.colorTrace",
+    "com.etzhayyim.animeka.background",
+    "com.etzhayyim.animeka.composite",
+    "com.etzhayyim.animeka.soundCue",
+    "com.etzhayyim.animeka.retake",
 ]
 
 _COLL_TO_KEY = {
-    "app.etzhayyim.animeka.storyboard":  "storyboards",
-    "app.etzhayyim.animeka.layout":      "layouts",
-    "app.etzhayyim.animeka.keyframe":    "keyframes",
-    "app.etzhayyim.animeka.inbetween":   "inbetweens",
-    "app.etzhayyim.animeka.colorTrace":  "colorTraces",
-    "app.etzhayyim.animeka.background":  "backgrounds",
-    "app.etzhayyim.animeka.composite":   "composites",
-    "app.etzhayyim.animeka.soundCue":    "soundCues",
-    "app.etzhayyim.animeka.retake":      "retakes",
+    "com.etzhayyim.animeka.storyboard":  "storyboards",
+    "com.etzhayyim.animeka.layout":      "layouts",
+    "com.etzhayyim.animeka.keyframe":    "keyframes",
+    "com.etzhayyim.animeka.inbetween":   "inbetweens",
+    "com.etzhayyim.animeka.colorTrace":  "colorTraces",
+    "com.etzhayyim.animeka.background":  "backgrounds",
+    "com.etzhayyim.animeka.composite":   "composites",
+    "com.etzhayyim.animeka.soundCue":    "soundCues",
+    "com.etzhayyim.animeka.retake":      "retakes",
 }
 
 
@@ -87,7 +87,7 @@ async def _node_query(state: _GetCutState) -> dict[str, Any]:
                        stage_status, assignees, priority, status,
                        episode_id, scene_id, created_at
                 FROM vertex_animeka
-                WHERE collection = 'app.etzhayyim.animeka.cut'
+                WHERE collection = 'com.etzhayyim.animeka.cut'
                   AND rkey = %s
                 LIMIT 1
                 """,

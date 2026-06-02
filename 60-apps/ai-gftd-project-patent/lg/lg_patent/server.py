@@ -7,7 +7,7 @@ HTTP surface:
   GET  /threads/{tid}/state → fetch latest checkpoint
   GET  /ok / /health      → liveness / readiness
 
-NSID namespace: app.etzhayyim.apps.patent.*
+NSID namespace: com.etzhayyim.apps.patent.*
 Auth: optional LG_API_KEY env enforces x-api-key on /runs.
 """
 
@@ -38,8 +38,8 @@ GRAPHS: dict[str, Any] = {
 }
 
 NSID_MAP: dict[str, str] = {
-    "app.etzhayyim.apps.patent.blobConvert":        "blob_convert",
-    "app.etzhayyim.apps.patent.ingestUsptoWeekly":  "ingest_uspto_weekly",
+    "com.etzhayyim.apps.patent.blobConvert":        "blob_convert",
+    "com.etzhayyim.apps.patent.ingestUsptoWeekly":  "ingest_uspto_weekly",
 }
 
 _API_KEY = os.environ.get("LG_API_KEY", "").strip()

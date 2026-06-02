@@ -1,0 +1,56 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.electricalAttestation",
+  "description": "CONSTITUTIONAL FIRST G8: Build-time anti-surveillance attestation (L3a). NEGATIVE AUDIT verifying ABSENCE of GPS / connected-app / telematics / V2X / paired-phone / cloud-ECU / proprietary diagnostic-DRM. Only permitted: passive odometer + safety ECU + optional user-installed-after-purchase open-source GPS module. Companion to hodoki dataWipeAttestation (EOL data destroy) — closes §2(c) anti-surveillance loop across full vehicle lifecycle. Per ADR-2605261330 L3a + G8 + G12.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "schematic": {"type": "unknown"},
+          "routing": {"type": "unknown"},
+          "ecuFlash": {
+            "type": "object",
+            "properties": {
+              "ecuPartNumber": {"type": "string"},
+              "firmwareCid": {"type": "string"},
+              "g1OpenSourceFirmware": {"type": "boolean", "const": true},
+              "firmwareSourceCid": {"type": "string"},
+              "diagnosticProtocol": {"type": "string", "knownValues": ["open-OBD-II-CAN", "open-J1939-CAN"]},
+              "g12OpenDiagnosticProtocol": {"type": "boolean", "const": true},
+              "antiDrmFlag": {"type": "boolean", "const": false}
+            }
+          },
+          "surveillanceAudit": {
+            "type": "object",
+            "properties": {
+              "gpsTrackerInstalled": {"type": "boolean", "const": false},
+              "cellularModemInstalled": {"type": "boolean", "const": false},
+              "wifiModuleInstalled": {"type": "boolean", "const": false},
+              "bluetoothModuleInstalled": {"type": "boolean", "const": false},
+              "alwaysOnTelematicsInstalled": {"type": "boolean", "const": false},
+              "v2xRadioInstalled": {"type": "boolean", "const": false},
+              "pairedPhoneIntegrationInstalled": {"type": "boolean", "const": false},
+              "cloudConnectedEcuInstalled": {"type": "boolean", "const": false},
+              "proprietaryDiagnosticDrmInstalled": {"type": "boolean", "const": false},
+              "g8AllAbsent": {"type": "boolean", "const": true},
+              "g8Compliant": {"type": "boolean", "const": true},
+              "permittedElectronicsListed": {"type": "array", "items": {"type": "string"}},
+              "auditMethod": {"type": "string"},
+              "auditIpfsCid": {"type": "string"}
+            },
+            "required": ["g8AllAbsent", "g8Compliant", "auditIpfsCid"]
+          },
+          "g8Compliant": {"type": "boolean", "const": true},
+          "g12OpenDiagnostic": {"type": "boolean", "const": true},
+          "g13RecycledCuCompliant": {"type": "boolean"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "ecuFlash", "surveillanceAudit", "g8Compliant", "g12OpenDiagnostic", "attestingRobots"]
+      }
+    }
+  }
+}

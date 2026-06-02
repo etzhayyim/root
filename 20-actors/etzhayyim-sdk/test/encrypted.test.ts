@@ -11,7 +11,7 @@
  *
  * The DID-binding verification path is exercised against a deterministic
  * Ed25519 keypair we control. The recipient identity resolver enumerates
- * `app.etzhayyim.encrypted.signalIdentity` from the recipient's fake-PDS
+ * `com.etzhayyim.encrypted.signalIdentity` from the recipient's fake-PDS
  * repo and returns the publishable bundle + the verification key.
  */
 
@@ -147,7 +147,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       },
       {
         record: plaintext,
-        innerType: "app.etzhayyim.governance.proposal",
+        innerType: "com.etzhayyim.governance.proposal",
         recipients: [BOB_DID],
       }
     );
@@ -167,7 +167,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
         selfDid: BOB_DID,
       },
       {
-        innerType: "app.etzhayyim.governance.proposal",
+        innerType: "com.etzhayyim.governance.proposal",
         fromSenders: [ALICE_DID],
       }
     );
@@ -198,7 +198,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
       },
       {
         record: plaintext,
-        innerType: "app.etzhayyim.governance.vote",
+        innerType: "com.etzhayyim.governance.vote",
         recipients: [ALICE_DID],
         wrapToSelf: false,
       }
@@ -212,7 +212,7 @@ describe("encrypted — full encryptedWrite → encryptedRead round-trip", () =>
         selfDid: ALICE_DID,
       },
       {
-        innerType: "app.etzhayyim.governance.vote",
+        innerType: "com.etzhayyim.governance.vote",
         fromSenders: [BOB_DID],
       }
     );

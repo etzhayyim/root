@@ -71,10 +71,10 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.tatekata.siteAttestation",
-    "app.etzhayyim.tatekata.materialAttestation",
-    "app.etzhayyim.tatekata.constructionProgressRecord",
-    "app.etzhayyim.tatekata.safetyIncidentReport"
+    "com.etzhayyim.tatekata.siteAttestation",
+    "com.etzhayyim.tatekata.materialAttestation",
+    "com.etzhayyim.tatekata.constructionProgressRecord",
+    "com.etzhayyim.tatekata.safetyIncidentReport"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605250700. Changes require Council Lv6+ supermajority + new ADR.",

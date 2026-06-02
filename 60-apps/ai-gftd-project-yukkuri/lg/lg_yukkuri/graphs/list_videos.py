@@ -1,6 +1,6 @@
 """yukkuri `listVideos` graph — read-only DB query.
 
-NSID: app.etzhayyim.apps.yukkuri.listVideos
+NSID: com.etzhayyim.apps.yukkuri.listVideos
 """
 
 from __future__ import annotations

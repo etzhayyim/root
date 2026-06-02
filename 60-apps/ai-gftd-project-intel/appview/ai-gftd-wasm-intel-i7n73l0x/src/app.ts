@@ -13,9 +13,9 @@ const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
 
 let appId = "";
-const COLLECTION = "app.etzhayyim.apps.intel.report";
-const INTEL_REPORT_COLLECTION = "app.etzhayyim.apps.intel.report";
-const INTEL_ENTITY_DID_COLLECTION = "app.etzhayyim.apps.intel.entityDid";
+const COLLECTION = "com.etzhayyim.apps.intel.report";
+const INTEL_REPORT_COLLECTION = "com.etzhayyim.apps.intel.report";
+const INTEL_ENTITY_DID_COLLECTION = "com.etzhayyim.apps.intel.entityDid";
 const VERTEX_INTEL_REPORT_TABLE = "vertex_intel_report";
 const VERTEX_INTEL_ENTITY_DID_TABLE = "vertex_intel_entity_did";
 const VERTEX_INTEL_INFERENCE_CHAIN_TABLE = "vertex_intel_inference_chain";
@@ -139,9 +139,9 @@ function toIntelRow(collection: string, rec: Record<string, unknown>): Record<st
   const rkey = intelRecordId(collection, rec);
   const ownerDid = "did:web:intel.etzhayyim.com";
   const row: Record<string, unknown> = {
-    vertex_id: str(rec.vertex_id ?? `at://${ownerDid}/app.etzhayyim.apps.intel.${collection}/${rkey}`),
+    vertex_id: str(rec.vertex_id ?? `at://${ownerDid}/com.etzhayyim.apps.intel.${collection}/${rkey}`),
     rkey,
-    collection: `app.etzhayyim.apps.intel.${collection}`,
+    collection: `com.etzhayyim.apps.intel.${collection}`,
     status: rec.status ?? "active",
     sensitivity_ord: 2,
     owner_did: ownerDid,
@@ -315,7 +315,7 @@ async function onPeerIntelCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeRe
 }
 
 function cmdSubmitAnalysis(sdk: HostSDK, payload: Uint8Array): unknown {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.submitAnalysis", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.submitAnalysis", payload);
   if (!req.title) return { error: "title required" };
   if (!req.sourceText) return { error: "sourceText required" };
   const analysisId = genID("intel");
@@ -331,7 +331,7 @@ function cmdSubmitAnalysis(sdk: HostSDK, payload: Uint8Array): unknown {
 }
 
 async function cmdGetAnalysis(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.getAnalysis", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.getAnalysis", payload);
   if (!req.id) return { error: "id required" };
   const db = createKyselyDb();
   const rows = await db.selectFrom(VERTEX_INTEL_REPORT_TABLE as any).selectAll()
@@ -345,7 +345,7 @@ async function cmdGetAnalysis(sdk: HostSDK, payload: Uint8Array): Promise<unknow
 }
 
 async function cmdListAnalyses(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.listAnalyses", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.listAnalyses", payload);
   const limit = Math.min(Math.max(req.limit ?? 50, 1), 100);
   const offset = req.offset ?? 0;
   const db = createKyselyDb();
@@ -358,7 +358,7 @@ async function cmdListAnalyses(sdk: HostSDK, payload: Uint8Array): Promise<unkno
 }
 
 async function cmdGetNeighbors(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.getNeighbors", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.getNeighbors", payload);
   if (!req.entityId) return { error: "entityId required" };
   // Edge-based traversal not expressible without dedicated intel schema.
   // Stub: return empty until vertex_intel + edge_involves tables exist.
@@ -366,7 +366,7 @@ async function cmdGetNeighbors(sdk: HostSDK, payload: Uint8Array): Promise<unkno
 }
 
 async function cmdSearchEntities(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.searchEntities", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.searchEntities", payload);
   if (!req.query) return { error: "query required" };
   const limit = Math.min(req.limit ?? 20, 50);
   const db = createKyselyDb();
@@ -461,7 +461,7 @@ function detectIndustry(text: string): string {
 }
 
 async function cmdInferCoverage(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.inferCoverage", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.inferCoverage", payload);
   if (!req.sourceText) return { error: "sourceText required" };
   const subjectName = req.subjectName ?? req.subjectDid ?? "unknown";
   const industry = req.industry ?? detectIndustry(req.sourceText);
@@ -526,7 +526,7 @@ async function cmdInferCoverage(sdk: HostSDK, payload: Uint8Array): Promise<unkn
 }
 
 async function cmdGetInferenceChain(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.getInferenceChain", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.getInferenceChain", payload);
   if (!req.chainId) return { error: "chainId required" };
   void sdk;
   const db = createKyselyDb();
@@ -551,7 +551,7 @@ async function cmdGetInferenceChain(sdk: HostSDK, payload: Uint8Array): Promise<
 }
 
 async function cmdListInferredCohorts(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.listInferredCohorts", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.listInferredCohorts", payload);
   const limit = Math.min(Math.max(req.limit ?? 50, 1), 100);
   const offset = req.offset ?? 0;
   void sdk;
@@ -563,7 +563,7 @@ async function cmdListInferredCohorts(sdk: HostSDK, payload: Uint8Array): Promis
 }
 
 async function cmdCorroborateChain(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.corroborateChain", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.corroborateChain", payload);
   if (!req.chainIdA || !req.chainIdB) return { error: "chainIdA and chainIdB required" };
 
   const db = createKyselyDb();
@@ -623,7 +623,7 @@ async function cmdCorroborateChain(sdk: HostSDK, payload: Uint8Array): Promise<u
 }
 
 async function cmdStabilizeCohort(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.stabilizeCohort", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.stabilizeCohort", payload);
   if (!req.cohortId) return { error: "cohortId required" };
   if (req.actualCount == null) return { error: "actualCount required" };
 
@@ -666,7 +666,7 @@ async function cmdStabilizeCohort(sdk: HostSDK, payload: Uint8Array): Promise<un
 }
 
 async function cmdGetCoverageProjection(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.apps.intel.getCoverageProjection", payload);
+  const req = parseLexiconInput("com.etzhayyim.apps.intel.getCoverageProjection", payload);
   void sdk;
   let query: any = createKyselyDb()
     .selectFrom(VERTEX_INTEL_INFERRED_COHORT_TABLE as any)
@@ -771,7 +771,7 @@ async function inferFromCompanyCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscr
 function onNaturalPersonCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCommit): void {
   const payload = decodeJson(commit.payload);
   if (!payload) return;
-  if (commit.collection === "app.etzhayyim.apps.naturalPerson.cohortPerson") {
+  if (commit.collection === "com.etzhayyim.apps.naturalPerson.cohortPerson") {
     const intelChainId = str(payload.intelChainId ?? "");
     if (!intelChainId) return;
     const estimatedCount = Number(payload.intelEstimatedCount ?? 0);
@@ -784,7 +784,7 @@ function onNaturalPersonCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeRepo
       'createdAt': nowISO(), 'orgId': "anon", 'userId': "anon", 'actorId': appId,
     });
   }
-  if (commit.collection === "app.etzhayyim.apps.naturalPerson.identifiedPerson") {
+  if (commit.collection === "com.etzhayyim.apps.naturalPerson.identifiedPerson") {
     const name = str(payload.name ?? "");
     const org = str(payload.organization ?? "");
     if (!name) return;
@@ -795,41 +795,41 @@ function onNaturalPersonCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeRepo
 export function handleComAtprotoSyncSubscribeReposCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeReposCommit): { ok: true; detail: string } {
   if (commit.action !== "create") return { ok: true, detail: "ignored" };
 
-  if (commit.collection.startsWith("app.etzhayyim.apps.handotai.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.handotai.")) {
     try { onPeerIntelCommit(sdk, commit, "handotai", "semiconductor"); } catch (e: any) { console.warn(`handotai error: ${e?.message ?? e}`); }
-    if (commit.collection === "app.etzhayyim.apps.handotai.company") {
+    if (commit.collection === "com.etzhayyim.apps.handotai.company") {
       try { inferFromCompanyCommit(sdk, commit, "handotai", "semiconductor"); } catch (e: any) { console.warn(`handotai inference error: ${e?.message ?? e}`); }
     }
     return { ok: true, detail: "processedHandotai" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.kuruma.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.kuruma.")) {
     try { onPeerIntelCommit(sdk, commit, "kuruma", "automotive"); } catch (e: any) { console.warn(`kuruma error: ${e?.message ?? e}`); }
-    if (commit.collection === "app.etzhayyim.apps.kuruma.company") {
+    if (commit.collection === "com.etzhayyim.apps.kuruma.company") {
       try { inferFromCompanyCommit(sdk, commit, "kuruma", "automotive"); } catch (e: any) { console.warn(`kuruma inference error: ${e?.message ?? e}`); }
     }
     return { ok: true, detail: "processedKuruma" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.malak.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.malak.")) {
     try { onPeerIntelCommit(sdk, commit, "malak", "cybercrime"); } catch (e: any) { console.warn(`malak error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedMalak" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.yabai.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.yabai.")) {
     try { onPeerIntelCommit(sdk, commit, "yabai", "risk-intelligence"); } catch (e: any) { console.warn(`yabai error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedYabai" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.ctUmonitor.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.ctUmonitor.")) {
     try { onPeerIntelCommit(sdk, commit, "ct-monitor", "infrastructure-security"); } catch (e: any) { console.warn(`ctMonitor error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedCtMonitor" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.ipaddress.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.ipaddress.")) {
     try { onPeerIntelCommit(sdk, commit, "ipaddress", "network-intelligence"); } catch (e: any) { console.warn(`ipaddress error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedIpaddress" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.naturalPerson.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.naturalPerson.")) {
     try { onNaturalPersonCommit(sdk, commit); } catch (e: any) { console.warn(`naturalPerson error: ${e?.message ?? e}`); }
     return { ok: true, detail: "processedNaturalPerson" };
   }
-  if (commit.collection.startsWith("app.etzhayyim.apps.intel.")) {
+  if (commit.collection.startsWith("com.etzhayyim.apps.intel.")) {
     return { ok: true, detail: "processedInternal" };
   }
 
@@ -955,22 +955,22 @@ async function cmdIngest(_sdk: HostSDK, p: Uint8Array): Promise<unknown> {
 export default createWorkerExport((sdk) => {
   appId = sdk.pds.selfNanoid ?? "";
   sdk.app
-      .command(nsid("app.etzhayyim.apps.intel.submitAnalysis"), (_, body) => cmdSubmitAnalysis(sdk, body), asAgentTool("Submit source text for LLM analysis"), withCapabilityTags("analysis", "ingest"), withOCELEvent("governance.audit"))
-      .command(nsid("app.etzhayyim.apps.intel.getAnalysis"), (_, body) => cmdGetAnalysis(sdk, body), asAgentTool("Get analysis by ID"), withCapabilityTags("analysis", "query"))
-      .command(nsid("app.etzhayyim.apps.intel.listAnalyses"), (_, body) => cmdListAnalyses(sdk, body), asAgentTool("List analyses with filters"), withCapabilityTags("analysis", "query"))
-      .command(nsid("app.etzhayyim.apps.intel.getNeighbors"), (_, body) => cmdGetNeighbors(sdk, body), asAgentTool("Get related analyses for entity"), withCapabilityTags("entity", "graph"))
-      .command(nsid("app.etzhayyim.apps.intel.searchEntities"), (_, body) => cmdSearchEntities(sdk, body), asAgentTool("Search extracted entities"), withCapabilityTags("entity", "search"))
-      .command(nsid("app.etzhayyim.apps.intel.getDashboard"), (_, body) => cmdGetDashboard(sdk, body), asAgentTool("Get intel dashboard metrics"), withCapabilityTags("analytics", "query"))
-      .command(nsid("app.etzhayyim.apps.intel.inferCoverage"), (_, body) => cmdInferCoverage(sdk, body), asAgentTool("Generate inference chain for coverage from source data"), withCapabilityTags("inference", "coverage"))
-      .command(nsid("app.etzhayyim.apps.intel.getInferenceChain"), (_, body) => cmdGetInferenceChain(sdk, body), asAgentTool("Get inference chain with cohorts"), withCapabilityTags("inference", "query"))
-      .command(nsid("app.etzhayyim.apps.intel.listInferredCohorts"), (_, body) => cmdListInferredCohorts(sdk, body), asAgentTool("List inferred cohorts by domain/status"), withCapabilityTags("inference", "query"))
-      .command(nsid("app.etzhayyim.apps.intel.corroborateChain"), (_, body) => cmdCorroborateChain(sdk, body), asAgentTool("Cross-validate two inference chains"), withCapabilityTags("inference", "corroboration"))
-      .command(nsid("app.etzhayyim.apps.intel.stabilizeCohort"), (_, body) => cmdStabilizeCohort(sdk, body), asAgentTool("Stabilize cohort with real data"), withCapabilityTags("inference", "stabilization"))
-      .command(nsid("app.etzhayyim.apps.intel.getCoverageProjection"), (_, body) => cmdGetCoverageProjection(sdk, body), asAgentTool("Get inferred coverage projection by domain"), withCapabilityTags("inference", "coverage"))
-      .command(nsid("app.etzhayyim.apps.intel.stats"), (_ctx, p) => cmdStats(sdk, p), asAgentTool("Get statistics"), withCapabilityTags("intel", "analytics"))
-      .command(nsid("app.etzhayyim.apps.intel.exportData"), (_ctx, p) => cmdExportData(sdk, p), asAgentTool("Export data"), withCapabilityTags("intel", "export"))
-      .command(nsid("app.etzhayyim.apps.intel.describe"), (_ctx, p) => cmdDescribe(sdk, p), asAgentTool("Describe capabilities"), withCapabilityTags("intel", "meta"))
-      .command(nsid("app.etzhayyim.apps.intel.summarize"), (_ctx, p) => cmdSummarize(sdk, p), asAgentTool("AI summary"), withCapabilityTags("intel", "ai"))
-      .command(nsid("app.etzhayyim.apps.intel.audit"), (_ctx, p) => cmdAudit(sdk, p), asAgentTool("Audit log"), withCapabilityTags("intel", "audit"))
-      .command(nsid("app.etzhayyim.apps.intel.ingest"), (_ctx, p) => cmdIngest(sdk, p), asAgentTool("Trigger ingestion"), withCapabilityTags("intel", "pipeline"))
+      .command(nsid("com.etzhayyim.apps.intel.submitAnalysis"), (_, body) => cmdSubmitAnalysis(sdk, body), asAgentTool("Submit source text for LLM analysis"), withCapabilityTags("analysis", "ingest"), withOCELEvent("governance.audit"))
+      .command(nsid("com.etzhayyim.apps.intel.getAnalysis"), (_, body) => cmdGetAnalysis(sdk, body), asAgentTool("Get analysis by ID"), withCapabilityTags("analysis", "query"))
+      .command(nsid("com.etzhayyim.apps.intel.listAnalyses"), (_, body) => cmdListAnalyses(sdk, body), asAgentTool("List analyses with filters"), withCapabilityTags("analysis", "query"))
+      .command(nsid("com.etzhayyim.apps.intel.getNeighbors"), (_, body) => cmdGetNeighbors(sdk, body), asAgentTool("Get related analyses for entity"), withCapabilityTags("entity", "graph"))
+      .command(nsid("com.etzhayyim.apps.intel.searchEntities"), (_, body) => cmdSearchEntities(sdk, body), asAgentTool("Search extracted entities"), withCapabilityTags("entity", "search"))
+      .command(nsid("com.etzhayyim.apps.intel.getDashboard"), (_, body) => cmdGetDashboard(sdk, body), asAgentTool("Get intel dashboard metrics"), withCapabilityTags("analytics", "query"))
+      .command(nsid("com.etzhayyim.apps.intel.inferCoverage"), (_, body) => cmdInferCoverage(sdk, body), asAgentTool("Generate inference chain for coverage from source data"), withCapabilityTags("inference", "coverage"))
+      .command(nsid("com.etzhayyim.apps.intel.getInferenceChain"), (_, body) => cmdGetInferenceChain(sdk, body), asAgentTool("Get inference chain with cohorts"), withCapabilityTags("inference", "query"))
+      .command(nsid("com.etzhayyim.apps.intel.listInferredCohorts"), (_, body) => cmdListInferredCohorts(sdk, body), asAgentTool("List inferred cohorts by domain/status"), withCapabilityTags("inference", "query"))
+      .command(nsid("com.etzhayyim.apps.intel.corroborateChain"), (_, body) => cmdCorroborateChain(sdk, body), asAgentTool("Cross-validate two inference chains"), withCapabilityTags("inference", "corroboration"))
+      .command(nsid("com.etzhayyim.apps.intel.stabilizeCohort"), (_, body) => cmdStabilizeCohort(sdk, body), asAgentTool("Stabilize cohort with real data"), withCapabilityTags("inference", "stabilization"))
+      .command(nsid("com.etzhayyim.apps.intel.getCoverageProjection"), (_, body) => cmdGetCoverageProjection(sdk, body), asAgentTool("Get inferred coverage projection by domain"), withCapabilityTags("inference", "coverage"))
+      .command(nsid("com.etzhayyim.apps.intel.stats"), (_ctx, p) => cmdStats(sdk, p), asAgentTool("Get statistics"), withCapabilityTags("intel", "analytics"))
+      .command(nsid("com.etzhayyim.apps.intel.exportData"), (_ctx, p) => cmdExportData(sdk, p), asAgentTool("Export data"), withCapabilityTags("intel", "export"))
+      .command(nsid("com.etzhayyim.apps.intel.describe"), (_ctx, p) => cmdDescribe(sdk, p), asAgentTool("Describe capabilities"), withCapabilityTags("intel", "meta"))
+      .command(nsid("com.etzhayyim.apps.intel.summarize"), (_ctx, p) => cmdSummarize(sdk, p), asAgentTool("AI summary"), withCapabilityTags("intel", "ai"))
+      .command(nsid("com.etzhayyim.apps.intel.audit"), (_ctx, p) => cmdAudit(sdk, p), asAgentTool("Audit log"), withCapabilityTags("intel", "audit"))
+      .command(nsid("com.etzhayyim.apps.intel.ingest"), (_ctx, p) => cmdIngest(sdk, p), asAgentTool("Trigger ingestion"), withCapabilityTags("intel", "pipeline"))
 });

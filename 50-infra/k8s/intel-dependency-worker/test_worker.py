@@ -453,7 +453,7 @@ class IntelWorkerIntegrationTest(unittest.TestCase):
                 self.inserted.append(row)
 
         gleif_row = {
-            "vertex_id": "at://did:web:open-lei.etzhayyim.com/app.etzhayyim.apps.openLei.entity/HWUPKR0MPOU8FGXBT394",
+            "vertex_id": "at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/HWUPKR0MPOU8FGXBT394",
             "lei": "HWUPKR0MPOU8FGXBT394",
             "legal_name": "Apple Inc.",
             "country": "US",

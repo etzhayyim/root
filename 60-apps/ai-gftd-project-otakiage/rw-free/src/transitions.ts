@@ -37,9 +37,9 @@ import {
   type RitualRequestRecord,
 } from "./types.js";
 
-const ITEM_COLLECTION = "app.etzhayyim.otakiage.item";
-const REUSE_REQUEST_COLLECTION = "app.etzhayyim.otakiage.reuseRequest";
-const RITUAL_REQUEST_COLLECTION = "app.etzhayyim.otakiage.ritualRequest";
+const ITEM_COLLECTION = "com.etzhayyim.otakiage.item";
+const REUSE_REQUEST_COLLECTION = "com.etzhayyim.otakiage.reuseRequest";
+const RITUAL_REQUEST_COLLECTION = "com.etzhayyim.otakiage.ritualRequest";
 
 function reuseRequestRkey(itemId: string, requesterDid: string): string {
   return `reuse-${idSlug(itemId)}-${idSlug(requesterDid)}`;

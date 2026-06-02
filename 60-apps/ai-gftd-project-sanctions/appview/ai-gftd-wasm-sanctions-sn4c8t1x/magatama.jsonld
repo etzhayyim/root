@@ -92,16 +92,16 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.sanctions.entry",
-        "ai.gftd.apps.sanctions.match",
-        "ai.gftd.apps.sanctions.screeningRequest",
-        "ai.gftd.apps.sanctions.listUpdate",
-        "ai.gftd.apps.sanctions.complianceReport",
-        "ai.gftd.apps.malak.threatActor",
-        "ai.gftd.apps.malak.threatOrganization",
-        "ai.gftd.apps.sanctions.dailyEvolution",
-        "ai.gftd.apps.sanctions.engagement",
-        "ai.gftd.apps.sanctions.newFollower"
+        "com.etzhayyim.apps.sanctions.entry",
+        "com.etzhayyim.apps.sanctions.match",
+        "com.etzhayyim.apps.sanctions.screeningRequest",
+        "com.etzhayyim.apps.sanctions.listUpdate",
+        "com.etzhayyim.apps.sanctions.complianceReport",
+        "com.etzhayyim.apps.malak.threatActor",
+        "com.etzhayyim.apps.malak.threatOrganization",
+        "com.etzhayyim.apps.sanctions.dailyEvolution",
+        "com.etzhayyim.apps.sanctions.engagement",
+        "com.etzhayyim.apps.sanctions.newFollower"
       ]
     }
   },

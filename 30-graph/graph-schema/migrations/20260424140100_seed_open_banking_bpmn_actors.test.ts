@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-banking/createAccount.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-banking/createAccount.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-banking/transfer.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-banking/transfer.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-banking BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-banking-create-account-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_banking_create_account"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-banking/createAccount.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-banking/createAccount.bpmn"');
     expect(migrationSource).toContain("open-banking-transfer-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_banking_transfer"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-banking/transfer.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-banking/transfer.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openBanking.createAccount"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openBanking.transfer"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openBanking.createAccount"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openBanking.transfer"');
   });
 
   it("uses open-banking-specific actor_id + owner_did", () => {

@@ -142,7 +142,7 @@ curl -X POST <span class="s">https://yatabase.etzhayyim.com/cypher</span> \\
   <thead><tr><th>Token</th><th>Mints via</th><th>Use</th></tr></thead>
   <tbody>
     <tr><td><code>Bearer sk_live_yata_*</code></td><td>POST <code>/auth/v1/signup</code></td><td>Default. Per-tenant scope.</td></tr>
-    <tr><td><code>Bearer sk_live_*</code></td><td><code>app.etzhayyim.auth.createApiKey</code></td><td>Cross-product key.</td></tr>
+    <tr><td><code>Bearer sk_live_*</code></td><td><code>com.etzhayyim.auth.createApiKey</code></td><td>Cross-product key.</td></tr>
     <tr><td>AT Protocol JWT</td><td><code>com.atproto.server.getSession</code></td><td>For atproto-native clients.</td></tr>
   </tbody>
 </table>
@@ -222,8 +222,8 @@ curl -X POST <span class="s">https://yatabase.etzhayyim.com/mcp</span> \\
 <p>Discovery doc: <a href="/.well-known/mcp.json">/.well-known/mcp.json</a>.</p>
 
 <h2 id="xrpc">XRPC pass-through</h2>
-<p>Native AT Protocol XRPC for <code>app.etzhayyim.apps.yata.*</code> and <code>app.etzhayyim.apps.billing.*</code>.</p>
-<pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/xrpc/app.etzhayyim.apps.yata.runCypher</span> \\
+<p>Native AT Protocol XRPC for <code>com.etzhayyim.apps.yata.*</code> and <code>com.etzhayyim.apps.billing.*</code>.</p>
+<pre>curl -X POST <span class="s">https://yatabase.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.runCypher</span> \\
   -H <span class="s">"authorization: Bearer $KEY"</span> \\
   -H <span class="s">'content-type: application/json'</span> \\
   -d '{"<span class="k">query</span>":"MATCH (n:Demo) RETURN n LIMIT 10"}'</pre>

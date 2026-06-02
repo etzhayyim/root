@@ -29,11 +29,11 @@ interface BpmnSeed {
 
 const seeds: BpmnSeed[] = [
   {
-    processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/graph-expand-tick-v1",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/graph-expandTick-v1",
+    processVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/graph-expand-tick-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/graph-expandTick-v1",
     processId: "graph_expand_tick",
-    nsid: "app.etzhayyim.apps.graph.expandTick",
-    sourcePath: "00-contracts/bpmn/ai/gftd/graph/expandTick.bpmn",
+    nsid: "com.etzhayyim.apps.graph.expandTick",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/graph/expandTick.bpmn",
     resultTimeoutMs: 60_000,
     writeTableAllowlist: "vertex_graph_expand_proposal",
   },

@@ -18,7 +18,7 @@
     "APP_DISPLAY_NAME": "etzhayyim Drive",
     "APP_EMBED_URL": "https://dr1v3st0.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "dr1v3st0",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview"

@@ -11,11 +11,11 @@
   onMount(() => {
     const parts = ($page.params.rest ?? "").split("/");
     const [authority, collection, rkey] = [parts[0], parts[1], parts.slice(2).join("/")];
-    if (collection === "app.etzhayyim.apps.lawfirm.matter" && authority && rkey) {
+    if (collection === "com.etzhayyim.apps.lawfirm.matter" && authority && rkey) {
       goto(`/m/${rkey}?firm=${encodeURIComponent(authority)}`, { replaceState: true });
       return;
     }
-    if (collection === "app.etzhayyim.apps.lawfirm.legalDocument" && authority && rkey) {
+    if (collection === "com.etzhayyim.apps.lawfirm.legalDocument" && authority && rkey) {
       // Documents nest under matter; rkey is the doc hash, parent matter needs resolution.
       goto(`/?firm=${encodeURIComponent(authority)}&doc=${encodeURIComponent(rkey)}`, { replaceState: true });
       return;

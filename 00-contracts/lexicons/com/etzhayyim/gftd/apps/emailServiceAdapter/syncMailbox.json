@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.emailServiceAdapter.syncMailbox",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Sync a user's mailbox (Outlook/Gmail/Fastmail) via OAuth. Records messages as AT records with PII Tier 3 protection.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["provider", "userDid"],
+          "properties": {
+            "provider": { "type": "string", "enum": ["outlook", "gmail", "fastmail", "icloud", "yahoo", "imap-generic"] },
+            "userDid": { "type": "string", "format": "did" },
+            "folder": { "type": "string", "default": "INBOX" },
+            "since": { "type": "string", "format": "datetime", "description": "incremental sync watermark" },
+            "maxMessages": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 },
+            "labelFilter": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["messagesIngested", "lastSyncAt"],
+          "properties": {
+            "messagesIngested": { "type": "integer" },
+            "lastSyncAt": { "type": "string", "format": "datetime" },
+            "watermark": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

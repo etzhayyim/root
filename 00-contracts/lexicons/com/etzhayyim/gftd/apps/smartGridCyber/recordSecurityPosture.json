@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.smartGridCyber.recordSecurityPosture",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Smart grid security posture (NERC CIP / ENISA / EN IEC 62443 — bridges cyber-resilience-stress + power-grid-interconnect + digital-twin-city + quantum-safe-crypto)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "postureId",
+            "jurisdictionIso3",
+            "framework",
+            "audiencedAt"
+          ],
+          "properties": {
+            "postureId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "framework": {
+              "type": "string",
+              "enum": [
+                "nerc_cip",
+                "enisa_nis2_energy",
+                "iec_62443",
+                "iec_62351",
+                "ieee_1686",
+                "german_it_sig",
+                "jp_cip"
+              ]
+            },
+            "assetCategory": {
+              "type": "string",
+              "enum": [
+                "transmission",
+                "distribution",
+                "generation",
+                "scada",
+                "ami",
+                "der_aggregator",
+                "ev_chargers"
+              ]
+            },
+            "maturityLevel": {
+              "type": "integer",
+              "description": "1-5"
+            },
+            "audiencedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "maturityTier": {
+              "type": "string",
+              "enum": [
+                "reactive",
+                "managed",
+                "hardened"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -93,7 +93,7 @@ def execute_release(state):
 def anchor_release(state):
     # Original logic: if anchor_bridge is None:
     return {
-        "release_vertex_uri": f"at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.release/{state.get('release_id','')}",
+        "release_vertex_uri": f"at://did:web:yobel.etzhayyim.com/com.etzhayyim.apps.etzhayyim.yobel.release/{state.get('release_id','')}",
     }
 
 

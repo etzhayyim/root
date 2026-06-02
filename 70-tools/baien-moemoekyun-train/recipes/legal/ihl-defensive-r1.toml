@@ -20,7 +20,7 @@ per G7 of ADR-2605262700.
 
 [[source]]
 subdataset    = "law/treaties/geneva-conventions"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_GENEVA"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_GENEVA"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "ICRC-public"
@@ -28,7 +28,7 @@ weight        = 0.30
 
 [[source]]
 subdataset    = "law/treaties/un-treaty-collection"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UN_TREATY"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UN_TREATY"
 shard_glob    = "iccpr-*.ndjson"
 tier          = "A"
 license       = "public"
@@ -36,7 +36,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "law/cases/icj-icc"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_ICJ"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_ICJ"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public"
@@ -44,7 +44,7 @@ weight        = 0.20
 
 [[source]]
 subdataset    = "law/cases/coe-echr-hudoc"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_HUDOC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_HUDOC"
 shard_glob    = "use-of-force-*.ndjson"
 tier          = "A"
 license       = "open"

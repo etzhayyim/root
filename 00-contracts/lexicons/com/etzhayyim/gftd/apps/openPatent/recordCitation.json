@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPatent.recordCitation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "特許引用記録 - Starts BPMN open_patent_record_citation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "citingPatent",
+            "citedPatent",
+            "citationType"
+          ],
+          "properties": {
+            "citingPatent": {
+              "type": "string"
+            },
+            "citedPatent": {
+              "type": "string"
+            },
+            "citationType": {
+              "type": "string",
+              "enum": [
+                "applicant",
+                "examiner",
+                "thirdParty"
+              ]
+            },
+            "confidence": {
+              "type": "number"
+            },
+            "source": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

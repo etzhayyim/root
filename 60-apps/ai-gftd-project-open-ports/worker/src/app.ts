@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-ports — maritime port operations + network design
 //
-// 10 XRPC under app.etzhayyim.apps.openPorts.*:
+// 10 XRPC under com.etzhayyim.apps.openPorts.*:
 //   definePort                  (proc)  port (UN/LOCODE + berths)
 //   listPorts                   (query) port directory
 //   registerVessel              (proc)  vessel (IMO + MMSI + flag)
@@ -476,16 +476,16 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openPorts.definePort",
-            "app.etzhayyim.apps.openPorts.listPorts",
-            "app.etzhayyim.apps.openPorts.registerVessel",
-            "app.etzhayyim.apps.openPorts.scheduleVesselCall",
-            "app.etzhayyim.apps.openPorts.recordCallEvent",
-            "app.etzhayyim.apps.openPorts.listVesselCalls",
-            "app.etzhayyim.apps.openPorts.recordContainerManifest",
-            "app.etzhayyim.apps.openPorts.listContainers",
-            "app.etzhayyim.apps.openPorts.reportIncident",
-            "app.etzhayyim.apps.openPorts.listIncidents",
+            "com.etzhayyim.apps.openPorts.definePort",
+            "com.etzhayyim.apps.openPorts.listPorts",
+            "com.etzhayyim.apps.openPorts.registerVessel",
+            "com.etzhayyim.apps.openPorts.scheduleVesselCall",
+            "com.etzhayyim.apps.openPorts.recordCallEvent",
+            "com.etzhayyim.apps.openPorts.listVesselCalls",
+            "com.etzhayyim.apps.openPorts.recordContainerManifest",
+            "com.etzhayyim.apps.openPorts.listContainers",
+            "com.etzhayyim.apps.openPorts.reportIncident",
+            "com.etzhayyim.apps.openPorts.listIncidents",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["scheduleVesselCall", "reportPortIncident"],
@@ -512,22 +512,22 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openPorts.listPorts":       return await listPorts(env, url.searchParams);
-          case "app.etzhayyim.apps.openPorts.listVesselCalls": return await listVesselCalls(env, url.searchParams);
-          case "app.etzhayyim.apps.openPorts.listContainers":  return await listContainers(env, url.searchParams);
-          case "app.etzhayyim.apps.openPorts.listIncidents":   return await listIncidents(env, url.searchParams);
+          case "com.etzhayyim.apps.openPorts.listPorts":       return await listPorts(env, url.searchParams);
+          case "com.etzhayyim.apps.openPorts.listVesselCalls": return await listVesselCalls(env, url.searchParams);
+          case "com.etzhayyim.apps.openPorts.listContainers":  return await listContainers(env, url.searchParams);
+          case "com.etzhayyim.apps.openPorts.listIncidents":   return await listIncidents(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openPorts.definePort":               return await definePort(env, body);
-          case "app.etzhayyim.apps.openPorts.registerVessel":           return await registerVessel(env, body);
-          case "app.etzhayyim.apps.openPorts.scheduleVesselCall":       return await scheduleVesselCall(env, body);
-          case "app.etzhayyim.apps.openPorts.recordCallEvent":          return await recordCallEvent(env, body);
-          case "app.etzhayyim.apps.openPorts.recordContainerManifest":  return await recordContainerManifest(env, body);
-          case "app.etzhayyim.apps.openPorts.reportIncident":           return await reportIncident(env, body);
+          case "com.etzhayyim.apps.openPorts.definePort":               return await definePort(env, body);
+          case "com.etzhayyim.apps.openPorts.registerVessel":           return await registerVessel(env, body);
+          case "com.etzhayyim.apps.openPorts.scheduleVesselCall":       return await scheduleVesselCall(env, body);
+          case "com.etzhayyim.apps.openPorts.recordCallEvent":          return await recordCallEvent(env, body);
+          case "com.etzhayyim.apps.openPorts.recordContainerManifest":  return await recordContainerManifest(env, body);
+          case "com.etzhayyim.apps.openPorts.reportIncident":           return await reportIncident(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

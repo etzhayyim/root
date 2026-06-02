@@ -12,8 +12,8 @@
                    camunda:formKey="openRail.defineLine.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectLineForm" targetRef="Task_DefineLine"/>
 
-    <bpmn:serviceTask id="Task_DefineLine" name="ai.gftd.apps.openRail.defineLine"
-                      camunda:topic="ai.gftd.apps.openRail.defineLine"/>
+    <bpmn:serviceTask id="Task_DefineLine" name="com.etzhayyim.apps.openRail.defineLine"
+                      camunda:topic="com.etzhayyim.apps.openRail.defineLine"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_DefineLine" targetRef="EndEvent_Defined"/>
 
     <bpmn:endEvent id="EndEvent_Defined" name="Line defined"/>

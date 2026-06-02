@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openJpnGov.registerAtlaContract",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave2 (stub): 防衛装備庁 契約登録. Starts BPMN process open_jpn_gov_register_atla_contract.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "contractId": { "type": "string" },
+            "supplierLei": { "type": "string" },
+            "amount": { "type": "number" },
+            "currency": { "type": "string" },
+            "fmsCase": { "type": "string" }
+          },
+          "required": ["vertexId", "contractId", "supplierLei"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

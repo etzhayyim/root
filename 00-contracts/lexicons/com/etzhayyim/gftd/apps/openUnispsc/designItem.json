@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.designItem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Design an item-specific UNSPSC LangGraph and LangChain contract using existing open-unispsc BPMN files as process references.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commodityCode"],
+          "properties": {
+            "commodityCode": { "type": "string", "description": "UNSPSC 8-digit commodity code" },
+            "commodityName": { "type": "string" },
+            "segment": { "type": "string" },
+            "family": { "type": "string" },
+            "classCode": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object" }
+      }
+    }
+  }
+}

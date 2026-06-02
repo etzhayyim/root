@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govKwt.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govKwt.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Kuwait government.",
-        "operationId": "app.etzhayyim.govKwt.followSiteDeps",
+        "operationId": "com.etzhayyim.govKwt.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govKwt.heartbeatTick": {
       "post": {
         "summary": "Run the Kuwait government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govKwt.heartbeatTick",
+        "operationId": "com.etzhayyim.govKwt.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.listOrgs": {
+    "/xrpc/com.etzhayyim.govKwt.listOrgs": {
       "get": {
         "summary": "List Kuwait government organization graph records.",
-        "operationId": "app.etzhayyim.govKwt.listOrgs",
+        "operationId": "com.etzhayyim.govKwt.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.registerDIDs": {
+    "/xrpc/com.etzhayyim.govKwt.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Kuwait government organizations.",
-        "operationId": "app.etzhayyim.govKwt.registerDIDs",
+        "operationId": "com.etzhayyim.govKwt.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govKwt.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Kuwait government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govKwt.resolveOrgPath",
+        "operationId": "com.etzhayyim.govKwt.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.seedOrgs": {
+    "/xrpc/com.etzhayyim.govKwt.seedOrgs": {
       "post": {
         "summary": "Seed initial Kuwait government organization records into the graph.",
-        "operationId": "app.etzhayyim.govKwt.seedOrgs",
+        "operationId": "com.etzhayyim.govKwt.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.shinka": {
+    "/xrpc/com.etzhayyim.govKwt.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Kuwait government organization update.",
-        "operationId": "app.etzhayyim.govKwt.shinka",
+        "operationId": "com.etzhayyim.govKwt.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKwt.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govKwt.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Kuwait government organization changes to graph.",
-        "operationId": "app.etzhayyim.govKwt.syncWetUpdates",
+        "operationId": "com.etzhayyim.govKwt.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

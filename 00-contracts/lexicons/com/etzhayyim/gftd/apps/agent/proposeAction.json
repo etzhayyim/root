@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.agent.proposeAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an action proposal before any effectful dispatch.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["agentDid", "actionKind", "targetSurface", "proposal"],
+          "properties": {
+            "agentDid": { "type": "string" },
+            "actionKind": { "type": "string" },
+            "targetSurface": { "type": "string" },
+            "proposal": { "type": "unknown" },
+            "simulationRef": { "type": "string" },
+            "approvalRef": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "actionProposal": { "type": "unknown" }
+          }
+        }
+      }
+    }
+  }
+}

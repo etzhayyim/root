@@ -35,7 +35,7 @@ export class Materializer {
   async materializeAggregate(input: MaterializedAggregateRecord): Promise<{ uri: string }> {
     const rkey = `agg-${slug(input.collection)}-${slug(input.groupBy)}`;
     const receipt = await this.e.write({
-      collection: "app.etzhayyim.projector.aggregate",
+      collection: "com.etzhayyim.projector.aggregate",
       record: input as unknown as Record<string, unknown>,
       rkey,
     });
@@ -45,7 +45,7 @@ export class Materializer {
   async materializeTextSearch(input: MaterializedTextSearchRecord): Promise<{ uri: string }> {
     const rkey = `txt-${slug(input.collection)}-${slug(input.query).slice(0, 24)}`;
     const receipt = await this.e.write({
-      collection: "app.etzhayyim.projector.textSearch",
+      collection: "com.etzhayyim.projector.textSearch",
       record: input as unknown as Record<string, unknown>,
       rkey,
     });

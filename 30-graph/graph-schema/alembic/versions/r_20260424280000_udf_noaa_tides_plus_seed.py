@@ -77,7 +77,7 @@ UP = [{'sql': 'DROP FUNCTION IF EXISTS maps_source_dispatch_kind(varchar, varcha
          '      vertex_id, source_did, label, world_total, priority_weight,\n'
          '      ttl_hours, org_id, user_id, actor_id, created_at\n'
          '    ) VALUES (\n'
-         "      'at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/noaa_tides:Station',\n"
+         "      'at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/noaa_tides:Station',\n"
          "      'did:web:maps.etzhayyim.com:noaa_tides', 'Station', 3000, 0.6, 168.0,\n"
          "      'anon', 'anon', 'did:web:maps.etzhayyim.com:noaa_tides', $1\n"
          '    )\n'

@@ -22,7 +22,7 @@ UP = [{'sql': '\n'
          "             'active', $9, $10, $11, $12\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_topic WHERE vertex_id = $13)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/dust-on-desk',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/dust-on-desk',
                  'did:web:lifehack.etzhayyim.com',
                  'dust-on-desk',
                  'dust',
@@ -34,7 +34,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/dust-on-desk']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/dust-on-desk']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_topic (\n'
          '        vertex_id, owner_did, sensitivity_ord, topic_id, category,\n'
@@ -45,7 +45,7 @@ UP = [{'sql': '\n'
          "             'active', $9, $10, $11, $12\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_topic WHERE vertex_id = $13)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/static-electricity-control',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/static-electricity-control',
                  'did:web:lifehack.etzhayyim.com',
                  'static-electricity-control',
                  'humidity',
@@ -57,7 +57,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/static-electricity-control']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/static-electricity-control']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_topic (\n'
          '        vertex_id, owner_did, sensitivity_ord, topic_id, category,\n'
@@ -68,7 +68,7 @@ UP = [{'sql': '\n'
          "             'active', $9, $10, $11, $12\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_topic WHERE vertex_id = $13)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/air-cleanliness',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/air-cleanliness',
                  'did:web:lifehack.etzhayyim.com',
                  'air-cleanliness',
                  'cleaning',
@@ -80,7 +80,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/air-cleanliness']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/air-cleanliness']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_topic (\n'
          '        vertex_id, owner_did, sensitivity_ord, topic_id, category,\n'
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
          "             'active', $9, $10, $11, $12\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_topic WHERE vertex_id = $13)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/cable-management',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/cable-management',
                  'did:web:lifehack.etzhayyim.com',
                  'cable-management',
                  'cable',
@@ -103,7 +103,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/cable-management']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/cable-management']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_topic (\n'
          '        vertex_id, owner_did, sensitivity_ord, topic_id, category,\n'
@@ -114,7 +114,7 @@ UP = [{'sql': '\n'
          "             'active', $9, $10, $11, $12\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_topic WHERE vertex_id = $13)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/routine-cleaning',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/routine-cleaning',
                  'did:web:lifehack.etzhayyim.com',
                  'routine-cleaning',
                  'cleaning',
@@ -126,7 +126,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/routine-cleaning']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/routine-cleaning']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -139,7 +139,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-b86cd290507a',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-b86cd290507a',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-b86cd290507a',
                  'dust-on-desk',
@@ -154,7 +154,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-b86cd290507a']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-b86cd290507a']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -164,15 +164,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-b86cd290507a-dust-on-desk',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-b86cd290507a-dust-on-desk',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-b86cd290507a',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/dust-on-desk',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-b86cd290507a',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/dust-on-desk',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-b86cd290507a-dust-on-desk']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-b86cd290507a-dust-on-desk']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -185,7 +185,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-faeb28c530cd',
                  'dust-on-desk',
@@ -200,7 +200,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -210,15 +210,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-faeb28c530cd-dust-on-desk',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-faeb28c530cd-dust-on-desk',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/dust-on-desk',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/dust-on-desk',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-faeb28c530cd-dust-on-desk']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-faeb28c530cd-dust-on-desk']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -231,7 +231,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-75bd800d5fe9',
                  'dust-on-desk',
@@ -246,7 +246,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -256,15 +256,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-75bd800d5fe9-dust-on-desk',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-75bd800d5fe9-dust-on-desk',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/dust-on-desk',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/dust-on-desk',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-75bd800d5fe9-dust-on-desk']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-75bd800d5fe9-dust-on-desk']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -277,7 +277,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-239e07b8e574',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-239e07b8e574',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-239e07b8e574',
                  'static-electricity-control',
@@ -292,7 +292,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-239e07b8e574']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-239e07b8e574']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -302,15 +302,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-239e07b8e574-static-electricity-control',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-239e07b8e574-static-electricity-control',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-239e07b8e574',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/static-electricity-control',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-239e07b8e574',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/static-electricity-control',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-239e07b8e574-static-electricity-control']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-239e07b8e574-static-electricity-control']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -323,7 +323,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-10b8c9a7d3d1',
                  'static-electricity-control',
@@ -338,7 +338,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -348,15 +348,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-10b8c9a7d3d1-static-electricity-control',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-10b8c9a7d3d1-static-electricity-control',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/static-electricity-control',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/static-electricity-control',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-10b8c9a7d3d1-static-electricity-control']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-10b8c9a7d3d1-static-electricity-control']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -369,7 +369,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d22c29493612',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d22c29493612',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-d22c29493612',
                  'static-electricity-control',
@@ -384,7 +384,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d22c29493612']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d22c29493612']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -394,15 +394,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d22c29493612-static-electricity-control',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d22c29493612-static-electricity-control',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d22c29493612',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/static-electricity-control',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d22c29493612',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/static-electricity-control',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d22c29493612-static-electricity-control']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d22c29493612-static-electricity-control']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -415,7 +415,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-51b072777188',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-51b072777188',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-51b072777188',
                  'air-cleanliness',
@@ -430,7 +430,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-51b072777188']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-51b072777188']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -440,15 +440,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-51b072777188-air-cleanliness',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-51b072777188-air-cleanliness',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-51b072777188',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/air-cleanliness',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-51b072777188',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/air-cleanliness',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-51b072777188-air-cleanliness']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-51b072777188-air-cleanliness']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -461,7 +461,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-8a322db257ca',
                  'air-cleanliness',
@@ -476,7 +476,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-8a322db257ca']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-8a322db257ca']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -486,15 +486,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-8a322db257ca-air-cleanliness',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-8a322db257ca-air-cleanliness',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/air-cleanliness',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/air-cleanliness',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-8a322db257ca-air-cleanliness']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-8a322db257ca-air-cleanliness']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -507,7 +507,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-787a477eb7a2',
                  'cable-management',
@@ -522,7 +522,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -532,15 +532,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-787a477eb7a2-cable-management',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-787a477eb7a2-cable-management',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/cable-management',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/cable-management',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-787a477eb7a2-cable-management']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-787a477eb7a2-cable-management']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -553,7 +553,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-6e39d1f51050',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-6e39d1f51050',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-6e39d1f51050',
                  'cable-management',
@@ -568,7 +568,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-6e39d1f51050']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-6e39d1f51050']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -578,15 +578,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6e39d1f51050-cable-management',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6e39d1f51050-cable-management',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-6e39d1f51050',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/cable-management',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-6e39d1f51050',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/cable-management',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6e39d1f51050-cable-management']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6e39d1f51050-cable-management']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -599,7 +599,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-d7466b0e5bc6',
                  'routine-cleaning',
@@ -614,7 +614,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -624,15 +624,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d7466b0e5bc6-routine-cleaning',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d7466b0e5bc6-routine-cleaning',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/routine-cleaning',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/routine-cleaning',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d7466b0e5bc6-routine-cleaning']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-d7466b0e5bc6-routine-cleaning']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_tip (\n'
          '        vertex_id, owner_did, sensitivity_ord, tip_id, topic_id,\n'
@@ -645,7 +645,7 @@ UP = [{'sql': '\n'
          "             'active', $12, $13, $14, $15\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_tip WHERE vertex_id = $16)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-6b26e49d4dd9',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-6b26e49d4dd9',
                  'did:web:lifehack.etzhayyim.com',
                  'tip-6b26e49d4dd9',
                  'routine-cleaning',
@@ -660,7 +660,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-6b26e49d4dd9']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-6b26e49d4dd9']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_solves_topic (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -670,15 +670,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_solves_topic WHERE edge_id = '
          '$9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6b26e49d4dd9-routine-cleaning',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6b26e49d4dd9-routine-cleaning',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-6b26e49d4dd9',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.topic/routine-cleaning',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-6b26e49d4dd9',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.topic/routine-cleaning',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6b26e49d4dd9-routine-cleaning']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipSolvesTopic/tip-6b26e49d4dd9-routine-cleaning']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -694,7 +694,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/handy-mop-quickle',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/handy-mop-quickle',
                  'did:web:lifehack.etzhayyim.com',
                  'handy-mop-quickle',
                  '静電ハンディモップ（クイックル系）',
@@ -710,7 +710,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/handy-mop-quickle']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/handy-mop-quickle']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -726,7 +726,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/silicone-cleaning-putty',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/silicone-cleaning-putty',
                  'did:web:lifehack.etzhayyim.com',
                  'silicone-cleaning-putty',
                  'シリコンゲル・クリーニングパテ',
@@ -742,7 +742,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/silicone-cleaning-putty']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/silicone-cleaning-putty']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -758,7 +758,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/desktop-vacuum-usb',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/desktop-vacuum-usb',
                  'did:web:lifehack.etzhayyim.com',
                  'desktop-vacuum-usb',
                  '充電式ミニ卓上掃除機',
@@ -774,7 +774,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/desktop-vacuum-usb']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/desktop-vacuum-usb']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -790,7 +790,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/antistatic-spray-elecom',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/antistatic-spray-elecom',
                  'did:web:lifehack.etzhayyim.com',
                  'antistatic-spray-elecom',
                  '帯電防止スプレー',
@@ -806,7 +806,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/antistatic-spray-elecom']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/antistatic-spray-elecom']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -822,7 +822,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/humidifier-room',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/humidifier-room',
                  'did:web:lifehack.etzhayyim.com',
                  'humidifier-room',
                  '加湿器（家庭用、室内湿度50%維持）',
@@ -838,7 +838,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/humidifier-room']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/humidifier-room']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -854,7 +854,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/ionizer-desktop-hozan',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/ionizer-desktop-hozan',
                  'did:web:lifehack.etzhayyim.com',
                  'ionizer-desktop-hozan',
                  '卓上イオナイザー（HOZAN相当）',
@@ -870,7 +870,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/ionizer-desktop-hozan']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/ionizer-desktop-hozan']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -886,7 +886,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/air-purifier-hepa',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/air-purifier-hepa',
                  'did:web:lifehack.etzhayyim.com',
                  'air-purifier-hepa',
                  'HEPA空気清浄機（6-8畳用）',
@@ -902,7 +902,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/air-purifier-hepa']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/air-purifier-hepa']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -918,7 +918,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/air-duster-can',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/air-duster-can',
                  'did:web:lifehack.etzhayyim.com',
                  'air-duster-can',
                  'エアダスター（缶タイプ）',
@@ -934,7 +934,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/air-duster-can']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/air-duster-can']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -950,7 +950,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/cable-tray',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/cable-tray',
                  'did:web:lifehack.etzhayyim.com',
                  'cable-tray',
                  'ケーブルトレー / 配線ボックス',
@@ -966,7 +966,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/cable-tray']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/cable-tray']},
  {'sql': '\n'
          '      INSERT INTO vertex_lifehack_product (\n'
          '        vertex_id, owner_did, sensitivity_ord, product_id, name, brand, category,\n'
@@ -982,7 +982,7 @@ UP = [{'sql': '\n'
          "             'active', $13, $14, $15, $16\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_lifehack_product WHERE vertex_id = $17)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/microfiber-cloth',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/microfiber-cloth',
                  'did:web:lifehack.etzhayyim.com',
                  'microfiber-cloth',
                  'マイクロファイバークロス',
@@ -998,7 +998,7 @@ UP = [{'sql': '\n'
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/microfiber-cloth']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/microfiber-cloth']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1008,15 +1008,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-b86cd290507a-handy-mop-quickle',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-b86cd290507a-handy-mop-quickle',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-b86cd290507a',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/handy-mop-quickle',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-b86cd290507a',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/handy-mop-quickle',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-b86cd290507a-handy-mop-quickle']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-b86cd290507a-handy-mop-quickle']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1026,15 +1026,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-faeb28c530cd-silicone-cleaning-putty',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-faeb28c530cd-silicone-cleaning-putty',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/silicone-cleaning-putty',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-faeb28c530cd',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/silicone-cleaning-putty',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-faeb28c530cd-silicone-cleaning-putty']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-faeb28c530cd-silicone-cleaning-putty']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1044,15 +1044,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-75bd800d5fe9-desktop-vacuum-usb',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-75bd800d5fe9-desktop-vacuum-usb',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/desktop-vacuum-usb',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-75bd800d5fe9',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/desktop-vacuum-usb',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-75bd800d5fe9-desktop-vacuum-usb']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-75bd800d5fe9-desktop-vacuum-usb']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1062,15 +1062,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-239e07b8e574-humidifier-room',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-239e07b8e574-humidifier-room',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-239e07b8e574',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/humidifier-room',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-239e07b8e574',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/humidifier-room',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-239e07b8e574-humidifier-room']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-239e07b8e574-humidifier-room']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1080,15 +1080,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-10b8c9a7d3d1-antistatic-spray-elecom',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-10b8c9a7d3d1-antistatic-spray-elecom',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/antistatic-spray-elecom',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-10b8c9a7d3d1',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/antistatic-spray-elecom',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-10b8c9a7d3d1-antistatic-spray-elecom']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-10b8c9a7d3d1-antistatic-spray-elecom']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1098,15 +1098,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d22c29493612-ionizer-desktop-hozan',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d22c29493612-ionizer-desktop-hozan',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d22c29493612',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/ionizer-desktop-hozan',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d22c29493612',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/ionizer-desktop-hozan',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d22c29493612-ionizer-desktop-hozan']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d22c29493612-ionizer-desktop-hozan']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1116,15 +1116,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-51b072777188-air-purifier-hepa',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-51b072777188-air-purifier-hepa',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-51b072777188',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/air-purifier-hepa',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-51b072777188',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/air-purifier-hepa',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-51b072777188-air-purifier-hepa']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-51b072777188-air-purifier-hepa']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1134,15 +1134,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-air-duster-can',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-air-duster-can',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/air-duster-can',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/air-duster-can',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-air-duster-can']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-air-duster-can']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1152,15 +1152,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-microfiber-cloth',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-microfiber-cloth',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/microfiber-cloth',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-8a322db257ca',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/microfiber-cloth',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-microfiber-cloth']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-8a322db257ca-microfiber-cloth']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1170,15 +1170,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-787a477eb7a2-cable-tray',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-787a477eb7a2-cable-tray',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/cable-tray',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-787a477eb7a2',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/cable-tray',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-787a477eb7a2-cable-tray']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-787a477eb7a2-cable-tray']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1188,15 +1188,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-handy-mop-quickle',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-handy-mop-quickle',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/handy-mop-quickle',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/handy-mop-quickle',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-handy-mop-quickle']},
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-handy-mop-quickle']},
  {'sql': '\n'
          '      INSERT INTO edge_lifehack_tip_recommends_product (\n'
          '        edge_id, owner_did, sensitivity_ord, src_vid, dst_vid, role,\n'
@@ -1206,15 +1206,15 @@ UP = [{'sql': '\n'
          '      WHERE NOT EXISTS (SELECT 1 FROM edge_lifehack_tip_recommends_product WHERE edge_id '
          '= $9)\n'
          '    ',
-  'parameters': ['at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-microfiber-cloth',
+  'parameters': ['at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-microfiber-cloth',
                  'did:web:lifehack.etzhayyim.com',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.product/microfiber-cloth',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tip/tip-d7466b0e5bc6',
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.product/microfiber-cloth',
                  '2026-05-08T12:00:00Z',
                  'did:web:lifehack.etzhayyim.com',
                  'did:web:lifehack.etzhayyim.com',
                  'sys.lifehack.seed.phase1',
-                 'at://did:web:lifehack.etzhayyim.com/app.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-microfiber-cloth']}]
+                 'at://did:web:lifehack.etzhayyim.com/com.etzhayyim.apps.lifehack.tipRecommendsProduct/tip-d7466b0e5bc6-microfiber-cloth']}]
 
 DOWN = [{'sql': 'DELETE FROM edge_lifehack_tip_recommends_product WHERE actor_id = $1',
   'parameters': ['sys.lifehack.seed.phase1']},

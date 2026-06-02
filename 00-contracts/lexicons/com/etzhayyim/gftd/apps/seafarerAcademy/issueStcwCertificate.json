@@ -1,0 +1,83 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.seafarerAcademy.issueStcwCertificate",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "STCW 2010 seafarer certificate (crew-welfare+isco+orcid bridge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "certificateId",
+            "seafarerVid",
+            "stcwChapter",
+            "flagState",
+            "issuedAt",
+            "expiresAt"
+          ],
+          "properties": {
+            "certificateId": {
+              "type": "string"
+            },
+            "seafarerVid": {
+              "type": "string",
+              "description": "bridges open-crew-welfare registerSeafarer"
+            },
+            "orcid": {
+              "type": "string",
+              "description": "bridges open-orcid"
+            },
+            "iscoCode": {
+              "type": "string",
+              "description": "bridges open-isco"
+            },
+            "stcwChapter": {
+              "type": "string",
+              "enum": [
+                "II",
+                "III",
+                "IV",
+                "V",
+                "VI",
+                "VII"
+              ]
+            },
+            "flagState": {
+              "type": "string"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

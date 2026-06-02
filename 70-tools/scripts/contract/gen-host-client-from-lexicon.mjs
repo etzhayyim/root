@@ -3,7 +3,7 @@
 /**
  * gen-host-client-from-lexicon.mjs — Lexicon JSON → host-client.ts
  *
- * Sister script to gen-service-from-lexicon.mjs. Scans app.etzhayyim.host.* lexicons
+ * Sister script to gen-service-from-lexicon.mjs. Scans com.etzhayyim.host.* lexicons
  * and emits a typed in-process host capability client for magatama-host-sdk.
  *
  * F-Plan (Lexicon SSoT) Phase 1: replaces WIT-defined host imports with Lexicon-defined
@@ -20,19 +20,19 @@ import path from "node:path";
 import { scanLexicons, jsonSchemaToTs, hasProperties, filterXrpcLexicons } from "./lib/lexicon-scan.mjs";
 
 const ROOT = process.cwd();
-const LEXICON_DIR = path.join(ROOT, "00-contracts/lexicons/ai/gftd/host");
+const LEXICON_DIR = path.join(ROOT, "00-contracts/lexicons/com/etzhayyim/host");
 const OUT_DIR = path.join(ROOT, "20-actors/magatama/sdk/magatama-host-sdk/src/generated");
 const OUT_FILE = path.join(OUT_DIR, "host-client.ts");
 
 const args = process.argv.slice(2);
 const isDryRun = args.includes("--dry-run");
 
-// app.etzhayyim.host.secrets.get → secretsGet
-// app.etzhayyim.host.sql.query → sqlQuery
-// app.etzhayyim.host.llm.converse → llmConverse
+// com.etzhayyim.host.secrets.get → secretsGet
+// com.etzhayyim.host.sql.query → sqlQuery
+// com.etzhayyim.host.llm.converse → llmConverse
 function nsidToCamelMethod(nsid) {
   const parts = nsid.split(".");
-  // strip app.etzhayyim.host prefix → [domain, action, ...]
+  // strip com.etzhayyim.host prefix → [domain, action, ...]
   const tail = parts.slice(3);
   if (tail.length === 0) return parts[parts.length - 1];
   return tail
@@ -65,7 +65,7 @@ function generateHostClient(lexicons) {
   lines.push("// host-client.ts — Auto-generated typed host capability client.");
   lines.push("// DO NOT EDIT. Regenerate with: node 70-tools/scripts/contract/gen-host-client-from-lexicon.mjs");
   lines.push("//");
-  lines.push("// Lexicon JSON (00-contracts/lexicons/ai/gftd/host/) is the Single Source of Truth");
+  lines.push("// Lexicon JSON (00-contracts/lexicons/com/etzhayyim/host/) is the Single Source of Truth");
   lines.push("// for host capability surface. F-Plan Phase 1: replaces WIT-defined host imports.");
   lines.push("//");
   lines.push("// Runtime contract: each function forwards to a HostDispatcher supplied at SDK init.");

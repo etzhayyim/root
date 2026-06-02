@@ -1,6 +1,6 @@
 /**
  * Sealer-sponsored EIP-155 legacy transaction builder for the gftd
- * private chain (chainId 260425). Used by `app.etzhayyim.authz.activateActorAccount`
+ * private chain (chainId 260425). Used by `com.etzhayyim.authz.activateActorAccount`
  * to call `etzhayyimActorRegistry.activate(...)` on behalf of the user without
  * forcing them to hold gas.
  *

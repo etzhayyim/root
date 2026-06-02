@@ -12,7 +12,7 @@ async function xrpcPost(apiBase: string, nsid: string, body: unknown): Promise<R
 When(
 	'I send a message to channel {string} with body {string}',
 	async ({ apiState, apiBase }, convoId: string, body: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.send', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.send', {
 			convoId,
 			body,
 		});
@@ -28,7 +28,7 @@ When(
 When(
 	'I create a channel with name {string} and kind {string}',
 	async ({ apiState, apiBase }, name: string, kind: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.createConvo', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.createConvo', {
 			name,
 			kind,
 		});
@@ -44,7 +44,7 @@ When(
 When(
 	'I get thread {string} in channel {string}',
 	async ({ apiState, apiBase }, rootId: string, convoId: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.getThread', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.getThread', {
 			convoId,
 			rootId,
 		});
@@ -60,7 +60,7 @@ When(
 When(
 	'I search for {string} in all channels',
 	async ({ apiState, apiBase }, query: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.search', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.search', {
 			query,
 			limit: 10,
 		});
@@ -76,7 +76,7 @@ When(
 When(
 	'I list members of channel {string}',
 	async ({ apiState, apiBase }, convoId: string) => {
-		const res = await xrpcPost(apiBase, 'app.etzhayyim.convo.listMembers', {
+		const res = await xrpcPost(apiBase, 'com.etzhayyim.convo.listMembers', {
 			convoId,
 			limit: 50,
 		});

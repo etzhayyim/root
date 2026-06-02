@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kiyo.endorsePaper",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Endorse a paper (arXiv-style). Idempotent. Caller DID → edge_kiyo_endorses.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "paperId": { "type": "string" }
+          },
+          "required": ["paperId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "endorsed":          { "type": "boolean" },
+            "totalEndorsements": { "type": "integer" }
+          },
+          "required": ["endorsed"]
+        }
+      }
+    }
+  }
+}

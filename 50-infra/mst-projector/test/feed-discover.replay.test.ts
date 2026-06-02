@@ -1,4 +1,4 @@
-// L1-projection conformance smoke for `app.etzhayyim.projection.feedDiscover`.
+// L1-projection conformance smoke for `com.etzhayyim.projection.feedDiscover`.
 //
 // Per ADR-2605231500 §"Three conformance levels" L1 row:
 //
@@ -118,7 +118,7 @@ async function replay(fixture: Fixture) {
       const fhe = toFirehoseEvent(e, "app.bsky.feed.post");
       await applyFeedPostEvent(fhe, post);
     } else {
-      const fhe = toFirehoseEvent(e, "app.etzhayyim.membrane.verdict");
+      const fhe = toFirehoseEvent(e, "com.etzhayyim.membrane.verdict");
       await applyVerdictEvent(fhe, verdict);
     }
   }

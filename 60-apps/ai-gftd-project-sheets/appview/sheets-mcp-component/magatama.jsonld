@@ -32,9 +32,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.sheets.sheetsEntity",
-        "ai.gftd.apps.sheets.sheetsEvent",
-        "ai.gftd.apps.sheets.sheetsReport"
+        "com.etzhayyim.apps.sheets.sheetsEntity",
+        "com.etzhayyim.apps.sheets.sheetsEvent",
+        "com.etzhayyim.apps.sheets.sheetsReport"
       ]
     }
   },

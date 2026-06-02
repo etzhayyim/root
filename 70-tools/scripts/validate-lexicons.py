@@ -13,7 +13,7 @@ Run:
     python 70-tools/scripts/validate-lexicons.py
 
     # specific dir:
-    python 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/app/etzhayyim/
+    python 70-tools/scripts/validate-lexicons.py --root 00-contracts/lexicons/com/etzhayyim/
 """
 
 import argparse
@@ -64,7 +64,7 @@ def validate_lexicon(path: Path) -> list[str]:
 
 
 def _is_valid_nsid(nsid: str) -> bool:
-    """AT Protocol NSID format: reverse-domain + identifier, e.g. app.etzhayyim.shinka.tick"""
+    """AT Protocol NSID format: reverse-domain + identifier, e.g. com.etzhayyim.shinka.tick"""
     if not nsid:
         return False
     parts = nsid.split(".")

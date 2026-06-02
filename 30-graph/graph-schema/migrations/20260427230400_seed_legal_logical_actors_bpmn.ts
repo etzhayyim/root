@@ -29,43 +29,43 @@ const seeds: Seed[] = [
   // judge.etzhayyim.com (200K judges, path-based DID)
   { project: "judge", ownerDid: "did:web:judge.etzhayyim.com",
     proc: "registerJudge", bpmnProcessId: "judge_register_judge",
-    nsid: "app.etzhayyim.apps.judge.registerJudge", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.judge.registerJudge", resultTimeoutMs: 15000 },
   { project: "judge", ownerDid: "did:web:judge.etzhayyim.com",
     proc: "listJudges", bpmnProcessId: "judge_list_judges",
-    nsid: "app.etzhayyim.apps.judge.listJudges", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.judge.listJudges", resultTimeoutMs: 15000 },
 
   // bengoshi.etzhayyim.com (2.5M lawyers, path-based DID)
   { project: "bengoshi", ownerDid: "did:web:bengoshi.etzhayyim.com",
     proc: "registerLawyer", bpmnProcessId: "bengoshi_register_lawyer",
-    nsid: "app.etzhayyim.apps.bengoshi.registerLawyer", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.bengoshi.registerLawyer", resultTimeoutMs: 15000 },
   { project: "bengoshi", ownerDid: "did:web:bengoshi.etzhayyim.com",
     proc: "searchLawyers", bpmnProcessId: "bengoshi_search_lawyers",
-    nsid: "app.etzhayyim.apps.bengoshi.searchLawyers", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.bengoshi.searchLawyers", resultTimeoutMs: 15000 },
 
   // adr.etzhayyim.com (1M cases/yr, ICC/JCAA/AAA)
   { project: "adr", ownerDid: "did:web:adr.etzhayyim.com",
     proc: "registerArbitrator", bpmnProcessId: "adr_register_arbitrator",
-    nsid: "app.etzhayyim.apps.adr.registerArbitrator", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.adr.registerArbitrator", resultTimeoutMs: 15000 },
   { project: "adr", ownerDid: "did:web:adr.etzhayyim.com",
     proc: "createCase", bpmnProcessId: "adr_create_case",
-    nsid: "app.etzhayyim.apps.adr.createCase", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.adr.createCase", resultTimeoutMs: 15000 },
 
   // legal-aid.etzhayyim.com (10M cases/yr, public defender)
   { project: "legal-aid", ownerDid: "did:web:legal-aid.etzhayyim.com",
     proc: "registerOffice", bpmnProcessId: "legal_aid_register_office",
-    nsid: "app.etzhayyim.apps.legal-aid.registerOffice", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.legal-aid.registerOffice", resultTimeoutMs: 15000 },
   { project: "legal-aid", ownerDid: "did:web:legal-aid.etzhayyim.com",
     proc: "openCase", bpmnProcessId: "legal_aid_open_case",
-    nsid: "app.etzhayyim.apps.legal-aid.openCase", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.legal-aid.openCase", resultTimeoutMs: 15000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${s.project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${s.project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${s.project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${s.project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${s.project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${s.project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

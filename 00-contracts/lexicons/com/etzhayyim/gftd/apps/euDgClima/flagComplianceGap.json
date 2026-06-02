@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euDgClima.flagComplianceGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Compliance gap / national lag / leakage concern (bridges cbam-embedded + climate-value-chain + frugalFourCoalition)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "actionVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "actionVid": {
+              "type": "string",
+              "description": "bridges recordAction"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "national_transposition_lag",
+                "ets_phase_4_compliance",
+                "cbam_under_reporting",
+                "carbon_leakage_evidence",
+                "industrial_carve_out_abuse",
+                "backloading",
+                "msr_intervention",
+                "frugal_block",
+                "mediterranean_block",
+                "just_transition_funding",
+                "competitiveness_relief",
+                "cross_border_loophole"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

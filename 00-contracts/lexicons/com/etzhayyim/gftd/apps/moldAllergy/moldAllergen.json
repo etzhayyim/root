@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.moldAllergy.moldAllergen",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Fungal allergen molecule record (WHO-IUIS nomenclature). Tier 1 public.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["species", "allergen"],
+        "properties": {
+          "species":             { "type": "string", "description": "binomial, e.g. 'Alternaria alternata'" },
+          "allergen":            { "type": "string", "description": "WHO-IUIS name, e.g. 'Alt a 1'" },
+          "uniprot":             { "type": "string", "description": "UniProt accession" },
+          "mwKda":               { "type": "number", "description": "molecular weight in kDa" },
+          "biochemicalFunction": { "type": "string" },
+          "epitopeSummary":      { "type": "string" },
+          "source":              { "type": "string", "description": "reference database" },
+          "createdAt":           { "type": "string", "format": "datetime" },
+          "actorId":             { "type": "string" }
+        }
+      }
+    }
+  }
+}

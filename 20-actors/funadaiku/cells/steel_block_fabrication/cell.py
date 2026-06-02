@@ -3,7 +3,7 @@
 Cut/weld marine steel panels into hull blocks; dimensional + NDT block QA.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.blockFabricationAttestation.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.blockFabricationAttestation.
 """
 
 from typing import Any

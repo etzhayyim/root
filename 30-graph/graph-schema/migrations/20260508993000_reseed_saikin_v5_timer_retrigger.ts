@@ -9,8 +9,8 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 export async function up(db: Kysely<unknown>): Promise<void> {
-  const vertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1";
-  const bpmnPath = "00-contracts/bpmn/ai/gftd/saikin/horizontal-transfer-cycle.bpmn";
+  const vertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1";
+  const bpmnPath = "00-contracts/bpmn/com/etzhayyim/saikin/horizontal-transfer-cycle.bpmn";
   const xml = readFileSync(path.resolve(repoRoot, bpmnPath), "utf-8");
   const byteSize = Buffer.byteLength(xml, "utf-8");
 

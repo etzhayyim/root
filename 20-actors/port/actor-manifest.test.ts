@@ -115,7 +115,7 @@ describe("Port Actor Manifest", () => {
     const sub = manifest.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
 
     it("subscribes to vessel.portCall", () => {
-      expect(sub.trigger.collections).toContain("app.etzhayyim.apps.vessel.portCall");
+      expect(sub.trigger.collections).toContain("com.etzhayyim.apps.vessel.portCall");
     });
 
     it("writes PortCallEvent via graph.write", () => {
@@ -133,17 +133,17 @@ describe("Port Actor Manifest", () => {
 
     it("covers port CRUD endpoints", () => {
       const nsids = xrpcPipelines.map((p: any) => p.trigger.nsid);
-      expect(nsids).toContain("app.etzhayyim.apps.port.infrastructure.getPort");
-      expect(nsids).toContain("app.etzhayyim.apps.port.infrastructure.listPorts");
-      expect(nsids).toContain("app.etzhayyim.apps.port.infrastructure.searchPorts");
-      expect(nsids).toContain("app.etzhayyim.apps.port.infrastructure.getPortBerths");
-      expect(nsids).toContain("app.etzhayyim.apps.port.infrastructure.getPortTerminals");
+      expect(nsids).toContain("com.etzhayyim.apps.port.infrastructure.getPort");
+      expect(nsids).toContain("com.etzhayyim.apps.port.infrastructure.listPorts");
+      expect(nsids).toContain("com.etzhayyim.apps.port.infrastructure.searchPorts");
+      expect(nsids).toContain("com.etzhayyim.apps.port.infrastructure.getPortBerths");
+      expect(nsids).toContain("com.etzhayyim.apps.port.infrastructure.getPortTerminals");
     });
 
     it("covers port call tracking endpoints", () => {
       const nsids = xrpcPipelines.map((p: any) => p.trigger.nsid);
-      expect(nsids).toContain("app.etzhayyim.apps.port.portCallTracking.getVesselsAtPort");
-      expect(nsids).toContain("app.etzhayyim.apps.port.portCallTracking.getPortOccupancy");
+      expect(nsids).toContain("com.etzhayyim.apps.port.portCallTracking.getVesselsAtPort");
+      expect(nsids).toContain("com.etzhayyim.apps.port.portCallTracking.getPortOccupancy");
     });
 
     it("getPortOccupancy has 3 parallel queries (berthed/approaching/totalBerths)", () => {
@@ -167,10 +167,10 @@ describe("Port Actor Manifest", () => {
 
   it("triggers.subscribeRepos covers port + vessel cross-app", () => {
     const cols = manifest.triggers.subscribeRepos.collections;
-    expect(cols).toContain("app.etzhayyim.apps.port.port");
-    expect(cols).toContain("app.etzhayyim.apps.port.berth");
-    expect(cols).toContain("app.etzhayyim.apps.port.terminal");
-    expect(cols).toContain("app.etzhayyim.apps.vessel.portCall"); // cross-app
+    expect(cols).toContain("com.etzhayyim.apps.port.port");
+    expect(cols).toContain("com.etzhayyim.apps.port.berth");
+    expect(cols).toContain("com.etzhayyim.apps.port.terminal");
+    expect(cols).toContain("com.etzhayyim.apps.vessel.portCall"); // cross-app
   });
 
   // --- Actors ---

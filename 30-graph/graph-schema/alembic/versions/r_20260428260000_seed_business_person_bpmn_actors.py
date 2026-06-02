@@ -25,14 +25,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-score-influence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/business-person-score-influence-v1',
                  'did:web:business-person.etzhayyim.com',
                  'business_person_score_influence',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  Influence scoring pipeline — pure SQL, no LLM.\n'
                  '\n'
-                 '  NSID:       app.etzhayyim.apps.businessPerson.scoreInfluence\n'
+                 '  NSID:       com.etzhayyim.apps.businessPerson.scoreInfluence\n'
                  '  Owner DID:  did:web:business-person.etzhayyim.com\n'
                  '  Process ID: business_person_score_influence\n'
                  '\n'
@@ -54,7 +54,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="business_person_score_influence" name="business person score '
                  'influence" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.businessPerson.scoreInfluence", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.businessPerson.scoreInfluence", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -138,12 +138,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4483,
-                 '00-contracts/bpmn/ai/gftd/business-person/scoreInfluence.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/business-person/scoreInfluence.bpmn',
                  '2026-04-28T26:00:00Z',
                  'did:web:business-person.etzhayyim.com',
                  'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-score-influence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/business-person-score-influence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -158,16 +158,16 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-person-scoreInfluence-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/business-person-scoreInfluence-v1',
                  'did:web:business-person.etzhayyim.com',
-                 'app.etzhayyim.apps.businessPerson.scoreInfluence',
+                 'com.etzhayyim.apps.businessPerson.scoreInfluence',
                  'business_person_score_influence',
                  60000,
                  '2026-04-28T26:00:00Z',
                  'did:web:business-person.etzhayyim.com',
                  'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-person-scoreInfluence-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/business-person-scoreInfluence-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -181,14 +181,14 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1',
                  'did:web:business-person.etzhayyim.com',
                  'business_person_enrich_career_llm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  LLM-driven career enrichment pipeline (RunPod Serverless).\n'
                  '\n'
-                 '  NSID:       app.etzhayyim.apps.businessPerson.enrichCareerLLM\n'
+                 '  NSID:       com.etzhayyim.apps.businessPerson.enrichCareerLLM\n'
                  '  Owner DID:  did:web:business-person.etzhayyim.com\n'
                  '  Process ID: business_person_enrich_career_llm\n'
                  '\n'
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="business_person_enrich_career_llm" name="business person '
                  'enrich career LLM" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.businessPerson.enrichCareerLLM", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.businessPerson.enrichCareerLLM", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -347,12 +347,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6970,
-                 '00-contracts/bpmn/ai/gftd/business-person/enrichCareerLLM.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/business-person/enrichCareerLLM.bpmn',
                  '2026-04-28T26:00:00Z',
                  'did:web:business-person.etzhayyim.com',
                  'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -367,25 +367,25 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-person-enrichCareerLLM-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/business-person-enrichCareerLLM-v1',
                  'did:web:business-person.etzhayyim.com',
-                 'app.etzhayyim.apps.businessPerson.enrichCareerLLM',
+                 'com.etzhayyim.apps.businessPerson.enrichCareerLLM',
                  'business_person_enrich_career_llm',
                  120000,
                  '2026-04-28T26:00:00Z',
                  'did:web:business-person.etzhayyim.com',
                  'did:web:business-person.etzhayyim.com',
                  'sys.bpmn.seed.business-person',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-person-enrichCareerLLM-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/business-person-enrichCareerLLM-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-person-scoreInfluence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/business-person-scoreInfluence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-score-influence-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/business-person-score-influence-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/business-person-enrichCareerLLM-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/business-person-enrichCareerLLM-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/business-person-enrich-career-l-l-m-v1']}]
 
 
 def upgrade() -> None:

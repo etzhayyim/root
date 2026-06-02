@@ -16,8 +16,8 @@
                            camunda:decisionRef="openPower.outageClass"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_ClassifyOutage" targetRef="Task_PersistOutage"/>
 
-    <bpmn:serviceTask id="Task_PersistOutage" name="ai.gftd.apps.openPower.reportOutage"
-                      camunda:topic="ai.gftd.apps.openPower.reportOutage"/>
+    <bpmn:serviceTask id="Task_PersistOutage" name="com.etzhayyim.apps.openPower.reportOutage"
+                      camunda:topic="com.etzhayyim.apps.openPower.reportOutage"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_PersistOutage" targetRef="Gateway_Reg"/>
 
     <bpmn:exclusiveGateway id="Gateway_Reg" name="Regulatory report?" default="f5b"/>

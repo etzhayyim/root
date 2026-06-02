@@ -15,7 +15,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/kaikei.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/kaikei"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/kaikei"
   },
   "profile": {
     "agentType": "autonomous",
@@ -35,8 +35,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.kaikei.account",
-        "ai.gftd.apps.kaikei.journalEntry"
+        "com.etzhayyim.apps.kaikei.account",
+        "com.etzhayyim.apps.kaikei.journalEntry"
       ]
     }
   },

@@ -19,7 +19,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 const BPMN_PROCESS_ID = "science_taxon_sync";
 const BPMN_FILE = path.resolve(
   repoRoot,
-  "00-contracts/bpmn/ai/gftd/maps/scienceTaxonSync.bpmn",
+  "00-contracts/bpmn/com/etzhayyim/maps/scienceTaxonSync.bpmn",
 );
 
 export async function up(db: Kysely<unknown>): Promise<void> {

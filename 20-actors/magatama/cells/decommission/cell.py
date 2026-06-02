@@ -206,7 +206,7 @@ def emit_decommission_record(state: DecommissionState) -> dict[str, Any]:
     now_ns = int(time.time() * 1000)
     decom_did = f"{site_did}:decommission:{int(time.time())}"
     record_uri = (
-        f"at://{site_did}/app.etzhayyim.apps.etzhayyim.kuniUmi.recordDecommission/"
+        f"at://{site_did}/com.etzhayyim.apps.etzhayyim.kuniUmi.recordDecommission/"
         f"{now_ns}"
     )
     landed_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.oshiete.question",
-        "ai.gftd.apps.oshiete.answer"
+        "com.etzhayyim.apps.oshiete.question",
+        "com.etzhayyim.apps.oshiete.answer"
       ]
     }
   }

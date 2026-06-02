@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-patent/registerPatent.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-patent/registerPatent.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-patent/recordCitation.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-patent/recordCitation.bpmn"),
   "utf-8",
 );
 
@@ -25,8 +25,8 @@ describe("Seed open-patent BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_patent_record_citation"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPatent.registerPatent"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openPatent.recordCitation"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openPatent.registerPatent"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openPatent.recordCitation"');
   });
   it("uses open-patent-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-patent');

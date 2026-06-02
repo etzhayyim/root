@@ -19,9 +19,9 @@ const entries = [
 ];
 
 const seeds = entries.map((e) => ({
-  vertexId: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${e.proc}-v1`,
+  vertexId: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${e.proc}-v1`,
   bpmnProcessId: e.bpmnProcessId,
-  sourcePath: `00-contracts/bpmn/ai/gftd/${project}/${e.proc}.bpmn`,
+  sourcePath: `00-contracts/bpmn/com/etzhayyim/${project}/${e.proc}.bpmn`,
 }));
 
 async function insertProcessDef(db: Kysely<unknown>, s: typeof seeds[0]): Promise<void> {

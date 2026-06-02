@@ -386,7 +386,7 @@ interface Env {
 //
 // Per ADR-2605172000, app.bsky.* read NSIDs MUST resolve through the
 // MST/IPFS/L2 substrate via `yoro-xrpc-adapter` (which exposes the
-// rw-free reference impl under the `app.etzhayyim.yoro.*` NSID family). The
+// rw-free reference impl under the `com.etzhayyim.yoro.*` NSID family). The
 // yoro frontend still sends the standard `app.bsky.*` NSIDs unchanged;
 // this Worker rewrites them to the substrate-side equivalent before
 // dispatching through the service binding.
@@ -396,21 +396,21 @@ interface Env {
 // the legacy path until the rw-free write path lands — they are not in
 // this map.
 const SUBSTRATE_NSID_ALIASES: Record<string, string> = {
-  "app.bsky.feed.getTimeline":     "app.etzhayyim.yoro.feed.getTimeline",
-  "app.bsky.feed.getDiscoverFeed": "app.etzhayyim.yoro.feed.getDiscoverFeed",
-  "app.bsky.feed.getAuthorFeed":   "app.etzhayyim.yoro.feed.getAuthorFeed",
-  "app.bsky.feed.getPostThread":   "app.etzhayyim.yoro.feed.getPostThread",
-  "app.bsky.actor.getProfile":     "app.etzhayyim.yoro.actor.getProfile",
-  "app.bsky.actor.searchActors":   "app.etzhayyim.yoro.actor.searchActors",
-  "app.bsky.graph.getFollowers":   "app.etzhayyim.yoro.graph.getFollowers",
-  "app.bsky.graph.getFollows":     "app.etzhayyim.yoro.graph.getFollows",
+  "app.bsky.feed.getTimeline":     "com.etzhayyim.yoro.feed.getTimeline",
+  "app.bsky.feed.getDiscoverFeed": "com.etzhayyim.yoro.feed.getDiscoverFeed",
+  "app.bsky.feed.getAuthorFeed":   "com.etzhayyim.yoro.feed.getAuthorFeed",
+  "app.bsky.feed.getPostThread":   "com.etzhayyim.yoro.feed.getPostThread",
+  "app.bsky.actor.getProfile":     "com.etzhayyim.yoro.actor.getProfile",
+  "app.bsky.actor.searchActors":   "com.etzhayyim.yoro.actor.searchActors",
+  "app.bsky.graph.getFollowers":   "com.etzhayyim.yoro.graph.getFollowers",
+  "app.bsky.graph.getFollows":     "com.etzhayyim.yoro.graph.getFollows",
 };
 
 // Identity-passthrough prefixes that route to YORO_XRPC unchanged. Used for
 // NSID families already in their canonical rw-free shape (no app.bsky.* →
-// app.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
+// com.etzhayyim.yoro.* rewrite needed). The xrpc-adapter exposes these directly.
 const SUBSTRATE_PASSTHROUGH_PREFIXES: readonly string[] = [
-  "app.etzhayyim.apps.unispsc.",
+  "com.etzhayyim.apps.unispsc.",
 ];
 
 // ─── XRPC routing ───────────────────────────────────────────────────────
@@ -426,7 +426,7 @@ interface NsidRoute {
 }
 
 const XRPC_ROUTES: NsidRoute[] = [
-  { prefix: "app.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
+  { prefix: "com.etzhayyim.apps.unispsc.", upstream: "XRPC_UNISPSC_UPSTREAM" },
   // AT Protocol / Bluesky read+write (PDS handles both write paths and
   // pipethrough to AppView for reads). yoro frontend sends app.bsky.feed.*,
   // app.bsky.actor.*, app.bsky.graph.*, com.atproto.* via these routes.
@@ -434,7 +434,7 @@ const XRPC_ROUTES: NsidRoute[] = [
   { prefix: "com.atproto.",          upstream: "XRPC_ATPROTO_UPSTREAM" },
   { prefix: "chat.bsky.",            upstream: "XRPC_CHAT_UPSTREAM" },
   // etzhayyim platform extensions (convo, signal, kagami, projector, mcp, rtc).
-  { prefix: "app.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
+  { prefix: "com.etzhayyim.",              upstream: "XRPC_etzhayyim_UPSTREAM" },
 ];
 
 function findXrpcRoute(nsid: string): NsidRoute | null {
@@ -615,7 +615,7 @@ function buildPerActorDidDoc(handle: string, env: Env): Record<string, unknown> 
       primarySchema: infraActor?.primarySchema,
       registry: registered
         ? {
-            lexicon: "app.etzhayyim.apps.unispsc",
+            lexicon: "com.etzhayyim.apps.unispsc",
             generatedAt: UNISPSC_GENERATED_AT,
             totalCount: UNISPSC_TOTAL_COUNT,
           }
@@ -963,7 +963,7 @@ export default {
             JSON.stringify({
               error: "HandleNotInRegistry",
               message: `handle '${handle}' matches a namespaced registry shape but is not registered`,
-              registry: "app.etzhayyim.apps.unispsc",
+              registry: "com.etzhayyim.apps.unispsc",
               registryTotalCount: UNISPSC_TOTAL_COUNT,
             }),
             {
@@ -1179,7 +1179,7 @@ export default {
         //    actor; everything else falls through to substrate routing.
         if (
           (nsid === "app.bsky.actor.getProfile" ||
-            nsid === "app.etzhayyim.actor.getProfile") &&
+            nsid === "com.etzhayyim.actor.getProfile") &&
           (request.method === "GET" || request.method === "HEAD")
         ) {
           const actorParam = url.searchParams.get("actor") ?? "";

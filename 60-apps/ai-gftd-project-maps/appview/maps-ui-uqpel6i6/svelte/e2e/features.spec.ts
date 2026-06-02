@@ -154,7 +154,7 @@ test('4. search — type "東京駅" and get results', async ({ page }) => {
   console.log('first search result:', resultText?.trim());
 
   // Check XRPC search_places endpoint directly
-  const xrpc = await page.request.get('/xrpc/app.etzhayyim.apps.maps.search_places?q=%E6%9D%B1%E4%BA%AC%E9%A7%85&limit=5');
+  const xrpc = await page.request.get('/xrpc/com.etzhayyim.apps.maps.search_places?q=%E6%9D%B1%E4%BA%AC%E9%A7%85&limit=5');
   console.log(`search_places XRPC : HTTP ${xrpc.status()}`);
   if (xrpc.status() === 200) {
     const body = await xrpc.json().catch(() => ({}));
@@ -286,12 +286,12 @@ test('7. place card — search result shows detail card', async ({ page }) => {
 test('8. XRPC — search_resources, graph_neighbors, weather_at', async ({ page }) => {
   await page.goto('/', { waitUntil: 'load', timeout: 25_000 });
 
-  // Backend uses camelCase NSIDs (from app.ts .command("app.etzhayyim.apps.maps.xxxx",...))
+  // Backend uses camelCase NSIDs (from app.ts .command("com.etzhayyim.apps.maps.xxxx",...))
   // GET queries
   const queries: [string, string][] = [
-    ['/xrpc/app.etzhayyim.apps.maps.listRoutes?limit=5', 'listRoutes'],
-    ['/xrpc/app.etzhayyim.apps.maps.listDisplayLayers', 'listDisplayLayers'],
-    ['/xrpc/app.etzhayyim.apps.maps.listGeoDomains', 'listGeoDomains'],
+    ['/xrpc/com.etzhayyim.apps.maps.listRoutes?limit=5', 'listRoutes'],
+    ['/xrpc/com.etzhayyim.apps.maps.listDisplayLayers', 'listDisplayLayers'],
+    ['/xrpc/com.etzhayyim.apps.maps.listGeoDomains', 'listGeoDomains'],
   ];
   for (const [url, label] of queries) {
     const res = await page.request.get(url);
@@ -305,10 +305,10 @@ test('8. XRPC — search_resources, graph_neighbors, weather_at', async ({ page 
 
   // POST procedures — backend NSIDs are camelCase
   const procs: [string, string, object][] = [
-    ['/xrpc/app.etzhayyim.apps.maps.getDashboard', 'getDashboard', {}],
-    ['/xrpc/app.etzhayyim.apps.maps.weatherAt', 'weatherAt', { lat: 35.6812, lng: 139.7671 }],
-    ['/xrpc/app.etzhayyim.apps.maps.weatherGrid', 'weatherGrid', { lat: 35.6812, lng: 139.7671, gridStep: 0.5, gridRadius: 2 }],
-    ['/xrpc/app.etzhayyim.apps.maps.ipGeolocate', 'ipGeolocate', {}],
+    ['/xrpc/com.etzhayyim.apps.maps.getDashboard', 'getDashboard', {}],
+    ['/xrpc/com.etzhayyim.apps.maps.weatherAt', 'weatherAt', { lat: 35.6812, lng: 139.7671 }],
+    ['/xrpc/com.etzhayyim.apps.maps.weatherGrid', 'weatherGrid', { lat: 35.6812, lng: 139.7671, gridStep: 0.5, gridRadius: 2 }],
+    ['/xrpc/com.etzhayyim.apps.maps.ipGeolocate', 'ipGeolocate', {}],
   ];
   for (const [url, label, body] of procs) {
     const res = await page.request.post(url, { data: body });
@@ -383,7 +383,7 @@ test('10. crawler locations — poll API responds', async ({ page }) => {
   await page.waitForTimeout(3000); // allow first poll
 
   // Check the crawler XRPC endpoint
-  const res = await page.request.get('/xrpc/app.etzhayyim.apps.maps.list_crawler_locations?job_limit=3&results_per_job=5&limit=15');
+  const res = await page.request.get('/xrpc/com.etzhayyim.apps.maps.list_crawler_locations?job_limit=3&results_per_job=5&limit=15');
   const status = res.status();
   console.log(`crawler locations XRPC: HTTP ${status}`);
 
@@ -409,7 +409,7 @@ test('11. weather layer — weather_grid XRPC', async ({ page }) => {
   await page.goto('/', { waitUntil: 'load', timeout: 25_000 });
 
   // weatherGrid is a POST procedure (camelCase NSID from backend app.ts)
-  const res = await page.request.post('/xrpc/app.etzhayyim.apps.maps.weatherGrid', {
+  const res = await page.request.post('/xrpc/com.etzhayyim.apps.maps.weatherGrid', {
     data: { lat: 35.6812, lng: 139.7671, gridStep: 0.5, gridRadius: 2 },
   });
   const status = res.status();

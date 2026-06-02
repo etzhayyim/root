@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oshinobi.reportContent",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "User report against a post, creator, or tip. BPMN triage: LLM classifier assigns severity; severity=critical (CSAM, non-consensual) escalates to out-of-band review queue. Server stores reason as plaintext (moderator-readable); reporter DID is owner_did (RLS).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["targetUri", "reason", "category"],
+          "properties": {
+            "targetUri": { "type": "string", "format": "at-uri" },
+            "category":  { "type": "string", "enum": ["csam", "non_consensual", "minor_depicted", "copyright", "impersonation", "spam", "other"] },
+            "reason":    { "type": "string", "maxLength": 2000 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["reportId", "uri", "severity"],
+          "properties": {
+            "reportId": { "type": "string" },
+            "uri":      { "type": "string", "format": "at-uri" },
+            "severity": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+            "status":   { "type": "string", "enum": ["queued", "escalated", "auto_closed"] }
+          }
+        }
+      },
+      "errors": [
+        { "name": "TargetNotFound", "description": "targetUri does not resolve" }
+      ]
+    }
+  }
+}

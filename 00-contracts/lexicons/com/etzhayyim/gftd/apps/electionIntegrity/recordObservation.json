@@ -1,0 +1,100 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.electionIntegrity.recordObservation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Election observation finding (OSCE/ODIHR / EU EOM / Carter Center — bridges ai-governance + cyber-incident)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "observationId",
+            "jurisdictionIso3",
+            "electionDate",
+            "missionType",
+            "findingCode",
+            "reportedAt"
+          ],
+          "properties": {
+            "observationId": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "electionDate": {
+              "type": "string"
+            },
+            "missionType": {
+              "type": "string",
+              "enum": [
+                "OSCE_ODIHR",
+                "EU_EOM",
+                "CARTER",
+                "OAS",
+                "AU",
+                "ANFREL",
+                "COMMONWEALTH"
+              ]
+            },
+            "findingCode": {
+              "type": "string",
+              "enum": [
+                "vote_suppression",
+                "media_bias",
+                "campaign_finance",
+                "disinformation",
+                "cyber_interference",
+                "ballot_integrity",
+                "tabulation_anomaly",
+                "judicial_interference"
+              ]
+            },
+            "aiModelVid": {
+              "type": "string",
+              "description": "bridges open-ai-governance if deepfake"
+            },
+            "cyberIncidentVid": {
+              "type": "string",
+              "description": "bridges open-cyber-incident"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "concern",
+                "serious",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

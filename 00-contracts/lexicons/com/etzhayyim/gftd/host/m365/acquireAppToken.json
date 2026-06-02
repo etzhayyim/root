@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.m365.acquireAppToken",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Acquire a Microsoft Graph app-only access token via client credentials flow. Uses tenant secret from Cloudflare Secrets Store.",
+      "x-hostImportsMethod": "m365AcquireAppToken",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "access_token": { "type": "string" },
+            "expires_in": { "type": "integer", "description": "seconds until expiry" },
+            "scope": { "type": "string" }
+          },
+          "required": ["access_token", "expires_in"]
+        }
+      }
+    }
+  }
+}

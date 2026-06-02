@@ -58,7 +58,7 @@ def _make_indexer(records: list[dict[str, Any]], collections: list[str] | None =
         return filtered[:limit]
 
     async def _list_collections() -> list[str]:
-        return collections or ["app.etzhayyim.test.record"]
+        return collections or ["com.etzhayyim.test.record"]
 
     indexer.query = _query
     indexer.list_collections = _list_collections
@@ -75,7 +75,7 @@ class TestHealthz(AioHTTPTestCase):
     async def test_healthz_returns_200_when_indexer_ok(self) -> None:
         """GET /healthz returns 200 + ok:true when indexer.list_collections succeeds."""
         stub = MagicMock()
-        stub.list_collections = AsyncMock(return_value=["app.etzhayyim.test.a", "app.etzhayyim.test.b"])
+        stub.list_collections = AsyncMock(return_value=["com.etzhayyim.test.a", "com.etzhayyim.test.b"])
         stub.data_dir = "/data/mst"
 
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
@@ -117,8 +117,8 @@ class TestQueryByCollection(AioHTTPTestCase):
         stub = _make_indexer(records)
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.queryByCollection",
-                json={"collection": "app.etzhayyim.test.record", "limit": 50},
+                "/xrpc/com.etzhayyim.mstProjector.queryByCollection",
+                json={"collection": "com.etzhayyim.test.record", "limit": 50},
             )
         assert resp.status == 200
         body = await resp.json()
@@ -132,8 +132,8 @@ class TestQueryByCollection(AioHTTPTestCase):
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             # First page
             resp1 = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.queryByCollection",
-                json={"collection": "app.etzhayyim.test.record", "limit": 3},
+                "/xrpc/com.etzhayyim.mstProjector.queryByCollection",
+                json={"collection": "com.etzhayyim.test.record", "limit": 3},
             )
             body1 = await resp1.json()
             assert resp1.status == 200
@@ -142,9 +142,9 @@ class TestQueryByCollection(AioHTTPTestCase):
 
             # Second page
             resp2 = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.queryByCollection",
+                "/xrpc/com.etzhayyim.mstProjector.queryByCollection",
                 json={
-                    "collection": "app.etzhayyim.test.record",
+                    "collection": "com.etzhayyim.test.record",
                     "limit": 3,
                     "cursor": body1["cursor"],
                 },
@@ -157,7 +157,7 @@ class TestQueryByCollection(AioHTTPTestCase):
     async def test_invalid_request_400_missing_collection(self) -> None:
         """Returns 400 when collection is missing."""
         resp = await self.client.post(
-            "/xrpc/app.etzhayyim.mstProjector.queryByCollection",
+            "/xrpc/com.etzhayyim.mstProjector.queryByCollection",
             json={"limit": 10},
         )
         assert resp.status == 400
@@ -179,10 +179,10 @@ class TestQueryByDid(AioHTTPTestCase):
         stub = _make_indexer(records)
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.queryByDid",
+                "/xrpc/com.etzhayyim.mstProjector.queryByDid",
                 json={
                     "did": "did:plc:alice",
-                    "collection": "app.etzhayyim.test.record",
+                    "collection": "com.etzhayyim.test.record",
                 },
             )
         assert resp.status == 200
@@ -197,11 +197,11 @@ class TestQueryByDid(AioHTTPTestCase):
             _make_record("did:plc:alice", "r2"),
         ]
         stub = _make_indexer(
-            records, collections=["app.etzhayyim.test.a", "app.etzhayyim.test.b"]
+            records, collections=["com.etzhayyim.test.a", "com.etzhayyim.test.b"]
         )
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.queryByDid",
+                "/xrpc/com.etzhayyim.mstProjector.queryByDid",
                 json={"did": "did:plc:alice"},
             )
         assert resp.status == 200
@@ -212,8 +212,8 @@ class TestQueryByDid(AioHTTPTestCase):
     async def test_query_by_did_missing_did_400(self) -> None:
         """Returns 400 when did is missing."""
         resp = await self.client.post(
-            "/xrpc/app.etzhayyim.mstProjector.queryByDid",
-            json={"collection": "app.etzhayyim.test.record"},
+            "/xrpc/com.etzhayyim.mstProjector.queryByDid",
+            json={"collection": "com.etzhayyim.test.record"},
         )
         assert resp.status == 400
 
@@ -232,9 +232,9 @@ class TestQueryByField(AioHTTPTestCase):
         stub = _make_indexer(records)
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.queryByField",
+                "/xrpc/com.etzhayyim.mstProjector.queryByField",
                 json={
-                    "collection": "app.etzhayyim.test.record",
+                    "collection": "com.etzhayyim.test.record",
                     "fieldName": "status",
                     "fieldValue": "published",
                 },
@@ -247,9 +247,9 @@ class TestQueryByField(AioHTTPTestCase):
     async def test_query_by_field_sql_injection_blocked(self) -> None:
         """Rejects fieldName containing characters outside [A-Za-z0-9_]."""
         resp = await self.client.post(
-            "/xrpc/app.etzhayyim.mstProjector.queryByField",
+            "/xrpc/com.etzhayyim.mstProjector.queryByField",
             json={
-                "collection": "app.etzhayyim.test.record",
+                "collection": "com.etzhayyim.test.record",
                 "fieldName": "status'; DROP TABLE--",
                 "fieldValue": "x",
             },
@@ -261,9 +261,9 @@ class TestQueryByField(AioHTTPTestCase):
     async def test_query_by_field_numeric_start_blocked(self) -> None:
         """Rejects fieldName starting with a digit."""
         resp = await self.client.post(
-            "/xrpc/app.etzhayyim.mstProjector.queryByField",
+            "/xrpc/com.etzhayyim.mstProjector.queryByField",
             json={
-                "collection": "app.etzhayyim.test.record",
+                "collection": "com.etzhayyim.test.record",
                 "fieldName": "1badfield",
                 "fieldValue": "x",
             },
@@ -273,8 +273,8 @@ class TestQueryByField(AioHTTPTestCase):
     async def test_query_by_field_missing_params_400(self) -> None:
         """Returns 400 when required params are absent."""
         resp = await self.client.post(
-            "/xrpc/app.etzhayyim.mstProjector.queryByField",
-            json={"collection": "app.etzhayyim.test.record"},
+            "/xrpc/com.etzhayyim.mstProjector.queryByField",
+            json={"collection": "com.etzhayyim.test.record"},
         )
         assert resp.status == 400
 
@@ -289,8 +289,8 @@ class TestCountByCollection(AioHTTPTestCase):
         stub = _make_indexer(records)
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.countByCollection",
-                json={"collection": "app.etzhayyim.test.record"},
+                "/xrpc/com.etzhayyim.mstProjector.countByCollection",
+                json={"collection": "com.etzhayyim.test.record"},
             )
         assert resp.status == 200
         body = await resp.json()
@@ -300,7 +300,7 @@ class TestCountByCollection(AioHTTPTestCase):
     async def test_count_missing_collection_400(self) -> None:
         """Returns 400 when collection is missing."""
         resp = await self.client.post(
-            "/xrpc/app.etzhayyim.mstProjector.countByCollection",
+            "/xrpc/com.etzhayyim.mstProjector.countByCollection",
             json={},
         )
         assert resp.status == 400
@@ -320,7 +320,7 @@ class TestCountByCollection(AioHTTPTestCase):
 
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.countByCollection",
+                "/xrpc/com.etzhayyim.mstProjector.countByCollection",
                 json={"collection": "app.bsky.feed.post"},
             )
 
@@ -347,7 +347,7 @@ class TestCountByCollection(AioHTTPTestCase):
 
         with patch("mst_projector.query_api.get_indexer", return_value=stub):
             resp = await self.client.post(
-                "/xrpc/app.etzhayyim.mstProjector.countByCollection",
+                "/xrpc/com.etzhayyim.mstProjector.countByCollection",
                 json={"collection": "app.bsky.feed.post"},
             )
 

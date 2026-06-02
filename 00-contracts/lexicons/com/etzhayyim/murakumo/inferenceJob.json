@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.murakumo.inferenceJob",
+  "description": "Header record for an async LLM inference job. Immutable once created; status transitions live in com.etzhayyim.murakumo.inferenceJobEvent. Per ADR-2605191358 §event-sourced inferenceJob.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["jobId", "owner", "modelId", "createdTsMs"],
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "description": "UUID; also used as rkey for direct lookup."
+          },
+          "owner": {
+            "type": "string",
+            "description": "DID or auth-kind tag of the requester."
+          },
+          "modelId": { "type": "string" },
+          "promptPreview": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "First 200 chars of the user message. UI-only; not auth-sensitive."
+          },
+          "requestBody": {
+            "type": "string",
+            "description": "Verbatim JSON request body. May contain large messages; consider blob-ifying for very large prompts in a future revision."
+          },
+          "createdTsMs": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

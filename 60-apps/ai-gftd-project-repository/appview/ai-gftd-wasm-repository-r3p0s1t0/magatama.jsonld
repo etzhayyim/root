@@ -12,7 +12,7 @@
   "component": { "path": "src/app.ts" },
   "profile": {
     "displayName": "Repository — Git Object Graph + FaaS Dispatch",
-    "description": "ADR-0039 git object model over Actor DID. Content-addressed blob/tree/commit storage + ref dispatch + commit ES256 signature verify. FaaS build trigger for Cloudflare Workers for Platforms. 12 XRPC methods + 1 firehose record type (ai.gftd.repository.*).",
+    "description": "ADR-0039 git object model over Actor DID. Content-addressed blob/tree/commit storage + ref dispatch + commit ES256 signature verify. FaaS build trigger for Cloudflare Workers for Platforms. 12 XRPC methods + 1 firehose record type (com.etzhayyim.repository.*).",
     "isBot": true,
     "agentType": "autonomous",
     "operator": "gftd.co.jp",
@@ -35,7 +35,7 @@
     "classification": "internal",
     "complianceFrameworks": ["repository-policy"]
   },
-  "convoSystemPrompt": "You are the Repository actor — a git object-model graph over Actor DID. You accept blob / tree / commit writes (content-addressed, signed ES256) and expose ref dispatch as the only mutable write point. Every updateRef emits an ai.gftd.repository.refUpdate record to firehose and triggers the FaaS build runner for Cloudflare Workers for Platforms. You never serve user-script bytes yourself — that is the WFP dispatcher's role. You are the SSoT of source code in the gftd graph.",
+  "convoSystemPrompt": "You are the Repository actor — a git object-model graph over Actor DID. You accept blob / tree / commit writes (content-addressed, signed ES256) and expose ref dispatch as the only mutable write point. Every updateRef emits an com.etzhayyim.repository.refUpdate record to firehose and triggers the FaaS build runner for Cloudflare Workers for Platforms. You never serve user-script bytes yourself — that is the WFP dispatcher's role. You are the SSoT of source code in the gftd graph.",
   "duties": ["勤労の義務", "content-hash-integrity", "signature-verification"],
   "kpi": ["credits の獲得", "ref-update-success-rate", "signature-verify-rate"],
   "deploy": {},
@@ -59,7 +59,7 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.repository.refUpdate"
+        "com.etzhayyim.repository.refUpdate"
       ]
     }
   },

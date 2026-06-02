@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Submit a pacs.008-equivalent customer credit transfer between two institutions. Settlement screening: amount >= 1,000,000 or cross-border high-risk country → manual review. Starts BPMN open_swift_send_customer_credit_transfer.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uetr", "senderVid", "receiverVid", "amount", "currency", "valueDate"],
+          "properties": {
+            "uetr":          { "type": "string", "description": "Unique End-to-End Transaction Reference (UUIDv4)" },
+            "senderVid":     { "type": "string" },
+            "receiverVid":   { "type": "string" },
+            "debtorName":    { "type": "string" },
+            "creditorName":  { "type": "string" },
+            "amount":        { "type": "number", "exclusiveMinimum": true, "minimum": 0 },
+            "currency":      { "type": "string" },
+            "valueDate":     { "type": "string", "format": "date" },
+            "senderCountry":   { "type": "string" },
+            "receiverCountry": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "screeningDecision":   { "type": "string", "enum": ["auto-pass","manual-review","block"] },
+            "requireManualReview": { "type": "boolean" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

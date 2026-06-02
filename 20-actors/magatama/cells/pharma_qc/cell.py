@@ -20,7 +20,7 @@ Pregel graph (4 nodes):
                                       else outcome = "ok"
         |
         v
-    emit_qc_attest                ->  MST PUT app.etzhayyim.pharma.qcAttestation
+    emit_qc_attest                ->  MST PUT com.etzhayyim.pharma.qcAttestation
                                       (lot ID, all results CIDs, QC analyst DID,
                                        QP-equivalent DID — witness N≥2 per G9)
                                   ->  next-cell message pharma_sterile_fill_finish

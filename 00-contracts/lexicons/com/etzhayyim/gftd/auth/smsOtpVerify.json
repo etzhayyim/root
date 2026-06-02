@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.smsOtpVerify",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Verify SMS OTP code. On success, creates a person DID and issues AT Protocol session.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["phone", "code"],
+          "properties": {
+            "phone": { "type": "string", "description": "Phone number used in smsOtpSend" },
+            "code": { "type": "string", "description": "6-digit OTP code" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["verified", "did", "sessionTokens"],
+          "properties": {
+            "verified": { "type": "boolean" },
+            "did": { "type": "string" },
+            "sessionTokens": { "type": "object" },
+            "isNewUser": { "type": "boolean" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidOTP", "description": "Invalid or expired verification code" },
+        { "name": "ConfigError", "description": "KEYS_DB required for OTP verification" }
+      ]
+    }
+  }
+}

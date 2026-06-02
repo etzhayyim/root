@@ -16,9 +16,9 @@
 
 export const RE_DID_PREFIX = "did:web:real-estate.etzhayyim.com:" as const;
 
-export const LISTING_COLLECTION = "app.etzhayyim.apps.realEstate.listing";
-export const OFFER_COLLECTION = "app.etzhayyim.apps.realEstate.offer";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.realEstate.payment";
+export const LISTING_COLLECTION = "com.etzhayyim.apps.realEstate.listing";
+export const OFFER_COLLECTION = "com.etzhayyim.apps.realEstate.offer";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.realEstate.payment";
 
 export type RealEstatePaymentPurpose = "internal-purchase" | "escrow-refund";
 

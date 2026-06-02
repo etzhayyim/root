@@ -88,7 +88,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = ColdRollingPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.kanayama.coilQualificationRecord",
+        "$type": "com.etzhayyim.kanayama.coilQualificationRecord",
         "lotId": s.lotId,
         "inputHotBandCoilId": s.inputHotBandCoilId,
         "coldPasses": s.coldPasses,

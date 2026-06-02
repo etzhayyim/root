@@ -39,12 +39,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.otakiage.item",
-        "ai.gftd.otakiage.reuseRequest",
-        "ai.gftd.otakiage.handover",
-        "ai.gftd.otakiage.ritual",
-        "ai.gftd.otakiage.matsuri",
-        "ai.gftd.otakiage.certificate"
+        "com.etzhayyim.otakiage.item",
+        "com.etzhayyim.otakiage.reuseRequest",
+        "com.etzhayyim.otakiage.handover",
+        "com.etzhayyim.otakiage.ritual",
+        "com.etzhayyim.otakiage.matsuri",
+        "com.etzhayyim.otakiage.certificate"
       ]
     }
   },
@@ -56,19 +56,19 @@
   },
   "lexicons": {
     "procedures": [
-      "ai.gftd.otakiage.submitItem",
-      "ai.gftd.otakiage.requestReuse",
-      "ai.gftd.otakiage.confirmHandover",
-      "ai.gftd.otakiage.requestRitual",
-      "ai.gftd.otakiage.scheduleMatsuri",
-      "ai.gftd.otakiage.issueCertificate",
-      "ai.gftd.otakiage.agentChat",
-      "ai.gftd.otakiage.anchorCertificate"
+      "com.etzhayyim.otakiage.submitItem",
+      "com.etzhayyim.otakiage.requestReuse",
+      "com.etzhayyim.otakiage.confirmHandover",
+      "com.etzhayyim.otakiage.requestRitual",
+      "com.etzhayyim.otakiage.scheduleMatsuri",
+      "com.etzhayyim.otakiage.issueCertificate",
+      "com.etzhayyim.otakiage.agentChat",
+      "com.etzhayyim.otakiage.anchorCertificate"
     ],
     "queries": [
-      "ai.gftd.otakiage.listItems",
-      "ai.gftd.otakiage.getItem",
-      "ai.gftd.otakiage.coverage"
+      "com.etzhayyim.otakiage.listItems",
+      "com.etzhayyim.otakiage.getItem",
+      "com.etzhayyim.otakiage.coverage"
     ]
   },
   "bpmn": [

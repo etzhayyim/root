@@ -95,7 +95,7 @@ export async function emitOutbox(env: OutboxEnv, event: OutboxEvent): Promise<{ 
   const tsMs = Date.now();
   const nowIso = new Date(tsMs).toISOString();
   const idDigest = await sha256Hex(`${event.orgDid}|${event.kind}|${tsMs}|${Math.random()}`);
-  const vertexId = `at://did:web:outbox.etzhayyim.com/app.etzhayyim.apps.outbox.event/${idDigest.slice(0, 32)}`;
+  const vertexId = `at://did:web:outbox.etzhayyim.com/com.etzhayyim.apps.outbox.event/${idDigest.slice(0, 32)}`;
   const recipient = event.recipientEmail ?? "";
 
   // P65: send via Resend regardless of RW availability. Customers care

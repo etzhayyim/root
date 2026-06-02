@@ -51,7 +51,7 @@ function printJson(rows, errors) {
 }
 
 function lexiconNamespaceOf(expected) {
-  const prefix = "app.etzhayyim.apps.";
+  const prefix = "com.etzhayyim.apps.";
   const suffix = `.${expected.proc}`;
   if (!expected.nsid.startsWith(prefix) || !expected.nsid.endsWith(suffix)) return null;
   return expected.nsid.slice(prefix.length, -suffix.length);

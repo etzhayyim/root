@@ -3,11 +3,11 @@
 // Surfaces:
 //   /health, /_app/meta                              edge probes (no auth)
 //   /webhook/github                                  GitHub App push webhook (HMAC-256)
-//   /xrpc/app.etzhayyim.apps.mamoru.scanCommit             procedure (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.mamoru.scanRepo               procedure (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.mamoru.listIncidents          query     (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.mamoru.getIncident            query     (Bearer auth)
-//   /xrpc/app.etzhayyim.apps.mamoru.resolveIncident        procedure (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.mamoru.scanCommit             procedure (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.mamoru.scanRepo               procedure (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.mamoru.listIncidents          query     (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.mamoru.getIncident            query     (Bearer auth)
+//   /xrpc/com.etzhayyim.apps.mamoru.resolveIncident        procedure (Bearer auth)
 //
 // Auth: Bearer sk_live_* / ES256 JWT → PDS service binding /_internal/resolve-auth
 // Dispatch: forwards to bpmn-dispatcher with x-internal-trust HMAC.
@@ -92,7 +92,7 @@ declare module "hono" {
 }
 
 const ACTOR_DID_DEFAULT = "did:web:mamoru.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.apps.mamoru";
+const NSID_PREFIX = "com.etzhayyim.apps.mamoru";
 const PROCEDURES = new Set(["scanCommit", "scanRepo", "resolveIncident", "processSecretAlert"]);
 const QUERIES = new Set(["listIncidents", "getIncident"]);
 
@@ -116,11 +116,11 @@ app.get("/_app/meta", (c) =>
     layer: "L3-dispatcher",
     surfaces: [
       "/webhook/github",
-      "/xrpc/app.etzhayyim.apps.mamoru.scanCommit",
-      "/xrpc/app.etzhayyim.apps.mamoru.scanRepo",
-      "/xrpc/app.etzhayyim.apps.mamoru.listIncidents",
-      "/xrpc/app.etzhayyim.apps.mamoru.getIncident",
-      "/xrpc/app.etzhayyim.apps.mamoru.resolveIncident",
+      "/xrpc/com.etzhayyim.apps.mamoru.scanCommit",
+      "/xrpc/com.etzhayyim.apps.mamoru.scanRepo",
+      "/xrpc/com.etzhayyim.apps.mamoru.listIncidents",
+      "/xrpc/com.etzhayyim.apps.mamoru.getIncident",
+      "/xrpc/com.etzhayyim.apps.mamoru.resolveIncident",
     ],
     backend: c.env.BPMN_DISPATCHER_URL,
     federable: false,

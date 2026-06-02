@@ -60,7 +60,7 @@ def test_dry_run_g5_fail_closed(monkeypatch, tmp_path, capsys):
         '\n'
         '[[source]]\n'
         'subdataset    = "dns/rapid7-sonar-fdns"\n'
-        'datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kxxxxxxxxxx"\n'
+        'datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kxxxxxxxxxx"\n'
         'shard_glob    = "*.ndjson"\n'
         'tier          = "C"\n'
         'license       = "rapid7-research-use"\n'

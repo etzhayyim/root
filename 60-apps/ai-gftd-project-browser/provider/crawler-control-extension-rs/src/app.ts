@@ -21,9 +21,9 @@ let appId = "";
 const writerDID = "";
 
 /** AT Protocol collection for crawler control scope records */
-const DOMAIN_COLLECTION = "app.etzhayyim.apps.crawler.controlScope";
+const DOMAIN_COLLECTION = "com.etzhayyim.apps.crawler.controlScope";
 /** AT Protocol collection for crawler control override events */
-const EVENT_COLLECTION = "app.etzhayyim.apps.crawler.controlOverride";
+const EVENT_COLLECTION = "com.etzhayyim.apps.crawler.controlOverride";
 
 // Layer 3: Shinka (Social Evolution) — joucho cadence
 const shinkaEnabled = true;

@@ -1,7 +1,7 @@
 """Lock-in tests for the karute (電子カルテ / EMR) constitutional invariants.
 
 karute is the FHIR-mapped clinical-record lexicon layer (ADR-2605231100); every
-record is PHI and MUST flow through the app.etzhayyim.encrypted.record envelope
+record is PHI and MUST flow through the com.etzhayyim.encrypted.record envelope
 (ADR-2605181100). Two invariant families are pinned here:
 
   1. FHIR binding — each karute lexicon pins `fhirResourceType` const to its
@@ -10,7 +10,7 @@ record is PHI and MUST flow through the app.etzhayyim.encrypted.record envelope
      encounterClass=home; soapNote pins compositionType=SOAP.
 
   2. PHI-plaintext-guard COVERAGE — the karute-phi-plaintext-guard lefthook
-     blocks plaintext writes to app.etzhayyim.karute.* outside the encrypted
+     blocks plaintext writes to com.etzhayyim.karute.* outside the encrypted
      envelope. Its detection regex + inner-types list MUST cover EXACTLY the set
      of karute lexicons on disk. This is the constitutional safety property:
      a clinical lexicon the guard does not list is a silent PHI-plaintext leak
@@ -90,7 +90,7 @@ class TestFhirBinding:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.karute.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.karute.{p.stem}"
 
 
 # ─── 2. no floats (Lexicon v1) ──────────────────────────────────────────

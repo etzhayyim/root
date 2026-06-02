@@ -39,11 +39,11 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.opensaas.salesforce.account",
-        "ai.gftd.apps.opensaas.salesforce.contact",
-        "ai.gftd.apps.opensaas.salesforce.lead",
-        "ai.gftd.apps.opensaas.salesforce.opportunity",
-        "ai.gftd.apps.opensaas.salesforce.case"
+        "com.etzhayyim.apps.opensaas.salesforce.account",
+        "com.etzhayyim.apps.opensaas.salesforce.contact",
+        "com.etzhayyim.apps.opensaas.salesforce.lead",
+        "com.etzhayyim.apps.opensaas.salesforce.opportunity",
+        "com.etzhayyim.apps.opensaas.salesforce.case"
       ]
     }
   },

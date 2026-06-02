@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cr-1" sourceRef="start-create-resource" targetRef="task-create-resource"/>
     <bpmn:serviceTask id="task-create-resource" name="Create Resource">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.createResource"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.createResource"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cr-2" sourceRef="task-create-resource" targetRef="end-create-resource"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-gr-1" sourceRef="start-get-resource" targetRef="task-get-resource"/>
     <bpmn:serviceTask id="task-get-resource" name="Get Resource">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.getResource"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.getResource"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gr-2" sourceRef="task-get-resource" targetRef="end-get-resource"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-ur-1" sourceRef="start-update-resource" targetRef="task-update-resource"/>
     <bpmn:serviceTask id="task-update-resource" name="Update Resource">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.updateResource"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.updateResource"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ur-2" sourceRef="task-update-resource" targetRef="end-update-resource"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-dr-1" sourceRef="start-delete-resource" targetRef="task-delete-resource"/>
     <bpmn:serviceTask id="task-delete-resource" name="Delete Resource">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.deleteResource"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.deleteResource"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-dr-2" sourceRef="task-delete-resource" targetRef="end-delete-resource"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-lr-1" sourceRef="start-list-resources" targetRef="task-list-resources"/>
     <bpmn:serviceTask id="task-list-resources" name="List Resources">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.listResources"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.listResources"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lr-2" sourceRef="task-list-resources" targetRef="end-list-resources"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-ar-1" sourceRef="start-allocate-resource" targetRef="task-allocate-resource"/>
     <bpmn:serviceTask id="task-allocate-resource" name="Allocate Resource">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.allocateResource"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.allocateResource"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ar-2" sourceRef="task-allocate-resource" targetRef="end-allocate-resource"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-rr-1" sourceRef="start-release-resource" targetRef="task-release-resource"/>
     <bpmn:serviceTask id="task-release-resource" name="Release Resource">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.releaseResource"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.releaseResource"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rr-2" sourceRef="task-release-resource" targetRef="end-release-resource"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-ru-1" sourceRef="start-resource-usage" targetRef="task-resource-usage"/>
     <bpmn:serviceTask id="task-resource-usage" name="Resource Usage">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.resources.resourceUsage"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.resources.resourceUsage"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ru-2" sourceRef="task-resource-usage" targetRef="end-resource-usage"/>

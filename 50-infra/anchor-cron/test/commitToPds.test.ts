@@ -19,7 +19,7 @@ const ANCHORER = "0xC0fFEE000000000000000000000000000000Cafe" as const;
 const ZERO_HASH = ("0x" + "0".repeat(64)) as `0x${string}`;
 
 const BASE = {
-  shardKey: "app.etzhayyim.apps.threads.post",
+  shardKey: "com.etzhayyim.apps.threads.post",
   rootCid: ROOT_CID,
   rootHash: ROOT_HASH,
   chainId: 84532,
@@ -27,7 +27,7 @@ const BASE = {
   anchorer: ANCHORER,
   batchSize: 3,
   ipfsPinUri:
-    "at://did:web:pinner.etzhayyim.com/app.etzhayyim.substrate.ipfsPin/3a",
+    "at://did:web:pinner.etzhayyim.com/com.etzhayyim.substrate.ipfsPin/3a",
 };
 
 describe("buildL2AnchorRecord", () => {
@@ -42,7 +42,7 @@ describe("buildL2AnchorRecord", () => {
       },
       anchoredAt: "2026-05-21T12:00:00.000Z",
     });
-    expect(body.$type).toBe("app.etzhayyim.substrate.l2Anchor");
+    expect(body.$type).toBe("com.etzhayyim.substrate.l2Anchor");
     expect(body.shardKey).toBe(BASE.shardKey);
     expect(body.rootCid).toBe(ROOT_CID);
     expect(body.rootHash).toBe(ROOT_HASH);
@@ -93,7 +93,7 @@ describe("commitL2Anchor", () => {
     const createRecord = vi.fn(async () => ({
       success: true,
       data: {
-        uri: "at://did:web:anchorer.etzhayyim.com/app.etzhayyim.substrate.l2Anchor/3rk",
+        uri: "at://did:web:anchorer.etzhayyim.com/com.etzhayyim.substrate.l2Anchor/3rk",
         cid: "bafyrecordcid",
       },
     }));
@@ -113,14 +113,14 @@ describe("commitL2Anchor", () => {
       },
     });
 
-    expect(out.uri).toContain("app.etzhayyim.substrate.l2Anchor");
+    expect(out.uri).toContain("com.etzhayyim.substrate.l2Anchor");
     expect(createRecord).toHaveBeenCalledTimes(1);
     const arg = createRecord.mock.calls[0][0] as {
       repo: string;
       collection: string;
       record: {rootCid: string; chainId: number};
     };
-    expect(arg.collection).toBe("app.etzhayyim.substrate.l2Anchor");
+    expect(arg.collection).toBe("com.etzhayyim.substrate.l2Anchor");
     expect(arg.repo).toBe("did:web:anchorer.etzhayyim.com");
     expect(arg.record.rootCid).toBe(ROOT_CID);
     expect(arg.record.chainId).toBe(84532);

@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.apprenticeshipReg.recordRegistration",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Registered Apprenticeship / IfA / BIBB / ESA registration (bridges reskillingFund.flagOutcomeGap + labour-mobility + credential-portability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "registrationId",
+            "registryKind",
+            "sectorCode",
+            "countryIso3",
+            "registeredAt"
+          ],
+          "properties": {
+            "registrationId": {
+              "type": "string"
+            },
+            "registryKind": {
+              "type": "string",
+              "enum": [
+                "us_ra",
+                "us_iraps",
+                "ca_red_seal",
+                "uk_ifa",
+                "de_bibb",
+                "au_australian_apprenticeships",
+                "eu_ears",
+                "nl_sbb",
+                "jp_ginou",
+                "in_ndp",
+                "fr_afpa"
+              ]
+            },
+            "sectorCode": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "durationMo": {
+              "type": "integer"
+            },
+            "outcomeGapVid": {
+              "type": "string",
+              "description": "bridges reskillingFund.flagOutcomeGap"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

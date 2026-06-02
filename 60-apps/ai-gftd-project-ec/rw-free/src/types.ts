@@ -16,9 +16,9 @@
 
 export const EC_DID_PREFIX = "did:web:ec.etzhayyim.com:" as const;
 
-export const PRODUCT_COLLECTION = "app.etzhayyim.apps.ec.product";
-export const ORDER_COLLECTION = "app.etzhayyim.apps.ec.order";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.ec.payment";
+export const PRODUCT_COLLECTION = "com.etzhayyim.apps.ec.product";
+export const ORDER_COLLECTION = "com.etzhayyim.apps.ec.order";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.ec.payment";
 
 /** D2C sale between the store and an Adherent (SBT↔SBT carve-out). */
 export type EcPaymentPurpose = "internal-purchase" | "escrow-refund";

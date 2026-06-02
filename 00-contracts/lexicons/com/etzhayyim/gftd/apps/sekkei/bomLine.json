@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.sekkei.bomLine",
+  "description": "BOM (Bill of Materials) 明細。親アセンブリ drawingId に対して子部品を階層展開。quantity は親 1 個あたりの員数。tsukuru 発注時は itemCode を全農/tsukuru サプライヤーコードと突合。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["bomLineId", "parentDrawingId", "childItemCode", "quantity"],
+        "properties": {
+          "bomLineId": { "type": "string" },
+          "parentDrawingId": { "type": "string", "description": "親アセンブリ図番" },
+          "parentRevNo": { "type": "string" },
+          "childItemCode": { "type": "string", "description": "子部品コード (社内品番または JAN/GTIN)" },
+          "childDrawingId": { "type": "string", "description": "子部品が設計図を持つ場合の sekkei.drawing.drawingId" },
+          "childItemName": { "type": "string" },
+          "quantity": { "type": "number", "description": "親 1 個あたりの員数" },
+          "unit": { "type": "string", "description": "個/m/kg/L 等" },
+          "level": { "type": "integer", "description": "BOM 展開レベル (1 = 直接部品)" },
+          "itemType": {
+            "type": "string",
+            "enum": ["purchased", "manufactured", "raw-material", "sub-assembly"],
+            "description": "購入品/製造品/原材料/中間組立"
+          },
+          "supplierDid": { "type": "string", "description": "推奨サプライヤー DID (tsukuru 製造業者等)" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

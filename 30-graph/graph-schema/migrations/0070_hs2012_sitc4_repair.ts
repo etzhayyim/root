@@ -8,9 +8,9 @@ import { Kysely, sql } from 'kysely';
  * ## HS 2012 (H4) master
  * Source: https://comtradeapi.un.org/files/v1/app/reference/H4.json
  * 6,529 rows (chapters / headings / subheadings).
- * Stored as separate collection 'app.etzhayyim.apps.hs.commodity2012'.
+ * Stored as separate collection 'com.etzhayyim.apps.hs.commodity2012'.
  * Additionally 81 HS2012-only codes (restructured in HS2017) were patched
- * into 'app.etzhayyim.apps.hs.commodity' to resolve hs2012 concordance dst_vid dangling.
+ * into 'com.etzhayyim.apps.hs.commodity' to resolve hs2012 concordance dst_vid dangling.
  *
  * ## Concordance repair (reverse-topological-sort pass)
  * Dangling edge analysis found:
@@ -23,8 +23,8 @@ import { Kysely, sql } from 'kysely';
  * Post-repair: 0 dangling edges across all concordance systems.
  *
  * RisingWave state after apply:
- *   - vertex_repo_record @ 'app.etzhayyim.apps.hs.commodity2012': 6,529 rows
- *   - vertex_repo_record @ 'app.etzhayyim.apps.hs.commodity': 6,789 rows (6,708 + 81 hs2012-only)
+ *   - vertex_repo_record @ 'com.etzhayyim.apps.hs.commodity2012': 6,529 rows
+ *   - vertex_repo_record @ 'com.etzhayyim.apps.hs.commodity': 6,789 rows (6,708 + 81 hs2012-only)
  *   - view_hs2012_commodity: new
  *   - edge_classified_as system='sitc4': 3,776 edges (remapped to CPC21)
  *   - edge_classified_as system='cpc': 2,663 edges (52 n/a deleted)
@@ -44,7 +44,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       uri,
       indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.hs.commodity2012'
+    WHERE collection = 'com.etzhayyim.apps.hs.commodity2012'
   `.execute(db);
 
   // ── dim_world_domain ──────────────────────────────────────────────────
@@ -66,7 +66,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_hs2012_commodity`.execute(db);
   await sql`
-    DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.hs.commodity2012'
+    DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.hs.commodity2012'
   `.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'hs2012'`.execute(db);
 }

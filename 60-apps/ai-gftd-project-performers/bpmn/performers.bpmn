@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cp-1" sourceRef="start-create-profile" targetRef="task-create-profile"/>
     <bpmn:serviceTask id="task-create-profile" name="Create Profile">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.create.profile"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.create.profile"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cp-2" sourceRef="task-create-profile" targetRef="end-create-profile"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-lp-1" sourceRef="start-list-profiles" targetRef="task-list-profiles"/>
     <bpmn:serviceTask id="task-list-profiles" name="List Profiles">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.list.profiles"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.list.profiles"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lp-2" sourceRef="task-list-profiles" targetRef="end-list-profiles"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-gp-1" sourceRef="start-get-profile" targetRef="task-get-profile"/>
     <bpmn:serviceTask id="task-get-profile" name="Get Profile">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.get.profile"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.get.profile"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gp-2" sourceRef="task-get-profile" targetRef="end-get-profile"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-cb-1" sourceRef="start-create-booking" targetRef="task-create-booking"/>
     <bpmn:serviceTask id="task-create-booking" name="Create Booking">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.create.booking"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.create.booking"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cb-2" sourceRef="task-create-booking" targetRef="end-create-booking"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-lb-1" sourceRef="start-list-bookings" targetRef="task-list-bookings"/>
     <bpmn:serviceTask id="task-list-bookings" name="List Bookings">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.list.bookings"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.list.bookings"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lb-2" sourceRef="task-list-bookings" targetRef="end-list-bookings"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-rp-1" sourceRef="start-record-performance" targetRef="task-record-performance"/>
     <bpmn:serviceTask id="task-record-performance" name="Record Performance">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.record.performance"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.record.performance"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rp-2" sourceRef="task-record-performance" targetRef="end-record-performance"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-lpf-1" sourceRef="start-list-performances" targetRef="task-list-performances"/>
     <bpmn:serviceTask id="task-list-performances" name="List Performances">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.list.performances"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.list.performances"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lpf-2" sourceRef="task-list-performances" targetRef="end-list-performances"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-sr-1" sourceRef="start-submit-review" targetRef="task-submit-review"/>
     <bpmn:serviceTask id="task-submit-review" name="Submit Review">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.performers.submit.review"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.performers.submit.review"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sr-2" sourceRef="task-submit-review" targetRef="end-submit-review"/>

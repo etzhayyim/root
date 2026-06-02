@@ -1,0 +1,109 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.patient",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 Patient resource (inner type of com.etzhayyim.encrypted.record envelope). ALL fields are PHI and persist only inside the encrypted ciphertext. Never write this record type directly to MST.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "identifiers", "name", "createdAt"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "Patient"},
+          "identifiers": {
+            "type": "array",
+            "description": "FHIR Identifier[] — e.g. 保険証番号, MRN. system + value pairs.",
+            "items": {"type": "ref", "ref": "#identifier"}
+          },
+          "name": {"type": "ref", "ref": "#humanName"},
+          "telecom": {"type": "array", "items": {"type": "ref", "ref": "#contactPoint"}},
+          "gender": {"type": "string", "enum": ["male", "female", "other", "unknown"]},
+          "birthDate": {"type": "string", "format": "datetime", "description": "ISO 8601 date or datetime"},
+          "address": {"type": "array", "items": {"type": "ref", "ref": "#address"}},
+          "maritalStatus": {"type": "string"},
+          "preferredLanguage": {"type": "string", "description": "BCP-47 e.g. ja, en-US"},
+          "patientDid": {"type": "string", "description": "did:plc:... or did:web:... of the patient as an etzhayyim actor"},
+          "emergencyContacts": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#emergencyContact"}
+          },
+          "allergies": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#allergy"}
+          },
+          "insuranceCoverage": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#insuranceCoverage"}
+          },
+          "createdAt": {"type": "string", "format": "datetime"},
+          "updatedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "identifier": {
+      "type": "object",
+      "required": ["system", "value"],
+      "properties": {
+        "system": {"type": "string", "description": "URI for namespace, e.g. urn:oid:1.2.392.200119.6.... for JP MRN"},
+        "value": {"type": "string"},
+        "use": {"type": "string", "enum": ["usual", "official", "temp", "secondary", "old"]}
+      }
+    },
+    "humanName": {
+      "type": "object",
+      "properties": {
+        "family": {"type": "string"},
+        "given": {"type": "array", "items": {"type": "string"}},
+        "familyKana": {"type": "string", "description": "JP-specific: フリガナ姓"},
+        "givenKana": {"type": "string", "description": "JP-specific: フリガナ名"},
+        "use": {"type": "string", "enum": ["usual", "official", "nickname", "maiden", "anonymous"]}
+      }
+    },
+    "contactPoint": {
+      "type": "object",
+      "properties": {
+        "system": {"type": "string", "enum": ["phone", "email", "sms", "url", "matrix-id"]},
+        "value": {"type": "string"},
+        "use": {"type": "string", "enum": ["home", "work", "mobile", "temp"]}
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "use": {"type": "string", "enum": ["home", "work", "temp", "billing"]},
+        "line": {"type": "array", "items": {"type": "string"}},
+        "city": {"type": "string"},
+        "prefecture": {"type": "string", "description": "JP-specific: 都道府県"},
+        "postalCode": {"type": "string"},
+        "country": {"type": "string", "description": "ISO 3166-1 alpha-3"}
+      }
+    },
+    "emergencyContact": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "relationship": {"type": "string"},
+        "phone": {"type": "string"}
+      }
+    },
+    "allergy": {
+      "type": "object",
+      "properties": {
+        "substance": {"type": "string"},
+        "rxnormCode": {"type": "string"},
+        "severity": {"type": "string", "enum": ["mild", "moderate", "severe", "life-threatening"]},
+        "reaction": {"type": "string"}
+      }
+    },
+    "insuranceCoverage": {
+      "type": "object",
+      "properties": {
+        "payerSystem": {"type": "string", "description": "e.g. 社保, 国保, private"},
+        "subscriberId": {"type": "string"},
+        "validFrom": {"type": "string", "format": "datetime"},
+        "validTo": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

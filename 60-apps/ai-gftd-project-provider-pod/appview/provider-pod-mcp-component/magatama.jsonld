@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.providerPod.provider",
-        "ai.gftd.apps.providerPod.pod"
+        "com.etzhayyim.apps.providerPod.provider",
+        "com.etzhayyim.apps.providerPod.pod"
       ]
     }
   }

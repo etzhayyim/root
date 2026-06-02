@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govZaf.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govZaf.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for South Africa government organizations.",
-        "operationId": "app.etzhayyim.govZaf.followSiteDeps",
+        "operationId": "com.etzhayyim.govZaf.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govZaf.heartbeatTick": {
       "post": {
         "summary": "Run the South Africa government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govZaf.heartbeatTick",
+        "operationId": "com.etzhayyim.govZaf.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.ingestOfficialSources": {
+    "/xrpc/com.etzhayyim.govZaf.ingestOfficialSources": {
       "post": {
         "summary": "Queue official South Africa government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "app.etzhayyim.govZaf.ingestOfficialSources",
+        "operationId": "com.etzhayyim.govZaf.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.listOrgs": {
+    "/xrpc/com.etzhayyim.govZaf.listOrgs": {
       "get": {
         "summary": "List South Africa government organizations by tier.",
-        "operationId": "app.etzhayyim.govZaf.listOrgs",
+        "operationId": "com.etzhayyim.govZaf.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.registerDIDs": {
+    "/xrpc/com.etzhayyim.govZaf.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for South Africa government organizations.",
-        "operationId": "app.etzhayyim.govZaf.registerDIDs",
+        "operationId": "com.etzhayyim.govZaf.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govZaf.resolveOrgPath": {
       "get": {
         "summary": "Resolve a South Africa government organization path to its actor DID and display metadata.",
-        "operationId": "app.etzhayyim.govZaf.resolveOrgPath",
+        "operationId": "com.etzhayyim.govZaf.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.seedOrgs": {
+    "/xrpc/com.etzhayyim.govZaf.seedOrgs": {
       "post": {
         "summary": "Seed South Africa central ministry and province organization rows into the graph.",
-        "operationId": "app.etzhayyim.govZaf.seedOrgs",
+        "operationId": "com.etzhayyim.govZaf.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.shinka": {
+    "/xrpc/com.etzhayyim.govZaf.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible South Africa government organization update.",
-        "operationId": "app.etzhayyim.govZaf.shinka",
+        "operationId": "com.etzhayyim.govZaf.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govZaf.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govZaf.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated South Africa government organization content.",
-        "operationId": "app.etzhayyim.govZaf.syncWetUpdates",
+        "operationId": "com.etzhayyim.govZaf.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

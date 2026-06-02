@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.addBlocker",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "projectId": { "type": "string" },
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "blockerType": { "type": "string" },
+            "severity": { "type": "string" }
+          },
+          "required": ["projectId", "title", "blockerType"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "blockerId": { "type": "string" },
+            "projectId": { "type": "string" },
+            "propagatedCount": { "type": "integer" }
+          },
+          "required": ["blockerId", "projectId"]
+        }
+      }
+    }
+  }
+}

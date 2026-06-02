@@ -69,7 +69,7 @@
 
   onMount(async () => {
     try {
-      const url = new URL('/xrpc/app.etzhayyim.apps.lawyer.listPendingGrants', window.location.origin);
+      const url = new URL('/xrpc/com.etzhayyim.apps.lawyer.listPendingGrants', window.location.origin);
       url.searchParams.set('lawyerDid', LAWYER_DID);
       const resp = await fetch(url.toString());
       if (!resp.ok) throw new Error(`listPendingGrants failed: ${resp.status}`);
@@ -89,7 +89,7 @@
     successMsg = '';
     errorMsg = '';
     try {
-      const resp = await fetch('/xrpc/app.etzhayyim.apps.lawyer.acceptGrant', {
+      const resp = await fetch('/xrpc/com.etzhayyim.apps.lawyer.acceptGrant', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.regulatorySandbox.registerCohort",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Regulatory sandbox cohort (FCA / MAS / BNM / JP FinTech / IN RBI — bridges psd3-open-finance + mica-crypto + fatf-travel-rule + ai-governance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "cohortId",
+            "jurisdictionIso3",
+            "sandboxProgram",
+            "themeFocus",
+            "startedAt"
+          ],
+          "properties": {
+            "cohortId": {
+              "type": "string"
+            },
+            "regulatorLei": {
+              "type": "string"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "sandboxProgram": {
+              "type": "string",
+              "enum": [
+                "fca_uk",
+                "mas_sg",
+                "bnm_my",
+                "ruby_jp",
+                "rbi_in",
+                "cftc_us",
+                "cnbv_mx",
+                "sbv_vn",
+                "cbiraq",
+                "globa_globalfinregsb"
+              ]
+            },
+            "themeFocus": {
+              "type": "string",
+              "enum": [
+                "open_finance",
+                "ai_model_risk",
+                "defi_stablecoin",
+                "digital_id",
+                "insurtech",
+                "regtech",
+                "tokenization",
+                "climate_fintech",
+                "inclusion"
+              ]
+            },
+            "cohortSize": {
+              "type": "integer"
+            },
+            "startedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "closedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -13,6 +13,6 @@ Rider ADR: ADR-2605192200 (v2.0)
 This actor processes Protected Health Information (PHI) as defined by
 個人情報保護法 § 2-3 (要配慮個人情報 - 病歴) and the etzhayyim mission
 charter (Wellbecoming). All PHI MUST be handled exclusively through
-the `app.etzhayyim.encrypted.record` envelope as specified in
+the `com.etzhayyim.encrypted.record` envelope as specified in
 ADR-2605181100. Plaintext PHI persistence outside the envelope is a
 constitutional violation and triggers Charter Rider §2(g) enforcement.

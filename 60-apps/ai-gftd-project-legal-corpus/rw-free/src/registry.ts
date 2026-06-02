@@ -33,7 +33,7 @@ import {
   type ListDocumentsOutput,
 } from "./types.js";
 
-const DOC_COLLECTION = "app.etzhayyim.apps.legalCorpus.document";
+const DOC_COLLECTION = "com.etzhayyim.apps.legalCorpus.document";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

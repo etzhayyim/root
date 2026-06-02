@@ -77,7 +77,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = AcousticPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.acousticEmissionsAuditRecord",
+        "$type": "com.etzhayyim.yamabiko.acousticEmissionsAuditRecord",
         "trainsetId": s.trainsetId,
         "waysideNoise": s.waysideNoise,
         "vibration": s.vibration,

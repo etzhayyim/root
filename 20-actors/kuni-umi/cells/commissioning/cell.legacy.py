@@ -71,7 +71,7 @@ def register_with_open_ot(state: CommissioningState, deps: CellDeps) -> Commissi
     S2 has 7 loops to register; S3 + may add water/network control loops in future.
     """
     raise NotImplementedError(
-        "Requires deps.sdk + open-ot XRPC (app.etzhayyim.apps.openOt.defineDevice/defineCell/defineLoop)."
+        "Requires deps.sdk + open-ot XRPC (com.etzhayyim.apps.openOt.defineDevice/defineCell/defineLoop)."
     )
 
 
@@ -97,7 +97,7 @@ def commission_test(state: CommissioningState, deps: CellDeps) -> CommissioningS
 def commission(state: CommissioningState, deps: CellDeps) -> CommissioningState:
     """Emit `commissionDeployment` MST record + site state → operational."""
     raise NotImplementedError(
-        "Requires deps.sdk for MST write of app.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment."
+        "Requires deps.sdk for MST write of com.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment."
     )
 
 
@@ -153,7 +153,7 @@ def thread_id_from_event(event_record: dict, nsid: str) -> str:
 def healthz_extra(deps: CellDeps) -> dict:
     return {
         "phase": "4-commissioning",
-        "trigger_nsid": "app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
+        "trigger_nsid": "com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
         "trigger_filter": "phase=handoff-ready",
         "hand_off_targets": ["open-ot WASM PLC", "open-* utility lexicons"],
     }

@@ -35,7 +35,7 @@ preserved per upstream TOS: Rapid7 Open Data, OpenINTEL, CAIDA.
 
 [[source]]
 subdataset    = "dns/rapid7-sonar-fdns"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RAPID7_2604"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RAPID7_2604"
 shard_glob    = "*.json.gz"
 tier          = "C"
 license       = "rapid7-research-use"
@@ -44,7 +44,7 @@ description   = "Rapid7 Sonar Forward DNS — Apr 2026 monthly internet-wide DNS
 
 [[source]]
 subdataset    = "dns/rapid7-sonar-fdns"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_RAPID7_2605"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_RAPID7_2605"
 shard_glob    = "*.json.gz"
 tier          = "C"
 license       = "rapid7-research-use"
@@ -55,7 +55,7 @@ description   = "Rapid7 Sonar Forward DNS — May 2026 monthly snapshot (paired 
 
 [[source]]
 subdataset    = "dns/openintel-tranco1m"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_OI_WEEK"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_OI_WEEK"
 shard_glob    = "*.parquet"
 tier          = "C"
 license       = "CC-BY-NC-4.0"
@@ -66,7 +66,7 @@ description   = "OpenINTEL Tranco-1M daily DNS measurements — 7-day window ove
 
 [[source]]
 subdataset    = "routing/caida-as-rank"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_CAIDA_RANK"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_CAIDA_RANK"
 shard_glob    = "*.txt.bz2"
 tier          = "C"
 license       = "CC-BY-NC-4.0"
@@ -75,7 +75,7 @@ description   = "CAIDA AS Rank — ASN ⇒ customer-cone size + transit degree; 
 
 [[source]]
 subdataset    = "routing/caida-as-relationship"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_CAIDA_REL"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_CAIDA_REL"
 shard_glob    = "*.txt.bz2"
 tier          = "C"
 license       = "CC-BY-NC-4.0"
@@ -87,7 +87,7 @@ description   = "CAIDA AS Relationships — pairwise ASN edges classified provid
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA_ROOT"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -96,7 +96,7 @@ description   = "IANA root zone — Tier-A anchor giving the model authoritative
 
 [[source]]
 subdataset    = "netreg/rir-delegated/apnic"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_APNIC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_APNIC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain-defacto"

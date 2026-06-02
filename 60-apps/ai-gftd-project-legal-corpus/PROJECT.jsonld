@@ -10,24 +10,24 @@
   "implementation": "langgraph-server",
   "ownerOrg": "did:plc:gftd-japan",
   "description": "Foreign-jurisdiction primary legal source ingest, normalization, embedding (bge-m3 1024d), semantic search. CourtListener (US) + EUR-Lex (EU) + BAILII (UK/IE) + WorldLII (Commonwealth) + CanLII/SCC (CA). ADR-0049, ADR-0056.",
-  "lexiconPrefix": "ai.gftd.apps.legal-corpus",
+  "lexiconPrefix": "com.etzhayyim.apps.legal-corpus",
   "lexicons": [
-    "00-contracts/lexicons/ai/gftd/apps/legal-corpus/ingestDocument.json",
-    "00-contracts/lexicons/ai/gftd/apps/legal-corpus/embedDocument.json",
-    "00-contracts/lexicons/ai/gftd/apps/legal-corpus/searchDocument.json",
-    "00-contracts/lexicons/ai/gftd/apps/legal-corpus/getDocument.json",
-    "00-contracts/lexicons/ai/gftd/apps/legal-corpus/listJurisdictions.json",
-    "00-contracts/lexicons/ai/gftd/apps/legal-corpus/registerSource.json"
+    "00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/ingestDocument.json",
+    "00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/embedDocument.json",
+    "00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/searchDocument.json",
+    "00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/getDocument.json",
+    "00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/listJurisdictions.json",
+    "00-contracts/lexicons/com/etzhayyim/apps/legal-corpus/registerSource.json"
   ],
   "bpmn": [
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/ingestDocument.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/embedDocument.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/registerSource.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchCourtListenerDelta.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchEurLexDelta.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchBailiiDelta.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchWorldLiiDelta.bpmn",
-    "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-corpus/fetchCanLiiDelta.bpmn"
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/ingestDocument.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/embedDocument.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/registerSource.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCourtListenerDelta.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchEurLexDelta.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchBailiiDelta.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchWorldLiiDelta.bpmn",
+    "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCanLiiDelta.bpmn"
   ],
   "graphTables": [
     "vertex_legal_corpus_source",

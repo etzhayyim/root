@@ -31,11 +31,11 @@
   };
 
   const DEMO_PARTNERS: Array<{ type: SpiritType; seed: number; did: string; hasConversation: boolean }> = [
-    { type: "Caregiver", seed: 1,  did: "did:web:deapp.etzhayyim.ai:demo1", hasConversation: false },
-    { type: "Lover",     seed: 2,  did: "did:web:deapp.etzhayyim.ai:demo2", hasConversation: true  },
-    { type: "Hero",      seed: 3,  did: "did:web:deapp.etzhayyim.ai:demo3", hasConversation: false },
-    { type: "Sage",      seed: 4,  did: "did:web:deapp.etzhayyim.ai:demo4", hasConversation: false },
-    { type: "Caregiver", seed: 11, did: "did:web:deapp.etzhayyim.ai:demo5", hasConversation: false },
+    { type: "Caregiver", seed: 1,  did: "did:web:decom.etzhayyim.ai:demo1", hasConversation: false },
+    { type: "Lover",     seed: 2,  did: "did:web:decom.etzhayyim.ai:demo2", hasConversation: true  },
+    { type: "Hero",      seed: 3,  did: "did:web:decom.etzhayyim.ai:demo3", hasConversation: false },
+    { type: "Sage",      seed: 4,  did: "did:web:decom.etzhayyim.ai:demo4", hasConversation: false },
+    { type: "Caregiver", seed: 11, did: "did:web:decom.etzhayyim.ai:demo5", hasConversation: false },
   ];
 
   function compatibilityReason(typeA: SpiritType, typeB: SpiritType, score: number): string {

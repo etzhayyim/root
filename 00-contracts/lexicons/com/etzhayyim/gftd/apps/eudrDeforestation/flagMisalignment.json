@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.eudrDeforestation.flagMisalignment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EUDR alignment breach (bridges forestry-mrv + indigenous-rights + forced-labor + ofac-sanctions)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "breachId",
+            "statementVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "breachId": {
+              "type": "string"
+            },
+            "statementVid": {
+              "type": "string",
+              "description": "bridges recordDueDiligence"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "cutoff_date_breach",
+                "plot_overlap",
+                "supplier_risk",
+                "human_rights",
+                "benchmarking_high_risk",
+                "false_geolocation",
+                "no_traceability"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

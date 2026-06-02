@@ -18,7 +18,7 @@
     "APP_DISPLAY_NAME": "Calendar",
     "APP_EMBED_URL": "https://calendar-mcp.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message",
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message",
     "APP_NANOID": "calendar-mcp",
     "APP_PERFORMER_TYPE": "system",
     "APP_UI_TYPE": "appview"

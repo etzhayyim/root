@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.silenComfortReview",
+  "description": "Council 5-of-7 Safe attestation for any new makura product class (new pattern, new fabric blend, new foam chemistry, new fill form, take-back center activation, R-phase transitions). Mirrors yakushi silenPharmaReview / watatsumi silenSubmersibleReview.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "wave-1-shred-fill-pillow-baseline",
+              "wave-1-slab-pillow-baseline",
+              "new-fabric-blend",
+              "new-foam-chemistry",
+              "new-pattern-size",
+              "take-back-center-activation",
+              "r1-activation",
+              "r2-activation",
+              "r3-activation",
+              "wave-2-memory-foam-viscoelastic",
+              "wave-2-latex-foam",
+              "tdi-isocyanate-use",
+              "hfc-blowing-agent-use",
+              "jurisdiction-fr-chemistry-exception"
+            ]
+          },
+          "reviewSubject": {"type": "string"},
+          "councilSafeTxId": {"type": "string"},
+          "councilApproverDids": {"type": "array", "items": {"type": "string"}, "minItems": 5, "maxItems": 7},
+          "verdict": {"type": "string", "knownValues": ["approve", "approve-with-conditions", "defer", "reject"]},
+          "conditions": {"type": "array", "items": {"type": "string"}},
+          "publicCommentPeriodDays": {"type": "integer"},
+          "ipfsDeliberationCid": {"type": "string"},
+          "decidedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["scope", "reviewSubject", "councilSafeTxId", "verdict", "decidedAt"]
+      }
+    }
+  }
+}

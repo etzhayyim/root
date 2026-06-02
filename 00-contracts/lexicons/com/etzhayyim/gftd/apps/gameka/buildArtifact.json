@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gameka.buildArtifact",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "artifactId": {
+            "type": "string"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "wasmCid": {
+            "type": "string",
+            "description": "CIDv1 (b base32 + raw codec + sha2-256) of the wasm binary, or of the source tree while build_status='sources_ready' (P2)."
+          },
+          "wasmSize": {
+            "type": "integer"
+          },
+          "wasmUrl": {
+            "type": "string",
+            "description": "B2 presigned URL of the .wasm binary once the build completes; empty during P2."
+          },
+          "jsUrl": {
+            "type": "string",
+            "description": "B2 presigned URL of the wasm-bindgen JS glue (renamed to main.js for stable paths). Consumed by the playtest shell to dynamic-import the entry fn."
+          },
+          "buildLogUrl": {
+            "type": "string"
+          },
+          "buildStatus": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        },
+        "required": [
+          "artifactId",
+          "specId",
+          "wasmCid",
+          "buildStatus",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
-// /xrpc/:nsid — proxy app.etzhayyim.mangaka.* requests to bpmn-dispatcher.
+// /xrpc/:nsid — proxy com.etzhayyim.mangaka.* requests to bpmn-dispatcher.
 // Restored after the SvelteKit-Cloudflare adapter migration overwrote the
 // custom worker (src/app.ts) that previously handled this routing.
 
-const NSID_PREFIX = "app.etzhayyim.mangaka.";
+const NSID_PREFIX = "com.etzhayyim.mangaka.";
 
 interface Env {
   DISPATCHER_URL?: string;

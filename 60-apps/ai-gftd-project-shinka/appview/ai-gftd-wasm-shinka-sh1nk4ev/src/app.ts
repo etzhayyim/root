@@ -67,7 +67,7 @@ type KyselyDb = ReturnType<typeof createKyselyDb>;
 
 let _db: KyselyDb | null = null;
 
-const SHINKA_NS = "app.etzhayyim.apps.shinka";
+const SHINKA_NS = "com.etzhayyim.apps.shinka";
 const COLL_TIMELINE = `${SHINKA_NS}.timeline`;
 const COLL_HISTORICAL_EVENT = `${SHINKA_NS}.historicalEvent`;
 const COLL_PROPAGATION_EVENT = `${SHINKA_NS}.propagationEvent`;
@@ -906,7 +906,7 @@ async function processJobQueue(sdk: HostSDK, partition?: string): Promise<{ proc
       // Credits: reward inference provider (¥0.1 per job)
       if (sponsorDid) {
         try {
-          await sdk.pds.xrpc("app.etzhayyim.apps.credits.rewardFromCompute", {
+          await sdk.pds.xrpc("com.etzhayyim.apps.credits.rewardFromCompute", {
             userId: WORKER_DID, sessionId: jobId, jobsDone: 1, gpuTimeMs: 0, source: "shinka-propagation",
           });
         } catch { /* best-effort credits */ }
@@ -1641,7 +1641,7 @@ async function cmdStats(_sdk: HostSDK, _body: unknown): Promise<unknown> {
 
 /** Force shinka for a specific actor. */
 async function cmdForceShinka(sdk: HostSDK, body: unknown): Promise<unknown> {
-  const { did } = parseLexiconInput("app.etzhayyim.apps.shinka.forceShinka", body);
+  const { did } = parseLexiconInput("com.etzhayyim.apps.shinka.forceShinka", body);
   if (!did) return { error: "did required" };
 
   // Query specific actor by DID — avoid loading all 18K actors
@@ -1706,7 +1706,7 @@ async function cmdForceShinka(sdk: HostSDK, body: unknown): Promise<unknown> {
  * Output: Timeline node + HistoricalEvent node + N PropagationEvent nodes
  */
 async function cmdSeedPropagation(sdk: HostSDK, body: unknown): Promise<unknown> {
-  const params = parseLexiconInput("app.etzhayyim.apps.shinka.seedPropagation", body);
+  const params = parseLexiconInput("com.etzhayyim.apps.shinka.seedPropagation", body);
 
   if (!params.title || !params.eventAt) {
     return { error: "title and eventAt required" };
@@ -1859,21 +1859,21 @@ export function setup(sdk: HostSDK): void {
       .catch((e) => console.warn("[shinka-setup] sub-actor DID registration failed:", e));
   }
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.listTasks"), (_ctx, body) => cmdListTasks(sdk, body));
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.listTasks"), (_ctx, body) => cmdListTasks(sdk, body));
   console.log("[shinka-setup] listTasks registered");
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.stats"), (_ctx, body) => cmdStats(sdk, body));
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.stats"), (_ctx, body) => cmdStats(sdk, body));
   console.log("[shinka-setup] stats registered");
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.forceShinka"), (_ctx, body) => cmdForceShinka(sdk, body));
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.forceShinka"), (_ctx, body) => cmdForceShinka(sdk, body));
   console.log("[shinka-setup] forceShinka registered");
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.seedPropagation"), (_ctx, body) => cmdSeedPropagation(sdk, body));
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.seedPropagation"), (_ctx, body) => cmdSeedPropagation(sdk, body));
   console.log("[shinka-setup] seedPropagation registered");
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.generatePropagationChain"), async (_ctx, body) => {
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.generatePropagationChain"), async (_ctx, body) => {
     /** Generate a propagation chain for a historical event via LLM. Returns chain JSON to pass to seedPropagation. */
-    const { title, eventAt, location, description, involvedActors } = parseLexiconInput("app.etzhayyim.apps.shinka.generatePropagationChain", body);
+    const { title, eventAt, location, description, involvedActors } = parseLexiconInput("com.etzhayyim.apps.shinka.generatePropagationChain", body);
     if (!title || !eventAt) return { error: "title and eventAt required" };
 
     const names = (involvedActors ?? []).map(a => a.name).join(", ");
@@ -1893,13 +1893,13 @@ export function setup(sdk: HostSDK): void {
   });
 
   // Job Queue commands
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.claimJobs"), async (_ctx, body) => {
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.claimJobs"), async (_ctx, body) => {
     /** Claim and process pending jobs from the graph job queue. */
-    const { partition, batchSize } = parseLexiconInput("app.etzhayyim.apps.shinka.claimJobs", body);
+    const { partition, batchSize } = parseLexiconInput("com.etzhayyim.apps.shinka.claimJobs", body);
     return processJobQueue(sdk, partition);
   });
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.queueStats"), async () => {
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.queueStats"), async () => {
     /** Get job queue statistics per status. */
     const jobs = await listOtherRows(COLL_PROPAGATION_JOB).catch(() => []);
     const counts = new Map<string, number>();
@@ -1911,9 +1911,9 @@ export function setup(sdk: HostSDK): void {
   });
 
   // Credits integration commands
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.sponsorEvent"), async (_ctx, body) => {
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.sponsorEvent"), async (_ctx, body) => {
     /** Spend credits to sponsor a historical event's propagation (priority boost). */
-    const { userId, eventId, credits } = parseLexiconInput("app.etzhayyim.apps.shinka.sponsorEvent", body);
+    const { userId, eventId, credits } = parseLexiconInput("com.etzhayyim.apps.shinka.sponsorEvent", body);
     if (!userId || !eventId) return { error: "userId and eventId required" };
     const amount = credits ?? 10;
 
@@ -1923,7 +1923,7 @@ export function setup(sdk: HostSDK): void {
 
     // Spend credits via credits-mcp
     try {
-      await sdk.pds.xrpc("app.etzhayyim.apps.credits.spendCredits", {
+      await sdk.pds.xrpc("com.etzhayyim.apps.credits.spendCredits", {
         userId, amount, action: "sponsor_propagation", description: `Sponsor: ${String(rowField(evt, "title") ?? eventId)}`,
       });
     } catch (e) {
@@ -1947,9 +1947,9 @@ export function setup(sdk: HostSDK): void {
     return { ok: true, eventId, title: String(rowField(evt, "title") ?? eventId), creditSpent: amount, userId };
   });
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.listSponsorable"), async (_ctx, body) => {
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.listSponsorable"), async (_ctx, body) => {
     /** List historical events available for sponsorship. */
-    const { limit } = parseLexiconInput("app.etzhayyim.apps.shinka.listSponsorable", body);
+    const { limit } = parseLexiconInput("com.etzhayyim.apps.shinka.listSponsorable", body);
     try {
       return (await listOtherRows(COLL_HISTORICAL_EVENT).catch(() => []))
         .map((row) => ({
@@ -1965,7 +1965,7 @@ export function setup(sdk: HostSDK): void {
     }
   });
 
-  sdk.app.command(nsid("app.etzhayyim.apps.shinka.listPartitions"), async () => {
+  sdk.app.command(nsid("com.etzhayyim.apps.shinka.listPartitions"), async () => {
     /** List active partitions with job counts. */
     try {
       const jobs = await listOtherRows(COLL_PROPAGATION_JOB).catch(() => []);
@@ -2013,10 +2013,10 @@ export function setup(sdk: HostSDK): void {
     }
   });
 
-  // Cron handler — delegates to LangServer batchTick.bpmn (app.etzhayyim.shinka.tick × 10 actors).
+  // Cron handler — delegates to LangServer batchTick.bpmn (com.etzhayyim.shinka.tick × 10 actors).
   // Heavy work: 10 actors × up to 3 LLM calls each exceeds CF Worker 25s budget (ADR-0056).
   sdk.app.onHeartbeat(async () => {
-    await proxyToBpmn(sdk, "app.etzhayyim.apps.shinka.batchTick", {});
+    await proxyToBpmn(sdk, "com.etzhayyim.apps.shinka.batchTick", {});
     return [];
   });
 }

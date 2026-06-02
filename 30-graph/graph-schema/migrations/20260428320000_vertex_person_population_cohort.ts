@@ -146,7 +146,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   //   Toba bottleneck (74k BCE): Ambrose (1998) ~2,000–10,000 survivors
   //
   // vertex_id convention:
-  //   at://did:web:natural-person.etzhayyim.com/app.etzhayyim.apps.naturalPerson.populationCohort/{rkey}
+  //   at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.populationCohort/{rkey}
   //   rkey = {era_label}-{region_m49}-{|era_start_year|}
   //
   const NP_DID = 'did:web:natural-person.etzhayyim.com';
@@ -303,7 +303,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 
   for (const c of worldCohorts) {
     const rkey = `${c.era_label}-001-${Math.abs(c.era_start_year)}`;
-    const vertex_id = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/${rkey}`;
+    const vertex_id = `${REPO}/com.etzhayyim.apps.naturalPerson.populationCohort/${rkey}`;
     const cohort_did = `${NP_DID}:pop:${rkey}`;
 
     await sql`
@@ -340,9 +340,9 @@ export async function up(db: Kysely<any>): Promise<void> {
     const dstCohort = worldCohorts[i + 1];
     const srcRkey = `${srcLabel}-001-${Math.abs(srcCohort.era_start_year)}`;
     const dstRkey = `${dstLabel}-001-${Math.abs(dstCohort.era_start_year)}`;
-    const srcVid = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/${srcRkey}`;
-    const dstVid = `${REPO}/app.etzhayyim.apps.naturalPerson.populationCohort/${dstRkey}`;
-    const edgeId = `${REPO}/app.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-${srcLabel}-${dstLabel}`;
+    const srcVid = `${REPO}/com.etzhayyim.apps.naturalPerson.populationCohort/${srcRkey}`;
+    const dstVid = `${REPO}/com.etzhayyim.apps.naturalPerson.populationCohort/${dstRkey}`;
+    const edgeId = `${REPO}/com.etzhayyim.apps.naturalPerson.cohortAncestorOf/anc-${srcLabel}-${dstLabel}`;
     const gapYears = dstCohort.era_start_year - srcCohort.era_end_year;
     const genOffset = Math.round(Math.abs(srcCohort.era_end_year - srcCohort.era_start_year) / 25);
 
@@ -377,7 +377,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       app_host, collection, domain, world_total, unit
     ) VALUES (
       'natural-person',
-      'app.etzhayyim.apps.naturalPerson.populationCohort',
+      'com.etzhayyim.apps.naturalPerson.populationCohort',
       'natural_person',
       108000000000,
       'humans ever lived'
@@ -410,6 +410,6 @@ export async function down(db: Kysely<any>): Promise<void> {
 
   await sql`
     DELETE FROM dim_world_domain_collection
-    WHERE collection = 'app.etzhayyim.apps.naturalPerson.populationCohort'
+    WHERE collection = 'com.etzhayyim.apps.naturalPerson.populationCohort'
   `.execute(db);
 }

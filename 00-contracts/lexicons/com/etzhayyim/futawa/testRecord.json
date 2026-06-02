@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.futawa.testRecord",
+  "description": "Per-vehicle dyno + emissions + sound + ABS function + road test record (L5b). G6 sound ≤80 dB; G7 ABS function verified; Euro 5 emissions compliance. Per ADR-2605261330 L5b.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {"type": "string"},
+          "dyno": {
+            "type": "object",
+            "properties": {
+              "peakPowerKw": {"type": "integer"},
+              "peakPowerRpm": {"type": "integer"},
+              "peakTorqueNm": {"type": "integer"},
+              "peakTorqueRpm": {"type": "integer"},
+              "topSpeedKmh": {"type": "integer"},
+              "g11WithinDeclaredCap": {"type": "boolean", "const": true}
+            }
+          },
+          "emissions": {
+            "type": "object",
+            "properties": {
+              "testCycle": {"type": "string", "knownValues": ["WMTC-class-2-2-equivalent", "WMTC-class-1-equivalent"]},
+              "coGramPerKm": {"type": "integer"},
+              "hcGramPerKm": {"type": "integer"},
+              "noxGramPerKm": {"type": "integer"},
+              "co2GramPerKm": {"type": "integer"},
+              "euro5Compliant": {"type": "boolean"}
+            }
+          },
+          "sound": {
+            "type": "object",
+            "properties": {
+              "testStandard": {"type": "string", "const": "UN-ECE-R41-rev04"},
+              "soundLevelDb7m5": {"type": "integer"},
+              "g6LimitDb": {"type": "integer", "const": 80},
+              "g6Compliant": {"type": "boolean"},
+              "stationaryIdleDb": {"type": "integer"},
+              "stationaryAcceleratedDb": {"type": "integer"}
+            },
+            "required": ["soundLevelDb7m5", "g6Compliant"]
+          },
+          "absFunction": {
+            "type": "object",
+            "properties": {
+              "absActivationTest": {"type": "string", "knownValues": ["pass", "fail"]},
+              "absInterventionStartKmh": {"type": "integer"},
+              "stoppingDistanceFromSpeed60KmhMeters": {"type": "integer"},
+              "limitStoppingDistanceMeters": {"type": "integer"},
+              "wheelSpeedSensorFrontFunctional": {"type": "boolean"},
+              "wheelSpeedSensorRearFunctional": {"type": "boolean"},
+              "ecuFaultCodeCount": {"type": "integer"},
+              "g7Compliant": {"type": "boolean"}
+            },
+            "required": ["absActivationTest", "g7Compliant"]
+          },
+          "roadTest": {"type": "unknown"},
+          "g6SoundCompliant": {"type": "boolean", "const": true},
+          "g7AbsFunctionCompliant": {"type": "boolean", "const": true},
+          "overallAccept": {"type": "boolean"},
+          "attestingRobots": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["vehicleId", "sound", "absFunction", "g6SoundCompliant", "g7AbsFunctionCompliant", "overallAccept", "attestingRobots"]
+      }
+    }
+  }
+}

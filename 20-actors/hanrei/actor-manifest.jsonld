@@ -97,7 +97,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.hanrei.caseRecord"
+          "com.etzhayyim.hanrei.caseRecord"
         ],
         "type": "subscribeRepos"
       }
@@ -147,7 +147,7 @@
             "params": {
               "actorName": "hanrei",
               "bucket": "6h",
-              "collection": "ai.gftd.hanrei.coverageSnapshot",
+              "collection": "com.etzhayyim.hanrei.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "h4nr31jp",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -205,7 +205,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.hanrei.coverage.get",
+        "nsid": "com.etzhayyim.hanrei.coverage.get",
         "type": "xrpc"
       }
     }
@@ -227,8 +227,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -241,13 +241,13 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.hanrei.caseRecord",
-        "ai.gftd.hanrei.collectionJob",
-        "ai.gftd.hanrei.jurisdiction",
-        "ai.gftd.hanrei.egovLaw",
-        "ai.gftd.hanrei.hanreiRecord",
-        "ai.gftd.hanrei.hanketsuRecord",
-        "ai.gftd.hanrei.citationEdge"
+        "com.etzhayyim.hanrei.caseRecord",
+        "com.etzhayyim.hanrei.collectionJob",
+        "com.etzhayyim.hanrei.jurisdiction",
+        "com.etzhayyim.hanrei.egovLaw",
+        "com.etzhayyim.hanrei.hanreiRecord",
+        "com.etzhayyim.hanrei.hanketsuRecord",
+        "com.etzhayyim.hanrei.citationEdge"
       ]
     }
   },

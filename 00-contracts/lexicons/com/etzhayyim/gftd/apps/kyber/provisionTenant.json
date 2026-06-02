@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kyber.provisionTenant",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Provision a new kyber tenant. Creates billing_tenant row and Stripe customer. Called by yoro.etzhayyim.com signup flow on first login. Idempotent by orgDid.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["orgDid", "orgName"],
+          "properties": {
+            "orgDid":   { "type": "string", "format": "did" },
+            "orgName":  { "type": "string", "maxLength": 128 },
+            "email":    { "type": "string", "maxLength": 256, "description": "Billing contact email for Stripe customer" },
+            "planId":   { "type": "string", "enum": ["free", "starter", "growth", "scale"], "default": "free" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tenantId", "planId", "status"],
+          "properties": {
+            "tenantId":           { "type": "string" },
+            "planId":             { "type": "string" },
+            "status":             { "type": "string" },
+            "stripeCustomerId":   { "type": "string" },
+            "alreadyExisted":     { "type": "boolean" }
+          }
+        }
+      },
+      "errors": [
+        { "name": "InvalidOrgDid", "description": "orgDid is not a valid DID" }
+      ]
+    }
+  }
+}

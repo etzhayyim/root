@@ -1,0 +1,64 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cohort.listEvidence",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "cohortDid": {
+            "type": "string"
+          },
+          "minPosterior": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "judgeAgreement": {
+            "type": "boolean"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "default": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        "required": ["cohortDid"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "evidenceHash": { "type": "string" },
+                  "signalKind": { "type": "string" },
+                  "posterior": { "type": "number" },
+                  "judgeAgreement": { "type": "boolean" },
+                  "tier": { "type": "string" },
+                  "observedAt": { "type": "string" }
+                },
+                "required": ["evidenceHash", "signalKind", "tier", "observedAt"]
+              }
+            },
+            "cohortDid": { "type": "string" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          },
+          "required": ["evidence", "cohortDid", "offset", "limit"]
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "formKey": "openJpnGov.searchLaw.v1",
   "name": "Search Law",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openJpnGov.searchLaws",
+  "lexiconRef": "com.etzhayyim.apps.openJpnGov.searchLaws",
   "components": [
     {
       "key": "query",

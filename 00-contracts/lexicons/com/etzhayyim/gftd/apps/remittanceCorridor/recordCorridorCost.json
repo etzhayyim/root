@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.remittanceCorridor.recordCorridorCost",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "World Bank Remittance Prices / SDG 10.c corridor cost (bridges correspondentBanking.flagDerisking + fatf-travel-rule + fx-swap-lines)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "snapshotId",
+            "sendingCountryIso3",
+            "receivingCountryIso3",
+            "instrumentKind",
+            "snapshotDate"
+          ],
+          "properties": {
+            "snapshotId": {
+              "type": "string"
+            },
+            "sendingCountryIso3": {
+              "type": "string"
+            },
+            "receivingCountryIso3": {
+              "type": "string"
+            },
+            "instrumentKind": {
+              "type": "string",
+              "enum": [
+                "mto",
+                "bank_wire",
+                "digital_wallet",
+                "mobile_money",
+                "crypto_p2p",
+                "prepaid_card",
+                "fintech_neobank",
+                "post_office",
+                "hawala",
+                "nostro_vostro"
+              ]
+            },
+            "totalCostPct200usd": {
+              "type": "number"
+            },
+            "fxMarginPct": {
+              "type": "number"
+            },
+            "deriskingVid": {
+              "type": "string",
+              "description": "bridges correspondentBanking.flagDerisking"
+            },
+            "snapshotDate": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

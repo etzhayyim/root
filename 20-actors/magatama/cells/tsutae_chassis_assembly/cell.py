@@ -32,7 +32,7 @@ Pregel graph (5 nodes):
                                         documented to bilingual repair manual
         |
         v
-    emit_chassis_attest            ->  MST PUT app.etzhayyim.tsutae.chassisAttestation
+    emit_chassis_attest            ->  MST PUT com.etzhayyim.tsutae.chassisAttestation
                                         (chassis ID, PCB lot, Al chassis CID,
                                          battery lot ID, per-module DID array,
                                          cellular-removable verified,

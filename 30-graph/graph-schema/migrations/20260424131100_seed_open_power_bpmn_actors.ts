@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-power.etzhayyim.com:grid";
 const actorTag = "sys.bpmn.seed.open-power";
 
 const processSeeds: ProcessSeed[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-power-define-feeder-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-power-define-feeder-v1",
     bpmnProcessId: "open_power_define_feeder",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-power/defineFeeder.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-power-report-outage-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-power/defineFeeder.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-power-report-outage-v1",
     bpmnProcessId: "open_power_report_outage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-power/reportOutage.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-power/reportOutage.bpmn", ownerDid },
 ];
 
 const bindingSeeds: BindingSeed[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-power-defineFeeder-v1",
-    nsid: "app.etzhayyim.apps.openPower.defineFeeder", bpmnProcessId: "open_power_define_feeder",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-power-defineFeeder-v1",
+    nsid: "com.etzhayyim.apps.openPower.defineFeeder", bpmnProcessId: "open_power_define_feeder",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-power-reportOutage-v1",
-    nsid: "app.etzhayyim.apps.openPower.reportOutage", bpmnProcessId: "open_power_report_outage",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-power-reportOutage-v1",
+    nsid: "com.etzhayyim.apps.openPower.reportOutage", bpmnProcessId: "open_power_report_outage",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

@@ -16,7 +16,7 @@
     error = '';
     data = null;
     try {
-      const uri = `at://${REPO}/app.etzhayyim.apps.yukkuri.video/${rkey}`;
+      const uri = `at://${REPO}/com.etzhayyim.apps.yukkuri.video/${rkey}`;
       data = await getVideo(uri);
     } catch (e) {
       error = String((e as Error).message);

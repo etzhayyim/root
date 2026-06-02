@@ -25,7 +25,7 @@ async def quality_eval(state: HakkenState) -> dict:
         for candidate in candidates:
             try:
                 resp = await client.post(
-                    f"{KAIMONO_REVIEW_XRPC}/xrpc/ai.gftd.apps.kaimono_review.scoreProduct",
+                    f"{KAIMONO_REVIEW_XRPC}/xrpc/com.etzhayyim.apps.kaimono_review.scoreProduct",
                     json={
                         "name":       candidate["name"],
                         "platform":   candidate["platform"],

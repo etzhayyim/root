@@ -12,9 +12,9 @@ This cell is R0 scaffold with import-time RuntimeError until Council activation.
 Council gate: COUNCIL_ATTESTATION_TX_HASH (Base L2 multisig Tx).
 
 Emits:
-  - app.etzhayyim.gov.procedure.auth.credentialBinding (encrypted payload)
-  - app.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2)
-  - app.etzhayyim.encrypted.keyWrap (Signal-wrapped per-recipient decrypt keys)
+  - com.etzhayyim.gov.procedure.auth.credentialBinding (encrypted payload)
+  - com.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2)
+  - com.etzhayyim.encrypted.keyWrap (Signal-wrapped per-recipient decrypt keys)
 """
 
 from typing import Any, Dict
@@ -93,7 +93,7 @@ async def _bind_mynumber_encrypted(
       8. For each attestor in signal_identities:
          - Establish Signal session (X3DH + Double Ratchet)
          - Wrap XChaCha20 key under Signal session → base64url
-         - Emit app.etzhayyim.encrypted.keyWrap record (subject_did, attestor_did, wrapped_key)
+         - Emit com.etzhayyim.encrypted.keyWrap record (subject_did, attestor_did, wrapped_key)
       9. Return {encrypted_payload_cid, wrapped_keys_cids}
 
     Per ADR-2605181100 + ADR-2605260000:
@@ -112,7 +112,7 @@ async def _emit_trust_attestation(
     encrypted_payload_cid: str,
 ) -> Dict[str, Any]:
     """
-    R1 stub: Emit app.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2).
+    R1 stub: Emit com.etzhayyim.gov.procedure.auth.didTrustAttestation (trustLevel=2).
 
     Logic (R1):
       1. Compute subjectDidHash = blake2b_256(subject_did) → base64url
@@ -126,7 +126,7 @@ async def _emit_trust_attestation(
            silenAuditCid: <optional audit CID>
          }
       3. Sign record with attestor_did's signing key
-      4. Emit to MST: app.etzhayyim.gov.procedure.auth.didTrustAttestation
+      4. Emit to MST: com.etzhayyim.gov.procedure.auth.didTrustAttestation
       5. Return {attested_tid, sig_valid}
     """
     raise NotImplementedError(

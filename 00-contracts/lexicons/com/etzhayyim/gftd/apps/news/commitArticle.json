@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.news.commitArticle",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Thin edge write boundary for LangServer news RSS pipeline. Writes an article record and optional social post.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sourceId": { "type": "string" },
+            "sourceName": { "type": "string" },
+            "lang": { "type": "string" },
+            "categories": { "type": "array", "items": { "type": "string" } },
+            "title": { "type": "string" },
+            "description": { "type": "string" },
+            "text": { "type": "string" },
+            "link": { "type": "string" },
+            "pubDate": { "type": "string" },
+            "guid": { "type": "string" },
+            "translations": { "type": "object" },
+            "socialPost": { "type": "string" },
+            "publish": { "type": "boolean" }
+          },
+          "required": ["sourceId", "sourceName", "lang", "title", "link"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "rkey": { "type": "string" },
+            "writerDid": { "type": "string" },
+            "published": { "type": "boolean" },
+            "skipped": { "type": "boolean" },
+            "error": { "type": "string" }
+          },
+          "required": ["ok"]
+        }
+      }
+    }
+  }
+}

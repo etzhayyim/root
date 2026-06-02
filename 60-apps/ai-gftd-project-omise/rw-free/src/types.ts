@@ -15,9 +15,9 @@
 
 export const OMISE_DID_PREFIX = "did:web:omise.etzhayyim.com:" as const;
 
-export const PRODUCT_COLLECTION = "app.etzhayyim.apps.omise.product";
-export const ORDER_COLLECTION = "app.etzhayyim.apps.omise.order";
-export const PAYMENT_COLLECTION = "app.etzhayyim.apps.omise.payment";
+export const PRODUCT_COLLECTION = "com.etzhayyim.apps.omise.product";
+export const ORDER_COLLECTION = "com.etzhayyim.apps.omise.order";
+export const PAYMENT_COLLECTION = "com.etzhayyim.apps.omise.payment";
 
 /** D2C sale between the store and an Adherent (SBT↔SBT carve-out). */
 export type OmisePaymentPurpose = "internal-purchase" | "escrow-refund";

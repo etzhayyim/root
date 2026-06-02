@@ -32,7 +32,7 @@ _LG_DIR = Path(__file__).resolve().parents[1]
 _EXPECTED_GRAPHS = {"health", "render"}
 
 _EXPECTED_NSID_MAP = {
-    "app.etzhayyim.apps.dougaka.render": "render",
+    "com.etzhayyim.apps.dougaka.render": "render",
 }
 
 
@@ -110,5 +110,5 @@ def test_unknown_assistant_404(client):
 
 
 def test_unknown_nsid_xrpc_404(client):
-    r = client.post("/xrpc/app.etzhayyim.apps.dougaka.unknownMethod", json={})
+    r = client.post("/xrpc/com.etzhayyim.apps.dougaka.unknownMethod", json={})
     assert r.status_code == 404

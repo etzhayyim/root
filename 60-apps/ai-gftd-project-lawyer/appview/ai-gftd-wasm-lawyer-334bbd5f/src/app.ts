@@ -1,6 +1,6 @@
 // lawyer.etzhayyim.com thin edge facade.
-// Lawyer-specific operations: app.etzhayyim.apps.lawyer.*
-// Shared lawfirm operations (firmDid=did:web:lawyer.etzhayyim.com): app.etzhayyim.apps.lawfirm.*
+// Lawyer-specific operations: com.etzhayyim.apps.lawyer.*
+// Shared lawfirm operations (firmDid=did:web:lawyer.etzhayyim.com): com.etzhayyim.apps.lawfirm.*
 // All business logic runs in LangServer pods via dispatcher.
 
 interface SecretBinding {
@@ -19,7 +19,7 @@ interface ExportedHandler<E> {
   fetch(req: Request, env: E): Promise<Response>;
 }
 
-const ROUTED_PREFIXES = ["app.etzhayyim.apps.lawyer.", "app.etzhayyim.apps.lawfirm."];
+const ROUTED_PREFIXES = ["com.etzhayyim.apps.lawyer.", "com.etzhayyim.apps.lawfirm."];
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -37,22 +37,22 @@ export default {
         lawyerDid,
         execution: "edge-langserver",
         commands: [
-          "app.etzhayyim.apps.lawyer.getDashboard",
-          "app.etzhayyim.apps.lawyer.listAssignedMatters",
-          "app.etzhayyim.apps.lawyer.listPendingGrants",
-          "app.etzhayyim.apps.lawyer.acceptGrant",
-          "app.etzhayyim.apps.lawyer.logWorkNote",
-          "app.etzhayyim.apps.lawyer.submitDocumentDraft",
+          "com.etzhayyim.apps.lawyer.getDashboard",
+          "com.etzhayyim.apps.lawyer.listAssignedMatters",
+          "com.etzhayyim.apps.lawyer.listPendingGrants",
+          "com.etzhayyim.apps.lawyer.acceptGrant",
+          "com.etzhayyim.apps.lawyer.logWorkNote",
+          "com.etzhayyim.apps.lawyer.submitDocumentDraft",
         ],
         sharedCommands: [
-          "app.etzhayyim.apps.lawfirm.recordTimeEntry",
-          "app.etzhayyim.apps.lawfirm.listInvoices",
-          "app.etzhayyim.apps.lawfirm.scheduleHearing",
-          "app.etzhayyim.apps.lawfirm.uploadDocument",
-          "app.etzhayyim.apps.lawfirm.searchPrecedent",
+          "com.etzhayyim.apps.lawfirm.recordTimeEntry",
+          "com.etzhayyim.apps.lawfirm.listInvoices",
+          "com.etzhayyim.apps.lawfirm.scheduleHearing",
+          "com.etzhayyim.apps.lawfirm.uploadDocument",
+          "com.etzhayyim.apps.lawfirm.searchPrecedent",
         ],
         graphs: ["lawyer-matter-workspace", "lawyer-document-drafting"],
-        note: "Attorney portal. Shares app.etzhayyim.apps.lawfirm.* lexicons with firmDid scoping.",
+        note: "Attorney portal. Shares com.etzhayyim.apps.lawfirm.* lexicons with firmDid scoping.",
       });
     }
 

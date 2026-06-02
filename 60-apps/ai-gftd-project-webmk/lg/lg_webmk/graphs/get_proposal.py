@@ -1,6 +1,6 @@
 """webmk `get_proposal` graph — fetch proposal by ID.
 
-NSID: app.etzhayyim.apps.webmk.getProposal
+NSID: com.etzhayyim.apps.webmk.getProposal
 """
 
 from __future__ import annotations

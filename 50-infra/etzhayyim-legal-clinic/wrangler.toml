@@ -3,7 +3,7 @@ main = "src/worker.ts"
 compatibility_date = "2026-05-30"
 
 # Free legal-aid intake front-end for etzhayyim.com (ADR-2605302345 §D1).
-# XRPC base: https://legal.etzhayyim.com/xrpc/app.etzhayyim.chigiri.legalAid.*
+# XRPC base: https://legal.etzhayyim.com/xrpc/com.etzhayyim.chigiri.legalAid.*
 # DNS + route binding deferred to deploy.
 # [[routes]]
 # pattern = "legal.etzhayyim.com/*"

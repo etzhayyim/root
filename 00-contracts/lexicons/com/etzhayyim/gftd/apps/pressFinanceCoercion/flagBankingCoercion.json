@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.pressFinanceCoercion.flagBankingCoercion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Debanking / financial-service denial of journalism (bridges mica-crypto + press-freedom + antitrust-dma)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "targetCategory",
+            "jurisdictionIso3",
+            "actionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "targetLei": {
+              "type": "string"
+            },
+            "targetCategory": {
+              "type": "string",
+              "enum": [
+                "independent_publisher",
+                "journalist",
+                "ngo",
+                "opposition_campaign",
+                "satirical_site"
+              ]
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "account_closure",
+                "payment_rail_block",
+                "ads_revenue_denial",
+                "kyc_refusal",
+                "sdn_false_positive",
+                "domain_delisting"
+              ]
+            },
+            "serviceType": {
+              "type": "string",
+              "enum": [
+                "bank",
+                "card_network",
+                "payment_processor",
+                "ad_network",
+                "domain_registrar",
+                "cdn"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

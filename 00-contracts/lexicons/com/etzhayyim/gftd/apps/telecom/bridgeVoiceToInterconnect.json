@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.bridgeVoiceToInterconnect",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "IMS BGCF / MGCF / IBCF — bridge a voice call to an interconnect peer (PSTN gateway / SIP trunk / IMS-IMS peering). Links voice_call to Phase 3 interconnect_agreement + roaming_partner.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["callId", "agreementId", "partnerId", "gatewayKind", "gatewayNfId", "observedAt"],
+          "properties": {
+            "bridgeId": { "type": "string" },
+            "callId": { "type": "string" },
+            "agreementId": { "type": "string" },
+            "partnerId": { "type": "string" },
+            "peerKind": { "type": "string", "enum": ["pstn", "sip_trunk", "ims_ims", "skype_for_business", "voice_mvno"] },
+            "gatewayKind": { "type": "string", "enum": ["bgcf", "mgcf", "ibcf", "sbc"] },
+            "gatewayNfId": { "type": "string" },
+            "peerSipUri": { "type": "string" },
+            "peerTrunkRef": { "type": "string" },
+            "codec": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "bridgeId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

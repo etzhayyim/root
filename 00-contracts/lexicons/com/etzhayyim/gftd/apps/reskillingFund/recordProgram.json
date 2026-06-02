@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.reskillingFund.recordProgram",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Workforce reskilling program (JETP social fund / EU JTF / state trust — bridges coalExit.flagJustTransition + just-transition + labour-mobility)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "programId",
+            "fundingSource",
+            "countryIso3",
+            "targetWorkers",
+            "programKind",
+            "launchedAt"
+          ],
+          "properties": {
+            "programId": {
+              "type": "string"
+            },
+            "fundingSource": {
+              "type": "string",
+              "enum": [
+                "jetp_indonesia",
+                "jetp_vietnam",
+                "jetp_senegal",
+                "jetp_south_africa",
+                "eu_just_transition_fund",
+                "us_appalachian",
+                "de_kohleausstieg",
+                "pl_terra",
+                "uk_coalfields",
+                "au_rti_fund",
+                "sk_coal_phase"
+              ]
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "targetWorkers": {
+              "type": "integer"
+            },
+            "programKind": {
+              "type": "string",
+              "enum": [
+                "reskill",
+                "upskill",
+                "relocation_support",
+                "pension_bridge",
+                "community_diversify",
+                "apprenticeship",
+                "smb_startup_grant",
+                "green_job",
+                "care_economy",
+                "tourism"
+              ]
+            },
+            "justTransitionVid": {
+              "type": "string",
+              "description": "bridges coalExit.flagJustTransition"
+            },
+            "launchedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

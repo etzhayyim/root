@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerSubscriberProfile5g",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "5G Core — register a UDM/UDR subscriber profile (SUPI ↔ slice subscription / DNN list / AMBR / AKA credential ref). SUPI persisted as hash; akaCredentialRef is a vault:// pointer (raw K never persisted).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["subscriberId", "supi", "dnnList"],
+          "properties": {
+            "profileId": { "type": "string" },
+            "subscriberId": { "type": "string" },
+            "supi": { "type": "string" },
+            "suciSchemeId": { "type": "string" },
+            "sliceSubscriptionList": { "type": "array", "items": { "type": "string" } },
+            "dnnList": { "type": "array", "items": { "type": "string" } },
+            "ambrUplinkKbps": { "type": "integer" },
+            "ambrDownlinkKbps": { "type": "integer" },
+            "akaCredentialRef": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "profileId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

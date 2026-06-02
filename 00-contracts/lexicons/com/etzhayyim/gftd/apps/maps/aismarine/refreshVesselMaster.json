@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.aismarine.refreshVesselMaster",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Internal — fired by refreshVesselMaster.bpmn (R/PT24H). Backfills vertex_vessel.flag_iso (from vessel_flag_iso UDF) and dimensions for rows missing them, using accumulated AIS Type-5 broadcasts. Also derives type_class via vessel_type_class UDF for any rows where type_code was updated. Open-data only (no paid IHS / VT Explorer enrichment per ADR-2605011500).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": { "type": "integer", "description": "Max vessels to refresh per fire (default 5000, max 50000)." }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["accepted"],
+          "properties": {
+            "accepted": { "type": "boolean" },
+            "rowsUpdated": { "type": "integer" },
+            "rowsScanned": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

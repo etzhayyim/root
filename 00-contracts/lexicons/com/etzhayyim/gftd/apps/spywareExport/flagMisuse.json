@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spywareExport.flagMisuse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Spyware misuse / journalist target / HRD surveillance (bridges pressFreedomIndex.flagDeclineFactor + transnational-repression + civil-liability)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "licenseVid",
+            "misuseKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "licenseVid": {
+              "type": "string",
+              "description": "bridges recordExportLicense"
+            },
+            "misuseKind": {
+              "type": "string",
+              "enum": [
+                "journalist_targeting",
+                "hrd_surveillance",
+                "dissident_targeting",
+                "political_opponent",
+                "pro_eu_russia_targeting",
+                "diplomatic_staff",
+                "government_official",
+                "family_member",
+                "spouse",
+                "lawyer",
+                "cross_border_targeting",
+                "autonomous_community"
+              ]
+            },
+            "reportedDetectionCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

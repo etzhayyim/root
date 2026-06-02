@@ -1,0 +1,100 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.climateCarbonMarket.issueCarbonCredit",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Carbon credit issuance (EU ETS / CORSIA / VCM / ACCU bridges commodity-trade + esg-risk-rating + cofog)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "creditId",
+            "registry",
+            "vintage",
+            "tonnesCo2e",
+            "issuedAt"
+          ],
+          "properties": {
+            "creditId": {
+              "type": "string"
+            },
+            "registry": {
+              "type": "string",
+              "enum": [
+                "EU_ETS",
+                "CORSIA",
+                "VCM_VERRA",
+                "VCM_GOLDSTANDARD",
+                "ACCU",
+                "CCA",
+                "KCS",
+                "CHINA_ETS"
+              ]
+            },
+            "vintage": {
+              "type": "string",
+              "description": "issuance year YYYY"
+            },
+            "tonnesCo2e": {
+              "type": "number"
+            },
+            "projectType": {
+              "type": "string",
+              "enum": [
+                "forestry_redd",
+                "renewable_energy",
+                "methane_capture",
+                "direct_air_capture",
+                "blue_carbon",
+                "soil_sequestration",
+                "efficiency"
+              ]
+            },
+            "projectLei": {
+              "type": "string",
+              "description": "bridges open-lei"
+            },
+            "cofogExpenditureVid": {
+              "type": "string",
+              "description": "bridges open-cofog public env spend"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "qualityTier": {
+              "type": "string",
+              "enum": [
+                "tier_1",
+                "tier_2",
+                "tier_3"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

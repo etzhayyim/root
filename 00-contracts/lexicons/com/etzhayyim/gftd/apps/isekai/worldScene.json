@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isekai.worldScene",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ISEKAI scene placement on a world map (ADR-0040). One record = one scene anchored at (x, z) with activation radius. Federable. Used by distance-LOD pool + minimap.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["worldMapUri", "sceneType", "x", "z", "radius", "createdAt"],
+        "properties": {
+          "worldMapUri": { "type": "string", "format": "at-uri" },
+          "sceneType": {
+            "type": "string",
+            "knownValues": [
+              "dec_physics_0",
+              "dec_physics_1",
+              "dec_physics_2",
+              "dec_physics_3",
+              "dec_physics_4",
+              "dec_physics_5",
+              "dec_physics_6",
+              "dec_physics_7",
+              "dec_physics_8",
+              "dec_physics_9",
+              "dec_physics_10",
+              "vrm_playground",
+              "voxel_sandbox",
+              "brainrot_dimension",
+              "pokoa_wild"
+            ]
+          },
+          "x": { "type": "integer", "description": "World X coordinate in decimeters (0.1 m units)." },
+          "z": { "type": "integer", "description": "World Z coordinate in decimeters (0.1 m units)." },
+          "radius": { "type": "integer", "minimum": 1, "description": "Activation radius in decimeters." },
+          "label": { "type": "string", "maxLength": 64 },
+          "paramsJson": { "type": "string", "maxLength": 4096 },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

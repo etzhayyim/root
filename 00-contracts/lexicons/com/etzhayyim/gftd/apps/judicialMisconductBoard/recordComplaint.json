@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.judicialMisconductBoard.recordComplaint",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Judicial misconduct complaint / commission review (bridges barAssociationRecall.flagBaselineConcern + judicialAppointment + ethics-disclosure)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "complaintId",
+            "forumKind",
+            "misconductKind",
+            "filedAt"
+          ],
+          "properties": {
+            "complaintId": {
+              "type": "string"
+            },
+            "forumKind": {
+              "type": "string",
+              "enum": [
+                "us_federal_judiciary",
+                "us_state_jud_disc",
+                "ca_judicial_council",
+                "uk_judicial_office",
+                "csm_italy",
+                "csmj_france",
+                "kj_korea",
+                "cnnj_chile",
+                "srgj_germany",
+                "jio_japan",
+                "cmm_india_imp"
+              ]
+            },
+            "misconductKind": {
+              "type": "string",
+              "enum": [
+                "bias",
+                "financial",
+                "ex_parte",
+                "abuse_of_position",
+                "political_speech",
+                "disability_judiciary",
+                "pattern_demeanor",
+                "social_media",
+                "extra_judicial",
+                "gifts_undisclosed",
+                "preferential_treatment"
+              ]
+            },
+            "baselineVid": {
+              "type": "string",
+              "description": "bridges barAssociationRecall.flagBaselineConcern"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

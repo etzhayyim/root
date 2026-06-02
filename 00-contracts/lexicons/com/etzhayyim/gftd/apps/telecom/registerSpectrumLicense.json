@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerSpectrumLicense",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a spectrum license (TMF634 Resource Catalog). Phase 2 telecom Resource domain.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["jurisdiction", "band", "lowMhz", "highMhz", "holderOrgId", "validFrom", "validUntil"],
+          "properties": {
+            "licenseId": { "type": "string" },
+            "jurisdiction": { "type": "string" },
+            "band": { "type": "string" },
+            "lowMhz": { "type": "number" },
+            "highMhz": { "type": "number" },
+            "holderOrgId": { "type": "string" },
+            "region": { "type": "string" },
+            "technology": { "type": "string", "enum": ["lte", "nr", "gsm", "umts", "fixed_microwave", "satellite"] },
+            "validFrom": { "type": "string", "format": "date" },
+            "validUntil": { "type": "string", "format": "date" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "licenseId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

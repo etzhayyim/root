@@ -253,11 +253,11 @@ def anchor_rite(state, anchor_bridge):
     if anchor_bridge is None:
         return {
             "rite_status": "active",
-            "rite_vertex_uri": f"at://did:web:yobel.etzhayyim.com/app.etzhayyim.apps.etzhayyim.yobel.rite/{state['rite_id']}",
+            "rite_vertex_uri": f"at://did:web:yobel.etzhayyim.com/com.etzhayyim.apps.etzhayyim.yobel.rite/{state['rite_id']}",
             "base_l2_anchor_tx_hash": "",
         }
     result = anchor_bridge.write_and_anchor(
-        collection="app.etzhayyim.apps.etzhayyim.yobel.rite",
+        collection="com.etzhayyim.apps.etzhayyim.yobel.rite",
         rkey=state["rite_id"],
         payload={
             "rite_id": state["rite_id"],

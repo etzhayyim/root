@@ -103,7 +103,7 @@ async function write(_sdk: HostSDK, collection: string, rec: Record<string, unkn
   const table = tableMap[collection] ?? `vertex_crypto_asset_freeze_${camelToSnake(collection)}`;
   const ownerDid = `did:web:qjp7mjyb.etzhayyim.com`;
   const rkey = str(rec.incidentId ?? rec.requestId ?? rec.traceId ?? "") || genID();
-  const vertex_id = `at://${ownerDid}/app.etzhayyim.apps.cryptoAssetFreeze.${collection}/${rkey}`;
+  const vertex_id = `at://${ownerDid}/com.etzhayyim.apps.cryptoAssetFreeze.${collection}/${rkey}`;
   const snakeRec = Object.fromEntries(Object.entries(rec).map(([k, v]) => [camelToSnake(k), v]));
   await createKyselyDb().insertInto(table as any).values({ vertex_id, sensitivity_ord: 2, owner_did: ownerDid, actor_id: appId, ...snakeRec }).execute();
 }
@@ -130,7 +130,7 @@ export default createWorkerExport((sdk: HostSDK) => {
 
   // ── Commands ──
 
-  sdk.app.command(nsid("app.etzhayyim.apps.cryptoAssetFreeze.createIncident"),
+  sdk.app.command(nsid("com.etzhayyim.apps.cryptoAssetFreeze.createIncident"),
     async (_ctx, params) => {
       const sourceCaseId = str(params?.sourceCaseId ?? "");
       const sourceApp = str(params?.sourceApp ?? "malak");
@@ -156,7 +156,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     withCapabilityTags("freeze", "incident", "law-enforcement"),
   );
 
-  sdk.app.command(nsid("app.etzhayyim.apps.cryptoAssetFreeze.requestFreeze"),
+  sdk.app.command(nsid("com.etzhayyim.apps.cryptoAssetFreeze.requestFreeze"),
     async (_ctx, params) => {
       const incidentId = str(params?.incidentId ?? "");
       const exchange = str(params?.exchange ?? "");
@@ -183,7 +183,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     withCapabilityTags("freeze", "exchange"),
   );
 
-  sdk.app.command(nsid("app.etzhayyim.apps.cryptoAssetFreeze.traceWallet"),
+  sdk.app.command(nsid("com.etzhayyim.apps.cryptoAssetFreeze.traceWallet"),
     async (_ctx, params) => {
       const walletAddress = str(params?.walletAddress ?? "");
       const chain = str(params?.chain ?? "btc");
@@ -211,7 +211,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     withCapabilityTags("forensic", "blockchain", "tracing"),
   );
 
-  sdk.app.command(nsid("app.etzhayyim.apps.cryptoAssetFreeze.getIncident"),
+  sdk.app.command(nsid("com.etzhayyim.apps.cryptoAssetFreeze.getIncident"),
     async (_ctx, params) => {
       const incidentId = str(params?.incidentId ?? "");
       if (!incidentId) return { error: "incidentId is required" };
@@ -220,7 +220,7 @@ export default createWorkerExport((sdk: HostSDK) => {
     asAgentTool("Get freeze incident details"),
   );
 
-  sdk.app.command(nsid("app.etzhayyim.apps.cryptoAssetFreeze.listIncidents"),
+  sdk.app.command(nsid("com.etzhayyim.apps.cryptoAssetFreeze.listIncidents"),
     async (_ctx, params) => {
       const limit = Number(params?.limit ?? 20);
       const status = str(params?.status ?? "");
@@ -241,7 +241,7 @@ async function handleComAtprotoSyncSubscribeReposCommit(
   if (commit.action !== "create") return;
 
   // malak freeze escalation → auto-create incident
-  if (commit.collection === "app.etzhayyim.apps.malak.freezeEscalation") {
+  if (commit.collection === "com.etzhayyim.apps.malak.freezeEscalation") {
     const rec = commit.record as Record<string, unknown> | undefined;
     const caseId = str(rec?.case_id ?? rec?.caseId ?? "");
     const wallets = (rec?.wallet_addresses ?? rec?.walletAddresses ?? []) as string[];
@@ -249,7 +249,7 @@ async function handleComAtprotoSyncSubscribeReposCommit(
   }
 
   // collector blockchain actor → enrich existing traces
-  if (commit.collection === "app.etzhayyim.apps.collector.blockchainActor") {
+  if (commit.collection === "com.etzhayyim.apps.collector.blockchainActor") {
     const rec = commit.record as Record<string, unknown> | undefined;
     const actorId = str(rec?.actor_id ?? rec?.actorId ?? "");
     if (actorId) {

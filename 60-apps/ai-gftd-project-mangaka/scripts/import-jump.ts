@@ -43,7 +43,7 @@ function readJsonld(path: string): any {
 // --- 1. Create top-level project ---
 console.log("=== Creating Ghost Hacker project ===");
 const project = readJsonld(`${JUMP_DIR}/../PROJECT.jsonld`);
-const topProject = await xrpc("app.etzhayyim.mangaka.createProject", {
+const topProject = await xrpc("com.etzhayyim.mangaka.createProject", {
   name: "Ghost Hacker: 260123-jump",
   description: project?.["dct:description"] || "Cybersecurity manga series",
   projectType: "manga-series",
@@ -57,7 +57,7 @@ for (const slug of charDirs) {
   const profile = readJsonld(`${JUMP_DIR}/characters/${slug}/profile.jsonld`);
   if (!profile) continue;
   console.log(`  character: ${slug} — ${profile["schema:name"] || slug}`);
-  await xrpc("app.etzhayyim.mangaka.createCharacter", {
+  await xrpc("com.etzhayyim.mangaka.createCharacter", {
     id: `chr-${slug.toLowerCase()}`,
     workId: topProjectId,
     name: profile["schema:name"] || slug,
@@ -83,7 +83,7 @@ for (const slug of orgDirs) {
   if (!profile) continue;
   const name = profile["schema:name"] || profile["dct:title"] || slug;
   console.log(`  org: ${slug} — ${name}`);
-  await xrpc("app.etzhayyim.mangaka.createOrganization", {
+  await xrpc("com.etzhayyim.mangaka.createOrganization", {
     id: `org-${slug.toLowerCase()}`,
     workId: topProjectId,
     name,
@@ -107,7 +107,7 @@ for (const slug of envDirs) {
   if (!profile) continue;
   const name = profile["dct:title"] || profile["schema:name"] || slug;
   console.log(`  env: ${slug} — ${name}`);
-  await xrpc("app.etzhayyim.mangaka.createEnvironment", {
+  await xrpc("com.etzhayyim.mangaka.createEnvironment", {
     id: `env-${slug}`,
     workId: topProjectId,
     name,
@@ -130,7 +130,7 @@ for (const epSlug of episodeDirs) {
 
   // Create work (episode-level)
   const workId = `work-${epSlug}`;
-  await xrpc("app.etzhayyim.mangaka.createWork", {
+  await xrpc("com.etzhayyim.mangaka.createWork", {
     id: workId,
     title,
     arc: ep["gh:arc"] || "",
@@ -148,7 +148,7 @@ for (const epSlug of episodeDirs) {
   });
 
   // Create sub-project for this episode
-  const epProject = await xrpc("app.etzhayyim.mangaka.createProject", {
+  const epProject = await xrpc("com.etzhayyim.mangaka.createProject", {
     name: title,
     description: ep["gh:incidentDescription"] || title,
     parentProjectId: topProjectId,
@@ -165,7 +165,7 @@ for (const epSlug of episodeDirs) {
   if (acts.length === 0) {
     const totalPages = (ep["gh:pages"] || []).length;
     console.log(`    (no actStructure — creating default chapter for ${totalPages} pages)`);
-    await xrpc("app.etzhayyim.mangaka.addChapter", {
+    await xrpc("com.etzhayyim.mangaka.addChapter", {
       id: defaultChapterId,
       workId,
       chapterNum: 1,
@@ -180,7 +180,7 @@ for (const epSlug of episodeDirs) {
   for (const act of acts) {
     const actId = act["@id"] || `act-${act["gh:actNumber"] || 0}`;
     console.log(`    act ${act["gh:actNumber"]}: ${act["gh:actTitle"] || ""}`);
-    await xrpc("app.etzhayyim.mangaka.addChapter", {
+    await xrpc("com.etzhayyim.mangaka.addChapter", {
       id: `${workId}-${actId}`,
       workId,
       chapterNum: act["gh:actNumber"] ?? 0,
@@ -204,7 +204,7 @@ for (const epSlug of episodeDirs) {
     // Use actRef-based chapterId if available, otherwise default chapter
     const chapterId = actRef ? `${workId}-${actRef}` : (acts.length > 0 ? workId : defaultChapterId);
 
-    await xrpc("app.etzhayyim.mangaka.addPage", {
+    await xrpc("com.etzhayyim.mangaka.addPage", {
       id: pageId,
       chapterId,
       pageNum,
@@ -222,7 +222,7 @@ for (const epSlug of episodeDirs) {
       const panelId = pnl["@id"] || `${pageId}-pnl${pi}`;
       const shot = pnl["gh:shotProperties"] || {};
 
-      await xrpc("app.etzhayyim.mangaka.createPanel", {
+      await xrpc("com.etzhayyim.mangaka.createPanel", {
         id: panelId,
         pageId,
         order: pnl["panel"] ?? pi,
@@ -242,7 +242,7 @@ for (const epSlug of episodeDirs) {
       const genImages: any[] = pnl["gh:generatedImages"] || [];
       for (let gi = 0; gi < genImages.length; gi++) {
         const img = genImages[gi];
-        await xrpc("app.etzhayyim.mangaka.recordGeneratedImage", {
+        await xrpc("com.etzhayyim.mangaka.recordGeneratedImage", {
           id: `${panelId}-v${gi + 1}`,
           panelId,
           workId,

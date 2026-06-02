@@ -2,7 +2,7 @@
 //
 // This module is still shaped like the older host-import surface so existing app code
 // can keep calling `sdk.hostImports.*`, but the canonical contract is now
-// `00-contracts/lexicons/ai/gftd/host/*.json` plus generated/host-client.ts.
+// `00-contracts/lexicons/com/etzhayyim/host/*.json` plus generated/host-client.ts.
 // The RequestCache dependency is a no-op compatibility stub.
 // Writes call XrpcClient.dispatch() — failures tracked in failedWrites[] for outbox archive.
 
@@ -303,7 +303,7 @@ export function createHostImports(
 
     agentChat(userMessage: string, llmContextJson: string): string {
       // Push to write buffer for async murakumo call during flush.
-      // Sync return is empty; result stored as app.etzhayyim.agent.chatResult record.
+      // Sync return is empty; result stored as com.etzhayyim.agent.chatResult record.
       pds.dispatch({ type: "agent-chat", payload: { userMessage, llmContextJson } });
       return EMPTY_JSON;
     },

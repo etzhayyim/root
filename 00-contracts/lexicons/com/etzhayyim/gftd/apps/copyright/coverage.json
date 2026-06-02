@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.copyright.coverage",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Copyright coverage by registry with kind / license / identifier histograms.",
+      "parameters": {
+        "type": "params",
+        "properties": {"registry": {"type": "string"}}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["registry", "total", "reportedAt"],
+          "properties": {
+            "registry": {"type": "string"},
+            "total": {"type": "integer"},
+            "byKind": {"type": "unknown"},
+            "byLicense": {"type": "unknown"},
+            "identifiers": {"type": "object", "properties": {"doi": {"type": "integer"}, "isbn": {"type": "integer"}, "isrc": {"type": "integer"}, "iswc": {"type": "integer"}}},
+            "berneAutomatic": {"type": "integer"},
+            "reportedAt": {"type": "string", "format": "datetime"}
+          }
+        }
+      }
+    }
+  }
+}

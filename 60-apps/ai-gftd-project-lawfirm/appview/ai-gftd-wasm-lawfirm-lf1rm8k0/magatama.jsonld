@@ -38,15 +38,15 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.feed.like",
-        "ai.gftd.apps.lawfirm.matter",
-        "ai.gftd.apps.lawfirm.hearing",
-        "ai.gftd.apps.lawfirm.legalDocument",
-        "ai.gftd.apps.lawfirm.activity",
-        "ai.gftd.apps.lawfirm.externalCounselGrant",
-        "ai.gftd.apps.lawfirm.timeEntry",
-        "ai.gftd.apps.lawfirm.invoice",
-        "ai.gftd.apps.saiban.jiken",
-        "ai.gftd.apps.saiban.trialEvent"
+        "com.etzhayyim.apps.lawfirm.matter",
+        "com.etzhayyim.apps.lawfirm.hearing",
+        "com.etzhayyim.apps.lawfirm.legalDocument",
+        "com.etzhayyim.apps.lawfirm.activity",
+        "com.etzhayyim.apps.lawfirm.externalCounselGrant",
+        "com.etzhayyim.apps.lawfirm.timeEntry",
+        "com.etzhayyim.apps.lawfirm.invoice",
+        "com.etzhayyim.apps.saiban.jiken",
+        "com.etzhayyim.apps.saiban.trialEvent"
       ]
     }
   },
@@ -54,7 +54,7 @@
     "rules": [
       {
         "id": "matter-opened-social",
-        "on": { "collection": "ai.gftd.apps.lawfirm.matter", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.matter", "action": "create" },
         "emit": {
           "type": "app.bsky.feed.post",
           "text": "Matter opened: {{record.matterNumber}} — {{record.matterType}} ({{record.jurisdiction}})",
@@ -63,7 +63,7 @@
       },
       {
         "id": "hearing-cron",
-        "on": { "collection": "ai.gftd.apps.lawfirm.hearing", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.hearing", "action": "create" },
         "emit": {
           "type": "scheduler.registerCron",
           "fireAt": "{{record.scheduledAt - PT24H}}",
@@ -72,7 +72,7 @@
       },
       {
         "id": "external-counsel-invite-dm",
-        "on": { "collection": "ai.gftd.apps.lawfirm.externalCounselGrant", "action": "create" },
+        "on": { "collection": "com.etzhayyim.apps.lawfirm.externalCounselGrant", "action": "create" },
         "emit": {
           "type": "wproto.convo.createDm",
           "peerDID": "{{record.granteeDid}}",

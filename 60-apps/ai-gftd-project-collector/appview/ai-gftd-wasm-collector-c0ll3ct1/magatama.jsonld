@@ -91,17 +91,17 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.collector.collectorRun",
-        "ai.gftd.apps.collector.dnsObservation",
-        "ai.gftd.apps.collector.blockchainActor",
-        "ai.gftd.apps.collector.riskSignal",
-        "ai.gftd.apps.collector.abuseReport",
-        "ai.gftd.apps.collector.leakEntity",
-        "ai.gftd.apps.collector.commodityValue",
-        "ai.gftd.apps.collector.disclosure",
-        "ai.gftd.apps.collector.dailyEvolution",
-        "ai.gftd.apps.collector.engagement",
-        "ai.gftd.apps.collector.newFollower"
+        "com.etzhayyim.apps.collector.collectorRun",
+        "com.etzhayyim.apps.collector.dnsObservation",
+        "com.etzhayyim.apps.collector.blockchainActor",
+        "com.etzhayyim.apps.collector.riskSignal",
+        "com.etzhayyim.apps.collector.abuseReport",
+        "com.etzhayyim.apps.collector.leakEntity",
+        "com.etzhayyim.apps.collector.commodityValue",
+        "com.etzhayyim.apps.collector.disclosure",
+        "com.etzhayyim.apps.collector.dailyEvolution",
+        "com.etzhayyim.apps.collector.engagement",
+        "com.etzhayyim.apps.collector.newFollower"
       ]
     }
   },

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govHkg.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govHkg.followSiteDeps": {
       "post": {
         "summary": "Create graph-visible site dependency follow records for Hong Kong government organizations.",
-        "operationId": "app.etzhayyim.govHkg.followSiteDeps",
+        "operationId": "com.etzhayyim.govHkg.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govHkg.heartbeatTick": {
       "post": {
         "summary": "Run the Hong Kong government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govHkg.heartbeatTick",
+        "operationId": "com.etzhayyim.govHkg.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -143,10 +143,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.ingestOfficialSources": {
+    "/xrpc/com.etzhayyim.govHkg.ingestOfficialSources": {
       "post": {
         "summary": "Queue official Hong Kong government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "app.etzhayyim.govHkg.ingestOfficialSources",
+        "operationId": "com.etzhayyim.govHkg.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -209,10 +209,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.listOrgs": {
+    "/xrpc/com.etzhayyim.govHkg.listOrgs": {
       "get": {
         "summary": "List Hong Kong government organizations by tier.",
-        "operationId": "app.etzhayyim.govHkg.listOrgs",
+        "operationId": "com.etzhayyim.govHkg.listOrgs",
         "parameters": [
           {
             "name": "orgTier",
@@ -297,10 +297,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.registerDIDs": {
+    "/xrpc/com.etzhayyim.govHkg.registerDIDs": {
       "post": {
         "summary": "Register graph-visible DID records for Hong Kong government organizations.",
-        "operationId": "app.etzhayyim.govHkg.registerDIDs",
+        "operationId": "com.etzhayyim.govHkg.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -350,10 +350,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govHkg.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Hong Kong government organization path to its actor DID and display metadata.",
-        "operationId": "app.etzhayyim.govHkg.resolveOrgPath",
+        "operationId": "com.etzhayyim.govHkg.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -398,10 +398,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.seedOrgs": {
+    "/xrpc/com.etzhayyim.govHkg.seedOrgs": {
       "post": {
         "summary": "Seed Hong Kong central ministry and province organization rows into the graph.",
-        "operationId": "app.etzhayyim.govHkg.seedOrgs",
+        "operationId": "com.etzhayyim.govHkg.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -448,10 +448,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.shinka": {
+    "/xrpc/com.etzhayyim.govHkg.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Hong Kong government organization update.",
-        "operationId": "app.etzhayyim.govHkg.shinka",
+        "operationId": "com.etzhayyim.govHkg.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -502,10 +502,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govHkg.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govHkg.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Hong Kong government organization content.",
-        "operationId": "app.etzhayyim.govHkg.syncWetUpdates",
+        "operationId": "com.etzhayyim.govHkg.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

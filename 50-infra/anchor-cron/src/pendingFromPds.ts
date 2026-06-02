@@ -1,9 +1,9 @@
 /**
  * Substrate-mode pending-roots discovery.
  *
- * Lists `app.etzhayyim.substrate.ipfsPin` records from a PDS and
+ * Lists `com.etzhayyim.substrate.ipfsPin` records from a PDS and
  * filters down to those that do NOT yet have a matching
- * `app.etzhayyim.substrate.l2Anchor` record under the anchorer's DID.
+ * `com.etzhayyim.substrate.l2Anchor` record under the anchorer's DID.
  * Returns `PendingRoot`s shaped for `submit.ts` so we can reuse the
  * existing viem submission path.
  *
@@ -18,8 +18,8 @@ import {AtpAgent} from "@atproto/api";
 import type {PendingRoot} from "./pending.js";
 import type {SaverIndexRow} from "./sidecarClient.js";
 
-const COLL_IPFS_PIN = "app.etzhayyim.substrate.ipfsPin";
-const COLL_L2_ANCHOR = "app.etzhayyim.substrate.l2Anchor";
+const COLL_IPFS_PIN = "com.etzhayyim.substrate.ipfsPin";
+const COLL_L2_ANCHOR = "com.etzhayyim.substrate.l2Anchor";
 
 export interface IpfsPinRecord {
   uri: string;

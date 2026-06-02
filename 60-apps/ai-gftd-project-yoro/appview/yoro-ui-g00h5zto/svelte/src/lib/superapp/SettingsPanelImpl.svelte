@@ -116,7 +116,7 @@
 		if (!get(isSignedIn)) { claims = []; return; }
 		claimsLoading = true;
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.claim.listStakedAttestations?limit=20', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/com.etzhayyim.claim.listStakedAttestations?limit=20', {
 				credentials: 'include',
 			});
 			if (!resp.ok) { claims = []; return; }
@@ -151,7 +151,7 @@
 		}
 		linkedMethodsLoading = true;
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.getSession', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/com.etzhayyim.authz.getSession', {
 				credentials: 'include',
 			});
 			if (!resp.ok) return;
@@ -178,7 +178,7 @@
 	}
 
 	// ── Smart account (ADR-0074 Phase 2-B) ─────────────────────────────────
-	// Resolved by `app.etzhayyim.authz.getActorAccount` (eth_call into
+	// Resolved by `com.etzhayyim.authz.getActorAccount` (eth_call into
 	// etzhayyimActorRegistry on the gftd private chain 260425). When the account
 	// hasn't been activated yet, `smartAccount` is null — display will show
 	// "Not yet activated" and the user can opt in via a future activation
@@ -204,7 +204,7 @@
 		actorAccountLoading = true;
 		actorAccountError = '';
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.getActorAccount', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/com.etzhayyim.authz.getActorAccount', {
 				credentials: 'include',
 			});
 			if (!resp.ok) {
@@ -235,7 +235,7 @@
 		activating = true;
 		actorAccountError = '';
 		try {
-			const resp = await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.activateActorAccount', {
+			const resp = await fetch('https://authz.etzhayyim.com/xrpc/com.etzhayyim.authz.activateActorAccount', {
 				method: 'POST',
 				credentials: 'include',
 				headers: { 'Content-Type': 'application/json' },
@@ -603,7 +603,7 @@
 												await unlinkEthereumAddress(method.providerSubject, method.provider);
 											}
 											else if (method.provider === 'webauthn-additional') await unlinkAdditionalPasskey(method.providerSubject);
-											else await fetch('https://authz.etzhayyim.com/xrpc/app.etzhayyim.authz.unlinkMethod', {
+											else await fetch('https://authz.etzhayyim.com/xrpc/com.etzhayyim.authz.unlinkMethod', {
 												method: 'POST',
 												credentials: 'include',
 												headers: { 'Content-Type': 'application/json' },

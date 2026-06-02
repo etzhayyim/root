@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.governance.getPolicy",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "ownerDid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "rules": {
+              "type": "object"
+            },
+            "updatedAt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "rules",
+            "updatedAt"
+          ]
+        }
+      }
+    }
+  }
+}

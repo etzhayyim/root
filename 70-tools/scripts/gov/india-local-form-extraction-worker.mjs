@@ -791,7 +791,7 @@ function buildResult(task, fetched) {
 }
 
 async function writeResult(task, fetched, result) {
-  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/com.etzhayyim.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
   await withDbRetry(`write-result:${task.vertex_id}`, async (client) => {
     await client.query("BEGIN");
     try {
@@ -824,7 +824,7 @@ async function writeResult(task, fetched, result) {
 }
 
 function resultValues(task, fetched, result) {
-  const vertexId = `at://did:web:gov.etzhayyim.com/app.etzhayyim.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
+  const vertexId = `at://did:web:gov.etzhayyim.com/com.etzhayyim.apps.gov.formExtractionResult/ind-${hash(`${task.vertex_id}|${fetched.finalUrl}|${result.status}`)}`;
   return [
     vertexId,
     Date.now(),

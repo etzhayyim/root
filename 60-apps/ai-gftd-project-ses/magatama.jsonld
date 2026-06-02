@@ -20,7 +20,7 @@
   "layer": "edge-dispatcher",
   "atStandard": false,
   "nsidPrefixes": [
-    "ai.gftd.apps.ses"
+    "com.etzhayyim.apps.ses"
   ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",

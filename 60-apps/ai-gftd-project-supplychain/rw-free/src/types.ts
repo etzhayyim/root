@@ -15,8 +15,8 @@
 
 export const SC_DID_PREFIX = "did:web:supplychain.etzhayyim.com:" as const;
 
-export const NODE_COLLECTION = "app.etzhayyim.apps.supplychain.node";
-export const DEPENDENCY_COLLECTION = "app.etzhayyim.apps.supplychain.dependency";
+export const NODE_COLLECTION = "com.etzhayyim.apps.supplychain.node";
+export const DEPENDENCY_COLLECTION = "com.etzhayyim.apps.supplychain.dependency";
 
 export type NodeKind = "material" | "assembly" | "supplier" | "company";
 

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.bpmn.signalInstance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Signal a waiting message event on an instance, optionally with payload.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["instanceId", "messageName"],
+          "properties": {
+            "instanceId": { "type": "string" },
+            "messageName": { "type": "string" },
+            "payload": { "type": "unknown" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "instanceId": { "type": "string" },
+            "activityId": { "type": "string" },
+            "messageName": { "type": "string" },
+            "accepted": { "type": "boolean" },
+            "occurredAt": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

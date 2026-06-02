@@ -24,8 +24,8 @@ const seeds: Seed[] = [
   {
     proc: "collect",
     bpmnProcessId: "isin_collect",
-    nsid: "app.etzhayyim.apps.isin.isinCollect",
-    sourcePath: "00-contracts/bpmn/ai/gftd/isin/isinCollect.bpmn",
+    nsid: "com.etzhayyim.apps.isin.isinCollect",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/isin/isinCollect.bpmn",
     resultTimeoutMs: 600000,
   },
 ];
@@ -35,9 +35,9 @@ function readContract(relPath: string): string {
 }
 
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

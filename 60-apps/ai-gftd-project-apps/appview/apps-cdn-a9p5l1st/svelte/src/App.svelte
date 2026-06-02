@@ -239,7 +239,7 @@
     revisionState = "loading";
     revisionMessage = "";
     try {
-      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/app.etzhayyim.apps.kakaku.listSelectorRevisions`, {
+      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kakaku.listSelectorRevisions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ merchantId, limit: 20 }),
@@ -259,7 +259,7 @@
     revisionState = "loading";
     revisionMessage = "";
     try {
-      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/app.etzhayyim.apps.kakaku.activateSelectorRevision`, {
+      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kakaku.activateSelectorRevision`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -284,7 +284,7 @@
     merchantLoadState = "loading";
     merchantLoadMessage = "";
     try {
-      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/app.etzhayyim.apps.kakaku.listMerchants`, {
+      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kakaku.listMerchants`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ q: merchantQuery, limit: 100 }),
@@ -305,7 +305,7 @@
     probeMessage = "";
     probeResult = null;
     try {
-      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/app.etzhayyim.apps.kakaku.ingestOfferFromUrl`, {
+      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kakaku.ingestOfferFromUrl`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -336,7 +336,7 @@
     submitState = "saving";
     submitMessage = "";
     try {
-      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/app.etzhayyim.apps.kakaku.registerMerchant`, {
+      const resp = await fetch(`${form.endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kakaku.registerMerchant`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

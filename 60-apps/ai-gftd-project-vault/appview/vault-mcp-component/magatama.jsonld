@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.vault.vaultEntity",
-        "ai.gftd.apps.vault.vaultEvent",
-        "ai.gftd.apps.vault.vaultReport"
+        "com.etzhayyim.apps.vault.vaultEntity",
+        "com.etzhayyim.apps.vault.vaultEvent",
+        "com.etzhayyim.apps.vault.vaultReport"
       ]
     }
   },

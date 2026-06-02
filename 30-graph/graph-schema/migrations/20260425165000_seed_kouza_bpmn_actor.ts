@@ -28,17 +28,17 @@ const actorTag = "sys.bpmn.seed.kouza";
 
 const processSeeds: ProcessSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kouza-sync-due-connections-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kouza-sync-due-connections-v1",
     bpmnProcessId: "kouza_sync_due_connections",
-    sourcePath: "00-contracts/bpmn/ai/gftd/kouza/syncDueConnections.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/kouza/syncDueConnections.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: BindingSeed[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kouza-syncDueConnections-v1",
-    nsid: "app.etzhayyim.apps.kouza.syncDueConnections",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kouza-syncDueConnections-v1",
+    nsid: "com.etzhayyim.apps.kouza.syncDueConnections",
     bpmnProcessId: "kouza_sync_due_connections",
     ownerDid,
     resultTimeoutMs: 120_000,

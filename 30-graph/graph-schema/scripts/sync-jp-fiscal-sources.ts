@@ -111,8 +111,8 @@ function validateManifest(manifest: SourceManifest): void {
     requiredString(source.cadence, 'cadence', sourceId);
     requiredString(source.extractor, 'extractor', sourceId);
     requiredString(source.status, 'status', sourceId);
-    if (!source.collection.startsWith('app.etzhayyim.apps.jpFiscal.')) {
-      throw new Error(`source ${sourceId}: collection must be app.etzhayyim.apps.jpFiscal.*`);
+    if (!source.collection.startsWith('com.etzhayyim.apps.jpFiscal.')) {
+      throw new Error(`source ${sourceId}: collection must be com.etzhayyim.apps.jpFiscal.*`);
     }
     try {
       new URL(source.source_url);

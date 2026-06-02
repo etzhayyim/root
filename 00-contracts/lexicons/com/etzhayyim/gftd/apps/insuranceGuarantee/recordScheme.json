@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.insuranceGuarantee.recordScheme",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Insurance guarantee scheme / policyholder protection (bridges insurance-underwriter + cat-bond-ils + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "schemeId",
+            "countryIso3",
+            "coverageLine",
+            "establishedAt"
+          ],
+          "properties": {
+            "schemeId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "coverageLine": {
+              "type": "string",
+              "enum": [
+                "life",
+                "nonlife",
+                "motor_compulsory",
+                "travel_compulsory",
+                "health",
+                "reinsurance",
+                "workers_comp"
+              ]
+            },
+            "coverageCapUsd": {
+              "type": "number"
+            },
+            "fundingModel": {
+              "type": "string",
+              "enum": [
+                "ex_ante",
+                "ex_post",
+                "hybrid",
+                "pay_as_you_go"
+              ]
+            },
+            "establishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

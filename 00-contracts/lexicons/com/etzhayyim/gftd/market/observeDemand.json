@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.market.observeDemand",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a demand-side observation (ADR 2605011300, ∇φ axis). Trace sources: (1) inbound XRPC 4xx for unknown NSID, (2) Gmail/Teams classifier T3 gray drop (ADR-0032), (3) FraudSignal duplicate detection (yabai). Feeds mv_market_vacuum_score daily aggregation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["signalKind", "observedAt"],
+          "properties": {
+            "signalKind": {
+              "type": "string",
+              "enum": ["unknown_nsid_4xx", "classifier_gray", "fraud_duplicate", "explicit_request"],
+              "description": "Source of the demand signal"
+            },
+            "lane": {
+              "type": "string",
+              "enum": ["vault", "sashiosae", "lawfirm", "bpmn", "murakumo", "unknown"],
+              "description": "Inferred or explicit market lane the demand maps to"
+            },
+            "demandHash": {
+              "type": "string",
+              "description": "SHA-256 of (requester, requested-capability) — never raw PII (ADR-0018 Tier 1 only)"
+            },
+            "magnitude": {
+              "type": "number",
+              "minimum": 0,
+              "default": 1.0,
+              "description": "Weight of this observation (defaults to 1.0; FraudSignal duplicates may carry higher magnitude)"
+            },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "vacuumScoreDelta": { "type": "number", "description": "Per-lane daily ∇φ change after this observation" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,7 +14,7 @@ pub struct Dsn {
     /// TCP port. Defaults to `5432`.
     pub port: u16,
     /// Database name. Provisioned via
-    /// `app.etzhayyim.apps.yata.provisionDatabase` (`yata_<hash>` shape).
+    /// `com.etzhayyim.apps.yata.provisionDatabase` (`yata_<hash>` shape).
     pub database: String,
     /// Trailing `?key=value&...` query string (for `application_name`
     /// etc). Stored as-is for v0.1; v0.2 will expose typed accessors.

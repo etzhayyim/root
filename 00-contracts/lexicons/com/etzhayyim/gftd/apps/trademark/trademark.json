@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.trademark.trademark",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A trademark registration. Primary key = {jurisdiction}-{regNumber}.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["jurisdiction", "regNumber", "mark", "niceClasses", "collectedAt"],
+        "properties": {
+          "jurisdiction": {"type": "string"},
+          "regNumber": {"type": "string"},
+          "appNumber": {"type": "string"},
+          "mark": {"type": "string", "maxLength": 500},
+          "markType": {"type": "string", "enum": ["word", "figure", "combined", "sound", "3d", "color"]},
+          "niceClasses": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 45}},
+          "viennaCodes": {"type": "array", "items": {"type": "string"}},
+          "ownerDids": {"type": "array", "items": {"type": "string", "format": "did"}},
+          "filedAt": {"type": "string", "format": "datetime"},
+          "registeredAt": {"type": "string", "format": "datetime"},
+          "expiresAt": {"type": "string", "format": "datetime"},
+          "madridIntlRegNumber": {"type": "string"},
+          "sourceUrl": {"type": "string", "format": "uri"},
+          "sourceDid": {"type": "string", "format": "did"},
+          "collectedAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    }
+  }
+}

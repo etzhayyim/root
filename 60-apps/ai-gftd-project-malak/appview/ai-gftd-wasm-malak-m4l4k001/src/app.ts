@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const ACTOR_DID = "did:web:malak.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.apps.malak.";
+const NSID_PREFIX = "com.etzhayyim.apps.malak.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -29,7 +29,7 @@ export default {
         nanoid: env.APP_NANOID ?? "",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/malak.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/malak",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/malak",
       });
     }
 
@@ -64,13 +64,13 @@ interface GateFailure {
 
 function preflightGate(nsid: string, body: Record<string, unknown>): GateFailure | null {
   switch (nsid) {
-    case "app.etzhayyim.apps.malak.queryPerson":
+    case "com.etzhayyim.apps.malak.queryPerson":
       return gateWarrantRequired(body);
-    case "app.etzhayyim.apps.malak.exportSurveillanceEvidence":
+    case "com.etzhayyim.apps.malak.exportSurveillanceEvidence":
       return gateTwoStageApproval(body);
-    case "app.etzhayyim.apps.malak.registerAgencyProspect":
+    case "com.etzhayyim.apps.malak.registerAgencyProspect":
       return gateOptInSource(body);
-    case "app.etzhayyim.apps.malak.sendAgencyOutreach":
+    case "com.etzhayyim.apps.malak.sendAgencyOutreach":
       return gateBusinessHour(body);
     default:
       return null;

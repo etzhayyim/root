@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gigWorker.flagAlgorithmicManagement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Algorithmic management transparency / dispute (bridges ai-governance + misinformation-observatory)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "disputeId",
+            "rulingVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "disputeId": {
+              "type": "string"
+            },
+            "rulingVid": {
+              "type": "string",
+              "description": "bridges recordClassificationRuling"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "price_discrimination",
+                "deactivation_no_reason",
+                "surveillance",
+                "discriminatory_routing",
+                "opaque_scoring",
+                "override_denial",
+                "underpayment"
+              ]
+            },
+            "affectedWorkers": {
+              "type": "integer"
+            },
+            "remedyRequired": {
+              "type": "string",
+              "enum": [
+                "human_review",
+                "algorithm_disclosure",
+                "compensation",
+                "reinstate",
+                "opt_out",
+                "ban_practice"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

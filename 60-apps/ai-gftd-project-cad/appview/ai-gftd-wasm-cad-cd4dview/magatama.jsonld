@@ -68,9 +68,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.cad.model",
-        "ai.gftd.apps.cad.revision",
-        "ai.gftd.apps.cad.comment"
+        "com.etzhayyim.apps.cad.model",
+        "com.etzhayyim.apps.cad.revision",
+        "com.etzhayyim.apps.cad.comment"
       ]
     }
   },

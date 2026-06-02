@@ -100,7 +100,7 @@ def vertex_emit(label: str, data: str, pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.vertex.emit",
+            f"{pds_url}/xrpc/com.etzhayyim.vertex.emit",
             json={"label": label, "data": payload},
             headers=_auth_headers(), timeout=30,
         )
@@ -125,7 +125,7 @@ def vertex_query(label: str, filter_text: str, limit: int, pds: str | None, json
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.vertex.query",
+            f"{pds_url}/xrpc/com.etzhayyim.vertex.query",
             params={"label": label, "filter": filter_text, "limit": limit},
             headers=_auth_headers(), timeout=30,
         )
@@ -149,7 +149,7 @@ def vertex_labels(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.vertex.listLabels",
+            f"{pds_url}/xrpc/com.etzhayyim.vertex.listLabels",
             headers=_auth_headers(), timeout=30,
         )
         resp.raise_for_status()

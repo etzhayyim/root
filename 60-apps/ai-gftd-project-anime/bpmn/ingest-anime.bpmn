@@ -10,7 +10,7 @@
     <bpmn:startEvent id="Start_Title" name="Title create requested"/>
     <bpmn:sequenceFlow id="t1" sourceRef="Start_Title" targetRef="Task_CreateTitle"/>
     <bpmn:serviceTask id="Task_CreateTitle" name="Persist title"
-                      camunda:topic="ai.gftd.apps.anime.createTitle"/>
+                      camunda:topic="com.etzhayyim.apps.anime.createTitle"/>
     <bpmn:sequenceFlow id="t2" sourceRef="Task_CreateTitle" targetRef="End_Title"/>
     <bpmn:endEvent id="End_Title" name="Title created"/>
   </bpmn:process>
@@ -20,7 +20,7 @@
     <bpmn:startEvent id="Start_Season" name="Season create requested"/>
     <bpmn:sequenceFlow id="s1" sourceRef="Start_Season" targetRef="Task_CreateSeason"/>
     <bpmn:serviceTask id="Task_CreateSeason" name="Persist season"
-                      camunda:topic="ai.gftd.apps.anime.createSeason"/>
+                      camunda:topic="com.etzhayyim.apps.anime.createSeason"/>
     <bpmn:sequenceFlow id="s2" sourceRef="Task_CreateSeason" targetRef="End_Season"/>
     <bpmn:endEvent id="End_Season" name="Season created"/>
   </bpmn:process>
@@ -30,7 +30,7 @@
     <bpmn:startEvent id="Start_Episode" name="Episode create requested"/>
     <bpmn:sequenceFlow id="e1" sourceRef="Start_Episode" targetRef="Task_CreateEpisode"/>
     <bpmn:serviceTask id="Task_CreateEpisode" name="Persist episode"
-                      camunda:topic="ai.gftd.apps.anime.createEpisode"/>
+                      camunda:topic="com.etzhayyim.apps.anime.createEpisode"/>
     <bpmn:sequenceFlow id="e2" sourceRef="Task_CreateEpisode" targetRef="End_Episode"/>
     <bpmn:endEvent id="End_Episode" name="Episode created"/>
   </bpmn:process>
@@ -40,7 +40,7 @@
     <bpmn:startEvent id="Start_Schedule" name="Schedule create requested"/>
     <bpmn:sequenceFlow id="sc1" sourceRef="Start_Schedule" targetRef="Task_CreateSchedule"/>
     <bpmn:serviceTask id="Task_CreateSchedule" name="Persist schedule"
-                      camunda:topic="ai.gftd.apps.anime.createSchedule"/>
+                      camunda:topic="com.etzhayyim.apps.anime.createSchedule"/>
     <bpmn:sequenceFlow id="sc2" sourceRef="Task_CreateSchedule" targetRef="End_Schedule"/>
     <bpmn:endEvent id="End_Schedule" name="Schedule created"/>
   </bpmn:process>
@@ -50,7 +50,7 @@
     <bpmn:startEvent id="Start_Review" name="Review submitted"/>
     <bpmn:sequenceFlow id="rv1" sourceRef="Start_Review" targetRef="Task_SubmitReview"/>
     <bpmn:serviceTask id="Task_SubmitReview" name="Persist review"
-                      camunda:topic="ai.gftd.apps.anime.submitReview"/>
+                      camunda:topic="com.etzhayyim.apps.anime.submitReview"/>
     <bpmn:sequenceFlow id="rv2" sourceRef="Task_SubmitReview" targetRef="End_Review"/>
     <bpmn:endEvent id="End_Review" name="Review persisted"/>
   </bpmn:process>

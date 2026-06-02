@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govLao.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govLao.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Laos government.",
-        "operationId": "app.etzhayyim.govLao.followSiteDeps",
+        "operationId": "com.etzhayyim.govLao.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govLao.heartbeatTick": {
       "post": {
         "summary": "Run the Laos government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govLao.heartbeatTick",
+        "operationId": "com.etzhayyim.govLao.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.listOrgs": {
+    "/xrpc/com.etzhayyim.govLao.listOrgs": {
       "get": {
         "summary": "List Laos government organization graph records.",
-        "operationId": "app.etzhayyim.govLao.listOrgs",
+        "operationId": "com.etzhayyim.govLao.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.registerDIDs": {
+    "/xrpc/com.etzhayyim.govLao.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Laos government organizations.",
-        "operationId": "app.etzhayyim.govLao.registerDIDs",
+        "operationId": "com.etzhayyim.govLao.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govLao.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Laos government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govLao.resolveOrgPath",
+        "operationId": "com.etzhayyim.govLao.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.seedOrgs": {
+    "/xrpc/com.etzhayyim.govLao.seedOrgs": {
       "post": {
         "summary": "Seed initial Laos government organization records into the graph.",
-        "operationId": "app.etzhayyim.govLao.seedOrgs",
+        "operationId": "com.etzhayyim.govLao.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.shinka": {
+    "/xrpc/com.etzhayyim.govLao.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Laos government organization update.",
-        "operationId": "app.etzhayyim.govLao.shinka",
+        "operationId": "com.etzhayyim.govLao.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLao.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govLao.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Laos government organization changes to graph.",
-        "operationId": "app.etzhayyim.govLao.syncWetUpdates",
+        "operationId": "com.etzhayyim.govLao.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

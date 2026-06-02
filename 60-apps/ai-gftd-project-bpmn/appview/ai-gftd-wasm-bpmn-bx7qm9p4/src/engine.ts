@@ -9,7 +9,7 @@
 //   runEngine(env, xml, variables, savedState?, signal?) → { state, completed, waiting, error }
 //
 // serviceTask dispatch: activity.name attr holds the NSID
-// (e.g. "app.etzhayyim.apps.playwright.goto"). We intercept via broker subscribe
+// (e.g. "com.etzhayyim.apps.playwright.goto"). We intercept via broker subscribe
 // on 'activity.execute' and call the target actor's service binding with
 // the merged variables + step params.
 // ─────────────────────────────────────────────────────────────────────────
@@ -273,7 +273,7 @@ function registerServiceDispatcher(definition: any, env: any) {
     const content = msg?.content ?? {};
     if (content.type !== "bpmn:ServiceTask") return;
     const nsidStr: string = content.name ?? content.id ?? "";
-    if (!nsidStr.startsWith("app.etzhayyim.apps.")) return;
+    if (!nsidStr.startsWith("com.etzhayyim.apps.")) return;
 
     const parts = nsidStr.split(".");
     const actor = parts[3];

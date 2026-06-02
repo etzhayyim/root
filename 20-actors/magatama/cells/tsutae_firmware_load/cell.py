@@ -33,7 +33,7 @@ Pregel graph (5 nodes):
                                         no auto-play media on lock screen
         |
         v
-    emit_firmware_attest           ->  MST PUT app.etzhayyim.tsutae.firmwareAttestation
+    emit_firmware_attest           ->  MST PUT com.etzhayyim.tsutae.firmwareAttestation
                                         (image CID, bootloader name + version,
                                         OS kernel + version, userspace name +
                                         version, SHA-256 hash, blob ratio %,

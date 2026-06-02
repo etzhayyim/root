@@ -138,7 +138,7 @@ export async function syncRoster(sdk: etzhayyimSdk, opts: { dryRun?: boolean; ve
       await sdk.pds.dispatch({
         type: "com.atproto.repo.createRecord",
         did: row.did,
-        collection: "app.etzhayyim.apps.hospitality.leiBridge",
+        collection: "com.etzhayyim.apps.hospitality.leiBridge",
         record: {
           actorDid: row.did,
           lei: row.lei,

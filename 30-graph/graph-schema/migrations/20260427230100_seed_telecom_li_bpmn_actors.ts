@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "registerInterceptWarrant", bpmnProcessId: "telecom_register_intercept_warrant",
-    nsid: "app.etzhayyim.apps.telecom.registerInterceptWarrant", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.registerInterceptWarrant", resultTimeoutMs: 30000 },
   { proc: "activateInterceptTarget", bpmnProcessId: "telecom_activate_intercept_target",
-    nsid: "app.etzhayyim.apps.telecom.activateInterceptTarget", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.activateInterceptTarget", resultTimeoutMs: 30000 },
   { proc: "deactivateInterceptTarget", bpmnProcessId: "telecom_deactivate_intercept_target",
-    nsid: "app.etzhayyim.apps.telecom.deactivateInterceptTarget", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.deactivateInterceptTarget", resultTimeoutMs: 30000 },
   { proc: "deliverInterceptMetadata", bpmnProcessId: "telecom_deliver_intercept_metadata",
-    nsid: "app.etzhayyim.apps.telecom.deliverInterceptMetadata", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.deliverInterceptMetadata", resultTimeoutMs: 15000 },
   { proc: "deliverInterceptContent", bpmnProcessId: "telecom_deliver_intercept_content",
-    nsid: "app.etzhayyim.apps.telecom.deliverInterceptContent", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.deliverInterceptContent", resultTimeoutMs: 15000 },
   { proc: "acknowledgeInterceptDelivery", bpmnProcessId: "telecom_acknowledge_intercept_delivery",
-    nsid: "app.etzhayyim.apps.telecom.acknowledgeInterceptDelivery", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.acknowledgeInterceptDelivery", resultTimeoutMs: 15000 },
   { proc: "auditInterceptAccess", bpmnProcessId: "telecom_audit_intercept_access",
-    nsid: "app.etzhayyim.apps.telecom.auditInterceptAccess", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.auditInterceptAccess", resultTimeoutMs: 15000 },
   { proc: "closeInterceptWarrant", bpmnProcessId: "telecom_close_intercept_warrant",
-    nsid: "app.etzhayyim.apps.telecom.closeInterceptWarrant", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.closeInterceptWarrant", resultTimeoutMs: 30000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

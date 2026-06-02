@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.hc.hcEntity",
-        "ai.gftd.apps.hc.hcEvent",
-        "ai.gftd.apps.hc.hcReport"
+        "com.etzhayyim.apps.hc.hcEntity",
+        "com.etzhayyim.apps.hc.hcEvent",
+        "com.etzhayyim.apps.hc.hcReport"
       ]
     }
   },

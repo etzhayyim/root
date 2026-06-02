@@ -13,7 +13,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 const BPMN_PROCESS_ID = "agent_runtime_lease_autopilot";
 const SOURCE_PATH =
-  "00-contracts/bpmn/ai/gftd/agent/runtimeLeaseAutopilot.bpmn";
+  "00-contracts/bpmn/com/etzhayyim/agent/runtimeLeaseAutopilot.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(

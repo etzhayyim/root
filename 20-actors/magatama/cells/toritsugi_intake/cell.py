@@ -4,14 +4,14 @@ Per ADR-2605312030 (取次 toritsugi — citizen-facing government-procedure
 concierge).
 
 Purpose: take a member's consent + DID/SBT binding + need/life-event and open an
-`app.etzhayyim.toritsugi.procedureGuide` session for a single procedure. The
+`com.etzhayyim.toritsugi.procedureGuide` session for a single procedure. The
 member is the named 申請者本人 from this point on.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G3 consent-gated + identity-bound,
 OWN procedure only; G4 the member is always the named 申請者本人 (no
 impersonation; toritsugi is an unofficial assistant, never an official 自治体
 channel); kotoba-EAVT-native (ADR-2605262130). Output Lexicon(s):
-app.etzhayyim.toritsugi.procedureGuide.
+com.etzhayyim.toritsugi.procedureGuide.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

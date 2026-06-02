@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.toshiKozan.listEwasteStreams",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List 都市鉱山 e-waste material streams with optional filters.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "streamType": { "type": "string" },
+          "country": { "type": "string" },
+          "targetMaterial": { "type": "string", "description": "filter by recovered material (au/ag/pt/pd/cu/nd/dy/co/li/ni/in)" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "required": ["streams", "total", "offset", "limit"], "properties": { "streams": { "type": "array", "items": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "streamType": { "type": "string" }, "country": { "type": "string" }, "tonnesPerYear": { "type": "number" }, "targetMaterials": { "type": "array", "items": { "type": "string" } } } } }, "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" } } } }
+    }
+  }
+}

@@ -8,11 +8,11 @@ Endpoints:
   GET  /ok / /health          → liveness / readiness
 
 NSID surface (4 webmk endpoints):
-  app.etzhayyim.apps.webmk.createProposal    → create_proposal
-  app.etzhayyim.apps.webmk.deliverProposal   → deliver_proposal
-  app.etzhayyim.apps.webmk.getProposal       → get_proposal
-  app.etzhayyim.apps.webmk.listProposals     → list_proposals
-  app.etzhayyim.apps.webmk.health            → health
+  com.etzhayyim.apps.webmk.createProposal    → create_proposal
+  com.etzhayyim.apps.webmk.deliverProposal   → deliver_proposal
+  com.etzhayyim.apps.webmk.getProposal       → get_proposal
+  com.etzhayyim.apps.webmk.listProposals     → list_proposals
+  com.etzhayyim.apps.webmk.health            → health
 """
 
 from __future__ import annotations
@@ -46,14 +46,14 @@ GRAPHS: dict[str, Any] = {
 
 # NSID → assistant_id mapping
 _NSID_MAP: dict[str, str] = {
-    "app.etzhayyim.apps.webmk.health":           "health",
-    "app.etzhayyim.apps.webmk.createProposal":   "create_proposal",
-    "app.etzhayyim.apps.webmk.deliverProposal":  "deliver_proposal",
-    "app.etzhayyim.apps.webmk.getProposal":      "get_proposal",
-    "app.etzhayyim.apps.webmk.listProposals":    "list_proposals",
+    "com.etzhayyim.apps.webmk.health":           "health",
+    "com.etzhayyim.apps.webmk.createProposal":   "create_proposal",
+    "com.etzhayyim.apps.webmk.deliverProposal":  "deliver_proposal",
+    "com.etzhayyim.apps.webmk.getProposal":      "get_proposal",
+    "com.etzhayyim.apps.webmk.listProposals":    "list_proposals",
 }
 
-_QUERY_NSIDS = {"app.etzhayyim.apps.webmk.health", "app.etzhayyim.apps.webmk.getProposal", "app.etzhayyim.apps.webmk.listProposals"}
+_QUERY_NSIDS = {"com.etzhayyim.apps.webmk.health", "com.etzhayyim.apps.webmk.getProposal", "com.etzhayyim.apps.webmk.listProposals"}
 
 _API_KEY = os.environ.get("LG_API_KEY", "").strip()
 

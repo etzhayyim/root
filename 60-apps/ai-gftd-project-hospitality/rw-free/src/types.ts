@@ -15,8 +15,8 @@
 
 export const HOSPITALITY_DID_PREFIX = "did:web:hospitality.etzhayyim.com:" as const;
 
-export const PROPERTY_COLLECTION = "app.etzhayyim.apps.hospitality.property";
-export const FLOW_COLLECTION = "app.etzhayyim.apps.hospitality.flow";
+export const PROPERTY_COLLECTION = "com.etzhayyim.apps.hospitality.property";
+export const FLOW_COLLECTION = "com.etzhayyim.apps.hospitality.flow";
 
 /** Roster tiers: a chain owns OTAs/properties; an OTA aggregates properties. */
 export type PropertyKind = "chain" | "ota" | "property";

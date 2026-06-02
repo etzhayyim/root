@@ -25,31 +25,31 @@ const seeds: Seed[] = [
   {
     proc: "socialArbitrageIntel",
     bpmnProcessId: "news_social_arbitrage_intel",
-    nsid: "app.etzhayyim.apps.news.socialArbitrageIntel",
-    sourcePath: "00-contracts/bpmn/ai/gftd/news/socialArbitrageIntel.bpmn",
+    nsid: "com.etzhayyim.apps.news.socialArbitrageIntel",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/news/socialArbitrageIntel.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "rssIngest",
     bpmnProcessId: "news_rss_ingest",
-    nsid: "app.etzhayyim.apps.news.rssIngest",
-    sourcePath: "00-contracts/bpmn/ai/gftd/news/rssIngest.bpmn",
+    nsid: "com.etzhayyim.apps.news.rssIngest",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/news/rssIngest.bpmn",
     resultTimeoutMs: 120000,
   },
   {
     proc: "liveAudioIngest",
     bpmnProcessId: "news_live_audio_ingest",
-    nsid: "app.etzhayyim.apps.news.liveAudioIngest",
-    sourcePath: "00-contracts/bpmn/ai/gftd/news/liveAudioIngest.bpmn",
+    nsid: "com.etzhayyim.apps.news.liveAudioIngest",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/news/liveAudioIngest.bpmn",
     resultTimeoutMs: 240000,
   },
 ];
 
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.proc}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const xml = readContract(s.sourcePath);

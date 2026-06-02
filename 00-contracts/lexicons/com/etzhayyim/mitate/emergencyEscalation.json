@@ -1,0 +1,94 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mitate.emergencyEscalation",
+  "description": "G5 fail-safe red-flag escalation record. Emitted by mitate_emergency_screen cell when red-flag pattern detected (anaphylaxis / orbital cellulitis / septal abscess / 髄膜炎 / 視力低下 / 意識障害 / 突然の重度頭痛). Triggers immediate ER routing instruction to patient PWA + on-call DID urgency-only push notification (G11 carve-out: emergency ack is one of the 3 permitted notification types). Public ack only — no patient identity in record. Per ADR-2605260100 §Decision 3 G5 (architectural invariant: bypass 不可).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "escalationId",
+          "intakeUri",
+          "redFlagCategory",
+          "urgency",
+          "erRoutingInstruction",
+          "onCallNotifiedDids",
+          "detectedAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "escalationId": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "intakeUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Back-reference to rhinitisIntake record. Patient pseudonym DID is NOT included here (G10) — only the intake reference. To resolve to patient, decryption of intake envelope is required (G2 access)."
+          },
+          "redFlagCategory": {
+            "type": "string",
+            "knownValues": [
+              "anaphylaxis-airway-circulatory",
+              "orbital-cellulitis-orbital-extension",
+              "septal-abscess-systemic-toxicity",
+              "meningitis-neck-stiffness-altered-consciousness",
+              "cavernous-sinus-thrombosis",
+              "vision-loss-acute",
+              "altered-consciousness",
+              "thunderclap-headache",
+              "fungal-rhinosinusitis-immunocompromised",
+              "post-surgical-bleeding-csf-leak"
+            ]
+          },
+          "urgency": {
+            "type": "string",
+            "knownValues": ["emergency-call-119-ambulance", "emergency-er-now", "urgent-same-day-md", "urgent-24hr-md"]
+          },
+          "detectionMethod": {
+            "type": "string",
+            "knownValues": [
+              "layer-1-regex-multi-language",
+              "layer-2-llm-narrative-pass",
+              "layer-3-temporal-urgency-classification",
+              "combined-multi-layer"
+            ]
+          },
+          "erRoutingInstruction": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Jurisdiction-aware patient-facing instruction (Japan: 119 救急車 / nearest ER list / hospital network search instruction)."
+          },
+          "onCallNotifiedDids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "description": "DIDs of on-call physicians / Council medical advisory members notified via G11 urgency-only push channel."
+          },
+          "patientAckReceivedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Optional — patient acknowledgment that ER routing instruction was received (best-effort, do not block on patient response)."
+          },
+          "downstreamPipelineSuppressed": {
+            "type": "boolean",
+            "description": "Architectural invariant — must be true. If false, indicates a bypass violation (G5 fail-safe inviolability breach)."
+          },
+          "detectedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

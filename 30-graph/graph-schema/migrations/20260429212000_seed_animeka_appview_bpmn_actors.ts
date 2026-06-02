@@ -15,26 +15,26 @@ const actorId = "sys.bpmn.seed.animeka-appview";
 const project = "animeka";
 
 const seeds: Seed[] = [
-  { slug: "create-work", processId: "animeka_create_work", nsid: "app.etzhayyim.apps.animeka.createWork", file: "createWork.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
-  { slug: "list-works", processId: "animeka_list_works", nsid: "app.etzhayyim.apps.animeka.listWorks", file: "listWorks.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "add-episode", processId: "animeka_add_episode", nsid: "app.etzhayyim.apps.animeka.addEpisode", file: "addEpisode.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
-  { slug: "list-episodes", processId: "animeka_list_episodes", nsid: "app.etzhayyim.apps.animeka.listEpisodes", file: "listEpisodes.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "add-cut", processId: "animeka_add_cut", nsid: "app.etzhayyim.apps.animeka.addCut", file: "addCut.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
-  { slug: "list-cuts", processId: "animeka_list_cuts", nsid: "app.etzhayyim.apps.animeka.listCuts", file: "listCuts.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "get-cut", processId: "animeka_get_cut", nsid: "app.etzhayyim.apps.animeka.getCut", file: "getCut.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "update-cut-stage", processId: "animeka_update_cut_stage", nsid: "app.etzhayyim.apps.animeka.updateCutStage", file: "updateCutStage.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
-  { slug: "submit-retake", processId: "animeka_submit_retake", nsid: "app.etzhayyim.apps.animeka.submitRetake", file: "submitRetake.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
-  { slug: "resolve-retake", processId: "animeka_resolve_retake", nsid: "app.etzhayyim.apps.animeka.resolveRetake", file: "resolveRetake.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
-  { slug: "list-retakes", processId: "animeka_list_retakes", nsid: "app.etzhayyim.apps.animeka.listRetakes", file: "listRetakes.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "health", processId: "animeka_health", nsid: "app.etzhayyim.apps.animeka.health", file: "health.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "create-work", processId: "animeka_create_work", nsid: "com.etzhayyim.apps.animeka.createWork", file: "createWork.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
+  { slug: "list-works", processId: "animeka_list_works", nsid: "com.etzhayyim.apps.animeka.listWorks", file: "listWorks.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "add-episode", processId: "animeka_add_episode", nsid: "com.etzhayyim.apps.animeka.addEpisode", file: "addEpisode.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
+  { slug: "list-episodes", processId: "animeka_list_episodes", nsid: "com.etzhayyim.apps.animeka.listEpisodes", file: "listEpisodes.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "add-cut", processId: "animeka_add_cut", nsid: "com.etzhayyim.apps.animeka.addCut", file: "addCut.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
+  { slug: "list-cuts", processId: "animeka_list_cuts", nsid: "com.etzhayyim.apps.animeka.listCuts", file: "listCuts.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "get-cut", processId: "animeka_get_cut", nsid: "com.etzhayyim.apps.animeka.getCut", file: "getCut.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "update-cut-stage", processId: "animeka_update_cut_stage", nsid: "com.etzhayyim.apps.animeka.updateCutStage", file: "updateCutStage.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
+  { slug: "submit-retake", processId: "animeka_submit_retake", nsid: "com.etzhayyim.apps.animeka.submitRetake", file: "submitRetake.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
+  { slug: "resolve-retake", processId: "animeka_resolve_retake", nsid: "com.etzhayyim.apps.animeka.resolveRetake", file: "resolveRetake.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_animeka" },
+  { slug: "list-retakes", processId: "animeka_list_retakes", nsid: "com.etzhayyim.apps.animeka.listRetakes", file: "listRetakes.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "health", processId: "animeka_health", nsid: "com.etzhayyim.apps.animeka.health", file: "health.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
-    const sourcePath = `00-contracts/bpmn/ai/gftd/animeka/${s.file}`;
+    const sourcePath = `00-contracts/bpmn/com/etzhayyim/animeka/${s.file}`;
     const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
     const size = Buffer.byteLength(xml, "utf8");
     await sql`

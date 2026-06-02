@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.entityMention",
+  "description": "Provenance-backed mention of a legal entity inside a public statement or disclosure record.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "edgeId",
+          "statementId",
+          "role",
+          "sourceLicense",
+          "confidence",
+          "linkedAt",
+          "createdAt"
+        ],
+        "properties": {
+          "edgeId": { "type": "string" },
+          "statementId": { "type": "string" },
+          "entityVertexId": { "type": "string" },
+          "entityLei": { "type": "string" },
+          "entitySource": { "type": "string" },
+          "entitySourceRecordId": { "type": "string" },
+          "entityName": { "type": "string" },
+          "entityCountry": { "type": "string" },
+          "role": { "type": "string" },
+          "mentionText": { "type": "string" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "sourceLicense": { "type": "string" },
+          "confidence": { "type": "number" },
+          "linkedAt": { "type": "string", "format": "datetime" },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

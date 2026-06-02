@@ -1,5 +1,5 @@
 {
-  "$schema": "app.etzhayyim.moushibumi.participationTarget",
+  "$schema": "com.etzhayyim.moushibumi.participationTarget",
   "_comment": "R0 SEED democratic-participation target registry per ADR-2605312400 §2. Each entry is the coded organ / channel / 根拠法令 / 様式 / 期限 / 紹介議員-flag so moushibumi can route + (eventually) file procedurally. ALL entries ship verificationStatus=unverified-seed: per G14, NO live submission may occur against an unverified entry — these MUST be human/Council-verified (and re-checked within the freshness window) before moushibumi_submit will transmit, and 代行 (R3) additionally requires council-verified + 行政書士法 clearance + Council Lv7+ (G15). Specific portals / windows / 根拠法令 below are best-effort public references as of 2026-05-31 and are EXPECTED to drift. CRITICAL (G3): election entries are INFO-ONLY — neutral reference to official sources; no campaigning / endorsement / GOTV.",
   "freshnessWindowDays": 180,
   "targets": [

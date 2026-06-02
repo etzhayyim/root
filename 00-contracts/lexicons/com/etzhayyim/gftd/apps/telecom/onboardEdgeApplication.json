@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.onboardEdgeApplication",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MEC — onboard an edge application package (AppD descriptor) into the catalog. packageRef must be vault://; appDescriptor + raw container image never persisted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vendor", "name", "version", "appDescriptor", "latencyClass", "packageHash", "observedAt"],
+          "properties": {
+            "appPackageId": { "type": "string" },
+            "vendor": { "type": "string" },
+            "name": { "type": "string" },
+            "version": { "type": "string" },
+            "appDescriptor": { "type": "string" },
+            "requiredEases": { "type": "array", "items": { "type": "string" } },
+            "latencyClass": { "type": "string", "enum": ["urllc", "embb", "iot", "best_effort"] },
+            "requestedFlavor": { "type": "string" },
+            "packageHash": { "type": "string" },
+            "packageRef": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "appPackageId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

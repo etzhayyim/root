@@ -32,7 +32,7 @@ function emitOrgRecord(country, org_type, org_name, parent_org) {
   const timestamp = new Date().toISOString();
 
   return {
-    $type: 'app.etzhayyim.gov.org#organization',
+    $type: 'com.etzhayyim.gov.org#organization',
     uri: `at://etzhayyim.com/gov/${country.iso3}/org/${++org_count}`,
     countryIso3: country.iso3,
     countryName: country.name,

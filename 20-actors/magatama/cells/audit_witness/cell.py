@@ -10,7 +10,7 @@ community-event / compliance-check; XChaCha20-Poly1305 envelope per
 ADR-2605181100 for anomaly / injury).
 
 Continuous + super-step boundary + event-driven: the cell fires on every
-``app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent`` MST commit.
+``com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent`` MST commit.
 It does not sleep between super-steps — once invoked it advances until
 witness quorum is met (fixed-point at ``verify_witness_quorum``), then
 classifies severity, decides whether to apply a Phenotype delta or
@@ -229,7 +229,7 @@ def emit_audit_record(state: AuditWitnessState) -> dict[str, Any]:
     now_ns = int(time.time() * 1000)
     audit_did = f"{site_did}:audit:{int(time.time())}"
     record_uri = (
-        f"at://{site_did}/app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent/"
+        f"at://{site_did}/com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent/"
         f"{now_ns}"
     )
     recorded_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

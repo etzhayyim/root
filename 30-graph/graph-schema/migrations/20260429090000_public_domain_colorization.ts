@@ -15,13 +15,13 @@ const seed = {
   project: "public-domain-colorization",
   proc: "colorizeWork",
   bpmnProcessId: "public_domain_colorization_pipeline",
-  nsid: "app.etzhayyim.apps.publicDomainColorization.colorizeWork",
+  nsid: "com.etzhayyim.apps.publicDomainColorization.colorizeWork",
   resultTimeoutMs: 900000,
 };
 
-const sourcePath = `00-contracts/bpmn/ai/gftd/${seed.project}/${seed.proc}.bpmn`;
-const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${seed.project}-colorize-work-v1`;
-const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+const sourcePath = `00-contracts/bpmn/com/etzhayyim/${seed.project}/${seed.proc}.bpmn`;
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${seed.project}-colorize-work-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

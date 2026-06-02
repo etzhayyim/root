@@ -95,7 +95,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = RoadTestPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.sarutahiko.roadTestRecord",
+        "$type": "com.etzhayyim.sarutahiko.roadTestRecord",
         "chassisId": s.chassisId,
         "dynoResult": s.dynoResult,
         "g12KpiCheck": s.g12KpiCheck,

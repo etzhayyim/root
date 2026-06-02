@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.manabi.personalMaterialImport",
+  "description": "User-imported personal study material (e.g. ISACA Review Manual, Wiley CISA/CISSP guide, Sybex official study guide). STRUCTURAL ENFORCEMENT: internalOnly const true (Tier-C pattern from ADR-2605262400) — never projected to public MST feed, never accessible to LLM training, never shared between users. ownerDid is single-recipient (no multi-recipient at R0-R3). Owner-initiated hard delete on MST + IPFS pin release for right-to-erasure. License responsibility carried by the importing adherent (licenseAcknowledgment). Per ADR-2605264400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "materialId": {"type": "string"},
+          "ownerDid": {"type": "string", "description": "single recipient — owner only"},
+          "titleHashed": {"type": "string", "description": "sha256 of title (not the title text itself; minimizes leakage if record metadata enumerated)"},
+          "encryptedPayloadCid": {"type": "string", "description": "client-side XChaCha20-Poly1305 envelope per ADR-2605181100; CID points to encrypted blob on IPFS"},
+          "byteSize": {"type": "integer"},
+          "mimeType": {"type": "string", "knownValues": ["application/pdf", "text/markdown", "text/plain", "application/epub+zip"]},
+          "internalOnly": {"type": "boolean", "const": true, "description": "STRUCTURAL — Tier-C carve-out per ADR-2605262400; any other value rejected"},
+          "licenseAcknowledgment": {"type": "string", "knownValues": ["owner-purchased-individual-use", "owner-authored", "public-domain"], "description": "adherent attestation of license basis for the imported material — religious-corp does not police, but records the attestation; misattestation is the adherent's individual responsibility"},
+          "importedAtUtc": {"type": "string"}
+        },
+        "required": ["materialId", "ownerDid", "titleHashed", "encryptedPayloadCid", "byteSize", "mimeType", "internalOnly", "licenseAcknowledgment", "importedAtUtc"]
+      }
+    }
+  }
+}

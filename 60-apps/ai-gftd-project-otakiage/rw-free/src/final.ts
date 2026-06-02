@@ -34,10 +34,10 @@ import {
   type ItemStatus,
 } from "./types.js";
 
-const ITEM_COLLECTION = "app.etzhayyim.otakiage.item";
-const CERTIFICATE_COLLECTION = "app.etzhayyim.otakiage.certificate";
-const MATSURI_COLLECTION = "app.etzhayyim.otakiage.matsuri";
-const AGENT_CHAT_COLLECTION = "app.etzhayyim.otakiage.agentChat";
+const ITEM_COLLECTION = "com.etzhayyim.otakiage.item";
+const CERTIFICATE_COLLECTION = "com.etzhayyim.otakiage.certificate";
+const MATSURI_COLLECTION = "com.etzhayyim.otakiage.matsuri";
+const AGENT_CHAT_COLLECTION = "com.etzhayyim.otakiage.agentChat";
 
 const PAGE_LIMIT = 100;
 const DEFAULT_MAX_SCAN = 10_000;

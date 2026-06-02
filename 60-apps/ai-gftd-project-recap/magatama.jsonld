@@ -25,7 +25,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.recap.download"]
+      "collections": ["com.etzhayyim.apps.recap.download"]
     }
   }
 }

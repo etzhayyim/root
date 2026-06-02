@@ -173,7 +173,7 @@
             "params": {
               "actorName": "gov",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.gov.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.gov.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "g0v9a1cy",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -211,7 +211,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.gov.coverage.get",
+        "nsid": "com.etzhayyim.apps.gov.coverage.get",
         "type": "xrpc"
       }
     }
@@ -229,8 +229,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -243,28 +243,28 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.gov.agency",
-        "ai.gftd.apps.gov.coverageSnapshot",
-        "ai.gftd.apps.jpFiscal.taxPayment",
-        "ai.gftd.apps.jpFiscal.appropriation",
-        "ai.gftd.apps.jpFiscal.budgetExecution",
-        "ai.gftd.apps.jpFiscal.kofuzeiTransfer",
-        "ai.gftd.apps.jpFiscal.subsidyGrant",
-        "ai.gftd.apps.jpFiscal.contract",
-        "ai.gftd.apps.jpFiscal.paymentRecord",
-        "ai.gftd.apps.jpFiscal.auditFinding",
-        "ai.gftd.apps.jpFiscal.budgetBook",
-        "ai.gftd.apps.jpFiscal.procurementBid",
-        "ai.gftd.apps.jpFiscal.programReview",
-        "ai.gftd.apps.jpFiscal.lgFinance",
-        "ai.gftd.apps.jpFiscal.incorpFinance",
-        "ai.gftd.apps.jpFiscal.beneficialOwner"
+        "com.etzhayyim.apps.gov.agency",
+        "com.etzhayyim.apps.gov.coverageSnapshot",
+        "com.etzhayyim.apps.jpFiscal.taxPayment",
+        "com.etzhayyim.apps.jpFiscal.appropriation",
+        "com.etzhayyim.apps.jpFiscal.budgetExecution",
+        "com.etzhayyim.apps.jpFiscal.kofuzeiTransfer",
+        "com.etzhayyim.apps.jpFiscal.subsidyGrant",
+        "com.etzhayyim.apps.jpFiscal.contract",
+        "com.etzhayyim.apps.jpFiscal.paymentRecord",
+        "com.etzhayyim.apps.jpFiscal.auditFinding",
+        "com.etzhayyim.apps.jpFiscal.budgetBook",
+        "com.etzhayyim.apps.jpFiscal.procurementBid",
+        "com.etzhayyim.apps.jpFiscal.programReview",
+        "com.etzhayyim.apps.jpFiscal.lgFinance",
+        "com.etzhayyim.apps.jpFiscal.incorpFinance",
+        "com.etzhayyim.apps.jpFiscal.beneficialOwner"
       ]
     }
   },
   "derive": [
     {
-      "from": "ai.gftd.apps.jpFiscal.contract",
+      "from": "com.etzhayyim.apps.jpFiscal.contract",
       "emit": {
         "$type": "app.bsky.feed.post",
         "text": "契約締結: {{ contractorDisplayName | fallback:contractorJcn }} ({{ method }}) {{ amountJpy | yenFormat }} — {{ deliverable | truncate:60 }}",
@@ -280,7 +280,7 @@
       }
     },
     {
-      "from": "ai.gftd.apps.jpFiscal.paymentRecord",
+      "from": "com.etzhayyim.apps.jpFiscal.paymentRecord",
       "emit": {
         "$type": "app.bsky.feed.post",
         "text": "支払: {{ payeeDisplayName }} に {{ paidJpy | yenFormat }} (契約 {{ contractDid | shortDid }})",
@@ -293,7 +293,7 @@
       }
     },
     {
-      "from": "ai.gftd.apps.jpFiscal.subsidyGrant",
+      "from": "com.etzhayyim.apps.jpFiscal.subsidyGrant",
       "filter": "piiTier == 1",
       "emit": {
         "$type": "app.bsky.feed.post",
@@ -310,7 +310,7 @@
       }
     },
     {
-      "from": "ai.gftd.apps.jpFiscal.procurementBid",
+      "from": "com.etzhayyim.apps.jpFiscal.procurementBid",
       "emit": {
         "$type": "app.bsky.feed.post",
         "text": "入札公告: {{ issuerDisplayName }} {{ method }} 予定価格 {{ estimatedJpy | yenFormat }} — 開札 {{ closedAt | jpDate }}",
@@ -326,7 +326,7 @@
       }
     },
     {
-      "from": "ai.gftd.apps.jpFiscal.auditFinding",
+      "from": "com.etzhayyim.apps.jpFiscal.auditFinding",
       "emit": {
         "$type": "app.bsky.feed.post",
         "text": "⚠️ 会計検査院 {{ fiscalYear }}年度 {{ category }}: {{ targetDisplayName }} {{ amountJpy | yenFormat }} ({{ paragraphRef }})",
@@ -339,7 +339,7 @@
       }
     },
     {
-      "from": "ai.gftd.apps.jpFiscal.beneficialOwner",
+      "from": "com.etzhayyim.apps.jpFiscal.beneficialOwner",
       "filter": "status == 'RESOLVED' && ownershipPct >= 25",
       "emit": {
         "$type": "app.bsky.feed.post",
@@ -354,7 +354,7 @@
       }
     },
     {
-      "from": "ai.gftd.apps.jpFiscal.budgetBook",
+      "from": "com.etzhayyim.apps.jpFiscal.budgetBook",
       "emit": {
         "$type": "app.bsky.feed.post",
         "text": "📘 {{ fiscalYear }}年度 {{ docType }} ({{ accountType }}) 総額 {{ totalJpy | yenFormat }}",

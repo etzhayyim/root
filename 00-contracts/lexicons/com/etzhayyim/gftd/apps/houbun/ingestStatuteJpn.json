@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.houbun.ingestStatuteJpn",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Crawl one or more Japanese statutes from the e-Gov 法令 API v2 and write statute / article records to Hyperdrive. Idempotent: existing (jurisdiction, statuteId) is updated; existing (articleDid) rows are skipped.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lawId": {
+              "type": "string",
+              "description": "e-Gov lawId (e.g. '325AC0000000131' for 民法). Mutually exclusive with `since`."
+            },
+            "since": {
+              "type": "string",
+              "description": "ISO 8601 date — fetch all statutes updated after this cutoff."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Max statutes to ingest in one call (default 10, max 200). Applies to `since` mode only."
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "statutesFetched": { "type": "integer" },
+            "statutesInserted": { "type": "integer" },
+            "articlesInserted": { "type": "integer" },
+            "articlesSkipped": { "type": "integer" },
+            "errors": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

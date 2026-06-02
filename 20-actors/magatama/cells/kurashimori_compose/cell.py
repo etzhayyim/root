@@ -9,9 +9,9 @@ assistance only.
 Constitutional ceiling (CRITICAL — IMMUTABLE): G5 UPL/司法書士法 — drafting-assist
 only, NEVER 作成代理 (the only representable assistMode is 'drafting-assist');
 G10 the draft uses lawful, non-threatening language (no 威迫); G6 the draft lands
-ONLY in an app.etzhayyim.encrypted.* DID-bound envelope (never inline); G8 the
+ONLY in an com.etzhayyim.encrypted.* DID-bound envelope (never inline); G8 the
 member must confirm before send; Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.kurashimori.remedyDraft.
+Output Lexicon(s): com.etzhayyim.kurashimori.remedyDraft.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

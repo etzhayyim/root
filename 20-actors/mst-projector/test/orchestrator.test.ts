@@ -19,7 +19,7 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("text search", () => {
     it("matches papers by title keyword", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-1",
         value: {
           title: "Bonsai cultivar layer above myco-yeast",
@@ -29,7 +29,7 @@ describe("OrchestrationProjector — kiyo config", () => {
         },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-2",
         value: {
           title: "RisingWave cutover plan",
@@ -40,7 +40,7 @@ describe("OrchestrationProjector — kiyo config", () => {
       });
 
       const out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "bonsai myco",
       });
 
@@ -53,14 +53,14 @@ describe("OrchestrationProjector — kiyo config", () => {
     it("respects limit parameter", async () => {
       for (let i = 0; i < 5; i++) {
         await projector.processCommit({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           rkey: `paper-${i}`,
           value: { title: `Machine learning paper ${i}`, status: "published" },
         });
       }
 
       const out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "machine",
         limit: 2,
       });
@@ -70,13 +70,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("returns empty for nonexistent query", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-1",
         value: { title: "Foo bar", status: "published" },
       });
 
       const out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "nonexistent",
       });
 
@@ -87,18 +87,18 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("attribute query", () => {
     it("filters papers by field", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-1",
         value: { title: "x", status: "published", field: "cs" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-2",
         value: { title: "y", status: "published", field: "physics" },
       });
 
       const out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "field",
         value: "cs",
       });
@@ -109,18 +109,18 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("filters papers by status", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-1",
         value: { title: "x", status: "published", field: "cs" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-2",
         value: { title: "y", status: "draft", field: "cs" },
       });
 
       const out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "status",
         value: "draft",
       });
@@ -131,14 +131,14 @@ describe("OrchestrationProjector — kiyo config", () => {
     it("respects limit parameter", async () => {
       for (let i = 0; i < 10; i++) {
         await projector.processCommit({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           rkey: `paper-${i}`,
           value: { title: `x${i}`, status: "published", field: "cs" },
         });
       }
 
       const out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "status",
         value: "published",
         limit: 5,
@@ -149,13 +149,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("returns empty for nonexistent value", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "paper-1",
         value: { title: "x", status: "published", field: "cs" },
       });
 
       const out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "field",
         value: "nonexistent-field",
       });
@@ -167,23 +167,23 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("aggregate query", () => {
     it("counts papers by status", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "a", status: "published" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p2",
         value: { title: "b", status: "published" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p3",
         value: { title: "c", status: "submitted" },
       });
 
       const out = await projector.queryAggregate({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         groupBy: "status",
       });
 
@@ -193,23 +193,23 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("counts papers by language", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "a", language: "en" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p2",
         value: { title: "b", language: "ja" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p3",
         value: { title: "c", language: "en" },
       });
 
       const out = await projector.queryAggregate({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         groupBy: "language",
       });
 
@@ -219,14 +219,14 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("decrements on status transition (update with previousValue)", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "a", status: "submitted" },
       });
 
       let counts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           groupBy: "status",
         })
       ).counts;
@@ -234,7 +234,7 @@ describe("OrchestrationProjector — kiyo config", () => {
 
       // Update to published
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "a", status: "published" },
         previousValue: { title: "a", status: "submitted" },
@@ -242,7 +242,7 @@ describe("OrchestrationProjector — kiyo config", () => {
 
       counts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           groupBy: "status",
         })
       ).counts;
@@ -253,18 +253,18 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("handles multi-field aggregates", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "a", status: "published", language: "en", field: "cs" },
       });
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p2",
         value: { title: "b", status: "published", language: "ja", field: "physics" },
       });
 
       const byField = await projector.queryAggregate({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         groupBy: "field",
       });
 
@@ -276,26 +276,26 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("delete operations", () => {
     it("removes from text index on delete", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "ghost paper", status: "published" },
       });
 
       let out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "ghost",
       });
       expect(out.items).toHaveLength(1);
 
       // Delete
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         previousValue: { title: "ghost paper", status: "published" },
       });
 
       out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "ghost",
       });
       expect(out.items).toHaveLength(0);
@@ -303,13 +303,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("removes from attribute index on delete", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "x", status: "published", field: "cs" },
       });
 
       let out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "status",
         value: "published",
       });
@@ -317,13 +317,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
       // Delete
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         previousValue: { title: "x", status: "published", field: "cs" },
       });
 
       out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "status",
         value: "published",
       });
@@ -332,20 +332,20 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("decrements aggregates on delete", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "x", status: "published" },
       });
 
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         previousValue: { title: "x", status: "published" },
       });
 
       const counts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           groupBy: "status",
         })
       ).counts;
@@ -357,7 +357,7 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("idempotency", () => {
     it("duplicate creates are idempotent", async () => {
       const commit = {
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "test", status: "published" },
       };
@@ -367,7 +367,7 @@ describe("OrchestrationProjector — kiyo config", () => {
 
       const counts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           groupBy: "status",
         })
       ).counts;
@@ -378,13 +378,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("duplicate deletes are idempotent", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "test", status: "published" },
       });
 
       const deleteCommit = {
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         previousValue: { title: "test", status: "published" },
       };
@@ -394,7 +394,7 @@ describe("OrchestrationProjector — kiyo config", () => {
 
       const counts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           groupBy: "status",
         })
       ).counts;
@@ -406,13 +406,13 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("cross-collection isolation", () => {
     it("ignores events for unconfigured collections", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.unknown.collection",
+        collection: "com.etzhayyim.unknown.collection",
         rkey: "x",
         value: { title: "foo" },
       });
 
       const out = await projector.queryAggregate({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         groupBy: "status",
       });
 
@@ -421,7 +421,7 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("handles review collection separately", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.review",
+        collection: "com.etzhayyim.kiyo.review",
         rkey: "review-1",
         value: { conclusion: "Good paper", status: "approved" },
       });
@@ -429,14 +429,14 @@ describe("OrchestrationProjector — kiyo config", () => {
       // Papers and reviews are separate collections
       const paperCounts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.paper",
+          collection: "com.etzhayyim.kiyo.paper",
           groupBy: "status",
         })
       ).counts;
 
       const reviewCounts = (
         await projector.queryAggregate({
-          collection: "app.etzhayyim.kiyo.review",
+          collection: "com.etzhayyim.kiyo.review",
           groupBy: "status",
         })
       ).counts;
@@ -449,7 +449,7 @@ describe("OrchestrationProjector — kiyo config", () => {
   describe("edge cases", () => {
     it("handles undefined/null fields gracefully", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: {
           title: "test",
@@ -460,7 +460,7 @@ describe("OrchestrationProjector — kiyo config", () => {
       });
 
       const out = await projector.queryAttribute({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         attribute: "field",
         value: "undefined",
       });
@@ -471,13 +471,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("handles empty queries safely", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "test", status: "published" },
       });
 
       const out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "   ",
       });
 
@@ -487,13 +487,13 @@ describe("OrchestrationProjector — kiyo config", () => {
 
     it("supports CJK text search", async () => {
       await projector.processCommit({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         rkey: "p1",
         value: { title: "日本語のタイトル", titleLocal: "Japanese Title" },
       });
 
       const out = await projector.queryTextSearch({
-        collection: "app.etzhayyim.kiyo.paper",
+        collection: "com.etzhayyim.kiyo.paper",
         query: "日本語",
       });
 

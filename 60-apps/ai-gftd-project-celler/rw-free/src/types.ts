@@ -17,7 +17,7 @@
 
 export const CELLER_DID_PREFIX = "did:web:celler.etzhayyim.com:" as const;
 
-export const NUMBER_COLLECTION = "app.etzhayyim.apps.celler.number";
+export const NUMBER_COLLECTION = "com.etzhayyim.apps.celler.number";
 
 export type NumberStatus = "active" | "suspended" | "released";
 

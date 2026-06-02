@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.orbitalDebris.assessObject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Orbital-debris mitigation assessment (IADC / ISO 24113 / FCC §25 — bridges space-traffic + ai-supply-chain)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "assessmentId",
+            "pmdPlanType",
+            "assessedAt"
+          ],
+          "properties": {
+            "assessmentId": {
+              "type": "string"
+            },
+            "objectVid": {
+              "type": "string",
+              "description": "bridges open-space-traffic catalogObject"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "pmdPlanType": {
+              "type": "string",
+              "enum": [
+                "direct_re_entry",
+                "controlled_re_entry",
+                "uncontrolled",
+                "graveyard_disposal",
+                "boost_out",
+                "atmospheric_drag"
+              ]
+            },
+            "deorbitCompliance25yr": {
+              "type": "boolean",
+              "description": "IADC 25-year rule (now 5-year proposed)"
+            },
+            "casualtyRisk": {
+              "type": "number",
+              "description": "max 1E-4"
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "complianceTier": {
+              "type": "string",
+              "enum": [
+                "compliant",
+                "marginal",
+                "non_compliant"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

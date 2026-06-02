@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-unispsc/procurement.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-unispsc/procurement.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-unispsc/supplier.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-unispsc/supplier.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-unispsc BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-unispsc-procurement-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_unispsc_procurement"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-unispsc/procurement.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-unispsc/procurement.bpmn"');
     expect(migrationSource).toContain("open-unispsc-supplier-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_unispsc_supplier"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-unispsc/supplier.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-unispsc/supplier.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openUnispsc.procurement"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openUnispsc.supplier"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openUnispsc.procurement"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openUnispsc.supplier"');
   });
 
   it("uses open-unispsc-specific actor_id + owner_did", () => {

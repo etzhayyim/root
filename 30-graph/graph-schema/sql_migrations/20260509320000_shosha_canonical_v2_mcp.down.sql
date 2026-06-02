@@ -9,11 +9,11 @@ DELETE FROM vertex_langgraph_assistant      WHERE assistant_id LIKE 'shosha_%.v2
 
 DELETE FROM vertex_mcp_tool_def
  WHERE nsid IN (
-   'ai.gftd.apps.shosha.intelIngestPrices', 'ai.gftd.apps.shosha.intelIngestFreight',
-   'ai.gftd.apps.shosha.marketViewSynth', 'ai.gftd.apps.shosha.sanctionsRefreshOfac',
-   'ai.gftd.apps.shosha.sanctionsRefreshUn', 'ai.gftd.apps.shosha.exposureRecompute',
-   'ai.gftd.apps.shosha.pnlDailyRecompute', 'ai.gftd.apps.shosha.tradeSynth',
-   'ai.gftd.apps.shosha.dailyReportCompose', 'ai.gftd.apps.shosha.reactiveScanUpstream'
+   'com.etzhayyim.apps.shosha.intelIngestPrices', 'com.etzhayyim.apps.shosha.intelIngestFreight',
+   'com.etzhayyim.apps.shosha.marketViewSynth', 'com.etzhayyim.apps.shosha.sanctionsRefreshOfac',
+   'com.etzhayyim.apps.shosha.sanctionsRefreshUn', 'com.etzhayyim.apps.shosha.exposureRecompute',
+   'com.etzhayyim.apps.shosha.pnlDailyRecompute', 'com.etzhayyim.apps.shosha.tradeSynth',
+   'com.etzhayyim.apps.shosha.dailyReportCompose', 'com.etzhayyim.apps.shosha.reactiveScanUpstream'
  );
 
 FLUSH;

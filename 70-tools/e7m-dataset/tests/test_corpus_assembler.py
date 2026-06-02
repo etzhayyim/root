@@ -155,7 +155,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -197,7 +197,7 @@ max_tier_cap = "C"
 
 [[source]]
 subdataset    = "dns/rapid7-sonar-fdns"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "*.ndjson"
 tier          = "C"
 license       = "rapid7-research-use"
@@ -241,7 +241,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -307,7 +307,7 @@ description = "{desc}"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -355,7 +355,7 @@ intended_use = "baien-moemoekyun-train SFT grounding"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -420,7 +420,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -519,7 +519,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -560,7 +560,7 @@ line three
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -609,7 +609,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_X"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_X"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -641,7 +641,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -668,7 +668,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_X"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_X"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -695,7 +695,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -723,7 +723,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -757,7 +757,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_IANA"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -782,7 +782,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -821,7 +821,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -876,7 +876,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -912,7 +912,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "geo/osm/li"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/abc"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/abc"
 shard_glob    = "*.geojsonl"
 tier          = "A"
 license       = "ODbL-1.0"
@@ -948,7 +948,7 @@ max_tier_cap = "A"
 
 [[source]]
 subdataset    = "netreg/iana-root"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/3kdqcyhxreal"
 shard_glob    = "root.zone.ndjson"
 tier          = "A"
 license       = "public-domain"

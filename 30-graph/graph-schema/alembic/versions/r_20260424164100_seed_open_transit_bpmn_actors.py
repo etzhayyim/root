@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1',
                  'did:web:open-transit.etzhayyim.com',
                  'open_transit_define_route',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -79,12 +79,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2615,
-                 '00-contracts/bpmn/ai/gftd/open-transit/defineRoute.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-transit/defineRoute.bpmn',
                  '2026-04-24T16:30:00Z',
                  'did:web:open-transit.etzhayyim.com',
                  'did:web:open-transit.etzhayyim.com',
                  'sys.bpmn.seed.open-transit',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -92,7 +92,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1',
                  'did:web:open-transit.etzhayyim.com',
                  'open_transit_report_delay',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -237,12 +237,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6056,
-                 '00-contracts/bpmn/ai/gftd/open-transit/reportDelay.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-transit/reportDelay.bpmn',
                  '2026-04-24T16:30:00Z',
                  'did:web:open-transit.etzhayyim.com',
                  'did:web:open-transit.etzhayyim.com',
                  'sys.bpmn.seed.open-transit',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -250,16 +250,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1',
                  'did:web:open-transit.etzhayyim.com',
-                 'app.etzhayyim.apps.openTransit.defineRoute',
+                 'com.etzhayyim.apps.openTransit.defineRoute',
                  'open_transit_define_route',
                  15000,
                  '2026-04-24T16:30:00Z',
                  'did:web:open-transit.etzhayyim.com',
                  'did:web:open-transit.etzhayyim.com',
                  'sys.bpmn.seed.open-transit',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -267,25 +267,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1',
                  'did:web:open-transit.etzhayyim.com',
-                 'app.etzhayyim.apps.openTransit.reportDelay',
+                 'com.etzhayyim.apps.openTransit.reportDelay',
                  'open_transit_report_delay',
                  30000,
                  '2026-04-24T16:30:00Z',
                  'did:web:open-transit.etzhayyim.com',
                  'did:web:open-transit.etzhayyim.com',
                  'sys.bpmn.seed.open-transit',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-transit-defineRoute-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-transit-reportDelay-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-transit-define-route-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-transit-report-delay-v1']}]
 
 
 def upgrade() -> None:

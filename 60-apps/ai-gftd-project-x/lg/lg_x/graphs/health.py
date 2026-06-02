@@ -1,6 +1,6 @@
 """x `health` graph — simplest possible end-to-end probe.
 
-Replaces BPMN `x_health` (NSID: app.etzhayyim.apps.x.health).
+Replaces BPMN `x_health` (NSID: com.etzhayyim.apps.x.health).
 Confirms the server can:
   1. Compile a graph
   2. Reach RW (SELECT 1)

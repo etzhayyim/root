@@ -26,8 +26,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.wire.transfer",
-        "ai.gftd.apps.wire.message"
+        "com.etzhayyim.apps.wire.transfer",
+        "com.etzhayyim.apps.wire.message"
       ]
     }
   }

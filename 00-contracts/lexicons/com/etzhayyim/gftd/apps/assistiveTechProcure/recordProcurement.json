@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.assistiveTechProcure.recordProcurement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Assistive technology public procurement (WHO GLIAT / AT 2030 — bridges accessibilityWcag.flagDigitalExclusion + crpd-disability + digital-public-goods)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "procurementId",
+            "buyingAgencyCountryIso3",
+            "assistiveTechKind",
+            "fundingSource",
+            "awardedAt"
+          ],
+          "properties": {
+            "procurementId": {
+              "type": "string"
+            },
+            "buyingAgencyCountryIso3": {
+              "type": "string"
+            },
+            "assistiveTechKind": {
+              "type": "string",
+              "enum": [
+                "mobility_wheelchair",
+                "prosthetic",
+                "cochlear",
+                "hearing_aid",
+                "vision_aid",
+                "ocr_reading",
+                "aac_communication",
+                "spatial_navig",
+                "switch_control",
+                "cognitive_assist",
+                "sensory_substitution",
+                "brain_computer",
+                "wearable_health"
+              ]
+            },
+            "fundingSource": {
+              "type": "string",
+              "enum": [
+                "national_gov",
+                "health_insurance",
+                "private_philanthropic",
+                "donor_international",
+                "mdb_multilateral",
+                "ngo_partnership",
+                "school_allocation",
+                "workplace_accommodation"
+              ]
+            },
+            "exclusionGapVid": {
+              "type": "string",
+              "description": "bridges accessibilityWcag.flagDigitalExclusion"
+            },
+            "awardedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

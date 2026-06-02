@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.editor.writeFile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["projectId", "path", "content"],
+          "properties": {
+            "projectId": { "type": "string" },
+            "path": { "type": "string", "maxLength": 1024 },
+            "content": { "type": "string" },
+            "mimeType": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["projectId", "path", "blobRef", "sha256", "sizeBytes", "updatedAt"],
+          "properties": {
+            "projectId": { "type": "string" },
+            "path": { "type": "string" },
+            "blobRef": { "type": "string" },
+            "sha256": { "type": "string" },
+            "sizeBytes": { "type": "integer" },
+            "mimeType": { "type": "string" },
+            "updatedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

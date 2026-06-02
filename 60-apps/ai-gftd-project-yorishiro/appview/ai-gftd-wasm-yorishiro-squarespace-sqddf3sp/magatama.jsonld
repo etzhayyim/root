@@ -39,15 +39,15 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.graph.follow",
-        "ai.gftd.dns.transferRequest",
-        "ai.gftd.dns.transferOutcome"
+        "com.etzhayyim.dns.transferRequest",
+        "com.etzhayyim.dns.transferOutcome"
       ]
     }
   },
   "derive": [
     {
       "when": {
-        "collection": "ai.gftd.dns.transferStep",
+        "collection": "com.etzhayyim.dns.transferStep",
         "action": "create",
         "filter": { "step": "dnsExport", "status": "succeeded" }
       },

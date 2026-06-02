@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzIncident.reportNavigationalIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "航行インシデント (衝突/座礁/油流出)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "incidentType",
+            "occurredAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "imo": {
+              "type": "string"
+            },
+            "vesselName": {
+              "type": "string"
+            },
+            "flag": {
+              "type": "string"
+            },
+            "incidentType": {
+              "type": "string",
+              "enum": [
+                "collision",
+                "grounding",
+                "spill",
+                "fire",
+                "loss-of-propulsion",
+                "cargo-shift"
+              ]
+            },
+            "lat": {
+              "type": "number"
+            },
+            "lon": {
+              "type": "number"
+            },
+            "narrative": {
+              "type": "string"
+            },
+            "spillVolumeTonnes": {
+              "type": "number"
+            },
+            "occurredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "moderate",
+                "major"
+              ]
+            },
+            "requirePublicNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airDcs.processCheckIn",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Process passenger check-in for a flight.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["pnr_ref", "passenger_name", "flight_no", "dep_date"],
+          "properties": {
+            "pnr_ref": { "type": "string" },
+            "passenger_name": { "type": "string" },
+            "flight_no": { "type": "string" },
+            "dep_date": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

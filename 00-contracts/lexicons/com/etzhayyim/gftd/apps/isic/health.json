@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.isic.health",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "ISIC LangServer health probe.",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["status", "registryReady", "agentCount"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["healthy", "degraded", "starting", "unhealthy"]
+            },
+            "registryReady": {"type": "boolean"},
+            "agentCount": {"type": "integer"},
+            "warmAgents": {"type": "integer"},
+            "modelsAvailable": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "uptimeMs": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openPorts.reportIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Report a port incident (PSC deficiency / spill / collision). Severity = major if spill > 7 tonnes or category = collision. Starts BPMN open_ports_report_incident.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["authorityOrgId", "portVid", "category", "reportedAt"],
+          "properties": {
+            "authorityOrgId":   { "type": "string" },
+            "portVid":          { "type": "string" },
+            "vesselVid":        { "type": "string" },
+            "callVid":          { "type": "string" },
+            "category":         { "type": "string", "description": "spill / collision / psc-deficiency / fire / grounding" },
+            "narrative":        { "type": "string" },
+            "spillVolumeTonnes":{ "type": "number" },
+            "reportedAt":       { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "severity": { "type": "string", "enum": ["minor","moderate","major"] },
+            "requirePublicNotice": { "type": "boolean" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

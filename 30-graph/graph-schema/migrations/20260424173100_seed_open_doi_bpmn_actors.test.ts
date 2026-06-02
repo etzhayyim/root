@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-doi/registerDoi.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-doi/registerDoi.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-doi/recordCitation.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-doi/recordCitation.bpmn"),
   "utf-8",
 );
 
@@ -25,8 +25,8 @@ describe("Seed open-doi BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_doi_record_citation"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openDoi.registerDoi"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openDoi.recordCitation"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openDoi.registerDoi"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openDoi.recordCitation"');
   });
   it("uses open-doi-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-doi');

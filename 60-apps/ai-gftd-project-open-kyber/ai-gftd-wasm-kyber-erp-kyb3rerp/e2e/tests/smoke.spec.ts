@@ -49,7 +49,7 @@ test.describe('kyber.etzhayyim.com — smoke', () => {
     await gotoShell(page);
     await selectApp(page, 'AppView');
     const responsePromise = page.waitForResponse(
-      (r) => r.url().includes('/xrpc/app.etzhayyim.apps.kyber.dashboard') && r.request().method() === 'POST',
+      (r) => r.url().includes('/xrpc/com.etzhayyim.apps.kyber.dashboard') && r.request().method() === 'POST',
       { timeout: 15_000 }
     );
     await page.getByRole('button', { name: 'Dashboard', exact: false }).first().click();
@@ -64,7 +64,7 @@ test.describe('kyber.etzhayyim.com — smoke', () => {
     await gotoShell(page);
     await selectApp(page, 'AppView');
     const responsePromise = page.waitForResponse(
-      (r) => r.url().includes('/xrpc/app.etzhayyim.apps.kyber.listInvoices'),
+      (r) => r.url().includes('/xrpc/com.etzhayyim.apps.kyber.listInvoices'),
       { timeout: 15_000 }
     );
     await page.getByRole('button', { name: 'Invoices', exact: false }).first().click();

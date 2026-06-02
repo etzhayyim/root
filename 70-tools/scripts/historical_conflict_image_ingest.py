@@ -207,7 +207,7 @@ def build_actor_rows(actors: dict[str, ActorRef], current: str) -> list[tuple[An
                 actor.name,
                 "T3",
                 "active",
-                "app.etzhayyim.apps.history.actor",
+                "com.etzhayyim.apps.history.actor",
                 slug(actor.qid or actor.name, 64),
                 actor.did,
                 current,
@@ -263,7 +263,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
         qid = qid_from_uri(item_uri)
         name = binding(row, "itemLabel") or qid
         conflict_actor = remember_actor("conflict", qid, name)
-        conflict_vid = f"at://{conflict_actor.did}/app.etzhayyim.apps.history.conflict/{slug(qid, 64)}"
+        conflict_vid = f"at://{conflict_actor.did}/com.etzhayyim.apps.history.conflict/{slug(qid, 64)}"
         participants: list[str] = []
         participant_uri = binding(row, "participant")
         participant_qid = qid_from_uri(participant_uri)
@@ -297,7 +297,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
         treaty_label = binding(row, "treatyLabel")
         if treaty_qid:
             treaty_actor = remember_actor("treaty", treaty_qid, treaty_label or treaty_qid)
-            treaty_vid = f"at://{treaty_actor.did}/app.etzhayyim.apps.houbun.treaty/{slug(treaty_qid, 64)}"
+            treaty_vid = f"at://{treaty_actor.did}/com.etzhayyim.apps.houbun.treaty/{slug(treaty_qid, 64)}"
             edge_id = f"{conflict_vid}::{treaty_vid}::related-treaty"
             edge_conflict_treaty[edge_id] = (
                 edge_id,
@@ -322,7 +322,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
         if image:
             file_name = urllib.parse.unquote(image.rsplit("/", 1)[-1]).replace("_", " ")
             image_id = digest(qid, file_name)
-            image_vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.history.sourceImage/{image_id}"
+            image_vid = f"at://{ACTOR_DID}/com.etzhayyim.apps.history.sourceImage/{image_id}"
             images[image_vid] = (
                 image_vid,
                 int(time.time() * 1000),
@@ -401,7 +401,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
         participant_qid = qid_from_uri(binding(row, "participant"))
         if participant_qid:
             participant = remember_actor("organization", participant_qid, binding(row, "participantLabel") or participant_qid)
-            treaty_vid = f"at://{treaty_actor.did}/app.etzhayyim.apps.houbun.treaty/{slug(qid, 64)}"
+            treaty_vid = f"at://{treaty_actor.did}/com.etzhayyim.apps.houbun.treaty/{slug(qid, 64)}"
             edge_id = f"{treaty_vid}::{participant.did}::party"
             edge_treaty_actor[edge_id] = (
                 edge_id,
@@ -425,9 +425,9 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
         image = binding(row, "image")
         if image:
             file_name = urllib.parse.unquote(image.rsplit("/", 1)[-1]).replace("_", " ")
-            treaty_vid = f"at://{treaty_actor.did}/app.etzhayyim.apps.houbun.treaty/{slug(qid, 64)}"
+            treaty_vid = f"at://{treaty_actor.did}/com.etzhayyim.apps.houbun.treaty/{slug(qid, 64)}"
             image_id = digest(qid, file_name)
-            image_vid = f"at://{ACTOR_DID}/app.etzhayyim.apps.history.sourceImage/{image_id}"
+            image_vid = f"at://{ACTOR_DID}/com.etzhayyim.apps.history.sourceImage/{image_id}"
             images[image_vid] = (
                 image_vid,
                 int(time.time() * 1000),
@@ -710,7 +710,7 @@ def image_artifact_rows(image_rows: list[tuple[Any, ...]]) -> list[tuple[Any, ..
         uri = str(original_url or commons_url_value or vertex_id)
         rows.append(
             (
-                f"at://{ACTOR_DID}/app.etzhayyim.apps.ingest.artifact/{digest('image', uri, size=6)}",
+                f"at://{ACTOR_DID}/com.etzhayyim.apps.ingest.artifact/{digest('image', uri, size=6)}",
                 int(time.time() * 1000),
                 today(),
                 1,

@@ -8,7 +8,7 @@ from lg_hakken.state import HakkenState
 async def tsukuru_order(state: HakkenState) -> dict:
     """Ph3: OEM製造発注。tsukuru XRPC が実装されるまでオペレーター通知のみ。
 
-    TODO: ai.gftd.apps.tsukuru.createManufacturingOrder XRPC 実装後に自動化。
+    TODO: com.etzhayyim.apps.tsukuru.createManufacturingOrder XRPC 実装後に自動化。
     """
     approved = [s for s in state.get("approved_skus", []) if s["phase"] == "oem"]
     for sku in approved:

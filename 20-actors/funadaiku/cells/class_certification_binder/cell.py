@@ -3,7 +3,7 @@
 Gather all prior records into a class-society + IMO MASS code audit binder anchored on kotoba.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.classCertificationRecord.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.classCertificationRecord.
 """
 
 from typing import Any

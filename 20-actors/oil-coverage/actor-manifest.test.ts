@@ -28,9 +28,9 @@ describe("Oil Coverage Actor Manifest", () => {
   });
   it("xrpc covers get, listTargets, listBackbone", () => {
     const nsids = m.pipelines.filter((p: any) => p.trigger.type === "xrpc").map((p: any) => p.trigger.nsid);
-    expect(nsids).toContain("app.etzhayyim.apps.oil.coverage.get");
-    expect(nsids).toContain("app.etzhayyim.apps.oil.coverage.listTargets");
-    expect(nsids).toContain("app.etzhayyim.apps.oil.coverage.listBackbone");
+    expect(nsids).toContain("com.etzhayyim.apps.oil.coverage.get");
+    expect(nsids).toContain("com.etzhayyim.apps.oil.coverage.listTargets");
+    expect(nsids).toContain("com.etzhayyim.apps.oil.coverage.listBackbone");
   });
   it("six segment actors", () => { expect(m.actors).toHaveLength(6); });
   it("isBot true", () => { expect(m.profile.isBot).toBe(true); });

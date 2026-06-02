@@ -10,7 +10,7 @@ zone_name = "etzhayyim.com"
 
 [vars]
 # Upstream — the audit aggregator service (k3s pod or future serverless
-# function). Receives /xrpc/app.etzhayyim.audit.emitAuditEvent and writes
+# function). Receives /xrpc/com.etzhayyim.audit.emitAuditEvent and writes
 # the signed event record into the subject's PDS. Empty = 503.
 AUDIT_AGGREGATOR_UPSTREAM = ""
 

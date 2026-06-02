@@ -1,7 +1,7 @@
 /**
  * Live satellite overlay (N2YO-equivalent, 2026-05-05).
  *
- * Polls `app.etzhayyim.apps.maps.listLiveSatellites` every 30 s for currently-
+ * Polls `com.etzhayyim.apps.maps.listLiveSatellites` every 30 s for currently-
  * overhead passes (AOS..LOS straddles wallclock now). Renders each pass's
  * observer cell as a marker scaled by max elevation. Click handler forwards
  * to host for NORAD ID + name detail panel.

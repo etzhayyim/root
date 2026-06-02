@@ -30,7 +30,7 @@ Pregel graph (5 nodes):
                                         RPM interface prep (G3 ISO 500)
         |
         v
-    emit_powertrain_attest         ->  MST PUT app.etzhayyim.suki.powertrainAttestation
+    emit_powertrain_attest         ->  MST PUT com.etzhayyim.suki.powertrainAttestation
                                         (powertrain ID, engine fuel type per
                                         G7 phase, transmission type, hydraulic
                                         capacity L/min, PTO RPM nominal,

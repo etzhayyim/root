@@ -1,4 +1,4 @@
-// harai.gftd.ai — Payment & Settlement Clearing Platform
+// harcom.etzhayyim.ai — Payment & Settlement Clearing Platform
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 8 methods: createPayment / listPayments / settlePayment / refundPayment /
 //            getBalance / transferFunds / listTransactions / closeAccount
@@ -11,8 +11,8 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "ai.gftd.apps.harai.";
-const ACTOR_DID = "did:web:harai.gftd.ai";
+const NSID_PREFIX = "com.etzhayyim.apps.harai.";
+const ACTOR_DID = "did:web:harcom.etzhayyim.ai";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oilMidstream.getAsset",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a midstream pipeline / storage / terminal asset by DID.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["did"], "properties": { "did": { "type": "string", "format": "did" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "assetType": { "type": "string" }, "name": { "type": "string" }, "operatorDid": { "type": "string", "format": "did" }, "originCountry": { "type": "string" }, "destinationCountry": { "type": "string" }, "lengthKm": { "type": "number" }, "capacityBopd": { "type": "number" }, "storageCapacityMmbbl": { "type": "number" }, "chokepointExposure": { "type": "array", "items": { "type": "string" } } } } }
+    }
+  }
+}

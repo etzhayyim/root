@@ -3,11 +3,11 @@
 //
 // The generated `LEXICON_INPUT_SCHEMA` in src/generated/lexicon-nsid-types.ts holds a
 // compact per-NSID schema (property name → primitive type + required list) derived from
-// 00-contracts/lexicons/ai/gftd/**. This module turns that data into a typed runtime
+// 00-contracts/lexicons/com/etzhayyim/**. This module turns that data into a typed runtime
 // validator so app handlers can replace manual `decodeJson(body, { foo: "", bar: 0 })`
 // shape declarations with a single typed call:
 //
-//   const input = parseLexiconInput<"app.etzhayyim.apps.foo.bar">(nsid("app.etzhayyim.apps.foo.bar"), body);
+//   const input = parseLexiconInput<"com.etzhayyim.apps.foo.bar">(nsid("com.etzhayyim.apps.foo.bar"), body);
 //
 // The returned object is statically typed as LexiconInput<N> and runtime-checked to
 // have all required properties with the correct primitive types. Unknown NSIDs throw

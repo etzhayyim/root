@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-gs1/registerGtin.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-gs1/registerGtin.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-gs1/mapToUnspsc.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-gs1/mapToUnspsc.bpmn"),
   "utf-8",
 );
 
@@ -25,8 +25,8 @@ describe("Seed open-gs1 BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_gs1_map_to_unspsc"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGs1.registerGtin"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openGs1.mapToUnspsc"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openGs1.registerGtin"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openGs1.mapToUnspsc"');
   });
   it("uses open-gs1-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-gs1');

@@ -59,27 +59,27 @@ _CELLS_DIR = Path(__file__).resolve().parent.parent
 # ── Routing table ──────────────────────────────────────────────────────
 
 LEXICON_TO_CELL_MAP: dict[str, tuple[str, str]] = {
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite": (
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite": (
         "site_survey.cell",
         "define_site",
     ),
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey": (
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey": (
         "site_survey.cell",
         "submit_survey",
     ),
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan": (
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.proposeDeploymentPlan": (
         "deployment_planning.cell",
         "propose_plan",
     ),
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress": (
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress": (
         "construction_orchestration.cell",
         "record_progress",
     ),
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment": (
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.commissionDeployment": (
         "commissioning.cell",
         "commission",
     ),
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent": (
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent": (
         "audit_witness.cell",
         "audit_event",
     ),
@@ -88,14 +88,14 @@ LEXICON_TO_CELL_MAP: dict[str, tuple[str, str]] = {
 # NSIDs that the lexicons require ≥2 witness attestations on (mirror the
 # lexicon `minItems: 2` constraint to fail fast at the gateway boundary).
 WITNESS_REQUIRED_NSIDS: frozenset[str] = frozenset({
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
-    "app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey",
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.recordConstructionProgress",
+    "com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
 })
 
 WITNESS_MIN = 2  # constitutional invariant — never reduce
 
-NSID_PREFIX = "app.etzhayyim.apps.etzhayyim.kuniUmi."
+NSID_PREFIX = "com.etzhayyim.apps.etzhayyim.kuniUmi."
 
 # Cap LangGraph traversal so the witness fixed-point cannot spin forever
 # when the body supplies zero attestations and dev-mode is on.
@@ -268,7 +268,7 @@ def _coerce_state(
     # that prefer to read it directly.
     state.setdefault("input_body", body)
 
-    if nsid == "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite":
+    if nsid == "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite":
         # The define-site lexicon does not model witnesses — seed the
         # graph quorum input so the synchronous DMN run can terminate.
         gateway_witnesses = [
@@ -365,7 +365,7 @@ def _bind_handlers(app: web.Application, gw: _GatewayState) -> None:
                 status=400,
             )
 
-        if nsid == "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite":
+        if nsid == "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite":
             geo_err = _validate_define_site_geo(body)
             if geo_err:
                 return web.json_response(
@@ -525,7 +525,7 @@ def _bind_handlers(app: web.Application, gw: _GatewayState) -> None:
                 },
                 status=400,
             )
-        if nsid == "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite":
+        if nsid == "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite":
             geo_err = _validate_define_site_geo(body)
             if geo_err:
                 return web.json_response(

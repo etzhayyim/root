@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.weeeEwaste.flagCriticalMineralRecovery",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Critical mineral recovery yield (bridges critical-minerals + battery-passport + mining-operation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "recoveryId",
+            "flowVid",
+            "element",
+            "yieldKg",
+            "reportedAt"
+          ],
+          "properties": {
+            "recoveryId": {
+              "type": "string"
+            },
+            "flowVid": {
+              "type": "string",
+              "description": "bridges recordFlow"
+            },
+            "criticalMineralVid": {
+              "type": "string",
+              "description": "bridges open-critical-minerals"
+            },
+            "element": {
+              "type": "string",
+              "enum": [
+                "gold",
+                "silver",
+                "copper",
+                "cobalt",
+                "lithium",
+                "nickel",
+                "palladium",
+                "platinum",
+                "rare_earth",
+                "indium",
+                "tantalum"
+              ]
+            },
+            "yieldKg": {
+              "type": "number"
+            },
+            "purityPct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

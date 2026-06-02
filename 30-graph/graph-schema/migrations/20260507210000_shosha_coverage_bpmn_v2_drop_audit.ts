@@ -26,9 +26,9 @@ const readContract = (p: string) => readFileSync(path.resolve(repoRoot, p), "utf
 
 const seeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-coverage-v1",
     bpmnProcessId: "shosha_coverage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shosha/coverage.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shosha/coverage.bpmn",
   },
 ];
 

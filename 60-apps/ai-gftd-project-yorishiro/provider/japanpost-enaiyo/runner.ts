@@ -7,7 +7,7 @@
  *   secret/data/orgs/{orgId}/users/{userId}/services/japanpost-enaiyo/primary
  *
  * Calls back via XRPC:
- *   POST https://jp4n41y0.etzhayyim.com/xrpc/app.etzhayyim.apps.yorishiroEnaiyo.recordReceipt
+ *   POST https://jp4n41y0.etzhayyim.com/xrpc/com.etzhayyim.apps.yorishiroEnaiyo.recordReceipt
  */
 
 import { runJapanpostEnaiyoSingle, runJapanpostEnaiyoBatch, type EnaiyoCredentials } from "./flow.js";
@@ -41,7 +41,7 @@ async function recordReceipt(params: {
   receiptPdfBlobKey: string;
   sessionToken: string;
 }): Promise<void> {
-  const r = await fetch(`${ENAIYO_APP_BASE}/xrpc/app.etzhayyim.apps.yorishiroEnaiyo.recordReceipt`, {
+  const r = await fetch(`${ENAIYO_APP_BASE}/xrpc/com.etzhayyim.apps.yorishiroEnaiyo.recordReceipt`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -131,7 +131,7 @@ export async function handleInvoke(evt: InvokeEvent): Promise<void> {
 // ---- stubs (provider framework-dependent) ----
 
 async function resolveDraft(_draftId: string): Promise<{ sender: any; recipient: any }> {
-  throw new Error("resolveDraft not implemented — query app.etzhayyim.apps.yorishiroEnaiyo.draftNaiyo by draftId");
+  throw new Error("resolveDraft not implemented — query com.etzhayyim.apps.yorishiroEnaiyo.draftNaiyo by draftId");
 }
 async function uploadPdfToR2(_path: string): Promise<string> {
   throw new Error("uploadPdfToR2 not implemented — use cdn package SigV4 to ai-gftd-cdn bucket");

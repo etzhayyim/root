@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-denki — smart-grid network design + operations
 //
-// 12 XRPC under app.etzhayyim.apps.openDenki.*:
+// 12 XRPC under com.etzhayyim.apps.openDenki.*:
 //   defineGenerationNode   (proc)   thermal / hydro / solar / wind / nuclear / storage
 //   defineSubstation       (proc)   HV/MV/LV transformer substation
 //   defineFeeder           (proc)   distribution feeder (substation → delivery points)
@@ -502,18 +502,18 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openDenki.defineGenerationNode",
-            "app.etzhayyim.apps.openDenki.defineSubstation",
-            "app.etzhayyim.apps.openDenki.defineFeeder",
-            "app.etzhayyim.apps.openDenki.registerSmartMeter",
-            "app.etzhayyim.apps.openDenki.recordMeterReading",
-            "app.etzhayyim.apps.openDenki.reportFault",
-            "app.etzhayyim.apps.openDenki.recordDemandResponse",
-            "app.etzhayyim.apps.openDenki.recordRenewableOutput",
-            "app.etzhayyim.apps.openDenki.getNode",
-            "app.etzhayyim.apps.openDenki.listFeeders",
-            "app.etzhayyim.apps.openDenki.listFaults",
-            "app.etzhayyim.apps.openDenki.listReadings",
+            "com.etzhayyim.apps.openDenki.defineGenerationNode",
+            "com.etzhayyim.apps.openDenki.defineSubstation",
+            "com.etzhayyim.apps.openDenki.defineFeeder",
+            "com.etzhayyim.apps.openDenki.registerSmartMeter",
+            "com.etzhayyim.apps.openDenki.recordMeterReading",
+            "com.etzhayyim.apps.openDenki.reportFault",
+            "com.etzhayyim.apps.openDenki.recordDemandResponse",
+            "com.etzhayyim.apps.openDenki.recordRenewableOutput",
+            "com.etzhayyim.apps.openDenki.getNode",
+            "com.etzhayyim.apps.openDenki.listFeeders",
+            "com.etzhayyim.apps.openDenki.listFaults",
+            "com.etzhayyim.apps.openDenki.listReadings",
           ],
           dmn: ["openDenki.faultSeverity"],
           compliance: ["iec-61968-cim", "iec-61970-cim"],
@@ -523,24 +523,24 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openDenki.getNode":      return await getNode(env, url.searchParams);
-          case "app.etzhayyim.apps.openDenki.listFeeders":  return await listFeeders(env, url.searchParams);
-          case "app.etzhayyim.apps.openDenki.listFaults":   return await listFaults(env, url.searchParams);
-          case "app.etzhayyim.apps.openDenki.listReadings": return await listReadings(env, url.searchParams);
+          case "com.etzhayyim.apps.openDenki.getNode":      return await getNode(env, url.searchParams);
+          case "com.etzhayyim.apps.openDenki.listFeeders":  return await listFeeders(env, url.searchParams);
+          case "com.etzhayyim.apps.openDenki.listFaults":   return await listFaults(env, url.searchParams);
+          case "com.etzhayyim.apps.openDenki.listReadings": return await listReadings(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openDenki.defineGenerationNode":  return await defineGenerationNode(env, body);
-          case "app.etzhayyim.apps.openDenki.defineSubstation":      return await defineSubstation(env, body);
-          case "app.etzhayyim.apps.openDenki.defineFeeder":          return await defineFeeder(env, body);
-          case "app.etzhayyim.apps.openDenki.registerSmartMeter":    return await registerSmartMeter(env, body);
-          case "app.etzhayyim.apps.openDenki.recordMeterReading":    return await recordMeterReading(env, body);
-          case "app.etzhayyim.apps.openDenki.reportFault":           return await reportFault(env, body);
-          case "app.etzhayyim.apps.openDenki.recordDemandResponse":  return await recordDemandResponse(env, body);
-          case "app.etzhayyim.apps.openDenki.recordRenewableOutput": return await recordRenewableOutput(env, body);
+          case "com.etzhayyim.apps.openDenki.defineGenerationNode":  return await defineGenerationNode(env, body);
+          case "com.etzhayyim.apps.openDenki.defineSubstation":      return await defineSubstation(env, body);
+          case "com.etzhayyim.apps.openDenki.defineFeeder":          return await defineFeeder(env, body);
+          case "com.etzhayyim.apps.openDenki.registerSmartMeter":    return await registerSmartMeter(env, body);
+          case "com.etzhayyim.apps.openDenki.recordMeterReading":    return await recordMeterReading(env, body);
+          case "com.etzhayyim.apps.openDenki.reportFault":           return await reportFault(env, body);
+          case "com.etzhayyim.apps.openDenki.recordDemandResponse":  return await recordDemandResponse(env, body);
+          case "com.etzhayyim.apps.openDenki.recordRenewableOutput": return await recordRenewableOutput(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

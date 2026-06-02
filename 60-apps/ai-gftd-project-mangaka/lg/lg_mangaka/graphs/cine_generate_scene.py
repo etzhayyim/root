@@ -157,7 +157,7 @@ async def _s1_world_model(state: _State) -> dict[str, Any]:
     }
 
     envelope = {
-        "@type": "app.etzhayyim.apps.cine.worldModel",
+        "@type": "com.etzhayyim.apps.cine.worldModel",
         "prompt": prompt,
         "style": style,
         "referenceCids": refs,

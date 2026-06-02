@@ -10,7 +10,7 @@
   "displayNameJa": "繕い",
   "displayNameEn": "Tsukuroi",
   "nanoid": "t5kur0i9",
-  "description": "Non-profit religious-corp authorized vulnerability-remediation + patch-proposal actor; the constructive sibling of akuma (悪魔, ADR-2605151400). Closes the akuma diagnosis loop (akuma states automated patch generation/submission is out of scope): consumes an owner-attested vulnerability finding → synthesizes a defensive fix patch (Murakumo-only LLM) → validates in an egress-restricted sandbox → PROPOSES it to the authorized target (fork-and-PR / signed patch bundle). PROPOSE-ONLY: a human owner merges; tsukuroi performs NO probing and holds NO merge/deploy authority and NO platform master key. 7 cells / 5 Lexicons under app.etzhayyim.tsukuroi.* / 13 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT akuma's older RisingWave plane).",
+  "description": "Non-profit religious-corp authorized vulnerability-remediation + patch-proposal actor; the constructive sibling of akuma (悪魔, ADR-2605151400). Closes the akuma diagnosis loop (akuma states automated patch generation/submission is out of scope): consumes an owner-attested vulnerability finding → synthesizes a defensive fix patch (Murakumo-only LLM) → validates in an egress-restricted sandbox → PROPOSES it to the authorized target (fork-and-PR / signed patch bundle). PROPOSE-ONLY: a human owner merges; tsukuroi performs NO probing and holds NO merge/deploy authority and NO platform master key. 7 cells / 5 Lexicons under com.etzhayyim.tsukuroi.* / 13 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT akuma's older RisingWave plane).",
   "descriptionJa": "非営利 religious-corp の許可済み脆弱性修復 + パッチ提案 actor。akuma (悪魔) の建設的 sibling。akuma が「自動 patch 生成・送付は scope 外」とした診断ループを閉じる: owner 署名済みの脆弱性 finding を受け、防御的修正 patch を Murakumo-only LLM で生成し、egress 制限 sandbox で検証し、許可済み target へ fork-and-PR で「提案」する。PROPOSE-ONLY: merge は人間 owner が行う。tsukuroi は probing を一切行わず、merge/deploy 権限も platform master key も保持しない。7 cells / 5 Lexicons / 13 不変ゲート / 12 non-goals。kotoba-native (datom/EAVT + MST)。",
   "adr": {
     "master": "etzhayyim:adr:2605291500",
@@ -118,14 +118,14 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.tsukuroi.remediationMandate",
-    "app.etzhayyim.tsukuroi.patchProposal",
-    "app.etzhayyim.tsukuroi.patchValidationResult",
-    "app.etzhayyim.tsukuroi.closureAttestation",
-    "app.etzhayyim.tsukuroi.silenTsukuroiReview"
+    "com.etzhayyim.tsukuroi.remediationMandate",
+    "com.etzhayyim.tsukuroi.patchProposal",
+    "com.etzhayyim.tsukuroi.patchValidationResult",
+    "com.etzhayyim.tsukuroi.closureAttestation",
+    "com.etzhayyim.tsukuroi.silenTsukuroiReview"
   ],
   "dataSubstrate": {
-    "engine": "kotoba (ADR-2605262130) — datom/EAVT on kotoba-kqe + MST records app.etzhayyim.tsukuroi.*; NOT akuma's older RisingWave plane",
+    "engine": "kotoba (ADR-2605262130) — datom/EAVT on kotoba-kqe + MST records com.etzhayyim.tsukuroi.*; NOT akuma's older RisingWave plane",
     "vault": "Raw patch payloads + owner-delegated credentials ciphertext in vault.etzhayyim.com (zero-knowledge invariant)",
     "egressNamespace": "tsukuroi-validate — NetworkPolicy reconciled from active mandates; egress only to the owner-attested git submission endpoint (fork remote), never the live runtime target (G9)",
     "inferencePath": "Murakumo only (ADR-2605215000) — judah LiteLLM 127.0.0.1:4000 → gemma4:e4b; NO vendor LLM API callout (G10)"
@@ -169,7 +169,7 @@
     {
       "phase": "R0",
       "date": "2026-05-29",
-      "scope": "Scaffold only. 7 cells path-reserved under 20-actors/magatama/cells/tsukuroi_*/ (import-time RuntimeError). 5 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/tsukuroi/. manifest + CLAUDE.md. deps.toml [[adrs]] + [[modules]] registration.",
+      "scope": "Scaffold only. 7 cells path-reserved under 20-actors/magatama/cells/tsukuroi_*/ (import-time RuntimeError). 5 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/tsukuroi/. manifest + CLAUDE.md. deps.toml [[adrs]] + [[modules]] registration.",
       "murakumoFleet": "No deployment",
       "gate": "ADR-2605291500 (PROPOSED)"
     },
@@ -213,7 +213,7 @@
     },
     "self": {
       "claude": "/20-actors/tsukuroi/CLAUDE.md",
-      "lexicons": "/00-contracts/lexicons/app/etzhayyim/tsukuroi/"
+      "lexicons": "/00-contracts/lexicons/com/etzhayyim/tsukuroi/"
     }
   }
 }

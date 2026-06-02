@@ -1,0 +1,67 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.karute.observation",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "FHIR R5 Observation (vital signs, lab results, imaging findings, social-history measures). Inner type of com.etzhayyim.encrypted.record envelope. AT Lexicon has no float → all numeric values use integer with scale10 / scale100 hint in the code's unit field.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["fhirResourceType", "patientDid", "code", "status", "occurredAt"],
+        "properties": {
+          "fhirResourceType": {"type": "string", "const": "Observation"},
+          "status": {
+            "type": "string",
+            "enum": ["registered", "preliminary", "final", "amended", "corrected", "cancelled", "entered-in-error", "unknown"]
+          },
+          "patientDid": {"type": "string"},
+          "encounterDid": {"type": "string"},
+          "category": {
+            "type": "string",
+            "enum": ["vital-signs", "laboratory", "imaging", "procedure", "survey", "exam", "therapy", "activity", "social-history"]
+          },
+          "code": {"type": "ref", "ref": "#codeableConcept"},
+          "valueQuantity": {"type": "ref", "ref": "#quantity"},
+          "valueCode": {"type": "string", "description": "For coded results (e.g. positive/negative)"},
+          "valueString": {"type": "string", "description": "Free-text result (interpretation, narrative)"},
+          "interpretation": {
+            "type": "string",
+            "enum": ["normal", "low", "high", "critical-low", "critical-high", "abnormal", "positive", "negative", "inconclusive"]
+          },
+          "referenceRange": {
+            "type": "object",
+            "properties": {
+              "lowScaled": {"type": "integer"},
+              "highScaled": {"type": "integer"},
+              "unit": {"type": "string"},
+              "scale": {"type": "integer", "description": "10 for x10, 100 for x100. 1 for whole numbers."}
+            }
+          },
+          "performerDid": {"type": "string"},
+          "deviceId": {"type": "string", "description": "If from a connected device"},
+          "occurredAt": {"type": "string", "format": "datetime"},
+          "createdAt": {"type": "string", "format": "datetime"}
+        }
+      }
+    },
+    "codeableConcept": {
+      "type": "object",
+      "properties": {
+        "system": {"type": "string", "description": "e.g. http://loinc.org, urn:oid:1.2.392.200119.4.504.7 (JLAC10)"},
+        "code": {"type": "string", "description": "e.g. 8480-6 for systolic BP (LOINC)"},
+        "display": {"type": "string", "description": "Human-readable label"}
+      }
+    },
+    "quantity": {
+      "type": "object",
+      "description": "AT Lexicon float-free: use valueScaled + scale (e.g. 367 with scale=10 represents 36.7)",
+      "required": ["valueScaled", "scale", "unit"],
+      "properties": {
+        "valueScaled": {"type": "integer"},
+        "scale": {"type": "integer", "enum": [1, 10, 100, 1000]},
+        "unit": {"type": "string", "description": "UCUM code, e.g. mm[Hg], /min, Cel, kg, % "}
+      }
+    }
+  }
+}

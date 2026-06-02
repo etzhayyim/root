@@ -136,7 +136,7 @@ def db_status(pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.database.getStatus",
+            f"{pds_url}/xrpc/com.etzhayyim.database.getStatus",
             headers=_auth_headers(),
             timeout=30,
         )
@@ -162,7 +162,7 @@ def db_tables(pds: str | None, schema: str, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.get(
-            f"{pds_url}/xrpc/app.etzhayyim.database.listTables",
+            f"{pds_url}/xrpc/com.etzhayyim.database.listTables",
             params={"schema": schema},
             headers=_auth_headers(),
             timeout=30,
@@ -346,7 +346,7 @@ def db_query(sql: str, pds: str | None, json_out: bool) -> None:
     pds_url = (pds or resolve_pds()).rstrip("/")
     try:
         resp = httpx.post(
-            f"{pds_url}/xrpc/app.etzhayyim.database.query",
+            f"{pds_url}/xrpc/com.etzhayyim.database.query",
             json={"sql": sql, "readOnly": True},
             headers=_auth_headers(),
             timeout=60,

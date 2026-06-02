@@ -4,7 +4,7 @@
 //!   - GET   /sparql?query=<urlencoded>[&format=<fmt>]
 //!   - POST  /sparql  (Content-Type: application/sparql-query OR
 //!                                   application/x-www-form-urlencoded with `query=` field)
-//!   - GET   /xrpc/app.etzhayyim.kg.query?query=<urlencoded>[&format=<fmt>]
+//!   - GET   /xrpc/com.etzhayyim.kg.query?query=<urlencoded>[&format=<fmt>]
 //!           (read-only XRPC facade defined by the lexicon of the same id)
 //!   - GET   /healthz
 //!
@@ -41,7 +41,7 @@ pub struct SparqlQueryParams {
 pub async fn serve(app: Arc<AppStore>, listen: SocketAddr) -> Result<()> {
     let router = Router::new()
         .route("/sparql", get(get_sparql).post(post_sparql))
-        .route("/xrpc/app.etzhayyim.kg.query", get(get_sparql))
+        .route("/xrpc/com.etzhayyim.kg.query", get(get_sparql))
         .route("/healthz", get(healthz))
         .with_state(app);
 

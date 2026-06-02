@@ -14,7 +14,7 @@
     "APP_NANOID": "r3k9mwvx",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/ai.gftd.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -30,7 +30,7 @@
       "zone_name": "gftd.ai"
     },
     {
-      "pattern": "harai.gftd.ai/*",
+      "pattern": "harcom.etzhayyim.ai/*",
       "zone_name": "gftd.ai"
     }
   ],

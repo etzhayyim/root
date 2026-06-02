@@ -385,7 +385,7 @@ describe("listFeatures (read side, 7-types-in-one)", () => {
       limit: 25,
       cursor: "from-here",
     });
-    expect(captured.opts.collection).toBe("app.etzhayyim.maps.feature");
+    expect(captured.opts.collection).toBe("com.etzhayyim.maps.feature");
     expect(captured.opts.prefix).toBe("myprefix");
     expect(captured.opts.limit).toBe(25);
     expect(captured.opts.cursor).toBe("from-here");

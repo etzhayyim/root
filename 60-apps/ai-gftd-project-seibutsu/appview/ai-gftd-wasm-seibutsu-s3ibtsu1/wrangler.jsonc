@@ -25,7 +25,7 @@
     "GBIF_BASE_URL": "https://api.gbif.org/v1",
     "MURAKUMO_GATEWAY": "https://murakumo.etzhayyim.com",
     "WIKIDATA_BASE_URL": "https://www.wikidata.org/wiki",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

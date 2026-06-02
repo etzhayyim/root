@@ -28,7 +28,7 @@ interface ExportedHandler<E> {
 
 const APP = "legalEntity";
 const ACTOR_DID = "did:web:legal-entity.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.legalEntity.";
+const NSID_PREFIX = "com.etzhayyim.legalEntity.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -41,7 +41,7 @@ export default {
         nanoid: env.APP_NANOID ?? "le9k4x2m",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py legalEntity.* task handlers",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/legal-entity",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/legal-entity",
       });
     }
 

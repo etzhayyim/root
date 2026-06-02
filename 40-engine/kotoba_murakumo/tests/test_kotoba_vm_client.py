@@ -38,7 +38,7 @@ def test_invoke_raises_with_r2_plan_in_message() -> None:
         kotoba_vm.invoke(server_url="http://judah.local:8088", request=req)
     msg = str(ei.value)
     # Target XRPC NSID is present so callers know exactly the R2 endpoint.
-    assert "app.etzhayyim.kotoba.vm.invoke" in msg
+    assert "com.etzhayyim.kotoba.vm.invoke" in msg
     assert "judah.local:8088" in msg
     assert "bafyA" in msg
 

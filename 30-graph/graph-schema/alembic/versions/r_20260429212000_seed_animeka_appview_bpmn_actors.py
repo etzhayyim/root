@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-create-work-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-create-work-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_create_work',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_create_work" name="animeka '
                  'createWork" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.createWork", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.createWork", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -46,13 +46,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1082,
-                 '00-contracts/bpmn/ai/gftd/animeka/createWork.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/createWork.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-create-work-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-create-work-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -67,9 +67,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-create-work-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-create-work-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.createWork',
+                 'com.etzhayyim.apps.animeka.createWork',
                  'animeka_create_work',
                  30000,
                  'vertex_animeka',
@@ -78,7 +78,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-create-work-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-create-work-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -94,7 +94,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-works-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-works-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_list_works',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -104,7 +104,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_works" name="animeka '
                  'listWorks" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.listWorks", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.listWorks", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -113,13 +113,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1076,
-                 '00-contracts/bpmn/ai/gftd/animeka/listWorks.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/listWorks.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-works-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-works-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -134,9 +134,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-works-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-works-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.listWorks',
+                 'com.etzhayyim.apps.animeka.listWorks',
                  'animeka_list_works',
                  30000,
                  '',
@@ -145,7 +145,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-works-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-works-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-add-episode-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-add-episode-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_add_episode',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -171,7 +171,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_add_episode" name="animeka '
                  'addEpisode" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.addEpisode", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.addEpisode", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -180,13 +180,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1082,
-                 '00-contracts/bpmn/ai/gftd/animeka/addEpisode.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/addEpisode.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-add-episode-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-add-episode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -201,9 +201,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-add-episode-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-add-episode-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.addEpisode',
+                 'com.etzhayyim.apps.animeka.addEpisode',
                  'animeka_add_episode',
                  30000,
                  'vertex_animeka',
@@ -212,7 +212,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-add-episode-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-add-episode-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -228,7 +228,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-episodes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-episodes-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_list_episodes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -238,7 +238,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_episodes" name="animeka '
                  'listEpisodes" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.listEpisodes", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.listEpisodes", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -247,13 +247,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1094,
-                 '00-contracts/bpmn/ai/gftd/animeka/listEpisodes.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/listEpisodes.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-episodes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-episodes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -268,9 +268,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-episodes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-episodes-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.listEpisodes',
+                 'com.etzhayyim.apps.animeka.listEpisodes',
                  'animeka_list_episodes',
                  30000,
                  '',
@@ -279,7 +279,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-episodes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-episodes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-add-cut-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-add-cut-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_add_cut',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -304,7 +304,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_animeka_add_cut" targetNamespace="https://etzhayyim.com/bpmn/animeka" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process id="animeka_add_cut" '
                  'name="animeka addCut" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.addCut", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.addCut", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -313,13 +313,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1058,
-                 '00-contracts/bpmn/ai/gftd/animeka/addCut.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/addCut.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-add-cut-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-add-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -334,9 +334,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-add-cut-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-add-cut-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.addCut',
+                 'com.etzhayyim.apps.animeka.addCut',
                  'animeka_add_cut',
                  30000,
                  'vertex_animeka',
@@ -345,7 +345,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-add-cut-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-add-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -361,7 +361,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-cuts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-cuts-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_list_cuts',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -371,7 +371,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_cuts" name="animeka '
                  'listCuts" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.listCuts", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.listCuts", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -380,13 +380,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1070,
-                 '00-contracts/bpmn/ai/gftd/animeka/listCuts.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/listCuts.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-cuts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-cuts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -401,9 +401,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-cuts-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-cuts-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.listCuts',
+                 'com.etzhayyim.apps.animeka.listCuts',
                  'animeka_list_cuts',
                  30000,
                  '',
@@ -412,7 +412,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-cuts-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-cuts-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -428,7 +428,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-get-cut-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-get-cut-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_get_cut',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -437,7 +437,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_animeka_get_cut" targetNamespace="https://etzhayyim.com/bpmn/animeka" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process id="animeka_get_cut" '
                  'name="animeka getCut" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.getCut", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.getCut", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -446,13 +446,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1058,
-                 '00-contracts/bpmn/ai/gftd/animeka/getCut.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/getCut.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-get-cut-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-get-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -467,9 +467,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-get-cut-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-get-cut-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.getCut',
+                 'com.etzhayyim.apps.animeka.getCut',
                  'animeka_get_cut',
                  30000,
                  '',
@@ -478,7 +478,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-get-cut-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-get-cut-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -494,7 +494,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-update-cut-stage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-update-cut-stage-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_update_cut_stage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -504,7 +504,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_update_cut_stage" name="animeka '
                  'updateCutStage" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.updateCutStage", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.updateCutStage", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -514,13 +514,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1109,
-                 '00-contracts/bpmn/ai/gftd/animeka/updateCutStage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/updateCutStage.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -535,9 +535,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-update-cut-stage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-update-cut-stage-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.updateCutStage',
+                 'com.etzhayyim.apps.animeka.updateCutStage',
                  'animeka_update_cut_stage',
                  30000,
                  'vertex_animeka',
@@ -546,7 +546,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-update-cut-stage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-update-cut-stage-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -562,7 +562,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-submit-retake-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-submit-retake-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_submit_retake',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -572,7 +572,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_submit_retake" name="animeka '
                  'submitRetake" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.submitRetake", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.submitRetake", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -581,13 +581,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1094,
-                 '00-contracts/bpmn/ai/gftd/animeka/submitRetake.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/submitRetake.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-submit-retake-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-submit-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -602,9 +602,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-submit-retake-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-submit-retake-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.submitRetake',
+                 'com.etzhayyim.apps.animeka.submitRetake',
                  'animeka_submit_retake',
                  30000,
                  'vertex_animeka',
@@ -613,7 +613,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-submit-retake-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-submit-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -629,7 +629,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-resolve-retake-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-resolve-retake-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_resolve_retake',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -639,7 +639,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_resolve_retake" name="animeka '
                  'resolveRetake" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.resolveRetake", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.resolveRetake", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -649,13 +649,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1100,
-                 '00-contracts/bpmn/ai/gftd/animeka/resolveRetake.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/resolveRetake.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-resolve-retake-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-resolve-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -670,9 +670,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-resolve-retake-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-resolve-retake-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.resolveRetake',
+                 'com.etzhayyim.apps.animeka.resolveRetake',
                  'animeka_resolve_retake',
                  30000,
                  'vertex_animeka',
@@ -681,7 +681,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-resolve-retake-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-resolve-retake-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -697,7 +697,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-retakes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-retakes-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_list_retakes',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -707,7 +707,7 @@ UP = [{'sql': '\n'
                  'targetNamespace="https://etzhayyim.com/bpmn/animeka" exporter="hand-written" '
                  'exporterVersion="1.0"><bpmn:process id="animeka_list_retakes" name="animeka '
                  'listRetakes" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.listRetakes", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.listRetakes", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -716,13 +716,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1088,
-                 '00-contracts/bpmn/ai/gftd/animeka/listRetakes.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/listRetakes.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-retakes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-retakes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -737,9 +737,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-retakes-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-retakes-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.listRetakes',
+                 'com.etzhayyim.apps.animeka.listRetakes',
                  'animeka_list_retakes',
                  30000,
                  '',
@@ -748,7 +748,7 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-retakes-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-retakes-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def (\n'
          '        vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -764,7 +764,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-health-v1',
                  'did:web:animeka.etzhayyim.com',
                  'animeka_health',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -773,7 +773,7 @@ UP = [{'sql': '\n'
                  'id="Definitions_animeka_health" targetNamespace="https://etzhayyim.com/bpmn/animeka" '
                  'exporter="hand-written" exporterVersion="1.0"><bpmn:process id="animeka_health" '
                  'name="animeka health" isExecutable="true"><bpmn:documentation>{ "nsid": '
-                 '"app.etzhayyim.apps.animeka.health", "version": 1, "resultTimeoutMs": 30000 '
+                 '"com.etzhayyim.apps.animeka.health", "version": 1, "resultTimeoutMs": 30000 '
                  '}</bpmn:documentation><bpmn:startEvent '
                  'id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent><bpmn:sequenceFlow '
                  'id="Flow_1" sourceRef="Start" targetRef="Task_Run"/><bpmn:serviceTask '
@@ -782,13 +782,13 @@ UP = [{'sql': '\n'
                  'id="Flow_2" sourceRef="Task_Run" targetRef="End"/><bpmn:endEvent '
                  'id="End"><bpmn:incoming>Flow_2</bpmn:incoming></bpmn:endEvent></bpmn:process></bpmn:definitions>\n',
                  1055,
-                 '00-contracts/bpmn/ai/gftd/animeka/health.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/animeka/health.bpmn',
                  '2026-04-29T21:20:00+09:00',
                  'did:web:animeka.etzhayyim.com',
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-health-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-health-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '        vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -803,9 +803,9 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-health-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-health-v1',
                  'did:web:animeka.etzhayyim.com',
-                 'app.etzhayyim.apps.animeka.health',
+                 'com.etzhayyim.apps.animeka.health',
                  'animeka_health',
                  30000,
                  '',
@@ -814,56 +814,56 @@ UP = [{'sql': '\n'
                  'did:web:animeka.etzhayyim.com',
                  'sys.bpmn.seed.animeka-appview',
                  'did:web:animeka.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-health-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-health-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-create-work-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-create-work-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-create-work-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-create-work-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-works-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-works-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-works-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-works-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-add-episode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-add-episode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-add-episode-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-add-episode-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-episodes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-episodes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-episodes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-episodes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-add-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-add-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-add-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-add-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-cuts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-cuts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-cuts-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-cuts-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-get-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-get-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-get-cut-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-get-cut-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-update-cut-stage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-update-cut-stage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-update-cut-stage-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-submit-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-submit-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-submit-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-submit-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-resolve-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-resolve-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-resolve-retake-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-resolve-retake-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-list-retakes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-list-retakes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-list-retakes-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-list-retakes-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/animeka-health-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/animeka-health-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/animeka-health-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/animeka-health-v1']}]
 
 
 def upgrade() -> None:

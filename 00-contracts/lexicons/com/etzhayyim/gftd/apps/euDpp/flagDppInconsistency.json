@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euDpp.flagDppInconsistency",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "DPP inconsistency / tamper / LCA misalignment (bridges recycledContentVerify.flagFraud + eudr-deforestation + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "passportVid",
+            "issueKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "passportVid": {
+              "type": "string",
+              "description": "bridges recordPassport"
+            },
+            "issueKind": {
+              "type": "string",
+              "enum": [
+                "tamper_carrier",
+                "off_chain_edit",
+                "lca_misalignment",
+                "recycled_content_fraud",
+                "cbam_double_count",
+                "sku_identity_drift",
+                "expired_passport",
+                "missing_downstream",
+                "greenwash_claim",
+                "non_machine_readable",
+                "data_wallet_breach"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

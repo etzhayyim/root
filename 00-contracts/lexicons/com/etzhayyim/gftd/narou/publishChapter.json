@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.narou.publishChapter",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Publish a chapter and dispatch to downstream platforms (manga, syosetsu)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "asset_manifest_uri": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chapter_id", "status"],
+          "properties": {
+            "chapter_id": { "type": "string" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

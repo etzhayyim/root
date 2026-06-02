@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.pds.getProfile",
+  "description": "Get actor profile. Superset of app.bsky.actor.getProfile — output includes official profileViewDetailed plus etzhayyim extensions.",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "did": {
+            "type": "string",
+            "format": "did"
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "did": { "type": "string", "format": "did" },
+            "handle": { "type": "string", "format": "handle" },
+            "displayName": {
+              "type": "string",
+              "maxGraphemes": 64,
+              "maxLength": 640
+            },
+            "description": {
+              "type": "string",
+              "maxGraphemes": 256,
+              "maxLength": 2560
+            },
+            "avatar": { "type": "string", "format": "uri" },
+            "banner": { "type": "string", "format": "uri" },
+            "followersCount": { "type": "integer" },
+            "followsCount": { "type": "integer" },
+            "postsCount": { "type": "integer" },
+            "labels": {
+              "type": "array",
+              "description": "Labels on the profile. Uses official com.atproto.label.defs#label.",
+              "items": { "type": "ref", "ref": "com.atproto.label.defs#label" }
+            },
+            "viewer": {
+              "type": "ref",
+              "ref": "app.bsky.actor.defs#viewerState"
+            },
+            "verification": {
+              "type": "ref",
+              "ref": "app.bsky.actor.defs#verificationState"
+            },
+            "indexedAt": { "type": "string", "format": "datetime" },
+            "createdAt": { "type": "string", "format": "datetime" },
+            "runtime": {
+              "type": "string",
+              "description": "etzhayyim extension: actor business runtime placement",
+              "knownValues": ["k8s-langserver"]
+            },
+            "edge": {
+              "type": "string",
+              "description": "etzhayyim extension: public edge placement",
+              "knownValues": ["sveltekit-proxy"]
+            },
+            "legacyExecutionTier": {
+              "type": "string",
+              "description": "etzhayyim extension: historical migration inventory only",
+              "knownValues": ["T1", "T2", "T3"]
+            },
+            "actorStatus": {
+              "type": "string",
+              "description": "etzhayyim extension: actor platform status",
+              "knownValues": ["active", "suspended", "archived"]
+            },
+            "entityGraph": {
+              "type": "unknown",
+              "description": "etzhayyim extension: entity graph data"
+            }
+          },
+          "required": [
+            "did",
+            "handle"
+          ]
+        }
+      }
+    }
+  }
+}

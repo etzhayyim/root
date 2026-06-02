@@ -103,7 +103,7 @@ async function loadSupportedRecords(
   const result = await sql<SupportedRecord>`
     SELECT
       vertex_id,
-      'app.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
+      'com.etzhayyim.apps.jpFiscal.budgetBook' AS collection,
       source_url,
       source_id,
       document_id,
@@ -117,7 +117,7 @@ async function loadSupportedRecords(
     UNION ALL
     SELECT
       vertex_id,
-      'app.etzhayyim.apps.jpFiscal.appropriation' AS collection,
+      'com.etzhayyim.apps.jpFiscal.appropriation' AS collection,
       source_url,
       source_id,
       document_id,

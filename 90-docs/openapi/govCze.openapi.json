@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govCze.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govCze.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Czech Republic government.",
-        "operationId": "app.etzhayyim.govCze.followSiteDeps",
+        "operationId": "com.etzhayyim.govCze.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govCze.heartbeatTick": {
       "post": {
         "summary": "Run the Czech Republic government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govCze.heartbeatTick",
+        "operationId": "com.etzhayyim.govCze.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.listOrgs": {
+    "/xrpc/com.etzhayyim.govCze.listOrgs": {
       "get": {
         "summary": "List Czech Republic government organization graph records.",
-        "operationId": "app.etzhayyim.govCze.listOrgs",
+        "operationId": "com.etzhayyim.govCze.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.registerDIDs": {
+    "/xrpc/com.etzhayyim.govCze.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Czech Republic government organizations.",
-        "operationId": "app.etzhayyim.govCze.registerDIDs",
+        "operationId": "com.etzhayyim.govCze.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govCze.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Czech Republic government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govCze.resolveOrgPath",
+        "operationId": "com.etzhayyim.govCze.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.seedOrgs": {
+    "/xrpc/com.etzhayyim.govCze.seedOrgs": {
       "post": {
         "summary": "Seed initial Czech Republic government organization records into the graph.",
-        "operationId": "app.etzhayyim.govCze.seedOrgs",
+        "operationId": "com.etzhayyim.govCze.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.shinka": {
+    "/xrpc/com.etzhayyim.govCze.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Czech Republic government organization update.",
-        "operationId": "app.etzhayyim.govCze.shinka",
+        "operationId": "com.etzhayyim.govCze.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govCze.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govCze.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Czech Republic government organization changes to graph.",
-        "operationId": "app.etzhayyim.govCze.syncWetUpdates",
+        "operationId": "com.etzhayyim.govCze.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

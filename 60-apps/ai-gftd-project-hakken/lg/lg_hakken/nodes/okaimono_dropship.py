@@ -24,7 +24,7 @@ async def okaimono_dropship(state: HakkenState) -> dict:
             candidate = sku["oem_candidate"]
             try:
                 resp = await client.post(
-                    f"{OKAIMONO_XRPC}/xrpc/ai.gftd.apps.okaimono.createCatalogItem",
+                    f"{OKAIMONO_XRPC}/xrpc/com.etzhayyim.apps.okaimono.createCatalogItem",
                     json={
                         "name":           candidate["name"],
                         "category":       state["category"],

@@ -24,7 +24,7 @@ test("discoverCars returns empty for missing dataDir", async () => {
 
 test("discoverCars enumerates shardKey/rootCid pairs from on-disk CARs", async () => {
   const root = await mkdtemp(join(tmpdir(), "ipfs-pinner-test-"));
-  const shardKey = "app.etzhayyim.apps.threads.post";
+  const shardKey = "com.etzhayyim.apps.threads.post";
   const shardDir = join(root, encodeURIComponent(shardKey));
   await mkdir(shardDir, { recursive: true });
   await writeFile(join(shardDir, `${ROOT_CID}.car`), Buffer.from([1, 2, 3]));
@@ -48,7 +48,7 @@ test("discoverCars enumerates shardKey/rootCid pairs from on-disk CARs", async (
 
 test("discoverCars decodes urlencoded shardKey segments", async () => {
   const root = await mkdtemp(join(tmpdir(), "ipfs-pinner-test-"));
-  const shardKey = "app.etzhayyim.substrate.shardSnapshot";
+  const shardKey = "com.etzhayyim.substrate.shardSnapshot";
   const shardDir = join(root, encodeURIComponent(shardKey));
   await mkdir(shardDir, { recursive: true });
   await writeFile(join(shardDir, `${ROOT_CID}.car`), Buffer.from([0]));

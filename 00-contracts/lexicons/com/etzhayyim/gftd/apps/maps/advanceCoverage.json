@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.advanceCoverage",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pick the next coverage gap (per source×label) via maps_coverage_gap_score UDF, create a collection job for it, and bump last_fetched_at. Idempotent advance of the domain-coverage frontier, driven by BPMN timer or manual invocation.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "limit": { "type": "integer", "minimum": 1, "maximum": 10 },
+            "sourceDid": { "type": "string", "description": "Optional filter: only advance this source DID (e.g. did:web:maps.etzhayyim.com:registry:gleif)" },
+            "label": { "type": "string", "description": "Optional filter: only advance this spatial label (e.g. LegalEntity, AdminArea, Airport)" },
+            "dryRun": { "type": "boolean", "default": false }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "picked": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceDid": { "type": "string" },
+                  "label": { "type": "string" },
+                  "collectedCount": { "type": "integer" },
+                  "worldTotal": { "type": "integer" },
+                  "gapScore": { "type": "number" },
+                  "priorityWeight": { "type": "number" },
+                  "hoursSinceLastFetch": { "type": "number" },
+                  "jobId": { "type": "string" }
+                }
+              }
+            },
+            "advanced": { "type": "integer", "description": "Number of gaps for which a job was created (0 on dryRun)" },
+            "remainingGaps": { "type": "integer", "description": "Remaining non-zero gap_score rows in view_maps_coverage_gap_ranked" },
+            "nextRunHint": { "type": "string", "description": "ISO 8601 timestamp hint for next BPMN tick" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

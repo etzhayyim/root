@@ -46,9 +46,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.yorishiroEnaiyo.draftNaiyo",
-        "ai.gftd.apps.yorishiroEnaiyo.submitJob",
-        "ai.gftd.apps.yorishiroEnaiyo.receipt"
+        "com.etzhayyim.apps.yorishiroEnaiyo.draftNaiyo",
+        "com.etzhayyim.apps.yorishiroEnaiyo.submitJob",
+        "com.etzhayyim.apps.yorishiroEnaiyo.receipt"
       ]
     }
   },

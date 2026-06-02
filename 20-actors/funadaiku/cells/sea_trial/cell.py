@@ -3,7 +3,7 @@
 Speed/endurance trial plus MASS Degree-3 autonomy and COLREG-compliance trial.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.seaTrialRecord.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.seaTrialRecord.
 """
 
 from typing import Any

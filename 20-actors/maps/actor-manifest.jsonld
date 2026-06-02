@@ -137,7 +137,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.site.wet"
+          "com.etzhayyim.apps.site.wet"
         ],
         "type": "subscribeRepos"
       }
@@ -182,7 +182,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.site.wat"
+          "com.etzhayyim.apps.site.wat"
         ],
         "type": "subscribeRepos"
       }
@@ -222,7 +222,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.maps.satelliteScene"
+          "com.etzhayyim.apps.maps.satelliteScene"
         ],
         "type": "subscribeRepos"
       }
@@ -249,7 +249,7 @@
             "params": {
               "actorName": "maps",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.maps.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.maps.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "uqpel6i6",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -307,7 +307,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.maps.coverage.get",
+        "nsid": "com.etzhayyim.apps.maps.coverage.get",
         "type": "xrpc"
       }
     }
@@ -335,8 +335,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -349,30 +349,30 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.maps.place",
-        "ai.gftd.apps.maps.weatherPoint",
-        "ai.gftd.apps.maps.building",
-        "ai.gftd.apps.maps.road",
-        "ai.gftd.apps.maps.railway",
-        "ai.gftd.apps.maps.airport",
-        "ai.gftd.apps.maps.station",
-        "ai.gftd.apps.maps.port",
-        "ai.gftd.apps.maps.river",
-        "ai.gftd.apps.maps.mountain",
-        "ai.gftd.apps.maps.spot",
-        "ai.gftd.apps.maps.sensorReading",
-        "ai.gftd.apps.maps.satelliteScene",
-        "ai.gftd.apps.maps.satelliteAnalysis",
-        "ai.gftd.apps.maps.satelliteAnalysisResult",
-        "ai.gftd.apps.maps.visionResult",
-        "ai.gftd.apps.maps.spatialEvent",
-        "ai.gftd.apps.maps.adminArea",
-        "ai.gftd.apps.maps.geoAlias",
-        "ai.gftd.apps.maps.webCrawlGeoEntity",
-        "ai.gftd.apps.site.wet",
-        "ai.gftd.apps.site.wat",
-        "ai.gftd.apps.site.geoRecord",
-        "ai.gftd.apps.ipaddress.ipGeo",
+        "com.etzhayyim.apps.maps.place",
+        "com.etzhayyim.apps.maps.weatherPoint",
+        "com.etzhayyim.apps.maps.building",
+        "com.etzhayyim.apps.maps.road",
+        "com.etzhayyim.apps.maps.railway",
+        "com.etzhayyim.apps.maps.airport",
+        "com.etzhayyim.apps.maps.station",
+        "com.etzhayyim.apps.maps.port",
+        "com.etzhayyim.apps.maps.river",
+        "com.etzhayyim.apps.maps.mountain",
+        "com.etzhayyim.apps.maps.spot",
+        "com.etzhayyim.apps.maps.sensorReading",
+        "com.etzhayyim.apps.maps.satelliteScene",
+        "com.etzhayyim.apps.maps.satelliteAnalysis",
+        "com.etzhayyim.apps.maps.satelliteAnalysisResult",
+        "com.etzhayyim.apps.maps.visionResult",
+        "com.etzhayyim.apps.maps.spatialEvent",
+        "com.etzhayyim.apps.maps.adminArea",
+        "com.etzhayyim.apps.maps.geoAlias",
+        "com.etzhayyim.apps.maps.webCrawlGeoEntity",
+        "com.etzhayyim.apps.site.wet",
+        "com.etzhayyim.apps.site.wat",
+        "com.etzhayyim.apps.site.geoRecord",
+        "com.etzhayyim.apps.ipaddress.ipGeo",
         "app.bsky.feed.post"
       ]
     }

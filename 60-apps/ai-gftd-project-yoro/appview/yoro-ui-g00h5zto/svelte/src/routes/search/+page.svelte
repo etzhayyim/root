@@ -23,7 +23,7 @@
 	// and the Candidate-C topology. The legacy AppView host bsky.etzhayyim.com is
 	// decommissioned (its ai-gftd-appview binding was force-deleted) — do NOT
 	// route reads there. app.bsky.actor.searchActors is aliased to
-	// app.etzhayyim.yoro.actor.searchActors by the apex Worker.
+	// com.etzhayyim.yoro.actor.searchActors by the apex Worker.
 	const BSKY_XRPC_BASE = '/xrpc';
 
 	let { data } = $props();

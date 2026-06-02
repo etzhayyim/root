@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.listConsent",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List consent capabilities issued by or to the caller. By default returns active + recently-revoked. The capability records are not PHI by themselves (just delegation metadata); access is limited by caller-DID-must-match-granter-or-grantee policy server-side.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "granterDid": {"type": "string"},
+          "granteeDid": {"type": "string"},
+          "purpose": {"type": "string"},
+          "status": {"type": "string", "enum": ["active", "revoked", "expired", "all"], "default": "active"},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "default": 50}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {"type": "ref", "ref": "#consentRow"}
+            }
+          }
+        }
+      }
+    },
+    "consentRow": {
+      "type": "object",
+      "properties": {
+        "capabilityUri": {"type": "string"},
+        "granterDid": {"type": "string"},
+        "granteeDid": {"type": "string"},
+        "purpose": {"type": "string"},
+        "scope": {"type": "array", "items": {"type": "string"}},
+        "status": {"type": "string"},
+        "issuedAt": {"type": "string", "format": "datetime"},
+        "expiresAt": {"type": "string", "format": "datetime"},
+        "revokedAt": {"type": "string", "format": "datetime"}
+      }
+    }
+  }
+}

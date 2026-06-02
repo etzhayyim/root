@@ -2,7 +2,7 @@
 //
 // Access-policy issuance for etzhayyim private records runs in the KMS
 // LangServer pod. This Worker only exposes health/meta and proxies
-// app.etzhayyim.kms.* XRPC calls to the dispatcher.
+// com.etzhayyim.kms.* XRPC calls to the dispatcher.
 //
 // Interim trust anchor: issuer = did:web:etzhayyim.com
 // Migration target:     issuer = did:web:etzhayyim.com
@@ -18,7 +18,7 @@ interface Env {
   PRIMARY_DID?: string;
 }
 
-const NSID_PREFIX = "app.etzhayyim.kms.";
+const NSID_PREFIX = "com.etzhayyim.kms.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {

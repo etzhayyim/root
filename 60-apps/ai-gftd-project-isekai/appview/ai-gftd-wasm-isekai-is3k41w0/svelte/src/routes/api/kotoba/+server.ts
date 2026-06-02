@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const tok = env.KOTOBA_TOKEN ?? '';
   let resp: Response;
   try {
-    resp = await fetch(`${base}/xrpc/ai.gftd.apps.kotoba.graph.sparql`, {
+    resp = await fetch(`${base}/xrpc/com.etzhayyim.apps.kotoba.graph.sparql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

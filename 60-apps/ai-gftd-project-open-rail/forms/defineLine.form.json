@@ -3,7 +3,7 @@
   "formKey": "openRail.defineLine.v1",
   "name": "Define Line",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openRail.defineLine",
+  "lexiconRef": "com.etzhayyim.apps.openRail.defineLine",
   "components": [
     {
       "key": "lineCode",

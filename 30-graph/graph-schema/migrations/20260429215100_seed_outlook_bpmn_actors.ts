@@ -14,20 +14,20 @@ const createdAt = "2026-04-29T21:51:00+09:00";
 const actorId = "sys.bpmn.seed.outlook";
 
 const seeds: Seed[] = [
-  { slug: "get-oauth-config", op: "getOauthConfig", processId: "outlook_get_oauth_config", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/getOauthConfig.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "get-auth-status", op: "getAuthStatus", processId: "outlook_get_auth_status", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/getAuthStatus.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "start-auth", op: "startAuth", processId: "outlook_start_auth", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/startAuth.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_outlook_pending_oauth" },
-  { slug: "exchange-code", op: "exchangeCode", processId: "outlook_exchange_code", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/exchangeCode.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_outlook_pending_oauth,vertex_outlook_oauth_connection,vertex_outlook_sync_job" },
-  { slug: "get-connection", op: "getConnection", processId: "outlook_get_connection", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/getConnection.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_outlook_oauth_connection" },
-  { slug: "sync-mailbox", op: "syncMailbox", processId: "outlook_sync_mailbox", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/syncMailbox.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_outlook_oauth_connection,vertex_outlook_sync_job" },
-  { slug: "disconnect", op: "disconnect", processId: "outlook_disconnect", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/disconnect.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_outlook_pending_oauth,vertex_outlook_oauth_connection" },
-  { slug: "card-home", op: "cardHome", processId: "outlook_card_home", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/cardHome.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "card-compose", op: "cardCompose", processId: "outlook_card_compose", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/cardCompose.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
-  { slug: "card-action", op: "cardAction", processId: "outlook_card_action", sourcePath: "00-contracts/bpmn/ai/gftd/outlook/cardAction.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "get-oauth-config", op: "getOauthConfig", processId: "outlook_get_oauth_config", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/getOauthConfig.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "get-auth-status", op: "getAuthStatus", processId: "outlook_get_auth_status", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/getAuthStatus.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "start-auth", op: "startAuth", processId: "outlook_start_auth", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/startAuth.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_outlook_pending_oauth" },
+  { slug: "exchange-code", op: "exchangeCode", processId: "outlook_exchange_code", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/exchangeCode.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_outlook_pending_oauth,vertex_outlook_oauth_connection,vertex_outlook_sync_job" },
+  { slug: "get-connection", op: "getConnection", processId: "outlook_get_connection", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/getConnection.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_outlook_oauth_connection" },
+  { slug: "sync-mailbox", op: "syncMailbox", processId: "outlook_sync_mailbox", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/syncMailbox.bpmn", timeoutMs: 120000, writeTableAllowlist: "vertex_outlook_oauth_connection,vertex_outlook_sync_job" },
+  { slug: "disconnect", op: "disconnect", processId: "outlook_disconnect", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/disconnect.bpmn", timeoutMs: 30000, writeTableAllowlist: "vertex_outlook_pending_oauth,vertex_outlook_oauth_connection" },
+  { slug: "card-home", op: "cardHome", processId: "outlook_card_home", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/cardHome.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "card-compose", op: "cardCompose", processId: "outlook_card_compose", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/cardCompose.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
+  { slug: "card-action", op: "cardAction", processId: "outlook_card_action", sourcePath: "00-contracts/bpmn/com/etzhayyim/outlook/cardAction.bpmn", timeoutMs: 30000, writeTableAllowlist: "" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/outlook-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/outlook-${s.op}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/outlook-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/outlook-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
@@ -56,7 +56,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.outlook.${s.op}`}, ${s.processId}, 1,
+        ${bindingVertexId(s)}, ${ownerDid}, ${`com.etzhayyim.apps.outlook.${s.op}`}, ${s.processId}, 1,
         CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
         1, ${ownerDid}, ${ownerDid}, ${actorId}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (

@@ -16,7 +16,7 @@ interface ExportedHandler<E> {
 }
 
 const ACTOR_DID = "did:web:ssd-state.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.govSsd.";
+const NSID_PREFIX = "com.etzhayyim.govSsd.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -29,7 +29,7 @@ export default {
         nanoid: env.APP_NANOID ?? "",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/gov_ssd.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/govSsd",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/govSsd",
       });
     }
 

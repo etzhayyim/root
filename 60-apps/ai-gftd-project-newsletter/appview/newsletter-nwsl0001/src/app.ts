@@ -12,7 +12,7 @@ interface Env {
 }
 
 const APP = "newsletter";
-const NSID_PREFIX = "app.etzhayyim.apps.newsletter.";
+const NSID_PREFIX = "com.etzhayyim.apps.newsletter.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -25,7 +25,7 @@ export default {
         nanoid: env.APP_NANOID ?? "nwsl0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/newsletter_worker_main.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/newsletter",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/newsletter",
         schedule: "0 0 * * 2 (Asia/Tokyo — every Tuesday 9:00)",
         integrations: ["news.etzhayyim.com", "narou.etzhayyim.com", "ads.etzhayyim.com", "resend"],
       });

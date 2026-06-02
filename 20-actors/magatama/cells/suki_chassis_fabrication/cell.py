@@ -25,7 +25,7 @@ Pregel graph (5 nodes):
                                         BPVC §V class
         |
         v
-    emit_chassis_attest            ->  MST PUT app.etzhayyim.suki.chassisAttestation
+    emit_chassis_attest            ->  MST PUT com.etzhayyim.suki.chassisAttestation
                                         (chassis ID, raw steel DID chain,
                                         chassis design CID, weld profile CID,
                                         straightness measurement,

@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openOt.listSignals",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List signals filtered by device or cell. At least one of deviceDid or cellDid is required.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "deviceDid":  { "type": "string" },
+          "cellDid":    { "type": "string" },
+          "signalKind": { "type": "string", "enum": ["analog", "digital", "string"] },
+          "direction":  { "type": "string", "enum": ["input", "output", "bidirectional"] },
+          "limit":      { "type": "integer", "minimum": 1, "maximum": 500 },
+          "offset":     { "type": "integer", "minimum": 0 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["signals", "total", "offset", "limit"],
+          "properties": {
+            "signals": { "type": "array", "items": { "type": "ref", "ref": "#signalRow" } },
+            "total":   { "type": "integer" },
+            "offset":  { "type": "integer" },
+            "limit":   { "type": "integer" }
+          }
+        }
+      }
+    },
+    "signalRow": {
+      "type": "object",
+      "required": ["signalDid", "signalCode", "signalKind", "direction"],
+      "properties": {
+        "signalDid":      { "type": "string" },
+        "signalCode":     { "type": "string" },
+        "name":           { "type": "string" },
+        "deviceDid":      { "type": "string" },
+        "signalKind":     { "type": "string" },
+        "direction":      { "type": "string" },
+        "unitCode":       { "type": "string" },
+        "euRangeMinMicro":{ "type": "integer" },
+        "euRangeMaxMicro":{ "type": "integer" },
+        "samplePeriodMs": { "type": "integer" }
+      }
+    }
+  }
+}

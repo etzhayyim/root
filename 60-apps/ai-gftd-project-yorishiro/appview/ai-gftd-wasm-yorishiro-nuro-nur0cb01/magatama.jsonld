@@ -44,9 +44,9 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.yorishiroNuro.offer",
-        "ai.gftd.apps.yorishiroNuro.claimJob",
-        "ai.gftd.apps.yorishiroNuro.claimReceipt"
+        "com.etzhayyim.apps.yorishiroNuro.offer",
+        "com.etzhayyim.apps.yorishiroNuro.claimJob",
+        "com.etzhayyim.apps.yorishiroNuro.claimReceipt"
       ]
     }
   },

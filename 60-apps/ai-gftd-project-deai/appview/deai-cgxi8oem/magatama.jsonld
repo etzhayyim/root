@@ -1,26 +1,26 @@
 {
   "@context": "https://magatama.gftd.ai/ns/actor/v1",
   "@type": "MagatamaApp",
-  "id": "ai.gftd.apps.deai",
+  "id": "com.etzhayyim.apps.deai",
   "version": "0.1.0",
   "profile": {
     "displayName": "deai",
     "description": "Spirit-in-Physics matching — find connections through emotional resonance",
-    "avatar": "https://deai.gftd.ai/icon-512.png",
+    "avatar": "https://decom.etzhayyim.ai/icon-512.png",
     "category": "social",
     "isBot": true,
     "agentType": "reactive",
     "operator": "etzhayyim"
   },
-  "routes": ["deai.gftd.ai"],
+  "routes": ["decom.etzhayyim.ai"],
   "capabilities": [
-    "ai.gftd.apps.deai.startAssessment",
-    "ai.gftd.apps.deai.submitResponse",
-    "ai.gftd.apps.deai.getProfile",
-    "ai.gftd.apps.deai.listMatches",
-    "ai.gftd.apps.deai.createCheckin",
-    "ai.gftd.apps.deai.sendMessage",
-    "ai.gftd.apps.deai.listMessages"
+    "com.etzhayyim.apps.deai.startAssessment",
+    "com.etzhayyim.apps.deai.submitResponse",
+    "com.etzhayyim.apps.deai.getProfile",
+    "com.etzhayyim.apps.deai.listMatches",
+    "com.etzhayyim.apps.deai.createCheckin",
+    "com.etzhayyim.apps.deai.sendMessage",
+    "com.etzhayyim.apps.deai.listMessages"
   ],
   "kv": {
     "namespaces": ["deai"]

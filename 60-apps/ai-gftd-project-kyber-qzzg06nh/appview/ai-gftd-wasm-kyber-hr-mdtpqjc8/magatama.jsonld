@@ -53,11 +53,11 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.app.kyber.hr.employee",
-        "ai.gftd.app.kyber.hr.position",
-        "ai.gftd.app.kyber.hr.skill",
-        "ai.gftd.app.kyber.hr.evaluation",
-        "ai.gftd.app.kyber.hr.training"
+        "com.etzhayyim.app.kyber.hr.employee",
+        "com.etzhayyim.app.kyber.hr.position",
+        "com.etzhayyim.app.kyber.hr.skill",
+        "com.etzhayyim.app.kyber.hr.evaluation",
+        "com.etzhayyim.app.kyber.hr.training"
       ]
     }
   },

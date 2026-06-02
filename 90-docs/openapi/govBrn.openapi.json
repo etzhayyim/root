@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govBrn.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govBrn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Brunei government.",
-        "operationId": "app.etzhayyim.govBrn.followSiteDeps",
+        "operationId": "com.etzhayyim.govBrn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govBrn.heartbeatTick": {
       "post": {
         "summary": "Run the Brunei government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govBrn.heartbeatTick",
+        "operationId": "com.etzhayyim.govBrn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.listOrgs": {
+    "/xrpc/com.etzhayyim.govBrn.listOrgs": {
       "get": {
         "summary": "List Brunei government organization graph records.",
-        "operationId": "app.etzhayyim.govBrn.listOrgs",
+        "operationId": "com.etzhayyim.govBrn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.registerDIDs": {
+    "/xrpc/com.etzhayyim.govBrn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Brunei government organizations.",
-        "operationId": "app.etzhayyim.govBrn.registerDIDs",
+        "operationId": "com.etzhayyim.govBrn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govBrn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Brunei government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govBrn.resolveOrgPath",
+        "operationId": "com.etzhayyim.govBrn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.seedOrgs": {
+    "/xrpc/com.etzhayyim.govBrn.seedOrgs": {
       "post": {
         "summary": "Seed initial Brunei government organization records into the graph.",
-        "operationId": "app.etzhayyim.govBrn.seedOrgs",
+        "operationId": "com.etzhayyim.govBrn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.shinka": {
+    "/xrpc/com.etzhayyim.govBrn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Brunei government organization update.",
-        "operationId": "app.etzhayyim.govBrn.shinka",
+        "operationId": "com.etzhayyim.govBrn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBrn.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govBrn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Brunei government organization changes to graph.",
-        "operationId": "app.etzhayyim.govBrn.syncWetUpdates",
+        "operationId": "com.etzhayyim.govBrn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

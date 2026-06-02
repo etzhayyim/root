@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.portStateMeasures.recordInspection",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FAO PSMA / IUU port inspection (bridges fisheryCollapse.flagQuotaBreach + fisheries-iuu + fisheries-subsidies)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "inspectionId",
+            "portIso3",
+            "portName",
+            "vesselImoOrId",
+            "flagStateIso3",
+            "inspectionResult",
+            "inspectedAt"
+          ],
+          "properties": {
+            "inspectionId": {
+              "type": "string"
+            },
+            "portIso3": {
+              "type": "string"
+            },
+            "portName": {
+              "type": "string"
+            },
+            "vesselImoOrId": {
+              "type": "string"
+            },
+            "flagStateIso3": {
+              "type": "string"
+            },
+            "inspectionResult": {
+              "type": "string",
+              "enum": [
+                "authorized_land",
+                "partial_denied",
+                "full_denial",
+                "vessel_listed_iuu",
+                "irregularity_reported",
+                "referral_fmo",
+                "documentation_hold",
+                "gear_inspection_only"
+              ]
+            },
+            "quotaBreachVid": {
+              "type": "string",
+              "description": "bridges fisheryCollapse.flagQuotaBreach"
+            },
+            "catchVolumeTonnes": {
+              "type": "number"
+            },
+            "inspectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

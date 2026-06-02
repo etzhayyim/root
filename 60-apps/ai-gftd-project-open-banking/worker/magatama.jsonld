@@ -32,9 +32,9 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openBanking.account",
-        "ai.gftd.apps.openBanking.ledgerEntry",
-        "ai.gftd.apps.openBanking.transaction"
+        "com.etzhayyim.apps.openBanking.account",
+        "com.etzhayyim.apps.openBanking.ledgerEntry",
+        "com.etzhayyim.apps.openBanking.transaction"
       ]
     }
   },

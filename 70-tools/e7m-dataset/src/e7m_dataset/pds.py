@@ -1,4 +1,4 @@
-"""Emit ``app.etzhayyim.substrate.datasetPin`` records to PDS.
+"""Emit ``com.etzhayyim.substrate.datasetPin`` records to PDS.
 
 Mirrors the auth + emit pattern of ``50-infra/ipfs-pinner/src/emit.ts``
 (AtpAgent / com.atproto.repo.createRecord), but in Python via httpx —
@@ -27,7 +27,7 @@ from typing import Any, Optional
 import httpx
 
 
-COLLECTION = "app.etzhayyim.substrate.datasetPin"
+COLLECTION = "com.etzhayyim.substrate.datasetPin"
 DEFAULT_PDS = "https://pds.etzhayyim.com"
 DEFAULT_DID = "did:web:dataset-pinner.etzhayyim.com"
 
@@ -174,7 +174,7 @@ def resolve_datasetpin(
 
     Returns the record body containing at minimum ``cid`` (the IPFS
     pin map CID per ADR-2605241500 §D contract). Auth is anonymous —
-    `app.etzhayyim.substrate.datasetPin` records are public-readable
+    `com.etzhayyim.substrate.datasetPin` records are public-readable
     (Charter Rider §2(c) anti-surveillance compatible: read traffic
     leaks only public CID identifiers, not member identity).
 

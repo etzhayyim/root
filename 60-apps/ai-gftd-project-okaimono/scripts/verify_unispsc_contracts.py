@@ -37,8 +37,8 @@ REQUIRED_DOC_PATTERNS = [
     "catalog-search-unispsc",
     "import-unispsc-segment",
     "procurement-find-offers-unispsc",
-    "app.etzhayyim.apps.openUnispsc.syncCatalogItem",
-    "app.etzhayyim.apps.openUnispsc.planCatalogPurchase",
+    "com.etzhayyim.apps.openUnispsc.syncCatalogItem",
+    "com.etzhayyim.apps.openUnispsc.planCatalogPurchase",
 ]
 
 REQUIRED_MANIFEST_CAPABILITIES = {
@@ -49,9 +49,9 @@ REQUIRED_MANIFEST_CAPABILITIES = {
 }
 
 REQUIRED_MANIFEST_COLLECTIONS = {
-    "app.etzhayyim.apps.okaimono.catalogItem",
-    "app.etzhayyim.apps.okaimono.order",
-    "app.etzhayyim.apps.unispsc.commodity",
+    "com.etzhayyim.apps.okaimono.catalogItem",
+    "com.etzhayyim.apps.okaimono.order",
+    "com.etzhayyim.apps.unispsc.commodity",
 }
 
 

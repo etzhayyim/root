@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.lifehack.recommend",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Given a topic (and optional environment context), return the top tips with attached product recommendations. Read-only synthesis — does not write any record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["topicId"],
+          "properties": {
+            "topicId": {"type": "string", "description": "e.g. dust-on-desk"},
+            "humidityPct": {"type": "number"},
+            "tempC": {"type": "number"},
+            "budgetJpyMax": {"type": "number"},
+            "preferDiy": {"type": "boolean", "default": false},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 10, "default": 5}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "topicId", "tips"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "topicId": {"type": "string"},
+            "headline": {"type": "string"},
+            "tips": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["tipId", "bodyJa", "effectivenessScore"],
+                "properties": {
+                  "tipId": {"type": "string"},
+                  "bodyJa": {"type": "string"},
+                  "effectivenessScore": {"type": "number"},
+                  "costJpyMin": {"type": "number"},
+                  "costJpyMax": {"type": "number"},
+                  "difficulty": {"type": "string"},
+                  "sourceUrl": {"type": "string"},
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "productId": {"type": "string"},
+                        "name": {"type": "string"},
+                        "sourceType": {"type": "string"},
+                        "amazonSearchKeyword": {"type": "string"},
+                        "tsukuruCadModelDid": {"type": "string"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

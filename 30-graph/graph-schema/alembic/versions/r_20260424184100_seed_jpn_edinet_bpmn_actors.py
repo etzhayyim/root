@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'jpn_edinet_submit_securities_filing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -141,12 +141,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5257,
-                 '00-contracts/bpmn/ai/gftd/jpn-edinet/submitSecuritiesFiling.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/jpn-edinet/submitSecuritiesFiling.bpmn',
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -154,7 +154,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'jpn_edinet_record_material_event',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -279,12 +279,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5420,
-                 '00-contracts/bpmn/ai/gftd/jpn-edinet/recordMaterialEvent.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/jpn-edinet/recordMaterialEvent.bpmn',
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -292,16 +292,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1',
                  'did:web:jpn-edinet.etzhayyim.com',
-                 'app.etzhayyim.apps.jpnEdinet.submitSecuritiesFiling',
+                 'com.etzhayyim.apps.jpnEdinet.submitSecuritiesFiling',
                  'jpn_edinet_submit_securities_filing',
                  30000,
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -309,25 +309,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1',
                  'did:web:jpn-edinet.etzhayyim.com',
-                 'app.etzhayyim.apps.jpnEdinet.recordMaterialEvent',
+                 'com.etzhayyim.apps.jpnEdinet.recordMaterialEvent',
                  'jpn_edinet_record_material_event',
                  30000,
                  '2026-04-24T18:30:00Z',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'did:web:jpn-edinet.etzhayyim.com',
                  'sys.bpmn.seed.jpn-edinet',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1']}]
 
 
 def upgrade() -> None:

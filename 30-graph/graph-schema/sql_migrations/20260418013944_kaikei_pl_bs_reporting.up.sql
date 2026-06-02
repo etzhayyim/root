@@ -16,7 +16,7 @@ CREATE MATERIALIZED VIEW mv_kaikei_pl_period AS
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|ai.gftd.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.debit_account_did, ':', 5)
         WHERE a.account_type = 'expense'
         UNION ALL
@@ -29,7 +29,7 @@ CREATE MATERIALIZED VIEW mv_kaikei_pl_period AS
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|ai.gftd.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.credit_account_did, ':', 5)
         WHERE a.account_type = 'revenue'
       ) x
@@ -53,7 +53,7 @@ CREATE MATERIALIZED VIEW mv_kaikei_bs_delta AS
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|ai.gftd.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.debit_account_did, ':', 5)
         WHERE a.account_type IN ('asset','liability','equity')
         UNION ALL
@@ -66,7 +66,7 @@ CREATE MATERIALIZED VIEW mv_kaikei_bs_delta AS
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|ai.gftd.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.credit_account_did, ':', 5)
         WHERE a.account_type = 'asset'
         UNION ALL
@@ -79,7 +79,7 @@ CREATE MATERIALIZED VIEW mv_kaikei_bs_delta AS
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|ai.gftd.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.credit_account_did, ':', 5)
         WHERE a.account_type IN ('liability','equity')
         UNION ALL
@@ -92,7 +92,7 @@ CREATE MATERIALIZED VIEW mv_kaikei_bs_delta AS
         FROM vertex_atrecord_kaikei_journal_entry j
         JOIN vertex_atrecord_kaikei_account a
           ON a.owner_did = j.owner_did
-         AND a.vertex_id = j.owner_did || '|ai.gftd.apps.kaikei.account|'
+         AND a.vertex_id = j.owner_did || '|com.etzhayyim.apps.kaikei.account|'
                          || SPLIT_PART(j.debit_account_did, ':', 5)
         WHERE a.account_type IN ('liability','equity')
       ) x

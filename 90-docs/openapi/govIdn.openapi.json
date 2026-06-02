@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govIdn.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govIdn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Indonesia government.",
-        "operationId": "app.etzhayyim.govIdn.followSiteDeps",
+        "operationId": "com.etzhayyim.govIdn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govIdn.heartbeatTick": {
       "post": {
         "summary": "Run the Indonesia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govIdn.heartbeatTick",
+        "operationId": "com.etzhayyim.govIdn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.listOrgs": {
+    "/xrpc/com.etzhayyim.govIdn.listOrgs": {
       "get": {
         "summary": "List Indonesia government organization graph records.",
-        "operationId": "app.etzhayyim.govIdn.listOrgs",
+        "operationId": "com.etzhayyim.govIdn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.registerDIDs": {
+    "/xrpc/com.etzhayyim.govIdn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Indonesia government organizations.",
-        "operationId": "app.etzhayyim.govIdn.registerDIDs",
+        "operationId": "com.etzhayyim.govIdn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govIdn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Indonesia government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govIdn.resolveOrgPath",
+        "operationId": "com.etzhayyim.govIdn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.seedOrgs": {
+    "/xrpc/com.etzhayyim.govIdn.seedOrgs": {
       "post": {
         "summary": "Seed initial Indonesia government organization records into the graph.",
-        "operationId": "app.etzhayyim.govIdn.seedOrgs",
+        "operationId": "com.etzhayyim.govIdn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.shinka": {
+    "/xrpc/com.etzhayyim.govIdn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Indonesia government organization update.",
-        "operationId": "app.etzhayyim.govIdn.shinka",
+        "operationId": "com.etzhayyim.govIdn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIdn.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govIdn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Indonesia government organization changes to graph.",
-        "operationId": "app.etzhayyim.govIdn.syncWetUpdates",
+        "operationId": "com.etzhayyim.govIdn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

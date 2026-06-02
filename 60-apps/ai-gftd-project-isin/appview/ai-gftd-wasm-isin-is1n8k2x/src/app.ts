@@ -25,7 +25,7 @@ interface ExportedHandler<E> {
 
 const APP = "isin";
 const ACTOR_DID = "did:web:isin.etzhayyim.com";
-const NSID_PREFIX = "app.etzhayyim.isin.";
+const NSID_PREFIX = "com.etzhayyim.isin.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -38,7 +38,7 @@ export default {
         nanoid: env.APP_NANOID ?? "is1n8k2x",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/isin.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/isin",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/isin",
       });
     }
 

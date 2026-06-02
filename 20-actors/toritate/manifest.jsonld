@@ -33,10 +33,10 @@
     "did:web:toritsugi.etzhayyim.com (tax-procedure boundary: toritsugi guides a member through citizen-side tax mechanics e.g. 確定申告/e-Tax operation + 必要書類, but ALL 税務 characterization + 税理士法-reserved 税務代理/税務書類作成 route to toritate + licensed 税理士; toritsugi renders no tax advice — toritsugi G5/N13; ADR-2605312030)"
   ],
   "lexiconReadAccess": {
-    "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement. Anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records. CC0 1.0 license.",
-    "app.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO + parent-subsidiary + control-relationship + officer edge traversal for anti-related-party check. Flags if disbursement-recipient + donor-recipient share UBO within configurable threshold. Tier-A GLEIF L2 (CC0) + Tier-B OpenCorporates open-data (`-tierB-` infix; SA propagates).",
-    "app.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY per-jurisdiction gov budget recipient cross-reference (USAspending / EU FTS / UK Treasury / JP 予算書). Flags vendor receiving simultaneous religious-corp Public Fund disbursement AND state appropriation in same fiscal cycle.",
-    "app.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY per-jurisdiction gov procurement awardee cross-reference (EU TED / US SAM.gov / JP 政府調達 / UK Contracts Finder). Uses awardeeLei + recipientLei cross-link to corp.leiReference for entity identity."
+    "com.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for recipient-vendor identity resolution before disbursement. Anti-related-party check on Public Fund Safe + Council Safe outflow against corporate-donor + officer-network records. CC0 1.0 license.",
+    "com.etzhayyim.corp.ownershipEdge": "ADR-2605263800; READ-ONLY UBO + parent-subsidiary + control-relationship + officer edge traversal for anti-related-party check. Flags if disbursement-recipient + donor-recipient share UBO within configurable threshold. Tier-A GLEIF L2 (CC0) + Tier-B OpenCorporates open-data (`-tierB-` infix; SA propagates).",
+    "com.etzhayyim.gov.dataset.budgetRecord": "ADR-2605263900; READ-ONLY per-jurisdiction gov budget recipient cross-reference (USAspending / EU FTS / UK Treasury / JP 予算書). Flags vendor receiving simultaneous religious-corp Public Fund disbursement AND state appropriation in same fiscal cycle.",
+    "com.etzhayyim.gov.dataset.procurementRecord": "ADR-2605263900; READ-ONLY per-jurisdiction gov procurement awardee cross-reference (EU TED / US SAM.gov / JP 政府調達 / UK Contracts Finder). Uses awardeeLei + recipientLei cross-link to corp.leiReference for entity identity."
   },
   "form": "任意団体 internal accounting + audit substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock)",
   "constitutionalDiscipline": {
@@ -123,11 +123,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.toritate.financialAttestation",
-    "app.etzhayyim.toritate.ledgerEntry",
-    "app.etzhayyim.toritate.annualReport",
-    "app.etzhayyim.toritate.auditObservation",
-    "app.etzhayyim.toritate.externalAuditorEngagement"
+    "com.etzhayyim.toritate.financialAttestation",
+    "com.etzhayyim.toritate.ledgerEntry",
+    "com.etzhayyim.toritate.annualReport",
+    "com.etzhayyim.toritate.auditObservation",
+    "com.etzhayyim.toritate.externalAuditorEngagement"
   ],
   "constitutionalGates": {
     "description": "12 immutable gates per ADR-2605262900. Council Lv6+ supermajority + new ADR to amend.",

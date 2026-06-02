@@ -3,7 +3,7 @@
 This test enforces consistency across three SSoT artifacts that must agree
 for Phase C activation:
 
-  1. The DMN XML at `00-contracts/dmn/ai/gftd/policies/mangaka/composeScene3dRefinement.dmn`
+  1. The DMN XML at `00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn`
   2. The seed migration at `30-graph/graph-schema/sql_migrations/20260514150000_seed_mangaka_compose_scene_3d_refinement_dmn.up.sql`
      (decision_key + version + structured rules_json + embedded dmn_xml)
   3. The Phase A in-tree Python predicate `compose_scene_3d._route_after_critique`
@@ -49,7 +49,7 @@ _TOPOLOGY_PATH = (
     _LG_DIR / "lg_mangaka" / "graphs" / "compose_scene_3d.topology.yaml"
 )
 _DMN_NS = {"dmn": "https://www.omg.org/spec/DMN/20191111/MODEL/"}
-_DECISION_KEY = "app.etzhayyim.policies.mangaka.composeScene3dRefinement"
+_DECISION_KEY = "com.etzhayyim.policies.mangaka.composeScene3dRefinement"
 _DECISION_VERSION = 1
 
 
@@ -154,7 +154,7 @@ def test_migration_is_idempotent(migration_sql: str) -> None:
     """Re-running the seed must not produce a duplicate row — the NOT EXISTS
     guard on (decision_key, version) is the contract."""
     assert "NOT EXISTS" in migration_sql
-    assert "decision_key = 'app.etzhayyim.policies.mangaka.composeScene3dRefinement'" in migration_sql
+    assert "decision_key = 'com.etzhayyim.policies.mangaka.composeScene3dRefinement'" in migration_sql
     assert re.search(r"AND\s+version\s*=\s*1", migration_sql)
 
 

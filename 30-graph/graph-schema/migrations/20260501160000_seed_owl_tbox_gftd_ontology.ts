@@ -27,7 +27,7 @@ const PROFILE = "gftd_core_v1";
 const NS = "https://schema.etzhayyim.com/owl#";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
-const SOURCE = "app.etzhayyim.apps.owl.seedTbox";
+const SOURCE = "com.etzhayyim.apps.owl.seedTbox";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const now = new Date().toISOString();

@@ -88,7 +88,7 @@
             "analyze"
           ],
           "args": {
-            "template": "INSERT INTO vertex_graph_sos_intel_snapshot (vertex_id, snapshot_id, actor_did, scope, status, relation_total, vertex_table_count, edge_table_count, mv_count, idx_count, anomaly_count, summary, recommendation_json, evidence_json, created_at, owner_did, sensitivity_ord) SELECT concat('at://', $did, '/ai.gftd.apps.graphSosIntel.snapshot/', NOW()::VARCHAR), concat('graph-sos-', NOW()::VARCHAR), $did, 'global', 'active', COALESCE(count(*), 0), COALESCE(sum(CASE WHEN table_name LIKE 'vertex_%' THEN 1 ELSE 0 END), 0), COALESCE(sum(CASE WHEN table_name LIKE 'edge_%' THEN 1 ELSE 0 END), 0), COALESCE(sum(CASE WHEN table_name LIKE 'mv_%' THEN 1 ELSE 0 END), 0), (SELECT count(*) FROM pg_indexes WHERE schemaname = current_schema() AND indexname LIKE 'idx_%'), 0, $analyze.text, $analyze.text, $analyze.text, NOW()::VARCHAR, $did, 100 FROM information_schema.tables WHERE table_schema = current_schema() AND (table_name LIKE 'vertex_%' OR table_name LIKE 'edge_%' OR table_name LIKE 'mv_%' OR table_name LIKE 'view_%')"
+            "template": "INSERT INTO vertex_graph_sos_intel_snapshot (vertex_id, snapshot_id, actor_did, scope, status, relation_total, vertex_table_count, edge_table_count, mv_count, idx_count, anomaly_count, summary, recommendation_json, evidence_json, created_at, owner_did, sensitivity_ord) SELECT concat('at://', $did, '/com.etzhayyim.apps.graphSosIntel.snapshot/', NOW()::VARCHAR), concat('graph-sos-', NOW()::VARCHAR), $did, 'global', 'active', COALESCE(count(*), 0), COALESCE(sum(CASE WHEN table_name LIKE 'vertex_%' THEN 1 ELSE 0 END), 0), COALESCE(sum(CASE WHEN table_name LIKE 'edge_%' THEN 1 ELSE 0 END), 0), COALESCE(sum(CASE WHEN table_name LIKE 'mv_%' THEN 1 ELSE 0 END), 0), (SELECT count(*) FROM pg_indexes WHERE schemaname = current_schema() AND indexname LIKE 'idx_%'), 0, $analyze.text, $analyze.text, $analyze.text, NOW()::VARCHAR, $did, 100 FROM information_schema.tables WHERE table_schema = current_schema() AND (table_name LIKE 'vertex_%' OR table_name LIKE 'edge_%' OR table_name LIKE 'mv_%' OR table_name LIKE 'view_%')"
           }
         }
       ]
@@ -140,7 +140,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.graphSosIntel.health"
+        "nsid": "com.etzhayyim.apps.graphSosIntel.health"
       },
       "steps": [
         {
@@ -163,7 +163,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.graphSosIntel.listRelations"
+        "nsid": "com.etzhayyim.apps.graphSosIntel.listRelations"
       },
       "steps": [
         {
@@ -178,7 +178,7 @@
     {
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.graphSosIntel.listFindings"
+        "nsid": "com.etzhayyim.apps.graphSosIntel.listFindings"
       },
       "steps": [
         {
@@ -205,8 +205,8 @@
     ]
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",

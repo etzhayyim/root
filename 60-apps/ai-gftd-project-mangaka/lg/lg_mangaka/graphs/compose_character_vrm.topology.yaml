@@ -24,7 +24,7 @@
 #
 # Schema reference: pymagatama.langgraph_loader._compile_topology.
 
-assistant_id: app.etzhayyim.mangaka.composeCharacterVrm
+assistant_id: com.etzhayyim.mangaka.composeCharacterVrm
 version: 1
 kind: topology
 description: |
@@ -58,7 +58,7 @@ entry: load_character_profile
 nodes:
   - id: load_character_profile
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.loadCharacterProfile
+    ref: mcp://com.etzhayyim.mangaka.tools.loadCharacterProfile
     config: {}
     # Reads vertex_mangaka kind='character' rkey=<character_rkey> →
     # profile JSON + reference_image blob_key → fetches the PNG from B2,
@@ -94,7 +94,7 @@ nodes:
 
   - id: generate_multiview
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.generateMultiviewAnime
+    ref: mcp://com.etzhayyim.mangaka.tools.generateMultiviewAnime
     # CharacterGen (PKU, SIGGRAPH 2024, MIT). Anime-tuned 4-view
     # consistent diffusion that outputs A-pose front/back/left/right.
     # The pod entrypoint runs the official Gradio app's Python API.
@@ -109,7 +109,7 @@ nodes:
 
   - id: reconstruct_mesh
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.reconstructMesh
+    ref: mcp://com.etzhayyim.mangaka.tools.reconstructMesh
     # Hunyuan3D-2 (Tencent, OSS). Multi-view → textured glb mesh.
     # Higher quality than InstantMesh for anime; TripoSR is the
     # fallback when GPU memory is tight.
@@ -123,7 +123,7 @@ nodes:
 
   - id: extract_blendshapes
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.extractFacialBlendshapes
+    ref: mcp://com.etzhayyim.mangaka.tools.extractFacialBlendshapes
     # MediaPipe Face Landmarker (Apache-2.0). Takes the reference image
     # → 52 ARKit-compatible blendshape weights + 478 face landmarks.
     # The result is folded into the VRM bind step as the "neutral
@@ -139,7 +139,7 @@ nodes:
 
   - id: auto_rig
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.autoRigHumanoid
+    ref: mcp://com.etzhayyim.mangaka.tools.autoRigHumanoid
     # Self-hosted rigging ONLY — no external APIs in the production
     # runtime path. Two tracks inside the same pod image:
     #   • Primary: Rigify template-fit via Blender CLI. GPL tool, MIT-
@@ -168,7 +168,7 @@ nodes:
 
   - id: bind_vrm
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.bindVrm
+    ref: mcp://com.etzhayyim.mangaka.tools.bindVrm
     # Blender headless (--background --python) running the saturday06
     # VRM Add-on. Takes the rigged glb + blendshape pack + spring-bone
     # hints derived from `profile.gh:hair`, emits a VRM 1.0 binary.
@@ -185,7 +185,7 @@ nodes:
 
   - id: validate_vrm
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.validateVrm
+    ref: mcp://com.etzhayyim.mangaka.tools.validateVrm
     # Parses with `kami_vrm::parse_vrm` (in-repo). Checks:
     #   • VRM 1.0 magic + version
     #   • humanoid bone coverage (≥18 required bones)
@@ -203,7 +203,7 @@ nodes:
 
   - id: attach_vrm
     kind: mcp_tool
-    ref: mcp://app.etzhayyim.mangaka.tools.attachCharacterVrm
+    ref: mcp://com.etzhayyim.mangaka.tools.attachCharacterVrm
     # P13 tool — already deployed. content-addressed B2 PUT + character
     # vertex props patch. Idempotent.
     config:
@@ -227,40 +227,40 @@ conditional_edges:
   - from: validate_vrm
     # DMN policy: retry bind once if `valid=false` and `iteration<2`,
     # otherwise fail to END with state.status='error'. Decision lives in
-    # `00-contracts/dmn/ai/gftd/policies/mangaka/vrmBindRetry.dmn`
+    # `00-contracts/dmn/com/etzhayyim/policies/mangaka/vrmBindRetry.dmn`
     # (sub-blocker — author when the loader's DMN resolver ships).
-    condition_ref: dmn:app.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
+    condition_ref: dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0
     paths:
       retry:  bind_vrm
       accept: attach_vrm
       reject: END
 
 deployments:
-  - nsid: app.etzhayyim.mangaka.composeCharacterVrm
+  - nsid: com.etzhayyim.mangaka.composeCharacterVrm
     status: active
     replicas: 1
 
 # All NEW tools that must exist in vertex_mcp_tool_def before Phase C
 # activation. attachCharacterVrm is already shipped (P13). Each of the
 # 8 new tools needs a lexicon JSON under
-# `00-contracts/lexicons/ai/gftd/apps/mangaka/tools/`, a seed migration,
+# `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/`, a seed migration,
 # and an XRPC dispatcher entry in lg_mangaka/server.py — same pattern
 # as the compose_scene_3d tools (P8).
 pending_mcp_tools:
-  - app.etzhayyim.mangaka.tools.loadCharacterProfile
-  - app.etzhayyim.mangaka.tools.generateMultiviewAnime
-  - app.etzhayyim.mangaka.tools.reconstructMesh
-  - app.etzhayyim.mangaka.tools.extractFacialBlendshapes
-  - app.etzhayyim.mangaka.tools.autoRigHumanoid
-  - app.etzhayyim.mangaka.tools.bindVrm
-  - app.etzhayyim.mangaka.tools.validateVrm
+  - com.etzhayyim.mangaka.tools.loadCharacterProfile
+  - com.etzhayyim.mangaka.tools.generateMultiviewAnime
+  - com.etzhayyim.mangaka.tools.reconstructMesh
+  - com.etzhayyim.mangaka.tools.extractFacialBlendshapes
+  - com.etzhayyim.mangaka.tools.autoRigHumanoid
+  - com.etzhayyim.mangaka.tools.bindVrm
+  - com.etzhayyim.mangaka.tools.validateVrm
   # attachCharacterVrm already in vertex_mcp_tool_def (P13).
 
 # Driver loop — to author all 57 ghost-hacker VRMs, run this Pregel
 # under a `foreach` operator over the character roster:
 #
 #   foreach character_rkey in (SELECT rkey FROM vertex_mangaka WHERE kind='character'):
-#     POST /xrpc/app.etzhayyim.mangaka.composeCharacterVrm
+#     POST /xrpc/com.etzhayyim.mangaka.composeCharacterVrm
 #          { character_rkey }
 #
 # Sequential by default — running in parallel would saturate the GPU

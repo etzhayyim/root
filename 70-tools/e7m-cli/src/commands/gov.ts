@@ -116,7 +116,7 @@ govCmd
           tasks: [
             'Add 50+ BPMN process definitions across COFOG categories',
             'Extend from 4 major categories to 7 (add Healthcare, Housing, Environment)',
-            'Contribute to 00-contracts/bpmn/ai/gftd/gov<ISO3>/ with jurisdiction-specific processes',
+            'Contribute to 00-contracts/bpmn/com/etzhayyim/gov<ISO3>/ with jurisdiction-specific processes',
           ],
         },
         {
@@ -138,7 +138,7 @@ govCmd
           tasks: [
             'Expand 70-tools/scripts/gov/ from 3 scripts to 6-8 (add jurisdiction-specific processors)',
             'Target: 1000 demonstrator records (currently ~421)',
-            'Emit to app.etzhayyim.gov.agency with full BPMN linkage',
+            'Emit to com.etzhayyim.gov.agency with full BPMN linkage',
           ],
         },
         {

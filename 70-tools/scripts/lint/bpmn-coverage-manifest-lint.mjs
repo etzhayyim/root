@@ -13,15 +13,15 @@ function existsRel(relPath) {
 }
 
 function expectedSourcePath(binding) {
-  return `00-contracts/bpmn/ai/gftd/${binding.project}/${binding.proc}.bpmn`;
+  return `00-contracts/bpmn/com/etzhayyim/${binding.project}/${binding.proc}.bpmn`;
 }
 
 function expectedLexiconPath(binding) {
-  const nsidPrefix = "app.etzhayyim.apps.";
+  const nsidPrefix = "com.etzhayyim.apps.";
   if (!binding.nsid?.startsWith(nsidPrefix)) return null;
   const parts = binding.nsid.slice(nsidPrefix.length).split(".");
   if (parts.length < 2) return null;
-  return `00-contracts/lexicons/ai/gftd/apps/${parts.join("/")}.json`;
+  return `00-contracts/lexicons/com/etzhayyim/apps/${parts.join("/")}.json`;
 }
 
 function duplicateEntries(values) {
