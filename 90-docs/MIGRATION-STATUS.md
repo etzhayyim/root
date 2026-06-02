@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 63 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 41 | still imports prohibited substrate → the real active backlog |
-| **D — TODO-PENDING** | 74 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 4 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 73 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 5 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 115 apps** (C + D = 41 + 74; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 114 apps** (C + D = 41 + 73; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -50,7 +50,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (4)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (5)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -83,6 +83,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   as air-book. Shipment-tracking is only a thin read-view over the regulated
   AWB/settlement data (could later be surfaced etzhayyim-front via consent-
   capability, but the data is custodied gftd-side). Stays gftd.
+- **air-crew** — axes: **Custody + Liability**. Airline crew management: roster
+  publication, pairing construction, qualification tracking, fatigue assessment,
+  duty-time recording, crew assignment/travel. Crew = employee PII (names, quals,
+  duty hours, fatigue); duty-time/fatigue/qualification = FTL flight-safety
+  regulatory compliance. No clean public layer (qualification records bind to
+  named crew). Stays gftd.
 
 ## Bucket C — NEEDS-CODEMOD (41) — active backlog
 
@@ -102,10 +108,9 @@ public-kafun-bokumetsu, saiban, sanctions, seibutsu, shigotoba, shinka,
 shinkansen, tenso, toshi-kozan, voxelforge, watashi, webmk, webya, xlsx,
 yorishiro, yukkuri
 
-## Bucket D — TODO-PENDING (74, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (73, MIGRATION-TODO.md)
 
-**TRANSFORM-pending (44)**: air-crew,
-air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
+**TRANSFORM-pending (43)**: air-dcs, air-ffp, air-mro, air-ops, air-sched, air-sms, air-yield, analytics,
 business-edge, business-person, collector,
 completer, coverage, cowork, credits, fleamarket, flight-offer, ge, gftdcojp,
 harai, hrse, hub, kaikei, keiei, ops, resource-flow, resource-planner,
