@@ -18744,6 +18744,34 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606015600-self-certifying-did-attestation.md",
+      "id": "adr-2606015600-self-certifying-did-attestation",
+      "title": "ADR-2606015600: Self-certifying DID-document attestation (did:key signs the did.json CID)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "self-certifying-did-attestation",
+      "authoritative": true,
+      "authoritative_for": [
+        "self-certifying-did-attestation",
+        "did-key-ed25519"
+      ],
+      "related": [
+        "2606014500",
+        "2606014600"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606015400",
+        "2606013800",
+        "2605212030",
+        "2605231525"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",

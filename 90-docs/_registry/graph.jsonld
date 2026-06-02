@@ -12092,6 +12092,23 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606015600-self-certifying-did-attestation",
+      "type": "TechArticle",
+      "title": "ADR-2606015600: Self-certifying DID-document attestation (did:key signs the did.json CID)",
+      "status": "accepted",
+      "topic": "self-certifying-did-attestation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "self-certifying-did-attestation",
+        "did-key-ed25519"
+      ],
+      "related": [
+        "doc:2606014500",
+        "doc:2606014600"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

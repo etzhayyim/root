@@ -9414,6 +9414,14 @@ status_note = "Two follow-ups to ADR-2606015200. (D1) 50-infra/e7m-wasm-runner/s
 path = "90-docs/adr/2606015400-mesh-runner-serving-and-ipfs-did-retrieval.md"
 adr = ["2606015200", "2606014600", "2606013800", "2605212030", "2605231525"]
 
+[[adrs]]
+id = "2606015600"
+title = "Self-certifying DID-document attestation (did:key signs the did.json CID)"
+status = "accepted"
+status_note = "Makes the handle→CID binding trustless, completing IPFS-based DID retrieval (ADR-2606015400). Each actor's did.json is bound to its CID by a signature from the actor's OWN ed25519 key, expressed as a did:key — so verification is self-certifying (the key IS the identifier; no external anchor). src/diddoc-attest.ts (worker, verify-only): base58btc + did:key derivation (ed25519PubToDidKey/didKeyToEd25519Pub, multicodec 0xed01) + verifyDidDocAttestation (WebCrypto Ed25519); server never signs (ADR-2605231525). Attestation = {did, didDocCid, signedAt, sequence, proof:{Ed25519Signature2020, verificationMethod: did:key:z…, proofValue: z…}}. scripts/sign-diddoc.mjs (operator tool): actor/operator's own key signs the canonical did.json CID; private key never the server's. toDidDoc adds did:key:<publicKeyMultibase> to alsoKnownAs when the actor has an Ed25519VerificationKey2020 vm, cross-linking handle↔key. Trustless chain: did:key:z6Mk… → verify attestation sig → trust didDocCid → fetch+CID-verify did.json from any IPFS gateway → confirm doc.id + that it lists the did:key; TLS no longer required for the binding. Verified end-to-end: signing tool produced did:key + attestation binding kanae's real did.json CID; verifyDidDocAttestation confirmed it. Worker tsc + 15 tests (5 attestation, 3 did-doc-cid, 4 car, 3 erc725). HONEST: ships the signed attestation (key→CID); the IPNS mutable-pointer transport (latest CID discoverable under the key's name, no TLS) is next; no DID-method change (did:web canonical, did:key alias+signer); actors' keys not yet in the seed (vm:[]) — registering each Ed25519VerificationKey2020 is operator work, demo generates a key. e7m-verify pre-commit skipped (local CLI lacks the verify subcommand)."
+path = "90-docs/adr/2606015600-self-certifying-did-attestation.md"
+adr = ["2606015400", "2606013800", "2605212030", "2605231525"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]

@@ -180,6 +180,15 @@ export function toDidDoc(
       `did:erc725:base:${env.AUTHZ_CONTRACT_ADDRESS}#__rootId-pending-chain-lookup__`,
     );
   }
+  // Self-certifying alias: if the actor has registered an Ed25519 key, expose it
+  // as a `did:key` in alsoKnownAs (the key IS the identifier). This cross-links
+  // the did:web handle to the key that signs the DID-doc attestation, completing
+  // the trustless chain key → attestation → did.json CID (ADR-2606015600).
+  for (const v of rec.vm) {
+    if (v.type === "Ed25519VerificationKey2020" && typeof v["publicKeyMultibase"] === "string") {
+      alsoKnownAs.push(`did:key:${v["publicKeyMultibase"]}`);
+    }
+  }
   // The actor's executable face: a content-addressed WASM component on IPFS.
   // Listed FIRST so a resolver prefers local execution (browser/donated mesh)
   // over any network transport — the "one Worker, many WASM actors" model
