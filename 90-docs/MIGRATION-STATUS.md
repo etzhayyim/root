@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 100 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 23 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 62 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 22 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 63 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 23 apps** (C + D = 0 + 23; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 22 apps** (C + D = 0 + 22; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -74,7 +74,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (62)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (63)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -585,6 +585,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (`chat.bsky.convo.*` / PDS pipethrough), not a public AT registry; DMs are
   private, channels team-scoped (carry-forward test fails). Same messaging/
   conversation family. No rw-free built.
+- **microsoft** (Bucket D / ad-pixel → V) — axes: **Custody (M365 app-token
+  credential + draft/sent mail content + recipient PII) + Liability (Mail.Send /
+  Teams-post on the org's behalf, policy-gated)**. Microsoft 365 / Graph
+  integration (`microsoft.etzhayyim.com`): a write facade (microsoft-send) —
+  sendMail / sendDraft / listDrafts (Mail.Send app-only, internal=direct /
+  external=auto-draft) + Teams channel posting; acquires M365 app tokens. Private
+  email + M365 credentials, not open-data (carry-forward test fails). Same
+  provider/messaging family as `gmail` / `mailer` / `meet`. No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -612,7 +620,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (23, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (22, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -628,7 +636,7 @@ yatabase) have been migrated (A) or judged vendor-resident (V). Only the
 **ad-pixel codemod (26)** + **substrate-boundary (6)** sublists remain in Bucket D.
 
 **Ad-pixel codemod complete (un-resolved tail)**:
-microsoft, microsoft-graph, news, newsletter,
+microsoft-graph, news, newsletter,
 ongakuka, outreach, phone, recap, ses, society6, x
 (\* names animeka/briefing/communicator/email-service-adapter*/fax* already
 resolved: animeka/mangaka in A; briefing/communicator in V; email-service-adapter/fax
