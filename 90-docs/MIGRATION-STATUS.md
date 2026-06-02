@@ -13,11 +13,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 |--------|------:|---------|
 | **A — DONE** | 73 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 208 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
-| **C — NEEDS-CODEMOD** | 32 | still imports prohibited substrate → the real active backlog |
+| **C — NEEDS-CODEMOD** | 31 | still imports prohibited substrate → the real active backlog |
 | **D — TODO-PENDING** | 55 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 20 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **V — VENDOR-RESIDENT** | 21 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 87 apps** (C + D = 32 + 55; the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 86 apps** (C + D = 31 + 55; the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -53,7 +53,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (20)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (21)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -176,6 +176,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   matching is RW-backed. No non-PII public-catalog slice (any of it on public AT
   records would expose PII). etzhayyim brand-front consumes via consent-
   capability; data custody stays gftd.
+- **dougaka** — axis: **RisingWave + render compute**. Video-rendering (動画化)
+  LangGraph pipeline (render + health graphs; com.etzhayyim.apps.dougaka.render)
+  with RW-backed job state (RW_URL / vertex_). Pure GPU/render compute infra — no
+  consumer catalog layer in the project (cf. animeka, where the generation compute
+  stayed gftd and only the catalog migrated; dougaka is just the compute). Stays
+  gftd.
 - **cowork** — axes: **Custody + RisingWave**. Internal "Claude Cowork" MCP bridge
   to Microsoft Graph (Mail/Teams/Files/Calendar/Users) + RW graph (read-only):
   mailDraft (email content), toolGrant (OAuth delegation credentials), syncJob.
@@ -190,13 +196,13 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
 
-## Bucket C — NEEDS-CODEMOD (32) — active backlog
+## Bucket C — NEEDS-CODEMOD (31) — active backlog
 
 Import vectors: `createKyselyDb` 29 · `HYPERDRIVE` 23 · RisingWave 18 ·
 `kysely` 8 · `stripe` 4 · `@atproto/api` 0 · `viem` 0.
 
 common-crawl (RW, legacy src), cpc (legacy src),
-dougaka (RW), editor,
+editor,
 email-service-adapter (stripe), fax, gov, hc, **hospitality (RW in
 scripts/sync-roster.ts)**, intel, itonami, jp-fiscal, jukyu (RW), kami,
 kenkyusha (RW), kyber-qzzg06nh, legal-entity (RW), llm (RW), manimani,
