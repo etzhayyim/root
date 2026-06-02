@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1',
                  'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_open_library',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -85,12 +85,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2409,
-                 '00-contracts/bpmn/ai/gftd/isbn/ingestOpenLibrary.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/isbn/ingestOpenLibrary.bpmn',
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -98,7 +98,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1',
                  'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_aozora',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -167,12 +167,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2508,
-                 '00-contracts/bpmn/ai/gftd/isbn/ingestAozora.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/isbn/ingestAozora.bpmn',
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -180,7 +180,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1',
                  'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_gutenberg',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -248,12 +248,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2406,
-                 '00-contracts/bpmn/ai/gftd/isbn/ingestGutenberg.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/isbn/ingestGutenberg.bpmn',
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -261,7 +261,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1',
                  'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_ndl',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -331,12 +331,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2559,
-                 '00-contracts/bpmn/ai/gftd/isbn/ingestNdl.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/isbn/ingestNdl.bpmn',
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -344,7 +344,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1',
                  'did:web:isbn.etzhayyim.com',
                  'isbn_ingest_hathitrust',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -418,12 +418,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2754,
-                 '00-contracts/bpmn/ai/gftd/isbn/ingestHathiTrust.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/isbn/ingestHathiTrust.bpmn',
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -431,16 +431,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1',
                  'did:web:isbn.etzhayyim.com',
-                 'app.etzhayyim.apps.isbn.ingestOpenLibrary',
+                 'com.etzhayyim.apps.isbn.ingestOpenLibrary',
                  'isbn_ingest_open_library',
                  21600000,
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -448,16 +448,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1',
                  'did:web:isbn.etzhayyim.com',
-                 'app.etzhayyim.apps.isbn.ingestAozora',
+                 'com.etzhayyim.apps.isbn.ingestAozora',
                  'isbn_ingest_aozora',
                  7200000,
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -465,16 +465,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1',
                  'did:web:isbn.etzhayyim.com',
-                 'app.etzhayyim.apps.isbn.ingestGutenberg',
+                 'com.etzhayyim.apps.isbn.ingestGutenberg',
                  'isbn_ingest_gutenberg',
                  21600000,
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -482,16 +482,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1',
                  'did:web:isbn.etzhayyim.com',
-                 'app.etzhayyim.apps.isbn.ingestNdl',
+                 'com.etzhayyim.apps.isbn.ingestNdl',
                  'isbn_ingest_ndl',
                  600000,
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -499,37 +499,37 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1',
                  'did:web:isbn.etzhayyim.com',
-                 'app.etzhayyim.apps.isbn.ingestHathiTrust',
+                 'com.etzhayyim.apps.isbn.ingestHathiTrust',
                  'isbn_ingest_hathitrust',
                  21600000,
                  '2026-05-05T10:00:00Z',
                  'did:web:isbn.etzhayyim.com',
                  'did:web:isbn.etzhayyim.com',
                  'sys.bpmn.seed.isbn-bulk-ingest',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestHathiTrust-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestNdl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestGutenberg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestAozora-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/isbn-ingestOpenLibrary-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-hathitrust-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-ndl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-gutenberg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-aozora-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/isbn-ingest-open-library-v1']}]
 
 
 def upgrade() -> None:

@@ -112,7 +112,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     pk.robotSignatures = mock_sigs
     pk.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.makura.packagingRecord",
+        "$type": "com.etzhayyim.makura.packagingRecord",
         "lotId": pk.lotId,
         "pillowSerial": pk.pillowSerial,
         "vacuumCompression": pk.vacuumCompression,

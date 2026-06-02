@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.dataBrokerRegistry.registerBroker",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Data broker registration (CA CCPA / VT / TX / EU DGA — bridges cyber-compliance + antitrust-dma + misinformation-observatory)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "brokerId",
+            "registrationJurisdiction",
+            "dataCategories",
+            "registeredAt"
+          ],
+          "properties": {
+            "brokerId": {
+              "type": "string"
+            },
+            "brokerLei": {
+              "type": "string"
+            },
+            "registrationJurisdiction": {
+              "type": "string",
+              "enum": [
+                "ca",
+                "vt",
+                "tx",
+                "or",
+                "eu_dga",
+                "uk_gdpr",
+                "kr_pipa",
+                "sg_pdpa"
+              ]
+            },
+            "dataCategories": {
+              "type": "string",
+              "description": "identifiers / commercial / biometric / geolocation / inference / health / children"
+            },
+            "sourceTypes": {
+              "type": "string",
+              "description": "voter_reg / credit / public_records / scraped / loyalty / location"
+            },
+            "sellsChildrenData": {
+              "type": "boolean"
+            },
+            "optOutMechanism": {
+              "type": "string",
+              "enum": [
+                "global_privacy_control",
+                "individual_request",
+                "sectoral",
+                "none"
+              ]
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

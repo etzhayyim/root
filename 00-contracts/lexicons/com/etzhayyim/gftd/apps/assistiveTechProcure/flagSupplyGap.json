@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.assistiveTechProcure.flagSupplyGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Supply gap / repairability / spare parts (bridges accessibilityWcag.flagDigitalExclusion + crpd-disability + right-to-repair)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "procurementVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "procurementVid": {
+              "type": "string",
+              "description": "bridges recordProcurement"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "supply_monopoly",
+                "repair_denied",
+                "spare_parts_unavailable",
+                "training_inadequate",
+                "ip_lock_in",
+                "e_waste_ban",
+                "custom_fit_cost",
+                "prosthetic_socket",
+                "software_proprietary",
+                "battery_locked",
+                "right_to_repair_denied"
+              ]
+            },
+            "coverageRatePct": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

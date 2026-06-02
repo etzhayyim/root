@@ -25,7 +25,7 @@
     "ENAIYO_URL": "https://webyubin.jpi.post.japanpost.jp/webyubin/kad/DYFR010.do",
     "WEBYUBIN_LOGIN_URL": "https://webyubin.jpi.post.japanpost.jp/",
     "YUUBIN_PROVIDER": "manual",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

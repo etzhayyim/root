@@ -37,9 +37,9 @@ impl LoadStats {
 #[derive(Debug, Deserialize)]
 #[serde(tag = "$type")]
 pub enum KgRecord {
-    #[serde(rename = "app.etzhayyim.kg.node")]
+    #[serde(rename = "com.etzhayyim.kg.node")]
     Node(NodeRecord),
-    #[serde(rename = "app.etzhayyim.kg.edge")]
+    #[serde(rename = "com.etzhayyim.kg.edge")]
     Edge(EdgeRecord),
 }
 
@@ -321,7 +321,7 @@ mod tests {
     fn apply_node_then_query_back() {
         let app = new_store();
         let value = serde_json::json!({
-            "$type": "app.etzhayyim.kg.node",
+            "$type": "com.etzhayyim.kg.node",
             "nodeId": "urn:adr:2605190900-kg-as-lexicon-ipld-oxigraph-appview",
             "nodeType": "adr",
             "label": "ADR-2605190900",
@@ -357,7 +357,7 @@ mod tests {
     fn apply_edge_creates_one_triple() {
         let app = new_store();
         let value = serde_json::json!({
-            "$type": "app.etzhayyim.kg.edge",
+            "$type": "com.etzhayyim.kg.edge",
             "subject": "urn:adr:2605190900-x",
             "predicate": "depends_on",
             "object": "urn:adr:2605172000-y",
@@ -374,7 +374,7 @@ mod tests {
     fn applying_node_twice_does_not_double_triples() {
         let app = new_store();
         let value = serde_json::json!({
-            "$type": "app.etzhayyim.kg.node",
+            "$type": "com.etzhayyim.kg.node",
             "nodeId": "urn:adr:test",
             "nodeType": "adr",
             "source": "adr-frontmatter",

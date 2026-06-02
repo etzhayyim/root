@@ -3,7 +3,7 @@
 MARPOL Annex VI + EEXI + CII + IMO GHG well-to-wake audit incl. green-H2 chain-of-custody (G14).
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.decarbonizationAudit.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.decarbonizationAudit.
 """
 
 from typing import Any

@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.auth.smsOtpSend",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Send SMS OTP verification code via Telnyx. Code expires in 5 minutes. Used for Verified tier phone verification.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["phone"],
+          "properties": {
+            "phone": { "type": "string", "description": "Phone number in E.164 format" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sent", "phone", "expiresIn"],
+          "properties": {
+            "sent": { "type": "boolean" },
+            "phone": { "type": "string" },
+            "expiresIn": { "type": "integer", "description": "Seconds until code expires (300)" }
+          }
+        }
+      }
+    }
+  }
+}

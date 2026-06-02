@@ -88,8 +88,8 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.i18n.glossary",
-        "ai.gftd.apps.i18n.translation"
+        "com.etzhayyim.apps.i18n.glossary",
+        "com.etzhayyim.apps.i18n.translation"
       ]
     }
   },

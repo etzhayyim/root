@@ -87,9 +87,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.llm.inferenceRequest",
-        "ai.gftd.apps.llm.inferenceResult",
-        "ai.gftd.apps.llm.modelConfig"
+        "com.etzhayyim.apps.llm.inferenceRequest",
+        "com.etzhayyim.apps.llm.inferenceResult",
+        "com.etzhayyim.apps.llm.modelConfig"
       ]
     }
   },

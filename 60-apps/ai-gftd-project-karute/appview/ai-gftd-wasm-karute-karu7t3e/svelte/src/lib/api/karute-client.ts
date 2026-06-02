@@ -65,7 +65,7 @@ async function encryptedWrite<R extends Record<string, unknown>>(
   const sdk = getSdk();
   if (sdk) {
     const receipt = await sdk.e.encryptedWrite({
-      collection: 'app.etzhayyim.encrypted.record',
+      collection: 'com.etzhayyim.encrypted.record',
       innerType: args.innerType,
       record: args.record,
       recipients: args.recipientDids,
@@ -85,12 +85,12 @@ async function encryptedWrite<R extends Record<string, unknown>>(
   const cid = `bafy-mock-${crypto.randomUUID().slice(0, 16)}`;
   const keyId = `kw-${crypto.randomUUID().slice(0, 12)}`;
   return {
-    uri: `at://did:web:karute.etzhayyim.com/app.etzhayyim.encrypted.record/${crypto.randomUUID().slice(0, 13)}`,
+    uri: `at://did:web:karute.etzhayyim.com/com.etzhayyim.encrypted.record/${crypto.randomUUID().slice(0, 13)}`,
     cid,
     keyId,
     keyWraps: args.recipientDids.map((r) => ({
       recipient: r,
-      uri: `at://did:web:karute.etzhayyim.com/app.etzhayyim.encrypted.keyWrap/${crypto.randomUUID().slice(0, 13)}`,
+      uri: `at://did:web:karute.etzhayyim.com/com.etzhayyim.encrypted.keyWrap/${crypto.randomUUID().slice(0, 13)}`,
       cid: `bafy-mock-kw-${crypto.randomUUID().slice(0, 12)}`,
     })),
     skipped: [],
@@ -101,55 +101,55 @@ async function encryptedWrite<R extends Record<string, unknown>>(
 
 export async function listPatients(opts: { limit?: number; offset?: number; q?: string } = {}) {
   return xrpcQuery<{ items: PatientMeta[]; total: number; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listPatients',
+    'com.etzhayyim.apps.karute.listPatients',
     opts as XrpcQueryParams,
   );
 }
 
 export async function listEncounters(patientDid: string, opts: { limit?: number; offset?: number; fromDate?: string; toDate?: string } = {}) {
   return xrpcQuery<{ items: EncounterMeta[]; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listEncounters',
+    'com.etzhayyim.apps.karute.listEncounters',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listSoapNotes(patientDid: string, opts: { encounterDid?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: SoapNoteMeta[]; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listSoapNotes',
+    'com.etzhayyim.apps.karute.listSoapNotes',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listObservations(patientDid: string, opts: { category?: string; loincCode?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: ObservationMeta[]; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listObservations',
+    'com.etzhayyim.apps.karute.listObservations',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listMedications(patientDid: string, opts: { status?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: MedicationMeta[]; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listMedications',
+    'com.etzhayyim.apps.karute.listMedications',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listOrders(patientDid: string, opts: { status?: string; category?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: OrderMeta[]; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listOrders',
+    'com.etzhayyim.apps.karute.listOrders',
     { patientDid, ...opts } as XrpcQueryParams,
   );
 }
 
 export async function listDispenses(opts: { patientDid?: string; pharmacyDid?: string; status?: string; limit?: number } = {}) {
   return xrpcQuery<{ items: DispenseMeta[]; offset: number; limit: number }>(
-    'app.etzhayyim.apps.karute.listDispenses',
+    'com.etzhayyim.apps.karute.listDispenses',
     opts as XrpcQueryParams,
   );
 }
 
 export async function getChartSummary(patientDid: string, limit = 100) {
-  return xrpcQuery<ChartSummary>('app.etzhayyim.apps.karute.getChartSummary', { patientDid, limit });
+  return xrpcQuery<ChartSummary>('com.etzhayyim.apps.karute.getChartSummary', { patientDid, limit });
 }
 
 // ----- Procedures (write through encryption seam) -----
@@ -162,12 +162,12 @@ interface CreatePatientArgs {
 
 export async function createPatient(args: CreatePatientArgs) {
   const enc = await encryptedWrite({
-    innerType: 'app.etzhayyim.karute.patient',
+    innerType: 'com.etzhayyim.karute.patient',
     record: args.record,
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string; patientDid: string }>(
-    'app.etzhayyim.apps.karute.createPatient',
+    'com.etzhayyim.apps.karute.createPatient',
     {
       envelopeUri: enc.uri,
       encryptedCid: enc.cid,
@@ -191,12 +191,12 @@ interface CreateSoapArgs {
 
 export async function createSoapNote(args: CreateSoapArgs) {
   const enc = await encryptedWrite({
-    innerType: 'app.etzhayyim.karute.soapNote',
+    innerType: 'com.etzhayyim.karute.soapNote',
     record: args.record,
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'app.etzhayyim.apps.karute.createSoapNote',
+    'com.etzhayyim.apps.karute.createSoapNote',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -213,12 +213,12 @@ interface CreateObsArgs {
 
 export async function createObservation(args: CreateObsArgs) {
   const enc = await encryptedWrite({
-    innerType: 'app.etzhayyim.karute.observation',
+    innerType: 'com.etzhayyim.karute.observation',
     record: args.record,
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'app.etzhayyim.apps.karute.createObservation',
+    'com.etzhayyim.apps.karute.createObservation',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -237,7 +237,7 @@ interface CreateRxArgs {
 
 export async function createMedicationRequest(args: CreateRxArgs) {
   const enc = await encryptedWrite({
-    innerType: 'app.etzhayyim.karute.medicationRequest',
+    innerType: 'com.etzhayyim.karute.medicationRequest',
     record: args.record,
     recipientDids: args.recipientDids,
   });
@@ -246,7 +246,7 @@ export async function createMedicationRequest(args: CreateRxArgs) {
     encryptedCid: string;
     interactionFlags?: Array<{ severity: Severity; mechanism: string; recommendation: string }>;
     blocked?: boolean;
-  }>('app.etzhayyim.apps.karute.createMedicationRequest', {
+  }>('com.etzhayyim.apps.karute.createMedicationRequest', {
     envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
     skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta,
     overrideInteractionBlock: args.overrideInteractionBlock,
@@ -265,12 +265,12 @@ interface CreateOrderArgs {
 
 export async function createServiceRequest(args: CreateOrderArgs) {
   const enc = await encryptedWrite({
-    innerType: 'app.etzhayyim.karute.serviceRequest',
+    innerType: 'com.etzhayyim.karute.serviceRequest',
     record: args.record,
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'app.etzhayyim.apps.karute.createServiceRequest',
+    'com.etzhayyim.apps.karute.createServiceRequest',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -291,12 +291,12 @@ interface CreateDispenseArgs {
 
 export async function createDispense(args: CreateDispenseArgs) {
   const enc = await encryptedWrite({
-    innerType: 'app.etzhayyim.karute.dispenseRecord',
+    innerType: 'com.etzhayyim.karute.dispenseRecord',
     record: args.record,
     recipientDids: args.recipientDids,
   });
   return xrpcProcedure<{ rkey: string; encryptedCid: string }>(
-    'app.etzhayyim.apps.karute.createDispense',
+    'com.etzhayyim.apps.karute.createDispense',
     { envelopeUri: enc.uri, encryptedCid: enc.cid, keyId: enc.keyId, keyWraps: enc.keyWraps,
       skipped: enc.skipped, recipientDids: args.recipientDids, publicMeta: args.publicMeta },
   );
@@ -313,7 +313,7 @@ interface RequestIryoBillingArgs {
 
 export async function requestIryoBilling(args: RequestIryoBillingArgs) {
   return xrpcProcedure<{ ack: boolean; iryoClaimRef?: string; error?: string }>(
-    'app.etzhayyim.apps.karute.requestIryoBilling',
+    'com.etzhayyim.apps.karute.requestIryoBilling',
     args,
   );
 }
@@ -333,7 +333,7 @@ export async function grantConsent(args: GrantConsentArgs) {
   // procedure wrapper that takes the cleartext params and lets the actor
   // pipeline build + sign the capability via @etzhayyim/sdk on the server.
   return xrpcProcedure<{ capabilityUri: string; capabilityCid: string }>(
-    'app.etzhayyim.apps.karute.grantConsent',
+    'com.etzhayyim.apps.karute.grantConsent',
     args,
   );
 }

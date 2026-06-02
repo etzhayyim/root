@@ -4,7 +4,7 @@
  * for every ghost-hacker character folder under
  *   60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters/
  * and POSTs
- *   POST {POD_BASE}/xrpc/app.etzhayyim.mangaka.composeCharacterVrm
+ *   POST {POD_BASE}/xrpc/com.etzhayyim.mangaka.composeCharacterVrm
  *        { characterRkey }
  * one row at a time. Sequential by design — running in parallel would
  * saturate the VKE render pool (each character is ~3–5 GPU min).
@@ -43,7 +43,7 @@ const DEFAULT_POD_BASE = "https://mangaka.etzhayyim.com";
 const DEFAULT_CHARACTERS_DIR =
   "60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters";
 const DEFAULT_CURSOR = "author-ghosthacker-vrms.cursor.json";
-const NSID = "app.etzhayyim.mangaka.composeCharacterVrm";
+const NSID = "com.etzhayyim.mangaka.composeCharacterVrm";
 
 interface CliArgs {
   podBase: string;

@@ -30,7 +30,7 @@ ModuleAssemblyCell = _mod.ModuleAssemblyCell
 # moduleAttestation lexicon (SSoT for the required-field conformance test).
 _LEXICON_PATH = (
     pathlib.Path(__file__).resolve().parents[4]
-    / "00-contracts/lexicons/app/etzhayyim/himawari/moduleAttestation.json"
+    / "00-contracts/lexicons/com/etzhayyim/himawari/moduleAttestation.json"
 )
 
 _FLASH = {"curve": [[0.0, 9.8], [40.0, 9.6], [44.0, 0.0]], "irradiance": 1000}

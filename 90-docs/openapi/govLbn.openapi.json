@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govLbn.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govLbn.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Lebanon government.",
-        "operationId": "app.etzhayyim.govLbn.followSiteDeps",
+        "operationId": "com.etzhayyim.govLbn.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govLbn.heartbeatTick": {
       "post": {
         "summary": "Run the Lebanon government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govLbn.heartbeatTick",
+        "operationId": "com.etzhayyim.govLbn.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.listOrgs": {
+    "/xrpc/com.etzhayyim.govLbn.listOrgs": {
       "get": {
         "summary": "List Lebanon government organization graph records.",
-        "operationId": "app.etzhayyim.govLbn.listOrgs",
+        "operationId": "com.etzhayyim.govLbn.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.registerDIDs": {
+    "/xrpc/com.etzhayyim.govLbn.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Lebanon government organizations.",
-        "operationId": "app.etzhayyim.govLbn.registerDIDs",
+        "operationId": "com.etzhayyim.govLbn.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govLbn.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Lebanon government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govLbn.resolveOrgPath",
+        "operationId": "com.etzhayyim.govLbn.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.seedOrgs": {
+    "/xrpc/com.etzhayyim.govLbn.seedOrgs": {
       "post": {
         "summary": "Seed initial Lebanon government organization records into the graph.",
-        "operationId": "app.etzhayyim.govLbn.seedOrgs",
+        "operationId": "com.etzhayyim.govLbn.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.shinka": {
+    "/xrpc/com.etzhayyim.govLbn.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Lebanon government organization update.",
-        "operationId": "app.etzhayyim.govLbn.shinka",
+        "operationId": "com.etzhayyim.govLbn.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govLbn.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govLbn.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Lebanon government organization changes to graph.",
-        "operationId": "app.etzhayyim.govLbn.syncWetUpdates",
+        "operationId": "com.etzhayyim.govLbn.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

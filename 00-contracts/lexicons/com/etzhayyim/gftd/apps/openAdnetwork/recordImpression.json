@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openAdnetwork.recordImpression",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Impression イベントを記録する。Starts BPMN process open_adnetwork_record_impression.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["impId", "unitId", "campaignId", "cpmUsd", "tsMsVal"],
+          "properties": {
+            "impId":        { "type": "string", "description": "Impression unique identifier" },
+            "unitId":       { "type": "string", "description": "Ad unit identifier" },
+            "campaignId":   { "type": "string", "description": "Campaign identifier" },
+            "cpmUsd":       { "type": "number", "description": "CPM for this impression in USD" },
+            "viewable":     { "type": "boolean", "description": "Whether the impression was viewable (MRC standard)" },
+            "userCohort":   { "type": "string", "description": "Anonymized user cohort identifier" },
+            "countryIso2":  { "type": "string", "description": "ISO 3166-1 alpha-2 country code" },
+            "tsMsVal":      { "type": "integer", "description": "Impression timestamp in milliseconds since epoch" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status":   { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govVnm.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govVnm.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Vietnam government.",
-        "operationId": "app.etzhayyim.govVnm.followSiteDeps",
+        "operationId": "com.etzhayyim.govVnm.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govVnm.heartbeatTick": {
       "post": {
         "summary": "Run the Vietnam government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govVnm.heartbeatTick",
+        "operationId": "com.etzhayyim.govVnm.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.listOrgs": {
+    "/xrpc/com.etzhayyim.govVnm.listOrgs": {
       "get": {
         "summary": "List Vietnam government organization graph records.",
-        "operationId": "app.etzhayyim.govVnm.listOrgs",
+        "operationId": "com.etzhayyim.govVnm.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.registerDIDs": {
+    "/xrpc/com.etzhayyim.govVnm.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Vietnam government organizations.",
-        "operationId": "app.etzhayyim.govVnm.registerDIDs",
+        "operationId": "com.etzhayyim.govVnm.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govVnm.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Vietnam government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govVnm.resolveOrgPath",
+        "operationId": "com.etzhayyim.govVnm.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.seedOrgs": {
+    "/xrpc/com.etzhayyim.govVnm.seedOrgs": {
       "post": {
         "summary": "Seed initial Vietnam government organization records into the graph.",
-        "operationId": "app.etzhayyim.govVnm.seedOrgs",
+        "operationId": "com.etzhayyim.govVnm.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.shinka": {
+    "/xrpc/com.etzhayyim.govVnm.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Vietnam government organization update.",
-        "operationId": "app.etzhayyim.govVnm.shinka",
+        "operationId": "com.etzhayyim.govVnm.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govVnm.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govVnm.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Vietnam government organization changes to graph.",
-        "operationId": "app.etzhayyim.govVnm.syncWetUpdates",
+        "operationId": "com.etzhayyim.govVnm.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

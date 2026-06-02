@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.taxReceipt",
+  "description": "Multi-jurisdiction donation tax receipt routing record. Documents whether and how a given donor receives jurisdictional tax recognition for a TitheRouter-routed donation. Honest framing: religious-corp is NOT registered under 日本国 宗教法人法 (Preamble §0.4 Lv7+ unanimity lock); JP donors get NO tax deduction. US donors may obtain receipts via 501(c)(3) equivalent-determination opinion letter (external US tax counsel contracted via Public Fund); UK donors via Gift Aid registration; DE donors via Spendenquittung filing; other jurisdictions per fallback ladder.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "donorDid",
+          "donationTitheRouterTxCid",
+          "donationAmountUsdMillicents",
+          "donorJurisdictionIso3",
+          "taxRecognitionStatus",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "donorDid": {
+            "type": "string",
+            "description": "Donor's DID. MAY be a pseudonymous DID; tax-receipt issuance requires the donor to optionally reveal a tax-jurisdiction identity to chigiri (separate from religious-corp identity)."
+          },
+          "donationTitheRouterTxCid": {
+            "type": "string",
+            "description": "TitheRouter on-chain transaction CID (the 10% Tithe auto-split per ADR-2605192130 already executed)."
+          },
+          "donationAmountUsdMillicents": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Donation amount in USD millicents (USD × 100000)."
+          },
+          "donationDateUtc": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC donation timestamp for tax-year attribution."
+          },
+          "donorJurisdictionIso3": {
+            "type": "string",
+            "description": "Donor's tax jurisdiction ISO-3 code (USA / GBR / DEU / FRA / JPN / etc.)."
+          },
+          "taxRecognitionStatus": {
+            "type": "string",
+            "knownValues": [
+              "not-recognized-jp-religious-corp-not-registered",
+              "us-501c3-equivalent-determination-pending",
+              "us-501c3-equivalent-determination-issued",
+              "uk-gift-aid-eligible",
+              "uk-gift-aid-not-registered",
+              "de-spendenquittung-issued",
+              "fr-recu-fiscal-issued",
+              "ca-charity-status-pending",
+              "au-dgr-status-pending",
+              "other-jurisdiction-fallback-no-recognition",
+              "donor-anonymous-no-receipt-issued"
+            ],
+            "description": "Per-jurisdiction tax recognition status. NOT a tax-avoidance scheme designer (N4) — only documents what the jurisdiction recognizes."
+          },
+          "externalTaxCounselContractCid": {
+            "type": "string",
+            "description": "When US 501(c)(3) equivalent-determination opinion is sought, the Public Fund Safe contract CID for the US tax counsel engagement. Estimated cost $5-15k per opinion letter (one-time per Council Lv6+ approval)."
+          },
+          "receiptIssuedTo": {
+            "type": "string",
+            "description": "Recipient identity for the receipt (per-jurisdiction format)."
+          },
+          "receiptDocumentCid": {
+            "type": "string",
+            "description": "Generated receipt document CID (per-jurisdiction template from chigiri's taxReceipt template corpus)."
+          },
+          "consentCapabilityChannelUsed": {
+            "type": "boolean",
+            "description": "If true, donor used the consent-capability bridge (ADR-2605192115 §4) to a parallel 一般社団 receiving vehicle for jurisdictional receipt. The Tithe + Public Fund flow remains in religious-corp; only the receipt-issuance path uses the bridge."
+          },
+          "consentCapabilityVehicleEntityName": {
+            "type": "string",
+            "description": "When consentCapabilityChannelUsed=true, the parallel entity name (e.g., 'etzhayyim-receipts-501c3-llc'). chigiri does NOT operate this entity; chigiri only routes."
+          },
+          "attestingDid": {
+            "type": "string"
+          },
+          "currentStatus": {
+            "type": "string",
+            "knownValues": [
+              "queued",
+              "external-counsel-review",
+              "receipt-issued",
+              "receipt-delivered-to-donor",
+              "donor-declined-receipt",
+              "withdrawn"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

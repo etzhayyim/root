@@ -144,7 +144,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       convo_id,
       COUNT(*)::bigint AS cnt
     FROM vertex_convo
-    WHERE kind = 'app.etzhayyim.projector.reflection'
+    WHERE kind = 'com.etzhayyim.projector.reflection'
       AND convo_id IS NOT NULL
     GROUP BY convo_id
   `.execute(db);

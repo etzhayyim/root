@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.frugalFourCoalition.flagSwingShift",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Coalition swing / member defection / external pressure (bridges eurogroupDecision.flagPoliticalRift + euSummitConclusion + euTrilogue)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "positionVid",
+            "shiftKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "positionVid": {
+              "type": "string",
+              "description": "bridges recordPosition"
+            },
+            "shiftKind": {
+              "type": "string",
+              "enum": [
+                "member_defection",
+                "leadership_change",
+                "external_shock",
+                "commission_compromise",
+                "ep_majority_pressure",
+                "domestic_pressure",
+                "financial_stability_argument",
+                "accession_pressure",
+                "russia_threat",
+                "china_pressure",
+                "new_member_dilute"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

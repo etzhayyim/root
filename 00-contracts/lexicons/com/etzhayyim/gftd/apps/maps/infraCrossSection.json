@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.infraCrossSection",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lng": {
+              "type": "number"
+            },
+            "radiusM": {
+              "type": "number"
+            }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "sewage": {
+              "type": "integer"
+            },
+            "gas": {
+              "type": "string"
+            },
+            "electric": {
+              "type": "string"
+            },
+            "telecom": {
+              "type": "string"
+            },
+            "subway": {
+              "type": "string"
+            },
+            "districtHeating": {
+              "type": "string"
+            },
+            "lng": {
+              "type": "number"
+            },
+            "radiusM": {
+              "type": "string"
+            },
+            "layers": {
+              "type": "boolean"
+            },
+            "totalSegments": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

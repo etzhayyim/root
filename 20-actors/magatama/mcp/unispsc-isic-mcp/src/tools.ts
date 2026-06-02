@@ -1,7 +1,7 @@
 // tools.ts — MCP tool definitions for the UNSPSC + ISIC langservers.
 //
 // Each tool corresponds 1:1 to a lexicon under
-// `00-contracts/lexicons/ai/gftd/apps/{unispsc,isic}/`, so MCP / XRPC /
+// `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/`, so MCP / XRPC /
 // in-process actor callers share identical input/output schemas.
 //
 // The handler body delegates to the per-taxonomy actor wrapper authored in

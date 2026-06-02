@@ -10,7 +10,7 @@ interface Env {
 }
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
-const NSID_PREFIX = "app.etzhayyim.apps.airSms.";
+const NSID_PREFIX = "com.etzhayyim.apps.airSms.";
 const ACTOR_DID = "did:web:air-sms.etzhayyim.com";
 
 export default {
@@ -22,7 +22,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "a1rsms01",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/air-sms",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/air-sms",
         methods: ["submitSafetyReport", "assessRisk", "recordIosaFinding", "fileRegulatoryReport", "reportOccurrence", "distributeSafetyBulletin", "screenDangerousGoods", "handleSecurityAlert"],
       });
     }

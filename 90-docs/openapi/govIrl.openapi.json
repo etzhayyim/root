@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govIrl.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govIrl.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Ireland government.",
-        "operationId": "app.etzhayyim.govIrl.followSiteDeps",
+        "operationId": "com.etzhayyim.govIrl.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govIrl.heartbeatTick": {
       "post": {
         "summary": "Run the Ireland government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govIrl.heartbeatTick",
+        "operationId": "com.etzhayyim.govIrl.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.listOrgs": {
+    "/xrpc/com.etzhayyim.govIrl.listOrgs": {
       "get": {
         "summary": "List Ireland government organization graph records.",
-        "operationId": "app.etzhayyim.govIrl.listOrgs",
+        "operationId": "com.etzhayyim.govIrl.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.registerDIDs": {
+    "/xrpc/com.etzhayyim.govIrl.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Ireland government organizations.",
-        "operationId": "app.etzhayyim.govIrl.registerDIDs",
+        "operationId": "com.etzhayyim.govIrl.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govIrl.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Ireland government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govIrl.resolveOrgPath",
+        "operationId": "com.etzhayyim.govIrl.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.seedOrgs": {
+    "/xrpc/com.etzhayyim.govIrl.seedOrgs": {
       "post": {
         "summary": "Seed initial Ireland government organization records into the graph.",
-        "operationId": "app.etzhayyim.govIrl.seedOrgs",
+        "operationId": "com.etzhayyim.govIrl.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.shinka": {
+    "/xrpc/com.etzhayyim.govIrl.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Ireland government organization update.",
-        "operationId": "app.etzhayyim.govIrl.shinka",
+        "operationId": "com.etzhayyim.govIrl.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govIrl.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govIrl.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Ireland government organization changes to graph.",
-        "operationId": "app.etzhayyim.govIrl.syncWetUpdates",
+        "operationId": "com.etzhayyim.govIrl.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

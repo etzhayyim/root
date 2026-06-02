@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.recap.download",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Download video/audio from a supported platform (YouTube, TikTok, Instagram, X, NicoNico, Bilibili, Vimeo, Twitch, Facebook, Reddit) via yt-dlp. Fair-use policy: research or authorized scope only.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["url"],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Source video URL"
+            },
+            "scope": {
+              "type": "string",
+              "description": "Fair-use scope: research | authorized",
+              "enum": ["research", "authorized"],
+              "default": "research"
+            },
+            "formatId": {
+              "type": "string",
+              "description": "yt-dlp format selector (default: best)"
+            },
+            "audioOnly": {
+              "type": "boolean",
+              "description": "Extract audio only (bestaudio)"
+            },
+            "actorDid": {
+              "type": "string",
+              "description": "Requesting actor DID (ADR-0095 actor_did)"
+            },
+            "orgDid": {
+              "type": "string",
+              "description": "Organization DID (ADR-0095 org_did)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "resultUri": { "type": "string" },
+            "resultCid": { "type": "string" },
+            "blobKey": { "type": "string" },
+            "blobSizeBytes": { "type": "integer" },
+            "platform": { "type": "string" },
+            "title": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

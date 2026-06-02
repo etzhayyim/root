@@ -38,7 +38,7 @@ Pregel graph (5 nodes):
                                         field test; **SAE Level 5 NEVER per N6**
         |
         v
-    emit_field_test_record         ->  MST PUT app.etzhayyim.suki.fieldTestRecord
+    emit_field_test_record         ->  MST PUT com.etzhayyim.suki.fieldTestRecord
                                         (test ID, drawbar power kW, PTO power
                                         kW @ 540 + 1000 RPM, lift capacity kg
                                         @ standard distance, fuel efficiency

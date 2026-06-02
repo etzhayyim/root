@@ -15,19 +15,19 @@ const actorTag = "sys.bpmn.seed.resource-flow-query";
 const project = "resource-flow";
 
 const seeds: Seed[] = [
-  { proc: "getSankey", bpmnProcessId: "resource_flow_get_sankey", nsid: "app.etzhayyim.apps.resourceFlow.getSankey", resultTimeoutMs: 30000 },
-  { proc: "getActorLabels", bpmnProcessId: "resource_flow_get_actor_labels", nsid: "app.etzhayyim.apps.resourceFlow.getActorLabels", resultTimeoutMs: 30000 },
-  { proc: "listFlows", bpmnProcessId: "resource_flow_list_flows", nsid: "app.etzhayyim.apps.resourceFlow.listFlows", resultTimeoutMs: 30000 },
-  { proc: "listAnomalies", bpmnProcessId: "resource_flow_list_anomalies", nsid: "app.etzhayyim.apps.resourceFlow.listAnomalies", resultTimeoutMs: 30000 },
+  { proc: "getSankey", bpmnProcessId: "resource_flow_get_sankey", nsid: "com.etzhayyim.apps.resourceFlow.getSankey", resultTimeoutMs: 30000 },
+  { proc: "getActorLabels", bpmnProcessId: "resource_flow_get_actor_labels", nsid: "com.etzhayyim.apps.resourceFlow.getActorLabels", resultTimeoutMs: 30000 },
+  { proc: "listFlows", bpmnProcessId: "resource_flow_list_flows", nsid: "com.etzhayyim.apps.resourceFlow.listFlows", resultTimeoutMs: 30000 },
+  { proc: "listAnomalies", bpmnProcessId: "resource_flow_list_anomalies", nsid: "com.etzhayyim.apps.resourceFlow.listAnomalies", resultTimeoutMs: 30000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

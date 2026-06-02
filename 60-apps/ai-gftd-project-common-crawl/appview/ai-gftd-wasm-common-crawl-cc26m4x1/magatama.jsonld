@@ -33,11 +33,11 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.commonCrawler.downloadJob",
-        "ai.gftd.apps.commonCrawler.graphJob",
-        "ai.gftd.apps.commonCrawler.intelJob",
-        "ai.gftd.apps.commonCrawler.injectJob",
-        "ai.gftd.apps.commonCrawler.domainIntel"
+        "com.etzhayyim.apps.commonCrawler.downloadJob",
+        "com.etzhayyim.apps.commonCrawler.graphJob",
+        "com.etzhayyim.apps.commonCrawler.intelJob",
+        "com.etzhayyim.apps.commonCrawler.injectJob",
+        "com.etzhayyim.apps.commonCrawler.domainIntel"
       ]
     }
   },

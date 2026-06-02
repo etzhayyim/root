@@ -22,7 +22,7 @@
   {:gate/id "G6"  :gate/name "kotoba-eavt-native"        :gate/rule "catalog/need/basket/provision are kotoba Datoms; no RisingWave/SQL/Lance as canonical"}
   {:gate/id "G7"  :gate/name "tithe-non-fiat"            :gate/rule "internal settlement USDC Base L2 + ERC-4337 + warifu only; TitheRouter 10% auto-split per transaction; no Stripe/fiat"}
   {:gate/id "G8"  :gate/name "labor-dignity-provenance"  :gate/rule "fulfillment via etzhayyim logistics actors, no gig exploitation; labor-provenance disclosed on external products"}
-  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"    :gate/rule "need + provisioning history → app.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
+  {:gate/id "G9"  :gate/name "pii-encrypted-envelope"    :gate/rule "need + provisioning history → com.etzhayyim.encrypted.*, DID-bound (ADR-2605181100)"}
   {:gate/id "G10" :gate/name "catalog-sourcing-legality" :gate/rule "scraping respects robots.txt+ToS+rate-limit+public-only; API ToS honored; :representative honesty; no fabricated price/availability"}
   {:gate/id "G11" :gate/name "outward-gated"             :gate/rule "live scraping ingest + real external 代理-purchase = Council Lv7+ + operator"}
   {:gate/id "G12" :gate/name "anti-individualism"        :gate/rule "household/multi-generational baskets + commons-share first; not individual-consumption-maximizing"}
@@ -39,13 +39,13 @@
   {:cell/id "lifecycle" :cell/kind :datalog   :cell/runtime :kotoba}]
 
  :actor/lexicons
- ["app.etzhayyim.okaimono.product"
-  "app.etzhayyim.okaimono.need"
-  "app.etzhayyim.okaimono.basket"
-  "app.etzhayyim.okaimono.provision"
-  "app.etzhayyim.okaimono.order"        ;; R1
-  "app.etzhayyim.okaimono.settlement"   ;; R1
-  "app.etzhayyim.okaimono.assist"]      ;; R3 — assisted secure checkout (member-principal)
+ ["com.etzhayyim.okaimono.product"
+  "com.etzhayyim.okaimono.need"
+  "com.etzhayyim.okaimono.basket"
+  "com.etzhayyim.okaimono.provision"
+  "com.etzhayyim.okaimono.order"        ;; R1
+  "com.etzhayyim.okaimono.settlement"   ;; R1
+  "com.etzhayyim.okaimono.assist"]      ;; R3 — assisted secure checkout (member-principal)
 
  ;; Ring 1 producing actors (catalog source) + logistics (fulfillment, G8) + settlement/lifecycle peers
  :actor/integrates

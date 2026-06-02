@@ -42,7 +42,7 @@ def _minimal_cfg() -> dict:
             "handle": "myapp",
         },
         "triggers": {
-            "subscribeRepos": {"collections": ["app.etzhayyim.apps.myapp.item"]}
+            "subscribeRepos": {"collections": ["com.etzhayyim.apps.myapp.item"]}
         },
     }
 
@@ -239,11 +239,11 @@ def test_generate_wrangler_jsonc_no_browser_by_default(tmp_path):
 
 
 def test_generate_wrangler_jsonc_custom_route(tmp_path):
-    cfg = {**_minimal_cfg(), "routes": [{"host": "myapp.etzhayyim.com"}]}
+    cfg = {**_minimal_cfg(), "routes": [{"host": "mycom.etzhayyim.com"}]}
     output = generate_wrangler_jsonc(cfg, tmp_path, git_root=None)
     data = json.loads(output)
     patterns = [r["pattern"] for r in data["routes"]]
-    assert "myapp.etzhayyim.com/*" in patterns
+    assert "mycom.etzhayyim.com/*" in patterns
 
 
 def test_generate_wrangler_jsonc_dedup_routes(tmp_path):

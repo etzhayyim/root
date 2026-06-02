@@ -12,7 +12,7 @@
 set -euo pipefail
 
 KOTOBA_URL="${KOTOBA_URL:-http://127.0.0.1:8077}"
-GRAPH="${OKAIMONO_GRAPH:-app.etzhayyim.okaimono}"
+GRAPH="${OKAIMONO_GRAPH:-com.etzhayyim.okaimono}"
 ACTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> okaimono kotoba deploy → ${KOTOBA_URL} (graph ${GRAPH})"

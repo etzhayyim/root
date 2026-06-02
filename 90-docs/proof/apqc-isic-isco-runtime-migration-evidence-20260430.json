@@ -28,13 +28,13 @@
         "apqc.coverageSnapshot"
       ],
       "udfHelpers": [
-        "app.etzhayyim.apqc.materializeSubprocessDid",
-        "app.etzhayyim.apqc.coverageSnapshot"
+        "com.etzhayyim.apqc.materializeSubprocessDid",
+        "com.etzhayyim.apqc.coverageSnapshot"
       ],
       "bpmnProcesses": [
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/apqc/materializeSubprocesses.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/apqc/emitEvent.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/apqc/coverageSnapshot.bpmn"
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/materializeSubprocesses.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/emitEvent.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/apqc/coverageSnapshot.bpmn"
       ],
       "seedMigration": "30-graph/graph-schema/migrations/20260430224000_seed_apqc_bpmn_actors.ts",
       "deploymentEvidence": {
@@ -113,14 +113,14 @@
         "openIsic.classifyArmsManufacturing"
       ],
       "udfHelpers": [
-        "app.etzhayyim.openIsic.verificationForConfidence",
-        "app.etzhayyim.openIsic.classificationVertexId"
+        "com.etzhayyim.openIsic.verificationForConfidence",
+        "com.etzhayyim.openIsic.classificationVertexId"
       ],
       "bpmnProcesses": [
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/classifyEntity.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/recordConcordance.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/flagDualUseIndustry.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isic/classifyArmsManufacturing.bpmn"
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/classifyEntity.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/recordConcordance.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/flagDualUseIndustry.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isic/classifyArmsManufacturing.bpmn"
       ],
       "runtimeEvidence": {
         "checkedAt": "2026-04-30T05:18:18Z",
@@ -131,8 +131,8 @@
           "task": "openIsic.classifyEntity",
           "entityDid": "did:web:example.com:entity:codex-isic-1777526214676",
           "isicClassCode": "2520",
-          "vertexId": "at://did:web:open-isic.etzhayyim.com/app.etzhayyim.openIsic.classification/f63e0e0a1ed6fcc5c80226b6",
-          "edgeId": "at://did:web:open-isic.etzhayyim.com/app.etzhayyim.openIsic.classificationClass/ef2af0c0aba1d86d141c3506",
+          "vertexId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.openIsic.classification/f63e0e0a1ed6fcc5c80226b6",
+          "edgeId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.openIsic.classificationClass/ef2af0c0aba1d86d141c3506",
           "verification": "authoritative",
           "status": "confirmed",
           "rwReadbackRows": {
@@ -147,7 +147,7 @@
           "otherTaxonomy": "NAICS",
           "otherCode": "332992",
           "relation": "exactMatch",
-          "vertexId": "at://did:web:open-isic.etzhayyim.com/app.etzhayyim.openIsic.concordance/a4e11e67086b2714a56b06cd",
+          "vertexId": "at://did:web:open-isic.etzhayyim.com/com.etzhayyim.openIsic.concordance/a4e11e67086b2714a56b06cd",
           "rwReadbackRows": {
             "vertex_open_isic_concordance": 1
           }
@@ -173,13 +173,13 @@
         "openIsco.recordConcordance"
       ],
       "udfHelpers": [
-        "app.etzhayyim.apps.openIsco.codeLevel",
-        "app.etzhayyim.apps.openIsco.verificationForConfidence",
-        "app.etzhayyim.apps.openIsco.classificationVertexId"
+        "com.etzhayyim.apps.openIsco.codeLevel",
+        "com.etzhayyim.apps.openIsco.verificationForConfidence",
+        "com.etzhayyim.apps.openIsco.classificationVertexId"
       ],
       "bpmnProcesses": [
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isco/classifyWorker.bpmn",
-        "etzhayyim-root/00-contracts/bpmn/ai/gftd/open-isco/recordConcordance.bpmn"
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isco/classifyWorker.bpmn",
+        "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/open-isco/recordConcordance.bpmn"
       ],
       "runtimeEvidence": {
         "checkedAt": "2026-04-30T05:18:18Z",
@@ -190,8 +190,8 @@
           "task": "openIsco.classifyWorker",
           "workerDid": "did:web:example.com:worker:codex-isco-1777526214676",
           "iscoCode": "2512",
-          "vertexId": "at://did:web:open-isco.etzhayyim.com/app.etzhayyim.apps.openIsco.classification/d83d798409d6171438dfce53",
-          "edgeId": "at://did:web:open-isco.etzhayyim.com/app.etzhayyim.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
+          "vertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classification/d83d798409d6171438dfce53",
+          "edgeId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.classificationOccupation/7c55eeb29a235080f9319c43",
           "codeLevel": "unit",
           "verification": "authoritative",
           "status": "confirmed",
@@ -207,7 +207,7 @@
           "otherTaxonomy": "SOC",
           "otherCode": "15-1252",
           "relation": "exactMatch",
-          "vertexId": "at://did:web:open-isco.etzhayyim.com/app.etzhayyim.apps.openIsco.concordance/90b26f9aa9afd55678fbd02d",
+          "vertexId": "at://did:web:open-isco.etzhayyim.com/com.etzhayyim.apps.openIsco.concordance/90b26f9aa9afd55678fbd02d",
           "rwReadbackRows": {
             "vertex_open_isco_concordance": 1
           }

@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.states.govSource",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Government data source reference (RSS / API / page / PDF). Coverage source catalog.",
+      "x-bootstrap": true,
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": [],
+        "properties": {
+          "actorDid": { "type": "string" },
+          "actorPath": { "type": "string" },
+          "actorName": { "type": "string" },
+          "sourceType": { "type": "string", "description": "rss / api / page / pdf / dataset / directory" },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "format": { "type": "string" },
+          "discoveryMethod": { "type": "string" },
+          "coverageStage": { "type": "string" },
+          "lastSeenAt": { "type": "string", "format": "datetime" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

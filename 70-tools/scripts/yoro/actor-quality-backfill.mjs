@@ -3,7 +3,7 @@
  * YORO actor quality backfill driver.
  *
  * Finds low-quality YORO actor profiles and starts
- * app.etzhayyim.apps.yoro.actorQualityEnrich through the public PDS XRPC route.
+ * com.etzhayyim.apps.yoro.actorQualityEnrich through the public PDS XRPC route.
  *
  * Defaults are intentionally conservative:
  *   node 70-tools/scripts/yoro/actor-quality-backfill.mjs
@@ -13,7 +13,7 @@
  *     node 70-tools/scripts/yoro/actor-quality-backfill.mjs --live --limit=10 --sleep-ms=1000
  */
 
-const NSID = "app.etzhayyim.apps.yoro.actorQualityEnrich";
+const NSID = "com.etzhayyim.apps.yoro.actorQualityEnrich";
 const DEFAULT_PDS_URL = "https://atproto.etzhayyim.com";
 const DEFAULT_SOURCE_HINT = `yoro actor quality backfill ${new Date().toISOString().slice(0, 10)}`;
 

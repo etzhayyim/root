@@ -1,5 +1,5 @@
 /**
- * list-actor-adapters.ts — client helper for app.etzhayyim.apps.ameno.listActorAdapters.
+ * list-actor-adapters.ts — client helper for com.etzhayyim.apps.ameno.listActorAdapters.
  *
  * Same-origin GET to the ameno worker, which forwards via sdk.pds.xrpc()
  * → atproto.etzhayyim.com → bpmn-dispatcher → ameno-langserver SELECT
@@ -46,7 +46,7 @@ export async function listActorAdapters(
   if (params.domain) qs.set("domain", params.domain);
   if (params.limit != null) qs.set("limit", String(params.limit));
 
-  const res = await fetch(`/xrpc/app.etzhayyim.apps.ameno.listActorAdapters?${qs.toString()}`, {
+  const res = await fetch(`/xrpc/com.etzhayyim.apps.ameno.listActorAdapters?${qs.toString()}`, {
     method: "GET",
     headers: { accept: "application/json" },
   });

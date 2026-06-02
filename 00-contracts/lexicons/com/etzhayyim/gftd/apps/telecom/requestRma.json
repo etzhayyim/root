@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.requestRma",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Open a vendor RMA case for a faulty network asset.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["assetId", "vendorOrgId", "faultCategory", "openedAt"],
+          "properties": {
+            "rmaId": { "type": "string" },
+            "assetId": { "type": "string" },
+            "vendorOrgId": { "type": "string" },
+            "faultCategory": { "type": "string", "enum": ["hardware", "firmware", "config", "transport", "power", "other"] },
+            "faultDescription": { "type": "string" },
+            "openedAt": { "type": "string", "format": "datetime" },
+            "expectedReturnAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "rmaId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

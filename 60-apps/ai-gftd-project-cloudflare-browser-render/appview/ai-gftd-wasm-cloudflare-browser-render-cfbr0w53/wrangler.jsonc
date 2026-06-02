@@ -16,7 +16,7 @@
     "APP_CAPABILITIES": "[\"cf-browser-render\",\"render-html\",\"render-png\",\"render-pdf\",\"session-do\"]",
     "APP_DEPLOY_AT": "2026-04-20T09:11:09Z",
     "APP_DEPLOY_SHA": "b1d34be9146",
-    "APP_DESCRIPTION": "Serverless Playwright backend using CF Workers 'browser' binding + @cloudflare/playwright. Session affinity via Durable Object. Invoked by app.etzhayyim.apps.playwright as target=cf-browser substrate.",
+    "APP_DESCRIPTION": "Serverless Playwright backend using CF Workers 'browser' binding + @cloudflare/playwright. Session affinity via Durable Object. Invoked by com.etzhayyim.apps.playwright as target=cf-browser substrate.",
     "APP_DISPLAY_NAME": "Cloudflare Browser Render",
     "APP_EMBED_URL": "https://cfbr0w53.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "sveltekit-edge-bff",
@@ -27,7 +27,7 @@
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "0.1.0",
     "INTERFACES_REQUIRES": "[\"gftd:collection/collection@1.0.0\",\"magatama:browser/automation@1.0.0\"]",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

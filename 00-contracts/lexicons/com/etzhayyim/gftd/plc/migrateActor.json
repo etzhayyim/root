@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.plc.migrateActor",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.etzhayyim.com. Client never touches key material.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["actor", "handle"],
+          "properties": {
+            "actor": {
+              "type": "string",
+              "description": "actor name from deps.toml [[mitama_actors]] (e.g. adr, legal-aid)"
+            },
+            "handle": {
+              "type": "string",
+              "format": "handle",
+              "description": "atproto handle to embed in DID document alsoKnownAs (e.g. adr.etzhayyim.com)"
+            },
+            "dryRun": {
+              "type": "boolean",
+              "default": false,
+              "description": "if true: build + sign genesis op, compute DID, but do NOT register with plc.etzhayyim.com and do NOT persist rotation mapping"
+            },
+            "existingRotationKeys": {
+              "type": "array",
+              "items": { "type": "string", "format": "did" },
+              "description": "optional: pre-existing did:key rotation keys (default: load from D1 signing_keys by actor name)"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["did", "handle", "legacyDid"],
+          "properties": {
+            "did": {
+              "type": "string",
+              "format": "did",
+              "description": "new did:plc identifier (did:plc:{24-char base32})"
+            },
+            "genesisCid": {
+              "type": "string",
+              "format": "cid",
+              "description": "dag-cbor CID of the genesis operation"
+            },
+            "plcUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "plc.etzhayyim.com resolve URL for the new DID"
+            },
+            "handle": {
+              "type": "string",
+              "format": "handle"
+            },
+            "legacyDid": {
+              "type": "string",
+              "format": "did",
+              "description": "previous did:web that the actor used (grandfathered 6 months)"
+            },
+            "registered": {
+              "type": "boolean",
+              "description": "true if DID was successfully POSTed to plc.etzhayyim.com (false in dryRun or if already exists)"
+            }
+          }
+        }
+      },
+      "errors": [
+        {
+          "name": "ActorNotFound",
+          "description": "actor name not found in deps.toml [[mitama_actors]]"
+        },
+        {
+          "name": "AlreadyMigrated",
+          "description": "actor already has did:plc identity"
+        },
+        {
+          "name": "RotationKeyUnavailable",
+          "description": "D1 signing_keys has no rotation key for this actor, or key grace window not satisfied"
+        },
+        {
+          "name": "PlcDirectoryUnreachable",
+          "description": "plc.etzhayyim.com POST failed (network / auth / rate limit)"
+        },
+        {
+          "name": "DidCollision",
+          "description": "computed did:plc hash collides with existing DID (extremely rare; retry with new rotation key)"
+        }
+      ]
+    }
+  }
+}

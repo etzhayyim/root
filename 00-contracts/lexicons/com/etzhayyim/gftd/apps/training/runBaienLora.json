@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.training.runBaienLora",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Start a Baien (BitNet b1.58) LoRA-on-bf16-master fine-tune (ADR 2605092350). Trains an adapter on the bf16 master checkpoint of the BitNet trunk; the post-train re-quantization to i2_s ternary is handled inside the runner. Same H100 NVL training pod as Oka — kind='baien-lora' is the only handler-side dispatch difference. baseModel defaults to microsoft/bitnet-b1.58-2B-4T-bf16 when omitted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["datasetName"],
+          "properties": {
+            "runId": {"type": "string"},
+            "baseModel": {"type": "string", "description": "HF model id; defaults to microsoft/bitnet-b1.58-2B-4T-bf16 (BAIEN_DEFAULT_TRUNK_MODEL)."},
+            "baseModelRevision": {"type": "string"},
+            "datasetName": {"type": "string"},
+            "datasetLabel": {"type": "string"},
+            "datasetRevision": {"type": "string"},
+            "hyperparams": {
+              "type": "object",
+              "properties": {
+                "epochs": {"type": "number"},
+                "learningRate": {"type": "number"},
+                "batchSize": {"type": "integer"},
+                "loraRank": {"type": "integer"},
+                "loraAlpha": {"type": "integer"},
+                "loraDropout": {"type": "number"},
+                "targetModules": {"type": "array", "items": {"type": "string"}},
+                "maxSeqLen": {"type": "integer"},
+                "saveStepInterval": {"type": "integer"},
+                "requantizeAfterTrain": {"type": "boolean", "description": "If true, re-quantize merged adapter+master to i2_s and record the ternary blob alongside the bf16 checkpoint."},
+                "perplexityDriftCeiling": {"type": "number", "description": "Max allowed perplexity drift vs unquantized master on a held-out set (default 0.05 = 5%)."}
+              }
+            },
+            "evalBenches": {"type": "array", "items": {"type": "string"}},
+            "gpuTarget": {"type": "string"},
+            "seed": {"type": "integer"},
+            "rationale": {"type": "string", "maxLength": 2000}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "runId"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "runId": {"type": "string"},
+            "runVertexId": {"type": "string"},
+            "datasetSnapshotId": {"type": "string"},
+            "finalCheckpointId": {"type": "string"},
+            "finalCheckpointVertexId": {"type": "string"},
+            "adapterRank": {"type": "integer"},
+            "i2sBlobUri": {"type": "string", "description": "B2 URI of the i2_s ternary-packed blob produced by re-quantization, if requantizeAfterTrain was true."},
+            "perplexityDrift": {"type": "number", "description": "Measured perplexity drift vs unquantized master on the held-out set."},
+            "evalSummary": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

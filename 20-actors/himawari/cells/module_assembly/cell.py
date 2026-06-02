@@ -8,7 +8,7 @@ Pipeline (Otete precision arm + Mimi metrology, both inherited from kuni-umi):
 
     stringing -> lamination -> framing -> J-box -> flash IV + EL imaging
 
-Each finished module yields one `app.etzhayyim.himawari.moduleAttestation`
+Each finished module yields one `com.etzhayyim.himawari.moduleAttestation`
 record written to the kotoba Datom log (canonical EAVT state — G6/G8). G11 binds
 every module serial to its upstream feedstock lot and signs the flash-IV +
 EL-image content digests, so a module is never attestable without a complete,
@@ -69,7 +69,7 @@ class ModuleAssemblyCell:
         # Deterministic binding domain for the per-module signature. This is a
         # public domain-separation tag, NOT a secret; it makes the HMAC binding
         # reproducible and collision-separated from other himawari signatures.
-        self._sign_domain = b"app.etzhayyim.himawari.moduleAttestation/v1"
+        self._sign_domain = b"com.etzhayyim.himawari.moduleAttestation/v1"
 
     # ------------------------------------------------------------------ #
     # Pregel entrypoint

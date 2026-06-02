@@ -35,7 +35,7 @@ const sources = [
 ];
 
 function vertexId(rkey: string): string {
-  return `at://${ownerDid}/app.etzhayyim.gov.source/${rkey}`;
+  return `at://${ownerDid}/com.etzhayyim.gov.source/${rkey}`;
 }
 
 function props(source: (typeof sources)[number]): string {
@@ -45,20 +45,20 @@ function props(source: (typeof sources)[number]): string {
     evidence: {
       page: {
         rkey: source.rkey,
-        vertexId: `at://${ownerDid}/app.etzhayyim.apps.site.page/${source.rkey}`,
+        vertexId: `at://${ownerDid}/com.etzhayyim.apps.site.page/${source.rkey}`,
         b2Blob: source.pageBlob,
       },
       wet: {
         pageRkey: source.rkey,
-        vertexId: `at://${ownerDid}/app.etzhayyim.apps.site.wetChunk/${source.rkey}`,
+        vertexId: `at://${ownerDid}/com.etzhayyim.apps.site.wetChunk/${source.rkey}`,
       },
       wat: {
         rkey: source.rkey,
-        vertexId: `at://${ownerDid}/app.etzhayyim.apps.site.wat/${source.rkey}`,
+        vertexId: `at://${ownerDid}/com.etzhayyim.apps.site.wat/${source.rkey}`,
       },
       screenshot: {
         rkey: source.rkey,
-        vertexId: `at://${ownerDid}/app.etzhayyim.apps.site.screenshot/${source.rkey}`,
+        vertexId: `at://${ownerDid}/com.etzhayyim.apps.site.screenshot/${source.rkey}`,
         b2Blob: source.screenshotBlob,
         format: "png",
         fileSize: source.screenshotSize,
@@ -77,7 +77,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       )
       SELECT
         ${vertexId(source.rkey)}, ${ownerDid}, ${source.rkey}, ${ownerDid},
-        ${actorDid}, 'app.etzhayyim.gov.source', 'active', ${actorDid}, ${actorPath},
+        ${actorDid}, 'com.etzhayyim.gov.source', 'active', ${actorDid}, ${actorPath},
         ${actorName}, 'official-government-page', ${source.url}, 'html',
         'gov-za-official-seed', 'page-wet-wat-gyotaku-ingested',
         ${createdAt}, ${props(source)}

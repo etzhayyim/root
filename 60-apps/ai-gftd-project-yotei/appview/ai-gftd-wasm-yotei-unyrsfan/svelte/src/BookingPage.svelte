@@ -21,7 +21,7 @@
     if (!calendarId || !requesterDid) return;
     submitting = true;
     result = '';
-    const res = await xrpc<{ id: string; status: string }>('app.etzhayyim.apps.yotei.proposeBooking', {
+    const res = await xrpc<{ id: string; status: string }>('com.etzhayyim.apps.yotei.proposeBooking', {
       calendarId,
       requesterDid,
       durationMin,
@@ -35,7 +35,7 @@
   /** Load existing bookings. */
   async function loadBookings(): Promise<void> {
     if (!calendarId) return;
-    const res = await xrpc<{ bookings: BookingItem[] }>('app.etzhayyim.apps.yotei.listBookings', { calendarId });
+    const res = await xrpc<{ bookings: BookingItem[] }>('com.etzhayyim.apps.yotei.listBookings', { calendarId });
     bookings = res.bookings ?? [];
   }
 

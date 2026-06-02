@@ -24,7 +24,7 @@ import {
 
 const getDb = () => createKyselyDb();
 
-const NS = "app.etzhayyim.apps.watashi";
+const NS = "com.etzhayyim.apps.watashi";
 
 const cadenceState = createCadenceState();
 const inbox = createInboxBuffer();
@@ -272,7 +272,7 @@ async function cmdRegisterPeer(
 
   const rkey = genID("peer");
   await getDb().insertInto("vertex_watashi_peer" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.peer/${rkey}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.peer/${rkey}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -309,7 +309,7 @@ async function cmdSaveLayout(
   };
 
   await getDb().insertInto("vertex_watashi_layout" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.layout/${localPeerId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.layout/${localPeerId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -395,7 +395,7 @@ async function cmdCreateSession(
 
   const sessionId = genID("ses");
   await getDb().insertInto("vertex_watashi_session" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.session/${sessionId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.session/${sessionId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -449,7 +449,7 @@ async function cmdSyncClipboard(
 
   const syncId = genID("clip");
   await getDb().insertInto("vertex_watashi_clipboard_sync" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.clipboardSync/${syncId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.clipboardSync/${syncId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -509,7 +509,7 @@ async function cmdInitiateTransfer(
 
   const transferId = genID("xfr");
   await getDb().insertInto("vertex_watashi_file_transfer" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.fileTransfer/${transferId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.fileTransfer/${transferId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -585,7 +585,7 @@ async function cmdRecordAudit(
 
   const auditId = genID("aud");
   await getDb().insertInto("vertex_watashi_audit_log" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.auditLog/${auditId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.auditLog/${auditId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -642,7 +642,7 @@ async function cmdPublishRelease(
   const meta = RELEASE_PLATFORMS[platform];
 
   await getDb().insertInto("vertex_watashi_release" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.release/${releaseId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.release/${releaseId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -756,7 +756,7 @@ async function cmdInitiatePairing(
     : undefined;
 
   await getDb().insertInto("vertex_watashi_pairing" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.pairing/${pairingId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.pairing/${pairingId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",
@@ -924,7 +924,7 @@ async function cmdIssueRelaySession(
   });
 
   await getDb().insertInto("vertex_watashi_session" as any).values({
-    vertex_id: `at://${actorDID}/app.etzhayyim.apps.watashi.session/${relaySessionId}`,
+    vertex_id: `at://${actorDID}/com.etzhayyim.apps.watashi.session/${relaySessionId}`,
     sensitivity_ord: 2,
     owner_did: actorDID,
     org_id: "anon",

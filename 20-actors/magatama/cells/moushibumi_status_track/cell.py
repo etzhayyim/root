@@ -7,10 +7,10 @@ or an agency's 公示 of 提出意見を考慮した結果及びその理由 (�
 Emits `statusTrack`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G6 any member-identifying outcome
-detail lands ONLY in an app.etzhayyim.encrypted.* DID-bound envelope (never
+detail lands ONLY in an com.etzhayyim.encrypted.* DID-bound envelope (never
 inline); G11 Transparent Religious Force — track only, no coercion; aggregate-
 first + 1 SBT = 1 vote for named-matter publication; Murakumo-only inference
-(ADR-2605215000). Output Lexicon(s): app.etzhayyim.moushibumi.statusTrack.
+(ADR-2605215000). Output Lexicon(s): com.etzhayyim.moushibumi.statusTrack.
 
 R0 scaffold — import-time RuntimeError until R2. The PURE, tested computation
 core (participation-window status) already lands in the sibling module

@@ -10,7 +10,7 @@ import didDoc from "../did.json";
  *      auditor target referenced by karute (and other) actor manifests'
  *      `agent.invoke targetDid: did:web:audit.etzhayyim.com` steps.
  *
- *   2) XRPC dispatch — `/xrpc/app.etzhayyim.audit.emitAuditEvent` forwards
+ *   2) XRPC dispatch — `/xrpc/com.etzhayyim.audit.emitAuditEvent` forwards
  *      to the aggregator service (which signs + writes the event record
  *      into the subject's PDS).
  *

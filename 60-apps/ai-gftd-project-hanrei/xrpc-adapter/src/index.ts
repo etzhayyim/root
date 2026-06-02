@@ -3,7 +3,7 @@
  *
  * Wires the rw-free reference impl (31 pure TS functions across 10 tiers)
  * into a deployable CF Worker that exposes each function as an XRPC endpoint
- * at https://hanrei.etzhayyim.com/xrpc/app.etzhayyim.hanrei.<cmd>
+ * at https://hanrei.etzhayyim.com/xrpc/com.etzhayyim.hanrei.<cmd>
  *
  * Per ADR-2605210000 first execution-layer demonstration. Instantiates the
  * Etzhayyim SDK from env bindings (PDS_URL + session), calls the rw-free
@@ -30,7 +30,7 @@ interface Env {
 
 type Handler = (e: Etzhayyim, input: unknown) => Promise<unknown>;
 
-const NSID_BASE = "app.etzhayyim.hanrei";
+const NSID_BASE = "com.etzhayyim.hanrei";
 
 interface RouteConfig {
   method: "POST" | "GET";

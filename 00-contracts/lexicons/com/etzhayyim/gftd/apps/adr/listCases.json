@@ -1,0 +1,49 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.adr.listCases",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List ADR cases with offset/limit pagination, optional filters.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "caseType": { "type": "string" },
+          "jurisdiction": { "type": "string" },
+          "institutionDid": { "type": "string", "format": "did" },
+          "subjectMatter": { "type": "string" },
+          "status": { "type": "string", "enum": ["filed", "constituted", "in-progress", "awarded", "settled", "withdrawn"] },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["cases", "total", "offset", "limit"],
+          "properties": {
+            "cases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "did": { "type": "string", "format": "did" },
+                  "caseType": { "type": "string" },
+                  "jurisdiction": { "type": "string" },
+                  "subjectMatter": { "type": "string" },
+                  "status": { "type": "string" },
+                  "filedAt": { "type": "string", "format": "datetime" }
+                }
+              }
+            },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

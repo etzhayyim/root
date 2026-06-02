@@ -5,7 +5,7 @@ concierge; the service-delivery counterpart to passive danjo, ADR-2605301600,
 and to himotoki, ADR-2605302130).
 
 Purpose: maintain + resolve the coded government/municipal procedure catalog
-(`app.etzhayyim.toritsugi.procedure` — 窓口 / 所管 / オンライン申請URL / 必要書類
+(`com.etzhayyim.toritsugi.procedure` — 窓口 / 所管 / オンライン申請URL / 必要書類
 / 様式 / 手数料 / 法定処理期間 / 根拠法令 / channel) and enforce the
 verification gate (G14) so no downstream cell may submit against an
 `unverified-seed` / stale procedure. Seed: 20-actors/toritsugi/registry/procedures.seed.json.
@@ -14,7 +14,7 @@ Constitutional ceiling (CRITICAL — IMMUTABLE): G8 non-fabrication (every
 procedure carries `legalBasis` + `provenance`; never invent 手続き/様式/根拠法令/
 手数料/期限), G14 verified-procedure-only submission gate, kotoba-EAVT-native
 (ADR-2605262130; no RisingWave), Murakumo-only inference (ADR-2605215000).
-Output Lexicon(s): app.etzhayyim.toritsugi.procedure.
+Output Lexicon(s): com.etzhayyim.toritsugi.procedure.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

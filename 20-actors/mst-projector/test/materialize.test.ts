@@ -46,14 +46,14 @@ describe("Materializer", () => {
 
     const r = await m.materializeAggregate({
       actorDid: "did:web:kiyo.etzhayyim.com",
-      collection: "app.etzhayyim.kiyo.paper",
+      collection: "com.etzhayyim.kiyo.paper",
       groupBy: "status",
       counts: { published: 3, submitted: 1 },
       materializedAt: "2026-05-21T00:00:00Z",
     });
 
     expect(r.uri).toContain("agg-ai-gftd-kiyo-paper-status");
-    const records = e.dump("app.etzhayyim.projector.aggregate");
+    const records = e.dump("com.etzhayyim.projector.aggregate");
     expect(records.length).toBe(1);
     expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");
     expect(records[0][1].groupBy).toBe("status");
@@ -66,14 +66,14 @@ describe("Materializer", () => {
 
     const r = await m.materializeTextSearch({
       actorDid: "did:web:kiyo.etzhayyim.com",
-      collection: "app.etzhayyim.kiyo.paper",
+      collection: "com.etzhayyim.kiyo.paper",
       query: "bonsai myco yeast",
       resultRkeys: ["paper-1", "paper-2"],
       materializedAt: "2026-05-21T00:00:00Z",
     });
 
     expect(r.uri).toContain("txt-ai-gftd-kiyo-paper-");
-    const records = e.dump("app.etzhayyim.projector.textSearch");
+    const records = e.dump("com.etzhayyim.projector.textSearch");
     expect(records.length).toBe(1);
     expect(records[0][1].resultRkeys).toEqual(["paper-1", "paper-2"]);
     expect(records[0][1].query).toBe("bonsai myco yeast");
@@ -85,7 +85,7 @@ describe("Materializer", () => {
 
     await m.materializeAggregate({
       actorDid: "did:web:kiyo.etzhayyim.com",
-      collection: "app.etzhayyim.kiyo.paper",
+      collection: "com.etzhayyim.kiyo.paper",
       groupBy: "status",
       counts: { published: 10 },
       materializedAt: "2026-05-21T00:00:00Z",
@@ -93,13 +93,13 @@ describe("Materializer", () => {
 
     await m.materializeAggregate({
       actorDid: "did:web:kiyo.etzhayyim.com",
-      collection: "app.etzhayyim.kiyo.paper",
+      collection: "com.etzhayyim.kiyo.paper",
       groupBy: "language",
       counts: { en: 7, ja: 3 },
       materializedAt: "2026-05-21T00:00:00Z",
     });
 
-    const records = e.dump("app.etzhayyim.projector.aggregate");
+    const records = e.dump("com.etzhayyim.projector.aggregate");
     expect(records.length).toBe(2);
     expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");
     expect(records[1][0]).toBe("agg-ai-gftd-kiyo-paper-language");
@@ -111,7 +111,7 @@ describe("Materializer", () => {
 
     await m.materializeAggregate({
       actorDid: "did:web:kiyo.etzhayyim.com",
-      collection: "app.etzhayyim.kiyo.paper",
+      collection: "com.etzhayyim.kiyo.paper",
       groupBy: "status",
       counts: { published: 10 },
       materializedAt: "2026-05-21T00:00:00Z",
@@ -119,13 +119,13 @@ describe("Materializer", () => {
 
     await m.materializeAggregate({
       actorDid: "did:web:kiyo.etzhayyim.com",
-      collection: "app.etzhayyim.kiyo.review",
+      collection: "com.etzhayyim.kiyo.review",
       groupBy: "status",
       counts: { approved: 5 },
       materializedAt: "2026-05-21T00:00:00Z",
     });
 
-    const records = e.dump("app.etzhayyim.projector.aggregate");
+    const records = e.dump("com.etzhayyim.projector.aggregate");
     expect(records.length).toBe(2);
     // Both have same groupBy "status", but different collection slugs
     expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");

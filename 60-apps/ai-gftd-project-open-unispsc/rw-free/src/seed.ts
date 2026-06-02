@@ -25,7 +25,7 @@ import {
   type SegmentDef,
 } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.apps.openUnispsc.segmentDef";
+const COLLECTION = "com.etzhayyim.apps.openUnispsc.segmentDef";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_CSV_PATH = join(__dirname, "..", "..", "segments.csv");

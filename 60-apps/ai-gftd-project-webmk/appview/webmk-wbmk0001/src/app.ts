@@ -11,7 +11,7 @@ interface Env {
 }
 
 const APP = "webmk";
-const NSID_PREFIX = "app.etzhayyim.apps.webmk.";
+const NSID_PREFIX = "com.etzhayyim.apps.webmk.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -24,7 +24,7 @@ export default {
         nanoid: env.APP_NANOID ?? "wbmk0001",
         execution: "edge-bpmn+langgraph-langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/webmk_worker_main.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/webmk",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/webmk",
         adr: "90-docs/adr/2605072000-langgraph-agent-loop-pattern.md",
         integrations: ["ads.etzhayyim.com", "resend"],
       });

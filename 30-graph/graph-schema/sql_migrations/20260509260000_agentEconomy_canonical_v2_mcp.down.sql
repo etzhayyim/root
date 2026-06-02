@@ -8,6 +8,6 @@ DELETE FROM vertex_langgraph_assistant
  WHERE assistant_id = 'agent_runtime_lease_autopilot.v2';
 
 DELETE FROM vertex_mcp_tool_def
- WHERE nsid LIKE 'ai.gftd.apps.agentEconomy.%';
+ WHERE nsid LIKE 'com.etzhayyim.apps.agentEconomy.%';
 
 FLUSH;

@@ -210,14 +210,14 @@ const verdictFetcher = (
   >,
 ) => async (did: string, rkey: string) => records[`${did}/${rkey}`] ?? null;
 
-test("isVerdict matches app.etzhayyim.membrane.verdict only", () => {
+test("isVerdict matches com.etzhayyim.membrane.verdict only", () => {
   _resetForTests();
   assert.equal(
     isVerdict({
       seq: 1n,
       did: "did:web:cell",
       rkey: "1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "create",
       recordCid: "bafy-v",
     }),
@@ -253,7 +253,7 @@ test("applyVerdictEvent — approve verdict annotates index entry", async () => 
       seq: 2n,
       did: "did:web:cell",
       rkey: "v1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "create",
       recordCid: "bafy-v",
     },
@@ -281,7 +281,7 @@ test("applyVerdictEvent — reject verdict drops index entry", async () => {
       seq: 2n,
       did: "did:web:cell",
       rkey: "v1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "create",
       recordCid: "bafy-v",
     },
@@ -308,7 +308,7 @@ test("applyVerdictEvent — escalate verdict annotates index entry", async () =>
       seq: 2n,
       did: "did:web:cell",
       rkey: "v1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "create",
       recordCid: "bafy-v",
     },
@@ -325,7 +325,7 @@ test("applyVerdictEvent — non-create ops are skipped", async () => {
       seq: 2n,
       did: "did:web:cell",
       rkey: "v1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "update",
       recordCid: "bafy-v",
     },
@@ -348,7 +348,7 @@ test("applyVerdictEvent — unknown verdict kind rejected", async () => {
       seq: 2n,
       did: "did:web:cell",
       rkey: "v1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "create",
       recordCid: "bafy-v",
     },
@@ -376,7 +376,7 @@ test("applyVerdictEvent — verdict for unknown subject is a no-op (not an error
       seq: 2n,
       did: "did:web:cell",
       rkey: "v1",
-      collection: "app.etzhayyim.membrane.verdict",
+      collection: "com.etzhayyim.membrane.verdict",
       op: "create",
       recordCid: "bafy-v",
     },

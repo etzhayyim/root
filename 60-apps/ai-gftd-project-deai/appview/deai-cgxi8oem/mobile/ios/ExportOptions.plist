@@ -10,8 +10,8 @@
   <string>manual</string>
   <key>provisioningProfiles</key>
   <dict>
-    <key>ai.gftd.deai</key>
-    <string>match AppStore ai.gftd.deai</string>
+    <key>com.etzhayyim.deai</key>
+    <string>match AppStore com.etzhayyim.deai</string>
   </dict>
   <key>stripSwiftSymbols</key>
   <true/>

@@ -52,9 +52,9 @@
       },
       "kind": "runtime",
       "processes": {
-        "app.etzhayyim.agent-daemon": true,
-        "app.etzhayyim.agent-zeebe-worker": true,
-        "app.etzhayyim.zeebe-port-forward": true
+        "com.etzhayyim.agent-daemon": true,
+        "com.etzhayyim.agent-zeebe-worker": true,
+        "com.etzhayyim.zeebe-port-forward": true
       },
       "runtimeKind": "local-llm-zeebe-active-inference",
       "runtimePolicyCid": ""

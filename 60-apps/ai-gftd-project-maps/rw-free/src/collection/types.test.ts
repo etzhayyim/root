@@ -112,7 +112,7 @@ describe("constants", () => {
 });
 
 describe("summariseEvents", () => {
-  const jobUri = "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.collectionJob/test-job-1";
+  const jobUri = "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.collectionJob/test-job-1";
 
   it("empty events → null state, eventCount=0", () => {
     const s = summariseEvents(jobUri, []);

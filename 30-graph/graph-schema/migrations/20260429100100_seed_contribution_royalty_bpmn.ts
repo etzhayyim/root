@@ -20,11 +20,11 @@ function readContract(relPath: string): string {
 const createdAt = "2026-04-28T20:00:00Z";
 
 const PROCESS_VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/contribution-royalty-distribute-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/contribution-royalty-distribute-v1";
 const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const BPMN_PROCESS_ID = "contribution_royalty_distribute";
 const SOURCE_PATH =
-  "00-contracts/bpmn/ai/gftd/contribution/contributionRoyaltyDistribute.bpmn";
+  "00-contracts/bpmn/com/etzhayyim/contribution/contributionRoyaltyDistribute.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readContract(SOURCE_PATH);

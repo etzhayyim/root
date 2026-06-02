@@ -3,7 +3,7 @@
   <assemblyIdentity
     version="0.1.0.0"
     processorArchitecture="amd64"
-    name="ai.gftd.watashi"
+    name="com.etzhayyim.watashi"
     type="win32"
   />
   <description>Watashi (渡し) — Cross-Platform Input Sharing</description>

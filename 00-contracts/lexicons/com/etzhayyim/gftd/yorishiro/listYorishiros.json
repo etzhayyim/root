@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yorishiro.listYorishiros",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List yorishiro anchor entities with optional type/agent filter.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "type": { "type": "string", "enum": ["fictional", "historical", "licensed"] },
+          "boundAgentDid": { "type": "string", "format": "did" },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["yorishiros", "total", "offset", "limit"],
+          "properties": {
+            "yorishiros": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "did": { "type": "string", "format": "did" },
+                  "displayName": { "type": "string" },
+                  "type": { "type": "string" },
+                  "boundAgentDid": { "type": "string", "format": "did" },
+                  "voiceProfileUri": { "type": "string", "format": "uri" },
+                  "avatarUri": { "type": "string", "format": "uri" }
+                }
+              }
+            },
+            "total": { "type": "integer" }, "offset": { "type": "integer" }, "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.genomeRef.lookupGene",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Lookup gene in reference genome (GRCh38/T2T-CHM13). Auto-generated stub (coverage expansion 2026-04-17).",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "symbol": { "type": "string" },
+          "ensemblId": { "type": "string" },
+          "refseqId": { "type": "string" },
+          "assembly": { "type": "string", "enum": ["GRCh38", "T2T-CHM13"], "default": "GRCh38" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "symbol": { "type": "string" },
+            "ensemblId": { "type": "string" },
+            "chromosome": { "type": "string" },
+            "start": { "type": "integer" },
+            "end": { "type": "integer" },
+            "strand": { "type": "string" },
+            "biotype": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.payment.sent",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "On-chain USDC payment sent on Base L2. Per ADR-2605172100. Recorded by sender's PDS; receiver's PDS gets a paired payment.received record via firehose listener.",
+      "record": {
+        "type": "object",
+        "required": ["to", "amountUsdcMicros", "tokenContract", "chainId", "txHash", "blockNumber", "purpose", "sentAt"],
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "Recipient DID or 0x address (1:1 bound via Smart Wallet attestation)."
+          },
+          "amountUsdcMicros": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Amount in USDC base units (6 decimals; 10000000 = $10.00). AT Lexicon has no float, so always micros."
+          },
+          "tokenContract": {
+            "type": "string",
+            "description": "ERC-20 token contract. v0.1 = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 (USDC on Base)."
+          },
+          "chainId": {
+            "type": "integer",
+            "description": "EVM chain ID. v0.1 = 8453 (Base mainnet)."
+          },
+          "txHash": {
+            "type": "string",
+            "description": "0x-prefixed Base L2 transaction hash. 66 chars."
+          },
+          "blockNumber": {
+            "type": "integer",
+            "description": "Block number where the tx was included on Base L2."
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "donation",
+              "kisha",
+              "grant",
+              "tithe",
+              "escrow-refund",
+              "internal-purchase",
+              "internal-subscription",
+              "internal-promo"
+            ],
+            "description": "Per ADR-2605192115 (Non-profit/Donation-only/No-ads) + ADR-2605192130 (10% Tithe). External flows: donation/kisha/grant/tithe/escrow-refund only. SBT↔SBT internal carve-out flows: also internal-purchase / internal-subscription / internal-promo (per §3). Tip/subscription/purchase/refund/offering/split from the original v0 enum REMOVED (breaking change v0→v1; SDK rewires via TitheRouter)."
+          },
+          "forUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT URI of the thing being paid for (post, listing, grant proposal, etc.)."
+          },
+          "memo": {
+            "type": "string",
+            "maxLength": 280,
+            "description": "Optional plaintext memo. PII-free."
+          },
+          "sentAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "atomicBatch": {
+            "type": "boolean",
+            "default": false,
+            "description": "True if part of an ERC-4337 atomic multi-op user-op."
+          }
+        }
+      }
+    }
+  }
+}

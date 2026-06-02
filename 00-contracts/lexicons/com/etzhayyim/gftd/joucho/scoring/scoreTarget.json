@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.joucho.scoring.scoreTarget",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "imageBase64": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "targetType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "targetType"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "target_type": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "wb_axes": {
+              "type": "string"
+            },
+            "wb_total": {
+              "type": "integer"
+            },
+            "wb_grade": {
+              "type": "string"
+            },
+            "emotion_snapshot": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "entityId": {
+              "type": "integer"
+            },
+            "targetType": {
+              "type": "string"
+            },
+            "joucho5": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

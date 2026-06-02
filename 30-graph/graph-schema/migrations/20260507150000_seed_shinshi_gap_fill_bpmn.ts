@@ -33,9 +33,9 @@ const actorTag = "sys.bpmn.seed.shinshi.gap-fill";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shinshi-seed-gap-fill-v1",
     bpmnProcessId: "shinshi_seed_gap_fill",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shinshi/seedGapFill.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shinshi/seedGapFill.bpmn",
     ownerDid,
   },
 ];

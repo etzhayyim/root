@@ -6,7 +6,7 @@ import { sql } from "kysely";
 
 /**
  * shosha.etzhayyim.com Phase 3 step 1 — register `shosha_coverage` BPMN +
- * `app.etzhayyim.apps.shosha.coverage` XRPC binding (was schema-only in
+ * `com.etzhayyim.apps.shosha.coverage` XRPC binding (was schema-only in
  * Phase 1).
  */
 
@@ -23,17 +23,17 @@ const actorTag = "sys.bpmn.seed.shosha.phase3";
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-coverage-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-coverage-v1",
     bpmnProcessId: "shosha_coverage",
-    sourcePath: "00-contracts/bpmn/ai/gftd/shosha/coverage.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/shosha/coverage.bpmn",
     ownerDid,
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-coverage-v1",
-    nsid: "app.etzhayyim.apps.shosha.coverage",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-coverage-v1",
+    nsid: "com.etzhayyim.apps.shosha.coverage",
     bpmnProcessId: "shosha_coverage",
     ownerDid,
     resultTimeoutMs: 15_000,

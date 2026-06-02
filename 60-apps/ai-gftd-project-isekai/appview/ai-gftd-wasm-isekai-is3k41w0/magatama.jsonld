@@ -86,12 +86,12 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
-        "ai.gftd.isekai.worldState",
-        "ai.gftd.isekai.chunkData",
-        "ai.gftd.isekai.creatureRoster",
-        "ai.gftd.isekai.craftRecipe",
-        "ai.gftd.isekai.brainrotEvent",
-        "ai.gftd.isekai.complianceDep"
+        "com.etzhayyim.isekai.worldState",
+        "com.etzhayyim.isekai.chunkData",
+        "com.etzhayyim.isekai.creatureRoster",
+        "com.etzhayyim.isekai.craftRecipe",
+        "com.etzhayyim.isekai.brainrotEvent",
+        "com.etzhayyim.isekai.complianceDep"
       ]
     }
   },

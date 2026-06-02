@@ -1,0 +1,96 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.jpMext.recordAction",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "文部科学省 action / education / R&D / cultural (bridges higherEducationAccred + bilingualEducation + culturalRepatriation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "actionId",
+            "bureau",
+            "actionKind",
+            "issuedAt"
+          ],
+          "properties": {
+            "actionId": {
+              "type": "string"
+            },
+            "bureau": {
+              "type": "string",
+              "enum": [
+                "honsho",
+                "secondary_school",
+                "higher_ed",
+                "science_tech",
+                "sports",
+                "cultural",
+                "international_research",
+                "admin_local_ed",
+                "jiu_kotaku",
+                "gigaku_school_act",
+                "kontei_universities",
+                "sci_jiu_research",
+                "tonin_jasso",
+                "jaxa_govern",
+                "riken_govern",
+                "jamstec_govern"
+              ]
+            },
+            "actionKind": {
+              "type": "string",
+              "enum": [
+                "national_curriculum",
+                "school_act_amend",
+                "teacher_certification",
+                "university_funding",
+                "kakenhi_grants",
+                "jaxa_mission_approval",
+                "riken_research_priority",
+                "ai_education_strategy",
+                "heritage_designation",
+                "cultural_property",
+                "intangible_cultural",
+                "language_policy",
+                "ainu_promotion_act",
+                "stem_strategy",
+                "liberal_arts_review"
+              ]
+            },
+            "relatedActorVid": {
+              "type": "string",
+              "description": "bridges higherEducationAccred / culturalRepatriation"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

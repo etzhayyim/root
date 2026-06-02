@@ -35,7 +35,7 @@ Per ADR-2605202800:
 | Vendor (`tsukuru.etzhayyim.com`) | etzhayyim (`tsukuru.etzhayyim.com`) |
 |---|---|
 | `createKyselyDb().insertInto("vertex_tsukuru_*").values({...})` | `e.write({ collection, record })` |
-| `recordWrite(sdk, "app.etzhayyim.apps.tsukuru.*", {...})` | `e.write({ collection, record })` |
+| `recordWrite(sdk, "com.etzhayyim.apps.tsukuru.*", {...})` | `e.write({ collection, record })` |
 | `invoke(sdk, "did:web:stripe.etzhayyim.com", "chargeCustomer", {...})` | `escrow.openIntent(e, {...})` (no on-chain tx) |
 | `invoke(sdk, "did:web:stripe.etzhayyim.com", "cancelCard", {...})` | `escrow.refundIntent(e, {...})` (no on-chain tx) |
 | `payment.method === "stripe_issuing"` + `stripeCardId` | `payment.method === "escrow_intent"` + escrow record URI |
@@ -56,7 +56,7 @@ Per ADR-2605202800:
    delivery confirmed (slice 2 — qualityInspection)
      │
      └─► submitInspection(result="pass")
-           writes app.etzhayyim.apps.tsukuru.qualityInspection
+           writes com.etzhayyim.apps.tsukuru.qualityInspection
            │
            └─► settleEscrow()  →  SDK pay()
                  USDC.transfer to manufacturer wallet on Base L2

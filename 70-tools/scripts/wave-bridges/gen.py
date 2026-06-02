@@ -332,7 +332,7 @@ def snake(s):
 
 def gen_lexicon(actor, method):
     app = actor["app"]
-    nsid = f"app.etzhayyim.apps.{app}.{method['name']}"
+    nsid = f"com.etzhayyim.apps.{app}.{method['name']}"
     props = {}
     required = []
     for f in method["fields"]:
@@ -436,8 +436,8 @@ def gen_ddl(actor):
 for a in ACTORS:
     slug = a["slug"]
     app = a["app"]
-    bpmn_dir = REPO / f"00-contracts/bpmn/ai/gftd/open-{slug}"
-    lex_dir = REPO / f"00-contracts/lexicons/ai/gftd/apps/{app}"
+    bpmn_dir = REPO / f"00-contracts/bpmn/com/etzhayyim/open-{slug}"
+    lex_dir = REPO / f"00-contracts/lexicons/com/etzhayyim/apps/{app}"
     bpmn_dir.mkdir(parents=True, exist_ok=True)
     lex_dir.mkdir(parents=True, exist_ok=True)
     for m in a["methods"]:

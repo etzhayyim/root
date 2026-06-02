@@ -1,7 +1,7 @@
 """Invocation log emit.
 
 R0 writes one NDJSON line per ``.remote()`` to ``~/.kotoba_murakumo/invocations.ndjson``.
-R1 promotes to ``app.etzhayyim.murakumo.invocation`` Lexicon record on the
+R1 promotes to ``com.etzhayyim.murakumo.invocation`` Lexicon record on the
 caller's PDS (ADR-2605282000 §"Invocation record").
 """
 

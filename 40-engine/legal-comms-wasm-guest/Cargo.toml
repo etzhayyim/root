@@ -8,7 +8,7 @@
 # e-filing) happens OUTSIDE the sandboxed guest, keyed off that event.
 #
 # Build: cargo component build --release   (local WIT; XDG override avoids the
-# broken wasm-pkg registry config). Deploy via ai.gftd.apps.kotoba.invoke.run.
+# broken wasm-pkg registry config). Deploy via com.etzhayyim.apps.kotoba.invoke.run.
 [package]
 name = "chigiri-legal-comms-guest"
 version = "0.1.0"

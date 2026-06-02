@@ -22,30 +22,30 @@ const project = "telecom";
 
 const seeds: Seed[] = [
   { proc: "registerImsSubscription", bpmnProcessId: "telecom_register_ims_subscription",
-    nsid: "app.etzhayyim.apps.telecom.registerImsSubscription", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.registerImsSubscription", resultTimeoutMs: 30000 },
   { proc: "registerSipEndpoint", bpmnProcessId: "telecom_register_sip_endpoint",
-    nsid: "app.etzhayyim.apps.telecom.registerSipEndpoint", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.registerSipEndpoint", resultTimeoutMs: 15000 },
   { proc: "establishVoiceCall", bpmnProcessId: "telecom_establish_voice_call",
-    nsid: "app.etzhayyim.apps.telecom.establishVoiceCall", resultTimeoutMs: 30000 },
+    nsid: "com.etzhayyim.apps.telecom.establishVoiceCall", resultTimeoutMs: 30000 },
   { proc: "terminateVoiceCall", bpmnProcessId: "telecom_terminate_voice_call",
-    nsid: "app.etzhayyim.apps.telecom.terminateVoiceCall", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.terminateVoiceCall", resultTimeoutMs: 15000 },
   { proc: "applySupplementaryService", bpmnProcessId: "telecom_apply_supplementary_service",
-    nsid: "app.etzhayyim.apps.telecom.applySupplementaryService", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.applySupplementaryService", resultTimeoutMs: 15000 },
   { proc: "routeEmergencyCall", bpmnProcessId: "telecom_route_emergency_call",
-    nsid: "app.etzhayyim.apps.telecom.routeEmergencyCall", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.routeEmergencyCall", resultTimeoutMs: 15000 },
   { proc: "bridgeVoiceToInterconnect", bpmnProcessId: "telecom_bridge_voice_to_interconnect",
-    nsid: "app.etzhayyim.apps.telecom.bridgeVoiceToInterconnect", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.bridgeVoiceToInterconnect", resultTimeoutMs: 15000 },
   { proc: "emitImsBillingEvent", bpmnProcessId: "telecom_emit_ims_billing_event",
-    nsid: "app.etzhayyim.apps.telecom.emitImsBillingEvent", resultTimeoutMs: 15000 },
+    nsid: "com.etzhayyim.apps.telecom.emitImsBillingEvent", resultTimeoutMs: 15000 },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const slug = (proc: string) => proc.replace(/([A-Z])/g, "-$1").toLowerCase();
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

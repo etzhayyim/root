@@ -1,10 +1,10 @@
 /**
  * Mirrors the 3 Registry & Legal Entity Lexicon record shapes:
- *   - app.etzhayyim.maps.legalEntity
- *   - app.etzhayyim.maps.registry
- *   - app.etzhayyim.maps.ownership
+ *   - com.etzhayyim.maps.legalEntity
+ *   - com.etzhayyim.maps.registry
+ *   - com.etzhayyim.maps.ownership
  *
- * Source lexicons: 00-contracts/lexicons/app/etzhayyim/maps/
+ * Source lexicons: 00-contracts/lexicons/com/etzhayyim/maps/
  */
 
 // ─── LegalEntity ─────────────────────────────────────────────────────

@@ -38,7 +38,7 @@ describe('OrganismPostDrainer', () => {
     });
   });
 
-  it('should parse and process a valid app.etzhayyim.organism.message line', async () => {
+  it('should parse and process a valid com.etzhayyim.organism.message line', async () => {
     const drainer = new OrganismPostDrainer('dummy.ndjson', 'https://dummy.pds');
 
     const validMessage = JSON.stringify({
@@ -47,14 +47,14 @@ describe('OrganismPostDrainer', () => {
       actorDid: "did:web:etzhayyim.com:actor:c10101500",
       recipientDid: "did:web:etzhayyim.com:actor:c10101501",
       encryptedPayload: "base64encodedencrypteddata",
-      lexicon: "app.etzhayyim.organism.message",
+      lexicon: "com.etzhayyim.organism.message",
       createdAt: "2026-05-26T01:23:45Z"
     });
 
     await drainer.processLine(validMessage);
 
     expect(mockWrite).toHaveBeenCalledWith({
-      collection: "app.etzhayyim.organism.message",
+      collection: "com.etzhayyim.organism.message",
       record: {
         recipientDid: "did:web:etzhayyim.com:actor:c10101501",
         senderDid: "did:web:etzhayyim.com:actor:c10101500",

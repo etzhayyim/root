@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-lc-1" sourceRef="start-list-companies" targetRef="task-list-companies"/>
     <bpmn:serviceTask id="task-list-companies" name="List Companies">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.listCompanies"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.listCompanies"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lc-2" sourceRef="task-list-companies" targetRef="end-list-companies"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-gc-1" sourceRef="start-get-company" targetRef="task-get-company"/>
     <bpmn:serviceTask id="task-get-company" name="Get Company">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.getCompany"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.getCompany"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gc-2" sourceRef="task-get-company" targetRef="end-get-company"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-lf-1" sourceRef="start-list-filings" targetRef="task-list-filings"/>
     <bpmn:serviceTask id="task-list-filings" name="List Filings">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.listFilings"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.listFilings"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lf-2" sourceRef="task-list-filings" targetRef="end-list-filings"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-gf-1" sourceRef="start-get-filing" targetRef="task-get-filing"/>
     <bpmn:serviceTask id="task-get-filing" name="Get Filing">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.getFiling"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.getFiling"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gf-2" sourceRef="task-get-filing" targetRef="end-get-filing"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-le-1" sourceRef="start-list-earnings" targetRef="task-list-earnings"/>
     <bpmn:serviceTask id="task-list-earnings" name="List Earnings">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.listEarnings"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.listEarnings"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-le-2" sourceRef="task-list-earnings" targetRef="end-list-earnings"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-sa-1" sourceRef="start-submit-analysis" targetRef="task-submit-analysis"/>
     <bpmn:serviceTask id="task-submit-analysis" name="Submit Analysis">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.submitAnalysis"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.submitAnalysis"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sa-2" sourceRef="task-submit-analysis" targetRef="end-submit-analysis"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-la-1" sourceRef="start-list-alerts" targetRef="task-list-alerts"/>
     <bpmn:serviceTask id="task-list-alerts" name="List Alerts">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.listAlerts"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.listAlerts"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-la-2" sourceRef="task-list-alerts" targetRef="end-list-alerts"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-sc-1" sourceRef="start-search-companies" targetRef="task-search-companies"/>
     <bpmn:serviceTask id="task-search-companies" name="Search Companies">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.sixir.searchCompanies"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.sixir.searchCompanies"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sc-2" sourceRef="task-search-companies" targetRef="end-search-companies"/>

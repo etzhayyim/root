@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-register-batch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-register-batch-v1',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'seiyaku_register_batch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -463,11 +463,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  18396,
-                 '00-contracts/bpmn/ai/gftd/open-seiyaku/registerBatch.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-seiyaku/registerBatch.bpmn',
                  '2026-04-23T19:10:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -502,7 +502,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-amend-batch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-amend-batch-v1',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'seiyaku_amend_batch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -737,11 +737,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  10260,
-                 '00-contracts/bpmn/ai/gftd/open-seiyaku/amendBatch.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-seiyaku/amendBatch.bpmn',
                  '2026-04-23T19:10:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -776,7 +776,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-purge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-purge-v1',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'seiyaku_purge',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -905,11 +905,11 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4981,
-                 '00-contracts/bpmn/ai/gftd/open-seiyaku/purge.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-seiyaku/purge.bpmn',
                  '2026-04-23T19:10:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-purge-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-purge-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -942,15 +942,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'app.etzhayyim.apps.openSeiyaku.startBatchRecord',
+                 'com.etzhayyim.apps.openSeiyaku.startBatchRecord',
                  'seiyaku_register_batch',
                  0,
                  '2026-04-23T19:10:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -983,15 +983,15 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'app.etzhayyim.apps.openSeiyaku.amendBatchRecord',
+                 'com.etzhayyim.apps.openSeiyaku.amendBatchRecord',
                  'seiyaku_amend_batch',
                  0,
                  '2026-04-23T19:10:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -1024,28 +1024,28 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-purge-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-purge-v1',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'app.etzhayyim.apps.openSeiyaku.purge',
+                 'com.etzhayyim.apps.openSeiyaku.purge',
                  'seiyaku_purge',
                  120000,
                  '2026-04-23T19:10:00Z',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
                  'did:web:open-seiyaku.etzhayyim.com:manufacturing',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-purge-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-purge-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-startBatchRecord-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-amendBatchRecord-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-seiyaku-purge-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-seiyaku-purge-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-register-batch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-amend-batch-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-seiyaku-purge-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-seiyaku-purge-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.seafoodTraceability.flagChainOfCustodyBreak",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Chain of custody break / species substitution (bridges fisheries-iuu + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "breakId",
+            "breakKind",
+            "detectedAt"
+          ],
+          "properties": {
+            "breakId": {
+              "type": "string"
+            },
+            "eventVid": {
+              "type": "string",
+              "description": "bridges recordKdeEvent"
+            },
+            "breakKind": {
+              "type": "string",
+              "enum": [
+                "species_substitution",
+                "origin_mislabeling",
+                "weight_mismatch",
+                "certificate_forgery",
+                "record_gap",
+                "iuu_association"
+              ]
+            },
+            "lossKg": {
+              "type": "number"
+            },
+            "detectedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "significant",
+                "severe"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

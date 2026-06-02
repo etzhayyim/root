@@ -1,6 +1,6 @@
 // storage-kv.ts — Workers KV fallback for /storage/v1/object/* PUT/GET (P64).
 //
-// When the lg-yatabase pod doesn't yet have app.etzhayyim.apps.yata.putObject
+// When the lg-yatabase pod doesn't yet have com.etzhayyim.apps.yata.putObject
 // + .getObject NSID handlers (dispatcher 404), the Worker stores small
 // objects directly in YATABASE_AUTH_CACHE. Content is hashed (SHA-256)
 // for ETag and blob id. Per-org keyspace prevents cross-tenant access.

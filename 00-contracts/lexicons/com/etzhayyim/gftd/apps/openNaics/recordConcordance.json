@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openNaics.recordConcordance",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NAICS concordance - Starts BPMN open_naics_record_concordance.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "naicsCode",
+            "otherTaxonomy",
+            "otherCode",
+            "relation"
+          ],
+          "properties": {
+            "naicsCode": {
+              "type": "string"
+            },
+            "otherTaxonomy": {
+              "type": "string",
+              "enum": [
+                "ISIC",
+                "SIC",
+                "NAICS2017",
+                "NAICS2022"
+              ]
+            },
+            "otherCode": {
+              "type": "string"
+            },
+            "relation": {
+              "type": "string",
+              "enum": [
+                "exactMatch",
+                "broader",
+                "narrower",
+                "relatedTo"
+              ]
+            },
+            "confidence": {
+              "type": "number"
+            },
+            "source": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-ingest-document-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-ingest-document-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_ingest_document',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -62,7 +62,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_legal_corpus_document&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:legal-corpus.etzhayyim.com/app.etzhayyim.apps.legal-corpus.document/&quot; '
+                 '&quot;at://did:web:legal-corpus.etzhayyim.com/com.etzhayyim.apps.legal-corpus.document/&quot; '
                  '+ sourceId + &quot;:&quot; + canonicalUri, source_id: sourceId, canonical_uri: '
                  'canonicalUri, document_type: documentType, jurisdiction: jurisdiction, court: '
                  'court, court_did: courtDid, language_code: languageCode, title: title, citation: '
@@ -98,12 +98,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3485,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/ingestDocument.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/ingestDocument.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-ingest-document-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-ingest-document-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -117,7 +117,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-embed-document-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-embed-document-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_embed_document',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -182,12 +182,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2811,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/embedDocument.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/embedDocument.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-embed-document-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-embed-document-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -201,7 +201,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-register-source-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-register-source-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_register_source',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -222,7 +222,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_legal_corpus_source&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:legal-corpus.etzhayyim.com/app.etzhayyim.apps.legal-corpus.source/&quot; '
+                 '&quot;at://did:web:legal-corpus.etzhayyim.com/com.etzhayyim.apps.legal-corpus.source/&quot; '
                  '+ sourceId, source_id: sourceId, display_name: displayName, base_url: baseUrl, '
                  'jurisdictions_csv: jurisdictions, cadence_iso8601: cadenceIso8601, '
                  'auth_strategy: authStrategy, secret_ref: secretRef, license: license, status: '
@@ -241,12 +241,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  1822,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/registerSource.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/registerSource.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-register-source-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-register-source-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -260,7 +260,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-court-listener-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-court-listener-delta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_fetch_courtlistener_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -368,12 +368,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5248,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/fetchCourtListenerDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCourtListenerDelta.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-court-listener-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-court-listener-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -387,7 +387,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-eur-lex-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-eur-lex-delta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_fetch_eur_lex_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -479,12 +479,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4608,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/fetchEurLexDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchEurLexDelta.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-eur-lex-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-eur-lex-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -498,7 +498,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-bailii-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-bailii-delta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_fetch_bailii_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -571,12 +571,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3517,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/fetchBailiiDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchBailiiDelta.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-bailii-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-bailii-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -590,7 +590,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-world-lii-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-world-lii-delta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_fetch_worldlii_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -658,12 +658,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3228,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/fetchWorldLiiDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchWorldLiiDelta.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-world-lii-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-world-lii-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -677,7 +677,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-can-lii-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-can-lii-delta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
                  'legal_corpus_fetch_canlii_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -765,12 +765,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4159,
-                 '00-contracts/bpmn/ai/gftd/legal-corpus/fetchCanLiiDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/legal-corpus/fetchCanLiiDelta.bpmn',
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-can-lii-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-can-lii-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -784,16 +784,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-ingestDocument-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-ingestDocument-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.ingestDocument',
+                 'com.etzhayyim.apps.legal-corpus.ingestDocument',
                  'legal_corpus_ingest_document',
                  30000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-ingestDocument-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-ingestDocument-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -807,16 +807,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-embedDocument-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-embedDocument-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.embedDocument',
+                 'com.etzhayyim.apps.legal-corpus.embedDocument',
                  'legal_corpus_embed_document',
                  60000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-embedDocument-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-embedDocument-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -830,16 +830,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-registerSource-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-registerSource-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.registerSource',
+                 'com.etzhayyim.apps.legal-corpus.registerSource',
                  'legal_corpus_register_source',
                  15000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-registerSource-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-registerSource-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -853,16 +853,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCourtListenerDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCourtListenerDelta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta',
+                 'com.etzhayyim.apps.legal-corpus.fetchCourtListenerDelta',
                  'legal_corpus_fetch_courtlistener_delta',
                  600000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCourtListenerDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCourtListenerDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -876,16 +876,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchEurLexDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchEurLexDelta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.fetchEurLexDelta',
+                 'com.etzhayyim.apps.legal-corpus.fetchEurLexDelta',
                  'legal_corpus_fetch_eur_lex_delta',
                  600000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchEurLexDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchEurLexDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -899,16 +899,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchBailiiDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchBailiiDelta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.fetchBailiiDelta',
+                 'com.etzhayyim.apps.legal-corpus.fetchBailiiDelta',
                  'legal_corpus_fetch_bailii_delta',
                  600000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchBailiiDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchBailiiDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -922,16 +922,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchWorldLiiDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchWorldLiiDelta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.fetchWorldLiiDelta',
+                 'com.etzhayyim.apps.legal-corpus.fetchWorldLiiDelta',
                  'legal_corpus_fetch_worldlii_delta',
                  600000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchWorldLiiDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchWorldLiiDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -945,49 +945,49 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCanLiiDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCanLiiDelta-v1',
                  'did:web:legal-corpus.etzhayyim.com',
-                 'app.etzhayyim.apps.legal-corpus.fetchCanLiiDelta',
+                 'com.etzhayyim.apps.legal-corpus.fetchCanLiiDelta',
                  'legal_corpus_fetch_canlii_delta',
                  600000,
                  '2026-04-27T23:01:00Z',
                  'did:web:legal-corpus.etzhayyim.com',
                  'did:web:legal-corpus.etzhayyim.com',
                  'sys.bpmn.seed.legal-corpus',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCanLiiDelta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCanLiiDelta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-ingestDocument-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-ingestDocument-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-embedDocument-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-embedDocument-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-registerSource-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-registerSource-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCourtListenerDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCourtListenerDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchEurLexDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchEurLexDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchBailiiDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchBailiiDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchWorldLiiDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchWorldLiiDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCanLiiDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/legal-corpus-fetchCanLiiDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-ingest-document-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-ingest-document-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-embed-document-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-embed-document-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-register-source-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-register-source-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-court-listener-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-court-listener-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-eur-lex-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-eur-lex-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-bailii-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-bailii-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-world-lii-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-world-lii-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-can-lii-delta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/legal-corpus-fetch-can-lii-delta-v1']}]
 
 
 def upgrade() -> None:

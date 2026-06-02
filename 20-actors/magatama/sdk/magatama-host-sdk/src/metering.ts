@@ -12,7 +12,7 @@
 //   2. `createMeteringMiddleware()` — Hono middleware that auto-emits one
 //      `api_request` event per inbound request. Wire once at the top of
 //      the router; bypasses metering for unauthenticated / public traffic
-//      and for `app.etzhayyim.apps.billing.*` calls (avoid recursion).
+//      and for `com.etzhayyim.apps.billing.*` calls (avoid recursion).
 //
 // Pricing & cost registries are kept server-side in
 // `20-actors/magatama/py/src/pymagatama/primitives/billing.py` (the
@@ -149,7 +149,7 @@ async function contentPk(parts: string[]): Promise<string> {
     .map(b => b.toString(16).padStart(2, "0"))
     .join("")
     .slice(0, 32);
-  return `at://did:web:billing.etzhayyim.com/app.etzhayyim.apps.billing.event/${hex}`;
+  return `at://did:web:billing.etzhayyim.com/com.etzhayyim.apps.billing.event/${hex}`;
 }
 
 // ──────────────────────────────────────────────────────────────────────
@@ -230,7 +230,7 @@ interface MeteringMiddlewareOptions {
   /**
    * NSID prefixes whose requests should NOT be metered (avoid recursion
    * on billing.* calls + skip non-business endpoints like /health).
-   * Defaults to ["app.etzhayyim.apps.billing.", "_app/"].
+   * Defaults to ["com.etzhayyim.apps.billing.", "_app/"].
    */
   skipPrefixes?: string[];
 }
@@ -238,7 +238,7 @@ interface MeteringMiddlewareOptions {
 /**
  * Create a Hono middleware that emits one `api_request` event per
  * authenticated inbound request. Bypasses unauthenticated traffic and
- * `app.etzhayyim.apps.billing.*` to prevent recursion.
+ * `com.etzhayyim.apps.billing.*` to prevent recursion.
  *
  * Wire it once at the top of `createWorkerExport`:
  *
@@ -251,7 +251,7 @@ interface MeteringMiddlewareOptions {
 export function createMeteringMiddleware(
   options: MeteringMiddlewareOptions,
 ) {
-  const skipPrefixes = options.skipPrefixes ?? ["app.etzhayyim.apps.billing.", "_app/"];
+  const skipPrefixes = options.skipPrefixes ?? ["com.etzhayyim.apps.billing.", "_app/"];
   return async function meteringMiddleware(c: any, next: () => Promise<void>) {
     await next();
     try {

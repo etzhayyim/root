@@ -26,9 +26,9 @@ const seeds: Seed[] = [
   { slug: "map-account", op: "mapAccount", processId: "kaikei_map_account", timeoutMs: 120000, writeTableAllowlist: "vertex_atrecord_kaikei_account" },
 ];
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/kaikei/${s.op}.bpmn`;
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaikei-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/kaikei-${s.op}-v1`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/kaikei/${s.op}.bpmn`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaikei-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/kaikei-${s.op}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {
@@ -57,7 +57,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         sensitivity_ord, org_id, user_id, actor_id, actor_did, org_did
       )
       SELECT
-        ${bindingVertexId(s)}, ${ownerDid}, ${`app.etzhayyim.apps.kaikei.${s.op}`}, ${s.processId}, 1,
+        ${bindingVertexId(s)}, ${ownerDid}, ${`com.etzhayyim.apps.kaikei.${s.op}`}, ${s.processId}, 1,
         CAST(${s.timeoutMs} AS integer), ${s.writeTableAllowlist}, 'active', ${createdAt},
         100, ${ownerDid}, ${ownerDid}, ${actorId}, ${ownerDid}, 'anon'
       WHERE NOT EXISTS (

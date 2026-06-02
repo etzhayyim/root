@@ -1,0 +1,53 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.runItemWorkflow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run the full item-level UNSPSC procurement workflow: item spec, supplier screening, procurement plan, compliance flags, and a merged graphWritePlan.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["commodityCode", "supplierDid", "country", "kycCleared", "qualityScore", "buyerOrgId", "quantity", "unitPrice", "currency"],
+          "properties": {
+            "commodityCode": { "type": "string", "description": "UNSPSC 8-digit" },
+            "commodityName": { "type": "string" },
+            "supplierDid": { "type": "string" },
+            "legalName": { "type": "string" },
+            "country": { "type": "string", "description": "ISO 3166-1 alpha-3" },
+            "kycCleared": { "type": "boolean" },
+            "qualityScore": { "type": "number", "minimum": 0, "maximum": 1 },
+            "buyerOrgId": { "type": "string" },
+            "quantity": { "type": "number" },
+            "unitPrice": { "type": "number" },
+            "currency": { "type": "string" },
+            "dangerousGoods": { "type": "boolean" },
+            "sanctionsCheck": { "type": "string" },
+            "dualUseCategory": { "type": "string" },
+            "callerDid": { "type": "string" },
+            "eventAt": { "type": "string", "format": "datetime" },
+            "evidenceUri": { "type": "string" },
+            "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "workflowStatus": { "type": "string", "enum": ["ready", "manual-review", "blocked"] },
+            "commodityCode": { "type": "string" },
+            "steps": { "type": "object" },
+            "summary": { "type": "object" },
+            "graphWritePlan": { "type": "object" },
+            "graphWriteValidation": { "type": "object" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-swift.etzhayyim.com:core";
 const actorTag = "sys.bpmn.seed.open-swift";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-swift-register-institution-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-swift-register-institution-v1",
     bpmnProcessId: "open_swift_register_institution",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-swift/registerInstitution.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-swift/registerInstitution.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-swift-send-customer-credit-transfer-v1",
     bpmnProcessId: "open_swift_send_customer_credit_transfer",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-swift/sendCustomerCreditTransfer.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-swift/sendCustomerCreditTransfer.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-swift-registerInstitution-v1",
-    nsid: "app.etzhayyim.apps.openSwift.registerInstitution", bpmnProcessId: "open_swift_register_institution",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-swift-registerInstitution-v1",
+    nsid: "com.etzhayyim.apps.openSwift.registerInstitution", bpmnProcessId: "open_swift_register_institution",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1",
-    nsid: "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer", bpmnProcessId: "open_swift_send_customer_credit_transfer",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-swift-sendCustomerCreditTransfer-v1",
+    nsid: "com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer", bpmnProcessId: "open_swift_send_customer_credit_transfer",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

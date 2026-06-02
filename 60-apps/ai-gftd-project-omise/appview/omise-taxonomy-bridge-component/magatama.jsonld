@@ -53,9 +53,9 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.omise.omiseEntity",
-        "ai.gftd.apps.omise.omiseEvent",
-        "ai.gftd.apps.omise.omiseReport"
+        "com.etzhayyim.apps.omise.omiseEntity",
+        "com.etzhayyim.apps.omise.omiseEvent",
+        "com.etzhayyim.apps.omise.omiseReport"
       ]
     }
   },

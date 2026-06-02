@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openIsic.getTaxonomy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Retrieve ISIC Rev.4 taxonomy hierarchy dynamically for section, division, group, and class levels. Used by the LangGraph hierarchical classifier.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["level"],
+          "properties": {
+            "level": { "type": "string", "enum": ["section", "division", "group", "class"] },
+            "parentCode": { "type": "string", "description": "Code of the parent level (e.g. 'A', '10', '101')" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "items": {
+              "type": "array",
+              "items": { "type": "unknown" }
+            },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

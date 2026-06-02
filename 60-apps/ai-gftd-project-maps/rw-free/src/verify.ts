@@ -8,7 +8,7 @@
  * a proof anyone can re-check.
  *
  * Usage:
- *   pnpm tsx src/verify.ts at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.source/geocode
+ *   pnpm tsx src/verify.ts at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.source/geocode
  */
 
 import { Etzhayyim } from "@etzhayyim/sdk";

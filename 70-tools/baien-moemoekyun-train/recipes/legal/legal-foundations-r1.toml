@@ -11,7 +11,7 @@
 #       --recipe 70-tools/baien-moemoekyun-train/recipes/legal/legal-foundations-r1.toml
 #
 # Datasets MUST already be DataLad-saved + IPFS-pinned + have a
-# corresponding app.etzhayyim.substrate.datasetPin record (G13 in
+# corresponding com.etzhayyim.substrate.datasetPin record (G13 in
 # ADR-2605262400).
 
 target_artifact = "baien-server-legal-foundations-r1"
@@ -31,7 +31,7 @@ publication redaction; no de-anonymization).
 
 [[source]]
 subdataset    = "law/statutes/us-usc"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_USC"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_USC"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -39,7 +39,7 @@ weight        = 0.18
 
 [[source]]
 subdataset    = "law/statutes/us-cfr"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CFR"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CFR"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "public-domain"
@@ -47,7 +47,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "law/statutes/uk-legislation"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_LEGISLATION"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_UK_LEGISLATION"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "OGL-v3.0"
@@ -55,7 +55,7 @@ weight        = 0.12
 
 [[source]]
 subdataset    = "law/statutes/eu-eurlex"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_EU_EURLEX"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_EU_EURLEX"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "free-reuse-with-citation"
@@ -63,7 +63,7 @@ weight        = 0.15
 
 [[source]]
 subdataset    = "law/statutes/jp-egov"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_EGOV"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_JP_EGOV"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC-BY-4.0"
@@ -71,7 +71,7 @@ weight        = 0.10
 
 [[source]]
 subdataset    = "law/cases/us-cap"
-datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CAP"
+datasetPin_at = "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/PLACEHOLDER_US_CAP"
 shard_glob    = "*.ndjson"
 tier          = "A"
 license       = "CC0-1.0"

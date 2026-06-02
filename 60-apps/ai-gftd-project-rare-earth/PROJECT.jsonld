@@ -15,14 +15,14 @@
   "gftd:architecture": "contract-bounded",
   "gftd:primaryActorDid": "did:web:rare-earth-coverage.etzhayyim.com",
   "gftd:coverageCollections": [
-    "ai.gftd.apps.rareEarth.actor",
-    "ai.gftd.apps.rareEarth.flow",
-    "ai.gftd.apps.rareEarth.coverageSnapshot"
+    "com.etzhayyim.apps.rareEarth.actor",
+    "com.etzhayyim.apps.rareEarth.flow",
+    "com.etzhayyim.apps.rareEarth.coverageSnapshot"
   ],
   "gftd:xrpc": [
-    "ai.gftd.apps.rareEarth.coverage.get",
-    "ai.gftd.apps.rareEarth.coverage.listActors",
-    "ai.gftd.apps.rareEarth.coverage.listFlows"
+    "com.etzhayyim.apps.rareEarth.coverage.get",
+    "com.etzhayyim.apps.rareEarth.coverage.listActors",
+    "com.etzhayyim.apps.rareEarth.coverage.listFlows"
   ],
   "gftd:stages": [
     "extraction",

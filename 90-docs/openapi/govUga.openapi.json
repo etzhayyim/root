@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govUga.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govUga.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Uganda government.",
-        "operationId": "app.etzhayyim.govUga.followSiteDeps",
+        "operationId": "com.etzhayyim.govUga.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govUga.heartbeatTick": {
       "post": {
         "summary": "Run the Uganda government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govUga.heartbeatTick",
+        "operationId": "com.etzhayyim.govUga.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.listOrgs": {
+    "/xrpc/com.etzhayyim.govUga.listOrgs": {
       "get": {
         "summary": "List Uganda government organization graph records.",
-        "operationId": "app.etzhayyim.govUga.listOrgs",
+        "operationId": "com.etzhayyim.govUga.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.registerDIDs": {
+    "/xrpc/com.etzhayyim.govUga.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Uganda government organizations.",
-        "operationId": "app.etzhayyim.govUga.registerDIDs",
+        "operationId": "com.etzhayyim.govUga.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govUga.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Uganda government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govUga.resolveOrgPath",
+        "operationId": "com.etzhayyim.govUga.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.seedOrgs": {
+    "/xrpc/com.etzhayyim.govUga.seedOrgs": {
       "post": {
         "summary": "Seed initial Uganda government organization records into the graph.",
-        "operationId": "app.etzhayyim.govUga.seedOrgs",
+        "operationId": "com.etzhayyim.govUga.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.shinka": {
+    "/xrpc/com.etzhayyim.govUga.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Uganda government organization update.",
-        "operationId": "app.etzhayyim.govUga.shinka",
+        "operationId": "com.etzhayyim.govUga.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govUga.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govUga.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Uganda government organization changes to graph.",
-        "operationId": "app.etzhayyim.govUga.syncWetUpdates",
+        "operationId": "com.etzhayyim.govUga.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

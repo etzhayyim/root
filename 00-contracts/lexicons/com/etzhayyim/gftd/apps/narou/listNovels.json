@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.narou.listNovels",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List novel works with optional filters",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "genre": { "type": "string" },
+          "status": { "type": "string" },
+          "user_id": { "type": "string" },
+          "offset": { "type": "integer" },
+          "limit": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["novels", "total", "offset", "limit"],
+          "properties": {
+            "novels": { "type": "array", "items": { "type": "object" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.edit",
+  "description": "etzhayyim extension: edit a message in a conversation. No official chat.bsky equivalent.",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "convoId": {
+              "type": "string"
+            },
+            "messageId": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 10000,
+              "maxGraphemes": 1000
+            },
+            "facets": {
+              "type": "array",
+              "description": "Updated annotations. Compatible with app.bsky.richtext.facet.",
+              "items": { "type": "ref", "ref": "app.bsky.richtext.facet" }
+            }
+          },
+          "required": [
+            "convoId",
+            "messageId",
+            "text"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": { "type": "string" },
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" }
+          },
+          "required": ["rkey", "uri", "cid"]
+        }
+      }
+    }
+  }
+}

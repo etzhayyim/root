@@ -81,7 +81,7 @@ export async function linkAdditionalPasskey(label?: string): Promise<AdditionalP
 	}
 
 	const beginResp = await authzPost<BeginOptions>(
-		'/xrpc/app.etzhayyim.authz.linkPasskeyAdditionalBegin',
+		'/xrpc/com.etzhayyim.authz.linkPasskeyAdditionalBegin',
 		{ label },
 	);
 
@@ -105,7 +105,7 @@ export async function linkAdditionalPasskey(label?: string): Promise<AdditionalP
 
 	const response = credential.response as AuthenticatorAttestationResponse;
 	const verify = await authzPost<AdditionalPasskeyResult>(
-		'/xrpc/app.etzhayyim.authz.linkPasskeyAdditionalVerify',
+		'/xrpc/com.etzhayyim.authz.linkPasskeyAdditionalVerify',
 		{
 			challenge: beginResp.challenge,
 			clientDataJson: base64urlEncode(response.clientDataJSON),
@@ -118,7 +118,7 @@ export async function linkAdditionalPasskey(label?: string): Promise<AdditionalP
 
 /** Remove an additional passkey. Refuses to remove the last passkey (server-enforced). */
 export async function unlinkAdditionalPasskey(credentialId: string): Promise<{ ok: boolean }> {
-	return authzPost('/xrpc/app.etzhayyim.authz.unlinkMethod', {
+	return authzPost('/xrpc/com.etzhayyim.authz.unlinkMethod', {
 		provider: 'webauthn-additional',
 		providerSubject: credentialId,
 	});

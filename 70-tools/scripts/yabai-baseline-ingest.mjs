@@ -31,7 +31,7 @@ const today = new Date().toISOString().slice(0, 10);
 const BATCH = 200;
 
 function atUri(kind, id) {
-  return `at://${REPO_DID}/app.etzhayyim.apps.yabai.${kind}/${id}`;
+  return `at://${REPO_DID}/com.etzhayyim.apps.yabai.${kind}/${id}`;
 }
 
 async function loadJsonldDir(dir) {

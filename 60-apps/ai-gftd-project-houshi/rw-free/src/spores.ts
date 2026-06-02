@@ -27,8 +27,8 @@ import {
   type StoreSporeOutput,
 } from "./types.js";
 
-const SPORE_COLLECTION = "app.etzhayyim.houshi.spore";
-const GERMINATE_COLLECTION = "app.etzhayyim.houshi.germinate";
+const SPORE_COLLECTION = "com.etzhayyim.houshi.spore";
+const GERMINATE_COLLECTION = "com.etzhayyim.houshi.germinate";
 
 const PAGE_LIMIT = 100;
 

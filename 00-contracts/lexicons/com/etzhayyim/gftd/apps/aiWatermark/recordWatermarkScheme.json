@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aiWatermark.recordWatermarkScheme",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "AI content watermark / SynthID / steganographic detection (bridges c2paContentCred.flagTampering + ai-governance + zero-day-broker)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "schemeId",
+            "schemeKind",
+            "modality",
+            "publishedAt"
+          ],
+          "properties": {
+            "schemeId": {
+              "type": "string"
+            },
+            "vendorLei": {
+              "type": "string"
+            },
+            "schemeKind": {
+              "type": "string",
+              "enum": [
+                "google_synthid_text",
+                "google_synthid_image",
+                "openai_meta",
+                "ms_microsoft",
+                "adobe_cm",
+                "stability_intel",
+                "invisible_pixel",
+                "spread_spectrum",
+                "sbm_softmax_bias",
+                "cyclical_pattern",
+                "weak_strong_robust"
+              ]
+            },
+            "modality": {
+              "type": "string",
+              "enum": [
+                "text",
+                "image",
+                "video",
+                "audio",
+                "multimodal",
+                "3d_scene",
+                "speech",
+                "music"
+              ]
+            },
+            "tamperingVid": {
+              "type": "string",
+              "description": "bridges c2paContentCred.flagTampering"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

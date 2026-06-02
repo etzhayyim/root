@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.evChargingOcpp.registerStation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EV charging station (OCPP 2.0.1 / ISO 15118 / NACS-CCS bridge — bridges urban-mobility + power-grid-interconnect + datacenter-energy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "stationId",
+            "locationIso3",
+            "commissionedAt"
+          ],
+          "properties": {
+            "stationId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "locationIso3": {
+              "type": "string"
+            },
+            "cpoName": {
+              "type": "string"
+            },
+            "ocppVersion": {
+              "type": "string",
+              "enum": [
+                "1.6j",
+                "2.0.1",
+                "2.1"
+              ]
+            },
+            "connectorStandards": {
+              "type": "string",
+              "description": "comma: ccs1,ccs2,nacs,chademo,gb_t,mennekes,type2"
+            },
+            "maxPowerKw": {
+              "type": "number"
+            },
+            "v2gCapable": {
+              "type": "boolean"
+            },
+            "iso15118PnCSupported": {
+              "type": "boolean"
+            },
+            "commissionedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "chargingTier": {
+              "type": "string",
+              "enum": [
+                "ac_slow",
+                "rapid",
+                "fast",
+                "ultra_fast"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

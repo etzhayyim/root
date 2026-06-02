@@ -11,9 +11,9 @@
     {"name": "activation_test", "murakumoNode": "dan"}
   ],
   "lexicons": [
-    "app.etzhayyim.infra.serviceRequest",
-    "app.etzhayyim.infra.providerApproval",
-    "app.etzhayyim.infra.meterInstallation",
-    "app.etzhayyim.infra.utilityActivation"
+    "com.etzhayyim.infra.serviceRequest",
+    "com.etzhayyim.infra.providerApproval",
+    "com.etzhayyim.infra.meterInstallation",
+    "com.etzhayyim.infra.utilityActivation"
   ]
 }

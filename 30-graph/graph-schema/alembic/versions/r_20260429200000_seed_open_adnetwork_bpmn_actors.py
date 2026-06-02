@@ -27,7 +27,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-publisher-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-publisher-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_register_publisher',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -40,7 +40,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_adnetwork_register_publisher" name="registerPublisher" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openAdnetwork.registerPublisher", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openAdnetwork.registerPublisher", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_adnetwork_publisher&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.publisher/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.publisher/&quot; '
                  '+ publisherId, publisher_id: publisherId, domain: domain, owner_did: ownerDid, '
                  'revenue_share_pct: 70.0, floor_cpm_usd: floorCpmUsd, content_category: '
                  'contentCategory, ad_policy: &quot;standard&quot;, status: &quot;active&quot;, '
@@ -88,13 +88,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2707,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/registerPublisher.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/registerPublisher.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-publisher-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-publisher-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -110,9 +110,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-register-publisher-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-register-publisher-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.registerPublisher',
+                 'com.etzhayyim.apps.openAdnetwork.registerPublisher',
                  'open_adnetwork_register_publisher',
                  30000,
                  'vertex_open_adnetwork_publisher',
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-register-publisher-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-register-publisher-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -131,7 +131,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_publisher',
                  'open_adnetwork_register_publisher',
-                 'app.etzhayyim.apps.openAdnetwork.registerPublisher',
+                 'com.etzhayyim.apps.openAdnetwork.registerPublisher',
                  'vertex_open_adnetwork_publisher']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -148,7 +148,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-ad-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-ad-unit-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_record_ad_unit',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -161,7 +161,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_adnetwork_record_ad_unit" name="recordAdUnit" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openAdnetwork.recordAdUnit", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openAdnetwork.recordAdUnit", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -174,7 +174,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_adnetwork_ad_unit&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.adUnit/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.adUnit/&quot; '
                  '+ unitId, unit_id: unitId, publisher_did: publisherDid, unit_type: unitType, '
                  'size: size, placement: placement, floor_cpm_usd: floorCpmUsd, '
                  'active_campaign_count: 0, status: &quot;active&quot;, created_at: string(now()), '
@@ -209,13 +209,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2664,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/recordAdUnit.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/recordAdUnit.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-ad-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-ad-unit-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -231,9 +231,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-ad-unit-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-ad-unit-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.recordAdUnit',
+                 'com.etzhayyim.apps.openAdnetwork.recordAdUnit',
                  'open_adnetwork_record_ad_unit',
                  30000,
                  'vertex_open_adnetwork_ad_unit',
@@ -242,7 +242,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-ad-unit-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-ad-unit-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -252,7 +252,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_ad_unit',
                  'open_adnetwork_record_ad_unit',
-                 'app.etzhayyim.apps.openAdnetwork.recordAdUnit',
+                 'com.etzhayyim.apps.openAdnetwork.recordAdUnit',
                  'vertex_open_adnetwork_ad_unit']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -269,7 +269,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-advertiser-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-advertiser-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_register_advertiser',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -282,7 +282,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_adnetwork_register_advertiser" '
                  'name="registerAdvertiser" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openAdnetwork.registerAdvertiser", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openAdnetwork.registerAdvertiser", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -295,7 +295,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_adnetwork_advertiser&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.advertiser/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.advertiser/&quot; '
                  '+ advertiserId, advertiser_id: advertiserId, brand_name: brandName, domain: '
                  'domain, industry_category: industryCategory, monthly_budget_usd: '
                  'monthlyBudgetUsd, payment_method: paymentMethod, status: &quot;active&quot;, '
@@ -330,13 +330,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2713,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/registerAdvertiser.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/registerAdvertiser.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-advertiser-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-advertiser-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -352,9 +352,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-register-advertiser-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-register-advertiser-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.registerAdvertiser',
+                 'com.etzhayyim.apps.openAdnetwork.registerAdvertiser',
                  'open_adnetwork_register_advertiser',
                  30000,
                  'vertex_open_adnetwork_advertiser',
@@ -363,7 +363,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-register-advertiser-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-register-advertiser-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -373,7 +373,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_advertiser',
                  'open_adnetwork_register_advertiser',
-                 'app.etzhayyim.apps.openAdnetwork.registerAdvertiser',
+                 'com.etzhayyim.apps.openAdnetwork.registerAdvertiser',
                  'vertex_open_adnetwork_advertiser']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-create-campaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-create-campaign-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_create_campaign',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -403,7 +403,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_adnetwork_create_campaign" name="createCampaign" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openAdnetwork.createCampaign", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openAdnetwork.createCampaign", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -416,7 +416,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_adnetwork_campaign&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.campaign/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.campaign/&quot; '
                  '+ campaignId, campaign_id: campaignId, advertiser_did: advertiserDid, name: '
                  'name, objective: objective, budget_daily_usd: budgetDailyUsd, bid_strategy: '
                  'bidStrategy, bid_floor_usd: bidFloorUsd, targeting_json: targetingJson, '
@@ -452,13 +452,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2788,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/createCampaign.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/createCampaign.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-create-campaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-create-campaign-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -474,9 +474,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-create-campaign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-create-campaign-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.createCampaign',
+                 'com.etzhayyim.apps.openAdnetwork.createCampaign',
                  'open_adnetwork_create_campaign',
                  30000,
                  'vertex_open_adnetwork_campaign',
@@ -485,7 +485,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-create-campaign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-create-campaign-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -495,7 +495,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_campaign',
                  'open_adnetwork_create_campaign',
-                 'app.etzhayyim.apps.openAdnetwork.createCampaign',
+                 'com.etzhayyim.apps.openAdnetwork.createCampaign',
                  'vertex_open_adnetwork_campaign']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -512,7 +512,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-impression-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-impression-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_record_impression',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -525,7 +525,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_adnetwork_record_impression" name="recordImpression" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openAdnetwork.recordImpression", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openAdnetwork.recordImpression", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -538,7 +538,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_adnetwork_impression&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.impression/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.impression/&quot; '
                  '+ impId, imp_id: impId, unit_id: unitId, campaign_id: campaignId, cpm_usd: '
                  'cpmUsd, viewable: viewable, user_cohort: userCohort, country_iso2: countryIso2, '
                  'ts_ms: tsMsVal, created_at: string(now()), sensitivity_ord: 0, actor_id: '
@@ -572,13 +572,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2665,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/recordImpression.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/recordImpression.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-impression-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-impression-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -594,9 +594,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-impression-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-impression-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.recordImpression',
+                 'com.etzhayyim.apps.openAdnetwork.recordImpression',
                  'open_adnetwork_record_impression',
                  30000,
                  'vertex_open_adnetwork_impression',
@@ -605,7 +605,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-impression-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-impression-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -615,7 +615,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_impression',
                  'open_adnetwork_record_impression',
-                 'app.etzhayyim.apps.openAdnetwork.recordImpression',
+                 'com.etzhayyim.apps.openAdnetwork.recordImpression',
                  'vertex_open_adnetwork_impression']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -632,7 +632,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-conversion-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-conversion-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_record_conversion',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -645,7 +645,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_adnetwork_record_conversion" name="recordConversion" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openAdnetwork.recordConversion", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openAdnetwork.recordConversion", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -658,7 +658,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;vertex_open_adnetwork_conversion&quot;" '
                  'target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.conversion/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.conversion/&quot; '
                  '+ convId, conv_id: convId, click_id: clickId, campaign_id: campaignId, '
                  'conv_type: if convType != null then convType else &quot;lead&quot;, '
                  'conv_value_usd: if convValueUsd != null then convValueUsd else 0.0, ts_ms: '
@@ -694,13 +694,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2745,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/recordConversion.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/recordConversion.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-conversion-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-conversion-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -716,9 +716,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-conversion-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-conversion-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.recordConversion',
+                 'com.etzhayyim.apps.openAdnetwork.recordConversion',
                  'open_adnetwork_record_conversion',
                  30000,
                  'vertex_open_adnetwork_conversion',
@@ -727,7 +727,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-conversion-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-conversion-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -737,7 +737,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_conversion',
                  'open_adnetwork_record_conversion',
-                 'app.etzhayyim.apps.openAdnetwork.recordConversion',
+                 'com.etzhayyim.apps.openAdnetwork.recordConversion',
                  'vertex_open_adnetwork_conversion']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -754,7 +754,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-compute-publisher-rpm-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-compute-publisher-rpm-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_compute_publisher_rpm',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -774,7 +774,7 @@ UP = [{'sql': '\n'
                  '  to avoid FEEL-in-SQL quoting issues (advisor 2026-04-28).\n'
                  '\n'
                  '  Cadence: R/P1D.\n'
-                 '  ADR-2604281900. NSID: app.etzhayyim.apps.openAdnetwork.computePublisherRpm '
+                 '  ADR-2604281900. NSID: com.etzhayyim.apps.openAdnetwork.computePublisherRpm '
                  '(timer-start, no binding needed).\n'
                  '-->\n'
                  '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
@@ -829,7 +829,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input '
                  'source="=&quot;vertex_open_adnetwork_revenue_snapshot&quot;" target="table"/>\n'
                  '          <zeebe:input source="={vertex_id: '
-                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/app.etzhayyim.apps.openAdnetwork.revenueSnapshot/&quot; '
+                 '&quot;at://did:web:open-adnetwork.etzhayyim.com/com.etzhayyim.apps.openAdnetwork.revenueSnapshot/&quot; '
                  '+ string(today()), snap_id: &quot;rpm-&quot; + string(today()), publisher_did: '
                  '&quot;__all__&quot;, date: string(today()), impressions: if publisherCount &gt; '
                  '0 then sum(publisherStats.impressions) else 0, clicks: 0, conversions: 0, '
@@ -872,13 +872,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5195,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/computePublisherRpm.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/computePublisherRpm.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-compute-publisher-rpm-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-compute-publisher-rpm-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -894,9 +894,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-compute-publisher-rpm-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-compute-publisher-rpm-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.computePublisherRpm',
+                 'com.etzhayyim.apps.openAdnetwork.computePublisherRpm',
                  'open_adnetwork_compute_publisher_rpm',
                  90000,
                  'vertex_open_adnetwork_revenue_snapshot',
@@ -905,7 +905,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-compute-publisher-rpm-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-compute-publisher-rpm-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -915,7 +915,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['vertex_open_adnetwork_revenue_snapshot',
                  'open_adnetwork_compute_publisher_rpm',
-                 'app.etzhayyim.apps.openAdnetwork.computePublisherRpm',
+                 'com.etzhayyim.apps.openAdnetwork.computePublisherRpm',
                  'vertex_open_adnetwork_revenue_snapshot']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
@@ -932,7 +932,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-fetch-auction-market-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-fetch-auction-market-delta-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'open_adnetwork_fetch_auction_market_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1005,13 +1005,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2831,
-                 '00-contracts/bpmn/ai/gftd/open-adnetwork/fetchAuctionMarketDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-adnetwork/fetchAuctionMarketDelta.bpmn',
                  '2026-04-29T20:00:00+09:00',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-fetch-auction-market-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-fetch-auction-market-delta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -1027,9 +1027,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-fetch-auction-market-delta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-fetch-auction-market-delta-v1',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'app.etzhayyim.apps.openAdnetwork.fetchAuctionMarketDelta',
+                 'com.etzhayyim.apps.openAdnetwork.fetchAuctionMarketDelta',
                  'open_adnetwork_fetch_auction_market_delta',
                  90000,
                  '',
@@ -1038,7 +1038,7 @@ UP = [{'sql': '\n'
                  'did:web:open-adnetwork.etzhayyim.com',
                  'sys.bpmn.seed.open-adnetwork',
                  'did:web:open-adnetwork.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-fetch-auction-market-delta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-fetch-auction-market-delta-v1']},
  {'sql': '\n'
          '    UPDATE vertex_bpmn_lexicon_binding\n'
          '    SET write_table_allowlist = $1\n'
@@ -1048,41 +1048,41 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['',
                  'open_adnetwork_fetch_auction_market_delta',
-                 'app.etzhayyim.apps.openAdnetwork.fetchAuctionMarketDelta',
+                 'com.etzhayyim.apps.openAdnetwork.fetchAuctionMarketDelta',
                  '']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-register-publisher-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-register-publisher-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-publisher-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-publisher-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-ad-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-ad-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-ad-unit-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-ad-unit-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-register-advertiser-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-register-advertiser-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-advertiser-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-register-advertiser-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-create-campaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-create-campaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-create-campaign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-create-campaign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-impression-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-impression-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-impression-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-impression-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-record-conversion-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-record-conversion-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-conversion-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-record-conversion-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-compute-publisher-rpm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-compute-publisher-rpm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-compute-publisher-rpm-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-compute-publisher-rpm-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-adnetwork-fetch-auction-market-delta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-adnetwork-fetch-auction-market-delta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-adnetwork-fetch-auction-market-delta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-adnetwork-fetch-auction-market-delta-v1']}]
 
 
 def upgrade() -> None:

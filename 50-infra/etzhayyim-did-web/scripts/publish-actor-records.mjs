@@ -26,6 +26,21 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+
+// CIDv1 (raw, sha2-256) of bytes — matches `ipfs add --cid-version=1` + the
+// worker's cid.ts, so the canonical DID doc is IPFS-retrievable (ADR-2606015400).
+function _base32(bytes) {
+  const A = "abcdefghijklmnopqrstuvwxyz234567";
+  let bits = 0, val = 0, out = "";
+  for (const b of bytes) { val = (val << 8) | b; bits += 8; while (bits >= 5) { out += A[(val >>> (bits - 5)) & 31]; bits -= 5; } }
+  if (bits > 0) out += A[(val << (5 - bits)) & 31];
+  return out;
+}
+function cidV1Raw(buf) {
+  const d = createHash("sha256").update(buf).digest();
+  return "b" + _base32(Buffer.concat([Buffer.from([0x01, 0x55, 0x12, 0x20]), d]));
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -140,6 +155,7 @@ function recordFromSeed(m) {
   opt("ui-type", "uiType");
   opt("primary-lexicon", "primaryLexicon");
   opt("primary-schema", "primarySchema");
+  opt("wasm-cid", "wasmCid");
   opt("created-at", "createdAt");
   rec.source = "kotoba";
   return rec;
@@ -153,8 +169,20 @@ function toDidDoc(rec, authzContract) {
   if (chainRef) alsoKnownAs.push(chainRef);
   else if (authzContract)
     alsoKnownAs.push(`did:erc725:base:${authzContract}#__rootId-pending-chain-lookup__`);
-  const ed25519Ids = rec.vm.filter((v) => v && v.type === "Ed25519VerificationKey2020").map((v) => v.id);
-  const doc = {
+  const service = [];
+  if (rec.wasmCid) {
+    const raw = /^bafkrei[a-z2-7]{52}$/.test(rec.wasmCid); // raw single-block CIDv1
+    service.push({
+      id: `${did}#wasm`,
+      type: "EtzhayyimWasmComponent",
+      serviceEndpoint: `ipfs://${rec.wasmCid}`,
+      "x-exec": raw ? "browser-local|donated-mesh" : "donated-mesh",
+      "x-cid-codec": raw ? "raw" : "dag-pb",
+      "x-runtime": "kotoba-wasm",
+    });
+  }
+  service.push(...rec.service.map((s) => ({ ...s })));
+  return {
     "@context": [
       "https://www.w3.org/ns/did/v1",
       "https://w3id.org/security/suites/jws-2020/v1",
@@ -162,14 +190,15 @@ function toDidDoc(rec, authzContract) {
     id: did,
     alsoKnownAs,
     verificationMethod: rec.vm.map((v) => ({ ...v })),
-    ...(ed25519Ids.length > 0 ? { authentication: ed25519Ids, assertionMethod: ed25519Ids } : {}),
-    service: rec.service.map((s) => ({ ...s })),
+    service,
     _meta: {
-      adr: ["2605212030", "2605241800", "2606013800", ...rec.adr],
+      adr: ["2605212030", "2605241800", "2606013800", "2606014500", ...rec.adr],
       source: rec.source,
       kind: rec.kind,
       status: rec.status,
       glyph: rec.glyph,
+      wasmCid: rec.wasmCid ?? null,
+      execModel: rec.wasmCid ? "wasm-local (browser/donated-mesh)" : "service",
       primaryLexicon: rec.primaryLexicon,
       primarySchema: rec.primarySchema,
       note:
@@ -178,7 +207,6 @@ function toDidDoc(rec, authzContract) {
           : "verificationMethod mirrors on-chain ERC725 Root.activeKey",
     },
   };
-  return doc;
 }
 function toGetProfileView(rec) {
   const displayName = rec.displayNameEn || rec.displayNameJa || rec.handle;
@@ -227,6 +255,7 @@ function recordToKgEntity(rec) {
   add("description", rec.description);
   add("avatar", rec.avatar);
   add("banner", rec.banner);
+  add("wasm-cid", rec.wasmCid);
   add("performer-type", rec.performerType);
   add("ui-type", rec.uiType);
   add("primary-lexicon", rec.primaryLexicon);
@@ -257,20 +286,6 @@ function main() {
   const records = only ? entities.filter((r) => r.handle === only) : entities;
   if (records.length === 0) { console.error(`no actors${only ? ` matching '${only}'` : ""}`); process.exit(1); }
 
-  // --signing-key <zMultibase>: merge a member's client-registered Ed25519 session
-  // key (ADR-2606014500 C-2) into the record's verificationMethod so did.json
-  // exposes it and a did:web Signal binding can verify (ADR-2606014000 D4). Pair
-  // with --actor <handle>. Never minted here — the key comes from the device.
-  const signingKeyMb = valOf("--signing-key");
-  if (signingKeyMb) {
-    if (!signingKeyMb.startsWith("z")) { console.error("--signing-key must be a base58btc multibase (z…) key"); process.exit(1); }
-    for (const rec of records) {
-      const vm = { id: `${rec.did}#session-key`, type: "Ed25519VerificationKey2020", controller: rec.did, publicKeyMultibase: signingKeyMb };
-      rec.vm = [...rec.vm.filter((v) => v.id !== vm.id), vm];
-    }
-    console.log(`merged session-key verificationMethod into ${records.length} record(s)`);
-  }
-
   const authz = process.env.AUTHZ_CONTRACT_ADDRESS || "";
   const outDir = valOf("--emit-dir") || resolve(__dirname, "../out/actor-records");
   mkdirSync(outDir, { recursive: true });
@@ -278,12 +293,30 @@ function main() {
   for (const rec of records) {
     const did = toDidDoc(rec, authz);
     const profile = toGetProfileView(rec);
+    // canonical (content-addressed) DID doc: _meta.source normalized → stable CID
+    const canonical = { ...did, _meta: { ...did._meta, source: "ipfs" } };
+    const canonicalBytes = Buffer.from(JSON.stringify(canonical), "utf8");
+    const cid = cidV1Raw(canonicalBytes);
     writeFileSync(join(outDir, `${rec.handle}.record.json`), JSON.stringify(rec, null, 2) + "\n");
     writeFileSync(join(outDir, `${rec.handle}.did.json`), JSON.stringify(did, null, 2) + "\n");
+    writeFileSync(join(outDir, `${rec.handle}.did.canonical.json`), canonicalBytes);
+    writeFileSync(join(outDir, `${rec.handle}.diddoc.cid`), cid + "\n");
     writeFileSync(join(outDir, `${rec.handle}.profile.json`), JSON.stringify(profile, null, 2) + "\n");
   }
   console.log(`parsed ${records.length} actor(s) → ${outDir}`);
-  console.log(records.map((r) => `  ${r.glyph ? r.glyph + " " : ""}${r.handle}  (${r.kind}/${r.status}, ${r.service.length} svc)`).join("\n"));
+  console.log(records.map((r) => {
+    const c = cidV1Raw(Buffer.from(JSON.stringify({ ...toDidDoc(r, authz), _meta: { ...toDidDoc(r, authz)._meta, source: "ipfs" } }), "utf8"));
+    return `  ${r.glyph ? r.glyph + " " : ""}${r.handle}  (${r.kind}/${r.status})  did.json CID ${c}`;
+  }).join("\n"));
+
+  if (has("--pin-did")) {
+    for (const rec of records) {
+      const f = join(outDir, `${rec.handle}.did.canonical.json`);
+      const out = execFileSync("ipfs", ["add", "-Q", "--cid-version=1", f], { encoding: "utf8" }).trim();
+      const want = readFileSync(join(outDir, `${rec.handle}.diddoc.cid`), "utf8").trim();
+      console.log(`pinned ${rec.handle} did.json → ${out} ${out === want ? "✓" : "✗ MISMATCH " + want}`);
+    }
+  }
 
   if (has("--put-kv")) {
     for (const rec of records) {
@@ -297,7 +330,7 @@ function main() {
     const endpoint = process.env.KOTOBA_ENDPOINT;
     if (!endpoint) { console.error("KOTOBA_ENDPOINT unset — cannot ingest"); process.exit(2); }
     const batch = { entities: records.map(recordToKgEntity) };
-    const url = `${endpoint.replace(/\/$/, "")}/xrpc/ai.gftd.apps.kotobase.kg.ingest_batch`;
+    const url = `${endpoint.replace(/\/$/, "")}/xrpc/com.etzhayyim.apps.kotobase.kg.ingest_batch`;
     console.log(`POST ${url} (${batch.entities.length} entities) …`);
     fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(batch) })
       .then(async (r) => console.log(`  → ${r.status} ${await r.text()}`))

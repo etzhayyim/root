@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.saikin.signal"]
+      "collections": ["com.etzhayyim.apps.saikin.signal"]
     }
   }
 }

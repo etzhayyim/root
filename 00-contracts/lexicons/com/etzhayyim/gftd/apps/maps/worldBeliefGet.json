@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.worldBeliefGet",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "List Bayesian latent world-model beliefs for one maps entity, newest first. Filter by hypothesis when provided.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "entityId": { "type": "string" },
+            "hypothesis": { "type": "string" },
+            "limit": { "type": "integer", "minimum": 1, "maximum": 100 }
+          },
+          "required": ["entityId"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "array",
+          "items": { "type": "unknown" }
+        }
+      }
+    }
+  }
+}

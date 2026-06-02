@@ -2076,7 +2076,7 @@ mod security_filter_tests {
             ("rkey", PropValue::Str("post3".into())),
             ("sensitivity_ord", PropValue::Int(2)), // confidential
             ("owner_hash", PropValue::Int(3000)),
-            ("collection", PropValue::Str("app.etzhayyim.apps.yabai.entity".into())),
+            ("collection", PropValue::Str("com.etzhayyim.apps.yabai.entity".into())),
         ]);
         // vid=3: restricted post
         store.add_vertex("Post", &[
@@ -2165,7 +2165,7 @@ mod security_filter_tests {
         let store = security_store();
         let scope = SecurityScope {
             max_sensitivity_ord: 0, // public only by clearance
-            collection_scopes: vec!["app.etzhayyim.apps.yabai.".into()], // RBAC grants yabai access
+            collection_scopes: vec!["com.etzhayyim.apps.yabai.".into()], // RBAC grants yabai access
             ..Default::default()
         };
         let mut plan = PlanBuilder::new()
@@ -2259,7 +2259,7 @@ mod security_filter_tests {
         let store = security_store();
         let scope = SecurityScope {
             max_sensitivity_ord: 0,
-            collection_scopes: vec!["app.etzhayyim.apps.yabai.".into()],
+            collection_scopes: vec!["com.etzhayyim.apps.yabai.".into()],
             allowed_owner_hashes: vec![4000], // consent for restricted post owner
             ..Default::default()
         };

@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cloudflareBrowserRender.createSession",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a CF Browser Rendering session backed by a Durable Object.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "userAgent": { "type": "string" },
+            "locale": { "type": "string" },
+            "viewport": { "type": "object", "properties": { "width": { "type": "integer" }, "height": { "type": "integer" } } }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sessionId": { "type": "string" },
+            "durableObjectId": { "type": "string" },
+            "expiresAt": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

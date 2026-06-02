@@ -1,7 +1,7 @@
 -- ADR-2605141200 P6 (graph-as-data) + ADR-2604261100 (DMN SSoT) — register
 -- the `composeScene3dRefinement` DMN decision in `vertex_dmn_model` so the
 -- topology assistant's
---   `conditional_edges[*].condition_ref = dmn:ai.gftd.policies.mangaka.composeScene3dRefinement@1.0.0`
+--   `conditional_edges[*].condition_ref = dmn:com.etzhayyim.policies.mangaka.composeScene3dRefinement@1.0.0`
 -- resolves at runtime once `pymagatama.langgraph_node_resolvers` learns to
 -- evaluate DMN refs (Phase C activation, blocker #3).
 --
@@ -10,7 +10,7 @@
 -- (`compose_scene_3d._route_after_critique`) implements the same decision
 -- verbatim, so behaviour is unchanged at runtime.
 --
--- SSoT for the XML body: 00-contracts/dmn/ai/gftd/policies/mangaka/composeScene3dRefinement.dmn
+-- SSoT for the XML body: 00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn
 --
 -- Idempotent — NOT EXISTS guard mirrors 20260514130000_seed_mangaka_compose_scene_3d_assistant.up.sql.
 
@@ -25,12 +25,12 @@ INSERT INTO vertex_dmn_model (
   dmn_xml, status
 )
 SELECT
-  'at://did:web:mangaka.gftd.ai/ai.gftd.dmn.model/composeScene3dRefinement-v1',
+  'at://did:web:mangaka.gftd.ai/com.etzhayyim.dmn.model/composeScene3dRefinement-v1',
   0, '2026-05-14'::date, 0, 'did:web:mangaka.gftd.ai',
   'composeScene3dRefinement-v1',
   'did:web:mangaka.gftd.ai',
   'did:web:mangaka.gftd.ai',
-  'ai.gftd.policies.mangaka.composeScene3dRefinement',
+  'com.etzhayyim.policies.mangaka.composeScene3dRefinement',
   'composeScene3dRefinement',
   'compose_scene_3d refinement loop routing — emits "cinematography" when score < 0.75 and iteration budget remains, else "persist".',
   1,
@@ -66,7 +66,7 @@ SELECT
              id="Definitions_compose_scene_3d_refinement"
              name="composeScene3dRefinement"
              namespace="https://gftd.ai/dmn/mangaka">
-  <decision id="ai.gftd.policies.mangaka.composeScene3dRefinement"
+  <decision id="com.etzhayyim.policies.mangaka.composeScene3dRefinement"
             name="composeScene3dRefinement">
     <decisionTable id="DecisionTable_composeScene3dRefinement" hitPolicy="FIRST">
       <input id="Input_score">
@@ -106,6 +106,6 @@ SELECT
   'active'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_dmn_model
-  WHERE decision_key = 'ai.gftd.policies.mangaka.composeScene3dRefinement'
+  WHERE decision_key = 'com.etzhayyim.policies.mangaka.composeScene3dRefinement'
     AND version = 1
 );

@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.upsertFlightOperation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Upsert a flight operation snapshot (real-time-ish). Supports per-aircraft status, delay, occupancy, and basic unit economics.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["flightNumber", "aircraftDid", "asOf"],
+          "properties": {
+            "flightDid": { "type": "string", "format": "did" },
+            "flightNumber": { "type": "string" },
+            "callsign": { "type": "string" },
+            "aircraftDid": { "type": "string", "format": "did" },
+            "routeDid": { "type": "string", "format": "did" },
+            "operatorDid": { "type": "string", "format": "did" },
+            "ownerDid": { "type": "string", "format": "did", "description": "Optional owner of operated aircraft at snapshot time." },
+            "originAirportDid": { "type": "string", "format": "did" },
+            "destinationAirportDid": { "type": "string", "format": "did" },
+            "status": {
+              "type": "string",
+              "enum": ["scheduled", "boarding", "departed", "airborne", "delayed", "diverted", "landed", "cancelled", "unknown"]
+            },
+            "scheduledDepartureAt": { "type": "string", "format": "datetime" },
+            "actualDepartureAt": { "type": "string", "format": "datetime" },
+            "scheduledArrivalAt": { "type": "string", "format": "datetime" },
+            "actualArrivalAt": { "type": "string", "format": "datetime" },
+            "delayMinutes": { "type": "integer" },
+            "occupancyRate": { "type": "number", "description": "0.0-1.0 load factor proxy." },
+            "passengers": { "type": "integer" },
+            "seatCapacity": { "type": "integer" },
+            "revenue": { "type": "number", "description": "Per-flight estimate or settled amount." },
+            "cost": { "type": "number", "description": "Per-flight estimate or settled amount." },
+            "profit": { "type": "number", "description": "revenue - cost (optional if precomputed)." },
+            "currency": { "type": "string", "description": "ISO 4217" },
+            "asOf": { "type": "string", "format": "datetime" },
+            "source": { "type": "string", "description": "adsb / atc / ops / finance etc." },
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "sourceLicense": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "nodeId": { "type": "string" },
+            "flightDid": { "type": "string", "format": "did" },
+            "status": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

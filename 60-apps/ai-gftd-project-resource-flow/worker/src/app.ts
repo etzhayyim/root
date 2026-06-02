@@ -90,12 +90,12 @@ async function handleCommit(sdk: HostSDK, commit: CommitEvent): Promise<void> {
   if (!commit || commit.action !== "create") return;
   const c = commit.collection;
   let flowClass = "";
-  if (c === "app.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow") flowClass = "currency";
-  else if (c === "app.etzhayyim.apps.resourceFlow.legalEntityServiceFlow") flowClass = "service";
-  else if (c === "app.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow") flowClass = "personnel";
+  if (c === "com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow") flowClass = "currency";
+  else if (c === "com.etzhayyim.apps.resourceFlow.legalEntityServiceFlow") flowClass = "service";
+  else if (c === "com.etzhayyim.apps.resourceFlow.legalEntityPersonnelFlow") flowClass = "personnel";
   else return;
 
-  await dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.projectFlow", {
+  await dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.projectFlow", {
     flowClass,
     recordUri: commit.uri,
     observedAt: commit.observedAt ?? nowISO(),
@@ -104,44 +104,44 @@ async function handleCommit(sdk: HostSDK, commit: CommitEvent): Promise<void> {
 }
 
 export default createWorkerExport((sdk: HostSDK) => {
-  sdk.app.query("app.etzhayyim.apps.resourceFlow.getSankey", async (_ctx, body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.getSankey", body);
+  sdk.app.query("com.etzhayyim.apps.resourceFlow.getSankey", async (_ctx, body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.getSankey", body);
   }, {
     agentTool: "Return the sankey-ready edge list for one flow class.",
     capabilityTags: ["resource-flow", "sankey", "adr-0028"],
   });
 
-  sdk.app.query("app.etzhayyim.apps.resourceFlow.getActorLabels", async (_ctx, body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.getActorLabels", body);
+  sdk.app.query("com.etzhayyim.apps.resourceFlow.getActorLabels", async (_ctx, body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.getActorLabels", body);
   }, {
     agentTool: "Bulk-resolve display labels for actor DIDs.",
     capabilityTags: ["resource-flow", "actor-label", "adr-0074"],
   });
 
-  sdk.app.query("app.etzhayyim.apps.resourceFlow.listFlows", async (_ctx, body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.listFlows", body);
+  sdk.app.query("com.etzhayyim.apps.resourceFlow.listFlows", async (_ctx, body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.listFlows", body);
   });
 
-  sdk.app.query("app.etzhayyim.apps.resourceFlow.listAnomalies", async (_ctx, body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.listAnomalies", body);
+  sdk.app.query("com.etzhayyim.apps.resourceFlow.listAnomalies", async (_ctx, body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.listAnomalies", body);
   }, {
     agentTool: "Paginated list of resource-flow anomalies.",
     capabilityTags: ["resource-flow", "anomaly", "list", "adr-0046"],
   });
 
-  sdk.app.command("app.etzhayyim.apps.resourceFlow.reviewAnomaly", async (body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.reviewAnomaly", body);
+  sdk.app.command("com.etzhayyim.apps.resourceFlow.reviewAnomaly", async (body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.reviewAnomaly", body);
   }, {
     agentTool: "Record a review action on an anomaly.",
     capabilityTags: ["resource-flow", "anomaly", "review", "adr-0046"],
   });
 
-  sdk.app.command("app.etzhayyim.apps.resourceFlow.projectFlow", async (body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.projectFlow", body);
+  sdk.app.command("com.etzhayyim.apps.resourceFlow.projectFlow", async (body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.projectFlow", body);
   });
 
-  sdk.app.command("app.etzhayyim.apps.resourceFlow.detectAnomaly", async (body) => {
-    return dispatchBpmn(sdk, "app.etzhayyim.apps.resourceFlow.detectAnomaly", body);
+  sdk.app.command("com.etzhayyim.apps.resourceFlow.detectAnomaly", async (body) => {
+    return dispatchBpmn(sdk, "com.etzhayyim.apps.resourceFlow.detectAnomaly", body);
   }, {
     agentTool: "Run the resource-flow anomaly scan through BPMN/LangServer.",
     capabilityTags: ["resource-flow", "anomaly", "adr-0028", "adr-0046"],

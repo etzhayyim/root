@@ -4,14 +4,14 @@ Per ADR-2605312700 (兆 kizashi). Cell §3 #5; Murakumo node `naphtali`.
 
 Purpose: route a non-diagnostic attribution to the clinical-adjudication actors
 (mitate / iyashi / kokoro) and escalate red-flag signs immediately. Emits
-`app.etzhayyim.kizashi.triageReferral`.
+`com.etzhayyim.kizashi.triageReferral`.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G5 emergency red-flag → immediate
 受診/救急 routing via the shared emergency-keyword lexicon (mitate/iyashi/kokoro),
 never "wait for next scan"; G3 kizashi can only REFER — targetActor is
 const-enum {mitate, iyashi, kokoro}; it cannot close a clinical loop itself;
 G6 sharing scan provenance requires consent; G14 Murakumo-only inference.
-Output Lexicon(s): app.etzhayyim.kizashi.triageReferral.
+Output Lexicon(s): com.etzhayyim.kizashi.triageReferral.
 
 R0 scaffold — import-time RuntimeError until R2.
 """

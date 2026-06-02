@@ -1,0 +1,89 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cbdc.registerProject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CBDC project (BIS Atlas / wholesale + retail — bridges mica-crypto + psd3-open-finance + fatf-travel-rule + sovereign-debt)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "projectId",
+            "countryIso3",
+            "cbdcKind",
+            "phase",
+            "announcedAt"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string"
+            },
+            "centralBankLei": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "cbdcKind": {
+              "type": "string",
+              "enum": [
+                "retail",
+                "wholesale",
+                "cross_border",
+                "synthetic"
+              ]
+            },
+            "ledgerType": {
+              "type": "string",
+              "enum": [
+                "permissioned_dlt",
+                "centralized",
+                "hybrid",
+                "tokenized_reserves"
+              ]
+            },
+            "phase": {
+              "type": "string",
+              "enum": [
+                "research",
+                "proof_of_concept",
+                "pilot",
+                "live",
+                "cancelled"
+              ]
+            },
+            "participatingBanksCount": {
+              "type": "integer"
+            },
+            "announcedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -39,21 +39,21 @@ type B = { vertexId: string; nsid: string; bpmnProcessId: string; resultTimeoutM
 
 const processSeeds: P[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/etzhayyim-governance-daily-check-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/etzhayyim-governance-daily-check-v1",
     bpmnProcessId: "etzhayyim_governance_daily_check",
-    sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/governanceDailyCheck.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/etzhayyim/governanceDailyCheck.bpmn",
   },
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/etzhayyim-company-ops-dispatch-v1",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/etzhayyim-company-ops-dispatch-v1",
     bpmnProcessId: "etzhayyim_company_ops_dispatch",
-    sourcePath: "00-contracts/bpmn/ai/gftd/etzhayyim/companyOpsDispatch.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/etzhayyim/companyOpsDispatch.bpmn",
   },
 ];
 
 const bindingSeeds: B[] = [
   {
-    vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/etzhayyim-company-ops-dispatch-xrpc-v1",
-    nsid: "app.etzhayyim.apps.etzhayyim.companyOpsDispatch",
+    vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-company-ops-dispatch-xrpc-v1",
+    nsid: "com.etzhayyim.apps.etzhayyim.companyOpsDispatch",
     bpmnProcessId: "etzhayyim_company_ops_dispatch",
     resultTimeoutMs: 180_000,
   },

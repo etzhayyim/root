@@ -15,7 +15,7 @@
  * ║  Why superseded (religious-corp substrate-fit):                       ║
  * ║    - DataLad subdataset + IPFS-pin storage of full GLEIF L1+L2+RepEx  ║
  * ║      concatenated files (NOT per-row PDS createRecord)                ║
- * ║    - app.etzhayyim.corp.leiReference Lexicon record canonical         ║
+ * ║    - com.etzhayyim.corp.leiReference Lexicon record canonical         ║
  * ║      (NOT legacy gftd-side NSID; CC0 1.0 attribution preserved)       ║
  * ║    - LeiSensor Protocol (pymagatama.organism.sensors.corp.lei_sensor) ║
  * ║      acts as the canonical cross-jurisdiction key resolver — other    ║
@@ -74,7 +74,7 @@ import { execSync } from "node:child_process";
 
 const PDS_URL = "https://atproto.etzhayyim.com";
 const COLLECTOR_DID = "did:web:legal-entity.etzhayyim.com";
-const COLLECTION = "app.etzhayyim.apps.legalEntity.legalEntity";
+const COLLECTION = "com.etzhayyim.apps.legalEntity.legalEntity";
 const PROGRESS_FILE = "/tmp/gleif-ingest-progress.json";
 const RW_CONN = "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 

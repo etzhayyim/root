@@ -631,17 +631,17 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES
-      ('gene_catalog', 'bio', 'app.etzhayyim.apps.bio.gene', 100000000, 'gene records across major reference organisms', 'science'),
-      ('protein_catalog', 'bio', 'app.etzhayyim.apps.bio.protein', 250000000, 'protein records across public sequence databases', 'science'),
-      ('cell_type_catalog', 'bio', 'app.etzhayyim.apps.bio.cellType', 5000, 'curated cell types', 'science'),
-      ('anatomy_tissue', 'bio', 'app.etzhayyim.apps.bio.tissue', 50000, 'anatomical tissue entities', 'science'),
-      ('anatomy_organ', 'bio', 'app.etzhayyim.apps.bio.organ', 10000, 'anatomical organ entities', 'science'),
-      ('anatomy_body_system', 'bio', 'app.etzhayyim.apps.bio.bodySystem', 20, 'body systems', 'science'),
-      ('pathway_catalog', 'bio', 'app.etzhayyim.apps.bio.pathway', 30000, 'biological pathways', 'science'),
-      ('element_catalog', 'phys', 'app.etzhayyim.apps.phys.element', 118, 'chemical elements', 'science'),
-      ('isotope_catalog', 'phys', 'app.etzhayyim.apps.phys.isotope', 3400, 'known isotopes', 'science'),
-      ('molecule_catalog', 'phys', 'app.etzhayyim.apps.phys.molecule', 200000000, 'registered molecules and compounds', 'science'),
-      ('sozai', 'phys', 'app.etzhayyim.apps.phys.material', 200000, 'material grades', 'manufacturing')
+      ('gene_catalog', 'bio', 'com.etzhayyim.apps.bio.gene', 100000000, 'gene records across major reference organisms', 'science'),
+      ('protein_catalog', 'bio', 'com.etzhayyim.apps.bio.protein', 250000000, 'protein records across public sequence databases', 'science'),
+      ('cell_type_catalog', 'bio', 'com.etzhayyim.apps.bio.cellType', 5000, 'curated cell types', 'science'),
+      ('anatomy_tissue', 'bio', 'com.etzhayyim.apps.bio.tissue', 50000, 'anatomical tissue entities', 'science'),
+      ('anatomy_organ', 'bio', 'com.etzhayyim.apps.bio.organ', 10000, 'anatomical organ entities', 'science'),
+      ('anatomy_body_system', 'bio', 'com.etzhayyim.apps.bio.bodySystem', 20, 'body systems', 'science'),
+      ('pathway_catalog', 'bio', 'com.etzhayyim.apps.bio.pathway', 30000, 'biological pathways', 'science'),
+      ('element_catalog', 'phys', 'com.etzhayyim.apps.phys.element', 118, 'chemical elements', 'science'),
+      ('isotope_catalog', 'phys', 'com.etzhayyim.apps.phys.isotope', 3400, 'known isotopes', 'science'),
+      ('molecule_catalog', 'phys', 'com.etzhayyim.apps.phys.molecule', 200000000, 'registered molecules and compounds', 'science'),
+      ('sozai', 'phys', 'com.etzhayyim.apps.phys.material', 200000, 'material grades', 'manufacturing')
   `.execute(db);
 }
 

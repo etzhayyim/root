@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.treasuryRulemaking.recordRule",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "US Treasury / IRS Notice / NPRM / final rule (bridges iraTaxCredit.flagFeocDisqualification + IRA implementation + APA)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "ruleId",
+            "agency",
+            "ruleType",
+            "subjectArea",
+            "publishedAt"
+          ],
+          "properties": {
+            "ruleId": {
+              "type": "string"
+            },
+            "agency": {
+              "type": "string",
+              "enum": [
+                "treasury",
+                "irs",
+                "ofac",
+                "fincen",
+                "occ",
+                "fsoc",
+                "cfius",
+                "bea"
+              ]
+            },
+            "ruleType": {
+              "type": "string",
+              "enum": [
+                "notice",
+                "nprm",
+                "temp_final",
+                "final_rule",
+                "direct_final",
+                "guidance",
+                "revenue_procedure",
+                "private_letter"
+              ]
+            },
+            "subjectArea": {
+              "type": "string",
+              "enum": [
+                "ira_45x",
+                "ira_45v",
+                "ira_45q",
+                "ira_45y",
+                "cfius_review",
+                "bsa_aml",
+                "sanctions",
+                "beneficial_ownership",
+                "digital_asset",
+                "foreign_trust",
+                "cbdc"
+              ]
+            },
+            "feocFlagVid": {
+              "type": "string",
+              "description": "bridges iraTaxCredit.flagFeocDisqualification"
+            },
+            "federalRegisterNo": {
+              "type": "string"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

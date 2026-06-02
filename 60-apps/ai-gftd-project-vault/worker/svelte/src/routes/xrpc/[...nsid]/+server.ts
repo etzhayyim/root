@@ -200,9 +200,9 @@ export const POST: RequestHandler = async (event) => {
   try { input = await event.request.json() as Record<string, unknown>; } catch { /* empty body ok */ }
 
   switch (nsid) {
-    case "app.etzhayyim.vault.createVault": return handleCreateVault(db, did, input);
-    case "app.etzhayyim.vault.putItem":     return handlePutItem(db, did, input);
-    case "app.etzhayyim.vault.deleteItem":  return handleDeleteItem(db, did, input);
+    case "com.etzhayyim.vault.createVault": return handleCreateVault(db, did, input);
+    case "com.etzhayyim.vault.putItem":     return handlePutItem(db, did, input);
+    case "com.etzhayyim.vault.deleteItem":  return handleDeleteItem(db, did, input);
     default: return noStore({ error: `Unknown method: ${nsid}` }, { status: 404 });
   }
 };
@@ -219,9 +219,9 @@ export const GET: RequestHandler = async (event) => {
   const p = event.url.searchParams;
 
   switch (nsid) {
-    case "app.etzhayyim.vault.listVaults":  return handleListVaults(db, did);
-    case "app.etzhayyim.vault.listItems":   return handleListItems(db, did, p.get("vaultId") ?? "");
-    case "app.etzhayyim.vault.getItem":     return handleGetItem(db, did, p.get("itemId") ?? "", p.get("vaultId") ?? "");
+    case "com.etzhayyim.vault.listVaults":  return handleListVaults(db, did);
+    case "com.etzhayyim.vault.listItems":   return handleListItems(db, did, p.get("vaultId") ?? "");
+    case "com.etzhayyim.vault.getItem":     return handleGetItem(db, did, p.get("itemId") ?? "", p.get("vaultId") ?? "");
     default: return noStore({ error: `Unknown method: ${nsid}` }, { status: 404 });
   }
 };

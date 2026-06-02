@@ -3,7 +3,7 @@
   "formKey": "openRail.reportIncident.v1",
   "name": "Report Incident",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openRail.reportIncident",
+  "lexiconRef": "com.etzhayyim.apps.openRail.reportIncident",
   "components": [
     {
       "key": "lineDid",

@@ -33,8 +33,8 @@ export interface CreditsMeterEnv {
 	CREDITS_INTERNAL_TOKEN?: string;
 }
 
-const CHECK_NSID = "app.etzhayyim.apps.credits.checkSpendAllowed";
-const SPEND_NSID = "app.etzhayyim.apps.credits.spendCredits";
+const CHECK_NSID = "com.etzhayyim.apps.credits.checkSpendAllowed";
+const SPEND_NSID = "com.etzhayyim.apps.credits.spendCredits";
 
 async function xrpcPost(
 	env: CreditsMeterEnv,

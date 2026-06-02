@@ -7,21 +7,21 @@
  * records (Patient / Encounter / SoapNote / Observation / Condition /
  * MedicationRequest / ServiceRequest / DispenseRecord / CarePlan /
  * HomecareEpisode / HomeVisit) MUST flow through
- * `app.etzhayyim.encrypted.record` envelope. Direct writes to the inner
- * `app.etzhayyim.karute.*` collection on MST (or any other persistence
+ * `com.etzhayyim.encrypted.record` envelope. Direct writes to the inner
+ * `com.etzhayyim.karute.*` collection on MST (or any other persistence
  * surface) leak PHI plaintext.
  *
  * This hook scans staged changes for two violation patterns:
  *
- *   1. Direct PDS createRecord / putRecord with collection = app.etzhayyim.karute.*
- *      e.g. `agent.com.atproto.repo.createRecord({ collection: "app.etzhayyim.karute.patient", ... })`
+ *   1. Direct PDS createRecord / putRecord with collection = com.etzhayyim.karute.*
+ *      e.g. `agent.com.atproto.repo.createRecord({ collection: "com.etzhayyim.karute.patient", ... })`
  *
- *   2. SDK `write({ collection: "app.etzhayyim.karute.* "})` — the plain (non-encrypted)
- *      path on Etzhayyim. The encrypted path is `encryptedWrite({ innerType: "app.etzhayyim.karute.*" })`,
- *      which puts the inner type inside the `app.etzhayyim.encrypted.record` envelope.
+ *   2. SDK `write({ collection: "com.etzhayyim.karute.* "})` — the plain (non-encrypted)
+ *      path on Etzhayyim. The encrypted path is `encryptedWrite({ innerType: "com.etzhayyim.karute.*" })`,
+ *      which puts the inner type inside the `com.etzhayyim.encrypted.record` envelope.
  *
  * Files explicitly tagged with `phi-guard: allow` or located inside test/
- * fixture paths are exempt. Lexicon JSONs under 00-contracts/lexicons/app/etzhayyim/karute/
+ * fixture paths are exempt. Lexicon JSONs under 00-contracts/lexicons/com/etzhayyim/karute/
  * are exempt because they define the inner-type schemas themselves (not actual writes).
  */
 
@@ -29,17 +29,17 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 const KARUTE_INNER_TYPES = [
-  "app.etzhayyim.karute.patient",
-  "app.etzhayyim.karute.encounter",
-  "app.etzhayyim.karute.soapNote",
-  "app.etzhayyim.karute.observation",
-  "app.etzhayyim.karute.condition",
-  "app.etzhayyim.karute.medicationRequest",
-  "app.etzhayyim.karute.serviceRequest",
-  "app.etzhayyim.karute.dispenseRecord",
-  "app.etzhayyim.karute.carePlan",
-  "app.etzhayyim.karute.homecareEpisode",
-  "app.etzhayyim.karute.homeVisit",
+  "com.etzhayyim.karute.patient",
+  "com.etzhayyim.karute.encounter",
+  "com.etzhayyim.karute.soapNote",
+  "com.etzhayyim.karute.observation",
+  "com.etzhayyim.karute.condition",
+  "com.etzhayyim.karute.medicationRequest",
+  "com.etzhayyim.karute.serviceRequest",
+  "com.etzhayyim.karute.dispenseRecord",
+  "com.etzhayyim.karute.carePlan",
+  "com.etzhayyim.karute.homecareEpisode",
+  "com.etzhayyim.karute.homeVisit",
 ];
 
 const EXEMPT_PATH_PATTERNS = [
@@ -67,15 +67,15 @@ const EXEMPT_PATH_PATTERNS = [
 
 // Match write-style calls whose collection / innerType points to a karute inner type.
 //
-//   collection: "app.etzhayyim.karute.soapNote"
-//   collection: 'app.etzhayyim.karute.patient'
-//   collection: `app.etzhayyim.karute.${kind}`     // dynamic collection — also flagged
-//   $type: "app.etzhayyim.karute.observation"
+//   collection: "com.etzhayyim.karute.soapNote"
+//   collection: 'com.etzhayyim.karute.patient'
+//   collection: `com.etzhayyim.karute.${kind}`     // dynamic collection — also flagged
+//   $type: "com.etzhayyim.karute.observation"
 //
 // We separately require that the call site is NOT inside an encryptedWrite() call
 // by checking the surrounding ~10 lines for `encryptedWrite(` token.
 
-const KARUTE_TYPE_PATTERN = /app\.etzhayyim\.karute\.(patient|encounter|soapNote|observation|condition|medicationRequest|serviceRequest|dispenseRecord|carePlan|homecareEpisode|homeVisit)\b/;
+const KARUTE_TYPE_PATTERN = /com\.etzhayyim\.karute\.(patient|encounter|soapNote|observation|condition|medicationRequest|serviceRequest|dispenseRecord|carePlan|homecareEpisode|homeVisit)\b/;
 // We deliberately do not anchor with `\b` because `\b\$` does not fire when
 // `$type` follows whitespace (the common case). The `: "..."` tail is
 // restrictive enough to avoid false positives.
@@ -144,7 +144,7 @@ for (const file of files) {
     console.error(`✘ ${file}:${i + 1} — plaintext PHI write target`);
     console.error(`    ${line.trim()}`);
     console.error("    karute inner types MUST be written through @etzhayyim/sdk.encryptedWrite()");
-    console.error("    (collection 'app.etzhayyim.encrypted.record' + innerType 'app.etzhayyim.karute.*')");
+    console.error("    (collection 'com.etzhayyim.encrypted.record' + innerType 'com.etzhayyim.karute.*')");
     console.error("    To bypass for a justified exception, append '// phi-guard: allow' on the line and");
     console.error("    document the rationale in 90-docs/adr/.");
     console.error("");

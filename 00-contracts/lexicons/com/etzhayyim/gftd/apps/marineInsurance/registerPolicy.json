@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.marineInsurance.registerPolicy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Register a marine insurance policy (Hull & Machinery, Cargo, P&I). Sources: IUMI + Lloyd's + IG P&I Clubs. Path-based DID: did:web:marine-insurance.etzhayyim.com:policy:{slug}.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["policyType", "insuredDid", "effectiveFrom", "effectiveTo"],
+          "properties": {
+            "policyType": { "type": "string", "enum": ["hull-machinery", "cargo", "p-and-i", "war-risk", "loss-of-hire", "freight-demurrage-defence"] },
+            "insuredDid": { "type": "string", "format": "did", "description": "vessel DID or legal-entity DID" },
+            "underwriterDid": { "type": "string", "format": "did", "description": "Lloyd's syndicate / IG club / mutual" },
+            "brokerDid": { "type": "string", "format": "did" },
+            "effectiveFrom": { "type": "string", "format": "datetime" },
+            "effectiveTo": { "type": "string", "format": "datetime" },
+            "sumInsured": { "type": "number" },
+            "currency": { "type": "string" },
+            "premium": { "type": "number" },
+            "deductible": { "type": "number" },
+            "coverageScope": { "type": "string", "enum": ["worldwide", "trading-warranty", "war-zone-exclusion", "named-perils"] }
+          }
+        }
+      },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "uri": { "type": "string", "format": "at-uri" } } } }
+    }
+  }
+}

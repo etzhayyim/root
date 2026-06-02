@@ -73,7 +73,7 @@ function listPrice(metric: MeterMetric, qty: number): number {
 async function podMeterEvent(env: MeterEnv, event: MeterEvent): Promise<void> {
   const base = env.LG_YATABASE_URL;
   if (!base) return;
-  const url = `${base.replace(/\/+$/, "")}/xrpc/app.etzhayyim.apps.yata.meterEvent`;
+  const url = `${base.replace(/\/+$/, "")}/xrpc/com.etzhayyim.apps.yata.meterEvent`;
   const headers: Record<string, string> = { "content-type": "application/json" };
   if (env.DISPATCHER_INTERNAL_SECRET) {
     headers["x-internal-trust"] = env.DISPATCHER_INTERNAL_SECRET;

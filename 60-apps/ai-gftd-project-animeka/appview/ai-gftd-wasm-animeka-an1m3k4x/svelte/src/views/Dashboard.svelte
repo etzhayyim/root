@@ -74,12 +74,12 @@
     try {
       const [worksResp, cutsResp, episodesResp, retakesResp] = await Promise.all([
         atQuery<{ works?: Record<string, unknown>[]; items?: Record<string, unknown>[] }>(
-          'app.etzhayyim.animeka.listWorks', { limit: 200 }
+          'com.etzhayyim.animeka.listWorks', { limit: 200 }
         ),
-        atQuery<{ items?: CutRow[] }>('app.etzhayyim.animeka.listCuts', { limit: 500 }),
-        atQuery<{ items?: Record<string, unknown>[] }>('app.etzhayyim.animeka.listEpisodes', { limit: 200 })
+        atQuery<{ items?: CutRow[] }>('com.etzhayyim.animeka.listCuts', { limit: 500 }),
+        atQuery<{ items?: Record<string, unknown>[] }>('com.etzhayyim.animeka.listEpisodes', { limit: 200 })
           .catch(() => ({ items: [] })),
-        atQuery<{ items?: unknown[] }>('app.etzhayyim.animeka.listRetakes', { status: 'open', limit: 1 })
+        atQuery<{ items?: unknown[] }>('com.etzhayyim.animeka.listRetakes', { status: 'open', limit: 1 })
           .catch(() => ({ items: [] })),
       ]);
 
@@ -110,7 +110,7 @@
 
       openRetakeCount = (retakesResp.items ?? []).length > 0 ? -1 : 0; // -1 = has retakes
       // Fetch actual count
-      atQuery<{ total?: number; items?: unknown[] }>('app.etzhayyim.animeka.listRetakes', { status: 'open', limit: 500 })
+      atQuery<{ total?: number; items?: unknown[] }>('com.etzhayyim.animeka.listRetakes', { status: 'open', limit: 500 })
         .then(r => { openRetakeCount = (r.items ?? []).length; })
         .catch(() => { openRetakeCount = 0; });
 
@@ -124,7 +124,7 @@
     if (!newTitle.trim()) return;
     creating = true;
     try {
-      await atProcedure('app.etzhayyim.animeka.createWork', { title: newTitle.trim() });
+      await atProcedure('com.etzhayyim.animeka.createWork', { title: newTitle.trim() });
       newTitle = '';
       await load();
     } catch (err) { console.error(err); }
@@ -170,7 +170,7 @@
     publishing = true; publishDone = false; publishError = ''; episodeCid = '';
     try {
       const r = await atProcedure<{ episode_cid?: string; episodeCid?: string; cut_count?: number; cutCount?: number; error?: string }>(
-        'app.etzhayyim.animeka.publishEpisode', { maxCuts: publishMaxCuts }
+        'com.etzhayyim.animeka.publishEpisode', { maxCuts: publishMaxCuts }
       );
       if (r.error) { publishError = r.error; }
       else {
@@ -197,7 +197,7 @@
     scoring = true; scoreResult = null; scoreError = '';
     try {
       const r = await atProcedure<{ scores?: unknown[]; summary?: Record<string,unknown>; error?: string }>(
-        'app.etzhayyim.animeka.scoreCuts', { maxCuts: scoreCutCount }
+        'com.etzhayyim.animeka.scoreCuts', { maxCuts: scoreCutCount }
       );
       if (r.error) scoreError = r.error;
       else scoreResult = { scores: r.scores ?? [], summary: r.summary ?? {} };
@@ -209,7 +209,7 @@
     kaizenRunning = true; kaizenResult = null; kaizenError = '';
     try {
       const r = await atProcedure<{ improved_count?: number; directives_used?: string[]; kaizen_results?: unknown[]; error?: string }>(
-        'app.etzhayyim.animeka.kaizenCompositor', { maxCuts: scoreCutCount, threshold: kaizenThreshold }
+        'com.etzhayyim.animeka.kaizenCompositor', { maxCuts: scoreCutCount, threshold: kaizenThreshold }
       );
       if (r.error) kaizenError = r.error;
       else kaizenResult = { improved_count: r.improved_count ?? 0, directives_used: r.directives_used ?? [], kaizen_results: r.kaizen_results ?? [] };
@@ -227,7 +227,7 @@
     audioRunning = true; audioResult = null; audioError = '';
     try {
       const r = await atProcedure<{ summary?: { successful?: number; mood_distribution?: Record<string,number>; tts_cuts?: number }; error?: string }>(
-        'app.etzhayyim.animeka.generateAudio', { maxCuts: audioCutCount }
+        'com.etzhayyim.animeka.generateAudio', { maxCuts: audioCutCount }
       );
       if (r.error) audioError = r.error;
       else {
@@ -441,7 +441,7 @@
               {#each autoCuts.filter(c => c._st.composite === 'approved').slice(-16) as c}
                 <button
                   class="thumb-btn"
-                  onclick={() => go?.(`/at/an1m3k4x.etzhayyim.com/app.etzhayyim.animeka.cut/${c.rkey}`)}
+                  onclick={() => go?.(`/at/an1m3k4x.etzhayyim.com/com.etzhayyim.animeka.cut/${c.rkey}`)}
                   title={String(c.rkey ?? '')}
                 >
                   {#if c.thumb_cid}

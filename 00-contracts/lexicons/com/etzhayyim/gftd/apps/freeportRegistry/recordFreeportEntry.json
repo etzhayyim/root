@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.freeportRegistry.recordFreeportEntry",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Freeport / bonded warehouse / art storage entry (bridges artMarketAml.flagMoneyLaundering + beneficial-ownership + customs-declaration)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "entryId",
+            "freeportKind",
+            "holderKind",
+            "objectCategory",
+            "enteredAt"
+          ],
+          "properties": {
+            "entryId": {
+              "type": "string"
+            },
+            "freeportKind": {
+              "type": "string",
+              "enum": [
+                "geneva_freeport",
+                "lefebvre_lux",
+                "le_freeport_singapore",
+                "delaware_warehouse",
+                "newark_ports",
+                "hk_airport",
+                "beijing_art",
+                "delaware_freeport",
+                "basel_bonded",
+                "freeport_mia"
+              ]
+            },
+            "holderKind": {
+              "type": "string",
+              "enum": [
+                "trust",
+                "foundation",
+                "shell_hnwi",
+                "gallery",
+                "estate",
+                "fund",
+                "sovereign",
+                "custodial"
+              ]
+            },
+            "objectCategory": {
+              "type": "string",
+              "enum": [
+                "art",
+                "jewelry",
+                "precious_metals",
+                "whisky_vintages",
+                "classic_cars",
+                "bonds_paper",
+                "digital_wallet_cold",
+                "rare_books",
+                "numismatics"
+              ]
+            },
+            "amlFlagVid": {
+              "type": "string",
+              "description": "bridges artMarketAml.flagMoneyLaundering"
+            },
+            "enteredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.companyFiling",
+  "description": "Record emitted from public-company disclosure ingest. Represents one filing envelope such as 10-K, 10-Q, 20-F, 40-F, 6-K, or 8-K.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "companyDid",
+          "filingSource",
+          "filingType",
+          "filingDate",
+          "accessionNo",
+          "filingUrl",
+          "issuerName",
+          "sourceLicense",
+          "createdAt"
+        ],
+        "properties": {
+          "companyDid": { "type": "string" },
+          "filingSource": { "type": "string" },
+          "filingType": { "type": "string" },
+          "filingDate": { "type": "string", "format": "date" },
+          "periodStart": { "type": "string", "format": "date" },
+          "periodEnd": { "type": "string", "format": "date" },
+          "fiscalYear": { "type": "integer" },
+          "fiscalQuarter": { "type": "integer" },
+          "accessionNo": { "type": "string" },
+          "filingUrl": { "type": "string", "format": "uri" },
+          "issuerName": { "type": "string" },
+          "issuerTicker": { "type": "string" },
+          "issuerExchange": { "type": "string" },
+          "country": { "type": "string" },
+          "language": { "type": "string" },
+          "sourceLicense": { "type": "string" },
+          "props": { "type": "string", "description": "Opaque JSON string for source-specific metadata." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

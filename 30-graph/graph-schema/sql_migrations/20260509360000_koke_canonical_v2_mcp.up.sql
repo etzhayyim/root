@@ -1,7 +1,7 @@
 -- ADR-2605082000 Phase A — koke canonical migration (saikin/ki sibling).
 --
 -- Bulk-51 koke.cycle.v1: 5 py_primitive nodes + 2 conditional routers
--- (Python). v2 binds each node to mcp://ai.gftd.apps.koke.<method> with
+-- (Python). v2 binds each node to mcp://com.etzhayyim.apps.koke.<method> with
 -- the canonical method names matching pymagatama.koke_worker_main:
 -- task_<snake> (no `task_koke_` prefix).
 --
@@ -17,32 +17,32 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-scanRawSignals',
-   0, 0, 'ai.gftd.apps.koke.scanRawSignals', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-koke-scanRawSignals',
+   0, 0, 'com.etzhayyim.apps.koke.scanRawSignals', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke scan raw signals (primary fixation layer).', '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/scanRawSignals.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/koke/scanRawSignals.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-fixSignal',
-   0, 0, 'ai.gftd.apps.koke.fixSignal', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-koke-fixSignal',
+   0, 0, 'com.etzhayyim.apps.koke.fixSignal', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke fix raw signal into a fixation.', '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/fixSignal.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/koke/fixSignal.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-classifyFixation',
-   0, 0, 'ai.gftd.apps.koke.classifyFixation', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-koke-classifyFixation',
+   0, 0, 'com.etzhayyim.apps.koke.classifyFixation', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke classify fixation kind / confidence.', '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/classifyFixation.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/koke/classifyFixation.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-handoffToHakkou',
-   0, 0, 'ai.gftd.apps.koke.handoffToHakkou', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-koke-handoffToHakkou',
+   0, 0, 'com.etzhayyim.apps.koke.handoffToHakkou', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke handoff to hakkou (high-confidence fermentation layer).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/handoffToHakkou.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/koke/handoffToHakkou.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z'),
-  ('at://did:web:koke.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-koke-handoffToSaikin',
-   0, 0, 'ai.gftd.apps.koke.handoffToSaikin', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
+  ('at://did:web:koke.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-koke-handoffToSaikin',
+   0, 0, 'com.etzhayyim.apps.koke.handoffToSaikin', 'did:web:koke.etzhayyim.com', 'koke.etzhayyim.com', 'procedure',
    'koke handoff to saikin (low-confidence horizontal-transfer layer).',
    '{"type":"object"}', '{"type":"object"}',
-   'public', 1, TRUE, '00-contracts/lexicons/ai/gftd/apps/koke/handoffToSaikin.json',
+   'public', 1, TRUE, '00-contracts/lexicons/com/etzhayyim/apps/koke/handoffToSaikin.json',
    'anon', 'anon', '', '2026-05-09T00:00:00Z');
 
 INSERT INTO vertex_langgraph_assistant
@@ -58,24 +58,24 @@ INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
 VALUES
   ('koke.cycle.v2:scan', 0, 0, 'koke.cycle.v2', 'scan',
-   'mcp_tool', 'mcp://ai.gftd.apps.koke.scanRawSignals',
-   '{"input_keys":[],"result_key":"scanOut","args":{"name":"ai.gftd.apps.koke.scanRawSignals"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.koke.scanRawSignals',
+   '{"input_keys":[],"result_key":"scanOut","args":{"name":"com.etzhayyim.apps.koke.scanRawSignals"}}',
    '2026-05-09T00:00:00Z'),
   ('koke.cycle.v2:fix', 0, 0, 'koke.cycle.v2', 'fix',
-   'mcp_tool', 'mcp://ai.gftd.apps.koke.fixSignal',
-   '{"input_keys":[],"result_key":"fixOut","args":{"name":"ai.gftd.apps.koke.fixSignal"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.koke.fixSignal',
+   '{"input_keys":[],"result_key":"fixOut","args":{"name":"com.etzhayyim.apps.koke.fixSignal"}}',
    '2026-05-09T00:00:00Z'),
   ('koke.cycle.v2:classify', 0, 0, 'koke.cycle.v2', 'classify',
-   'mcp_tool', 'mcp://ai.gftd.apps.koke.classifyFixation',
-   '{"input_keys":[],"result_key":"classifyOut","args":{"name":"ai.gftd.apps.koke.classifyFixation"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.koke.classifyFixation',
+   '{"input_keys":[],"result_key":"classifyOut","args":{"name":"com.etzhayyim.apps.koke.classifyFixation"}}',
    '2026-05-09T00:00:00Z'),
   ('koke.cycle.v2:handoff_hakkou', 0, 0, 'koke.cycle.v2', 'handoff_hakkou',
-   'mcp_tool', 'mcp://ai.gftd.apps.koke.handoffToHakkou',
-   '{"input_keys":[],"result_key":"hakkouOut","args":{"name":"ai.gftd.apps.koke.handoffToHakkou"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.koke.handoffToHakkou',
+   '{"input_keys":[],"result_key":"hakkouOut","args":{"name":"com.etzhayyim.apps.koke.handoffToHakkou"}}',
    '2026-05-09T00:00:00Z'),
   ('koke.cycle.v2:handoff_saikin', 0, 0, 'koke.cycle.v2', 'handoff_saikin',
-   'mcp_tool', 'mcp://ai.gftd.apps.koke.handoffToSaikin',
-   '{"input_keys":[],"result_key":"saikinOut","args":{"name":"ai.gftd.apps.koke.handoffToSaikin"}}',
+   'mcp_tool', 'mcp://com.etzhayyim.apps.koke.handoffToSaikin',
+   '{"input_keys":[],"result_key":"saikinOut","args":{"name":"com.etzhayyim.apps.koke.handoffToSaikin"}}',
    '2026-05-09T00:00:00Z');
 
 UPDATE vertex_langgraph_assistant SET superseded_by = 'koke.cycle.v2'

@@ -1,0 +1,115 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kuniUmi.recordConstructionProgress",
+  "description": "Construction progress checkpoint emitted by ConstructionOrchestrationCell (phase 3, leaderNode joseph) and processed by CommissioningCell (phase 4). **Witness invariant (constitutional, per `20-actors/kuni-umi/CLAUDE.md`)**: N ≥ 2 independent robot DID signatures REQUIRED. Records with N=1 are STRUCTURALLY rejected by this Lexicon schema (minLength 2); MstListener additionally enforces Council Lv6+ escalation on N=1 attempts. The robot DIDs MUST be distinct (no duplicate). Per ADR-2605201400 + ADR-2605192415.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "progressId",
+          "planId",
+          "siteId",
+          "checkpointPhase",
+          "checkpointReachedAt",
+          "robotWitnessSignatures",
+          "constructionOrchestrationCellAttestationCid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "progressId": {"type": "string"},
+          "planId": {
+            "type": "string",
+            "description": "Parent proposeDeploymentPlan.planId."
+          },
+          "siteId": {
+            "type": "string",
+            "description": "Parent defineDeploymentSite.siteId."
+          },
+          "checkpointPhase": {
+            "type": "string",
+            "knownValues": [
+              "site-preparation",
+              "foundation",
+              "structural",
+              "mep-installation",
+              "finishing",
+              "open-ot-integration",
+              "open-robo-fleet-deployment",
+              "commissioning-ready"
+            ],
+            "description": "Construction phase. Records MUST be emitted in monotonic phase order — a later phase implies all earlier phases passed."
+          },
+          "checkpointReachedAt": {"type": "string", "format": "datetime"},
+          "robotWitnessSignatures": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#robotWitnessSignature"
+            },
+            "minLength": 2,
+            "description": "**Constitutional witness invariant**: ≥2 independent robot DID signatures. Per CLAUDE.md: 'N=1 で MST に書き込もうとした場合 MstListener が即 reject + Council escalation Lv6+ 通知'. The robotDids in this array MUST be distinct."
+          },
+          "fieldTelemetryIpfsCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Optional IPFS CID of field telemetry (sensor logs / photos / construction-arm trajectory replay) for this checkpoint."
+          },
+          "deviationsFromPlan": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "#deviationRecord"
+            },
+            "description": "Any deviations from proposeDeploymentPlan; non-empty triggers a council review window before commissioning."
+          },
+          "constructionOrchestrationCellAttestationCid": {
+            "type": "string",
+            "format": "cid"
+          }
+        }
+      }
+    },
+    "robotWitnessSignature": {
+      "type": "object",
+      "required": ["robotDid", "sensorSnapshotIpfsCid", "signedAt", "signature"],
+      "properties": {
+        "robotDid": {
+          "type": "string",
+          "description": "DID of form `did:web:etzhayyim.com:kuniumi:robot:<serial>`. Independence: any two robotWitnessSignatures[].robotDid MUST differ (no duplicate robot signing twice as the 'second' witness)."
+        },
+        "sensorSnapshotIpfsCid": {
+          "type": "string",
+          "format": "cid",
+          "description": "IPFS CID of the robot's on-board sensor snapshot at the checkpoint moment (independent attestation of physical state)."
+        },
+        "signedAt": {"type": "string", "format": "datetime"},
+        "signature": {
+          "type": "string",
+          "description": "Ed25519 signature over (progressId + checkpointPhase + checkpointReachedAt + sensorSnapshotIpfsCid)."
+        }
+      }
+    },
+    "deviationRecord": {
+      "type": "object",
+      "required": ["deviationClass", "description"],
+      "properties": {
+        "deviationClass": {
+          "type": "string",
+          "knownValues": [
+            "schedule-delay",
+            "material-substitution",
+            "scope-reduction",
+            "scope-expansion",
+            "safety-incident",
+            "other"
+          ]
+        },
+        "description": {"type": "string", "maxLength": 2000}
+      }
+    }
+  }
+}

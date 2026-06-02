@@ -3,9 +3,9 @@
  *
  * Per ADR-2605231230. This Worker terminates the three procedure XRPCs:
  *
- *   POST /xrpc/app.etzhayyim.esign.requestEnvelope
- *   POST /xrpc/app.etzhayyim.esign.signEnvelope
- *   POST /xrpc/app.etzhayyim.esign.declineEnvelope
+ *   POST /xrpc/com.etzhayyim.esign.requestEnvelope
+ *   POST /xrpc/com.etzhayyim.esign.signEnvelope
+ *   POST /xrpc/com.etzhayyim.esign.declineEnvelope
  *
  * In Phase 0, every procedure returns 501 NotYetImplemented. Phase 1 wires
  * the requestEnvelope path through @etzhayyim/sdk (PDS write + ipfs-pinner)
@@ -18,9 +18,9 @@
  */
 
 const PROCEDURE_NSIDS = [
-  "app.etzhayyim.esign.requestEnvelope",
-  "app.etzhayyim.esign.signEnvelope",
-  "app.etzhayyim.esign.declineEnvelope",
+  "com.etzhayyim.esign.requestEnvelope",
+  "com.etzhayyim.esign.signEnvelope",
+  "com.etzhayyim.esign.declineEnvelope",
 ] as const;
 
 function jsonResponse(status: number, body: unknown): Response {

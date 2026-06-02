@@ -32,7 +32,7 @@ world:
   layers:
     - kind: terrain
       source_subdataset: "geo/srtm/n43e140"
-      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
       tier: A
       shader: "kami-pbrt:Soil_Loam"
       mesh:
@@ -41,7 +41,7 @@ world:
 
     - kind: raster_overlay
       source_subdataset: "geo/sentinel2/n43e140-2026-04"
-      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/app.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
+      datasetPin_at: "at://did:web:dataset-pinner.etzhayyim.com/com.etzhayyim.substrate.datasetPin/<rkey-placeholder>"
       tier: A
       uv_mapping: "ground_plane_albedo"
 

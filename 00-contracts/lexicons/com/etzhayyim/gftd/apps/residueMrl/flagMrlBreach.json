@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.residueMrl.flagMrlBreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "MRL breach / consumer exposure / trade rejection (bridges livestockAbx.flagGrowthPromoter + rasff-food-safety + wto-dispute)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "breachId",
+            "measurementVid",
+            "breachKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "breachId": {
+              "type": "string"
+            },
+            "measurementVid": {
+              "type": "string",
+              "description": "bridges recordMrlMeasurement"
+            },
+            "growthPromoterVid": {
+              "type": "string",
+              "description": "bridges livestockAbx.flagGrowthPromoter"
+            },
+            "breachKind": {
+              "type": "string",
+              "enum": [
+                "codex_exceed",
+                "eu_import_block",
+                "fda_refusal",
+                "consumer_exposure",
+                "sub_chronic",
+                "acute_dietary",
+                "withdrawal_breach"
+              ]
+            },
+            "tradeValueLossMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

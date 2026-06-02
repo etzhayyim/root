@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.vault.listAccessEvents",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "vaultId": { "type": "string" },
+          "itemId": { "type": "string" },
+          "since": { "type": "string", "description": "ISO 8601 timestamp" },
+          "limit": { "type": "integer", "default": 100 },
+          "offset": { "type": "integer", "default": 0 }
+        },
+        "required": ["vaultId"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "eventId": { "type": "string" },
+                  "did": { "type": "string" },
+                  "action": {
+                    "type": "string",
+                    "description": "createVault | putItem | getItem | deleteItem | addMember | removeMember | rotateVaultKey | injectWorkerSecret"
+                  },
+                  "vaultId": { "type": "string" },
+                  "itemId": { "type": "string" },
+                  "ts": { "type": "string" },
+                  "lxm": {
+                    "type": "string",
+                    "description": "NSID the caller's Service Auth JWT was scoped to (audit trail)"
+                  },
+                  "ipHash": {
+                    "type": "string",
+                    "description": "SHA-256 of caller IP (privacy-preserving)"
+                  }
+                },
+                "required": ["eventId", "did", "action", "vaultId", "ts"]
+              }
+            },
+            "total": { "type": "integer" },
+            "limit": { "type": "integer" },
+            "offset": { "type": "integer" }
+          },
+          "required": ["events", "total", "limit", "offset"]
+        }
+      }
+    }
+  }
+}

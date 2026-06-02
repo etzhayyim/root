@@ -1,11 +1,11 @@
 DELETE FROM vertex_langgraph_assistant_node WHERE assistant_id IN ('tsukuru_cad_design_flow.v1','tsukuru_pcb_design_flow.v1');
 DELETE FROM vertex_langgraph_assistant WHERE assistant_id IN ('tsukuru_cad_design_flow.v1','tsukuru_pcb_design_flow.v1');
 DELETE FROM vertex_mcp_tool_def WHERE nsid IN (
-  'ai.gftd.apps.tsukuru.cadProject.create',
-  'ai.gftd.apps.tsukuru.cadPart.upsert',
-  'ai.gftd.apps.tsukuru.meviy.requestQuote',
-  'ai.gftd.apps.tsukuru.pcbProject.create',
-  'ai.gftd.apps.tsukuru.pban.requestQuote'
+  'com.etzhayyim.apps.tsukuru.cadProject.create',
+  'com.etzhayyim.apps.tsukuru.cadPart.upsert',
+  'com.etzhayyim.apps.tsukuru.meviy.requestQuote',
+  'com.etzhayyim.apps.tsukuru.pcbProject.create',
+  'com.etzhayyim.apps.tsukuru.pban.requestQuote'
 );
 FLUSH;
 

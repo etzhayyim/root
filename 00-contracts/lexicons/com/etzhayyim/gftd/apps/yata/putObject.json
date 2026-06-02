@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.yata.putObject",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Upload an object via XRPC. Body MUST be `application/json` carrying base64-encoded bytes for files ≤ 5 MB; for larger uploads use `multipartInit` / `multipartPart` / `multipartComplete`. The bytes go to the bucket's tier-1 storage (Vultr OS HOT or B2 WARM per bucket policy); metadata + checksum are written to vertex_yata_blob.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["bucketName", "objectKey", "data"],
+          "properties": {
+            "bucketName": {"type": "string"},
+            "objectKey": {"type": "string", "minLength": 1, "maxLength": 1024},
+            "data": {"type": "string", "description": "Base64-encoded body bytes."},
+            "contentType": {"type": "string", "default": "application/octet-stream"},
+            "encryption": {"type": "string", "enum": ["none", "aes256", "vault-e2e"]},
+            "vaultMemberDid": {"type": "string", "description": "Required when encryption=vault-e2e (caller pre-encrypts with member device key)."},
+            "metadataJson": {"type": "string", "description": "Optional caller-supplied metadata JSON (≤ 8KB)."},
+            "ifNoneMatch": {"type": "string", "description": "Set to '*' for create-only semantics (fails 412 if blob exists)."}
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "bucketName", "objectKey", "etag", "sizeBytes"],
+          "properties": {
+            "ok": {"type": "boolean"},
+            "bucketName": {"type": "string"},
+            "objectKey": {"type": "string"},
+            "blobId": {"type": "string"},
+            "versionId": {"type": "string"},
+            "etag": {"type": "string"},
+            "cid": {"type": "string", "description": "CIDv1 (raw codec, sha2-256)"},
+            "sizeBytes": {"type": "integer"},
+            "storageTier": {"type": "string"},
+            "storageProvider": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

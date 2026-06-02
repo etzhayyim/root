@@ -1,0 +1,102 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.livestockAntibiotics.reportVeterinaryUse",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WOAH / EU ESVAC livestock antibiotic use (bridges amr-surveillance + antimicrobial-stewardship + pharma-supply + agri-food-security)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "countryIso3",
+            "species",
+            "antibioticClass",
+            "reportingYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "species": {
+              "type": "string",
+              "enum": [
+                "cattle",
+                "swine",
+                "poultry",
+                "sheep",
+                "goat",
+                "aquaculture",
+                "equine",
+                "rabbit"
+              ]
+            },
+            "antibioticClass": {
+              "type": "string",
+              "enum": [
+                "penicillins",
+                "tetracyclines",
+                "macrolides",
+                "sulfonamides",
+                "fluoroquinolones",
+                "polymyxins",
+                "cephalosporins",
+                "aminoglycosides",
+                "amphenicols",
+                "pleuromutilins"
+              ]
+            },
+            "pcuBiomassKg": {
+              "type": "number",
+              "description": "population correction unit"
+            },
+            "mgPerPcu": {
+              "type": "number"
+            },
+            "reportingYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "stewardshipTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

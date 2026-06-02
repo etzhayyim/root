@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mentalHealthParity.flagCoverageDenial",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Insurance denial pattern (MHPAEA NQTL exam / EU health systems assessment)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "denialId",
+            "nqtlCategory",
+            "flaggedAt"
+          ],
+          "properties": {
+            "denialId": {
+              "type": "string"
+            },
+            "metricVid": {
+              "type": "string",
+              "description": "bridges reportParityMetric"
+            },
+            "insurerLei": {
+              "type": "string"
+            },
+            "nqtlCategory": {
+              "type": "string",
+              "enum": [
+                "prior_auth",
+                "network_adequacy",
+                "concurrent_review",
+                "reimbursement_rate",
+                "step_therapy",
+                "tx_setting",
+                "experimental_exclusion"
+              ]
+            },
+            "appealsUpheldPct": {
+              "type": "number"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

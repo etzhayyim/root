@@ -19,8 +19,8 @@ const OWNER_DID = "did:web:bpmn.etzhayyim.com";
 const ACTOR_TAG = "sys.bpmn.seed.wellbecoming";
 
 const VERTEX_ID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1";
-const SOURCE_PATH = "00-contracts/bpmn/ai/gftd/wellbecoming/beliefInfluencePropagate.bpmn";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-belief-influence-propagate-v1";
+const SOURCE_PATH = "00-contracts/bpmn/com/etzhayyim/wellbecoming/beliefInfluencePropagate.bpmn";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(

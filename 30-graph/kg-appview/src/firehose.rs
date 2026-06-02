@@ -1,7 +1,7 @@
 //! K2.c Jetstream-format WebSocket subscriber.
 //!
 //! Connects to a Jetstream-shape firehose (e.g. `wss://jetstream.atproto.tools/subscribe`),
-//! filters for `app.etzhayyim.kg.{node,edge}` commits, and applies them to
+//! filters for `com.etzhayyim.kg.{node,edge}` commits, and applies them to
 //! the live store. Reconnects with exponential backoff on disconnect. The
 //! subscriber runs as a background tokio task; the main task keeps serving
 //! SPARQL.
@@ -15,7 +15,7 @@
 //!   "commit": {
 //!     "rev": "...",
 //!     "operation": "create" | "update" | "delete",
-//!     "collection": "app.etzhayyim.kg.node" | "app.etzhayyim.kg.edge",
+//!     "collection": "com.etzhayyim.kg.node" | "com.etzhayyim.kg.edge",
 //!     "rkey": "...",
 //!     "record": { "$type": "...", ... },     // create / update only
 //!     "cid": "..."
@@ -42,7 +42,7 @@ use crate::iri::node_iri;
 use crate::load::{apply_record_value, remove_node};
 use crate::store::AppStore;
 
-const RELEVANT_COLLECTIONS: &[&str] = &["app.etzhayyim.kg.node", "app.etzhayyim.kg.edge"];
+const RELEVANT_COLLECTIONS: &[&str] = &["com.etzhayyim.kg.node", "com.etzhayyim.kg.edge"];
 
 const BACKOFF_INITIAL: Duration = Duration::from_secs(1);
 const BACKOFF_MAX: Duration = Duration::from_secs(60);
@@ -114,7 +114,7 @@ async fn connect_once(app: Arc<AppStore>, firehose_url: &str) -> Result<()> {
 }
 
 /// Pure: parse a Jetstream event JSON and apply it to the store. Returns
-/// `Ok(true)` when the event was an app.etzhayyim.kg.* commit (whether
+/// `Ok(true)` when the event was an com.etzhayyim.kg.* commit (whether
 /// applied or removed), `Ok(false)` when the event was ignored as
 /// irrelevant. Errors only on store I/O.
 pub fn handle_event(app: &AppStore, text: &str) -> Result<bool> {
@@ -181,11 +181,11 @@ mod tests {
             "commit": {
                 "rev": "abc",
                 "operation": "create",
-                "collection": "app.etzhayyim.kg.node",
+                "collection": "com.etzhayyim.kg.node",
                 "rkey": "rdummy",
                 "cid": "bafkreidummy",
                 "record": {
-                    "$type": "app.etzhayyim.kg.node",
+                    "$type": "com.etzhayyim.kg.node",
                     "nodeId": "urn:test:firehose-1",
                     "nodeType": "adr",
                     "source": "manual",

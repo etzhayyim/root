@@ -7,14 +7,14 @@ import { sql } from "kysely";
  *
  * Replaces the legacy mv_project_reflection_count (migration
  * 20260416170000_count_rollups_mv.ts) which was keyed on
- * vertex_convo WHERE kind='app.etzhayyim.projector.reflection' — that path
- * is retired when app.etzhayyim.projector.reflection AT records stop being
+ * vertex_convo WHERE kind='com.etzhayyim.projector.reflection' — that path
+ * is retired when com.etzhayyim.projector.reflection AT records stop being
  * created. The legacy MV stays in place (harmless, always 0 rows once
  * the switch completes) and will be dropped in a follow-up once no
  * reader references it.
  *
  * Streaming MV (RisingWave default). Freshness < 100ms.
- * Drives app.etzhayyim.projector.addReflection response field
+ * Drives com.etzhayyim.projector.addReflection response field
  * `totalReflections` and could also drive UI badges in yoro /projects.
  */
 export async function up(db: Kysely<unknown>): Promise<void> {

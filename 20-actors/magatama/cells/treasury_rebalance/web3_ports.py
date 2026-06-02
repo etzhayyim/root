@@ -8,7 +8,7 @@ those against:
   - geth-private RPC for `TreasuryMirror` (NAV reads) +
     `Constitution` (target tier ratios + κ) reads
   - geth-private RPC for `Governance.propose()` (write)
-  - PDS for `app.etzhayyim.substrate.*` AT records via `@etzhayyim/sdk`
+  - PDS for `com.etzhayyim.substrate.*` AT records via `@etzhayyim/sdk`
     over an `atproto`-compatible Python client (here a thin AtpAgent
     shim — production deploys reuse the same PDS auth pattern as
     eligibility/web3_ports.py + mst-projector/emit.py)
@@ -168,7 +168,7 @@ class GovernancePort:
 
 @dataclass
 class PdsPort:
-    """Writes AT records via the PDS (app.etzhayyim.apps.payment.* collections)."""
+    """Writes AT records via the PDS (com.etzhayyim.apps.payment.* collections)."""
 
     create_record: Any          # (*, collection: str, record: dict) -> at-uri
 

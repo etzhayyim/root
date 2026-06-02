@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
-  "description": "warifu 割符 compat gateway — Stripe-REST / ISO 8583 / NFC translation onto app.etzhayyim.card.* (ADR-2605302000). Zero fee; purpose-gated; no platform key.",
+  "description": "warifu 割符 compat gateway — Stripe-REST / ISO 8583 / NFC translation onto com.etzhayyim.card.* (ADR-2605302000). Zero fee; purpose-gated; no platform key.",
   "scripts": {
     "test": "node src/common/purpose.test.mjs && node src/common/gateway.test.mjs && node src/stripe-compat/stripe-compat.test.mjs && node src/iso8583/iso8583.test.mjs && node src/nfc/nfc.test.mjs && node src/server.test.mjs && node src/common/webhook.test.mjs",
     "typecheck": "tsc --noEmit"

@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cyberVuln.recordPatchAdvisory",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ベンダー patch advisory",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "advisoryId",
+            "vendor",
+            "product",
+            "fixedVersion",
+            "urgency",
+            "issuedAt"
+          ],
+          "properties": {
+            "advisoryId": {
+              "type": "string"
+            },
+            "cveId": {
+              "type": "string"
+            },
+            "vendor": {
+              "type": "string"
+            },
+            "product": {
+              "type": "string"
+            },
+            "fixedVersion": {
+              "type": "string"
+            },
+            "urgency": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical",
+                "emergency"
+              ]
+            },
+            "workaroundAvailable": {
+              "type": "boolean"
+            },
+            "issuedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

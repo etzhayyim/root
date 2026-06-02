@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.getChunk",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Forward-topology chunk reader. Takes an array of H3 cells + LOD (resolution) and returns the per-cell, per-label GeoJSON features intersecting each cell. Replaces XYZ tile pyramid with H3-indexed chunks. Server translates each cell → boundary polygon → bbox, unions the bounding boxes, queries vertex_spatial once, then routes features back to their owning cell by centroid. Design: 90-docs/260417-maps-forward-topology-raw-to-webgpu.md",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "h3Cells": {
+            "type": "array",
+            "description": "H3 cell IDs (hex) at the requested LOD. All cells must share the same resolution.",
+            "items": { "type": "string" },
+            "maxLength": 128
+          },
+          "lod": {
+            "type": "integer",
+            "description": "H3 resolution (0-15). Typically 4/6/8/10/12 for L1-L5.",
+            "minimum": 0,
+            "maximum": 15
+          },
+          "labels": {
+            "type": "array",
+            "description": "Graph node labels to fetch. Omit for default set (Place, Road, Railway, Coastline, River, AdminArea, Building, Mountain, Port, Airport, Station).",
+            "items": { "type": "string" },
+            "maxLength": 32
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max features per label per cell (default 500, max 5000).",
+            "minimum": 1,
+            "maximum": 5000
+          }
+        },
+        "required": ["h3Cells", "lod"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["chunks"],
+          "properties": {
+            "chunks": {
+              "type": "unknown",
+              "description": "{ [h3Cell]: { [label]: GeoJSON Feature[] } } — features grouped by owning H3 cell. Point features mapped by centroid; line/polygon mapped by geometry centroid."
+            },
+            "lod": { "type": "integer" },
+            "total": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -78,7 +78,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.isco.occupation"
+          "com.etzhayyim.apps.isco.occupation"
         ],
         "type": "subscribeRepos"
       }
@@ -94,7 +94,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.isco.health",
+        "nsid": "com.etzhayyim.apps.isco.health",
         "type": "xrpc"
       }
     },
@@ -120,7 +120,7 @@
             "params": {
               "actorName": "isco",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.isco.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.isco.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "wfc8k3n1",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -178,7 +178,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.isco.coverage.get",
+        "nsid": "com.etzhayyim.apps.isco.coverage.get",
         "type": "xrpc"
       }
     }
@@ -201,8 +201,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -215,8 +215,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.isco.occupation",
-        "ai.gftd.apps.isco.workforceMobility"
+        "com.etzhayyim.apps.isco.occupation",
+        "com.etzhayyim.apps.isco.workforceMobility"
       ]
     }
   },

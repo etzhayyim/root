@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-sanctions.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-sanctions";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-sanctions-record-entry-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-sanctions-record-entry-v1",
     bpmnProcessId: "open_sanctions_record_entry",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/recordSanctionsEntry.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-sanctions-screen-entity-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-sanctions/recordSanctionsEntry.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-sanctions-screen-entity-v1",
     bpmnProcessId: "open_sanctions_screen_entity",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-sanctions/screenEntity.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-sanctions/screenEntity.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-sanctions-recordSanctionsEntry-v1",
-    nsid: "app.etzhayyim.apps.openSanctions.recordSanctionsEntry", bpmnProcessId: "open_sanctions_record_entry",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-sanctions-recordSanctionsEntry-v1",
+    nsid: "com.etzhayyim.apps.openSanctions.recordSanctionsEntry", bpmnProcessId: "open_sanctions_record_entry",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-sanctions-screenEntity-v1",
-    nsid: "app.etzhayyim.apps.openSanctions.screenEntity", bpmnProcessId: "open_sanctions_screen_entity",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-sanctions-screenEntity-v1",
+    nsid: "com.etzhayyim.apps.openSanctions.screenEntity", bpmnProcessId: "open_sanctions_screen_entity",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

@@ -7,7 +7,7 @@
 - **ADR**: ADR-2606021200 (R0 scaffold, 2026-06-02)
 - **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance via hikari)
 - **Tightest sibling**: hikari (ADR-2605261100 — generation/install)
-- **Status**: R0.1 — all 7 cell solvers + 7 lexicons **implemented** (146 standalone tests green — logic + kotoba write-path + graph-topology; cell.py ≥96% line-coverage per cell; import smoke clean). NOT operationally activated (no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization; deterministic-digest CIDs). Gated upstream by the R1 activation triggers below.
+- **Status**: R0.1 — all 7 cell solvers + 7 lexicons **implemented** (88 pure-logic tests green; import smoke clean). NOT operationally activated (no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization; deterministic-digest CIDs). Gated upstream by the R1 activation triggers below.
 
 ## What himawari is (and is not)
 
@@ -70,7 +70,7 @@ Each cell = 1 Pregel graph. R0.1: every cell's `.solve()` is implemented (no Run
 
 ## Lexicon Namespace
 
-**App lexicon root**: `app.etzhayyim.himawari`
+**App lexicon root**: `com.etzhayyim.himawari`
 
 7 records (full atproto-style `record` defs, `key: "tid"`; validated by validate-lexicons.py; materialize to kotoba Datom/EAVT):
 
@@ -84,7 +84,7 @@ Each cell = 1 Pregel graph. R0.1: every cell's `.solve()` is implemented (no Run
 
 ## Pregel Cells (R0.1 — solvers implemented)
 
-All 7 cells have real `.solve()` logic (R0 RuntimeError stubs removed) + standalone test files (146 tests total across 17 files, all green; cell.py ≥96% line-coverage). Cell→lexicon + cell→composed-actor wiring:
+All 7 cells have real `.solve()` logic (R0 RuntimeError stubs removed) + a pure-logic standalone test file (88 tests total, all green). Cell→lexicon + cell→composed-actor wiring:
 
 | Cell | Emits | Routes to | Composes (not re-implemented) | Tests |
 |---|---|---|---|---|
@@ -118,7 +118,7 @@ for c in polysilicon_refine ingot_wafer cell_process module_assembly panel_loadi
 done
 ```
 
-**Standalone tests** (no pytest/langgraph dependency; each `python3 test_*.py`; 146 total green — solve() logic + kotoba write-path (fake-host) + graph-topology (fake-StateGraph); cell.py ≥96% line-coverage):
+**Pure-logic tests** (no pytest/langgraph dependency; standalone runnable; 88 total green):
 ```bash
 cd 20-actors/himawari/cells
 for t in polysilicon_refine/test_cell.py ingot_wafer/test_cell.py cell_process/test_cell_process.py \

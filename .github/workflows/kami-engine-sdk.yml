@@ -4,7 +4,7 @@ name: kami-engine-sdk + cyber-drill build
 # the cyber-drill prod build unblock (commit b638c27e0). Both are fragile
 # multi-layer setups:
 #
-#   - SDK is a git subrepo + workspace member; its dist/ is what
+#   - SDK is a git submodule + workspace member; its dist/ is what
 #     downstream apps consume
 #   - cyber-drill `link:`s the SDK and resolves `@langchain/langgraph` +
 #     `@langchain/core` as external during its SSR (prerender) build —
@@ -62,9 +62,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # Subrepo metadata is in the working tree; no special fetch
-          # depth needed because we don't unpack the subrepo here.
           fetch-depth: 1
+
+      - name: Checkout kami-engine submodule (recursive — incl. nested kami-engine-sdk)
+        # kami-engine is a git-submodule (ADR-2606011500 stage 4) and
+        # kami-engine-sdk is nested INSIDE it, so init kami-engine --recursive
+        # to populate the sdk source (svelte-package / vitest need src/lib). A
+        # blanket `submodules: recursive` on checkout would also try the
+        # local-only DataLad superdataset `90-docs/baien/datasets` (url=./…,
+        # unclonable in CI) and abort, so we target kami-engine explicitly.
+        run: git submodule update --init --recursive --depth=1 40-engine/kami-engine
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -97,9 +104,18 @@ jobs:
         # 82 tests pass. This is tracked as a pre-existing
         # observation in ADR-2605264300 §1 + commit b638c27e0; doesn't
         # block CI but is surfaced as a warning.
+        env:
+          # vitest emits the `Tests  82 passed` summary with ANSI colour
+          # escapes even through a pipe, which broke the grep below (it
+          # matched nothing → parsed 0 → false "regressed" failure). Force
+          # plain output; the sed strip is a belt-and-suspenders fallback.
+          NO_COLOR: '1'
+          FORCE_COLOR: '0'
         run: |
           pnpm test 2>&1 | tee /tmp/sdk-test.log || true
-          PASSED=$(grep -oE "Tests +[0-9]+ passed" /tmp/sdk-test.log | grep -oE "[0-9]+" | head -1)
+          # Strip any residual ANSI escapes before parsing the summary.
+          sed -E 's/\x1b\[[0-9;]*m//g' /tmp/sdk-test.log > /tmp/sdk-test.clean.log
+          PASSED=$(grep -oE "Tests +[0-9]+ passed" /tmp/sdk-test.clean.log | grep -oE "[0-9]+" | head -1)
           if [ "${PASSED:-0}" -lt 82 ]; then
             echo "::error::SDK vitest passed count regressed below 82 (got ${PASSED:-0})"
             exit 1

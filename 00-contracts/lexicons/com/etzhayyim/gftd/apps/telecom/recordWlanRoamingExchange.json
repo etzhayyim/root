@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordWlanRoamingExchange",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Wi-Fi roaming AAA exchange (RADIUS / Diameter via DRR / RoamServer). Captures session-time + ingress/egress bytes per partner for downstream settlement.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId", "transportKind", "peerKind", "partnerOrgId", "messageKind", "resultCode", "observedAt"],
+          "properties": {
+            "exchangeId": { "type": "string" },
+            "sessionId": { "type": "string" },
+            "transportKind": { "type": "string", "enum": ["radius", "radsec", "diameter"] },
+            "peerKind": { "type": "string", "enum": ["home_idp", "visited_anp", "drr", "roam_server", "settlement_hub"] },
+            "partnerOrgId": { "type": "string" },
+            "drrInstanceId": { "type": "string" },
+            "messageKind": { "type": "string", "enum": ["access_request", "access_accept", "access_reject", "accounting_start", "accounting_interim", "accounting_stop"] },
+            "resultCode": { "type": "integer" },
+            "sessionTimeSeconds": { "type": "integer" },
+            "ingressBytes": { "type": "integer" },
+            "egressBytes": { "type": "integer" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "exchangeId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

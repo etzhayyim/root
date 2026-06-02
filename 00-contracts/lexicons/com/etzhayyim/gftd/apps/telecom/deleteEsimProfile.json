@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.deleteEsimProfile",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Delete an eSIM profile from eUICC storage (GSMA SGP.22 §3.3). Irreversible — profile must be disabled first. EID/ICCID sha256: hashed.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["operationId", "eid", "iccid"],
+          "properties": {
+            "operationId": { "type": "string" },
+            "eid": { "type": "string", "description": "sha256: hashed EID" },
+            "iccid": { "type": "string", "description": "sha256: hashed ICCID" },
+            "reason": { "type": "string", "enum": ["contractTerminated", "deviceReplaced", "mnoMigration", "euiccReset", "userRequest"] },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "iccid": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

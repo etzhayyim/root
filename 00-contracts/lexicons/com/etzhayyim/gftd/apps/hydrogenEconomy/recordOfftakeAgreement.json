@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hydrogenEconomy.recordOfftakeAgreement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Long-term offtake contract (HPA / HOA)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "agreementId",
+            "projectVid",
+            "annualVolumeKt",
+            "tenorYears",
+            "signedAt"
+          ],
+          "properties": {
+            "agreementId": {
+              "type": "string"
+            },
+            "projectVid": {
+              "type": "string",
+              "description": "bridges registerProject"
+            },
+            "offtakerLei": {
+              "type": "string"
+            },
+            "annualVolumeKt": {
+              "type": "number"
+            },
+            "priceUsdKg": {
+              "type": "number"
+            },
+            "tenorYears": {
+              "type": "integer"
+            },
+            "euRed3Compliant": {
+              "type": "boolean"
+            },
+            "signedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

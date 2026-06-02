@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.yorishiro.flyio.deleteOrg",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "orgName": {
+              "type": "string"
+            },
+            "orgSlug": {
+              "type": "string"
+            },
+            "vaultRef": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "confirm",
+            "orgName",
+            "orgSlug"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "orgSlug": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "jobId": {
+              "type": "integer"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

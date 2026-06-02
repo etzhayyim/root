@@ -6,7 +6,7 @@ Pregel (LangGraph):
   SS2  re_composite     re-invoke compositor with patched kwargs per cut
   SS3  delta_report     re-score kaizened cuts, compute before/after delta
 
-XRPC: app.etzhayyim.animeka.kaizenCompositor
+XRPC: com.etzhayyim.animeka.kaizenCompositor
 Input:
   max_cuts        int  (default 10)
   score_threshold int  (default 65)
@@ -163,7 +163,7 @@ async def _ss0_score_weak_cuts(state: KaizenState) -> dict[str, Any]:
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)
         rows = await conn.execute(
             f"SELECT rkey, image_cid, bg_cid FROM public.vertex_animeka "
-            f"WHERE collection='app.etzhayyim.animeka.cut' "
+            f"WHERE collection='com.etzhayyim.animeka.cut' "
             f"  AND image_cid IS NOT NULL AND bg_cid IS NOT NULL "
             f"  AND output_cid IS NULL "
             f"ORDER BY created_at DESC LIMIT {max_cuts}",
@@ -224,7 +224,7 @@ async def _ss2_recomposite(state: KaizenState) -> dict[str, Any]:
         rows = await conn.execute(
             f"SELECT rkey, bg_cid, image_cid, fps "
             f"FROM public.vertex_animeka "
-            f"WHERE collection = 'app.etzhayyim.animeka.cut' "
+            f"WHERE collection = 'com.etzhayyim.animeka.cut' "
             f"  AND rkey IN ({placeholders})",
             rkeys,
         )

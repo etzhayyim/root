@@ -3,7 +3,7 @@
 /**
  * gen-tool-manifest.mjs — Lexicon JSON → per-app tool-manifest/{app}.ts
  *
- * ADR-0042. Scans 00-contracts/lexicons/ai/gftd/apps/{app}/**.json and emits one
+ * ADR-0042. Scans 00-contracts/lexicons/com/etzhayyim/apps/{app}/**.json and emits one
  * TypeScript manifest per app with:
  *
  *   - Zod schemas (@hono/zod-openapi v4):
@@ -17,7 +17,7 @@
  *       runtime dispatcher lookup (nsid, description, method:'query'|'procedure',
  *       inputSchema, outputSchema)
  *
- * Lexicon JSON (00-contracts/lexicons/ai/gftd/apps) is the Single Source of Truth
+ * Lexicon JSON (00-contracts/lexicons/com/etzhayyim/apps) is the Single Source of Truth
  * (ADR-0005). Zod and OpenAPI are derived artifacts — no hand editing.
  *
  * Per-app files (not one global) keep each Worker bundle small: the SDK is imported
@@ -34,7 +34,7 @@ import path from "node:path";
 import { scanLexicons, filterXrpcLexicons } from "./lib/lexicon-scan.mjs";
 
 const ROOT = process.cwd();
-const LEXICON_ROOT = path.join(ROOT, "00-contracts/lexicons/ai/gftd/apps");
+const LEXICON_ROOT = path.join(ROOT, "00-contracts/lexicons/com/etzhayyim/apps");
 const OUT_DIR = path.join(
 	ROOT,
 	"20-actors/magatama/sdk/magatama-host-sdk/src/generated/tool-manifest",

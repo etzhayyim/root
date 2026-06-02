@@ -12,7 +12,7 @@
 import { Etzhayyim } from "@etzhayyim/sdk";
 import type { DisplayLayerKind, DisplayLayerRecord } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.maps.displayLayer";
+const COLLECTION = "com.etzhayyim.maps.displayLayer";
 
 const e = new Etzhayyim({
   did: process.env.ETZ_READER_DID ?? "did:web:maps.etzhayyim.com",

@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govTkm.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govTkm.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Turkmenistan government.",
-        "operationId": "app.etzhayyim.govTkm.followSiteDeps",
+        "operationId": "com.etzhayyim.govTkm.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govTkm.heartbeatTick": {
       "post": {
         "summary": "Run the Turkmenistan government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govTkm.heartbeatTick",
+        "operationId": "com.etzhayyim.govTkm.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.listOrgs": {
+    "/xrpc/com.etzhayyim.govTkm.listOrgs": {
       "get": {
         "summary": "List Turkmenistan government organization graph records.",
-        "operationId": "app.etzhayyim.govTkm.listOrgs",
+        "operationId": "com.etzhayyim.govTkm.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.registerDIDs": {
+    "/xrpc/com.etzhayyim.govTkm.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Turkmenistan government organizations.",
-        "operationId": "app.etzhayyim.govTkm.registerDIDs",
+        "operationId": "com.etzhayyim.govTkm.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govTkm.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Turkmenistan government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govTkm.resolveOrgPath",
+        "operationId": "com.etzhayyim.govTkm.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.seedOrgs": {
+    "/xrpc/com.etzhayyim.govTkm.seedOrgs": {
       "post": {
         "summary": "Seed initial Turkmenistan government organization records into the graph.",
-        "operationId": "app.etzhayyim.govTkm.seedOrgs",
+        "operationId": "com.etzhayyim.govTkm.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.shinka": {
+    "/xrpc/com.etzhayyim.govTkm.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Turkmenistan government organization update.",
-        "operationId": "app.etzhayyim.govTkm.shinka",
+        "operationId": "com.etzhayyim.govTkm.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govTkm.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govTkm.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Turkmenistan government organization changes to graph.",
-        "operationId": "app.etzhayyim.govTkm.syncWetUpdates",
+        "operationId": "com.etzhayyim.govTkm.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

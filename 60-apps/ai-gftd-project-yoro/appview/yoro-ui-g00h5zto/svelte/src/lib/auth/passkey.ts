@@ -344,7 +344,7 @@ export async function signIn(): Promise<void> {
 
 	try {
 		// 1. Begin authentication — get challenge from server
-		const beginResp = await authRpc('/xrpc/app.etzhayyim.auth.passkeyBeginAuth');
+		const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginAuth');
 
 		// 2. Call WebAuthn API (empty allowCredentials enables discoverable/iCloud-synced keys)
 		const credential = await navigator.credentials.get({
@@ -386,7 +386,7 @@ export async function signIn(): Promise<void> {
 		const credentialId = base64urlEncode(credential.rawId);
 
 		// 3. Verify assertion server-side (crypto verification + session issuance)
-		const verifyResult = await authRpc('/xrpc/app.etzhayyim.auth.passkeyVerifyAuth', {
+		const verifyResult = await authRpc('/xrpc/com.etzhayyim.auth.passkeyVerifyAuth', {
 			challenge: beginResp.challenge,
 			credentialId,
 			clientDataJson: base64urlEncode(response.clientDataJSON),
@@ -522,7 +522,7 @@ export async function signUp(): Promise<void> {
 		const userName = `user-${userId.slice(0, 8)}@etzhayyim.com`;
 
 		// 1. Begin registration — get challenge + options from server
-		const beginResp = await authRpc('/xrpc/app.etzhayyim.auth.passkeyBeginRegister', {
+		const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginRegister', {
 			userId,
 			userName,
 		});
@@ -569,7 +569,7 @@ export async function signUp(): Promise<void> {
 		const credentialId = base64urlEncode(credential.rawId);
 
 		// 3. Verify registration with server
-		const verifyResult = await authRpc('/xrpc/app.etzhayyim.auth.passkeyVerifyRegister', {
+		const verifyResult = await authRpc('/xrpc/com.etzhayyim.auth.passkeyVerifyRegister', {
 			challenge: beginResp.challenge,
 			clientDataJson: base64urlEncode(response.clientDataJSON),
 			attestationObject: base64urlEncode(response.attestationObject),

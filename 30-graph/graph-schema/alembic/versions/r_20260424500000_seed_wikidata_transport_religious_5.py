@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-tramStop:Station',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-tramStop:Station',
                  'did:web:maps.etzhayyim.com:registry:wikidata:tramStop',
                  'Station',
                  50000,
@@ -37,7 +37,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-monasteryWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-monasteryWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:monasteryWd',
                  'Spot',
                  15000,
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-funeralHomeWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-funeralHomeWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:funeralHomeWd',
                  'Spot',
                  30000,
@@ -69,7 +69,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-crematoriumWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-crematoriumWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:crematoriumWd',
                  'Spot',
                  5000,
@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $6, $7\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-ferryRouteWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-ferryRouteWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:ferryRouteWd',
                  'Spot',
                  3000,

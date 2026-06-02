@@ -15,7 +15,7 @@ Pregel graph (3 nodes):
                                         for ICH M7 PGI (4-chlorobenzyl chloride) removal
         |
         v
-    emit_purification_attest      ->  MST PUT app.etzhayyim.pharma.purificationAttestation
+    emit_purification_attest      ->  MST PUT com.etzhayyim.pharma.purificationAttestation
                                       (lot ID, recovery yield, residual solvent estimate,
                                        PGI estimate (chlorpheniramine), N≥2 signatures)
                                   ->  next-cell message pharma_qc

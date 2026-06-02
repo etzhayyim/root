@@ -2,7 +2,7 @@
 #
 # Per ADR-2605231500 — this directory's Kysely / RW reads are a derived
 # read-path cache, not canonical state. Canonical state lives on:
-#   - app.etzhayyim.maps.* records in the maps.etzhayyim.com PDS (MST)
+#   - com.etzhayyim.maps.* records in the maps.etzhayyim.com PDS (MST)
 #   - content blobs in IPFS (gsplat PLY/GLB, KAMI bake outputs)
 #   - Base L2 anchor (MST root commitments, post-Phase 6)
 #
@@ -24,57 +24,57 @@ last_reviewed = "2026-05-23"
 # in the tables below MUST be re-derivable from records in these collections.
 source_collections = [
   # Geo + AdminArea + source registry (Tier A from MIGRATION-TODO)
-  "app.etzhayyim.maps.feature",
-  "app.etzhayyim.maps.adminArea",
-  "app.etzhayyim.maps.region",
-  "app.etzhayyim.maps.geoAlias",
-  "app.etzhayyim.maps.source",
-  "app.etzhayyim.maps.displayLayer",
+  "com.etzhayyim.maps.feature",
+  "com.etzhayyim.maps.adminArea",
+  "com.etzhayyim.maps.region",
+  "com.etzhayyim.maps.geoAlias",
+  "com.etzhayyim.maps.source",
+  "com.etzhayyim.maps.displayLayer",
   # Geography + transport register (Tier B)
-  "app.etzhayyim.maps.spot",
-  "app.etzhayyim.maps.river",
-  "app.etzhayyim.maps.lake",
-  "app.etzhayyim.maps.coastline",
-  "app.etzhayyim.maps.mountain",
-  "app.etzhayyim.maps.maritimeZone",
-  "app.etzhayyim.maps.road",
-  "app.etzhayyim.maps.railway",
-  "app.etzhayyim.maps.seaRoute",
-  "app.etzhayyim.maps.airRoute",
-  "app.etzhayyim.maps.busRoute",
-  "app.etzhayyim.maps.waterway",
-  "app.etzhayyim.maps.port",
-  "app.etzhayyim.maps.airport",
-  "app.etzhayyim.maps.station",
-  "app.etzhayyim.maps.busStop",
-  "app.etzhayyim.maps.parking",
-  "app.etzhayyim.maps.evCharger",
+  "com.etzhayyim.maps.spot",
+  "com.etzhayyim.maps.river",
+  "com.etzhayyim.maps.lake",
+  "com.etzhayyim.maps.coastline",
+  "com.etzhayyim.maps.mountain",
+  "com.etzhayyim.maps.maritimeZone",
+  "com.etzhayyim.maps.road",
+  "com.etzhayyim.maps.railway",
+  "com.etzhayyim.maps.seaRoute",
+  "com.etzhayyim.maps.airRoute",
+  "com.etzhayyim.maps.busRoute",
+  "com.etzhayyim.maps.waterway",
+  "com.etzhayyim.maps.port",
+  "com.etzhayyim.maps.airport",
+  "com.etzhayyim.maps.station",
+  "com.etzhayyim.maps.busStop",
+  "com.etzhayyim.maps.parking",
+  "com.etzhayyim.maps.evCharger",
   # Digital twin (Tier B)
-  "app.etzhayyim.maps.building",
-  "app.etzhayyim.maps.buildingFloor",
-  "app.etzhayyim.maps.physicalAsset",
-  "app.etzhayyim.maps.twinState",
-  "app.etzhayyim.maps.deviceBinding",
-  "app.etzhayyim.maps.sensor",
-  "app.etzhayyim.maps.sensorReading",
+  "com.etzhayyim.maps.building",
+  "com.etzhayyim.maps.buildingFloor",
+  "com.etzhayyim.maps.physicalAsset",
+  "com.etzhayyim.maps.twinState",
+  "com.etzhayyim.maps.deviceBinding",
+  "com.etzhayyim.maps.sensor",
+  "com.etzhayyim.maps.sensorReading",
   # Transit timetable (Tier B + Tier C projection)
-  "app.etzhayyim.maps.trip",
-  "app.etzhayyim.maps.stopTime",
+  "com.etzhayyim.maps.trip",
+  "com.etzhayyim.maps.stopTime",
   # GTFS-RT (Tier C — projection-of-firehose)
-  "app.etzhayyim.maps.vehiclePosition",
-  "app.etzhayyim.maps.tripUpdate",
-  "app.etzhayyim.maps.serviceAlert",
+  "com.etzhayyim.maps.vehiclePosition",
+  "com.etzhayyim.maps.tripUpdate",
+  "com.etzhayyim.maps.serviceAlert",
   # gsplat (Tier B + Tier D blob)
-  "app.etzhayyim.maps.gsplatAsset",
-  "app.etzhayyim.maps.gsplatMesh",
-  "app.etzhayyim.maps.gsplatJob",
+  "com.etzhayyim.maps.gsplatAsset",
+  "com.etzhayyim.maps.gsplatMesh",
+  "com.etzhayyim.maps.gsplatJob",
   # Vision / satellite (Tier B)
-  "app.etzhayyim.maps.visionResult",
-  "app.etzhayyim.maps.satelliteScene",
+  "com.etzhayyim.maps.visionResult",
+  "com.etzhayyim.maps.satelliteScene",
   # Mapraly / web-crawl / post-EXIF (Tier B + cross-actor)
-  "app.etzhayyim.maps.mapralyPoi",
-  "app.etzhayyim.maps.webCrawlGeoEntity",
-  "app.etzhayyim.maps.postLocation",
+  "com.etzhayyim.maps.mapralyPoi",
+  "com.etzhayyim.maps.webCrawlGeoEntity",
+  "com.etzhayyim.maps.postLocation",
   # Cross-app (read-only consumers)
   "app.bsky.feed.post",   # for maps-social profile derivation
 ]

@@ -16,7 +16,7 @@ Pregel graph (3 nodes):
                                       G10 check: no PII leaks to public aggregation
         |
         v
-    emit_ae_record                ->  MST PUT app.etzhayyim.pharma.adverseEventReport
+    emit_ae_record                ->  MST PUT com.etzhayyim.pharma.adverseEventReport
                                       (encrypted patient identity envelope,
                                        severity, causality, narrative,
                                        lot # back-reference, sealed-recipient

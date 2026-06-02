@@ -5,11 +5,11 @@
  * for chain→subbrand / parent→property hospitality relationships).
  *
  * Edges are projected from `vertex_repo_record` rows where collection =
- * `app.etzhayyim.apps.hospitality.ownedBy`. Hospitality emit pipeline:
+ * `com.etzhayyim.apps.hospitality.ownedBy`. Hospitality emit pipeline:
  *
  *   data/ownership-edges.jsonl
  *     → app.bsky.* style PDS commit
- *       → vertex_repo_record (collection='app.etzhayyim.apps.hospitality.ownedBy')
+ *       → vertex_repo_record (collection='com.etzhayyim.apps.hospitality.ownedBy')
  *         → graph-writer projection (TODO: add ownedBy projector)
  *           → edge_owned_by row (src_vid=parent, dst_vid=child)
  *

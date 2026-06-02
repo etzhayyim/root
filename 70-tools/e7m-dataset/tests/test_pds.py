@@ -24,7 +24,7 @@ _BASE_KWARGS = dict(
 
 def test_build_record_required_only():
     r = pds.build_record(**_BASE_KWARGS)
-    assert r["$type"] == "app.etzhayyim.substrate.datasetPin"
+    assert r["$type"] == "com.etzhayyim.substrate.datasetPin"
     for k in ("name", "revision", "kind", "cid", "sizeBytes", "providers", "pinnedAt", "charterRiderScan"):
         assert k in r
     # optional keys should not appear
@@ -55,7 +55,7 @@ def test_emit_dry_run_prints(capsys):
     assert result == {"dryRun": True}
     err = capsys.readouterr().err
     assert "DRY RUN" in err
-    assert "app.etzhayyim.substrate.datasetPin" in err
+    assert "com.etzhayyim.substrate.datasetPin" in err
     # The record body should be valid JSON inside the diagnostic block.
     body_start = err.find("{")
     assert body_start > 0

@@ -15,7 +15,7 @@ interface ExportedHandler<E> {
 }
 
 const APP = "natural-person";
-const NSID_PREFIX = "app.etzhayyim.apps.naturalPerson.";
+const NSID_PREFIX = "com.etzhayyim.apps.naturalPerson.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -27,7 +27,7 @@ export default {
         nanoid: env.APP_NANOID ?? "np02priv9",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/natural-person",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/natural-person",
       });
     }
 

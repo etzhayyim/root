@@ -24,7 +24,7 @@ import { sql } from "kysely";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── vertex_live_track ────────────────────────────────────────────
-  // One row per setlist position. PK = `at://<perf_did>/app.etzhayyim.apps.live.track/<room>-<pos>`.
+  // One row per setlist position. PK = `at://<perf_did>/com.etzhayyim.apps.live.track/<room>-<pos>`.
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_live_track (
       vertex_id VARCHAR PRIMARY KEY,
@@ -47,7 +47,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   `.execute(db);
 
   // ── vertex_live_lighting_cue ─────────────────────────────────────
-  // PK = `at://<perf_did>/app.etzhayyim.apps.live.lightingCue/<room>-<seq>`.
+  // PK = `at://<perf_did>/com.etzhayyim.apps.live.lightingCue/<room>-<seq>`.
   await sql`
     CREATE TABLE IF NOT EXISTS vertex_live_lighting_cue (
       vertex_id VARCHAR PRIMARY KEY,
@@ -138,7 +138,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     },
   ];
   for (const t of tracks) {
-    const vid = `at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.track/demo-${t.pos}`;
+    const vid = `at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.track/demo-${t.pos}`;
     await sql`
       INSERT INTO vertex_live_track (
         vertex_id, room_slug, position, title, bpm, length_beats,
@@ -160,8 +160,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         actor_did, org_did, at_did
       )
       VALUES (
-        ${"at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomTrack/demo-" + t.pos},
-        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',
+        ${"at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.roomTrack/demo-" + t.pos},
+        'at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.room/demo',
         ${vid},
         ${t.pos},
         '2026-04-29T03:00:00Z',
@@ -177,7 +177,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     { idx: 3, fixture: "strobe", r: 1.0, g: 1.0, b: 1.0, intensity: 1.0, envelope: "strobe", param: 0.25, bars: 4, startBar: 2 },
   ];
   for (const c of cues) {
-    const vid = `at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.lightingCue/demo-${c.idx}`;
+    const vid = `at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.lightingCue/demo-${c.idx}`;
     await sql`
       INSERT INTO vertex_live_lighting_cue (
         vertex_id, room_slug, fixture, color_r, color_g, color_b,
@@ -199,8 +199,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         actor_did, org_did, at_did
       )
       VALUES (
-        ${"at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.roomLightingCue/demo-" + c.idx},
-        'at://did:web:live.etzhayyim.com/app.etzhayyim.apps.live.room/demo',
+        ${"at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.roomLightingCue/demo-" + c.idx},
+        'at://did:web:live.etzhayyim.com/com.etzhayyim.apps.live.room/demo',
         ${vid},
         ${c.startBar},
         '2026-04-29T03:00:00Z',

@@ -51,7 +51,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/mailer.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/mailer"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/mailer"
   },
   "space": {
     "channels": [
@@ -70,9 +70,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.mailer.mailerEntity",
-        "ai.gftd.apps.mailer.mailerEvent",
-        "ai.gftd.apps.mailer.mailerReport"
+        "com.etzhayyim.apps.mailer.mailerEntity",
+        "com.etzhayyim.apps.mailer.mailerEvent",
+        "com.etzhayyim.apps.mailer.mailerReport"
       ]
     }
   },

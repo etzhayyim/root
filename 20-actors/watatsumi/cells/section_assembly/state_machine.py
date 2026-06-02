@@ -106,7 +106,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     sa.phase = SectionAssemblyPhase.ATTESTATION_EMITTED
     sa.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.watatsumi.sectionAssemblyAttestation",
+        "$type": "com.etzhayyim.watatsumi.sectionAssemblyAttestation",
         "craftId": sa.craftId,
         "sectionIndex": sa.sectionIndex,
         "ringAttestations": sa.ringAttestations,

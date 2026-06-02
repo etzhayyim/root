@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.birthRegistration.flagRegistrationGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Birth registration gap / nationality denial / gender-based (bridges statelessPerson.flagGapOutcome + gender-inclusion + worker-grievance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "registrationVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "registrationVid": {
+              "type": "string",
+              "description": "bridges recordRegistration"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "no_birth_certificate",
+                "nationality_denial",
+                "gender_name_transfer",
+                "fee_barrier",
+                "language_barrier",
+                "mixed_nationality",
+                "refugee_limbo",
+                "border_dispute",
+                "missing_maternity_records",
+                "discrimination_religion",
+                "post_disaster"
+              ]
+            },
+            "childrenEstimated": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

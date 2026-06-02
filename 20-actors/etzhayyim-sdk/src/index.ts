@@ -92,7 +92,7 @@ export interface Signer {
 // ─── Write API (replaces SQL INSERT) ────────────────────────────────
 
 export interface WriteOpts<T extends Record<string, unknown>> {
-  /** Lexicon NSID. e.g. `app.etzhayyim.apps.openIsco.occupation`. */
+  /** Lexicon NSID. e.g. `com.etzhayyim.apps.openIsco.occupation`. */
   collection: string;
 
   /** Record body. Validated against the resolved lexicon shape. */
@@ -587,8 +587,8 @@ export class Etzhayyim {
    * Plaintext is CBOR-encoded and sealed under XChaCha20-Poly1305 with a
    * fresh per-record symmetric key. The key is wrapped to each recipient
    * via the established Signal session (DID-bound per ADR-2605181100). The
-   * envelope is stored as `app.etzhayyim.encrypted.record`; one
-   * `app.etzhayyim.encrypted.keyWrap` is written per recipient.
+   * envelope is stored as `com.etzhayyim.encrypted.record`; one
+   * `com.etzhayyim.encrypted.keyWrap` is written per recipient.
    */
   async encryptedWrite<T extends Record<string, unknown>>(
     opts: import("./encrypted.js").EncryptedWriteOpts<T>
@@ -600,9 +600,9 @@ export class Etzhayyim {
   /**
    * Read and decrypt encrypted records the caller has a read-cap for.
    *
-   * Enumerates `app.etzhayyim.encrypted.keyWrap` in the caller's own PDS,
+   * Enumerates `com.etzhayyim.encrypted.keyWrap` in the caller's own PDS,
    * unwraps each key via the matching Signal session, and decrypts the
-   * referenced `app.etzhayyim.encrypted.record` envelopes.
+   * referenced `com.etzhayyim.encrypted.record` envelopes.
    */
   async encryptedRead<T>(
     opts: import("./encrypted.js").EncryptedReadOpts
@@ -642,3 +642,12 @@ export {
   type CreateAgentOpts,
   type XrpcOpts,
 } from "./atproto.js";
+export {
+  donate,
+  isAllowedDonationPurpose,
+  mapDonationPurpose,
+  type DonateOpts,
+  type DonateConfig,
+  type DonateResult,
+  type DonatePurpose,
+} from "./donate.js";

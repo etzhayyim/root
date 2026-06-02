@@ -8,7 +8,7 @@ const TARGET_ARG = process.argv.find((arg) => arg.startsWith("--target="));
 const TARGET_FILTER = TARGET_ARG ? TARGET_ARG.slice("--target=".length) : "";
 const SVELTEKIT_MAIN = "svelte/.svelte-kit/cloudflare/_worker.js";
 const SVELTEKIT_ASSETS = "./svelte/.svelte-kit/cloudflare/client";
-const MCP_ROUTER_URL = "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message";
+const MCP_ROUTER_URL = "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message";
 
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out;

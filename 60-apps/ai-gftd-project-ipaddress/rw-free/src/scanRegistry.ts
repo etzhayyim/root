@@ -25,7 +25,7 @@ import {
   type ScanView,
 } from "./types.js";
 
-const SCAN_COLLECTION = "app.etzhayyim.apps.ipaddress.scan";
+const SCAN_COLLECTION = "com.etzhayyim.apps.ipaddress.scan";
 
 function scanRkey(scanId: string): string {
   return `scan-${scanId.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;

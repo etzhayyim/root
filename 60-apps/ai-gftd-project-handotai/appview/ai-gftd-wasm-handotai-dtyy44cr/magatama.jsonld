@@ -143,12 +143,12 @@
     },
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.handotai.source",
-        "ai.gftd.apps.handotai.article",
-        "ai.gftd.apps.handotai.digest",
-        "ai.gftd.apps.handotai.report",
-        "ai.gftd.apps.handotai.alert",
-        "ai.gftd.apps.handotai.subscription",
+        "com.etzhayyim.apps.handotai.source",
+        "com.etzhayyim.apps.handotai.article",
+        "com.etzhayyim.apps.handotai.digest",
+        "com.etzhayyim.apps.handotai.report",
+        "com.etzhayyim.apps.handotai.alert",
+        "com.etzhayyim.apps.handotai.subscription",
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.feed.repost",

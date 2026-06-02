@@ -7,8 +7,8 @@ import { sql } from "kysely";
 /**
  * RisingWave SQL UDF — maps domain coverage gap scoring (ADR-0044 SQL UDF tier).
  *
- * Backs `app.etzhayyim.apps.maps.advanceCoverage` XRPC and the
- * `00-contracts/bpmn/ai/gftd/maps/advanceCoverage.bpmn` timer-start BPMN
+ * Backs `com.etzhayyim.apps.maps.advanceCoverage` XRPC and the
+ * `00-contracts/bpmn/com/etzhayyim/maps/advanceCoverage.bpmn` timer-start BPMN
  * process (R/PT2M) that picks the next coverage gap every 2 minutes.
  *
  * Design (ADR-0044 §"Rule/regex/aggregate → SQL UDF"):
@@ -20,7 +20,7 @@ import { sql } from "kysely";
  * Schema (minimal coverage frontier registry, NOT 1NF — promoted columns):
  *   vertex_maps_coverage_target (
  *     vertex_id         varchar PRIMARY KEY
- *                         at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/{sourceSlug}:{label}
+ *                         at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/{sourceSlug}:{label}
  *     source_did        varchar  NOT NULL   -- did:web:maps.etzhayyim.com:registry:gleif etc.
  *     label             varchar  NOT NULL   -- LegalEntity / AdminArea / Airport / ...
  *     world_total       bigint   NOT NULL   -- upper-bound estimate (see ADR maps CLAUDE.md §Coverage Targets)
@@ -142,7 +142,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   ];
   for (const [sourceDid, label, worldTotal, priority] of seed) {
     const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || "primary";
-    const vid = `at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/${sourceSlug.replace(/:/g, "-")}:${label}`;
+    const vid = `at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/${sourceSlug.replace(/:/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (
         vertex_id, source_did, label, world_total, priority_weight,

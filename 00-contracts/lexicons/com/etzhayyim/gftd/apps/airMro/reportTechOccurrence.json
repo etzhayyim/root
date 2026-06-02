@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airMro.reportTechOccurrence",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Report a technical occurrence for an aircraft.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["tail_number", "ata_chapter", "occurrence_type", "description"],
+          "properties": {
+            "tail_number": { "type": "string" },
+            "ata_chapter": { "type": "string" },
+            "occurrence_type": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

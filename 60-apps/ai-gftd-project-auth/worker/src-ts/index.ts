@@ -11,7 +11,6 @@ import { verifyDpopProof } from "./dpop";
 import { beginAuthentication, beginRegistration, verifyAuthentication, verifyRegistration } from "./passkey";
 import { issueSession, refreshSession, verifySession } from "./session";
 import { buildJwks, signServiceAuth } from "./service-auth";
-import { verifySessionPoP } from "./session-pop";
 import { renderAuthPage, renderLinkResultPage } from "./ui";
 
 interface Env {
@@ -37,20 +36,7 @@ interface Env {
   GMAIL_OAUTH_SECRET?: string;
   OUTLOOK_SECRET?: string;
   OUTLOOK_SECRET_ID?: string;
-  // DEPRECATED (ADR-2606014000 D3 + ADR-2605231525 Stage C-4): server-held wrapping
-  // key. The kotoba secrecy architecture replaces this with a passkey-PRF-derived
-  // session key (`k_session` = kotoba_crypto::key_tree::derive_session_seed), so the
-  // server holds NO wrapping key. Removal is GATED: only after the C-2 (device-
-  // generated keys) + C-3 (passkey-derived sessions) cutover ships AND a 30-day
-  // zero-read quarantine logs no reads of this secret. Do NOT delete before then —
-  // sign-up intentionally fails without it (see CLAUDE.md Prohibited Patterns).
   SS_REPO_SIGNING_KEK?: string;  // AES-256 KEK for envelope encryption (base64url, 32 bytes)
-  // ADR-2606014500: key-custody posture. "server_kek" (legacy default — server
-  // generates + KEK-wraps the private key) or "client_self_custody" (Proton-style
-  // zero-access — client generates the keypair, registers only the public half via
-  // app.etzhayyim.auth.registerSigningKey; the server never holds the private key
-  // or a wrapping key). Unset = "server_kek" (no behavior change).
-  SS_KEY_CUSTODY_MODE?: string;
   // ADR-0074 sign-up — service binding to authz `/internal/provision-root-identity`.
   AUTHZ_RPC?: Fetcher;
   // Shared HMAC with worker-authz to gate the internal sign-up route (same
@@ -101,16 +87,6 @@ async function envelopeDecrypt(kekB64: string, ciphertext: string, wrappedDataKe
   const dataKeyCrypto = await crypto.subtle.importKey("raw", dataKeyBuf, { name: "AES-GCM" }, false, ["decrypt"]);
   const plaintextBuf = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, dataKeyCrypto, decode(ciphertext));
   return new Uint8Array(plaintextBuf);
-}
-
-// ── ADR-2606014500 C-4 quarantine instrument ────────────────────────────────
-// Every server-held-KEK (SS_REPO_SIGNING_KEK) read is logged with a stable
-// marker so the operator can confirm ZERO reads over the 30-day overlap window
-// (ADR-2605231525 Stage C-4) before `wrangler secret delete SS_REPO_SIGNING_KEK`.
-// Migrated (client-self-custody, `registerSigningKey`/PoP) accounts never reach
-// these sites; remaining hits identify the server-assisted paths still to retire.
-function logKekRead(site: string): void {
-  console.warn(`[kek-read] SS_REPO_SIGNING_KEK site=${site} — server-assisted custody (ADR-2606014500 C-4 quarantine)`);
 }
 
 async function ensureAuthTables(env: Env): Promise<void> {
@@ -255,15 +231,9 @@ async function ensureKeysTables(env: Env): Promise<void> {
           iv TEXT NOT NULL,
           performer_type TEXT NOT NULL,
           public_key_multibase TEXT NOT NULL,
-          created_at TEXT NOT NULL,
-          key_custody_tier TEXT NOT NULL DEFAULT 'server_assisted'
+          created_at TEXT NOT NULL
         )
       `),
-      // ADR-2606014500: `key_custody_tier` = "server_assisted" (legacy T1 — the
-      // KEK-wrapped private key lives in the columns above) vs
-      // "human_self_custody"/"agent_self_custody" (Proton-style zero-access — the
-      // private columns are empty, the private key never reaches the server). The
-      // DEFAULT keeps every existing INSERT unchanged.
       env.KEYS_DB.prepare(`
         CREATE TABLE IF NOT EXISTS vertex_gftd_key_revoked_session (
           vertex_id TEXT PRIMARY KEY,
@@ -393,7 +363,6 @@ function jsonWithSession(body: unknown, accessJwt: string, status = 200, extraHe
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
-      // no-cookie: allow first-party AT Protocol session (gftd_session, HttpOnly/Secure/SameSite=Lax) for cross-subdomain auth on *.etzhayyim.com; not tracking/ads
       "Set-Cookie": sessionCookie(accessJwt),
       ...extraHeaders,
     },
@@ -845,7 +814,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // One row keyed on jti (unchanged) — carries the family `sid` too so the
     // RS check can match either column without a second INSERT.
     if (jti) {
-      const vertexId = `at://did:web:authn.etzhayyim.com/app.etzhayyim.auth.revokedSession/${jti}`;
+      const vertexId = `at://did:web:authn.etzhayyim.com/com.etzhayyim.auth.revokedSession/${jti}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(vertexId, did, jti, did, revokedAt, sid || null).run();
@@ -854,7 +823,7 @@ async function handleRevokeToken(request: Request, env: Env): Promise<Response> 
     // caught on lookup even when the revoked_at request only carried one
     // jti. RFC 7009 §2.1 SHOULD cascade.
     if (sid) {
-      const sidVertexId = `at://did:web:authn.etzhayyim.com/app.etzhayyim.auth.revokedFamily/${sid}`;
+      const sidVertexId = `at://did:web:authn.etzhayyim.com/com.etzhayyim.auth.revokedFamily/${sid}`;
       await env.KEYS_DB.prepare(
         "INSERT OR IGNORE INTO vertex_gftd_key_revoked_session (vertex_id, sensitivity_ord, owner_did, jti, did, revoked_at, sid) VALUES (?, 3, ?, ?, ?, ?, ?)",
       ).bind(sidVertexId, did, jti || `family:${sid}`, did, revokedAt, sid).run();
@@ -911,7 +880,7 @@ async function handleRefreshSession(request: Request, env: Env): Promise<Respons
 }
 
 /**
- * POST /xrpc/app.etzhayyim.auth.switchActiveDid
+ * POST /xrpc/com.etzhayyim.auth.switchActiveDid
  * Body: { activeDid }
  * Re-issues the session JWT with a different activeDid (sub-actor persona).
  * The requested DID must equal the accountDid or start with "{accountDid}:".
@@ -1131,7 +1100,7 @@ async function mintBootstrapApiKey(env: Env, accountDid: string): Promise<string
 async function buildPdsApiKeyProxyHeaders(
   env: Env,
   accountDid: string,
-  lxm: "app.etzhayyim.auth.listApiKeys" | "app.etzhayyim.auth.revokeApiKey",
+  lxm: "com.etzhayyim.auth.listApiKeys" | "com.etzhayyim.auth.revokeApiKey",
 ): Promise<Record<string, string>> {
   const privateKeyB64 = getVar(env, "SS_SERVICE_AUTH_PRIVATE_KEY");
   const publicKeyB64 = getVar(env, "SS_AUTH_PUBLIC_KEY_B64");
@@ -1156,7 +1125,7 @@ async function buildPdsApiKeyProxyHeaders(
   return headers;
 }
 
-/** Handle app.etzhayyim.auth.createApiKey locally using KEYS_DB D1. */
+/** Handle com.etzhayyim.auth.createApiKey locally using KEYS_DB D1. */
 async function handleCreateApiKeyLocal(request: Request, env: Env): Promise<Response> {
   if (!env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB is required");
   try {
@@ -1200,7 +1169,7 @@ async function handleInternalVerifyApiKey(request: Request, env: Env): Promise<R
 async function proxyApiKeyManagement(
   request: Request,
   env: Env,
-  nsid: "app.etzhayyim.auth.listApiKeys" | "app.etzhayyim.auth.revokeApiKey",
+  nsid: "com.etzhayyim.auth.listApiKeys" | "com.etzhayyim.auth.revokeApiKey",
 ): Promise<Response> {
   if (!env.PDS_SERVICE || typeof env.PDS_SERVICE.fetch !== "function") {
     return jsonErr(503, "ConfigError", "PDS_SERVICE is required");
@@ -1424,7 +1393,7 @@ async function queryIdentityGraphRow(env: Env, did: string): Promise<Record<stri
   if (!env.PDS_SERVICE) return null;
   try {
     const resp = await env.PDS_SERVICE.fetch(
-      `https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
+      `https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.query?table=vertex_gftd_identity&did=${encodeURIComponent(did)}`,
       { headers: { "x-magatama-verified": "true" } },
     );
     if (!resp.ok) return null;
@@ -1713,30 +1682,18 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
   if (child.privateKeyB64url && child.publicKeyMultibase) {
     if (!env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB required for pubkey kind");
     await ensureKeysTables(env);
-    if (getVar(env, "SS_KEY_CUSTODY_MODE") === "client_self_custody") {
-      // Zero-access (ADR-2606014500 C-2/C-4): persist the PUBLIC key only — no KEK.
-      // The server-generated private half is discarded; the sub-DID owner registers
-      // its own key via registerSigningKey. Never reads SS_REPO_SIGNING_KEK.
-      await env.KEYS_DB.prepare(
-        `INSERT OR REPLACE INTO vertex_gftd_key_signing
-         (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at, key_custody_tier)
-         VALUES (?, 1, ?, ?, '', '', '', ?, ?, ?, 'agent_self_custody')`,
-      ).bind(child.did, callerAccount, child.did, performerType, child.publicKeyMultibase, now).run();
-    } else {
-      const kek = getVar(env, "SS_REPO_SIGNING_KEK");
-      if (!kek) return jsonErr(503, "ConfigError", "SS_REPO_SIGNING_KEK required");
-      logKekRead("subDid.persistSigningKey");
-      const envelope = await envelopeEncrypt(kek, new TextEncoder().encode(child.privateKeyB64url));
-      await env.KEYS_DB.prepare(
-        `INSERT OR REPLACE INTO vertex_gftd_key_signing
-         (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at)
-         VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?)`
-      ).bind(
-        child.did, callerAccount, child.did,
-        envelope.ciphertext, envelope.wrappedDataKey, envelope.iv,
-        performerType, child.publicKeyMultibase, now,
-      ).run();
-    }
+    const kek = getVar(env, "SS_REPO_SIGNING_KEK");
+    if (!kek) return jsonErr(503, "ConfigError", "SS_REPO_SIGNING_KEK required");
+    const envelope = await envelopeEncrypt(kek, new TextEncoder().encode(child.privateKeyB64url));
+    await env.KEYS_DB.prepare(
+      `INSERT OR REPLACE INTO vertex_gftd_key_signing
+       (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at)
+       VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      child.did, callerAccount, child.did,
+      envelope.ciphertext, envelope.wrappedDataKey, envelope.iv,
+      performerType, child.publicKeyMultibase, now,
+    ).run();
   }
 
   // 7. Graph write (fire-and-forget projection)
@@ -1792,7 +1749,7 @@ async function handleMintChildDid(request: Request, env: Env): Promise<Response>
         created_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -1863,7 +1820,7 @@ async function syncAuthMethodToetzhayyimIdentity(env: Env, accountDid: string, p
         linked_at: now,
       }],
     };
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -1949,20 +1906,8 @@ async function handleGetServiceAuth(request: Request, env: Env): Promise<Respons
       ).bind(body.iss).first<{ encrypted_private_key: string; wrapped_data_key: string; iv: string }>();
 
       if (keyRow) {
-        // Zero-access (ADR-2606014500): a client-self-custody key has empty private
-        // columns — the server CANNOT and MUST NOT sign on its behalf. Direct the
-        // caller to sign client-side (PoP / Service Auth signed by the device key)
-        // and skip the KEK read entirely.
-        if (!keyRow.encrypted_private_key) {
-          return jsonErr(
-            409,
-            "ClientCustodyKey",
-            "iss uses client self-custody — sign Service Auth client-side; server holds no private key",
-          );
-        }
         const kek = getVar(env, "SS_REPO_SIGNING_KEK");
         if (!kek) return jsonErr(503, "ConfigError", "SS_REPO_SIGNING_KEK required");
-        logKekRead("signServiceAuth.decryptPrivateKey");
         const plaintext = await envelopeDecrypt(kek, keyRow.encrypted_private_key, keyRow.wrapped_data_key, keyRow.iv);
         const privateKeyB64 = new TextDecoder().decode(plaintext);
         return json({ token: await signServiceAuth(privateKeyB64, body.iss, body.aud, body.lxm, sub) });
@@ -2321,7 +2266,7 @@ async function resolveSecret(source: unknown): Promise<string> {
 // purpose='internal-subscription' via @etzhayyim/sdk donate(); see the
 // donate flow on the yatabase Studio / yoro membership UI.
 //
-// The legacy XRPC surface app.etzhayyim.auth.createSetupIntent is permanently
+// The legacy XRPC surface com.etzhayyim.auth.createSetupIntent is permanently
 // removed below (route is unregistered, not stubbed). Clients still
 // calling it will receive the Worker's 404 fallback.
 //
@@ -2388,44 +2333,26 @@ async function createPasskeyAccount(env: Env): Promise<{
   const handle = accountHandleFromPath(accountPath);
   const now = nowIso();
 
-  // KEYS_DB: signing key custody.
+  // KEYS_DB: envelope-encrypted signing key custody
   if (env.KEYS_DB) {
     await ensureKeysTables(env);
-    const entries = [
-      { gftdDid: accountetzhayyim.did, privateKey: accountetzhayyim.privateKeyB64url, perfType: "organization" as const, ownerDid: accountetzhayyim.did, pub: accountetzhayyim.publicKeyMultibase },
-      { gftdDid: activeetzhayyim.did, privateKey: activeetzhayyim.privateKeyB64url, perfType: "person" as const, ownerDid: accountetzhayyim.did, pub: activeetzhayyim.publicKeyMultibase },
-    ];
+    const kek = getVar(env, "SS_REPO_SIGNING_KEK");
+    if (!kek) throw new Error("SS_REPO_SIGNING_KEK is required for signing key custody");
 
-    if (getVar(env, "SS_KEY_CUSTODY_MODE") === "client_self_custody") {
-      // ADR-2606014500 C-2/C-4: zero-access sign-up — persist PUBLIC keys ONLY,
-      // no KEK, no private material. The server-generated private halves are
-      // discarded; the member's device holds the real session key (registered via
-      // registerSigningKey). This path never reads SS_REPO_SIGNING_KEK, so once it
-      // is the only path the C-4 zero-read quarantine can complete. Default mode
-      // (unset) keeps the legacy KEK custody below unchanged.
-      const stmts: D1PreparedStatement[] = entries.map((e) =>
-        env.KEYS_DB!.prepare(
-          `INSERT OR REPLACE INTO vertex_gftd_key_signing
-           (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at, key_custody_tier)
-           VALUES (?, 1, ?, ?, '', '', '', ?, ?, ?, 'human_self_custody')`,
-        ).bind(e.gftdDid, e.ownerDid, e.gftdDid, e.perfType, e.pub, now),
-      );
-      await env.KEYS_DB.batch(stmts);
-    } else {
-      const kek = getVar(env, "SS_REPO_SIGNING_KEK");
-      if (!kek) throw new Error("SS_REPO_SIGNING_KEK is required for signing key custody");
-      logKekRead("createPasskeyAccount.persistSigningKeys");
-      const stmts: D1PreparedStatement[] = [];
-      for (const e of entries) {
-        const envelope = await envelopeEncrypt(kek, new TextEncoder().encode(e.privateKey));
-        stmts.push(env.KEYS_DB.prepare(
-          `INSERT OR REPLACE INTO vertex_gftd_key_signing
-           (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at)
-           VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?)`
-        ).bind(e.gftdDid, e.ownerDid, e.gftdDid, envelope.ciphertext, envelope.wrappedDataKey, envelope.iv, e.perfType, e.pub, now));
-      }
-      await env.KEYS_DB.batch(stmts);
+    const stmts: D1PreparedStatement[] = [];
+    for (const { gftdDid, privateKey, perfType, ownerDid } of [
+      { gftdDid: accountetzhayyim.did, privateKey: accountetzhayyim.privateKeyB64url, perfType: "organization" as const, ownerDid: accountetzhayyim.did },
+      { gftdDid: activeetzhayyim.did, privateKey: activeetzhayyim.privateKeyB64url, perfType: "person" as const, ownerDid: accountetzhayyim.did },
+    ]) {
+      const envelope = await envelopeEncrypt(kek, new TextEncoder().encode(privateKey));
+      stmts.push(env.KEYS_DB.prepare(
+        `INSERT OR REPLACE INTO vertex_gftd_key_signing
+         (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at)
+         VALUES (?, 3, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(gftdDid, ownerDid, gftdDid, envelope.ciphertext, envelope.wrappedDataKey, envelope.iv, perfType,
+        gftdDid === accountetzhayyim.did ? accountetzhayyim.publicKeyMultibase : activeetzhayyim.publicKeyMultibase, now));
     }
+    await env.KEYS_DB.batch(stmts);
   }
 
   // AUTH_DB: auth control plane
@@ -2461,8 +2388,8 @@ async function createPasskeyAccount(env: Env): Promise<{
           controller_did: accountetzhayyim.did,
           actor_score: 25,
           rbac_roles: '["owner"]',
-          rbac_grants: '["app.etzhayyim.apps.*"]',
-          capability_scopes: '["app.etzhayyim.apps.*"]',
+          rbac_grants: '["com.etzhayyim.apps.*"]',
+          capability_scopes: '["com.etzhayyim.apps.*"]',
           consent_model: "gnap-vp",
           pii_tier: 3,
           public_key_multibase: accountetzhayyim.publicKeyMultibase,
@@ -2482,7 +2409,7 @@ async function createPasskeyAccount(env: Env): Promise<{
           actor_score: 25,
           rbac_roles: "[]",
           rbac_grants: "[]",
-          capability_scopes: '["app.etzhayyim.apps.*.query"]',
+          capability_scopes: '["com.etzhayyim.apps.*.query"]',
           consent_model: "gnap-vp",
           pii_tier: 1,
           public_key_multibase: activeetzhayyim.publicKeyMultibase,
@@ -2515,7 +2442,7 @@ async function createPasskeyAccount(env: Env): Promise<{
       ],
     };
     // Fire-and-forget: graph write is async projection, not auth-critical
-    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/app.etzhayyim.graph.batchInsert", {
+    env.PDS_SERVICE.fetch("https://atproto.etzhayyim.com/xrpc/com.etzhayyim.graph.batchInsert", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-magatama-verified": "true" },
       body: JSON.stringify(graphPayload),
@@ -2527,118 +2454,6 @@ async function createPasskeyAccount(env: Env): Promise<{
     activeDid: activeetzhayyim.did,
     handle,
   };
-}
-
-/**
- * ADR-2606014500 (Proton-aligned zero-access custody — Stage C-2).
- *
- * Register a CLIENT-GENERATED signing key by its PUBLIC half only. The private
- * key is generated and held on the member's device (e.g. derived from the
- * WebAuthn PRF → ARK → k_session hierarchy of ADR-2606014000) and is NEVER sent
- * to the server. The server stores a public-keys-only record (no KEK, no
- * envelope) and thereafter only *verifies* signatures — it cannot sign on the
- * member's behalf. This is the zero-access counterpart to the legacy
- * server-KEK custody (`createPasskeyAccount` / the depth handler), and the path
- * a `SS_KEY_CUSTODY_MODE=client_self_custody` deployment uses for new keys.
- */
-async function handleRegisterSigningKey(request: Request, env: Env): Promise<Response> {
-  let caller: SessionAccount;
-  try {
-    caller = await requireSessionAccount(request, env);
-  } catch (_e) {
-    return jsonErr(401, "Unauthenticated", "valid session required to register a signing key");
-  }
-  if (!env.KEYS_DB) return jsonErr(503, "ConfigError", "KEYS_DB required");
-
-  const body = await parseJson<{ did?: string; publicKeyMultibase?: string; performerType?: string }>(request).catch(() => ({}));
-  const pub = (body.publicKeyMultibase || "").trim();
-  // base58btc multibase public key (z-prefixed). Bounded to reject junk.
-  if (!pub.startsWith("z") || pub.length < 40 || pub.length > 120) {
-    return jsonErr(400, "InvalidPublicKey", "publicKeyMultibase must be a base58btc multibase (z…) key");
-  }
-
-  // Ownership: a caller may only register a key for their own account DID or a
-  // sub-actor DID beneath it (DID-path prefix). No registering keys for others.
-  const targetDid = (body.did || caller.accountDid).trim();
-  if (targetDid !== caller.accountDid && !targetDid.startsWith(caller.accountDid + ":")) {
-    return jsonErr(403, "Forbidden", "can only register a key for your own DID or a sub-actor under it");
-  }
-
-  const allowedPerformer = ["person", "service", "system", "organization"];
-  const performerType = allowedPerformer.includes(body.performerType ?? "") ? (body.performerType as string) : "person";
-
-  await ensureKeysTables(env);
-  const now = nowIso();
-  // Public-key-only: the private columns stay empty. The server holds NO private
-  // key and NO wrapping key for this identity — zero-access by construction.
-  await env.KEYS_DB.prepare(
-    `INSERT OR REPLACE INTO vertex_gftd_key_signing
-     (vertex_id, sensitivity_ord, owner_did, did, encrypted_private_key, wrapped_data_key, iv, performer_type, public_key_multibase, created_at, key_custody_tier)
-     VALUES (?, 1, ?, ?, '', '', '', ?, ?, ?, 'human_self_custody')`
-  ).bind(targetDid, caller.accountDid, targetDid, performerType, pub, now).run();
-
-  return json({
-    did: targetDid,
-    publicKeyMultibase: pub,
-    performerType,
-    keyCustodyTier: "human_self_custody",
-    serverHoldsPrivateKey: false,
-    createdAt: now,
-  });
-}
-
-/**
- * ADR-2606014500 C-3 (server side, ADDITIVE): verify a client-signed session
- * Proof-of-Possession (EdDSA JWS) against the member's registered public key.
- * Read-only — mints nothing, holds no key. Does NOT replace HS256 session
- * issuance (that cutover is gated, Stage C-3/C-4).
- */
-async function handleVerifySessionPoP(request: Request, env: Env): Promise<Response> {
-  const body = await parseJson<{ token?: string }>(request).catch(() => ({}));
-  if (!body.token || typeof body.token !== "string") {
-    return jsonErr(400, "InvalidToken", "token (compact EdDSA JWS) required");
-  }
-  const result = await verifySessionPoP(env, body.token);
-  return json(result, result.valid ? 200 : 401);
-}
-
-/**
- * ADR-2606014500 C-3 (issuance, ADDITIVE): establish a session from a client
- * session PoP. The login proof is the member's OWN client-signed EdDSA token
- * (verified against their registered public key) — no passkey-assertion round-trip
- * and no server-held SIGNING key custody is involved. For downstream compatibility
- * the worker still issues the standard AT Protocol session (HS256 over the
- * separate session secret); the final step (downstream verifies the PoP directly
- * and HS256 session tokens are dropped) is the broader migration, gated.
- */
-async function handleCreateSessionFromPoP(request: Request, env: Env): Promise<Response> {
-  const body = await parseJson<{ token?: string }>(request).catch(() => ({}));
-  if (!body.token || typeof body.token !== "string") {
-    return jsonErr(400, "InvalidToken", "PoP token (compact EdDSA JWS) required");
-  }
-  const result = await verifySessionPoP(env, body.token);
-  if (!result.valid || !result.did) {
-    return jsonErr(401, "InvalidPoP", result.reason ?? "PoP verification failed");
-  }
-  const accountDid = result.did;
-  const activeDid = deriveDefaultHumanDid(accountDid);
-  const tokens = await issueSession(getSessionSecret(env), {
-    accountDid,
-    activeDid,
-    handle: accountDid,
-  });
-  return jsonWithSession(
-    {
-      did: tokens.did,
-      accountDid: tokens.accountDid,
-      activeDid: tokens.activeDid,
-      handle: tokens.handle,
-      accessJwt: tokens.accessJwt,
-      refreshJwt: tokens.refreshJwt,
-      custody: "client_self_custody_pop",
-    },
-    tokens.accessJwt,
-  );
 }
 
 async function handlePasskeyBeginRegister(request: Request): Promise<Response> {
@@ -2801,7 +2616,7 @@ async function sessionAwareUiRoute(request: Request, env: Env): Promise<Response
   if (pathname === "/manage") {
     return Response.redirect("https://accounts.etzhayyim.com/manage", 302);
   }
-  if (pathname === "/xrpc/app.etzhayyim.auth.getSession" || pathname === "/xrpc/app.etzhayyim.authz.getSession") {
+  if (pathname === "/xrpc/com.etzhayyim.auth.getSession" || pathname === "/xrpc/com.etzhayyim.authz.getSession") {
     if (sessionValid && sessionAccount) {
       return json({
         ok: true,
@@ -2899,7 +2714,7 @@ app.get("/users/:id/did.json", async (c) => {
     },
   });
 });
-app.get("/xrpc/app.etzhayyim.auth.getConfig", async (c) =>
+app.get("/xrpc/com.etzhayyim.auth.getConfig", async (c) =>
   // Charter Rider §2 (ADR-2605192115): Stripe is permanently removed.
   // `stripePk: ""` is kept in the response shape only for backward-compat
   // with older Svelte builds that destructure it; new clients should ignore.
@@ -2916,8 +2731,8 @@ const sessionAwarePaths = [
   "/sign-up", "/sign-up/",
   "/manage", "/manage/",
   "/oauth", "/oauth/", "/oauth/authorize",
-  "/xrpc/app.etzhayyim.auth.getSession",
-  "/xrpc/app.etzhayyim.authz.getSession",
+  "/xrpc/com.etzhayyim.auth.getSession",
+  "/xrpc/com.etzhayyim.authz.getSession",
 ];
 for (const p of sessionAwarePaths) {
   app.get(p, async (c) => {
@@ -2931,10 +2746,10 @@ for (const p of sessionAwarePaths) {
 }
 
 // XRPC POST — delegate to existing handler functions (unchanged business logic).
-app.post("/xrpc/app.etzhayyim.auth.authenticate", (c) => handleAuthenticate(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.authenticate", (c) => handleAuthenticate(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.createSession", (c) => handleCreateSession(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.refreshSession", (c) => handleRefreshSession(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.switchActiveDid", (c) => handleSwitchActiveDid(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.switchActiveDid", (c) => handleSwitchActiveDid(c.req.raw, c.env));
 
 app.post("/xrpc/com.atproto.server.deleteSession", async (c) => {
   const request = c.req.raw;
@@ -2966,7 +2781,6 @@ app.post("/xrpc/com.atproto.server.deleteSession", async (c) => {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
-      // no-cookie: allow clearing the first-party AT Protocol session cookie (gftd_session) on sign-out across *.etzhayyim.com; not tracking/ads
       "Set-Cookie": clearSessionCookie(),
     },
   });
@@ -2994,34 +2808,34 @@ app.get("/xrpc/com.atproto.server.getSession", async (c) => {
 app.post("/xrpc/com.atproto.identity.resolveDid", (c) => handleResolveDid(c.req.raw));
 app.post("/xrpc/com.atproto.identity.createDid", (c) => handleCreateDid(c.req.raw, c.env));
 app.post("/xrpc/com.atproto.server.getServiceAuth", (c) => handleGetServiceAuth(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.createAgentSession", (c) => handleCreateAgentSession(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.rotateAgentKey", (c) => handleRotateAgentKey(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.listAgentKeys", async (c) =>
+app.post("/xrpc/com.etzhayyim.auth.createAgentSession", (c) => handleCreateAgentSession(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.rotateAgentKey", (c) => handleRotateAgentKey(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.listAgentKeys", async (c) =>
   json({ did: (await parseJson<{ did: string }>(c.req.raw)).did, keys: [] }),
 );
-app.post("/xrpc/app.etzhayyim.auth.createApiKey", (c) => handleCreateApiKeyLocal(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.listApiKeys", (c) => proxyApiKeyManagement(c.req.raw, c.env, "app.etzhayyim.auth.listApiKeys"));
-app.post("/xrpc/app.etzhayyim.auth.revokeApiKey", (c) => proxyApiKeyManagement(c.req.raw, c.env, "app.etzhayyim.auth.revokeApiKey"));
+app.post("/xrpc/com.etzhayyim.auth.createApiKey", (c) => handleCreateApiKeyLocal(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.listApiKeys", (c) => proxyApiKeyManagement(c.req.raw, c.env, "com.etzhayyim.auth.listApiKeys"));
+app.post("/xrpc/com.etzhayyim.auth.revokeApiKey", (c) => proxyApiKeyManagement(c.req.raw, c.env, "com.etzhayyim.auth.revokeApiKey"));
 app.post("/internal/verify-api-key", (c) => handleInternalVerifyApiKey(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.passkeyBeginRegister", (c) => handlePasskeyBeginRegister(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.passkeyVerifyRegister", (c) => handlePasskeyVerifyRegister(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.passkeyBeginAuth", () => handlePasskeyBeginAuth());
-app.post("/xrpc/app.etzhayyim.auth.passkeyVerifyAuth", (c) => handlePasskeyVerifyAuth(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.smsOtpSend", (c) => handleSmsOtpSend(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.smsOtpVerify", (c) => handleSmsOtpVerify(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.esimProvision", (c) => handleEsimProvision(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.verifyDpop", (c) => handleVerifyDpop(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.createPlcAlias", (c) => handleCreatePlcAlias(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.resolveExternalDid", (c) => handleResolveExternalDid(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.resolveetzhayyimDid", (c) => handleResolveetzhayyimDid(c.req.raw, c.env));
-app.post("/xrpc/app.etzhayyim.auth.mintChildDid", (c) => handleMintChildDid(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.passkeyBeginRegister", (c) => handlePasskeyBeginRegister(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.passkeyVerifyRegister", (c) => handlePasskeyVerifyRegister(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.passkeyBeginAuth", () => handlePasskeyBeginAuth());
+app.post("/xrpc/com.etzhayyim.auth.passkeyVerifyAuth", (c) => handlePasskeyVerifyAuth(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.smsOtpSend", (c) => handleSmsOtpSend(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.smsOtpVerify", (c) => handleSmsOtpVerify(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.esimProvision", (c) => handleEsimProvision(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.verifyDpop", (c) => handleVerifyDpop(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.createPlcAlias", (c) => handleCreatePlcAlias(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.resolveExternalDid", (c) => handleResolveExternalDid(c.req.raw));
+app.post("/xrpc/com.etzhayyim.auth.resolveetzhayyimDid", (c) => handleResolveetzhayyimDid(c.req.raw, c.env));
+app.post("/xrpc/com.etzhayyim.auth.mintChildDid", (c) => handleMintChildDid(c.req.raw, c.env));
 
-// Linked methods live on authz Worker — redirect legacy app.etzhayyim.auth.* paths to canonical app.etzhayyim.authz.*.
+// Linked methods live on authz Worker — redirect legacy com.etzhayyim.auth.* paths to canonical com.etzhayyim.authz.*.
 const authzRedirectMap: Record<string, string> = {
-  "/xrpc/app.etzhayyim.auth.linkEmailBegin":  "/xrpc/app.etzhayyim.authz.linkEmailBegin",
-  "/xrpc/app.etzhayyim.auth.linkEmailVerify": "/xrpc/app.etzhayyim.authz.linkEmailVerify",
-  "/xrpc/app.etzhayyim.auth.linkOAuthStart":  "/xrpc/app.etzhayyim.authz.linkOAuthStart",
-  "/xrpc/app.etzhayyim.auth.unlinkMethod":    "/xrpc/app.etzhayyim.authz.unlinkMethod",
+  "/xrpc/com.etzhayyim.auth.linkEmailBegin":  "/xrpc/com.etzhayyim.authz.linkEmailBegin",
+  "/xrpc/com.etzhayyim.auth.linkEmailVerify": "/xrpc/com.etzhayyim.authz.linkEmailVerify",
+  "/xrpc/com.etzhayyim.auth.linkOAuthStart":  "/xrpc/com.etzhayyim.authz.linkOAuthStart",
+  "/xrpc/com.etzhayyim.auth.unlinkMethod":    "/xrpc/com.etzhayyim.authz.unlinkMethod",
 };
 for (const [oldPath, newPath] of Object.entries(authzRedirectMap)) {
   app.post(oldPath, (c) => {
@@ -3051,15 +2865,8 @@ app.post("/rpc/check-revoked", (c) => handleCheckRevoked(c.req.raw, c.env));
 // branches on `valid` so it can leave anonymous traffic flowing.
 app.post("/rpc/verify-session", (c) => handleVerifySession(c.req.raw, c.env));
 app.post("/webhook/telnyx", (c) => handleTelnyxWebhook(c.req.raw));
-app.post("/xrpc/app.etzhayyim.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
-// ADR-2606014500: Proton-aligned zero-access custody — register a client-held
-// signing key by its public half only (server never sees the private key).
-app.post("/xrpc/app.etzhayyim.auth.registerSigningKey", (c) => handleRegisterSigningKey(c.req.raw, c.env));
-// ADR-2606014500 C-3: verify a client-signed session PoP (additive, read-only).
-app.post("/xrpc/app.etzhayyim.auth.verifySessionPoP", (c) => handleVerifySessionPoP(c.req.raw, c.env));
-// ADR-2606014500 C-3: establish a session from a client PoP (additive login path).
-app.post("/xrpc/app.etzhayyim.auth.createSessionFromPoP", (c) => handleCreateSessionFromPoP(c.req.raw, c.env));
-// Charter Rider §2 (ADR-2605192115): app.etzhayyim.auth.createSetupIntent removed.
+app.post("/xrpc/com.etzhayyim.auth.createGuestAccount", (c) => handleCreateGuestAccount(c.req.raw, c.env));
+// Charter Rider §2 (ADR-2605192115): com.etzhayyim.auth.createSetupIntent removed.
 // Replacement is the USDC donation flow (purpose='internal-subscription').
 
 // Fallback: static assets for unmatched GET (Svelte CSR build).

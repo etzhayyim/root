@@ -1,6 +1,6 @@
 package gftd.akuma.scope
 
-# Authorize a single app.etzhayyim.apps.akuma.runProbe call against a scope
+# Authorize a single com.etzhayyim.apps.akuma.runProbe call against a scope
 # contract row. ADR-2605151400.
 #
 # Inputs:

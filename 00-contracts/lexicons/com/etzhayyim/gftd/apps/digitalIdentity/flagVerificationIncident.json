@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalIdentity.flagVerificationIncident",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Wallet / verifier incident (bridges cyber-incident + misinformation)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "incidentId",
+            "incidentType",
+            "reportedAt"
+          ],
+          "properties": {
+            "incidentId": {
+              "type": "string"
+            },
+            "schemaVid": {
+              "type": "string",
+              "description": "bridges registerCredentialSchema"
+            },
+            "incidentType": {
+              "type": "string",
+              "enum": [
+                "phishing",
+                "deepfake_challenge",
+                "credential_theft",
+                "replay",
+                "downgrade",
+                "selective_disclosure_leak",
+                "revocation_lag"
+              ]
+            },
+            "affectedWallets": {
+              "type": "integer"
+            },
+            "aiModelVid": {
+              "type": "string",
+              "description": "bridges open-ai-governance"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "moderate",
+                "high",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

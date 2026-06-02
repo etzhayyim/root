@@ -16,20 +16,20 @@ const ownerDid = "did:web:open-gs1.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.open-gs1";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-register-gtin-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gs1-register-gtin-v1",
     bpmnProcessId: "open_gs1_register_gtin",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-gs1/registerGtin.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-gs1/registerGtin.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-gs1-map-to-unspsc-v1",
     bpmnProcessId: "open_gs1_map_to_unspsc",
-    sourcePath: "00-contracts/bpmn/ai/gftd/open-gs1/mapToUnspsc.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/open-gs1/mapToUnspsc.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-registerGtin-v1",
-    nsid: "app.etzhayyim.apps.openGs1.registerGtin", bpmnProcessId: "open_gs1_register_gtin",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gs1-registerGtin-v1",
+    nsid: "com.etzhayyim.apps.openGs1.registerGtin", bpmnProcessId: "open_gs1_register_gtin",
     ownerDid, resultTimeoutMs: 15000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-gs1-mapToUnspsc-v1",
-    nsid: "app.etzhayyim.apps.openGs1.mapToUnspsc", bpmnProcessId: "open_gs1_map_to_unspsc",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-gs1-mapToUnspsc-v1",
+    nsid: "com.etzhayyim.apps.openGs1.mapToUnspsc", bpmnProcessId: "open_gs1_map_to_unspsc",
     ownerDid, resultTimeoutMs: 15000 },
 ];
 

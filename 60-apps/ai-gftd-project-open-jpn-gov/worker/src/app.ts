@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-jpn-gov — Japanese central-government open directory + e-Gov law proxy
 //
-// 5 XRPC methods under app.etzhayyim.apps.openJpnGov.*:
+// 5 XRPC methods under com.etzhayyim.apps.openJpnGov.*:
 //   listMinistries   (query)  — roster of 1府11省 + 庁 + 独立機関 + 外局
 //   getMinistry      (query)  — single entity by code or DID
 //   listAgencies     (query)  — agencies under a parent ministry
@@ -218,11 +218,11 @@ export default {
           did: env.PRIMARY_DID,
           handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openJpnGov.listMinistries",
-            "app.etzhayyim.apps.openJpnGov.getMinistry",
-            "app.etzhayyim.apps.openJpnGov.listAgencies",
-            "app.etzhayyim.apps.openJpnGov.searchLaws",
-            "app.etzhayyim.apps.openJpnGov.getLaw",
+            "com.etzhayyim.apps.openJpnGov.listMinistries",
+            "com.etzhayyim.apps.openJpnGov.getMinistry",
+            "com.etzhayyim.apps.openJpnGov.listAgencies",
+            "com.etzhayyim.apps.openJpnGov.searchLaws",
+            "com.etzhayyim.apps.openJpnGov.getLaw",
           ],
           rosterSize: ROSTER.length,
           upstream: ELAWS_API,
@@ -256,15 +256,15 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method !== "GET") return err("InvalidRequest", "GET only (all methods are query)", 405);
       switch (nsid) {
-        case "app.etzhayyim.apps.openJpnGov.listMinistries":
+        case "com.etzhayyim.apps.openJpnGov.listMinistries":
           return listMinistries(url.searchParams);
-        case "app.etzhayyim.apps.openJpnGov.getMinistry":
+        case "com.etzhayyim.apps.openJpnGov.getMinistry":
           return getMinistry(url.searchParams);
-        case "app.etzhayyim.apps.openJpnGov.listAgencies":
+        case "com.etzhayyim.apps.openJpnGov.listAgencies":
           return listAgencies(url.searchParams);
-        case "app.etzhayyim.apps.openJpnGov.searchLaws":
+        case "com.etzhayyim.apps.openJpnGov.searchLaws":
           return await searchLaws(url.searchParams);
-        case "app.etzhayyim.apps.openJpnGov.getLaw":
+        case "com.etzhayyim.apps.openJpnGov.getLaw":
           return await getLaw(url.searchParams);
         default:
           return err("InvalidRequest", `unknown NSID: ${nsid}`, 404);

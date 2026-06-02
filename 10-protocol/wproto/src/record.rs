@@ -19,34 +19,34 @@ pub struct CborRecord {
 }
 
 impl RecordMapper {
-    const NAMESPACE: &'static str = "app.etzhayyim.w";
+    const NAMESPACE: &'static str = "com.etzhayyim.w";
 
     /// Map kind → AT collection NSID.
     ///
     /// | kind              | AT collection NSID            |
     /// |-------------------|-------------------------------|
-    /// | "message"         | app.etzhayyim.w.message             |
-    /// | "channel"         | app.etzhayyim.w.channel             |
-    /// | "read-receipt"    | app.etzhayyim.w.readReceipt         |
-    /// | "prekey-bundle"   | app.etzhayyim.w.preKeyBundle        |
-    /// | "a2a-task"        | app.etzhayyim.a2a.task (passthrough)|
-    /// | "yoro.poll"       | app.etzhayyim.w.yoro.poll           |
+    /// | "message"         | com.etzhayyim.w.message             |
+    /// | "channel"         | com.etzhayyim.w.channel             |
+    /// | "read-receipt"    | com.etzhayyim.w.readReceipt         |
+    /// | "prekey-bundle"   | com.etzhayyim.w.preKeyBundle        |
+    /// | "a2a-task"        | com.etzhayyim.a2a.task (passthrough)|
+    /// | "yoro.poll"       | com.etzhayyim.w.yoro.poll           |
     pub fn kind_to_collection(kind: &str) -> String {
         match kind {
             // A2A passthrough
-            "a2a-task" => "app.etzhayyim.a2a.task".into(),
-            "a2a-result" => "app.etzhayyim.a2a.result".into(),
-            "a2a-message" => "app.etzhayyim.a2a.message".into(),
-            "a2a-session" => "app.etzhayyim.a2a.session".into(),
+            "a2a-task" => "com.etzhayyim.a2a.task".into(),
+            "a2a-result" => "com.etzhayyim.a2a.result".into(),
+            "a2a-message" => "com.etzhayyim.a2a.message".into(),
+            "a2a-session" => "com.etzhayyim.a2a.session".into(),
             // Governance passthrough
-            "governance-manifest" => "app.etzhayyim.governance.manifest".into(),
-            "governance-delegation" => "app.etzhayyim.governance.delegation".into(),
-            "governance-decision" => "app.etzhayyim.governance.decision".into(),
+            "governance-manifest" => "com.etzhayyim.governance.manifest".into(),
+            "governance-delegation" => "com.etzhayyim.governance.delegation".into(),
+            "governance-decision" => "com.etzhayyim.governance.decision".into(),
             // Built-in W Protocol kinds (camelCase for AT Lexicon convention)
             "read-receipt" => format!("{}.readReceipt", Self::NAMESPACE),
             "prekey-bundle" => format!("{}.preKeyBundle", Self::NAMESPACE),
             "signal-session" => format!("{}.signalSession", Self::NAMESPACE),
-            // Default: app.etzhayyim.w.{kind}
+            // Default: com.etzhayyim.w.{kind}
             other => format!("{}.{}", Self::NAMESPACE, other),
         }
     }
@@ -91,14 +91,14 @@ impl RecordMapper {
     /// All built-in W Protocol collection NSIDs (for magatama.toml Firehose subscription).
     pub fn builtin_collections() -> Vec<&'static str> {
         vec![
-            "app.etzhayyim.w.message",
-            "app.etzhayyim.w.channel",
-            "app.etzhayyim.w.member",
-            "app.etzhayyim.w.reaction",
-            "app.etzhayyim.w.readReceipt",
-            "app.etzhayyim.w.presence",
-            "app.etzhayyim.w.preKeyBundle",
-            "app.etzhayyim.w.signalSession",
+            "com.etzhayyim.w.message",
+            "com.etzhayyim.w.channel",
+            "com.etzhayyim.w.member",
+            "com.etzhayyim.w.reaction",
+            "com.etzhayyim.w.readReceipt",
+            "com.etzhayyim.w.presence",
+            "com.etzhayyim.w.preKeyBundle",
+            "com.etzhayyim.w.signalSession",
         ]
     }
 }
@@ -132,24 +132,24 @@ mod tests {
 
     #[test]
     fn test_builtin_kind_mapping() {
-        assert_eq!(RecordMapper::kind_to_collection("message"), "app.etzhayyim.w.message");
-        assert_eq!(RecordMapper::kind_to_collection("channel"), "app.etzhayyim.w.channel");
+        assert_eq!(RecordMapper::kind_to_collection("message"), "com.etzhayyim.w.message");
+        assert_eq!(RecordMapper::kind_to_collection("channel"), "com.etzhayyim.w.channel");
         assert_eq!(
             RecordMapper::kind_to_collection("read-receipt"),
-            "app.etzhayyim.w.readReceipt"
+            "com.etzhayyim.w.readReceipt"
         );
         assert_eq!(
             RecordMapper::kind_to_collection("prekey-bundle"),
-            "app.etzhayyim.w.preKeyBundle"
+            "com.etzhayyim.w.preKeyBundle"
         );
     }
 
     #[test]
     fn test_a2a_passthrough() {
-        assert_eq!(RecordMapper::kind_to_collection("a2a-task"), "app.etzhayyim.a2a.task");
+        assert_eq!(RecordMapper::kind_to_collection("a2a-task"), "com.etzhayyim.a2a.task");
         assert_eq!(
             RecordMapper::kind_to_collection("a2a-result"),
-            "app.etzhayyim.a2a.result"
+            "com.etzhayyim.a2a.result"
         );
     }
 
@@ -157,7 +157,7 @@ mod tests {
     fn test_governance_passthrough() {
         assert_eq!(
             RecordMapper::kind_to_collection("governance-manifest"),
-            "app.etzhayyim.governance.manifest"
+            "com.etzhayyim.governance.manifest"
         );
     }
 
@@ -165,27 +165,27 @@ mod tests {
     fn test_custom_kind() {
         assert_eq!(
             RecordMapper::kind_to_collection("yoro.poll"),
-            "app.etzhayyim.w.yoro.poll"
+            "com.etzhayyim.w.yoro.poll"
         );
         assert_eq!(
             RecordMapper::kind_to_collection("bpmn.task"),
-            "app.etzhayyim.w.bpmn.task"
+            "com.etzhayyim.w.bpmn.task"
         );
     }
 
     #[test]
     fn test_at_uri() {
         assert_eq!(
-            RecordMapper::at_uri("did:plc:abc", "app.etzhayyim.w.message", "3jui7kd2z"),
-            "at://did:plc:abc/app.etzhayyim.w.message/3jui7kd2z"
+            RecordMapper::at_uri("did:plc:abc", "com.etzhayyim.w.message", "3jui7kd2z"),
+            "at://did:plc:abc/com.etzhayyim.w.message/3jui7kd2z"
         );
     }
 
     #[test]
     fn test_builtin_collections() {
         let cols = RecordMapper::builtin_collections();
-        assert!(cols.contains(&"app.etzhayyim.w.message"));
-        assert!(cols.contains(&"app.etzhayyim.w.channel"));
+        assert!(cols.contains(&"com.etzhayyim.w.message"));
+        assert!(cols.contains(&"com.etzhayyim.w.channel"));
         assert_eq!(cols.len(), 8);
     }
 
@@ -193,7 +193,7 @@ mod tests {
     fn test_cbor_primary_path() {
         let env = test_env();
         let cbor = RecordMapper::envelope_to_cbor(&env).unwrap();
-        assert_eq!(cbor.collection, "app.etzhayyim.w.message");
+        assert_eq!(cbor.collection, "com.etzhayyim.w.message");
         assert_eq!(cbor.rkey, "tid123");
         assert!(!cbor.cbor_bytes.is_empty());
         // Deterministic: same input → same CID

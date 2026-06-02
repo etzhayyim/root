@@ -91,7 +91,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = ElectricalPhase.ATTESTATION_EMITTED.value
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.sarutahiko.electricalAttestation",
+        "$type": "com.etzhayyim.sarutahiko.electricalAttestation",
         "chassisId": s.chassisId,
         "harnessLayout": s.harnessLayout,
         "ecuFlash": s.ecuFlash,

@@ -4,7 +4,7 @@
 Per ADR-2605265000 §10. Consumes a recipe TOML → streams source works →
 per-work PD attestation generation → Charter Rider §2(d) framing scan →
 modality-specific preprocessing → NDJSON shard write → IPFS pin →
-publish-ipfs CID → app.etzhayyim.substrate.datasetPin emit.
+publish-ipfs CID → com.etzhayyim.substrate.datasetPin emit.
 
 Sibling pattern to:
 - 70-tools/baien-moemoekyun-train/scripts/assemble-public-corpus.py (ADR-2605262400 §2)
@@ -220,7 +220,7 @@ def _stream_source(source: dict[str, Any]) -> Iterator[dict[str, Any]]:
 
 
 def _build_attestation(work: dict[str, Any], source: dict[str, Any]) -> dict[str, Any]:
-    """Build app.etzhayyim.creative.publicDomainStatusAttestation per work.
+    """Build com.etzhayyim.creative.publicDomainStatusAttestation per work.
 
     Dispatches to per-source fetcher's _build_pd_attestation:
     - librivox.py → audio-speech with composition + recording + performer-right CC0
@@ -358,7 +358,7 @@ def _build_attribution(work: dict[str, Any], attestation: dict[str, Any]) -> dic
 
 def _emit_dataset_pin(source_namespace: str, snapshot_cid: str,
                       recipe_name: str, record_count: int) -> str:
-    """Emit app.etzhayyim.substrate.datasetPin record for this corpus.
+    """Emit com.etzhayyim.substrate.datasetPin record for this corpus.
 
     Per ADR-2605241500 + ADR-2605262400 §2 datasetPin Lexicon.
     """

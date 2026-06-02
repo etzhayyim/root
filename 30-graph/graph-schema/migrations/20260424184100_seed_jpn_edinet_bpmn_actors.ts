@@ -16,20 +16,20 @@ const ownerDid = "did:web:jpn-edinet.etzhayyim.com";
 const actorTag = "sys.bpmn.seed.jpn-edinet";
 
 const processSeeds: P[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-submit-securities-filing-v1",
     bpmnProcessId: "jpn_edinet_submit_securities_filing",
-    sourcePath: "00-contracts/bpmn/ai/gftd/jpn-edinet/submitSecuritiesFiling.bpmn", ownerDid },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/jpn-edinet/submitSecuritiesFiling.bpmn", ownerDid },
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jpn-edinet-record-material-event-v1",
     bpmnProcessId: "jpn_edinet_record_material_event",
-    sourcePath: "00-contracts/bpmn/ai/gftd/jpn-edinet/recordMaterialEvent.bpmn", ownerDid },
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/jpn-edinet/recordMaterialEvent.bpmn", ownerDid },
 ];
 
 const bindingSeeds: B[] = [
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1",
-    nsid: "app.etzhayyim.apps.jpnEdinet.submitSecuritiesFiling", bpmnProcessId: "jpn_edinet_submit_securities_filing",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-submitSecuritiesFiling-v1",
+    nsid: "com.etzhayyim.apps.jpnEdinet.submitSecuritiesFiling", bpmnProcessId: "jpn_edinet_submit_securities_filing",
     ownerDid, resultTimeoutMs: 30000 },
-  { vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1",
-    nsid: "app.etzhayyim.apps.jpnEdinet.recordMaterialEvent", bpmnProcessId: "jpn_edinet_record_material_event",
+  { vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/jpn-edinet-recordMaterialEvent-v1",
+    nsid: "com.etzhayyim.apps.jpnEdinet.recordMaterialEvent", bpmnProcessId: "jpn_edinet_record_material_event",
     ownerDid, resultTimeoutMs: 30000 },
 ];
 

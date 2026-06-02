@@ -7,13 +7,13 @@ import { sql } from "kysely";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..", "..", "..");
-const sourcePath = "00-contracts/bpmn/ai/gftd/ingest/houbunEgovJpnDelta.bpmn";
+const sourcePath = "00-contracts/bpmn/com/etzhayyim/ingest/houbunEgovJpnDelta.bpmn";
 const xml = () => readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
 
 const processVertexId =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ingest-houbun-egov-jpn-delta-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ingest-houbun-egov-jpn-delta-v1";
 const bindingVertexId =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ingest-start-houbun-egov-jpn-delta-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ingest-start-houbun-egov-jpn-delta-v1";
 const ownerDid = "did:web:ingest.etzhayyim.com";
 const createdAt = "2026-04-25T16:10:00Z";
 const actorTag = "sys.bpmn.seed.ingest-houbun";
@@ -37,7 +37,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,
       result_timeout_ms, status, created_at, sensitivity_ord, org_id, user_id, actor_id
     )
-    SELECT ${bindingVertexId}, ${ownerDid}, 'app.etzhayyim.apps.ingest.start',
+    SELECT ${bindingVertexId}, ${ownerDid}, 'com.etzhayyim.apps.ingest.start',
            'ingest_houbun_egov_jpn_delta', 1, CAST(0 AS integer), 'active',
            ${createdAt}, 1, ${ownerDid}, ${ownerDid}, ${actorTag}
     WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${bindingVertexId})

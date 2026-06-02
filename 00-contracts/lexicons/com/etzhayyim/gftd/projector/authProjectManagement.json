@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.projector.authProjectManagement",
+  "description": "Project management permissions. Superset — includes official app.bsky feed RPCs (projector extends feed concepts) plus etzhayyim project management extensions.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Project Management",
+      "title:lang": {
+        "ja": "プロジェクト管理"
+      },
+      "detail": "Create and manage projects, conversations, tasks, branching, and reflection features. Includes official feed/timeline read access plus etzhayyim projector extensions.",
+      "detail:lang": {
+        "ja": "プロジェクトの作成・管理、会話、タスク、ブランチ、リフレクション。公式フィード/タイムライン読取に加えetzhayyimプロジェクター拡張を含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official app.bsky feed RPCs (read-only, for projector timeline integration)",
+          "lxm": [
+            "app.bsky.feed.getTimeline",
+            "app.bsky.feed.getAuthorFeed",
+            "app.bsky.feed.getPostThread",
+            "app.bsky.feed.getPosts",
+            "app.bsky.feed.getFeed",
+            "app.bsky.feed.getFeedGenerator",
+            "app.bsky.feed.describeFeedGenerator",
+            "app.bsky.notification.listNotifications",
+            "app.bsky.notification.getUnreadCount",
+            "app.bsky.notification.updateSeen"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "etzhayyim projector record collections",
+          "collection": ["com.etzhayyim.projector.*"],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "etzhayyim projector extension RPCs",
+          "lxm": [
+            "com.etzhayyim.projector.getProjectConvo",
+            "com.etzhayyim.projector.listProjectConvos",
+            "com.etzhayyim.projector.listConvoTasks",
+            "com.etzhayyim.projector.getConvoProjectStatus",
+            "com.etzhayyim.projector.loadProjectChat",
+            "com.etzhayyim.projector.listProjectTree",
+            "com.etzhayyim.projector.resolveProjectEmail",
+            "com.etzhayyim.projector.listProjectNotifications",
+            "com.etzhayyim.projector.getProjectUnreadCounts",
+            "com.etzhayyim.projector.listBranches",
+            "com.etzhayyim.projector.listReflections",
+            "com.etzhayyim.projector.newProjectConvo",
+            "com.etzhayyim.projector.updateProjectConvo",
+            "com.etzhayyim.projector.archiveProjectConvo",
+            "com.etzhayyim.projector.sendProjectMessage",
+            "com.etzhayyim.projector.addConvoTask",
+            "com.etzhayyim.projector.completeConvoTask",
+            "com.etzhayyim.projector.addConvoMember",
+            "com.etzhayyim.projector.moveProject",
+            "com.etzhayyim.projector.branchConvo",
+            "com.etzhayyim.projector.exploreThoughts",
+            "com.etzhayyim.projector.consistentAnswer",
+            "com.etzhayyim.projector.addReflection"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,6 +1,6 @@
 """recap `getInfo` graph — fetch media metadata without downloading.
 
-NSID: app.etzhayyim.apps.recap.getInfo
+NSID: com.etzhayyim.apps.recap.getInfo
 """
 from __future__ import annotations
 

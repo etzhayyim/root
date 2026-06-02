@@ -71,10 +71,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.fax.faxTx",
-        "ai.gftd.apps.fax.inboundFax",
-        "ai.gftd.apps.lawfirm.brief",
-        "ai.gftd.apps.eyubin.postalItem",
+        "com.etzhayyim.apps.fax.faxTx",
+        "com.etzhayyim.apps.fax.inboundFax",
+        "com.etzhayyim.apps.lawfirm.brief",
+        "com.etzhayyim.apps.eyubin.postalItem",
         "app.bsky.feed.post",
         "app.bsky.graph.follow"
       ]

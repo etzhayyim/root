@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.registerNidAllocation",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NPN — register a Network Identifier (NID) allocation. assignmentKind=self → self-assigned (collision risk); assignmentKind=coordinated → IEEE Registration Authority via OUI prefix.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["snpnId", "nidValue", "assignmentKind", "allocatedAt", "observedAt"],
+          "properties": {
+            "allocationId": { "type": "string" },
+            "snpnId": { "type": "string" },
+            "nidValue": { "type": "string" },
+            "assignmentKind": { "type": "string", "enum": ["self", "coordinated"] },
+            "ouiPrefix": { "type": "string" },
+            "ieeeAuthorityRef": { "type": "string" },
+            "allocatedAt": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "allocationId": { "type": "string" }, "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

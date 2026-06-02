@@ -26,7 +26,7 @@
     "piiTier": 3,
     "retentionDays": 2555,
     "consentRequired": true,
-    "consentNsid": "ai.gftd.apps.consent.grant"
+    "consentNsid": "com.etzhayyim.apps.consent.grant"
   },
   "actors": [
     {
@@ -56,8 +56,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -95,7 +95,7 @@
           "id": "upsert",
           "fn": "graph.write",
           "args": {
-            "sql": "INSERT INTO vertex_m365_user (vertex_id, rkey, repo, owner_did, upn, user_id, display_name, mail, account_enabled, upn_domain, first_seen_at, last_seen_at, created_at, created_date, sensitivity_ord, org_id, actor_id) SELECT concat('at://', $did, '/ai.gftd.apps.m365Ingest.user/', u.userPrincipalName), u.userPrincipalName, $did, $did, u.userPrincipalName, u.id, u.displayName, u.mail, u.accountEnabled, SUBSTRING(u.userPrincipalName FROM POSITION('@' IN u.userPrincipalName)), NOW()::VARCHAR, NOW()::VARCHAR, NOW()::VARCHAR, CURRENT_DATE, 300, 'etzhayyim', 't1:m365-ingest' FROM UNNEST($users.users::JSON[]) AS u",
+            "sql": "INSERT INTO vertex_m365_user (vertex_id, rkey, repo, owner_did, upn, user_id, display_name, mail, account_enabled, upn_domain, first_seen_at, last_seen_at, created_at, created_date, sensitivity_ord, org_id, actor_id) SELECT concat('at://', $did, '/com.etzhayyim.apps.m365Ingest.user/', u.userPrincipalName), u.userPrincipalName, $did, $did, u.userPrincipalName, u.id, u.displayName, u.mail, u.accountEnabled, SUBSTRING(u.userPrincipalName FROM POSITION('@' IN u.userPrincipalName)), NOW()::VARCHAR, NOW()::VARCHAR, NOW()::VARCHAR, CURRENT_DATE, 300, 'etzhayyim', 't1:m365-ingest' FROM UNNEST($users.users::JSON[]) AS u",
             "params": {}
           }
         }
@@ -149,7 +149,7 @@
       "description": "Ingest one UPN's mailbox. Paginated via nextLink. Writes kyber.inbox.emailSignal records + updates watermark.",
       "trigger": {
         "type": "xrpc",
-        "nsid": "ai.gftd.apps.m365Ingest.syncUser"
+        "nsid": "com.etzhayyim.apps.m365Ingest.syncUser"
       },
       "steps": [
         {
@@ -168,7 +168,7 @@
           "id": "mark-running",
           "fn": "graph.write",
           "args": {
-            "sql": "INSERT INTO vertex_m365_sync_state (vertex_id, rkey, repo, owner_did, upn, data_kind, status, run_id, last_sync_at, created_at, updated_at, created_date, sensitivity_ord, org_id, actor_id) VALUES (concat('at://', $did, '/ai.gftd.apps.m365Ingest.syncState/', $input.upn, ':email'), concat($input.upn, ':email'), $did, $did, $input.upn, 'email', 'running', $runId, NOW()::VARCHAR, NOW()::VARCHAR, NOW()::VARCHAR, CURRENT_DATE, 300, 'etzhayyim', 't1:m365-ingest')"
+            "sql": "INSERT INTO vertex_m365_sync_state (vertex_id, rkey, repo, owner_did, upn, data_kind, status, run_id, last_sync_at, created_at, updated_at, created_date, sensitivity_ord, org_id, actor_id) VALUES (concat('at://', $did, '/com.etzhayyim.apps.m365Ingest.syncState/', $input.upn, ':email'), concat($input.upn, ':email'), $did, $did, $input.upn, 'email', 'running', $runId, NOW()::VARCHAR, NOW()::VARCHAR, NOW()::VARCHAR, CURRENT_DATE, 300, 'etzhayyim', 't1:m365-ingest')"
           }
         },
         {
@@ -195,7 +195,7 @@
                 "args": {
                   "items": "$page.messages",
                   "emit": {
-                    "collection": "ai.gftd.apps.kyber.inbox.emailSignal",
+                    "collection": "com.etzhayyim.apps.kyber.inbox.emailSignal",
                     "record": {
                       "messageId": "${item.id}",
                       "messageIdHash": "${hash(item.internetMessageId || item.id)}",

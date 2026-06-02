@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.plc.getLog": {
+    "/xrpc/com.etzhayyim.plc.getLog": {
       "get": {
         "summary": "Proxy for plc.etzhayyim.com GET /{did}/log — returns the full operation log for a DID. Each op is signature-verifiable offline. Used for audit, forensics, and federation sync.",
-        "operationId": "app.etzhayyim.plc.getLog",
+        "operationId": "com.etzhayyim.plc.getLog",
         "parameters": [
           {
             "name": "did",
@@ -118,10 +118,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.plc.migrateActor": {
+    "/xrpc/com.etzhayyim.plc.migrateActor": {
       "post": {
         "summary": "ADR-0014 Phase 5: migrate a did:web actor to did:plc. PDS builds genesis op with rotation key from D1 (ADR-0010 custody), signs with ES256K, computes DID, and registers with plc.etzhayyim.com. Client never touches key material.",
-        "operationId": "app.etzhayyim.plc.migrateActor",
+        "operationId": "com.etzhayyim.plc.migrateActor",
         "requestBody": {
           "required": true,
           "content": {
@@ -211,10 +211,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.plc.resolveDid": {
+    "/xrpc/com.etzhayyim.plc.resolveDid": {
       "get": {
         "summary": "Proxy for plc.etzhayyim.com GET /{did} — returns the current W3C DID document by replaying the signed op log. Caller-side alternative: fetch plc.etzhayyim.com directly (no PDS auth required for public DIDs).",
-        "operationId": "app.etzhayyim.plc.resolveDid",
+        "operationId": "com.etzhayyim.plc.resolveDid",
         "parameters": [
           {
             "name": "did",

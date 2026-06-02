@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.southSouthCoop.flagDebtTrap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Debt trap / hidden conditionality / collateralization concern (bridges oecdDacTransparency.flagReportingGap + sovereign-debt + debt-rescheduling-contract)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "commitmentVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "commitmentVid": {
+              "type": "string",
+              "description": "bridges recordCommitment"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "resource_collateral",
+                "port_lease_99yr",
+                "sovereignty_concession",
+                "tied_aid",
+                "substandard_construction",
+                "local_content_breach",
+                "environmental_destruction",
+                "labor_imported",
+                "corruption",
+                "procurement_no_bid",
+                "debt_for_loan_swap",
+                "sanctions_evasion"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

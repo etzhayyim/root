@@ -18,7 +18,7 @@ Pregel graph (4 nodes):
                                       profile vs. recipe; deviation → escalate
         |
         v
-    emit_synthesis_attest         ->  MST PUT app.etzhayyim.pharma.apiSynthesisAttestation
+    emit_synthesis_attest         ->  MST PUT com.etzhayyim.pharma.apiSynthesisAttestation
                                       (lot ID, recipe URI, step index, yield, identity
                                        confirmation TLC/IR, operator + witness DIDs)
                                   ->  next-cell message pharma_purification

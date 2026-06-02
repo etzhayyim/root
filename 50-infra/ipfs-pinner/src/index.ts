@@ -6,7 +6,7 @@
  *     `<dataDir>/<urlencoded shardKey>/<rootCid>.car` at flush.
  *   - The pinner polls `<dataDir>` (default 10 s) and pins any `.car`
  *     it has not seen yet to the configured providers, then emits an
- *     `app.etzhayyim.substrate.ipfsPin` AT Record under the pinner's
+ *     `com.etzhayyim.substrate.ipfsPin` AT Record under the pinner's
  *     DID.
  *   - Idempotency: in-memory dedup by `<shardKey>/<rootCid>`. The
  *     content-addressed pin itself is idempotent at the provider, so
@@ -16,7 +16,7 @@
  * providers. Override with `ETZ_PINNER_MIN_PROVIDERS=1` for Kubo-only
  * dev loops.
  *
- * Firehose-driven mode (subscribe to `app.etzhayyim.substrate.shardSnapshot`
+ * Firehose-driven mode (subscribe to `com.etzhayyim.substrate.shardSnapshot`
  * to time pins to the projector's emission) is intentionally deferred —
  * the on-disk path is simpler, has fewer moving parts, and gives the
  * same end-to-end guarantee.

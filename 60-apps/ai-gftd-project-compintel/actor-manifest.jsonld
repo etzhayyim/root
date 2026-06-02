@@ -9,9 +9,9 @@
   "performerType": "service",
   "domain": "compintel.etzhayyim.com",
   "capabilities": [
-    "ai.gftd.apps.compintel.trackCompetitor",
-    "ai.gftd.apps.compintel.getSnapshot",
-    "ai.gftd.apps.compintel.listCompetitors",
-    "ai.gftd.apps.compintel.getAlert"
+    "com.etzhayyim.apps.compintel.trackCompetitor",
+    "com.etzhayyim.apps.compintel.getSnapshot",
+    "com.etzhayyim.apps.compintel.listCompetitors",
+    "com.etzhayyim.apps.compintel.getAlert"
   ]
 }

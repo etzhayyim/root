@@ -52,7 +52,7 @@ export async function bootstrapDodaf(env: BootstrapEnv, bpmnLoader?: (path: stri
   // DoDAF views — deploy first (they describe the system)
   for (const view of DODAF_VIEWS) {
     try {
-      await xrpc(env.PDS, "app.etzhayyim.dodafv2.deployView", { did, ...view });
+      await xrpc(env.PDS, "com.etzhayyim.dodafv2.deployView", { did, ...view });
     } catch (e: any) { errors.push(`dodafv2.deployView ${(view as any).viewId}: ${e?.message}`); }
   }
 
@@ -61,7 +61,7 @@ export async function bootstrapDodaf(env: BootstrapEnv, bpmnLoader?: (path: stri
     for (const b of BPMN_FILES) {
       try {
         const bpmnXml = await bpmnLoader(b.path);
-        await xrpc(env.PDS, "app.etzhayyim.bpmn.deployProcess", { did, bpmnXml });
+        await xrpc(env.PDS, "com.etzhayyim.bpmn.deployProcess", { did, bpmnXml });
       } catch (e: any) { errors.push(`bpmn.deployProcess ${b.key}: ${e?.message}`); }
     }
   }
@@ -69,7 +69,7 @@ export async function bootstrapDodaf(env: BootstrapEnv, bpmnLoader?: (path: stri
   // Forms
   for (const f of FORMS) {
     try {
-      await xrpc(env.PDS, "app.etzhayyim.form.register", { did, ...f });
+      await xrpc(env.PDS, "com.etzhayyim.form.register", { did, ...f });
     } catch (e: any) { errors.push(`form.register ${(f as any).formKey}: ${e?.message}`); }
   }
 

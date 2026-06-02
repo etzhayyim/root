@@ -24,7 +24,7 @@
   },
   "triggers": {
     "subscribeRepos": {
-      "collections": ["ai.gftd.apps.airSched.operationalEvent"]
+      "collections": ["com.etzhayyim.apps.airSched.operationalEvent"]
     }
   }
 }

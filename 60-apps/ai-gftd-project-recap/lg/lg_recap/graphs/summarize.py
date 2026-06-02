@@ -1,6 +1,6 @@
 """recap `summarize` graph — extract transcript and generate LLM summary.
 
-NSID: app.etzhayyim.apps.recap.summarize
+NSID: com.etzhayyim.apps.recap.summarize
 
 Flow:
   validate → extract_transcript → summarize_llm → write_record → END
@@ -247,7 +247,7 @@ async def _node_write_record(state: _SummarizeState) -> dict[str, Any]:
         import psycopg
 
         rkey = f"sum-{secrets.token_hex(4)}"
-        vertex_id = f"at://{_REPO}/app.etzhayyim.apps.recap.summarize/{rkey}"
+        vertex_id = f"at://{_REPO}/com.etzhayyim.apps.recap.summarize/{rkey}"
         actor_did = state.get("actor_did") or _OWNER
         org_did = state.get("org_did") or _DEFAULT_ORG_DID
         conn = await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True)

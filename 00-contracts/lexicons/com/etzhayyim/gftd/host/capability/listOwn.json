@@ -1,0 +1,30 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.capability.listOwn",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List capabilities owned by the current actor.",
+      "x-hostImportsMethod": "capabilityListOwn",
+      "parameters": {
+        "type": "params",
+        "properties": {},
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "capabilitiesJson": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "capabilitiesJson"
+          ]
+        }
+      }
+    }
+  }
+}

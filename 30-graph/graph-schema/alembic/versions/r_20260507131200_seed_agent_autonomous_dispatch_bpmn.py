@@ -26,7 +26,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $12\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'agent_realworld_autonomous_dispatch',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -325,13 +325,13 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  14842,
-                 '00-contracts/bpmn/ai/gftd/agent/realWorldAutonomousDispatch.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/agent/realWorldAutonomousDispatch.bpmn',
                  '2026-05-07T13:12:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-autonomous-dispatch',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding\n'
          '      (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version,\n'
@@ -345,9 +345,9 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.agent.planRealWorldDispatch',
+                 'com.etzhayyim.apps.agent.planRealWorldDispatch',
                  'agent_realworld_autonomous_dispatch',
                  'vertex_agent_realworld_effect,vertex_agent_observation,vertex_agent_dispatch_ledger',
                  '2026-05-07T13:12:00Z',
@@ -355,12 +355,12 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.agent-autonomous-dispatch',
                  'did:web:bpmn.etzhayyim.com',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1']}]
 
 DOWN = [{'sql': '\n    DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/agent-realworld-autonomous-dispatch-v1']},
  {'sql': '\n    DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/agent-realworld-autonomous-dispatch-v1']}]
 
 
 def upgrade() -> None:

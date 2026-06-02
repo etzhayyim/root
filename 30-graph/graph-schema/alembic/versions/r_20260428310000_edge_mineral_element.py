@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
          '      sensitivity_ord, org_id, user_id, actor_id\n'
          '    )\n'
          '    SELECT\n'
-         "      'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/science-mineral-seed-v1',\n"
+         "      'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/science-mineral-seed-v1',\n"
          "      'did:web:bpmn.etzhayyim.com',\n"
          "      'science_mineral_seed',\n"
          '      1,\n'

@@ -60,7 +60,7 @@ function mockPds(captured: CapturedWrite[] = []) {
 // ─── topic-by-topic golden assertions ────────────────────────────────
 
 describe("Phase 1 golden-file — every Tier A topic in one run", () => {
-  it("source: registerSource (via direct write path of helpers) emits app.etzhayyim.maps.source", async () => {
+  it("source: registerSource (via direct write path of helpers) emits com.etzhayyim.maps.source", async () => {
     const { client, captured } = mockPds();
     // The source topic re-exports the SDK toolset but the canonical
     // registration goes through seed.ts CLI. For the golden test we
@@ -83,7 +83,7 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
     expect(geo.aliasKeyFor("iso3166-1", "JP")).toBe("iso3166-1-jp");
   });
 
-  it("displayLayer: defineDisplayLayer → app.etzhayyim.maps.displayLayer", async () => {
+  it("displayLayer: defineDisplayLayer → com.etzhayyim.maps.displayLayer", async () => {
     const { anyClient, captured } = mockPds();
     await displayLayer.defineDisplayLayer(
       {
@@ -97,7 +97,7 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
       { client: anyClient },
     );
     expect(captured).toHaveLength(1);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.displayLayer");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.displayLayer");
     expect(captured[0].rkey).toBe("smoke-test-layer");
     expect(captured[0].value.kind).toBe("fill");
   });
@@ -123,19 +123,19 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
     );
     await registry.registerOwnership(
       {
-        subjectUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.legalEntity/corporation-353800znors39n56y897",
-        objectUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.registry/land-registry-13-01234",
+        subjectUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.legalEntity/corporation-353800znors39n56y897",
+        objectUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.registry/land-registry-13-01234",
         relation: "OwnsProperty",
         effectiveDate: "2026-05-23T00:00:00Z",
       },
       { client },
     );
     expect(captured).toHaveLength(3);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.legalEntity");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.legalEntity");
     expect(captured[0].rkey).toBe("corporation-353800znors39n56y897");
-    expect(captured[1].collection).toBe("app.etzhayyim.maps.registry");
+    expect(captured[1].collection).toBe("com.etzhayyim.maps.registry");
     expect(captured[1].rkey).toBe("land-registry-13-01234");
-    expect(captured[2].collection).toBe("app.etzhayyim.maps.ownership");
+    expect(captured[2].collection).toBe("com.etzhayyim.maps.ownership");
     expect(captured[2].rkey).toBeUndefined(); // TID
     expect(captured[2].value.relation).toBe("OwnsProperty");
   });
@@ -152,25 +152,25 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
       { client: anyClient },
     );
     expect(job.jobId).toBe("smoke-geocode-260523");
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.collectionJob");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.collectionJob");
     expect(captured[0].rkey).toBe("smoke-geocode-260523");
 
     await collection.advanceJob(
       {
-        jobUri: `at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.collectionJob/${job.jobId}`,
+        jobUri: `at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.collectionJob/${job.jobId}`,
         state: "running",
         phase: "fetching",
         progressPctBps: 1000,
       },
       { client: anyClient },
     );
-    expect(captured[1].collection).toBe("app.etzhayyim.maps.jobEvent");
+    expect(captured[1].collection).toBe("com.etzhayyim.maps.jobEvent");
     expect(captured[1].rkey).toBeUndefined(); // TID
     expect(captured[1].value.state).toBe("running");
 
     await collection.advanceJob(
       {
-        jobUri: `at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.collectionJob/${job.jobId}`,
+        jobUri: `at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.collectionJob/${job.jobId}`,
         state: "completed",
       },
       { client: anyClient },
@@ -179,7 +179,7 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
     expect(captured[2].value.state).toBe("completed");
   });
 
-  it("feature: registerMountain emits app.etzhayyim.maps.feature with Point geometry", async () => {
+  it("feature: registerMountain emits com.etzhayyim.maps.feature with Point geometry", async () => {
     const { client, captured } = mockPds();
     await feature.registerMountain(
       {
@@ -193,7 +193,7 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
       { client },
     );
     expect(captured).toHaveLength(1);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.feature");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.feature");
     expect(captured[0].rkey).toBe("mount-fuji");
     expect(captured[0].value.label).toBe("Mountain");
     expect(JSON.parse(captured[0].value.geometryGeoJson as string).type).toBe("Point");
@@ -203,24 +203,24 @@ describe("Phase 1 golden-file — every Tier A topic in one run", () => {
     const { client, captured } = mockPds();
     await twin.bindDevice(
       {
-        deviceUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.feature/sensor-co2-r408",
-        assetUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.feature/building-r408",
+        deviceUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.feature/sensor-co2-r408",
+        assetUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.feature/building-r408",
         relation: "Monitors",
       },
       { client },
     );
     await twin.updateOccupancy(
       {
-        subjectUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.feature/building-main",
+        subjectUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.feature/building-main",
         headcount: 142,
         confidence: 0.95,
       },
       { client },
     );
     expect(captured).toHaveLength(2);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.deviceBinding");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.deviceBinding");
     expect(captured[0].value.relation).toBe("Monitors");
-    expect(captured[1].collection).toBe("app.etzhayyim.maps.twinState");
+    expect(captured[1].collection).toBe("com.etzhayyim.maps.twinState");
     expect(captured[1].value.stateKind).toBe("occupancy");
   });
 });
@@ -262,8 +262,8 @@ describe("Phase 1 golden-file — single-run full Tier A trace", () => {
     );
     await registry.registerOwnership(
       {
-        subjectUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.legalEntity/corporation-353800abcdefghijkl01",
-        objectUri: "at://did:web:maps.etzhayyim.com/app.etzhayyim.maps.registry/business-registry-jp-nta-1234567890123",
+        subjectUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.legalEntity/corporation-353800abcdefghijkl01",
+        objectUri: "at://did:web:maps.etzhayyim.com/com.etzhayyim.maps.registry/business-registry-jp-nta-1234567890123",
         relation: "OwnsProperty",
         effectiveDate: "2026-05-23T00:00:00Z",
       },
@@ -329,37 +329,37 @@ describe("Phase 1 golden-file — single-run full Tier A trace", () => {
       return acc;
     }, {});
     expect(byCollection).toEqual({
-      "app.etzhayyim.maps.displayLayer": 1,
-      "app.etzhayyim.maps.legalEntity": 1,
-      "app.etzhayyim.maps.registry": 1,
-      "app.etzhayyim.maps.ownership": 1,
-      "app.etzhayyim.maps.collectionJob": 1,
-      "app.etzhayyim.maps.jobEvent": 2,
-      "app.etzhayyim.maps.feature": 3,
-      "app.etzhayyim.maps.deviceBinding": 1,
-      "app.etzhayyim.maps.twinState": 1,
+      "com.etzhayyim.maps.displayLayer": 1,
+      "com.etzhayyim.maps.legalEntity": 1,
+      "com.etzhayyim.maps.registry": 1,
+      "com.etzhayyim.maps.ownership": 1,
+      "com.etzhayyim.maps.collectionJob": 1,
+      "com.etzhayyim.maps.jobEvent": 2,
+      "com.etzhayyim.maps.feature": 3,
+      "com.etzhayyim.maps.deviceBinding": 1,
+      "com.etzhayyim.maps.twinState": 1,
     });
 
     // rkey conventions per topic.
     const byKey = (col: string) => captured.filter((c) => c.collection === col).map((c) => c.rkey);
-    expect(byKey("app.etzhayyim.maps.displayLayer")).toEqual(["trace-layer"]);
-    expect(byKey("app.etzhayyim.maps.legalEntity")).toEqual(["corporation-353800abcdefghijkl01"]);
-    expect(byKey("app.etzhayyim.maps.registry")).toEqual(["business-registry-jp-nta-1234567890123"]);
-    expect(byKey("app.etzhayyim.maps.collectionJob")).toEqual(["trace-job"]);
+    expect(byKey("com.etzhayyim.maps.displayLayer")).toEqual(["trace-layer"]);
+    expect(byKey("com.etzhayyim.maps.legalEntity")).toEqual(["corporation-353800abcdefghijkl01"]);
+    expect(byKey("com.etzhayyim.maps.registry")).toEqual(["business-registry-jp-nta-1234567890123"]);
+    expect(byKey("com.etzhayyim.maps.collectionJob")).toEqual(["trace-job"]);
     // TID-keyed: rkey is undefined (PDS assigns).
-    expect(byKey("app.etzhayyim.maps.ownership")).toEqual([undefined]);
-    expect(byKey("app.etzhayyim.maps.jobEvent")).toEqual([undefined, undefined]);
-    expect(byKey("app.etzhayyim.maps.deviceBinding")).toEqual([undefined]);
-    expect(byKey("app.etzhayyim.maps.twinState")).toEqual([undefined]);
+    expect(byKey("com.etzhayyim.maps.ownership")).toEqual([undefined]);
+    expect(byKey("com.etzhayyim.maps.jobEvent")).toEqual([undefined, undefined]);
+    expect(byKey("com.etzhayyim.maps.deviceBinding")).toEqual([undefined]);
+    expect(byKey("com.etzhayyim.maps.twinState")).toEqual([undefined]);
     // feature: literal:{rkey} chosen by caller.
-    expect(byKey("app.etzhayyim.maps.feature").sort()).toEqual(["trace-bldg", "trace-peak", "trace-spot"]);
+    expect(byKey("com.etzhayyim.maps.feature").sort()).toEqual(["trace-bldg", "trace-peak", "trace-spot"]);
   });
 });
 
 // ─── ingest pipelines smoke (downstream of golden-file) ──────────────
 
 describe("Phase 1 golden-file — ingest pipelines write to the same collections", () => {
-  it("wikidata-ingest writes to app.etzhayyim.maps.legalEntity", async () => {
+  it("wikidata-ingest writes to com.etzhayyim.maps.legalEntity", async () => {
     const { client, captured } = mockPds();
     const stats = await registry.ingestLegalEntitiesFromWikidata(
       [
@@ -373,11 +373,11 @@ describe("Phase 1 golden-file — ingest pipelines write to the same collections
       { client },
     );
     expect(stats.ok).toBe(1);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.legalEntity");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.legalEntity");
     expect(captured[0].value.sourceDid).toBe(registry.WIKIDATA_SOURCE_DID);
   });
 
-  it("geonames-ingest writes to app.etzhayyim.maps.feature", async () => {
+  it("geonames-ingest writes to com.etzhayyim.maps.feature", async () => {
     const { client, captured } = mockPds();
     const row: feature.GeoNamesRow = {
       geonameid: "1",
@@ -391,12 +391,12 @@ describe("Phase 1 golden-file — ingest pipelines write to the same collections
     };
     const stats = await feature.ingestPlacesFromGeoNames([row], { client });
     expect(stats.ok).toBe(1);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.feature");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.feature");
     expect(captured[0].value.label).toBe("Place");
     expect(captured[0].value.sourceDid).toBe(feature.GEONAMES_SOURCE_DID);
   });
 
-  it("osm-ingest writes to app.etzhayyim.maps.feature", async () => {
+  it("osm-ingest writes to com.etzhayyim.maps.feature", async () => {
     const { client, captured } = mockPds();
     const stats = await feature.ingestFromOsmGeoJson(
       [
@@ -410,7 +410,7 @@ describe("Phase 1 golden-file — ingest pipelines write to the same collections
       { client },
     );
     expect(stats.ok).toBe(1);
-    expect(captured[0].collection).toBe("app.etzhayyim.maps.feature");
+    expect(captured[0].collection).toBe("com.etzhayyim.maps.feature");
     expect(captured[0].value.label).toBe("Mountain");
     expect(captured[0].value.sourceDid).toBe(feature.OSM_SOURCE_DID);
   });

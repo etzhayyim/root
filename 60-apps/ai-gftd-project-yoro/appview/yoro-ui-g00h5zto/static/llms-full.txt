@@ -35,7 +35,7 @@ Useful machine-readable endpoints:
 - https://atproto.etzhayyim.com/.well-known/agent.json
 
 MCP:
-- Endpoint: https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message
+- Endpoint: https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message
 - Transport: JSON-RPC over HTTP POST
 - Authentication: public read-only methods may be available; authenticated methods require auth
 

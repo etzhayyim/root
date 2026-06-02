@@ -2,7 +2,7 @@
  * @etzhayyim/sdk/did-signal — DID ↔ Signal IdentityKey binding verification.
  *
  * Per ADR-2605181100. An actor publishes their Signal IdentityKey in their
- * own PDS as `app.etzhayyim.encrypted.signalIdentity`, signed by the DID
+ * own PDS as `com.etzhayyim.encrypted.signalIdentity`, signed by the DID
  * document's signing key. Verifiers MUST check this signature before
  * trusting any PreKeyBundle to belong to that DID, otherwise a malicious
  * PDS could substitute a different Signal identity to MitM key-wrap traffic.

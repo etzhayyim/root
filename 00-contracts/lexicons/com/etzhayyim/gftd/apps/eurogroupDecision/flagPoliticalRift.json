@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.eurogroupDecision.flagPoliticalRift",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Eurogroup political rift / north-south divide (bridges euStabilityMechanism.flagBoardDispute + euTrilogue + euSummitConclusion)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "decisionVid",
+            "riftKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "decisionVid": {
+              "type": "string",
+              "description": "bridges recordDecision"
+            },
+            "riftKind": {
+              "type": "string",
+              "enum": [
+                "north_south",
+                "east_west",
+                "creditor_debtor",
+                "frugal_four",
+                "new_hanseatic",
+                "mediterranean",
+                "periphery_core",
+                "banking_union_resist",
+                "capital_markets_disagree",
+                "euro_inclusion_disagree",
+                "fiscal_capacity"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -37,7 +37,7 @@ export function fleetCell(node: string, cellId: string): FleetCell {
 
 /**
  * Quorum group identifier for a record — sha256(recordCid)[:16] hex.
- * Matches `app.etzhayyim.yatachain.attestation.quorumGroup`. Enables
+ * Matches `com.etzhayyim.yatachain.attestation.quorumGroup`. Enables
  * O(1) quorum lookup by primary key once attestations land.
  */
 export async function quorumGroup(recordCid: string): Promise<string> {

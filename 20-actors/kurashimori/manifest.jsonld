@@ -29,7 +29,7 @@
     "did:web:moushibumi.etzhayyim.com (SIBLING citizen-facing concierge: moushibumi = democratic participation; same pattern; ADR-2605312400)",
     "did:web:wakai.etzhayyim.com (mutual-aid pool [NOT insurance] may be the member's relief path for irrecoverable consumer loss — kurashimori routes, wakai absorbs under its own gates; ADR-2605263500)",
     "did:web:warifu.etzhayyim.com (a disputed card charge may have a warifu-side chargeback/refund path; kurashimori coordinates the consumer-side demand; ADR-2605302000)",
-    "app.etzhayyim.encrypted.* (member PII + contract/complaint content land ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100)",
+    "com.etzhayyim.encrypted.* (member PII + contract/complaint content land ONLY here — XChaCha20-Poly1305 DID-bound envelope; G6, ADR-2605181100)",
     "kotoba QuadStore EAVT (remedy catalog + session/draft/dispatch lifecycle datoms; ADR-2605262130; no RisingWave / no projection layer)"
   ],
   "form": "任意団体 internal member-service substrate (NOT 一般社団 / NPO / 公益財団 / 宗教法人 法人格 — Preamble §0.4 Lv7+ unanimity lock; NOT a 弁護士/司法書士 firm — UPL boundary G5; NOT a 適格消費者団体 / claims-collection business — G9; NOT an official 消費生活センター — unofficial assistant G4)",
@@ -37,7 +37,7 @@
     "consentGatedOwnMatterOnly": "G3 — every complaint/cooling-off is member-initiated with consent + Adherent-SBT/DID binding and concerns the member's OWN consumer matter; never a non-consenting person; never a third party's matter.",
     "transparentNonPretext": "G4 — the member is the named complainant; no impersonation; kurashimori identifies itself as an UNOFFICIAL assistant, never as 消費生活センター or a public body.",
     "uplBoundary": "G5 (CRITICAL) — self-help diagnosis + drafting-assist + 案内 only; NO legal advice, NO representation (代理), NO legal determination of rights; characterization + representation → chigiri + licensed counsel; the cooling-off eligibility output is an informational date computation, explicitly NOT a legal opinion (isLegalOpinion const false).",
-    "piiConfidentiality": "G6 — member PII + contract/complaint content land ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext on MST.",
+    "piiConfidentiality": "G6 — member PII + contract/complaint content land ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext on MST.",
     "murakumoOnlyInference": "G7 — Murakumo-only inference per ADR-2605215000; no vendor LLM API callout.",
     "nonFabrication": "G8 — never invent a 根拠法令 / 日数 / 様式; every remedy cites 根拠法令 + provenance; the member confirms before any send. A wrong cooling-off 日数 is harmful.",
     "noCommercializationNoClaimsBuying": "G9 — non-profit; no contingency fee; no purchase/assignment of the member's claim; no debt/claims-collection (取立) business; no resale of complaint data (Charter Rider §2(e)).",
@@ -68,7 +68,7 @@
     ]
   },
   "codedTargetRegistry": {
-    "description": "Each consumer remedy/route encoded as app.etzhayyim.kurashimori.remedyTarget records (remedy kind / 根拠法令 / statutory window 日数 / 様式 / channel / escalation forum) so a cell can diagnose + (eventually) send procedurally. Seed at registry/targets.seed.json.",
+    "description": "Each consumer remedy/route encoded as com.etzhayyim.kurashimori.remedyTarget records (remedy kind / 根拠法令 / statutory window 日数 / 様式 / channel / escalation forum) so a cell can diagnose + (eventually) send procedurally. Seed at registry/targets.seed.json.",
     "seedFile": "/20-actors/kurashimori/registry/targets.seed.json",
     "seedTargets": ["訪問販売 クーリングオフ", "連鎖販売 クーリングオフ", "通信販売 返品特約", "消費生活センター/188", "適格消費者団体/ADR"],
     "verificationGate": "G14 — all seed entries ship verificationStatus=unverified-seed; NO live send until maintainer-verified / council-verified (代行) within freshnessWindowDays. Statutory windows (日数) MUST be re-verified — a wrong 日数 is harmful."
@@ -83,13 +83,13 @@
     {"name": "escalation", "module": "magatama.cells.kurashimori_escalation", "murakumoNode": "gad", "phase": "event", "io": "self-help stalled → route to 消費生活センター / ADR / chigiri+counsel → escalationReferral"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.kurashimori.remedyTarget",
-    "app.etzhayyim.kurashimori.complaintSession",
-    "app.etzhayyim.kurashimori.coolingOffAssessment",
-    "app.etzhayyim.kurashimori.remedyDraft",
-    "app.etzhayyim.kurashimori.dispatchRecord",
-    "app.etzhayyim.kurashimori.statusTrack",
-    "app.etzhayyim.kurashimori.escalationReferral"
+    "com.etzhayyim.kurashimori.remedyTarget",
+    "com.etzhayyim.kurashimori.complaintSession",
+    "com.etzhayyim.kurashimori.coolingOffAssessment",
+    "com.etzhayyim.kurashimori.remedyDraft",
+    "com.etzhayyim.kurashimori.dispatchRecord",
+    "com.etzhayyim.kurashimori.statusTrack",
+    "com.etzhayyim.kurashimori.escalationReferral"
   ],
   "constitutionalGates": {
     "description": "15 immutable gates per ADR-2605312500 §4. Council Lv6+ supermajority + new ADR to amend.",
@@ -99,7 +99,7 @@
       "G3": "Consent-gated + own-matter-only — member-initiated, consent + Adherent-SBT/DID bound; never a non-consenting person; never a third party's matter",
       "G4": "Transparent + non-pretextual — member is the named complainant; no impersonation; never poses as 消費生活センター / a public body",
       "G5": "UPL / 司法書士法 / 弁護士法 boundary (CRITICAL) — self-help diagnosis + drafting-assist + 案内; NO legal advice / NO representation (代理) / NO rights-determination → chigiri + licensed; cooling-off output is date-computation, not a legal opinion",
-      "G6": "PII confidentiality — member PII + contract/complaint content ONLY in app.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext",
+      "G6": "PII confidentiality — member PII + contract/complaint content ONLY in com.etzhayyim.encrypted.* DID-bound envelopes (ADR-2605181100); never plaintext",
       "G7": "Murakumo-only inference (ADR-2605215000)",
       "G8": "Non-fabrication — never invent 根拠法令/日数/様式; cite 根拠法令 + provenance; member confirms before send (a wrong cooling-off 日数 is harmful)",
       "G9": "No commercialization / no claims-buying — non-profit; no contingency fee; no purchase/assignment of the claim; no debt/claims-collection (取立); no resale of complaint data",

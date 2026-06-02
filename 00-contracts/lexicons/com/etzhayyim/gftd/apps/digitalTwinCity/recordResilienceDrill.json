@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.digitalTwinCity.recordResilienceDrill",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resilience drill / scenario simulation (bridges disaster-response + cyclone-prepo + extreme-weather-attribution)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "drillId",
+            "twinVid",
+            "scenario",
+            "executedAt"
+          ],
+          "properties": {
+            "drillId": {
+              "type": "string"
+            },
+            "twinVid": {
+              "type": "string",
+              "description": "bridges registerCityTwin"
+            },
+            "scenario": {
+              "type": "string",
+              "enum": [
+                "flood",
+                "heat_dome",
+                "cyberattack",
+                "power_outage",
+                "pandemic",
+                "earthquake",
+                "supply_disruption",
+                "mass_gathering"
+              ]
+            },
+            "simulatedDurationHours": {
+              "type": "number"
+            },
+            "failureCascadeCount": {
+              "type": "integer"
+            },
+            "recoveryTargetHours": {
+              "type": "number"
+            },
+            "executedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "preparednessTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

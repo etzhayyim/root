@@ -1,7 +1,7 @@
-;; app.etzhayyim.okaimono.settlement — lexicon (EDN form) — USDC + TitheRouter intent
+;; com.etzhayyim.okaimono.settlement — lexicon (EDN form) — USDC + TitheRouter intent
 ;; ADR-2606012100 §R1  ·  intent only; broadcast is operator-gated (G11)
 {:lexicon 1
- :id "app.etzhayyim.okaimono.settlement"
+ :id "com.etzhayyim.okaimono.settlement"
  :defs
  {:main
   {:type "record"

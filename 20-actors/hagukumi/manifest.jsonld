@@ -84,10 +84,10 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.hagukumi.caregiverAttestation",
-    "app.etzhayyim.hagukumi.careSessionAttestation",
-    "app.etzhayyim.hagukumi.consentRecord",
-    "app.etzhayyim.hagukumi.silenCareReview"
+    "com.etzhayyim.hagukumi.caregiverAttestation",
+    "com.etzhayyim.hagukumi.careSessionAttestation",
+    "com.etzhayyim.hagukumi.consentRecord",
+    "com.etzhayyim.hagukumi.silenCareReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605261030. Council Lv6+ supermajority + new ADR to amend.",

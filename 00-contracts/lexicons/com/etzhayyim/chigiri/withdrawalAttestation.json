@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.withdrawalAttestation",
+  "description": "Voluntary withdrawal attestation. Member-signed, 7-day cooling period before SBT revoke + member-record archive. Distinct from excommunication (no Council vote; no cure period; no charter-violation finding). Member may rescind during cooling window. Privacy: post-archival the member-record is moved to encrypted cold storage per ADR-2605181100; on-chain footprint reduced to DID + withdrawalTimestamp.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "subjectDid",
+          "memberSignedAt",
+          "coolingPeriodEndsAt",
+          "memberSignature"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "subjectDid": {
+            "type": "string",
+            "description": "DID of the withdrawing member."
+          },
+          "withdrawalReason": {
+            "type": "string",
+            "knownValues": [
+              "no-reason-stated",
+              "personal-reasons",
+              "moving-to-different-religious-community",
+              "doctrinal-disagreement",
+              "life-circumstance-change",
+              "other"
+            ],
+            "description": "Optional, member-self-declared. Default = no-reason-stated. Other = freeform but PII filter applies."
+          },
+          "withdrawalReasonOtherText": {
+            "type": "string",
+            "maxLength": 280,
+            "description": "When withdrawalReason=other, optional free-form text. Passes through PII filter."
+          },
+          "memberSignedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC timestamp of member's signed withdrawal."
+          },
+          "memberSignature": {
+            "type": "string",
+            "description": "Member's DID-bound signature over the withdrawal record."
+          },
+          "coolingPeriodEndsAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "ISO 8601 UTC end of the 7-day cooling period. MUST be ≥ memberSignedAt + 7 days."
+          },
+          "rescindedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "If present, member rescinded during cooling period. No further action; record marked rescinded."
+          },
+          "rescindSignature": {
+            "type": "string",
+            "description": "Member's signature over the rescind action."
+          },
+          "finalizedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Finalization timestamp. MUST be ≥ coolingPeriodEndsAt. Triggers SBT revoke + archive."
+          },
+          "sbtRevokeTxCid": {
+            "type": "string",
+            "description": "On-chain Adherent SBT revoke transaction CID."
+          },
+          "memberRecordArchiveCid": {
+            "type": "string",
+            "description": "Encrypted cold-storage archive CID per ADR-2605181100 envelope."
+          },
+          "attestingDid": {
+            "type": "string",
+            "description": "DID of the chigiri cell emitting the attestation (typically chigiri_member_offboarding cell DID)."
+          }
+        }
+      }
+    }
+  }
+}

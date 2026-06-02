@@ -14,10 +14,10 @@ const actorTag = "sys.bpmn.seed.smishing";
 const project = "smishing";
 const proc = "analyzeMessage";
 const bpmnProcessId = "smishing_analyze_message";
-const nsid = "app.etzhayyim.apps.smishing.analyzeMessageProcess";
-const sourcePath = "00-contracts/bpmn/ai/gftd/smishing/analyzeMessage.bpmn";
-const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${proc}-v1`;
-const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${proc}-v1`;
+const nsid = "com.etzhayyim.apps.smishing.analyzeMessageProcess";
+const sourcePath = "00-contracts/bpmn/com/etzhayyim/smishing/analyzeMessage.bpmn";
+const processVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${proc}-v1`;
+const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${proc}-v1`;
 
 function readContract(relPath: string): string {
   return readFileSync(path.resolve(repoRoot, relPath), "utf8");

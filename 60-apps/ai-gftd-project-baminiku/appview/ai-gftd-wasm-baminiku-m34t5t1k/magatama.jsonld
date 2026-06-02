@@ -72,8 +72,8 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.baminiku.baminikuEntity",
-        "ai.gftd.apps.baminiku.baminikuEvent"
+        "com.etzhayyim.apps.baminiku.baminikuEntity",
+        "com.etzhayyim.apps.baminiku.baminikuEvent"
       ]
     }
   },

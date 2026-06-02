@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.biometricStandards.flagInclusionGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Disability / dark skin / elderly failure (bridges digitalPublicInfra.flagExclusionRisk + crpd-disability + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "standardVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "standardVid": {
+              "type": "string",
+              "description": "bridges recordStandard"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "dark_skin_far",
+                "elderly_fingerprint_wear",
+                "vein_too_low",
+                "acquired_disability",
+                "amputation",
+                "worn_palmprint",
+                "occluded_iris",
+                "religious_cover",
+                "trans_presentation",
+                "extreme_humidity",
+                "data_set_bias"
+              ]
+            },
+            "enrollmentFailureRate": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

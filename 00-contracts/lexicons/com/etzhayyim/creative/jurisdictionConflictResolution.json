@@ -1,0 +1,76 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.creative.jurisdictionConflictResolution",
+  "description": "Cross-jurisdictional PD-status conflict resolution per work. Captures cases where a work is PD in some jurisdictions but not others (most common: URAA §104A restoration in US for foreign works; CC vs CA pre-2022 deltas; JP pre-2018 vs post-2018 TPP term extension). Pessimistic algorithm REJECTS any work failing PD in even one of 7 required jurisdictions; this Lexicon records the rejection reasoning + future eligibility year.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "workId",
+          "hasConflict",
+          "conflictJurisdictions",
+          "conflictReason",
+          "resolutionVerdict",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "workId": {"type": "string"},
+          "hasConflict": {
+            "type": "boolean",
+            "description": "true if PD status differs across jurisdictions; false = no conflict (rare cross-juris harmony for ≥70-yr-old works)"
+          },
+          "conflictJurisdictions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ISO-3 codes of jurisdictions where work is NOT PD (subset of {USA, EUR, GBR, JPN, AUS, CAN, CHN})"
+          },
+          "conflictReason": {
+            "type": "string",
+            "knownValues": [
+              "uraa-1994-restoration",
+              "ca-cusma-2022-extension-not-yet-expired",
+              "jp-tpp-2018-extension-not-yet-expired",
+              "us-pre-1978-95-yr-rule",
+              "us-mma-2018-pre-1972-recording-phased-pd",
+              "performer-right-still-active-in-eu-uk-au",
+              "anonymous-corporate-publication-term-difference",
+              "soviet-era-soviet-restoration",
+              "us-state-pre-1972-recording-law",
+              "ip-treaty-difference",
+              "other"
+            ]
+          },
+          "conflictReasonExplanationCid": {
+            "type": "string",
+            "description": "IPFS CID of detailed explanation document; cites specific copyright statute/treaty"
+          },
+          "resolutionVerdict": {
+            "type": "string",
+            "knownValues": ["REJECT-pessimistic", "ADMIT-pre-conflict-period", "ADMIT-post-conflict-expiration"],
+            "description": "REJECT-pessimistic = default (most cases); ADMIT-pre/post-conflict only after conflict expires across all 7 jurisdictions"
+          },
+          "futureEligibilityYear": {
+            "type": "integer",
+            "minimum": 2026,
+            "maximum": 2100,
+            "description": "Estimated year when work becomes PD in ALL jurisdictions (after URAA expiry / CA/JP extension expiry / etc.); for re-evaluation queue"
+          },
+          "reEvaluationQueueAttested": {
+            "type": "boolean",
+            "description": "true if work added to e7m-dataset re-evaluation queue for futureEligibilityYear"
+          },
+          "publicDomainStatusAttestationCid": {
+            "type": "string",
+            "description": "Cross-reference to the publicDomainStatusAttestation that captured this conflict"
+          },
+          "attestingDid": {"type": "string"}
+        }
+      }
+    }
+  }
+}

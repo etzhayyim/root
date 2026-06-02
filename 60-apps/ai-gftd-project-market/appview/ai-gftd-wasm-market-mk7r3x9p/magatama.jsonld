@@ -70,9 +70,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.market.listing",
-        "ai.gftd.market.settlement",
-        "ai.gftd.market.demandSignal"
+        "com.etzhayyim.market.listing",
+        "com.etzhayyim.market.settlement",
+        "com.etzhayyim.market.demandSignal"
       ]
     }
   },

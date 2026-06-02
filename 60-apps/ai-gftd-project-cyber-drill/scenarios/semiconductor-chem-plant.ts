@@ -23,7 +23,7 @@
 import type { IncidentScenario } from '@etzhayyim/kami-engine-sdk/webvr';
 
 export const SEMI_PLANT_INCIDENT: IncidentScenario = Object.freeze({
-  id: 'app.etzhayyim.apps.cyberDrill.scenario.semiconductorChemPlantIncident.v1',
+  id: 'com.etzhayyim.apps.cyberDrill.scenario.semiconductorChemPlantIncident.v1',
   title: '半導体・電子材料プラント サイバー攻撃 初動演習',
   synopsis:
     '深夜 02:14。新潟県の 300 mm ウェーハファブ併設 フォトレジスト製造ラインで、' +

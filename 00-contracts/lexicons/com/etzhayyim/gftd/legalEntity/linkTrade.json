@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.linkTrade",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create customer/supplier/partner relationship records between legal entities. Each item may resolve endpoints by vertexId, LEI, source/sourceRecordId, or name/country.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "items": { "type": "array", "description": "Batch of trade relationships. When omitted, the top-level object is treated as a single item." },
+            "edgeId": { "type": "string" },
+            "srcVertexId": { "type": "string" },
+            "srcLei": { "type": "string" },
+            "srcSource": { "type": "string" },
+            "srcSourceRecordId": { "type": "string" },
+            "srcName": { "type": "string" },
+            "srcCountry": { "type": "string" },
+            "dstVertexId": { "type": "string" },
+            "dstLei": { "type": "string" },
+            "dstSource": { "type": "string" },
+            "dstSourceRecordId": { "type": "string" },
+            "dstName": { "type": "string" },
+            "dstCountry": { "type": "string" },
+            "relationship": { "type": "string" },
+            "amount": { "type": "number" },
+            "amountCurrency": { "type": "string" },
+            "periodStart": { "type": "string", "format": "date" },
+            "periodEnd": { "type": "string", "format": "date" },
+            "sourceUrl": { "type": "string", "format": "uri" },
+            "sourceLicense": { "type": "string" },
+            "confidence": { "type": "number" },
+            "linkedAt": { "type": "string", "format": "datetime" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "inserted": { "type": "integer" },
+            "skipped": { "type": "integer" },
+            "firstError": { "type": "string" },
+            "ts": { "type": "string", "format": "datetime" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.disarmamentTreaties.flagTreatyBreach",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Defence wave3 arms (stub): 軍縮条約 違反 (NPT/CTBT/BWC/CWC). Starts BPMN process open_disarmament_treaties_flag_treaty_breach.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "treatyCode": { "type": "string" },
+            "partyCountry": { "type": "string" },
+            "evidenceUri": { "type": "string" }
+          },
+          "required": ["vertexId", "treatyCode", "partyCountry"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok":          { "type": "boolean" },
+            "instanceKey": { "type": "integer" },
+            "error":       { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

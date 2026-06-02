@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.narou.searchNovels",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Search novel works by keyword or tag",
+      "parameters": {
+        "type": "params",
+        "required": ["q"],
+        "properties": {
+          "q": { "type": "string" },
+          "genre": { "type": "string" },
+          "tag": { "type": "string" },
+          "offset": { "type": "integer" },
+          "limit": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["novels", "total", "offset", "limit"],
+          "properties": {
+            "novels": { "type": "array", "items": { "type": "object" } },
+            "total": { "type": "integer" },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

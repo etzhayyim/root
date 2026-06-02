@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.i18n.widgetSuggest",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated i18n lexicon for widgetSuggest (F-Plan F2 holdout migration 2026-04-13). Tighten schema when the handler is audited.",
+      "x-bootstrap": true,
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "term": {
+              "type": "string"
+            },
+            "targetLang": {
+              "type": "string"
+            },
+            "suggestions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": []
+        }
+      },
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "term": {
+              "type": "string"
+            },
+            "targetLang": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

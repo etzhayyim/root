@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.processScraperQueue",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Claim up to `max` vertex_ads_scraper_run rows with status='queued', dispatch each to the platform-specific scraper adapter or lightweight public transparency fetcher, then mark each run completed / failed / rate_limited.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "max": { "type": "integer", "minimum": 1, "maximum": 10, "default": 1 },
+            "platform": { "type": "string", "knownValues": ["meta", "facebook", "instagram", "whatsapp", "whatsup", "google", "linkedin", "tiktok", "x", "line", "telegram"] },
+            "reclaimAfterSec": { "type": "integer", "minimum": 60, "maximum": 86400, "default": 1800 }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["processed"],
+          "properties": {
+            "processed": { "type": "integer" },
+            "completed": { "type": "integer" },
+            "failed": { "type": "integer" },
+            "platform": { "type": "string" },
+            "runs": {
+              "type": "array",
+              "items": { "type": "ref", "ref": "#runResult" }
+            }
+          }
+        }
+      }
+    },
+    "runResult": {
+      "type": "object",
+      "required": ["vertexId", "status"],
+      "properties": {
+        "vertexId": { "type": "string" },
+        "platform": { "type": "string" },
+        "status": { "type": "string", "knownValues": ["completed", "failed", "rate_limited"] },
+        "adsSeen": { "type": "integer" },
+        "adsNew": { "type": "integer" },
+        "adsUpdated": { "type": "integer" },
+        "errorMessage": { "type": "string" }
+      }
+    }
+  }
+}

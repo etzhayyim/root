@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.apps.editor.createProject": {
+    "/xrpc/com.etzhayyim.apps.editor.createProject": {
       "post": {
-        "summary": "app.etzhayyim.apps.editor.createProject",
-        "operationId": "app.etzhayyim.apps.editor.createProject",
+        "summary": "com.etzhayyim.apps.editor.createProject",
+        "operationId": "com.etzhayyim.apps.editor.createProject",
         "requestBody": {
           "required": true,
           "content": {
@@ -73,10 +73,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.editor.generate": {
+    "/xrpc/com.etzhayyim.apps.editor.generate": {
       "post": {
-        "summary": "app.etzhayyim.apps.editor.generate",
-        "operationId": "app.etzhayyim.apps.editor.generate",
+        "summary": "com.etzhayyim.apps.editor.generate",
+        "operationId": "com.etzhayyim.apps.editor.generate",
         "requestBody": {
           "required": true,
           "content": {
@@ -148,10 +148,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.editor.listFiles": {
+    "/xrpc/com.etzhayyim.apps.editor.listFiles": {
       "get": {
-        "summary": "app.etzhayyim.apps.editor.listFiles",
-        "operationId": "app.etzhayyim.apps.editor.listFiles",
+        "summary": "com.etzhayyim.apps.editor.listFiles",
+        "operationId": "com.etzhayyim.apps.editor.listFiles",
         "parameters": [
           {
             "name": "projectId",
@@ -224,10 +224,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.editor.listProjects": {
+    "/xrpc/com.etzhayyim.apps.editor.listProjects": {
       "get": {
-        "summary": "app.etzhayyim.apps.editor.listProjects",
-        "operationId": "app.etzhayyim.apps.editor.listProjects",
+        "summary": "com.etzhayyim.apps.editor.listProjects",
+        "operationId": "com.etzhayyim.apps.editor.listProjects",
         "parameters": [
           {
             "name": "offset",
@@ -288,10 +288,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.editor.readFile": {
+    "/xrpc/com.etzhayyim.apps.editor.readFile": {
       "get": {
-        "summary": "app.etzhayyim.apps.editor.readFile",
-        "operationId": "app.etzhayyim.apps.editor.readFile",
+        "summary": "com.etzhayyim.apps.editor.readFile",
+        "operationId": "com.etzhayyim.apps.editor.readFile",
         "parameters": [
           {
             "name": "projectId",
@@ -351,10 +351,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.editor.writeFile": {
+    "/xrpc/com.etzhayyim.apps.editor.writeFile": {
       "post": {
-        "summary": "app.etzhayyim.apps.editor.writeFile",
-        "operationId": "app.etzhayyim.apps.editor.writeFile",
+        "summary": "com.etzhayyim.apps.editor.writeFile",
+        "operationId": "com.etzhayyim.apps.editor.writeFile",
         "requestBody": {
           "required": true,
           "content": {

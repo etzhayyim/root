@@ -179,7 +179,7 @@ export async function registerPreKeys(identity: SignalIdentity): Promise<void> {
 	await dbPut('prekeys', { keyId: 0, type: 'opk', private: opkPrivate, public: opkPublic });
 
 	// Register with server via injected XRPC transport
-	await getSignalTransport().procedure('app.etzhayyim.signal.registerPrekeys', {
+	await getSignalTransport().procedure('com.etzhayyim.signal.registerPrekeys', {
 		did: identity.did,
 		deviceId: identity.deviceId,
 		identityKey: Array.from(identity.identityKeyPublic),
@@ -209,7 +209,7 @@ export async function fetchPeerBundle(peerDid: string): Promise<PreKeyBundle> {
 	// NOTE: lexicon declares this as `query` (GET), but the original wproto port
 	// called it via POST. Preserving POST here for behavioral parity; a follow-up
 	// can switch to .query() once server-side acceptance is verified.
-	const bundle = await getSignalTransport().procedure<PreKeyBundle>('app.etzhayyim.signal.getPrekeyBundle', { targetDid: peerDid });
+	const bundle = await getSignalTransport().procedure<PreKeyBundle>('com.etzhayyim.signal.getPrekeyBundle', { targetDid: peerDid });
 	return {
 		...bundle,
 		identityKey: new Uint8Array(bundle.identityKey),

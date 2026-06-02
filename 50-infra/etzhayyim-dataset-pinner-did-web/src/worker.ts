@@ -9,7 +9,7 @@ import didDoc from "../did.json";
  *
  * Identity of the religious-corp dataset pinner that:
  *   - Mirrors annex-store objects to IPFS via Kubo (sidecar publisher)
- *   - Emits `app.etzhayyim.substrate.datasetPin` records to PDS
+ *   - Emits `com.etzhayyim.substrate.datasetPin` records to PDS
  *
  * Distinct from `pinner.etzhayyim.com` (MST CAR pinner, ADR-2605171800
  * Stage 4) — that actor pins firehose-driven MST shards continuously,

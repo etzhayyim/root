@@ -13,11 +13,11 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..", "..");
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const bpmnXml = readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/wellbecoming/processMining.bpmn"),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/wellbecoming/processMining.bpmn"),
     "utf-8",
   );
   const now = "2026-04-29T22:10:00Z";
-  const vertexId = "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1";
+  const vertexId = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/wellbecoming-process-mining-v1";
   const ownerDid = "did:web:bpmn.etzhayyim.com";
   const size = Buffer.byteLength(bpmnXml, "utf8");
 
@@ -27,7 +27,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        source_path, status, created_at, sensitivity_ord, org_id, user_id, actor_id)
     SELECT ${vertexId}, ${ownerDid}, ${"wellbecoming_process_mining"}, 1, ${bpmnXml},
            CAST(${size} AS integer),
-           ${"00-contracts/bpmn/ai/gftd/wellbecoming/processMining.bpmn"},
+           ${"00-contracts/bpmn/com/etzhayyim/wellbecoming/processMining.bpmn"},
            ${"active"}, ${now}, 1, ${ownerDid}, ${ownerDid}, ${"sys.bpmn.seed.wellbecoming"}
     WHERE NOT EXISTS (
       SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = ${vertexId}

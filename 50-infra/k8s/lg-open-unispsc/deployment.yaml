@@ -2,15 +2,15 @@
 # no-server-key: read-only — pending Stage A-E member-signed-writes refactor per ADR-2605231525
 # lg-open-unispsc — resident LangServer for 18,342 UNSPSC commodity agents.
 #
-# Surface (per 00-contracts/lexicons/ai/gftd/apps/unispsc/*.json):
-#   GET  /xrpc/app.etzhayyim.apps.unispsc.health
-#   GET  /xrpc/app.etzhayyim.apps.unispsc.listAgents
-#   POST /xrpc/app.etzhayyim.apps.unispsc.invokeAgent
-#   POST /xrpc/app.etzhayyim.apps.unispsc.classify
+# Surface (per 00-contracts/lexicons/com/etzhayyim/apps/unispsc/*.json):
+#   GET  /xrpc/com.etzhayyim.apps.unispsc.health
+#   GET  /xrpc/com.etzhayyim.apps.unispsc.listAgents
+#   POST /xrpc/com.etzhayyim.apps.unispsc.invokeAgent
+#   POST /xrpc/com.etzhayyim.apps.unispsc.classify
 #
 # Upstream of the unified etzhayyim.com CF Worker
 # (50-infra/etzhayyim-did-web). The Worker routes
-# /xrpc/app.etzhayyim.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
+# /xrpc/com.etzhayyim.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
 # No per-actor subdomain (ADR-2605212030 §D2).
 #
 # Substrate: yatachain (ADR-2605231400) — RW-free per ADR-2605172000. The
@@ -145,7 +145,7 @@ spec:
             # listAgents / invokeAgent / classify from the in-memory _GRAPH_REGISTRY,
             # so registry-ready is the correct readiness signal.
             #
-            # Previous target /xrpc/app.etzhayyim.apps.unispsc.health transitively
+            # Previous target /xrpc/com.etzhayyim.apps.unispsc.health transitively
             # exercised /readyz (psycopg DB SELECT 1) → removed by ADR-2605232100
             # in lockstep with the RW_URL / DATABASE_URL secret removal.
             httpGet:

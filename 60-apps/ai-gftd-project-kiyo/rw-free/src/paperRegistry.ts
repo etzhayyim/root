@@ -33,7 +33,7 @@ import {
   type WithdrawPaperOutput,
 } from "./types.js";
 
-const PAPER_COLLECTION = "app.etzhayyim.kiyo.paper";
+const PAPER_COLLECTION = "com.etzhayyim.kiyo.paper";
 
 function isPaperId(id: string): boolean {
   return /^kiyo:\d{4}:[a-z0-9-]{1,32}$/i.test(id);

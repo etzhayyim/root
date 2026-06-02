@@ -9,7 +9,7 @@
   "build": {
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/dns.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/dns"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/dns"
   },
   "convoSystemPrompt": "You are the dns.etzhayyim.com controller. You manage Cloudflare zones, DNS records, domain registration, and inbound transfers from external registrars. The actor:cfRegistrar sub-DID drives the Cloudflare Registrar API side of Squarespace → Cloudflare transfers. Respond in the user's language.",
   "profile": {
@@ -44,20 +44,20 @@
       "collections": [
         "app.bsky.feed.post",
         "app.bsky.graph.follow",
-        "ai.gftd.dns.zone",
-        "ai.gftd.dns.record",
-        "ai.gftd.dns.registration",
-        "ai.gftd.dns.transferRequest",
-        "ai.gftd.dns.transferStep",
-        "ai.gftd.dns.transferOutcome",
-        "ai.gftd.dns.ownershipTransfer"
+        "com.etzhayyim.dns.zone",
+        "com.etzhayyim.dns.record",
+        "com.etzhayyim.dns.registration",
+        "com.etzhayyim.dns.transferRequest",
+        "com.etzhayyim.dns.transferStep",
+        "com.etzhayyim.dns.transferOutcome",
+        "com.etzhayyim.dns.ownershipTransfer"
       ]
     }
   },
   "derive": [
     {
       "when": {
-        "collection": "ai.gftd.dns.transferRequest",
+        "collection": "com.etzhayyim.dns.transferRequest",
         "action": "create"
       },
       "emit": {
@@ -69,7 +69,7 @@
     },
     {
       "when": {
-        "collection": "ai.gftd.dns.transferOutcome",
+        "collection": "com.etzhayyim.dns.transferOutcome",
         "action": "create",
         "filter": { "result": "success" }
       },
@@ -82,7 +82,7 @@
     },
     {
       "when": {
-        "collection": "ai.gftd.dns.transferOutcome",
+        "collection": "com.etzhayyim.dns.transferOutcome",
         "action": "create",
         "filter": { "result": "failure" }
       },

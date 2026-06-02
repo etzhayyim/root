@@ -4,16 +4,16 @@ Per ADR-2605312030 (取次 toritsugi — citizen-facing government-procedure
 concierge).
 
 Purpose: assist the member in filling the 様式/フォーム for a procedure and emit
-an `app.etzhayyim.toritsugi.applicationDraft` artifact the member reviews + owns.
+an `com.etzhayyim.toritsugi.applicationDraft` artifact the member reviews + owns.
 This is INPUT-ASSISTANCE, not 作成代理.
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G5 行政書士法 / UPL boundary —
 input-assist only, NEVER 官公署提出書類の作成代理 (the only representable
 `assistMode` is "input-assist"); G6 the draft's PII content lands ONLY in an
-app.etzhayyim.encrypted.* DID-bound envelope (ADR-2605181100; never inline PII);
+com.etzhayyim.encrypted.* DID-bound envelope (ADR-2605181100; never inline PII);
 G8 the member must confirm (`memberConfirmed`) before any submission;
 Murakumo-only inference (ADR-2605215000). Output Lexicon(s):
-app.etzhayyim.toritsugi.applicationDraft.
+com.etzhayyim.toritsugi.applicationDraft.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

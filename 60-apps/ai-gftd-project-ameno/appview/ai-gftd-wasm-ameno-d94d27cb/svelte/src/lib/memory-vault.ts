@@ -7,7 +7,7 @@
  * alongside (plaintext, by design — it is on the surface of MST-anchored
  * documents too) so cosine search at recall time is O(N) without re-embed.
  *
- * Record schema mirrors `app.etzhayyim.memory.record` so a future swap to
+ * Record schema mirrors `com.etzhayyim.memory.record` so a future swap to
  * `@etzhayyim/sdk/encryptedWrite` (ADR-2605181100) is a one-shot port.
  *
  * Authoritative ADR: 90-docs/adr/2605191206-ameno-long-term-memory-vault.md

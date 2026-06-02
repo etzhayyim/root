@@ -4,7 +4,7 @@ SiteSurveyCell — Phase 1 of kuni-umi 4-phase deployment workflow.
 Per ADR-2605201400 §3 (kuni-umi master) + ADR-2605201500 (S1 solo survey) +
 ADR-2605202200 (cell.py runtime contract).
 
-Trigger:    MST listener on `app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite`
+Trigger:    MST listener on `com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite`
 Effect:     Dispatch Giemon scout fleet → collect sensor blobs → DMN gate →
             N ≥ 2 witness signatures → emit `submitSiteSurvey` MST record.
 Murakumo:   naphtali (leader)
@@ -99,7 +99,7 @@ def emit_survey(state: SiteSurveyState, deps: CellDeps) -> SiteSurveyState:
     """Write `submitSiteSurvey` MST record via @etzhayyim/sdk."""
     raise NotImplementedError(
         "Requires deps.sdk (@etzhayyim/sdk subprocess RPC). "
-        "Writes app.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey to MST."
+        "Writes com.etzhayyim.apps.etzhayyim.kuniUmi.submitSiteSurvey to MST."
     )
 
 
@@ -148,5 +148,5 @@ def healthz_extra(deps: CellDeps) -> dict:
         "phase": "1-survey",
         "fleet_required": ["otete", "mimi-base-station"],
         "witness_invariant_min": 2,
-        "trigger_nsid": "app.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
+        "trigger_nsid": "com.etzhayyim.apps.etzhayyim.kuniUmi.defineDeploymentSite",
     }

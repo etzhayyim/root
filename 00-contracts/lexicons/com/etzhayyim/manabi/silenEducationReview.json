@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.manabi.silenEducationReview",
+  "description": "Council attestation scope for manabi education decisions. Multi-axis (pedagogy + accessibility + anti-addiction + charter alignment + minor privacy). Per ADR-2605261045.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "scope": {"type": "string", "knownValues": [
+            "wave-1-r0-charter-baseline",
+            "r1-curriculum-library-activation",
+            "r2-live-tutor-activation",
+            "r3-yutori-telepresence-activation",
+            "g3-no-addiction-ux-audit",
+            "g4-charter-alignment-per-module",
+            "g6-minor-privacy-audit",
+            "g7-anti-credentialism-baseline",
+            "g14-comparative-religion-attestation",
+            "skill-attestation-baseline-vocational"
+          ]},
+          "subject": {"type": "string"},
+          "attestingCouncilMembers": {"type": "array", "items": {"type": "string"}, "minItems": 3},
+          "educationAdvisoryAttestation": {"type": "array", "items": {"type": "string"}, "description": "R1+: inquiry-pedagogy practitioner DIDs"},
+          "attestationTimestamp": {"type": "string"},
+          "decisionCid": {"type": "string"}
+        },
+        "required": ["scope", "subject", "attestingCouncilMembers", "attestationTimestamp", "decisionCid"]
+      }
+    }
+  }
+}

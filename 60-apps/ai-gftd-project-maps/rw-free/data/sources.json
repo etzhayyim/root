@@ -1,7 +1,7 @@
 {
   "_comment": "Maps source DID seed. One entry per source DID per maps CLAUDE.md §Source DIDs. Excludes did:web:site.etzhayyim.com (cross-actor, lives on site PDS).",
   "_adr": "2605231400",
-  "_lexicon": "app.etzhayyim.maps.source",
+  "_lexicon": "com.etzhayyim.maps.source",
   "sources": [
     {
       "slug": "geocode",
@@ -87,7 +87,7 @@
       "license": "user-owned",
       "category": "user",
       "status": "active",
-      "notes": "Per ADR-2605181100, encrypted user-post EXIF goes through app.etzhayyim.encrypted.* envelope."
+      "notes": "Per ADR-2605181100, encrypted user-post EXIF goes through com.etzhayyim.encrypted.* envelope."
     },
     {
       "slug": "mapraly",

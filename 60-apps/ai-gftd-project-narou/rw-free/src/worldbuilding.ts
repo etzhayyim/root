@@ -18,9 +18,9 @@ import {
   type WorldSettingView,
 } from "./types.js";
 
-const WORLD_SETTING_COLLECTION = "app.etzhayyim.narou.worldSetting";
-const CHARACTER_COLLECTION = "app.etzhayyim.narou.character";
-const NOVEL_COLLECTION = "app.etzhayyim.narou.novel";
+const WORLD_SETTING_COLLECTION = "com.etzhayyim.narou.worldSetting";
+const CHARACTER_COLLECTION = "com.etzhayyim.narou.character";
+const NOVEL_COLLECTION = "com.etzhayyim.narou.novel";
 
 function isValidWorldId(id: string): boolean {
   return /^[a-z0-9-]{1,64}$/i.test(id);

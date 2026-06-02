@@ -38,7 +38,7 @@ Pregel graph (5 nodes):
                                         + auto-RPM-select (540/1000) verified
         |
         v
-    emit_hitch_pto_attest          ->  MST PUT app.etzhayyim.suki.hitchPtoAttestation
+    emit_hitch_pto_attest          ->  MST PUT com.etzhayyim.suki.hitchPtoAttestation
                                         (hitch ID, category Cat I/II/III,
                                         PTO RPM (540/1000), spline standard,
                                         implement-detection protocol = open

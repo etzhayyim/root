@@ -12,7 +12,7 @@
 --                                       assembly = exception #4)
 --   supervisor           py_primitive  KEPT — LLM JSON classifier producing
 --                                       state.route. The mcp_tool envelope
---                                       (`ai.gftd.tools.llm.chat`) only
+--                                       (`com.etzhayyim.tools.llm.chat`) only
 --                                       exposes `.result.content` as raw
 --                                       string; routing on a parsed JSON
 --                                       field would require either a
@@ -32,7 +32,7 @@
 --   lawfirm_sales        py_primitive  KEPT — RACI-gated SQL read +
 --                                       can_mutate computation (dynamic
 --                                       SQL = exception #4)
---   direct_reply         mcp_tool      RETIRED → mcp://ai.gftd.tools.llm.chat
+--   direct_reply         mcp_tool      RETIRED → mcp://com.etzhayyim.tools.llm.chat
 --                                       (user_template renders state-derived
 --                                       vars; result_key=directReplyLlmOut).
 --                                       The downstream py_primitive
@@ -52,7 +52,7 @@
 --                                       length); no clean state field
 --                                       carries the full record shape, so
 --                                       converting to
---                                       mcp://ai.gftd.tools.audit.emit
+--                                       mcp://com.etzhayyim.tools.audit.emit
 --                                       would require a new prepare_audit
 --                                       py_primitive upstream — net 0 gain.
 --                                       (legitimate exception, side effect)
@@ -76,7 +76,7 @@ INSERT INTO vertex_langgraph_assistant_node (vertex_id, _seq, sensitivity_ord, a
 
 INSERT INTO vertex_langgraph_assistant_node (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at) VALUES ('kaisya-member-assistant.v2:lawfirm_sales', 0, 0, 'kaisya-member-assistant.v2', 'lawfirm_sales', 'py_primitive', 'pymagatama.langgraph_graphs.kaisya_member_assistant:lawfirm_sales_dispatch', NULL, '2026-05-09T09:00:00Z');
 
-INSERT INTO vertex_langgraph_assistant_node (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at) VALUES ('kaisya-member-assistant.v2:direct_reply', 0, 0, 'kaisya-member-assistant.v2', 'direct_reply', 'mcp_tool', 'mcp://ai.gftd.tools.llm.chat', '{"input_paths":{"member_name":"member_name","member_role":"member_role","raci_summary":"raci_summary","user_message":"user_message","sub_summary":"sub_summary","route":"route"},"result_key":"directReplyLlmOut","args":{"name":"ai.gftd.tools.llm.chat","tier":"balanced","system":"You are the kaisya.etzhayyim.com member chat assistant. Reply directly to the user''s message. Be specific. Cite RACI scope when declining or escalating. Tone: professional, concise, Japanese OK. If the user is asking about something outside their RACI, name the member who IS responsible (e.g. \"PwC clearance is owned by k-bakshi + j-kawasaki — would you like me to draft a request on your behalf?\").","user_template":"Member {member_name} ({member_role})\nRACI scope:\n{raci_summary}\n\nMessage: {user_message}\n\nRoute: {route}\nSub-graph summary (if any): {sub_summary}","maxTokens":1000,"temperature":0.4}}', '2026-05-09T09:00:00Z');
+INSERT INTO vertex_langgraph_assistant_node (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at) VALUES ('kaisya-member-assistant.v2:direct_reply', 0, 0, 'kaisya-member-assistant.v2', 'direct_reply', 'mcp_tool', 'mcp://com.etzhayyim.tools.llm.chat', '{"input_paths":{"member_name":"member_name","member_role":"member_role","raci_summary":"raci_summary","user_message":"user_message","sub_summary":"sub_summary","route":"route"},"result_key":"directReplyLlmOut","args":{"name":"com.etzhayyim.tools.llm.chat","tier":"balanced","system":"You are the kaisya.etzhayyim.com member chat assistant. Reply directly to the user''s message. Be specific. Cite RACI scope when declining or escalating. Tone: professional, concise, Japanese OK. If the user is asking about something outside their RACI, name the member who IS responsible (e.g. \"PwC clearance is owned by k-bakshi + j-kawasaki — would you like me to draft a request on your behalf?\").","user_template":"Member {member_name} ({member_role})\nRACI scope:\n{raci_summary}\n\nMessage: {user_message}\n\nRoute: {route}\nSub-graph summary (if any): {sub_summary}","maxTokens":1000,"temperature":0.4}}', '2026-05-09T09:00:00Z');
 
 INSERT INTO vertex_langgraph_assistant_node (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at) VALUES ('kaisya-member-assistant.v2:emit_audit', 0, 0, 'kaisya-member-assistant.v2', 'emit_audit', 'py_primitive', 'pymagatama.langgraph_graphs.kaisya_member_assistant:emit_audit', NULL, '2026-05-09T09:00:00Z');
 

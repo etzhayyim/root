@@ -21,15 +21,17 @@ the parent of subject LEI Y per GLEIF L2"), never wrongdoing. There is no
 allegation, no named party as wrongdoer, no severity. danjo is the
 censor's eye, no sword (ADR-2605301600).
 
-``ownershipKind`` → ``linkType`` mapping (only the kinds with a Lexicon
-``linkType`` knownValue are emitted; others are SKIPPED until a linkType
-is added in W2 — we never invent a value outside the Lexicon):
+``ownershipKind`` → ``linkType`` mapping (all five OwnershipKind values are
+covered; ``entity-control-edge`` + ``entity-direct-shareholder-edge`` were
+added to the ``crossReferenceLink`` Lexicon alongside this map). A kind with
+no Lexicon ``linkType`` would be SKIPPED — we never invent a value outside
+the Lexicon:
 
-  - ``ubo``               → ``entity-ubo-edge``
-  - ``parent-subsidiary`` → ``entity-parent-subsidiary-edge``
-  - ``officer``           → ``entity-officer-edge``
-  - ``direct-shareholder``    → (skip; no Lexicon linkType yet — W2)
-  - ``control-relationship``  → (skip; no Lexicon linkType yet — W2)
+  - ``ubo``                  → ``entity-ubo-edge``
+  - ``direct-shareholder``   → ``entity-direct-shareholder-edge``
+  - ``parent-subsidiary``    → ``entity-parent-subsidiary-edge``
+  - ``control-relationship`` → ``entity-control-edge``
+  - ``officer``              → ``entity-officer-edge``
 
 **Direction.** ``fromRef = owner`` (the controlling / parent / UBO
 entity), ``toRef = subject`` (the controlled / child entity), so the link
@@ -51,11 +53,16 @@ from typing import Iterable, Mapping
 CROSSREF_LINK_NSID = "app.etzhayyim.danjo.crossReferenceLink"
 
 # corp.ownershipEdge ownershipKind → crossReferenceLink linkType.
-# Only kinds with an existing Lexicon linkType knownValue are mapped;
-# unmapped kinds are skipped (no invented values).
+# Covers all five OwnershipKind values; each target is a Lexicon linkType
+# knownValue (entity-control-edge + entity-direct-shareholder-edge were
+# added to crossReferenceLink.json alongside this map). A kind with no
+# mapped linkType would be skipped (we never invent a value outside the
+# Lexicon).
 _LINKTYPE_BY_KIND: dict[str, str] = {
     "ubo": "entity-ubo-edge",
+    "direct-shareholder": "entity-direct-shareholder-edge",
     "parent-subsidiary": "entity-parent-subsidiary-edge",
+    "control-relationship": "entity-control-edge",
     "officer": "entity-officer-edge",
 }
 

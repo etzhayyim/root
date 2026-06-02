@@ -1,6 +1,6 @@
 """yukkuri `reviewVideo` graph — critic QA (IP / 表現 / deepfake).
 
-NSID: app.etzhayyim.apps.yukkuri.reviewVideo
+NSID: com.etzhayyim.apps.yukkuri.reviewVideo
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:critic
 

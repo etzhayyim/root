@@ -45,7 +45,7 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.openCyberVuln.source/nvd',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.openCyberVuln.source/nvd',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'nvd',
                  'NVD CVE 2.0 API',
@@ -68,7 +68,7 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.openCyberVuln.source/cisa-kev',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.openCyberVuln.source/cisa-kev',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'cisa-kev',
                  'CISA Known Exploited Vulnerabilities',
@@ -91,7 +91,7 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.openCyberVuln.source/ghsa',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.openCyberVuln.source/ghsa',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'ghsa',
                  'GitHub Security Advisories (GHSA)',
@@ -114,7 +114,7 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.openCyberVuln.source/mitre-attack',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.openCyberVuln.source/mitre-attack',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'mitre-attack',
                  'MITRE ATT&CK TAXII 2.1',
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          "'sys.bpmn.seed.open-cyber'\n"
          '      WHERE NOT EXISTS (SELECT 1 FROM vertex_open_cyber_source WHERE source_id = $14)\n'
          '    ',
-  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/app.etzhayyim.apps.openCyberVuln.source/cisa-alerts',
+  'parameters': ['at://did:web:open-cyber-vuln.etzhayyim.com/com.etzhayyim.apps.openCyberVuln.source/cisa-alerts',
                  'did:web:open-cyber-vuln.etzhayyim.com:ops',
                  'cisa-alerts',
                  'CISA US-CERT Alerts Atom Feed',

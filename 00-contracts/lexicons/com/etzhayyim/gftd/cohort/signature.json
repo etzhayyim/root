@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.cohort.signature",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "properties": {
+          "segmentHash": {
+            "type": "string"
+          },
+          "demographicVector": {
+            "type": "string"
+          },
+          "kAnonymity": {
+            "type": "integer",
+            "minimum": 50
+          },
+          "policyRef": {
+            "type": "string"
+          },
+          "fissionEnabled": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "kReevaluatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "segmentHash",
+          "demographicVector",
+          "kAnonymity",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

@@ -17,7 +17,7 @@
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "appview",
     "CLOUDFLARE_ACCOUNT_ID": "4da88288dc30d9ee257f319d3c33ecf0",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

@@ -67,7 +67,7 @@ def transition_to_surveyor_review(state: dict[str, Any]) -> dict[str, Any]:
 def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
     cs = CertificationState(**state.get("certification_state", {}))
     cs.yatachainAnchor = {
-        "membraneNamespace": "app.etzhayyim.watatsumi",
+        "membraneNamespace": "com.etzhayyim.watatsumi",
         "anchorTxHash": "0xWATATSUMICERT...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
         "anchorBlockNumber": 0,

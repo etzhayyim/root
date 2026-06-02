@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fossilStrandedAsset.flagJustTransitionGap",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Just transition gap / community impact / orphan asset (bridges energyCharterExit.flagInvestorClaimSurge + just-transition + worker-grievance)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "impairmentVid",
+            "gapKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "impairmentVid": {
+              "type": "string",
+              "description": "bridges recordImpairment"
+            },
+            "gapKind": {
+              "type": "string",
+              "enum": [
+                "worker_unsupported",
+                "community_revenue",
+                "tax_base_collapse",
+                "abandonment_liability",
+                "orphan_well_clean_up",
+                "environmental_legacy",
+                "health_impact_residual",
+                "social_license_lost",
+                "pension_underfunded",
+                "plug_abandon_unfunded",
+                "supply_chain_void"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

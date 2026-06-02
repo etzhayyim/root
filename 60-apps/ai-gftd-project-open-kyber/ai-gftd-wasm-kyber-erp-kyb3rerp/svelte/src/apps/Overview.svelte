@@ -12,7 +12,7 @@
   async function refresh() {
     ui.loading = true;
     try {
-      ui.setResult(await callXrpc('app.etzhayyim.apps.kyber.dashboard', { period: periodYM() }));
+      ui.setResult(await callXrpc('com.etzhayyim.apps.kyber.dashboard', { period: periodYM() }));
     } finally {
       ui.loading = false;
     }
@@ -49,7 +49,7 @@
             </div>
             <div>
               <h3 class="text-sm font-semibold text-etzhayyim-text">{t.label}</h3>
-              <p class="text-xs text-etzhayyim-muted">app.etzhayyim.apps.{t.id}.*</p>
+              <p class="text-xs text-etzhayyim-muted">com.etzhayyim.apps.{t.id}.*</p>
             </div>
           </div>
           <p class="text-xs text-etzhayyim-secondary leading-relaxed">{t.description}</p>

@@ -79,7 +79,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     s.phase = DynamicPhase.RECORD_EMITTED
     s.completionPct = 100
     record = {
-        "$type": "app.etzhayyim.yamabiko.dynamicTestRecord",
+        "$type": "com.etzhayyim.yamabiko.dynamicTestRecord",
         "trainsetId": s.trainsetId,
         "staticTestResult": s.staticTestResult,
         "g12KpiCheck": s.g12KpiCheck,

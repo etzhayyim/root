@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.spatialRelationWrite",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "fromId": {
+              "type": "integer"
+            },
+            "relation": {
+              "type": "string"
+            },
+            "toId": {
+              "type": "integer"
+            },
+            "validFrom": {
+              "type": "string"
+            },
+            "validTo": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "fromId"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "toId": {
+              "type": "integer"
+            },
+            "relId": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

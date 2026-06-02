@@ -1,7 +1,7 @@
 /**
  * Kyber Inbox worker — aggregates Outlook/OneDrive/Gmail signals into kyber ERP dept streams.
  *
- * Subscribes: app.etzhayyim.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}
+ * Subscribes: com.etzhayyim.apps.kyber.inbox.{emailSignal,calendarSignal,documentSignal}
  * Writes: vertex_email_message / vertex_calendar_event / vertex_office_document + edge_kyber_routed
  *
  * This is a Phase-0 reactive ingestion shell. On each PDS commit in any inbox
@@ -170,9 +170,9 @@ async function onDocumentSignal(db: ReturnType<typeof createKyselyDb<Database>>,
 }
 
 const ROUTES: Record<string, (db: ReturnType<typeof createKyselyDb<Database>>, c: Commit) => Promise<void>> = {
-  'app.etzhayyim.apps.kyber.inbox.emailSignal':    onEmailSignal,
-  'app.etzhayyim.apps.kyber.inbox.calendarSignal': onCalendarSignal,
-  'app.etzhayyim.apps.kyber.inbox.documentSignal': onDocumentSignal,
+  'com.etzhayyim.apps.kyber.inbox.emailSignal':    onEmailSignal,
+  'com.etzhayyim.apps.kyber.inbox.calendarSignal': onCalendarSignal,
+  'com.etzhayyim.apps.kyber.inbox.documentSignal': onDocumentSignal,
 };
 
 export default createWorkerExport<Env>({

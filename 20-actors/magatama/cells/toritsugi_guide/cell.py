@@ -13,7 +13,7 @@ and performs NO 官公署提出書類の作成代理 reserved to 行政書士/�
 (characterization + 作成代理 + appeals route to chigiri + licensed counsel;
 tax → toritate); G8 non-fabrication (cite 根拠法令 + provenance); Murakumo-only
 inference (ADR-2605215000). Output Lexicon(s):
-app.etzhayyim.toritsugi.procedureGuide.
+com.etzhayyim.toritsugi.procedureGuide.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

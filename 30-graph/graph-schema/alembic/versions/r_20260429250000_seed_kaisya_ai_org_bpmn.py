@@ -23,7 +23,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_ceo_daily_briefing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -37,9 +37,9 @@ UP = [{'sql': '\n'
                  '    3. Write vertex_kaisya_agent_run log\n'
                  '    4. If OKR drift detected → create vertex_kaisya_task for CEO approval\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.ceoDailyBriefing\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.ceoDailyBriefing\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -53,7 +53,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_ceo_daily_briefing" name="kaisya CEO Daily Briefing" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.ceoDailyBriefing", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.ceoDailyBriefing", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -188,12 +188,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6982,
-                 '00-contracts/bpmn/ai/gftd/kaisya/ceoDailyBriefing.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/ceoDailyBriefing.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -205,7 +205,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_coo_ops_monitor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -218,9 +218,9 @@ UP = [{'sql': '\n'
                  '    3. Write vertex_kaisya_agent_run log\n'
                  '    4. If ops anomaly detected → create vertex_kaisya_task for COO approval\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.cooOpsMonitor\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.cooOpsMonitor\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -234,7 +234,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_coo_ops_monitor" name="kaisya COO Ops Monitor" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.cooOpsMonitor", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.cooOpsMonitor", "version": 1, '
                  '"resultTimeoutMs": 180000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -350,12 +350,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5960,
-                 '00-contracts/bpmn/ai/gftd/kaisya/cooOpsMonitor.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/cooOpsMonitor.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -367,7 +367,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_clo_case_sweep',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -382,9 +382,9 @@ UP = [{'sql': '\n'
                  '    4. If deadline within 7d or new litigation risk → create vertex_kaisya_task '
                  'for CLO\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.cloCaseSweep\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.cloCaseSweep\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -398,7 +398,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_clo_case_sweep" name="kaisya CLO Case Sweep" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.cloCaseSweep", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.cloCaseSweep", "version": 1, '
                  '"resultTimeoutMs": 300000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -508,12 +508,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5700,
-                 '00-contracts/bpmn/ai/gftd/kaisya/cloCaseSweep.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/cloCaseSweep.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -525,7 +525,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_eng_deploy_health_check',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -538,9 +538,9 @@ UP = [{'sql': '\n'
                  '    3. Write vertex_kaisya_agent_run log\n'
                  '    4. If deploy anomaly → create vertex_kaisya_task for engineer approval\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.engDeployHealthCheck\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.engDeployHealthCheck\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -554,7 +554,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_eng_deploy_health_check" name="kaisya Eng Deploy '
                  'Health Check" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.engDeployHealthCheck", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.engDeployHealthCheck", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -652,12 +652,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5147,
-                 '00-contracts/bpmn/ai/gftd/kaisya/engDeployHealthCheck.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/engDeployHealthCheck.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -669,7 +669,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_eng_infra_monitor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -682,9 +682,9 @@ UP = [{'sql': '\n'
                  '    3. If infra anomaly → create vertex_kaisya_task for engineer (CTO = '
                  'j.kawasaki)\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.engInfraMonitor\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.engInfraMonitor\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -698,7 +698,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_eng_infra_monitor" name="kaisya Eng Infra Monitor" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.engInfraMonitor", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.engInfraMonitor", "version": 1, '
                  '"resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -791,12 +791,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4778,
-                 '00-contracts/bpmn/ai/gftd/kaisya/engInfraMonitor.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/engInfraMonitor.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -808,7 +808,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_brand_content_briefing',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -821,9 +821,9 @@ UP = [{'sql': '\n'
                  '    3. Write vertex_kaisya_agent_run log\n'
                  '    4. If content plan needs approval (brand direction change) → create task\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.brandContentBriefing\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.brandContentBriefing\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -837,7 +837,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_brand_content_briefing" name="kaisya Brand Content '
                  'Briefing" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.brandContentBriefing", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.brandContentBriefing", "version": 1, '
                  '"resultTimeoutMs": 180000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -949,12 +949,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5889,
-                 '00-contracts/bpmn/ai/gftd/kaisya/brandContentBriefing.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/brandContentBriefing.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_process_def\n'
          '        (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size,\n'
@@ -966,7 +966,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'kaisya_creative_asset_pipeline',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -980,9 +980,9 @@ UP = [{'sql': '\n'
                  '    4. If new creative direction needs sign-off → create task for creative '
                  'director\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.kaisya.creativeAssetPipeline\n'
+                 '  NSID: com.etzhayyim.apps.kaisya.creativeAssetPipeline\n'
                  '  vertex_id: '
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1\n'
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1\n'
                  '-->\n'
                  '<bpmn:definitions\n'
                  '    xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"\n'
@@ -996,7 +996,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="kaisya_creative_asset_pipeline" name="kaisya Creative Asset '
                  'Pipeline" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.kaisya.creativeAssetPipeline", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.kaisya.creativeAssetPipeline", "version": 1, '
                  '"resultTimeoutMs": 180000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -1108,12 +1108,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  5956,
-                 '00-contracts/bpmn/ai/gftd/kaisya/creativeAssetPipeline.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/kaisya/creativeAssetPipeline.bpmn',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1126,15 +1126,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.kaisya.approveTask',
+                 'com.etzhayyim.apps.kaisya.approveTask',
                  'kaisya_approve_task',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1147,15 +1147,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.kaisya.rejectTask',
+                 'com.etzhayyim.apps.kaisya.rejectTask',
                  'kaisya_reject_task',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1168,15 +1168,15 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.kaisya.listTasks',
+                 'com.etzhayyim.apps.kaisya.listTasks',
                  'kaisya_list_tasks',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1189,38 +1189,38 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1',
                  'did:web:bpmn.etzhayyim.com',
-                 'app.etzhayyim.apps.kaisya.getAgentLog',
+                 'com.etzhayyim.apps.kaisya.getAgentLog',
                  'kaisya_get_agent_log',
                  '2026-04-29T23:25:00Z',
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-coo-ops-monitor-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-clo-case-sweep-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-deploy-health-check-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-eng-infra-monitor-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-brand-content-briefing-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1']}]
 
 
 def upgrade() -> None:

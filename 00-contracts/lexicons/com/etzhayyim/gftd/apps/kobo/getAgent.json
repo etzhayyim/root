@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.kobo.getAgent",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get kobo agent state including status, η score, stress score, and prion count.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "agentDid": { "type": "string", "description": "Agent DID to query" }
+        },
+        "required": ["agentDid"]
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vertexId": { "type": "string" },
+            "agentDid": { "type": "string" },
+            "status": { "type": "string" },
+            "role": { "type": "string" },
+            "eta": { "type": "number" },
+            "stressScore": { "type": "number" },
+            "parentDid": { "type": "string" },
+            "prionCount": { "type": "integer" },
+            "createdAt": { "type": "string" },
+            "error": { "type": "string" }
+          },
+          "required": ["agentDid"]
+        }
+      }
+    }
+  }
+}

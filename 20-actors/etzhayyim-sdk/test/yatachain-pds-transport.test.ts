@@ -28,7 +28,7 @@ import {
 function fakeAttestation(quorumGroup: string, cellId: string, cellNode: string, overrides: Partial<Attestation> = {}): Attestation {
   return {
     v: 1,
-    recordUri: "at://did:web:test/app.etzhayyim.maps.feature/abc",
+    recordUri: "at://did:web:test/com.etzhayyim.maps.feature/abc",
     recordCid: "bafy-cid-1",
     cellId,
     cellNode,

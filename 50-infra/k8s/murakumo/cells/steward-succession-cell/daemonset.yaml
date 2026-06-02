@@ -14,7 +14,7 @@ metadata:
     etzhayyim.com/leader-hostname: judahnomac-mini.local
     etzhayyim.com/trigger: mst-listener + heartbeat-monitor
     etzhayyim.com/healthz-port: '13007'
-    etzhayyim.com/listens-to: app.etzhayyim.apps.etzhayyim.steward-succession-event
+    etzhayyim.com/listens-to: com.etzhayyim.apps.etzhayyim.steward-succession-event
     etzhayyim.com/adr: '2605192345'
 spec:
   selector:

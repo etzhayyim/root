@@ -46,7 +46,7 @@ surface_c_nfc  = "Host Card Emulation + self Token Service Provider (replaces VT
 
 [security]
 threed_secure_equiv = "WebAuthn passkey + on-chain attestation (did:web:etzhayyim.com)"
-confidentiality = "app.etzhayyim.encrypted.* (XChaCha20-Poly1305 + Signal-wrapped, ADR-2605181100)"
+confidentiality = "com.etzhayyim.encrypted.* (XChaCha20-Poly1305 + Signal-wrapped, ADR-2605181100)"
 server_key = "none — passkey/smart-account signing only (ADR-2605231525 invariant)"
 pci = "network tokenization; raw PAN never stored; merchant SAQ-A-class scope"
 

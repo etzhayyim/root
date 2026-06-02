@@ -25,7 +25,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "iyashi"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "iyashi"
 _MANIFEST = _REPO / "20-actors" / "iyashi" / "manifest.jsonld"
 
 # Lexicons whose payload is clinical content and MUST stay in the encrypted envelope.
@@ -111,7 +111,7 @@ class TestHygieneAndManifest:
 
     def test_each_id_matches_namespace(self):
         for p in _LEX.glob("*.json"):
-            assert _load(p)["id"] == f"app.etzhayyim.iyashi.{p.stem}"
+            assert _load(p)["id"] == f"com.etzhayyim.iyashi.{p.stem}"
 
     def test_manifest_namespaces_match_disk(self):
         declared = {ns.rsplit(".", 1)[-1] for ns in _load(_MANIFEST)["lexiconNamespaces"]}

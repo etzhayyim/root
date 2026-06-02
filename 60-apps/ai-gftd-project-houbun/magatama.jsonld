@@ -66,10 +66,10 @@
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow",
-        "ai.gftd.houbun.statute",
-        "ai.gftd.houbun.article",
-        "ai.gftd.houbun.amendmentEvent",
-        "ai.gftd.houbun.treaty"
+        "com.etzhayyim.houbun.statute",
+        "com.etzhayyim.houbun.article",
+        "com.etzhayyim.houbun.amendmentEvent",
+        "com.etzhayyim.houbun.treaty"
       ]
     }
   },
@@ -79,7 +79,7 @@
       "description": "Daily e-Gov delta — fetch all JPN statutes updated in the last 24h (04:00 UTC = 13:00 JST).",
       "on": { "kind": "cron", "cron": "0 4 * * *" },
       "dispatch": {
-        "nsid": "ai.gftd.houbun.ingestStatuteJpn",
+        "nsid": "com.etzhayyim.houbun.ingestStatuteJpn",
         "input": {
           "since": "{{ now | shift_days: -1 | date: '%Y-%m-%d' }}",
           "limit": 100
@@ -91,7 +91,7 @@
       "description": "Weekly refresh of the CFR title index (Tuesday 05:00 UTC). Current CFR edition only.",
       "on": { "kind": "cron", "cron": "0 5 * * 2" },
       "dispatch": {
-        "nsid": "ai.gftd.houbun.ingestStatuteUsa",
+        "nsid": "com.etzhayyim.houbun.ingestStatuteUsa",
         "input": { "collection": "CFR", "limit": 50 }
       }
     },
@@ -100,7 +100,7 @@
       "description": "Monthly refresh of the USC title index (first Tuesday 06:00 UTC).",
       "on": { "kind": "cron", "cron": "0 6 1-7 * 2" },
       "dispatch": {
-        "nsid": "ai.gftd.houbun.ingestStatuteUsa",
+        "nsid": "com.etzhayyim.houbun.ingestStatuteUsa",
         "input": { "collection": "USCODE", "limit": 55 }
       }
     },
@@ -109,7 +109,7 @@
       "description": "Daily EUR-Lex delta — fetch EU acts dated within the last 7 days (07:00 UTC).",
       "on": { "kind": "cron", "cron": "0 7 * * *" },
       "dispatch": {
-        "nsid": "ai.gftd.houbun.ingestEurLex",
+        "nsid": "com.etzhayyim.houbun.ingestEurLex",
         "input": {
           "since": "{{ now | shift_days: -7 | date: '%Y-%m-%d' }}",
           "limit": 100
@@ -121,7 +121,7 @@
       "description": "Weekly UN Treaty Collection delta (Wednesday 08:00 UTC).",
       "on": { "kind": "cron", "cron": "0 8 * * 3" },
       "dispatch": {
-        "nsid": "ai.gftd.houbun.ingestTreatyUn",
+        "nsid": "com.etzhayyim.houbun.ingestTreatyUn",
         "input": {
           "since": "{{ now | shift_days: -7 | date: '%Y-%m-%d' }}",
           "limit": 200

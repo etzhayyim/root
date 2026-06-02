@@ -8,7 +8,7 @@ CREATE VIEW IF NOT EXISTS view_sitc3_commodity AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity_rev3';
+    WHERE collection = 'com.etzhayyim.apps.sitc.commodity_rev3';
 
 CREATE VIEW IF NOT EXISTS view_sitc2_commodity AS
     SELECT
@@ -20,7 +20,7 @@ CREATE VIEW IF NOT EXISTS view_sitc2_commodity AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.sitc.commodity_rev2';
+    WHERE collection = 'com.etzhayyim.apps.sitc.commodity_rev2';
 
 CREATE VIEW IF NOT EXISTS view_isco_occupation AS
     SELECT
@@ -33,7 +33,7 @@ CREATE VIEW IF NOT EXISTS view_isco_occupation AS
       value_json::jsonb->>'parent'   AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.isco.occupation';
+    WHERE collection = 'com.etzhayyim.apps.isco.occupation';
 
 CREATE VIEW IF NOT EXISTS view_bec_category AS
     SELECT
@@ -43,7 +43,7 @@ CREATE VIEW IF NOT EXISTS view_bec_category AS
       value_json::jsonb->>'parent' AS parent_code,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'ai.gftd.apps.bec.category';
+    WHERE collection = 'com.etzhayyim.apps.bec.category';
 
 INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
     VALUES ('sitc3', 'sitc3.etzhayyim.com', 5690, 'products', 'trade');

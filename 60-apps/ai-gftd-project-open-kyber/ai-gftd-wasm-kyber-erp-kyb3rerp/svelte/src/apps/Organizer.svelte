@@ -7,15 +7,15 @@
   const BASE = 'https://organizer.etzhayyim.com';
 
   const nsid = {
-    listItems: 'app.etzhayyim.apps.organizer.listItems',
-    searchItems: 'app.etzhayyim.apps.organizer.searchItems',
-    getVaultStats: 'app.etzhayyim.apps.organizer.getVaultStats',
-    listCollections: 'app.etzhayyim.apps.organizer.listCollections',
-    createCollection: 'app.etzhayyim.apps.organizer.createCollection',
-    suggestRules: 'app.etzhayyim.apps.organizer.suggestRules',
-    analyzeSubscriptions: 'app.etzhayyim.apps.organizer.analyzeSubscriptions',
-    getRecommendations: 'app.etzhayyim.apps.organizer.getRecommendations',
-    requestCancellation: 'app.etzhayyim.apps.organizer.requestCancellation'
+    listItems: 'com.etzhayyim.apps.organizer.listItems',
+    searchItems: 'com.etzhayyim.apps.organizer.searchItems',
+    getVaultStats: 'com.etzhayyim.apps.organizer.getVaultStats',
+    listCollections: 'com.etzhayyim.apps.organizer.listCollections',
+    createCollection: 'com.etzhayyim.apps.organizer.createCollection',
+    suggestRules: 'com.etzhayyim.apps.organizer.suggestRules',
+    analyzeSubscriptions: 'com.etzhayyim.apps.organizer.analyzeSubscriptions',
+    getRecommendations: 'com.etzhayyim.apps.organizer.getRecommendations',
+    requestCancellation: 'com.etzhayyim.apps.organizer.requestCancellation'
   } as const;
 
   let query = $state('');

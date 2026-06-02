@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.storyboard",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Tier 2 domain record for a storyboard (絵コンテ) panel attached to a cut. Multiple storyboard candidates may exist per cut (the `storyboarder` AI actor proposes 3 candidates; one is approved). Approval triggers the `storyboard-approve-layout` derive rule.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["cutRef", "thumbCid", "createdAt"],
+        "properties": {
+          "cutRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef"
+          },
+          "thumbCid": {
+            "type": "string",
+            "format": "cid",
+            "description": "Blob CID of the storyboard thumbnail sketch."
+          },
+          "candidateNum": {
+            "type": "integer",
+            "description": "1..3 if this is one of the AI-proposed candidates; omitted for human-authored single board."
+          },
+          "dialogue": {
+            "type": "string",
+            "description": "Dialogue text (JP primary, spoken lines + character attribution)."
+          },
+          "action": {
+            "type": "string",
+            "description": "Action / stage direction (ト書き)."
+          },
+          "cameraNote": {
+            "type": "string",
+            "description": "Camera instruction in board-style shorthand (e.g. 'PAN→', 'TU 2秒')."
+          },
+          "soundNote": {
+            "type": "string",
+            "description": "SE / BGM hint (e.g. 'SE: 扉を開ける')."
+          },
+          "durationFramesHint": {
+            "type": "integer",
+            "description": "Proposed cut length in frames (refines cut.durationFrames on approval)."
+          },
+          "author": {
+            "type": "string",
+            "description": "Authoring DID (human or storyboarder actor)."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "review", "approved", "rejected"],
+            "description": "'approved' triggers layout derive rule."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

@@ -65,14 +65,25 @@ def test_ubo_and_officer_link_types(load_sensor):
     assert officer["linkType"] == "entity-officer-edge"
 
 
-def test_unmapped_kinds_skipped(load_sensor):
+def test_all_ownership_kinds_map(load_sensor):
     mod = load_sensor("corp.ownership_crossref")
-    # No Lexicon linkType for these yet → None (W2).
+    # All five OwnershipKind values now have a Lexicon linkType.
+    expected = {
+        "ubo": "entity-ubo-edge",
+        "direct-shareholder": "entity-direct-shareholder-edge",
+        "parent-subsidiary": "entity-parent-subsidiary-edge",
+        "control-relationship": "entity-control-edge",
+        "officer": "entity-officer-edge",
+    }
+    for kind, link_type in expected.items():
+        link = mod.ownership_edge_to_crossref_link(
+            _edge(ownershipKind=kind), "cid:e", **PROV
+        )
+        assert link is not None, kind
+        assert link["linkType"] == link_type
+    # An out-of-enum kind is still skipped (no invented linkType).
     assert mod.ownership_edge_to_crossref_link(
-        _edge(ownershipKind="control-relationship"), "cid:e", **PROV
-    ) is None
-    assert mod.ownership_edge_to_crossref_link(
-        _edge(ownershipKind="direct-shareholder"), "cid:e", **PROV
+        _edge(ownershipKind="not-a-real-kind"), "cid:e", **PROV
     ) is None
 
 
@@ -125,12 +136,12 @@ def test_batch_skips_and_preserves_order(load_sensor):
     mod = load_sensor("corp.ownership_crossref")
     edges = [
         (_edge(ownershipKind="ubo"), "cid:1"),
-        (_edge(ownershipKind="control-relationship"), "cid:2"),  # skip
-        (_edge(ownershipKind="parent-subsidiary"), "cid:3"),
+        (_edge(ownershipKind="not-a-real-kind"), "cid:2"),  # skip (out-of-enum)
+        (_edge(ownershipKind="control-relationship"), "cid:3"),
     ]
     links = mod.ownership_edges_to_crossref_links(edges, **PROV)
     assert len(links) == 2
     assert [l["linkType"] for l in links] == [
         "entity-ubo-edge",
-        "entity-parent-subsidiary-edge",
+        "entity-control-edge",
     ]

@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.esgRiskRating.flagControversy",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "controversy flag (sanctions+cyber+cofog bridge)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "controversyId",
+            "entityLei",
+            "category",
+            "flaggedAt"
+          ],
+          "properties": {
+            "controversyId": {
+              "type": "string"
+            },
+            "entityLei": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "labor",
+                "env",
+                "bribery",
+                "data-breach",
+                "sanctions",
+                "fraud",
+                "governance"
+              ]
+            },
+            "cofogExpenditureVid": {
+              "type": "string"
+            },
+            "sanctionsVid": {
+              "type": "string"
+            },
+            "cyberIncidentVid": {
+              "type": "string"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "material",
+                "severe",
+                "catastrophic"
+              ]
+            },
+            "requireDivestmentNotice": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

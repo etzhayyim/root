@@ -1,0 +1,63 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.organism.lifecycle",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Lifecycle event of an organism.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["actorDid", "createdAt", "event"],
+        "properties": {
+          "actorDid": { "type": "string", "format": "did" },
+          "createdAt": { "type": "string", "format": "datetime" },
+          "event": {
+            "type": "union",
+            "refs": [
+              "lex:com.etzhayyim.organism.lifecycle#birth",
+              "lex:com.etzhayyim.organism.lifecycle#clone",
+              "lex:com.etzhayyim.organism.lifecycle#retire",
+              "lex:com.etzhayyim.organism.lifecycle#excommunication"
+            ]
+          }
+        }
+      }
+    },
+    "birth": {
+      "type": "object",
+      "description": "Genesis of a new organism.",
+      "required": ["reason"],
+      "properties": {
+        "reason": { "type": "string" },
+        "councilAttestation": { "type": "string", "description": "Optional CID or reference for Council Lv6+ attestation." }
+      }
+    },
+    "clone": {
+      "type": "object",
+      "description": "Duplication of an organism for shard rebalancing.",
+      "required": ["sourceShard", "targetShard"],
+      "properties": {
+        "sourceShard": { "type": "string" },
+        "targetShard": { "type": "string" }
+      }
+    },
+    "retire": {
+      "type": "object",
+      "description": "Graceful termination of an organism.",
+      "required": ["reason"],
+      "properties": {
+        "reason": { "type": "string", "description": "Reason for retirement, e.g., 'UNSPSC deprecated', '30-day inactivity'." }
+      }
+    },
+    "excommunication": {
+      "type": "object",
+      "description": "Punitive termination via chigiri G12 procedure.",
+      "required": ["councilAttestation", "chigiriProcedureRef"],
+      "properties": {
+        "councilAttestation": { "type": "string", "description": "Proof of Council Lv6+ >=4/7 attestation." },
+        "chigiriProcedureRef": { "type": "string", "description": "Reference to the chigiri legal procedure record." }
+      }
+    }
+  }
+}

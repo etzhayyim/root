@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-wfs-1" sourceRef="start-workflow-start" targetRef="task-workflow-start"/>
     <bpmn:serviceTask id="task-workflow-start" name="Start Workflow">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.workflow.start"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.workflow.start"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-wfs-2" sourceRef="task-workflow-start" targetRef="end-workflow-start"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-wfp-1" sourceRef="start-workflow-plan" targetRef="task-workflow-plan"/>
     <bpmn:serviceTask id="task-workflow-plan" name="Plan Workflow">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.workflow.plan"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.workflow.plan"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-wfp-2" sourceRef="task-workflow-plan" targetRef="end-workflow-plan"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-mp-1" sourceRef="start-mission-plan" targetRef="task-mission-plan"/>
     <bpmn:serviceTask id="task-mission-plan" name="Plan Mission">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.mission.plan"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.mission.plan"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-mp-2" sourceRef="task-mission-plan" targetRef="end-mission-plan"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-ms-1" sourceRef="start-mission-status" targetRef="task-mission-status"/>
     <bpmn:serviceTask id="task-mission-status" name="Mission Status">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.mission.status"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.mission.status"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ms-2" sourceRef="task-mission-status" targetRef="end-mission-status"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-msim-1" sourceRef="start-mission-simulate" targetRef="task-mission-simulate"/>
     <bpmn:serviceTask id="task-mission-simulate" name="Simulate Mission">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.mission.simulate"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.mission.simulate"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-msim-2" sourceRef="task-mission-simulate" targetRef="end-mission-simulate"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-ti-1" sourceRef="start-telemetry-ingest" targetRef="task-telemetry-ingest"/>
     <bpmn:serviceTask id="task-telemetry-ingest" name="Ingest Telemetry">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.telemetry.ingest"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.telemetry.ingest"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ti-2" sourceRef="task-telemetry-ingest" targetRef="end-telemetry-ingest"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-pc-1" sourceRef="start-process-catalog" targetRef="task-process-catalog"/>
     <bpmn:serviceTask id="task-process-catalog" name="Process Catalog">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.process.catalog"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.process.catalog"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-pc-2" sourceRef="task-process-catalog" targetRef="end-process-catalog"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-fc-1" sourceRef="start-fulfillment-close" targetRef="task-fulfillment-close"/>
     <bpmn:serviceTask id="task-fulfillment-close" name="Close Fulfillment">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.robotics.fulfillment.close"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.robotics.fulfillment.close"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-fc-2" sourceRef="task-fulfillment-close" targetRef="end-fulfillment-close"/>

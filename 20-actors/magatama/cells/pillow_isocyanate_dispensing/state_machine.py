@@ -122,7 +122,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     iso.completionPct = 100
 
     foam_section = {
-        "$type": "app.etzhayyim.makura.foamBatchAttestation",
+        "$type": "com.etzhayyim.makura.foamBatchAttestation",
         "section": "isocyanate",
         "batchId": iso.batchId,
         "isocyanate": iso.isocyanateLot,
@@ -131,7 +131,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "recordedAt": "2026-05-26T08:30:10Z",
     }
     worker_record = {
-        "$type": "app.etzhayyim.makura.workerExposureRecord",
+        "$type": "com.etzhayyim.makura.workerExposureRecord",
         "batchId": iso.batchId,
         "operatorSbtDid": iso.sbtOperatorDid,
         "agent": "MDI",

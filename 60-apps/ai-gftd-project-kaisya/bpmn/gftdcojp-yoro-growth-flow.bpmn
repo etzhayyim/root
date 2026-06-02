@@ -61,8 +61,8 @@
     <serviceTask id="task-l1-yoro-post" name="yoro: 機会シグナル AT 記録"
                  camunda:type="external" camunda:topic="kaisya.recordGrowthContribution">
       <documentation>
-        MCP: ai.gftd.apps.kaisya.recordGrowthContribution
-        collection: ai.gftd.apps.kaisya.opportunitySignal
+        MCP: com.etzhayyim.apps.kaisya.recordGrowthContribution
+        collection: com.etzhayyim.apps.kaisya.opportunitySignal
         → yoro derive rule で feed.post 自動生成
       </documentation>
       <incoming>flow-l1-to-record</incoming>
@@ -184,7 +184,7 @@
     <serviceTask id="task-e-yoro" name="yoro: Cybersecurity 実績 AT 記録"
                  camunda:type="external" camunda:topic="kaisya.recordGrowthContribution">
       <documentation>
-        collection: ai.gftd.apps.kaisya.securityReport
+        collection: com.etzhayyim.apps.kaisya.securityReport
         → yoro Cybersecurity 事業部実績ページに表示
         → 社会的信頼証明 → Cybersecurity 事業売上向上
       </documentation>
@@ -258,7 +258,7 @@
     <serviceTask id="task-hi-yoro" name="yoro: Tech/Engineering 実績 AT 記録"
                  camunda:type="external" camunda:topic="kaisya.recordGrowthContribution">
       <documentation>
-        collection: ai.gftd.apps.kaisya.devRelease
+        collection: com.etzhayyim.apps.kaisya.devRelease
         → yoro エンジニアポートフォリオ表示
         → 技術力証明 → エンジニアリング案件獲得
       </documentation>
@@ -286,7 +286,7 @@
               camunda:formKey="embedded:app:forms/contract-review.form.json">
       <documentation>
         Claude Cowork: 「インド法務案件の自動ルーティングを確認して」
-        → ai.gftd.apps.lawfirm.createCase の autoRoute 結果確認
+        → com.etzhayyim.apps.lawfirm.createCase の autoRoute 結果確認
         完了後: AT Repo 記録 → yoro 法務ナレッジ投稿 (hash only)
       </documentation>
       <incoming>flow-to-j</incoming>
@@ -335,15 +335,15 @@
     <serviceTask id="task-l9-growth-kpi" name="L9: 事業成長 KPI AT 記録 (yoro ダッシュボード更新)"
                  camunda:type="external" camunda:topic="kaisya.recordGrowthKpi">
       <documentation>
-        MCP: ai.gftd.apps.kaisya.recordGrowthContribution
-        collection: ai.gftd.apps.kaisya.growthKpi
+        MCP: com.etzhayyim.apps.kaisya.recordGrowthContribution
+        collection: com.etzhayyim.apps.kaisya.growthKpi
         → 新規案件数 / 成約率 / MRR を AT Repo 記録
         → yoro 社内ダッシュボードに四半期KPI表示
         → 社外フォロワーへの成長実績投稿 → 次の顧客獲得サイクル開始
 
         Claude Cowork でメンバー全員が確認:
         「今月の事業成長KPIを確認して」
-        → ai.gftd.apps.kaisya.growthKpi AT Record 参照
+        → com.etzhayyim.apps.kaisya.growthKpi AT Record 参照
       </documentation>
       <incoming>flow-approved</incoming>
       <outgoing>flow-to-end</outgoing>

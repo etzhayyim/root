@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.host.m365.batchMoveMessages",
+  "x-hostImportsMethod": "m365BatchMoveMessages",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Move up to 20 messages to a well-known folder via Graph $batch API.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["token", "upn", "messageIds", "targetFolder"],
+          "properties": {
+            "token":        { "type": "string" },
+            "upn":          { "type": "string" },
+            "messageIds":   { "type": "array", "items": { "type": "string" } },
+            "targetFolder": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["results", "succeeded", "failed"],
+          "properties": {
+            "results": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id":     { "type": "string" },
+                  "ok":     { "type": "boolean" },
+                  "status": { "type": "integer" },
+                  "error":  { "type": "string" }
+                }
+              }
+            },
+            "succeeded": { "type": "integer" },
+            "failed":    { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

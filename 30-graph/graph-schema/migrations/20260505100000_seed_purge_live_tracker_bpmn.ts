@@ -20,11 +20,11 @@ const ownerDid = "did:web:maps.etzhayyim.com";
 const actorId = "sys.bpmn.seed.maps-purge-live-tracker";
 
 const seed = {
-  processVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1",
-  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1",
+  processVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-purgeStaleLiveTracker-v1",
+  bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/maps-purgeStaleLiveTracker-v1",
   processId: "maps_purge_stale_live_tracker",
-  nsid: "app.etzhayyim.apps.maps.purgeStaleLiveTracker",
-  sourcePath: "00-contracts/bpmn/ai/gftd/maps/purgeStaleLiveTracker.bpmn",
+  nsid: "com.etzhayyim.apps.maps.purgeStaleLiveTracker",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/maps/purgeStaleLiveTracker.bpmn",
   resultTimeoutMs: 300_000,
   // Allow generic.db.delete to touch all 3 live tracker tables.
   writeTableAllowlist: "vertex_aircraft_state,vertex_satellite_pass,vertex_satellite_tle",

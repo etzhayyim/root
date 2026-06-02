@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-es:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-es:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:es',
                  'Spot',
                  8000,
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-it:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-it:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:it',
                  'Spot',
                  7000,
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-pt:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-pt:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:pt',
                  'Spot',
                  5000,
@@ -72,7 +72,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-nl:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-nl:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:nl',
                  'Spot',
                  6000,
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-ru:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-ru:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:ru',
                  'Spot',
                  10000,
@@ -106,7 +106,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-zh:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-zh:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:zh',
                  'Spot',
                  5000,
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-ja:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-ja:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:ja',
                  'Spot',
                  5000,
@@ -140,7 +140,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-pl:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-pl:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:pl',
                  'Spot',
                  6000,
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-sv:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-sv:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:sv',
                  'Spot',
                  4000,
@@ -174,7 +174,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/wikivoyage-uk:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/wikivoyage-uk:Spot',
                  'did:web:maps.etzhayyim.com:wikivoyage:uk',
                  'Spot',
                  3000,

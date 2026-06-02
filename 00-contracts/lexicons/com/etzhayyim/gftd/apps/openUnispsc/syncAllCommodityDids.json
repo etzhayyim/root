@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.syncAllCommodityDids",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Plan cross-actor fanout to synchronize UNSPSC commodity records and path-based commodity DIDs across all segment APPs.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "segmentCodes": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Optional subset of 2-digit UNSPSC segment codes."
+            },
+            "batchSize": { "type": "integer", "minimum": 1, "default": 500 },
+            "dryRun": { "type": "boolean", "default": true }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "dryRun": { "type": "boolean" },
+            "segmentCount": { "type": "integer" },
+            "batchSize": { "type": "integer" },
+            "sourceCatalog": { "type": "string" },
+            "orchestrationPlan": { "type": "object" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

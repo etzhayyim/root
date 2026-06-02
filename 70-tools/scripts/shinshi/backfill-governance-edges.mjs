@@ -26,11 +26,11 @@ if (!Array.isArray(models)) throw new Error("manifest must be an array");
 
 // BPMN only needs {folder}; strip the rest to keep process variables small.
 const body = { models: models.map((m) => ({ folder: m.folder })).filter((m) => m.folder) };
-console.error(`driver: POSTing ${body.models.length} models → ${DISPATCHER}/xrpc/app.etzhayyim.apps.shinshi.backfillGovernanceEdges`);
+console.error(`driver: POSTing ${body.models.length} models → ${DISPATCHER}/xrpc/com.etzhayyim.apps.shinshi.backfillGovernanceEdges`);
 
 const r = spawnSync("curl", [
   "-sS", "--max-time", "150",
-  "-X", "POST", `${DISPATCHER}/xrpc/app.etzhayyim.apps.shinshi.backfillGovernanceEdges`,
+  "-X", "POST", `${DISPATCHER}/xrpc/com.etzhayyim.apps.shinshi.backfillGovernanceEdges`,
   "-H", "Content-Type: application/json",
   "-d", JSON.stringify(body),
 ], { encoding: "utf8" });

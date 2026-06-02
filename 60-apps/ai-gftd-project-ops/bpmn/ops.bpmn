@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cpr-1" sourceRef="start-create-process-run" targetRef="task-create-process-run"/>
     <bpmn:serviceTask id="task-create-process-run" name="Create Process Run">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.createProcessRun"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.createProcessRun"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cpr-2" sourceRef="task-create-process-run" targetRef="end-create-process-run"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-upr-1" sourceRef="start-update-process-run" targetRef="task-update-process-run"/>
     <bpmn:serviceTask id="task-update-process-run" name="Update Process Run">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.updateProcessRun"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.updateProcessRun"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-upr-2" sourceRef="task-update-process-run" targetRef="end-update-process-run"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-lpr-1" sourceRef="start-list-process-runs" targetRef="task-list-process-runs"/>
     <bpmn:serviceTask id="task-list-process-runs" name="List Process Runs">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.listProcessRuns"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.listProcessRuns"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lpr-2" sourceRef="task-list-process-runs" targetRef="end-list-process-runs"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-gpr-1" sourceRef="start-get-process-run" targetRef="task-get-process-run"/>
     <bpmn:serviceTask id="task-get-process-run" name="Get Process Run">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.getProcessRun"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.getProcessRun"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gpr-2" sourceRef="task-get-process-run" targetRef="end-get-process-run"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-cat-1" sourceRef="start-create-automation" targetRef="task-create-automation"/>
     <bpmn:serviceTask id="task-create-automation" name="Create Automation">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.createAutomation"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.createAutomation"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cat-2" sourceRef="task-create-automation" targetRef="end-create-automation"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-uat-1" sourceRef="start-update-automation" targetRef="task-update-automation"/>
     <bpmn:serviceTask id="task-update-automation" name="Update Automation">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.updateAutomation"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.updateAutomation"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-uat-2" sourceRef="task-update-automation" targetRef="end-update-automation"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-lat-1" sourceRef="start-list-automations" targetRef="task-list-automations"/>
     <bpmn:serviceTask id="task-list-automations" name="List Automations">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.listAutomations"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.listAutomations"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lat-2" sourceRef="task-list-automations" targetRef="end-list-automations"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-gat-1" sourceRef="start-get-automation" targetRef="task-get-automation"/>
     <bpmn:serviceTask id="task-get-automation" name="Get Automation">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.ops.getAutomation"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.ops.getAutomation"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gat-2" sourceRef="task-get-automation" targetRef="end-get-automation"/>

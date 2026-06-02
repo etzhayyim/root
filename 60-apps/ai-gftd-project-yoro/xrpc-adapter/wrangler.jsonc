@@ -15,15 +15,12 @@
     // a DID-doc update. Per ADR-2605172000 transition window.
     "PDS_URL": "https://atproto.etzhayyim.com",
     "L2_RPC_URL": "https://mainnet.base.org",
-    // yatachain-projection: feed-discover (ADR-2605231500). Superseded by the
-    // kotoba read path below (ADR-2606013200); kept empty as a fallback.
-    "PROJECTION_DISCOVER_DID": "",
-    // kotoba canonical Datom-log read path (ADR-2606013200). KOTOBA_URL points
-    // at the public kotoba endpoint (CF Tunnel → local :8077). YORO_GRAPH_CID
-    // is the `yoro-social-v1` graph (Public visibility, registered at kotoba
-    // boot). When set, rw-free feed/graph/actor reads resolve here first.
-    "KOTOBA_URL": "https://kotoba.etzhayyim.com",
-    "YORO_GRAPH_CID": "bafyreibljg5gzye47fldkfq6m4vgy55kcjyez2vx432dubttou36g5yryq"
+    // yatachain-projection: feed-discover (ADR-2605231500). Empty until
+    // the mst-projector daemon is deployed under a projector DID emitting
+    // the `com.etzhayyim.projection.feedDiscover` collection. Until then
+    // the adapter falls back to single-actor feed reads. Manifest at
+    // `50-infra/mst-projector/projection/yatachain-projection.toml`.
+    "PROJECTION_DISCOVER_DID": ""
   },
   "routes": [
     {

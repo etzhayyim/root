@@ -36,8 +36,8 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.kagami.vertex",
-        "ai.gftd.apps.kagami.edge"
+        "com.etzhayyim.apps.kagami.vertex",
+        "com.etzhayyim.apps.kagami.edge"
       ]
     }
   }

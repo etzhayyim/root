@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "typescript": "^6.0.2",
-    "vitest": "^3.0.0",
+    "vitest": "^4.1.0",
     "@cloudflare/workers-types": "^4.0.0"
   }
 }

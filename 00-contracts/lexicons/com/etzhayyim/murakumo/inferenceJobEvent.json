@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.murakumo.inferenceJobEvent",
+  "description": "Status-transition event for an inferenceJob. Append-only; rkey = `${jobId}~${seqZeroPadded}` so a prefix scan over rkeys returns all events for one job in order. Reduce events to derive the latest job state. Per ADR-2605191358 §event-sourced (no UPDATE).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["jobId", "seq", "status", "tsMs"],
+        "properties": {
+          "jobId": { "type": "string" },
+          "seq": {
+            "type": "integer",
+            "description": "Monotonically increasing per job. 0 = initial pending, 1 = running, 2 = terminal."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "running", "done", "failed"]
+          },
+          "tsMs": { "type": "integer" },
+          "startedTsMs": { "type": "integer" },
+          "completedTsMs": { "type": "integer" },
+          "latencyMs": { "type": "integer" },
+          "responseContent": { "type": "string" },
+          "responseReasoning": { "type": "string" },
+          "finishReason": { "type": "string" },
+          "promptTokens": { "type": "integer" },
+          "completionTokens": { "type": "integer" },
+          "error": { "type": "string" }
+        }
+      }
+    }
+  }
+}

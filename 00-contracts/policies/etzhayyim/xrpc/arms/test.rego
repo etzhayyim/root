@@ -6,7 +6,7 @@ import data.gftd.xrpc.arms
 test_internal_service_register_firearm if {
   arms.allow with input as {
     "auth": {"method": "service-jwt", "scopes": [], "holderAuthSessionPassed": false},
-    "route": {"nsid": "app.etzhayyim.apps.arms.registerFirearm"},
+    "route": {"nsid": "com.etzhayyim.apps.arms.registerFirearm"},
     "permission_sets": ["arms:system"],
     "params": {}
   }
@@ -16,7 +16,7 @@ test_internal_service_register_firearm if {
 test_public_authenticate_holder if {
   arms.allow with input as {
     "auth": {"method": "public", "scopes": []},
-    "route": {"nsid": "app.etzhayyim.apps.arms.authenticateHolder"},
+    "route": {"nsid": "com.etzhayyim.apps.arms.authenticateHolder"},
     "permission_sets": [],
     "params": {}
   }
@@ -25,8 +25,8 @@ test_public_authenticate_holder if {
 # holder with session can check out
 test_holder_checkout_with_session if {
   arms.allow with input as {
-    "auth": {"method": "did-session", "scopes": ["rpc?lxm=app.etzhayyim.apps.arms.checkOutFirearm"], "holderAuthSessionPassed": true},
-    "route": {"nsid": "app.etzhayyim.apps.arms.checkOutFirearm"},
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.checkOutFirearm"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.checkOutFirearm"},
     "permission_sets": ["arms:holder"],
     "params": {}
   }
@@ -35,8 +35,8 @@ test_holder_checkout_with_session if {
 # holder WITHOUT session cannot check out
 test_holder_checkout_without_session if {
   not arms.allow with input as {
-    "auth": {"method": "did-session", "scopes": ["rpc?lxm=app.etzhayyim.apps.arms.checkOutFirearm"], "holderAuthSessionPassed": false},
-    "route": {"nsid": "app.etzhayyim.apps.arms.checkOutFirearm"},
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.checkOutFirearm"], "holderAuthSessionPassed": false},
+    "route": {"nsid": "com.etzhayyim.apps.arms.checkOutFirearm"},
     "permission_sets": ["arms:holder"],
     "params": {}
   }
@@ -45,8 +45,8 @@ test_holder_checkout_without_session if {
 # audit log requires authority or law-enforcement
 test_audit_log_authority_allowed if {
   arms.allow with input as {
-    "auth": {"method": "did-session", "scopes": ["rpc?lxm=app.etzhayyim.apps.arms.getAuditLog"]},
-    "route": {"nsid": "app.etzhayyim.apps.arms.getAuditLog"},
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.getAuditLog"]},
+    "route": {"nsid": "com.etzhayyim.apps.arms.getAuditLog"},
     "permission_sets": ["arms:authority"],
     "params": {}
   }
@@ -56,7 +56,7 @@ test_audit_log_authority_allowed if {
 test_audit_log_civilian_denied if {
   not arms.allow with input as {
     "auth": {"method": "did-session", "scopes": ["rpc?lxm=*"]},
-    "route": {"nsid": "app.etzhayyim.apps.arms.getAuditLog"},
+    "route": {"nsid": "com.etzhayyim.apps.arms.getAuditLog"},
     "permission_sets": ["arms:holder"],
     "params": {}
   }
@@ -65,8 +65,8 @@ test_audit_log_civilian_denied if {
 # export to restricted jurisdiction blocks transfer
 test_transfer_custody_restricted_jurisdiction_denied if {
   not arms.allow with input as {
-    "auth": {"method": "did-session", "scopes": ["rpc?lxm=app.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
-    "route": {"nsid": "app.etzhayyim.apps.arms.transferCustody"},
+    "auth": {"method": "did-session", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.transferCustody"},
     "permission_sets": ["arms:authority"],
     "params": {"destinationJurisdiction": "KP"}
   }
@@ -75,8 +75,8 @@ test_transfer_custody_restricted_jurisdiction_denied if {
 # transfer to allowed jurisdiction passes
 test_transfer_custody_allowed_jurisdiction if {
   arms.allow with input as {
-    "auth": {"method": "service-jwt", "scopes": ["rpc?lxm=app.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
-    "route": {"nsid": "app.etzhayyim.apps.arms.transferCustody"},
+    "auth": {"method": "service-jwt", "scopes": ["rpc?lxm=com.etzhayyim.apps.arms.transferCustody"], "holderAuthSessionPassed": true},
+    "route": {"nsid": "com.etzhayyim.apps.arms.transferCustody"},
     "permission_sets": ["arms:authority"],
     "params": {"destinationJurisdiction": "JP"}
   }
@@ -86,7 +86,7 @@ test_transfer_custody_allowed_jurisdiction if {
 test_getfirearm_unauthenticated_obligation if {
   "return_401" in arms.deny_obligations with input as {
     "auth": {"method": "public", "scopes": []},
-    "route": {"nsid": "app.etzhayyim.apps.arms.getFirearm"},
+    "route": {"nsid": "com.etzhayyim.apps.arms.getFirearm"},
     "permission_sets": [],
     "params": {}
   }
@@ -96,7 +96,7 @@ test_getfirearm_unauthenticated_obligation if {
 test_export_control_obligation if {
   "return_451" in arms.deny_obligations with input as {
     "auth": {"method": "service-jwt", "scopes": ["rpc?lxm=*"], "holderAuthSessionPassed": true},
-    "route": {"nsid": "app.etzhayyim.apps.arms.transferCustody"},
+    "route": {"nsid": "com.etzhayyim.apps.arms.transferCustody"},
     "permission_sets": ["arms:authority"],
     "params": {"destinationJurisdiction": "IR"}
   }

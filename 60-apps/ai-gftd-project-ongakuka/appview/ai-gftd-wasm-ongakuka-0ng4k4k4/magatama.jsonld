@@ -48,10 +48,10 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.ongakuka.track",
-        "ai.gftd.ongakuka.stem",
-        "ai.gftd.ongakuka.style",
-        "ai.gftd.ongakuka.generation"
+        "com.etzhayyim.ongakuka.track",
+        "com.etzhayyim.ongakuka.stem",
+        "com.etzhayyim.ongakuka.style",
+        "com.etzhayyim.ongakuka.generation"
       ]
     }
   }

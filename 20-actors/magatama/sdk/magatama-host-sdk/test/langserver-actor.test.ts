@@ -59,7 +59,7 @@ describe("UnispscActor", () => {
     const result = await actor.classify({ description: "live cattle", topK: 3 });
     expect(calls).toHaveLength(1);
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.unispsc.classify",
+      "http://lg.test/xrpc/com.etzhayyim.apps.unispsc.classify",
     );
     expect(calls[0].init.method).toBe("POST");
     expect(JSON.parse(calls[0].init.body as string)).toEqual({
@@ -93,7 +93,7 @@ describe("UnispscActor", () => {
       },
     });
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.unispsc.invokeAgent",
+      "http://lg.test/xrpc/com.etzhayyim.apps.unispsc.invokeAgent",
     );
     expect(out.ok).toBe(true);
     expect(out.result?.health_status).toBe("certified");
@@ -110,7 +110,7 @@ describe("UnispscActor", () => {
     const actor = createUnispscActor({ endpoint: "http://lg.test", fetcher });
     const out = await actor.listAgents({ prefix: "101", limit: 1 });
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.unispsc.listAgents?prefix=101&limit=1",
+      "http://lg.test/xrpc/com.etzhayyim.apps.unispsc.listAgents?prefix=101&limit=1",
     );
     expect(out.totalCount).toBe(18342);
     expect(out.cursor).toBe("10101501");
@@ -130,7 +130,7 @@ describe("UnispscActor", () => {
     const actor = createUnispscActor({ endpoint: "http://lg.test", fetcher });
     const out = await actor.health();
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.unispsc.health",
+      "http://lg.test/xrpc/com.etzhayyim.apps.unispsc.health",
     );
     expect(out.agentCount).toBe(18342);
   });
@@ -165,7 +165,7 @@ describe("IsicActor", () => {
     const actor = createIsicActor({ endpoint: "http://lg.test", fetcher });
     const out = await actor.classify({ description: "wheat farm" });
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.isic.classify",
+      "http://lg.test/xrpc/com.etzhayyim.apps.isic.classify",
     );
     expect(out.candidates[0].classCode).toBe("0111");
   });
@@ -190,7 +190,7 @@ describe("IsicActor", () => {
       stopAt: "class",
     });
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.isic.hierarchicalClassify",
+      "http://lg.test/xrpc/com.etzhayyim.apps.isic.hierarchicalClassify",
     );
     expect(JSON.parse(calls[0].init.body as string).stopAt).toBe("class");
     expect(out.path.class?.code).toBe("0111");
@@ -206,7 +206,7 @@ describe("IsicActor", () => {
       payload: { crop_id: "wheat-2026" },
     });
     expect(calls[0].url).toBe(
-      "http://lg.test/xrpc/app.etzhayyim.apps.isic.invokeAgent",
+      "http://lg.test/xrpc/com.etzhayyim.apps.isic.invokeAgent",
     );
     expect(JSON.parse(calls[0].init.body as string).classCode).toBe("0111");
     expect(out.ok).toBe(true);
@@ -225,13 +225,13 @@ describe("createLangserverActor", () => {
     const unispsc = createLangserverActor("unispsc", { fetcher });
     await unispsc.health();
     expect(calls[0].url).toBe(
-      "http://lg-open-unispsc.lg-open-unispsc.svc:80/xrpc/app.etzhayyim.apps.unispsc.health",
+      "http://lg-open-unispsc.lg-open-unispsc.svc:80/xrpc/com.etzhayyim.apps.unispsc.health",
     );
 
     const isic = createLangserverActor("isic", { fetcher });
     await isic.health();
     expect(calls[1].url).toBe(
-      "http://lg-open-isic.lg-open-isic.svc:80/xrpc/app.etzhayyim.apps.isic.health",
+      "http://lg-open-isic.lg-open-isic.svc:80/xrpc/com.etzhayyim.apps.isic.health",
     );
   });
 
@@ -243,7 +243,7 @@ describe("createLangserverActor", () => {
     });
     await isic.listAgents({});
     expect(calls[0].url).toBe(
-      "https://isic.etzhayyim.com/xrpc/app.etzhayyim.apps.isic.listAgents",
+      "https://isic.etzhayyim.com/xrpc/com.etzhayyim.apps.isic.listAgents",
     );
   });
 });

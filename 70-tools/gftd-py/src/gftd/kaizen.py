@@ -30,7 +30,7 @@ from .shannon import _resolve_root, _walk
 # ── regexes (ported from domain_coverage_check.go) ────────────────────────────
 
 _RE_SQL_LABEL = re.compile(r'(?:MATCH\s*\(\w:|Graph\(")(\w+)')
-_RE_COLLECTION_KIND = re.compile(r'ai\.gftd\.apps\.\w+\.(\w+)')
+_RE_COLLECTION_KIND = re.compile(r'com\.etzhayyim\.apps\.\w+\.(\w+)')
 _RE_TEMPLATE_CMDS = re.compile(
     r'function cmd_(?:list|get|search|create|wave|stats|export|describe|summarize|ingest|audit|health)_\w+|'
     r'function cmd(?:Stats|ExportData|Describe|Summarize|Audit|Ingest|GetInfo|GetStatus)\b'
@@ -516,7 +516,7 @@ def _fetch_ocel_from_pds(token: str, pds_url: str, limit: int) -> dict:
     base = pds_url.rstrip("/")
     headers = {"Authorization": f"Bearer {token}", "User-Agent": "gftd-py/1.0"}
     for endpoint in [f"{base}/_pds/ocel?limit={limit}",
-                     f"{base}/xrpc/app.etzhayyim.pds.getOcel?limit={limit}"]:
+                     f"{base}/xrpc/com.etzhayyim.pds.getOcel?limit={limit}"]:
         try:
             resp = httpx.get(endpoint, headers=headers, timeout=30)
             if resp.status_code == 404:
@@ -690,7 +690,7 @@ def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     click.echo("==> murakumo scoreDataQuality", err=True)
     try:
         resp = httpx.post(
-            f"{base}/xrpc/app.etzhayyim.murakumo.scoreDataQuality",
+            f"{base}/xrpc/com.etzhayyim.murakumo.scoreDataQuality",
             json={"minRows": 50, "sampleRows": 64, "maxLabels": 0},
             headers=headers, timeout=60,
         )
@@ -706,7 +706,7 @@ def _run_kaizen_logs_fix_murakumo(summary: dict, pds_url: str) -> None:
     click.echo("==> murakumo optimizeCycle", err=True)
     try:
         resp2 = httpx.post(
-            f"{base}/xrpc/app.etzhayyim.murakumo.optimizeCycle",
+            f"{base}/xrpc/com.etzhayyim.murakumo.optimizeCycle",
             json=opt_payload, headers=headers, timeout=60,
         )
         click.echo(resp2.text)

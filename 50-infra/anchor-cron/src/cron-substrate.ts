@@ -2,8 +2,8 @@
  * Substrate-mode tick orchestration.
  *
  * Parallels `cron.ts` (sidecar mode) but reads pending roots from a PDS
- * (`app.etzhayyim.substrate.ipfsPin` records) and writes anchor receipts
- * back as `app.etzhayyim.substrate.l2Anchor` records. The contract-call
+ * (`com.etzhayyim.substrate.ipfsPin` records) and writes anchor receipts
+ * back as `com.etzhayyim.substrate.l2Anchor` records. The contract-call
  * path (submit.ts) and the solvency monitor (solvency.ts) are reused
  * unchanged.
  *

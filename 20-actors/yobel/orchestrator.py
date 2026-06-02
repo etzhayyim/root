@@ -287,7 +287,7 @@ class YobelOrchestrator:
                 if self.ports.anchor_bridge is not None and hasattr(self.ports.anchor_bridge, "writes"):
                     for w in self.ports.anchor_bridge.writes:
                         if (
-                            w.get("collection") == "app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment"
+                            w.get("collection") == "com.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment"
                             and w["payload"].get("debtor_did") == deb["debtor_did"]
                             and w["payload"].get("rite_id") == rite_id
                             and w["payload"].get("eligible") is True

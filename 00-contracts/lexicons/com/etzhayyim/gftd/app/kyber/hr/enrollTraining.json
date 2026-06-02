@@ -1,0 +1,74 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.app.kyber.hr.enrollTraining",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "employeeId": {
+              "type": "integer"
+            },
+            "programName": {
+              "type": "string"
+            },
+            "startDate": {
+              "type": "string"
+            },
+            "provider": {
+              "type": "string"
+            },
+            "durationDays": {
+              "type": "number"
+            },
+            "cost": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "employeeId",
+            "programName"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "error": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "enrollmentId": {
+              "type": "integer"
+            },
+            "employeeId": {
+              "type": "integer"
+            },
+            "programName": {
+              "type": "string"
+            },
+            "startDate": {
+              "type": "string"
+            },
+            "endDate": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

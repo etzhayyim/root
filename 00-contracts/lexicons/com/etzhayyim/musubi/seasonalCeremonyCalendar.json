@@ -1,0 +1,78 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.musubi.seasonalCeremonyCalendar",
+  "description": "Annual calendar of communal ceremonies (8-12 per year typical). NOT cross-emitting chigiri.covenantAttestation (G11 does not apply — these are communal, not per-individual covenant). G10 multi-gen invariant applies. G4 free conscience opt-in attendance only.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "calendarYearUtc",
+          "ceremonies",
+          "councilAttestations"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "calendarYearUtc": {"type": "string"},
+          "ceremonies": {
+            "type": "array",
+            "items": {"type": "ref", "ref": "#seasonalCeremonyEntry"},
+            "description": "8-12 typical entries per year"
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 3,
+            "description": "≥3 Council Lv6+ attest annual calendar"
+          },
+          "publishedAtMstUri": {"type": "string"},
+          "ipfsPinCid": {"type": "string"},
+          "attestingDid": {"type": "string"}
+        }
+      }
+    },
+    "seasonalCeremonyEntry": {
+      "type": "object",
+      "required": ["ceremonyName", "scheduledStartUtc", "scheduledEndUtc", "ceremonyVenueLandRegistryCid", "openToCommunity"],
+      "properties": {
+        "ceremonyName": {
+          "type": "string",
+          "knownValues": [
+            "shinnen-new-year",
+            "kinen-spring-blessing",
+            "shukaku-harvest-thanksgiving",
+            "kansha-gratitude-festival",
+            "chinkon-memorial-day",
+            "ansoku-sabbath-observance",
+            "covenant-anniversary",
+            "land-trust-commemoration",
+            "other"
+          ]
+        },
+        "scheduledStartUtc": {"type": "string", "format": "datetime"},
+        "scheduledEndUtc": {"type": "string", "format": "datetime"},
+        "ceremonyVenueLandRegistryCid": {"type": "string"},
+        "openToCommunity": {
+          "type": "boolean",
+          "const": true,
+          "description": "G4 STRUCTURAL: community-wide opt-in attendance; no restriction"
+        },
+        "officiantAttestationCid": {"type": "string"},
+        "estimatedAttendance": {"type": "integer", "minimum": 0},
+        "actualAttendanceCohortMix": {"type": "ref", "ref": "#cohortMix"},
+        "wellbecomingAttested": {"type": "boolean"}
+      }
+    },
+    "cohortMix": {
+      "type": "object",
+      "properties": {
+        "under18Count": {"type": "integer", "minimum": 0},
+        "adultCount": {"type": "integer", "minimum": 0},
+        "over65Count": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

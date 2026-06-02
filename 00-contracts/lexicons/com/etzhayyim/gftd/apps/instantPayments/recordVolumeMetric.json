@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.instantPayments.recordVolumeMetric",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Volume + fraud + interop metric (bridges psd3-open-finance + fair-pricing + icpen-consumer)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "metricId",
+            "railVid",
+            "periodMonth",
+            "recordedAt"
+          ],
+          "properties": {
+            "metricId": {
+              "type": "string"
+            },
+            "railVid": {
+              "type": "string",
+              "description": "bridges registerRail"
+            },
+            "periodMonth": {
+              "type": "string"
+            },
+            "txnCount": {
+              "type": "integer"
+            },
+            "valueUsd": {
+              "type": "number"
+            },
+            "avgSettlementSec": {
+              "type": "number"
+            },
+            "fraudLossBps": {
+              "type": "number"
+            },
+            "crossBorderPct": {
+              "type": "number"
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "throughputTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "moderate",
+                "high",
+                "mega"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

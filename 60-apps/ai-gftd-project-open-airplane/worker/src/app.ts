@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-airplane — aviation operations + airport network
 //
-// 8 XRPC under app.etzhayyim.apps.openAirplane.*:
+// 8 XRPC under com.etzhayyim.apps.openAirplane.*:
 //   defineAirport         (proc)  airport (ICAO + IATA + runways)
 //   listAirports          (query) airport directory
 //   registerAircraft      (proc)  aircraft (tail + ICAO 24-bit)
@@ -395,14 +395,14 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openAirplane.defineAirport",
-            "app.etzhayyim.apps.openAirplane.listAirports",
-            "app.etzhayyim.apps.openAirplane.registerAircraft",
-            "app.etzhayyim.apps.openAirplane.scheduleFlight",
-            "app.etzhayyim.apps.openAirplane.recordFlightStatus",
-            "app.etzhayyim.apps.openAirplane.listFlights",
-            "app.etzhayyim.apps.openAirplane.reportIncident",
-            "app.etzhayyim.apps.openAirplane.listIncidents",
+            "com.etzhayyim.apps.openAirplane.defineAirport",
+            "com.etzhayyim.apps.openAirplane.listAirports",
+            "com.etzhayyim.apps.openAirplane.registerAircraft",
+            "com.etzhayyim.apps.openAirplane.scheduleFlight",
+            "com.etzhayyim.apps.openAirplane.recordFlightStatus",
+            "com.etzhayyim.apps.openAirplane.listFlights",
+            "com.etzhayyim.apps.openAirplane.reportIncident",
+            "com.etzhayyim.apps.openAirplane.listIncidents",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["scheduleFlight", "reportAviationIncident"],
@@ -429,20 +429,20 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openAirplane.listAirports":  return await listAirports(env, url.searchParams);
-          case "app.etzhayyim.apps.openAirplane.listFlights":   return await listFlights(env, url.searchParams);
-          case "app.etzhayyim.apps.openAirplane.listIncidents": return await listIncidents(env, url.searchParams);
+          case "com.etzhayyim.apps.openAirplane.listAirports":  return await listAirports(env, url.searchParams);
+          case "com.etzhayyim.apps.openAirplane.listFlights":   return await listFlights(env, url.searchParams);
+          case "com.etzhayyim.apps.openAirplane.listIncidents": return await listIncidents(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openAirplane.defineAirport":      return await defineAirport(env, body);
-          case "app.etzhayyim.apps.openAirplane.registerAircraft":   return await registerAircraft(env, body);
-          case "app.etzhayyim.apps.openAirplane.scheduleFlight":     return await scheduleFlight(env, body);
-          case "app.etzhayyim.apps.openAirplane.recordFlightStatus": return await recordFlightStatus(env, body);
-          case "app.etzhayyim.apps.openAirplane.reportIncident":     return await reportIncident(env, body);
+          case "com.etzhayyim.apps.openAirplane.defineAirport":      return await defineAirport(env, body);
+          case "com.etzhayyim.apps.openAirplane.registerAircraft":   return await registerAircraft(env, body);
+          case "com.etzhayyim.apps.openAirplane.scheduleFlight":     return await scheduleFlight(env, body);
+          case "com.etzhayyim.apps.openAirplane.recordFlightStatus": return await recordFlightStatus(env, body);
+          case "com.etzhayyim.apps.openAirplane.reportIncident":     return await reportIncident(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

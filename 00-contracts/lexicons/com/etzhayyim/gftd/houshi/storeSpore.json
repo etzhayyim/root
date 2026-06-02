@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.houshi.storeSpore",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Store a spore blob as custodian. Called by peer agents accepting custody during sporulation. Confirms edge_houshi_custody.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sporeVertexId": { "type": "string", "description": "vertex_houshi_spore vertex_id" },
+            "custodianDid": { "type": "string", "description": "DID of this custodian" }
+          },
+          "required": ["sporeVertexId", "custodianDid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "custodyEdgeId": { "type": "string" },
+            "confirmed": { "type": "boolean" },
+            "error": { "type": "string" }
+          },
+          "required": ["custodyEdgeId", "confirmed"]
+        }
+      }
+    }
+  }
+}

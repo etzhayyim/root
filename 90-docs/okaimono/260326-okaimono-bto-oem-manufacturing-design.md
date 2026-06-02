@@ -70,7 +70,7 @@ okaimono.etzhayyim.com ──Follow──→ tsukuru.etzhayyim.com
 - `okaimono_production_progress` — customer-facing progress (mirrored from tsukuru)
 - `okaimono_quality_result` — QC results (mirrored from tsukuru)
 
-**tsukuru domain** (`app.etzhayyim.apps.tsukuru.*`):
+**tsukuru domain** (`com.etzhayyim.apps.tsukuru.*`):
 - `production_order` — manufacturing order lifecycle
 - `production_progress` — factory floor milestone updates
 - `quality_inspection` — pre-shipment QC reports

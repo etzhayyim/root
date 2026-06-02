@@ -59,7 +59,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.apps.ind.efiling.format/ind.itr1.eriSubmitFlow.v1_1',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/com.etzhayyim.apps.ind.efiling.format/ind.itr1.eriSubmitFlow.v1_1',
                  20260427002000,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'ind.itr1.eriSubmitFlow.v1_1',
@@ -69,7 +69,7 @@ UP = [{'sql': '\n'
                  'active',
                  'https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/API_SubmitFlow_v1.1.pdf',
                  'https://www.incometax.gov.in/iec/foportal/api-specifications',
-                 '00-contracts/formats/ai/gftd/ind/itr1/eri-submit-flow-v1.1.json',
+                 '00-contracts/formats/com/etzhayyim/ind/itr1/eri-submit-flow-v1.1.json',
                  'itr1-form-v1,itr1-self-review-v1,itr1-amend-v1',
                  '[{"internal":"applicant.pan","official":"Pan / Header.entityNum / '
                  'formData.ITR.ITR1.PersonalInfo.PAN"},{"internal":"assessmentYear","official":"Header.Ay '
@@ -111,7 +111,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/app.etzhayyim.apps.ind.efiling.format/ind.itr1.prefillSchema.v6_5',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbdt:itr1/com.etzhayyim.apps.ind.efiling.format/ind.itr1.prefillSchema.v6_5',
                  20260427002001,
                  'did:web:ind-union.etzhayyim.com:cbdt:itr1',
                  'ind.itr1.prefillSchema.v6_5',
@@ -121,7 +121,7 @@ UP = [{'sql': '\n'
                  'active',
                  'https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip',
                  'https://www.incometax.gov.in/iec/foportal/api-specifications',
-                 '00-contracts/formats/ai/gftd/ind/itr1/prefill-schema-v6.5.manifest.json',
+                 '00-contracts/formats/com/etzhayyim/ind/itr1/prefill-schema-v6.5.manifest.json',
                  'itr1-form-v1',
                  '[]',
                  '{"formatKey":"ind.itr1.prefillSchema.v6_5","jurisdiction":"itr1","actorDid":"did:web:ind-union.etzhayyim.com:cbdt:itr1","formatKind":"official_json_schema","officialSourceUrl":"https://www.incometax.gov.in/iec/foportal/sites/default/files/2021-11/PreFillSchemaJSON_V6.5.zip","sourcePageUrl":"https://www.incometax.gov.in/iec/foportal/api-specifications","lastVerified":"2026-04-26","status":"active","downloadedArtifact":{"zipName":"PreFillSchemaJSON_V6.5.zip","jsonName":"PreFillSchemaJSON_V6.5.json","jsonSchemaDefs":45,"topLevelProperties":["ais","assesseeRep","auditInfo","bankAccountDtls","filingReturn","filingStatus","form26as","insights","lastFiledITR","personalInfo","scheduleAL","scheduleCFL","verification"]},"internalFormKeys":["itr1-form-v1"],"usage":"Prefill '
@@ -149,7 +149,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/app.etzhayyim.apps.ind.efiling.format/ind.gstr3b.gspFramework.v3',
+  'parameters': ['at://did:web:ind-union.etzhayyim.com:cbic:gstr3b/com.etzhayyim.apps.ind.efiling.format/ind.gstr3b.gspFramework.v3',
                  20260427002002,
                  'did:web:ind-union.etzhayyim.com:cbic:gstr3b',
                  'ind.gstr3b.gspFramework.v3',
@@ -159,7 +159,7 @@ UP = [{'sql': '\n'
                  'provider_required',
                  'https://www.gstn.org.in/assets/mainDashboard/Pdf/GSP_Implementation_Framework_V_3.0.pdf',
                  '',
-                 '00-contracts/formats/ai/gftd/ind/gstr3b/gsp-framework-v3.manifest.json',
+                 '00-contracts/formats/com/etzhayyim/ind/gstr3b/gsp-framework-v3.manifest.json',
                  'gstr3b-form-v1,gstr3b-review-v1,gstr3b-amend-v1',
                  '[{"internal":"applicant.gstin","official":"GSTIN"},{"internal":"taxPeriod","official":"return '
                  'period"},{"internal":"supplies.*","official":"GSTR-3B outward and inward supply '
@@ -198,7 +198,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/app.etzhayyim.apps.ind.efiling.format/ind.epfo.ecrFile.forEmployers',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:epfo/com.etzhayyim.apps.ind.efiling.format/ind.epfo.ecrFile.forEmployers',
                  20260427002003,
                  'did:web:ind-payroll.etzhayyim.com:epfo',
                  'ind.epfo.ecrFile.forEmployers',
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
                  'active',
                  'https://www.epfindia.gov.in/site_docs/PDFs/OnlineECR_PDFs/ECR_ForEmployers_FileStructure.pdf',
                  '',
-                 '00-contracts/formats/ai/gftd/ind/epfo/ecr-file-format.json',
+                 '00-contracts/formats/com/etzhayyim/ind/epfo/ecr-file-format.json',
                  'epfo-ecr-form-v1,epfo-review-v1',
                  '[]',
                  '{"formatKey":"ind.epfo.ecrFile.forEmployers","jurisdiction":"epfo","actorDid":"did:web:ind-payroll.etzhayyim.com:epfo","formatKind":"official_plain_text_upload","officialSourceUrl":"https://www.epfindia.gov.in/site_docs/PDFs/OnlineECR_PDFs/ECR_ForEmployers_FileStructure.pdf","lastVerified":"2026-04-26","status":"active","file":{"recordKind":"one '
@@ -277,7 +277,7 @@ UP = [{'sql': '\n'
          "        'ind', 'system', 'sys.ind.efiling.format'\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/app.etzhayyim.apps.ind.efiling.format/ind.esic.monthlyContribution.portal',
+  'parameters': ['at://did:web:ind-payroll.etzhayyim.com:esic/com.etzhayyim.apps.ind.efiling.format/ind.esic.monthlyContribution.portal',
                  20260427002004,
                  'did:web:ind-payroll.etzhayyim.com:esic',
                  'ind.esic.monthlyContribution.portal',
@@ -287,7 +287,7 @@ UP = [{'sql': '\n'
                  'adapter_required',
                  'https://www.esic.gov.in/',
                  '',
-                 '00-contracts/formats/ai/gftd/ind/esic/monthly-contribution-format.manifest.json',
+                 '00-contracts/formats/com/etzhayyim/ind/esic/monthly-contribution-format.manifest.json',
                  'esic-monthly-form-v1,esic-review-v1,esic-amend-v1',
                  '[{"internal":"establishment.establishmentEsiCode","official":"employer / '
                  'establishment ESI code"},{"internal":"wageMonth","official":"contribution '

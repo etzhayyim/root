@@ -46,7 +46,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'open_pharma_supply_register_product',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -97,12 +97,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2391,
-                 '00-contracts/bpmn/ai/gftd/open-pharma-supply/registerProduct.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-pharma-supply/registerProduct.bpmn',
                  '2026-04-25T17:20:00Z',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (\n'
          '      vertex_id,\n'
@@ -137,7 +137,7 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'open_pharma_supply_flag_shortage',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -191,12 +191,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2623,
-                 '00-contracts/bpmn/ai/gftd/open-pharma-supply/flagShortage.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-pharma-supply/flagShortage.bpmn',
                  '2026-04-25T17:20:00Z',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -229,16 +229,16 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.pharmaSupply.registerProduct',
+                 'com.etzhayyim.apps.pharmaSupply.registerProduct',
                  'open_pharma_supply_register_product',
                  15000,
                  '2026-04-25T17:20:00Z',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (\n'
          '      vertex_id,\n'
@@ -271,25 +271,25 @@ UP = [{'sql': '\n'
          '      SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
-                 'app.etzhayyim.apps.pharmaSupply.flagShortage',
+                 'com.etzhayyim.apps.pharmaSupply.flagShortage',
                  'open_pharma_supply_flag_shortage',
                  15000,
                  '2026-04-25T17:20:00Z',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'did:web:open-pharma-supply.etzhayyim.com:ops',
                  'sys.bpmn.seed.pharma-supply',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-registerProduct-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-pharma-supply-flagShortage-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-register-product-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def\n      WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-pharma-supply-flag-shortage-v1']}]
 
 
 def upgrade() -> None:

@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.tnfdDisclosure.flagGreenwash",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Nature greenwashing / SBTN / CSRD gap (bridges esgSovereign.flagMaterialityDebate + climate-value-chain + consumer-protection)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "disclosureVid",
+            "greenwashKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "disclosureVid": {
+              "type": "string",
+              "description": "bridges recordDisclosure"
+            },
+            "greenwashKind": {
+              "type": "string",
+              "enum": [
+                "metric_omission",
+                "offset_reliance",
+                "baseline_gaming",
+                "selective_reporting",
+                "forward_looking",
+                "avoided_footprint",
+                "no_location_data",
+                "single_site_gen",
+                "outdated_science",
+                "tiered_targets",
+                "no_reckoning_with_drivers"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

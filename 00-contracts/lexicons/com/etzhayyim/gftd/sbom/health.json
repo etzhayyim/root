@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sbom.health",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "sbom.etzhayyim.com liveness + phase reporter. Returns the worker's current implementation phase (0-stub / B-persist / C-vuln-match / D-recall) so callers can detect when their dependencies are met.",
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["ok", "did", "ts", "phase"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "app": { "type": "string" },
+            "did": { "type": "string" },
+            "ts": { "type": "string" },
+            "phase": { "type": "string", "description": "0-stub | B-persist | C-vuln-match | D-recall" },
+            "note": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

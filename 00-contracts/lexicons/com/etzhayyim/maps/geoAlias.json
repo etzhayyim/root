@@ -1,0 +1,90 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.geoAlias",
+  "description": "Scheme-alias DID resolver. One record per (scheme, code) pair pointing back to a canonical com.etzhayyim.maps.region record. 32 known schemes — ISO 3166-1/2, JIS X-0401/0402, FIPS, H3, S2, Geohash, Plus Code, MGRS, Maidenhead, UTM, flight-level, ICAO FIR, atmo-layer, elevation, depth-band, infra-depth, IHO sea, EEZ, bath-zone, Köppen, WWF biome, WWF ecoregion, tectonic, ICAO/IATA airport, UN/LOCODE, IANA TZ. Per ADR-2605231400 + maps MIGRATION-TODO Phase 1.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{aliasKey}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "scheme",
+          "code",
+          "aliasKey",
+          "canonicalUri",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "scheme": {
+            "type": "string",
+            "description": "Geo scheme identifier.",
+            "knownValues": [
+              "iso3166-1",
+              "iso3166-2",
+              "jis-x0401",
+              "jis-x0402",
+              "fips",
+              "h3",
+              "s2",
+              "geohash",
+              "pluscode",
+              "mgrs",
+              "maidenhead",
+              "utm",
+              "flight-level",
+              "icao-fir",
+              "atmo-layer",
+              "elevation",
+              "depth-band",
+              "infra-depth",
+              "iho-sea",
+              "eez",
+              "bath-zone",
+              "koppen",
+              "wwf-biome",
+              "wwf-ecoregion",
+              "tectonic",
+              "icao-airport",
+              "iata-airport",
+              "unlocode",
+              "iana-tz"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "description": "Scheme-native code (e.g., 'JP' for iso3166-1, '13' for jis-x0401 (東京都)).",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "aliasKey": {
+            "type": "string",
+            "description": "rkey-safe composite key. Format: '{scheme}-{code-with-colon-replaced}'.",
+            "minLength": 1,
+            "maxLength": 96
+          },
+          "canonicalUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the canonical com.etzhayyim.maps.region record this alias resolves to."
+          },
+          "canonicalDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Optional convenience copy of the canonical region's DID."
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

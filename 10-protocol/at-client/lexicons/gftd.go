@@ -1,21 +1,21 @@
 // Package lexicons defines AT Protocol Lexicon record types for the etzhayyim SpinApp platform.
-// Namespace: app.etzhayyim.*
+// Namespace: com.etzhayyim.*
 package lexicons
 
 import "time"
 
 // Lexicon collection IDs
 const (
-	LexiconChannel          = "app.etzhayyim.conversation.channel"
-	LexiconMessage          = "app.etzhayyim.conversation.message"
-	LexiconMembership       = "app.etzhayyim.conversation.membership"
-	LexiconAppService       = "app.etzhayyim.app.service"
-	LexiconBotUser          = "app.etzhayyim.app.botUser"
-	LexiconPreKeyBundle     = "app.etzhayyim.signal.preKeyBundle"
-	LexiconDeviceState      = "app.etzhayyim.signal.deviceState"
-	LexiconCommand          = "app.etzhayyim.command"
-	LexiconCommandResult    = "app.etzhayyim.command.result"
-	LexiconShinshiImagePost = "app.etzhayyim.shinshi.imagePost"
+	LexiconChannel          = "com.etzhayyim.conversation.channel"
+	LexiconMessage          = "com.etzhayyim.conversation.message"
+	LexiconMembership       = "com.etzhayyim.conversation.membership"
+	LexiconAppService       = "com.etzhayyim.app.service"
+	LexiconBotUser          = "com.etzhayyim.app.botUser"
+	LexiconPreKeyBundle     = "com.etzhayyim.signal.preKeyBundle"
+	LexiconDeviceState      = "com.etzhayyim.signal.deviceState"
+	LexiconCommand          = "com.etzhayyim.command"
+	LexiconCommandResult    = "com.etzhayyim.command.result"
+	LexiconShinshiImagePost = "com.etzhayyim.shinshi.imagePost"
 )
 
 // ShinshiImagePost is the AT Lexicon record for a shinshi image post.
@@ -189,7 +189,7 @@ type OneTimePreKeyRecord struct {
 // Replaces Matrix org.etzhayyim.command.* event. rkey = commandId.
 type Command struct {
 	Type          string    `json:"$type"`
-	LexiconID     string    `json:"lexiconId"`     // e.g. "app.etzhayyim.command.updateProfile"
+	LexiconID     string    `json:"lexiconId"`     // e.g. "com.etzhayyim.command.updateProfile"
 	CommandID     string    `json:"commandId"`
 	AggregateID   string    `json:"aggregateId"`
 	CausationID   string    `json:"causationId,omitempty"`

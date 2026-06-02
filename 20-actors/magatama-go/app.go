@@ -237,8 +237,8 @@ func (a *App) Command(name string, handler func(*AppContext, []byte) ([]byte, er
 	a.commands = append(a.commands, e)
 	a.methodMap[name] = handler
 	if e.lexiconSuffix != "" {
-		// W Protocol collection routing: app.etzhayyim.w.{suffix} → command name
-		a.wRoutes["app.etzhayyim.w."+e.lexiconSuffix] = name
+		// W Protocol collection routing: com.etzhayyim.w.{suffix} → command name
+		a.wRoutes["com.etzhayyim.w."+e.lexiconSuffix] = name
 	}
 	return a
 }
@@ -503,13 +503,13 @@ func (a *App) handleGRPC(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleWCommit(commit WCommit) error {
-	// A2A task dispatch — intercept app.etzhayyim.a2a.task before collection filtering.
+	// A2A task dispatch — intercept com.etzhayyim.a2a.task before collection filtering.
 	if commit.Collection == A2ACollectionTask && commit.Action == "create" {
 		return a.dispatchA2ACommit(commit)
 	}
 
-	// Conversation message dispatch — intercept app.etzhayyim.a2a.message.
-	if commit.Collection == "app.etzhayyim.a2a.message" && commit.Action == "create" {
+	// Conversation message dispatch — intercept com.etzhayyim.a2a.message.
+	if commit.Collection == "com.etzhayyim.a2a.message" && commit.Action == "create" {
 		return a.dispatchConversationCommit(commit)
 	}
 

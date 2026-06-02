@@ -15,16 +15,16 @@ const actorId = "sys.bpmn.seed.briefing";
 const project = "briefing";
 
 const seeds: Seed[] = [
-  { slug: "create-agenda", processId: "briefing_create_agenda", nsid: "app.etzhayyim.apps.briefing.createAgenda", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/createAgenda.bpmn", timeoutMs: 60000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingAgenda" },
-  { slug: "save-transcript", processId: "briefing_save_transcript", nsid: "app.etzhayyim.apps.briefing.saveTranscript", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/saveTranscript.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingTranscript" },
-  { slug: "extract-action-items", processId: "briefing_extract_action_items", nsid: "app.etzhayyim.apps.briefing.extractActionItems", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/extractActionItems.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingActionItem" },
-  { slug: "generate-summary", processId: "briefing_generate_summary", nsid: "app.etzhayyim.apps.briefing.generateSummary", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/generateSummary.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingSummary" },
-  { slug: "record-speaker-turn", processId: "briefing_record_speaker_turn", nsid: "app.etzhayyim.apps.briefing.recordSpeakerTurn", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordSpeakerTurn.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingSpeakerTurn" },
-  { slug: "record-decision", processId: "briefing_record_decision", nsid: "app.etzhayyim.apps.briefing.recordDecision", sourcePath: "00-contracts/bpmn/ai/gftd/briefing/recordDecision.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:app.etzhayyim.apps.briefing.briefingDecision" },
+  { slug: "create-agenda", processId: "briefing_create_agenda", nsid: "com.etzhayyim.apps.briefing.createAgenda", sourcePath: "00-contracts/bpmn/com/etzhayyim/briefing/createAgenda.bpmn", timeoutMs: 60000, writeTableAllowlist: "pds:com.etzhayyim.apps.briefing.briefingAgenda" },
+  { slug: "save-transcript", processId: "briefing_save_transcript", nsid: "com.etzhayyim.apps.briefing.saveTranscript", sourcePath: "00-contracts/bpmn/com/etzhayyim/briefing/saveTranscript.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:com.etzhayyim.apps.briefing.briefingTranscript" },
+  { slug: "extract-action-items", processId: "briefing_extract_action_items", nsid: "com.etzhayyim.apps.briefing.extractActionItems", sourcePath: "00-contracts/bpmn/com/etzhayyim/briefing/extractActionItems.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:com.etzhayyim.apps.briefing.briefingActionItem" },
+  { slug: "generate-summary", processId: "briefing_generate_summary", nsid: "com.etzhayyim.apps.briefing.generateSummary", sourcePath: "00-contracts/bpmn/com/etzhayyim/briefing/generateSummary.bpmn", timeoutMs: 120000, writeTableAllowlist: "pds:com.etzhayyim.apps.briefing.briefingSummary" },
+  { slug: "record-speaker-turn", processId: "briefing_record_speaker_turn", nsid: "com.etzhayyim.apps.briefing.recordSpeakerTurn", sourcePath: "00-contracts/bpmn/com/etzhayyim/briefing/recordSpeakerTurn.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:com.etzhayyim.apps.briefing.briefingSpeakerTurn" },
+  { slug: "record-decision", processId: "briefing_record_decision", nsid: "com.etzhayyim.apps.briefing.recordDecision", sourcePath: "00-contracts/bpmn/com/etzhayyim/briefing/recordDecision.bpmn", timeoutMs: 30000, writeTableAllowlist: "pds:com.etzhayyim.apps.briefing.briefingDecision" },
 ];
 
-const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
-const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
+const processVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${s.slug}-v1`;
+const bindingVertexId = (s: Seed) => `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.slug}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const s of seeds) {

@@ -102,7 +102,7 @@
       if (formJurisdiction.trim()) payload.jurisdiction = formJurisdiction.trim();
       if (formReviewerDid.trim()) payload.reviewerDid = formReviewerDid.trim();
 
-      const resp = await fetch('/xrpc/app.etzhayyim.apps.lawyer.submitDocumentDraft', {
+      const resp = await fetch('/xrpc/com.etzhayyim.apps.lawyer.submitDocumentDraft', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(payload),

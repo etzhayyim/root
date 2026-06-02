@@ -1,0 +1,88 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.itpgrfaSeeds.recordAccession",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ITPGRFA / CGIAR / Svalbard accession (bridges biodiversity-gbf + upov-plant-breeders + bbnj-highseas)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "accessionId",
+            "genusSpecies",
+            "storageTier",
+            "registeredAt"
+          ],
+          "properties": {
+            "accessionId": {
+              "type": "string"
+            },
+            "genebankLei": {
+              "type": "string"
+            },
+            "genusSpecies": {
+              "type": "string"
+            },
+            "originIso3": {
+              "type": "string"
+            },
+            "collectionMethod": {
+              "type": "string",
+              "enum": [
+                "farmer_variety",
+                "wild_collected",
+                "breeders_line",
+                "landrace",
+                "mutant",
+                "hybrid"
+              ]
+            },
+            "storageTier": {
+              "type": "string",
+              "enum": [
+                "base",
+                "active",
+                "working",
+                "field"
+              ]
+            },
+            "underMlsAnnexI": {
+              "type": "boolean",
+              "description": "ITPGRFA multilateral system Annex I"
+            },
+            "collectedAt": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

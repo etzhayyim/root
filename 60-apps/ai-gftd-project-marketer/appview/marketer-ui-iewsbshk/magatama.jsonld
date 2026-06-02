@@ -40,8 +40,8 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.marketer.campaign",
-        "ai.gftd.apps.marketer.report",
+        "com.etzhayyim.apps.marketer.campaign",
+        "com.etzhayyim.apps.marketer.report",
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow"

@@ -1,0 +1,106 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.miningOperation.registerMine",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Mining operation registry (S&P Capital IQ / USGS MRDS — bridges critical-minerals + forced-labor + water-scarcity)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "mineId",
+            "locationIso3",
+            "mineType",
+            "status",
+            "registeredAt"
+          ],
+          "properties": {
+            "mineId": {
+              "type": "string"
+            },
+            "operatorLei": {
+              "type": "string"
+            },
+            "commodityHs": {
+              "type": "string",
+              "description": "primary commodity HS"
+            },
+            "criticalMineralVid": {
+              "type": "string",
+              "description": "bridges open-critical-minerals"
+            },
+            "locationIso3": {
+              "type": "string"
+            },
+            "locationLat": {
+              "type": "number"
+            },
+            "locationLon": {
+              "type": "number"
+            },
+            "mineType": {
+              "type": "string",
+              "enum": [
+                "open_pit",
+                "underground",
+                "placer",
+                "ISL",
+                "heap_leach",
+                "asm"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "prospect",
+                "development",
+                "production",
+                "suspended",
+                "closed",
+                "reclamation"
+              ]
+            },
+            "waterBasinVid": {
+              "type": "string",
+              "description": "bridges open-water-scarcity"
+            },
+            "registeredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "riskTier": {
+              "type": "string",
+              "enum": [
+                "artisanal",
+                "industrial",
+                "large_scale"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

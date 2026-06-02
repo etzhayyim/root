@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.bpmn.analyzeProcess": {
+    "/xrpc/com.etzhayyim.bpmn.analyzeProcess": {
       "get": {
-        "summary": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=app.etzhayyim.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
-        "operationId": "app.etzhayyim.bpmn.analyzeProcess",
+        "summary": "Optimize-free process mining over BPMN/Zeebe OCEL audit events. Reads vertex_repo_commit rows where collection=com.etzhayyim.bpmn.audit, returns deterministic KPIs and optional LLM diagnosis.",
+        "operationId": "com.etzhayyim.bpmn.analyzeProcess",
         "parameters": [
           {
             "name": "processId",
@@ -146,10 +146,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.cancelInstance": {
+    "/xrpc/com.etzhayyim.bpmn.cancelInstance": {
       "post": {
         "summary": "DESTRUCTIVE. Cancel a running instance.",
-        "operationId": "app.etzhayyim.bpmn.cancelInstance",
+        "operationId": "com.etzhayyim.bpmn.cancelInstance",
         "requestBody": {
           "required": true,
           "content": {
@@ -202,10 +202,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.compileBpmn": {
+    "/xrpc/com.etzhayyim.bpmn.compileBpmn": {
       "get": {
         "summary": "Compile BPMN 2.0 XML to ActorManifest pipeline without deployment (validation only).",
-        "operationId": "app.etzhayyim.bpmn.compileBpmn",
+        "operationId": "com.etzhayyim.bpmn.compileBpmn",
         "parameters": [
           {
             "name": "did",
@@ -304,10 +304,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.compileJsonToXml": {
+    "/xrpc/com.etzhayyim.bpmn.compileJsonToXml": {
       "post": {
         "summary": "Compile BPMN JSON subset (9 step types) to BPMN 2.0 XML. Deterministic.",
-        "operationId": "app.etzhayyim.bpmn.compileJsonToXml",
+        "operationId": "com.etzhayyim.bpmn.compileJsonToXml",
         "requestBody": {
           "required": true,
           "content": {
@@ -352,10 +352,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.deployProcess": {
+    "/xrpc/com.etzhayyim.bpmn.deployProcess": {
       "post": {
         "summary": "Deploy a BPMN process (JSON subset or XML). Stores XML to B2 + metadata to D1 + graph projection.",
-        "operationId": "app.etzhayyim.bpmn.deployProcess",
+        "operationId": "com.etzhayyim.bpmn.deployProcess",
         "requestBody": {
           "required": true,
           "content": {
@@ -419,10 +419,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.executePipeline": {
+    "/xrpc/com.etzhayyim.bpmn.executePipeline": {
       "post": {
         "summary": "Execute a T1/T2 actor pipeline by DID and pipeline index.",
-        "operationId": "app.etzhayyim.bpmn.executePipeline",
+        "operationId": "com.etzhayyim.bpmn.executePipeline",
         "requestBody": {
           "required": true,
           "content": {
@@ -485,10 +485,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.getActivityLog": {
+    "/xrpc/com.etzhayyim.bpmn.getActivityLog": {
       "get": {
         "summary": "OCEL-style activity event log for a process instance.",
-        "operationId": "app.etzhayyim.bpmn.getActivityLog",
+        "operationId": "com.etzhayyim.bpmn.getActivityLog",
         "parameters": [
           {
             "name": "instanceId",
@@ -536,10 +536,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.getInstanceState": {
+    "/xrpc/com.etzhayyim.bpmn.getInstanceState": {
       "get": {
         "summary": "Get full instance state (variables + current token + recent events).",
-        "operationId": "app.etzhayyim.bpmn.getInstanceState",
+        "operationId": "com.etzhayyim.bpmn.getInstanceState",
         "parameters": [
           {
             "name": "instanceId",
@@ -577,10 +577,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.listInstances": {
+    "/xrpc/com.etzhayyim.bpmn.listInstances": {
       "get": {
         "summary": "List process instances, optionally filtered by processId and state.",
-        "operationId": "app.etzhayyim.bpmn.listInstances",
+        "operationId": "com.etzhayyim.bpmn.listInstances",
         "parameters": [
           {
             "name": "processId",
@@ -643,10 +643,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.listProcesses": {
+    "/xrpc/com.etzhayyim.bpmn.listProcesses": {
       "get": {
         "summary": "List deployed processes.",
-        "operationId": "app.etzhayyim.bpmn.listProcesses",
+        "operationId": "com.etzhayyim.bpmn.listProcesses",
         "parameters": [
           {
             "name": "limit",
@@ -695,10 +695,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.signalInstance": {
+    "/xrpc/com.etzhayyim.bpmn.signalInstance": {
       "post": {
         "summary": "Signal a waiting message event on an instance, optionally with payload.",
-        "operationId": "app.etzhayyim.bpmn.signalInstance",
+        "operationId": "com.etzhayyim.bpmn.signalInstance",
         "requestBody": {
           "required": true,
           "content": {
@@ -759,10 +759,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.startInstance": {
+    "/xrpc/com.etzhayyim.bpmn.startInstance": {
       "post": {
         "summary": "Start a process instance with inputs. Correlation key is optional and enables signalInstance routing.",
-        "operationId": "app.etzhayyim.bpmn.startInstance",
+        "operationId": "com.etzhayyim.bpmn.startInstance",
         "requestBody": {
           "required": true,
           "content": {
@@ -819,10 +819,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.bpmn.validateXml": {
+    "/xrpc/com.etzhayyim.bpmn.validateXml": {
       "post": {
         "summary": "Validate BPMN 2.0 XML (XSD + Schematron). Phase 1: cheap well-formedness; Phase 2: true XSD.",
-        "operationId": "app.etzhayyim.bpmn.validateXml",
+        "operationId": "com.etzhayyim.bpmn.validateXml",
         "requestBody": {
           "required": true,
           "content": {

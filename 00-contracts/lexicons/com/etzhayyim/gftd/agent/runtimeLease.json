@@ -1,0 +1,111 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.agent.runtimeLease",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "ADR-2604301200 runtime resource lease backed by a GCC bond.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "leaseId",
+          "rootDid",
+          "agentDid",
+          "runtimeKind",
+          "runtimeNamespace",
+          "leasePeriodSec",
+          "bondGccWei",
+          "status",
+          "startsAt",
+          "expiresAt",
+          "createdAt"
+        ],
+        "properties": {
+          "leaseId": {
+            "type": "string",
+            "description": "0x-prefixed bytes32 lease id or stable at:// lease id."
+          },
+          "rootDid": {
+            "type": "string"
+          },
+          "agentDid": {
+            "type": "string"
+          },
+          "runtimeKind": {
+            "type": "string",
+            "description": "k8s-langserver | langgraph | k8s-langserver | browser-pod | wasm-wasi | mcp-adapter"
+          },
+          "runtimeNamespace": {
+            "type": "string",
+            "description": "Explicit k8s namespace. Must not be default."
+          },
+          "cpuMillicores": {
+            "type": "integer"
+          },
+          "memoryMib": {
+            "type": "integer"
+          },
+          "gpuClass": {
+            "type": "string",
+            "description": "none | webgpu-browser | apple-vulkan | l4 | l40s | ..."
+          },
+          "gpuSecondsCapDay": {
+            "type": "integer"
+          },
+          "storageGib": {
+            "type": "integer"
+          },
+          "networkEgressGibDay": {
+            "type": "integer"
+          },
+          "maxParallelJobs": {
+            "type": "integer"
+          },
+          "leasePeriodSec": {
+            "type": "integer"
+          },
+          "bondGccWei": {
+            "type": "string",
+            "description": "GCC wei locked by AgentRuntimeLeaseEscrow."
+          },
+          "riskMultiplierBps": {
+            "type": "integer"
+          },
+          "resourcePolicyCid": {
+            "type": "string"
+          },
+          "resourceHash": {
+            "type": "string"
+          },
+          "escrowAddr": {
+            "type": "string"
+          },
+          "chainId": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "description": "quoted | active | conserve | hibernated | slashed | released | expired"
+          },
+          "startsAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

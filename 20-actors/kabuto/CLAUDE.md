@@ -70,8 +70,8 @@
 
 ## Lexicons (kotoba-native)
 
-`app.etzhayyim.kabuto.{registerCompany,registerSupplyEdge,publishIntelReport,publishSupplyChainViz,socialPost}`
-— `00-contracts/lexicons/app/etzhayyim/kabuto/`.
+`com.etzhayyim.kabuto.{registerCompany,registerSupplyEdge,publishIntelReport,publishSupplyChainViz,socialPost}`
+— `00-contracts/lexicons/com/etzhayyim/kabuto/`.
 
 ## Run
 

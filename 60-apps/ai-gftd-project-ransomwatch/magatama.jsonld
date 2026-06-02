@@ -27,7 +27,7 @@
   ],
   "layer": "edge-dispatcher",
   "atStandard": false,
-  "nsidPrefixes": ["ai.gftd.apps.ransomwatch"],
+  "nsidPrefixes": ["com.etzhayyim.apps.ransomwatch"],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",
     "bpmnDispatcher": "https://dispatcher.etzhayyim.com",

@@ -1,0 +1,107 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.himotoki.disclosureTarget",
+  "description": "Coded disclosure-request TARGET registry entry — one record per organization × jurisdiction × legal-regime, holding the organization's 窓口 / 住所 / 連絡先 / メールアドレス / web-portal / required form / fee / statutory deadline so a himotoki cell can route + file a request procedurally (ADR-2605302130 §2). OPEN DATA (derived from the controller's own published privacy / FOIA page; provenance mandatory). CONSTITUTIONAL: `verificationStatus` gates live dispatch (G14) — `himotoki_dispatch` MUST refuse any entry that is `unverified-seed` or whose `lastVerified` is outside the freshness window. Seed entries enable routing design only; live filing requires `maintainer-verified` (FOIA) or `council-verified` (named private controller / DSAR).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "organization",
+          "jurisdiction",
+          "regime",
+          "channelType",
+          "provenance",
+          "lastVerified",
+          "verificationStatus"
+        ],
+        "properties": {
+          "organization": {"type": "string", "maxLength": 200, "description": "Target organization display name (e.g. 'Discord Inc.', 'LY Corporation', '内閣府')"},
+          "did": {"type": "string", "format": "did", "description": "Optional DID of the organization if registered"},
+          "lei": {"type": "string", "maxLength": 20, "description": "Optional GLEIF LEI (corp.leiReference) for canonical identity"},
+          "jurisdiction": {"type": "string", "maxLength": 16, "description": "ISO-ish jurisdiction tag, e.g. jpn / eu / usa / eu-wide / deu / fra / gbr / can / aus / ind / sgp / bra / mex / kor"},
+          "bloc": {
+            "type": "string",
+            "maxLength": 16,
+            "description": "Optional coarse regulatory-bloc grouping used for worldwide wayfinding/clustering (informational only, never an official channel). Examples: JP / US / EU / UK-CW / INTL-ROW.",
+            "knownValues": ["JP", "US", "EU", "UK-CW", "INTL-ROW"]
+          },
+          "regime": {
+            "type": "string",
+            "description": "The legal right being exercised against this target. DSAR regimes are own-data-only, identity-bound; FOIA/public-records regimes are open-records. Informational routing tag only — no field here implies legal advice, representation, fees/consideration, campaigning, or official-channel status.",
+            "knownValues": [
+              "appi-33",
+              "gdpr-15",
+              "ccpa-110",
+              "foia-jp-gyousei",
+              "foia-us",
+              "eu-1049",
+              "foia-us-5usc552",
+              "privacy-act-us-5usc552a",
+              "foia-us-ca-cpra",
+              "foia-us-ny-foil",
+              "foia-us-tx-pia",
+              "foia-eu-1049-2001",
+              "foia-de-ifg",
+              "bdsg-34",
+              "foia-fr-crpa",
+              "uk-gdpr-15",
+              "foia-uk-2000",
+              "privacy-act-ca",
+              "foia-ca-atia",
+              "privacy-act-au-app12",
+              "foia-au-1982",
+              "foia-in-rti-2005",
+              "pdpa-sg",
+              "lgpd-18",
+              "foia-br-lai",
+              "lfpdppp-arco",
+              "foia-mx-lgtaip",
+              "lgpdppso-arco",
+              "pipa-35",
+              "foia-kr-oida"
+            ]
+          },
+          "altRegimes": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Optional additional legal regimes that may also apply to the same target (same knownValues space as `regime`); informational routing alternatives only."
+          },
+          "authority": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Plain-text note on WHICH body actually receives/processes the request and which body provides oversight (e.g. 'request goes to the controller's DPO; supervisory authority for complaints = the national DPA'). Descriptive wayfinding only — NOT an endorsement, NOT an official channel, NOT legal advice."
+          },
+          "legalBasis": {
+            "type": "string",
+            "maxLength": 1000,
+            "description": "Plain-text citation of the statute/article underpinning the right (e.g. 'Regulation (EU) 2016/679, Article 15'). Informational reference only — does NOT constitute legal advice or representation."
+          },
+          "channelType": {
+            "type": "string",
+            "knownValues": ["web-portal", "email", "postal", "in-product-form"],
+            "description": "HOW the request is filed (the 手続き channel)"
+          },
+          "portalUrl": {"type": "string", "format": "uri", "description": "Web portal / form URL (窓口, when channelType=web-portal/in-product-form)"},
+          "contactEmail": {"type": "string", "maxLength": 320, "description": "Contact email (メールアドレス, when channelType=email)"},
+          "postalAddress": {"type": "string", "maxLength": 500, "description": "Postal address (住所, when channelType=postal)"},
+          "formRef": {"type": "string", "maxLength": 120, "description": "chigiri procedure-template id used to compose this request"},
+          "feeJpy": {"type": "integer", "minimum": 0, "description": "Statutory/handling fee in JPY if any (e.g. 行政文書開示 手数料 300/件 目安)"},
+          "statutoryDeadlineDays": {"type": "integer", "minimum": 0, "description": "Statutory response-deadline clock in days (deadline_tracker basis)"},
+          "language": {"type": "string", "maxLength": 16, "description": "Filing language, e.g. ja / en"},
+          "stateAlignedFlag": {"type": "boolean", "description": "CN-class / state-aligned target — pass-through to derived records (G13)"},
+          "provenance": {"type": "string", "format": "uri", "description": "Source URL this entry was derived from (the controller's published privacy/FOIA page) — MANDATORY"},
+          "lastVerified": {"type": "string", "format": "datetime", "description": "When the contact data was last human-verified"},
+          "verificationStatus": {
+            "type": "string",
+            "knownValues": ["unverified-seed", "maintainer-verified", "council-verified"],
+            "description": "G14 dispatch gate. `unverified-seed` => routing-design only, NO live dispatch. `maintainer-verified` => FOIA dispatch allowed. `council-verified` => named-controller / DSAR dispatch allowed."
+          },
+          "notes": {"type": "string", "maxLength": 1000}
+        }
+      }
+    }
+  }
+}

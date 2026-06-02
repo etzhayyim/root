@@ -75,7 +75,7 @@
           "id": "writeRisk",
           "fn": "graph.write",
           "args": {
-            "sql": "INSERT INTO vertex_yabai_risk (vertex_id, rkey, repo, owner_did, entity_id, level, scored_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://', $did, '/ai.gftd.apps.yabai.risk/', $entityId, ':', $ts), $entityId, $did, $did, $entityId, $level, $ts, CURRENT_DATE, 300, 't1:yabai')",
+            "sql": "INSERT INTO vertex_yabai_risk (vertex_id, rkey, repo, owner_did, entity_id, level, scored_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://', $did, '/com.etzhayyim.apps.yabai.risk/', $entityId, ':', $ts), $entityId, $did, $did, $entityId, $level, $ts, CURRENT_DATE, 300, 't1:yabai')",
             "params": {
               "entityId": "$input.record.entityId",
               "level": "$score.text",
@@ -96,7 +96,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.yabai.evidence"
+          "com.etzhayyim.apps.yabai.evidence"
         ],
         "type": "subscribeRepos"
       }
@@ -107,7 +107,7 @@
           "id": "ipIngest",
           "fn": "graph.write",
           "args": {
-            "sql": "INSERT INTO vertex_yabai_entity (vertex_id, rkey, repo, owner_did, entity_id, entity_type, name, value, source, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://', $did, '/ai.gftd.apps.yabai.entity/ip-', $ipSlug), concat('ip-', $ipSlug), $did, $did, concat('ip-', $ipSlug), 'IPAddress', $ip, $ip, 'ipaddress.follow', NOW()::VARCHAR, CURRENT_DATE, 300, 't1:yabai')",
+            "sql": "INSERT INTO vertex_yabai_entity (vertex_id, rkey, repo, owner_did, entity_id, entity_type, name, value, source, created_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://', $did, '/com.etzhayyim.apps.yabai.entity/ip-', $ipSlug), concat('ip-', $ipSlug), $did, $did, concat('ip-', $ipSlug), 'IPAddress', $ip, $ip, 'ipaddress.follow', NOW()::VARCHAR, CURRENT_DATE, 300, 't1:yabai')",
             "params": {
               "ip": "$input.record.address",
               "ipSlug": "$input.rkey"
@@ -125,7 +125,7 @@
           "id": "writeIpRisk",
           "fn": "graph.write",
           "args": {
-            "sql": "INSERT INTO vertex_yabai_risk (vertex_id, rkey, repo, owner_did, entity_id, entity_type, level, scored_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://', $did, '/ai.gftd.apps.yabai.risk/ip-', $ipSlug, ':', NOW()::VARCHAR), concat('ip-', $ipSlug), $did, $did, concat('ip-', $ipSlug), 'IPAddress', $level, NOW()::VARCHAR, CURRENT_DATE, 300, 't1:yabai')",
+            "sql": "INSERT INTO vertex_yabai_risk (vertex_id, rkey, repo, owner_did, entity_id, entity_type, level, scored_at, created_date, sensitivity_ord, actor_id) VALUES (concat('at://', $did, '/com.etzhayyim.apps.yabai.risk/ip-', $ipSlug, ':', NOW()::VARCHAR), concat('ip-', $ipSlug), $did, $did, concat('ip-', $ipSlug), 'IPAddress', $level, NOW()::VARCHAR, CURRENT_DATE, 300, 't1:yabai')",
             "params": {
               "ipSlug": "$input.rkey",
               "level": "$ipScore.text"
@@ -145,8 +145,8 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.ipaddress.ipAddress",
-          "ai.gftd.apps.ipaddress.ipAnalysis"
+          "com.etzhayyim.apps.ipaddress.ipAddress",
+          "com.etzhayyim.apps.ipaddress.ipAnalysis"
         ],
         "type": "subscribeRepos"
       }
@@ -206,7 +206,7 @@
           "fn": "graph.query",
           "depends_on": [],
           "args": {
-            "sql": "SELECT collection, cnt FROM (SELECT 'ai.gftd.apps.yabai.entity' AS collection, count(*) AS cnt FROM vertex_yabai_entity WHERE repo = $did UNION ALL SELECT 'ai.gftd.apps.yabai.evidence', count(*) FROM vertex_yabai_evidence WHERE repo = $did UNION ALL SELECT 'ai.gftd.apps.yabai.risk', count(*) FROM vertex_yabai_risk WHERE repo = $did UNION ALL SELECT 'ai.gftd.apps.yabai.alert', count(*) FROM vertex_yabai_alert WHERE repo = $did UNION ALL SELECT 'ai.gftd.apps.yabai.flag', count(*) FROM vertex_yabai_flag WHERE repo = $did) t WHERE cnt > 0 ORDER BY cnt DESC LIMIT 10"
+            "sql": "SELECT collection, cnt FROM (SELECT 'com.etzhayyim.apps.yabai.entity' AS collection, count(*) AS cnt FROM vertex_yabai_entity WHERE repo = $did UNION ALL SELECT 'com.etzhayyim.apps.yabai.evidence', count(*) FROM vertex_yabai_evidence WHERE repo = $did UNION ALL SELECT 'com.etzhayyim.apps.yabai.risk', count(*) FROM vertex_yabai_risk WHERE repo = $did UNION ALL SELECT 'com.etzhayyim.apps.yabai.alert', count(*) FROM vertex_yabai_alert WHERE repo = $did UNION ALL SELECT 'com.etzhayyim.apps.yabai.flag', count(*) FROM vertex_yabai_flag WHERE repo = $did) t WHERE cnt > 0 ORDER BY cnt DESC LIMIT 10"
           }
         },
         {
@@ -216,7 +216,7 @@
             "coverageNodes"
           ],
           "args": {
-            "sql": "INSERT INTO vertex_actor_coverage (vertex_id, rkey, repo, owner_did, did, collection, status, \"actorDid\", \"actorName\", nanoid, bucket, \"nodeCount\", \"latestTs\", created_date, sensitivity_ord) VALUES (concat('at://', $did, '/ai.gftd.apps.yabai.coverageSnapshot/', NOW()::VARCHAR), NOW()::VARCHAR, $did, $did, $did, 'ai.gftd.apps.yabai.coverageSnapshot', 'active', $did, 'yabai', 'y8b41k0x', '6h', $nodeCount, NOW()::VARCHAR, CURRENT_DATE, 300)",
+            "sql": "INSERT INTO vertex_actor_coverage (vertex_id, rkey, repo, owner_did, did, collection, status, \"actorDid\", \"actorName\", nanoid, bucket, \"nodeCount\", \"latestTs\", created_date, sensitivity_ord) VALUES (concat('at://', $did, '/com.etzhayyim.apps.yabai.coverageSnapshot/', NOW()::VARCHAR), NOW()::VARCHAR, $did, $did, $did, 'com.etzhayyim.apps.yabai.coverageSnapshot', 'active', $did, 'yabai', 'y8b41k0x', '6h', $nodeCount, NOW()::VARCHAR, CURRENT_DATE, 300)",
             "params": {
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
             }
@@ -267,7 +267,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.yabai.coverage.get",
+        "nsid": "com.etzhayyim.apps.yabai.coverage.get",
         "type": "xrpc"
       }
     }
@@ -289,8 +289,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -303,10 +303,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.yabai.entity",
-        "ai.gftd.apps.yabai.evidence",
-        "ai.gftd.apps.ipaddress.ipAddress",
-        "ai.gftd.apps.ipaddress.ipAnalysis"
+        "com.etzhayyim.apps.yabai.entity",
+        "com.etzhayyim.apps.yabai.evidence",
+        "com.etzhayyim.apps.ipaddress.ipAddress",
+        "com.etzhayyim.apps.ipaddress.ipAnalysis"
       ]
     }
   },

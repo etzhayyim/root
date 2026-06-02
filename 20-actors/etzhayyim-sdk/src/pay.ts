@@ -137,7 +137,7 @@ export interface PayOpts {
 }
 
 export interface PaymentReason {
-  /** NSID. Default `app.etzhayyim.apps.payment.sent`. */
+  /** NSID. Default `com.etzhayyim.apps.payment.sent`. */
   collection?: string;
   /** Purpose tag. */
   purpose: PaymentPurpose;
@@ -217,7 +217,7 @@ export class PayClient {
     let recordUri = "";
     if (pdsAgent) {
       const chainId = await this.publicClient.getChainId();
-      const collection = opts.reason.collection ?? "app.etzhayyim.apps.payment.sent";
+      const collection = opts.reason.collection ?? "com.etzhayyim.apps.payment.sent";
       const record = {
         to: opts.to,
         amountUsdcMicros: Number(opts.amount), // safe up to 2^53; cast bigint to JSON number

@@ -69,7 +69,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.jpAshiba.listCatalog",
+        "nsid": "com.etzhayyim.apps.jpAshiba.listCatalog",
         "type": "xrpc"
       }
     },
@@ -84,7 +84,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.jpAshiba.checkAvailability",
+        "nsid": "com.etzhayyim.apps.jpAshiba.checkAvailability",
         "type": "xrpc"
       }
     },
@@ -106,7 +106,7 @@
         },
         {
           "args": {
-            "template": "CREATE (c:RentalContract {did: $did, status: 'quote', estimate: $estimate.text, repo: $did, collection: 'ai.gftd.apps.jpAshiba.rentalContract'})"
+            "template": "CREATE (c:RentalContract {did: $did, status: 'quote', estimate: $estimate.text, repo: $did, collection: 'com.etzhayyim.apps.jpAshiba.rentalContract'})"
           },
           "fn": "graph.write",
           "id": "writeQuote"
@@ -133,7 +133,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.jpAshiba.createQuote",
+        "nsid": "com.etzhayyim.apps.jpAshiba.createQuote",
         "type": "xrpc"
       }
     },
@@ -156,7 +156,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.jpAshiba.rentalContract"
+          "com.etzhayyim.apps.jpAshiba.rentalContract"
         ],
         "type": "subscribeRepos"
       }
@@ -180,7 +180,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.jpAshiba.inspectionRecord"
+          "com.etzhayyim.apps.jpAshiba.inspectionRecord"
         ],
         "type": "subscribeRepos"
       }
@@ -248,7 +248,7 @@
             "params": {
               "actorName": "jp-ashiba",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.jpashiba.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.jpashiba.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "a5h1ba8k",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -306,7 +306,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.jpashiba.coverage.get",
+        "nsid": "com.etzhayyim.apps.jpashiba.coverage.get",
         "type": "xrpc"
       }
     }
@@ -328,8 +328,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -342,9 +342,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.jpAshiba.rentalContract",
-        "ai.gftd.apps.jpAshiba.inspectionRecord",
-        "ai.gftd.apps.jpAshiba.subscriptionPlan"
+        "com.etzhayyim.apps.jpAshiba.rentalContract",
+        "com.etzhayyim.apps.jpAshiba.inspectionRecord",
+        "com.etzhayyim.apps.jpAshiba.subscriptionPlan"
       ]
     }
   },

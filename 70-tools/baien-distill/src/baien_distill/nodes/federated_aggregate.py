@@ -52,7 +52,7 @@ def federated_aggregate(state: DistillState) -> DistillState:
     """Dry-run planner for the federated aggregation round.
 
     Reads ``state["pending_deltas"]`` (a list of dicts shaped like the
-    ``app.etzhayyim.baien.distributedTrainDelta`` record) if the
+    ``com.etzhayyim.baien.distributedTrainDelta`` record) if the
     dispatcher has populated it. Otherwise emits an empty-plan note
     and returns.
 

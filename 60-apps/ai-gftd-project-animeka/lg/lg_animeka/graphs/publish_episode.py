@@ -8,7 +8,7 @@ LangGraph Pregel (3 supersteps):
 Idempotent: skips without error if episode already has status='announced'.
 Auth: HMAC-SHA256(PDS_SERVICE_AUTH_MINT_SECRET, request_body) via x-bpmn-auth header.
 
-XRPC: app.etzhayyim.animeka.publishEpisode
+XRPC: com.etzhayyim.animeka.publishEpisode
 Input:
   episode_rkey   str   (optional; defaults to latest published episode)
 Output:
@@ -73,7 +73,7 @@ async def _sp0_fetch_episode(state: PublishEpisodeState) -> dict[str, Any]:
                     """
                     SELECT rkey, output_cid, status, _seq
                     FROM vertex_animeka
-                    WHERE collection = 'app.etzhayyim.animeka.episode' AND rkey = $1
+                    WHERE collection = 'com.etzhayyim.animeka.episode' AND rkey = $1
                     ORDER BY _seq DESC LIMIT 1
                     """,
                     episode_rkey,
@@ -83,7 +83,7 @@ async def _sp0_fetch_episode(state: PublishEpisodeState) -> dict[str, Any]:
                     """
                     SELECT rkey, output_cid, status, _seq
                     FROM vertex_animeka
-                    WHERE collection = 'app.etzhayyim.animeka.episode'
+                    WHERE collection = 'com.etzhayyim.animeka.episode'
                       AND output_cid IS NOT NULL
                     ORDER BY _seq DESC LIMIT 8
                     """,
@@ -116,7 +116,7 @@ async def _sp0_fetch_episode(state: PublishEpisodeState) -> dict[str, Any]:
             work_rows = await db.fetch(
                 """
                 SELECT title, _seq FROM vertex_animeka
-                WHERE collection = 'app.etzhayyim.animeka.work'
+                WHERE collection = 'com.etzhayyim.animeka.work'
                 ORDER BY _seq DESC LIMIT 4
                 """,
             )
@@ -203,7 +203,7 @@ async def _sp2_update_status(state: PublishEpisodeState) -> dict[str, Any]:
         try:
             await conn.execute(
                 "UPDATE public.vertex_animeka SET status = 'announced'"
-                " WHERE collection = 'app.etzhayyim.animeka.episode' AND rkey = %s",
+                " WHERE collection = 'com.etzhayyim.animeka.episode' AND rkey = %s",
                 [episode_rkey],
             )
             _log.info("SP2: episode %s status=announced social_uri=%s", episode_rkey, social_uri)

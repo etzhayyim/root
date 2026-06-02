@@ -103,7 +103,7 @@ describe("registerFeature — L0 (no witness)", () => {
       { client },
     );
 
-    expect(result.uri).toContain("/app.etzhayyim.maps.feature/mount-fuji");
+    expect(result.uri).toContain("/com.etzhayyim.maps.feature/mount-fuji");
     expect(result.cid).toMatch(/^bafy-feature-/);
     expect(result.witnessState).toBeUndefined();
     expect(captured).toHaveLength(1);
@@ -256,7 +256,7 @@ describe("Determinism — same record → same witness set", () => {
 });
 
 describe("Membrane rule fixture", () => {
-  it("DEFAULT_FEATURE_MEMBRANE_RULE matches the app.etzhayyim.maps.feature NSID", () => {
+  it("DEFAULT_FEATURE_MEMBRANE_RULE matches the com.etzhayyim.maps.feature NSID", () => {
     expect(DEFAULT_FEATURE_MEMBRANE_RULE.nsid).toBe(FEATURE_NSID);
   });
   it("quorum config is 3-of-5 + council escalation (matches SPEC §5 default)", () => {

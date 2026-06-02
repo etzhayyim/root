@@ -22,12 +22,12 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fast-check": "^3.17.1"
+    "fast-check": "^4.8.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
-    "vitest": "^3.2.4"
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.0"
   },
   "peerDependencies": {
     "@etzhayyim/bpmn-sdk-core": "workspace:*",

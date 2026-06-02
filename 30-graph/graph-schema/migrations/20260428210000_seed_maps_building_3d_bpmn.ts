@@ -29,9 +29,9 @@ interface ProcessSeed {
 const processSeeds: ProcessSeed[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-building-ingest-3d-v1",
     bpmnProcessId: "maps_building_ingest_3d",
-    sourcePath: "00-contracts/bpmn/ai/gftd/maps/buildingIngest3d.bpmn",
+    sourcePath: "00-contracts/bpmn/com/etzhayyim/maps/buildingIngest3d.bpmn",
   },
 ];
 

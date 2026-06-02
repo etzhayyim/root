@@ -55,16 +55,16 @@ async function insertDefenceEvent(env: DefenceEnv, params: {
     .execute();
 }
 
-// app.etzhayyim.apps.openPorts.screenVesselSanctions — 船舶 制裁スクリーニング
+// com.etzhayyim.apps.openPorts.screenVesselSanctions — 船舶 制裁スクリーニング
 export async function handle_screenVesselSanctions(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.vesselVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openPorts.screenVesselSanctions/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openPorts.screenVesselSanctions/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-ports",
-      nsid: "app.etzhayyim.apps.openPorts.screenVesselSanctions",
+      nsid: "com.etzhayyim.apps.openPorts.screenVesselSanctions",
       bpmnProcessId: "open_ports_screen_vessel_sanctions",
       subjectVid,
       actionClass: "openPorts.vessel.screenSanctions",
@@ -81,16 +81,16 @@ export async function handle_screenVesselSanctions(env: DefenceEnv, body: any): 
   }
 }
 
-// app.etzhayyim.apps.openPorts.flagDarkFleet — ダークフリート フラグ
+// com.etzhayyim.apps.openPorts.flagDarkFleet — ダークフリート フラグ
 export async function handle_flagDarkFleet(env: DefenceEnv, body: any): Promise<Response> {
   const callerDid = body?.callerDid ?? env.PRIMARY_DID ?? "did:web:anon";
   const subjectVid = body?.vesselVid ?? null;
-  const vertexId = body?.vertexId ?? `at://${callerDid}/app.etzhayyim.apps.openPorts.flagDarkFleet/${nanoid(12)}`;
+  const vertexId = body?.vertexId ?? `at://${callerDid}/com.etzhayyim.apps.openPorts.flagDarkFleet/${nanoid(12)}`;
   try {
     await insertDefenceEvent(env, {
       vertexId,
       project: "open-ports",
-      nsid: "app.etzhayyim.apps.openPorts.flagDarkFleet",
+      nsid: "com.etzhayyim.apps.openPorts.flagDarkFleet",
       bpmnProcessId: "open_ports_flag_dark_fleet",
       subjectVid,
       actionClass: "openPorts.vessel.flagDarkFleet",
@@ -108,6 +108,6 @@ export async function handle_flagDarkFleet(env: DefenceEnv, body: any): Promise<
 }
 
 export const defenceRoutes: Record<string, (env: DefenceEnv, body: any) => Promise<Response>> = {
-  "app.etzhayyim.apps.openPorts.screenVesselSanctions": handle_screenVesselSanctions,
-  "app.etzhayyim.apps.openPorts.flagDarkFleet": handle_flagDarkFleet,
+  "com.etzhayyim.apps.openPorts.screenVesselSanctions": handle_screenVesselSanctions,
+  "com.etzhayyim.apps.openPorts.flagDarkFleet": handle_flagDarkFleet,
 };

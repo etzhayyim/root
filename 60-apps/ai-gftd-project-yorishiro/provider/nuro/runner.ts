@@ -8,8 +8,8 @@
  *   secret/data/orgs/{orgId}/users/{userId}/services/nuro/bankAccount
  *
  * Calls back via XRPC:
- *   POST https://nur0cb01.etzhayyim.com/xrpc/app.etzhayyim.apps.yorishiroNuro.recordOffers
- *   POST https://nur0cb01.etzhayyim.com/xrpc/app.etzhayyim.apps.yorishiroNuro.recordClaim
+ *   POST https://nur0cb01.etzhayyim.com/xrpc/com.etzhayyim.apps.yorishiroNuro.recordOffers
+ *   POST https://nur0cb01.etzhayyim.com/xrpc/com.etzhayyim.apps.yorishiroNuro.recordClaim
  */
 
 import {
@@ -64,7 +64,7 @@ async function recordOffers(params: {
   offers: CashbackOffer[];
   sessionToken: string;
 }): Promise<void> {
-  const r = await fetch(`${NURO_APP_BASE}/xrpc/app.etzhayyim.apps.yorishiroNuro.recordOffers`, {
+  const r = await fetch(`${NURO_APP_BASE}/xrpc/com.etzhayyim.apps.yorishiroNuro.recordOffers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +84,7 @@ async function recordClaim(params: {
   amountJpy?: number;
   sessionToken: string;
 }): Promise<void> {
-  const r = await fetch(`${NURO_APP_BASE}/xrpc/app.etzhayyim.apps.yorishiroNuro.recordClaim`, {
+  const r = await fetch(`${NURO_APP_BASE}/xrpc/com.etzhayyim.apps.yorishiroNuro.recordClaim`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

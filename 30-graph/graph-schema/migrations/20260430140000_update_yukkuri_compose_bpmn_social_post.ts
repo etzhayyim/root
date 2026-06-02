@@ -15,7 +15,7 @@ const repoRoot = path.resolve(__dirname, "..", "..", "..");
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   const xml = readFileSync(
-    path.resolve(repoRoot, "00-contracts/bpmn/ai/gftd/yukkuri/yukkuriCompose.bpmn"),
+    path.resolve(repoRoot, "00-contracts/bpmn/com/etzhayyim/yukkuri/yukkuriCompose.bpmn"),
     "utf8",
   );
   const size = Buffer.byteLength(xml, "utf8");

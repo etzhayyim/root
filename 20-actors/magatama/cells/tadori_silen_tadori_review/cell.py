@@ -9,11 +9,11 @@ Purpose: quarterly Council audit emitting silenTadoriReview structural zero-coun
 Constitutional ceiling (CRITICAL - IMMUTABLE): AUTHORIZED-INVESTIGATION-ONLY
 (caseMandate anchor required; no case -> Phase 0 dry-run) + OPEN-SOURCE (no
 proprietary chain-analysis as system of record) + ON-CHAIN-MONITORABLE
-(Transparent Force, Charter SS1.12) + PII-ENCRYPTED (app.etzhayyim.encrypted.*,
+(Transparent Force, Charter SS1.12) + PII-ENCRYPTED (com.etzhayyim.encrypted.*,
 ADR-2605181100) + EVIDENCE-ONLY / NO ENFORCEMENT (yabai + Council enforce) +
 NO PLATFORM-HELD KEY (ADR-2605231525) + Murakumo-only inference (ADR-2605215000)
 + kotoba-only store (ADR-2605262130). Gates: G12 (silen review + Bonsai prune on violation).
-Output Lexicon(s): app.etzhayyim.tadori.silenTadoriReview.
+Output Lexicon(s): com.etzhayyim.tadori.silenTadoriReview.
 
 R0 scaffold - import-time RuntimeError until T1.
 """

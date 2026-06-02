@@ -1,0 +1,75 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.actor.authActorManagement",
+  "description": "Actor management permissions. Superset — includes official app.bsky.actor profile/preferences RPCs plus etzhayyim actor lifecycle, tool grants, and BPMN/DMN operations.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Actor Management",
+      "title:lang": {
+        "ja": "Actor管理"
+      },
+      "detail": "Create, update, and manage actors. Includes official profile and preferences management, plus etzhayyim-specific actor lifecycle, tool grants, pipeline execution, and BPMN/DMN operations.",
+      "detail:lang": {
+        "ja": "Actorの作成・更新・管理。公式プロフィール/プリファレンス管理に加え、etzhayyimのActorライフサイクル、ツール付与、パイプライン実行、BPMN/DMN操作を含む"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "Official app.bsky actor record collections",
+          "collection": [
+            "app.bsky.actor.profile",
+            "app.bsky.actor.status"
+          ],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "Official app.bsky actor RPCs",
+          "lxm": [
+            "app.bsky.actor.getPreferences",
+            "app.bsky.actor.getProfile",
+            "app.bsky.actor.getProfiles",
+            "app.bsky.actor.putPreferences",
+            "app.bsky.actor.searchActors",
+            "app.bsky.actor.searchActorsTypeahead"
+          ]
+        },
+        {
+          "type": "permission",
+          "resource": "repo",
+          "description": "etzhayyim actor record collections",
+          "collection": ["com.etzhayyim.actor.*"],
+          "action": ["create", "update", "delete"]
+        },
+        {
+          "type": "permission",
+          "resource": "rpc",
+          "description": "etzhayyim actor extension RPCs",
+          "lxm": [
+            "com.etzhayyim.actor.get",
+            "com.etzhayyim.actor.list",
+            "com.etzhayyim.actor.listTools",
+            "com.etzhayyim.actor.create",
+            "com.etzhayyim.actor.update",
+            "com.etzhayyim.actor.delete",
+            "com.etzhayyim.actor.setStatus",
+            "com.etzhayyim.actor.heartbeatBatch",
+            "com.etzhayyim.actor.grantTool",
+            "com.etzhayyim.actor.revokeTool",
+            "com.etzhayyim.actor.executePipeline",
+            "com.etzhayyim.actor.registerManifest",
+            "com.etzhayyim.actor.getManifest",
+            "com.etzhayyim.actor.validateManifest",
+            "com.etzhayyim.actor.compileBpmn",
+            "com.etzhayyim.actor.deployProcess",
+            "com.etzhayyim.dmn.evaluate",
+            "com.etzhayyim.form.submit"
+          ]
+        }
+      ]
+    }
+  }
+}

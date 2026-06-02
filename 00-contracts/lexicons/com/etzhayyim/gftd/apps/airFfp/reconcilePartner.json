@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.airFfp.reconcilePartner",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Reconcile partner miles transactions for a period.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["carrier_code", "partner_code", "period"],
+          "properties": {
+            "carrier_code": { "type": "string" },
+            "partner_code": { "type": "string" },
+            "period": { "type": "string" },
+            "miles_transacted": { "type": "integer" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

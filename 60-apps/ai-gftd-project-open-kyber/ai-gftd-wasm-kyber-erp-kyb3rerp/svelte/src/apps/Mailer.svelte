@@ -4,11 +4,11 @@
   import { ui } from '../lib/store.svelte';
 
   const nsid = {
-    listThreads: 'app.etzhayyim.apps.mailer.listThreads',
-    listMessages: 'app.etzhayyim.apps.mailer.listMessages',
-    sendMail: 'app.etzhayyim.apps.mailer.sendMail',
-    classifyMail: 'app.etzhayyim.apps.mailer.classifyMail',
-    listBecAlerts: 'app.etzhayyim.apps.mailer.listBecAlerts'
+    listThreads: 'com.etzhayyim.apps.mailer.listThreads',
+    listMessages: 'com.etzhayyim.apps.mailer.listMessages',
+    sendMail: 'com.etzhayyim.apps.mailer.sendMail',
+    classifyMail: 'com.etzhayyim.apps.mailer.classifyMail',
+    listBecAlerts: 'com.etzhayyim.apps.mailer.listBecAlerts'
   } as const;
 
   type Folder = 'inbox' | 'starred' | 'sent' | 'drafts' | 'alerts' | 'archive' | 'trash';

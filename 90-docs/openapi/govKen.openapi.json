@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govKen.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govKen.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Kenya government.",
-        "operationId": "app.etzhayyim.govKen.followSiteDeps",
+        "operationId": "com.etzhayyim.govKen.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govKen.heartbeatTick": {
       "post": {
         "summary": "Run the Kenya government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govKen.heartbeatTick",
+        "operationId": "com.etzhayyim.govKen.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.listOrgs": {
+    "/xrpc/com.etzhayyim.govKen.listOrgs": {
       "get": {
         "summary": "List Kenya government organization graph records.",
-        "operationId": "app.etzhayyim.govKen.listOrgs",
+        "operationId": "com.etzhayyim.govKen.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.registerDIDs": {
+    "/xrpc/com.etzhayyim.govKen.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Kenya government organizations.",
-        "operationId": "app.etzhayyim.govKen.registerDIDs",
+        "operationId": "com.etzhayyim.govKen.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govKen.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Kenya government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govKen.resolveOrgPath",
+        "operationId": "com.etzhayyim.govKen.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.seedOrgs": {
+    "/xrpc/com.etzhayyim.govKen.seedOrgs": {
       "post": {
         "summary": "Seed initial Kenya government organization records into the graph.",
-        "operationId": "app.etzhayyim.govKen.seedOrgs",
+        "operationId": "com.etzhayyim.govKen.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.shinka": {
+    "/xrpc/com.etzhayyim.govKen.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Kenya government organization update.",
-        "operationId": "app.etzhayyim.govKen.shinka",
+        "operationId": "com.etzhayyim.govKen.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govKen.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govKen.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Kenya government organization changes to graph.",
-        "operationId": "app.etzhayyim.govKen.syncWetUpdates",
+        "operationId": "com.etzhayyim.govKen.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

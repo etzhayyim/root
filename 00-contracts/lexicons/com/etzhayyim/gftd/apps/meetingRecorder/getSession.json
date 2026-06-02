@@ -1,0 +1,66 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.meetingRecorder.getSession",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch metadata for a single recorder session. Caller must be the onBehalfOfDid or an authorized delegate (consent graph check).",
+      "parameters": {
+        "type": "params",
+        "required": ["sessionId"],
+        "properties": {
+          "sessionId": {"type": "string"},
+          "includeChunks": {"type": "boolean", "default": false},
+          "includeParticipants": {"type": "boolean", "default": false}
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId", "provider", "status"],
+          "properties": {
+            "sessionId": {"type": "string"},
+            "sessionDid": {"type": "string"},
+            "provider": {"type": "string"},
+            "onBehalfOfDid": {"type": "string"},
+            "externalMeetingId": {"type": "string"},
+            "status": {"type": "string"},
+            "startedAt": {"type": "string"},
+            "endedAt": {"type": "string"},
+            "durationMs": {"type": "integer"},
+            "chunkCount": {"type": "integer"},
+            "participantCount": {"type": "integer"},
+            "chunks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "seq": {"type": "integer"},
+                  "kind": {"type": "string", "enum": ["audio", "video", "mixed"]},
+                  "b2Key": {"type": "string"},
+                  "sha256": {"type": "string"},
+                  "startedAt": {"type": "string"},
+                  "durationMs": {"type": "integer"}
+                }
+              }
+            },
+            "participants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "participantDid": {"type": "string"},
+                  "providerIdHash": {"type": "string"},
+                  "displayName": {"type": "string"},
+                  "joinedAt": {"type": "string"},
+                  "leftAt": {"type": "string"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

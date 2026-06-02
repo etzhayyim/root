@@ -15,6 +15,8 @@
  */
 
 import { INFRA_ACTORS, getInfraActor } from "./infra-actors";
+import { cidV1Raw } from "../cid";
+import { isRawCidV1 } from "../cid";
 
 export interface ActorServiceEntry {
   readonly id: string;
@@ -35,46 +37,6 @@ export interface ActorVerificationMethod {
 
 export type ActorSource = "kv" | "kotoba" | "compiled";
 
-/** Return a copy of `rec` with an Ed25519 verificationMethod for
- *  `publicKeyMultibase` merged in (replacing any existing `#session-key`). This
- *  is the publish-path counterpart to the auth Worker's `registerSigningKey`:
- *  writing the registered key into the actor record is what makes it appear in
- *  did.json and lets a did:web Signal binding verify (ADR-2606014000 D4).
- *  Defined below `ed25519VerificationMethod` is hoisted — see that function. */
-export function withVerificationMethod(
-  rec: ActorRecord,
-  publicKeyMultibase: string,
-): ActorRecord {
-  const vm = ed25519VerificationMethod(rec.did, publicKeyMultibase);
-  const kept = rec.vm.filter((v) => v.id !== vm.id);
-  return { ...rec, vm: [...kept, vm] };
-}
-
-/** Ed25519 verification-method type understood by the kotoba-auth did:web
- *  resolver (`DidDocument::ed25519_public_key`). */
-export const ED25519_VM_TYPE = "Ed25519VerificationKey2020";
-
-/**
- * Build an Ed25519 verificationMethod entry for an actor's DID document from a
- * `publicKeyMultibase` (`z…`). The key is NOT minted here — it is the member's
- * **client-self-custodied** session key registered via Stage C-2
- * (`registerSigningKey`, ADR-2606014500) or an on-chain ERC725 mirror. Either
- * way the server never holds the private key (ADR-2605231525). Populating
- * `rec.vm` with this is what lets `ai.gftd.signal.resolve.identity` verify a
- * did:web Signal binding (ADR-2606014000 D4) instead of returning unverified.
- */
-export function ed25519VerificationMethod(
-  did: string,
-  publicKeyMultibase: string,
-): ActorVerificationMethod {
-  return {
-    id: `${did}#session-key`,
-    type: ED25519_VM_TYPE,
-    controller: did,
-    publicKeyMultibase,
-  };
-}
-
 export interface ActorRecord {
   readonly handle: string;
   readonly did: string; // did:web:etzhayyim.com:actor:<handle>
@@ -94,6 +56,11 @@ export interface ActorRecord {
   readonly adr: readonly string[];
   readonly service: readonly ActorServiceEntry[];
   readonly vm: readonly ActorVerificationMethod[];
+  /** IPFS CID of the actor's content-addressed WASM component (kotoba WASM).
+   *  When present, the DID doc carries an `EtzhayyimWasmComponent` service and
+   *  the browser (ameno) / donated mesh node fetches + executes it locally —
+   *  NO per-actor server. Per ADR-2606014500. */
+  readonly wasmCid?: string;
   readonly createdAt?: string;
   readonly source: ActorSource;
 }
@@ -142,6 +109,7 @@ export function compiledActorRecord(handle: string): ActorRecord | null {
     adr: [...e.adrs],
     service: e.service as readonly ActorServiceEntry[],
     vm: [],
+    wasmCid: e.wasmCid,
     source: "compiled",
   };
 }
@@ -179,6 +147,7 @@ export function coerceActorRecord(
       ? (o.service as ActorServiceEntry[])
       : [],
     vm: Array.isArray(o.vm) ? (o.vm as ActorVerificationMethod[]) : [],
+    wasmCid: str("wasmCid"),
     createdAt: str("createdAt"),
     source,
   };
@@ -211,13 +180,36 @@ export function toDidDoc(
       `did:erc725:base:${env.AUTHZ_CONTRACT_ADDRESS}#__rootId-pending-chain-lookup__`,
     );
   }
-  // Reference every Ed25519 verification method under authentication +
-  // assertionMethod so the registered/mirrored key is usable for DID-auth and
-  // for verifying assertions (e.g. the Signal-identity binding, ADR-2606014000).
-  const ed25519Ids = rec.vm
-    .filter((v) => v["type"] === ED25519_VM_TYPE)
-    .map((v) => v.id);
-  const doc: Record<string, unknown> = {
+  // Self-certifying alias: if the actor has registered an Ed25519 key, expose it
+  // as a `did:key` in alsoKnownAs (the key IS the identifier). This cross-links
+  // the did:web handle to the key that signs the DID-doc attestation, completing
+  // the trustless chain key → attestation → did.json CID (ADR-2606015600).
+  for (const v of rec.vm) {
+    if (v.type === "Ed25519VerificationKey2020" && typeof v["publicKeyMultibase"] === "string") {
+      alsoKnownAs.push(`did:key:${v["publicKeyMultibase"]}`);
+    }
+  }
+  // The actor's executable face: a content-addressed WASM component on IPFS.
+  // Listed FIRST so a resolver prefers local execution (browser/donated mesh)
+  // over any network transport — the "one Worker, many WASM actors" model
+  // (ADR-2606014500). NO per-actor server.
+  const service: Record<string, unknown>[] = [];
+  if (rec.wasmCid) {
+    // raw single-block CID (compact Rust/AS actor) → browser-local + mesh;
+    // multi-block dag-pb CID (large componentize-py actor) → mesh only (a full
+    // IPFS node verifies/loads it; not browser-local). Per ADR-2606014600/700.
+    const raw = isRawCidV1(rec.wasmCid);
+    service.push({
+      id: `${pathBasedDid}#wasm`,
+      type: "EtzhayyimWasmComponent",
+      serviceEndpoint: `ipfs://${rec.wasmCid}`,
+      "x-exec": raw ? "browser-local|donated-mesh" : "donated-mesh",
+      "x-cid-codec": raw ? "raw" : "dag-pb",
+      "x-runtime": "kotoba-wasm",
+    });
+  }
+  service.push(...rec.service.map((s) => ({ ...s })));
+  return {
     "@context": [
       "https://www.w3.org/ns/did/v1",
       "https://w3id.org/security/suites/jws-2020/v1",
@@ -225,26 +217,57 @@ export function toDidDoc(
     id: pathBasedDid,
     alsoKnownAs,
     verificationMethod: rec.vm.map((v) => ({ ...v })),
-    service: rec.service.map((s) => ({ ...s })),
+    service,
     _meta: {
-      adr: ["2605212030", "2605241800", "2606013800", "2606014000", ...rec.adr],
+      adr: ["2605212030", "2605241800", "2606013800", "2606014500", ...rec.adr],
       source: rec.source,
       kind: rec.kind,
       status: rec.status,
       glyph: rec.glyph,
+      wasmCid: rec.wasmCid ?? null,
+      execModel: rec.wasmCid ? "wasm-local (browser/donated-mesh)" : "service",
       primaryLexicon: rec.primaryLexicon,
       primarySchema: rec.primarySchema,
       note:
         rec.vm.length === 0
-          ? "verificationMethod empty — member session-key / ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
-          : "verificationMethod = member client-registered session key or on-chain ERC725 mirror (never server-minted)",
+          ? "verificationMethod empty — on-chain ERC725 mirror pending; did:web trust root = TLS (no server-minted key, ADR-2605231525)"
+          : "verificationMethod mirrors on-chain ERC725 Root.activeKey",
     },
   };
-  if (ed25519Ids.length > 0) {
-    doc.authentication = ed25519Ids;
-    doc.assertionMethod = ed25519Ids;
-  }
-  return doc;
+}
+
+/** Canonical (content-addressable) DID document — `toDidDoc` with the one
+ *  request-tier-volatile field (`_meta.source`) normalized to "ipfs", so the
+ *  bytes (and therefore the CID) are identical no matter which tier (KV / kotoba
+ *  / compiled) served the actor record. This is the form that gets pinned to
+ *  IPFS and content-addressed for IPFS-based DID retrieval (ADR-2606015400).
+ *  Trust: the handle→CID binding is still anchored by `etzhayyim.com` (TLS) /
+ *  Base L2; IPFS makes the bytes tamper-evident, mirrorable, offline-verifiable. */
+export function canonicalDidDoc(
+  rec: ActorRecord,
+  env: DidDocEnv = {},
+): Record<string, unknown> {
+  const doc = toDidDoc(rec, env);
+  const meta = { ...(doc._meta as Record<string, unknown>), source: "ipfs" };
+  return { ...doc, _meta: meta };
+}
+
+/** Deterministic JSON serialization of the canonical DID document (the exact
+ *  bytes that get pinned + content-addressed). */
+export function canonicalDidDocBytes(
+  rec: ActorRecord,
+  env: DidDocEnv = {},
+): Uint8Array {
+  return new TextEncoder().encode(JSON.stringify(canonicalDidDoc(rec, env)));
+}
+
+/** The IPFS CIDv1 (raw, sha2-256) of the actor's canonical DID document. Lets a
+ *  client retrieve `did.json` from any IPFS gateway and verify it by CID. */
+export function didDocCid(
+  rec: ActorRecord,
+  env: DidDocEnv = {},
+): Promise<string> {
+  return cidV1Raw(canonicalDidDocBytes(rec, env));
 }
 
 /** ActorRecord → app.bsky.actor.getProfile view (+ etzhayyim extensions that
@@ -278,6 +301,7 @@ export function toGetProfileView(rec: ActorRecord): Record<string, unknown> {
       adr: rec.adr,
       primaryLexicon: rec.primaryLexicon ?? null,
       primarySchema: rec.primarySchema ?? null,
+      wasmComponent: rec.wasmCid ? `ipfs://${rec.wasmCid}` : null,
       didDocument: `https://etzhayyim.com/actor/${rec.handle}/did.json`,
       source: rec.source,
     },

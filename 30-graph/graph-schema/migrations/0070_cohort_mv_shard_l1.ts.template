@@ -53,7 +53,7 @@ export async function up(db: Kysely<any>): Promise<void> {
                  THEN 1 ELSE 0 END)::BIGINT                           AS fission_ready_count,
         MAX(observed_at)                                              AS last_evidence_at
       FROM vertex_repo_record
-      WHERE collection = 'ai.gftd.cohort.evidence'
+      WHERE collection = 'com.etzhayyim.cohort.evidence'
         AND cohort_did IN (
           SELECT cohort_did FROM vertex_cohort_actor
           WHERE segment_hash LIKE ${pattern}
@@ -69,7 +69,7 @@ export async function up(db: Kysely<any>): Promise<void> {
              ELSE COUNT(*) / COUNT(DISTINCT signal_kind)
         END::BIGINT                         AS k_proxy
       FROM vertex_repo_record
-      WHERE collection = 'ai.gftd.cohort.evidence'
+      WHERE collection = 'com.etzhayyim.cohort.evidence'
         AND cohort_did IN (
           SELECT cohort_did FROM vertex_cohort_actor
           WHERE segment_hash LIKE ${pattern}

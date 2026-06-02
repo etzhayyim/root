@@ -20,9 +20,9 @@ INSERT INTO dim_world_domain (domain, app_host, world_total, unit, sector)
 DELETE FROM dim_world_domain_collection
      WHERE domain IN ('gov', 'gov_admin_area')
         OR collection IN (
-          'ai.gftd.apps.gov.entity',
-          'ai.gftd.apps.gov.agency',
-          'ai.gftd.apps.gov.ministry',
+          'com.etzhayyim.apps.gov.entity',
+          'com.etzhayyim.apps.gov.agency',
+          'com.etzhayyim.apps.gov.ministry',
           'govOrg',
           'govOrgSiteDep',
           'governanceContract'
@@ -30,11 +30,11 @@ DELETE FROM dim_world_domain_collection
 
 INSERT INTO dim_world_domain_collection (domain, app_host, collection, world_total, unit, sector)
     VALUES
-      ('gov', 'gov', 'ai.gftd.apps.gov.agency', 500000, 'government agencies / public bodies', 'governance'),
-      ('gov', 'gov', 'ai.gftd.apps.gov.ministry', 500000, 'ministries', 'governance'),
+      ('gov', 'gov', 'com.etzhayyim.apps.gov.agency', 500000, 'government agencies / public bodies', 'governance'),
+      ('gov', 'gov', 'com.etzhayyim.apps.gov.ministry', 500000, 'ministries', 'governance'),
       ('gov', 'gov', 'govOrg', 500000, 'government organizations', 'governance'),
       ('gov', 'gov', 'governanceContract', 500000, 'government organization governance contracts', 'governance'),
-      ('gov_admin_area', 'gov', 'ai.gftd.apps.gov.entity', 500000, 'administrative areas / municipalities / settlements', 'governance'),
+      ('gov_admin_area', 'gov', 'com.etzhayyim.apps.gov.entity', 500000, 'administrative areas / municipalities / settlements', 'governance'),
       ('gov_admin_area', 'gov', 'govOrgSiteDep', 500000, 'government organization site dependencies / area links', 'governance');
 
 DROP MATERIALIZED VIEW IF EXISTS mv_gov_org_runtime;
@@ -56,17 +56,17 @@ CREATE MATERIALIZED VIEW mv_gov_record_dedup AS
       MIN(r.repo) AS repo,
       MIN(r.collection) AS sample_collection,
       CASE
-        WHEN r.collection IN ('ai.gftd.apps.gov.entity', 'govOrgSiteDep') THEN 'admin_area'
-        WHEN r.collection IN ('ai.gftd.apps.gov.agency', 'ai.gftd.apps.gov.ministry', 'govOrg', 'governanceContract') THEN 'government_org'
+        WHEN r.collection IN ('com.etzhayyim.apps.gov.entity', 'govOrgSiteDep') THEN 'admin_area'
+        WHEN r.collection IN ('com.etzhayyim.apps.gov.agency', 'com.etzhayyim.apps.gov.ministry', 'govOrg', 'governanceContract') THEN 'government_org'
         ELSE 'other'
       END AS entity_kind,
       COUNT(*)::BIGINT AS duplicate_rows,
       MAX(r.indexed_at) AS latest_indexed_at
     FROM vertex_repo_record r
     WHERE r.collection IN (
-      'ai.gftd.apps.gov.entity',
-      'ai.gftd.apps.gov.agency',
-      'ai.gftd.apps.gov.ministry',
+      'com.etzhayyim.apps.gov.entity',
+      'com.etzhayyim.apps.gov.agency',
+      'com.etzhayyim.apps.gov.ministry',
       'govOrg',
       'govOrgSiteDep',
       'governanceContract'
@@ -74,8 +74,8 @@ CREATE MATERIALIZED VIEW mv_gov_record_dedup AS
     GROUP BY
       LOWER(COALESCE(NULLIF(r.rkey, ''), NULLIF(r.uri, ''), NULLIF(r.cid, ''), NULLIF(r.value_json, ''))),
       CASE
-        WHEN r.collection IN ('ai.gftd.apps.gov.entity', 'govOrgSiteDep') THEN 'admin_area'
-        WHEN r.collection IN ('ai.gftd.apps.gov.agency', 'ai.gftd.apps.gov.ministry', 'govOrg', 'governanceContract') THEN 'government_org'
+        WHEN r.collection IN ('com.etzhayyim.apps.gov.entity', 'govOrgSiteDep') THEN 'admin_area'
+        WHEN r.collection IN ('com.etzhayyim.apps.gov.agency', 'com.etzhayyim.apps.gov.ministry', 'govOrg', 'governanceContract') THEN 'government_org'
         ELSE 'other'
       END;
 
@@ -90,17 +90,17 @@ CREATE MATERIALIZED VIEW mv_gov_coverage_dedup AS
 
 CREATE MATERIALIZED VIEW mv_gov_org_runtime AS
     SELECT
-      CONCAT('at://did:web:gov.etzhayyim.com/ai.gftd.apps.gov.orgRuntime/', runtime_key) AS vertex_id,
+      CONCAT('at://did:web:gov.etzhayyim.com/com.etzhayyim.apps.gov.orgRuntime/', runtime_key) AS vertex_id,
       entity_key AS gov_org_key,
       sample_uri AS source_uri,
       repo,
       sample_collection AS source_collection,
       CONCAT('did:web:gov.etzhayyim.com:org:', entity_key) AS actor_did,
       CONCAT('gov_org_', runtime_key, '_coverage_refresh') AS bpmn_process_id,
-      CONCAT('at://did:web:bpmn.etzhayyim.com/ai.gftd.apps.bpmn.processDef/gov-org-', runtime_key, '-coverage-refresh-v1') AS bpmn_process_vertex_id,
+      CONCAT('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gov-org-', runtime_key, '-coverage-refresh-v1') AS bpmn_process_vertex_id,
       CONCAT('gov-org-', runtime_key, '-mcp') AS mcp_id,
       CONCAT('https://mcp.etzhayyim.com/mcp/gov/org/', runtime_key) AS mcp_endpoint,
-      'ai.gftd.apps.gov.coverage.get,ai.gftd.apps.ingest.status,ai.gftd.apps.coverage.refresh' AS tool_nsids,
+      'com.etzhayyim.apps.gov.coverage.get,com.etzhayyim.apps.ingest.status,com.etzhayyim.apps.coverage.refresh' AS tool_nsids,
       'planned' AS status,
       latest_indexed_at
     FROM (

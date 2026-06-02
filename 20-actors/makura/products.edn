@@ -1,6 +1,6 @@
 ;; makura 枕 — produced-goods catalog (Ring 1 internal economy)
 ;; Declared by the producing actor; ingested by okaimono (ADR-2606012100 §R1).
-;; Shared :product/* vocabulary (app.etzhayyim.okaimono.product). Prices in USDC minor (6-dp).
+;; Shared :product/* vocabulary (com.etzhayyim.okaimono.product). Prices in USDC minor (6-dp).
 [{:product/id "int.makura.foam-pillow" :product/title "makura フォーム枕 (shred-fill, cotton shell)"
   :product/ring :internal :product/maker-actor "makura" :product/source :internal-actor
   :product/unspsc "52121600" :product/price-minor 18000000 :product/currency "USDC"

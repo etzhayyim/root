@@ -11,19 +11,19 @@
     <bpmn:sequenceFlow id="f1" sourceRef="Start_Evaluate" targetRef="Task_QueryRules"/>
 
     <bpmn:serviceTask id="Task_QueryRules" name="Query applicable rules"
-                      camunda:topic="ai.gftd.apps.completer.queryRules"/>
+                      camunda:topic="com.etzhayyim.apps.completer.queryRules"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_QueryRules" targetRef="Task_MatchRules"/>
 
     <bpmn:serviceTask id="Task_MatchRules" name="Match rules to actor"
-                      camunda:topic="ai.gftd.apps.completer.matchRules"/>
+                      camunda:topic="com.etzhayyim.apps.completer.matchRules"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_MatchRules" targetRef="Task_LlmEvaluate"/>
 
     <bpmn:serviceTask id="Task_LlmEvaluate" name="LLM compliance evaluation"
-                      camunda:topic="ai.gftd.apps.completer.llmEvaluate"/>
+                      camunda:topic="com.etzhayyim.apps.completer.llmEvaluate"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_LlmEvaluate" targetRef="Task_ScoreAndPersist"/>
 
     <bpmn:serviceTask id="Task_ScoreAndPersist" name="Score and persist audit"
-                      camunda:topic="ai.gftd.apps.completer.evaluate"/>
+                      camunda:topic="com.etzhayyim.apps.completer.evaluate"/>
     <bpmn:sequenceFlow id="f5" sourceRef="Task_ScoreAndPersist" targetRef="End_Evaluated"/>
 
     <bpmn:endEvent id="End_Evaluated" name="Audit persisted"/>
@@ -35,7 +35,7 @@
     <bpmn:sequenceFlow id="b1" sourceRef="Start_Batch" targetRef="Task_BatchEvaluate"/>
 
     <bpmn:serviceTask id="Task_BatchEvaluate" name="Batch DID evaluation"
-                      camunda:topic="ai.gftd.apps.completer.evaluateRepoDids"/>
+                      camunda:topic="com.etzhayyim.apps.completer.evaluateRepoDids"/>
     <bpmn:sequenceFlow id="b2" sourceRef="Task_BatchEvaluate" targetRef="End_BatchDone"/>
 
     <bpmn:endEvent id="End_BatchDone" name="Batch complete"/>
@@ -47,7 +47,7 @@
     <bpmn:sequenceFlow id="r1" sourceRef="Start_Remediate" targetRef="Task_Remediate"/>
 
     <bpmn:serviceTask id="Task_Remediate" name="Generate remediation plan"
-                      camunda:topic="ai.gftd.apps.completer.remediate"/>
+                      camunda:topic="com.etzhayyim.apps.completer.remediate"/>
     <bpmn:sequenceFlow id="r2" sourceRef="Task_Remediate" targetRef="End_Remediated"/>
 
     <bpmn:endEvent id="End_Remediated" name="Remediation plan persisted"/>

@@ -129,7 +129,7 @@ def ingest_bundles(source_dir: Path, created_at: str) -> list[dict[str, Any]]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Ingest COFOG bundles to app.etzhayyim.gov.agency Lexicon.'
+        description='Ingest COFOG bundles to com.etzhayyim.gov.agency Lexicon.'
     )
     parser.add_argument(
         '--source',

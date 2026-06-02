@@ -1,0 +1,26 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openUnispsc.segment",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Resolve a UNSPSC 2-digit segment as a business portfolio boundary with ownership, approval, and risk policy.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["code"],
+          "properties": {
+            "code": { "type": "string", "description": "UNSPSC 2-digit segment code" },
+            "name": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object" }
+      }
+    }
+  }
+}

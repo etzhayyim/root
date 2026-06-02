@@ -1,0 +1,57 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.gameka.gameTitle",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "titleId":          { "type": "string" },
+          "slug":             { "type": "string" },
+          "title":            { "type": "string" },
+          "subDid": {
+            "type": "string",
+            "description": "Per-title path-based DID, e.g. did:web:gameka.etzhayyim.com:game:quarry-rune. Auto-served by host-sdk did.json (ADR-0023)."
+          },
+          "parentSpecId":     { "type": "string" },
+          "parentArtifactId": { "type": "string" },
+          "parentQaId":       { "type": "string" },
+          "playUrl": {
+            "type": "string",
+            "description": "Public play URL, e.g. https://game-play.etzhayyim.com/{slug}. Resolves to a kami-app shell that loads the latest -built artefact for this title."
+          },
+          "version": {
+            "type": "string",
+            "description": "Title version string, defaults to v1. Subsequent revise iterations bump this."
+          },
+          "profileUri": {
+            "type": "string",
+            "description": "AT URI of the sub-DID's app.bsky.actor.profile record. Holds displayName=title, description=brief+playUrl, disclaimer (AI-Agent unofficial), and avatar reference. Created in publishGame.bpmn Task_RegisterProfile before the launch post so the post lands on a populated timeline."
+          },
+          "publishPostUri": {
+            "type": "string",
+            "description": "AT URI of the launch announcement post (app.bsky.feed.post by subDid)."
+          },
+          "avatarDataUri": {
+            "type": "string",
+            "description": "data:image/png;base64,… of the procedural identicon rendered from slug + biome by gameka.avatar.render (ADR 2604250900 P10). Used by the playtest shell as <link rel=\"icon\"> and og:image. Empty for pre-P10 titles."
+          },
+          "publishedAt": { "type": "string", "format": "datetime" },
+          "createdAt":   { "type": "string", "format": "datetime" }
+        },
+        "required": [
+          "titleId",
+          "slug",
+          "title",
+          "subDid",
+          "parentSpecId",
+          "parentArtifactId",
+          "playUrl",
+          "publishedAt",
+          "createdAt"
+        ]
+      }
+    }
+  }
+}

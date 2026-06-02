@@ -1,12 +1,12 @@
 // TODO(ADR-2605111200 Phase 2, migration guide: 90-docs/2605111400-phase2-app-actor-dispatcher-migration-guide.md):
 // 5 createKyselyDb callsites below throw WorkerDBProhibitedError at runtime.
-// Replace each with `sdk.pds.xrpc("app.etzhayyim.apps.yorishiroFlyio.<method>", ...)`:
-//   - getDb().selectFrom(tableForLabel(label))            → app.etzhayyim.apps.yorishiroFlyio.listJobs
-//   - insertInto("vertex_yorishiroFlyio_cancellationJob") → app.etzhayyim.apps.yorishiroFlyio.putCancellationJob
-//   - insertInto("vertex_yorishiroFlyio_appDeleteJob")    → app.etzhayyim.apps.yorishiroFlyio.putAppDeleteJob
-//   - insertInto("vertex_yorishiroFlyio_orgDeleteJob")    → app.etzhayyim.apps.yorishiroFlyio.putOrgDeleteJob
-//   - second cancellationJob INSERT (status update)       → app.etzhayyim.apps.yorishiroFlyio.updateCancellationStatus
-// Each NSID needs a lexicon JSON in 00-contracts/lexicons/ai/gftd/apps/yorishiroFlyio/
+// Replace each with `sdk.pds.xrpc("com.etzhayyim.apps.yorishiroFlyio.<method>", ...)`:
+//   - getDb().selectFrom(tableForLabel(label))            → com.etzhayyim.apps.yorishiroFlyio.listJobs
+//   - insertInto("vertex_yorishiroFlyio_cancellationJob") → com.etzhayyim.apps.yorishiroFlyio.putCancellationJob
+//   - insertInto("vertex_yorishiroFlyio_appDeleteJob")    → com.etzhayyim.apps.yorishiroFlyio.putAppDeleteJob
+//   - insertInto("vertex_yorishiroFlyio_orgDeleteJob")    → com.etzhayyim.apps.yorishiroFlyio.putOrgDeleteJob
+//   - second cancellationJob INSERT (status update)       → com.etzhayyim.apps.yorishiroFlyio.updateCancellationStatus
+// Each NSID needs a lexicon JSON in 00-contracts/lexicons/com/etzhayyim/apps/yorishiroFlyio/
 // + a server-side handler (pymagatama primitive or LangGraph node) + a vertex_bpmn_lexicon_binding row.
 // Reference migration: ai-gftd-wasm-yorishiro-squarespace-sqddf3sp/src/app.ts (2026-05-11).
 import {
@@ -60,9 +60,9 @@ type AnyRow = Record<string, unknown>;
 let db: KyselyDb | null = null;
 
 const NSID = {
-  cancellationJob: "app.etzhayyim.yorishiro.flyio.cancellationJob",
-  appDeleteJob: "app.etzhayyim.yorishiro.flyio.appDeleteJob",
-  orgDeleteJob: "app.etzhayyim.yorishiro.flyio.orgDeleteJob",
+  cancellationJob: "com.etzhayyim.yorishiro.flyio.cancellationJob",
+  appDeleteJob: "com.etzhayyim.yorishiro.flyio.appDeleteJob",
+  orgDeleteJob: "com.etzhayyim.yorishiro.flyio.orgDeleteJob",
 } as const;
 
 const PROVIDER_DID = "did:web:yorishiro.etzhayyim.com";
@@ -162,7 +162,7 @@ function invideProvider(sdk: HostSDK, method: string, params: object): void {
 // ---------------------------------------------------------------------------
 
 async function cmdGetAccountInfo(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.yorishiro.flyio.getAccountInfo", payload);
+  const req = parseLexiconInput("com.etzhayyim.yorishiro.flyio.getAccountInfo", payload);
   const jobId = genID("flyInfoJob");
 
   invideProvider(sdk, "runBrowserSession", {
@@ -177,7 +177,7 @@ async function cmdGetAccountInfo(sdk: HostSDK, payload: Uint8Array): Promise<unk
   await getDb()
     .insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/app.etzhayyim.yorishiro.flyio.cancellationJob/${jobId}`,
+      vertex_id: `at://${ownerDid}/com.etzhayyim.yorishiro.flyio.cancellationJob/${jobId}`,
       job_id: jobId,
       phase: "getAccountInfo",
       provider: PROVIDER_DID,
@@ -196,7 +196,7 @@ async function cmdGetAccountInfo(sdk: HostSDK, payload: Uint8Array): Promise<unk
 }
 
 async function cmdListApps(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.yorishiro.flyio.listApps", payload);
+  const req = parseLexiconInput("com.etzhayyim.yorishiro.flyio.listApps", payload);
   const offset = req.offset ?? 0;
   const limit = Math.min(req.limit ?? 50, 100);
   const rows = (await q("YorishiroFlyioAppDeleteJob", (row) => !req.orgSlug || String(row.orgSlug ?? "") === req.orgSlug))
@@ -212,7 +212,7 @@ async function cmdListApps(_sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 }
 
 async function cmdGetJobStatus(_sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.yorishiro.flyio.getJobStatus", payload);
+  const req = parseLexiconInput("com.etzhayyim.yorishiro.flyio.getJobStatus", payload);
   if (!req.jobId) return { error: "jobId is required" };
   const rows = await q("YorishiroFlyioCancellationJob", (row) => String(row.jobId ?? "") === req.jobId);
   if (rows.length === 0) return { status: "notFound" };
@@ -224,7 +224,7 @@ async function cmdGetJobStatus(_sdk: HostSDK, payload: Uint8Array): Promise<unkn
 // ---------------------------------------------------------------------------
 
 async function cmdDeleteApp(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.yorishiro.flyio.deleteApp", payload);
+  const req = parseLexiconInput("com.etzhayyim.yorishiro.flyio.deleteApp", payload);
 
   if (!req.appName) return { error: "appName is required" };
   if (!req.confirm) {
@@ -250,7 +250,7 @@ async function cmdDeleteApp(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
   await getDb()
     .insertInto("vertex_yorishiroFlyio_appDeleteJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/app.etzhayyim.yorishiro.flyio.appDeleteJob/${jobId}`,
+      vertex_id: `at://${ownerDid}/com.etzhayyim.yorishiro.flyio.appDeleteJob/${jobId}`,
       job_id: jobId,
       app_name: req.appName,
       org_slug: req.orgSlug ?? "",
@@ -274,7 +274,7 @@ async function cmdDeleteApp(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 // ---------------------------------------------------------------------------
 
 async function cmdDeleteOrg(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.yorishiro.flyio.deleteOrg", payload);
+  const req = parseLexiconInput("com.etzhayyim.yorishiro.flyio.deleteOrg", payload);
 
   if (!req.orgSlug) return { error: "orgSlug is required" };
   if (!req.orgName) return { error: "orgName is required (二重確認: org の表示名を入力してください)" };
@@ -301,7 +301,7 @@ async function cmdDeleteOrg(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
   await getDb()
     .insertInto("vertex_yorishiroFlyio_orgDeleteJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/app.etzhayyim.yorishiro.flyio.orgDeleteJob/${jobId}`,
+      vertex_id: `at://${ownerDid}/com.etzhayyim.yorishiro.flyio.orgDeleteJob/${jobId}`,
       job_id: jobId,
       org_slug: req.orgSlug,
       org_name: req.orgName,
@@ -325,7 +325,7 @@ async function cmdDeleteOrg(sdk: HostSDK, payload: Uint8Array): Promise<unknown>
 // ---------------------------------------------------------------------------
 
 async function cmdCloseAccount(sdk: HostSDK, payload: Uint8Array): Promise<unknown> {
-  const req = parseLexiconInput("app.etzhayyim.yorishiro.flyio.closeAccount", payload);
+  const req = parseLexiconInput("com.etzhayyim.yorishiro.flyio.closeAccount", payload);
 
   if (!req.email) {
     return {
@@ -355,7 +355,7 @@ async function cmdCloseAccount(sdk: HostSDK, payload: Uint8Array): Promise<unkno
   await getDb()
     .insertInto("vertex_yorishiroFlyio_cancellationJob" as any)
     .values({
-      vertex_id: `at://${ownerDid}/app.etzhayyim.yorishiro.flyio.cancellationJob/${jobId}`,
+      vertex_id: `at://${ownerDid}/com.etzhayyim.yorishiro.flyio.cancellationJob/${jobId}`,
       job_id: jobId,
       phase: "closeAccount",
       email: req.email,
@@ -388,23 +388,23 @@ async function cmdCloseAccount(sdk: HostSDK, payload: Uint8Array): Promise<unkno
 function registerYorishiroFlyioApp(sdk: HostSDK): void {
   sdk.app
     // ── Query ──────────────────────────────────────────────────────────────
-    .command(nsid("app.etzhayyim.yorishiro.flyio.getAccountInfo"),
+    .command(nsid("com.etzhayyim.yorishiro.flyio.getAccountInfo"),
       (_ctx, body) => cmdGetAccountInfo(sdk, body),
       asAgentTool("Login to fly.io via browser and retrieve account info (email, plan, orgs, apps, billing). Credentials are fetched from provider-vault."),
       withCapabilityTags("flyio", "account", "query", "browser-automation"),
     )
-    .command(nsid("app.etzhayyim.yorishiro.flyio.listApps"),
+    .command(nsid("com.etzhayyim.yorishiro.flyio.listApps"),
       (_ctx, body) => cmdListApps(sdk, body),
       asAgentTool("List previously recorded Fly.io app deletion jobs with pagination. Use getAccountInfo first to populate via browser."),
       withCapabilityTags("flyio", "app", "query"),
     )
-    .command(nsid("app.etzhayyim.yorishiro.flyio.getJobStatus"),
+    .command(nsid("com.etzhayyim.yorishiro.flyio.getJobStatus"),
       (_ctx, body) => cmdGetJobStatus(sdk, body),
       asAgentTool("Get the status of a Fly.io cancellation/deletion job by jobId."),
       withCapabilityTags("flyio", "query", "tracking"),
     )
     // ── Destructive — App ──────────────────────────────────────────────────
-    .command(nsid("app.etzhayyim.yorishiro.flyio.deleteApp"),
+    .command(nsid("com.etzhayyim.yorishiro.flyio.deleteApp"),
       (_ctx, body) => cmdDeleteApp(sdk, body),
       asAgentTool("Delete a Fly.io app via browser automation (requires confirm=true). All app resources and data are permanently destroyed."),
       withCapabilityTags("flyio", "app", "delete", "browser-automation"),
@@ -412,7 +412,7 @@ function registerYorishiroFlyioApp(sdk: HostSDK): void {
       requireApproval({ class: "B", count: 1, level: "medium" }),
     )
     // ── Destructive — Org ──────────────────────────────────────────────────
-    .command(nsid("app.etzhayyim.yorishiro.flyio.deleteOrg"),
+    .command(nsid("com.etzhayyim.yorishiro.flyio.deleteOrg"),
       (_ctx, body) => cmdDeleteOrg(sdk, body),
       asAgentTool("Delete a Fly.io organization via browser automation (requires confirm=true + orgName for double-confirmation). All apps in the org are destroyed."),
       withCapabilityTags("flyio", "org", "delete", "browser-automation"),
@@ -420,7 +420,7 @@ function registerYorishiroFlyioApp(sdk: HostSDK): void {
       requireApproval({ class: "A", count: 2, level: "high" }),
     )
     // ── Destructive — Account closure / 解約 ──────────────────────────────
-    .command(nsid("app.etzhayyim.yorishiro.flyio.closeAccount"),
+    .command(nsid("com.etzhayyim.yorishiro.flyio.closeAccount"),
       (_ctx, body) => cmdCloseAccount(sdk, body),
       asAgentTool("Permanently close (解約) a Fly.io account via browser automation (requires confirm=true + registered email for double-confirmation). Irreversible — all apps, orgs, billing, and data are permanently destroyed."),
       withCapabilityTags("flyio", "account", "close", "cancellation", "browser-automation"),

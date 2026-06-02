@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.carrierSchedule.publishProformaSchedule",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Proforma string schedule",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "scheduleId",
+            "carrierCode",
+            "stringCode",
+            "effectiveFrom"
+          ],
+          "properties": {
+            "scheduleId": {
+              "type": "string"
+            },
+            "carrierCode": {
+              "type": "string"
+            },
+            "stringCode": {
+              "type": "string",
+              "description": "e.g. AE1, TP6, EUR-ASIA-SVC"
+            },
+            "rotationLocodes": {
+              "type": "string",
+              "description": "pipe-delimited UN/LOCODE list"
+            },
+            "transitDays": {
+              "type": "integer"
+            },
+            "frequencyDays": {
+              "type": "integer"
+            },
+            "effectiveFrom": {
+              "type": "string",
+              "format": "date"
+            },
+            "effectiveUntil": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

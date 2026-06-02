@@ -25,7 +25,7 @@ export interface ProjectorConfig {
  * Declares text search, attribute inverted indexes, and aggregate breakdowns.
  */
 export interface CollectionProjection {
-  /** AT collection NSID (e.g., "app.etzhayyim.kiyo.paper"). */
+  /** AT collection NSID (e.g., "com.etzhayyim.kiyo.paper"). */
   collection: string;
 
   /**

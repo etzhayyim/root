@@ -29,10 +29,10 @@ describe("buildOpenApiDocument", () => {
 		expect(pathKeys.length).toBe(LAWFIRM_ROUTES.length);
 		expect(pathKeys.length).toBe(LAWFIRM_MCP.length);
 		for (const key of pathKeys) {
-			expect(key).toMatch(/^\/xrpc\/ai\.gftd\.apps\.lawfirm\./);
+			expect(key).toMatch(/^\/xrpc\/com\.etzhayyim\.apps\.lawfirm\./);
 		}
 		// spot check: createCase is a POST procedure
-		expect(doc.paths["/xrpc/app.etzhayyim.apps.lawfirm.createCase"]).toHaveProperty("post");
+		expect(doc.paths["/xrpc/com.etzhayyim.apps.lawfirm.createCase"]).toHaveProperty("post");
 	});
 
 	it("honors serverUrl override when provided", () => {

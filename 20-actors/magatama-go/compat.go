@@ -358,7 +358,7 @@ var (
 	EvtEvolutionAccept               = "evolution.accept"
 	EvtEvolutionReject               = "evolution.reject"
 	EvtFormsPending                  = "forms.pending"
-	LexiconEvolutionTeamSessionStart = "app.etzhayyim.evolution.teamSessionStart"
+	LexiconEvolutionTeamSessionStart = "com.etzhayyim.evolution.teamSessionStart"
 )
 
 func DefaultAppTeam(args ...any) AppTeamConfig                              { return AppTeamConfig{} }

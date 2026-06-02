@@ -30,7 +30,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim"
 _METRIC = _LEX / "liberation" / "metricReport.json"
 _VENDOR = _LEX / "give" / "vendorMissionDonationAttestation.json"
 _VENDOR_POLICY = _LEX / "give" / "vendorSurplusPolicy.json"
@@ -182,7 +182,7 @@ def test_cell_stub_raises_r0(cell):
 # and string length bounds — enough to fail fast if a field is renamed or a
 # const/enum is weakened.
 
-_EXAMPLES = _REPO / "00-contracts" / "examples" / "app" / "etzhayyim"
+_EXAMPLES = _REPO / "00-contracts" / "examples" / "com" / "etzhayyim"
 
 
 def _validate_record(schema_obj: dict, value, path: str = "$") -> list[str]:
@@ -306,7 +306,7 @@ def test_give_readme_indexes_every_lexicon():
     missing = []
     for lex in sorted(give.rglob("*.json")):
         nsid = _load(lex)["id"]
-        short = nsid.removeprefix("app.etzhayyim.give.")  # e.g. usdc.donation / vendorSurplusPolicy
+        short = nsid.removeprefix("com.etzhayyim.give.")  # e.g. usdc.donation / vendorSurplusPolicy
         if short not in readme:
             missing.append(short)
     assert not missing, f"give/README.md must index every lexicon; missing: {missing}"

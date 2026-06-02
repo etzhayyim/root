@@ -71,9 +71,9 @@
         "app.bsky.feed.post",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.kago.kagoEntity",
-        "ai.gftd.apps.kago.kagoEvent",
-        "ai.gftd.apps.kago.kagoReport"
+        "com.etzhayyim.apps.kago.kagoEntity",
+        "com.etzhayyim.apps.kago.kagoEvent",
+        "com.etzhayyim.apps.kago.kagoReport"
       ]
     }
   },

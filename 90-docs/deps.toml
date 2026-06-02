@@ -94,9 +94,9 @@ description = "Graph SoS Intel T1 actor continuously analyzes vertex_*, edge_*, 
 related = [
   "20-actors/graph-sos-intel/actor-manifest.jsonld",
   "30-graph/graph-schema/migrations/20260507170000_graph_sos_intel.ts",
-  "00-contracts/lexicons/ai/gftd/apps/graphSosIntel/health.json",
-  "00-contracts/lexicons/ai/gftd/apps/graphSosIntel/listRelations.json",
-  "00-contracts/lexicons/ai/gftd/apps/graphSosIntel/listFindings.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/graphSosIntel/health.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/graphSosIntel/listRelations.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/graphSosIntel/listFindings.json",
 ]
 
 [files."adr/2605092700-bigquery-public-data-ingest-cost-topology.md"]

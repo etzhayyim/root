@@ -1,0 +1,79 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.legalAidMatter",
+  "description": "A free legal-aid matter opened for a consenting adherent and routed to jurisdiction-licensed counsel via the Public Fund. R0 skeleton per ADR-2605302200 §D1/§D2/§D3 (Lane A advice) + ADR-2605302330 (Lane B certified mediation). CONSTITUTIONAL: (G15 zero-compensation) the matter charges the adherent NOTHING — no fee, no nominal processing fee, no tithe attribution, no SBT-priced purchase, no indirect benefit; `zeroCompensation` MUST be true and NO consideration property (fee / price / amount / tithe / sbtPrice / paymentRef) is representable at the schema layer. (G16 supervision) `supervisingCounsel` is required — a DID-bound reference to a lawyer licensed in the adherent's jurisdiction (DE: Befähigung zum Richteramt; US: bar admission). A matter without resolvable in-jurisdiction counsel MUST NOT leave intake. chigiri renders no advice itself (G14); the human lawyer is the practitioner. Donations flow only to the general Public Fund and MUST NOT be coupled to a specific matter.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "adherentDid",
+          "jurisdiction",
+          "lane",
+          "supervisingCounsel",
+          "zeroCompensation",
+          "intakeState",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime"},
+          "adherentDid": {
+            "type": "string",
+            "format": "did",
+            "description": "Consenting adherent the matter is opened for."
+          },
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "Adherent's jurisdiction; MUST be `enabled` in jurisdictionPolicy (not verify-required)."
+          },
+          "lane": {
+            "type": "string",
+            "knownValues": ["advice", "certified-mediation"],
+            "description": "advice = ADR-2605302200 Lane A; certified-mediation = ADR-2605302330 Lane B."
+          },
+          "zeroCompensation": {
+            "type": "boolean",
+            "const": true,
+            "description": "G15 anchor — MUST be true. The adherent is charged nothing, including indirect benefit. Consideration is unrepresentable."
+          },
+          "supervisingCounsel": {
+            "type": "ref",
+            "ref": "#supervisingCounsel",
+            "description": "G16 anchor — in-jurisdiction licensed lawyer who delivers/supervises. Required before the matter leaves intake."
+          },
+          "intakeState": {
+            "type": "string",
+            "knownValues": ["intake", "counsel-assigned", "active", "resolved", "closed"],
+            "description": "A matter MUST NOT advance past `intake` without a resolvable supervisingCounsel (G16)."
+          },
+          "conflictChecked": {
+            "type": "boolean",
+            "description": "Conflict-of-interest check performed at intake."
+          },
+          "attestingDid": {"type": "string", "format": "did"}
+        }
+      }
+    },
+    "supervisingCounsel": {
+      "type": "object",
+      "required": ["counselDid", "licenseJurisdiction", "retainedViaPublicFund"],
+      "properties": {
+        "counselDid": {"type": "string", "format": "did"},
+        "licenseJurisdiction": {
+          "type": "string",
+          "maxLength": 8,
+          "description": "MUST match the matter jurisdiction (DE: Befähigung zum Richteramt; US: bar admission)."
+        },
+        "retainedViaPublicFund": {
+          "type": "boolean",
+          "const": true,
+          "description": "Counsel is retained out of the Public Fund (Council Lv6+, ADR-2605192145) — never adherent-paid."
+        }
+      }
+    }
+  }
+}

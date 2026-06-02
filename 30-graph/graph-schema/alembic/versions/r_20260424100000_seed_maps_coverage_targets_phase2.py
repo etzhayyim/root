@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/street_view:StreetChunk',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/street_view:StreetChunk',
                  'did:web:maps.etzhayyim.com:street_view',
                  'StreetChunk',
                  50000000,
@@ -38,7 +38,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite:SatelliteScene',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/satellite:SatelliteScene',
                  'did:web:maps.etzhayyim.com:satellite',
                  'SatelliteScene',
                  10000000,
@@ -55,7 +55,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/satellite:TerrainPatch',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/satellite:TerrainPatch',
                  'did:web:maps.etzhayyim.com:satellite',
                  'TerrainPatch',
                  14000000,
@@ -72,7 +72,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-uk-ch:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-uk-ch:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:uk-ch',
                  'LegalEntity',
                  5500000,
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-us-edgar:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-us-edgar:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:us-edgar',
                  'LegalEntity',
                  700000,
@@ -106,7 +106,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-eu-br:LegalEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-eu-br:LegalEntity',
                  'did:web:maps.etzhayyim.com:registry:eu-br',
                  'LegalEntity',
                  15000000,
@@ -123,7 +123,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-jp-moj:LandRegistry',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-jp-moj:LandRegistry',
                  'did:web:maps.etzhayyim.com:registry:jp-moj',
                  'LandRegistry',
                  200000000,
@@ -140,7 +140,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Port',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Port',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Port',
                  5000,
@@ -157,7 +157,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Road',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Road',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Road',
                  20000,
@@ -174,7 +174,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:Railway',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:Railway',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'Railway',
                  5000,
@@ -191,7 +191,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/infrastructure:EvCharger',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/infrastructure:EvCharger',
                  'did:web:maps.etzhayyim.com:infrastructure',
                  'EvCharger',
                  100000,
@@ -208,7 +208,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/seismic:SpatialEvent',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/seismic:SpatialEvent',
                  'did:web:maps.etzhayyim.com:seismic',
                  'SpatialEvent',
                  100000,
@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/did-web-site-gftd-ai:WebCrawlGeoEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/did-web-site-gftd-ai:WebCrawlGeoEntity',
                  'did:web:site.etzhayyim.com',
                  'WebCrawlGeoEntity',
                  1000000,

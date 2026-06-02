@@ -31,7 +31,7 @@ import {
   type AnalyzeProcessOutput,
 } from "./types.js";
 
-const PROCESS_COLLECTION = "app.etzhayyim.bpmn.process";
+const PROCESS_COLLECTION = "com.etzhayyim.bpmn.process";
 
 function isProcessId(id: string): boolean {
   return /^[a-z0-9._-]{1,64}$/i.test(id);
@@ -275,7 +275,7 @@ export async function analyzeProcess(
   const limit = Math.min(input.limit ?? 500, 5000);
 
   // Placeholder: in a full impl, this would query audit logs from vertex_repo_commit
-  // where collection="app.etzhayyim.bpmn.audit"
+  // where collection="com.etzhayyim.bpmn.audit"
   return {
     ok: true,
     source: "audit_log",

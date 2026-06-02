@@ -40,16 +40,16 @@ const seeds: Seed[] = [
 ].map((proc) => ({
   proc,
   bpmnProcessId: `jp_ashiba_${snake(proc)}`,
-  nsid: `app.etzhayyim.apps.jpAshiba.${proc}`,
+  nsid: `com.etzhayyim.apps.jpAshiba.${proc}`,
   resultTimeoutMs: 30000,
 }));
 
-const sourcePath = (s: Seed) => `00-contracts/bpmn/ai/gftd/${project}/${s.proc}.bpmn`;
+const sourcePath = (s: Seed) => `00-contracts/bpmn/com/etzhayyim/${project}/${s.proc}.bpmn`;
 const readContract = (rel: string) => readFileSync(path.resolve(repoRoot, rel), "utf8");
 const processVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${project}-${slug(s.proc)}-v1`;
 const bindingVertexId = (s: Seed) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${project}-${s.proc}-v1`;
 
 async function insertProcessDef(db: Kysely<unknown>, s: Seed): Promise<void> {
   const rel = sourcePath(s);

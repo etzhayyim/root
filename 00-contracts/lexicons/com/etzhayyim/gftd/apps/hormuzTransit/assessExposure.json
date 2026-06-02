@@ -1,0 +1,77 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hormuzTransit.assessExposure",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "経路曝露評価 (代替ルート・保険影響)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "passageVid",
+            "assessedAt"
+          ],
+          "properties": {
+            "passageVid": {
+              "type": "string"
+            },
+            "cargoValueUsd": {
+              "type": "number"
+            },
+            "altRoute": {
+              "type": "string",
+              "enum": [
+                "cape-of-good-hope",
+                "suez",
+                "none"
+              ]
+            },
+            "altRouteDaysDelta": {
+              "type": "number"
+            },
+            "altRouteCostDeltaUsd": {
+              "type": "number"
+            },
+            "assessedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "exposureTier": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "requireWarning": {
+              "type": "boolean"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -55,7 +55,7 @@
       "steps": [
         {
           "args": {
-            "template": "UNWIND $jurisdictions AS j MERGE (r:JurisdictionRegistry {country_code: j.code}) SET r.authority_name = j.name, r.plate_format = j.plate_format, r.vin_required = j.vin_required, r.repo = $did, r.collection = 'ai.gftd.apps.vin.jurisdictionRegistry', r.updated_at = datetime()"
+            "template": "UNWIND $jurisdictions AS j MERGE (r:JurisdictionRegistry {country_code: j.code}) SET r.authority_name = j.name, r.plate_format = j.plate_format, r.vin_required = j.vin_required, r.repo = $did, r.collection = 'com.etzhayyim.apps.vin.jurisdictionRegistry', r.updated_at = datetime()"
           },
           "fn": "graph.write",
           "id": "seedJurisdictions"
@@ -228,7 +228,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vin.shipmentVolume"
+          "com.etzhayyim.apps.vin.shipmentVolume"
         ],
         "type": "subscribeRepos"
       }
@@ -360,7 +360,7 @@
         {
           "args": {
             "params": {
-              "collection": "ai.gftd.apps.vin.vehicle",
+              "collection": "com.etzhayyim.apps.vin.vehicle",
               "make": "$decodeVin.result.make",
               "model": "$decodeVin.result.model",
               "plant": "$decodeVin.result.plant",
@@ -391,7 +391,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vin.vinRecord"
+          "com.etzhayyim.apps.vin.vinRecord"
         ],
         "type": "subscribeRepos"
       }
@@ -437,7 +437,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vin.licensePlate"
+          "com.etzhayyim.apps.vin.licensePlate"
         ],
         "type": "subscribeRepos"
       }
@@ -469,7 +469,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.vin.cohortRegistration"
+          "com.etzhayyim.apps.vin.cohortRegistration"
         ],
         "type": "subscribeRepos"
       }
@@ -496,7 +496,7 @@
             "params": {
               "actorName": "vin",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.vin.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.vin.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "v1n0g10b",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -534,7 +534,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.vin.coverage.get",
+        "nsid": "com.etzhayyim.apps.vin.coverage.get",
         "type": "xrpc"
       }
     }
@@ -566,8 +566,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -580,14 +580,14 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.vin.vehicle",
-        "ai.gftd.apps.vin.vinRecord",
-        "ai.gftd.apps.vin.licensePlate",
-        "ai.gftd.apps.vin.recallCampaign",
-        "ai.gftd.apps.vin.cohortRegistration",
-        "ai.gftd.apps.vin.shipmentVolume",
-        "ai.gftd.apps.vin.productionPlant",
-        "ai.gftd.apps.vin.productionLine"
+        "com.etzhayyim.apps.vin.vehicle",
+        "com.etzhayyim.apps.vin.vinRecord",
+        "com.etzhayyim.apps.vin.licensePlate",
+        "com.etzhayyim.apps.vin.recallCampaign",
+        "com.etzhayyim.apps.vin.cohortRegistration",
+        "com.etzhayyim.apps.vin.shipmentVolume",
+        "com.etzhayyim.apps.vin.productionPlant",
+        "com.etzhayyim.apps.vin.productionLine"
       ]
     }
   },

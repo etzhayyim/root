@@ -58,7 +58,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.media_gamers.guide"
+          "com.etzhayyim.apps.media_gamers.guide"
         ],
         "type": "subscribeRepos"
       }
@@ -85,7 +85,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.media_gamers.translation"
+          "com.etzhayyim.apps.media_gamers.translation"
         ],
         "type": "subscribeRepos"
       }
@@ -155,7 +155,7 @@
             "params": {
               "actorName": "media-gamers",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.mediagamers.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.mediagamers.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "a7m8oocs",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -213,7 +213,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.mediagamers.coverage.get",
+        "nsid": "com.etzhayyim.apps.mediagamers.coverage.get",
         "type": "xrpc"
       }
     }
@@ -236,8 +236,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -250,10 +250,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.media_gamers.guide",
-        "ai.gftd.apps.media_gamers.translation",
-        "ai.gftd.apps.media_gamers.gameTitle",
-        "ai.gftd.apps.media_gamers.modelEvaluation"
+        "com.etzhayyim.apps.media_gamers.guide",
+        "com.etzhayyim.apps.media_gamers.translation",
+        "com.etzhayyim.apps.media_gamers.gameTitle",
+        "com.etzhayyim.apps.media_gamers.modelEvaluation"
       ]
     }
   },

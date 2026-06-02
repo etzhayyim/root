@@ -9,7 +9,7 @@ This cell orchestrates that result into a charter-shaped `loadingRecord`.
 Boundary (CRITICAL): himawari composes, never clones. The Rust `LoaderRobot.step`
 choreography (LoadPhase::{ToPick,Carry,Lower,Done}) is authoritative for the
 physical cycle. This cell consumes the cycle outcome (phase log + pallet plan)
-and emits the on-chain `app.etzhayyim.himawari.loadingRecord`.
+and emits the on-chain `com.etzhayyim.himawari.loadingRecord`.
 
 Gates enforced here:
   G7  labor-liberation transparency — every human task removed by automation is
@@ -58,7 +58,7 @@ class PanelLoadingCell:
     # ----------------------------------------------------------------------- #
     def solve(self, state: dict[str, Any]) -> dict[str, Any]:
         """Compose the F10 LoaderRobot cycle result + emit an
-        `app.etzhayyim.himawari.loadingRecord`.
+        `com.etzhayyim.himawari.loadingRecord`.
 
         Input state (from module_assembly downstream + the composed loader):
           loadingId       str   — stable cycle id
@@ -154,7 +154,7 @@ class PanelLoadingCell:
         )
 
         record = {
-            "$type": "app.etzhayyim.himawari.loadingRecord",
+            "$type": "com.etzhayyim.himawari.loadingRecord",
             "loadingId": loading_id,
             "recordedAt": recorded_at,
             "moduleSerials": module_serials,

@@ -141,54 +141,54 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
-   0, 0, 'ai.gftd.apps.tsukuru.cadProject.create',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
+   0, 0, 'com.etzhayyim.apps.tsukuru.cadProject.create',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new CAD design project on tsukuru, linked to a hardware product.',
    '{"type":"object","required":["projectName","productRef","cadTool","totalParts"],"properties":{"projectName":{"type":"string"},"productRef":{"type":"string"},"cadTool":{"type":"string","enum":["fusion360","onshape","freecad"]},"totalParts":{"type":"integer"}}}',
    '{"type":"object","properties":{"projectVid":{"type":"string"},"projectId":{"type":"string"}}}',
    'internal', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/tsukuru/cadProject/create.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cadProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
-   0, 0, 'ai.gftd.apps.tsukuru.cadPart.upsert',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
+   0, 0, 'com.etzhayyim.apps.tsukuru.cadPart.upsert',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Upsert a CAD part record within a project (create or update status/step_file_ref).',
    '{"type":"object","required":["projectVid","partNumber","partName"],"properties":{"projectVid":{"type":"string"},"partNumber":{"type":"string"},"partName":{"type":"string"},"material":{"type":"string"},"process":{"type":"string"},"status":{"type":"string"},"stepFileRef":{"type":"string"},"quantity":{"type":"integer"}}}',
    '{"type":"object","properties":{"partVid":{"type":"string"}}}',
    'internal', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/tsukuru/cadPart/upsert.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cadPart/upsert.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
-   0, 0, 'ai.gftd.apps.tsukuru.meviy.requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
+   0, 0, 'com.etzhayyim.apps.tsukuru.meviy.requestQuote',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit STEP files to Misumi Meviy for automatic machining quote.',
    '{"type":"object","required":["projectVid"],"properties":{"projectVid":{"type":"string"},"partVids":{"type":"array","items":{"type":"string"}}}}',
    '{"type":"object","properties":{"quoteId":{"type":"string"},"totalJpy":{"type":"integer"},"lineItems":{"type":"array"},"leadDays":{"type":"integer"}}}',
    'internal', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/tsukuru/meviy/requestQuote.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/meviy/requestQuote.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
-   0, 0, 'ai.gftd.apps.tsukuru.pcbProject.create',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
+   0, 0, 'com.etzhayyim.apps.tsukuru.pcbProject.create',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new PCB design project on tsukuru.',
    '{"type":"object","required":["pcbName","productRef"],"properties":{"pcbName":{"type":"string"},"productRef":{"type":"string"},"kicadVersion":{"type":"string"},"boardSizeMm":{"type":"string"},"layerCount":{"type":"integer"}}}',
    '{"type":"object","properties":{"projectVid":{"type":"string"},"projectId":{"type":"string"}}}',
    'internal', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/tsukuru/pcbProject/create.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/pcbProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
 
-  ('at://did:web:tsukuru.etzhayyim.com/ai.gftd.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote',
-   0, 0, 'ai.gftd.apps.tsukuru.pban.requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote',
+   0, 0, 'com.etzhayyim.apps.tsukuru.pban.requestQuote',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit Gerber ZIP to P-Ban.com for PCB fabrication + assembly quote.',
    '{"type":"object","required":["projectVid","gerberRef"],"properties":{"projectVid":{"type":"string"},"gerberRef":{"type":"string"},"quantity":{"type":"integer"},"needsAssembly":{"type":"boolean"}}}',
    '{"type":"object","properties":{"quoteId":{"type":"string"},"pcbJpy":{"type":"integer"},"assemblyJpy":{"type":"integer"},"totalJpy":{"type":"integer"},"leadDays":{"type":"integer"}}}',
    'internal', 1, TRUE,
-   '00-contracts/lexicons/ai/gftd/apps/tsukuru/pban/requestQuote.json',
+   '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/pban/requestQuote.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z');
 
 FLUSH;
@@ -208,23 +208,23 @@ INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
 VALUES
   ('tsukuru_cad_design_flow.v1:project_init', 0, 0, 'tsukuru_cad_design_flow.v1',
-   'project_init', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.cadProject.create',
-   '{"input_keys":["productRef","projectName","cadTool","totalParts"],"result_key":"projectVid","args":{"name":"ai.gftd.apps.tsukuru.cadProject.create"}}',
+   'project_init', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.cadProject.create',
+   '{"input_keys":["productRef","projectName","cadTool","totalParts"],"result_key":"projectVid","args":{"name":"com.etzhayyim.apps.tsukuru.cadProject.create"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:part_modeling', 0, 0, 'tsukuru_cad_design_flow.v1',
-   'part_modeling', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.cadPart.upsert',
-   '{"input_keys":["projectVid","currentPartIdx","stepFiles"],"result_key":"partVid","args":{"name":"ai.gftd.apps.tsukuru.cadPart.upsert"},"loop_var":"currentPartIdx","loop_max":"totalParts"}',
+   'part_modeling', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.cadPart.upsert',
+   '{"input_keys":["projectVid","currentPartIdx","stepFiles"],"result_key":"partVid","args":{"name":"com.etzhayyim.apps.tsukuru.cadPart.upsert"},"loop_var":"currentPartIdx","loop_max":"totalParts"}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:tolerance_review', 0, 0, 'tsukuru_cad_design_flow.v1',
-   'tolerance_review', 'mcp_tool', 'mcp://ai.gftd.tools.sql.query',
-   '{"input_keys":["projectVid"],"result_key":"toleranceErrors","args":{"name":"ai.gftd.tools.sql.query","sql":"SELECT part_number, tolerance_class, fit_check_note FROM vertex_tsukuru_cad_part WHERE project_vid = %(project_vid)s AND (tolerance_class NOT IN (''standard'',''h7'',''h6'') OR fit_check_note IS NOT NULL) LIMIT 50"}}',
+   'tolerance_review', 'mcp_tool', 'mcp://com.etzhayyim.tools.sql.query',
+   '{"input_keys":["projectVid"],"result_key":"toleranceErrors","args":{"name":"com.etzhayyim.tools.sql.query","sql":"SELECT part_number, tolerance_class, fit_check_note FROM vertex_tsukuru_cad_part WHERE project_vid = %(project_vid)s AND (tolerance_class NOT IN (''standard'',''h7'',''h6'') OR fit_check_note IS NOT NULL) LIMIT 50"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:meviy_quote', 0, 0, 'tsukuru_cad_design_flow.v1',
-   'meviy_quote', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.meviy.requestQuote',
-   '{"input_keys":["projectVid"],"result_key":"meviyQuote","args":{"name":"ai.gftd.apps.tsukuru.meviy.requestQuote"}}',
+   'meviy_quote', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.meviy.requestQuote',
+   '{"input_keys":["projectVid"],"result_key":"meviyQuote","args":{"name":"com.etzhayyim.apps.tsukuru.meviy.requestQuote"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:order_decision', 0, 0, 'tsukuru_cad_design_flow.v1',
@@ -233,13 +233,13 @@ VALUES
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:order_submit', 0, 0, 'tsukuru_cad_design_flow.v1',
-   'order_submit', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.productionOrder.create',
-   '{"input_keys":["projectVid","meviyQuote"],"result_key":"orderId","args":{"name":"ai.gftd.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:misumi-meviy.tsukuru.etzhayyim.com"}}',
+   'order_submit', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.productionOrder.create',
+   '{"input_keys":["projectVid","meviyQuote"],"result_key":"orderId","args":{"name":"com.etzhayyim.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:misumi-meviy.tsukuru.etzhayyim.com"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:delivery_track', 0, 0, 'tsukuru_cad_design_flow.v1',
-   'delivery_track', 'mcp_tool', 'mcp://ai.gftd.tools.sql.query',
-   '{"input_keys":["orderId"],"result_key":"deliveryStatus","args":{"name":"ai.gftd.tools.sql.query","sql":"SELECT value_json::jsonb ->> ''status'' AS status, value_json::jsonb ->> ''trackingNumber'' AS tracking FROM vertex_tsukuru_production_order WHERE vertex_id = %(order_id)s LIMIT 1"}}',
+   'delivery_track', 'mcp_tool', 'mcp://com.etzhayyim.tools.sql.query',
+   '{"input_keys":["orderId"],"result_key":"deliveryStatus","args":{"name":"com.etzhayyim.tools.sql.query","sql":"SELECT value_json::jsonb ->> ''status'' AS status, value_json::jsonb ->> ''trackingNumber'' AS tracking FROM vertex_tsukuru_production_order WHERE vertex_id = %(order_id)s LIMIT 1"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_cad_design_flow.v1:fit_check', 0, 0, 'tsukuru_cad_design_flow.v1',
@@ -264,8 +264,8 @@ INSERT INTO vertex_langgraph_assistant_node
   (vertex_id, _seq, sensitivity_ord, assistant_id, node_id, kind, ref, config, created_at)
 VALUES
   ('tsukuru_pcb_design_flow.v1:schematic_design', 0, 0, 'tsukuru_pcb_design_flow.v1',
-   'schematic_design', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.pcbProject.create',
-   '{"input_keys":["productRef","pcbName","kicadVersion","boardSizeMm","layerCount"],"result_key":"projectVid","args":{"name":"ai.gftd.apps.tsukuru.pcbProject.create"}}',
+   'schematic_design', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.pcbProject.create',
+   '{"input_keys":["productRef","pcbName","kicadVersion","boardSizeMm","layerCount"],"result_key":"projectVid","args":{"name":"com.etzhayyim.apps.tsukuru.pcbProject.create"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:pcb_layout', 0, 0, 'tsukuru_pcb_design_flow.v1',
@@ -274,8 +274,8 @@ VALUES
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:drc_check', 0, 0, 'tsukuru_pcb_design_flow.v1',
-   'drc_check', 'mcp_tool', 'mcp://ai.gftd.tools.sql.query',
-   '{"input_keys":["projectVid"],"result_key":"drcErrors","args":{"name":"ai.gftd.tools.sql.query","sql":"SELECT drc_errors FROM vertex_tsukuru_pcb_project WHERE vertex_id = %(project_vid)s LIMIT 1"}}',
+   'drc_check', 'mcp_tool', 'mcp://com.etzhayyim.tools.sql.query',
+   '{"input_keys":["projectVid"],"result_key":"drcErrors","args":{"name":"com.etzhayyim.tools.sql.query","sql":"SELECT drc_errors FROM vertex_tsukuru_pcb_project WHERE vertex_id = %(project_vid)s LIMIT 1"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:gerber_export', 0, 0, 'tsukuru_pcb_design_flow.v1',
@@ -284,8 +284,8 @@ VALUES
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:pban_quote', 0, 0, 'tsukuru_pcb_design_flow.v1',
-   'pban_quote', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.pban.requestQuote',
-   '{"input_keys":["projectVid","gerberRef"],"result_key":"pbanQuote","args":{"name":"ai.gftd.apps.tsukuru.pban.requestQuote","quantity":10,"needsAssembly":true}}',
+   'pban_quote', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.pban.requestQuote',
+   '{"input_keys":["projectVid","gerberRef"],"result_key":"pbanQuote","args":{"name":"com.etzhayyim.apps.tsukuru.pban.requestQuote","quantity":10,"needsAssembly":true}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:order_decision', 0, 0, 'tsukuru_pcb_design_flow.v1',
@@ -294,13 +294,13 @@ VALUES
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:order_submit', 0, 0, 'tsukuru_pcb_design_flow.v1',
-   'order_submit', 'mcp_tool', 'mcp://ai.gftd.apps.tsukuru.productionOrder.create',
-   '{"input_keys":["projectVid","pbanQuote"],"result_key":"orderId","args":{"name":"ai.gftd.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:pban-com.tsukuru.etzhayyim.com"}}',
+   'order_submit', 'mcp_tool', 'mcp://com.etzhayyim.apps.tsukuru.productionOrder.create',
+   '{"input_keys":["projectVid","pbanQuote"],"result_key":"orderId","args":{"name":"com.etzhayyim.apps.tsukuru.productionOrder.create","fulfillmentMode":"mto","vendorDid":"did:web:pban-com.tsukuru.etzhayyim.com"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:delivery_track', 0, 0, 'tsukuru_pcb_design_flow.v1',
-   'delivery_track', 'mcp_tool', 'mcp://ai.gftd.tools.sql.query',
-   '{"input_keys":["orderId"],"result_key":"deliveryStatus","args":{"name":"ai.gftd.tools.sql.query","sql":"SELECT value_json::jsonb ->> ''status'' AS status FROM vertex_tsukuru_production_order WHERE vertex_id = %(order_id)s LIMIT 1"}}',
+   'delivery_track', 'mcp_tool', 'mcp://com.etzhayyim.tools.sql.query',
+   '{"input_keys":["orderId"],"result_key":"deliveryStatus","args":{"name":"com.etzhayyim.tools.sql.query","sql":"SELECT value_json::jsonb ->> ''status'' AS status FROM vertex_tsukuru_production_order WHERE vertex_id = %(order_id)s LIMIT 1"}}',
    '2026-05-14T15:00:00Z'),
 
   ('tsukuru_pcb_design_flow.v1:assembly_check', 0, 0, 'tsukuru_pcb_design_flow.v1',

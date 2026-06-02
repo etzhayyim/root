@@ -1,7 +1,7 @@
 // Bluesky Search Ingest thin edge (ADR-2604282300).
 //
 // Business logic moved to:
-//   - BPMN: etzhayyim-root/00-contracts/bpmn/ai/gftd/bluesky/{ingestActor,refreshStalest}.bpmn
+//   - BPMN: etzhayyim-root/00-contracts/bpmn/com/etzhayyim/bluesky/{ingestActor,refreshStalest}.bpmn
 //   - Python LangServer: pymagatama.ingest.bluesky
 //
 // This Worker now only exposes health/meta and preserves the legacy manual
@@ -21,7 +21,7 @@ interface Env {
 }
 
 const ACTOR_DID = "did:web:bluesky.etzhayyim.com";
-const INGEST_NSID = "app.etzhayyim.apps.bluesky.ingestActor";
+const INGEST_NSID = "com.etzhayyim.apps.bluesky.ingestActor";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -37,8 +37,8 @@ export default {
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/bluesky.py",
         bpmn: [
-          "etzhayyim-root/00-contracts/bpmn/ai/gftd/bluesky/ingestActor.bpmn",
-          "etzhayyim-root/00-contracts/bpmn/ai/gftd/bluesky/refreshStalest.bpmn",
+          "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/bluesky/ingestActor.bpmn",
+          "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/bluesky/refreshStalest.bpmn",
         ],
         adr: "ADR-0037, ADR-2604282300",
       });

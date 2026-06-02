@@ -1,6 +1,6 @@
 """webmk `create_proposal` graph — research → competitors → strategy → copy → quality_gate → store.
 
-NSID: app.etzhayyim.apps.webmk.createProposal
+NSID: com.etzhayyim.apps.webmk.createProposal
 
 State schema mirrors the Zeebe worker ProposalState from webmk_worker_main.py,
 ported to LangGraph native (Phase 4: pyzeebe → LangServer migration).
@@ -158,7 +158,7 @@ async def _store_proposal(state: ProposalState) -> dict[str, Any]:
         return {"ok": True, "stored": False}
     try:
         import psycopg
-        vertex_id = f"at://did:web:webmk.etzhayyim.com/app.etzhayyim.apps.webmk.proposal/{proposal_id}"
+        vertex_id = f"at://did:web:webmk.etzhayyim.com/com.etzhayyim.apps.webmk.proposal/{proposal_id}"
         async with await psycopg.AsyncConnection.connect(_RW_URL, autocommit=True) as conn:
             await conn.execute(
                 """

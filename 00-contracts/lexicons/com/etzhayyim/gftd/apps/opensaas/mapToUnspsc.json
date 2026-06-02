@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openSaas.mapToUnspsc",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Map a registered SaaS product to a UNSPSC commodity code (concordance). Starts BPMN open_saas_map_to_unspsc.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["productVid","unspscCode"],
+          "properties": {
+            "productVid": { "type": "string" },
+            "unspscCode": { "type": "string", "description": "UNSPSC 8-digit" },
+            "confidence": { "type": "number" },
+            "mapperDid":  { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+            "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

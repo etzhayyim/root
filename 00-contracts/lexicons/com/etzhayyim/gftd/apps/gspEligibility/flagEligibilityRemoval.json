@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.gspEligibility.flagEligibilityRemoval",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Preference suspension / country graduation / de-listing (bridges tripsWaiver.flagRetaliationRisk + wto-dispute + labour-mobility)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "reviewVid",
+            "removalKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "reviewVid": {
+              "type": "string",
+              "description": "bridges recordEligibilityReview"
+            },
+            "removalKind": {
+              "type": "string",
+              "enum": [
+                "full_suspension",
+                "partial_withdrawal",
+                "product_specific",
+                "competitive_need",
+                "graduation",
+                "ip_failure",
+                "labor_failure",
+                "corruption"
+              ]
+            },
+            "affectedTradeMusd": {
+              "type": "number"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

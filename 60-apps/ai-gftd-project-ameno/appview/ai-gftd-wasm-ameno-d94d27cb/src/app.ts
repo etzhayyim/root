@@ -8,7 +8,7 @@ import {
 
 const APP_EMBED_URL = "https://d94d27cb.etzhayyim.com/?embed=1";
 
-type ModelEntry = LexiconOutput<"app.etzhayyim.apps.ameno.listModels">["models"][number];
+type ModelEntry = LexiconOutput<"com.etzhayyim.apps.ameno.listModels">["models"][number];
 
 const MODEL_CATALOG: ReadonlyArray<ModelEntry> = [
   {
@@ -80,11 +80,11 @@ const MODEL_CATALOG: ReadonlyArray<ModelEntry> = [
   },
 ];
 
-function listModelsHandler(): LexiconOutput<"app.etzhayyim.apps.ameno.listModels"> {
+function listModelsHandler(): LexiconOutput<"com.etzhayyim.apps.ameno.listModels"> {
   return { models: [...MODEL_CATALOG] };
 }
 
-function cardHomeHandler(): LexiconOutput<"app.etzhayyim.apps.ameno.cardHome"> {
+function cardHomeHandler(): LexiconOutput<"com.etzhayyim.apps.ameno.cardHome"> {
   return {
     title: "Ameno — Browser WebGPU Inference",
     description:
@@ -101,8 +101,8 @@ function cardHomeHandler(): LexiconOutput<"app.etzhayyim.apps.ameno.cardHome"> {
 async function saveResultHandler(
   sdk: HostSDK,
   body: Uint8Array,
-): Promise<LexiconOutput<"app.etzhayyim.apps.ameno.saveResult">> {
-  const input = parseLexiconInput("app.etzhayyim.apps.ameno.saveResult", body);
+): Promise<LexiconOutput<"com.etzhayyim.apps.ameno.saveResult">> {
+  const input = parseLexiconInput("com.etzhayyim.apps.ameno.saveResult", body);
   if (!input.modelId) return { status: "failed", error: "modelId required" };
   if (!MODEL_CATALOG.some((m) => m.id === input.modelId)) {
     return { status: "failed", error: `unknown modelId: ${input.modelId}` };
@@ -113,7 +113,7 @@ async function saveResultHandler(
 
   const createdAt = new Date().toISOString();
   const record = {
-    $type: "app.etzhayyim.apps.ameno.inferenceResult",
+    $type: "com.etzhayyim.apps.ameno.inferenceResult",
     modelId: input.modelId,
     actorDid: input.actorDid ?? "",
     loraAdapters: input.loraAdapters ?? [],
@@ -133,8 +133,8 @@ async function saveResultHandler(
   // Worker forwards via sdk.pds.xrpc(), which routes to atproto.etzhayyim.com PDS
   // and onward to the server-side dispatcher.
   try {
-    const res = (await sdk.pds.xrpc("app.etzhayyim.apps.ameno.saveResult", record)) as
-      | LexiconOutput<"app.etzhayyim.apps.ameno.saveResult">
+    const res = (await sdk.pds.xrpc("com.etzhayyim.apps.ameno.saveResult", record)) as
+      | LexiconOutput<"com.etzhayyim.apps.ameno.saveResult">
       | undefined;
     if (res?.status) return res;
     return { status: "queued", resultId: res?.resultId, uri: res?.uri };
@@ -146,18 +146,18 @@ async function saveResultHandler(
 async function listHistoryHandler(
   sdk: HostSDK,
   body: Uint8Array,
-): Promise<LexiconOutput<"app.etzhayyim.apps.ameno.listHistory">> {
-  const input = parseLexiconInput("app.etzhayyim.apps.ameno.listHistory", body);
+): Promise<LexiconOutput<"com.etzhayyim.apps.ameno.listHistory">> {
+  const input = parseLexiconInput("com.etzhayyim.apps.ameno.listHistory", body);
   const limit = Math.min(Math.max(Number(input.limit) || 20, 1), 100);
   const offset = Math.max(Number(input.offset) || 0, 0);
 
   try {
-    const res = (await sdk.pds.xrpc("app.etzhayyim.apps.ameno.listHistory", {
+    const res = (await sdk.pds.xrpc("com.etzhayyim.apps.ameno.listHistory", {
       actorDid: input.actorDid ?? "",
       modelId: input.modelId ?? "",
       limit,
       offset,
-    })) as LexiconOutput<"app.etzhayyim.apps.ameno.listHistory"> | undefined;
+    })) as LexiconOutput<"com.etzhayyim.apps.ameno.listHistory"> | undefined;
     if (res?.items) return res;
     return { items: [], total: 0, offset, limit };
   } catch {
@@ -166,12 +166,12 @@ async function listHistoryHandler(
 }
 
 export default createWorkerExport((sdk) => {
-  sdk.app.query(nsid("app.etzhayyim.apps.ameno.listModels"), () => listModelsHandler());
-  sdk.app.query(nsid("app.etzhayyim.apps.ameno.cardHome"), () => cardHomeHandler());
-  sdk.app.query(nsid("app.etzhayyim.apps.ameno.listHistory"), (_ctx, body) =>
+  sdk.app.query(nsid("com.etzhayyim.apps.ameno.listModels"), () => listModelsHandler());
+  sdk.app.query(nsid("com.etzhayyim.apps.ameno.cardHome"), () => cardHomeHandler());
+  sdk.app.query(nsid("com.etzhayyim.apps.ameno.listHistory"), (_ctx, body) =>
     listHistoryHandler(sdk, body),
   );
-  sdk.app.command(nsid("app.etzhayyim.apps.ameno.saveResult"), (_ctx, body) =>
+  sdk.app.command(nsid("com.etzhayyim.apps.ameno.saveResult"), (_ctx, body) =>
     saveResultHandler(sdk, body),
   );
 });

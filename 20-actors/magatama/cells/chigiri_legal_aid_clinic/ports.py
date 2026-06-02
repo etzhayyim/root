@@ -114,7 +114,7 @@ class KotobaMstPort:
             raise ValueError(
                 "G15 violation: legalAidMatter record carries a consideration "
                 "field; the legal-aid lane charges the adherent nothing.")
-        res = self._post("ai.gftd.apps.kotobase.kg.ingest", {
+        res = self._post("com.etzhayyim.apps.kotobase.kg.ingest", {
             "entity": {
                 "id": f"matter/{record.get('adherentDid','?')}/{lexicon}",
                 "type": "legal-aid-matter",
@@ -126,7 +126,7 @@ class KotobaMstPort:
 
 
 class JurisdictionPolicyPort:
-    """Lookup app.etzhayyim.chigiri.jurisdictionPolicy enableState."""
+    """Lookup com.etzhayyim.chigiri.jurisdictionPolicy enableState."""
 
     def __init__(self, mst: KotobaMstPort):
         self.mst = mst

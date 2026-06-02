@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.iloLaborRights.recordRatification",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "ILO fundamental convention ratification / non-compliance finding (bridges gspEligibility.flagEligibilityRemoval + forced-labor + gender-pay-gap)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "recordId",
+            "countryIso3",
+            "conventionNo",
+            "status",
+            "filedAt"
+          ],
+          "properties": {
+            "recordId": {
+              "type": "string"
+            },
+            "countryIso3": {
+              "type": "string"
+            },
+            "conventionNo": {
+              "type": "string",
+              "enum": [
+                "c029_forced_labor",
+                "c087_freedom_assoc",
+                "c098_collective_barg",
+                "c100_equal_remun",
+                "c105_abolition_forced",
+                "c111_discrimination",
+                "c138_minimum_age",
+                "c155_ohs",
+                "c182_child_labor",
+                "c190_violence_harass",
+                "protocol_29"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ratified",
+                "denounced",
+                "pending",
+                "non_ratified",
+                "core_gap"
+              ]
+            },
+            "eligibilityRemovalVid": {
+              "type": "string",
+              "description": "bridges gspEligibility.flagEligibilityRemoval"
+            },
+            "filedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

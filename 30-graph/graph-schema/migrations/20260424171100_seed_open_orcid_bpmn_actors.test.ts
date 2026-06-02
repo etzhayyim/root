@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-orcid/registerResearcher.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-orcid/registerResearcher.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-orcid/recordAffiliation.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-orcid/recordAffiliation.bpmn"),
   "utf-8",
 );
 
@@ -25,8 +25,8 @@ describe("Seed open-orcid BPMN actors migration", () => {
     expect(migrationSource).toContain('bpmnProcessId: "open_orcid_record_affiliation"');
   });
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openOrcid.registerResearcher"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openOrcid.recordAffiliation"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openOrcid.registerResearcher"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openOrcid.recordAffiliation"');
   });
   it("uses open-orcid-specific actor_id + owner_did", () => {
     expect(migrationSource).toContain('sys.bpmn.seed.open-orcid');

@@ -1,0 +1,85 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.cdrMarketplace.recordDelivery",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "CDR tonne delivery event (buyer-seller settlement — bridges cdr-verification + climate-carbon-market)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "deliveryId",
+            "registryVid",
+            "methodology",
+            "tonnesCo2e",
+            "deliveredAt"
+          ],
+          "properties": {
+            "deliveryId": {
+              "type": "string"
+            },
+            "registryVid": {
+              "type": "string",
+              "description": "bridges listRegistry"
+            },
+            "buyerLei": {
+              "type": "string"
+            },
+            "supplierLei": {
+              "type": "string"
+            },
+            "methodology": {
+              "type": "string"
+            },
+            "tonnesCo2e": {
+              "type": "number"
+            },
+            "priceUsdTonne": {
+              "type": "number"
+            },
+            "vintage": {
+              "type": "string"
+            },
+            "vintageYear": {
+              "type": "integer"
+            },
+            "deliveredAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "marketTier": {
+              "type": "string",
+              "enum": [
+                "nature_based",
+                "hybrid",
+                "engineered"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

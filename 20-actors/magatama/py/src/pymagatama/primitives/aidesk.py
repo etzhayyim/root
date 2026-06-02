@@ -16,8 +16,6 @@ import tempfile
 import logging
 from typing import Any
 
-import psycopg
-
 logger = logging.getLogger(__name__)
 
 ZERO_TO_CAD_MODEL_ID = "ADSKAILab/Zero-To-CAD-Qwen3-VL-2B"
@@ -29,7 +27,6 @@ B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "")
 B2_APP_KEY = os.environ.get("B2_APPLICATION_KEY", "")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 
-RW_DSN = os.environ.get("RISINGWAVE_DSN", "REDACTED_USE_DATABASE_URL_ENV")
 BPMN_DISPATCHER_URL = os.environ.get(
     "BPMN_DISPATCHER_INTERNAL_URL",
     "http://bpmn-dispatcher.mitama-udf.svc.cluster.local:8080",
@@ -206,7 +203,7 @@ async def task_aidesk_tsukuru_handoff(variables: dict[str, Any]) -> dict[str, An
     if BPMN_DISPATCHER_SECRET:
         headers["x-internal-trust"] = BPMN_DISPATCHER_SECRET
 
-    nsid = "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
+    nsid = "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage"
     resp = httpx.post(
         f"{BPMN_DISPATCHER_URL}/xrpc/{nsid}",
         headers=headers,

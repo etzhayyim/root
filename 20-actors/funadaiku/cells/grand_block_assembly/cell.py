@@ -3,7 +3,7 @@
 Erect grand blocks on the building dock and weld block joins into the hull girder.
 
 Per ADR-2606013400. R0 scaffold — .solve() raises RuntimeError until Council Lv6+
-ratifies ADR-2606013415 (R1 activation). Lexicon: app.etzhayyim.funadaiku.grandBlockAssemblyAttestation.
+ratifies ADR-2606013415 (R1 activation). Lexicon: com.etzhayyim.funadaiku.grandBlockAssemblyAttestation.
 """
 
 from typing import Any

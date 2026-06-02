@@ -1,0 +1,86 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.spsStandardIso.recordStandard",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "SPS / ISO traceability standard (ISO 22005 / GlobalGAP / GFSI — bridges codexStandard.flagNonHarmonization + seafood-traceability + rasff-food-safety)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "standardId",
+            "body",
+            "domain",
+            "publishedAt"
+          ],
+          "properties": {
+            "standardId": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string",
+              "enum": [
+                "iso_22005",
+                "iso_22000",
+                "gfsi",
+                "globalgap",
+                "brc",
+                "ifs",
+                "fssc_22000",
+                "sqf",
+                "aspac",
+                "gsp_good_supply_practice"
+              ]
+            },
+            "domain": {
+              "type": "string",
+              "enum": [
+                "feed",
+                "crop",
+                "livestock",
+                "aquaculture",
+                "processed_food",
+                "packaging",
+                "cold_chain",
+                "retail",
+                "distribution",
+                "waste_handling",
+                "lab_accreditation"
+              ]
+            },
+            "harmonizationVid": {
+              "type": "string",
+              "description": "bridges codexStandard.flagNonHarmonization"
+            },
+            "publishedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

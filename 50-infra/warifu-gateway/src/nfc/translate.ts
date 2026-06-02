@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // etzhayyim Charter Compliance Rider v2.0 applies (see /CHARTER-RIDER.md).
 //
-// Surface C — mobile NFC (Host Card Emulation) → app.etzhayyim.card.* (ADR-2605302000).
+// Surface C — mobile NFC (Host Card Emulation) → com.etzhayyim.card.* (ADR-2605302000).
 // The app emulates a contactless EMV card; our own TSP detokenizes. Raw PAN is never present.
 // CVM = WebAuthn passkey (device biometric) = 3-D-Secure-equivalent. No platform-held key.
 

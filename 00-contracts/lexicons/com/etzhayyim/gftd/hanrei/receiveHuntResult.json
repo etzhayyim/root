@@ -1,0 +1,104 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.hanrei.receiveHuntResult",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "iso3": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "taskId": {
+              "type": "integer"
+            },
+            "docImageType": {
+              "type": "string"
+            },
+            "blobKey": {
+              "type": "string"
+            },
+            "docDate": {
+              "type": "string"
+            },
+            "issuingAuthority": {
+              "type": "string"
+            },
+            "docTitle": {
+              "type": "string"
+            },
+            "language": {
+              "type": "integer"
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "pageCount": {
+              "type": "integer"
+            },
+            "blobKeys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "iso3",
+            "field"
+          ]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string"
+            },
+            "iso3": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "blobKeys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "docImageType": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}

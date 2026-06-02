@@ -26,7 +26,7 @@ import { RUNPOD_DEFAULT_MODEL } from "./llm-models";
 
 /** Model ID — synced with handler.py MODEL_NAME / OLLAMA_MODEL. */
 const MODEL_ID = RUNPOD_DEFAULT_MODEL;
-const ANSWER_WITH_KNOWLEDGE_NSID = "app.etzhayyim.apps.llm.answerWithKnowledge";
+const ANSWER_WITH_KNOWLEDGE_NSID = "com.etzhayyim.apps.llm.answerWithKnowledge";
 const PUBLIC_MODEL_ALIASES = ["gemma4-runpod", "tier0-runpod", MODEL_ID] as const;
 
 interface Env {

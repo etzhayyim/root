@@ -1,6 +1,6 @@
 // SUBSTRATE-PORT (ADR-2605212100 follow-up, 2026-05-24):
 // - Kysely + HyperDrive Postgres writes replaced by @etzhayyim/sdk MST PUT (ADR-2605172000).
-// - Lexicon `app.etzhayyim.apps.gov.*` → `app.etzhayyim.gov.*`.
+// - Lexicon `com.etzhayyim.apps.gov.*` → `com.etzhayyim.gov.*`.
 // - ACTOR_DID `did:web:gov.etzhayyim.com` → `did:web:etzhayyim.com:gov`.
 // - Package import `@etzhayyim/magatama-host-sdk` PRESERVED — atomic cutover to `@etzhayyim/magatama-host-sdk`
 //   deferred to ADR-2605214000 wave.
@@ -38,7 +38,7 @@ function etzhayyim(sdk: HostSDK): Etzhayyim {
 // --- Register Agency ---
 
 async function cmdRegisterAgency(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.registerAgency", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.registerAgency", body);
   const {
     name, nameLocal, jurisdiction, branch, level, cofog,
     parentAgencyDid, establishedAt, legalBasis, websiteUri,
@@ -52,7 +52,7 @@ async function cmdRegisterAgency(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
   const e = etzhayyim(sdk);
   const receipt = await e.write({
-    collection: "app.etzhayyim.gov.agency",
+    collection: "com.etzhayyim.gov.agency",
     record: {
       name,
       nameLocal: nameLocal ?? undefined,
@@ -76,7 +76,7 @@ async function cmdRegisterAgency(sdk: HostSDK, body: Uint8Array): Promise<unknow
 // --- Record Official ---
 
 async function cmdRecordOfficial(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.recordOfficial", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.recordOfficial", body);
   const {
     agencyDid, personDid, role, appointedAt,
     termEndsAt, appointedByDid, confirmationProcess,
@@ -87,7 +87,7 @@ async function cmdRecordOfficial(sdk: HostSDK, body: Uint8Array): Promise<unknow
 
   const e = etzhayyim(sdk);
   const receipt = await e.write({
-    collection: "app.etzhayyim.gov.official",
+    collection: "com.etzhayyim.gov.official",
     record: {
       agencyDid: agencyDid ?? "",
       personDid: personDid ?? undefined,
@@ -107,7 +107,7 @@ async function cmdRecordOfficial(sdk: HostSDK, body: Uint8Array): Promise<unknow
 // --- Submit Consult ---
 
 async function cmdSubmitConsult(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.submitConsult", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.submitConsult", body);
   const { requesterDid, domain, category, query, municipalityCode, priority } = args;
 
   const rkey = domain + "-" + Date.now().toString(36);
@@ -115,7 +115,7 @@ async function cmdSubmitConsult(sdk: HostSDK, body: Uint8Array): Promise<unknown
 
   const e = etzhayyim(sdk);
   const receipt = await e.write({
-    collection: "app.etzhayyim.gov.consult",
+    collection: "com.etzhayyim.gov.consult",
     record: {
       requesterDid: requesterDid ?? "",
       domain: domain ?? "",
@@ -135,14 +135,14 @@ async function cmdSubmitConsult(sdk: HostSDK, body: Uint8Array): Promise<unknown
 // --- List Agencies ---
 
 async function cmdListAgencies(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.listAgencies", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.listAgencies", body);
   const { jurisdiction, branch, level, cofog, parentAgencyDid } = args;
   const limit = Math.min(Number(args.limit) || 50, 200);
   const cursor = args.cursor as string | undefined;
 
   const e = etzhayyim(sdk);
   const { records, cursor: nextCursor } = await e.read<Record<string, unknown>>({
-    collection: "app.etzhayyim.gov.agency",
+    collection: "com.etzhayyim.gov.agency",
     limit,
     cursor,
   });
@@ -172,11 +172,11 @@ async function cmdListAgencies(sdk: HostSDK, body: Uint8Array): Promise<unknown>
 // --- Get Agency ---
 
 async function cmdGetAgency(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const { id } = parseLexiconInput("app.etzhayyim.gov.getAgency", body);
+  const { id } = parseLexiconInput("com.etzhayyim.gov.getAgency", body);
 
   const e = etzhayyim(sdk);
   const { records } = await e.read<Record<string, unknown>>({
-    collection: "app.etzhayyim.gov.agency",
+    collection: "com.etzhayyim.gov.agency",
     rkey: id,
   });
 
@@ -187,7 +187,7 @@ async function cmdGetAgency(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 
   // Get officials for this agency.
   const { records: officialRecords } = await e.read<Record<string, unknown>>({
-    collection: "app.etzhayyim.gov.official",
+    collection: "com.etzhayyim.gov.official",
     limit: 50,
   });
 
@@ -208,14 +208,14 @@ async function cmdGetAgency(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
 // --- List Officials ---
 
 async function cmdListOfficials(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.listOfficials", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.listOfficials", body);
   const { agencyDid, role } = args;
   const limit = Math.min(Number(args.limit) || 50, 200);
   const cursor = args.cursor as string | undefined;
 
   const e = etzhayyim(sdk);
   const { records, cursor: nextCursor } = await e.read<Record<string, unknown>>({
-    collection: "app.etzhayyim.gov.official",
+    collection: "com.etzhayyim.gov.official",
     limit,
     cursor,
   });
@@ -233,14 +233,14 @@ async function cmdListOfficials(sdk: HostSDK, body: Uint8Array): Promise<unknown
 // --- List Municipalities ---
 
 async function cmdListMunicipalities(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.listMunicipalities", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.listMunicipalities", body);
   const { prefecture } = args;
   const limit = Math.min(Number(args.limit) || 50, 200);
   const cursor = args.cursor as string | undefined;
 
   const e = etzhayyim(sdk);
   const { records, cursor: nextCursor } = await e.read<Record<string, unknown>>({
-    collection: "app.etzhayyim.gov.municipality",
+    collection: "com.etzhayyim.gov.municipality",
     limit,
     cursor,
   });
@@ -257,14 +257,14 @@ async function cmdListMunicipalities(sdk: HostSDK, body: Uint8Array): Promise<un
 // --- List Consults ---
 
 async function cmdListConsults(sdk: HostSDK, body: Uint8Array): Promise<unknown> {
-  const args = parseLexiconInput("app.etzhayyim.gov.listConsults", body);
+  const args = parseLexiconInput("com.etzhayyim.gov.listConsults", body);
   const { requesterDid, domain, status } = args;
   const limit = Math.min(Number(args.limit) || 50, 200);
   const cursor = args.cursor as string | undefined;
 
   const e = etzhayyim(sdk);
   const { records, cursor: nextCursor } = await e.read<Record<string, unknown>>({
-    collection: "app.etzhayyim.gov.consult",
+    collection: "com.etzhayyim.gov.consult",
     limit,
     cursor,
   });
@@ -284,35 +284,35 @@ async function cmdListConsults(sdk: HostSDK, body: Uint8Array): Promise<unknown>
 
 export default createWorkerExport((sdk) => {
   sdk.app
-    .command(nsid("app.etzhayyim.gov.registerAgency"), (ctx, body) => cmdRegisterAgency(sdk, body),
+    .command(nsid("com.etzhayyim.gov.registerAgency"), (ctx, body) => cmdRegisterAgency(sdk, body),
       asAgentTool("Register a government agency with jurisdiction, branch, and COFOG classification"),
       withCapabilityTags("gov", "agency", "public-services"),
     )
-    .command(nsid("app.etzhayyim.gov.recordOfficial"), (ctx, body) => cmdRecordOfficial(sdk, body),
+    .command(nsid("com.etzhayyim.gov.recordOfficial"), (ctx, body) => cmdRecordOfficial(sdk, body),
       asAgentTool("Record a public official appointment to a government agency role"),
       withCapabilityTags("gov", "official", "public-services"),
     )
-    .command(nsid("app.etzhayyim.gov.submitConsult"), (ctx, body) => cmdSubmitConsult(sdk, body),
+    .command(nsid("com.etzhayyim.gov.submitConsult"), (ctx, body) => cmdSubmitConsult(sdk, body),
       asAgentTool("Submit a public services consultation (healthcare, welfare, education, housing, employment)"),
       withCapabilityTags("gov", "consult", "public-services"),
     )
-    .query(nsid("app.etzhayyim.gov.listAgencies"), (ctx, body) => cmdListAgencies(sdk, body),
+    .query(nsid("com.etzhayyim.gov.listAgencies"), (ctx, body) => cmdListAgencies(sdk, body),
       asAgentTool("List government agencies with jurisdiction/branch/COFOG filters"),
       withCapabilityTags("gov", "agency", "public-services"),
     )
-    .query(nsid("app.etzhayyim.gov.getAgency"), (ctx, body) => cmdGetAgency(sdk, body),
+    .query(nsid("com.etzhayyim.gov.getAgency"), (ctx, body) => cmdGetAgency(sdk, body),
       asAgentTool("Get a government agency by ID including current officials"),
       withCapabilityTags("gov", "agency", "public-services"),
     )
-    .query(nsid("app.etzhayyim.gov.listOfficials"), (ctx, body) => cmdListOfficials(sdk, body),
+    .query(nsid("com.etzhayyim.gov.listOfficials"), (ctx, body) => cmdListOfficials(sdk, body),
       asAgentTool("List public officials for a government agency"),
       withCapabilityTags("gov", "official", "public-services"),
     )
-    .query(nsid("app.etzhayyim.gov.listMunicipalities"), (ctx, body) => cmdListMunicipalities(sdk, body),
+    .query(nsid("com.etzhayyim.gov.listMunicipalities"), (ctx, body) => cmdListMunicipalities(sdk, body),
       asAgentTool("List municipalities with optional prefecture filter"),
       withCapabilityTags("gov", "municipality", "public-services"),
     )
-    .query(nsid("app.etzhayyim.gov.listConsults"), (ctx, body) => cmdListConsults(sdk, body),
+    .query(nsid("com.etzhayyim.gov.listConsults"), (ctx, body) => cmdListConsults(sdk, body),
       asAgentTool("List public services consultations for a requester"),
       withCapabilityTags("gov", "consult", "public-services"),
     );

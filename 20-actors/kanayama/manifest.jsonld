@@ -68,14 +68,14 @@
     {"name": "mass_balance_binder", "module": "kanayama.cells.mass_balance_binder", "murakumoNode": "judah", "phase": "terminal — input/output mass-balance ≥98% closure on yatachain (G2 + G14)"}
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.kanayama.intakeRecord",
-    "app.etzhayyim.kanayama.decoatingAttestation",
-    "app.etzhayyim.kanayama.meltingAttestation",
-    "app.etzhayyim.kanayama.dcCastingAttestation",
-    "app.etzhayyim.kanayama.rollingAttestation",
-    "app.etzhayyim.kanayama.coilQualificationRecord",
-    "app.etzhayyim.kanayama.airEmissionsAuditRecord",
-    "app.etzhayyim.kanayama.silenRecyclingReview"
+    "com.etzhayyim.kanayama.intakeRecord",
+    "com.etzhayyim.kanayama.decoatingAttestation",
+    "com.etzhayyim.kanayama.meltingAttestation",
+    "com.etzhayyim.kanayama.dcCastingAttestation",
+    "com.etzhayyim.kanayama.rollingAttestation",
+    "com.etzhayyim.kanayama.coilQualificationRecord",
+    "com.etzhayyim.kanayama.airEmissionsAuditRecord",
+    "com.etzhayyim.kanayama.silenRecyclingReview"
   ],
   "constitutionalGates": {
     "description": "14 immutable gates per ADR-2605252400. Changes require Council Lv6+ supermajority + new ADR.",

@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/osm_notes-eu:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/osm_notes-eu:Spot',
                  'did:web:maps.etzhayyim.com:osm_notes:eu',
                  40000,
                  0.7,
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/osm_notes-us:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/osm_notes-us:Spot',
                  'did:web:maps.etzhayyim.com:osm_notes:us',
                  30000,
                  0.7,
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/osm_notes-global:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/osm_notes-global:Spot',
                  'did:web:maps.etzhayyim.com:osm_notes:global',
                  30000,
                  0.6,

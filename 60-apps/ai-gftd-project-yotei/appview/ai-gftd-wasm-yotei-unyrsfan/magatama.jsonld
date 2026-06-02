@@ -80,12 +80,12 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.convo.message",
-        "ai.gftd.convo.convo",
-        "ai.gftd.apps.yotei.calendar",
-        "ai.gftd.apps.yotei.availability",
-        "ai.gftd.apps.yotei.event",
-        "ai.gftd.apps.yotei.booking"
+        "com.etzhayyim.convo.message",
+        "com.etzhayyim.convo.convo",
+        "com.etzhayyim.apps.yotei.calendar",
+        "com.etzhayyim.apps.yotei.availability",
+        "com.etzhayyim.apps.yotei.event",
+        "com.etzhayyim.apps.yotei.booking"
       ]
     }
   },

@@ -1,7 +1,7 @@
 // host-client.ts — Auto-generated typed host capability client.
 // DO NOT EDIT. Regenerate with: node 70-tools/scripts/contract/gen-host-client-from-lexicon.mjs
 //
-// Lexicon JSON (00-contracts/lexicons/ai/gftd/host/) is the Single Source of Truth
+// Lexicon JSON (00-contracts/lexicons/com/etzhayyim/host/) is the Single Source of Truth
 // for host capability surface. F-Plan Phase 1: replaces WIT-defined host imports.
 //
 // Runtime contract: each function forwards to a HostDispatcher supplied at SDK init.
@@ -27,51 +27,51 @@ function requireDispatcher(): HostDispatcher {
 // ── NSID constants (frozen Single Source) ──
 
 export const HOST_NSID = {
-	accessLogRecord: 'app.etzhayyim.host.accessLog.record' as const,
-	activityAwaitAll: 'app.etzhayyim.host.activity.awaitAll' as const,
-	activitySpawnParallel: 'app.etzhayyim.host.activity.spawnParallel' as const,
-	authnVerifyToken: 'app.etzhayyim.host.authn.verifyToken' as const,
-	authzEnforce: 'app.etzhayyim.host.authz.enforce' as const,
-	capabilityDiscover: 'app.etzhayyim.host.capability.discover' as const,
-	capabilityListOwn: 'app.etzhayyim.host.capability.listOwn' as const,
-	cdnPublicUrl: 'app.etzhayyim.host.cdn.publicUrl' as const,
-	cdnUpload: 'app.etzhayyim.host.cdn.upload' as const,
-	conversationCreateSession: 'app.etzhayyim.host.conversation.createSession' as const,
-	conversationSendMessage: 'app.etzhayyim.host.conversation.sendMessage' as const,
-	coreConfigGet: 'app.etzhayyim.host.core.configGet' as const,
-	coreLogAppend: 'app.etzhayyim.host.core.logAppend' as const,
-	governanceCheckPolicy: 'app.etzhayyim.host.governance.checkPolicy' as const,
-	governanceRegisterManifest: 'app.etzhayyim.host.governance.registerManifest' as const,
-	identityListActors: 'app.etzhayyim.host.identity.listActors' as const,
-	identityResolve: 'app.etzhayyim.host.identity.resolve' as const,
-	invokeCall: 'app.etzhayyim.host.invoke.call' as const,
-	ipfsPublish: 'app.etzhayyim.host.ipfs.publish' as const,
-	llmChat: 'app.etzhayyim.host.llm.chat' as const,
-	llmConverse: 'app.etzhayyim.host.llm.converse' as const,
-	llmReact: 'app.etzhayyim.host.llm.react' as const,
-	llmRoute: 'app.etzhayyim.host.llm.route' as const,
-	lockTryLock: 'app.etzhayyim.host.lock.tryLock' as const,
-	lockUnlock: 'app.etzhayyim.host.lock.unlock' as const,
-	m365AcquireAppToken: 'app.etzhayyim.host.m365.acquireAppToken' as const,
-	m365BatchMoveMessages: 'app.etzhayyim.host.m365.batchMoveMessages' as const,
-	m365CreateDraft: 'app.etzhayyim.host.m365.createDraft' as const,
-	m365EnumerateUsers: 'app.etzhayyim.host.m365.enumerateUsers' as const,
-	m365FetchMailFolders: 'app.etzhayyim.host.m365.fetchMailFolders' as const,
-	m365FetchMessagesPage: 'app.etzhayyim.host.m365.fetchMessagesPage' as const,
-	m365ListDrafts: 'app.etzhayyim.host.m365.listDrafts' as const,
-	m365SendDraft: 'app.etzhayyim.host.m365.sendDraft' as const,
-	m365SendMail: 'app.etzhayyim.host.m365.sendMail' as const,
-	ocelEmitEvent: 'app.etzhayyim.host.ocel.emitEvent' as const,
-	pubsubPublish: 'app.etzhayyim.host.pubsub.publish' as const,
-	pubsubPull: 'app.etzhayyim.host.pubsub.pull' as const,
-	secretsDelete: 'app.etzhayyim.host.secrets.delete' as const,
-	secretsGet: 'app.etzhayyim.host.secrets.get' as const,
-	secretsSet: 'app.etzhayyim.host.secrets.set' as const,
-	storageGetObject: 'app.etzhayyim.host.storage.getObject' as const,
-	storagePutObject: 'app.etzhayyim.host.storage.putObject' as const,
-	telemetryEmitMetric: 'app.etzhayyim.host.telemetry.emitMetric' as const,
-	telemetryLog: 'app.etzhayyim.host.telemetry.log' as const,
-	virtualActorInvoke: 'app.etzhayyim.host.virtualActor.invoke' as const,
+	accessLogRecord: 'com.etzhayyim.host.accessLog.record' as const,
+	activityAwaitAll: 'com.etzhayyim.host.activity.awaitAll' as const,
+	activitySpawnParallel: 'com.etzhayyim.host.activity.spawnParallel' as const,
+	authnVerifyToken: 'com.etzhayyim.host.authn.verifyToken' as const,
+	authzEnforce: 'com.etzhayyim.host.authz.enforce' as const,
+	capabilityDiscover: 'com.etzhayyim.host.capability.discover' as const,
+	capabilityListOwn: 'com.etzhayyim.host.capability.listOwn' as const,
+	cdnPublicUrl: 'com.etzhayyim.host.cdn.publicUrl' as const,
+	cdnUpload: 'com.etzhayyim.host.cdn.upload' as const,
+	conversationCreateSession: 'com.etzhayyim.host.conversation.createSession' as const,
+	conversationSendMessage: 'com.etzhayyim.host.conversation.sendMessage' as const,
+	coreConfigGet: 'com.etzhayyim.host.core.configGet' as const,
+	coreLogAppend: 'com.etzhayyim.host.core.logAppend' as const,
+	governanceCheckPolicy: 'com.etzhayyim.host.governance.checkPolicy' as const,
+	governanceRegisterManifest: 'com.etzhayyim.host.governance.registerManifest' as const,
+	identityListActors: 'com.etzhayyim.host.identity.listActors' as const,
+	identityResolve: 'com.etzhayyim.host.identity.resolve' as const,
+	invokeCall: 'com.etzhayyim.host.invoke.call' as const,
+	ipfsPublish: 'com.etzhayyim.host.ipfs.publish' as const,
+	llmChat: 'com.etzhayyim.host.llm.chat' as const,
+	llmConverse: 'com.etzhayyim.host.llm.converse' as const,
+	llmReact: 'com.etzhayyim.host.llm.react' as const,
+	llmRoute: 'com.etzhayyim.host.llm.route' as const,
+	lockTryLock: 'com.etzhayyim.host.lock.tryLock' as const,
+	lockUnlock: 'com.etzhayyim.host.lock.unlock' as const,
+	m365AcquireAppToken: 'com.etzhayyim.host.m365.acquireAppToken' as const,
+	m365BatchMoveMessages: 'com.etzhayyim.host.m365.batchMoveMessages' as const,
+	m365CreateDraft: 'com.etzhayyim.host.m365.createDraft' as const,
+	m365EnumerateUsers: 'com.etzhayyim.host.m365.enumerateUsers' as const,
+	m365FetchMailFolders: 'com.etzhayyim.host.m365.fetchMailFolders' as const,
+	m365FetchMessagesPage: 'com.etzhayyim.host.m365.fetchMessagesPage' as const,
+	m365ListDrafts: 'com.etzhayyim.host.m365.listDrafts' as const,
+	m365SendDraft: 'com.etzhayyim.host.m365.sendDraft' as const,
+	m365SendMail: 'com.etzhayyim.host.m365.sendMail' as const,
+	ocelEmitEvent: 'com.etzhayyim.host.ocel.emitEvent' as const,
+	pubsubPublish: 'com.etzhayyim.host.pubsub.publish' as const,
+	pubsubPull: 'com.etzhayyim.host.pubsub.pull' as const,
+	secretsDelete: 'com.etzhayyim.host.secrets.delete' as const,
+	secretsGet: 'com.etzhayyim.host.secrets.get' as const,
+	secretsSet: 'com.etzhayyim.host.secrets.set' as const,
+	storageGetObject: 'com.etzhayyim.host.storage.getObject' as const,
+	storagePutObject: 'com.etzhayyim.host.storage.putObject' as const,
+	telemetryEmitMetric: 'com.etzhayyim.host.telemetry.emitMetric' as const,
+	telemetryLog: 'com.etzhayyim.host.telemetry.log' as const,
+	virtualActorInvoke: 'com.etzhayyim.host.virtualActor.invoke' as const,
 } as const;
 
 // ── Typed capability functions ──
@@ -285,7 +285,7 @@ export async function m365SendDraft(input: { token: string; fromUpn: string; dra
 	return requireDispatcher().dispatch<{ ok: boolean }>(HOST_NSID.m365SendDraft, input);
 }
 
-/** Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. app.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern). */
+/** Send an email via Graph POST /users/{fromUpn}/sendMail. Requires Azure app-only Mail.Send. This host capability is unconditional — policy routing (internal direct / external draft_only) is enforced by the caller (e.g. com.etzhayyim.apps.microsoft.sendMail). For Teams channel posting, pass the channel email address as a recipient (channel_email_via_mail_send pattern). */
 export async function m365SendMail(input: { token: string; fromUpn: string; to: string[]; cc?: string[]; bcc?: string[]; subject: string; bodyHtml?: string; bodyText?: string; saveToSentItems?: boolean; importance?: string; replyTo?: string[] }): Promise<{ ok: boolean }> {
 	return requireDispatcher().dispatch<{ ok: boolean }>(HOST_NSID.m365SendMail, input);
 }

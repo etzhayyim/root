@@ -34,11 +34,11 @@ const deploymentYaml = read("50-infra/k8s/news-social-arbitrage-actor/deployment
 const articleJson = json(
   "60-apps/ai-gftd-project-news/resources/content/ja/intel/social-arbitrage/news-social-arbitrage-actor-2026.jsonld",
 );
-const rssBpmn = read("etzhayyim-root/00-contracts/bpmn/ai/gftd/news/rssIngest.bpmn");
-const socialBpmn = read("etzhayyim-root/00-contracts/bpmn/ai/gftd/news/socialArbitrageIntel.bpmn");
+const rssBpmn = read("etzhayyim-root/00-contracts/bpmn/com/etzhayyim/news/rssIngest.bpmn");
+const socialBpmn = read("etzhayyim-root/00-contracts/bpmn/com/etzhayyim/news/socialArbitrageIntel.bpmn");
 
 includesAll("TS edge commands", appTs, [
-  'nsid("app.etzhayyim.apps.news.commitArticle")',
+  'nsid("com.etzhayyim.apps.news.commitArticle")',
   'processId: "news_rss_ingest"',
   'movedToZeebe: true',
   'pipeline: "zeebe-python-rss"',
@@ -93,21 +93,21 @@ includesAll("Social arbitrage BPMN contract", socialBpmn, [
   'id="news_social_arbitrage_intel"',
   'type="news.socialArbitrage.discover"',
   'type="news.socialArbitrage.draft"',
-  'type="xrpc.app.etzhayyim.apps.news.analyzeIntel"',
+  'type="xrpc.com.etzhayyim.apps.news.analyzeIntel"',
   'type="generic.audit.emit"',
 ]);
 
 for (const path of [
-  "00-contracts/lexicons/ai/gftd/apps/news/commitArticle.json",
-  "00-contracts/lexicons/ai/gftd/apps/news/rssIngest.json",
-  "00-contracts/lexicons/ai/gftd/apps/news/socialArbitrageIntel.json",
-  "00-contracts/lexicons/ai/gftd/apps/news/analyzeIntel.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/news/commitArticle.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/news/rssIngest.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/news/socialArbitrageIntel.json",
+  "00-contracts/lexicons/com/etzhayyim/apps/news/analyzeIntel.json",
 ]) {
   const doc = json(path);
   ok(`lexicon parses: ${path}`, doc.lexicon === 1 && typeof doc.id === "string");
 }
 
-const commitArticle = json("00-contracts/lexicons/ai/gftd/apps/news/commitArticle.json");
+const commitArticle = json("00-contracts/lexicons/com/etzhayyim/apps/news/commitArticle.json");
 const commitProps = commitArticle.defs.main.input.schema.properties;
 includesAll("commitArticle lexicon props", JSON.stringify(commitProps), [
   "sourceId",
@@ -116,7 +116,7 @@ includesAll("commitArticle lexicon props", JSON.stringify(commitProps), [
   "publish",
 ]);
 
-const analyzeIntel = json("00-contracts/lexicons/ai/gftd/apps/news/analyzeIntel.json");
+const analyzeIntel = json("00-contracts/lexicons/com/etzhayyim/apps/news/analyzeIntel.json");
 const analyzeProps = analyzeIntel.defs.main.input.schema.properties;
 includesAll("analyzeIntel Python-scored props", JSON.stringify(analyzeProps), [
   "facts",
@@ -158,8 +158,8 @@ ok("article socialPost stays in post budget", articlePost.length <= 300);
 
 const bindings = manifest.bindings.map((binding) => `${binding.bpmnProcessId}:${binding.nsid}`);
 includesAll("BPMN coverage manifest", bindings.join("\n"), [
-  "news_rss_ingest:app.etzhayyim.apps.news.rssIngest",
-  "news_social_arbitrage_intel:app.etzhayyim.apps.news.socialArbitrageIntel",
+  "news_rss_ingest:com.etzhayyim.apps.news.rssIngest",
+  "news_social_arbitrage_intel:com.etzhayyim.apps.news.socialArbitrageIntel",
 ]);
 
 const failed = checks.filter((check) => !check.ok);

@@ -54,10 +54,10 @@
         "app.bsky.feed.like",
         "app.bsky.feed.repost",
         "app.bsky.graph.follow",
-        "ai.gftd.apps.cofog.govFunction",
-        "ai.gftd.apps.cofog.budgetItem",
-        "ai.gftd.apps.cofog.program",
-        "ai.gftd.apps.cofog.policyUpdate"
+        "com.etzhayyim.apps.cofog.govFunction",
+        "com.etzhayyim.apps.cofog.budgetItem",
+        "com.etzhayyim.apps.cofog.program",
+        "com.etzhayyim.apps.cofog.policyUpdate"
       ]
     }
   },

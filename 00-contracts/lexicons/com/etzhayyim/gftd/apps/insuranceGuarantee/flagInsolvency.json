@@ -1,0 +1,82 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.insuranceGuarantee.flagInsolvency",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Insurer insolvency / resolution (bridges cat-bond-ils + sovereign-debt + migrant-worker-welfare)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "insolvencyId",
+            "insurerLei",
+            "resolutionKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "insolvencyId": {
+              "type": "string"
+            },
+            "insurerLei": {
+              "type": "string"
+            },
+            "schemeVid": {
+              "type": "string",
+              "description": "bridges recordScheme"
+            },
+            "policyCountAffected": {
+              "type": "integer"
+            },
+            "unpaidClaimsUsd": {
+              "type": "number"
+            },
+            "resolutionKind": {
+              "type": "string",
+              "enum": [
+                "portfolio_transfer",
+                "run_off",
+                "liquidation",
+                "bail_in",
+                "state_aid"
+              ]
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "severityTier": {
+              "type": "string",
+              "enum": [
+                "limited",
+                "major",
+                "systemic"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

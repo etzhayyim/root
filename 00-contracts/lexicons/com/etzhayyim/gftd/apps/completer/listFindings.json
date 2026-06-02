@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.completer.listFindings",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List compliance findings with optional filters by actor, audit, risk level, or jurisdiction.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "actor_did": { "type": "string" },
+          "audit_id": { "type": "string" },
+          "risk_level": { "type": "string" },
+          "jurisdiction": { "type": "string" },
+          "limit": { "type": "integer" },
+          "offset": { "type": "integer" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "findings": { "type": "array", "items": { "type": "object" } },
+            "offset": { "type": "integer" },
+            "limit": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.openAdnetwork.registerAdvertiser",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Advertiser（広告主）を登録し、ブランドおよび予算設定を行う。Starts BPMN process open_adnetwork_register_advertiser.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["advertiserId", "brandName"],
+          "properties": {
+            "advertiserId":      { "type": "string", "description": "Advertiser unique identifier" },
+            "brandName":         { "type": "string", "description": "Brand display name" },
+            "domain":            { "type": "string", "description": "Advertiser domain" },
+            "industryCategory":  { "type": "string", "description": "IAB industry category code" },
+            "monthlyBudgetUsd":  { "type": "number", "description": "Monthly budget in USD" },
+            "paymentMethod": {
+              "type": "string",
+              "knownValues": ["card", "wire", "crypto"],
+              "description": "Payment method"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["vertexId"],
+          "properties": {
+            "vertexId": { "type": "string" },
+            "status":   { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

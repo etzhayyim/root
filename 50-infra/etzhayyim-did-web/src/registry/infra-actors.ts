@@ -40,6 +40,11 @@ export interface InfraActorEntry {
   readonly glyph?: string;
   /** Short human display name for the `/actors` index. Display-only. */
   readonly displayName?: string;
+  /** IPFS CID of the actor's content-addressed WASM component. When present,
+   *  the DID doc carries an `EtzhayyimWasmComponent` service and the actor runs
+   *  browser-local (ameno) / on a donated mesh node — no per-actor server.
+   *  Per ADR-2606014500. */
+  readonly wasmCid?: string;
 }
 
 
@@ -58,64 +63,46 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
   pinner: {
     description:
       "MST CAR pinner — pins shard CARs produced by mst-projector to IPFS. Per ADR-2605171800 Stage 4.",
-    primaryLexicon: "app.etzhayyim.substrate.ipfsPin",
+    primaryLexicon: "com.etzhayyim.substrate.ipfsPin",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:pinner#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:pinner#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://pinner.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605171800"],
   },
   esign: {
     description:
-      "Document-signing actor — issues, collects, completes app.etzhayyim.esign.* envelopes. Per ADR-2605231230.",
-    primaryLexicon: "app.etzhayyim.esign",
+      "Document-signing actor — issues, collects, completes com.etzhayyim.esign.* envelopes. Per ADR-2605231230.",
+    primaryLexicon: "com.etzhayyim.esign",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:esign#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:esign#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://esign.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605231230"],
   },
   audit: {
     description:
-      "Audit-event aggregator — substrate-wide app.etzhayyim.audit.event sink referenced by every actor manifest. Per ADR-2605231700 + 2605231900.",
-    primaryLexicon: "app.etzhayyim.audit.event",
+      "Audit-event aggregator — substrate-wide com.etzhayyim.audit.event sink referenced by every actor manifest. Per ADR-2605231700 + 2605231900.",
+    primaryLexicon: "com.etzhayyim.audit.event",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:audit#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:audit#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://audit.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605231700", "2605231900"],
   },
   "dataset-pinner": {
     description:
-      "Dataset pinner — mirrors DataLad/git-annex `directory` remote objects to IPFS and emits app.etzhayyim.substrate.datasetPin records. Per ADR-2605241500.",
-    primaryLexicon: "app.etzhayyim.substrate.datasetPin",
+      "Dataset pinner — mirrors DataLad/git-annex `directory` remote objects to IPFS and emits com.etzhayyim.substrate.datasetPin records. Per ADR-2605241500.",
+    primaryLexicon: "com.etzhayyim.substrate.datasetPin",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:dataset-pinner#atproto_pds",
@@ -136,12 +123,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         "x-libp2p-protocol": "/x/etzhayyim/xrpc/1.0",
         "x-rationale":
           "DNS-anchored fallback so cold clients can bootstrap before joining the DHT",
-      },
-      {
-        id: "did:web:etzhayyim.com:actor:dataset-pinner#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://dataset-pinner.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
       },
     ],
     adrs: ["2605241500", "2605241800"],
@@ -168,12 +149,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:anchorer#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://anchorer.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605171800"],
   },
@@ -186,30 +161,18 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
       },
-      {
-        id: "did:web:etzhayyim.com:actor:projector#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://projector.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
-      },
     ],
     adrs: ["2605171800"],
   },
   karute: {
     description:
       "Karute electronic medical record actor (EMR / FHIR R5). PHI sealing mandatory. Per ADR-2605231100 + 2605231900.",
-    primaryLexicon: "app.etzhayyim.apps.karute",
+    primaryLexicon: "com.etzhayyim.apps.karute",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:karute#atproto_pds",
         type: "AtprotoPersonalDataServer",
         serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-      {
-        id: "did:web:etzhayyim.com:actor:karute#xrpc-https-legacy",
-        type: "AtprotoXrpc",
-        serviceEndpoint: "https://karute.etzhayyim.com",
-        "x-deprecated-at": "Phase C (per ADR-2605241800)",
       },
     ],
     adrs: ["2605231100", "2605231900"],
@@ -219,8 +182,10 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       "綿津綱 — world submarine-cable network knowledge graph. Datafies cable systems / landing stations / segments / fault bulletins into the kotoba Datom log; surfaces chokepoint single-point-of-failure concentration routed to redundancy + faster repair (a resilience map, NEVER a target-list — paired with watatsumi N8). Per ADR-2606012600.",
     glyph: "綿津綱",
     displayName: "Watatsuna — World Submarine-Cable Network Knowledge Graph",
-    primaryLexicon: "app.etzhayyim.cable",
-    primarySchema: "00-contracts/schemas/submarine-cable-ontology.kotoba.edn",
+    primaryLexicon: "com.etzhayyim.cable",
+    // componentize-py WASM component (20-actors/watatsuna/wasm) — dag-pb (17.6MB,
+    // bundles CPython) → T2 donated-mesh tier, not browser-local (ADR-2606014600).
+    wasmCid: "bafybeihusqahaeirwqur64aeh5fvwuoh54cawbmo7smx3h2abvps6li7pa",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:watatsuna#atproto_pds",
@@ -243,6 +208,9 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     // No atproto lexicon: tsumugi emits kotoba EDN directly into the Datom log.
     primarySchema:
       "00-contracts/schemas/engi-organism-ontology.kotoba.edn (+ spirit-ontology.kotoba.edn)",
+    // Content-addressed WASM actor (20-actors/tsumugi/wasm/tsumugi-core) — runs
+    // browser-local (ameno) / donated mesh, NO per-actor server (ADR-2606014500).
+    wasmCid: "bafkreidfttpqimwnx4i5a3rswum3orcg3qfa3q7fwts6axgqtcpuokddfi",
     service: [
       {
         id: "did:web:etzhayyim.com:actor:tsumugi#atproto_pds",
@@ -256,6 +224,50 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606011800"],
+  },
+  kanae: {
+    description:
+      "鼎 — global government fiscal-flow VISUALIZATION. Aggregates public fundFlowEdges (appropriation→outlay→recipient + inter-governmental transfers) into kotoba EAVT and renders aggregate-first, NON-adjudicating summaries (danjo finds, kanae renders). Per ADR-2605302300.",
+    glyph: "鼎",
+    displayName: "Kanae — Government Fiscal-Flow Visualization",
+    primaryLexicon: "com.etzhayyim.kanae",
+    // Content-addressed T1 WASM actor (20-actors/kanae/wasm/kanae-core) — compact
+    // Rust core, raw CID → browser-local (ameno) / donated mesh (ADR-2606015200).
+    wasmCid: "bafkreielhr6l5jy7ml5l62ncyva34lhjw52q2onwxwy6ubep4wqxjyjnie",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kanae#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kanae#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2605302300"],
+  },
+  kabuto: {
+    description:
+      "兜 — world public-company (listed-company) supply-chain knowledge graph. Datafies LISTED companies, their registered HQ address + public IR contact, the first-class SUPPLY edges (supplier → customer) that wire the global supply chain, and BPMN process templates into the kotoba Datom log; surfaces single-source / sector / jurisdiction CONCENTRATION routed to redundancy + accountability. Posts aggregate-first findings as atproto-compatible social posts; renders entirely in the in-browser kotoba-wasm node. A resilience + corporate-power-transparency map, NEVER a target-list (sibling of tsumugi / watatsuna / danjo; shares the org.corp.* id space). Per ADR-2606022000.",
+    glyph: "兜",
+    displayName: "Kabuto — World Public-Company Supply-Chain Knowledge Graph",
+    primaryLexicon: "com.etzhayyim.kabuto",
+    primarySchema: "00-contracts/schemas/public-company-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:kabuto#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2606022000"],
   },
   ooyake: {
     description:
@@ -277,27 +289,6 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
       },
     ],
     adrs: ["2606021600"],
-  },
-  kabuto: {
-    description:
-      "兜 — world public-company (listed-company) supply-chain knowledge graph. Datafies LISTED companies, their registered HQ address + public IR contact, the first-class SUPPLY edges (supplier → customer) that wire the global supply chain, and BPMN process templates into the kotoba Datom log; surfaces single-source / sector / jurisdiction CONCENTRATION routed to redundancy + accountability. Posts aggregate-first findings as atproto-compatible social posts; renders entirely in the in-browser kotoba-wasm node. A resilience + corporate-power-transparency map, NEVER a target-list (sibling of tsumugi / watatsuna / danjo; shares the org.corp.* id space). Per ADR-2606022000.",
-    glyph: "兜",
-    displayName: "Kabuto — World Public-Company Supply-Chain Knowledge Graph",
-    primaryLexicon: "app.etzhayyim.kabuto",
-    primarySchema: "00-contracts/schemas/public-company-ontology.kotoba.edn",
-    service: [
-      {
-        id: "did:web:etzhayyim.com:actor:kabuto#atproto_pds",
-        type: "AtprotoPersonalDataServer",
-        serviceEndpoint: "https://pds.etzhayyim.com",
-      },
-      {
-        id: "did:web:etzhayyim.com:actor:kabuto#xrpc-libp2p",
-        type: "AtprotoXrpc",
-        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
-      },
-    ],
-    adrs: ["2606022000"],
   },
 } as const;
 

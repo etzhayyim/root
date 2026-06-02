@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.euTrilogue.recordSession",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "EU trilogue / ordinary legislative procedure session (bridges esmaConvergence.flagDivergence + eu-dpp + cbam-embedded)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "sessionId",
+            "dossier",
+            "stage",
+            "institutionalConfig",
+            "convenedAt"
+          ],
+          "properties": {
+            "sessionId": {
+              "type": "string"
+            },
+            "dossier": {
+              "type": "string"
+            },
+            "stage": {
+              "type": "string",
+              "enum": [
+                "first_reading",
+                "second_reading",
+                "conciliation",
+                "informal",
+                "political_agreement",
+                "technical_meeting",
+                "codecision",
+                "cooling_off",
+                "council_common_position",
+                "parliament_reading",
+                "final_act",
+                "corrigendum"
+              ]
+            },
+            "institutionalConfig": {
+              "type": "string",
+              "enum": [
+                "ep_council_com",
+                "ep_council",
+                "com_council",
+                "trilateral",
+                "bilateral_ep_council",
+                "inter_institutional"
+              ]
+            },
+            "divergenceVid": {
+              "type": "string",
+              "description": "bridges esmaConvergence.flagDivergence"
+            },
+            "convenedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.maps.tileGeoJson",
+  "description": "Bbox + labels → GeoJSON FeatureCollection per label, read from the latest (or pinned-generation) com.etzhayyim.substrate.shardSnapshot for shardKey = 'com.etzhayyim.maps.feature'. Server resolves the snapshot → fetches the MST root from IPFS (Phase 2) or the JSON manifest (Phase 1) → walks the MST / scans matching partitions → emits GeoJSON. Bbox parameters are integer microdegrees (×1e7) to match the record schema. ADR-2605202300.",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "required": ["westE7", "southE7", "eastE7", "northE7"],
+        "properties": {
+          "westE7":  { "type": "integer", "description": "Bbox west longitude × 1e7." },
+          "southE7": { "type": "integer" },
+          "eastE7":  { "type": "integer" },
+          "northE7": { "type": "integer" },
+          "labels": {
+            "type": "array",
+            "description": "Feature labels to include (Building / Road / River / ...). Empty = all.",
+            "items": { "type": "string", "maxLength": 64 },
+            "maxLength": 32
+          },
+          "h3Resolution": {
+            "type": "integer",
+            "description": "Hint for the H3 resolution the reader expects (zoom-derived). Server may pick the closest available index.",
+            "minimum": 0,
+            "maximum": 15
+          },
+          "snapshotRkey": {
+            "type": "string",
+            "description": "Optional rkey of a specific com.etzhayyim.substrate.shardSnapshot to read against (time-travel). Absent = latest.",
+            "maxLength": 256
+          },
+          "limit": {
+            "type": "integer",
+            "default": 5000,
+            "minimum": 1,
+            "maximum": 50000
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["layers", "snapshot"],
+          "properties": {
+            "layers": {
+              "type": "string",
+              "description": "GeoJSON FeatureCollection per label, encoded as JSON string ({\"Building\": {...}, \"Road\": {...}}). String-encoded so the AT lexicon does not need to model deeply-nested float arrays."
+            },
+            "snapshot": { "type": "ref", "ref": "#snapshotInfo" },
+            "total":     { "type": "integer" },
+            "truncated": {
+              "type": "boolean",
+              "description": "True if the result was capped by limit."
+            }
+          }
+        }
+      },
+      "errors": [
+        {
+          "name": "SnapshotNotFound",
+          "description": "No shardSnapshot exists for shardKey = com.etzhayyim.maps.feature (or for the supplied snapshotRkey)."
+        },
+        {
+          "name": "BboxTooLarge",
+          "description": "The requested bbox exceeds the per-query area cap configured for this appview."
+        }
+      ]
+    },
+    "snapshotInfo": {
+      "type": "object",
+      "required": ["shardKey"],
+      "properties": {
+        "shardKey":     { "type": "string" },
+        "phase":        { "type": "integer", "description": "1 = JSON manifest, 2 = MST CAR. Mirrors shardSnapshot.phase." },
+        "rootCid":      { "type": "string", "description": "MST root CID when phase=2." },
+        "snapshotCid":  { "type": "string", "description": "IPFS CID of the snapshot blob (JSON manifest or CAR)." },
+        "snapshotHash": { "type": "string", "description": "Phase 1 sha256 hash; absent when phase=2." },
+        "firstSeq":     { "type": "string" },
+        "lastSeq":      { "type": "string" },
+        "recordCount":  { "type": "integer" },
+        "flushedAt":    { "type": "string", "format": "datetime" }
+      }
+    }
+  }
+}

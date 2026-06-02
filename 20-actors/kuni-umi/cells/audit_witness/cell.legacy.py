@@ -8,7 +8,7 @@ N >= 2 independent Giemon robot signatures attest every super-step boundary
 + every recordPhysicalAuditEvent class event.
 
 Trigger:    continuous + super-step boundary + event-driven
-            Listens to: app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent
+            Listens to: com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent
 Effect:     verify N>=2 signatures → on mismatch escalate to Council Lv6+
             → feed Phenotype.effectiveMultiplier delta (ADR-2605192230)
 Murakumo:   levi (leader, membership + council orchestration)
@@ -178,7 +178,7 @@ def thread_id_from_event(event_record: dict, nsid: str) -> str:
 def healthz_extra(deps: CellDeps) -> dict:
     return {
         "role": "religious-corp self-inspection (constitutional)",
-        "trigger_nsid": "app.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
+        "trigger_nsid": "com.etzhayyim.apps.etzhayyim.kuniUmi.recordPhysicalAuditEvent",
         "witness_invariant_min": 2,
         "constitutional_invariant": "N >= 2 NEVER reduce (ADR-2605201400 §9)",
         "feeds_phenotype": True,

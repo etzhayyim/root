@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govBra.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govBra.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Brazil government.",
-        "operationId": "app.etzhayyim.govBra.followSiteDeps",
+        "operationId": "com.etzhayyim.govBra.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govBra.heartbeatTick": {
       "post": {
         "summary": "Run the Brazil government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govBra.heartbeatTick",
+        "operationId": "com.etzhayyim.govBra.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.listOrgs": {
+    "/xrpc/com.etzhayyim.govBra.listOrgs": {
       "get": {
         "summary": "List Brazil government organization graph records.",
-        "operationId": "app.etzhayyim.govBra.listOrgs",
+        "operationId": "com.etzhayyim.govBra.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.registerDIDs": {
+    "/xrpc/com.etzhayyim.govBra.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Brazil government organizations.",
-        "operationId": "app.etzhayyim.govBra.registerDIDs",
+        "operationId": "com.etzhayyim.govBra.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govBra.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Brazil government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govBra.resolveOrgPath",
+        "operationId": "com.etzhayyim.govBra.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.seedOrgs": {
+    "/xrpc/com.etzhayyim.govBra.seedOrgs": {
       "post": {
         "summary": "Seed initial Brazil government organization records into the graph.",
-        "operationId": "app.etzhayyim.govBra.seedOrgs",
+        "operationId": "com.etzhayyim.govBra.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.shinka": {
+    "/xrpc/com.etzhayyim.govBra.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Brazil government organization update.",
-        "operationId": "app.etzhayyim.govBra.shinka",
+        "operationId": "com.etzhayyim.govBra.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govBra.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govBra.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Brazil government organization changes to graph.",
-        "operationId": "app.etzhayyim.govBra.syncWetUpdates",
+        "operationId": "com.etzhayyim.govBra.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

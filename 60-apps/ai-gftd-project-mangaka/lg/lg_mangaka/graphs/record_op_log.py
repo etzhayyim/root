@@ -6,7 +6,7 @@ Pregel-style 2-step:
   2. write_row — INSERT vertex_mangaka kind=opLog + INSERT edge_mangaka_emits_op
 
 opLog row shape:
-  vertex_id     at://did:web:mangaka.etzhayyim.com/app.etzhayyim.mangaka.opLog/{rkey}
+  vertex_id     at://did:web:mangaka.etzhayyim.com/com.etzhayyim.mangaka.opLog/{rkey}
   rkey          op-{docRkey}-{tsMs}-{nidShort}
   parent_rkey   docRkey
   kind          opLog
@@ -90,10 +90,10 @@ async def _step_build_row(state: _State) -> dict[str, Any]:
         "ts": ts_ms,
     }
     row = {
-        "vid": f"at://{_APP_DID}/app.etzhayyim.mangaka.opLog/{rkey}",
+        "vid": f"at://{_APP_DID}/com.etzhayyim.mangaka.opLog/{rkey}",
         "rkey": rkey, "parent_rkey": doc_rkey, "name": name, "now_iso": now_iso,
         "props": props, "actor_did": actor_did, "org_did": org_did,
-        "doc_vid": f"at://{_APP_DID}/app.etzhayyim.mangaka.document/{doc_rkey}",
+        "doc_vid": f"at://{_APP_DID}/com.etzhayyim.mangaka.document/{doc_rkey}",
     }
     return {"row": row}
 
@@ -117,7 +117,7 @@ async def _step_write_row(state: _State) -> dict[str, Any]:
                     kind, status, created_at, props, parent_rkey, actor_did, org_did
                 ) VALUES (%s, %s, 0, %s, %s, %s, %s, %s, 'opLog', %s, %s, %s, 'opLog', 'recorded', %s, %s, %s, %s, %s)""",
                 (row["vid"], row["now_iso"][:10], _APP_DID, row["rkey"], _APP_DID, _APP_DID,
-                 "app.etzhayyim.mangaka.opLog", row["name"], row["name"], row["name"],
+                 "com.etzhayyim.mangaka.opLog", row["name"], row["name"], row["name"],
                  row["now_iso"], json.dumps(row["props"], ensure_ascii=False), row["parent_rkey"],
                  row["actor_did"], row["org_did"]))
             # 2. edge_mangaka_emits_op (document → opLog)

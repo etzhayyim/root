@@ -8,6 +8,6 @@ DELETE FROM vertex_langgraph_assistant
  WHERE assistant_id IN ('coverage_gap_bridge.v2', 'yoro_platform_pulse.v2');
 
 DELETE FROM vertex_mcp_tool_def
- WHERE nsid LIKE 'ai.gftd.apps.coverageGap.%' OR nsid LIKE 'ai.gftd.apps.yoro.%';
+ WHERE nsid LIKE 'com.etzhayyim.apps.coverageGap.%' OR nsid LIKE 'com.etzhayyim.apps.yoro.%';
 
 FLUSH;

@@ -3,7 +3,7 @@
   "formKey": "openAirplane.reportIncident.v1",
   "name": "Report Aviation Incident",
   "version": 1,
-  "lexiconRef": "app.etzhayyim.apps.openAirplane.reportIncident",
+  "lexiconRef": "com.etzhayyim.apps.openAirplane.reportIncident",
   "components": [
     { "key": "aircraftDid", "label": "Aircraft DID", "type": "textfield",
       "validate": { "required": true, "pattern": "^did:[a-z]+:.+" } },

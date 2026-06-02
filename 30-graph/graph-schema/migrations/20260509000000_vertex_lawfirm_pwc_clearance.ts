@@ -13,13 +13,13 @@ const seedOwnerDid = "did:web:lawfirm.etzhayyim.com";
 const seedActorTag = "sys.bpmn.seed.lawfirm";
 
 const PROCESS = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/lawfirm-pwc-clearance-v1",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/lawfirm-pwc-clearance-v1",
   bpmnProcessId: "lawfirm_pwc_clearance",
-  sourcePath: "00-contracts/bpmn/ai/gftd/lawfirm/pwcClearance.bpmn",
+  sourcePath: "00-contracts/bpmn/com/etzhayyim/lawfirm/pwcClearance.bpmn",
 };
 const BINDING = {
-  vertexId: "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/lawfirm-pwc-clearance-xrpc-v1",
-  nsid: "app.etzhayyim.apps.lawfirm.pwcClearanceRequest",
+  vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/lawfirm-pwc-clearance-xrpc-v1",
+  nsid: "com.etzhayyim.apps.lawfirm.pwcClearanceRequest",
   bpmnProcessId: "lawfirm_pwc_clearance",
   resultTimeoutMs: 86_400_000,
 };

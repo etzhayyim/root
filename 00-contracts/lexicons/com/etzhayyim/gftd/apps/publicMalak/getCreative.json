@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicMalak.getCreative",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Fetch one ad creative by (platform, platformAdId) or by vertexId. Returns the current cached view from vertex_ads_creative; use listSnapshots for the time-series.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "vertexId": { "type": "string" },
+          "platform": { "type": "string", "knownValues": ["meta", "facebook", "instagram", "whatsapp", "google", "linkedin", "tiktok", "x", "line", "telegram"] },
+          "platformAdId": { "type": "string" }
+        },
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["creative"],
+          "properties": {
+            "creative": { "type": "ref", "ref": "com.etzhayyim.apps.publicMalak.listAds#creativeView" }
+          }
+        }
+      }
+    }
+  }
+}

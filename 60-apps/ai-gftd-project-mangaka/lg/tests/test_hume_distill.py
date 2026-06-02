@@ -43,7 +43,7 @@ def _envelope(
     selected: bool = False,
 ) -> dict:
     return {
-        "schema": "app.etzhayyim.mangaka.humeObservation.v1",
+        "schema": "com.etzhayyim.mangaka.humeObservation.v1",
         "input": {
             "imageFeatures": image_features or {
                 "luminance": 0.6, "r_weight": 0.55, "g_weight": 0.30,
@@ -178,7 +178,7 @@ def test_run_distillation_produces_visual_centroid_v1_model():
     result = run_distillation(observations, min_rows=10)
     model = result["model"]
     assert model["algorithm"] == "visual_centroid_v1"
-    assert model["outputSchema"] == "app.etzhayyim.apps.hume.normalizedExpression.v1"
+    assert model["outputSchema"] == "com.etzhayyim.apps.hume.normalizedExpression.v1"
     # Centroids must cover the teacher labels in the corpus.
     centroid_names = set(model["emotionCentroids"])
     assert {"joy", "anxiety", "calm"} <= centroid_names
@@ -229,7 +229,7 @@ def test_trained_model_is_loadable_by_predict_image_emotion():
     # decoder fails, so we don't need a real PNG to exercise the model path.
     fake_bytes = b"\x89PNG-synthetic-" + b"\x00" * 256
     out = predict_image_emotion(fake_bytes, "image/png", model=model)
-    assert out["schema"] == "app.etzhayyim.apps.hume.normalizedExpression.v1"
+    assert out["schema"] == "com.etzhayyim.apps.hume.normalizedExpression.v1"
     # The teacher provider lineage must be preserved.
     assert out["teacher"]["distilledFrom"] == "hume-expression-measurement"
     # `algorithm` reflects the trained centroid, not the heuristic fallback.

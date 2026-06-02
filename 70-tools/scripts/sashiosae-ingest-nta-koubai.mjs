@@ -4,22 +4,22 @@
  *
  * Strategy (Follow-based input, project rule):
  *   site.etzhayyim.com crawler が既に www.koubai.nta.go.jp を ingest して
- *   vertex_page (app.etzhayyim.apps.site.page) に格納している。本 script は
+ *   vertex_page (com.etzhayyim.apps.site.page) に格納している。本 script は
  *   それら page を読み、public-auction 情報 (auctionId / scheduledAt /
  *   propertyType / estimatedValue / venueUrl) を抽出し、
- *   app.etzhayyim.apps.sashiosae.recordKankaResult XRPC を呼ぶ。
+ *   com.etzhayyim.apps.sashiosae.recordKankaResult XRPC を呼ぶ。
  *
  * Phase 1 scope: 国税庁 (did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka) のみ。
  * Phase 2 で 47 都道府県 + 指定都市の独自公売システムを追加。
  *
- * Auth: authority Service Auth JWT (lxm=app.etzhayyim.apps.sashiosae.recordKankaResult)
+ * Auth: authority Service Auth JWT (lxm=com.etzhayyim.apps.sashiosae.recordKankaResult)
  *   env etzhayyim_AUTHORITY_JWT で渡す (60s TTL、gftd agent-token --lxm で取得)。
  *
  * Tier rule (ADR-0032): auctionId / scheduledAt / estimatedValue / venueUrl は
  *   Tier 1 public (政府公開情報)。落札者 / 正確落札額 は取得対象外 (Tier 3)。
  *
  * Usage:
- *   export etzhayyim_AUTHORITY_JWT=$(gftd agent-token --lxm app.etzhayyim.apps.sashiosae.recordKankaResult --did did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka)
+ *   export etzhayyim_AUTHORITY_JWT=$(gftd agent-token --lxm com.etzhayyim.apps.sashiosae.recordKankaResult --did did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka)
  *   node sashiosae-ingest-nta-koubai.mjs [--dry-run] [--limit 50]
  */
 import { readFile } from "node:fs/promises";
@@ -120,8 +120,8 @@ async function postKankaResult(payload) {
     console.log("[dry-run] would POST", JSON.stringify(payload));
     return { kankaId: "dry-run", uri: "" };
   }
-  if (!JWT) throw new Error("etzhayyim_AUTHORITY_JWT env required (gftd agent-token --lxm app.etzhayyim.apps.sashiosae.recordKankaResult)");
-  const res = await fetch(`${XRPC_HOST}/xrpc/app.etzhayyim.apps.sashiosae.recordKankaResult`, {
+  if (!JWT) throw new Error("etzhayyim_AUTHORITY_JWT env required (gftd agent-token --lxm com.etzhayyim.apps.sashiosae.recordKankaResult)");
+  const res = await fetch(`${XRPC_HOST}/xrpc/com.etzhayyim.apps.sashiosae.recordKankaResult`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

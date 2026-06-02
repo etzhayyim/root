@@ -18,10 +18,10 @@ const processes = [
   { file: "coverageReport",   processId: "copyright_coverage_report"   },
 ] as const;
 
-const sourcePath = (file: string) => `00-contracts/bpmn/ai/gftd/copyright/${file}.bpmn`;
+const sourcePath = (file: string) => `00-contracts/bpmn/com/etzhayyim/copyright/${file}.bpmn`;
 const slug      = (file: string) => file.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 const processVertexId = (file: string) =>
-  `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/copyright-${slug(file)}-v1`;
+  `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-${slug(file)}-v1`;
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const p of processes) {

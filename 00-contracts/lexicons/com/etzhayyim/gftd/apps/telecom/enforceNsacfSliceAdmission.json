@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.enforceNsacfSliceAdmission",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "NSACF — Network Slice Admission Control Function (3GPP TS 29.536). Enforces max registered UEs / max established sessions per S-NSSAI; SUPI-aware admission decisions.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["nsacfNfId", "snssai", "requesterNfId", "requestKind", "decision", "observedAt"],
+          "properties": {
+            "decisionId": { "type": "string" },
+            "nsacfNfId": { "type": "string" },
+            "snssai": { "type": "string" },
+            "snpnId": { "type": "string" },
+            "requesterNfId": { "type": "string" },
+            "profileId": { "type": "string" },
+            "requestKind": { "type": "string", "enum": ["registration", "pdu_session_establishment", "pdu_session_modification", "release"] },
+            "currentRegisteredUes": { "type": "integer" },
+            "currentEstablishedSessions": { "type": "integer" },
+            "maxRegisteredUes": { "type": "integer" },
+            "maxEstablishedSessions": { "type": "integer" },
+            "decision": { "type": "string", "enum": ["admit", "reject", "queue", "preempt"] },
+            "decisionReason": { "type": "string" },
+            "observedAt": { "type": "string", "format": "datetime" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": { "type": "object", "properties": {
+          "ok": { "type": "boolean" }, "vertexId": { "type": "string" },
+          "decisionId": { "type": "string" },
+          "admit": { "type": "boolean" },
+          "status": { "type": "string" },
+          "instanceKey": { "type": "integer" }, "error": { "type": "string" }
+        } }
+      }
+    }
+  }
+}

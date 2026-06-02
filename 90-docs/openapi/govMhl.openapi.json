@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govMhl.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govMhl.followSiteDeps": {
       "post": {
         "summary": "Follow site dependency actors for Marshall Islands government.",
-        "operationId": "app.etzhayyim.govMhl.followSiteDeps",
+        "operationId": "com.etzhayyim.govMhl.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,10 +57,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govMhl.heartbeatTick": {
       "post": {
         "summary": "Run the Marshall Islands government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govMhl.heartbeatTick",
+        "operationId": "com.etzhayyim.govMhl.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.listOrgs": {
+    "/xrpc/com.etzhayyim.govMhl.listOrgs": {
       "get": {
         "summary": "List Marshall Islands government organization graph records.",
-        "operationId": "app.etzhayyim.govMhl.listOrgs",
+        "operationId": "com.etzhayyim.govMhl.listOrgs",
         "parameters": [
           {
             "name": "limit",
@@ -214,10 +214,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.registerDIDs": {
+    "/xrpc/com.etzhayyim.govMhl.registerDIDs": {
       "post": {
         "summary": "Register DIDs for Marshall Islands government organizations.",
-        "operationId": "app.etzhayyim.govMhl.registerDIDs",
+        "operationId": "com.etzhayyim.govMhl.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -267,10 +267,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govMhl.resolveOrgPath": {
       "get": {
         "summary": "Resolve a Marshall Islands government organization path to its graph record.",
-        "operationId": "app.etzhayyim.govMhl.resolveOrgPath",
+        "operationId": "com.etzhayyim.govMhl.resolveOrgPath",
         "parameters": [
           {
             "name": "path",
@@ -323,10 +323,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.seedOrgs": {
+    "/xrpc/com.etzhayyim.govMhl.seedOrgs": {
       "post": {
         "summary": "Seed initial Marshall Islands government organization records into the graph.",
-        "operationId": "app.etzhayyim.govMhl.seedOrgs",
+        "operationId": "com.etzhayyim.govMhl.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -373,10 +373,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.shinka": {
+    "/xrpc/com.etzhayyim.govMhl.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Marshall Islands government organization update.",
-        "operationId": "app.etzhayyim.govMhl.shinka",
+        "operationId": "com.etzhayyim.govMhl.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -427,10 +427,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govMhl.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govMhl.syncWetUpdates": {
       "post": {
         "summary": "Sync recent Marshall Islands government organization changes to graph.",
-        "operationId": "app.etzhayyim.govMhl.syncWetUpdates",
+        "operationId": "com.etzhayyim.govMhl.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

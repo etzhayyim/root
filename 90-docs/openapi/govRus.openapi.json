@@ -10,10 +10,10 @@
     }
   ],
   "paths": {
-    "/xrpc/app.etzhayyim.govRus.followSiteDeps": {
+    "/xrpc/com.etzhayyim.govRus.followSiteDeps": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.govRus.followSiteDeps",
+        "operationId": "com.etzhayyim.govRus.followSiteDeps",
         "requestBody": {
           "required": true,
           "content": {
@@ -46,10 +46,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.heartbeatTick": {
+    "/xrpc/com.etzhayyim.govRus.heartbeatTick": {
       "post": {
         "summary": "Run the Russia government actor scheduled maintenance loop through AgentGateway MCP to pod-side LangServer.",
-        "operationId": "app.etzhayyim.govRus.heartbeatTick",
+        "operationId": "com.etzhayyim.govRus.heartbeatTick",
         "requestBody": {
           "required": true,
           "content": {
@@ -132,10 +132,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.ingestOfficialSources": {
+    "/xrpc/com.etzhayyim.govRus.ingestOfficialSources": {
       "post": {
         "summary": "Queue official Russia government sources through site.etzhayyim.com for WET/WAT/screenshot capture.",
-        "operationId": "app.etzhayyim.govRus.ingestOfficialSources",
+        "operationId": "com.etzhayyim.govRus.ingestOfficialSources",
         "requestBody": {
           "required": true,
           "content": {
@@ -198,10 +198,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.listOrgs": {
+    "/xrpc/com.etzhayyim.govRus.listOrgs": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.govRus.listOrgs",
+        "operationId": "com.etzhayyim.govRus.listOrgs",
         "parameters": [],
         "responses": {
           "200": {
@@ -220,10 +220,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.registerDIDs": {
+    "/xrpc/com.etzhayyim.govRus.registerDIDs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.govRus.registerDIDs",
+        "operationId": "com.etzhayyim.govRus.registerDIDs",
         "requestBody": {
           "required": true,
           "content": {
@@ -256,10 +256,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.resolveOrgPath": {
+    "/xrpc/com.etzhayyim.govRus.resolveOrgPath": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.govRus.resolveOrgPath",
+        "operationId": "com.etzhayyim.govRus.resolveOrgPath",
         "parameters": [],
         "responses": {
           "200": {
@@ -278,10 +278,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.seedOrgs": {
+    "/xrpc/com.etzhayyim.govRus.seedOrgs": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.govRus.seedOrgs",
+        "operationId": "com.etzhayyim.govRus.seedOrgs",
         "requestBody": {
           "required": true,
           "content": {
@@ -314,10 +314,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.shinka": {
+    "/xrpc/com.etzhayyim.govRus.shinka": {
       "post": {
         "summary": "Post a periodic graph-visible Russia government organization update.",
-        "operationId": "app.etzhayyim.govRus.shinka",
+        "operationId": "com.etzhayyim.govRus.shinka",
         "requestBody": {
           "required": true,
           "content": {
@@ -368,10 +368,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.govRus.syncWetUpdates": {
+    "/xrpc/com.etzhayyim.govRus.syncWetUpdates": {
       "post": {
         "summary": "Sweep site wet chunks and reflect updated Russia government organization content.",
-        "operationId": "app.etzhayyim.govRus.syncWetUpdates",
+        "operationId": "com.etzhayyim.govRus.syncWetUpdates",
         "requestBody": {
           "required": true,
           "content": {

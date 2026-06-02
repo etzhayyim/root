@@ -1,0 +1,71 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.ocdsProcurement.flagRedFlag",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Procurement red-flag (single bid / rapid award / amendment — bridges fair-pricing + antitrust-dma + religious-freedom)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "tenderVid",
+            "redFlagKind",
+            "flaggedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "tenderVid": {
+              "type": "string",
+              "description": "bridges publishTender"
+            },
+            "redFlagKind": {
+              "type": "string",
+              "enum": [
+                "single_bid",
+                "rapid_award",
+                "amendment_surge",
+                "pep_link",
+                "sanctions_link",
+                "price_jump",
+                "direct_award_threshold",
+                "specification_tailoring"
+              ]
+            },
+            "auditorLei": {
+              "type": "string"
+            },
+            "flaggedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

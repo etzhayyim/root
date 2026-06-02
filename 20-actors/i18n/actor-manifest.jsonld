@@ -32,7 +32,7 @@
       "steps": [
         {
           "args": {
-            "method": "ai.gftd.apps.i18n.detectLanguage",
+            "method": "com.etzhayyim.apps.i18n.detectLanguage",
             "params": {
               "text": "$record.text"
             }
@@ -42,7 +42,7 @@
         },
         {
           "args": {
-            "method": "ai.gftd.apps.i18n.translateBatch",
+            "method": "com.etzhayyim.apps.i18n.translateBatch",
             "params": {
               "sourceLang": "$detectLanguage.lang",
               "targetLangs": [
@@ -66,7 +66,7 @@
         },
         {
           "args": {
-            "template": "UNWIND $translateTier1.translations AS t CREATE (tp:TranslatedPost {did: $did, originalUri: $record.uri, sourceLang: $detectLanguage.lang, targetLang: t.lang, translatedText: t.text, repo: $did, collection: 'ai.gftd.apps.i18n.translatedPost'})"
+            "template": "UNWIND $translateTier1.translations AS t CREATE (tp:TranslatedPost {did: $did, originalUri: $record.uri, sourceLang: $detectLanguage.lang, targetLang: t.lang, translatedText: t.text, repo: $did, collection: 'com.etzhayyim.apps.i18n.translatedPost'})"
           },
           "depends_on": [
             "detectLanguage",
@@ -112,7 +112,7 @@
         },
         {
           "args": {
-            "method": "ai.gftd.apps.i18n.murakumoTranslate",
+            "method": "com.etzhayyim.apps.i18n.murakumoTranslate",
             "params": {
               "context": "$input.context",
               "sourceLang": "$input.sourceLang",
@@ -126,7 +126,7 @@
         },
         {
           "args": {
-            "template": "MERGE (tm:TranslationMemory {sourceText: $input.text, sourceLang: $input.sourceLang, targetLang: $input.targetLang}) SET tm.translatedText = $llmTranslate.text, tm.model = 'qwen3.5-4b', tm.repo = $did, tm.collection = 'ai.gftd.apps.i18n.translationMemory'"
+            "template": "MERGE (tm:TranslationMemory {sourceText: $input.text, sourceLang: $input.sourceLang, targetLang: $input.targetLang}) SET tm.translatedText = $llmTranslate.text, tm.model = 'qwen3.5-4b', tm.repo = $did, tm.collection = 'com.etzhayyim.apps.i18n.translationMemory'"
           },
           "fn": "graph.write",
           "id": "writeTM"
@@ -153,7 +153,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.i18n.translate",
+        "nsid": "com.etzhayyim.apps.i18n.translate",
         "type": "xrpc"
       }
     },
@@ -168,7 +168,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.i18n.widgetLookup",
+        "nsid": "com.etzhayyim.apps.i18n.widgetLookup",
         "type": "xrpc"
       }
     },
@@ -183,7 +183,7 @@
         },
         {
           "args": {
-            "method": "ai.gftd.apps.i18n.syncAllProjects",
+            "method": "com.etzhayyim.apps.i18n.syncAllProjects",
             "params": {
               "projects": "$batchProjects.rows"
             }
@@ -274,7 +274,7 @@
             "params": {
               "actorName": "i18n",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.i18n.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.i18n.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "251b9zaw",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -332,7 +332,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.i18n.coverage.get",
+        "nsid": "com.etzhayyim.apps.i18n.coverage.get",
         "type": "xrpc"
       }
     }
@@ -353,8 +353,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -386,9 +386,9 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.i18n.translationRequest",
-        "ai.gftd.apps.i18n.translatedPost",
-        "ai.gftd.apps.i18n.translationMemory"
+        "com.etzhayyim.apps.i18n.translationRequest",
+        "com.etzhayyim.apps.i18n.translatedPost",
+        "com.etzhayyim.apps.i18n.translationMemory"
       ]
     }
   },

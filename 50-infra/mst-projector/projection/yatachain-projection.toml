@@ -11,7 +11,7 @@ level = "L1-projection"  # bumped from L0 on 2026-05-23 — CI replay test lande
                          # at `test/feed-discover.replay.test.ts` per ADR-2605231500
 
 # Lexicon governing the emitted snapshot record.
-lexicon = "app.etzhayyim.projection.feedDiscover"
+lexicon = "com.etzhayyim.projection.feedDiscover"
 
 # Daemon emitter — line-comment marker also present in source.
 emitter = "src/feed-discover.ts"
@@ -20,11 +20,11 @@ emitter = "src/feed-discover.ts"
 source_collections = ["app.bsky.feed.post"]
 
 # Optional supplementary inputs (membrane verdict sidecar). When the
-# membrane sidecar emits an `app.etzhayyim.membrane.verdict` for one of
+# membrane sidecar emits an `com.etzhayyim.membrane.verdict` for one of
 # the indexed records, the projection updates the `verdict` field
 # (and drops the entry entirely on `reject`). See
 # `20-actors/magatama/cells/feed_post/`.
-supplementary_collections = ["app.etzhayyim.membrane.verdict"]
+supplementary_collections = ["com.etzhayyim.membrane.verdict"]
 
 # Rebuild contract. The runbook must reproduce the projection from the
 # firehose alone, with no operator-held state.

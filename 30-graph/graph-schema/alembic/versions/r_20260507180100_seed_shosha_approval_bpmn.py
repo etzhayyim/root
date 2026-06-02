@@ -19,13 +19,13 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_approve_trade',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  shosha.etzhayyim.com — approveTrade workflow (XRPC '
-                 'app.etzhayyim.apps.shosha.approveTrade).\n'
+                 'com.etzhayyim.apps.shosha.approveTrade).\n'
                  '\n'
                  '  Phase 2d simplified — single-step XRPC. Multi-day message-event BPMN\n'
                  '  (waiting on approval signal from inside submitTrade) deferred to\n'
@@ -49,7 +49,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shosha.approveTrade", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shosha.approveTrade", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -85,7 +85,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.approveTrade&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.approveTrade&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;approvalId&quot;: approvalId, '
                  '&quot;tradeId&quot;: tradeId, &quot;approvalState&quot;: approvalState, '
@@ -105,12 +105,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3409,
-                 '00-contracts/bpmn/ai/gftd/shosha/approveTrade.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/approveTrade.bpmn',
                  '2026-05-07T18:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2d',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -118,12 +118,12 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1',
                  'did:web:shosha.etzhayyim.com',
                  'shosha_reject_trade',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
-                 '  shosha.etzhayyim.com — rejectTrade workflow (XRPC app.etzhayyim.apps.shosha.rejectTrade).\n'
+                 '  shosha.etzhayyim.com — rejectTrade workflow (XRPC com.etzhayyim.apps.shosha.rejectTrade).\n'
                  '\n'
                  '  Pipeline:\n'
                  '    1. shosha.trade.reject    validate pending + INSERT vertex_shosha_approval\n'
@@ -144,7 +144,7 @@ UP = [{'sql': '\n'
                  'isExecutable="true">\n'
                  '\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.shosha.rejectTrade", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.shosha.rejectTrade", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -181,7 +181,7 @@ UP = [{'sql': '\n'
                  '        <zeebe:ioMapping>\n'
                  '          <zeebe:input source="=&quot;did:web:shosha.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
-                 '          <zeebe:input source="=&quot;app.etzhayyim.apps.shosha.rejectTrade&quot;" '
+                 '          <zeebe:input source="=&quot;com.etzhayyim.apps.shosha.rejectTrade&quot;" '
                  'target="eventType"/>\n'
                  '          <zeebe:input source="={ &quot;approvalId&quot;: approvalId, '
                  '&quot;tradeId&quot;: tradeId, &quot;approvalState&quot;: approvalState, '
@@ -202,12 +202,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3436,
-                 '00-contracts/bpmn/ai/gftd/shosha/rejectTrade.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/shosha/rejectTrade.bpmn',
                  '2026-05-07T18:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2d',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -215,16 +215,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1',
                  'did:web:shosha.etzhayyim.com',
-                 'app.etzhayyim.apps.shosha.approveTrade',
+                 'com.etzhayyim.apps.shosha.approveTrade',
                  'shosha_approve_trade',
                  30000,
                  '2026-05-07T18:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2d',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -232,25 +232,25 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1',
                  'did:web:shosha.etzhayyim.com',
-                 'app.etzhayyim.apps.shosha.rejectTrade',
+                 'com.etzhayyim.apps.shosha.rejectTrade',
                  'shosha_reject_trade',
                  30000,
                  '2026-05-07T18:00:00Z',
                  'did:web:shosha.etzhayyim.com',
                  'did:web:shosha.etzhayyim.com',
                  'sys.bpmn.seed.shosha.phase2d',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-approveTrade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/shosha-rejectTrade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-approve-trade-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/shosha-reject-trade-v1']}]
 
 
 def upgrade() -> None:

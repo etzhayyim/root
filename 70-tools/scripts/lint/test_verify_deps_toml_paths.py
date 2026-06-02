@@ -208,8 +208,8 @@ def test_strip_reserved_marker_helper(verifier):
     assert marker == "reserved"
 
     # (deferred-rename) marker
-    clean, marker = fn("00-contracts/lexicons/ai/gftd/apps/unispsc (deferred-rename)")
-    assert clean == "00-contracts/lexicons/ai/gftd/apps/unispsc"
+    clean, marker = fn("00-contracts/lexicons/com/etzhayyim/apps/unispsc (deferred-rename)")
+    assert clean == "00-contracts/lexicons/com/etzhayyim/apps/unispsc"
     assert marker == "deferred-rename"
 
     # Unknown marker token is NOT stripped (regex is exact-match)

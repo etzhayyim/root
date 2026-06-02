@@ -1,7 +1,7 @@
 /**
  * ADR-2605080600 Phase 4 — ki.synthesize → LangGraph Server.
  *
- * Routes app.etzhayyim.apps.ki.synthesize to LangGraph Server as assistant_id
+ * Routes com.etzhayyim.apps.ki.synthesize to LangGraph Server as assistant_id
  * 'ki.synthesize.v1'. No BPMN process_def needed for langgraph-routed
  * bindings; the binding alone instructs bpmn-dispatcher to POST /runs.
  */
@@ -12,7 +12,7 @@ const actorTag = "did:web:bpmn.etzhayyim.com";
 const createdAt = "2026-05-08T09:30:00Z";
 
 const BINDING_VID =
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1";
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/ki-synthesize-langgraph-v1";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
@@ -22,7 +22,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
        org_id, user_id, actor_id, routing_target)
     SELECT
       ${BINDING_VID}, ${ownerDid},
-      'app.etzhayyim.apps.ki.synthesize',
+      'com.etzhayyim.apps.ki.synthesize',
       'ki.synthesize.v1',
       1,
       CAST(120000 AS integer),

@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'open_logistics_lastmile_dispatch_leg',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -275,12 +275,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  10990,
-                 '00-contracts/bpmn/ai/gftd/open-logistics-lastmile/dispatchLeg.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-logistics-lastmile/dispatchLeg.bpmn',
                  '2026-04-25T17:10:00Z',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -288,7 +288,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'open_logistics_lastmile_confirm_delivery',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -508,12 +508,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  9389,
-                 '00-contracts/bpmn/ai/gftd/open-logistics-lastmile/confirmDelivery.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-logistics-lastmile/confirmDelivery.bpmn',
                  '2026-04-25T17:10:00Z',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -521,7 +521,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'open_machinery_maintenance_record_plan',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -671,12 +671,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6242,
-                 '00-contracts/bpmn/ai/gftd/open-machinery-maintenance/recordMaintenancePlan.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-machinery-maintenance/recordMaintenancePlan.bpmn',
                  '2026-04-25T17:10:00Z',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -684,7 +684,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'open_machinery_maintenance_flag_downtime',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -832,12 +832,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  6277,
-                 '00-contracts/bpmn/ai/gftd/open-machinery-maintenance/flagDowntime.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-machinery-maintenance/flagDowntime.bpmn',
                  '2026-04-25T17:10:00Z',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -845,7 +845,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'open_industrial_safety_record_safety_assessment',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -895,12 +895,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2427,
-                 '00-contracts/bpmn/ai/gftd/open-industrial-safety/recordSafetyAssessment.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-industrial-safety/recordSafetyAssessment.bpmn',
                  '2026-04-25T17:10:00Z',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -908,7 +908,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'open_industrial_safety_flag_major_accident',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -962,12 +962,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>',
                  2653,
-                 '00-contracts/bpmn/ai/gftd/open-industrial-safety/flagMajorAccident.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-industrial-safety/flagMajorAccident.bpmn',
                  '2026-04-25T17:10:00Z',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -975,16 +975,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
-                 'app.etzhayyim.apps.openLogisticsLastmile.dispatchLeg',
+                 'com.etzhayyim.apps.openLogisticsLastmile.dispatchLeg',
                  'open_logistics_lastmile_dispatch_leg',
                  30000,
                  '2026-04-25T17:10:00Z',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -992,16 +992,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
-                 'app.etzhayyim.apps.openLogisticsLastmile.confirmDelivery',
+                 'com.etzhayyim.apps.openLogisticsLastmile.confirmDelivery',
                  'open_logistics_lastmile_confirm_delivery',
                  30000,
                  '2026-04-25T17:10:00Z',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'did:web:open-logistics-lastmile.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1009,16 +1009,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
-                 'app.etzhayyim.apps.openMachineryMaintenance.recordMaintenancePlan',
+                 'com.etzhayyim.apps.openMachineryMaintenance.recordMaintenancePlan',
                  'open_machinery_maintenance_record_plan',
                  30000,
                  '2026-04-25T17:10:00Z',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1026,16 +1026,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
-                 'app.etzhayyim.apps.openMachineryMaintenance.flagDowntime',
+                 'com.etzhayyim.apps.openMachineryMaintenance.flagDowntime',
                  'open_machinery_maintenance_flag_downtime',
                  30000,
                  '2026-04-25T17:10:00Z',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'did:web:open-machinery-maintenance.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1043,16 +1043,16 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1',
                  'did:web:open-industrial-safety.etzhayyim.com',
-                 'app.etzhayyim.apps.industrialSafety.recordSafetyAssessment',
+                 'com.etzhayyim.apps.industrialSafety.recordSafetyAssessment',
                  'open_industrial_safety_record_safety_assessment',
                  30000,
                  '2026-04-25T17:10:00Z',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, '
          'bpmn_process_id, bpmn_version, result_timeout_ms, status, created_at, sensitivity_ord, '
@@ -1060,41 +1060,41 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, $4, 1, CAST($5 AS integer), 'active', $6, 1, $7, $8, $9\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $10)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1',
                  'did:web:open-industrial-safety.etzhayyim.com',
-                 'app.etzhayyim.apps.industrialSafety.flagMajorAccident',
+                 'com.etzhayyim.apps.industrialSafety.flagMajorAccident',
                  'open_industrial_safety_flag_major_accident',
                  30000,
                  '2026-04-25T17:10:00Z',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'did:web:open-industrial-safety.etzhayyim.com',
                  'sys.bpmn.seed.ops-coverage',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-dispatchLeg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-logistics-lastmile-confirmDelivery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-recordMaintenancePlan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-machinery-maintenance-flagDowntime-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-industrial-safety-recordSafetyAssessment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/open-industrial-safety-flagMajorAccident-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-dispatch-leg-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-logistics-lastmile-confirm-delivery-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-record-maintenance-plan-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-machinery-maintenance-flag-downtime-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-industrial-safety-record-safety-assessment-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-industrial-safety-flag-major-accident-v1']}]
 
 
 def upgrade() -> None:

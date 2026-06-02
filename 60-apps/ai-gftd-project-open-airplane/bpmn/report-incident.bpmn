@@ -13,8 +13,8 @@
     <bpmn:businessRuleTask id="Task_Classify" name="Severity (DMN, ICAO Annex 13)"
                            camunda:decisionRef="openAirplane.incidentSeverity"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_Classify" targetRef="Task_Persist"/>
-    <bpmn:serviceTask id="Task_Persist" name="ai.gftd.apps.openAirplane.reportIncident"
-                      camunda:topic="ai.gftd.apps.openAirplane.reportIncident"/>
+    <bpmn:serviceTask id="Task_Persist" name="com.etzhayyim.apps.openAirplane.reportIncident"
+                      camunda:topic="com.etzhayyim.apps.openAirplane.reportIncident"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_Persist" targetRef="Gateway_GovReport"/>
     <bpmn:exclusiveGateway id="Gateway_GovReport" name="Authority report?" default="f5b"/>
     <bpmn:sequenceFlow id="f5a" sourceRef="Gateway_GovReport" targetRef="Task_AuditPost">

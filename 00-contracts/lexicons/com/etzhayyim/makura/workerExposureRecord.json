@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.makura.workerExposureRecord",
+  "description": "G6 / G10 worker exposure log for isocyanate-dispense + foam-blowing + shredder operations. Baseline + post-operation 8h TWA measurement; MDI ≤ 5 ppb, TDI ≤ 2 ppb per ADR-2605261115 G6.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "batchId": {"type": "string"},
+          "operatorSbtDid": {"type": "string"},
+          "agent": {"type": "string", "knownValues": ["MDI", "TDI", "polyol-aerosol", "shredder-dust"]},
+          "baseline": {
+            "type": "object",
+            "properties": {
+              "sampler": {"type": "string"},
+              "measurementMethod": {"type": "string"},
+              "preDispense_ppb_MDI": {"type": "number"},
+              "preDispense_ppb_TDI": {"type": "number"},
+              "g6Limit_ppb_MDI_8h_TWA": {"type": "number", "const": 5.0},
+              "g6Limit_ppb_TDI_8h_TWA": {"type": "number", "const": 2.0},
+              "withinLimit": {"type": "boolean"}
+            }
+          },
+          "final": {
+            "type": "object",
+            "properties": {
+              "postDispense_ppb_MDI": {"type": "number"},
+              "postDispense_ppb_TDI": {"type": "number"},
+              "twa_8h_ppb_MDI": {"type": "number"},
+              "twa_8h_ppb_TDI": {"type": "number"},
+              "withinLimit": {"type": "boolean"}
+            }
+          },
+          "g6Compliant": {"type": "boolean"},
+          "g10SbtGated": {"type": "boolean", "const": true},
+          "recordedAt": {"type": "string", "format": "datetime"}
+        },
+        "required": ["batchId", "operatorSbtDid", "agent", "g6Compliant", "g10SbtGated"]
+      }
+    }
+  }
+}

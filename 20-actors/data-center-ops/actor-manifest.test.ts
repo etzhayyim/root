@@ -72,23 +72,23 @@ describe("Data Center Ops Actor Manifest", () => {
       .filter((p: any) => p.trigger.type === "xrpc")
       .map((p: any) => p.trigger.nsid);
 
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.infrastructure.getFacility");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.infrastructure.listFacilities");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.infrastructure.listRacks");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.infrastructure.getPowerZones");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.infrastructure.getSlaSummary");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.dependency.seedBaseline");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.dependency.collectGlobal");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.dependency.listNodes");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.dependency.listEdges");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.health");
-    expect(nsids).toContain("app.etzhayyim.apps.dataCenterOps.coverage.get");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.infrastructure.getFacility");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.infrastructure.listFacilities");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.infrastructure.listRacks");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.infrastructure.getPowerZones");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.infrastructure.getSlaSummary");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.dependency.seedBaseline");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.dependency.collectGlobal");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.dependency.listNodes");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.dependency.listEdges");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.health");
+    expect(nsids).toContain("com.etzhayyim.apps.dataCenterOps.coverage.get");
   });
 
   it("subscribeRepos pipeline tracks incident collection", () => {
     const sub = m.pipelines.find((p: any) => p.trigger.type === "subscribeRepos");
-    expect(sub.trigger.collections).toContain("app.etzhayyim.apps.dataCenterOps.incident");
+    expect(sub.trigger.collections).toContain("com.etzhayyim.apps.dataCenterOps.incident");
   });
 
   it("cron intelligence pipeline has report flow", () => {
@@ -100,14 +100,14 @@ describe("Data Center Ops Actor Manifest", () => {
   });
 
   it("reverse topo query exists and reads the RW materialized view", () => {
-    const p = m.pipelines.find((x: any) => x.trigger.nsid === "app.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo");
+    const p = m.pipelines.find((x: any) => x.trigger.nsid === "com.etzhayyim.apps.dataCenterOps.dependency.getReverseTopo");
     expect(p).toBeTruthy();
     expect(p.steps[0].args.sql).toContain("mv_data_center_dependency_reverse_topology");
     expect(p.steps[0].args.sql).toContain("dependency_level DESC");
   });
 
   it("global collection query exists and reads the global RW materialized view", () => {
-    const p = m.pipelines.find((x: any) => x.trigger.nsid === "app.etzhayyim.apps.dataCenterOps.dependency.collectGlobal");
+    const p = m.pipelines.find((x: any) => x.trigger.nsid === "com.etzhayyim.apps.dataCenterOps.dependency.collectGlobal");
     expect(p).toBeTruthy();
     expect(p.steps[0].args.sql).toContain("mv_data_center_dependency_global_actor");
     expect(p.steps[1].args.sql).toContain("country_code");

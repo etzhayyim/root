@@ -45,8 +45,8 @@ yata-lance = { path = "yata-lance" }
 metrics = "0.24"
 metrics-exporter-prometheus = "0.16"
 # Arrow (aligned with lance 3.0.1)
-arrow = "57"
-arrow-array = "57"
+arrow = "58"
+arrow-array = "58"
 arrow-schema = "57"
 arrow-cast = "57"
 
@@ -80,7 +80,7 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 
 # HTTP / REST
-axum = { version = "0.7", features = ["ws", "macros"] }
+axum = { version = "0.8", features = ["ws", "macros"] }
 tower-http = { version = "0.5", features = ["cors", "trace"] }
 
 # Utils
@@ -91,7 +91,7 @@ indexmap = { version = "2", features = ["serde"] }
 # Crypto (bench signing + JWT verify)
 ed25519-dalek = { version = "2", features = ["rand_core"] }
 ring = "0.17"
-rand = "0.8"
+rand = "0.9"
 
 # Parallelism
 rayon = "1.10"

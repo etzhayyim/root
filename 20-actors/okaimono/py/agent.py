@@ -394,13 +394,13 @@ PAYMENT_INSTRUMENTS = {"member-external-card", "warifu"}
 
 
 def seal_encrypted(fields: dict, recipient_did: str) -> dict:
-    """Wrap card / PII fields into an app.etzhayyim.encrypted.* envelope (G9). Returns ONLY
+    """Wrap card / PII fields into an com.etzhayyim.encrypted.* envelope (G9). Returns ONLY
     an opaque envelope ref + recipient — never the plaintext. The plaintext is assumed to be
     sealed client-side (XChaCha20-Poly1305, Signal-wrapped, DID-bound, ADR-2605181100); this
     function models the contract: no cleartext PII crosses the okaimono boundary."""
     # deterministic opaque ref from field keys only (NOT values) — values never leave plaintext
     keysig = "+".join(sorted(fields.keys()))
-    ref = f"app.etzhayyim.encrypted:{abs(hash(keysig)) & 0xFFFFFFFF:08x}"
+    ref = f"com.etzhayyim.encrypted:{abs(hash(keysig)) & 0xFFFFFFFF:08x}"
     return {"envelopeRef": ref, "recipientDid": recipient_did, "sealedFields": sorted(fields.keys())}
 
 

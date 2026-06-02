@@ -113,7 +113,7 @@ aideskWorker:
 aidesk BPMN の handoff step は以下 K8s-internal call:
 ```
 generic.pds.dispatch (K8s-internal bpmn-dispatcher ClusterIP)
-  NSID: app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
+  NSID: com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
   variables: { stepB2Key, cadqueryCode, licenseTier, originJobId }
 ```
 
@@ -282,7 +282,7 @@ CREATE TABLE vertex_aidesk_research_artifact (
 
 [Zeebe BPMN: aidesk_export_to_tsukuru]
   → license_tier gate (apache2 only)
-  → K8s-internal: app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
+  → K8s-internal: com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
       { stepB2Key, cadqueryCode, originJobId }
   → tsukuru: normalize-supplier-exchange-package.bpmn
   → tsukuru: validate-supplier-exchange-package.bpmn
@@ -353,7 +353,7 @@ async def task_aidesk_tsukuru_handoff(variables: dict) -> dict:
     """Forward Apache-2.0 artifact to tsukuru normalizePackage via K8s-internal."""
     _tsukuru_handoff_gate(variables)    # structural gate — not a soft check
     # Delegates to generic.pds.dispatch (K8s-internal bpmn-dispatcher ClusterIP)
-    # NSID: app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
+    # NSID: com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage
     return {"tsukuruPackageId": variables.get("tsukuruPackageId"), "dispatched": True}
 ```
 

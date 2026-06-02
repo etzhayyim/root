@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-cpay-1" sourceRef="start-create-payment" targetRef="task-create-payment"/>
     <bpmn:serviceTask id="task-create-payment" name="Create Payment">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.createPayment"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.createPayment"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-cpay-2" sourceRef="task-create-payment" targetRef="end-create-payment"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-lpay-1" sourceRef="start-list-payments" targetRef="task-list-payments"/>
     <bpmn:serviceTask id="task-list-payments" name="List Payments">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.listPayments"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.listPayments"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lpay-2" sourceRef="task-list-payments" targetRef="end-list-payments"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-spay-1" sourceRef="start-settle-payment" targetRef="task-settle-payment"/>
     <bpmn:serviceTask id="task-settle-payment" name="Settle Payment">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.settlePayment"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.settlePayment"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-spay-2" sourceRef="task-settle-payment" targetRef="end-settle-payment"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-rpay-1" sourceRef="start-refund-payment" targetRef="task-refund-payment"/>
     <bpmn:serviceTask id="task-refund-payment" name="Refund Payment">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.refundPayment"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.refundPayment"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-rpay-2" sourceRef="task-refund-payment" targetRef="end-refund-payment"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-gb-1" sourceRef="start-get-balance" targetRef="task-get-balance"/>
     <bpmn:serviceTask id="task-get-balance" name="Get Balance">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.getBalance"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.getBalance"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gb-2" sourceRef="task-get-balance" targetRef="end-get-balance"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-tf-1" sourceRef="start-transfer-funds" targetRef="task-transfer-funds"/>
     <bpmn:serviceTask id="task-transfer-funds" name="Transfer Funds">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.transferFunds"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.transferFunds"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-tf-2" sourceRef="task-transfer-funds" targetRef="end-transfer-funds"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-lt-1" sourceRef="start-list-transactions" targetRef="task-list-transactions"/>
     <bpmn:serviceTask id="task-list-transactions" name="List Transactions">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.listTransactions"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.listTransactions"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lt-2" sourceRef="task-list-transactions" targetRef="end-list-transactions"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-ca-1" sourceRef="start-close-account" targetRef="task-close-account"/>
     <bpmn:serviceTask id="task-close-account" name="Close Account">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.harai.closeAccount"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.harai.closeAccount"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-ca-2" sourceRef="task-close-account" targetRef="end-close-account"/>

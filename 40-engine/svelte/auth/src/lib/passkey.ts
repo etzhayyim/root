@@ -244,7 +244,7 @@ export async function completeAuth(did: string, handle: string, oauth?: OAuthPar
 
 	let session: any;
 	try {
-		session = await authRpc('/xrpc/app.etzhayyim.auth.issueSession', { did, handle });
+		session = await authRpc('/xrpc/com.etzhayyim.auth.issueSession', { did, handle });
 	} catch {
 		session = await authRpc('/xrpc/com.atproto.server.createSession', { did, handle });
 	}
@@ -279,11 +279,11 @@ export async function completeAuth(did: string, handle: string, oauth?: OAuthPar
 }
 
 export async function sendOtp(phone: string): Promise<void> {
-	await authRpc('/xrpc/app.etzhayyim.auth.smsOtpSend', { phone });
+	await authRpc('/xrpc/com.etzhayyim.auth.smsOtpSend', { phone });
 }
 
 export async function verifyOtp(phone: string, code: string): Promise<{ did: string }> {
-	return authRpc('/xrpc/app.etzhayyim.auth.smsOtpVerify', { phone, code });
+	return authRpc('/xrpc/com.etzhayyim.auth.smsOtpVerify', { phone, code });
 }
 
 export function setOnOrgSwitch(callback: () => void): void {
@@ -400,7 +400,7 @@ function updateUserFromDid(did: string): void {
 }
 
 export async function passkeyAuth(): Promise<PasskeyResult> {
-	const beginResp = await authRpc('/xrpc/app.etzhayyim.auth.passkeyBeginAuth');
+	const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginAuth');
 	const publicKeyBase: PublicKeyCredentialRequestOptions = {
 		challenge: base64urlDecode(beginResp.challenge),
 		rpId: beginResp.rpId || beginResp.rp_id,
@@ -418,7 +418,7 @@ export async function passkeyAuth(): Promise<PasskeyResult> {
 	const credentialId = base64urlEncode(credential.rawId);
 	let verifyResult: any;
 	try {
-		verifyResult = await authRpc('/xrpc/app.etzhayyim.auth.passkeyVerifyAuth', {
+		verifyResult = await authRpc('/xrpc/com.etzhayyim.auth.passkeyVerifyAuth', {
 			challenge: beginResp.challenge,
 			credentialId,
 			clientDataJson: base64urlEncode(response.clientDataJSON),
@@ -428,7 +428,7 @@ export async function passkeyAuth(): Promise<PasskeyResult> {
 	} catch (error) {
 		const rpcError = error as AuthRpcError;
 		const isCredentialNotFound =
-			rpcError?.path === '/xrpc/app.etzhayyim.auth.passkeyVerifyAuth' &&
+			rpcError?.path === '/xrpc/com.etzhayyim.auth.passkeyVerifyAuth' &&
 			rpcError?.status === 404 &&
 			rpcError?.errorCode === 'CredentialNotFound';
 		if (!isCredentialNotFound) throw error;
@@ -445,7 +445,7 @@ export async function passkeyAuth(): Promise<PasskeyResult> {
 }
 
 export async function passkeyRegister(): Promise<PasskeyResult> {
-	const beginResp = await authRpc('/xrpc/app.etzhayyim.auth.passkeyBeginRegister', {
+	const beginResp = await authRpc('/xrpc/com.etzhayyim.auth.passkeyBeginRegister', {
 		userId: crypto.randomUUID(),
 		userName: `${crypto.randomUUID().slice(0, 8)}@etzhayyim.com`,
 	});
@@ -471,7 +471,7 @@ export async function passkeyRegister(): Promise<PasskeyResult> {
 
 	const response = credential.response as AuthenticatorAttestationResponse;
 	const credentialId = base64urlEncode(credential.rawId);
-	const verifyResult = await authRpc('/xrpc/app.etzhayyim.auth.passkeyVerifyRegister', {
+	const verifyResult = await authRpc('/xrpc/com.etzhayyim.auth.passkeyVerifyRegister', {
 		challenge: beginResp.challenge,
 		clientDataJson: base64urlEncode(response.clientDataJSON),
 		attestationObject: base64urlEncode(response.attestationObject),

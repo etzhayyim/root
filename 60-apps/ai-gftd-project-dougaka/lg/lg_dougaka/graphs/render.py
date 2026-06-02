@@ -1,6 +1,6 @@
 """dougaka `render` graph — timeline JSON → video_compose SDK → mp4 → B2.
 
-NSID: app.etzhayyim.apps.dougaka.render
+NSID: com.etzhayyim.apps.dougaka.render
 
 Pipeline (video_compose SDK, replaces ComfyUI):
   1. render         — video_compose.render_video(): TTS + image gen + PIL compositor + ffmpeg
@@ -198,7 +198,7 @@ async def _node_write_record(state: _State) -> dict[str, Any]:
     status = "error" if state.get("error") else "done"
     error_msg = state.get("error") or ""
     created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    vertex_id = f"at://dougaka.etzhayyim.com/app.etzhayyim.apps.dougaka.render/{video_id}"
+    vertex_id = f"at://dougaka.etzhayyim.com/com.etzhayyim.apps.dougaka.render/{video_id}"
 
     try:
         import psycopg

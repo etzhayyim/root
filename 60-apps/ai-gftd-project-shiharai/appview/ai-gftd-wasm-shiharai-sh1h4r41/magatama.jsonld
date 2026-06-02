@@ -12,7 +12,7 @@
     "guestLanguage": "ts",
     "role": "thin-edge",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/shiharai.py",
-    "bpmn": "etzhayyim-root/00-contracts/bpmn/ai/gftd/shiharai"
+    "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/shiharai"
   },
   "component": {
     "path": "src/app.ts"
@@ -83,12 +83,12 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.gmail.email",
-        "ai.gftd.apps.shiharai.bill",
-        "ai.gftd.apps.shiharai.payment",
-        "ai.gftd.apps.shiharai.biller",
-        "ai.gftd.apps.shiharai.recurring",
-        "ai.gftd.apps.shiharai.job"
+        "com.etzhayyim.apps.gmail.email",
+        "com.etzhayyim.apps.shiharai.bill",
+        "com.etzhayyim.apps.shiharai.payment",
+        "com.etzhayyim.apps.shiharai.biller",
+        "com.etzhayyim.apps.shiharai.recurring",
+        "com.etzhayyim.apps.shiharai.job"
       ]
     }
   },

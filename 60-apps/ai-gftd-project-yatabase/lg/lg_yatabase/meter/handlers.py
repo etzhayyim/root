@@ -1,6 +1,6 @@
 """FastAPI router exposing the meterEvent XRPC endpoint.
 
-NSID: app.etzhayyim.apps.yata.meterEvent
+NSID: com.etzhayyim.apps.yata.meterEvent
 
 Called fire-and-forget from the yatabase CF Worker's executionCtx.waitUntil()
 when emitMeter() fires. The Worker can no longer write to RisingWave directly
@@ -11,7 +11,7 @@ Auth: x-internal-trust shared-secret (same as leads/auth handlers).
 
 TODO(substrate-boundary): replace RW billing event writes (execute INSERT into
 vertex_billing_event) with AT Protocol MST writes per ADR-2605172000. Billing events
-collection: 'app.etzhayyim.apps.yata.billing.events', rkey=timestamp_event_id. Immutable
+collection: 'com.etzhayyim.apps.yata.billing.events', rkey=timestamp_event_id. Immutable
 event log ensures audit trail integrity.
 """
 
@@ -51,7 +51,7 @@ async def _verify_trust(request: Request, x_internal_trust: str | None) -> bytes
     raise HTTPException(status_code=401, detail="x-internal-trust mismatch")
 
 
-@router.post("/xrpc/app.etzhayyim.apps.yata.meterEvent")
+@router.post("/xrpc/com.etzhayyim.apps.yata.meterEvent")
 async def meter_event(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),

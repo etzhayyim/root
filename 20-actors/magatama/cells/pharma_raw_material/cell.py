@@ -23,7 +23,7 @@ Pregel graph (3 nodes):
                                           OR 危険物取扱主任者 DID co-sign
         |
         v
-    emit_raw_material_attest      ->  MST PUT app.etzhayyim.pharma.rawMaterialAttestation
+    emit_raw_material_attest      ->  MST PUT com.etzhayyim.pharma.rawMaterialAttestation
                                       (CWC schedule, safety class, kg-quantity, supplier
                                        DID, Council co-sign URI if applicable)
                                   ->  next-cell message

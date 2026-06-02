@@ -1,0 +1,21 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.nokyo.coverageSnapshot",
+  "description": "6 時間ごとの actor coverage スナップショット (standard shinka loop)。",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["nodeCount", "latestTs"],
+        "properties": {
+          "nodeCount": { "type": "integer" },
+          "latestTs": { "type": "string" },
+          "topCollections": { "type": "string", "description": "JSON list of top collections by node count" },
+          "bucket": { "type": "string", "default": "6h" }
+        }
+      }
+    }
+  }
+}

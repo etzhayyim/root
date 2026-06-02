@@ -24,7 +24,7 @@ const seeds: Seed[] = [
     project: "open-drug-price-negotiation",
     proc: "recordRound",
     bpmnProcessId: "open_drug_price_negotiation_record_round",
-    nsid: "app.etzhayyim.apps.drugPriceNegotiation.recordRound",
+    nsid: "com.etzhayyim.apps.drugPriceNegotiation.recordRound",
     ownerDid: "did:web:open-drug-price-negotiation.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -32,7 +32,7 @@ const seeds: Seed[] = [
     project: "open-drug-price-negotiation",
     proc: "flagAccessGap",
     bpmnProcessId: "open_drug_price_negotiation_flag_access_gap",
-    nsid: "app.etzhayyim.apps.drugPriceNegotiation.flagAccessGap",
+    nsid: "com.etzhayyim.apps.drugPriceNegotiation.flagAccessGap",
     ownerDid: "did:web:open-drug-price-negotiation.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -40,7 +40,7 @@ const seeds: Seed[] = [
     project: "open-jp-mhlw",
     proc: "recordAction",
     bpmnProcessId: "open_jp_mhlw_record_action",
-    nsid: "app.etzhayyim.apps.jpMhlw.recordAction",
+    nsid: "com.etzhayyim.apps.jpMhlw.recordAction",
     ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -48,7 +48,7 @@ const seeds: Seed[] = [
     project: "open-jp-mhlw",
     proc: "flagPolicyConcern",
     bpmnProcessId: "open_jp_mhlw_flag_policy_concern",
-    nsid: "app.etzhayyim.apps.jpMhlw.flagPolicyConcern",
+    nsid: "com.etzhayyim.apps.jpMhlw.flagPolicyConcern",
     ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -56,7 +56,7 @@ const seeds: Seed[] = [
     project: "open-jp-mhlw",
     proc: "regulateNarcotics",
     bpmnProcessId: "open_jp_mhlw_regulate_narcotics",
-    nsid: "app.etzhayyim.apps.jpMhlw.regulateNarcotics",
+    nsid: "com.etzhayyim.apps.jpMhlw.regulateNarcotics",
     ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -64,7 +64,7 @@ const seeds: Seed[] = [
     project: "open-jp-mhlw",
     proc: "administerInfluenzaVaccine",
     bpmnProcessId: "open_jp_mhlw_administer_influenza_vaccine",
-    nsid: "app.etzhayyim.apps.jpMhlw.administerInfluenzaVaccine",
+    nsid: "com.etzhayyim.apps.jpMhlw.administerInfluenzaVaccine",
     ownerDid: "did:web:open-jp-mhlw.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -75,15 +75,15 @@ function readContract(relPath: string): string {
 }
 
 function sourcePath(seed: Seed): string {
-  return `00-contracts/bpmn/ai/gftd/${seed.project}/${seed.proc}.bpmn`;
+  return `00-contracts/bpmn/com/etzhayyim/${seed.project}/${seed.proc}.bpmn`;
 }
 
 function processVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
 }
 
 function bindingVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 }
 
 async function createPharmaPolicyTables(db: Kysely<unknown>): Promise<void> {

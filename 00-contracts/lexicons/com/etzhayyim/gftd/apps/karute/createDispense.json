@@ -1,0 +1,60 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.karute.createDispense",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Pharmacist records a dispense event against an open MedicationRequest. Encrypted-write inner type com.etzhayyim.karute.dispenseRecord. Pipeline transitions the source MedicationRequest status to 'completed' or 'on-hold' based on dispenseStatus.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["envelopeUri", "encryptedCid", "keyId", "publicMeta"],
+          "properties": {
+            "envelopeUri": {"type": "string"},
+            "encryptedCid": {"type": "string"},
+            "keyId": {"type": "string"},
+            "keyWraps": {
+              "type": "array",
+              "items": {"type": "ref", "ref": "#keyWrapRef"}
+            },
+            "recipientDids": {"type": "array", "items": {"type": "string"}},
+            "publicMeta": {
+              "type": "object",
+              "required": ["patientDid", "medicationRequestUri", "pharmacyDid", "pharmacistDid", "status", "whenHandedOver"],
+              "properties": {
+                "patientDid": {"type": "string"},
+                "medicationRequestUri": {"type": "string"},
+                "pharmacyDid": {"type": "string"},
+                "pharmacistDid": {"type": "string"},
+                "status": {"type": "string"},
+                "whenHandedOver": {"type": "string", "format": "datetime"},
+                "substitutionPerformed": {"type": "boolean"}
+              }
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "rkey": {"type": "string"},
+            "encryptedCid": {"type": "string"},
+            "medicationRequestStatusAfter": {"type": "string"},
+            "error": {"type": "string"}
+          }
+        }
+      }
+    },
+    "keyWrapRef": {
+      "type": "object",
+      "properties": {
+        "recipient": {"type": "string"},
+        "uri": {"type": "string"},
+        "cid": {"type": "string"}
+      }
+    }
+  }
+}

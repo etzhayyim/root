@@ -23,10 +23,10 @@ const kebab = (s: string) => s.replace(/([A-Z])/g, "-$1").toLowerCase();
 
 export async function up(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
-    const sourcePath = `00-contracts/bpmn/ai/gftd/real-estate/${e.proc}.bpmn`;
+    const sourcePath = `00-contracts/bpmn/com/etzhayyim/real-estate/${e.proc}.bpmn`;
     const xml = readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
-    const processVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`;
-    const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`;
+    const processVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`;
+    const bindingVertexId = `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`;
     await sql`
       INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, actor_id)
       SELECT ${processVertexId}, ${ownerDid}, ${e.bpmnProcessId}, 1, ${xml}, CAST(${Buffer.byteLength(xml, "utf8")} AS integer), ${sourcePath}, 'active', ${createdAt}, 1, ${ownerDid}, ${ownerDid}, ${actorTag}
@@ -34,7 +34,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     `.execute(db);
     await sql`
       INSERT INTO vertex_bpmn_lexicon_binding (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms, write_table_allowlist, status, created_at, sensitivity_ord, org_id, user_id, actor_id)
-      SELECT ${bindingVertexId}, ${ownerDid}, ${`app.etzhayyim.apps.realEstate.${e.proc}`}, ${e.bpmnProcessId}, 1, CAST(${e.timeoutMs} AS integer), ${e.writeTable}, 'active', ${createdAt}, 1, ${ownerDid}, ${ownerDid}, ${actorTag}
+      SELECT ${bindingVertexId}, ${ownerDid}, ${`com.etzhayyim.apps.realEstate.${e.proc}`}, ${e.bpmnProcessId}, 1, CAST(${e.timeoutMs} AS integer), ${e.writeTable}, 'active', ${createdAt}, 1, ${ownerDid}, ${ownerDid}, ${actorTag}
       WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${bindingVertexId})
     `.execute(db);
   }
@@ -42,7 +42,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
 export async function down(db: Kysely<unknown>): Promise<void> {
   for (const e of entries) {
-    await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
-    await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
+    await sql`DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
+    await sql`DELETE FROM vertex_bpmn_process_def WHERE vertex_id = ${`at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/real-estate-${kebab(e.proc)}-v1`}`.execute(db);
   }
 }

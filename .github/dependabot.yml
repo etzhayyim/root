@@ -167,10 +167,6 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/50-infra/l2-anchor-contract/lib/forge-std"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
     directory: "/50-infra/mst-projector"
     schedule:
       interval: "weekly"

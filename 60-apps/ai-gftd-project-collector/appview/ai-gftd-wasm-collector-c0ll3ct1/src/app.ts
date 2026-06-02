@@ -14,7 +14,7 @@ interface Env {
   APP_NANOID?: string;
 }
 
-const NSID_PREFIX = "app.etzhayyim.apps.collector.";
+const NSID_PREFIX = "com.etzhayyim.apps.collector.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -27,7 +27,7 @@ export default {
         nanoid: env.APP_NANOID ?? "c0ll3ct1",
         execution: "thin-edge+bpmn+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/collector.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/collector",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/collector",
         adr: "ADR-0036, ADR-2604282300",
       });
     }

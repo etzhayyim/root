@@ -10,8 +10,8 @@
     <bpmn:userTask id="Task_CollectFlightForm" name="Collect flight form"
                    camunda:formKey="openAirplane.scheduleFlight.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectFlightForm" targetRef="Task_Persist"/>
-    <bpmn:serviceTask id="Task_Persist" name="ai.gftd.apps.openAirplane.scheduleFlight"
-                      camunda:topic="ai.gftd.apps.openAirplane.scheduleFlight"/>
+    <bpmn:serviceTask id="Task_Persist" name="com.etzhayyim.apps.openAirplane.scheduleFlight"
+                      camunda:topic="com.etzhayyim.apps.openAirplane.scheduleFlight"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_Persist" targetRef="EndEvent_Scheduled"/>
     <bpmn:endEvent id="EndEvent_Scheduled" name="Flight scheduled"/>
   </bpmn:process>

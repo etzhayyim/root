@@ -145,11 +145,11 @@ async def stream_run(body: dict[str, Any]) -> StreamingResponse:
 # ── XRPC-compat surface (NSID → assistant_id) ──────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "app.etzhayyim.apps.media_gamers.health":           "health",
-    "app.etzhayyim.apps.media_gamers.ingestCharts":     "ingest_charts",
-    "app.etzhayyim.apps.media_gamers.generateGuide":    "guide_generator",
-    "app.etzhayyim.apps.media_gamers.autopilot":        "autopilot",
-    "app.etzhayyim.apps.media_gamers.researchPokopia":  "pokopia_research",
+    "com.etzhayyim.apps.media_gamers.health":           "health",
+    "com.etzhayyim.apps.media_gamers.ingestCharts":     "ingest_charts",
+    "com.etzhayyim.apps.media_gamers.generateGuide":    "guide_generator",
+    "com.etzhayyim.apps.media_gamers.autopilot":        "autopilot",
+    "com.etzhayyim.apps.media_gamers.researchPokopia":  "pokopia_research",
 }
 
 

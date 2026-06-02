@@ -292,7 +292,7 @@ describe("ingestPlacesFromGeoNames — E2E smoke (5 representative rows)", () =>
     expect(stats.ok).toBe(5);
     expect(stats.failed).toBe(0);
     expect(captured).toHaveLength(5);
-    expect(captured.every((c) => c.collection === "app.etzhayyim.maps.feature")).toBe(true);
+    expect(captured.every((c) => c.collection === "com.etzhayyim.maps.feature")).toBe(true);
     const labels = captured.map((c) => c.value.label).sort();
     expect(labels).toEqual(["AdminArea", "Building", "Mountain", "Place", "River"]);
     expect(stats.labelCounts).toEqual({

@@ -9,7 +9,7 @@ missing (not run at all), the story is SKIP. FAIL otherwise.
 ReAct loop:
   classify_stories → analyze_stories → build_story_report
 
-NSID: app.etzhayyim.apps.yata.lg.qaUserStory.run
+NSID: com.etzhayyim.apps.yata.lg.qaUserStory.run
 Graph ID: qa_user_story_react
 Triggered: manually or as post-deploy gate
 

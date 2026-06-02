@@ -25,7 +25,7 @@ const seeds: Seed[] = [
     project: "open-electricity-market",
     proc: "recordMechanism",
     bpmnProcessId: "open_electricity_market_record_mechanism",
-    nsid: "app.etzhayyim.apps.electricityMarket.recordMechanism",
+    nsid: "com.etzhayyim.apps.electricityMarket.recordMechanism",
     ownerDid: "did:web:open-electricity-market.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -33,7 +33,7 @@ const seeds: Seed[] = [
     project: "open-electricity-market",
     proc: "flagMissingMoney",
     bpmnProcessId: "open_electricity_market_flag_missing_money",
-    nsid: "app.etzhayyim.apps.electricityMarket.flagMissingMoney",
+    nsid: "com.etzhayyim.apps.electricityMarket.flagMissingMoney",
     ownerDid: "did:web:open-electricity-market.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -41,7 +41,7 @@ const seeds: Seed[] = [
     project: "open-power-grid-interconnect",
     proc: "recordCrossBorderFlow",
     bpmnProcessId: "open_power_grid_interconnect_record_cross_border_flow",
-    nsid: "app.etzhayyim.apps.powerGridInterconnect.recordCrossBorderFlow",
+    nsid: "com.etzhayyim.apps.powerGridInterconnect.recordCrossBorderFlow",
     ownerDid: "did:web:open-power-grid-interconnect.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -49,7 +49,7 @@ const seeds: Seed[] = [
     project: "open-power-grid-interconnect",
     proc: "flagCurtailment",
     bpmnProcessId: "open_power_grid_interconnect_flag_curtailment",
-    nsid: "app.etzhayyim.apps.powerGridInterconnect.flagCurtailment",
+    nsid: "com.etzhayyim.apps.powerGridInterconnect.flagCurtailment",
     ownerDid: "did:web:open-power-grid-interconnect.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -57,7 +57,7 @@ const seeds: Seed[] = [
     project: "open-water-scarcity",
     proc: "recordBasinMetric",
     bpmnProcessId: "open_water_scarcity_record_basin_metric",
-    nsid: "app.etzhayyim.apps.waterScarcity.recordBasinMetric",
+    nsid: "com.etzhayyim.apps.waterScarcity.recordBasinMetric",
     ownerDid: "did:web:open-water-scarcity.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -65,7 +65,7 @@ const seeds: Seed[] = [
     project: "open-water-scarcity",
     proc: "flagTreatyDispute",
     bpmnProcessId: "open_water_scarcity_flag_treaty_dispute",
-    nsid: "app.etzhayyim.apps.waterScarcity.flagTreatyDispute",
+    nsid: "com.etzhayyim.apps.waterScarcity.flagTreatyDispute",
     ownerDid: "did:web:open-water-scarcity.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -73,7 +73,7 @@ const seeds: Seed[] = [
     project: "open-water-stewardship",
     proc: "recordStewardshipPlan",
     bpmnProcessId: "open_water_stewardship_record_stewardship_plan",
-    nsid: "app.etzhayyim.apps.waterStewardship.recordStewardshipPlan",
+    nsid: "com.etzhayyim.apps.waterStewardship.recordStewardshipPlan",
     ownerDid: "did:web:open-water-stewardship.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -81,7 +81,7 @@ const seeds: Seed[] = [
     project: "open-water-stewardship",
     proc: "flagBasinStress",
     bpmnProcessId: "open_water_stewardship_flag_basin_stress",
-    nsid: "app.etzhayyim.apps.waterStewardship.flagBasinStress",
+    nsid: "com.etzhayyim.apps.waterStewardship.flagBasinStress",
     ownerDid: "did:web:open-water-stewardship.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -89,7 +89,7 @@ const seeds: Seed[] = [
     project: "open-wastewater-reuse",
     proc: "registerFacility",
     bpmnProcessId: "open_wastewater_reuse_register_facility",
-    nsid: "app.etzhayyim.apps.wastewaterReuse.registerFacility",
+    nsid: "com.etzhayyim.apps.wastewaterReuse.registerFacility",
     ownerDid: "did:web:open-wastewater-reuse.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -97,7 +97,7 @@ const seeds: Seed[] = [
     project: "open-wastewater-reuse",
     proc: "recordMonitoringMetric",
     bpmnProcessId: "open_wastewater_reuse_record_monitoring_metric",
-    nsid: "app.etzhayyim.apps.wastewaterReuse.recordMonitoringMetric",
+    nsid: "com.etzhayyim.apps.wastewaterReuse.recordMonitoringMetric",
     ownerDid: "did:web:open-wastewater-reuse.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -105,7 +105,7 @@ const seeds: Seed[] = [
     project: "open-telecom-infra",
     proc: "registerCable",
     bpmnProcessId: "open_telecom_infra_register_cable",
-    nsid: "app.etzhayyim.apps.telecomInfra.registerCable",
+    nsid: "com.etzhayyim.apps.telecomInfra.registerCable",
     ownerDid: "did:web:open-telecom-infra.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -113,7 +113,7 @@ const seeds: Seed[] = [
     project: "open-telecom-infra",
     proc: "flagCableFault",
     bpmnProcessId: "open_telecom_infra_flag_cable_fault",
-    nsid: "app.etzhayyim.apps.telecomInfra.flagCableFault",
+    nsid: "com.etzhayyim.apps.telecomInfra.flagCableFault",
     ownerDid: "did:web:open-telecom-infra.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -121,7 +121,7 @@ const seeds: Seed[] = [
     project: "open-rural-broadband",
     proc: "registerDeployment",
     bpmnProcessId: "open_rural_broadband_register_deployment",
-    nsid: "app.etzhayyim.apps.ruralBroadband.registerDeployment",
+    nsid: "com.etzhayyim.apps.ruralBroadband.registerDeployment",
     ownerDid: "did:web:open-rural-broadband.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -129,7 +129,7 @@ const seeds: Seed[] = [
     project: "open-rural-broadband",
     proc: "flagDigitalDivideGap",
     bpmnProcessId: "open_rural_broadband_flag_digital_divide_gap",
-    nsid: "app.etzhayyim.apps.ruralBroadband.flagDigitalDivideGap",
+    nsid: "com.etzhayyim.apps.ruralBroadband.flagDigitalDivideGap",
     ownerDid: "did:web:open-rural-broadband.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
@@ -137,7 +137,7 @@ const seeds: Seed[] = [
     project: "open-rail-cross-border",
     proc: "recordCorridorFlow",
     bpmnProcessId: "open_rail_cross_border_record_corridor_flow",
-    nsid: "app.etzhayyim.apps.railCrossBorder.recordCorridorFlow",
+    nsid: "com.etzhayyim.apps.railCrossBorder.recordCorridorFlow",
     ownerDid: "did:web:open-rail-cross-border.etzhayyim.com",
     resultTimeoutMs: 15000,
   },
@@ -145,22 +145,22 @@ const seeds: Seed[] = [
     project: "open-rail-cross-border",
     proc: "flagInteropFailure",
     bpmnProcessId: "open_rail_cross_border_flag_interop_failure",
-    nsid: "app.etzhayyim.apps.railCrossBorder.flagInteropFailure",
+    nsid: "com.etzhayyim.apps.railCrossBorder.flagInteropFailure",
     ownerDid: "did:web:open-rail-cross-border.etzhayyim.com",
     resultTimeoutMs: 30000,
   },
 ];
 
 function sourcePath(seed: Seed): string {
-  return `00-contracts/bpmn/ai/gftd/${seed.project}/${seed.proc}.bpmn`;
+  return `00-contracts/bpmn/com/etzhayyim/${seed.project}/${seed.proc}.bpmn`;
 }
 
 function processVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${seed.project}-${seed.proc}-v1`;
 }
 
 function bindingVertexId(seed: Seed): string {
-  return `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
+  return `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${seed.project}-${seed.proc}-v1`;
 }
 
 async function insertProcessDef(db: Kysely<unknown>, seed: Seed): Promise<void> {

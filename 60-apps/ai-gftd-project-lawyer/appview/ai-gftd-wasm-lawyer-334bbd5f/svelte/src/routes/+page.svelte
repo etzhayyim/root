@@ -28,7 +28,7 @@
 
   onMount(async () => {
     try {
-      dashboard = await xrpc('app.etzhayyim.apps.lawyer.getDashboard', {
+      dashboard = await xrpc('com.etzhayyim.apps.lawyer.getDashboard', {
         lawyerDid: LAWYER_DID,
         firmDid: FIRM_DID,
       });

@@ -40,7 +40,7 @@ AI Design Desk — 画像・テキストから CadQuery/STEP を生成し tsukur
 
 ## tsukuru Integration
 
-aidesk → (K8s-internal bpmn-dispatcher) → `app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage`
+aidesk → (K8s-internal bpmn-dispatcher) → `com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage`
 
 normalize/validate は tsukuru 既存 BPMN に委譲。aidesk 側で再実装しない。
 

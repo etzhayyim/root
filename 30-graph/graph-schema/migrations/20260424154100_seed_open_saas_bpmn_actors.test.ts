@@ -9,11 +9,11 @@ const migrationSource = readFileSync(
   "utf-8",
 );
 const bpmn1 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-saas/registerProduct.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-saas/registerProduct.bpmn"),
   "utf-8",
 );
 const bpmn2 = readFileSync(
-  resolve(__dirname, "../../../00-contracts/bpmn/ai/gftd/open-saas/mapToUnspsc.bpmn"),
+  resolve(__dirname, "../../../00-contracts/bpmn/com/etzhayyim/open-saas/mapToUnspsc.bpmn"),
   "utf-8",
 );
 
@@ -21,15 +21,15 @@ describe("Seed open-saas BPMN actors migration", () => {
   it("seeds both process definitions", () => {
     expect(migrationSource).toContain("open-saas-register-product-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_saas_register_product"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-saas/registerProduct.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-saas/registerProduct.bpmn"');
     expect(migrationSource).toContain("open-saas-map-to-unspsc-v1");
     expect(migrationSource).toContain('bpmnProcessId: "open_saas_map_to_unspsc"');
-    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/ai/gftd/open-saas/mapToUnspsc.bpmn"');
+    expect(migrationSource).toContain('sourcePath: "00-contracts/bpmn/com/etzhayyim/open-saas/mapToUnspsc.bpmn"');
   });
 
   it("seeds both lexicon bindings", () => {
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSaas.registerProduct"');
-    expect(migrationSource).toContain('nsid: "app.etzhayyim.apps.openSaas.mapToUnspsc"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openSaas.registerProduct"');
+    expect(migrationSource).toContain('nsid: "com.etzhayyim.apps.openSaas.mapToUnspsc"');
   });
 
   it("uses open-saas-specific actor_id + owner_did", () => {

@@ -13,31 +13,31 @@ const recruitManifest = readFileSync(
   "utf-8",
 );
 const recommendCohortsLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/recommendCohorts.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/recommendCohorts.json"),
   "utf-8",
 );
 const matchStatsLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/matchStats.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/matchStats.json"),
   "utf-8",
 );
 const proposeCohortMatchLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/proposeCohortMatch.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/proposeCohortMatch.json"),
   "utf-8",
 );
 const listMatchProposalsLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/listMatchProposals.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/listMatchProposals.json"),
   "utf-8",
 );
 const getMatchProposalLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/getMatchProposal.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/getMatchProposal.json"),
   "utf-8",
 );
 const decideMatchProposalLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/decideMatchProposal.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/decideMatchProposal.json"),
   "utf-8",
 );
 const listMatchDecisionEventsLexicon = readFileSync(
-  resolve(__dirname, "../../../00-contracts/lexicons/ai/gftd/apps/recruit/listMatchDecisionEvents.json"),
+  resolve(__dirname, "../../../00-contracts/lexicons/com/etzhayyim/apps/recruit/listMatchDecisionEvents.json"),
   "utf-8",
 );
 
@@ -67,13 +67,13 @@ describe("Recruit cohort matching migration", () => {
   });
 
   it("registers read, write, and list NSIDs on the recruit actor", () => {
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.recommendCohorts");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.matchStats");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.proposeCohortMatch");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.listMatchProposals");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.getMatchProposal");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.decideMatchProposal");
-    expect(recruitManifest).toContain("app.etzhayyim.apps.recruit.listMatchDecisionEvents");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.recommendCohorts");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.matchStats");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.proposeCohortMatch");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.listMatchProposals");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.getMatchProposal");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.decideMatchProposal");
+    expect(recruitManifest).toContain("com.etzhayyim.apps.recruit.listMatchDecisionEvents");
     expect(recruitManifest).toContain("RecruitCohortMatchCandidate");
     expect(recruitManifest).toContain("RecruitMatchProposal");
     expect(recruitManifest).toContain("RecruitMatchDecisionEvent");

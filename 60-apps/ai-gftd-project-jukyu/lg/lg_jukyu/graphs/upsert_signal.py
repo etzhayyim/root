@@ -1,6 +1,6 @@
 """jukyu `upsertSignal` graph — write notification signal to outbox.
 
-NSID: app.etzhayyim.apps.jukyu.upsertSignal
+NSID: com.etzhayyim.apps.jukyu.upsertSignal
 """
 
 from __future__ import annotations
@@ -47,7 +47,7 @@ async def _node_write(state: _State) -> dict[str, Any]:
     signal_id = state.get("signal_id") or (
         f"jukyu-signal:{time.strftime('%Y%m%d')}:{company_did[:30]}:{uuid.uuid4().hex[:8]}"
     )
-    vertex_id = f"at://jukyu001.etzhayyim.com/app.etzhayyim.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
+    vertex_id = f"at://jukyu001.etzhayyim.com/com.etzhayyim.apps.jukyu.notificationSignal/{uuid.uuid4().hex[:12]}"
     risk = float(state.get("risk_score") or 0)
     conf = float(state.get("confidence") or 0)
     severity = state.get("severity") or (

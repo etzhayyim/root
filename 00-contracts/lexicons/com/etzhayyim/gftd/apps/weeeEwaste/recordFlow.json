@@ -1,0 +1,99 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.weeeEwaste.recordFlow",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "WEEE / Basel Annex IX e-waste flow (bridges chemicals-management + battery-passport + food-waste-epr + right-to-repair)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flowId",
+            "originIso3",
+            "destinationIso3",
+            "weeeCategory",
+            "tonnes",
+            "shippedAt"
+          ],
+          "properties": {
+            "flowId": {
+              "type": "string"
+            },
+            "originIso3": {
+              "type": "string"
+            },
+            "destinationIso3": {
+              "type": "string"
+            },
+            "weeeCategory": {
+              "type": "string",
+              "enum": [
+                "temperature_exchange",
+                "screens_monitors",
+                "lamps",
+                "large_equipment",
+                "small_equipment",
+                "small_it_telecom",
+                "photovoltaic"
+              ]
+            },
+            "tonnes": {
+              "type": "number"
+            },
+            "recyclingProcess": {
+              "type": "string",
+              "enum": [
+                "mechanical_shredder",
+                "pyrometallurgy",
+                "hydrometallurgy",
+                "bioleaching",
+                "manual_dismantle",
+                "informal"
+              ]
+            },
+            "recoveryRatePct": {
+              "type": "number"
+            },
+            "priorInformedConsent": {
+              "type": "boolean"
+            },
+            "shippedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "complianceTier": {
+              "type": "string",
+              "enum": [
+                "regulated",
+                "informal",
+                "illegal"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

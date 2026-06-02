@@ -1,0 +1,37 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.hatsubai.publishToStore",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Promote a storeListing from 'scheduled' to 'live' (or 'draft' to 'scheduled'). Requires (a) the title's latest certSubmission.result='pass', (b) every required ageRating board for the listing region is granted. Emits app.bsky.feed.post on success.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["listingDid"],
+          "properties": {
+            "listingDid":  { "type": "string" },
+            "targetState": {
+              "type": "string",
+              "knownValues": ["scheduled", "live"]
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri", "publishStatus"],
+          "properties": {
+            "uri":           { "type": "string" },
+            "publishStatus": { "type": "string" },
+            "blockerReason": { "type": "string" },
+            "postUri":       { "type": "string", "description": "AT URI of the launch announcement post (when publishStatus='live')." }
+          }
+        }
+      }
+    }
+  }
+}

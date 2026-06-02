@@ -3,7 +3,7 @@
  * Server, retire the BPMN process_defs.
  *
  * Active path going forward (per actor):
- *   K8s CronJob → POST {dispatcher}/xrpc/app.etzhayyim.apps.{actor}.cycle
+ *   K8s CronJob → POST {dispatcher}/xrpc/com.etzhayyim.apps.{actor}.cycle
  *     → bpmn-dispatcher routes via vertex_bpmn_lexicon_binding
  *       (routing_target='langgraph', bpmn_process_id=<assistant_id>)
  *     → POST {langgraph-server}/runs body={assistant_id, input}
@@ -27,22 +27,22 @@ type Binding = {
 const BINDINGS: Binding[] = [
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/ki-cycle-langgraph-v1",
-    nsid: "app.etzhayyim.apps.ki.cycle",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/ki-cycle-langgraph-v1",
+    nsid: "com.etzhayyim.apps.ki.cycle",
     assistantId: "ki.cycle.v1",
   },
   {
     vertexId:
-      "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.lexiconBinding/saikin-cycle-langgraph-v1",
-    nsid: "app.etzhayyim.apps.saikin.cycle",
+      "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.lexiconBinding/saikin-cycle-langgraph-v1",
+    nsid: "com.etzhayyim.apps.saikin.cycle",
     assistantId: "saikin.cycle.v1",
   },
 ];
 
 // Old timer-start BPMN process_defs to mark inactive (LangGraph chain replaces them).
 const RETIRED_PROCESS_DEFS = [
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
-  "at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/ki-vascular-synthesis-cycle-v1",
+  "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/saikin-horizontal-transfer-cycle-v1",
 ];
 
 export async function up(db: Kysely<unknown>): Promise<void> {

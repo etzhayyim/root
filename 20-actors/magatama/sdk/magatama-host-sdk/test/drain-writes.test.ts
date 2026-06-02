@@ -43,16 +43,16 @@ describe("createWorkerExport pendingWrites drain", () => {
     let writtenSdk: any = null;
     const worker = createWorkerExport((sdk) => {
       writtenSdk = sdk;
-      sdk.app.command("app.etzhayyim.apps.test123.ping", async () => {
+      sdk.app.command("com.etzhayyim.apps.test123.ping", async () => {
         // Enqueue a fire-and-forget write via PDS
-        sdk.pds?.createRecord("app.etzhayyim.apps.test123.log", { msg: "hello" });
+        sdk.pds?.createRecord("com.etzhayyim.apps.test123.log", { msg: "hello" });
         return JSON.stringify({ ok: true });
       });
     });
 
     const env = createEnv(pds);
     // First request — initializes SDK + serveAsync
-    const req = new Request("http://localhost/xrpc/app.etzhayyim.apps.test123.ping", { method: "POST" });
+    const req = new Request("http://localhost/xrpc/com.etzhayyim.apps.test123.ping", { method: "POST" });
     const resp = await worker.fetch(req, env, ctx);
 
     expect(resp.status).toBeLessThan(500);
@@ -70,14 +70,14 @@ describe("createWorkerExport pendingWrites drain", () => {
     let writtenSdk: any = null;
     const worker = createWorkerExport((sdk) => {
       writtenSdk = sdk;
-      sdk.app.command("app.etzhayyim.apps.test123.ping", async () => {
-        sdk.pds?.createRecord("app.etzhayyim.apps.test123.log", { msg: "no-ctx" });
+      sdk.app.command("com.etzhayyim.apps.test123.ping", async () => {
+        sdk.pds?.createRecord("com.etzhayyim.apps.test123.log", { msg: "no-ctx" });
         return JSON.stringify({ ok: true });
       });
     });
 
     const env = createEnv(pds);
-    const req = new Request("http://localhost/xrpc/app.etzhayyim.apps.test123.ping", { method: "POST" });
+    const req = new Request("http://localhost/xrpc/com.etzhayyim.apps.test123.ping", { method: "POST" });
     // Call WITHOUT ctx — the critical fallback path
     const resp = await worker.fetch(req, env);
 
@@ -91,13 +91,13 @@ describe("createWorkerExport pendingWrites drain", () => {
     const waitUntilSpy = vi.fn();
 
     const worker = createWorkerExport((sdk) => {
-      sdk.app.command("app.etzhayyim.apps.test123.noop", async () => {
+      sdk.app.command("com.etzhayyim.apps.test123.noop", async () => {
         return JSON.stringify({ ok: true });
       });
     });
 
     const env = createEnv(pds);
-    const req = new Request("http://localhost/xrpc/app.etzhayyim.apps.test123.noop", { method: "POST" });
+    const req = new Request("http://localhost/xrpc/com.etzhayyim.apps.test123.noop", { method: "POST" });
     // No ctx passed
     await worker.fetch(req, env);
 
@@ -123,7 +123,7 @@ describe("createWorkerExport pendingWrites drain", () => {
     let writtenSdk: any = null;
     const worker = createWorkerExport((sdk) => {
       writtenSdk = sdk;
-      sdk.app.command("app.etzhayyim.apps.test123.fail", async () => {
+      sdk.app.command("com.etzhayyim.apps.test123.fail", async () => {
         // This write will fail (PDS returns 500)
         sdk.pds?.dispatch({ type: "log-append", payload: { msg: "will-fail" } });
         return JSON.stringify({ ok: true });
@@ -133,7 +133,7 @@ describe("createWorkerExport pendingWrites drain", () => {
     const waitUntilPromises: Promise<unknown>[] = [];
     const ctx = { waitUntil: (p: Promise<unknown>) => { waitUntilPromises.push(p); } };
     const env = createEnv(failingPds);
-    const req = new Request("http://localhost/xrpc/app.etzhayyim.apps.test123.fail", { method: "POST" });
+    const req = new Request("http://localhost/xrpc/com.etzhayyim.apps.test123.fail", { method: "POST" });
     await worker.fetch(req, env, ctx);
     await Promise.allSettled(waitUntilPromises);
 

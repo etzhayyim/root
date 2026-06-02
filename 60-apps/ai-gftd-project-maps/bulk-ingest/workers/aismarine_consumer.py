@@ -8,7 +8,7 @@ psycopg2 — same pattern as gtfs_jp_dumper / openflights_dumper /
 noaa_ais_dumper (no bpmn-dispatcher hop).
 
 The earlier dispatcher-routed design hit `404 no active binding` because
-`app.etzhayyim.apps.maps.aismarine.position.batchInsert` is a LangServer tool,
+`com.etzhayyim.apps.maps.aismarine.position.batchInsert` is a LangServer tool,
 not a BPMN process — bpmn-dispatcher only routes the latter. Direct
 psycopg2 INSERT is shorter, has no HMAC dance, and matches every other
 maps-bulk-ingest pod. ADR-2605011500 §Addendum 2026-05-05.

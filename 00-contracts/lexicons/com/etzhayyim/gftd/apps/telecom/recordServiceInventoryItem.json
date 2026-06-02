@@ -1,0 +1,43 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.telecom.recordServiceInventoryItem",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record a service instance in the TMF638 Service Inventory Management API. Creates a vertex_telecom_tmf_service_inventory record.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["recordId", "serviceInstanceKind", "lifecycleStatus"],
+          "properties": {
+            "recordId": { "type": "string" },
+            "serviceInstanceKind": { "type": "string" },
+            "serviceInstanceVid": { "type": "string" },
+            "productId": { "type": "string" },
+            "serviceOrderId": { "type": "string" },
+            "lifecycleStatus": { "type": "string", "enum": ["feasibilityChecked", "designed", "reserved", "inactive", "active", "terminated"] },
+            "operationalState": { "type": "string", "enum": ["enabled", "disabled"] },
+            "startedAt": { "type": "string", "format": "datetime" },
+            "observedAt": { "type": "string", "format": "datetime" },
+            "callerDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "vertexId": { "type": "string" },
+            "recordId": { "type": "string" },
+            "status": { "type": "string" },
+            "instanceKey": { "type": "integer" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

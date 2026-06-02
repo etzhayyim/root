@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.legalEntity.collectJpn",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Collect Japanese corporate registry data from NTA (National Tax Agency) houjin-bangou API. 13-digit corporate number.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pages": { "type": "integer", "description": "Number of pages to fetch (default 5, max 50)" },
+            "pageSize": { "type": "integer", "description": "Records per page (max 500, NTA default 500)" },
+            "startPage": { "type": "integer", "description": "Starting page number (default 1)" },
+            "prefecture": { "type": "string", "description": "Filter by prefecture code (01-47)" },
+            "kind": { "type": "string", "description": "Entity kind filter: 1=national, 2=local, 3=registered, 4=other" },
+            "from": { "type": "string", "description": "Updated from date (YYYY-MM-DD)" },
+            "to": { "type": "string", "description": "Updated to date (YYYY-MM-DD)" }
+          },
+          "required": []
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "source": { "type": "string" },
+            "pagesProcessed": { "type": "integer" },
+            "totalInserted": { "type": "integer" },
+            "totalSkipped": { "type": "integer" },
+            "apiTotal": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

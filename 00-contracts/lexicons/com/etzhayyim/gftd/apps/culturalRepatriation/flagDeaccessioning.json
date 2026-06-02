@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.culturalRepatriation.flagDeaccessioning",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Deaccessioning / repatriation refusal / partial loan (bridges landRestitution.flagRestitutionObstacle + cultural-heritage + fpic-consent)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "flagId",
+            "claimVid",
+            "concernKind",
+            "reportedAt"
+          ],
+          "properties": {
+            "flagId": {
+              "type": "string"
+            },
+            "claimVid": {
+              "type": "string",
+              "description": "bridges recordClaim"
+            },
+            "concernKind": {
+              "type": "string",
+              "enum": [
+                "refused_provenance",
+                "loan_not_return",
+                "redacted_inventory",
+                "statute_barred",
+                "trust_ownership",
+                "colonial_legality_claim",
+                "museum_board_opposition",
+                "conservation_dispute",
+                "duplicates_sent"
+              ]
+            },
+            "objectCount": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -127,7 +127,7 @@ def transition_to_attestation_emitted(state: dict[str, Any]) -> dict[str, Any]:
     hs.completionPct = 100
 
     record = {
-        "$type": "app.etzhayyim.watatsumi.pressureHullAttestation",
+        "$type": "com.etzhayyim.watatsumi.pressureHullAttestation",
         "craftId": hs.craftId,
         "ringIndex": hs.ringIndex,
         "materialLot": hs.materialLot,

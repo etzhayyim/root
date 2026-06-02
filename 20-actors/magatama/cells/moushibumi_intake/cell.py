@@ -8,7 +8,7 @@ Purpose: take a member's consent + DID/SBT binding + intent and open a
 
 Constitutional ceiling (CRITICAL — IMMUTABLE): G4 consent-gated + own-voice-only;
 G3 politically neutral (intake never steers partisanship); kotoba-EAVT-native
-(ADR-2605262130). Output Lexicon(s): app.etzhayyim.moushibumi.participationSession.
+(ADR-2605262130). Output Lexicon(s): com.etzhayyim.moushibumi.participationSession.
 
 R0 scaffold — import-time RuntimeError until R1.
 """

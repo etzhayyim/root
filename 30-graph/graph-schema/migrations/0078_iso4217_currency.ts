@@ -10,7 +10,7 @@ import { Kysely, sql } from 'kysely';
  *
  * | Collection                     | Rows | Source                                         |
  * |--------------------------------|------|------------------------------------------------|
- * | app.etzhayyim.apps.iso4217.currency  |  178 | github.com/datasets/currency-codes (ISO 4217)  |
+ * | com.etzhayyim.apps.iso4217.currency  |  178 | github.com/datasets/currency-codes (ISO 4217)  |
  *
  * ### ISO 4217 (International Standard for Currency Codes)
  * 178 active currencies (alphabetic code + numeric code + minor unit).
@@ -23,7 +23,7 @@ import { Kysely, sql } from 'kysely';
  *
  * ## New view
  *
- * - view_iso4217_currency: projection of app.etzhayyim.apps.iso4217.currency
+ * - view_iso4217_currency: projection of com.etzhayyim.apps.iso4217.currency
  *
  * ## Topology integrity
  *
@@ -55,7 +55,7 @@ export async function up(db: Kysely<any>): Promise<void> {
       value_json::jsonb->>'entity'     AS entity,
       uri, indexed_at
     FROM vertex_repo_record
-    WHERE collection = 'app.etzhayyim.apps.iso4217.currency'
+    WHERE collection = 'com.etzhayyim.apps.iso4217.currency'
   `.execute(db);
 
   await sql`
@@ -66,6 +66,6 @@ export async function up(db: Kysely<any>): Promise<void> {
 
 export async function down(db: Kysely<any>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_iso4217_currency`.execute(db);
-  await sql`DELETE FROM vertex_repo_record WHERE collection = 'app.etzhayyim.apps.iso4217.currency'`.execute(db);
+  await sql`DELETE FROM vertex_repo_record WHERE collection = 'com.etzhayyim.apps.iso4217.currency'`.execute(db);
   await sql`DELETE FROM dim_world_domain WHERE domain = 'iso4217'`.execute(db);
 }

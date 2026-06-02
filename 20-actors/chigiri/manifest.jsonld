@@ -9,7 +9,7 @@
   "displayName": "契 — Covenant (legal procedure substrate)",
   "displayNameJa": "契",
   "displayNameEn": "Chigiri",
-  "description": "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under app.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200, G14/G15/G16) + a Japan 認証ADR mediation lane (dispute_mediation, ADR-2605302330, G17); advice/representation is delivered by jurisdiction-licensed human counsel via the Public Fund, never by chigiri. Consumes the global legal corpus from ADR-2605262800 (statutes / cases / treaties / procedures / templates). Replaces the legacy lawfirm.etzhayyim.com reference in hanrei.",
+  "description": "Non-profit religious-corp legal procedure substrate. Procedural template + on-chain attestation + routing substrate for the 任意団体 internal procedures, external state-system interfaces, and Charter §1.12 state-function routing-around. NOT a commercial law firm and NOT an unauthorized practice of law (UPL constitutionally prohibited per G14). 13 cells / 11 Lexicons under com.etzhayyim.chigiri.* / 17 immutable gates / 12 non-goals. Adds a free legal-aid lane (legal_aid_clinic cell, ADR-2605302200, G14/G15/G16) + a Japan 認証ADR mediation lane (dispute_mediation, ADR-2605302330, G17); advice/representation is delivered by jurisdiction-licensed human counsel via the Public Fund, never by chigiri. Consumes the global legal corpus from ADR-2605262800 (statutes / cases / treaties / procedures / templates). Replaces the legacy lawfirm.etzhayyim.com reference in hanrei.",
   "descriptionJa": "非営利 religious-corp の法的手続き substrate。任意団体 内部手続き + 国家システム interface + Charter §1.12 国家機能 routing-around を、手続きテンプレート + on-chain attestation + routing substrate として提供。商業 law firm ではなく、法律相談 (UPL) は G14 で構造的に禁止。12 cells / 9 Lexicons / 14 不変ゲート / 12 non-goals。Global legal corpus (ADR-2605262800) を消費。hanrei が参照していた lawfirm.etzhayyim.com を religious-corp ネイティブに置換。",
   "adr": {
     "master": "etzhayyim:adr:2605262700",
@@ -26,10 +26,10 @@
     "did:web:bunken.etzhayyim.com"
   ],
   "lexiconReadAccess": {
-    "app.etzhayyim.gov.dataset.parliamentRecord": "ADR-2605263900; READ-ONLY publicly-recorded parliament procedure citations for Charter §1.12 state-function-routing-around evidence base. covenant_ceremony + inheritance + withdrawal cells cite publicly-recorded state procedure as substitution context — never as internal dependency per N2 (no state-granted legal personality). CN-sourced records carry stateAlignedFlag=true which chigiri MUST display in any derived document.",
-    "app.etzhayyim.gov.dataset.openDatasetAttestation": "ADR-2605263900; READ-ONLY per-jurisdiction open-data portal catalog. Supports multi-jurisdictional template selection for tax_receipt + data_privacy + ip_licensing cells when state-published reference data is the most current source. UPL boundary preserved per G14 — chigiri renders procedure templates, NOT legal advice on those datasets.",
-    "app.etzhayyim.corp.registryAttestation": "ADR-2605263800; READ-ONLY per-jurisdiction legal-entity registry for entity-identity verification before vendor-contract Rider scrutiny + ipLicenseClaim recipient validation. LEI cross-link via app.etzhayyim.corp.leiReference for cross-jurisdictional resolution.",
-    "app.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for cross-jurisdiction entity-identity verification in ip_licensing + employment_compliance cells. CC0 1.0 license. Vendor commercial-terminal imports — Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro — CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c)."
+    "com.etzhayyim.gov.dataset.parliamentRecord": "ADR-2605263900; READ-ONLY publicly-recorded parliament procedure citations for Charter §1.12 state-function-routing-around evidence base. covenant_ceremony + inheritance + withdrawal cells cite publicly-recorded state procedure as substitution context — never as internal dependency per N2 (no state-granted legal personality). CN-sourced records carry stateAlignedFlag=true which chigiri MUST display in any derived document.",
+    "com.etzhayyim.gov.dataset.openDatasetAttestation": "ADR-2605263900; READ-ONLY per-jurisdiction open-data portal catalog. Supports multi-jurisdictional template selection for tax_receipt + data_privacy + ip_licensing cells when state-published reference data is the most current source. UPL boundary preserved per G14 — chigiri renders procedure templates, NOT legal advice on those datasets.",
+    "com.etzhayyim.corp.registryAttestation": "ADR-2605263800; READ-ONLY per-jurisdiction legal-entity registry for entity-identity verification before vendor-contract Rider scrutiny + ipLicenseClaim recipient validation. LEI cross-link via com.etzhayyim.corp.leiReference for cross-jurisdictional resolution.",
+    "com.etzhayyim.corp.leiReference": "ADR-2605263800; READ-ONLY GLEIF LEI canonical for cross-jurisdiction entity-identity verification in ip_licensing + employment_compliance cells. CC0 1.0 license. Vendor commercial-terminal imports — Bloomberg Terminal / Refinitiv / FactSet / Moody's Orbis / D&B / Pitchbook / Crunchbase Pro — CONSTITUTIONALLY PROHIBITED per Charter Rider §2(e)+§2(c)."
   },
   "crossActorProcedure": [
     "did:web:musubi.etzhayyim.com (future — covenant ceremony)",
@@ -161,17 +161,17 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.chigiri.covenantAttestation",
-    "app.etzhayyim.chigiri.excommunicationProcedure",
-    "app.etzhayyim.chigiri.withdrawalAttestation",
-    "app.etzhayyim.chigiri.inheritanceChain",
-    "app.etzhayyim.chigiri.disputeMediation",
-    "app.etzhayyim.chigiri.ipLicenseClaim",
-    "app.etzhayyim.chigiri.taxReceipt",
-    "app.etzhayyim.chigiri.stewardLaborAttestation",
-    "app.etzhayyim.chigiri.forceAuthorizationRecord",
-    "app.etzhayyim.chigiri.legalAidMatter",
-    "app.etzhayyim.chigiri.jurisdictionPolicy"
+    "com.etzhayyim.chigiri.covenantAttestation",
+    "com.etzhayyim.chigiri.excommunicationProcedure",
+    "com.etzhayyim.chigiri.withdrawalAttestation",
+    "com.etzhayyim.chigiri.inheritanceChain",
+    "com.etzhayyim.chigiri.disputeMediation",
+    "com.etzhayyim.chigiri.ipLicenseClaim",
+    "com.etzhayyim.chigiri.taxReceipt",
+    "com.etzhayyim.chigiri.stewardLaborAttestation",
+    "com.etzhayyim.chigiri.forceAuthorizationRecord",
+    "com.etzhayyim.chigiri.legalAidMatter",
+    "com.etzhayyim.chigiri.jurisdictionPolicy"
   ],
   "dataSubstrate": {
     "ingestion": "ADR-2605262800 — global legal corpus (statutes / cases / treaties / procedures / templates) via IPFS-pinned DataLad subdatasets",
@@ -191,7 +191,7 @@
     "description": "17 immutable gates: G1-G14 per ADR-2605262700; G15-G16 per ADR-2605302200 (free legal-aid lane); G17 per ADR-2605302330 (Japan 認証ADR mediation lane). Council Lv6+ supermajority + new ADR to amend (Lv7+ if constitutional invariant per Preamble §0.4).",
     "gates": {
       "G1": "Every legal document MUST pass Charter Rider §2(a)-(h) scan (etzhayyim_organism.sensors.charter_rider.scan); fail = block",
-      "G2": "Every procedure MUST emit app.etzhayyim.chigiri.* Lexicon record with yatachain attestation lineage; missing = invisible",
+      "G2": "Every procedure MUST emit com.etzhayyim.chigiri.* Lexicon record with yatachain attestation lineage; missing = invisible",
       "G3": "Internal procedure MUST NOT require state-issued personal ID (DID + SBT only); state ID at external interface only",
       "G4": "Charter Rider amendment = Council Lv6+ ≥4/7",
       "G5": "Constitutional invariant amendment = Council Lv7+ unanimity (Preamble §0.4)",
@@ -230,7 +230,7 @@
     {
       "phase": "R0",
       "date": "2026-05-26",
-      "scope": "Scaffold only. 12 cells path-reserved (under 20-actors/magatama/cells/chigiri_*/, created in R1). 9 Lexicon schema skeletons under 00-contracts/lexicons/app/etzhayyim/chigiri/. manifest + README + CLAUDE.md.",
+      "scope": "Scaffold only. 12 cells path-reserved (under 20-actors/magatama/cells/chigiri_*/, created in R1). 9 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/chigiri/. manifest + README + CLAUDE.md.",
       "murakumoFleet": "No deployment",
       "gate": "ADR-2605262700 (PROPOSED)"
     },

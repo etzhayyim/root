@@ -117,7 +117,7 @@
       ],
       "trigger": {
         "collections": [
-          "ai.gftd.apps.oilRefining.yieldSnapshot"
+          "com.etzhayyim.apps.oilRefining.yieldSnapshot"
         ],
         "type": "subscribeRepos"
       }
@@ -133,7 +133,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilDistribution.network.getProductTerminal",
+        "nsid": "com.etzhayyim.apps.oilDistribution.network.getProductTerminal",
         "type": "xrpc"
       }
     },
@@ -148,7 +148,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilDistribution.network.listProductTerminals",
+        "nsid": "com.etzhayyim.apps.oilDistribution.network.listProductTerminals",
         "type": "xrpc"
       }
     },
@@ -163,7 +163,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilDistribution.network.listWholesaleHubs",
+        "nsid": "com.etzhayyim.apps.oilDistribution.network.listWholesaleHubs",
         "type": "xrpc"
       }
     },
@@ -178,7 +178,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilDistribution.analytics.getProductBalance",
+        "nsid": "com.etzhayyim.apps.oilDistribution.analytics.getProductBalance",
         "type": "xrpc"
       }
     },
@@ -193,7 +193,7 @@
         }
       ],
       "trigger": {
-        "nsid": "ai.gftd.apps.oilDistribution.health",
+        "nsid": "com.etzhayyim.apps.oilDistribution.health",
         "type": "xrpc"
       }
     },
@@ -219,7 +219,7 @@
             "params": {
               "actorName": "oil-distribution",
               "bucket": "6h",
-              "collection": "ai.gftd.apps.oilDistribution.coverageSnapshot",
+              "collection": "com.etzhayyim.apps.oilDistribution.coverageSnapshot",
               "latestSeq": 0,
               "nanoid": "01ld1str",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
@@ -254,8 +254,8 @@
     "operator": "gftd.co.jp"
   },
   "requiredCollections": [
-    "ai.gftd.apps.standard.shinkaEvolution",
-    "ai.gftd.apps.standard.shinkaKnowledge"
+    "com.etzhayyim.apps.standard.shinkaEvolution",
+    "com.etzhayyim.apps.standard.shinkaKnowledge"
   ],
   "requiredLoops": [
     "shinka",
@@ -268,10 +268,10 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.oilDistribution.productTerminal",
-        "ai.gftd.apps.oilDistribution.wholesaleHub",
-        "ai.gftd.apps.oilRefining.yieldSnapshot",
-        "ai.gftd.apps.oilShipping.cargo"
+        "com.etzhayyim.apps.oilDistribution.productTerminal",
+        "com.etzhayyim.apps.oilDistribution.wholesaleHub",
+        "com.etzhayyim.apps.oilRefining.yieldSnapshot",
+        "com.etzhayyim.apps.oilShipping.cargo"
       ]
     }
   },

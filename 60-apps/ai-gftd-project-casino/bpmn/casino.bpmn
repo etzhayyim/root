@@ -10,7 +10,7 @@
     <bpmn:sequenceFlow id="sf-lca-1" sourceRef="start-list-casinos" targetRef="task-list-casinos"/>
     <bpmn:serviceTask id="task-list-casinos" name="List Casinos">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.listCasinos"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.listCasinos"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lca-2" sourceRef="task-list-casinos" targetRef="end-list-casinos"/>
@@ -23,7 +23,7 @@
     <bpmn:sequenceFlow id="sf-gca-1" sourceRef="start-get-casino" targetRef="task-get-casino"/>
     <bpmn:serviceTask id="task-get-casino" name="Get Casino">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.getCasino"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.getCasino"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gca-2" sourceRef="task-get-casino" targetRef="end-get-casino"/>
@@ -36,7 +36,7 @@
     <bpmn:sequenceFlow id="sf-crev-1" sourceRef="start-create-review" targetRef="task-create-review"/>
     <bpmn:serviceTask id="task-create-review" name="Create Review">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.createReview"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.createReview"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-crev-2" sourceRef="task-create-review" targetRef="end-create-review"/>
@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="sf-lrev-1" sourceRef="start-list-reviews" targetRef="task-list-reviews"/>
     <bpmn:serviceTask id="task-list-reviews" name="List Reviews">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.listReviews"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.listReviews"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lrev-2" sourceRef="task-list-reviews" targetRef="end-list-reviews"/>
@@ -62,7 +62,7 @@
     <bpmn:sequenceFlow id="sf-lj-1" sourceRef="start-list-jurisdictions" targetRef="task-list-jurisdictions"/>
     <bpmn:serviceTask id="task-list-jurisdictions" name="List Jurisdictions">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.listJurisdictions"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.listJurisdictions"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lj-2" sourceRef="task-list-jurisdictions" targetRef="end-list-jurisdictions"/>
@@ -75,7 +75,7 @@
     <bpmn:sequenceFlow id="sf-gj-1" sourceRef="start-get-jurisdiction" targetRef="task-get-jurisdiction"/>
     <bpmn:serviceTask id="task-get-jurisdiction" name="Get Jurisdiction">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.getJurisdiction"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.getJurisdiction"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-gj-2" sourceRef="task-get-jurisdiction" targetRef="end-get-jurisdiction"/>
@@ -88,7 +88,7 @@
     <bpmn:sequenceFlow id="sf-sca-1" sourceRef="start-search-casinos" targetRef="task-search-casinos"/>
     <bpmn:serviceTask id="task-search-casinos" name="Search Casinos">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.searchCasinos"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.searchCasinos"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-sca-2" sourceRef="task-search-casinos" targetRef="end-search-casinos"/>
@@ -101,7 +101,7 @@
     <bpmn:sequenceFlow id="sf-lcit-1" sourceRef="start-list-cities" targetRef="task-list-cities"/>
     <bpmn:serviceTask id="task-list-cities" name="List Cities">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="ai.gftd.apps.casino.listCities"/>
+        <zeebe:taskDefinition type="com.etzhayyim.apps.casino.listCities"/>
       </bpmn:extensionElements>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="sf-lcit-2" sourceRef="task-list-cities" targetRef="end-list-cities"/>

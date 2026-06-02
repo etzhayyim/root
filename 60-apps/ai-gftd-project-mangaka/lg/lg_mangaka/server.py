@@ -238,25 +238,25 @@ async def stream_run(body: dict[str, Any]) -> StreamingResponse:
 # ── XRPC-compat surface (NSID → assistant_id) ──────────────────────────
 
 _NSID_TO_ASSISTANT: dict[str, str] = {
-    "app.etzhayyim.mangaka.health":             "health",
-    "app.etzhayyim.mangaka.chat":               "agent_chat",
-    "app.etzhayyim.mangaka.pipelineChat":       "agent_chat",
-    "app.etzhayyim.mangaka.projectChat":        "agent_chat",
-    "app.etzhayyim.mangaka.saveDocument":       "save_document",
-    "app.etzhayyim.mangaka.loadDocument":       "load_document",
-    "app.etzhayyim.mangaka.listDocuments":      "list_documents",
-    "app.etzhayyim.mangaka.importGhosthacker":       "import_ghosthacker",
-    "app.etzhayyim.mangaka.analyzeCharacterGraph":   "analyze_character_graph",
-    "app.etzhayyim.mangaka.enrichCharacters":        "enrich_characters",
-    "app.etzhayyim.mangaka.enrichOrganizations":     "enrich_organizations",
-    "app.etzhayyim.mangaka.enrichEnvironments":      "enrich_environments",
-    "app.etzhayyim.mangaka.deriveChapterIncidents":  "derive_chapter_incidents",
-    "app.etzhayyim.mangaka.importChatHistory":       "import_chat_history",
-    "app.etzhayyim.mangaka.backfillMangakaEdges":    "backfill_mangaka_edges",
-    "app.etzhayyim.mangaka.recordOpLog":             "record_op_log",
-    "app.etzhayyim.mangaka.debugCanvasState":        "debug_canvas_state",
-    "app.etzhayyim.mangaka.detectFaces":             "detect_faces",
-    "app.etzhayyim.mangaka.scoreEmotion":            "score_emotion",
+    "com.etzhayyim.mangaka.health":             "health",
+    "com.etzhayyim.mangaka.chat":               "agent_chat",
+    "com.etzhayyim.mangaka.pipelineChat":       "agent_chat",
+    "com.etzhayyim.mangaka.projectChat":        "agent_chat",
+    "com.etzhayyim.mangaka.saveDocument":       "save_document",
+    "com.etzhayyim.mangaka.loadDocument":       "load_document",
+    "com.etzhayyim.mangaka.listDocuments":      "list_documents",
+    "com.etzhayyim.mangaka.importGhosthacker":       "import_ghosthacker",
+    "com.etzhayyim.mangaka.analyzeCharacterGraph":   "analyze_character_graph",
+    "com.etzhayyim.mangaka.enrichCharacters":        "enrich_characters",
+    "com.etzhayyim.mangaka.enrichOrganizations":     "enrich_organizations",
+    "com.etzhayyim.mangaka.enrichEnvironments":      "enrich_environments",
+    "com.etzhayyim.mangaka.deriveChapterIncidents":  "derive_chapter_incidents",
+    "com.etzhayyim.mangaka.importChatHistory":       "import_chat_history",
+    "com.etzhayyim.mangaka.backfillMangakaEdges":    "backfill_mangaka_edges",
+    "com.etzhayyim.mangaka.recordOpLog":             "record_op_log",
+    "com.etzhayyim.mangaka.debugCanvasState":        "debug_canvas_state",
+    "com.etzhayyim.mangaka.detectFaces":             "detect_faces",
+    "com.etzhayyim.mangaka.scoreEmotion":            "score_emotion",
 }
 
 
@@ -285,7 +285,7 @@ def _xrpc_input_to_graph_input(_nsid: str, body: dict[str, Any]) -> dict[str, An
 
 # ── MCP tool dispatch (P9 of ADR-2605141200) ──────────────────────────
 #
-# `app.etzhayyim.mangaka.tools.<m>` NSIDs route directly to the pure
+# `com.etzhayyim.mangaka.tools.<m>` NSIDs route directly to the pure
 # functions in `lg_mangaka.tools` — these are not LangGraph graphs, they
 # are the 6 MCP-resolvable bodies referenced by the topology spec. The
 # MCP adapter at atproto.etzhayyim.com forwards `tools/call` envelopes here
@@ -299,19 +299,19 @@ def _xrpc_input_to_graph_input(_nsid: str, body: dict[str, Any]) -> dict[str, An
 from lg_mangaka import tools as _tools  # noqa: E402
 
 _TOOL_NSID_TO_HANDLER: dict[str, Any] = {
-    "app.etzhayyim.mangaka.tools.loadPanelPlan":      _tools.tool_load_panel_plan,
-    "app.etzhayyim.mangaka.tools.resolveAssets":      _tools.tool_resolve_assets,
-    "app.etzhayyim.mangaka.tools.placeScene":         _tools.tool_place_scene,
-    "app.etzhayyim.mangaka.tools.simulateCharacter":  _tools.tool_simulate_character,
-    "app.etzhayyim.mangaka.tools.renderKeyframes":    _tools.tool_render_keyframes,
-    "app.etzhayyim.mangaka.tools.persistScene3d":     _tools.tool_persist_scene_3d,
+    "com.etzhayyim.mangaka.tools.loadPanelPlan":      _tools.tool_load_panel_plan,
+    "com.etzhayyim.mangaka.tools.resolveAssets":      _tools.tool_resolve_assets,
+    "com.etzhayyim.mangaka.tools.placeScene":         _tools.tool_place_scene,
+    "com.etzhayyim.mangaka.tools.simulateCharacter":  _tools.tool_simulate_character,
+    "com.etzhayyim.mangaka.tools.renderKeyframes":    _tools.tool_render_keyframes,
+    "com.etzhayyim.mangaka.tools.persistScene3d":     _tools.tool_persist_scene_3d,
     # P10.2 — validator between cinematography (kind='llm', text) and
     # simulate_one fan-out. Sync, pure CPU.
-    "app.etzhayyim.mangaka.tools.validateCameraPlan": _tools.tool_validate_camera_plan,
+    "com.etzhayyim.mangaka.tools.validateCameraPlan": _tools.tool_validate_camera_plan,
     # P10.2b — critique-side aggregator. Sync (B2 fetch + Hume scoring).
-    "app.etzhayyim.mangaka.tools.aggregateCritique":  _tools.tool_aggregate_critique,
+    "com.etzhayyim.mangaka.tools.aggregateCritique":  _tools.tool_aggregate_critique,
     # P13 — VRM ingestion: B2 upload + character vertex props patch.
-    "app.etzhayyim.mangaka.tools.attachCharacterVrm": _tools.tool_attach_character_vrm,
+    "com.etzhayyim.mangaka.tools.attachCharacterVrm": _tools.tool_attach_character_vrm,
 }
 
 
@@ -364,10 +364,10 @@ async def _dispatch_mcp_tool(nsid: str, body: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
-# ── MCP envelope handler (app.etzhayyim.mcp.message, ADR-2605141200 P9 blocker #4)
+# ── MCP envelope handler (com.etzhayyim.mcp.message, ADR-2605141200 P9 blocker #4)
 #
 # `pymagatama.langgraph_node_resolvers.make_mcp_tool_node` POSTs a JSON-RPC
-# 2.0 `tools/call` envelope at `/xrpc/app.etzhayyim.mcp.message`. Inside the
+# 2.0 `tools/call` envelope at `/xrpc/com.etzhayyim.mcp.message`. Inside the
 # Phase C topology this resolves to the pod itself when
 # `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000` is
 # set (see `50-infra/vultr/lg-mangaka-pool/values.yaml`). External MCP
@@ -383,7 +383,7 @@ async def _dispatch_mcp_tool(nsid: str, body: dict[str, Any]) -> dict[str, Any]:
 # treat them interchangeably.
 
 
-@app.post("/xrpc/app.etzhayyim.mcp.message")
+@app.post("/xrpc/com.etzhayyim.mcp.message")
 async def xrpc_mcp_envelope(envelope: dict[str, Any]) -> dict[str, Any]:
     method = envelope.get("method")
     if method != "tools/call":

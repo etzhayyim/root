@@ -70,9 +70,9 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.coworkGraph.syncJob",
-        "ai.gftd.apps.coworkGraph.mailDraft",
-        "ai.gftd.apps.coworkGraph.toolGrant"
+        "com.etzhayyim.apps.coworkGraph.syncJob",
+        "com.etzhayyim.apps.coworkGraph.mailDraft",
+        "com.etzhayyim.apps.coworkGraph.toolGrant"
       ]
     }
   },

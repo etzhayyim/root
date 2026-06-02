@@ -19,7 +19,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordBomLine-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordBomLine-v1',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'open_smartphone_bom_record_bom_line',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -76,12 +76,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2552,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-bom/recordBomLine.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-bom/recordBomLine.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordBomLine-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordBomLine-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -89,7 +89,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-assembleBom-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-assembleBom-v1',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'open_smartphone_bom_assemble_bom',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -146,12 +146,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2515,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-bom/assembleBom.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-bom/assembleBom.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-assembleBom-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-assembleBom-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -159,7 +159,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordAlternativeSource-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordAlternativeSource-v1',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'open_smartphone_bom_record_alternative_source',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -216,12 +216,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2556,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-bom/recordAlternativeSource.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-bom/recordAlternativeSource.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordAlternativeSource-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordAlternativeSource-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -229,7 +229,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-computeOpenScore-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-computeOpenScore-v1',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'open_smartphone_bom_compute_open_score',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -306,12 +306,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3553,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-bom/computeOpenScore.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-bom/computeOpenScore.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'did:web:open-smartphone-bom.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-computeOpenScore-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-computeOpenScore-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -319,7 +319,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-registerFacility-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-registerFacility-v1',
                  'did:web:open-smartphone-ems.etzhayyim.com',
                  'open_smartphone_ems_register_facility',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -377,12 +377,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2667,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-ems/registerFacility.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-ems/registerFacility.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-ems.etzhayyim.com',
                  'did:web:open-smartphone-ems.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-registerFacility-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-registerFacility-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -390,7 +390,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-recordCapacityOrder-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-recordCapacityOrder-v1',
                  'did:web:open-smartphone-ems.etzhayyim.com',
                  'open_smartphone_ems_record_capacity_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -447,12 +447,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2573,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-ems/recordCapacityOrder.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-ems/recordCapacityOrder.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-ems.etzhayyim.com',
                  'did:web:open-smartphone-ems.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-recordCapacityOrder-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-recordCapacityOrder-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -460,7 +460,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-fetchComplianceDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-fetchComplianceDelta-v1',
                  'did:web:open-smartphone-ems.etzhayyim.com:ops',
                  'open_smartphone_ems_fetch_compliance_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -538,12 +538,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3439,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-ems/fetchComplianceDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-ems/fetchComplianceDelta.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-ems.etzhayyim.com:ops',
                  'did:web:open-smartphone-ems.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-fetchComplianceDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-fetchComplianceDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -551,7 +551,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-dailyPulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-dailyPulse-v1',
                  'did:web:open-smartphone-ems.etzhayyim.com:ops',
                  'open_smartphone_ems_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -608,12 +608,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2332,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-ems/dailyPulse.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-ems/dailyPulse.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-ems.etzhayyim.com:ops',
                  'did:web:open-smartphone-ems.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -621,7 +621,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordModemSpec-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordModemSpec-v1',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'open_smartphone_modem_record_modem_spec',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -671,12 +671,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2368,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-modem/recordModemSpec.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-modem/recordModemSpec.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordModemSpec-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordModemSpec-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -684,7 +684,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordTypeApproval-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordTypeApproval-v1',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'open_smartphone_modem_record_type_approval',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -742,12 +742,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2565,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-modem/recordTypeApproval.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-modem/recordTypeApproval.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordTypeApproval-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordTypeApproval-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -755,7 +755,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-flagPatentBlocker-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-flagPatentBlocker-v1',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'open_smartphone_modem_flag_patent_blocker',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -811,12 +811,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2529,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-modem/flagPatentBlocker.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-modem/flagPatentBlocker.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'did:web:open-smartphone-modem.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-flagPatentBlocker-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-flagPatentBlocker-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -824,7 +824,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-fetchSepDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-fetchSepDelta-v1',
                  'did:web:open-smartphone-modem.etzhayyim.com:ops',
                  'open_smartphone_modem_fetch_sep_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -900,12 +900,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3456,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-modem/fetchSepDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-modem/fetchSepDelta.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-modem.etzhayyim.com:ops',
                  'did:web:open-smartphone-modem.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-fetchSepDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-fetchSepDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -913,7 +913,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-registerOsBuild-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-registerOsBuild-v1',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'open_smartphone_os_register_os_build',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -970,12 +970,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2550,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-os/registerOsBuild.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-os/registerOsBuild.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-registerOsBuild-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-registerOsBuild-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -983,7 +983,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-recordHalDriver-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-recordHalDriver-v1',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'open_smartphone_os_record_hal_driver',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1040,12 +1040,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2557,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-os/recordHalDriver.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-os/recordHalDriver.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-recordHalDriver-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-recordHalDriver-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1053,7 +1053,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-trackOtaRelease-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-trackOtaRelease-v1',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'open_smartphone_os_track_ota_release',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1110,12 +1110,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2547,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-os/trackOtaRelease.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-os/trackOtaRelease.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'did:web:open-smartphone-os.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-trackOtaRelease-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-trackOtaRelease-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1123,7 +1123,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-fetchSecurityPatchDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-fetchSecurityPatchDelta-v1',
                  'did:web:open-smartphone-os.etzhayyim.com:ops',
                  'open_smartphone_os_fetch_security_patch_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1201,12 +1201,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3399,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-os/fetchSecurityPatchDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-os/fetchSecurityPatchDelta.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-os.etzhayyim.com:ops',
                  'did:web:open-smartphone-os.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-fetchSecurityPatchDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-fetchSecurityPatchDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1214,7 +1214,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-recordLicensePool-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-recordLicensePool-v1',
                  'did:web:open-smartphone-patent.etzhayyim.com',
                  'open_smartphone_patent_record_license_pool',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1271,12 +1271,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2560,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-patent/recordLicensePool.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-patent/recordLicensePool.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-patent.etzhayyim.com',
                  'did:web:open-smartphone-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-recordLicensePool-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-recordLicensePool-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1284,7 +1284,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-mapPatentDependency-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-mapPatentDependency-v1',
                  'did:web:open-smartphone-patent.etzhayyim.com',
                  'open_smartphone_patent_map_patent_dependency',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1341,12 +1341,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2546,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-patent/mapPatentDependency.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-patent/mapPatentDependency.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-patent.etzhayyim.com',
                  'did:web:open-smartphone-patent.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-mapPatentDependency-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-mapPatentDependency-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1354,7 +1354,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-flagExpiryGate-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-flagExpiryGate-v1',
                  'did:web:open-smartphone-patent.etzhayyim.com:ops',
                  'open_smartphone_patent_flag_expiry_gate',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1411,12 +1411,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2402,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-patent/flagExpiryGate.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-patent/flagExpiryGate.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-patent.etzhayyim.com:ops',
                  'did:web:open-smartphone-patent.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-flagExpiryGate-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-flagExpiryGate-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1424,7 +1424,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-fetchSepLandscapeDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-fetchSepLandscapeDelta-v1',
                  'did:web:open-smartphone-patent.etzhayyim.com:ops',
                  'open_smartphone_patent_fetch_sep_landscape_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1503,12 +1503,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3588,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-patent/fetchSepLandscapeDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-patent/fetchSepLandscapeDelta.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-patent.etzhayyim.com:ops',
                  'did:web:open-smartphone-patent.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-fetchSepLandscapeDelta-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-fetchSepLandscapeDelta-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1516,7 +1516,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-registerSensor-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-registerSensor-v1',
                  'did:web:open-smartphone-sensor.etzhayyim.com',
                  'open_smartphone_sensor_register_sensor',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1570,12 +1570,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2493,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-sensor/registerSensor.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-sensor/registerSensor.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-sensor.etzhayyim.com',
                  'did:web:open-smartphone-sensor.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-registerSensor-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-registerSensor-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1583,7 +1583,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-recordCalibration-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-recordCalibration-v1',
                  'did:web:open-smartphone-sensor.etzhayyim.com',
                  'open_smartphone_sensor_record_calibration',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1637,12 +1637,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2482,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-sensor/recordCalibration.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-sensor/recordCalibration.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-sensor.etzhayyim.com',
                  'did:web:open-smartphone-sensor.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-recordCalibration-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-recordCalibration-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1650,7 +1650,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-fetchDriverAvailability-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-fetchDriverAvailability-v1',
                  'did:web:open-smartphone-sensor.etzhayyim.com:ops',
                  'open_smartphone_sensor_fetch_driver_availability',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1723,12 +1723,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3263,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-sensor/fetchDriverAvailability.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-sensor/fetchDriverAvailability.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-sensor.etzhayyim.com:ops',
                  'did:web:open-smartphone-sensor.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-fetchDriverAvailability-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-fetchDriverAvailability-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1736,7 +1736,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-dailyPulse-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-dailyPulse-v1',
                  'did:web:open-smartphone-sensor.etzhayyim.com:ops',
                  'open_smartphone_sensor_daily_pulse',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1791,12 +1791,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2328,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-sensor/dailyPulse.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-sensor/dailyPulse.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-sensor.etzhayyim.com:ops',
                  'did:web:open-smartphone-sensor.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-dailyPulse-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-dailyPulse-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1804,7 +1804,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-registerChipDesign-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-registerChipDesign-v1',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'open_smartphone_soc_register_chip_design',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1817,7 +1817,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_smartphone_soc_register_chip_design" '
                  'name="registerChipDesign" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openSmartphoneSoc.registerChipDesign", "version": '
+                 '      { "nsid": "com.etzhayyim.apps.openSmartphoneSoc.registerChipDesign", "version": '
                  '1, "resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -1865,12 +1865,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2747,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-soc/registerChipDesign.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-soc/registerChipDesign.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-registerChipDesign-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-registerChipDesign-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1878,7 +1878,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-trackFabOrder-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-trackFabOrder-v1',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'open_smartphone_soc_track_fab_order',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1891,7 +1891,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_smartphone_soc_track_fab_order" name="trackFabOrder" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openSmartphoneSoc.trackFabOrder", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.openSmartphoneSoc.trackFabOrder", "version": 1, '
                  '"resultTimeoutMs": 30000 }\n'
                  '    </bpmn:documentation>\n'
                  '    <bpmn:startEvent '
@@ -1938,12 +1938,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2662,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-soc/trackFabOrder.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-soc/trackFabOrder.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-trackFabOrder-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-trackFabOrder-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -1951,7 +1951,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-flagExportControl-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-flagExportControl-v1',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'open_smartphone_soc_flag_export_control',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2007,12 +2007,12 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  2492,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-soc/flagExportControl.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-soc/flagExportControl.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'did:web:open-smartphone-soc.etzhayyim.com',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-flagExportControl-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-flagExportControl-v1']},
  {'sql': '\n'
          '    INSERT INTO vertex_bpmn_process_def (vertex_id, owner_did, bpmn_process_id, version, '
          'xml, xml_byte_size, source_path, status, created_at, sensitivity_ord, org_id, user_id, '
@@ -2020,7 +2020,7 @@ UP = [{'sql': '\n'
          "    SELECT $1, $2, $3, 1, $4, CAST($5 AS integer), $6, 'active', $7, 1, $8, $9, $10\n"
          '    WHERE NOT EXISTS (SELECT 1 FROM vertex_bpmn_process_def WHERE vertex_id = $11)\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-fetchRiscvEcosystemDelta-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-fetchRiscvEcosystemDelta-v1',
                  'did:web:open-smartphone-soc.etzhayyim.com:ops',
                  'open_smartphone_soc_fetch_riscv_ecosystem_delta',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2033,7 +2033,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="open_smartphone_soc_fetch_riscv_ecosystem_delta" '
                  'name="fetchRiscvEcosystemDelta" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.openSmartphoneSoc.fetchRiscvEcosystemDelta", '
+                 '      { "nsid": "com.etzhayyim.apps.openSmartphoneSoc.fetchRiscvEcosystemDelta", '
                  '"version": 1, "resultTimeoutMs": 120000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -2124,69 +2124,69 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  4785,
-                 '00-contracts/bpmn/ai/gftd/open-smartphone-soc/fetchRiscvEcosystemDelta.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/open-smartphone-soc/fetchRiscvEcosystemDelta.bpmn',
                  '2026-04-28T23:50:00Z',
                  'did:web:open-smartphone-soc.etzhayyim.com:ops',
                  'did:web:open-smartphone-soc.etzhayyim.com:ops',
                  'sys.bpmn.seed.open-smartphone',
-                 'at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-fetchRiscvEcosystemDelta-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-fetchRiscvEcosystemDelta-v1']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordBomLine-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordBomLine-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-assembleBom-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-assembleBom-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordAlternativeSource-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-recordAlternativeSource-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-computeOpenScore-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-bom-computeOpenScore-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-registerFacility-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-registerFacility-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-recordCapacityOrder-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-recordCapacityOrder-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-fetchComplianceDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-fetchComplianceDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-ems-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordModemSpec-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordModemSpec-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordTypeApproval-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-recordTypeApproval-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-flagPatentBlocker-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-flagPatentBlocker-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-fetchSepDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-modem-fetchSepDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-registerOsBuild-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-registerOsBuild-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-recordHalDriver-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-recordHalDriver-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-trackOtaRelease-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-trackOtaRelease-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-os-fetchSecurityPatchDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-os-fetchSecurityPatchDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-recordLicensePool-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-recordLicensePool-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-mapPatentDependency-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-mapPatentDependency-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-flagExpiryGate-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-flagExpiryGate-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-fetchSepLandscapeDelta-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-patent-fetchSepLandscapeDelta-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-registerSensor-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-registerSensor-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-recordCalibration-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-recordCalibration-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-fetchDriverAvailability-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-fetchDriverAvailability-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-dailyPulse-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-sensor-dailyPulse-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-registerChipDesign-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-registerChipDesign-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-trackFabOrder-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-trackFabOrder-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-flagExportControl-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-flagExportControl-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-fetchRiscvEcosystemDelta-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/open-smartphone-soc-fetchRiscvEcosystemDelta-v1']}]
 
 
 def upgrade() -> None:

@@ -91,7 +91,7 @@
   async function ensureProjectConvo() {
     if (convoId) return convoId;
     const res = await atProcedure<Record<string, unknown>>(
-      'app.etzhayyim.projector.newProjectConvo',
+      'com.etzhayyim.projector.newProjectConvo',
       {
         name: `baminiku-${new Date().toISOString()}`,
         members: [agentDid],
@@ -107,7 +107,7 @@
   async function sendProjector(text: string) {
     const id = await ensureProjectConvo();
     const res = await atProcedure<Record<string, unknown>>(
-      'app.etzhayyim.projector.sendProjectMessage',
+      'com.etzhayyim.projector.sendProjectMessage',
       { convoId: id, text },
       { bearerToken: bearer || undefined },
     );

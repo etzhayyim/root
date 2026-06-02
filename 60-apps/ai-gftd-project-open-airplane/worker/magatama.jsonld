@@ -33,11 +33,11 @@
     "subscribeRepos": {
       "collections": [
         "app.bsky.feed.post",
-        "ai.gftd.apps.openAirplane.airport",
-        "ai.gftd.apps.openAirplane.aircraft",
-        "ai.gftd.apps.openAirplane.flight",
-        "ai.gftd.apps.openAirplane.flightStatus",
-        "ai.gftd.apps.openAirplane.incident"
+        "com.etzhayyim.apps.openAirplane.airport",
+        "com.etzhayyim.apps.openAirplane.aircraft",
+        "com.etzhayyim.apps.openAirplane.flight",
+        "com.etzhayyim.apps.openAirplane.flightStatus",
+        "com.etzhayyim.apps.openAirplane.incident"
       ]
     }
   },

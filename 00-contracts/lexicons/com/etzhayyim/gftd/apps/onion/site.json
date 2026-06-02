@@ -1,0 +1,29 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.onion.site",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A dark web hidden service (.onion site) record. Written by primary DID.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["onionHost", "firstSeen"],
+        "properties": {
+          "onionHost":      { "type": "string", "description": "56-char v3 or 16-char v2 .onion hostname" },
+          "nodeId":         { "type": "string", "description": "onion:site:{onionHost}" },
+          "firstSeen":      { "type": "string", "format": "datetime" },
+          "lastSeen":       { "type": "string", "format": "datetime" },
+          "title":          { "type": "string" },
+          "category":       { "type": "string", "description": "marketplace/forum/drugs/weapons/fraud/phishing/carding/leaks/other/unknown" },
+          "riskScore":      { "type": "integer", "minimum": 0, "maximum": 100 },
+          "reachable":      { "type": "boolean" },
+          "pageCount":      { "type": "integer" },
+          "siteDid":        { "type": "string", "description": "path-based DID for this site" },
+          "mirrorClearnet": { "type": "string", "description": "clearnet mirror URL if detected" },
+          "threatActorRef": { "type": "string", "description": "malak ThreatActor nodeId if cross-ref found" }
+        }
+      }
+    }
+  }
+}

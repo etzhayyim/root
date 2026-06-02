@@ -4,7 +4,7 @@
 
 // ai-gftd-project-open-swift — interbank messaging (ISO 20022 pacs.008-style)
 //
-// 6 XRPC under app.etzhayyim.apps.openSwift.*:
+// 6 XRPC under com.etzhayyim.apps.openSwift.*:
 //   registerInstitution            (proc)   participant directory entry
 //   listInstitutions               (query)  participant directory
 //   sendCustomerCreditTransfer     (proc)   FI → FI customer credit transfer (pacs.008-equivalent)
@@ -343,12 +343,12 @@ export default {
         return json({
           did: env.PRIMARY_DID, handle: env.APP_HANDLE,
           xrpc: [
-            "app.etzhayyim.apps.openSwift.registerInstitution",
-            "app.etzhayyim.apps.openSwift.listInstitutions",
-            "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer",
-            "app.etzhayyim.apps.openSwift.acknowledgeMessage",
-            "app.etzhayyim.apps.openSwift.getMessage",
-            "app.etzhayyim.apps.openSwift.listMessages",
+            "com.etzhayyim.apps.openSwift.registerInstitution",
+            "com.etzhayyim.apps.openSwift.listInstitutions",
+            "com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer",
+            "com.etzhayyim.apps.openSwift.acknowledgeMessage",
+            "com.etzhayyim.apps.openSwift.getMessage",
+            "com.etzhayyim.apps.openSwift.listMessages",
           ],
           dodaf: Object.keys(DODAF_VIEWS), forms: Object.keys(FORMS),
           bpmn: ["registerInstitution", "customerCreditTransfer"],
@@ -375,18 +375,18 @@ export default {
       const nsid = url.pathname.slice("/xrpc/".length);
       if (req.method === "GET") {
         switch (nsid) {
-          case "app.etzhayyim.apps.openSwift.listInstitutions": return await listInstitutions(env, url.searchParams);
-          case "app.etzhayyim.apps.openSwift.getMessage":       return await getMessage(env, url.searchParams);
-          case "app.etzhayyim.apps.openSwift.listMessages":     return await listMessages(env, url.searchParams);
+          case "com.etzhayyim.apps.openSwift.listInstitutions": return await listInstitutions(env, url.searchParams);
+          case "com.etzhayyim.apps.openSwift.getMessage":       return await getMessage(env, url.searchParams);
+          case "com.etzhayyim.apps.openSwift.listMessages":     return await listMessages(env, url.searchParams);
           default: return err("InvalidRequest", `unknown query NSID: ${nsid}`, 404);
         }
       }
       if (req.method === "POST") {
         const body = await req.json().catch(() => ({}));
         switch (nsid) {
-          case "app.etzhayyim.apps.openSwift.registerInstitution":         return await registerInstitution(env, body);
-          case "app.etzhayyim.apps.openSwift.sendCustomerCreditTransfer":  return await sendCustomerCreditTransfer(env, body);
-          case "app.etzhayyim.apps.openSwift.acknowledgeMessage":          return await acknowledgeMessage(env, body);
+          case "com.etzhayyim.apps.openSwift.registerInstitution":         return await registerInstitution(env, body);
+          case "com.etzhayyim.apps.openSwift.sendCustomerCreditTransfer":  return await sendCustomerCreditTransfer(env, body);
+          case "com.etzhayyim.apps.openSwift.acknowledgeMessage":          return await acknowledgeMessage(env, body);
           default: return err("InvalidRequest", `unknown procedure NSID: ${nsid}`, 404);
         }
       }

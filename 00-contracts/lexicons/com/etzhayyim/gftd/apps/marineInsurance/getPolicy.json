@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.marineInsurance.getPolicy",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a marine insurance policy by DID.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["did"], "properties": { "did": { "type": "string", "format": "did" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "did": { "type": "string", "format": "did" }, "policyType": { "type": "string" }, "insuredDid": { "type": "string", "format": "did" }, "underwriterDid": { "type": "string", "format": "did" }, "brokerDid": { "type": "string", "format": "did" }, "effectiveFrom": { "type": "string", "format": "datetime" }, "effectiveTo": { "type": "string", "format": "datetime" }, "sumInsured": { "type": "number" }, "currency": { "type": "string" }, "premium": { "type": "number" }, "deductible": { "type": "number" }, "coverageScope": { "type": "string" } } } }
+    }
+  }
+}

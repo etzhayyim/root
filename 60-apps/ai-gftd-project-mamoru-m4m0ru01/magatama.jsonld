@@ -20,7 +20,7 @@
   "layer": "edge-dispatcher",
   "atStandard": false,
   "nsidPrefixes": [
-    "ai.gftd.apps.mamoru"
+    "com.etzhayyim.apps.mamoru"
   ],
   "backendDependencies": {
     "atproto": "https://atproto.etzhayyim.com",

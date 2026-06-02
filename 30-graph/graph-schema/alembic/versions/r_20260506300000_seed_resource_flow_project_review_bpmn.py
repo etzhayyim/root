@@ -22,14 +22,14 @@ UP = [{'sql': '\n'
          '      $7, 1, $8, $9, $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-project-flow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/resource-flow-project-flow-v1',
                  'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_project_flow',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  resource-flow projectFlow — ADR-0036/0056 BPMN worker projection.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.resourceFlow.projectFlow\n'
+                 '  NSID: com.etzhayyim.apps.resourceFlow.projectFlow\n'
                  '  Task type: resource-flow.project.flow\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -42,7 +42,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="resource_flow_project_flow" name="resource-flow projectFlow" '
                  'isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.resourceFlow.projectFlow", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.resourceFlow.projectFlow", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -99,7 +99,7 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3176,
-                 '00-contracts/bpmn/ai/gftd/resource-flow/projectFlow.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/resource-flow/projectFlow.bpmn',
                  '2026-05-06T03:00:00Z',
                  'did:web:resource-flow.etzhayyim.com',
                  'did:web:resource-flow.etzhayyim.com',
@@ -114,14 +114,14 @@ UP = [{'sql': '\n'
          '      $7, 1, $8, $9, $10\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-review-anomaly-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/resource-flow-review-anomaly-v1',
                  'did:web:resource-flow.etzhayyim.com',
                  'resource_flow_review_anomaly',
                  '<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<!--\n'
                  '  resource-flow reviewAnomaly — ADR-0036/0056 BPMN worker review writer.\n'
                  '\n'
-                 '  NSID: app.etzhayyim.apps.resourceFlow.reviewAnomaly\n'
+                 '  NSID: com.etzhayyim.apps.resourceFlow.reviewAnomaly\n'
                  '  Task type: resource-flow.review.anomaly\n'
                  '-->\n'
                  '<bpmn:definitions\n'
@@ -134,7 +134,7 @@ UP = [{'sql': '\n'
                  '  <bpmn:process id="resource_flow_review_anomaly" name="resource-flow '
                  'reviewAnomaly" isExecutable="true">\n'
                  '    <bpmn:documentation>\n'
-                 '      { "nsid": "app.etzhayyim.apps.resourceFlow.reviewAnomaly", "version": 1, '
+                 '      { "nsid": "com.etzhayyim.apps.resourceFlow.reviewAnomaly", "version": 1, '
                  '"resultTimeoutMs": 60000 }\n'
                  '    </bpmn:documentation>\n'
                  '\n'
@@ -191,7 +191,7 @@ UP = [{'sql': '\n'
                  '  </bpmn:process>\n'
                  '</bpmn:definitions>\n',
                  3167,
-                 '00-contracts/bpmn/ai/gftd/resource-flow/reviewAnomaly.bpmn',
+                 '00-contracts/bpmn/com/etzhayyim/resource-flow/reviewAnomaly.bpmn',
                  '2026-05-06T03:00:00Z',
                  'did:web:resource-flow.etzhayyim.com',
                  'did:web:resource-flow.etzhayyim.com',
@@ -206,9 +206,9 @@ UP = [{'sql': '\n'
          '      $6, 1, $7, $8, $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-projectFlow-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/resource-flow-projectFlow-v1',
                  'did:web:resource-flow.etzhayyim.com',
-                 'app.etzhayyim.apps.resourceFlow.projectFlow',
+                 'com.etzhayyim.apps.resourceFlow.projectFlow',
                  'resource_flow_project_flow',
                  60000,
                  '2026-05-06T03:00:00Z',
@@ -225,9 +225,9 @@ UP = [{'sql': '\n'
          '      $6, 1, $7, $8, $9\n'
          '    )\n'
          '  ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-reviewAnomaly-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/resource-flow-reviewAnomaly-v1',
                  'did:web:resource-flow.etzhayyim.com',
-                 'app.etzhayyim.apps.resourceFlow.reviewAnomaly',
+                 'com.etzhayyim.apps.resourceFlow.reviewAnomaly',
                  'resource_flow_review_anomaly',
                  60000,
                  '2026-05-06T03:00:00Z',
@@ -236,13 +236,13 @@ UP = [{'sql': '\n'
                  'sys.bpmn.seed.resource-flow-project-review']}]
 
 DOWN = [{'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-projectFlow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/resource-flow-projectFlow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/resource-flow-reviewAnomaly-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/resource-flow-reviewAnomaly-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-project-flow-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/resource-flow-project-flow-v1']},
  {'sql': 'DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/resource-flow-review-anomaly-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/resource-flow-review-anomaly-v1']}]
 
 
 def upgrade() -> None:

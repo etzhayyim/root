@@ -1,12 +1,12 @@
 -- P16-e of ADR-2605141200 — register the `vrmBindRetry` DMN decision in
 -- `vertex_dmn_model` so the compose_character_vrm topology's
---   `conditional_edges[*].condition_ref = dmn:ai.gftd.policies.mangaka.vrmBindRetry@1.0.0`
+--   `conditional_edges[*].condition_ref = dmn:com.etzhayyim.policies.mangaka.vrmBindRetry@1.0.0`
 -- resolves at runtime once `pymagatama.langgraph_node_resolvers` learns
 -- to evaluate DMN refs (Phase C activation, blocker shared with the
 -- composeScene3dRefinement DMN).
 --
 -- SSoT for the XML body:
---   00-contracts/dmn/ai/gftd/policies/mangaka/vrmBindRetry.dmn
+--   00-contracts/dmn/com/etzhayyim/policies/mangaka/vrmBindRetry.dmn
 --
 -- Idempotent — NOT EXISTS guard mirrors
 -- 20260514150000_seed_mangaka_compose_scene_3d_refinement_dmn.up.sql.
@@ -22,12 +22,12 @@ INSERT INTO vertex_dmn_model (
   dmn_xml, status
 )
 SELECT
-  'at://did:web:mangaka.gftd.ai/ai.gftd.dmn.model/vrmBindRetry-v1',
+  'at://did:web:mangaka.gftd.ai/com.etzhayyim.dmn.model/vrmBindRetry-v1',
   0, '2026-05-14'::date, 0, 'did:web:mangaka.gftd.ai',
   'vrmBindRetry-v1',
   'did:web:mangaka.gftd.ai',
   'did:web:mangaka.gftd.ai',
-  'ai.gftd.policies.mangaka.vrmBindRetry',
+  'com.etzhayyim.policies.mangaka.vrmBindRetry',
   'vrmBindRetry',
   'compose_character_vrm validate_vrm routing — accept on valid=true, retry bind_vrm once on valid=false with iteration<2, else reject.',
   1,
@@ -67,7 +67,7 @@ SELECT
              id="Definitions_vrm_bind_retry"
              name="vrmBindRetry"
              namespace="https://gftd.ai/dmn/mangaka">
-  <decision id="ai.gftd.policies.mangaka.vrmBindRetry"
+  <decision id="com.etzhayyim.policies.mangaka.vrmBindRetry"
             name="vrmBindRetry">
     <decisionTable id="DecisionTable_vrmBindRetry" hitPolicy="FIRST">
       <input id="Input_valid">
@@ -106,6 +106,6 @@ SELECT
   'active'
 WHERE NOT EXISTS (
   SELECT 1 FROM vertex_dmn_model
-  WHERE decision_key = 'ai.gftd.policies.mangaka.vrmBindRetry'
+  WHERE decision_key = 'com.etzhayyim.policies.mangaka.vrmBindRetry'
     AND version = 1
 );

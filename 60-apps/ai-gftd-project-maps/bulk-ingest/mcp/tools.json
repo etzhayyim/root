@@ -77,7 +77,7 @@
   "auth": {
     "type": "atproto-service-auth",
     "lxm_required": true,
-    "scope": "app.etzhayyim.apps.maps.bulk.*",
+    "scope": "com.etzhayyim.apps.maps.bulk.*",
     "note": "Per ADR-0022 Auth Topology, mutation tools (refresh_*) require ES256 Service Auth JWT with lxm claim matching tool name. status is read-only and public."
   },
   "deployment": {
@@ -88,9 +88,9 @@
       "bulk-ingest-osm-planet"
     ],
     "bpmn_triggers": [
-      "app.etzhayyim.apps.maps.bulkRefreshWikidata (R/PT24H)",
-      "app.etzhayyim.apps.maps.bulkRefreshWikipedia (R/PT24H)",
-      "app.etzhayyim.apps.maps.bulkRefreshOsmPlanet (R/P7D)"
+      "com.etzhayyim.apps.maps.bulkRefreshWikidata (R/PT24H)",
+      "com.etzhayyim.apps.maps.bulkRefreshWikipedia (R/PT24H)",
+      "com.etzhayyim.apps.maps.bulkRefreshOsmPlanet (R/P7D)"
     ]
   }
 }

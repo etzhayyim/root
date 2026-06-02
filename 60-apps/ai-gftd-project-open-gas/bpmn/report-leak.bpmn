@@ -13,8 +13,8 @@
     <bpmn:businessRuleTask id="Task_ClassifyLeak" name="Leak class (DMN)"
                            camunda:decisionRef="openGas.leakClass"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_ClassifyLeak" targetRef="Task_PersistLeak"/>
-    <bpmn:serviceTask id="Task_PersistLeak" name="ai.gftd.apps.openGas.reportLeak"
-                      camunda:topic="ai.gftd.apps.openGas.reportLeak"/>
+    <bpmn:serviceTask id="Task_PersistLeak" name="com.etzhayyim.apps.openGas.reportLeak"
+                      camunda:topic="com.etzhayyim.apps.openGas.reportLeak"/>
     <bpmn:sequenceFlow id="f4" sourceRef="Task_PersistLeak" targetRef="Gateway_Emergency"/>
     <bpmn:exclusiveGateway id="Gateway_Emergency" name="Emergency?" default="f5b"/>
     <bpmn:sequenceFlow id="f5a" sourceRef="Gateway_Emergency" targetRef="Task_AuditPost">

@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.amrSurveillance.reportResistancePattern",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "GLASS / EARS-Net / JANIS AMR pattern (bridges pandemic-preparedness + agri-food-security + pharma-supply)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "reportId",
+            "pathogen",
+            "antibiotic",
+            "resistancePct",
+            "specimenCount",
+            "jurisdictionIso3",
+            "reportedYear",
+            "reportedAt"
+          ],
+          "properties": {
+            "reportId": {
+              "type": "string"
+            },
+            "pathogen": {
+              "type": "string",
+              "description": "WHO priority pathogen"
+            },
+            "antibiotic": {
+              "type": "string",
+              "description": "AWaRe classification"
+            },
+            "resistancePct": {
+              "type": "number"
+            },
+            "specimenCount": {
+              "type": "integer"
+            },
+            "jurisdictionIso3": {
+              "type": "string"
+            },
+            "reportedYear": {
+              "type": "integer"
+            },
+            "reportedAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "threatTier": {
+              "type": "string",
+              "enum": [
+                "background",
+                "elevated",
+                "high",
+                "critical"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ Output rows (all kind values populated in same vertex_mangaka table):
 
 Idempotent: delete-then-insert per row (RisingWave shape).
 
-Input schema (matches `app.etzhayyim.mangaka.importGhosthacker` lexicon):
+Input schema (matches `com.etzhayyim.mangaka.importGhosthacker` lexicon):
     workId           str
     workName         str
     episodeId        str
@@ -55,7 +55,7 @@ _RW_URL = os.environ.get("RW_URL", "")
 
 
 def _coll(kind: str) -> str:
-    return f"app.etzhayyim.mangaka.{kind}"
+    return f"com.etzhayyim.mangaka.{kind}"
 
 
 def _vid(kind: str, rkey: str) -> str:

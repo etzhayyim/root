@@ -121,7 +121,7 @@ def notify_council(state, notifier):
 def collect_votes(state):
     """Fixed-point — wait for Council member votes via MST listener.
 
-    Each Lv6+ Council member writes an app.etzhayyim.apps.etzhayyim.charter-counsel-vote
+    Each Lv6+ Council member writes an com.etzhayyim.apps.etzhayyim.charter-counsel-vote
     record on their own PDS. The MST listener triggers re-entry to this node
     with the new vote appended to `council_votes` (LangGraph reducer = add).
     """
@@ -160,5 +160,5 @@ def emit_attestation(state, port):
 
 
 def emit_at_record(state):
-    """Emit app.etzhayyim.apps.etzhayyim.charter-attestation (or type-specific) record."""
+    """Emit com.etzhayyim.apps.etzhayyim.charter-attestation (or type-specific) record."""
     return state

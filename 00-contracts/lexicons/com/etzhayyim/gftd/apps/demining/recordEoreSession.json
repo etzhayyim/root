@@ -1,0 +1,41 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.demining.recordEoreSession",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Record an Explosive Ordnance Risk Education (EORE) session per IMAS 12.10. Aggregate beneficiary counts are Tier 1; individual beneficiary PII is Tier 3.",
+      "x-bootstrap": true,
+      "x-sensitivityTier": 1,
+      "x-imasRef": ["12.10"],
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sessionId", "locationLabel", "deliveredAt", "beneficiaries"],
+          "properties": {
+            "sessionId": { "type": "string" },
+            "locationLabel": { "type": "string" },
+            "adminAreaDid": { "type": "string" },
+            "deliveredAt": { "type": "string", "format": "date-time" },
+            "curriculum": { "type": "string", "enum": ["school", "community", "idp", "at-risk-group", "digital"] },
+            "beneficiaries": { "type": "integer" },
+            "beneficiariesFemale": { "type": "integer" },
+            "beneficiariesUnder18": { "type": "integer" },
+            "language": { "type": "string" },
+            "deliveredByDid": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sessionId": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.fueleuMaritime.recordPoolingAgreement",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "FuelEU pooling / banking / borrowing arrangement (bridges carrier-fleet + hydrogen-economy)",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": [
+            "agreementId",
+            "reportVid",
+            "mechanism",
+            "effectiveAt"
+          ],
+          "properties": {
+            "agreementId": {
+              "type": "string"
+            },
+            "reportVid": {
+              "type": "string",
+              "description": "bridges reportGhgIntensity"
+            },
+            "mechanism": {
+              "type": "string",
+              "enum": [
+                "pooling",
+                "banking",
+                "borrowing",
+                "penalty_payment"
+              ]
+            },
+            "counterpartyLei": {
+              "type": "string"
+            },
+            "gramsCo2eExchanged": {
+              "type": "number"
+            },
+            "priceEurTonne": {
+              "type": "number"
+            },
+            "effectiveAt": {
+              "type": "string",
+              "format": "datetime"
+            }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": {
+              "type": "boolean"
+            },
+            "vertexId": {
+              "type": "string"
+            },
+            "instanceKey": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 kotoba-EAVT-native (ADR-2605262130). Substrate injected via SubstratePort. A dispute is a record,
 not an auto-reversal: resolution routes through chigiri 契; loss is mutualised by wakai 和会
-(ADR-2605263500). Evidence is stored as encrypted CIDs only (app.etzhayyim.encrypted.*,
+(ADR-2605263500). Evidence is stored as encrypted CIDs only (com.etzhayyim.encrypted.*,
 ADR-2605181100), never plaintext.
 """
 

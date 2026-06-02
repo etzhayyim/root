@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.convo.getProfile",
+  "defs": {
+    "main": {
+      "type": "query",
+      "parameters": {
+        "type": "params",
+        "properties": {}
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "profile": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "profile"
+          ]
+        }
+      }
+    }
+  }
+}

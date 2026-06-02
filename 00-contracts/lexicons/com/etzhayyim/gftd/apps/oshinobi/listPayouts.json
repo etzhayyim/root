@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.oshinobi.listPayouts",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "List the caller-creator's payout ledger entries. Server-side filter by caller DID; creators cannot see each other's ledgers.",
+      "parameters": {
+        "type": "params",
+        "properties": {
+          "status": { "type": "string", "enum": ["pending", "scheduled", "paid", "reversed", "all"], "default": "all" },
+          "limit":  { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 },
+          "cursor": { "type": "string" }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["entries"],
+          "properties": {
+            "cursor": { "type": "string" },
+            "entries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["entryId", "period", "grossCents", "netCents", "status"],
+                "properties": {
+                  "entryId":         { "type": "string" },
+                  "period":          { "type": "string", "description": "YYYY-MM" },
+                  "grossCents":      { "type": "integer" },
+                  "platformFeeBps":  { "type": "integer", "description": "basis points (100 = 1%)" },
+                  "netCents":        { "type": "integer" },
+                  "status":          { "type": "string" },
+                  "payoutRef":       { "type": "string", "description": "external processor reference" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

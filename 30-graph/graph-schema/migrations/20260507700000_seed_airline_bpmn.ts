@@ -135,11 +135,11 @@ function buildRows(): Row[] {
       const bpmnProcessId = `${a.actor.replace(/-/g, "_")}_${snake(proc)}`;
       const procSlug = `${a.actor}-${slug(proc)}`;
       rows.push({
-        processVid: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.processDef/${procSlug}-v1`,
-        bindingVid: `at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/${procSlug}-v1`,
+        processVid: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/${procSlug}-v1`,
+        bindingVid: `at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/${procSlug}-v1`,
         bpmnProcessId,
-        nsid: `app.etzhayyim.apps.${a.actor.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}.${proc}`,
-        sourcePath: `00-contracts/bpmn/ai/gftd/${a.actor}/${proc}.bpmn`,
+        nsid: `com.etzhayyim.apps.${a.actor.replace(/-([a-z])/g, (_, c) => c.toUpperCase())}.${proc}`,
+        sourcePath: `00-contracts/bpmn/com/etzhayyim/${a.actor}/${proc}.bpmn`,
         ownerDid: a.actorDid,
       });
     }

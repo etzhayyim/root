@@ -4,7 +4,7 @@
 # read-path RW projection for the maps app (vertex_spatial, vertex_maps_*,
 # vertex_legal_entity, vertex_osm_element, vertex_vessel, etc.). They are
 # NOT canonical state. Canonical state lives on:
-#   - app.etzhayyim.maps.* records in the maps.etzhayyim.com PDS (MST)
+#   - com.etzhayyim.maps.* records in the maps.etzhayyim.com PDS (MST)
 #   - external upstream datasets (OSM / OpenFlights / Wikidata / NOAA AIS /
 #     GTFS / Geonames / Wikipedia / Overture / Sentinel) re-fetchable from
 #     their public mirrors documented in the rebuild runbook
@@ -26,27 +26,27 @@ last_reviewed = "2026-05-23"
 
 # Upstream sources these dumpers consume. Every projection row MUST be
 # re-derivable from one of these upstream datasets plus the corresponding
-# app.etzhayyim.maps.* PDS records produced by the same worker run.
+# com.etzhayyim.maps.* PDS records produced by the same worker run.
 source_collections = [
-  "app.etzhayyim.maps.feature",
-  "app.etzhayyim.maps.adminArea",
-  "app.etzhayyim.maps.region",
-  "app.etzhayyim.maps.geoAlias",
-  "app.etzhayyim.maps.source",
-  "app.etzhayyim.maps.road",
-  "app.etzhayyim.maps.railway",
-  "app.etzhayyim.maps.seaRoute",
-  "app.etzhayyim.maps.airRoute",
-  "app.etzhayyim.maps.airport",
-  "app.etzhayyim.maps.station",
-  "app.etzhayyim.maps.port",
-  "app.etzhayyim.maps.vehiclePosition",
-  "app.etzhayyim.maps.tripUpdate",
-  "app.etzhayyim.maps.serviceAlert",
-  "app.etzhayyim.maps.gsplatAsset",
-  "app.etzhayyim.maps.gsplatJob",
-  "app.etzhayyim.maps.visionResult",
-  "app.etzhayyim.maps.satelliteScene",
+  "com.etzhayyim.maps.feature",
+  "com.etzhayyim.maps.adminArea",
+  "com.etzhayyim.maps.region",
+  "com.etzhayyim.maps.geoAlias",
+  "com.etzhayyim.maps.source",
+  "com.etzhayyim.maps.road",
+  "com.etzhayyim.maps.railway",
+  "com.etzhayyim.maps.seaRoute",
+  "com.etzhayyim.maps.airRoute",
+  "com.etzhayyim.maps.airport",
+  "com.etzhayyim.maps.station",
+  "com.etzhayyim.maps.port",
+  "com.etzhayyim.maps.vehiclePosition",
+  "com.etzhayyim.maps.tripUpdate",
+  "com.etzhayyim.maps.serviceAlert",
+  "com.etzhayyim.maps.gsplatAsset",
+  "com.etzhayyim.maps.gsplatJob",
+  "com.etzhayyim.maps.visionResult",
+  "com.etzhayyim.maps.satelliteScene",
 ]
 
 projection_tables = [

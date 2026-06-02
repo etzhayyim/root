@@ -1,0 +1,13 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.mapsCollection.getJob",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Get a maps collection job by uri.",
+      "x-bootstrap": true,
+      "parameters": { "type": "params", "required": ["uri"], "properties": { "uri": { "type": "string", "format": "at-uri" } } },
+      "output": { "encoding": "application/json", "schema": { "type": "object", "properties": { "uri": { "type": "string", "format": "at-uri" }, "jobType": { "type": "string" }, "sourceDid": { "type": "string", "format": "did" }, "bbox": { "type": "array", "items": { "type": "number" } }, "country": { "type": "string" }, "scheduledAt": { "type": "string", "format": "datetime" }, "frequency": { "type": "string" }, "outputCollection": { "type": "string" }, "status": { "type": "string", "enum": ["scheduled", "running", "succeeded", "failed"] } } } }
+    }
+  }
+}

@@ -106,7 +106,7 @@ re-ingested.
 - `viz/build_viz_data.py` — self-contained supply-chain force-graph; browser-native via the
   kotoba-wasm node (inlined payload = offline data contract, ADR-2606013600).
 
-## D. Lexicons — `00-contracts/lexicons/app/etzhayyim/kabuto/`
+## D. Lexicons — `00-contracts/lexicons/com/etzhayyim/kabuto/`
 
 `registerCompany`, `registerSupplyEdge`, `publishIntelReport`, `publishSupplyChainViz`,
 `socialPost` — each a procedure with required `sourcing`, `aggregateFirstNotice`/

@@ -12,7 +12,7 @@ import { isValidLayerId, isValidZoomRange, type DisplayLayerRecord } from "./typ
 export type { DisplayLayerKind, DisplayLayerRecord } from "./types.js";
 export { DISPLAY_LAYER_KINDS, isValidLayerId, isValidZoomRange } from "./types.js";
 
-const COLLECTION = "app.etzhayyim.maps.displayLayer";
+const COLLECTION = "com.etzhayyim.maps.displayLayer";
 
 function defaultClient(): Etzhayyim {
   return new Etzhayyim({

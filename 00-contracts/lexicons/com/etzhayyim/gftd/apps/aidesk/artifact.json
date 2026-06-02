@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.aidesk.artifact",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A CAD artifact produced by a design job. license_tier is IMMUTABLE at INSERT — model-derived. Only apache2 artifacts can be forwarded to tsukuru supplierExchange.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["jobId", "format", "b2Key", "licenseTier", "createdAt"],
+        "properties": {
+          "jobId":             { "type": "string" },
+          "actorDid":          { "type": "string" },
+          "orgDid":            { "type": "string" },
+          "atDid":             { "type": "string" },
+          "format":            { "type": "string", "enum": ["step", "cadquery", "glb"] },
+          "b2Key":             { "type": "string", "description": "B2 blob key for the STEP / CadQuery / GLB file." },
+          "licenseTier":       { "type": "string", "enum": ["apache2", "adsk-noncommercial"], "description": "IMMUTABLE at INSERT. apache2 = Zero-To-CAD (commercial). adsk-noncommercial = Make-A-Shape / WaLa (research namespace only)." },
+          "cadqueryCode":      { "type": "string", "description": "CadQuery Python code. Populated for format=cadquery and format=step." },
+          "tsukuruPackageId":  { "type": "string", "description": "Set after exportToTsukuru. null until exported." },
+          "createdAt":         { "type": "string" }
+        }
+      }
+    }
+  }
+}

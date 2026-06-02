@@ -559,7 +559,7 @@
   }
 
   // ── Auto-respond mode ──
-  // Subscribes to app.etzhayyim.apps.ameno.subscribeBriefs (NATS firehose), runs
+  // Subscribes to com.etzhayyim.apps.ameno.subscribeBriefs (NATS firehose), runs
   // local inference per brief, and posts the result via saveResult. This
   // closes the murakumo Tier 2 crowd-source loop end-to-end (Phase 4a + 5a).
 

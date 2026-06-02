@@ -10,8 +10,8 @@
     <bpmn:userTask id="Task_CollectSegmentForm" name="Collect segment form"
                    camunda:formKey="openGas.definePipeSegment.v1"/>
     <bpmn:sequenceFlow id="f2" sourceRef="Task_CollectSegmentForm" targetRef="Task_DefineSegment"/>
-    <bpmn:serviceTask id="Task_DefineSegment" name="ai.gftd.apps.openGas.definePipeSegment"
-                      camunda:topic="ai.gftd.apps.openGas.definePipeSegment"/>
+    <bpmn:serviceTask id="Task_DefineSegment" name="com.etzhayyim.apps.openGas.definePipeSegment"
+                      camunda:topic="com.etzhayyim.apps.openGas.definePipeSegment"/>
     <bpmn:sequenceFlow id="f3" sourceRef="Task_DefineSegment" targetRef="EndEvent_Defined"/>
     <bpmn:endEvent id="EndEvent_Defined" name="Segment defined"/>
   </bpmn:process>

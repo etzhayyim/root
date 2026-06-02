@@ -1,7 +1,7 @@
 /**
  * Browsing history store — tracks profile/post/search views in SQL graph.
  * Write: ComAtprotoRepoCreateRecord (browsingHistory kind) → PDS → kagami.
- * Read: repo record scan on app.etzhayyim.apps.yoro.browsingHistory.
+ * Read: repo record scan on com.etzhayyim.apps.yoro.browsingHistory.
  */
 import { browser } from '$app/environment';
 import { atProcedure, getCurrentDID, listRecords } from '$lib/atproto-agent';
@@ -60,9 +60,9 @@ export function recordVisit(entry: Omit<HistoryEntry, 'visitedAt' | 'rkey'>) {
 		const token = await getSessionToken().catch((_err: unknown) => null);
 		if (!token) return;
 		await atProcedure('com.atproto.repo.createRecord', {
-			collection: 'app.etzhayyim.apps.yoro.browsingHistory',
+			collection: 'com.etzhayyim.apps.yoro.browsingHistory',
 			record: {
-				$type: 'app.etzhayyim.apps.yoro.browsingHistory',
+				$type: 'com.etzhayyim.apps.yoro.browsingHistory',
 				path: entry.path,
 				title: entry.title,
 				historyType: entry.type,
@@ -76,7 +76,7 @@ export function recordVisit(entry: Omit<HistoryEntry, 'visitedAt' | 'rkey'>) {
 
 /**
  * Record a search query to PDS graph.
- * Collection: `app.etzhayyim.apps.yoro.searchHistory`.
+ * Collection: `com.etzhayyim.apps.yoro.searchHistory`.
  * `ipDid` is injected server-side by the PDS Worker from CF-Connecting-IP.
  *
  * @param query - Raw search string entered by the user.
@@ -90,9 +90,9 @@ export function recordSearch(query: string, tab: string, resultCount: number = 0
 		const token = await getSessionToken().catch((_err) => null);
 		if (!token) return;
 		await atProcedure('com.atproto.repo.createRecord', {
-			collection: 'app.etzhayyim.apps.yoro.searchHistory',
+			collection: 'com.etzhayyim.apps.yoro.searchHistory',
 			record: {
-				$type: 'app.etzhayyim.apps.yoro.searchHistory',
+				$type: 'com.etzhayyim.apps.yoro.searchHistory',
 				query: query.trim(),
 				tab,
 				resultCount,
@@ -113,7 +113,7 @@ export async function loadHistory(): Promise<HistoryEntry[]> {
 		if (!token) { _loaded = true; _entries = []; _loading = false; return []; }
 		const did = getCurrentDID();
 		if (!did) { _loading = false; return []; }
-		const result = await listRecords(did, 'app.etzhayyim.apps.yoro.browsingHistory', { limit: 200 });
+		const result = await listRecords(did, 'com.etzhayyim.apps.yoro.browsingHistory', { limit: 200 });
 		const records = ((result as { records?: Array<Record<string, unknown>> })?.records ?? []);
 		_entries = records.map((record) => {
 			const value = (record.value ?? record) as Record<string, unknown>;
@@ -161,7 +161,7 @@ export function removeEntry(path: string) {
 			const token = await getSessionToken().catch((_err) => null);
 			if (!token) return;
 			await atProcedure('com.atproto.repo.deleteRecord', {
-				collection: 'app.etzhayyim.apps.yoro.browsingHistory',
+				collection: 'com.etzhayyim.apps.yoro.browsingHistory',
 				rkey: entry.rkey,
 			});
 		})().catch((e) => console.warn('history: delete failed', e));
@@ -179,7 +179,7 @@ export function clearHistory() {
 		if (!token) return;
 		for (const entry of toDelete) {
 			await atProcedure('com.atproto.repo.deleteRecord', {
-				collection: 'app.etzhayyim.apps.yoro.browsingHistory',
+				collection: 'com.etzhayyim.apps.yoro.browsingHistory',
 				rkey: entry.rkey!,
 			});
 		}

@@ -21,7 +21,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-baseballStadium:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-baseballStadium:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:baseballStadium',
                  10000,
                  0.7,
@@ -36,7 +36,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-velodromeWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-velodromeWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:velodromeWd',
                  1000,
                  0.7,
@@ -51,7 +51,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-publicLibrary:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-publicLibrary:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:publicLibrary',
                  60000,
                  0.6,
@@ -66,7 +66,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-kindergartenWd:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-kindergartenWd:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:kindergartenWd',
                  200000,
                  0.6,
@@ -81,7 +81,7 @@ UP = [{'sql': '\n'
          "        168.0, 'anon', 'anon', $5, $6\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/app.etzhayyim.apps.maps.coverageTarget/registry-wikidata-cricketGround:Spot',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/registry-wikidata-cricketGround:Spot',
                  'did:web:maps.etzhayyim.com:registry:wikidata:cricketGround',
                  15000,
                  0.7,

@@ -64,11 +64,11 @@
     }
   ],
   "lexiconNamespaces": [
-    "app.etzhayyim.kabuto.registerCompany",
-    "app.etzhayyim.kabuto.registerSupplyEdge",
-    "app.etzhayyim.kabuto.publishIntelReport",
-    "app.etzhayyim.kabuto.publishSupplyChainViz",
-    "app.etzhayyim.kabuto.socialPost"
+    "com.etzhayyim.kabuto.registerCompany",
+    "com.etzhayyim.kabuto.registerSupplyEdge",
+    "com.etzhayyim.kabuto.publishIntelReport",
+    "com.etzhayyim.kabuto.publishSupplyChainViz",
+    "com.etzhayyim.kabuto.socialPost"
   ],
   "display": {
     "did": "did:web:etzhayyim.com:actor:kabuto",

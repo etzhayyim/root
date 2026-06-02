@@ -1,0 +1,84 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.publicDomainColorization.colorizeWork",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Run the public-domain audiovisual restoration, colorization, subtitle translation, optional dubbed-audio generation, and publication workflow.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "runVertexId": { "type": "string" },
+            "derivativeVertexId": { "type": "string" },
+            "workId": { "type": "string" },
+            "sourceUrl": { "type": "string" },
+            "sourceBlobCid": { "type": "string" },
+            "sourceIpfsCid": { "type": "string" },
+            "sourceIpfsUrl": { "type": "string" },
+            "sourceFilename": { "type": "string" },
+            "sourceContentType": { "type": "string" },
+            "maxSourceBytes": { "type": "integer" },
+            "title": { "type": "string" },
+            "workKind": {
+              "type": "string",
+              "enum": ["film", "animation", "newsreel", "short", "trailer", "still"]
+            },
+            "publishJurisdiction": { "type": "string" },
+            "sourceLanguage": { "type": "string" },
+            "targetLanguages": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "glossaryCid": { "type": "string" },
+            "paletteReferenceCid": { "type": "string" },
+            "voicePolicy": {
+              "type": "string",
+              "enum": ["none", "narration-neutral", "character-neutral", "approved-archival-match"]
+            },
+            "voiceLipSync": { "type": "boolean" },
+            "requestedLicense": { "type": "string" },
+            "callerDid": { "type": "string" },
+            "dryRun": { "type": "boolean" }
+          },
+          "required": ["runVertexId", "derivativeVertexId", "workId", "title", "workKind", "publishJurisdiction", "targetLanguages", "callerDid"]
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "runVertexId": { "type": "string" },
+            "workVertexId": { "type": "string" },
+            "publicationCid": { "type": "string" },
+            "masterVideoCid": { "type": "string" },
+            "sourceIpfsCid": { "type": "string" },
+            "sourceIpfsUrl": { "type": "string" },
+            "sourceSha256": { "type": "string" },
+            "sourceByteSize": { "type": "integer" },
+            "posterCid": { "type": "string" },
+            "publicationManifestCid": { "type": "string" },
+            "timedTextCid": { "type": "string" },
+            "subtitleManifestCid": { "type": "string" },
+            "dubbedAudioManifestCid": { "type": "string" },
+            "localizedPackageManifestCid": { "type": "string" },
+            "rightsEvidenceCid": { "type": "string" },
+            "rightsClassification": { "type": "string" },
+            "subtitleTranslatedCount": { "type": "integer" },
+            "dubbedAudioCount": { "type": "integer" },
+            "localizedPackageCount": { "type": "integer" },
+            "status": {
+              "type": "string",
+              "enum": ["published", "dry_run_ready", "blocked", "rework_requested"]
+            },
+            "error": { "type": "string" }
+          },
+          "required": ["runVertexId"]
+        }
+      }
+    }
+  }
+}

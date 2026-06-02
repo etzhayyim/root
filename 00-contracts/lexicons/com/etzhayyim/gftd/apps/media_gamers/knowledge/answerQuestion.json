@@ -1,0 +1,40 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.media_gamers.knowledge.answerQuestion",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Answer gameplay questions from stored Media Gamers domain knowledge.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["question"],
+          "properties": {
+            "question": { "type": "string" },
+            "game_slug": { "type": "string", "default": "pokemon-pokopia" },
+            "lang": { "type": "string", "default": "ja" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "game_slug": { "type": "string" },
+            "answer": { "type": "string" },
+            "sources": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "confidence": { "type": "string" },
+            "usedGuideSlug": { "type": "string" },
+            "error": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

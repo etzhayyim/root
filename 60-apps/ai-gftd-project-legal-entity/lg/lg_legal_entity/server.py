@@ -86,18 +86,18 @@ def _make_health_graph():
 
 # ---------------------------------------------------------------------------
 # TASKS: NSID → handler
-# task type legalEntity.X.Y → app.etzhayyim.legalEntity.XY
+# task type legalEntity.X.Y → com.etzhayyim.legalEntity.XY
 # ---------------------------------------------------------------------------
 
 _REGISTRY_SUFFIXES = ["Jpn", "Gbr", "Fra", "Nor", "Dnk", "Fin", "Est", "Cze", "Nzl", "Che", "Nld", "Isr"]
 
 TASKS: dict[str, Any] = {
-    "app.etzhayyim.legalEntity.gleifFetchPages":         task_gleif_fetch_pages,
-    "app.etzhayyim.legalEntity.gleifRegisterDids":       task_gleif_register_dids,
-    "app.etzhayyim.legalEntity.edgarCollectUsa":         task_edgar_collect_usa,
-    "app.etzhayyim.legalEntity.edgarIngestSecDisclosure": task_edgar_ingest_sec_disclosure,
+    "com.etzhayyim.legalEntity.gleifFetchPages":         task_gleif_fetch_pages,
+    "com.etzhayyim.legalEntity.gleifRegisterDids":       task_gleif_register_dids,
+    "com.etzhayyim.legalEntity.edgarCollectUsa":         task_edgar_collect_usa,
+    "com.etzhayyim.legalEntity.edgarIngestSecDisclosure": task_edgar_ingest_sec_disclosure,
     **{
-        f"app.etzhayyim.legalEntity.registryCollect{s}": _make_registry_task(s)
+        f"com.etzhayyim.legalEntity.registryCollect{s}": _make_registry_task(s)
         for s in _REGISTRY_SUFFIXES
     },
 }
@@ -112,7 +112,7 @@ GRAPHS.update({
     for nsid, handler in TASKS.items()
 })
 
-_NSID_TO_ASSISTANT: dict[str, str] = {"app.etzhayyim.legalEntity.health": "health"}
+_NSID_TO_ASSISTANT: dict[str, str] = {"com.etzhayyim.legalEntity.health": "health"}
 for _nsid in TASKS:
     _NSID_TO_ASSISTANT[_nsid] = _nsid.rsplit(".", 1)[-1]
 

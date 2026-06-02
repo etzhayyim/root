@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.mangaka.inkPanel",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Stage 4/8 — Ink pass (ペン入れ). ControlNet-lineart + img2img on the approved panel candidate. Sharpens linework + removes color artifacts. Writes one vertex_mangaka row (kind=inkedPanel).",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["panelUri"],
+          "properties": {
+            "panelUri": { "type": "string", "format": "at-uri", "description": "Approved panel from Stage 3." },
+            "linewidth": { "type": "string", "enum": ["fine", "medium", "bold"], "default": "medium" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "inkedVertexId": { "type": "string", "format": "at-uri" },
+            "blobCid": { "type": "string" },
+            "renderMs": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

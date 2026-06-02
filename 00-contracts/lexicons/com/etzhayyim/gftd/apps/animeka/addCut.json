@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.animeka.addCut",
+  "defs": {
+    "main": {
+      "type": "procedure",
+      "description": "Create a cut (カット) under a scene. Initializes cut.stageStatus to all 'pending' and allocates path-based DID did:web:animeka.etzhayyim.com:cut:{rkey}. Sequential addCut calls on the same scene auto-increment cutNum if omitted.",
+      "input": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["sceneId", "durationFrames"],
+          "properties": {
+            "sceneId": { "type": "string", "format": "at-uri" },
+            "episodeId": { "type": "string", "format": "at-uri", "description": "Optional; derived from scene if omitted." },
+            "id": { "type": "string" },
+            "cutNum": { "type": "integer", "description": "Auto-incremented within the episode if omitted." },
+            "durationFrames": { "type": "integer" },
+            "fps": { "type": "integer" },
+            "cameraMode": {
+              "type": "string",
+              "enum": ["still", "pan", "tu", "tb", "follow", "handheld", "crane", "dolly"]
+            },
+            "cameraNote": { "type": "string" },
+            "charactersAppearing": { "type": "array", "items": { "type": "string" } },
+            "dialogueSummary": { "type": "string" }
+          }
+        }
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "required": ["uri", "cid"],
+          "properties": {
+            "uri": { "type": "string", "format": "at-uri" },
+            "cid": { "type": "string", "format": "cid" },
+            "did": { "type": "string", "description": "Path-based cut DID." },
+            "cutNum": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

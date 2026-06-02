@@ -145,7 +145,7 @@ def anchor_enrollment(state: dict) -> dict:
     return {
         "enrollment_id": enrollment_id,
         "pairing_status": pairing,
-        "enrollment_vertex_uri": f"at://{state['debtor_did']}/app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/{enrollment_id}",
+        "enrollment_vertex_uri": f"at://{state['debtor_did']}/com.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/{enrollment_id}",
     }
 
 def anchor_enrollment_ineligible(state: dict) -> dict:
@@ -155,7 +155,7 @@ def anchor_enrollment_ineligible(state: dict) -> dict:
     return {
         "enrollment_id": enrollment_id,
         "pairing_status": pairing,
-        "enrollment_vertex_uri": f"at://{state['debtor_did']}/app.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/{enrollment_id}",
+        "enrollment_vertex_uri": f"at://{state['debtor_did']}/com.etzhayyim.apps.etzhayyim.yobel.debtorEnrollment/{enrollment_id}",
     }
 
 def emit_rejection(state: dict) -> dict:

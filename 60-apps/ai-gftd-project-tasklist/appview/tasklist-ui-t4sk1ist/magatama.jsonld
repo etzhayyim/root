@@ -40,7 +40,7 @@
   "triggers": {
     "subscribeRepos": {
       "collections": [
-        "ai.gftd.apps.tasklist.approval",
+        "com.etzhayyim.apps.tasklist.approval",
         "app.bsky.feed.post",
         "app.bsky.feed.like",
         "app.bsky.graph.follow"

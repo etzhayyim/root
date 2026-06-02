@@ -15,7 +15,7 @@ Keeps:
   - RunPod ComfyUI (vyp99t9px7h4dl:8188) for image gen
   - RunPod vLLM (vyp99t9px7h4dl:4000) for script/storyboard generation
   - PDS (atproto.etzhayyim.com) for `app.bsky.*` social + `chat.bsky.convo.*` DM
-  - Hyperdrive RW for `app.etzhayyim.animeka.*` domain rows
+  - Hyperdrive RW for `com.etzhayyim.animeka.*` domain rows
   - bpmn-dispatcher receives fire-and-forget OCEL audit only
 
 Per the design doc in /lg/CLAUDE.md, animeka has 16 actor sub-DIDs

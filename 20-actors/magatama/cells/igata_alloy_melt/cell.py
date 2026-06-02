@@ -28,7 +28,7 @@ Pregel graph (5 nodes):
                                   furnace; holding temp logged @ 1 Hz
         |
         v
-    emit_alloy_attest         ->  MST PUT app.etzhayyim.igata.alloyAttestation
+    emit_alloy_attest         ->  MST PUT com.etzhayyim.igata.alloyAttestation
                                   (lot ID, composition + uncertainty, mass kg,
                                    ingot provenance chain, energy kWh,
                                    degassing H₂ content ppm, operator + Tatara

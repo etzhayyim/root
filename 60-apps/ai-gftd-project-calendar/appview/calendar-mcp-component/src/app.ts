@@ -15,7 +15,7 @@ interface Env {
   APP_NANOID?: string;
 }
 
-const NSID_PREFIX = "app.etzhayyim.apps.calendar.";
+const NSID_PREFIX = "com.etzhayyim.apps.calendar.";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -28,7 +28,7 @@ export default {
         nanoid: env.APP_NANOID ?? "calendar-mcp",
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/calendar.py",
-        bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/calendar",
+        bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/calendar",
       });
     }
 

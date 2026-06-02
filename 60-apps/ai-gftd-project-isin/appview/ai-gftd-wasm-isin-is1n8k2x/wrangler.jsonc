@@ -26,7 +26,7 @@
     "APP_TEMPLATE": "",
     "APP_UI_TYPE": "appview",
     "APP_VERSION": "1.0.0",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/app.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {

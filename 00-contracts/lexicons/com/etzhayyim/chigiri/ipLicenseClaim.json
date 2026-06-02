@@ -1,0 +1,127 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.chigiri.ipLicenseClaim",
+  "description": "Apache 2.0 + Charter Compliance Rider v2.0 violation claim. Three-tier remedy ladder per ADR-2605192200 Rider §3: L1 license-level (Apache 2.0 §4 attribution / NOTICE / Rider citation breach) / L2 benefit-level (denial of access to religious-corp benefits — fleet inference, Public Fund grants, Council vote standing) / L3 evaluation-level (Council assessment=0 on the violator's contribution graph). chigiri files claims, does NOT prosecute litigation. Litigation routes through external IP counsel contracted via Public Fund (Council Lv6+).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "violatorDidOrEntity",
+          "violationTier",
+          "evidenceCids",
+          "remedyLadderTarget",
+          "charterRiderScanRunCid",
+          "attestingDid"
+        ],
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "violatorDidOrEntity": {
+            "type": "string",
+            "description": "DID (preferred) or unstructured entity name (when no DID exists, e.g., outside party reusing our code in violation)."
+          },
+          "violatedArtifactCid": {
+            "type": "string",
+            "description": "CID of the religious-corp artifact alleged to be violated (e.g., a chigiri template, a baien-distill artifact, etc.)."
+          },
+          "violatedLicense": {
+            "type": "string",
+            "knownValues": [
+              "apache-2.0",
+              "apache-2.0-with-charter-rider-v2.0",
+              "cc-by-4.0",
+              "cc-by-sa-4.0",
+              "cc-0-1.0"
+            ],
+            "description": "Which license tier was violated."
+          },
+          "violationTier": {
+            "type": "string",
+            "knownValues": [
+              "L1-license-attribution",
+              "L1-rider-citation",
+              "L2-charter-rider-2a-h-substantive",
+              "L3-evaluation-zero-trigger"
+            ],
+            "description": "Charter Rider §3 three-tier classification."
+          },
+          "violationCategoriesAlleged": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": [
+                "2a-weapons",
+                "2b-speculative-finance",
+                "2c-covert-ops-surveillance",
+                "2d-fossil-extraction",
+                "2e-anti-gatekeeping",
+                "2f-multi-generational-harm",
+                "2g-state-aligned-coercion",
+                "2h-wellbecoming-violation",
+                "4-attribution-notice-only"
+              ]
+            },
+            "description": "Specific Rider categories alleged."
+          },
+          "evidenceCids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minLength": 1,
+            "description": "≥1 evidence CID(s)."
+          },
+          "remedyLadderTarget": {
+            "type": "string",
+            "knownValues": [
+              "L1-formal-notice",
+              "L1-public-attribution-restoration",
+              "L2-deny-fleet-inference-access",
+              "L2-deny-public-fund-grant-standing",
+              "L2-deny-council-vote-standing",
+              "L3-mark-evaluation-zero",
+              "external-counsel-engagement"
+            ],
+            "description": "Target remedy. L2 / L3 / external-counsel-engagement require Council Lv6+ ≥4 attestation."
+          },
+          "councilAttestations": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "≥4 Council seat DIDs required for L2 / L3 / external-counsel-engagement targets."
+          },
+          "externalCounselContractCid": {
+            "type": "string",
+            "description": "When remedyLadderTarget=external-counsel-engagement, the Public Fund Safe contract CID. UPL boundary: chigiri does NOT directly engage counsel; Public Fund Safe does."
+          },
+          "charterRiderScanRunCid": {
+            "type": "string",
+            "description": "Charter Rider §2 scanner report CID covering the violator's artifact (independent re-scan for the claim record)."
+          },
+          "attestingDid": {
+            "type": "string"
+          },
+          "currentStatus": {
+            "type": "string",
+            "knownValues": [
+              "filed",
+              "council-review",
+              "remedy-served",
+              "cured",
+              "escalated-external-counsel",
+              "resolved",
+              "withdrawn"
+            ]
+          },
+          "resolvedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

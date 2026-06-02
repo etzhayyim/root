@@ -1,0 +1,58 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.apps.maps.getPipelineStats",
+  "defs": {
+    "main": {
+      "type": "query",
+      "description": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
+      "x-bootstrap": true,
+      "parameters": {
+        "type": "params",
+        "properties": {},
+        "required": []
+      },
+      "output": {
+        "encoding": "application/json",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sourcesTotal": {
+              "type": "integer"
+            },
+            "sourcesActive": {
+              "type": "string"
+            },
+            "jobsTotal": {
+              "type": "integer"
+            },
+            "jobsPending": {
+              "type": "string"
+            },
+            "jobsRunning": {
+              "type": "string"
+            },
+            "jobsCompleted": {
+              "type": "string"
+            },
+            "jobsFailed": {
+              "type": "string"
+            },
+            "datasetsTotal": {
+              "type": "integer"
+            },
+            "poisTotal": {
+              "type": "integer"
+            },
+            "poisOsm": {
+              "type": "string"
+            },
+            "poisWikidata": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      }
+    }
+  }
+}
