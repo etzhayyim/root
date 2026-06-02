@@ -25,7 +25,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "iyashi"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "iyashi"
 _MANIFEST = _REPO / "20-actors" / "iyashi" / "manifest.jsonld"
 
 # Lexicons whose payload is clinical content and MUST stay in the encrypted envelope.

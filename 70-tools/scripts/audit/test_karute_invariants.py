@@ -29,7 +29,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "karute"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "karute"
 _GUARD = _REPO / "70-tools" / "scripts" / "lint" / "karute-phi-plaintext-guard.mjs"
 
 # Designed FHIR resource-type binding per karute lexicon (filename stem → const).

@@ -473,7 +473,7 @@ def main() -> int:
     ap.add_argument("--json", action="store_true", help="JSON output")
     args = ap.parse_args()
 
-    scope = BPMN_ROOT / "ai" / "gftd"
+    scope = BPMN_ROOT / "com" / "etzhayyim"
     if args.only:
         scope = scope / args.only
 

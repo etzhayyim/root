@@ -200,7 +200,7 @@ def _xrpc_coverage_stats(nanoid: str, app_name: str, token: str, timeout: int = 
 def _infer_app_name_from_collections(cols: list[str]) -> str:
     for col in cols:
         parts = col.split(".")
-        if len(parts) >= 5 and parts[:3] == ["ai", "gftd", "apps"]:
+        if len(parts) >= 5 and parts[:3] == ["com", "etzhayyim", "apps"]:
             return parts[3]
     return ""
 

@@ -25,7 +25,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "kokoro"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "kokoro"
 _MANIFEST = _REPO / "20-actors" / "kokoro" / "manifest.jsonld"
 
 # silenKokoroReview counters that MUST be structurally zero (the ethics red lines).

@@ -24,7 +24,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "futawa"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "futawa"
 _MANIFEST = _REPO / "20-actors" / "futawa" / "manifest.jsonld"
 
 # (lexicon stem, field) → expected const true. The structural compliance gates.

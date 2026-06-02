@@ -32,7 +32,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "tsukuroi"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "tsukuroi"
 _MANDATE = _LEX / "remediationMandate.json"
 _PROPOSAL = _LEX / "patchProposal.json"
 _VALIDATION = _LEX / "patchValidationResult.json"

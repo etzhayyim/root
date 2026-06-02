@@ -39,7 +39,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "toritsugi"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "toritsugi"
 _PROCEDURE = _LEX / "procedure.json"
 _BENEFIT = _LEX / "benefitMatch.json"
 _GUIDE = _LEX / "procedureGuide.json"

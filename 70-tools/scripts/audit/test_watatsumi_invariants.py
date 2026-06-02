@@ -25,7 +25,7 @@ from pathlib import Path
 import pytest
 
 _REPO = Path(__file__).resolve().parents[3]
-_LEX = _REPO / "00-contracts" / "lexicons" / "app" / "etzhayyim" / "watatsumi"
+_LEX = _REPO / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "watatsumi"
 _MANIFEST = _REPO / "20-actors" / "watatsumi" / "manifest.jsonld"
 
 

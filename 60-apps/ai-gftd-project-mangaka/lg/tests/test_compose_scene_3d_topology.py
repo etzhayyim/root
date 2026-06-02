@@ -174,7 +174,7 @@ def test_pending_mcp_tools_have_matching_lexicons() -> None:
     fail."""
     # _LG_DIR = `<repo>/60-apps/ai-gftd-project-mangaka/lg` → repo is 3 up.
     repo_root = _LG_DIR.parents[2]
-    lex_dir = repo_root / "00-contracts" / "lexicons" / "ai" / "gftd" / "apps" / "mangaka" / "tools"
+    lex_dir = repo_root / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "apps" / "mangaka" / "tools"
     raw = _TOPOLOGY_PATH.read_text(encoding="utf-8")
     spec = yaml.safe_load(raw)
     for nsid in spec.get("pending_mcp_tools") or []:
