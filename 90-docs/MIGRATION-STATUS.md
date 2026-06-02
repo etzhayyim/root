@@ -14,10 +14,10 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 | **A — DONE** | 102 | has a `rw-free/` on-chain reference impl |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
-| **D — TODO-PENDING** | 15 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
-| **V — VENDOR-RESIDENT** | 68 | judged correctly gftd-resident (regulated-infra axis) — no migration |
+| **D — TODO-PENDING** | 14 | has `MIGRATION-TODO.md` (seed copied, codemod pending) |
+| **V — VENDOR-RESIDENT** | 69 | judged correctly gftd-resident (regulated-infra axis) — no migration |
 
-**Real remaining scope ≈ 15 apps** (C + D = 0 + 15; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
+**Real remaining scope ≈ 14 apps** (C + D = 0 + 14; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
 rw-free impls and are reconciled into Bucket A). Buckets A + B (260) need no
 further substrate work. The open-* commodity-data backlog is **fully cleared** —
@@ -76,7 +76,7 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (68)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (69)
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
@@ -635,6 +635,14 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   download prohibited. Downloaded media is fair-use-restricted third-party
   copyrighted content (not redistributable open-data); summaries are LLM output
   (carry-forward test fails). No rw-free built.
+- **ses** (Bucket D / ad-pixel → V) — axes: **Custody (SES案件 Tier-3 PII,
+  non-federable) + Liability (staffing/contract business) + Infra/compute (email
+  ingest + LLM extraction)**. NOT AWS SES — a **SES (システムエンジニアリング
+  サービス, IT-staffing) 案件・状況 ingest pipeline** (`ses.etzhayyim.com`, Tier T3,
+  **Non-federable**): ingests SES staffing deals/projects + status from private
+  email (Outlook/Exchange) → LLM extraction → graph. Confidential business
+  staffing data (client/engineer/rate/contract), explicitly non-federable, not
+  open-data (carry-forward test fails). No rw-free built.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
 
@@ -662,7 +670,7 @@ webmk / webya / yorishiro / yukkuri). The only entries that remain under the
 These are mechanical import-removal chores on already-migrated/vendor apps, not
 "front vs vendor" judgment calls. No rw-free build remains in Bucket C.
 
-## Bucket D — TODO-PENDING (15, MIGRATION-TODO.md)
+## Bucket D — TODO-PENDING (14, MIGRATION-TODO.md)
 
 > **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
 > no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
@@ -678,7 +686,7 @@ yatabase) have been migrated (A) or judged vendor-resident (V). Only the
 **ad-pixel codemod (26)** + **substrate-boundary (6)** sublists remain in Bucket D.
 
 **Ad-pixel codemod complete (un-resolved tail)**:
-ses, society6, x
+society6, x
 (\* names animeka/briefing/communicator/email-service-adapter*/fax* already
 resolved: animeka/mangaka in A; briefing/communicator in V; email-service-adapter/fax
 tracked as legacy codemod-only. `*` = also in Bucket C list.)
