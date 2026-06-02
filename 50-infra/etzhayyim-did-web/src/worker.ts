@@ -949,6 +949,73 @@ export default {
         },
       });
     }
+    // gov-atlas human search page — `/gov`. Browser-native: fetches
+    // /.well-known/gov-units.json and filters client-side (no per-keystroke server
+    // call, cookie-free, same-origin only). Civic wayfinding over the world
+    // government atlas; observational mirror, never a target-list (G3/G10).
+    // Per ADR-2606021600. GET/HEAD only.
+    if (url.pathname === "/gov" || url.pathname === "/gov/") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", {
+          status: 405,
+          headers: { allow: "GET, HEAD" },
+        });
+      }
+      const govHtml = `<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>公 ooyake — World Government Atlas</title>
+<style>
+:root{color-scheme:light dark}
+body{font:15px/1.5 system-ui,sans-serif;max-width:920px;margin:0 auto;padding:1.2rem}
+h1{font-size:1.4rem;margin:.2rem 0}.sub{opacity:.7;font-size:.9rem;margin:.2rem 0 1rem}
+#q{width:100%;padding:.6rem .8rem;font-size:1rem;border:1px solid #8888;border-radius:.5rem;box-sizing:border-box}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+select{padding:.4rem;border:1px solid #8888;border-radius:.4rem}
+#stats{opacity:.7;font-size:.85rem;margin:.6rem 0}
+ul{list-style:none;padding:0;margin:0}
+li{padding:.5rem .2rem;border-bottom:1px solid #8882;display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap}
+.nm{font-weight:600}.en{opacity:.6}.lv{font-size:.75rem;opacity:.8;border:1px solid #8886;border-radius:.5rem;padding:0 .4rem}
+.au{color:#1a7f37;border-color:#1a7f3766}.re{opacity:.55}
+a{color:inherit}
+</style></head><body>
+<h1>公 — World Government Atlas</h1>
+<p class="sub">An observational <strong>mirror</strong> + civic wayfinding map of the world's government units — never the government, never an official channel, never a target-list (ADR-2606021600). Data: <a href="/.well-known/gov-units.json">/.well-known/gov-units.json</a>. <a href="/actors">/actors</a></p>
+<input id="q" placeholder="search government units… (try: 財務省, 札幌市, Stuttgart, London, prefecture)" autocomplete="off">
+<div class="row">
+<select id="lvl"><option value="">all levels</option></select>
+<select id="src"><option value="">all sourcing</option><option value="authoritative">authoritative</option><option value="representative">representative</option></select>
+</div>
+<div id="stats">loading…</div>
+<ul id="out"></ul>
+<script>
+(async()=>{
+ const d=await (await fetch('/.well-known/gov-units.json')).json();
+ const U=d.units||[];
+ const q=document.getElementById('q'),lvl=document.getElementById('lvl'),src=document.getElementById('src'),out=document.getElementById('out'),stats=document.getElementById('stats');
+ for(const l of Object.keys(d.byLevel||{}).sort()){const o=document.createElement('option');o.value=l;o.textContent=l+' ('+d.byLevel[l]+')';lvl.appendChild(o);}
+ const esc=s=>String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+ function render(){
+  const t=q.value.trim().toLowerCase(),fl=lvl.value,fs=src.value;
+  const r=U.filter(u=>(!fl||u.level===fl)&&(!fs||u.sourcing===fs)&&(!t||(u.name||'').toLowerCase().includes(t)||(u.nameEn||'').toLowerCase().includes(t)||(u.id||'').toLowerCase().includes(t)||(u.jurisdiction||'').toLowerCase().includes(t))).slice(0,300);
+  stats.textContent=r.length+' shown · '+d.count+' units / '+d.countries+' jurisdictions · authoritative '+(d.bySourcing&&d.bySourcing.authoritative||0)+' / representative '+(d.bySourcing&&d.bySourcing.representative||0);
+  out.innerHTML=r.map(u=>'<li><span class="nm">'+esc(u.name)+'</span>'+(u.nameEn&&u.nameEn!==u.name?' <span class="en">'+esc(u.nameEn)+'</span>':'')+' <span class="lv">'+esc(u.level)+'</span> <span class="lv '+(u.sourcing==='authoritative'?'au':'re')+'">'+esc(u.sourcing)+'</span> <span class="en">'+esc(u.jurisdiction)+'</span>'+(u.url?' · <a href="'+esc(u.url)+'" rel="noopener noreferrer nofollow">site</a>':'')+'</li>').join('');
+ }
+ q.oninput=lvl.onchange=src.onchange=render;render();
+})();
+</script></body></html>`;
+      return new Response(govHtml, {
+        status: 200,
+        headers: {
+          "content-type": "text/html; charset=utf-8",
+          "cache-control": "public, max-age=300, must-revalidate",
+          "x-content-type-options": "nosniff",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; connect-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'",
+          "strict-transport-security": "max-age=31536000; includeSubDomains",
+          "permissions-policy": PERMISSIONS_POLICY,
+          "x-etzhayyim-no-cookie": "1",
+        },
+      });
+    }
     if (url.pathname === "/actors" || url.pathname === "/actors/") {
       if (request.method !== "GET" && request.method !== "HEAD") {
         return new Response("Method Not Allowed", {
