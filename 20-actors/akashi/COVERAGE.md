@@ -38,6 +38,7 @@ Closure fixture coverage exists for `adDisclosureLink`, `adTransparencyReport`,
 and `malakEvidenceCandidate`; all remain fixture-only and non-adjudicating.
 `adapters/dry_run_fixtures.py` exercises the local fixture set and validates
 every emitted record without network access or writes.
+`fixtures/dry_run/summary.golden.json` pins the dry-run record counts.
 
 ## R1 Promotion Rules
 
@@ -66,6 +67,7 @@ A platform source can move from `candidate` to `covered-r1` only when:
   collection.
 - Dry-run CLI exists for local fixture validation only; it has no network mode
   and does not write kotoba records.
+- Dry-run summary has a golden regression fixture.
 - No live fetch runs.
 - Source-policy review workflow exists and keeps every live source disabled.
 - Source-policy approval format exists; the only example is fixture-only, not

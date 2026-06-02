@@ -55,6 +55,9 @@ _FIXTURE = (
 _CLOSURE_FIXTURE = (
     _REPO / "20-actors" / "akashi" / "fixtures" / "closure" / "sample.json"
 )
+_DRY_RUN_GOLDEN = (
+    _REPO / "20-actors" / "akashi" / "fixtures" / "dry_run" / "summary.golden.json"
+)
 _CELLS = _REPO / "20-actors" / "magatama" / "cells"
 
 _EXPECTED_LEXICONS = {
@@ -407,6 +410,7 @@ def test_dry_run_cli_emits_validated_local_fixture_summary_only():
     assert summary["recordCounts"]["sourcePolicySnapshot"] == 1
     assert summary["recordCounts"]["malakEvidenceCandidate"] == 1
     assert summary["totalRecords"] == sum(summary["recordCounts"].values())
+    assert summary == _load(_DRY_RUN_GOLDEN)
 
 
 if __name__ == "__main__":

@@ -69,6 +69,7 @@ fixtures, or collection jobs yet. See:
   fixtures
 - `adapters/dry_run_fixtures.py` — local fixture dry-run CLI; no network access
   and no writes
+- `fixtures/dry_run/summary.golden.json` — dry-run summary regression fixture
 - `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
 
 ## Immutable Gates
