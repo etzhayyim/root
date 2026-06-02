@@ -1,0 +1,23 @@
+;; futawa 二輪 — moto_test_dyno_road cell (langgraph, WASM runtime)
+;; ADR-2605261330 · L5b dyno testing + road safety + G6 sound + ABS function
+{:cell/id "moto_test_dyno_road"
+ :cell/glyph "二"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/entry "py/agent.py"
+ :cell/handler "handle_test_dyno_road"
+ :cell/doc "L5b dyno + road testing: engine power/torque verify + emission + G6 sound ≤80 dB(A) + ABS function + braking distance + stability (slalom). Mimi metrology robot witness. Input: vehicle (ready from L5a), dyno-spec, test-protocol. Output: testRecord (dyno-curve + emissions + sound + ABS-pass + road-safety metrics)."
+ :cell/state-graph
+ {:nodes [:prepare-dyno :run-power-torque :test-emissions :measure-sound :verify-abs :run-road-tests :attest-test]
+  :entry :prepare-dyno
+  :edges [[:prepare-dyno :run-power-torque] [:run-power-torque :test-emissions]
+          [:test-emissions :measure-sound] [:measure-sound :verify-abs] [:verify-abs :run-road-tests] [:run-road-tests :attest-test] [:attest-test :end]]}
+ :cell/llm
+ {:provider :murakumo
+  :endpoint "127.0.0.1:4000"
+  :model "gemma3:4b"
+  :charter-rider true}
+ :cell/gates ["G1" "G3" "G6" "G7"]
+ :cell/kotoba
+ {:reads [:vehicle-lot-attestation/id :dyno-spec/type :test-protocol/version]
+  :writes [:test-record/id :test-record/power-kw :test-record/torque-nm :test-record/emissions-result :test-record/sound-db :test-record/abs-pass]}}
