@@ -1,0 +1,18 @@
+;; com.etzhayyim.tsutae.silenTsutaeReview — lexicon (EDN form) · ADR-2605261300
+;; Council Lv6+ baseline review — R-phase activation gate (parallel to yakushi
+;; silenPharmaReview / silicon silenForceReview / igata silenIgataReview).
+{:lexicon 1
+ :id "com.etzhayyim.tsutae.silenTsutaeReview"
+ :defs
+ {:main
+  {:type "record" :key "tid"
+   :record
+   {:type "object"
+    :required ["reviewId" "phase" "verdict"]
+    :properties
+    {:reviewId     {:type "string"}
+     :phase        {:type "string" :description "R1|R2|R3 activation phase under review"}
+     :councilSigs  {:type "array" :items {:type "string"} :description "Council Lv6+ signer DIDs (supermajority)"}
+     :gatesChecked {:type "array" :items {:type "string"} :description "G1..G14 attestation refs"}
+     :verdict      {:type "string" :description "approved|rejected|conditions"}
+     :timestamp    {:type "string" :format "datetime"}}}}}}

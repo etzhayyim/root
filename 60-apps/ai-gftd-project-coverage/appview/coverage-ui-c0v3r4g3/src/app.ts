@@ -1,6 +1,9 @@
 import { createKyselyDb, createWorkerExport, nsid, type HostSDK } from "@etzhayyim/magatama-host-sdk";
 import type { Database } from "@etzhayyim/graph-schema";
+// ADR-2606021730 Phase 2+: replacing RW queries with kotoba EAVT queries
+import { queryLatentEntities, queryEntityEvidence, getViewpointStats, createKotobaClientAdapter } from "./kotoba-client-wrapper";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
+// Kept for backward-compat queries like mv_world_coverage_live (non-latent-entity); deprecated for latent-entity paths.
 import { Kysely } from "kysely";
 
 type CoverageRow = {
@@ -142,94 +145,46 @@ export default createWorkerExport((sdk) => {
   });
 
   sdk.app.query(nsid("com.etzhayyim.apps.coverage.listLatentEntities"), async (_ctx, body) => {
+    // Phase 2: kotoba latent-entity query (G2 edge-primary, G6 Murakumo-only, G14 verified)
     const args = body as Record<string, unknown>;
     const limit = Math.min(Number(args.limit ?? 50), 200);
     const offset = Number(args.offset ?? 0);
     const entityKind = typeof args.entityKind === "string" ? args.entityKind : undefined;
     const fissionOnly = args.fissionOnly === true || args.fissionOnly === "true";
 
-    const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
-    let q = db.selectFrom("vertex_latent_entity" as any)
-      .select([
-        "vertex_id",
-        "entity_kind",
-        "canonical_label",
-        "existence_probability",
-        "k_evidence_count",
-        "viewpoint_consensus",
-        "fission_eligible",
-        "status",
-        "created_at",
-      ] as any);
-    if (entityKind) q = (q as any).where("entity_kind", "=", entityKind);
-    if (fissionOnly) q = (q as any).where("fission_eligible", "=", true);
-    const rows = await (q as any)
-      .orderBy("existence_probability", "desc")
-      .limit(limit)
-      .offset(offset)
-      .execute();
+    // HONEST R0: Fixture mode (kotoba endpoint operator-gated at G14)
+    const kotobaClient = createKotobaClientAdapter((sdk.env as any).KOTOBA_ENDPOINT);
+    const { entities, total } = await queryLatentEntities(kotobaClient, {
+      entityKind,
+      fissionOnly,
+      limit,
+      offset,
+    });
 
-    const [countRow] = await (db as any)
-      .selectFrom("vertex_latent_entity")
-      .select((eb: any) => eb.fn.countAll().as("cnt"))
-      .execute();
-
-    return { entities: rows, total: Number(countRow?.cnt ?? 0), offset, limit };
+    return { entities, total, offset, limit };
   });
 
   sdk.app.query(nsid("com.etzhayyim.apps.coverage.getEntityEvidence"), async (_ctx, body) => {
+    // Phase 3: kotoba evidence-edge query (G2 edge-primary)
     const args = body as Record<string, unknown>;
     const entityVid = String(args.entityVid ?? "");
     if (!entityVid) return { error: "entityVid required" };
     const limit = Math.min(Number(args.limit ?? 50), 200);
 
-    const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
-    const evidenceRows = await (db as any)
-      .selectFrom("edge_entity_evidence")
-      .select(["edge_id", "src_vid", "dst_vid", "created_at"])
-      .where("dst_vid", "=", entityVid)
-      .orderBy("created_at", "desc")
-      .limit(limit)
-      .execute();
+    // HONEST R0: Fixture mode (kotoba endpoint operator-gated at G14)
+    const kotobaClient = createKotobaClientAdapter((sdk.env as any).KOTOBA_ENDPOINT);
+    const { evidence } = await queryEntityEvidence(kotobaClient, entityVid, limit);
 
-    const [entity] = await (db as any)
-      .selectFrom("vertex_latent_entity")
-      .select([
-        "vertex_id", "entity_kind", "canonical_label",
-        "existence_probability", "k_evidence_count",
-        "viewpoint_consensus", "fission_eligible", "status",
-      ])
-      .where("vertex_id", "=", entityVid)
-      .limit(1)
-      .execute();
-
-    return { entity: entity ?? null, evidence: evidenceRows };
+    // TODO (P3 Phase 2): fetch entity record alongside evidence using kotobaClient.kqe_aev()
+    // For now return evidence only, entity null
+    return { entity: null, evidence };
   });
 
   sdk.app.query(nsid("com.etzhayyim.apps.coverage.getViewpointStats"), async (_ctx, _body) => {
-    const db = createKyselyDb((sdk.env as any).HYPERDRIVE) as unknown as Kysely<Database>;
-    const viewpoints = await (db as any)
-      .selectFrom("vertex_lda_viewpoint")
-      .select([
-        "vertex_id", "viewpoint_kind", "description",
-        "signal_vocab_size", "active", "created_at",
-      ])
-      .where("active", "=", true)
-      .orderBy("viewpoint_kind", "asc")
-      .execute();
-
-    const entityStats = await (db as any)
-      .selectFrom("vertex_latent_entity")
-      .select([
-        "entity_kind",
-        (eb: any) => eb.fn.countAll().as("total"),
-        (eb: any) => eb.fn.avg(eb.ref("existence_probability")).as("avg_probability"),
-        (eb: any) => eb.fn.sum(
-          eb.case().when("fission_eligible", "=", true).then(1).else(0).end()
-        ).as("fission_ready_count"),
-      ])
-      .groupBy("entity_kind")
-      .execute();
+    // Phase 4: kotoba topic/viewpoint aggregates (G2 edge-primary, Murakumo-only aggregation)
+    // HONEST R0: Fixture mode (full LDA deferred to P2-full per ADR-2605262130)
+    const kotobaClient = createKotobaClientAdapter((sdk.env as any).KOTOBA_ENDPOINT);
+    const { viewpoints, entityStats } = await getViewpointStats(kotobaClient);
 
     return {
       viewpoints,

@@ -144,11 +144,19 @@ replicas_of = []
 name = "issachar"
 hostname = "issacharnomac-mini.local"
 ip_lan = "192.168.1.12"
-role = "phenotype-agent-shard-1 + unispsc-executor-shard-1 + unispsc-organism-shard-1"
+role = "phenotype-agent-shard-1 + unispsc-executor-shard-1 + unispsc-organism-shard-1 + ossekai-cluster"
 cells = [
   "PhenotypeAgent",  # SBT tokenId range N/3 to 2N/3
   "UnispscAgentExecutorCell",  # unispsc segments 30-44 (~8541 agents — heaviest shard, segments 31/41/42)
   "UnispscOrganismFleetCell",  # 8541 organisms, segments 30-44 (ADR-2605240000)
+  "ossekai_arbitrage_observer",
+  "ossekai_intel_analyzer",
+  "ossekai_aggregate_publisher",
+  "ossekai_member_digest",
+  "ossekai_mention_dispatcher",
+  "ossekai_consent_registry",
+  "ossekai_kaizen_observer",
+  "ossekai_emergency_advisory",
 ]
 shard_index = 1
 total_shards = 3
