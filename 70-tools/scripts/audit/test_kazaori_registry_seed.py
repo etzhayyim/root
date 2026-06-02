@@ -26,7 +26,7 @@ Invariants under test:
   4. every entry has a non-empty accessUrl + provenance (each a valid http(s)
      URL) + a lastVerified ISO-8601 Zulu stamp.
   5. every entry has a `jurisdiction`, and the registry spans MULTIPLE
-     jurisdictions (>= 12 distinct) — proves worldwide coverage.
+     jurisdictions (>= 55 distinct) — proves worldwide coverage.
   6. every entry's `agencyKind` is in the allowed civilian-disaster taxonomy.
   7. every entry's `notes` is non-empty AND references kazaori's CIVILIAN-ONLY /
      observational boundary (per-entry boundary re-assertion).
@@ -132,7 +132,7 @@ def test_every_entry_has_access_provenance_and_last_verified():
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# 5. worldwide coverage — >= 12 distinct jurisdictions
+# 5. worldwide coverage — >= 55 distinct jurisdictions
 # ─────────────────────────────────────────────────────────────────────────
 
 
@@ -143,8 +143,8 @@ def test_registry_spans_multiple_jurisdictions():
             f"{a.get('agencyId')}: MUST declare a jurisdiction"
         )
     jurisdictions = {a["jurisdiction"] for a in agencies}
-    assert len(jurisdictions) >= 12, (
-        "WORLDWIDE coverage invariant: registry MUST span >= 12 distinct "
+    assert len(jurisdictions) >= 55, (
+        "WORLDWIDE coverage invariant: registry MUST span >= 55 distinct "
         f"jurisdictions (guards against regression to a single-country "
         f"directory); got {sorted(jurisdictions)}"
     )
