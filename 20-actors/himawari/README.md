@@ -3,7 +3,7 @@
 **DID**: `did:web:etzhayyim.com:himawari`
 **Namespace**: `app.etzhayyim.himawari.*`
 **ADR**: ADR-2606021200 (R0 scaffold)
-**Status**: R0.1 (2026-06-02) — all 7 cell solvers + 7 lexicons **implemented** (88 pure-logic tests green; import smoke clean). NOT operationally activated: no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization, deterministic-digest CIDs (not real IPFS/Base-L2 anchors). Gated upstream by the R1 activation conditions below.
+**Status**: R0.1 (2026-06-02) — all 7 cell solvers + 7 lexicons **implemented** (129 standalone tests green — logic + kotoba write-path + graph-topology; cell.py line-coverage ≥93% per cell; import smoke clean). NOT operationally activated: no Pregel/Murakumo runtime wiring, no sim, no live kotoba entity materialization, deterministic-digest CIDs (not real IPFS/Base-L2 anchors). Gated upstream by the R1 activation conditions below.
 **Parent ADR**: ADR-2605261000 (Liberation Ladder — feeds L2 Sustenance energy gate via hikari)
 **Tightest sibling**: hikari (ADR-2605261100 — generation/install actor)
 
@@ -42,7 +42,7 @@ himawari **composes** these; it does not re-implement them (DRY + honest R0).
 
 ## Pregel Cells (7 — solvers implemented, R0.1)
 
-All 7 cells now have real `solve()` logic (R0 RuntimeError stubs removed) + a pure-logic standalone test file (`python3 test_*.py`; **88 tests total, all green**). Each emits its lexicon record and writes `:himawari.*` / per-namespace EAVT datoms to the kotoba host (`datalog.transact`); with no host binding (local dev) it degrades to compute-only / no-op and **never fakes a write**. CIDs are deterministic tamper-evident digests standing in for real IPFS CIDv1 / Base-L2 anchors (produced by the substrate at operator-gated anchor time). Cells **compose** the landed robotics/helpers below; they do not re-implement them.
+All 7 cells now have real `solve()` logic (R0 RuntimeError stubs removed) + standalone test files (`python3 test_*.py`; **129 tests total across 13 files, all green** — pure-logic solve() tests plus kotoba write-path tests that inject a fake host to exercise the `datalog.transact`/`ingest_batch` EAVT projections, and a fake-StateGraph topology test; cell.py line-coverage ≥93% per cell). Each emits its lexicon record and writes `:himawari.*` / per-namespace EAVT datoms to the kotoba host (`datalog.transact`); with no host binding (local dev) it degrades to compute-only / no-op and **never fakes a write**. CIDs are deterministic tamper-evident digests standing in for real IPFS CIDv1 / Base-L2 anchors (produced by the substrate at operator-gated anchor time). Cells **compose** the landed robotics/helpers below; they do not re-implement them.
 
 | Cell | Node | Phase | Input → Output (lexicon) | Composes | Tests |
 |---|---|---|---|---|---|
@@ -81,7 +81,7 @@ N1 no logic-fab (silicon track) · N2 no CdTe · N3 no Pb-perovskite · N4 no ex
 | Phase | Timeline | Scope | Gate |
 |---|---|---|---|
 | **R0** | 2026-06-02 | Scaffold. 7 cells RuntimeError. Composes landed robotics. | — |
-| **R0.1** | 2026-06-02 | All 7 cell solvers + 7 lexicons implemented (88 logic tests green). Procurement composes okaimono+giemon; loading composes sarutahiko F10; outbound composes kami-autodrive+customs+funadaiku ship class. Logic-only — no runtime/sim/live-kotoba, deterministic-digest CIDs. | (still gated on R1 conditions before operational activation) |
+| **R0.1** | 2026-06-02 | All 7 cell solvers + 7 lexicons implemented (129 tests green, cell.py ≥93% coverage). Procurement composes okaimono+giemon; loading composes sarutahiko F10; outbound composes kami-autodrive+customs+funadaiku ship class. Logic-only — no runtime/sim/live-kotoba, deterministic-digest CIDs. | (still gated on R1 conditions before operational activation) |
 | **R1** | post-Council | Benchtop **module-assembly** line PoC (lowest capex) + panel_loading + outbound PoC; feeds hikari R1. **Design landed → [ADR-2606022300](../../90-docs/adr/2606022300-himawari-solar-pv-r1-benchtop-module-assembly-poc.md)** (activation gated A1 Council ∧ A2 PV-engineer ∧ A3 brownfield parcel) | future ADR **(✅ drafted)** + PV-process engineer + LANDS brownfield parcel |
 | **R2** | post-R1 | Pilot **cell + wafer** lines, ~MW/yr, hikari-R2-powered; supplies hikari R2 install | **L2 coupling** + 30-day comment + hikari R2 deployed |
 | **R3** | post-R2 | **Polysilicon** vertical integration — closes hikari §G2; multi-line + full outbound mesh | 60-day review + multi-domain vote + hodoki EOL contract |
