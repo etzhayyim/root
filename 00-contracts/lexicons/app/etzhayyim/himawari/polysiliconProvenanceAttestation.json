@@ -1,0 +1,70 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.himawari.polysiliconProvenanceAttestation",
+  "description": "Solar-grade polysilicon feedstock lot provenance. G2 (feedstock provenance on-chain per lot — NO XUAR/forced-labor polysilicon ever; no conflict-mineral In/Ga; full chain-of-custody CID-anchored) structural enforcement — closes hikari §G2. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "lotId": {
+            "type": "string"
+          },
+          "feedstockGrade": {
+            "type": "string",
+            "knownValues": [
+              "solar-grade-6N",
+              "solar-grade-6N+",
+              "recycled-kerf"
+            ],
+            "description": "solar-grade only; NOT logic-grade 9N+ EG-Si (N1)"
+          },
+          "process": {
+            "type": "string",
+            "knownValues": [
+              "siemens",
+              "fbr",
+              "umg-upgraded",
+              "recycled"
+            ]
+          },
+          "originRegionAttestationCid": {
+            "type": "string",
+            "description": "G2/N6: XUAR-exclusion chain-of-custody; forced-labor-free attestation"
+          },
+          "supplierDid": {
+            "type": "string"
+          },
+          "sourcingAuditCid": {
+            "type": "string",
+            "description": "G2 §2(g) Charter Rider supply-chain audit per lot"
+          },
+          "attestingEngineerDid": {
+            "type": "string"
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2
+          },
+          "embodiedEnergyWhPerKg": {
+            "type": "integer",
+            "description": "G4 lifecycle energy accounting (Wh per kg; integer)"
+          }
+        },
+        "required": [
+          "lotId",
+          "feedstockGrade",
+          "originRegionAttestationCid",
+          "supplierDid",
+          "sourcingAuditCid",
+          "attestingEngineerDid",
+          "attestingRobots"
+        ]
+      }
+    }
+  }
+}

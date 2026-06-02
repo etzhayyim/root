@@ -1334,7 +1334,7 @@ path = "90-docs/adr/2605242630-baien-federated-r1-webgpu-backward-poc.md"
 id = "2605242500"
 title = "baien ternary silicon + tsukuru fab — religious-corp first-party RTL/装置設計 charter (生命のコア)"
 status = "proposed"
-status_note = "Upper charter for religious-corp自前半導体 ('半導体は生命のコア', user 2026-05-24). 6 decisions: (1) self-design 2 ASICs (iwakura inference / fuigo training) + 8 fab equipment categories with RTL/CAD/mechanical/robotics owned by religious-corp under Apache 2.0 + Charter Rider; (2) tsukuru.etzhayyim.com is the sole orchestration SSoT (NOT tukuru.etzhayyim.com — vendor stays out of religious-corp silicon orchestration; tsukuru ISIC C26 EUV lane from ADR-0061 is the natural extension); (3) 8-equipment scope mirroring industry vendors (ASML/AMAT/Lam/TEL/Axcelis/Ebara/KLA/Advantest/ASE) with open-source toolchain only (yosys/Verilator/cocotb/SymbiYosys/KiCad/FreeCAD/OpenSCAD/ROS 2); (4) Charter Rider §2(a)(c) Council Lv6+ ≥3 multisig gate via app.etzhayyim.silicon.silenForceReview Lexicon — REQUIRED before chip ships; (5) Phase 1 deliverable = RTL + cocotb sim only, FPGA/MPW/fab build are separate ADRs post-Council; (6) silicon = land-trust-analogue inalienable (no sale, lease to SBT holders only). 4-phase roadmap (Phase 1 scaffold this wave / Phase 2 FPGA / Phase 3 MPW TSMC N5/N3 / Phase 4 Rapidus 2nm 千歳 / Phase 5 自家 fab超長期)."
+status_note = "Upper charter for religious-corp自前半導体 ('半導体は生命のコア', user 2026-05-24). 6 decisions: (1) self-design 2 ASICs (iwakura inference / fuigo training) + 8 fab equipment categories with RTL/CAD/mechanical/robotics owned by religious-corp under Apache 2.0 + Charter Rider; (2) [SUPERSEDED by ADR-2606021139, 2026-06-02] fab orchestration SSoT は独立 actor silicon (did:web:silicon.etzhayyim.com, 20-actors/silicon/manifest.edn) — 旧条項「tsukuru.etzhayyim.com is the sole orchestration SSoT」は名前衝突解消のため撤回。tsukuru は B2B factory-direct ordering 専用に戻り、fab 装置は tsukuru の ISIC C26 発注カテゴリとして扱われる（所有は silicon）; (3) 8-equipment scope mirroring industry vendors (ASML/AMAT/Lam/TEL/Axcelis/Ebara/KLA/Advantest/ASE) with open-source toolchain only (yosys/Verilator/cocotb/SymbiYosys/KiCad/FreeCAD/OpenSCAD/ROS 2); (4) Charter Rider §2(a)(c) Council Lv6+ ≥3 multisig gate via app.etzhayyim.silicon.silenForceReview Lexicon — REQUIRED before chip ships; (5) Phase 1 deliverable = RTL + cocotb sim only, FPGA/MPW/fab build are separate ADRs post-Council; (6) silicon = land-trust-analogue inalienable (no sale, lease to SBT holders only). 4-phase roadmap (Phase 1 scaffold this wave / Phase 2 FPGA / Phase 3 MPW TSMC N5/N3 / Phase 4 Rapidus 2nm 千歳 / Phase 5 自家 fab超長期)."
 path = "90-docs/adr/2605242500-baien-ternary-silicon-and-tsukuru-fab-charter.md"
 
 [[adrs]]
@@ -3143,6 +3143,44 @@ sibling_modules = [
 lexicons = "00-contracts/lexicons/app/etzhayyim/hikari"
 liberation_ladder_gate = "L2 + cross-cutting"
 constitutional_invariants_lv7_unanimity = ["G4 no nuclear", "G5 no fossil", "G8 no rare-earth permanent magnets"]
+
+# ─── himawari (向日葵) solar PV manufacturing Tier-B actor R0 scaffold (ADR-2606021200) ──
+
+[[adrs]]
+id = "2606021200"
+title = "himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor R0 Scaffold"
+status = "proposed"
+status_note = "Master charter establishing himawari (向日葵, sunflower/sun-turning; heliotropic echo of solar trackers + manufacture of light-capturing surfaces; deliberate sibling resonance with hikari 光) as Tier-B religious-corp first-party SOLAR-GRADE crystalline-silicon PV MODULE MANUFACTURING actor + finished-module loading robotics + outbound logistics + feedstock procurement. Fills the only manufacturing gap in the energy supply chain (substrate already has sarutahiko trucks / giemon plant / igata megacasting / funadaiku shipbuilding / yakushi pharma factories — but NO PV manufacturing). R0 scope = c-Si chain polysilicon QA → ingot/wafer → cell process (PERC/TOPCon/HJT) → module assembly (stringing/lamination/framing/J-box) → flash+EL test, modules for INTERNAL hikari install only (SBT↔SBT carve-out ADR-2605192115 §3; no external commercial sale). **PRIMARY RATIONALE: structurally closes hikari §G2 (no XUAR/forced-labor polysilicon) via first-party on-chain feedstock provenance — vertical integration replaces fragile vendor self-attestation of purchased modules.** Completes 製造 (himawari) → 積込 (sarutahiko F10 LoaderRobot) → 輸送 (kami-autodrive GNC) → 設置 (hikari) end-to-end first-party energy chain. 14 gates G1..G14 (G2 feedstock provenance on-chain per lot NO XUAR ever / G4 fab heat+power from hikari renewable only NO fossil/nuclear inherits hikari G4/G5 + net-positive EPBT / G7 LABOR-LIBERATION TRANSPARENCY every automated-away human task logged to Liberation Metric ADR-2605261000 no opaque displacement / G12 NO external commercial PV sale internal hikari install only + G1 open firmware / G3 high-GWP NF₃/SF₆/CF₄ ≥99% abate / G5 ≥90% circular kerf-Si+glass+Al+Cu recovery couples hodoki / G6 Ag→Cu low-tox metallization / G8 full SBOM→kotoba EAVT ADR-2605312330 / G9 brownfield-only siting / G11 Ed25519 flash IV+EL provenance serial↔lot / G13 outbound bound by kami-autodrive gates / G14 §2(h) Wellbecoming). 10 non-goals N1..N10 (N1 NO logic/compute fab — silicon iwakura track ADR-2605242500, solar-grade only / N2 NO CdTe cadmium / N3 NO Pb-perovskite / N4 NO external commercial sales / N6 NO XUAR feedstock / N9 NO fossil/nuclear process heat / N10 NO external logistics carriage). 4-phase R0→R3 (R0 scaffold 7 cells RuntimeError no sim composes landed robotics / R1 benchtop module-assembly PoC lowest-capex buy §G2-clean cells + panel_loading reuse sarutahiko F10 + outbound reuse kami-autodrive feeds hikari R1 / R2 pilot cell+wafer lines ~MW/yr hikari-R2-powered L2 coupling / R3 polysilicon vertical integration closes hikari §G2 + multi-line + funadaiku marine outbound mesh). 7 Pregel cells (polysilicon_refine judah / ingot_wafer issachar / cell_process benjamin / module_assembly asher / panel_loading gad / outbound_logistics dan / supply_procurement simeon) all import-time RuntimeError. 7 lexicons (polysiliconProvenanceAttestation / waferBatchRecord / cellBatchRecord / moduleAttestation / loadingRecord / outboundManifest / silenHimawariReview). Robotics: COMPOSES landed tests-green sarutahiko F10 LoaderRobot (14) + giemon AGV (13) + kami-autodrive GNC (9) + kuni-umi Otete/Mimi, does NOT re-implement; Hinata (日向) lamination-press R2+ separate mech-design ADR. Parent ADR = 2605261000 (Liberation Ladder L2 gate); tightest sibling = 2605261100 (hikari generation/install)."
+path = "90-docs/adr/2606021200-himawari-solar-pv-manufacturing-r0.md"
+
+[[modules]]
+path = "20-actors/himawari"
+kind = "tier-b-per-domain-leader-actor"
+version = "0.1.0-r0-scaffold-only"
+status = "R0-scaffold-charter-and-lexicons-only-all-cells-gated"
+description = "himawari (向日葵) — religious-corp first-party SOLAR-GRADE c-Si PV MODULE MANUFACTURING Tier-B actor + loading + outbound + procurement. R0 scaffold per ADR-2606021200. Makes the panels hikari installs; structurally closes hikari §G2 (no XUAR/forced-labor polysilicon) via first-party on-chain feedstock provenance. Completes 製造→積込→輸送→設置 energy chain. NOT the silicon iwakura logic-fab track (N1, solar-grade only). Modules for internal hikari install only (G12, SBT↔SBT carve-out). Fab heat+power from hikari renewable only (G4). Labor-liberation transparency G7. COMPOSES landed robotics (sarutahiko F10 LoaderRobot / giemon AGV / kami-autodrive GNC / kuni-umi Otete+Mimi); does not re-implement."
+adr = ["2606021200", "2605261100", "2605261000", "2605192100", "2605192245", "2606013100", "2606010030", "2606010600", "2605312330", "2606012100", "2605242500"]
+sibling_actors = [
+  "hikari (consumes himawari modules for install; himawari closes hikari §G2 sourcing gap)",
+  "sarutahiko (F10 LoaderRobot lineage for panel_loading)",
+  "giemon (AGV + 4D-BIM factory pattern)",
+  "kami-autodrive (outbound_logistics transport autonomy)",
+  "kuni-umi (Otete/Mimi robotics class lineage)",
+  "okaimono (commons-first procurement for supply_procurement)",
+  "hodoki (end-of-life module recovery, G5 circularity)",
+  "silicon iwakura/fuigo/tsukuru (distinct logic-fab track, shared metallurgy heritage only, N1)",
+]
+sibling_modules = [
+  "20-actors/himawari/cells/polysilicon_refine",
+  "20-actors/himawari/cells/ingot_wafer",
+  "20-actors/himawari/cells/cell_process",
+  "20-actors/himawari/cells/module_assembly",
+  "20-actors/himawari/cells/panel_loading",
+  "20-actors/himawari/cells/outbound_logistics",
+  "20-actors/himawari/cells/supply_procurement",
+]
+lexicons = "00-contracts/lexicons/app/etzhayyim/himawari"
+liberation_ladder_gate = "L2 (energy supply chain — manufacturing half of hikari)"
 
 # ─── makura (枕) foam pillow Tier-B actor R0 scaffold (ADR-2605261115) ────────
 

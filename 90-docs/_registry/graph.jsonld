@@ -12143,6 +12143,50 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021139-tsukuru-actor-namespace-disambiguation",
+      "type": "TechArticle",
+      "title": "ADR-2606021139: tsukuru actor namespace disambiguation — B2B factory-ordering vs silicon-fab orchestration",
+      "status": "proposed",
+      "topic": "tsukuru-namespace-disambiguation",
+      "authoritative": true,
+      "authoritativeFor": [
+        "tsukuru.etzhayyim.com actor identity scope",
+        "silicon-fab orchestration namespace placement"
+      ],
+      "related": [
+        "doc:20-actors/tsukuru/",
+        "doc:20-actors/silicon/",
+        "doc:90-docs/260602-actor-stack-generation-inventory.md",
+        "doc:90-docs/260602-tsukuru-kotoba-native-migration-plan.md"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606021200",
+      "type": "TechArticle",
+      "title": "ADR-2606021200: himawari (向日葵) — Solar PV Module Manufacturing + Loading + Outbound + Procurement Tier-B Actor R0 Scaffold",
+      "status": "proposed",
+      "topic": "himawari-solar-pv-manufacturing",
+      "authoritative": true,
+      "authoritativeFor": [
+        "himawari actor charter (R0)",
+        "solar-grade crystalline-silicon PV module manufacturing constitutional gates G1..G14",
+        "end-to-end manufacture → loading → outbound → procurement composition for the energy supply chain"
+      ],
+      "related": [
+        "doc:adr-2605261100-hikari-energy-tier-b-actor-r0",
+        "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "doc:adr-2606010600-kami-autodrive-gnc-autonomy-layer",
+        "doc:adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+        "doc:adr-2606012100-okaimono-provisioning-commons-actor",
+        "doc:adr-2605261000-labor-liberation-transition-mechanism",
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192245-etzhayyim-global-land-sovereignty"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

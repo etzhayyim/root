@@ -1,0 +1,55 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.himawari.silenHimawariReview",
+  "description": "Council attestation scope for himawari — feedstock provenance (G2) + process chemistry (G3) + circularity (G5) + labor-liberation-metric (G7) + no-external-sale (G12). Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "reviewId": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string",
+            "knownValues": [
+              "r1-module-assembly-baseline",
+              "r2-cell-wafer-pilot",
+              "r3-polysilicon-vertical-integration"
+            ]
+          },
+          "provenanceAuditCid": {
+            "type": "string",
+            "description": "G2 XUAR-exclusion review"
+          },
+          "chemistryAuditCid": {
+            "type": "string",
+            "description": "G3 high-GWP abatement review"
+          },
+          "circularityAuditCid": {
+            "type": "string",
+            "description": "G5 ≥90% recovery review"
+          },
+          "liberationMetricCid": {
+            "type": "string",
+            "description": "G7 human tasks automated-away → Liberation Metric"
+          },
+          "councilSignatures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 3,
+            "description": "Council Lv6+ ≥3"
+          }
+        },
+        "required": [
+          "reviewId",
+          "scope",
+          "councilSignatures"
+        ]
+      }
+    }
+  }
+}

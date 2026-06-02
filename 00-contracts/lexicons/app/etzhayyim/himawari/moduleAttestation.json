@@ -1,0 +1,68 @@
+{
+  "lexicon": 1,
+  "id": "app.etzhayyim.himawari.moduleAttestation",
+  "description": "Finished PV module attestation (stringing → lamination → framing → J-box → flash + EL). G11 (deterministic provenance — flash IV + EL Ed25519-signed; serial↔feedstock-lot traceable) + G4 (EPBT < service life) structural enforcement. Per ADR-2606021200.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "record": {
+        "type": "object",
+        "properties": {
+          "moduleSerial": {
+            "type": "string"
+          },
+          "cellBatchId": {
+            "type": "string"
+          },
+          "feedstockLotId": {
+            "type": "string",
+            "description": "G11 serial ↔ feedstock lot traceability (chains to polysiliconProvenanceAttestation)"
+          },
+          "bomCid": {
+            "type": "string",
+            "description": "G8 full SBOM (CycloneDX → kotoba EAVT)"
+          },
+          "flashIvCid": {
+            "type": "string"
+          },
+          "elImageCid": {
+            "type": "string",
+            "description": "G11 EL imaging, Ed25519-signed"
+          },
+          "destinationActorDid": {
+            "type": "string",
+            "description": "G12: internal hikari install only (SBT↔SBT carve-out)"
+          },
+          "attestingRobots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2
+          },
+          "ratedWp": {
+            "type": "integer"
+          },
+          "epbtMonths": {
+            "type": "integer",
+            "description": "G4 energy-payback-time (months; integer); must be << module service life"
+          },
+          "recyclabilityBps": {
+            "type": "integer",
+            "description": "G5 design-for-recovery in basis points 0-10000 (integer); ≥9000 = ≥90%"
+          }
+        },
+        "required": [
+          "moduleSerial",
+          "cellBatchId",
+          "feedstockLotId",
+          "bomCid",
+          "ratedWp",
+          "elImageCid",
+          "destinationActorDid",
+          "attestingRobots"
+        ]
+      }
+    }
+  }
+}
