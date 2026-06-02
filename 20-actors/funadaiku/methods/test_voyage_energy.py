@@ -68,6 +68,17 @@ def test_serializations_nonempty():
     assert isinstance(rep, str) and rep.strip()
 
 
+def test_main_writes_report_and_edn_artifacts():
+    # main() is the CLI entry; it regenerates the (deterministic) out/ artifacts.
+    actor_root = pathlib.Path(__file__).resolve().parent.parent
+    out = actor_root / "out"
+    ve.main()
+    md = out / "voyage-energy-report.md"
+    edn = out / "voyage-energy.kotoba.edn"
+    assert md.is_file() and md.read_text(encoding="utf-8").strip()
+    assert edn.is_file() and "fossil-engine false" in edn.read_text(encoding="utf-8")
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     failed = 0
