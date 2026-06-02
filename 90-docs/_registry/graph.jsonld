@@ -12209,6 +12209,30 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021600-ooyake-world-government-atlas",
+      "type": "TechArticle",
+      "title": "ADR-2606021600: ooyake 公 — kotoba-Datomic world government atlas (country→省庁→局→課→窓口) with 住所/窓口/書式/手続き/BPMN, observational-mirror Tier-B actor R0",
+      "status": "proposed",
+      "topic": "ooyake-world-government-atlas",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ooyake actor (world government-unit atlas / civic wayfinding map)",
+        "gov-atlas kotoba ontology (:gov.unit/* :gov.address/* :gov.window/* :gov.form/* :gov.procedure/* :gov.bpmn/*)",
+        "per-unit civic-atlas DID scheme (did:web:etzhayyim.com:gov:<iso3>:...) — observational mirror",
+        "government 住所 / 窓口 / 書式 / 手続き / BPMN structural catalog"
+      ],
+      "related": [
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302300-kanae-fiscal-flow-visualization",
+        "doc:adr-2606011800-tsumugi-spirit-intel-power-graph",
+        "doc:adr-2605302130-himotoki-disclosure-request-tier-b-actor-r0",
+        "doc:adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "doc:adr-2605250680-etzhayyim-gov-coverage-maturity-score"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606022000",
       "type": "TechArticle",
       "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",
