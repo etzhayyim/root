@@ -22,7 +22,8 @@ but collection and cell execution remain gated.
 | 13 | Source-policy review workflow | ✅ | `registry/source-policy-reviews.seed.json`, live collection disabled |
 | 14 | Closure fixtures | ✅ | link/report/malak candidate fixtures validate as non-adjudicating |
 | 15 | Fixture dry-run CLI | ✅ | `adapters/dry_run_fixtures.py`, local fixtures only/no writes |
-| 16 | Live collection | 未 | R2+ only after source policy review |
+| 16 | Source approval tx format | ✅ | fixture-only example + rollback-to-disabled schema |
+| 17 | Live collection | 未 | R2+ only after source policy review |
 
 ## Maturity Score
 
@@ -35,12 +36,11 @@ but collection and cell execution remain gated.
 | Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
 | Operational readiness | 3/5 | gated cell scaffolds and dry-run CLI exist; no live jobs |
 
-Overall R0 maturity: **27/30** conservative cap. Axis evidence is stronger, but
+Overall R0 maturity: **28/30** conservative cap. Axis evidence is stronger, but
 the score remains capped because live collection is intentionally absent.
 
 ## Next R1 Work
 
 1. Add additional regulator/bulk fixtures before any platform page/API adapter.
-2. Add an R1 approval transaction format for turning a source from disabled to
-   fixture-only or allowed.
-3. Add fixture output golden files for dry-run CLI regression checks.
+2. Add fixture output golden files for dry-run CLI regression checks.
+3. Add a second regulator/bulk fixture with missing source-disclosed fields.

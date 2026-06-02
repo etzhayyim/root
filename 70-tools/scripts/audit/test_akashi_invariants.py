@@ -22,6 +22,16 @@ _SOURCE_CATALOG = _REPO / "20-actors" / "akashi" / "registry" / "source-catalog.
 _SOURCE_POLICY_REVIEWS = (
     _REPO / "20-actors" / "akashi" / "registry" / "source-policy-reviews.seed.json"
 )
+_SOURCE_POLICY_APPROVAL_SCHEMA = (
+    _REPO / "20-actors" / "akashi" / "registry" / "source-policy-approval.schema.json"
+)
+_SOURCE_POLICY_APPROVAL_EXAMPLE = (
+    _REPO
+    / "20-actors"
+    / "akashi"
+    / "registry"
+    / "source-policy-approval.fixture-only.example.json"
+)
 _METHOD_SEED = _REPO / "20-actors" / "akashi" / "methods" / "v1-r0-seed.json"
 _ADAPTER = (
     _REPO
@@ -222,6 +232,33 @@ def test_source_policy_review_workflow_keeps_live_collection_disabled():
         if review["sourceId"] != "regulator-ad-repositories":
             assert review["approvedAccessModes"] == []
             assert review["adapterRuntime"] == "disabled"
+
+
+def test_source_policy_approval_tx_format_is_fixture_only_at_r0():
+    catalog = _load(_SOURCE_CATALOG)
+    schema = _load(_SOURCE_POLICY_APPROVAL_SCHEMA)
+    example = _load(_SOURCE_POLICY_APPROVAL_EXAMPLE)
+    source_ids = {source["id"] for source in catalog["sources"]}
+
+    assert schema["$id"] == "app.etzhayyim.akashi.sourcePolicyApprovalTx"
+    assert schema["additionalProperties"] is False
+    assert "allowed" in schema["properties"]["decision"]["enum"]
+    assert schema["properties"]["rollback"]["properties"][
+        "defaultRuntimeAfterRollback"
+    ]["const"] == "disabled"
+
+    required = set(schema["required"])
+    assert set(example) == required
+    assert example["sourceId"] in source_ids
+    assert example["decision"] == "fixture-only"
+    assert example["runtime"] == "fixture-only"
+    assert "live-adapter" != example["runtime"]
+    assert "public-bulk-export" in example["approvedAccessModes"]
+
+    evidence_required = set(schema["properties"]["evidence"]["required"])
+    assert evidence_required <= set(example["evidence"])
+    assert example["rollback"]["disableTxRequired"] is True
+    assert example["rollback"]["defaultRuntimeAfterRollback"] == "disabled"
 
 
 def test_method_seed_outputs_existing_lexicons():
