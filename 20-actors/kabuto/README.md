@@ -44,7 +44,7 @@ never a target-list.**
 ├── README.md                             # this file
 ├── CLAUDE.md                             # agent reference
 ├── data/
-│   ├── seed-public-companies.kotoba.edn  # 677 companies · 225 supply edges · 92 HQ · 49 contacts · 2 BPMN seeds (:representative; grows each /loop)
+│   ├── seed-public-companies.kotoba.edn  # 711 companies · 230 supply edges · 96 HQ · 51 contacts · 2 BPMN seeds (:representative; grows each /loop)
 │   └── companies.merged.kotoba.edn       # GENERATED: seed + ingest bridge (dedup)
 ├── methods/
 │   ├── kabuto_edn.py                     # shared minimal EDN reader + classifier (stdlib)
@@ -79,7 +79,7 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ### Result (seed)
 
-- **677** public companies · **225** disclosed supply edges · **15** sectors · **52** countries · **92** HQ addresses
+- **711** public companies · **230** disclosed supply edges · **15** sectors · **52** countries · **96** HQ addresses
   (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 52 countries
   across every macro-region; incl. Japanese sōgō shōsha, commodity traders/agribusiness, and deep
   fab-input suppliers — wafers, OSAT assembly/test, specialty gases, photoresist, mask-blanks,

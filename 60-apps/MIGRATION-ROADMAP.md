@@ -50,12 +50,19 @@ Mostly seeded from old gftd project. Most are NOT priority for etzhayyim charter
 
 ## Priority Assessment (Next 30 Days)
 
-### P10 (High priority — blocking active features)
+### P10 (High priority — validation + consumer refactors)
 
-- **Scope**: latent-entity consumers + org/supply-chain (tsumugi/kabuto) + coverage aggregate
-- **Effort**: 3–4 apps × 60 min each = ~4 hours
+**Verified 2026-06-02**: tsumugi (latent-entity) + kabuto (org/supply-chain) both output kotoba-native `.edn`.
+- tsumugi: `:latent/* :topic/* :spirit.bond/*` (ADR-2606011800)
+- kabuto: `:company/* :supply.edge/* :company.process/*` (ADR-2606022000)
+
+**Remaining work**: Find apps that CONSUME these (latent-entity reports, supply-chain viz, etc.) and refactor
+their RW queries to kotoba adapters (similar to P9 pattern).
+
+- **Scope**: latent-entity consumer apps (coverage ✅ done) + supply-chain consumers (TBD) + analysis/viz
+- **Effort**: 2–3 apps × 60 min each = ~2–3 hours (reduced due to already-native producers)
 - **Gate**: G2 (edge-primary), G6 (Murakumo-only), G14 (verified kotoba)
-- **Target**: End of P2 phase (post-Council testnet)
+- **Target**: End of Phase 2 (post-Council testnet, 2026-07-15 est)
 
 ### P11 (Medium priority — framework cleanup)
 

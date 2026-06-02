@@ -4051,7 +4051,7 @@
    "ticker": "PEP",
    "sector": ":consumer",
    "country": "US",
-   "out": 0,
+   "out": 1,
    "address": null,
    "contact": null
   },
@@ -7472,6 +7472,376 @@
    "out": 0,
    "address": null,
    "contact": null
+  },
+  {
+   "id": "org.corp.us.moodys",
+   "name": "Moody's",
+   "ticker": "MCO",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.sp-global",
+   "name": "S&P Global",
+   "ticker": "SPGI",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": {
+    "street": "55 Water Street",
+    "city": "New York",
+    "country": "US",
+    "lat": 40.7,
+    "lon": -74.01
+   },
+   "contact": {
+    "website": "https://www.spglobal.com",
+    "ir": "https://investor.spglobal.com"
+   }
+  },
+  {
+   "id": "org.corp.us.msci",
+   "name": "MSCI",
+   "ticker": "MSCI",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.lseg",
+   "name": "London Stock Exchange Group",
+   "ticker": "LSEG.L",
+   "sector": ":financials",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ie.experian",
+   "name": "Experian",
+   "ticker": "EXPN.L",
+   "sector": ":software",
+   "country": "IE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.fiserv",
+   "name": "Fiserv",
+   "ticker": "FI",
+   "sector": ":financials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.adp",
+   "name": "Automatic Data Processing (ADP)",
+   "ticker": "ADP",
+   "sector": ":software",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.rheinmetall",
+   "name": "Rheinmetall",
+   "ticker": "RHM.DE",
+   "sector": ":industrials",
+   "country": "DE",
+   "out": 0,
+   "address": {
+    "street": "Rheinmetall Platz 1",
+    "city": "Düsseldorf",
+    "country": "DE",
+    "lat": 51.25,
+    "lon": 6.79
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.knorr-bremse",
+   "name": "Knorr-Bremse",
+   "ticker": "KBX.DE",
+   "sector": ":industrials",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fr.dassault-systemes",
+   "name": "Dassault Systèmes",
+   "ticker": "DSY.PA",
+   "sector": ":software",
+   "country": "FR",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.se.epiroc",
+   "name": "Epiroc",
+   "ticker": "EPI-A.ST",
+   "sector": ":industrials",
+   "country": "SE",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.fi.wartsila",
+   "name": "Wärtsilä",
+   "ticker": "WRT1V.HE",
+   "sector": ":industrials",
+   "country": "FI",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.dk.carlsberg",
+   "name": "Carlsberg",
+   "ticker": "CARL-B.CO",
+   "sector": ":consumer",
+   "country": "DK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.pinduoduo",
+   "name": "PDD Holdings (Pinduoduo)",
+   "ticker": "PDD",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": {
+    "street": "866 East Yan'an Road, Huangpu",
+    "city": "Shanghai",
+    "country": "CN",
+    "lat": 31.23,
+    "lon": 121.48
+   },
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.jd",
+   "name": "JD.com",
+   "ticker": "JD",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.baidu",
+   "name": "Baidu",
+   "ticker": "BIDU",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.netease",
+   "name": "NetEase",
+   "ticker": "NTES",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.trip-com",
+   "name": "Trip.com Group",
+   "ticker": "TCOM",
+   "sector": ":software",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.american-airlines",
+   "name": "American Airlines Group",
+   "ticker": "AAL",
+   "sector": ":industrials",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.kroger",
+   "name": "Kroger",
+   "ticker": "KR",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.walgreens",
+   "name": "Walgreens Boots Alliance",
+   "ticker": "WBA",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.us.tjx",
+   "name": "TJX Companies",
+   "ticker": "TJX",
+   "sector": ":consumer",
+   "country": "US",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kao",
+   "name": "Kao Corporation",
+   "ticker": "4452.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ajinomoto",
+   "name": "Ajinomoto",
+   "ticker": "2802.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 1,
+   "address": {
+    "street": "15-1 Kyobashi 1-chome, Chuo-ku",
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.68,
+    "lon": 139.77
+   },
+   "contact": {
+    "website": "https://www.ajinomoto.co.jp",
+    "ir": "https://www.ajinomoto.co.jp/company/en/ir/"
+   }
+  },
+  {
+   "id": "org.corp.jp.bandai-namco",
+   "name": "Bandai Namco Holdings",
+   "ticker": "7832.T",
+   "sector": ":consumer",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.kawasaki-heavy",
+   "name": "Kawasaki Heavy Industries",
+   "ticker": "7012.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 1,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.jp.ihi",
+   "name": "IHI Corporation",
+   "ticker": "7013.T",
+   "sector": ":industrials",
+   "country": "JP",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.varun-beverages",
+   "name": "Varun Beverages",
+   "ticker": "VBL.NS",
+   "sector": ":consumer",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.dlf",
+   "name": "DLF",
+   "ticker": "DLF.NS",
+   "sector": ":real-estate",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.interglobe",
+   "name": "InterGlobe Aviation (IndiGo)",
+   "ticker": "INDIGO.NS",
+   "sector": ":industrials",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.in.zomato",
+   "name": "Eternal (Zomato)",
+   "ticker": "ETERNAL.NS",
+   "sector": ":software",
+   "country": "IN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mx.banorte",
+   "name": "Grupo Financiero Banorte",
+   "ticker": "GFNORTEO.MX",
+   "sector": ":financials",
+   "country": "MX",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ae.fab",
+   "name": "First Abu Dhabi Bank",
+   "ticker": "FAB.AE",
+   "sector": ":financials",
+   "country": "AE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.za.aspen",
+   "name": "Aspen Pharmacare",
+   "ticker": "APN.JO",
+   "sector": ":pharma",
+   "country": "ZA",
+   "out": 0,
+   "address": null,
+   "contact": null
   }
  ],
  "edges": [
@@ -8824,16 +9194,46 @@
    "to": "org.corp.us.pfizer",
    "commodity": "logistics",
    "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.ajinomoto",
+   "to": "org.corp.jp.ibiden",
+   "commodity": "substrate",
+   "criticality": 0.6
+  },
+  {
+   "from": "org.corp.se.epiroc",
+   "to": "org.corp.au.bhp",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.fi.wartsila",
+   "to": "org.corp.dk.maersk",
+   "commodity": "assembly",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.jp.kawasaki-heavy",
+   "to": "org.corp.us.boeing",
+   "commodity": "composite",
+   "criticality": 0.3
+  },
+  {
+   "from": "org.corp.us.pepsico",
+   "to": "org.corp.in.varun-beverages",
+   "commodity": "logistics",
+   "criticality": 0.5
   }
  ],
  "jurisdictions": [
   {
    "country": "JP",
-   "load": 22.45
+   "load": 23.35
   },
   {
    "country": "US",
-   "load": 20.3
+   "load": 20.8
   },
   {
    "country": "TW",
@@ -8868,12 +9268,12 @@
    "load": 2.4
   },
   {
-   "country": "IN",
-   "load": 2.1
+   "country": "SE",
+   "load": 2.3
   },
   {
-   "country": "SE",
-   "load": 2.0
+   "country": "IN",
+   "load": 2.1
   },
   {
    "country": "CH",
@@ -8888,6 +9288,10 @@
    "load": 1.2
   },
   {
+   "country": "FI",
+   "load": 1.1
+  },
+  {
    "country": "CA",
    "load": 0.9
   },
@@ -8897,10 +9301,6 @@
   },
   {
    "country": "CL",
-   "load": 0.8
-  },
-  {
-   "country": "FI",
    "load": 0.8
   },
   {
