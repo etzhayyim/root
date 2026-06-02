@@ -52,7 +52,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ production_order_id: productionOrderId, '
                  'technology_node_nm: technologyNodeNm, wafer_diameter_mm: waferDiameterMm, '
@@ -77,7 +77,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ package_id: supplierPackageId, '
                  'production_order_id: productionOrderId, supplier_did: supplierDid, '
@@ -164,7 +164,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ package_id: packageId, production_order_id: '
                  'productionOrderId, supplier_did: supplierDid, exchange_format: exchangeFormat, '
@@ -249,7 +249,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ flow_id: flowId, package_id: packageId, '
                  'production_order_id: productionOrderId, technology_node_nm: technologyNodeNm, '
@@ -337,7 +337,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={}" target="payload"/>\n'
                  '          <zeebe:output source="=result" target="coverageReport"/>\n'
@@ -419,7 +419,7 @@ UP = [{'sql': '\n'
                  '          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" '
                  'target="actor"/>\n'
                  '          <zeebe:input '
-                 'source="=&quot;app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage&quot;" '
+                 'source="=&quot;com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage&quot;" '
                  'target="nsid"/>\n'
                  '          <zeebe:input source="={ package_id: packageId, production_order_id: '
                  'productionOrderId, supplier_did: supplierDid, exchange_format: exchangeFormat, '
@@ -479,7 +479,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-designManufacturingFlow-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow',
+                 'com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow',
                  'tsukuru_euv_lithography_manufacturing_flow',
                  30000,
                  '2026-04-27T01:15:00Z',
@@ -502,7 +502,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-normalizePackage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage',
+                 'com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage',
                  'tsukuru_normalize_supplier_exchange_package',
                  30000,
                  '2026-04-27T01:15:00Z',
@@ -525,7 +525,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-prepareOrderPackage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage',
+                 'com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage',
                  'tsukuru_prepare_euv_order_package',
                  30000,
                  '2026-04-27T01:15:00Z',
@@ -548,7 +548,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-euv-getImplementationCoverage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage',
+                 'com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage',
                  'tsukuru_get_euv_implementation_coverage',
                  30000,
                  '2026-04-27T01:15:00Z',
@@ -571,7 +571,7 @@ UP = [{'sql': '\n'
          '  ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/app.etzhayyim.apps.bpmn.binding/tsukuru-supplierExchange-validatePackage-v1',
                  'did:web:tsukuru.etzhayyim.com:industry:isic:c',
-                 'app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage',
+                 'com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage',
                  'tsukuru_validate_supplier_exchange_package',
                  30000,
                  '2026-04-27T01:15:00Z',

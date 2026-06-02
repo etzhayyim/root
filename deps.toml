@@ -4090,6 +4090,16 @@ scope = "DISPATCHER_INTERNAL_SECRET (Worker ↔ bpmn-dispatcher HMAC), YATA_AGEN
 description = "Once Stages A-D land, the remaining etzhayyim-internal trust boundaries dissolve. DISPATCHER_INTERNAL_SECRET disappears with the last internal pod (Stage B removes bulk-ingest pods; remaining bpmn-dispatcher proxies XRPC through public PDS firehose subscription). YATA_AGENT_ADMIN_KEY admin surfaces (yatabase outbox approve, batch usage-alert trigger) migrate to ChartersComplianceRegistry attestation via Council Lv6+ multisig (1 SBT = 1 vote per ADR-2605192300 §3-tier enforcement). Acceptance: e7m verify --no-server-key reports zero violations + zero exemptions across the entire monorepo."
 last_verified = "2026-05-23"
 
+[[migrations]]
+id = "tsukuru-nsid-com-etzhayyim-conversion-2606020000"
+status = "complete"
+authoritative_doc = "90-docs/adr/2606020000-tsukuru-com-etzhayyim-nsid-conversion.md"
+authoritative_adr = "ADR-2606020000"
+overrides = "repo-wide app.etzhayyim.apps.* standard, for tsukuru namespace only (operator-directed)"
+scope = "87 files: 46 tsukuru lexicons (id + git mv app/etzhayyim/gftd/apps/tsukuru → com/etzhayyim/apps/tsukuru), rw-free + orchestration + magatama.toml + 20-actors/tsukuru, cross-app refs (aidesk/hc/open-robo/magatama cells/graph seed migrations/ADRs), catalog dir, 7 generated registries"
+description = "Operator-directed follow-up to ADR-2606011700 (hakken com.etzhayyim). Converts tsukuru from main's app.etzhayyim.apps.tsukuru.* to com.etzhayyim.apps.tsukuru.* so the two sibling OEM-discovery ingest actors share one namespace. Mechanical 87-file rename, symmetric diff, no behavioural change. Payment (app.etzhayyim.apps.payment.* — escrowOpened/escrowRefunded/sent, shared authority read by treasury/tithe) is NOT renamed. lexicons.gen.json REGENERATED (build-bundle.mjs); _manifest/apps.openapi/docs.json/graph.jsonld/bpmn-coverage/process-catalog updated via contained token+path swap (full registry regen via CI/maintainer recommended). DIVERGENCE: tsukuru+hakken are now the only com.etzhayyim.apps.* record actors vs repo-wide app.etzhayyim.* standard (15758 vs now ~tsukuru/hakken); com vs app record-NSID convention still needs org ruling — if standardised on app.etzhayyim both revert in one sweep. Deploy prereq: gen-pds-lexicon-registry.mjs + Worker redeploy."
+last_verified = "2026-06-02"
+
 # ─── Session summaries ──────────────────────────────────────────────
 
 [session_summaries.ameno-wave-2026-05-19]

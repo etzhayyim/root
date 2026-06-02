@@ -30445,10 +30445,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.stats": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.stats": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.stats",
+        "operationId": "com.etzhayyim.apps.tsukuru.stats",
         "requestBody": {
           "required": true,
           "content": {
@@ -30476,10 +30476,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.wave": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.wave": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.wave",
+        "operationId": "com.etzhayyim.apps.tsukuru.wave",
         "requestBody": {
           "required": true,
           "content": {
@@ -30507,10 +30507,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.verification.listCertifications": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.verification.listCertifications": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.verification.listCertifications",
+        "operationId": "com.etzhayyim.apps.tsukuru.verification.listCertifications",
         "parameters": [
           {
             "name": "manufacturer_did",
@@ -30538,10 +30538,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.verification.recordCertification": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.verification.recordCertification": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.verification.recordCertification",
+        "operationId": "com.etzhayyim.apps.tsukuru.verification.recordCertification",
         "requestBody": {
           "required": true,
           "content": {
@@ -30596,10 +30596,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage": {
       "get": {
         "summary": "Normalize supplier-facing CAD/RFQ artifacts into a tsukuru supplier exchange envelope.",
-        "operationId": "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
+        "operationId": "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
         "parameters": [
           {
             "name": "package_id",
@@ -30721,10 +30721,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage": {
       "get": {
         "summary": "Validate EUV supplier CAD/RFQ exchange package readiness without writing records.",
-        "operationId": "app.etzhayyim.apps.tsukuru.supplierExchange.validatePackage",
+        "operationId": "com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage",
         "parameters": [
           {
             "name": "package_id",
@@ -30832,10 +30832,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.softwareIntegration.designStack": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.softwareIntegration.designStack": {
       "get": {
         "summary": "Design an industrial software stack integration plan (PLC / MES / SCADA / ERP linkage). Pure compute.",
-        "operationId": "app.etzhayyim.apps.tsukuru.softwareIntegration.designStack",
+        "operationId": "com.etzhayyim.apps.tsukuru.softwareIntegration.designStack",
         "parameters": [
           {
             "name": "productionOrderId",
@@ -30927,10 +30927,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.qualityInspection.getInspections": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.qualityInspection.getInspections": {
       "get": {
         "summary": "List quality-inspection records for a production order, newest first.",
-        "operationId": "app.etzhayyim.apps.tsukuru.qualityInspection.getInspections",
+        "operationId": "com.etzhayyim.apps.tsukuru.qualityInspection.getInspections",
         "parameters": [
           {
             "name": "productionOrderUri",
@@ -31000,10 +31000,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.qualityInspection.submitInspection": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.qualityInspection.submitInspection": {
       "post": {
         "summary": "Submit a quality-inspection report for a production order. When result='pass' or 'conditional_pass', the associated productionOrder transitions to status='passed' and (if escrow_intent payment) triggers on-chain USDC settlement via @etzhayyim/sdk pay(). Per ADR-2605202900 — settlement is the on-chain tx; before this call the buyer's USDC has NOT moved.",
-        "operationId": "app.etzhayyim.apps.tsukuru.qualityInspection.submitInspection",
+        "operationId": "com.etzhayyim.apps.tsukuru.qualityInspection.submitInspection",
         "requestBody": {
           "required": true,
           "content": {
@@ -31132,10 +31132,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionProgress.getProgress": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionProgress.getProgress": {
       "get": {
         "summary": "Get milestone timeline for a production order (newest first by default).",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionProgress.getProgress",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionProgress.getProgress",
         "parameters": [
           {
             "name": "productionOrderUri",
@@ -31200,10 +31200,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionProgress.reportMilestone": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionProgress.reportMilestone": {
       "post": {
         "summary": "Report a production milestone (factory-side updates as work progresses). Each milestone is an append-only AT record per ADR-2605202800 (record-log semantics, no MST mutation). Milestones do NOT change productionOrder.status — that requires updateStatus per slice 4 with state-machine validation.",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionProgress.reportMilestone",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionProgress.reportMilestone",
         "requestBody": {
           "required": true,
           "content": {
@@ -31294,10 +31294,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder": {
       "post": {
         "summary": "Cancel a production order. Per ADR-2605202800 Phase 2, cancellation before delivery writes an escrowRefund record (no on-chain tx — escrow_intent never settled). Cancellation after delivery is structurally impossible (USDC already transferred via SDK pay()). Cancellable statuses: pending / accepted / material-procurement.",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionOrder.cancelProductionOrder",
         "requestBody": {
           "required": true,
           "content": {
@@ -31382,10 +31382,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder": {
       "post": {
         "summary": "Create a B2B production order against a registered manufacturer. Per ADR-2605202800 Phase 2, payment.method='escrow_intent' opens a deferred-payment intent AT record; actual USDC transfer occurs at delivery confirmation via @etzhayyim/sdk pay(). Cancellation before delivery writes a refund record (no on-chain tx since no transfer happened).",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionOrder.createProductionOrder",
         "requestBody": {
           "required": true,
           "content": {
@@ -31544,10 +31544,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionOrder.estimateLeadTime": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionOrder.estimateLeadTime": {
       "post": {
         "summary": "Estimate lead time + USDC cost for a hypothetical productionOrder. Pure compute — no records written. Phase 2 uses default priority-based estimates; Phase 3 will read industry-profile records from mst-projector for accurate per-process estimates.",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionOrder.estimateLeadTime",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionOrder.estimateLeadTime",
         "requestBody": {
           "required": true,
           "content": {
@@ -31632,10 +31632,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionOrder.getProductionOrder": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionOrder.getProductionOrder": {
       "get": {
         "summary": "Look up a productionOrder by its AT URI.",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionOrder.getProductionOrder",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionOrder.getProductionOrder",
         "parameters": [
           {
             "name": "productionOrderUri",
@@ -31672,10 +31672,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionOrder.listProductionOrders": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionOrder.listProductionOrders": {
       "get": {
         "summary": "List productionOrder records with optional filters. Phase 2 post-fetches with cursor pagination; Phase 3 will index via mst-projector.",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionOrder.listProductionOrders",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionOrder.listProductionOrders",
         "parameters": [
           {
             "name": "manufacturerDid",
@@ -31757,10 +31757,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.productionOrder.updateStatus": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.productionOrder.updateStatus": {
       "post": {
         "summary": "Update the status of a productionOrder (typically called by the manufacturer DID as work progresses). Status transitions are validated against a state machine: pending → accepted → material-procurement → in-production → quality-inspection → shipped → delivered. cancelled / rejected are terminal. Per ADR-2605202800.",
-        "operationId": "app.etzhayyim.apps.tsukuru.productionOrder.updateStatus",
+        "operationId": "com.etzhayyim.apps.tsukuru.productionOrder.updateStatus",
         "requestBody": {
           "required": true,
           "content": {
@@ -31850,10 +31850,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.processRegistry.resolveProcess": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.processRegistry.resolveProcess": {
       "get": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.processRegistry.resolveProcess",
+        "operationId": "com.etzhayyim.apps.tsukuru.processRegistry.resolveProcess",
         "parameters": [
           {
             "name": "cpc_code",
@@ -31881,10 +31881,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturingOutput.planDeviceOutput": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturingOutput.planDeviceOutput": {
       "get": {
         "summary": "Plan manufacturing output for a device (parts + ordered devices + cycle time estimate). Pure compute.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturingOutput.planDeviceOutput",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturingOutput.planDeviceOutput",
         "parameters": [
           {
             "name": "productionOrderId",
@@ -31965,10 +31965,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturingCell.designCell": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturingCell.designCell": {
       "get": {
         "summary": "Design a 3D manufacturing cell using kami-engine-sdk manufacturing primitives. Pure compute — returns a cell plan envelope.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturingCell.designCell",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturingCell.designCell",
         "parameters": [
           {
             "name": "productionOrderId",
@@ -32041,10 +32041,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturer": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturer": {
       "get": {
         "summary": "Look up a manufacturer by DID or slug. Returns the manufacturerView record body or {error: 'notFound'}.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturer",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturer",
         "parameters": [
           {
             "name": "did",
@@ -32093,10 +32093,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturerStats": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturerStats": {
       "get": {
         "summary": "Aggregate manufacturer registry stats (count by country, category, factory type, tier, onboarding status). Phase 2 client-side aggregation (full-scan + bucket); Phase 3 will move to mst-projector with pre-computed counts for O(1) reads.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturerStats",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturerRegistry.getManufacturerStats",
         "parameters": [
           {
             "name": "groupBy",
@@ -32154,10 +32154,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturerRegistry.listManufacturers": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturerRegistry.listManufacturers": {
       "get": {
         "summary": "List manufacturers with cursor pagination. Filters by category, countryIso3, onboardingStatus, factoryType. Phase 2 implementation post-filters MST traversal; Phase 3 will move to mst-projector view for indexed queries.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.listManufacturers",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturerRegistry.listManufacturers",
         "parameters": [
           {
             "name": "category",
@@ -32257,10 +32257,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturerRegistry.registerManufacturer": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturerRegistry.registerManufacturer": {
       "post": {
         "summary": "Register a manufacturer in the tsukuru registry. Mints a path-based DID (did:web:tsukuru.etzhayyim.com:manufacturer:{slug}) and writes the manufacturer record. Initial onboardingStatus='pending-review' until an arbiter (or auto-policy) flips to 'active'. Per ADR-2605202800 Phase 2.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.registerManufacturer",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturerRegistry.registerManufacturer",
         "requestBody": {
           "required": true,
           "content": {
@@ -32384,10 +32384,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.manufacturerRegistry.searchManufacturers": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.manufacturerRegistry.searchManufacturers": {
       "get": {
         "summary": "Search manufacturers by free-text query against legalName / tradeName / category + filter by min verification tier + ISIC code. Phase 2 client-side search (text matching on read); Phase 3 will move to mst-projector + IVF embedding index for semantic search.",
-        "operationId": "app.etzhayyim.apps.tsukuru.manufacturerRegistry.searchManufacturers",
+        "operationId": "com.etzhayyim.apps.tsukuru.manufacturerRegistry.searchManufacturers",
         "parameters": [
           {
             "name": "query",
@@ -32477,10 +32477,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.logisticsRoute.planRoute": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.logisticsRoute.planRoute": {
       "get": {
         "summary": "Plan a logistics route (sea/air/land/multimodal) with assets, waypoints, lead time estimate. Pure compute.",
-        "operationId": "app.etzhayyim.apps.tsukuru.logisticsRoute.planRoute",
+        "operationId": "com.etzhayyim.apps.tsukuru.logisticsRoute.planRoute",
         "parameters": [
           {
             "name": "productionOrderId",
@@ -32584,10 +32584,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.industryProfile.getIndustryProfile": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.industryProfile.getIndustryProfile": {
       "get": {
         "summary": "Resolve a tsukuru manufacturing industry profile.",
-        "operationId": "app.etzhayyim.apps.tsukuru.industryProfile.getIndustryProfile",
+        "operationId": "com.etzhayyim.apps.tsukuru.industryProfile.getIndustryProfile",
         "parameters": [
           {
             "name": "industry_code",
@@ -32695,10 +32695,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.industryProfile.listIndustryProfiles": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.industryProfile.listIndustryProfiles": {
       "get": {
         "summary": "List tsukuru manufacturing industry profiles.",
-        "operationId": "app.etzhayyim.apps.tsukuru.industryProfile.listIndustryProfiles",
+        "operationId": "com.etzhayyim.apps.tsukuru.industryProfile.listIndustryProfiles",
         "parameters": [
           {
             "name": "category",
@@ -32769,10 +32769,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.industryActor.getIndustryActor": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.industryActor.getIndustryActor": {
       "get": {
         "summary": "Resolve a published ISIC industry actor for tsukuru.",
-        "operationId": "app.etzhayyim.apps.tsukuru.industryActor.getIndustryActor",
+        "operationId": "com.etzhayyim.apps.tsukuru.industryActor.getIndustryActor",
         "parameters": [
           {
             "name": "section_code",
@@ -32845,10 +32845,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.industryActor.listIndustryActors": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.industryActor.listIndustryActors": {
       "get": {
         "summary": "List published ISIC industry actors for tsukuru.",
-        "operationId": "app.etzhayyim.apps.tsukuru.industryActor.listIndustryActors",
+        "operationId": "com.etzhayyim.apps.tsukuru.industryActor.listIndustryActors",
         "parameters": [
           {
             "name": "section_code",
@@ -32911,10 +32911,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.hsClassification.classifyProduct": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.hsClassification.classifyProduct": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.hsClassification.classifyProduct",
+        "operationId": "com.etzhayyim.apps.tsukuru.hsClassification.classifyProduct",
         "requestBody": {
           "required": true,
           "content": {
@@ -32950,10 +32950,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.factoryRegistry.listFactories": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.factoryRegistry.listFactories": {
       "get": {
         "summary": "List factories, optionally filtered by parent manufacturer DID. Cursor-paginated. Phase 3 mst-projector view for indexed filter.",
-        "operationId": "app.etzhayyim.apps.tsukuru.factoryRegistry.listFactories",
+        "operationId": "com.etzhayyim.apps.tsukuru.factoryRegistry.listFactories",
         "parameters": [
           {
             "name": "manufacturerDid",
@@ -33026,10 +33026,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.factoryRegistry.registerFactory": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.factoryRegistry.registerFactory": {
       "post": {
         "summary": "Register a factory under a manufacturer. Mints path-based DID did:web:tsukuru.etzhayyim.com:factory:{slug} and writes the factory record. Idempotent via rkey=slug. Per ADR-2605202800 Phase 2.",
-        "operationId": "app.etzhayyim.apps.tsukuru.factoryRegistry.registerFactory",
+        "operationId": "com.etzhayyim.apps.tsukuru.factoryRegistry.registerFactory",
         "requestBody": {
           "required": true,
           "content": {
@@ -33132,10 +33132,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.exportControl.screenDeniedParties": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.exportControl.screenDeniedParties": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.exportControl.screenDeniedParties",
+        "operationId": "com.etzhayyim.apps.tsukuru.exportControl.screenDeniedParties",
         "requestBody": {
           "required": true,
           "content": {
@@ -33185,10 +33185,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.exportControl.screenExportControl": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.exportControl.screenExportControl": {
       "post": {
         "summary": "Auto-generated stub lexicon (F-Plan F2 bootstrap 2026-04-13). Tighten schema when migrating the app.",
-        "operationId": "app.etzhayyim.apps.tsukuru.exportControl.screenExportControl",
+        "operationId": "com.etzhayyim.apps.tsukuru.exportControl.screenExportControl",
         "requestBody": {
           "required": true,
           "content": {
@@ -33227,10 +33227,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow": {
       "get": {
         "summary": "Design an EUV lithography manufacturing flow with CAD/CAM handoff gates and supplier exchange envelope.",
-        "operationId": "app.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
+        "operationId": "com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow",
         "parameters": [
           {
             "name": "flow_id",
@@ -33397,10 +33397,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage": {
       "get": {
         "summary": "Report EUV design/manufacturing implementation coverage across XRPC, BPMN, worker tasks, lexicons, and supplier exchange formats.",
-        "operationId": "app.etzhayyim.apps.tsukuru.euv.getImplementationCoverage",
+        "operationId": "com.etzhayyim.apps.tsukuru.euv.getImplementationCoverage",
         "parameters": [],
         "responses": {
           "200": {
@@ -33480,10 +33480,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage": {
       "get": {
         "summary": "Prepare an EUV manufacturing flow and supplier exchange package in one direct API call.",
-        "operationId": "app.etzhayyim.apps.tsukuru.euv.prepareOrderPackage",
+        "operationId": "com.etzhayyim.apps.tsukuru.euv.prepareOrderPackage",
         "parameters": [
           {
             "name": "flow_id",
@@ -33639,10 +33639,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow": {
       "get": {
         "summary": "Design a CNT/CNT fiber manufacturing flow with integrated synthesis, spinning, post-treatment, QA, and open-* signal bindings.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow",
         "parameters": [
           {
             "name": "flow_id",
@@ -33823,10 +33823,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage": {
       "get": {
         "summary": "Report CNT/CNT fiber process and automation BPMN coverage.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage",
         "parameters": [],
         "responses": {
           "200": {
@@ -33870,10 +33870,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.getProcessCatalog": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.getProcessCatalog": {
       "get": {
         "summary": "Return the concrete CNT/CNT fiber manufacturing process, equipment, device, sensor, actuator, MES, SCADA, and QMS catalog.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.getProcessCatalog",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.getProcessCatalog",
         "parameters": [
           {
             "name": "stage",
@@ -33966,10 +33966,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.planAutomation": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.planAutomation": {
       "get": {
         "summary": "Plan guarded automation for a CNT/CNT fiber process cell.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.planAutomation",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.planAutomation",
         "parameters": [
           {
             "name": "automation_id",
@@ -34065,10 +34065,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage": {
       "get": {
         "summary": "Prepare a CNT/CNT fiber manufacturing flow, automation plan, and supplier exchange package.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.prepareOrderPackage",
         "parameters": [
           {
             "name": "flow_id",
@@ -34185,10 +34185,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage": {
       "get": {
         "summary": "Prepare a machine-readable CNT/CNT fiber run package for MES, SCADA, PLC, QMS, and EHS execution gates.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.prepareRunPackage",
         "parameters": [
           {
             "name": "run_id",
@@ -34326,10 +34326,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.cnt.validateRunPackage": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.cnt.validateRunPackage": {
       "get": {
         "summary": "Validate a CNT/CNT fiber run package before execution, including equipment bindings, telemetry, EHS interlocks, approvals, and dry-run metrics.",
-        "operationId": "app.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
+        "operationId": "com.etzhayyim.apps.tsukuru.cnt.validateRunPackage",
         "parameters": [
           {
             "name": "run_package",
@@ -34464,10 +34464,10 @@
         }
       }
     },
-    "/xrpc/app.etzhayyim.apps.tsukuru.autonomyOperation.planOperation": {
+    "/xrpc/com.etzhayyim.apps.tsukuru.autonomyOperation.planOperation": {
       "get": {
         "summary": "Plan an autonomy operation (robot fleet task assignment + safety envelope). Pure compute.",
-        "operationId": "app.etzhayyim.apps.tsukuru.autonomyOperation.planOperation",
+        "operationId": "com.etzhayyim.apps.tsukuru.autonomyOperation.planOperation",
         "parameters": [
           {
             "name": "productionOrderId",

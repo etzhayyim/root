@@ -31,7 +31,7 @@ export default {
         licenseTier: "apache2",
         businessLogic: "20-actors/magatama/py/src/pymagatama/primitives/aidesk.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/ai/gftd/aidesk",
-        tsukuruIntegration: "app.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
+        tsukuruIntegration: "com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage",
       });
     }
 

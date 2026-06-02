@@ -1155,11 +1155,11 @@
       "topic": "tsukuru",
       "authoritative": true,
       "authoritativeFor": [
-        "app.etzhayyim.apps.tsukuru.industryActor.*",
+        "com.etzhayyim.apps.tsukuru.industryActor.*",
         "tsukuru-isic-bpmn-actors",
         "tsukuru-euv-bpmn-actors",
-        "app.etzhayyim.apps.tsukuru.euv.*",
-        "app.etzhayyim.apps.tsukuru.supplierExchange.*"
+        "com.etzhayyim.apps.tsukuru.euv.*",
+        "com.etzhayyim.apps.tsukuru.supplierExchange.*"
       ],
       "related": [
         "doc:0056-bpmn-as-actor",
