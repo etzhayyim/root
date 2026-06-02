@@ -1,0 +1,18 @@
+;; yamabiko 山彦 — interior_hvac cell (L3)
+{:cell/id          "interior_hvac"
+ :cell/glyph       "🌬️"
+ :cell/kind        :langgraph
+ :cell/runtime     :wasm
+ :cell/doc         "L3 seating, HVAC, PIS (passenger information system) installation and functional test per design spec."
+ :cell/gates       []
+ :cell/llm         {:provider :murakumo :endpoint "127.0.0.1:4000" :model "gemma3:4b" :charter-rider true}
+ :cell/kotoba      {:reads    []
+                    :writes   []}
+ :cell/state-graph {:nodes [{:id "start" :type "llm-prompt" :prompt "Collect interior HVAC assembly: seating layout, HVAC spec, PIS hardware/software versions."}
+                           {:id "validate" :type "function" :func "validate_interior_hvac"}
+                           {:id "record" :type "function" :func "record_interior_attestation"}
+                           {:id "end" :type "return"}]
+                    :entry    "start"
+                    :edges    [{:from "start" :to "validate"}
+                               {:from "validate" :to "record"}
+                               {:from "record" :to "end"}]}}

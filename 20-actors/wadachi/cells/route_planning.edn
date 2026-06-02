@@ -1,0 +1,25 @@
+;; wadachi 轍 — route_planning cell (langgraph, WASM runtime)
+;; ADR-2605242000 · Phase 2 scaffold
+{:cell/id "route_planning"
+ :cell/glyph "🗺️"
+ :cell/kind :langgraph
+ :cell/runtime :wasm
+ :cell/entry "py/agent.py"
+ :cell/handler "handle_route_planning"
+ :cell/doc "member deliveryRoute → waypoint trajectory with obstacle buffer zones and speed profile (SAE L4 ceiling). Murakumo sora node executes aerial route planning."
+ :cell/state-graph
+ {:nodes [:parse-delivery-route :compute-waypoints :buffer-obstacles :profile-speed]
+  :entry :parse-delivery-route
+  :edges [[:parse-delivery-route :compute-waypoints] [:compute-waypoints :buffer-obstacles]
+          [:buffer-obstacles :profile-speed] [:profile-speed :end]]}
+ :cell/llm
+ {:provider :murakumo
+  :endpoint "127.0.0.1:4000"
+  :model "gemma3:4b"
+  :charter-rider true}
+ :cell/gates ["G5" "G6" "G8" "G9" "G15"]
+ :cell/kotoba
+ {:reads [:delivery-route/id :delivery-route/origin :delivery-route/destination
+          :delivery-route/obstacles :delivery-route/payload-kg]
+  :writes [:trajectory-plan/id :trajectory-plan/waypoints :trajectory-plan/buffer-zones
+           :trajectory-plan/speed-profile]}}
