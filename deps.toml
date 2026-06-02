@@ -9490,6 +9490,14 @@ status_note = "Tier-B actor ooyake 公 (= the public / officialdom) — governme
 path = "90-docs/adr/2606021600-ooyake-world-government-atlas-tier-b-actor-r0.md"
 adr = ["2606021600", "2606011000", "2605262130", "2605312345", "2605212100", "2606013800", "2605215000", "2605312030", "2605301600", "2605302300", "2606011800", "2605242330", "2605250680"]
 
+[[adrs]]
+id = "2606023200"
+title = "Session close — ooyake (公) world government atlas R0/R1 build + self-paced /loop maturation"
+status = "active"
+status_note = "Session-close for the ooyake 公 world government atlas (ADR-2606021600). LANDED on main + LIVE on etzhayyim.com: /actor/ooyake/did.json (KV), /.well-known/gov-units.json (machine index), /gov (human civic-wayfinding search), in /.well-known/actors.json. kotoba gov-atlas-v1 holds 772 units / 178 jurisdictions (full JP central gov + 47 都道府県 + 20 政令市 + 23 特別区 + real-named major cities across 176 countries + ISO3 country units, 153/177 real-named from lea NCB) / 6 procedures (toritsugi 6/6) / 5 forms / 3 windows. Authority: 118 units :authoritative = JP official-code backbone (全国地方公共団体コード / ISO 3166-2:JP) promoted under BOOTSTRAP-ATTESTATION-reconcile-live.md (Seat 1 Lv7 provisional; re-ratify at Council 3-of-5); the other 654 stay :representative (G5). Offline toolchain tested via deploy/run_tests.sh (8/8 green): ingest_records / ingest_jp_local / ingest_states_global / promote_authoritative / reconcile cell (bundled + 5 tests) / gov_atlas_client (shared read API + 7 tests) / validate_atlas (772/772 parent-refs resolve) / resolve_for_toritsugi / consumers_example. The GovAtlas client is the single read API for all 5 consumers (danjo/kanae/tsumugi/toritsugi/himotoki), demonstrated with running tested code. PRs #746/#760/#770 + gen/read-client merged; #779/#784/#789/#792 open at close. HONEST PENDING (gated/env-blocked, G5): full JP 1,718 long tail + per-country full authoritative = reconcile live-mode (G4 + Council 3-of-5; org has 1 participant so multisig unconstructable, bootstrap covers only bundled official-code tiers); country-name enrichment public deploy + index refresh blocked by wrangler exit-194; kotoba batch ingest flaky; /search (yoro) pending Pages deploy; kotoba commit seal = operator cadence. No fabrication, no Council overreach. Resume on wrangler recovery / Council 3-of-5 / fuller authoritative dataset."
+path = "90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md"
+adr = ["2606023200", "2606021600", "2605242330", "2605312030", "2605192300"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]
