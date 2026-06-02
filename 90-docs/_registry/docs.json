@@ -18764,7 +18764,7 @@
       "path": "90-docs/adr/2606015000-kotoba-git-datomic-cid-roundtrip.md",
       "id": "adr-2606015000-kotoba-git-datomic-cid-roundtrip",
       "title": "ADR-2606015000: kotoba-git — git object model as CID blocks + Datom projection (round-trip)",
-      "status": "proposed",
+      "status": "accepted",
       "doc_type": "adr",
       "topic": "kotoba-git",
       "authoritative": true,
@@ -18806,6 +18806,24 @@
         "adr-2606013600-kotoba-wasm-browser-node"
       ],
       "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606020200-session-close-kotoba-git.md",
+      "id": "adr-2606020200-session-close-kotoba-git",
+      "title": "ADR-2606020200: Session close — kotoba-git (git ↔ datomic + CID, round-trip)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kotoba-git",
+      "authoritative": false,
+      "related": [
+        "adr-2606015000-kotoba-git-datomic-cid-roundtrip"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
       "amends": [],
       "amended_by": []
     },

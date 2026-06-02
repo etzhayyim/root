@@ -1,7 +1,7 @@
 ---
 id: adr-2606015000-kotoba-git-datomic-cid-roundtrip
 title: "ADR-2606015000: kotoba-git — git object model as CID blocks + Datom projection (round-trip)"
-status: proposed
+status: accepted
 doc_type: adr
 topic: kotoba-git
 authoritative: true
@@ -24,9 +24,16 @@ superseded_by: []
 
 # ADR-2606015000: kotoba-git — git object model as CID blocks + Datom projection (round-trip)
 
-**Status**: proposed
+**Status**: accepted
 **Date**: 2026-06-01
 **Deciders**: Jun Kawasaki
+
+**Landed**: crate committed in the kotoba submodule at `f480df3` (13 files, +2209;
+27 tests green, clippy clean). Root docs (this ADR + index + Status/crate-table rows)
+committed in root `807bb512c`. The root **submodule-pointer bump is intentionally
+deferred** — `f480df3` sits atop 8 unrelated in-flight `kotoba-wasm` browser-node
+commits, so advancing the pointer is left to the coordinated pass that lands that work
+(root still records kotoba `f14cef2`; docs-ahead-of-pointer is the normal interim state).
 
 # Context
 

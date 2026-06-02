@@ -12107,7 +12107,7 @@
       "id": "doc:adr-2606015000-kotoba-git-datomic-cid-roundtrip",
       "type": "TechArticle",
       "title": "ADR-2606015000: kotoba-git — git object model as CID blocks + Datom projection (round-trip)",
-      "status": "proposed",
+      "status": "accepted",
       "topic": "kotoba-git",
       "authoritative": true,
       "authoritativeFor": [
@@ -12130,6 +12130,16 @@
         "doc:adr-2605241900-baien-edge-target-invariant",
         "doc:adr-2606012100-donation-funded-operation-and-compute-node-donation"
       ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606020200-session-close-kotoba-git",
+      "type": "TechArticle",
+      "title": "ADR-2606020200: Session close — kotoba-git (git ↔ datomic + CID, round-trip)",
+      "status": "active",
+      "topic": "session-close-kotoba-git",
+      "authoritative": false,
+      "related": "doc:adr-2606015000-kotoba-git-datomic-cid-roundtrip",
       "lastVerified": "2026-06-02"
     },
     {
