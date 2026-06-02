@@ -102,6 +102,9 @@ def _validate_object(
     if not isinstance(value, dict):
         raise ValueError(f"{path}: expected object")
     props = schema.get("properties", {})
+    for field in schema.get("required", []):
+        if field not in value:
+            raise ValueError(f"{path}: missing required object field {field}")
     for field, child in value.items():
         if field not in props:
             raise ValueError(f"{path}: unknown object field {field}")

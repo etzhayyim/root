@@ -34,6 +34,9 @@ it has:
 | aggregate transparency report | `adTransparencyReport` | yes | no |
 | malak evidence candidate | `malakEvidenceCandidate` | yes | no |
 
+Closure fixture coverage exists for `adDisclosureLink`, `adTransparencyReport`,
+and `malakEvidenceCandidate`; all remain fixture-only and non-adjudicating.
+
 ## R1 Promotion Rules
 
 A platform source can move from `candidate` to `covered-r1` only when:
@@ -55,6 +58,8 @@ A platform source can move from `candidate` to `covered-r1` only when:
 - No live adapter code exists; current parser is fixture-only.
 - One fixture-only regulator bulk parser exists and validates output against
   akashi lexicons; no platform adapter exists.
+- Closure fixtures validate link/report/malak candidate records without live
+  collection.
 - No live fetch runs.
 - Source-policy review workflow exists and keeps every live source disabled.
 - Cell scaffold exists under `20-actors/magatama/cells/akashi_*`, but every

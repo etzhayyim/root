@@ -39,6 +39,9 @@ _FIXTURE = (
     / "regulator_bulk"
     / "sample.json"
 )
+_CLOSURE_FIXTURE = (
+    _REPO / "20-actors" / "akashi" / "fixtures" / "closure" / "sample.json"
+)
 _CELLS = _REPO / "20-actors" / "magatama" / "cells"
 
 _EXPECTED_LEXICONS = {
@@ -319,6 +322,25 @@ def test_fixture_parser_output_validates_against_akashi_lexicons():
     )
     for name in list_outputs:
         validator.validate_records(output[name], _load(_LEX / f"{name}.json"))
+
+
+def test_closure_fixture_validates_and_malak_candidate_stays_candidate_only():
+    validator_spec = importlib.util.spec_from_file_location(
+        "_akashi_lexicon_validator",
+        _VALIDATOR,
+    )
+    assert validator_spec and validator_spec.loader
+    validator = importlib.util.module_from_spec(validator_spec)
+    validator_spec.loader.exec_module(validator)
+
+    closure = _load(_CLOSURE_FIXTURE)["records"]
+    for name in ("adDisclosureLink", "adTransparencyReport", "malakEvidenceCandidate"):
+        validator.validate_records(closure[name], _load(_LEX / f"{name}.json"))
+
+    candidate = closure["malakEvidenceCandidate"][0]
+    assert candidate["reviewStatus"] == "candidate-only"
+    assert candidate["nonAdjudicatingNotice"] is True
+    assert "malakImportCid" not in candidate
 
 
 if __name__ == "__main__":

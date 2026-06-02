@@ -63,6 +63,8 @@ fixtures, or collection jobs yet. See:
   live collection remains disabled in R0
 - `adapters/regulator_bulk_fixture_parser.py` and `fixtures/regulator_bulk/`
   — local fixture parser only; no live collection
+- `fixtures/closure/` — non-adjudicating link/report/malak-candidate closure
+  fixtures
 - `/00-contracts/lexicons/app/etzhayyim/akashi/` — 10 lexicon skeletons
 
 ## Immutable Gates

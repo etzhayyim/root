@@ -20,7 +20,8 @@ but collection and cell execution remain gated.
 | 11 | Cell scaffold | ✅ | `20-actors/magatama/cells/akashi_*` import-time R1 gates |
 | 12 | Parser schema validation | ✅ | fixture parser output validates against akashi lexicons |
 | 13 | Source-policy review workflow | ✅ | `registry/source-policy-reviews.seed.json`, live collection disabled |
-| 14 | Live collection | 未 | R2+ only after source policy review |
+| 14 | Closure fixtures | ✅ | link/report/malak candidate fixtures validate as non-adjudicating |
+| 15 | Live collection | 未 | R2+ only after source policy review |
 
 ## Maturity Score
 
@@ -30,15 +31,15 @@ but collection and cell execution remain gated.
 | Schema surface | 5/5 | 10 lexicons present; fixture parser output has lexicon validation |
 | Source coverage | 2/5 | seed catalog plus one regulator bulk fixture parser; no live adapters |
 | Constitutional gates | 5/5 | gates documented, schema anchors present, review workflow and invariants lock R0 |
-| Malak boundary | 4/5 | explicit candidate-only handoff in ADR, manifest, lexicon |
+| Malak boundary | 5/5 | explicit candidate-only handoff in ADR, manifest, lexicon, and closure fixture |
 | Operational readiness | 2/5 | gated cell scaffolds exist; no adapters or live jobs |
 
-Overall R0 maturity: **25/30**. This is a usable design scaffold, not a running
-collector.
+Overall R0 maturity: **26/30** conservative cap. Axis evidence is stronger, but
+the score remains capped because live collection is intentionally absent.
 
 ## Next R1 Work
 
 1. Add additional regulator/bulk fixtures before any platform page/API adapter.
-2. Add closure validators for link/report/malak candidate records.
-3. Add an R1 approval transaction format for turning a source from disabled to
+2. Add an R1 approval transaction format for turning a source from disabled to
    fixture-only or allowed.
+3. Add a dry-run CLI that emits only local fixture records and never fetches.
