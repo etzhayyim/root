@@ -14,7 +14,7 @@
     "APP_NANOID": "pbhsahxt",
     "APP_PERFORMER_TYPE": "service",
     "APP_UI_TYPE": "yoro",
-    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.gftd.ai/xrpc/com.etzhayyim.mcp.message"
+    "AGENTGATEWAY_MCP_ROUTER_URL": "https://mcp.etzhayyim.com/xrpc/com.etzhayyim.mcp.message"
   },
   "rules": [
     {
@@ -26,8 +26,8 @@
   ],
   "routes": [
     {
-      "pattern": "pbhsahxt.gftd.ai/*",
-      "zone_name": "gftd.ai"
+      "pattern": "pbhsahxt.etzhayyim.com/*",
+      "zone_name": "etzhayyim.com"
     }
   ],
   "assets": {

@@ -1,4 +1,4 @@
-# Migration TODO — ai-gftd-project-analytics
+# Migration TODO — etzhayyim-project-analytics
 
 **Status**: 🔄 TRANSFORM — thin-edge appview migrated from gftdcojp archive 2026-06-01.
 

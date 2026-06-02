@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Analytics Mcp Component",
-  "project": "ai-gftd-project-analytics",
+  "project": "etzhayyim-project-analytics",
   "name": "analytics-mcp-component",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-analytics/appview/analytics-mcp-component/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-analytics/appview/analytics-mcp-component/svelte/src/routes/+page.svelte"
 };
 </script>
 

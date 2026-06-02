@@ -1,4 +1,4 @@
-# ai-gftd-project-app-reviewer
+# etzhayyim-project-app-reviewer
 
 App review platform for Magatama app publication.
 

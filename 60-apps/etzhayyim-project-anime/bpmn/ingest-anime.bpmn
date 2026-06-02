@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="anime-ingest"
-                  targetNamespace="https://gftd.ai/bpmn/anime">
+                  targetNamespace="https://etzhayyim.com/bpmn/anime">
 
   <!-- Title registration + season scaffold -->
   <bpmn:process id="createTitle" name="Create Anime Title" isExecutable="true">

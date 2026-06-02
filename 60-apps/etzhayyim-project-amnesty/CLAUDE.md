@@ -1,4 +1,4 @@
-# ai-gftd-project-amnesty — Legal-Person Debt Restructuring Actor
+# etzhayyim-project-amnesty — Legal-Person Debt Restructuring Actor
 
 Sibling actor to [yobel](../ai-gftd-project-yobel/) — handles **legal-person** debt restructuring (sovereign / corporate / multilateral / partnership). What yobel rejects under DMN R14 (natural-person-only invariant), amnesty accepts.
 

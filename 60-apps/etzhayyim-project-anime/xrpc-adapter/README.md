@@ -21,7 +21,7 @@ CF Worker that exposes the 10 rw-free commands as XRPC endpoints.
 ## Setup
 
 ```bash
-cd 60-apps/ai-gftd-project-anime/xrpc-adapter
+cd 60-apps/etzhayyim-project-anime/xrpc-adapter
 npm install
 ```
 
