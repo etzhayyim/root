@@ -74,7 +74,7 @@ okaimono をテンプレに `20-actors/tsukuru/` を Gen-3 形へ:
 + `cells/`（orderbook/discover/production/qc/compliance/ledger 6 cell）+ `lex/`（factory/production-order/
 progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残り Gen-3 化は Phase 3（`kotoba/` 配線）。
 
-### Phase 3 — kotoba 配線（state cutover）
+### Phase 3 — kotoba 配線（state cutover） — ✅ LANDED 2026-06-02
 
 1. `kotoba/schema.edn` 定義: `:factory/*` `:production-order/{id,mode,status,factory,member}`
    `:progress/*` `:quality/*` を EAVT で。SHA/DID bridge は kotoba-git パターン参照。
@@ -84,8 +84,18 @@ progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残
 4. `kotoba/deploy.sh`（okaimono のコピー）。`gftd build/deploy` を廃止。
 
 **完了基準**: production-order の CRUD・進捗・QC が kotoba Datom 上で round-trip。RisingWave 参照ゼロ。
+→ **達成 (2026-06-02)**: `kotoba/schema.edn`（`:factory/* :production-order/* :progress/* :quality/*
+:settlement/* :sbt/*`、40 attr）+ `seed.edn`（3 factory + BTO worked example、EDN balanced）+
+`ingest_mcp.py` / `ingest_factories.py`（460-DID live projection は G11/G15-gated stub）+ `deploy.sh`
+（`gftd build/deploy` 置換）。`tsukuru/` が `manifest.edn`+`kotoba/`+`cells/`+`lex/` 完備 = **Gen-3 構造完成**。
 
-### Phase 4 — Murakumo + 支払い
+### Phase 4 — Murakumo + 支払い — ✅ LANDED 2026-06-02 (R0)
+
+→ **達成 (2026-06-02)**: `py/agent.py`（4 handler: discover/production/qc/compliance + token-overlap
+capability match + Murakumo `llm.infer` rerank + `build_settlement_intent` USDC/TitheRouter 10% +
+SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_agent.py` **11/11 green**
+（offline、injected fn で Murakumo 不要）+ `requirements.txt`（openai/anthropic/litellm client なし、G5）。
+決済は USDC Base L2 + ERC-4337 + TitheRouter のみ、`:intent` で停止（broadcast は G11/G15-gated）。
 
 1. `convoSystemPrompt`（manifest）→ cells の langgraph node 内 KotobaLLM 127.0.0.1:4000 呼び出しへ。
    `k8s-langserver` / `agent.chat` / T1 tier 撤去。
@@ -95,7 +105,11 @@ progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残
    として扱う。発注決済は member passkey/smart-account 署名（no-server-key G15）+ 10% tithe auto-split。
 3. okaimono `create-production-order` 連携を Gen-3 契約（kotoba Datom + USDC settle）で再配線。
 
-### Phase 5 — 命名 cutover（P0b wave に同期）
+### Phase 5 — 命名 cutover（P0b wave に同期） — 📋 RUNBOOK 準備済 / 実行は登記ゲート
+
+> runbook: `20-actors/tsukuru/MIGRATION-NOTES.md`（gftd→etzhayyim WIT 5 本・app/contract paths・
+> build/deploy・AT collections・decommission・acceptance を列挙）。**実行は magatama atomic wave
+> の単一 PR**（法人登記後）。部分実行禁止（CLAUDE.md §Do Not）。下記は項目登録のみ。
 
 1. `gftd:tsukuru*@*` WIT 5 pkg → `etzhayyim:tsukuru*@*`。
 2. `60-apps/ai-gftd-project-tsukuru/` → `60-apps/etzhayyim-project-tsukuru/`、
