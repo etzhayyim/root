@@ -496,7 +496,7 @@ importers:
         specifier: ^3.95.0
         version: 3.114.17(@cloudflare/workers-types@4.20260521.1)
 
-  60-apps/ai-gftd-project-6ir/rw-free:
+  60-apps/etzhayyim-project-6ir/rw-free:
     dependencies:
       '@etzhayyim/sdk':
         specifier: workspace:*
