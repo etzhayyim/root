@@ -30,7 +30,7 @@ function camelToSnake(s: string): string {
 }
 
 export function mapsEntityForCollection(collection: string): string | null {
-  const m = collection.match(/^ai\.gftd\.apps\.maps\.([^.]+)$/);
+  const m = collection.match(/^com\.etzhayyim\.apps\.maps\.([^.]+)$/);
   return m ? m[1] : null;
 }
 

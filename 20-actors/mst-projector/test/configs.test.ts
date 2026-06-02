@@ -29,7 +29,7 @@ describe("ALL_PROJECTORS", () => {
     for (const [slug, config] of Object.entries(ALL_PROJECTORS)) {
       for (const [name, proj] of Object.entries(config.collections)) {
         expect(proj.collection, `${slug}/${name}: collection NSID`).toMatch(
-          /^ai\.gftd\.\w+/,
+          /^com\.etzhayyim\.\w+/,
         );
       }
     }

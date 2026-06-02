@@ -57,10 +57,10 @@ from typing import Any
 BPMN_REPO_PREFIX = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn"
 
 CANONICAL_DEF_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 CANONICAL_BIND_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 
 

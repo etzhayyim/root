@@ -117,7 +117,7 @@ def _guard_list_types() -> set[str]:
     src = _GUARD.read_text()
     block = re.search(r"KARUTE_INNER_TYPES\s*=\s*\[(.*?)\]", src, re.S)
     assert block, "could not locate KARUTE_INNER_TYPES array in the guard"
-    return set(re.findall(r"app\.etzhayyim\.karute\.(\w+)", block.group(1)))
+    return set(re.findall(r"com\.etzhayyim\.karute\.(\w+)", block.group(1)))
 
 
 class TestPhiGuardCoverage:

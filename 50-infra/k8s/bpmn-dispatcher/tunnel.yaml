@@ -77,25 +77,25 @@ data:
           connectTimeout: 30s
           noTLSVerify: true
       - hostname: dispatcher.etzhayyim.com
-        path: ^/xrpc/ai\.gftd\.apps\.shinshi\..*$
+        path: ^/xrpc/com\.etzhayyim\.apps\.shinshi\..*$
         service: http://lg-shinshi.mitama-udf.svc.cluster.local:8000
         originRequest:
           connectTimeout: 10s
           noTLSVerify: true
       - hostname: dispatcher.etzhayyim.com
-        path: ^/xrpc/ai\.gftd\.apps\.animeka\..*$
+        path: ^/xrpc/com\.etzhayyim\.apps\.animeka\..*$
         service: http://lg-animeka.mitama-udf.svc.cluster.local:8000
         originRequest:
           connectTimeout: 10s
           noTLSVerify: true
       - hostname: dispatcher.etzhayyim.com
-        path: ^/xrpc/ai\.gftd\.apps\.recap\..*$
+        path: ^/xrpc/com\.etzhayyim\.apps\.recap\..*$
         service: http://lg-recap.mitama-udf.svc.cluster.local:8000
         originRequest:
           connectTimeout: 30s
           noTLSVerify: true
       - hostname: dispatcher.etzhayyim.com
-        path: ^/xrpc/ai\.gftd\.apps\.media_gamers\..*$
+        path: ^/xrpc/com\.etzhayyim\.apps\.media_gamers\..*$
         service: http://lg-media-gamers.mitama-udf.svc.cluster.local:8000
         originRequest:
           connectTimeout: 30s

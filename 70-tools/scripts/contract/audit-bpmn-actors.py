@@ -65,10 +65,10 @@ NS_BPMN = "http://www.omg.org/spec/BPMN/20100524/MODEL"
 #
 # Any other vertex_id shape in these two tables is `--strict` drift.
 CANONICAL_DEF_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 CANONICAL_BIND_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 
 

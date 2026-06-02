@@ -75,7 +75,7 @@ const EXEMPT_PATH_PATTERNS = [
 // We separately require that the call site is NOT inside an encryptedWrite() call
 // by checking the surrounding ~10 lines for `encryptedWrite(` token.
 
-const KARUTE_TYPE_PATTERN = /app\.etzhayyim\.karute\.(patient|encounter|soapNote|observation|condition|medicationRequest|serviceRequest|dispenseRecord|carePlan|homecareEpisode|homeVisit)\b/;
+const KARUTE_TYPE_PATTERN = /com\.etzhayyim\.karute\.(patient|encounter|soapNote|observation|condition|medicationRequest|serviceRequest|dispenseRecord|carePlan|homecareEpisode|homeVisit)\b/;
 // We deliberately do not anchor with `\b` because `\b\$` does not fire when
 // `$type` follows whitespace (the common case). The `: "..."` tail is
 // restrictive enough to avoid false positives.

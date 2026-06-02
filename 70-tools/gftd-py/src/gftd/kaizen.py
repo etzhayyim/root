@@ -30,7 +30,7 @@ from .shannon import _resolve_root, _walk
 # ── regexes (ported from domain_coverage_check.go) ────────────────────────────
 
 _RE_SQL_LABEL = re.compile(r'(?:MATCH\s*\(\w:|Graph\(")(\w+)')
-_RE_COLLECTION_KIND = re.compile(r'ai\.gftd\.apps\.\w+\.(\w+)')
+_RE_COLLECTION_KIND = re.compile(r'com\.etzhayyim\.apps\.\w+\.(\w+)')
 _RE_TEMPLATE_CMDS = re.compile(
     r'function cmd_(?:list|get|search|create|wave|stats|export|describe|summarize|ingest|audit|health)_\w+|'
     r'function cmd(?:Stats|ExportData|Describe|Summarize|Audit|Ingest|GetInfo|GetStatus)\b'

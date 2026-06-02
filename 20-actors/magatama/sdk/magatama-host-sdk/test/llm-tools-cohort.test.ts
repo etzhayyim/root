@@ -44,7 +44,7 @@ describe('cohortToolDispatch', () => {
     for (const tool of cohortToolSpecs) {
       const entry = cohortToolDispatch[tool.function.name];
       expect(entry).toBeDefined();
-      expect(entry.nsid).toMatch(/^ai\.gftd\.cohort\./);
+      expect(entry.nsid).toMatch(/^com\.etzhayyim\.cohort\./);
     }
   });
 

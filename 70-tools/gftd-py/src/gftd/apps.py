@@ -143,7 +143,7 @@ def apps_health(url: str, nanoid: str, json_out: bool) -> None:
 
 # ── coverage helpers ───────────────────────────────────────────────────────────
 
-_RE_COLLECTION = re.compile(r"""["']((?:ai\.gftd\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["']""")
+_RE_COLLECTION = re.compile(r"""["']((?:com\.etzhayyim\.apps|app\.bsky)\.[a-zA-Z0-9_\-]+\.[a-zA-Z0-9_.\-]+)["']""")
 _RE_SQL_LABEL = re.compile(r"""vertex_([a-z0-9_]+)""")
 _RE_CUSTOM_CMD = re.compile(r"""sdk\.app\.command\s*\(""")
 _RE_BUSINESS_RULE = re.compile(r"""(?:if|when|require|assert|validate)\s*\(""")

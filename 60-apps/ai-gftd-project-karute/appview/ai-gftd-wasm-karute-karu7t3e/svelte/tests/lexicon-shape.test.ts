@@ -44,7 +44,7 @@ describe('karute lexicon shape', () => {
   it('every doc has lexicon=1 and an id starting with com.etzhayyim. or com.etzhayyim.', () => {
     for (const { doc } of lexicons) {
       expect(doc.lexicon).toBe(1);
-      expect(doc.id).toMatch(/^(ai\.gftd\.|app\.etzhayyim\.)/);
+      expect(doc.id).toMatch(/^(com\.etzhayyim\.|com\.etzhayyim\.)/);
     }
   });
 
