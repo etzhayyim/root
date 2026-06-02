@@ -9432,6 +9432,14 @@ status_note = "Makes the handle→CID binding trustless, completing IPFS-based D
 path = "90-docs/adr/2606015600-self-certifying-did-attestation.md"
 adr = ["2606015400", "2606013800", "2605212030", "2605231525"]
 
+[[adrs]]
+id = "2606015800"
+title = "Session close — IPFS-based + self-certifying DID resolution, mesh-runner serving"
+status = "active"
+status_note = "Documentation-only session-close record for the 2026-06-01/02 continuation after ADR-2606014800, answering 「next step」 (×several) and 「did を IPFS ベースでの取得にできる?」 → a fully trustless DID-resolution path. Indexes the three authoritative ADRs: 2606015200 (WASM-actor runtime round 2 — dag-pb CAR verify + e7m-wasm-runner T2 exec + kanae 鼎 2nd T1 actor + ameno wasm-actor-panel + ERC725 vm mirror + operator runbook → PR #702); 2606015400 (mesh-runner serving + IPFS-based DID retrieval — serve.mjs HTTP /xrpc/app.etzhayyim.actor.run + content-addressed did.json with canonicalDidDoc/didDocCid advertised via x-etzhayyim-did-doc-cid + actors.json, worker(TS)≡publisher(JS) CID → PR #715); 2606015600 (self-certifying DID attestation — actor's own ed25519 key as did:key signs the did.json CID → handle→CID binding trustless, no TLS anchor; diddoc-attest.ts verify-only + sign-diddoc.mjs operator tool, server never signs → PR #720). Resolution picture: discover did:web (TLS/atproto) → alsoKnownAs did:key + ipfs://wasm-cid → retrieve did.json by CID from any IPFS gateway (content-verified) → prove via did:key-signed attestation (no TLS) → execute actor WASM (T1 browser/T2 mesh, CID/CAR-verified). No server-held key (ADR-2605231525); did:web canonical (ADR-2605212030). Verified: worker tsc + 15 tests; runner 6; ameno tsc + 9; kanae runs; real ipfs CAR reassembles; keccak vectors; self-cert chain verified on kanae's real CID. NEXT STEPS: IPNS mutable-pointer transport (whole resolution path self-certifying, no TLS); mesh-runner libp2p /x/etzhayyim/xrpc/1.0 transport; register actor Ed25519 keys in the seed (today vm:[], demo-generated); operator enablement (enable-kv + --pin-did + pin attestations + IPFS_GATEWAYS + ERC725 deploy). Authoritative designs = ADR-2606015200 + 2606015400 + 2606015600."
+path = "90-docs/adr/2606015800-session-close-ipfs-did-and-self-certifying-resolution.md"
+adr = ["2606015200", "2606015400", "2606015600"]
+
 # ─── Donation policy (machine-readable SSoT, ADR-2606012100) ─────────────────
 # Public declaration: https://etzhayyim.com/donate + /.well-known/donation.json
 [donation]

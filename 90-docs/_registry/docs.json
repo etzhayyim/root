@@ -18797,6 +18797,32 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606015800-session-close-ipfs-did-and-self-certifying-resolution.md",
+      "id": "adr-2606015800-session-close-ipfs-did-and-self-certifying-resolution",
+      "title": "ADR-2606015800: Session close — IPFS-based + self-certifying DID resolution, mesh-runner serving",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-ipfs-did-and-self-certifying-resolution",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "2606014800",
+        "2606013800",
+        "2605212030",
+        "2605231525"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606015200",
+        "2606015400",
+        "2606015600"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
