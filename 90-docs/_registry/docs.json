@@ -19515,6 +19515,37 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606021730-latent-entity-kotoba-datomic-refactor.md",
+      "id": "adr-2606021730-latent-entity-kotoba-datomic-refactor",
+      "title": "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "latent-entity-kotoba-refactor",
+      "authoritative": true,
+      "authoritative_for": [
+        "latent-entity statistical resolution design — kotoba-EAVT canonical form"
+      ],
+      "related": [
+        "/90-docs/260430-natural-person-latent-entity-backend-design.md (superseded design)",
+        "/00-contracts/schemas/latent-entity-ontology.kotoba.edn (new schema)",
+        "/30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)",
+        "/60-apps/ai-gftd-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
+      ],
+      "supersedes": [
+        "/90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)"
+      ],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606011000 (engi-organism-ontology and spirit-in-physics)",
+        "ADR-2606011800 (tsumugi power-entity knowledge graph)",
+        "ADR-2605262130 (kotoba storage substrate engine)",
+        "ADR-2605312345 (kotoba Datom log as first-class canonical state)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606022000-kabuto-public-company-intel-supply-chain-tier-b-actor-r0.md",
       "id": "adr-2606022000",
       "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",

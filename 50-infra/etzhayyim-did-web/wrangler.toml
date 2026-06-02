@@ -2,6 +2,19 @@ name = "etzhayyim-did-web"
 main = "src/worker.ts"
 compatibility_date = "2026-05-17"
 
+# ── Static assets (ADR-2606013600 / kabuto G6 browser-native render) ─────────
+# Serves the kotoba-wasm browser-node bundle at
+#   /kotoba/kotoba_wasm.js  +  /kotoba/kotoba_wasm_bg.wasm
+# so pages like the kabuto supply-chain viz can `import('/kotoba/kotoba_wasm.js')`,
+# hydrate the Datom log with loadDatoms(), and query it via datomicQ() entirely
+# client-side (zero server round-trip, no platform-held key — ADR-2605231525).
+# Cloudflare serves matching files from ./public FIRST; every other path falls
+# through to the Worker (DID issuance / IPFS gateway / XRPC / yoro proxy).
+# `.wasm` is served as `application/wasm` automatically.
+# Repopulate after a kotoba bump:  ./scripts/build-kotoba-wasm.sh
+[assets]
+directory = "./public"
+
 # Catch-all routes. Worker handles:
 #   - /.well-known/did.json  → DID Document (local)
 #   - /*                     → reverse-proxy to yoro.etzhayyim.com
