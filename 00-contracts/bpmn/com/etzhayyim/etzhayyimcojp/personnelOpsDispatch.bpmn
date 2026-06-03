@@ -2,18 +2,18 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  id="Definitions_gftdcojp_personnel_ops_dispatch"
-                  targetNamespace="https://gftd.ai/bpmn/gftdcojp"
+                  id="Definitions_etzhayyimcojp_personnel_ops_dispatch"
+                  targetNamespace="https://etzhayyim.ai/bpmn/etzhayyimcojp"
                   exporter="hand-written" exporterVersion="2.0">
 
-  <bpmn:process id="gftdcojp_personnel_ops_dispatch"
-                name="gftdcojp Personnel Ops Dispatch"
+  <bpmn:process id="etzhayyimcojp_personnel_ops_dispatch"
+                name="etzhayyimcojp Personnel Ops Dispatch"
                 isExecutable="true">
-    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.gftdcojp.personnelOpsDispatch", "version": 1, "resultTimeoutMs": 180000 }</bpmn:documentation>
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.etzhayyimcojp.personnelOpsDispatch", "version": 1, "resultTimeoutMs": 180000 }</bpmn:documentation>
 
-    <!-- XRPC-triggered: POST /xrpc/com.etzhayyim.apps.gftdcojp.personnelOpsDispatch -->
+    <!-- XRPC-triggered: POST /xrpc/com.etzhayyim.apps.etzhayyimcojp.personnelOpsDispatch -->
     <!-- Routes personnel.* / role.* / raci.* / assignment.* tasks to LangGraph
-         gftdcojp-company-ops graph (personnel domain agent). -->
+         etzhayyimcojp-company-ops graph (personnel domain agent). -->
     <bpmn:startEvent id="Start_XRPC" name="XRPC Triggered">
       <bpmn:outgoing>Flow_start_to_ops</bpmn:outgoing>
     </bpmn:startEvent>
@@ -22,7 +22,7 @@
 
     <bpmn:serviceTask id="Task_OpsSubmit" name="Submit to LangGraph (personnel)">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="gftdcojp.ops.submit"/>
+        <zeebe:taskDefinition type="etzhayyimcojp.ops.submit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=task_type" target="task_type"/>
           <zeebe:input source="=payload" target="payload"/>
@@ -42,7 +42,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gftdcojp.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:etzhayyimcojp.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=task_type" target="event_type"/>
           <zeebe:input source="={ok: ok, action_items: action_items, domain: &quot;personnel&quot;}" target="attributes"/>
         </zeebe:ioMapping>

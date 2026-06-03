@@ -2,14 +2,14 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  id="Definitions_gftdcojp_governance"
-                  targetNamespace="https://gftd.ai/bpmn/gftdcojp"
+                  id="Definitions_etzhayyimcojp_governance"
+                  targetNamespace="https://etzhayyim.ai/bpmn/etzhayyimcojp"
                   exporter="hand-written" exporterVersion="2.0">
 
-  <bpmn:process id="gftdcojp_governance_daily_check"
-                name="gftdcojp Governance Daily Check"
+  <bpmn:process id="etzhayyimcojp_governance_daily_check"
+                name="etzhayyimcojp Governance Daily Check"
                 isExecutable="true">
-    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.gftdcojp.governanceDailyCheck", "version": 1 }</bpmn:documentation>
+    <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.etzhayyimcojp.governanceDailyCheck", "version": 1 }</bpmn:documentation>
 
     <!-- Daily 09:00 JST = 00:00 UTC -->
     <bpmn:startEvent id="Start_Daily" name="Daily 09:00 JST">
@@ -21,10 +21,10 @@
 
     <bpmn:sequenceFlow id="Flow_start_to_ops" sourceRef="Start_Daily" targetRef="Task_CompanyOps"/>
 
-    <!-- Submit governance check to LangGraph gftdcojp-company-ops -->
+    <!-- Submit governance check to LangGraph etzhayyimcojp-company-ops -->
     <bpmn:serviceTask id="Task_CompanyOps" name="Governance Ω(t) Check">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="gftdcojp.ops.submit"/>
+        <zeebe:taskDefinition type="etzhayyimcojp.ops.submit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;governance.daily&quot;" target="task_type"/>
           <zeebe:input source="={}" target="payload"/>
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gftdcojp.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:etzhayyimcojp.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;governance.daily.check&quot;" target="event_type"/>
           <zeebe:input source="={omega: omega_score, floor_violated: floor_violated}" target="attributes"/>
         </zeebe:ioMapping>
