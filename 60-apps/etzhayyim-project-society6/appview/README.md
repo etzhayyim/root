@@ -1,9 +1,9 @@
-# ai-gftd-project-society6 App
+# etzhayyim-project-society6 App
 
 ## Components
 
 - `society6-ui-s6c9m2q1`
-  - `70-tools/gftd-static-site` で static 配信
+  - `70-tools/etzhayyim-static-site` で static 配信
   - host: `society6.etzhayyim.com`
   - content:
     - COFOG wasm components access portal
@@ -12,7 +12,7 @@
 ## Build
 
 ```bash
-cd society6-ui-s6c9m2q1 && gftd build
+cd society6-ui-s6c9m2q1 && etzhayyim build
 ```
 
 ## Deploy (example)

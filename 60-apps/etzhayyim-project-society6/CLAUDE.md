@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/society6/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# ai-gftd-project-society6
+# etzhayyim-project-society6
 
 COFOG portal + **Well-Becoming Kyu/Dan rank system**. Constituent 成長の過程を 5 軸で評価し、武道的段級位で可視化する。
 

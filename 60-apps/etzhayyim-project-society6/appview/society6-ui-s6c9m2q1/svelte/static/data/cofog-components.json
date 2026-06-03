@@ -425,7 +425,7 @@
     "title": "Pharmaceutical",
     "description": "COFOG 0711 Pharmaceutical Products MCP component",
     "endpoint": "https://{nanoid}.etzhayyim.com/api/grpc"
-  },F
+  },
   {
     "code": "0712",
     "component": "cofog-0712-other-component",

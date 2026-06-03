@@ -2,8 +2,8 @@
 set -euo pipefail
 
 repo_root="$(git rev-parse --show-toplevel)"
-cofog_root="$repo_root/projects/ai-gftd-project-cofog/wasm"
-component_root="$repo_root/60-apps/ai-gftd-project-society6/appview/society6-ui-s6c9m2q1"
+cofog_root="$repo_root/projects/etzhayyim-project-cofog/wasm"
+component_root="$repo_root/60-apps/etzhayyim-project-society6/appview/society6-ui-s6c9m2q1"
 portal_json="$component_root/svelte/static/data/cofog-components.json"
 output_json="$component_root/svelte/static/data/cofog-directory-summary.json"
 legacy_output_json="$component_root/static/data/cofog-directory-summary.json"
@@ -52,7 +52,7 @@ done < "$dirs_txt" > "$rows_jsonl"
 
 jq -s \
   --arg generatedAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-  --arg source "projects/ai-gftd-project-cofog/wasm" \
+  --arg source "projects/etzhayyim-project-cofog/wasm" \
   '
   . as $dirs
   | {

@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-02-22T09:48:13Z",
-  "source": "projects/ai-gftd-project-cofog/wasm",
+  "source": "projects/etzhayyim-project-cofog/wasm",
   "totals": {
     "directories": 102,
     "withSvelte": 102,

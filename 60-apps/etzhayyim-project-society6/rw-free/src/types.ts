@@ -20,11 +20,11 @@
  *   constituent themselves / a mentor). The substrate never sees a person's
  *   score in plaintext. The public COFOG catalog stays plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   cross-app SQL competence/resilience computation (dojo drill avg_score +
  *   AAR ratio via RisingWave) and the WSend rank-promotion notification
  *   EXECUTION. These are the regulated *acts* / infra inference; the resulting
- *   score record migrates here E2E, only the computation/dispatch stays gftd.
+ *   score record migrates here E2E, only the computation/dispatch stays etzhayyim.
  *
  * AT-Lexicon: no float. 5-axis scores + total are integers; rank kyu/dan as
  * signed integer (kyu = negative-to-1, dan = positive). axis weights are not

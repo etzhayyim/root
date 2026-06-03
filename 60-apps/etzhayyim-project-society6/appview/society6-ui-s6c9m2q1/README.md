@@ -1,6 +1,6 @@
 # society6-ui-s6c9m2q1
 
-`70-tools/gftd-static-site` ベースの Society6 static portal component です。
+`70-tools/etzhayyim-static-site` ベースの Society6 static portal component です。
 
 - Host: `https://society6.etzhayyim.com`
 - Focus:

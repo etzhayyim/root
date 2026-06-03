@@ -7,9 +7,9 @@
  * read-cap = owner DID (+ explicit recipients). The substrate never sees a
  * person's score in plaintext.
  *
- * STAYS gftd (consent-capability): cross-app SQL competence/resilience compute
+ * STAYS etzhayyim (consent-capability): cross-app SQL competence/resilience compute
  * (dojo RW) + WSend promotion notification execution. The resulting record
- * migrates here E2E; only those acts stay gftd.
+ * migrates here E2E; only those acts stay etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
