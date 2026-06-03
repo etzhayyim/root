@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_webmk_create_proposal" targetNamespace="https://gftd.ai/bpmn/webmk">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_webmk_create_proposal" targetNamespace="https://etzhayyim.ai/bpmn/webmk">
   <bpmn:process id="webmk_create_proposal" name="webmk createProposal" isExecutable="true">
     <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.webmk.createProposal", "version": 1, "resultTimeoutMs": 180000, "adr": "2605072000-langgraph-agent-loop-pattern" }</bpmn:documentation>
 
@@ -27,7 +27,7 @@
       <bpmn:outgoing>F3</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <!-- Step 3: Optionally create ads.gftd.ai campaign -->
+    <!-- Step 3: Optionally create ads.etzhayyim.com campaign -->
     <bpmn:sequenceFlow id="F3" sourceRef="DeliverEmail" targetRef="CampaignGateway"/>
     <bpmn:exclusiveGateway id="CampaignGateway" name="createAdCampaign?">
       <bpmn:incoming>F3</bpmn:incoming>
@@ -38,7 +38,7 @@
     <bpmn:sequenceFlow id="F4_yes" sourceRef="CampaignGateway" targetRef="CreateAdCampaign">
       <bpmn:conditionExpression>=createAdCampaign = true</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="CreateAdCampaign" name="Create ads.gftd.ai campaign">
+    <bpmn:serviceTask id="CreateAdCampaign" name="Create ads.etzhayyim.com campaign">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="webmk.create_ad_campaign" retries="2"/>
       </bpmn:extensionElements>

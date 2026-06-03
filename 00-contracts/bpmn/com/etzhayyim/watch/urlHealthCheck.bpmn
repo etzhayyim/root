@@ -21,7 +21,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_watch_url_health_check"
-    targetNamespace="https://gftd.ai/bpmn/watch"
+    targetNamespace="https://etzhayyim.ai/bpmn/watch"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="watch_url_health_check" name="watch url health check" isExecutable="true">
@@ -61,7 +61,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:watch.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:watch.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;urlHealthCheck.healthy&quot;" target="action"/>
           <zeebe:input source="={ url: string(url), status: fetchStatus, latencyMs: fetchLatencyMs }" target="payload"/>
           <zeebe:output source="=emitted" target="auditEmitted"/>
@@ -78,7 +78,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:watch.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:watch.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;urlHealthCheck.unhealthy&quot;" target="action"/>
           <zeebe:input source="={ url: string(url), status: fetchStatus, latencyMs: fetchLatencyMs }" target="payload"/>
           <zeebe:output source="=emitted" target="auditEmitted"/>

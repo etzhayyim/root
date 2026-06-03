@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_webmk_deliver_proposal" targetNamespace="https://gftd.ai/bpmn/webmk">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_webmk_deliver_proposal" targetNamespace="https://etzhayyim.ai/bpmn/webmk">
   <bpmn:process id="webmk_deliver_proposal" name="webmk deliverProposal" isExecutable="true">
     <bpmn:documentation>{ "nsid": "com.etzhayyim.apps.webmk.deliverProposal", "version": 1, "resultTimeoutMs": 60000 }</bpmn:documentation>
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
