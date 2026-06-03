@@ -12876,6 +12876,23 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606037000",
+      "type": "TechArticle",
+      "title": "ADR-2606037000: Session close — kotoba coverage + security-hardening sweep (passkey/CACAO/Signal secrecy verified)",
+      "status": "active",
+      "topic": "session-close-kotoba-coverage-security-hardening-sweep",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
+        "doc:adr-2606014500-ai-gftd-auth-zero-access-proton-alignment",
+        "doc:adr-2606015000-pds-refactor-onto-kotoba-server",
+        "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
+        "doc:adr-2605231525-no-server-key-invariant",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606037000-session-close-kotoba-os-r2-broadening",
       "type": "TechArticle",
       "title": "ADR-2606037000: Session close — kotoba-os reference R2 broadening (device coverage, wasm32 edge, boot authorization, source-chain growth)",

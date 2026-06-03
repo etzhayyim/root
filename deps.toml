@@ -793,6 +793,34 @@ title = "MST encrypted records — metadata leak reduction (ciphertext padding +
 status = "proposed"
 path = "90-docs/adr/2605181200-mst-encrypted-metadata-leak-reduction.md"
 
+# ── kotoba passkey/CACAO/Signal secrecy wave (2606-01 design; 2606-03 verified+hardened) ──
+
+[[adrs]]
+id = "2606014000"
+title = "kotoba passkey→ARK→CACAO/Signal secrecy — WebAuthn-PRF key tree, DID↔Signal binding"
+status = "active"
+status_note = "L0-L5 key hierarchy: passkey PRF → ARK (random 32B) → HKDF purpose keys (k_storage/k_signal/k_session); ARK wrapped per-passkey (AAD=DID) + Shamir guardian recovery; AEAD-AAD scope binding; no-server-key (ADR-2605231525). Substrate verified+hardened by ADR-2606037000."
+path = "90-docs/adr/2606014000-kotoba-passkey-cacao-signal-secrecy.md"
+
+[[adrs]]
+id = "2606014500"
+title = "ai-gftd auth worker — Proton-style zero-access alignment (client-self-custody KEK)"
+status = "active"
+path = "90-docs/adr/2606014500-ai-gftd-auth-zero-access-proton-alignment.md"
+
+[[adrs]]
+id = "2606015000"
+title = "PDS refactor onto kotoba-server — session PoP verify (no server signing key)"
+status = "active"
+path = "90-docs/adr/2606015000-pds-refactor-onto-kotoba-server.md"
+
+[[adrs]]
+id = "2606037000"
+title = "Session close — kotoba coverage + security-hardening sweep (21 fixes, ~55 property tests, 2443 lib tests green)"
+status = "active"
+status_note = "Verified+hardened the secrecy substrate of 2606014000/4500/5000: parser/decoder DoS class (frame/CAR/pack/vault/edn/cypher/ingest/agent), SovereignCrypto corrupt-block fail-loud, source_chain CID injectivity, CACAO max-age parity, Shamir/validate_did/PoP-aud. Flagged (design): OPK consume-on-fetch + did_slug 32-bit collision width."
+path = "90-docs/adr/2606037000-session-close-kotoba-coverage-security-hardening-sweep.md"
+
 # ── Murakumo Tier 1 bring-up ──
 
 [[adrs]]
