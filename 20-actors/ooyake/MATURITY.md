@@ -41,6 +41,13 @@ official URL** (本体の url), on 2026-06-03.
   `gov-units.world-education.edn` **127** (`Q2269756`, cofog 09) ·
   `gov-units.world-environment.edn` **85** (`Q917441`, cofog 05) ·
   `gov-units.world-agriculture.edn` **104** (`Q1364302`, cofog 04.2).
+- **6 further worldwide ministry layers (2nd subagent batch, 396 units)** — same
+  Wikidata-class pull + central cleanse: `world-labour` **64** (`Q12813215`) ·
+  `world-transport` **91** (`Q2516426`) · `world-energy` **71** (`Q19973795`) ·
+  `world-culture` **92** (`Q19973770`) · `world-trade` **46** (`Q1243341`) ·
+  `world-communications` **32** (`Q19983480`). All `:level :ministry` `:branch
+  :executive`. Atlas now **2194 units / 24 files, 2192 QIDs all unique, 2190
+  :authoritative**.
 - `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
   worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
   `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
