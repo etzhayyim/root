@@ -1,17 +1,17 @@
 /**
- * Game bridge: sets up window.gftdBridgeSend → fetch /api/game/{convo}
- * and window.gftdBridgeReceive for Godot/HTML game responses.
+ * Game bridge: sets up window.etzhayyimBridgeSend → fetch /api/game/{convo}
+ * and window.etzhayyimBridgeReceive for Godot/HTML game responses.
  */
 
 declare global {
 	interface Window {
-		gftdBridgeSend?: (msg: string) => void;
-		gftdBridgeReceive?: (json: string) => void;
+		etzhayyimBridgeSend?: (msg: string) => void;
+		etzhayyimBridgeReceive?: (json: string) => void;
 	}
 }
 
 export function setupGameBridge(appBaseUrl: string): () => void {
-	window.gftdBridgeSend = async (msgJson: string) => {
+	window.etzhayyimBridgeSend = async (msgJson: string) => {
 		try {
 			const msg = JSON.parse(msgJson);
 			const convo = msg.convo as string;
@@ -27,8 +27,8 @@ export function setupGameBridge(appBaseUrl: string): () => void {
 			if (!resp.ok) return;
 
 			const data = await resp.json();
-			if (window.gftdBridgeReceive) {
-				window.gftdBridgeReceive(JSON.stringify({ convo, payload: data }));
+			if (window.etzhayyimBridgeReceive) {
+				window.etzhayyimBridgeReceive(JSON.stringify({ convo, payload: data }));
 			}
 		} catch {
 			// Bridge errors are silently ignored — game continues
@@ -36,6 +36,6 @@ export function setupGameBridge(appBaseUrl: string): () => void {
 	};
 
 	return () => {
-		delete window.gftdBridgeSend;
+		delete window.etzhayyimBridgeSend;
 	};
 }

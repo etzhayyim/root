@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copy BPMN files from 60-apps/ai-gftd-project-states/data/gov/{iso}/bpmn/*.bpmn
+# Copy BPMN files from 60-apps/etzhayyim-project-states/data/gov/{iso}/bpmn/*.bpmn
 # into svelte/static/bpmn-files/{iso}/bpmn/*.bpmn so they are served as static
 # assets by the yoro Workers Assets binding.
 #
@@ -8,7 +8,7 @@
 set -u
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 REPO_ROOT=$(cd "$ROOT/../../../../.." && pwd)
-SRC_DIR="$REPO_ROOT/60-apps/ai-gftd-project-states/data/gov"
+SRC_DIR="$REPO_ROOT/60-apps/etzhayyim-project-states/data/gov"
 # Target is the Workers Assets binding dir (yoro-ui-g00h5zto/static/),
 # NOT svelte/static/ (this project is a plain Vite SPA, not SvelteKit —
 # `static/` is not a magic folder). Also mirror into svelte/static/ for
