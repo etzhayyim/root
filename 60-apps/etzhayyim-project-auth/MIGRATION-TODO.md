@@ -95,13 +95,13 @@ _Closed by manual codemod 2026-05-23._
   describe the concrete migration target for both D1 (`vertex_etzhayyim_auth_*` /
   `vertex_etzhayyim_key_*` → encrypted MST envelopes per ADR-2605181100 + Workers KV
   index) and RisingWave (`vertex_etzhayyim_identity` → `com.etzhayyim.apps.identity.*`
-  lexicons with yatachain-projection RW cache per ADR-2605231500).
+  lexicons with kotoba-datomic-projection RW cache per ADR-2605231500).
 
 ### Remaining
 
 - Ship `com.etzhayyim.encrypted.auth.credential` lexicon + Signal-wrapped
   envelope encryption for D1 credentials.
-- Migrate `vertex_etzhayyim_identity` writes to MST + register yatachain-projection
+- Migrate `vertex_etzhayyim_identity` writes to MST + register kotoba-datomic-projection
   manifest for the RW read cache.
 - Remove the type-only `kysely` import once the D1 auth schema is regeneratable
   from the encrypted MST records.
@@ -121,7 +121,7 @@ _Closed (Stage 1) by manual codemod 2026-05-23._
 | File | Purpose |
 |---|---|
 | `00-contracts/lexicons/com/etzhayyim/auth/credential.json` | Inner-type lexicon describing the plaintext shape of an auth credential envelope (passkey / oauthLink / emailLink / smsOtp). |
-| `60-apps/etzhayyim-project-auth/yatachain-projection.toml` | Declares the D1 `vertex_etzhayyim_auth_*` / `edge_etzhayyim_auth_*` / `vertex_etzhayyim_key_*` tables as L0 projections of `com.etzhayyim.encrypted.record` envelopes per ADR-2605231500. Lints reading this manifest can now exempt the auth Worker's D1 access from the substrate-boundary rule. |
+| `60-apps/etzhayyim-project-auth/kotoba-datomic-projection.edn` | Declares the D1 `vertex_etzhayyim_auth_*` / `edge_etzhayyim_auth_*` / `vertex_etzhayyim_key_*` tables as L0 projections of `com.etzhayyim.encrypted.record` envelopes per ADR-2605231500. Lints reading this manifest can now exempt the auth Worker's D1 access from the substrate-boundary rule. |
 | `60-apps/etzhayyim-project-auth/worker/src-ts/substrate-mst-credential.ts` | TypeScript seam: `writeAuthCredential()` / `readAuthCredential()` / `projectPasskeyToD1Row()`. Uses `@etzhayyim/sdk/encrypted` (`encryptedWriteStandalone` / `encryptedReadStandalone`) — already shipping (XChaCha20-Poly1305 + Signal-wrapped per-recipient keys per ADR-2605181100). |
 
 ### Stage 2 (next PR)

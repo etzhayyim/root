@@ -34,7 +34,7 @@
 //   2. `vertex_etzhayyim_identity` / `edge_etzhayyim_*` — RisingWave governance
 //      tables. Migration target: lexicons under
 //      `com.etzhayyim.apps.identity.*` (already partly registered) with the
-//      authoritative writes against MST and a yatachain-projection
+//      authoritative writes against MST and a kotoba-datomic-projection
 //      (`ADR-2605231500`) RisingWave cache that is rebuildable from
 //      MST + IPFS.
 //
@@ -44,7 +44,7 @@
 // without changing behaviour. See `_etzhayyim_substrate.py` in the
 // maps bulk-ingest workers for an example of the seam pattern that the
 // auth worker should adopt at runtime.
-// yatachain-projection: D1 type-only kysely import — compiles away; runtime still goes through @etzhayyim/sdk seam (ADR-2605231500)
+// kotoba-datomic-projection: D1 type-only kysely import — compiles away; runtime still goes through @etzhayyim/sdk seam (ADR-2605231500)
 import type { ColumnType, Generated, Insertable, Selectable, Updateable } from "kysely";
 
 // ═══════════════════════════════════════════════════════════════════════════

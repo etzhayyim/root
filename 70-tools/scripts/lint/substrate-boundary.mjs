@@ -13,12 +13,12 @@
  * use the raw clients (mst-projector, paymaster, anchor-cron, did-web
  * worker, the SDK itself).
  *
- * Storage rules additionally honor the **yatachain-projection** allowance
+ * Storage rules additionally honor the **kotoba-datomic-projection** allowance
  * per ADR-2605231500: a storage import is permitted when
- *   (a) the matched line has `// yatachain-projection` (or `# ...`) within
+ *   (a) the matched line has `// kotoba-datomic-projection` (or `# ...`) within
  *       3 lines above or below it, OR
  *   (b) the file's containing directory (walking up to repo root) has a
- *       `yatachain-projection.toml` manifest.
+ *       `kotoba-datomic-projection.edn` manifest.
  * Payment and substrate-client rules do NOT honor this allowance — projection
  * is a state-store concept only.
  *
@@ -29,7 +29,7 @@
  * staged_files list automatically; see lefthook.yml `substrate-boundary`.
  *
  * Authoritative ADR: 90-docs/adr/2605191648-substrate-boundary-lefthook.md
- * Projection ADR:    90-docs/adr/2605231500-yatachain-projection.md
+ * Projection ADR:    ADR-2605231500
  */
 import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
@@ -75,7 +75,7 @@ const allowedPrefixes = [
   "70-tools/seed-post/",                       // ADR-2605231902 seed CLI
   // Tests + archives.
   "_archive/",
-  "60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/_svelte/", // vite build output
+  "60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/_svelte/", // vite build output
   "60-apps/etzhayyim-project-bpmn/appview/etzhayyim-wasm-bpmn-bx7qm9p4/", // migrated BPMN substrate component; direct Hyperdrive writer tracked by ADR-2605181400
 ];
 
@@ -163,11 +163,11 @@ function isScannedExtension(filePath) {
   return scannedExts.some((ext) => filePath.endsWith(ext));
 }
 
-// ─── yatachain-projection allowance (ADR-2605231500) ────────────────
+// ─── kotoba-datomic-projection allowance (ADR-2605231500) ────────────────
 
-/** Matches `// yatachain-projection` (TS/JS) or `# yatachain-projection` (Python).
+/** Matches projection markers in TS/JS/Python comments.
  *  Trailing free-form text (e.g., rebuild path reference) is allowed. */
-const PROJECTION_LINE_MARKER = /(?:\/\/|#)\s*yatachain-projection\b/;
+const PROJECTION_LINE_MARKER = /(?:\/\/|#)\s*kotoba-datomic-projection\b/;
 
 /** Within 3 lines above or below the match, is there a projection marker? */
 function hasProjectionLineMarker(content, matchLineNumber) {
@@ -183,7 +183,7 @@ function hasProjectionLineMarker(content, matchLineNumber) {
 /** Cache: directory -> bool (has projection manifest in self or any ancestor). */
 const projectionManifestCache = new Map();
 
-/** Walk up from the file's directory looking for `yatachain-projection.toml`.
+/** Walk up from the file's directory looking for a projection manifest.
  *  Stops at process.cwd() (assumed repo root for the lefthook invocation) or
  *  after 10 levels — whichever first. */
 function hasProjectionManifest(filePath) {
@@ -197,7 +197,7 @@ function hasProjectionManifest(filePath) {
       return cached;
     }
     visited.push(dir);
-    if (existsSync(path.join(dir, "yatachain-projection.toml"))) {
+    if (existsSync(path.join(dir, "kotoba-datomic-projection.edn"))) {
       for (const v of visited) projectionManifestCache.set(v, true);
       return true;
     }
@@ -241,7 +241,7 @@ for (const file of args) {
       const upToMatch = content.slice(0, m.index ?? 0);
       const line = upToMatch.split("\n").length;
 
-      // ADR-2605231500: storage imports are allowed inside a yatachain-projection.
+      // ADR-2605231500: storage imports are allowed inside a projection cache.
       if (isStorageRule(group.kind)) {
         if (hasProjectionLineMarker(content, line)) continue;
         if (fileHasManifest === null) fileHasManifest = hasProjectionManifest(file);
@@ -273,11 +273,11 @@ if (violations.length > 0) {
   console.error("path prefix to `allowedPrefixes` in this script with a code");
   console.error("comment justifying the exception.");
   console.error("");
-  console.error("If this is a yatachain-projection (derived read path, ADR-2605231500):");
-  console.error("  - mark the line with `// yatachain-projection: <runbook ref>`");
-  console.error("    (or `# yatachain-projection: …` for Python), OR");
-  console.error("  - add `yatachain-projection.toml` to the containing directory");
-  console.error("    (template in 10-protocol/yatachain/SPEC.md §Marking convention).");
+  console.error("If this is a kotoba-datomic-projection (derived read path, ADR-2605231500):");
+  console.error("  - mark the line with `// kotoba-datomic-projection: <runbook ref>`");
+  console.error("    (or `# kotoba-datomic-projection: ...` for Python), OR");
+  console.error("  - add `kotoba-datomic-projection.edn` to the containing directory");
+  console.error("    (template in ADR-2605231500 marking convention).");
   console.error("  Note: projection allowance covers storage rules only — payment");
   console.error("  and substrate-client seam rules are not projection-allowable.");
   process.exit(1);

@@ -168,4 +168,4 @@ rollback insurance.
 - ADR-2605192300 (Bootstrap Council 5-of-7 Safe)
 - ADR-0074 (Ethereum Identity Bridge — CACAO + WebAuthn)
 - ADR-0029 (did:etzhayyim method specification — legacy migration)
-- `yatachain-projection.toml` — declares `vertex_etzhayyim_*` as L0-rebuildable from MST
+- `kotoba-datomic-projection.edn` — declares `vertex_etzhayyim_*` as L0-rebuildable from MST

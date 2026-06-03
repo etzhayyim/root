@@ -10,8 +10,8 @@
  * lexicon (see `00-contracts/lexicons/com/etzhayyim/auth/credential.json`).
  *
  * The existing D1 tables (`vertex_etzhayyim_auth_credential` etc.) remain in
- * place as a yatachain-projection cache (see
- * `60-apps/etzhayyim-project-auth/yatachain-projection.toml`). This module
+ * place as a kotoba-datomic-projection cache (see
+ * `60-apps/etzhayyim-project-auth/kotoba-datomic-projection.edn`). This module
  * wires the canonical-write seam; integrating it into the existing
  * `passkeyVerifyRegister` / `linkEmailVerify` / `linkOAuthStart` /
  * `smsOtpSend` handlers in `index.ts` is the Stage 2 task that flips the
