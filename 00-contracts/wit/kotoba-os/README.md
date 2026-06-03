@@ -95,10 +95,17 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
   liveActuation, N1 civilianOnly), capability scoping (`grants()`), and the
   **`LowerEdge` trait** abstracting L1 with an edge-independent `boot()` (validate
   → CID-verify kernel + each actor + its membrane rule). `HostedEdge` reference impl.
-- **6 `cargo test` green**: valid manifest deserializes + validates, deny-unknown-fields
-  matches the schema, validate() catches all three constitutional violations,
-  capability scoping, HostedEdge boots a valid manifest (3 artifacts verified),
-  boot refuses a server-key manifest.
+- **`mesh` module** (ADR §D5 agent-centric mesh): `SourceChain` (append-only,
+  hash-linked = the local Datom-log segment, with tamper-detecting `verify()`),
+  deterministic `witness_index`/`select_witnesses` (the ADR-2605231902
+  `hash(record_cid) + i mod n` rule), and a `Membrane` trait + `CapabilityMembrane`
+  + `quorum_accepts()`.
+- **13 `cargo test` green**: 6 manifest/edge (valid deserialize+validate,
+  deny-unknown-fields matches schema, validate() catches all three violations,
+  capability scoping, HostedEdge boots 3 artifacts, boot refuses server-key) + 7
+  mesh (chain links+verifies, verify detects tampering, witness selection
+  deterministic + reproducible + spreads + capped, membrane rejects ungranted
+  interface, quorum accepts only with enough valid witnesses).
 
 ## Next maturity steps (tracked toward R1)
 
@@ -107,7 +114,8 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
 - ✅ Genesis-manifest boot contract authored + tested (3 tests green).
 - ✅ `kotoba-os-types` crate scaffold (genesis-manifest type + `LowerEdge` trait,
   6 cargo tests green).
+- ✅ `mesh` module — source chain + witness-quorum determinism + membrane (ADR §D5,
+  7 cargo tests green).
 - A reference `plc-control` guest (Rust → wasm32, componentize) that runs the
   same soft-RT loop as a real WASM Component Model component.
-- A `mesh-agent` / source-chain reference (witness-quorum determinism, membrane
-  validation) for ADR §D5.
+- An honest unikernel-edge flash/RAM sizing budget (ADR §D6, R1 deliverable).

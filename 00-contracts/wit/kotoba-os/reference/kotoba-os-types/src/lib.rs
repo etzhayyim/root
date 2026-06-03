@@ -17,6 +17,8 @@
 
 use serde::{Deserialize, Serialize};
 
+pub mod mesh;
+
 /// The L1 lower edge a manifest targets. L3–L5 are identical across edges.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
