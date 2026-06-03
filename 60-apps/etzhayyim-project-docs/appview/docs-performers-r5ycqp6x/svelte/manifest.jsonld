@@ -1,7 +1,7 @@
 {
   "@context": "https://kyber-services.etzhayyim.com/schema#",
   "@type": "AppManifest",
-  "id": "ai-gftd-performer-sys-gftd-app-docs-dvf92zap",
+  "id": "etzhayyim-performer-sys-etzhayyim-app-docs-dvf92zap",
   "name": "Docs",
   "description": "Project documentation management and publication",
   "version": "1.0.0",

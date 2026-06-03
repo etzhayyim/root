@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
 
   let filePath = path.join(BUILD_DIR, req.url === '/' ? 'index.html' : req.url);
   let isHtmlFallback = false;
-  
+
   // SPA support: if file not found, serve index.html
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     filePath = path.join(BUILD_DIR, 'index.html');
@@ -74,5 +74,3 @@ server.listen(PORT, () => {
   console.log(`🚀 SPA Server running at http://localhost:${PORT}/`);
   console.log(`📂 Serving static files from: ${BUILD_DIR}`);
 });
-
-

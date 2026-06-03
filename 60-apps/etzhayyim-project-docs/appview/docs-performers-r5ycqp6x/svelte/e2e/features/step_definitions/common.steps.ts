@@ -19,7 +19,7 @@ Given("I am on the {string} page", async function (this: CucumberWorld, pagePath
 	if (pagePath.includes("{workspaceId}")) {
 		await this.page.goto("/");
 		await this.page.waitForLoadState("networkidle");
-		
+
 		const workspaceLink = this.page.locator(".workspace-card").first();
 		if (await workspaceLink.isVisible({ timeout: 5000 }).catch((_err) => false)) {
 			const href = await workspaceLink.getAttribute("href");
@@ -70,13 +70,13 @@ When("I click on {string}", async function (this: CucumberWorld, buttonText: str
 Given("I create a workspace named {string}", async function (this: CucumberWorld, name: string) {
 	const createBtn = this.page.getByRole("button", { name: /New Workspace|Create Workspace/i }).first();
 	await createBtn.click();
-	
+
 	const nameInput = this.page.getByLabel("Name").first();
 	await nameInput.fill(name);
-	
+
 	const submitBtn = this.page.getByRole("button", { name: "Create" }).first();
 	await submitBtn.click();
-	
+
 	// Wait for the workspace to be created
 	await this.page.waitForTimeout(2000);
 });
@@ -85,7 +85,7 @@ When("I fill in {string} with {string}", async function (this: CucumberWorld, fi
 	const label = this.page.getByLabel(fieldName).first();
 	const placeholder = this.page.getByPlaceholder(fieldName).first();
 	const nameInput = this.page.locator(`input[name*="${fieldName}" i]`).first();
-	
+
 	if (await label.isVisible({ timeout: 2000 }).catch((_err) => false)) {
 		await label.fill(value);
 	} else if (await placeholder.isVisible({ timeout: 2000 }).catch((_err) => false)) {
@@ -153,14 +153,14 @@ Then("the page title should be saved as {string}", async function (this: Cucumbe
 Given("I am on a new page in workspace {string}", async function (this: CucumberWorld, workspaceName: string) {
 	await this.page.goto("/");
 	await this.page.waitForLoadState("networkidle");
-	
+
 	// Create workspace if not exists
 	const workspaceBtn = this.page.getByRole("button", { name: /New Workspace|Create Workspace/i }).first();
 	await workspaceBtn.click();
 	await this.page.getByLabel("Name").fill(workspaceName);
 	await this.page.getByRole("button", { name: "Create" }).click();
 	await this.page.waitForTimeout(1000);
-	
+
 	// Create page
 	const newPageBtn = this.page.getByRole("button", { name: "New Page" }).first();
 	await newPageBtn.click();

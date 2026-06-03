@@ -19,7 +19,7 @@
     "isBot": true,
     "agentType": "autonomous",
     "category": "google-workspace",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "capabilities": ["bpmn-dispatch", "oauth-redirect"]
   },
   "routes": [

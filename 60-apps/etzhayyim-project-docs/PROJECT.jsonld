@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "Document Management Platform (ai-gftd-project-docs)",
+  "name": "Document Management Platform (etzhayyim-project-docs)",
   "status": "In Progress",
-  "identifier": "ai-gftd-project-docs",
+  "identifier": "etzhayyim-project-docs",
   "description": "Notion-like document management system with real-time collaboration, AI assistance, and version control. Accessible at docs.etzhayyim.com.",
   "hasPart": [
     {
@@ -46,7 +46,7 @@
     },
     {
       "status": "in_progress",
-      "task": "Consolidate docs project structure into ai-gftd-project-docs."
+      "task": "Consolidate docs project structure into etzhayyim-project-docs."
     },
     {
       "status": "pending",
@@ -57,13 +57,13 @@
     {
       "@type": "Service",
       "name": "Docs Actor",
-      "identifier": "ai-gftd-docs",
+      "identifier": "etzhayyim-docs",
       "description": "Go performer actor handling document lifecycle events via Connect gRPC."
     },
     {
       "@type": "Service",
       "name": "Docs Frontend",
-      "identifier": "ai-gftd-docs-frontend",
+      "identifier": "etzhayyim-docs-frontend",
       "description": "SvelteKit frontend with ConnectRPC client for document management UI."
     }
   ],
@@ -156,24 +156,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "Document Management Platform (ai-gftd-project-docs) Scheduler",
-          "identifier": "ai-gftd-project-docs/scheduler",
+          "name": "Document Management Platform (etzhayyim-project-docs) Scheduler",
+          "identifier": "etzhayyim-project-docs/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [
@@ -185,7 +185,7 @@
             },
             {
               "@type": "CreativeWork",
-              "name": "Consolidate docs project structure into ai-gftd-project-docs.",
+              "name": "Consolidate docs project structure into etzhayyim-project-docs.",
               "status": "Planned",
               "dueDate": "2026-03-01"
             },

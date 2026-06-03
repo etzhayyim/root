@@ -40,7 +40,7 @@ PERFORMERS_DIRS=$(find performers -type d -name "k8s" -path "*/performers/*/k8s"
 for dir in $PERFORMERS_DIRS; do
   performer_name=$(echo "$dir" | sed 's|performers/.*/performers/\(.*\)/k8s|\1|')
   app_file="50-infra/pulumi/apps/${performer_name}.yaml"
-  
+
   cat > "$app_file" <<EOF
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -48,7 +48,7 @@ metadata:
   name: ${performer_name}
   namespace: pulumi
   labels:
-    app.kubernetes.io/part-of: ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
+    app.kubernetes.io/part-of: etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
     1.etzhayyim.com: "true"
   finalizers:
     - resources-finalizer.pulumi.argoproj.io
@@ -60,7 +60,7 @@ spec:
     path: ${dir}
   destination:
     server: https://kubernetes.default.svc
-    namespace: ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
+    namespace: etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
   syncPolicy:
     automated:
       prune: true
@@ -69,7 +69,7 @@ spec:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true
 EOF
-  
+
   echo "Created $app_file"
 done
 ```

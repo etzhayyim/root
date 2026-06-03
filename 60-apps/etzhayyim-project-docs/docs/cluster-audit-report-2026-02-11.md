@@ -13,7 +13,7 @@
 
 | Application | Sync Status | Health | Path |
 |------------|-------------|---------|------|
-| ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4 | **OutOfSync** | Healthy | 50-infra/pulumi/apps |
+| etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4 | **OutOfSync** | Healthy | 50-infra/pulumi/apps |
 | cluster-infrastructure | Unknown | Healthy | infra/cluster |
 | auth-gateway | Unknown | Healthy | performers/sys-auth-gateway/k8s |
 | performers-dashboard | Unknown | Healthy | performers/sys-dashboard/k8s |
@@ -22,14 +22,14 @@
 ### 2. 管理されていないリソース（Pulumi labelなし）
 
 #### HTTPRoutes（全て unmanaged）
-- `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: **60+個のHTTPRoutes**
-- `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: 9個のHTTPRoutes
+- `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: **60+個のHTTPRoutes**
+- `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: 9個のHTTPRoutes
 
 **問題**: クラスタ上の全HTTPRoutesにPulumi管理ラベルが付いていない
 
 #### Deployments（大部分 unmanaged）
-- `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: **50+個のDeployments**
-- `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: 11個のDeployments
+- `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: **50+個のDeployments**
+- `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4` namespace: 11個のDeployments
 
 **問題**: アプリケーションDeploymentsがPulumiで管理されていない
 
@@ -67,8 +67,8 @@ directories:
 ### クラスタリソースの実態
 
 #### Namespaces
-- `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`: 主要org namespace（Pulumi labelなし）
-- `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`: Pulumi managed-by label **あり**
+- `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`: 主要org namespace（Pulumi labelなし）
+- `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`: Pulumi managed-by label **あり**
 - システムnamespaces: cert-manager, legacy-runtime-system, envoy-gateway-system, keda, tekton-pipelines
 
 #### 動作中のワークロード
@@ -101,7 +101,7 @@ directories:
 
 2. ✅ **Root App of Appsの同期**
    ```bash
-   pulumi app sync ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
+   pulumi app sync etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
    ```
 
 3. ✅ **Degraded Applicationの修復**（該当がある場合）
@@ -109,7 +109,7 @@ directories:
 ### 短期（1週間以内）
 4. **ApplicationSet生成状況の確認**
    ```bash
-   kubectl get applications -n pulumi -l app.kubernetes.io/part-of=ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
+   kubectl get applications -n pulumi -l app.kubernetes.io/part-of=etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4
    ```
 
 5. **手動デプロイリソースの特定と移行**
