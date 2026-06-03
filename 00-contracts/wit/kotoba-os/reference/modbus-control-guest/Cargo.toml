@@ -1,0 +1,19 @@
+# A fieldbus (Modbus) control component (ADR-2606031600 §D3): the same plc-control
+# world as the bang-bang guest, but it talks to a Modbus device instead of discrete
+# I/O. Its tree-shaken imports are {io-analog, fieldbus-modbus, datom} — which is
+# exactly what the hikari grid-edge manifest grants, so hikari AUTHORIZES it. Gives
+# the fieldbus-* interfaces their first component + test coverage.
+[package]
+name = "modbus-control-guest"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Reference kotoba:os plc-control component over Modbus (fieldbus coverage)"
+
+[workspace]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wit-bindgen = "0.51"

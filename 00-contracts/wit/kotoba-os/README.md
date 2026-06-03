@@ -21,7 +21,7 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 | ADR | Pillar | Artifact | Tests |
 |---|---|---|---|
 | D1 | boot manifest | `schemas/…-genesis-manifest.json` + Rust `GenesisManifest`/`validate()` | 3 py + (in 19 rust) |
-| D2 | userland | **2 real WASM components** `plc-control-guest/` + `mesh-agent-guest/` (capability-minimized) | 3+3 py |
+| D2 | userland | **3 real WASM components** `plc-control` + `mesh-agent` + `modbus-control` (capability-minimized) | 3+3+3 py |
 | D3 | scan-cycle = Datom txn | `scan_cycle_model.py` + **wasmtime e2e** (control+fuel+N3+**multi-actor**) | 6 + 5 py |
 | D4 | k8s OCI-CID | `schemas/…-oci-artifact.json` (digest=CID decode invariant) | 8 py |
 | D5 | agent-centric mesh | `kotoba-os-types::mesh` (source chain + witness quorum + membrane) | 7 rust |
@@ -202,7 +202,10 @@ build, validates the component, prints its world + digest.
 **Second L5 world** (`mesh-agent-guest/`): the same artifact kind built for the
 non-control `mesh-agent` world (exports `step`). Proves an agent has **zero device
 authority** — its component imports only `kotoba:os/datom` (no `io-*`/`fieldbus-*`);
-3 toolchain-guarded tests.
+3 toolchain-guarded tests. **Modbus controller** (`modbus-control-guest/`): the first component to exercise a
+`fieldbus-*` interface — tree-shakes to {io-analog, fieldbus-modbus, datom}, which is
+exactly what the hikari grid-edge manifest grants, so hikari authorizes a real built
+component (3 tests).
 
 ## End-to-end host run (`reference/plc-host-runner/`)
 
