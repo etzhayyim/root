@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:chainsaw-man-character-makima-symbolism-2026",
+  "@id": "urn:etzhayyim:news:chainsaw-man-character-makima-symbolism-2026",
   "identifier": "chainsaw-man-character-makima-symbolism-2026",
   "headline": "Makima symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Makima and how they map onto Chainsaw Man’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

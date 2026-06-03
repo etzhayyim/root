@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:chainsaw-man-character-power-relationships-2026",
+  "@id": "urn:etzhayyim:news:chainsaw-man-character-power-relationships-2026",
   "identifier": "chainsaw-man-character-power-relationships-2026",
   "headline": "Power relationship analysis: bonds, conflicts, and character growth",
   "description": "Reading Power through key relationships to surface growth and thematic tension.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
