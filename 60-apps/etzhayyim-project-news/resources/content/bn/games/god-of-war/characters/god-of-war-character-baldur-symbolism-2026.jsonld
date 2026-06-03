@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:god-of-war-character-baldur-symbolism-2026",
+  "@id": "urn:etzhayyim:news:god-of-war-character-baldur-symbolism-2026",
   "identifier": "god-of-war-character-baldur-symbolism-2026",
   "headline": "Baldur symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Baldur and how they map onto God of War’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

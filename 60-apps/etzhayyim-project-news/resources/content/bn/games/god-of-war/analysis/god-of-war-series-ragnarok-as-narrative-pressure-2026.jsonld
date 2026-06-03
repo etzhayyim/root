@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:god-of-war-series-ragnarok-as-narrative-pressure-2026",
+  "@id": "urn:etzhayyim:news:god-of-war-series-ragnarok-as-narrative-pressure-2026",
   "identifier": "god-of-war-series-ragnarok-as-narrative-pressure-2026",
   "headline": "God of War analysis: Ragnarok as narrative pressure",
   "description": "A thematic essay on God of War, organized around: Ragnarok as narrative pressure.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
