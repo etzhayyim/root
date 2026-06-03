@@ -257,7 +257,7 @@ wheels = [
 ]
 
 [[package]]
-name = "gftd-graph-schema"
+name = "etzhayyim-graph-schema"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

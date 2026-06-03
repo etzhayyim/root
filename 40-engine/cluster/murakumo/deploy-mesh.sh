@@ -12,8 +12,8 @@ cd "$(dirname "$0")"
 
 # Resolve cargo target directory (may be overridden in .cargo/config.toml)
 CARGO_TARGET=$(cargo metadata --format-version 1 2>/dev/null | python3 -c "import sys,json; print(json.load(sys.stdin).get('target_directory','target'))" 2>/dev/null || echo "target")
-BINARY="${CARGO_TARGET}/release/gftd-murakumo"
-MESH_IDENTITY_DIR="$HOME/.gftd/mesh"
+BINARY="${CARGO_TARGET}/release/etzhayyim-murakumo"
+MESH_IDENTITY_DIR="$HOME/.etzhayyim/mesh"
 CONTROL_PLANE="https://murakumo.etzhayyim.com"
 
 # Default mesh nodes
@@ -66,7 +66,7 @@ if [ "$STATUS_ONLY" = true ]; then
   for name in "${TARGETS[@]}"; do
     echo ""
     echo "[$name] (${NODES[$name]})"
-    ssh_cmd "$name" "/usr/local/bin/gftd-murakumo murakumo-mesh status 2>&1 || echo 'mesh not configured'" 2>/dev/null || echo "  unreachable"
+    ssh_cmd "$name" "/usr/local/bin/etzhayyim-murakumo murakumo-mesh status 2>&1 || echo 'mesh not configured'" 2>/dev/null || echo "  unreachable"
   done
   exit 0
 fi
@@ -100,21 +100,21 @@ deploy_node() {
   local name="$1"
   echo "[$name] deploying binary to ${NODES[$name]}..."
 
-  scp_cmd "$name" "$BINARY" "/tmp/gftd-murakumo-new"
-  ssh_cmd "$name" "sudo mv /tmp/gftd-murakumo-new /usr/local/bin/gftd-murakumo && sudo chmod +x /usr/local/bin/gftd-murakumo"
+  scp_cmd "$name" "$BINARY" "/tmp/etzhayyim-murakumo-new"
+  ssh_cmd "$name" "sudo mv /tmp/etzhayyim-murakumo-new /usr/local/bin/etzhayyim-murakumo && sudo chmod +x /usr/local/bin/etzhayyim-murakumo"
   echo "[$name]   binary updated"
 
   # Deploy mesh identity
   local identity_file="$MESH_IDENTITY_DIR/${name}.json"
-  ssh_cmd "$name" "mkdir -p ~/.gftd/mesh"
+  ssh_cmd "$name" "mkdir -p ~/.etzhayyim/mesh"
   local remote_home
   remote_home=$(ssh_cmd "$name" "echo \$HOME")
-  scp_cmd "$name" "$identity_file" "${remote_home}/.gftd/mesh/identity.json"
+  scp_cmd "$name" "$identity_file" "${remote_home}/.etzhayyim/mesh/identity.json"
   echo "[$name]   identity deployed"
 
   # Verify
   local version
-  version=$(ssh_cmd "$name" "/usr/local/bin/gftd-murakumo version 2>&1" 2>/dev/null || echo "unknown")
+  version=$(ssh_cmd "$name" "/usr/local/bin/etzhayyim-murakumo version 2>&1" 2>/dev/null || echo "unknown")
   echo "[$name]   version: $version"
 }
 
@@ -126,7 +126,7 @@ done
 # ── Step 3: Install mesh launchd service on each node ──
 install_mesh_service() {
   local name="$1"
-  local identity_file="\$HOME/.gftd/mesh/identity.json"
+  local identity_file="\$HOME/.etzhayyim/mesh/identity.json"
 
   echo "[$name] installing mesh daemon..."
 
@@ -139,7 +139,7 @@ install_mesh_service() {
   local tmp_script="/tmp/mesh-run-${name}.sh"
   cat > "$tmp_script" << EOF
 #!/usr/bin/env bash
-exec /usr/local/bin/gftd-murakumo murakumo-mesh tunnel \\
+exec /usr/local/bin/etzhayyim-murakumo murakumo-mesh tunnel \\
   --node-id ${node_id} \\
   --secret-key ${secret_key} \\
   --control-plane ${CONTROL_PLANE} \\
@@ -149,8 +149,8 @@ EOF
 
   local home_dir
   home_dir=$(ssh_cmd "$name" 'echo $HOME')
-  scp_cmd "$name" "$tmp_script" "${home_dir}/.gftd/mesh/run-mesh.sh"
-  ssh_cmd "$name" "chmod +x ~/.gftd/mesh/run-mesh.sh"
+  scp_cmd "$name" "$tmp_script" "${home_dir}/.etzhayyim/mesh/run-mesh.sh"
+  ssh_cmd "$name" "chmod +x ~/.etzhayyim/mesh/run-mesh.sh"
   rm -f "$tmp_script"
 
   # Create launchd plist locally, then scp
@@ -164,7 +164,7 @@ EOF
     <string>com.etzhayyim.murakumo-mesh</string>
     <key>ProgramArguments</key>
     <array>
-        <string>${home_dir}/.gftd/mesh/run-mesh.sh</string>
+        <string>${home_dir}/.etzhayyim/mesh/run-mesh.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
@@ -173,9 +173,9 @@ EOF
     <key>ThrottleInterval</key>
     <integer>10</integer>
     <key>StandardOutPath</key>
-    <string>${home_dir}/.gftd/mesh.log</string>
+    <string>${home_dir}/.etzhayyim/mesh.log</string>
     <key>StandardErrorPath</key>
-    <string>${home_dir}/.gftd/mesh.log</string>
+    <string>${home_dir}/.etzhayyim/mesh.log</string>
 </dict>
 </plist>
 EOF
@@ -183,7 +183,7 @@ EOF
   rm -f "$tmp_plist"
 
   # Kill existing mesh process and restart via nohup (more reliable than launchd for this)
-  ssh_cmd "$name" "pkill -f 'murakumo-mesh tunnel' 2>/dev/null; sleep 1; rm -f ~/.gftd/mesh.log; nohup ~/.gftd/mesh/run-mesh.sh > ~/.gftd/mesh.log 2>&1 &"
+  ssh_cmd "$name" "pkill -f 'murakumo-mesh tunnel' 2>/dev/null; sleep 1; rm -f ~/.etzhayyim/mesh.log; nohup ~/.etzhayyim/mesh/run-mesh.sh > ~/.etzhayyim/mesh.log 2>&1 &"
   echo "[$name]   mesh daemon started"
 }
 
@@ -207,7 +207,7 @@ for name in "${TARGETS[@]}"; do
   echo "  mesh: $local_mesh_ip"
 
   # Show daemon log tail
-  log_tail=$(ssh_cmd "$name" "tail -3 ~/.gftd/mesh.log 2>/dev/null" 2>/dev/null || echo "  no log")
+  log_tail=$(ssh_cmd "$name" "tail -3 ~/.etzhayyim/mesh.log 2>/dev/null" 2>/dev/null || echo "  no log")
   echo "  log:"
   echo "$log_tail" | sed 's/^/    /'
 done
@@ -226,7 +226,7 @@ done
 echo ""
 echo "Commands:"
 echo "  ./deploy-mesh.sh --status          # Check mesh status"
-echo "  ssh dan 'tail -f ~/.gftd/mesh.log' # Watch mesh logs"
-echo "  gftd-murakumo murakumo-mesh peers  # List mesh peers"
+echo "  ssh dan 'tail -f ~/.etzhayyim/mesh.log' # Watch mesh logs"
+echo "  etzhayyim-murakumo murakumo-mesh peers  # List mesh peers"
 echo ""
 echo "=== Mesh deployment complete ==="

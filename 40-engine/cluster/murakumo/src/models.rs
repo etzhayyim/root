@@ -361,7 +361,7 @@ pub struct StudentConfig {
     pub ram_gb: f64,
 }
 
-pub const MODEL_FAMILY: &str = "gftd/gftd-moe-moe-kyun";
+pub const MODEL_FAMILY: &str = "etzhayyim/etzhayyim-moe-moe-kyun";
 
 pub static OPUS_STUDENT_MODELS: &[StudentConfig] = &[
     StudentConfig { id: "qwen2.5-3b", model: "mlx-community/Qwen2.5-3B-Instruct-4bit", rank: 8, alpha: 16, lr: 2e-5, epochs: 10, quant: "4bit-MLX", ram_gb: 2.5 },

@@ -96,7 +96,7 @@ mod tests {
 
     #[test]
     fn parses_user_pass_with_port_and_query() {
-        let d = Dsn::parse("yatabase://gftd_xxx:sk_live_yata_xyz@my.host.example:5433/y_db?sslmode=require").unwrap();
+        let d = Dsn::parse("yatabase://etzhayyim_xxx:sk_live_yata_xyz@my.host.example:5433/y_db?sslmode=require").unwrap();
         assert_eq!(d.token, "sk_live_yata_xyz");
         assert_eq!(d.host, "my.host.example");
         assert_eq!(d.port, 5433);

@@ -57,7 +57,7 @@ async fn murakumo_service_call<Req: Serialize, Resp: DeserializeOwned>(
     method: &str,
     req: &Req,
 ) -> Result<Resp, String> {
-    let url = format!("{}/xrpc/gftd.murakumo.v1.{}/{}", endpoint, service, method);
+    let url = format!("{}/xrpc/etzhayyim.murakumo.v1.{}/{}", endpoint, service, method);
 
     let resp = client
         .post(&url)
@@ -130,7 +130,7 @@ pub async fn magatama_app_call<Req: Serialize, Resp: DeserializeOwned>(
 ) -> Result<Resp, String> {
     let endpoint = env_or("ETZHAYYIM_MURAKUMO_APP", DEFAULT_MURAKUMO_APP_ENDPOINT);
     let url = format!(
-        "{}/xrpc/gftd.murakumo.v1.MurakumoCommandService/{}",
+        "{}/xrpc/etzhayyim.murakumo.v1.MurakumoCommandService/{}",
         endpoint, command
     );
 

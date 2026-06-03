@@ -10,7 +10,7 @@ use std::sync::{Arc, RwLock};
 use std::time::{Duration, Instant};
 use x25519_dalek::{PublicKey, StaticSecret};
 
-const MESH_KEY_CTX: &[u8] = b"gftd-murakumo-mesh-v1";
+const MESH_KEY_CTX: &[u8] = b"etzhayyim-murakumo-mesh-v1";
 
 /// Mesh subnet: 10.99.0.0/16 (65534 peers max)
 const MESH_SUBNET_PREFIX: [u8; 2] = [10, 99];

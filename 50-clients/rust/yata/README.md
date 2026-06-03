@@ -143,7 +143,7 @@ yata bench                           # built-in latency / throughput
 Many functions are `todo!()` while the
 [yatabase.etzhayyim.com server](https://yatabase.etzhayyim.com) ships P3.2+
 surfaces. Track the roadmap at
-[`60-apps/ai-gftd-project-yatabase/CLAUDE.md`](https://github.com/etzhayyim/etzhayyim-root/blob/main/60-apps/ai-gftd-project-yatabase/CLAUDE.md).
+[`60-apps/etzhayyim-project-yatabase/CLAUDE.md`](https://github.com/etzhayyim/etzhayyim-root/blob/main/60-apps/etzhayyim-project-yatabase/CLAUDE.md).
 
 ## MSRV
 

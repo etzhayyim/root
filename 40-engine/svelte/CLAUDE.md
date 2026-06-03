@@ -11,7 +11,7 @@
 
 ## CRITICAL: SuperApp Mobile-First Architecture
 
-→ `gftd dodaf tv1 query --id svelte-superapp-mobile-first-architecture` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id svelte-superapp-mobile-first-architecture` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## authn.etzhayyim.com 認証 (Passkey + AT Protocol JWT, ADR-0024 T4 split)
 
@@ -40,15 +40,15 @@
 
 ## CRITICAL: Connect Client Dependency Policy
 
-→ `gftd dodaf tv1 query --id svelte-connect-client-dependency-policy` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id svelte-connect-client-dependency-policy` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## CRITICAL: UIKit (design-system) 必須 — 独自 UI 実装禁止
 
-→ `gftd dodaf tv1 query --id svelte-uikit-design-system-必須-独自-ui-実装禁止` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id svelte-uikit-design-system-必須-独自-ui-実装禁止` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## CRITICAL: File Upload — FormData + Multipart Binary (base64 禁止)
 
-→ `gftd dodaf tv1 query --id svelte-file-upload-formdata-+-multipart-binary-base64-禁` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id svelte-file-upload-formdata-+-multipart-binary-base64-禁` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Rules
 
@@ -63,7 +63,7 @@
 
 - **独自 CSS (`<style>` ブロック) は原則禁止**。Tailwind CSS クラスのみを使用する
 - スタイリングには `cn()` ユーティリティ (clsx + tailwind-merge) を使用
-- design-system の Tailwind プラグイン: `@digital-go-jp/tailwind-theme-plugin` (gov tokens: `text-std-*`, `text-oln-*`) + `gftdUIKit` (mobile utilities: `safe-area-*`, `tap-target-44`, `scrollbar-none`, `material-blur-*`)
+- design-system の Tailwind プラグイン: `@digital-go-jp/tailwind-theme-plugin` (gov tokens: `text-std-*`, `text-oln-*`) + `etzhayyimUIKit` (mobile utilities: `safe-area-*`, `tap-target-44`, `scrollbar-none`, `material-blur-*`)
 - AppShell v2 テーマ (`--gv2-*` CSS custom properties) は Tailwind の `[var(--gv2-*)]` 記法で参照可能
 - **禁止**: `<style>` ブロックでの独自 CSS 定義、インラインの `style` 属性（動的値を除く）
 - **許可**: `app.css` でのグローバル設定 (tokens.css import, body/html 基本設定のみ)
@@ -159,7 +159,7 @@ import { safeBuilder } from '@etzhayyim/vite-plugin-safe-builder';
 import { Avatar, BottomNav, SnapFeed, Toast, ... } from '@etzhayyim/design-system';      // components
 import { createBottomSheet, createTabs, createToast, createSwipe } from '@etzhayyim/design-system/builders'; // headless builders
 import { staggerFly, snapSpring, smoothSpring } from '@etzhayyim/design-system/motion';   // motion utilities
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';                              // Tailwind plugin
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';                              // Tailwind plugin
 ```
 
 appshellv2 が design-system を re-export するため、`'@etzhayyim/appshellv2'` からも全コンポーネントを import 可能。
@@ -176,7 +176,7 @@ appshellv2 が design-system を re-export するため、`'@etzhayyim/appshellv
 | **Motion** | `staggerFly`, `staggerFade`, `staggerScale`, `springEnter`, `morphFade`, `liquidSlide`, `slideUp`, `slideRight`, `depthEnter`, `depthExit`, `depthBackEnter`, `depthBackExit`, `tabSlide`, `computeTilt`, `resetTilt`, `parallaxY`, `overshootEase`, `elasticEase` |
 | **Spring Presets** | `snapSpring`, `smoothSpring`, `bounceSpring`, `duoPress`, `duoBounce`, `liquidMorph`, `rubberBand`, `gentleFloat`, `cardFloat`, `focusGlow` |
 | **Audio** | `playTap`, `playSelect`, `playBack`, `playHover`, `playScrollTick`, `playToggle`, `playTabSwitch`, `playNavForward/Back`, `playSheetOpen/Close`, `playToast`, `playNotification`, `playSnap`, `playSuccess`, `playCelebrate`, `playLevelUp`, `playError`, `playLiquidPop`, `haptic`, `tactile`, `setUISoundsVolume` |
-| **Tailwind Plugin** | `gftdUIKit` — `safe-area-*`, `tap-target-44`, `scrollbar-none`, `snap-*-mandatory`, `material-blur-*`, `btn-3d-*`, `glass`, `glass-strong`, `card-float`, `focus-glow`, `depth-enter/exit`, `glow-indicator`, `pulse-badge` |
+| **Tailwind Plugin** | `etzhayyimUIKit` — `safe-area-*`, `tap-target-44`, `scrollbar-none`, `snap-*-mandatory`, `material-blur-*`, `btn-3d-*`, `glass`, `glass-strong`, `card-float`, `focus-glow`, `depth-enter/exit`, `glow-indicator`, `pulse-badge` |
 
 ### CRITICAL: Animation-First Architecture (Duolingo + Apple Liquid)
 
@@ -310,18 +310,18 @@ import { AmbientBackground } from '@etzhayyim/appshellv2/superapp';
 
 ### Tailwind Plugin Setup (必須)
 
-全 Svelte client アプリの `tailwind.config.js` に `gftdUIKit` プラグインと design-system の content パスを追加する。
+全 Svelte client アプリの `tailwind.config.js` に `etzhayyimUIKit` プラグインと design-system の content パスを追加する。
 
 ```js
 // tailwind.config.js
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 export default {
   content: [
     './src/**/*.{html,js,svelte,ts}',
     '../../40-engine/svelte/design-system/dist/**/*.{svelte,js}', // UIKit コンポーネント
   ],
-  plugins: [gftdUIKit],
+  plugins: [etzhayyimUIKit],
 };
 ```
 

@@ -488,7 +488,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "gftd-murakumo"
+name = "etzhayyim-murakumo"
 version = "0.1.0"
 dependencies = [
  "base64",

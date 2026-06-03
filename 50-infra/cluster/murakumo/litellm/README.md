@@ -61,7 +61,7 @@ for the inter-node mesh.
 
 ## What did NOT migrate from upstream
 
-The legacy `etzhayyim-root/60-apps/ai-gftd-project-murakumo/` carried
+The legacy `etzhayyim-root/60-apps/etzhayyim-project-murakumo/` carried
 an Ansible-based provisioning tree (`roles/postgres`, `roles/langgraph`,
 `roles/litellm` with a dormant `litellm_database_url` default, etc.). That
 tree is **not** brought over because:

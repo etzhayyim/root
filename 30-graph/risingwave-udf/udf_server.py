@@ -1,5 +1,5 @@
 """
-RisingWave External Python UDF server — gftd platform.
+RisingWave External Python UDF server — etzhayyim platform.
 
 ADR-0044 compliant (arrow_udf 0.3.1 + @udf(io_threads=N)).
 Protocol: Arrow Flight gRPC (port 8815).

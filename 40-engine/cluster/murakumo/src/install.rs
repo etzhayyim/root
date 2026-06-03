@@ -8,7 +8,7 @@ use crate::worker::detect_gpu;
 
 pub async fn cmd_install(cfg: &mut NodeConfig) {
     println!("═══════════════════════════════════════════════════");
-    println!("  gftd-murakumo -- Native Compute Worker");
+    println!("  etzhayyim-murakumo -- Native Compute Worker");
     println!("  HTTP/3 direct to murakumo.etzhayyim.com CF Worker");
     println!("═══════════════════════════════════════════════════");
     println!();
@@ -91,7 +91,7 @@ pub async fn cmd_install(cfg: &mut NodeConfig) {
     // 8. Print summary
     println!();
     println!("═══════════════════════════════════════════════════");
-    println!("  gftd-murakumo worker registered!");
+    println!("  etzhayyim-murakumo worker registered!");
     println!("═══════════════════════════════════════════════════");
     println!();
     println!("  Mode:        {}", cfg.mode);
@@ -99,7 +99,7 @@ pub async fn cmd_install(cfg: &mut NodeConfig) {
     println!("  Worker ID:   {}", resp.worker_id);
     println!("  GPU Tier:    {} ({}MB)", gpu_tier, vram_mb);
     println!();
-    println!("  Daemon:      gftd-murakumo daemon --verbose");
+    println!("  Daemon:      etzhayyim-murakumo daemon --verbose");
     println!("  OpenAI API:  {}/api/openai/v1/chat/completions", cfg.endpoint);
     println!();
 }
@@ -230,9 +230,9 @@ fn install_launchd(cfg: &NodeConfig) {
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>{}/.gftd/daemon.log</string>
+    <string>{}/.etzhayyim/daemon.log</string>
     <key>StandardErrorPath</key>
-    <string>{}/.gftd/daemon.log</string>
+    <string>{}/.etzhayyim/daemon.log</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>etzhayyim_MURAKUMO</key>
@@ -266,7 +266,7 @@ fn install_launchd(cfg: &NodeConfig) {
 fn install_systemd(cfg: &NodeConfig) {
     let unit = format!(
         r#"[Unit]
-Description=gftd-murakumo native compute worker
+Description=etzhayyim-murakumo native compute worker
 After=network-online.target
 Wants=network-online.target
 
@@ -286,12 +286,12 @@ WantedBy=multi-user.target
         cfg.mode,
     );
 
-    let _ = std::fs::write("/tmp/gftd-murakumo.service", &unit);
-    run_cmd("sudo", &["mv", "/tmp/gftd-murakumo.service", "/etc/systemd/system/gftd-murakumo.service"]);
+    let _ = std::fs::write("/tmp/etzhayyim-murakumo.service", &unit);
+    run_cmd("sudo", &["mv", "/tmp/etzhayyim-murakumo.service", "/etc/systemd/system/etzhayyim-murakumo.service"]);
     run_cmd("sudo", &["systemctl", "daemon-reload"]);
-    run_cmd("sudo", &["systemctl", "enable", "gftd-murakumo"]);
-    run_cmd("sudo", &["systemctl", "start", "gftd-murakumo"]);
-    logf("  systemd: gftd-murakumo.service (enabled)");
+    run_cmd("sudo", &["systemctl", "enable", "etzhayyim-murakumo"]);
+    run_cmd("sudo", &["systemctl", "start", "etzhayyim-murakumo"]);
+    logf("  systemd: etzhayyim-murakumo.service (enabled)");
 }
 
 fn run_cmd(name: &str, args: &[&str]) {

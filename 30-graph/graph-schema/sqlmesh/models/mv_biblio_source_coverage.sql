@@ -1,5 +1,5 @@
 MODEL (
-  name gftd_graph_schema.mv_biblio_source_coverage,
+  name etzhayyim_graph_schema.mv_biblio_source_coverage,
   kind FULL
 );
 

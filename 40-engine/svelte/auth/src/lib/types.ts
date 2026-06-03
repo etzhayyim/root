@@ -166,7 +166,7 @@ export interface UsernameSignUpInput {
 
 /** WIT capability that an agent can declare */
 export interface AgentCapability {
-	/** WIT interface name (e.g. "ai-gftd:yata/yata") */
+	/** WIT interface name (e.g. "etzhayyim:yata/yata") */
 	witInterface: string;
 	/** Human-readable label */
 	label: string;

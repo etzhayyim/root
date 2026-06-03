@@ -540,7 +540,7 @@ async fn execute_llm_inference(
         "image_generation" => run_image_generation_python(&model, &prompt, params),
         "video_generation" => run_video_generation_python(&model, &prompt, &images, params),
         _ => {
-            if model == "hayate-v4" || model == "gftd/hayate-v4" {
+            if model == "hayate-v4" || model == "etzhayyim/hayate-v4" {
                 run_hayate_v4_inference(&prompt, &temperature, &max_tokens)
             } else if has_magatama_inference() {
                 run_magatama_inference(&model, &prompt, &temperature, &max_tokens)
