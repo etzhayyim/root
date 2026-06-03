@@ -1,4 +1,4 @@
-# ai-gftd-project-cloudflare-browser-render — CF Browser Rendering backend
+# etzhayyim-project-cloudflare-browser-render — CF Browser Rendering backend
 
 `did:web:cloudflare-browser-render.etzhayyim.com` / nanoid `cfbr0w53`.
 `com.etzhayyim.apps.playwright` の `target=cf-browser` 実体。CF Workers

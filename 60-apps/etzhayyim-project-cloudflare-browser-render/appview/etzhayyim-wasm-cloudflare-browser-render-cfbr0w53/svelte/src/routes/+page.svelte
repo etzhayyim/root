@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Cloudflare Browser Render Cfbr0w53",
-  "project": "ai-gftd-project-cloudflare-browser-render",
-  "name": "ai-gftd-wasm-cloudflare-browser-render-cfbr0w53",
+  "project": "etzhayyim-project-cloudflare-browser-render",
+  "name": "etzhayyim-wasm-cloudflare-browser-render-cfbr0w53",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-cloudflare-browser-render/appview/ai-gftd-wasm-cloudflare-browser-render-cfbr0w53/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-cloudflare-browser-render/appview/etzhayyim-wasm-cloudflare-browser-render-cfbr0w53/svelte/src/routes/+page.svelte"
 };
 </script>
 

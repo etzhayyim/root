@@ -15,10 +15,10 @@
     "description": "Serverless Playwright backend using CF Workers 'browser' binding + @cloudflare/playwright. Session affinity via Durable Object. Invoked by com.etzhayyim.apps.playwright as target=cf-browser substrate.",
     "isBot": true,
     "agentType": "capability",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": ["cf-browser-render", "render-html", "render-png", "render-pdf", "session-do"]
   },
-  "interfaces": { "package": "gftd:cloudflareBrowserRender@0.1.0", "requires": ["gftd:collection/collection@1.0.0", "magatama:browser/automation@1.0.0"] },
+  "interfaces": { "package": "etzhayyim:cloudflareBrowserRender@0.1.0", "requires": ["etzhayyim:collection/collection@1.0.0", "magatama:browser/automation@1.0.0"] },
   "governance": { "raci": "responsible", "classification": "internal" },
   "convoSystemPrompt": "You are the CF Browser Rendering backend for com.etzhayyim.apps.playwright target=cf-browser. Session lives in a Durable Object instance keyed by sessionId, TTL 5 min. You receive fully resolved values (no valueRef resolution here). 1-shot renderPage is also supported for trivial render-and-return flows.",
   "duties": ["capability-provisioning"],

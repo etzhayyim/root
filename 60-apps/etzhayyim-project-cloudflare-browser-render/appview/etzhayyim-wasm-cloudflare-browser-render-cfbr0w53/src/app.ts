@@ -2,9 +2,6 @@ import {
   asAgentTool, createKyselyDb, createWorkerExport, withCapabilityTags,
   type HostSDK, nowISO, str, genID, nsid,
 } from "@etzhayyim/magatama-host-sdk";
-import type { Database } from "@etzhayyim/graph-schema";
-// CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
-import { Kysely } from "kysely";
 import puppeteer, { type Browser, type Page } from "@cloudflare/puppeteer";
 
 const ACTOR_NAME = "cloudflare-browser-render";
@@ -38,7 +35,9 @@ function decodeParams(payload: any): Record<string, any> {
 const SESSION_TTL_SEC = 5 * 60;
 const SESSION_IDLE_SWEEP_MS = 60_000;
 
-async function writeRecord(db: Kysely<Database>, collection: string, rkey: string, value: Record<string, unknown>): Promise<void> {
+type GraphDb = ReturnType<typeof createKyselyDb>;
+
+async function writeRecord(db: GraphDb, collection: string, rkey: string, value: Record<string, unknown>): Promise<void> {
   const table = `vertex_${camelToSnake(ACTOR_NSID_NS)}_${camelToSnake(collection)}`;
   const now = new Date();
   const row: Record<string, unknown> = {
@@ -50,7 +49,7 @@ async function writeRecord(db: Kysely<Database>, collection: string, rkey: strin
     rkey,
     repo: ACTOR_DID,
     created_at: now.toISOString(),
-    org_id: "gftd",
+    org_id: "etzhayyim",
     user_id: "system",
     actor_id: `sys.${ACTOR_NAME}`,
   };
@@ -263,7 +262,7 @@ export class BrowserSessionDO {
 
 export default createWorkerExport((sdk: HostSDK) => {
   const env = sdk.env as any;
-  const db = createKyselyDb(env.HYPERDRIVE) as unknown as Kysely<Database>;
+  const db = createKyselyDb(env.HYPERDRIVE);
 
     sdk.app.command(nsid("com.etzhayyim.apps.cloudflareBrowserRender.createSession"),
       async (_ctx, _p: any) => {

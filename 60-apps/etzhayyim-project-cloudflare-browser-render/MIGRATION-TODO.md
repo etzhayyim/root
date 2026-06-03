@@ -9,7 +9,7 @@ that were not previously flagged.
 ## Detected violations (per re-scan 2026-05-21):
 
 ```
-  - 60-apps/ai-gftd-project-cloudflare-browser-render/appview/ai-gftd-wasm-cloudflare-browser-render-cfbr0w53/src/app.ts
+  - 60-apps/etzhayyim-project-cloudflare-browser-render/appview/etzhayyim-wasm-cloudflare-browser-render-cfbr0w53/src/app.ts
 ```
 
 ## Required remediation (per CLAUDE.md substrate boundary):
