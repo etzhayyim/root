@@ -124,6 +124,25 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
   deterministic + reproducible + spreads + capped, membrane rejects ungranted
   interface, quorum accepts only with enough valid witnesses).
 
+## Real WASM Component guest (`reference/plc-control-guest/`)
+
+The first **real** L5 userland artifact (ADR §D2/§D3): a bang-bang controller
+compiled to an actual WASM Component-Model component implementing the `kotoba:os`
+`plc-control` world. Built with `wit-bindgen` + plain cargo (wasm32) +
+`wasm-tools component new` — NOT cargo-component (blocked here by a malformed
+global `~/.config/wasm-pkg/config.toml`). `build.sh` does the toolchain-pinned
+build, validates the component, prints its world + digest.
+
+- The produced component (22.8 KB) **validates** (`wasm-tools validate
+  --features component-model`) and exports `scan(cycle) -> scan-report`.
+- Its imports are **capability-minimized**: wit-bindgen tree-shakes the world down
+  to exactly the interfaces the controller calls — `io-analog` (read), `io-digital`
+  (write/stage), `datom` (assert) — `fieldbus-*` and `io-gpio` do NOT appear.
+- `reference/test_plc_component.py` — **3 tests** (component produced + valid,
+  exports scan/scan-report, imports capability-minimized). Skips cleanly when the
+  wasm32 toolchain / wasm-tools are unavailable. The binary is reproducible from
+  source (gitignored; `Cargo.lock` committed).
+
 ## Next maturity steps (tracked toward R1)
 
 - ✅ Host stub over a simulated bus + Datom surface, with replay-from-Datom test
@@ -133,6 +152,9 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
   6 cargo tests green).
 - ✅ `mesh` module — source chain + witness-quorum determinism + membrane (ADR §D5,
   7 cargo tests green).
-- A reference `plc-control` guest (Rust → wasm32, componentize) that runs the
-  same soft-RT loop as a real WASM Component Model component.
-- An honest unikernel-edge flash/RAM sizing budget (ADR §D6, R1 deliverable).
+- ✅ Real `plc-control` WASM Component guest (`plc-control-guest/`, wit-bindgen →
+  wasm32 → component; validates; capability-minimized imports; 3 tests green).
+- ✅ Honest unikernel-edge flash/RAM sizing budget (ADR §D6, 7 tests green).
+- A host-side run of the component (wasmtime) driving multiple scan cycles against
+  the Rust `ScanHost`, asserting per-cycle Datom history end-to-end.
+- D4 k8s OCI-CID artifact convention (digest = CID, pulled from IPFS).

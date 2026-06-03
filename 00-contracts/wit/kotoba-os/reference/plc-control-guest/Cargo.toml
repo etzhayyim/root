@@ -1,0 +1,19 @@
+# Real WASM Component-Model guest implementing the kotoba:os `plc-control` world
+# (ADR-2606031600 §D2/§D3). Built with the wit-bindgen macro + plain cargo
+# (wasm32-unknown-unknown) + `wasm-tools component new` — deliberately NOT
+# cargo-component, which is blocked in this environment by a malformed global
+# ~/.config/wasm-pkg/config.toml. Standalone ([workspace]) reference crate.
+[package]
+name = "plc-control-guest"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Reference kotoba:os plc-control WASM Component guest (bang-bang controller; scan cycle = Datom transaction)"
+
+[workspace]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wit-bindgen = "0.51"

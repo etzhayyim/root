@@ -127,7 +127,7 @@ Every L5 unit is a WASM Component Model component with **WIT-typed imports** and
 - a **mesh agent** (imports `kotoba:substrate/datom` + `kotoba:net/gossip`),
 - a **religious-corp Pregel cell** (imports `kotoba:vm/pregel`; the magatama/kami-engine cell catalog of ADR-2605192415 becomes loadable here, complementary to LangGraph cells, exactly as `kotoba-vm` is "complementary, not a replacement" per ADR-2605262130 row 14).
 
-This unifies ADR-2606014500's "one Worker, many WASM actors" with the field/k8s edges: the *actor* is portable; only the *host edge* differs.
+This unifies ADR-2606014500's "one Worker, many WASM actors" with the field/k8s edges: the *actor* is portable; only the *host edge* differs. **First real L5 artifact landed**: `00-contracts/wit/kotoba-os/reference/plc-control-guest/` compiles a bang-bang controller to an actual WASM Component-Model component implementing the `plc-control` world (wit-bindgen → wasm32 → `wasm-tools component new`; validates under `--features component-model`; 22.8 KB). Its imports are **capability-minimized by construction** — wit-bindgen tree-shakes the world to exactly `io-analog`/`io-digital`/`datom` (the interfaces the controller calls); `fieldbus-*`/`io-gpio` do not appear in the component's world. 3 build-and-verify tests green (toolchain-guarded). Built with plain cargo + wit-bindgen rather than cargo-component (blocked in-env by a malformed global wasm-pkg config), so no fork/dependency on broken tooling.
 
 ### D3. OT / PLC — the scan cycle is a Datom transaction (the novel control model)
 
