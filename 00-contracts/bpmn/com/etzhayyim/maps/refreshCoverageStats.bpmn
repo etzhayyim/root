@@ -14,13 +14,13 @@
   of the next advance without trashing hot-path latency.
 
   NSID: com.etzhayyim.apps.maps.refreshCoverageStats
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/maps-refresh-coverage-stats-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-refresh-coverage-stats-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_maps_refresh_coverage_stats"
-    targetNamespace="https://gftd.ai/bpmn/maps"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="maps_refresh_coverage_stats" name="maps refresh coverage stats" isExecutable="true">
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://maps.gftd.ai/xrpc/com.etzhayyim.apps.maps.refreshCoverageStats&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.refreshCoverageStats&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;"                target="method"/>
           <zeebe:input source="=&quot;application/json&quot;"    target="contentType"/>
           <zeebe:input source="={}"                              target="body"/>
