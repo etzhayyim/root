@@ -54,7 +54,7 @@ class TestListOutbox:
 		calls, fetch_rows, fetchval_v, _ = patched_db
 		fetch_rows.append({
 			"vertex_id": "marketing:i1:acme.com:t1",
-			"org_did": "gftd",
+			"org_did": "etzhayyim",
 			"subject": "yatabase × Acme",
 			"body_text": "Hi [[PARTNER_NAME]]…",
 			"kind": "marketing-outbound",

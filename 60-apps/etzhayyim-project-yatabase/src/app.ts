@@ -177,7 +177,7 @@ app.get("/_worker/health", (c) =>
 
 app.get("/_app/meta", (c) =>
   c.json({
-    app: "ai-gftd-project-yatabase",
+    app: "etzhayyim-project-yatabase",
     did: c.env.YATA_ACTOR_DID ?? "did:web:yatabase.etzhayyim.com",
     version: c.env.YATA_VERSION ?? "0.0.0",
     layer: "L3-dispatcher",
@@ -2080,7 +2080,7 @@ app.all("/xrpc/:nsid", async (c) => {
   }
 
   // Deploy-first query short-circuit (ADR-2605210000).
-  // Passes x-gftd-mv-limit so the pod enforces per-plan MV slot quota.
+  // Passes x-etzhayyim-mv-limit so the pod enforces per-plan MV slot quota.
   if (isQueryNsid(nsid)) {
     const plan = await resolvePlan(c.env, auth.orgDid);
     const mvLimit = PLAN_RULES[plan].mvSlots ?? 999_999;

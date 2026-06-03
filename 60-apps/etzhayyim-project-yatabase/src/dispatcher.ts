@@ -40,11 +40,11 @@ export async function dispatchYataXrpc<T = unknown>(
 
   const headers: Record<string, string> = {
     "content-type": "application/json",
-    "x-gftd-org-did": caller.orgDid,
+    "x-etzhayyim-org-did": caller.orgDid,
   };
-  if (caller.actorDid) headers["x-gftd-actor-did"] = caller.actorDid;
-  if (caller.productScope) headers["x-gftd-product-scope"] = caller.productScope;
-  if (caller.traceId) headers["x-gftd-trace-id"] = caller.traceId;
+  if (caller.actorDid) headers["x-etzhayyim-actor-did"] = caller.actorDid;
+  if (caller.productScope) headers["x-etzhayyim-product-scope"] = caller.productScope;
+  if (caller.traceId) headers["x-etzhayyim-trace-id"] = caller.traceId;
   if (env.DISPATCHER_INTERNAL_SECRET) {
     headers["x-internal-trust"] = env.DISPATCHER_INTERNAL_SECRET;
   }

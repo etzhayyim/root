@@ -9,9 +9,9 @@
 // Auth: caller has already been resolved by the yatabase auth middleware
 // (PDS-side `sk_live_yata_*` validate or AT session JWT). Forwarder adds
 //   x-internal-trust   = HMAC-SHA256(body, DISPATCHER_INTERNAL_SECRET)
-//   x-gftd-actor-did   = AT did
-//   x-gftd-org-did     = product-scope org did
-//   x-gftd-trace-id    = cf-ray
+//   x-etzhayyim-actor-did   = AT did
+//   x-etzhayyim-org-did     = product-scope org did
+//   x-etzhayyim-trace-id    = cf-ray
 // Mirrors the bpmn-dispatcher trust pattern documented in yatabase
 // CLAUDE.md §"Forwarding model".
 
@@ -81,10 +81,10 @@ export async function forwardBmc(
 
   // GET payload travels as query params, POST as JSON body.
   const headers: Record<string, string> = {
-    "x-gftd-actor-did": identity.activeDid ?? identity.did,
-    "x-gftd-org-did": identity.orgDid,
+    "x-etzhayyim-actor-did": identity.activeDid ?? identity.did,
+    "x-etzhayyim-org-did": identity.orgDid,
   };
-  if (identity.traceId) headers["x-gftd-trace-id"] = identity.traceId;
+  if (identity.traceId) headers["x-etzhayyim-trace-id"] = identity.traceId;
 
   let body: string | undefined;
   if (method === "GET") {

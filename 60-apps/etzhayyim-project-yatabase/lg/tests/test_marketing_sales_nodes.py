@@ -53,16 +53,16 @@ class TestTemplates:
         assert templates.classify_segment({}) == "unknown"
 
     def test_sales_touch_kinds(self):
-        b = templates.sales_touch("sales-onboarding", "did:gftd:test", tenant_name="Acme")
+        b = templates.sales_touch("sales-onboarding", "did:etzhayyim:test", tenant_name="Acme")
         assert "Acme" in b.body_text
         assert "[[PARTNER_NAME]]" in b.body_text
 
-        b2 = templates.sales_touch("sales-upgrade", "did:gftd:test",
+        b2 = templates.sales_touch("sales-upgrade", "did:etzhayyim:test",
                                    metric_24h={"api_request": 1200})
         assert "1200" in b2.body_text
         assert "Starter" in b2.body_text
 
-        b3 = templates.sales_touch("sales-book-call", "did:gftd:test")
+        b3 = templates.sales_touch("sales-book-call", "did:etzhayyim:test")
         assert "cal.etzhayyim.com/nishino" in b3.body_text
 
 
@@ -345,7 +345,7 @@ def test_sales_load_org_state_aggregates_metrics(patched_sales_db):
     ]
     fetchval_r["FROM vertex_audit_log"] = 0
     fetchrow_r["FROM vertex_email_outbox"] = None
-    out = asyncio.run(sls._load_org_state({"org_did": "did:gftd:org-1"}))
+    out = asyncio.run(sls._load_org_state({"org_did": "did:etzhayyim:org-1"}))
     assert out["plan"] == "starter"
     assert out["usage_24h"]["api_request"] == 1234
     assert out["incident_count_24h"] == 0
@@ -356,7 +356,7 @@ def test_sales_execute_action_writes_outbox_for_upgrade(monkeypatch, patched_sal
     calls, *_ = patched_sales_db
     state = {
         "iteration_id": "iter-x",
-        "org_did": "did:gftd:org-2",
+        "org_did": "did:etzhayyim:org-2",
         "decision": "send_upgrade",
         "decision_reasoning": "free plan at 900 api/day",
         "decision_source": "deterministic",
@@ -372,7 +372,7 @@ def test_sales_execute_action_writes_outbox_for_upgrade(monkeypatch, patched_sal
 def test_sales_execute_action_skips_on_do_nothing(patched_sales_db):
     calls, *_ = patched_sales_db
     out = asyncio.run(sls._execute_action({
-        "iteration_id": "i", "org_did": "did:gftd:o",
+        "iteration_id": "i", "org_did": "did:etzhayyim:o",
         "decision": "do_nothing", "decision_reasoning": "rate-limit"}))
     assert out["touchpoint_status"] == "skipped"
     assert not calls["execute"], "do_nothing must not touch outbox"
@@ -381,7 +381,7 @@ def test_sales_execute_action_skips_on_do_nothing(patched_sales_db):
 def test_sales_execute_action_escalate_emits_marker(patched_sales_db):
     calls, *_ = patched_sales_db
     out = asyncio.run(sls._execute_action({
-        "iteration_id": "i", "org_did": "did:gftd:o",
+        "iteration_id": "i", "org_did": "did:etzhayyim:o",
         "decision": "escalate_human", "decision_reasoning": "paid + silent"}))
     assert out["touchpoint_status"] == "queued-escalation"
     assert any("'sales-escalate-human'" in q for q, _ in calls["execute"])

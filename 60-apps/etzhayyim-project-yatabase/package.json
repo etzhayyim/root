@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-project-yatabase",
+  "name": "etzhayyim-project-yatabase",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "studio:dev": "cd svelte && pnpm dev",
     "studio:build": "cd svelte && pnpm build",
     "studio:check": "cd svelte && pnpm check",
-    "deploy": "pnpm studio:build && gftd deploy --no-svelte",
-    "deploy:fast": "gftd deploy --no-svelte",
+    "deploy": "pnpm studio:build && etzhayyim deploy --no-svelte",
+    "deploy:fast": "etzhayyim deploy --no-svelte",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

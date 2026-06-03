@@ -1,6 +1,6 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
-  "name": "ai-gftd-project-yatabase",
+  "name": "etzhayyim-project-yatabase",
   "performerType": "system",
   "nanoid": "y4t4b4se",
   "displayName": "Yatabase",

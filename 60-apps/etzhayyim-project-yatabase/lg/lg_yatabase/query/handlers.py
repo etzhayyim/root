@@ -44,7 +44,7 @@ _log = logging.getLogger(__name__)
 
 router = APIRouter()
 
-_MV_LIMIT_DEFAULT = 5  # Free plan floor; Worker passes x-gftd-mv-limit header
+_MV_LIMIT_DEFAULT = 5  # Free plan floor; Worker passes x-etzhayyim-mv-limit header
 
 
 async def _verify_trust(request: Request, x_internal_trust: str | None) -> bytes:
@@ -84,13 +84,13 @@ def _parse_steps(steps_json: str) -> list[Step]:
 async def deploy_query(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
-    x_gftd_mv_limit: str | None = Header(default=None, alias="x-gftd-mv-limit"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
+    x_etzhayyim_mv_limit: str | None = Header(default=None, alias="x-etzhayyim-mv-limit"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    actor_did, org_did = _identity(x_gftd_actor_did, x_gftd_org_did)
-    mv_limit = int(x_gftd_mv_limit or _MV_LIMIT_DEFAULT)
+    actor_did, org_did = _identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
+    mv_limit = int(x_etzhayyim_mv_limit or _MV_LIMIT_DEFAULT)
 
     body_bytes = await request.body()
     inp = DeployQueryInput.model_validate_json(body_bytes)
@@ -179,11 +179,11 @@ async def deploy_query(
 async def execute_deployed_query(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org_did = _identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org_did = _identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
 
     body_bytes = await request.body()
     inp = ExecuteQueryInput.model_validate_json(body_bytes)
@@ -249,14 +249,14 @@ async def execute_deployed_query(
 async def list_deployed_queries(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
-    x_gftd_mv_limit: str | None = Header(default=None, alias="x-gftd-mv-limit"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
+    x_etzhayyim_mv_limit: str | None = Header(default=None, alias="x-etzhayyim-mv-limit"),
     limit: int = 50,
     cursor: str | None = None,
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org_did = _identity(None, x_gftd_org_did)
-    mv_limit = int(x_gftd_mv_limit or _MV_LIMIT_DEFAULT)
+    _, org_did = _identity(None, x_etzhayyim_org_did)
+    mv_limit = int(x_etzhayyim_mv_limit or _MV_LIMIT_DEFAULT)
 
     rows = await repository.list_deployed_queries(org_did, limit=limit, cursor=cursor)
     used = await repository.count_deployed_queries(org_did)
@@ -279,11 +279,11 @@ async def list_deployed_queries(
 async def delete_deployed_query(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org_did = _identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org_did = _identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
 
     body_bytes = await request.body()
     inp = DeleteQueryInput.model_validate_json(body_bytes)

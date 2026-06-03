@@ -13,7 +13,7 @@
 //     adds x-internal-trust HMAC so the pod can verify the call came
 //     from the Worker (not the open internet).
 //   * /invite + /revoke are caller-authenticated: Worker resolves the
-//     Bearer key via PDS first, then forwards with x-gftd-org-did.
+//     Bearer key via PDS first, then forwards with x-etzhayyim-org-did.
 
 import { forwardBmc, type ForwardEnv, type ForwardIdentity, type ForwardResult } from "./bmc-forward";
 

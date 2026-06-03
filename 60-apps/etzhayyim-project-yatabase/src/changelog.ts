@@ -82,7 +82,7 @@ const ENTRIES: ChangelogEntry[] = [
     title: "Autonomous enrichment cron",
     detail:
       "Domain enrichment now runs on its own cron `30 */6 * * *`. scheduled() dispatches by event.cron prefix. " +
-      "yatabase-deploy.sh updated to preserve the multi-cron trigger config across gftd deploys.",
+      "yatabase-deploy.sh updated to preserve the multi-cron trigger config across etzhayyim deploys.",
   },
   {
     date: "2026-05-11",

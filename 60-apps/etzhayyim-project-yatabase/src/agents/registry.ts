@@ -143,7 +143,7 @@ export async function recordAgentRun(
 //
 // Called manually via POST /_agents/bootstrap (admin-keyed). Yatabase
 // Worker's Hyperdrive connection is allowed DDL because the RW server
-// permits it for the gftd-platform tenant; tenant-scoped DDL is gated
+// permits it for the etzhayyim-platform tenant; tenant-scoped DDL is gated
 // elsewhere (yata-langserver-worker w/ RW_ALLOW_HEAVY_DDL=1).
 export async function bootstrapAgentTables(env: AgentEnv): Promise<{
   ok: boolean;

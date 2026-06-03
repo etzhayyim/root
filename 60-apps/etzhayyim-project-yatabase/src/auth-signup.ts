@@ -69,7 +69,7 @@ function generateAwsAccessKey(): { id: string; secret: string } {
   const buf = new Uint8Array(20);
   crypto.getRandomValues(buf);
   const idChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let id = "gftd_";
+  let id = "etzhayyim_";
   for (const b of buf) id += idChars[b % idChars.length];
   const sbuf = new Uint8Array(40);
   crypto.getRandomValues(sbuf);
