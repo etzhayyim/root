@@ -19,9 +19,9 @@ android {
     signingConfigs {
         release {
             storeFile file("yoro-release.keystore")
-            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: "yoro2026gftd"
+            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: "yoro2026etzhayyim"
             keyAlias "yoro"
-            keyPassword System.getenv("ANDROID_KEY_PASSWORD") ?: "yoro2026gftd"
+            keyPassword System.getenv("ANDROID_KEY_PASSWORD") ?: "yoro2026etzhayyim"
         }
     }
     buildTypes {
