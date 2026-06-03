@@ -43,6 +43,15 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — constitutional courts (judicial depth)
+
+`gov-units.constitutional-courts.edn` adds **62 constitutional courts** (Wikidata P31
+`Q32766`) — the dedicated constitutional-review apex that many countries operate
+distinct from their supreme court. `:level :court` `:branch :judicial`. Integrator
+dropped the 6 countries whose supreme court IS their constitutional court (same QID,
+already seeded). Atlas now **6,726 units / 53 files, 6,724 QIDs all unique, 6,722
+:authoritative**.
+
 ## 2026-06-04 — executive apex (governments/cabinets)
 
 `gov-units.executive.edn` adds **129 national executive bodies** — each country's
