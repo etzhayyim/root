@@ -3,16 +3,17 @@
   "main": "src/app.ts",
   "compatibility_date": "2025-03-17",
   "compatibility_flags": ["nodejs_compat","nodejs_als"],
+  "alias": { "@etzhayyim/magatama-host-sdk": "/Users/junkawasaki/github/etzhayyim-root/20-actors/magatama/sdk/magatama-host-sdk/src/index.ts" },
   "assets": {
-    "directory": "./_svelte",
+    "directory": "./svelte/build",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "none"
   },
   "vars": {
     "APP_CAPABILITIES": "[\"peer-discovery\",\"screen-config\",\"clipboard-relay\"]",
-    "APP_DESCRIPTION": "Cross-platform mouse/keyboard sharing coordinator",
-    "APP_DISPLAY_NAME": "ShareMouse",
+    "APP_DESCRIPTION": "Cross-platform mouse/keyboard sharing — cursor ferry between screens",
+    "APP_DISPLAY_NAME": "Watashi (渡し)",
     "APP_EMBED_URL": "https://mfbtsuyc.etzhayyim.com/?embed=1",
     "APP_FRAMEWORK": "ts-native",
     "APP_NANOID": "mfbtsuyc",
@@ -20,13 +21,13 @@
     "APP_UI_TYPE": "appview"
   },
   "r2_buckets": [
-    { "binding": "YATA_R2", "bucket_name": "ai-gftd-cache" },
-    { "binding": "CDN_R2", "bucket_name": "ai-gftd-cdn" },
-    { "binding": "CACHE_R2", "bucket_name": "ai-gftd-cache" }
+    { "binding": "YATA_R2", "bucket_name": "etzhayyim-cache" },
+    { "binding": "CDN_R2", "bucket_name": "etzhayyim-cdn" },
+    { "binding": "CACHE_R2", "bucket_name": "etzhayyim-cache" }
   ],
   "services": [
-    { "binding": "KAGAMI_RPC", "service": "ai-gftd-kagami-2604021830", "entrypoint": "KagamiRPC" },
-    { "binding": "PDS_SERVICE", "service": "ai-gftd-pds-2603241700" }
+    { "binding": "KAGAMI_RPC", "service": "etzhayyim-kagami-2604021830", "entrypoint": "KagamiRPC" },
+    { "binding": "PDS_SERVICE", "service": "etzhayyim-pds-2603241700" }
   ],
   "secrets_store_secrets": [
     { "binding": "SS_YATA_S3_KEY_ID", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "yata_s3_key_id" },

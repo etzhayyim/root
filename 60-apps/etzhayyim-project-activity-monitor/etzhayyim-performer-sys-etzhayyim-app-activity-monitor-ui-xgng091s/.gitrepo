@@ -4,7 +4,7 @@
 ; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
 ;
 [subrepo]
-	remote = git@github.com:gftdcojp/ai-gftd-performer-sys-gftd-app-activity-monitor-ui-xgng091s.git
+	remote = git@github.com:etzhayyimcojp/etzhayyim-performer-sys-etzhayyim-app-activity-monitor-ui-xgng091s.git
 	branch = main
 	commit = 
 	method = merge
