@@ -5,7 +5,7 @@
 # ADR-2605111200 (CF Worker is edge-only).
 #
 # Container image built locally + pushed to ghcr.io:
-#   cd 60-apps/ai-gftd-project-yatabase/lg
+#   cd 60-apps/etzhayyim-project-yatabase/lg
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
 #     -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 --push .

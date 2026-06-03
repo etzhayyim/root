@@ -220,7 +220,7 @@ async def _load_org_state(state: _State) -> _State:
         # vertex_email_outbox has no org_did pointing at recipient — we
         # store the org owning the outreach via the kind+recipient_email
         # path. For now we approximate by reading the most-recent sales-*
-        # row scoped by org_did='gftd' bucket; once outbox carries an
+        # row scoped by org_did='etzhayyim' bucket; once outbox carries an
         # explicit target_org_did this becomes exact.
         touch_row = await fetchrow(
             """

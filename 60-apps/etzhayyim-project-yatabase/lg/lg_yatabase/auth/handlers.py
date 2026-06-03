@@ -4,9 +4,9 @@ Mounted by lg_yatabase.server alongside the BMC router. All endpoints
 expect the yatabase CF Worker forwarder to provide:
 
     x-internal-trust  = HMAC-SHA256(body, DISPATCHER_INTERNAL_SECRET)
-    x-gftd-actor-did  = caller DID (anon for signup)
-    x-gftd-org-did    = caller org DID (anon for signup; required for invite/revoke)
-    x-gftd-trace-id   = cf-ray (optional)
+    x-etzhayyim-actor-did  = caller DID (anon for signup)
+    x-etzhayyim-org-did    = caller org DID (anon for signup; required for invite/revoke)
+    x-etzhayyim-trace-id   = cf-ray (optional)
 
 NSIDs:
     com.etzhayyim.apps.yata.signup    (anonymous mint)
@@ -116,10 +116,10 @@ async def yata_signup(
 async def yata_invite(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
 ) -> JSONResponse:
     body_bytes = await _verify_trust(request, x_internal_trust)
-    if not x_gftd_org_did or x_gftd_org_did == "anon":
+    if not x_etzhayyim_org_did or x_etzhayyim_org_did == "anon":
         raise HTTPException(status_code=401, detail="invite requires authenticated org")
     try:
         body = InviteInput.model_validate_json(body_bytes or b"{}")
@@ -127,7 +127,7 @@ async def yata_invite(
         raise HTTPException(status_code=400, detail=f"bad invite body: {e}")
     try:
         result = await repository.invite_member(
-            inviter_org_did=x_gftd_org_did,
+            inviter_org_did=x_etzhayyim_org_did,
             member_name=body.name,
         )
     except Exception as e:  # noqa: BLE001
@@ -172,10 +172,10 @@ async def yata_auth_resolve_api_key(
 async def yata_revoke(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
 ) -> JSONResponse:
     body_bytes = await _verify_trust(request, x_internal_trust)
-    if not x_gftd_org_did or x_gftd_org_did == "anon":
+    if not x_etzhayyim_org_did or x_etzhayyim_org_did == "anon":
         raise HTTPException(status_code=401, detail="revoke requires authenticated org")
     try:
         body = RevokeInput.model_validate_json(body_bytes or b"{}")
@@ -184,7 +184,7 @@ async def yata_revoke(
     try:
         result = await repository.revoke_key(
             vertex_id=body.vertex_id,
-            org_did=x_gftd_org_did,
+            org_did=x_etzhayyim_org_did,
         )
     except LookupError:
         raise HTTPException(status_code=404, detail="not_found")

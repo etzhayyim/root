@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-yatabase`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/etzhayyim-project-yatabase`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -44,7 +44,7 @@ equivalents listed at the top of this file.
 Detected violations:
 
 ```
-  RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-yatabase/src/schema-describe.ts:64
+  RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-yatabase/src/schema-describe.ts:64
 ```
 
 ---
@@ -54,10 +54,10 @@ Detected violations:
 Additional violations detected in re-scan:
 
 ```
-  - 60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/graphs/marketing.py
-  - 60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/templates.py
-  - 60-apps/ai-gftd-project-yatabase/lg/tests/test_marketing_sales_nodes.py
-  - 60-apps/ai-gftd-project-yatabase/src/schema-describe.ts
+  - 60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/graphs/marketing.py
+  - 60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/templates.py
+  - 60-apps/etzhayyim-project-yatabase/lg/tests/test_marketing_sales_nodes.py
+  - 60-apps/etzhayyim-project-yatabase/src/schema-describe.ts
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.
@@ -111,7 +111,7 @@ codemod. They will be addressed in a follow-up RW→MST sweep.
 
 - [ ] Configure `YATA_DONATE_PRIVATE_KEY` (Worker secret, EOA on Base L2).
 - [ ] Configure `YATA_DONATE_TREASURY` (Base L2 Safe address).
-- [ ] Run `pnpm typecheck` from `60-apps/ai-gftd-project-yatabase`.
+- [ ] Run `pnpm typecheck` from `60-apps/etzhayyim-project-yatabase`.
 - [ ] Run `pnpm studio:build` to verify Svelte page compiles.
 - [ ] Run the customer-journey smoke (`70-tools/scripts/yatabase-customer-journey.mjs`) — note steps 7/8 (Stripe webhook + post-checkout) will now respond 410; update smoke script.
 - [ ] Update OpenAPI spec + docs strings (above).

@@ -55,12 +55,12 @@ async def _verify_trust(request: Request, x_internal_trust: str | None) -> bytes
 async def meter_event(
     request: Request,
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
 
     body: dict = await request.json()
-    org_did: str = body.get("orgDid") or x_gftd_org_did or ""
+    org_did: str = body.get("orgDid") or x_etzhayyim_org_did or ""
     metric: str = body.get("metric", "")
     qty: int = int(body.get("qty", 1))
     ref_resource: str = body.get("refResource", "")

@@ -2,7 +2,7 @@
 
 The yatabase CF Worker forwards `/xrpc/com.etzhayyim.apps.yata.bmc{Verb}` over
 HTTPS with an HMAC-SHA256 of the body in `x-internal-trust` and the
-resolved identity in `x-gftd-actor-did` / `x-gftd-org-did`. The pod is
+resolved identity in `x-etzhayyim-actor-did` / `x-etzhayyim-org-did`. The pod is
 the only writer; the Worker holds no Hyperdrive binding.
 
 NSID flat naming (`com.etzhayyim.apps.yata.bmcGetState` etc.) matches the
@@ -68,12 +68,12 @@ def _float_str(x: float | None) -> str | None:
 async def bmc_get_state(
     request: Request,
     org_did_param: str | None = None,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     org = org_did_param or org
     head = await repository.get_head(org)
     if head is None:
@@ -97,12 +97,12 @@ async def bmc_list_hypotheses(
     block: str | None = None,
     offset: int = 0,
     limit: int = 50,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     rows, total = await repository.list_hypotheses(
         org_did=org, status=status, block=block, offset=offset, limit=limit,
     )
@@ -132,12 +132,12 @@ async def bmc_list_iterations(
     hypothesisSlug: str | None = None,
     offset: int = 0,
     limit: int = 50,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     rows, total = await repository.list_iterations(
         org_did=org, hypothesis_slug=hypothesisSlug, offset=offset, limit=limit,
     )
@@ -164,12 +164,12 @@ async def bmc_list_decisions(
     action: str | None = None,
     offset: int = 0,
     limit: int = 50,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     rows, total = await repository.list_decisions(
         org_did=org, hypothesis_slug=hypothesisSlug, action=action,
         offset=offset, limit=limit,
@@ -190,12 +190,12 @@ async def bmc_list_decisions(
 @router.get("/xrpc/com.etzhayyim.apps.yata.bmcBlockHealth")
 async def bmc_block_health(
     request: Request,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     await _verify_trust(request, x_internal_trust)
-    _, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    _, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     rows = await repository.block_health(org)
     out = [{
         "block": r["block"],
@@ -215,13 +215,13 @@ async def bmc_block_health(
 @router.post("/xrpc/com.etzhayyim.apps.yata.bmcAppendState")
 async def bmc_append_state(
     request: Request,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     raw = await _verify_trust(request, x_internal_trust)
     body = AppendStateInput.model_validate_json(raw)
-    actor, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    actor, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     try:
         res = await repository.append_state(
             canvas_json=body.canvas_json, rationale=body.rationale,
@@ -237,13 +237,13 @@ async def bmc_append_state(
 @router.post("/xrpc/com.etzhayyim.apps.yata.bmcAddHypothesis")
 async def bmc_add_hypothesis(
     request: Request,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     raw = await _verify_trust(request, x_internal_trust)
     body = AddHypothesisInput.model_validate_json(raw)
-    actor, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    actor, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     try:
         res = await repository.add_hypothesis(
             slug=body.slug, block=body.block, statement=body.statement,
@@ -263,13 +263,13 @@ async def bmc_add_hypothesis(
 @router.post("/xrpc/com.etzhayyim.apps.yata.bmcSetHypothesisStatus")
 async def bmc_set_hypothesis_status(
     request: Request,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     raw = await _verify_trust(request, x_internal_trust)
     body = SetHypothesisStatusInput.model_validate_json(raw)
-    actor, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    actor, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     try:
         res = await repository.append_hypothesis_event(
             slug=body.slug, next_status=body.next_status,
@@ -287,13 +287,13 @@ async def bmc_set_hypothesis_status(
 @router.post("/xrpc/com.etzhayyim.apps.yata.bmcIterate")
 async def bmc_iterate(
     request: Request,
-    x_gftd_actor_did: str | None = Header(default=None, alias="x-gftd-actor-did"),
-    x_gftd_org_did: str | None = Header(default=None, alias="x-gftd-org-did"),
+    x_etzhayyim_actor_did: str | None = Header(default=None, alias="x-etzhayyim-actor-did"),
+    x_etzhayyim_org_did: str | None = Header(default=None, alias="x-etzhayyim-org-did"),
     x_internal_trust: str | None = Header(default=None, alias="x-internal-trust"),
 ) -> JSONResponse:
     raw = await _verify_trust(request, x_internal_trust)
     body = IterateInput.model_validate_json(raw) if raw else IterateInput()
-    actor, org = _resolve_identity(x_gftd_actor_did, x_gftd_org_did)
+    actor, org = _resolve_identity(x_etzhayyim_actor_did, x_etzhayyim_org_did)
     # Lazy import: graph wiring keeps repository -> handlers acyclic.
     from lg_yatabase.graphs.bmc_iteration import GRAPH as BMC_GRAPH
 

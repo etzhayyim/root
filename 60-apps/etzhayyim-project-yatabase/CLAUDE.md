@@ -45,8 +45,8 @@ Client → CF Worker (yatabase.etzhayyim.com)
    │   ES256 JWT     → PDS_SERVICE getSession (legacy)
    ↓ resolved { did, orgDid, activeDid, productScope }
    ↓ POST/GET https://dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.yata.*
-      headers: x-internal-trust=<HMAC>, x-gftd-org-did, x-gftd-actor-did,
-               x-gftd-product-scope=yata, x-gftd-trace-id
+      headers: x-internal-trust=<HMAC>, x-etzhayyim-org-did, x-etzhayyim-actor-did,
+               x-etzhayyim-product-scope=yata, x-etzhayyim-trace-id
 CF Tunnel → cloudflared pod → bpmn-dispatcher pod
    ↓ pymagatama dispatcher_main.py:
    │   auth_middleware verifies HMAC-SHA256(body, secret) OR legacy raw secret
@@ -93,7 +93,7 @@ RisingWave PG (45.32.79.245:4566) + B2 + R2
 ### R2-primary storage tier (P73, 2026-05-12)
 
 `src/storage-r2.ts` makes Cloudflare R2 the primary fallback ahead of
-the legacy KV path. The `YATA_R2` binding (bucket `ai-gftd-cache`) is
+the legacy KV path. The `YATA_R2` binding (bucket `etzhayyim-cache`) is
 keyed `yata/{orgDid}/{bucket}/{key}` for per-org isolation. No
 practical size cap (vs. KV's 1 MiB).
 
@@ -201,7 +201,7 @@ namespace) + `svelte/src/lib/components/StudioNav.svelte` (Admin section)
 SvelteKit + Svelte 5 + Tailwind + `@etzhayyim/design-system` Studio under
 `svelte/`. Static-prerendered, fully client-rendered against the edge
 Worker. Workers Assets `assets.directory = ./svelte/build` is already
-configured, so `pnpm deploy` (root) chains `vite build → gftd deploy
+configured, so `pnpm deploy` (root) chains `vite build → etzhayyim deploy
 --no-svelte` and the new routes go live at the next deploy.
 
 Routes:
@@ -231,7 +231,7 @@ StudioNav}.svelte, src/routes/{+layout.svelte, +layout.ts, +page.svelte,
 studio/+layout.svelte, studio/+layout.ts, studio/+page.svelte,
 studio/{cypher,storage,billing}/+page.svelte}}` + `svelte/README.md`.
 
-Deploy: `pnpm deploy` from `60-apps/ai-gftd-project-yatabase/`
+Deploy: `pnpm deploy` from `60-apps/etzhayyim-project-yatabase/`
 (see `svelte/README.md` for the dev-against-prod workflow via
 `VITE_YATABASE_ORIGIN`).
 
@@ -273,9 +273,9 @@ Deploy: `pnpm deploy` from `60-apps/ai-gftd-project-yatabase/`
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-yatabase
+cd 60-apps/etzhayyim-project-yatabase
 wrangler secret put DISPATCHER_INTERNAL_SECRET  # shared with K8s bpmn-dispatcher-auth
-./70-tools/scripts/yatabase-deploy.sh           # wraps `gftd deploy` and re-attaches cron triggers
+./70-tools/scripts/yatabase-deploy.sh           # wraps `etzhayyim deploy` and re-attaches cron triggers
 
 # lg-yatabase pod (host owns vertex_api_key / vertex_lead / vertex_bmc_* writes)
 cd lg

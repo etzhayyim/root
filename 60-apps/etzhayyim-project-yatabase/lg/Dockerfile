@@ -3,10 +3,10 @@
 # License: 100% OSS — no LANGSMITH_API_KEY / LANGGRAPH_CLOUD_LICENSE_KEY required.
 #
 # Build:
-#   cd 60-apps/ai-gftd-project-yatabase/lg
+#   cd 60-apps/etzhayyim-project-yatabase/lg
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
-#     -t ghcr.io/gftdcojp/lg-yatabase:0.0.1-amd64 \
+#     -t ghcr.io/etzhayyimcojp/lg-yatabase:0.0.1-amd64 \
 #     --push .
 
 FROM python:3.11-slim-bookworm

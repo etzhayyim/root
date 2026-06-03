@@ -336,7 +336,7 @@ async def _schedule_send(state: _State) -> _State:
                     subject, body_text, body_html, kind, status,
                     scheduled_at, sent_at, retry_count, last_error, created_at
                 ) VALUES (
-                    $1, 'gftd', '', '', $2, $3, $4,
+                    $1, 'etzhayyim', '', '', $2, $3, $4,
                     'marketing-outbound', 'queued-no-recipient',
                     $5, '', 0, '', $5
                 )

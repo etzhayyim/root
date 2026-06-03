@@ -48,7 +48,7 @@ def generate_api_key() -> str:
 
 def generate_aws_pair() -> tuple[str, str]:
     """Return (access_key_id, secret_access_key). Matches Worker shape."""
-    aid = "gftd_" + "".join(secrets.choice(_AWS_ID_CHARS) for _ in range(20))
+    aid = "etzhayyim_" + "".join(secrets.choice(_AWS_ID_CHARS) for _ in range(20))
     sec = secrets.token_hex(40)  # 80 hex chars
     return aid, sec
 

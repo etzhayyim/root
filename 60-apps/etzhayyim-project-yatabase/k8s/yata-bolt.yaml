@@ -6,7 +6,7 @@
 # Build + push:
 #   cd 30-graph/yata-bolt
 #   docker buildx build --platform linux/amd64 \
-#     -t ghcr.io/gftdcojp/yata-bolt:0.1.0-amd64 --push .
+#     -t ghcr.io/etzhayyimcojp/yata-bolt:0.1.0-amd64 --push .
 #
 # Apply:
 #   kubectl -n mitama-udf apply -f k8s/yata-bolt.yaml
@@ -61,7 +61,7 @@ spec:
         - name: ghcr-pull
       containers:
         - name: yata-bolt
-          image: ghcr.io/gftdcojp/yata-bolt:0.1.0-amd64
+          image: ghcr.io/etzhayyimcojp/yata-bolt:0.1.0-amd64
           imagePullPolicy: IfNotPresent
           ports:
             - name: bolt

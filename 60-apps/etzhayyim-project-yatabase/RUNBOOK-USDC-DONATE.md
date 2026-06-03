@@ -17,7 +17,7 @@ through the deploy + verification flow.
 
 ## Step 1 — Edit `wrangler.jsonc` placeholder addresses
 
-Open `60-apps/ai-gftd-project-yatabase/wrangler.jsonc`. Under
+Open `60-apps/etzhayyim-project-yatabase/wrangler.jsonc`. Under
 `vars`, replace the two zero-address placeholders with the actual
 on-chain addresses:
 
@@ -44,7 +44,7 @@ read-only — there is no key.
 ## Step 3 — Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-yatabase
+cd 60-apps/etzhayyim-project-yatabase
 
 # (one time) sanity-check no forbidden secrets are leaking in
 ( cd ../.. && python3 -c "
@@ -62,7 +62,7 @@ pnpm typecheck
 # build the Svelte Studio bundle
 pnpm studio:build
 
-# deploy. The legacy `gftd deploy` wrapper still works; bare
+# deploy. The legacy `etzhayyim deploy` wrapper still works; bare
 # wrangler also works since this Worker has no internal
 # scaffolding hooks.
 wrangler deploy
