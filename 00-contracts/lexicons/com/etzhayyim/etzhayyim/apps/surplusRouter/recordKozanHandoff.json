@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Bridge a flagged-dead-stock surplus lot into the toshiKozan (都市鉱山) e-waste recovery stream. Per ADR-2605211241. The handoff is 1:1 with a subsequent com.etzhayyim.apps.toshiKozan.registerEwasteStream record. Transitions lot state flagged-dead-stock -> kozan-handoff. The downstream urban-mining cell (60-apps/ai-gftd-project-open-robo/) actually performs the recycling and ultimately reports final material recovery, after which the lot may be transitioned to 'recycled' by a follow-up call.",
+      "description": "Bridge a flagged-dead-stock surplus lot into the toshiKozan (都市鉱山) e-waste recovery stream. Per ADR-2605211241. The handoff is 1:1 with a subsequent com.etzhayyim.apps.toshiKozan.registerEwasteStream record. Transitions lot state flagged-dead-stock -> kozan-handoff. The downstream urban-mining cell (60-apps/etzhayyim-project-open-robo/) actually performs the recycling and ultimately reports final material recovery, after which the lot may be transitioned to 'recycled' by a follow-up call.",
       "input": {
         "encoding": "application/json",
         "schema": {
