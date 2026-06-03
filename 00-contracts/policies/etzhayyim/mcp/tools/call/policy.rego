@@ -1,4 +1,4 @@
-package gftd.mcp.tools.call
+package etzhayyim.mcp.tools.call
 
 default allow := false
 

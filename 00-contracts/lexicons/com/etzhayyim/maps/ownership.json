@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.maps.ownership",
-  "description": "Ownership relation event — a LegalEntity (subject) owns/transfers/inherits/forecloses/leases a registry record (object). Append-only event log keyed by TID; chain of ownership reconstructed by reading by `subjectUri` or `objectUri` + sorting by `effectiveDate`. Per maps CLAUDE.md §Registry & Legal Entity Architecture (`edge_ownership`) + ADR-2605231400 yatachain L1.",
+  "description": "Ownership relation event — a LegalEntity (subject) owns/transfers/inherits/forecloses/leases a registry record (object). Append-only event log keyed by TID; chain of ownership reconstructed by reading by `subjectUri` or `objectUri` + sorting by `effectiveDate`. Per maps CLAUDE.md §Registry & Legal Entity Architecture (`edge_ownership`) + ADR-2605231400 kotoba-datomic L1.",
   "defs": {
     "main": {
       "type": "record",

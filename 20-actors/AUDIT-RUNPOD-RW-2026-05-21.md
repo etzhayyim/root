@@ -146,10 +146,10 @@ shinka has **no RunPod coupling** and **no fiat payment coupling**, but has deep
 
 | Path | Contents |
 |---|---|
-| `60-apps/ai-gftd-project-yoro/` | Main yoro surface (flowering/fruiting social layer) |
-| `60-apps/ai-gftd-project-yoro/rw-free/src/` | RW-free rewrite library (AT MST client) — 5 TS files |
-| `60-apps/ai-gftd-project-yoro/xrpc-adapter/src/` | XRPC adapter — 1 TS file |
-| `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/` | Main SvelteKit UI (~150 TS/Svelte source files) |
+| `60-apps/etzhayyim-project-yoro/` | Main yoro surface (flowering/fruiting social layer) |
+| `60-apps/etzhayyim-project-yoro/rw-free/src/` | RW-free rewrite library (AT MST client) — 5 TS files |
+| `60-apps/etzhayyim-project-yoro/xrpc-adapter/src/` | XRPC adapter — 1 TS file |
+| `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/` | Main SvelteKit UI (~150 TS/Svelte source files) |
 | `20-actors/magatama/py/src/pymagatama/primitives/yoro_social.py` | Python social primitives (1687 lines) |
 | `20-actors/magatama/py/src/pymagatama/primitives/yoro_product.py` | Python product primitives |
 | `20-actors/magatama/py/src/pymagatama/langgraph_graphs/yoro_platform_pulse.py` | LangGraph platform pulse graph |
@@ -237,9 +237,9 @@ Zero Karmada/VKE matches in TypeScript/Svelte layers.
 | `appview/.../server/legacy-nanoid-map.ts:110` | `"st4rp301": "stripe.etzhayyim.com"` | REJECT | Legacy nanoid routing entry maps `st4rp301` → `stripe.etzhayyim.com`. The domain `stripe.etzhayyim.com` implies a Stripe-backed service hosted under the religious-corp domain. This is a domain boundary violation: `stripe.etzhayyim.com` conflates the vendor Stripe processor with the etzhayyim identity namespace. Must be removed or redirected to a vendor-only domain (`stripe.etzhayyim.com`). |
 
 #### rw-free library and xrpc-adapter
-`60-apps/ai-gftd-project-yoro/rw-free/src/` — 5 TS files — **zero violations**. This is the target implementation per ADR-2605191358; it is clean.
+`60-apps/etzhayyim-project-yoro/rw-free/src/` — 5 TS files — **zero violations**. This is the target implementation per ADR-2605191358; it is clean.
 
-`60-apps/ai-gftd-project-yoro/xrpc-adapter/src/index.ts` — **zero violations**.
+`60-apps/etzhayyim-project-yoro/xrpc-adapter/src/index.ts` — **zero violations**.
 
 ### §3 Summary
 

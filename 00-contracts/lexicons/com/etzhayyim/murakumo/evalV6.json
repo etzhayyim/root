@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Run Hayate V6 benchmark. SQL-routing eval default off in etzhayyim (RW SQL not available; vendor-only feature, gftd.co.jp keeps sql=true as default for its RisingWave substrate).",
+      "description": "Run Hayate V6 benchmark. SQL-routing eval default off in etzhayyim (RW SQL not available; vendor-only feature, etzhayyim.co.jp keeps sql=true as default for its RisingWave substrate).",
       "input": {
         "encoding": "application/json",
         "schema": {

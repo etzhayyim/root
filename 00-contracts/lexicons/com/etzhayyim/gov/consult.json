@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.gov.consult",
-  "description": "User-submitted public-services consultation request (healthcare / welfare / education / housing / employment / etc). Originally `com.etzhayyim.apps.gov.submitConsult` insertion into `vertex_gov_consult`. Per ADR-2605212100 the gftd-side Kysely write is replaced by MST PUT via `@etzhayyim/sdk`. The record represents the request only; the agent response (LLM triage / referral / eligibility assessment) lives in a separate `com.etzhayyim.gov.consultResponse` record (not yet authored).",
+  "description": "User-submitted public-services consultation request (healthcare / welfare / education / housing / employment / etc). Originally `com.etzhayyim.apps.gov.submitConsult` insertion into `vertex_gov_consult`. Per ADR-2605212100 the etzhayyim-side Kysely write is replaced by MST PUT via `@etzhayyim/sdk`. The record represents the request only; the agent response (LLM triage / referral / eligibility assessment) lives in a separate `com.etzhayyim.gov.consultResponse` record (not yet authored).",
   "defs": {
     "main": {
       "type": "record",

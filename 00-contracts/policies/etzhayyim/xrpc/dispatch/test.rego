@@ -1,4 +1,4 @@
-package gftd.xrpc.dispatch
+package etzhayyim.xrpc.dispatch
 
 test_public_read_allowed if {
   allow with input as {

@@ -1,4 +1,4 @@
-package gftd.claim.decision
+package etzhayyim.claim.decision
 
 # ── fixtures ─────────────────────────────────────────────────────────────────
 

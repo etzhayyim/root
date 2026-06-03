@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Assert a cable's landing sequence into the kotoba Datom log: emits the bipartite incidence edges (:cable.link/* — cable lands at each station) AND the station-to-station segment edges (:cable.seg/* — with the chokepoints each segment traverses). Replaces the implicit routeSegmentId of the legacy gftd lexicons with first-class edges.",
+      "description": "Assert a cable's landing sequence into the kotoba Datom log: emits the bipartite incidence edges (:cable.link/* — cable lands at each station) AND the station-to-station segment edges (:cable.seg/* — with the chokepoints each segment traverses). Replaces the implicit routeSegmentId of the legacy etzhayyim lexicons with first-class edges.",
       "input": {
         "encoding": "application/json",
         "schema": {

@@ -22,7 +22,7 @@
               "decision": {"type": "string", "knownValues": ["ISSUE_TYPE_APPROVAL", "REQUEST_REVISION", "REJECT"]}
             }
           },
-          "yatachainAnchor": {
+          "kotoba-datomicAnchor": {
             "type": "object",
             "properties": {
               "membraneNamespace": {"type": "string"},
@@ -33,7 +33,7 @@
           },
           "recordedAt": {"type": "string", "format": "datetime"}
         },
-        "required": ["trainsetId", "serial", "trainsetDid", "authorityReview", "yatachainAnchor"]
+        "required": ["trainsetId", "serial", "trainsetDid", "authorityReview", "kotoba-datomicAnchor"]
       }
     }
   }

@@ -1,8 +1,8 @@
 # com.etzhayyim.murakumo.* — etzhayyim variant
 
-Vendor-authored (gftd.co.jp) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `com.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
+Vendor-authored (etzhayyim.co.jp) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `com.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
 
-## Migration verdicts (2026-05-21, gftd murakumo → etzhayyim)
+## Migration verdicts (2026-05-21, etzhayyim murakumo → etzhayyim)
 
 | Lexicon | Verdict | Adaptation |
 |---|---|---|

@@ -39,7 +39,7 @@
  :schema/supersedes ["com.etzhayyim.apps.telecom.registerSubmarineCableSystem"
                      "com.etzhayyim.apps.telecomInfra.registerCable"
                      "com.etzhayyim.apps.telecomInfra.flagCableFault"]
- :schema/note      "kotoba-native successor to the legacy gftd telecom/telecomInfra/cableRepairFleet lexicons (see 00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md)."
+ :schema/note      "kotoba-native successor to the legacy etzhayyim telecom/telecomInfra/cableRepairFleet lexicons (see 00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md)."
 
  ;; ───────────────────────────── ENTITY: cable system ─────────────────────────────
  :attributes

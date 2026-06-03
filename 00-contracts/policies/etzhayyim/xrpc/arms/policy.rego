@@ -1,4 +1,4 @@
-package gftd.xrpc.arms
+package etzhayyim.xrpc.arms
 
 import rego.v1
 

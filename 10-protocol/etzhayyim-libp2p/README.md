@@ -99,7 +99,7 @@ two-peer-Kubo loopback test that confirmed:
 ## Migration phase (per ADR-2605241800)
 
 This package ships Phase B. Phase C (HTTPS retirement) and Phase D
-(yatachain witness quorum) are downstream follow-ons.
+(kotoba-datomic witness quorum) are downstream follow-ons.
 
 ## License
 

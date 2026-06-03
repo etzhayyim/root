@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.chigiri.covenantAttestation",
-  "description": "Generic religious-corp covenant attestation. Used for Adherent SBT issuance, marriage (covenant ceremony performed by musubi), naming, funeral attestation, and other state-function routing-around procedures per Charter §1.12. Schema-level enforcement of ceremony type enum + Council attestation chain + yatachain attestation lineage. R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
+  "description": "Generic religious-corp covenant attestation. Used for Adherent SBT issuance, marriage (covenant ceremony performed by musubi), naming, funeral attestation, and other state-function routing-around procedures per Charter §1.12. Schema-level enforcement of ceremony type enum + Council attestation chain + kotoba-datomic attestation lineage. R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
   "defs": {
     "main": {
       "type": "record",

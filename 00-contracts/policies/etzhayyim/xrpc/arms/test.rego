@@ -1,6 +1,6 @@
-package gftd.xrpc.arms_test
+package etzhayyim.xrpc.arms_test
 
-import data.gftd.xrpc.arms
+import data.etzhayyim.xrpc.arms
 
 # internal service can always register firearms
 test_internal_service_register_firearm if {

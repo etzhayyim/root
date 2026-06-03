@@ -1,4 +1,4 @@
-package gftd.mcp.tools.call
+package etzhayyim.mcp.tools.call
 
 test_public_denied if {
   not allow with input as {

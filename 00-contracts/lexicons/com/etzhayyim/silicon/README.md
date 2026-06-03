@@ -35,11 +35,11 @@ equipment + Pregel cell catalog).
 | `fabEquipmentTelemetry` | All 8 `silicon_*` cells (down-sample their libp2p subscription) |
 | `waferLotAttestation` | All 8 `silicon_*` cells (one per super-step) |
 
-## Lexicon graph projection (yatachain L1)
+## Lexicon graph projection (kotoba-datomic L1)
 
 These 4 lexicons are intentionally "narrow surface" — the per-lot history
 chain (`waferLotAttestation` ordered by `stepIndex`) and the per-chip
 shipment record (`chipManufacturingAttestation`) are designed to project
-cleanly into a graph view (`yatachain-projection`, per ADR-2605231500),
+cleanly into a graph view (`kotoba-datomic-projection`, per ADR-2605231500),
 should that be needed for fab analytics. Projection is Phase 2 work; the
 write SoT is MST as always.

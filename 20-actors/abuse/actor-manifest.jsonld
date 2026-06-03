@@ -136,7 +136,7 @@
           "id": "targets",
           "fn": "graph.query",
           "args": {
-            "sql": "SELECT did, handle, description, props FROM vertex_gftd_identity WHERE status IN ('implicated-phishing-host','implicated-phishing-registrar') OR entity_type = 'brand' OR entity_type = 'cert'"
+            "sql": "SELECT did, handle, description, props FROM vertex_etzhayyim_identity WHERE status IN ('implicated-phishing-host','implicated-phishing-registrar') OR entity_type = 'brand' OR entity_type = 'cert'"
           }
         },
         {
@@ -244,7 +244,7 @@
           "fn": "graph.write",
           "depends_on": ["matchReport"],
           "args": {
-            "sql": "INSERT INTO public.vertex_mailer_inbound_email (vertex_id, rkey, repo, owner_did, message_id, from_address, from_domain, to_local, to_address, subject, body_text, received_at_ms, received_at, status, is_abuse_reply, matched_report_rkey, created_at, created_date, sensitivity_ord, org_id, user_id, actor_id) VALUES (concat('at://', 'did:web:ml1nb0nd.etzhayyim.com', '/com.etzhayyim.apps.mailer.inboundEmail/', $rkey), $rkey, 'did:web:ml1nb0nd.etzhayyim.com', 'did:web:ml1nb0nd.etzhayyim.com', $messageId, $fromAddress, SPLIT_PART($fromAddress, '@', 2), $toLocal, concat($toLocal, '@etzhayyim.com'), $subject, $bodyText, $receivedAtMs, to_char(to_timestamp($receivedAtMs/1000), 'YYYY-MM-DD\"T\"HH24:MI:SS.MSZ'), 'received', CASE WHEN $matchedRkey != '' THEN 'true' ELSE 'false' END, $matchedRkey, NOW()::VARCHAR, CURRENT_DATE, 300, 'gftd', 'did:gftd:03fa7d86a1406bce8f226dc5', 't1:abuse-reply-track')",
+            "sql": "INSERT INTO public.vertex_mailer_inbound_email (vertex_id, rkey, repo, owner_did, message_id, from_address, from_domain, to_local, to_address, subject, body_text, received_at_ms, received_at, status, is_abuse_reply, matched_report_rkey, created_at, created_date, sensitivity_ord, org_id, user_id, actor_id) VALUES (concat('at://', 'did:web:ml1nb0nd.etzhayyim.com', '/com.etzhayyim.apps.mailer.inboundEmail/', $rkey), $rkey, 'did:web:ml1nb0nd.etzhayyim.com', 'did:web:ml1nb0nd.etzhayyim.com', $messageId, $fromAddress, SPLIT_PART($fromAddress, '@', 2), $toLocal, concat($toLocal, '@etzhayyim.com'), $subject, $bodyText, $receivedAtMs, to_char(to_timestamp($receivedAtMs/1000), 'YYYY-MM-DD\"T\"HH24:MI:SS.MSZ'), 'received', CASE WHEN $matchedRkey != '' THEN 'true' ELSE 'false' END, $matchedRkey, NOW()::VARCHAR, CURRENT_DATE, 300, 'etzhayyim', 'did:etzhayyim:03fa7d86a1406bce8f226dc5', 't1:abuse-reply-track')",
             "params": {
               "rkey": "$input.rkey",
               "messageId": "$extractFrom.messageId",
