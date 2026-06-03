@@ -43,6 +43,16 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-03 — self-contained map viewer
+
+`viz/gov-atlas-map.htm` renders `gov-atlas.geojson` in the browser — a pure-canvas
+equirectangular world map (drag-pan, wheel-zoom, click-for-details) with the 4,330
+government bodies colour-coded by branch (executive / subnational / independent /
+legislative / judicial / intergovernmental), a live legend + per-branch filter, and
+popups linking each body's Wikidata + official site. **No external tiles / CDN /
+trackers** (Charter ad-free + no-third-party compliant) — fully self-contained,
+offline, drop-in. Turns the atlas into something a human can actually explore.
+
 ## 2026-06-03 — GeoJSON export (the atlas is now a usable world map)
 
 `scripts/export_geojson.py` derives `viz/gov-atlas.geojson` from the registry —
