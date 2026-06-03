@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 /**
  * @title TestUSDC
- * @notice Gftd Computing Credits (GCC) — FiatTokenV2_2 ABI-compatible token.
+ * @notice Etzhayyim Computing Credits (GCC) — FiatTokenV2_2 ABI-compatible token.
  *
  * Implements every public function of Circle's FiatTokenV2_2 so that any
  * integration (UI, SDK, Safe module, …) that works against FiatTokenV2_2

@@ -11,7 +11,7 @@
   "duties": ["勤労の義務"],
   "kpi": ["FAX送達成功率", "配達証明取得数"],
   "profile": {
-    "displayName": "FAX Gateway (Gftd Japan)",
+    "displayName": "FAX Gateway (Etzhayyim Japan)",
     "description": "FAX送受信AIエージェント — text/markdown/HTML を A4 PDF に render し、Dropbox Fax UI への manual-handoff で operator が送信。Mailer actor 経由で Teams 通知。Phaxio API path はコード残置 dead path。MCP-callable: composeAndSend / confirmManualSend / renderPdf / uploadDocument。内容証明・労基署・裁判所等の紙面行政対応。",
     "avatar": "FX",
     "category": "communication",

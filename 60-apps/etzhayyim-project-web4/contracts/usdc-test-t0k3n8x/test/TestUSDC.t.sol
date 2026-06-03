@@ -19,7 +19,7 @@ contract TestUSDCTest is Test {
     uint256 public constant INITIAL_MINT = 10_000_000 * 1e6; // 10M
 
     function setUp() public {
-        token = new TestUSDC("Gftd Computing Credits", "GCC", "USD", masterMinter, pauser, blacklister, owner);
+        token = new TestUSDC("Etzhayyim Computing Credits", "GCC", "USD", masterMinter, pauser, blacklister, owner);
 
         // Configure minter
         vm.prank(masterMinter);
@@ -35,7 +35,7 @@ contract TestUSDCTest is Test {
     // ──────────────────────────────────────────────
 
     function test_name() public view {
-        assertEq(token.name(), "Gftd Computing Credits");
+        assertEq(token.name(), "Etzhayyim Computing Credits");
     }
 
     function test_symbol() public view {
@@ -547,7 +547,7 @@ contract TestUSDCTest is Test {
         bytes32 expected = keccak256(
             abi.encode(
                 keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"),
-                keccak256("Gftd Computing Credits"),
+                keccak256("Etzhayyim Computing Credits"),
                 keccak256("2"),
                 block.chainid,
                 address(token)

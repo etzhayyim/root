@@ -53,7 +53,7 @@ yoro.etzhayyim.com FAB tap
 user message (com.etzhayyim.convo.message)
   → ComAtprotoSyncSubscribeRepos → handleConvoMessage()
   → processConvoCommand() → execCreateProject/execCreateTask/...
-  → AiGftdConvoSendMessage(convoId, reply) → user receives reply in DM
+  → AiEtzhayyimConvoSendMessage(convoId, reply) → user receives reply in DM
   → ComAtprotoRepoCreateRecord (domain data) + AppBskyFeedPost (social announce)
 ```
 

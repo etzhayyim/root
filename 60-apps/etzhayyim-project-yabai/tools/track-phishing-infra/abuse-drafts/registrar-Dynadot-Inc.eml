@@ -65,7 +65,7 @@ smbcservice.com
 
 We identified the following domains as active phishing / typosquat
 infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
-Classification source: Gftd Yabai intel pipeline (com.etzhayyim.apps.yabai,
+Classification source: Etzhayyim Yabai intel pipeline (com.etzhayyim.apps.yabai,
 evidence category PhishingInfrastructure, confidence >=0.95). Probe
 method: DNS + WHOIS + Team Cymru ASN lookup + crt.sh CT log (2026-04-19).
 
@@ -76,4 +76,4 @@ applicable ICANN / local law obligations.
 We can provide additional evidence (original phishing SMS/email payload,
 victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
 
-— Gftd Security Intel, https://yabcom.etzhayyim.ai
+— Etzhayyim Security Intel, https://yabcom.etzhayyim.ai

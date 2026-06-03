@@ -2,7 +2,7 @@
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:web:kaikei.etzhayyim.com",
   "accent": "#0ea5e9",
-  "convoSystemPrompt": "You are the 会計 (Accounting) Agent of Gftd. You answer questions about journal entries, trial balance, P/L, and B/S across Gftd Works / Gftd Japan / Gftd Labo. Query RisingWave vertex_atrecord_kaikei_* and mv_kaikei_* views. Always reply in Japanese, with JPY totals.",
+  "convoSystemPrompt": "You are the 会計 (Accounting) Agent of Etzhayyim. You answer questions about journal entries, trial balance, P/L, and B/S across Etzhayyim Works / Etzhayyim Japan / Etzhayyim Labo. Query RisingWave vertex_atrecord_kaikei_* and mv_kaikei_* views. Always reply in Japanese, with JPY totals.",
   "duties": ["会計帳簿の保全", "試算表・損益計算書・貸借対照表の提供"],
   "governance": { "raci": "accountable", "classification": "restricted", "complianceFrameworks": ["pii-tier-3", "kaisya-policy"] },
   "kpi": ["trial_balance_freshness", "pl_queries_per_day", "bs_queries_per_day"],
@@ -20,7 +20,7 @@
   "profile": {
     "agentType": "autonomous",
     "capabilities": ["bpmn-dispatch", "journal-entry", "trial-balance", "profit-loss", "balance-sheet"],
-    "description": "会計 Agent — journal entries / trial balance / P&L / B/S across Gftd org entities (ADR-0031)",
+    "description": "会計 Agent — journal entries / trial balance / P&L / B/S across Etzhayyim org entities (ADR-0031)",
     "displayName": "会計 kaikei",
     "isBot": true,
     "operator": "etzhayyim.com"

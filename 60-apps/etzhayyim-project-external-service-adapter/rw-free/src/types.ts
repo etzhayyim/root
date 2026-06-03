@@ -20,7 +20,7 @@
  *     mailboxSync: userDid + provider + folder + watermark + counts +
  *       oauthStatus (which inbox a person linked, and how far it synced).
  *     oauthGrant: userDid + provider + granted scopes + status + expiry —
- *       BINDING METADATA ONLY (see staysGftd: the raw access/refresh tokens
+ *       BINDING METADATA ONLY (see staysEtzhayyim: the raw access/refresh tokens
  *       and client secrets are NEVER part of this body).
  *
  *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
@@ -147,7 +147,7 @@ export interface GetSyncOutput {
 
 // ─── OAuth grant (E2E-ENCRYPTED, binding metadata ONLY) ─────────────
 // NOTE: raw access/refresh tokens + client secrets are NEVER in this body —
-// that custody stays etzhayyim (see module header staysGftd).
+// that custody stays etzhayyim (see module header staysEtzhayyim).
 
 export interface OauthGrantBody {
   grantId: string;

@@ -88,7 +88,7 @@ legacy path can be deleted and the pod is kotoba-datomic L0-nominal.
 | Check | Command | Status |
 |---|---|---|
 | Substrate primitive tests | `pytest 20-actors/magatama/py/tests/test_substrate.py` | ✅ 18/18 |
-| Yatachain Python primitives | `pytest 20-actors/magatama/py/tests/test_kotoba-datomic.py` | ✅ 17/17 |
+| KotobaDatomic Python primitives | `pytest 20-actors/magatama/py/tests/test_kotoba-datomic.py` | ✅ 17/17 |
 | Cell-runner /kotoba-datomic/attest endpoint | `pytest 20-actors/magatama/py/tests/test_cell_runner_attest.py` | ✅ 7/7 |
 | Geonames port converter tests | `pytest 60-apps/etzhayyim-project-maps/bulk-ingest/tests/test_geonames_port.py` | ✅ 8/8 |
 | Live PDS smoke (manual) | `USE_PYMAGATAMA_SUBSTRATE=1 ETZ_SESSION_JWT=... python workers/geonames_dumper.py` against a test PDS | ⏳ pending operator wiring |
