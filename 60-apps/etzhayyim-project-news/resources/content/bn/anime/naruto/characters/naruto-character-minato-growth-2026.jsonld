@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-minato-growth-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-minato-growth-2026",
   "identifier": "naruto-character-minato-growth-2026",
   "headline": "Minato Namikaze growth curve: decisions, consequences, and transformation",
   "description": "Tracking Minato Namikaze’s decisions and costs to understand transformation over time.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

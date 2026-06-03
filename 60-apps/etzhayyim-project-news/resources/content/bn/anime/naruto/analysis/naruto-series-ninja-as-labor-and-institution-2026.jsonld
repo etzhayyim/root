@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-series-ninja-as-labor-and-institution-2026",
+  "@id": "urn:etzhayyim:news:naruto-series-ninja-as-labor-and-institution-2026",
   "identifier": "naruto-series-ninja-as-labor-and-institution-2026",
   "headline": "Naruto analysis: Ninja as labor and institution",
   "description": "A thematic essay on Naruto, organized around: Ninja as labor and institution.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

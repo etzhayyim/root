@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-naruto-growth-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-naruto-growth-2026",
   "identifier": "naruto-character-naruto-growth-2026",
   "headline": "Naruto Uzumaki growth curve: decisions, consequences, and transformation",
   "description": "Tracking Naruto Uzumaki’s decisions and costs to understand transformation over time.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
