@@ -672,7 +672,7 @@
   },
   "components": {
     "schemas": {
-      "ai_gftd_signal_groupKeyRotation": {
+      "ai_etzhayyim_signal_groupKeyRotation": {
         "type": "object",
         "properties": {
           "convoId": {
@@ -687,7 +687,7 @@
           "rotatedAt"
         ]
       },
-      "ai_gftd_signal_otpks": {
+      "ai_etzhayyim_signal_otpks": {
         "type": "object",
         "properties": {
           "oneTimePrekeys": {
@@ -699,7 +699,7 @@
           "oneTimePrekeys"
         ]
       },
-      "ai_gftd_signal_prekeys": {
+      "ai_etzhayyim_signal_prekeys": {
         "type": "object",
         "properties": {
           "identityKey": {

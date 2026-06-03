@@ -178,14 +178,14 @@ Browser (/projects)
 
 | File | Change |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/pds-handlers-gftd.ts` | Activity XRPC handlers + project notification handlers |
+| `50-infra/cloudflare/workers/atproto/src/pds-handlers-etzhayyim.ts` | Activity XRPC handlers + project notification handlers |
 | `50-infra/cloudflare/workers/atproto/src/pds-dispatch.ts` | Route registration for new NSID sets |
-| `60-apps/ai-gftd-project-yoro/.../routes/activities/+page.svelte` | Activity timeline UI |
-| `60-apps/ai-gftd-project-yoro/.../routes/notifications/+page.svelte` | Redirect to /activities |
-| `60-apps/ai-gftd-project-yoro/.../routes/projects/+page.svelte` | Unread badges + notification panel |
-| `60-apps/ai-gftd-project-yoro/.../lib/superapp/stores.ts` | pathToTab() update |
-| `60-apps/ai-gftd-project-yoro/.../routes/+layout.svelte` | Navigation update |
-| `60-apps/ai-gftd-project-yoro/.../lib/components/AppDrawer.svelte` | Drawer link update |
+| `60-apps/etzhayyim-project-yoro/.../routes/activities/+page.svelte` | Activity timeline UI |
+| `60-apps/etzhayyim-project-yoro/.../routes/notifications/+page.svelte` | Redirect to /activities |
+| `60-apps/etzhayyim-project-yoro/.../routes/projects/+page.svelte` | Unread badges + notification panel |
+| `60-apps/etzhayyim-project-yoro/.../lib/superapp/stores.ts` | pathToTab() update |
+| `60-apps/etzhayyim-project-yoro/.../routes/+layout.svelte` | Navigation update |
+| `60-apps/etzhayyim-project-yoro/.../lib/components/AppDrawer.svelte` | Drawer link update |
 
 ## Process Mining Connection
 
@@ -198,7 +198,7 @@ Activity events are compatible with OCEL v2 process mining at `ocel.etzhayyim.co
 | **Conformance Checking** | Compare observed deploy/evolution patterns vs expected |
 | **Performance Analysis** | Measure transition latency between activities |
 
-The same `OcelEvent` graph label is consumed by both the UI (`listActivities`) and the process mining WIT interface (`gftd:ocel/process-mining`).
+The same `OcelEvent` graph label is consumed by both the UI (`listActivities`) and the process mining WIT interface (`etzhayyim:ocel/process-mining`).
 
 Canonical record URI form for persisted OCEL events:
 
@@ -207,6 +207,6 @@ Canonical record URI form for persisted OCEL events:
 ## References
 
 - IEEE 1849-2023 (OCEL v2 standard)
-- `60-apps/ai-gftd-project-ocel/CLAUDE.md` — OCEL project architecture
-- `60-apps/ai-gftd-project-ocel/wit/ocel/package.wit` — WIT interface
-- `60-apps/ai-gftd-project-yoro/CLAUDE.md` — yoro routing table
+- `60-apps/etzhayyim-project-ocel/CLAUDE.md` — OCEL project architecture
+- `60-apps/etzhayyim-project-ocel/wit/ocel/package.wit` — WIT interface
+- `60-apps/etzhayyim-project-yoro/CLAUDE.md` — yoro routing table

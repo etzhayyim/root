@@ -18,7 +18,7 @@
 - Initial `vhp-8c-16gb-amd` (16 GB, $96/mo) caused 17 compute OOM-kills in 9h. Scaled to `vhf-8c-32gb` (32 GB, $192/mo) which matches Linode `g6-dedicated-16` RAM.
 - ~~B2 has no per-bucket rps quota → Linode's Foyer `recover_mode=Quiet` + `cache_refill` workarounds are now defense-in-depth, not load-bearing.~~ **RETRACTED 2026-04-25**: B2 *does* enforce a per-account request rate (observed ~12 SlowDown/sec = ~1700/2min during compute-0 cold-start refill). The Linode-era defense-in-depth blocks (`[storage.cache_refill]` with `data_refill_levels=0-6`, `insert_rate_limit_mb=450/50`, `statement_timeout_secs=120`) were **not ported** to `50-infra/vultr/risingwave/helm/values.yaml` during the ADR-0048 cutover. On 2026-04-25 a compute-0 OOMKill (patent-ingest bulk INSERT load) triggered a Foyer cold-start storm that tripped B2's quota and cascaded into a multi-hour Hummock `ObjectStore RateLimited` outage. Config ported from `50-infra/linode/risingwave-iceberg/helm/values-dedicated-32.yaml` 2026-04-25; see `50-infra/vultr/risingwave/deps.toml [risingwave_vultr.incident_2026_04_25]`. Bulk ingest paths must also `SET dml_rate_limit` (rows/sec per parallelism — official RW INSERT throttle, see `[[conventions]] rw-bulk-insert-throttle`).
 
-**Decommissioned**: Linode LKE 589404 deleted, Vultr `vhp-8c-16gb-amd` pool deleted, `kagami-graphar` bucket deleted. `ai-gftd-iceberg` bucket purged (7.86 TiB / 174k objects) and deleted 2026-04-23 — **Linode Object Storage fully retired, B2 is the sole object storage provider**.
+**Decommissioned**: Linode LKE 589404 deleted, Vultr `vhp-8c-16gb-amd` pool deleted, `kagami-graphar` bucket deleted. `etzhayyim-iceberg` bucket purged (7.86 TiB / 174k objects) and deleted 2026-04-23 — **Linode Object Storage fully retired, B2 is the sole object storage provider**.
 
 See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwave/`, supersedes ADR-0020.
 
@@ -124,13 +124,13 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 - DL (HermiT) gated weekly via FEEL `(today() - date(last_dl_run_date)) >= duration("P7D")`
 
 **owl_reasoner.py bug fixes (commit 8c011aeb593, 2026-05-01)**:
-- Added `_load_all_profiles(conn)` — queries `DISTINCT profile FROM edge_owl_subclass` with fallback `["gftd_core_v1"]`; all 3 task handlers now use it instead of hardcoded `["EL","ALL"]` etc.
+- Added `_load_all_profiles(conn)` — queries `DISTINCT profile FROM edge_owl_subclass` with fallback `["etzhayyim_core_v1"]`; all 3 task handlers now use it instead of hardcoded `["EL","ALL"]` etc.
 - `_run_el_plus_plus` fallback changed from `except ImportError` → `except Exception` so Pellet/Java subprocess failure (JVM not in pod) correctly routes to `_run_el_naive`
-- First fire verified in pod: 26 axioms loaded (profile=gftd_core_v1), 16 triples inferred, written to `vertex_owl_inferred`
+- First fire verified in pod: 26 axioms loaded (profile=etzhayyim_core_v1), 16 triples inferred, written to `vertex_owl_inferred`
 
 **Deployed**: `pymagatama:0.3.26-202605011151-amd64` (helm rev 321). R/PT1H timer correctly classifies on each fire.
 
-**Migrations**: `20260501140000_vertex_owl_reasoner_schema` + `20260501160000_seed_owl_tbox_gftd_ontology` applied out-of-band (ADR-2604241342).
+**Migrations**: `20260501140000_vertex_owl_reasoner_schema` + `20260501160000_seed_owl_tbox_etzhayyim_ontology` applied out-of-band (ADR-2604241342).
 
 **EL++ vs DL comparison**: `mv_owl_el_dl_diff` Streaming MV tracks agreed/el_only/dl_only triples. `vertex_owl_benchmark.el_completeness_pct` = agreed/dl_inferred × 100.
 
@@ -141,14 +141,14 @@ See: `90-docs/adr/0048-risingwave-vultr-b2-primary.md`, `50-infra/vultr/risingwa
 **Status**: ✅ **COMPLETE — text + triple export to B2 verified, HF push wired, BPMN v2 live**
 
 **Triple export verified (2026-05-01)**:
-- `task_training_export_triple(dataset_name='gftd-triples', shard_index=0)` → `{status:'ok', row_count:50000, b2_key:'training/v1/gftd-triples/triples/shard-00000.jsonl.gz', has_more:True}`
-- `v_training_triple`: 2,381,555 rows = ~48 shards at 50K/shard. B2 key scope confirmed (`ai-gftd-nats`, prefix `training/v1`).
+- `task_training_export_triple(dataset_name='etzhayyim-triples', shard_index=0)` → `{status:'ok', row_count:50000, b2_key:'training/v1/etzhayyim-triples/triples/shard-00000.jsonl.gz', has_more:True}`
+- `v_training_triple`: 2,381,555 rows = ~48 shards at 50K/shard. B2 key scope confirmed (`etzhayyim-nats`, prefix `training/v1`).
 
 **HuggingFace Hub push Phase D (commit dc707059974)**:
 - `trainingExport.bpmn` updated: after triple loop completes → `training.push.huggingface` → End
-- `task_training_push_huggingface()` in pymagatama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/gftd-corpus` on HF Hub via `huggingface_hub.HfApi`
-- K8s Secret `training-hf-creds` created (`HF_TOKEN` from 1Password `gftd.hf/HF_TOKEN`, `HF_REPO_ID=etzhayyim/gftd-corpus`)
-- Keychain `gftd.huggingface/HF_TOKEN` saved
+- `task_training_push_huggingface()` in pymagatama 0.3.26: reads `vertex_training_shard` (status=done), downloads from B2, uploads to `etzhayyim/etzhayyim-corpus` on HF Hub via `huggingface_hub.HfApi`
+- K8s Secret `training-hf-creds` created (`HF_TOKEN` from 1Password `etzhayyim.hf/HF_TOKEN`, `HF_REPO_ID=etzhayyim/etzhayyim-corpus`)
+- Keychain `etzhayyim.huggingface/HF_TOKEN` saved
 - BPMN redeployed to Zeebe (key=2251799825707622) via F5 watcher
 
 ---
@@ -218,7 +218,7 @@ See: `deps.toml [[conventions]] rw-psycopg3-no-param-limit`, `[[conventions]] py
 **Status**: ✅ **Topology refactor live, γ2 in 14-day observation (day 3/14)**
 
 **Shipped via PR #1115 + #1117 + #1118 + #1120**:
-- `bsky.etzhayyim.com` Layer-2 AppView Worker (`ai-gftd-appview` v `d085c7bf`)
+- `bsky.etzhayyim.com` Layer-2 AppView Worker (`etzhayyim-appview` v `d085c7bf`)
   — first deploy. sh1n5h1x.etzhayyim.com postsCount 0 → 1476 fixed end-to-end
   (MV `mv_actor_social_stats` GROUP BY → `normalize_actor_did(repo)` +
   AppView Worker route claim + Kysely `.limit(1)` → `sql` template
@@ -298,7 +298,7 @@ See `90-docs/260417-*` for runbook, monitoring, post-deploy report.
 
 **Blocking fixes shipped**:
 - BPMN re-deploy loop: `_deployed_in_flight: set[str]` guard in `dispatcher_main.py watcher_loop()`.
-- B2 credentials: `maps-bulk-ingest-credentials` Secret patched from Keychain `gftd.b2`.
+- B2 credentials: `maps-bulk-ingest-credentials` Secret patched from Keychain `etzhayyim.b2`.
 - GTFS-JP feed index: `GTFS_JP_FEED_INDEX_URL=file:///config/gtfs-jp.json` via ConfigMap mount.
 - `maps-tile-server-deploy` migration marked **superseded** (PMTiles/R2 dead, replaced by `tileGeoJson` XRPC).
 
@@ -508,11 +508,11 @@ Proposals non-federable (internal, sensitivity_ord=2).
 | `00-contracts/lexicons/com/etzhayyim/apps/outreach/addDnc.json` | Add to DNC list |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/outreachSequence.bpmn` | Multi-step sequence flow |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/outreach/replyDetected.bpmn` | Reply correlation sub-flow |
-| `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/src/app.ts` | Thin edge CF Worker |
-| `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/wrangler.jsonc` | Routes |
-| `60-apps/ai-gftd-project-outreach/appview/outreach-otch0001/magatama.jsonld` | subscribeRepos config |
-| `60-apps/ai-gftd-project-outreach/CLAUDE.md` | Runbook |
-| `60-apps/ai-gftd-project-outreach/actor-manifest.jsonld` | Actor declaration |
+| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/src/app.ts` | Thin edge CF Worker |
+| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/wrangler.jsonc` | Routes |
+| `60-apps/etzhayyim-project-outreach/appview/outreach-otch0001/magatama.jsonld` | subscribeRepos config |
+| `60-apps/etzhayyim-project-outreach/CLAUDE.md` | Runbook |
+| `60-apps/etzhayyim-project-outreach/actor-manifest.jsonld` | Actor declaration |
 | `30-graph/graph-schema/migrations/20260507820000_vertex_outreach_tables.ts` | 5 tables |
 | `20-actors/magatama/py/src/pymagatama/outreach_worker_main.py` | Python Zeebe worker |
 
@@ -584,7 +584,7 @@ Reply detection via existing gmail/m365Ingest actors — no new inbound infra.
 | `00-contracts/lexicons/com/etzhayyim/apps/compintel/getAlert.json` | High-severity alerts |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/weeklyRefresh.bpmn` | Monday 08:00 JST refresh |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/compintel/trackCompetitor.bpmn` | Initial deep research |
-| `60-apps/ai-gftd-project-compintel/appview/compintel-cpti0001/` | CF Worker |
+| `60-apps/etzhayyim-project-compintel/appview/compintel-cpti0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507830000_vertex_compintel_tables.ts` | 4 tables |
 | `20-actors/magatama/py/src/pymagatama/compintel_worker_main.py` | Python Zeebe worker |
 
@@ -616,7 +616,7 @@ fetch_signals → analyze_pricing → analyze_product → analyze_hiring → sco
 | `00-contracts/lexicons/com/etzhayyim/apps/contentengine/listContent.json` | List with filters |
 | `00-contracts/lexicons/com/etzhayyim/apps/contentengine/registerCohortProfile.json` | Register cohort profile |
 | `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/contentengine/generateContent.bpmn` | Generate + sponsor flow |
-| `60-apps/ai-gftd-project-contentengine/appview/contentengine-cten0001/` | CF Worker |
+| `60-apps/etzhayyim-project-contentengine/appview/contentengine-cten0001/` | CF Worker |
 | `30-graph/graph-schema/migrations/20260507840000_vertex_contentengine_tables.ts` | 2 tables |
 | `20-actors/magatama/py/src/pymagatama/contentengine_worker_main.py` | Python Zeebe worker |
 

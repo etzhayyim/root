@@ -18,7 +18,7 @@
   "protocols": [
     {
       "actorDid": "did:web:kami-agent.etzhayyim.com",
-      "facadeFor": "did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643",
+      "facadeFor": "did:erc725:etzhayyim:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643",
       "kind": "atproto-xrpc",
       "pdsDid": "did:web:atproto.etzhayyim.com",
       "service": "https://atproto.etzhayyim.com",
@@ -86,7 +86,7 @@
     ],
     "kind": "erc725-root",
     "policyCid": "",
-    "rootDid": "did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
+    "rootDid": "did:erc725:etzhayyim:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
   },
   "schema": "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json"
 }

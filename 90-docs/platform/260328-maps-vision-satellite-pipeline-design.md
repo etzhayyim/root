@@ -274,7 +274,7 @@ Phase 3 (~$15K/年): Airbus OneAtlas Standard → 月 30K km² + Planet 3m 日�
 Phase 4 (スポット): Satellogic $1-3/km² or SkyWatch $3-8/km² で必要箇所のみ購入
 ```
 
-## WIT Interfaces (gftd:maps@1.0.0)
+## WIT Interfaces (etzhayyim:maps@1.0.0)
 
 4 新 interface 追加 (102 total commands):
 
@@ -333,9 +333,9 @@ interface satellite-intelligence {
 
 ## References
 
-- maps-ui app.ts: `60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
-- WIT: `60-apps/ai-gftd-project-maps/wit/maps/package.wit`
+- maps-ui app.ts: `60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6/src/app.ts`
+- WIT: `60-apps/etzhayyim-project-maps/wit/maps/package.wit`
 - Collection Job Pattern: `60-apps/CLAUDE.md` §Collection Job Pattern
 - Design E 3-Tier Write: `60-apps/CLAUDE.md` §Design E
-- Murakumo LLM: `60-apps/ai-gftd-project-murakumo/CLAUDE.md`
+- Murakumo LLM: `60-apps/etzhayyim-project-murakumo/CLAUDE.md`
 - STAC spec: https://stacspec.org/

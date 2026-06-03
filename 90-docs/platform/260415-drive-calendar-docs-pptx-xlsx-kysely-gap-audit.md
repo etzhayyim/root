@@ -2,11 +2,11 @@
 
 - Date: 2026-04-15
 - Scope:
-  - `ai-gftd-project-drive`
-  - `ai-gftd-project-calendar`
-  - `ai-gftd-project-docs`
-  - `ai-gftd-project-pptx`
-  - `ai-gftd-project-sheets` (Excel相当)
+  - `etzhayyim-project-drive`
+  - `etzhayyim-project-calendar`
+  - `etzhayyim-project-docs`
+  - `etzhayyim-project-pptx`
+  - `etzhayyim-project-sheets` (Excel相当)
   - `20-actors/xlsx` (Excel actor)
 
 ## Ground Truth
@@ -26,7 +26,7 @@
   - `com.etzhayyim.apps.drive.fileMove`
   - `com.etzhayyim.apps.drive.fileStatusUpdate`
   - `com.etzhayyim.apps.drive.fileLocationUpdate`
-  - Ref: `60-apps/ai-gftd-project-drive/appview/drive-app-component/magatama.jsonld` lines 58-64
+  - Ref: `60-apps/etzhayyim-project-drive/appview/drive-app-component/magatama.jsonld` lines 58-64
 
 - Calendar collections (used in app code):
   - `com.etzhayyim.apps.calendar.event`
@@ -34,13 +34,13 @@
   - `com.etzhayyim.apps.calendar.recurrence`
   - `com.etzhayyim.apps.calendar.rsvp`
   - `com.etzhayyim.apps.calendar.reminder`
-  - Ref: `60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts`
+  - Ref: `60-apps/etzhayyim-project-calendar/appview/calendar-mcp-component/src/app.ts`
 
 - Docs collections:
   - `com.etzhayyim.apps.docs.docsEntity`
   - `com.etzhayyim.apps.docs.docsEvent`
   - `com.etzhayyim.apps.docs.docsReport`
-  - Ref: `60-apps/ai-gftd-project-docs/appview/docs-performers-r5ycqp6x/magatama.jsonld` lines 78-80
+  - Ref: `60-apps/etzhayyim-project-docs/appview/docs-performers-r5ycqp6x/magatama.jsonld` lines 78-80
 
 - PPTX collections:
   - `com.etzhayyim.apps.pptx.presentation`
@@ -49,13 +49,13 @@
   - `com.etzhayyim.apps.pptx.textRun`
   - `com.etzhayyim.apps.pptx.image`
   - `com.etzhayyim.apps.pptx.slideTemplate`
-  - Ref: `60-apps/ai-gftd-project-pptx/appview/ai-gftd-wasm-pptx-t53br1o0/magatama.jsonld` lines 70-75
+  - Ref: `60-apps/etzhayyim-project-pptx/appview/etzhayyim-wasm-pptx-t53br1o0/magatama.jsonld` lines 70-75
 
 - Sheets collections (Excel相当):
   - `com.etzhayyim.apps.sheets.sheetsEntity`
   - `com.etzhayyim.apps.sheets.sheetsEvent`
   - `com.etzhayyim.apps.sheets.sheetsReport`
-  - Ref: `60-apps/ai-gftd-project-sheets/appview/sheets-mcp-component/magatama.jsonld` lines 78-80
+  - Ref: `60-apps/etzhayyim-project-sheets/appview/sheets-mcp-component/magatama.jsonld` lines 78-80
 
 - XLSX actor collections:
   - `com.etzhayyim.apps.xlsx.workbook`
@@ -75,7 +75,7 @@
 
 ### Evidence for calendar missing state
 
-`60-apps/ai-gftd-project-calendar/appview/calendar-mcp-component/src/app.ts`
+`60-apps/etzhayyim-project-calendar/appview/calendar-mcp-component/src/app.ts`
 - lines 30-31: `vertex_calendar_* not in @etzhayyim/graph-schema`
 - line 119: pre-existence check skipped
 - line 193: events list unavailable

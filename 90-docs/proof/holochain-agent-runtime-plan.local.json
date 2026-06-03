@@ -11,7 +11,7 @@
     "workload": "holochain-agent-runtime"
   },
   "happ": {
-    "name": "gftd-agent-actor-runtime",
+    "name": "etzhayyim-agent-actor-runtime",
     "happUri": "ipfs://bafy-happ",
     "dnaHash": "uhC0kagentactorruntime",
     "roleName": "agent_actor_runtime",

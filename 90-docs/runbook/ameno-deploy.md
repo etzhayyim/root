@@ -17,7 +17,7 @@ known operational gotchas before they bite during a live rollout.
 ## Prerequisites
 
 - 1Password: signed in (`op signin`); Vault `etzhayyim Japan株式会社` reachable.
-- macOS Keychain: `gftd.rw / KAISYA_URL` present (read-only RW); root
+- macOS Keychain: `etzhayyim.rw / KAISYA_URL` present (read-only RW); root
   URL pulled from 1Password by the schema loader.
 - kubectl context: Vultr VKE `a61d513b-…` (lax). Verify with
   `kubectl get nodes -o wide` — should list `risingwave-pool-58gb-*` plus
@@ -175,14 +175,14 @@ even before step 6; the smoke just confirms the PDS itself is healthy.
 ## 6. Deploy the ameno worker
 
 ```bash
-cd 60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb
+cd 60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb
 pnpm install
 pnpm --filter ./svelte build       # produces svelte/.svelte-kit/cloudflare/
-gftd deploy --smoke-url https://d94d27cb.etzhayyim.com/health
+etzhayyim deploy --smoke-url https://d94d27cb.etzhayyim.com/health
 cd -
 ```
 
-`gftd deploy` reads `magatama.jsonld` for the embed URL (Phase 1) and
+`etzhayyim deploy` reads `magatama.jsonld` for the embed URL (Phase 1) and
 publishes the `ameno.etzhayyim.com` route. The smoke-url flag fails the
 deploy if `/health` is not 200 within ~30s.
 
@@ -243,7 +243,7 @@ that covers the regression.
 |---|---|
 | `subscribeBriefs` returns 5xx | `kubectl -n mitama-udf rollout undo deploy/ameno-langserver` |
 | `saveResult` 404 from `atproto.etzhayyim.com` | re-deploy the previous PDS Worker bundle (`wrangler rollback`) |
-| `ameno.etzhayyim.com` HTML / chat broken | `gftd deploy` the previous tag from `60-apps/.../wrangler.jsonc` (or `wrangler rollback`) |
+| `ameno.etzhayyim.com` HTML / chat broken | `etzhayyim deploy` the previous tag from `60-apps/.../wrangler.jsonc` (or `wrangler rollback`) |
 | Schema regret | `DROP TABLE vertex_ameno_inferenceresult;` (no streaming MV depends on it as of Phase 5c, so the drop is safe) |
 
 The credit AF events are append-only and best-effort; nothing rolls

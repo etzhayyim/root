@@ -52,13 +52,13 @@ type WprotoChannel struct { ... }
 AST/symbol graph を生成し、Claude が「今有効な名前」を構造的に取得する。
 
 ```bash
-gftd symbol-graph --format json
+etzhayyim symbol-graph --format json
 ```
 
 ```json
 {
   "wit": {
-    "ai-gftd:yata/yata@1.0.0": {
+    "etzhayyim:yata/yata@1.0.0": {
       "functions": ["g", "g-exec"],
       "types": ["cypher-result", "query-error"]
     }
@@ -82,10 +82,10 @@ symbol-graph に存在しない名前は使わない。情報の不在が制約�
 
 ### P3. Lexicon Registry = Valid Surface
 
-WIT が Single Source。`gftd lexicon-list` が今有効な NSID 全一覧を返す。手書き禁止。
+WIT が Single Source。`etzhayyim lexicon-list` が今有効な NSID 全一覧を返す。手書き禁止。
 
 ```bash
-gftd lexicon-list --format json
+etzhayyim lexicon-list --format json
 ```
 
 deprecated な lexicon は WIT から削除 → `lexicon-list` に出ない → Claude は知らない → 使わない。
@@ -99,17 +99,17 @@ Claude が生成したコードに stale name が混入しても、push 前に c
 pre-push:
   commands:
     symbol-validate:
-      run: gftd symbol-validate {push_files}
+      run: etzhayyim symbol-validate {push_files}
 ```
 
-`gftd symbol-validate` の処理:
+`etzhayyim symbol-validate` の処理:
 
 1. 変更ファイルから import/参照シンボルを AST parse で抽出
 2. symbol-graph の有効 exports と照合
 3. 不一致 = error (削除済み/rename 済みシンボルへの参照)
 
 ```
-$ gftd symbol-validate main.go
+$ etzhayyim symbol-validate main.go
 ERROR: main.go:15 - WprotoChannel is not in symbol graph
   Suggestion: ComAtprotoRepoCreateRecord (50-infra/cloudflare/workers/atproto/src/...)
 ```
@@ -128,13 +128,13 @@ CLAUDE.md には **判断基準** だけ書く。一覧は全て tool 出力に�
 
 # GOOD (tool へのポインタ)
 ## Component Status
-Run: `gftd symbol-graph --package yata`
+Run: `etzhayyim symbol-graph --package yata`
 ```
 
 CLAUDE.md に残すもの:
 - 禁止ルール (「REST 新規追加禁止」「base64 禁止」)
 - 設計判断 (「T1/T2/T3 の使い分け」)
-- tool へのポインタ (「status は `gftd symbol-graph` で確認」)
+- tool へのポインタ (「status は `etzhayyim symbol-graph` で確認」)
 
 残さないもの:
 - artifact 一覧 (symbol-graph が権威)
@@ -151,13 +151,13 @@ CLAUDE.md に残すもの:
      └────────┬─────────────────┘
               │ need valid names?
               ▼
-     gftd symbol-graph (AST)      今の真実
-     gftd lexicon-list (WIT)      有効 API
+     etzhayyim symbol-graph (AST)      今の真実
+     etzhayyim lexicon-list (WIT)      有効 API
               │
               │ generates code
               ▼
      lefthook pre-push             gate
-     gftd symbol-validate          stale 参照 reject
+     etzhayyim symbol-validate          stale 参照 reject
               │
               ▼
          git push OK
@@ -170,11 +170,11 @@ CLAUDE.md に残すもの:
 | 従来 (marker + dead-services + status table) | ~2000 | ≈ 0 (「使うな」情報) | stale、hallucination seed |
 | 本設計 (削除 + tool 照会) | 0 常時 + 必要時 tool call | max (全て actionable) | tool 実装が必要 |
 
-## `gftd shannon` Integration
+## `etzhayyim shannon` Integration
 
-`symbol-graph` / `symbol-validate` / `lexicon-list` は独立コマンドではなく **`gftd shannon` の新 check `stale_symbol_entropy`** として統合する。
+`symbol-graph` / `symbol-validate` / `lexicon-list` は独立コマンドではなく **`etzhayyim shannon` の新 check `stale_symbol_entropy`** として統合する。
 
-既存 `gftd shannon` (8 checks, weighted average):
+既存 `etzhayyim shannon` (8 checks, weighted average):
 
 | Check | Weight | 内容 |
 |---|---|---|
@@ -202,10 +202,10 @@ CLAUDE.md に残すもの:
 **Lefthook 連動:**
 ```yaml
 symbol-validate:
-  run: gftd shannon scan --check stale_symbol_entropy --fail-on-violation
+  run: etzhayyim shannon scan --check stale_symbol_entropy --fail-on-violation
 ```
 
-**実装先:** `70-tools/gftd/shannon.go` に `shCheckStaleSymbolEntropy()` を追加。`source_graph_ast.go` の AST extraction を再利用。
+**実装先:** `70-tools/etzhayyim/shannon.go` に `shCheckStaleSymbolEntropy()` を追加。`source_graph_ast.go` の AST extraction を再利用。
 
 ## Migration Status
 
@@ -216,4 +216,4 @@ symbol-validate:
 | CLAUDE.md strikethrough 削除 (7 files) | Done |
 | dead code 削除 (WprotoChannel, rpc/remote-call) | Done |
 | `lefthook.yml` に `symbol-validate` 追加 | Done |
-| `gftd shannon` に `stale_symbol_entropy` check 実装 | TODO |
+| `etzhayyim shannon` に `stale_symbol_entropy` check 実装 | TODO |

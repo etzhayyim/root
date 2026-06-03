@@ -9,7 +9,7 @@ last_verified: 2026-03-24
 authoritative_for:
   - source-level annotation system
   - source graph extraction architecture
-  - gftd source-graph CLI
+  - etzhayyim source-graph CLI
 related:
   - 260319-magatama-wit-dodaf-nist-coverage
   - 260324-source-graph-hybrid-design
@@ -27,7 +27,7 @@ Bazel が BUILD ファイルで宣言する dependency/visibility/rule を、ソ
 ## Scope
 
 - 対象: 全 App (2,045+ Go, 25+ Rust, 30+ TS ソースファイル)
-- CLI: `gftd source-graph {scan,violations,cypher,dot}`
+- CLI: `etzhayyim source-graph {scan,violations,cypher,dot}`
 - scoring: `source_graph_score` (0-100)
 
 ## Decision: 3-Layer Hybrid (Approach E)
@@ -38,17 +38,17 @@ Shannon 情報理論に基づき、冗長度最小で情報量最大のアプロ
 |---|---|---|---|---|
 | **L1: Metadata** | `magatama.jsonld` + `world.wit` (既存) | import/export, performerType, DID, collections, sensitivity | **0%** | `source_graph_meta.go` |
 | **L2: AST** | `go/ast` (Go), regex (TS/Rust) | WRecord kinds, Cypher labels, Commands, Invoke calls, Serve | **0%** | `source_graph_ast.go` |
-| **L3: `@gftd:`** | コメント宣言 (差分のみ) | authority, contract, sensitivity, cross-app intent | **~15%** | `source_graph.go` |
+| **L3: `@etzhayyim:`** | コメント宣言 (差分のみ) | authority, contract, sensitivity, cross-app intent | **~15%** | `source_graph.go` |
 
 ### Approach 比較 (定量)
 
 | # | Approach | 冗長度 | 自動率 | 保守 h/年 | Stale 率 |
 |---|---|---|---|---|---|
-| A | `@gftd:` のみ | 100% | 0% | ~500h | ~35% |
+| A | `@etzhayyim:` のみ | 100% | 0% | ~500h | ~35% |
 | B | AST のみ | 0% | ~70% | ~0h | 0% |
-| C | AST + `@gftd:` | ~15% | ~85% | ~80h | ~9% |
+| C | AST + `@etzhayyim:` | ~15% | ~85% | ~80h | ~9% |
 | D | WIT + jsonld のみ | 0% | ~40% | ~0h | 0% |
-| **E** | **D + B + `@gftd:`** | **~8%** | **~85%** | **~40h** | **~4.5%** |
+| **E** | **D + B + `@etzhayyim:`** | **~8%** | **~85%** | **~40h** | **~4.5%** |
 
 Approach E は A 比で冗長度 12.5x 改善、保守コスト 12.5x 改善。
 
@@ -111,14 +111,14 @@ WASM component `lib.rs` を対象。
 | `WithCapabilityTags(vec!["tag".into()])` | Capability tags |
 | `pub async fn name(...)` | 関数定義 |
 
-## Layer 3: `@gftd:` Annotation (差分宣言)
+## Layer 3: `@etzhayyim:` Annotation (差分宣言)
 
 AST で抽出不可能な意図・契約・権限のみ手書き宣言。
 
 ### 構文
 
 ```
-// @gftd:<directive> <value>
+// @etzhayyim:<directive> <value>
 ```
 
 Go / Rust / TS / WIT 共通。
@@ -127,35 +127,35 @@ Go / Rust / TS / WIT 共通。
 
 | Directive | Scope | 意味 | Cypher 投影 |
 |---|---|---|---|
-| `@gftd:import <wit>` | file/func | WIT 依存宣言 | `(:Source)-[:IMPORTS]->(:WITInterface)` |
-| `@gftd:lexicon <nsid>` | file/func | AT Lexicon 対応 | `(:Source)-[:IMPLEMENTS]->(:Lexicon)` |
-| `@gftd:calls <did>#<method>` | func | cross-actor 呼出 | `(:Source)-[:INVOKES]->(:DID)` |
-| `@gftd:writes <collection>` | func | Write 先宣言 | `(:Source)-[:WRITES_TO]->(:Collection)` |
-| `@gftd:reads <collection>` | func | Read 先宣言 | `(:Source)-[:READS_FROM]->(:Collection)` |
-| `@gftd:authority <kind>/<id>` | file | 準拠 authority | `(:Source)-[:GOVERNED_BY]->(:Authority)` |
-| `@gftd:rule <rule-id>[,...]` | file/func | 適用ルール | `(:Source)-[:ENFORCES]->(:Rule)` |
-| `@gftd:sensitivity <level>` | file | データ分類 | property on `:Source` node |
-| `@gftd:owner <did>` | file | 責任 DID | `(:Source)-[:OWNED_BY]->(:DID)` |
-| `@gftd:contract <cat>/<id>` | file | 契約根拠 | `(:Source)-[:BOUND_BY]->(:Contract)` |
-| `@gftd:supersedes <path>` | file | 置換元 | `(:Source)-[:SUPERSEDES]->(:Source)` |
-| `@gftd:visibility <level>` | file/func | Access scope | property on `:Source` node |
-| `@gftd:ref <doc-path>` | file | 設計 doc 参照 | `(:Source)-[:REFERENCES]->(:Document)` |
+| `@etzhayyim:import <wit>` | file/func | WIT 依存宣言 | `(:Source)-[:IMPORTS]->(:WITInterface)` |
+| `@etzhayyim:lexicon <nsid>` | file/func | AT Lexicon 対応 | `(:Source)-[:IMPLEMENTS]->(:Lexicon)` |
+| `@etzhayyim:calls <did>#<method>` | func | cross-actor 呼出 | `(:Source)-[:INVOKES]->(:DID)` |
+| `@etzhayyim:writes <collection>` | func | Write 先宣言 | `(:Source)-[:WRITES_TO]->(:Collection)` |
+| `@etzhayyim:reads <collection>` | func | Read 先宣言 | `(:Source)-[:READS_FROM]->(:Collection)` |
+| `@etzhayyim:authority <kind>/<id>` | file | 準拠 authority | `(:Source)-[:GOVERNED_BY]->(:Authority)` |
+| `@etzhayyim:rule <rule-id>[,...]` | file/func | 適用ルール | `(:Source)-[:ENFORCES]->(:Rule)` |
+| `@etzhayyim:sensitivity <level>` | file | データ分類 | property on `:Source` node |
+| `@etzhayyim:owner <did>` | file | 責任 DID | `(:Source)-[:OWNED_BY]->(:DID)` |
+| `@etzhayyim:contract <cat>/<id>` | file | 契約根拠 | `(:Source)-[:BOUND_BY]->(:Contract)` |
+| `@etzhayyim:supersedes <path>` | file | 置換元 | `(:Source)-[:SUPERSEDES]->(:Source)` |
+| `@etzhayyim:visibility <level>` | file/func | Access scope | property on `:Source` node |
+| `@etzhayyim:ref <doc-path>` | file | 設計 doc 参照 | `(:Source)-[:REFERENCES]->(:Document)` |
 
 ### 使用例
 
 ```go
-// @gftd:authority sovereign/jpn, treaty/wto
-// @gftd:sensitivity confidential
-// @gftd:owner did:web:news.etzhayyim.com
-// @gftd:ref 90-docs/260324-news-wrpc-stream-reactive-design.md
+// @etzhayyim:authority sovereign/jpn, treaty/wto
+// @etzhayyim:sensitivity confidential
+// @etzhayyim:owner did:web:news.etzhayyim.com
+// @etzhayyim:ref 90-docs/260324-news-wrpc-stream-reactive-design.md
 
 func (app *App) handleArticle(commit wCommit) {
-    // @gftd:calls did:web:i18n.etzhayyim.com#translate
+    // @etzhayyim:calls did:web:i18n.etzhayyim.com#translate
     magatama.ATPost(did, text, opts)
 }
 ```
 
-L2 AST が `ATPost` call を自動抽出。L3 `@gftd:calls` は cross-app intent (「翻訳のために呼ぶ」) を宣言。`@gftd:authority` / `@gftd:sensitivity` は AST 不可分。
+L2 AST が `ATPost` call を自動抽出。L3 `@etzhayyim:calls` は cross-app intent (「翻訳のために呼ぶ」) を宣言。`@etzhayyim:authority` / `@etzhayyim:sensitivity` は AST 不可分。
 
 ## Violation Detection
 
@@ -163,13 +163,13 @@ L2 AST が `ATPost` call を自動抽出。L3 `@gftd:calls` は cross-app intent
 
 | Rule | Severity | 検出 |
 |---|---|---|
-| `wit-import-drift` | warning | `@gftd:import` 宣言が `world.wit` に存在しない |
+| `wit-import-drift` | warning | `@etzhayyim:import` 宣言が `world.wit` に存在しない |
 | `sensitivity-escalation` | error | confidential/restricted source が public DID を呼出 |
 | `authority-gap` | info | sovereign authority 宣言に treaty がない |
-| `dead-supersedes` | warning | `@gftd:supersedes` 先ファイルが存在しない |
+| `dead-supersedes` | warning | `@etzhayyim:supersedes` 先ファイルが存在しない |
 | `shannon-redundancy` | warning | 同一 collection に複数 app が書込 |
-| `rule-no-dual-write` | error | `@gftd:rule no-dual-write` 宣言に writes 2+ |
-| `dead-ref` | warning | `@gftd:ref` 先ドキュメントが存在しない |
+| `rule-no-dual-write` | error | `@etzhayyim:rule no-dual-write` 宣言に writes 2+ |
+| `dead-ref` | warning | `@etzhayyim:ref` 先ドキュメントが存在しない |
 | `circular-dependency` | error | calls グラフに循環 |
 
 ## Score Model
@@ -214,10 +214,10 @@ source_graph_score =
 ## CLI
 
 ```bash
-gftd source-graph scan          # 3-layer scan → JSON graph
-gftd source-graph violations    # violation detection + scoring
-gftd source-graph cypher        # Cypher MERGE statements for yata projection
-gftd source-graph dot           # Graphviz DOT output
+etzhayyim source-graph scan          # 3-layer scan → JSON graph
+etzhayyim source-graph violations    # violation detection + scoring
+etzhayyim source-graph cypher        # Cypher MERGE statements for yata projection
+etzhayyim source-graph dot           # Graphviz DOT output
 ```
 
 ## Implementation

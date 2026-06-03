@@ -512,7 +512,7 @@ Mapillary ベースの街路生成では、まず sequence を `50m` chunk へ�
 
 ```json
 {
-  "schemaVersion": "gftd.kami.street-chunk.v1",
+  "schemaVersion": "etzhayyim.kami.street-chunk.v1",
   "packageKind": "streetChunkRuntimePackage",
   "tileUrl": "https://tiles.maps.etzhayyim.com/v1/{z}/{x}/{y}.pbf",
   "source": "env",

@@ -9,7 +9,7 @@
 | Nono Workers (CF infra) | 11 |
 | DID references in deps.toml | 92 |
 | Lexicon JSON contracts | 2,440 |
-| Unique NSIDs in PDS gftd handler | 186 |
+| Unique NSIDs in PDS etzhayyim handler | 186 |
 | Unique NSIDs in PDS feed handler | 59 |
 | Unique NSIDs in PDS server handler | 174 |
 | Unique NSIDs in PDS repo handler | 57 |
@@ -50,7 +50,7 @@ PDS (bsky.social) — 唯一の gateway
 
 ### 変数定義
 
-- **N** = unique NSID count (~476: gftd 186 + feed 59 + server 174 + repo 57)
+- **N** = unique NSID count (~476: etzhayyim 186 + feed 59 + server 174 + repo 57)
 - **A** = actor/DID count (62 actors + path DIDs)
 - **P** = project count (121)
 - **W** = CF Worker count
@@ -178,7 +178,7 @@ yoro.etzhayyim.com → 301 redirect → atproto.etzhayyim.com
 | Federation compat | Full | 0 |
 | CORS | 0 (同一オリジン) | 0 |
 | Monolith risk | High (476 NSIDs in 1 Worker, 128MB memory limit) | 2.0 |
-| Bundle size | ~391KB gftd + 82KB feed + 65KB server + 80KB repo ≈ 618KB | 1.5 |
+| Bundle size | ~391KB etzhayyim + 82KB feed + 65KB server + 80KB repo ≈ 618KB | 1.5 |
 | Deploy blast radius | Any change affects entire stack | 1.0 |
 | **η** | | **0.82** |
 

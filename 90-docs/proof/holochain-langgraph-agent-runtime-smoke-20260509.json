@@ -1,7 +1,7 @@
 {
   "verifiedAt": "2026-05-09T17:39:00+09:00",
   "clusterContext": "vke-a61d513b-f9b7-4121-abb9-b53732aa5ec4",
-  "remoteBuilder": "gftd-vke",
+  "remoteBuilder": "etzhayyim-vke",
   "runtimeImage": {
     "image": "ghcr.io/etzhayyim/holochain-agent-actor-runtime:experimental-amd64",
     "digest": "sha256:29a1f2f037a31a8ae0518272706368714610b3eba845667e9690834b31a031b0",

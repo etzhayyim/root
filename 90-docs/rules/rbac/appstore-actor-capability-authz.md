@@ -6,7 +6,7 @@ This rule set defines authorization for the app review and publish workflow usin
 
 1. Subject identity MUST be `actor_nanoid` resolved by authn (Clerk/JWT + mesh identity), not a client-trusted free-form field.
 2. Authorization MUST evaluate action + resource + capability, not role names.
-3. UI visibility controls are advisory only. Final enforcement MUST happen in provider APIs (`gftd:appstore`, `gftd:review`).
+3. UI visibility controls are advisory only. Final enforcement MUST happen in provider APIs (`etzhayyim:appstore`, `etzhayyim:review`).
 4. Every allow/deny decision MUST emit an immutable audit log entry.
 
 ## Required Input For Policy Decision
