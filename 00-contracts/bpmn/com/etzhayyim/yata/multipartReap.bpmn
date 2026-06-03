@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  yatabase.gftd.ai — abandoned multipart upload reap (autonomous, R/PT6H).
+  yatabase.etzhayyim.com — abandoned multipart upload reap (autonomous, R/PT6H).
 
   Find vertex_yata_multipart rows where status='active' AND expires_at < now,
   call provider AbortMultipartUpload to free the in-progress part bytes,
@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yata_multipart_reap"
-    targetNamespace="https://gftd.ai/bpmn/yata"
+    targetNamespace="https://etzhayyim.ai/bpmn/yata"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yata_multipart_reap" name="yata multipart reap (6h)" isExecutable="true">
@@ -41,7 +41,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yatabase.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yatabase.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.yata.multipartReap&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;aborted&quot;: aborted, &quot;bytesFreed&quot;: bytesFreed }" target="attributes"/>
         </zeebe:ioMapping>

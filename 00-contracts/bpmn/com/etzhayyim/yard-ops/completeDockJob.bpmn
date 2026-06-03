@@ -16,7 +16,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yard_ops_complete_dock_job"
-    targetNamespace="https://gftd.ai/bpmn/yard-ops"
+    targetNamespace="https://etzhayyim.ai/bpmn/yard-ops"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yard_ops_complete_dock_job" name="Yard dock-job completion" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yard-ops.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yard-ops.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;yardOps.dockJob.completed&quot;" target="action"/>
           <zeebe:input source="={ requestId: requestId, completionVertexId: completionVertexId, durationMin: actualDurationMin }" target="payload"/>
         </zeebe:ioMapping>

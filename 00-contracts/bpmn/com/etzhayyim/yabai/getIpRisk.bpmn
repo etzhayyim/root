@@ -15,7 +15,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yabai_get_ip_risk"
-    targetNamespace="https://gftd.ai/bpmn/yabai"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="yabai_get_ip_risk" name="yabai get ip risk" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>

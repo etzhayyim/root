@@ -14,7 +14,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yard_ops_get_dock_schedule"
-    targetNamespace="https://gftd.ai/bpmn/yard-ops"
+    targetNamespace="https://etzhayyim.ai/bpmn/yard-ops"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yard_ops_get_dock_schedule" name="Yard dock schedule query" isExecutable="true">

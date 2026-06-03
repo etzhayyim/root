@@ -2,7 +2,7 @@
 <!--
   yabai.crtshFuzzySearch — crt.sh Certificate Transparency fuzzy search.
 
-  Replaces (one half of): 60-apps/ai-gftd-project-yabai/tools/track-phishing-infra/expand-coverage.mjs
+  Replaces (one half of): 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/expand-coverage.mjs
   Callers loop brand-typosquat keywords (e.g. "whtaspp", "mastecard", "mstaer")
   and aggregate the unique candidate list.
 
@@ -24,7 +24,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yabai_crtsh_fuzzy_search"
-    targetNamespace="https://gftd.ai/bpmn/yabai"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yabai_crtsh_fuzzy_search" name="yabai crtshFuzzySearch" isExecutable="true">

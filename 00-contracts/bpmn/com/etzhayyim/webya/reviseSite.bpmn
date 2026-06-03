@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  webya.gftd.ai — reviseSite workflow (XRPC com.etzhayyim.apps.webya.reviseSite).
+  webya.etzhayyim.com — reviseSite workflow (XRPC com.etzhayyim.apps.webya.reviseSite).
 
   routing_target = 'langgraph'
   assistant_id   = 'webya_revise_site'
@@ -16,7 +16,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_webya_revise_site"
-    targetNamespace="https://gftd.ai/bpmn/webya"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="webya_revise_site" name="webya revise site" isExecutable="true">

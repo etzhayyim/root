@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  webya.gftd.ai — createSite workflow (XRPC com.etzhayyim.apps.webya.createSite).
+  webya.etzhayyim.com — createSite workflow (XRPC com.etzhayyim.apps.webya.createSite).
 
   routing_target = 'langgraph'
   assistant_id   = 'webya_create_site'
@@ -22,7 +22,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_webya_create_site"
-    targetNamespace="https://gftd.ai/bpmn/webya"
+    targetNamespace="https://etzhayyim.ai/bpmn/webya"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="webya_create_site" name="webya create site" isExecutable="true">

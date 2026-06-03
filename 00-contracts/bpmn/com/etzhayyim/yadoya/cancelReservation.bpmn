@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_cancel_reservation" targetNamespace="https://gftd.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_cancel_reservation" targetNamespace="https://etzhayyim.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="yadoya_cancel_reservation" name="cancelReservation" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Lookup"/>
@@ -34,7 +34,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_yadoya_reservation&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: reservationRows[1].vertex_id, sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.gftd.ai&quot;, reservation_id: reservationId, hotel_vid: hotelId, guest_did: guestDid, checkin: checkin, checkout: checkout, guests: guests, nights: nights, channel: channel, status: &quot;cancelled&quot;, cancelled_at: cancelledAt, cancel_reason: cancelReason, currency: currency, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.gftd.ai&quot;}" target="row"/>
+          <zeebe:input source="={vertex_id: reservationRows[1].vertex_id, sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.etzhayyim.com&quot;, reservation_id: reservationId, hotel_vid: hotelId, guest_did: guestDid, checkin: checkin, checkout: checkout, guests: guests, nights: nights, channel: channel, status: &quot;cancelled&quot;, cancelled_at: cancelledAt, cancel_reason: cancelReason, currency: currency, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;}" target="row"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_I</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
@@ -43,7 +43,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yadoya.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;yadoya.reservation.cancel&quot;" target="action"/>
           <zeebe:input source="={reservationId: reservationId, hotelId: hotelId, status: &quot;cancelled&quot;, reason: cancelReason}" target="payload"/>
         </zeebe:ioMapping>

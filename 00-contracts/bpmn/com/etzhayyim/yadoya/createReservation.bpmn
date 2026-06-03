@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_create_reservation" targetNamespace="https://gftd.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_yadoya_create_reservation" targetNamespace="https://etzhayyim.ai/bpmn/yadoya" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="yadoya_create_reservation" name="createReservation" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_LookupHotel"/>
@@ -18,7 +18,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_yadoya_reservation&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: vertexId, sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.gftd.ai&quot;, reservation_id: reservationId, hotel_vid: hotelId, guest_did: guestDid, guest_summary_signal_v1: guestSummarySignalV1, checkin: checkin, checkout: checkout, guests: guests, nights: nights, amount_bucket: amountBucket, currency: currency, channel: channel, status: &quot;pending&quot;, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.gftd.ai&quot;}" target="row"/>
+          <zeebe:input source="={vertex_id: vertexId, sensitivity_ord: 3, owner_did: &quot;did:web:yadoya.etzhayyim.com&quot;, reservation_id: reservationId, hotel_vid: hotelId, guest_did: guestDid, guest_summary_signal_v1: guestSummarySignalV1, checkin: checkin, checkout: checkout, guests: guests, nights: nights, amount_bucket: amountBucket, currency: currency, channel: channel, status: &quot;pending&quot;, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;}" target="row"/>
           <zeebe:output source="=vertexId" target="vertexId"/>
           <zeebe:output source="=reservationId" target="reservationId"/>
         </zeebe:ioMapping>
@@ -30,7 +30,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;edge_yadoya_reservation_for_hotel&quot;" target="table"/>
-          <zeebe:input source="={edge_id: &quot;edge:&quot; + reservationId + &quot;:hotel&quot;, sensitivity_ord: 1, owner_did: &quot;did:web:yadoya.gftd.ai&quot;, src_vid: vertexId, dst_vid: hotelId, role: &quot;for-hotel&quot;, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.gftd.ai&quot;}" target="row"/>
+          <zeebe:input source="={edge_id: &quot;edge:&quot; + reservationId + &quot;:hotel&quot;, sensitivity_ord: 1, owner_did: &quot;did:web:yadoya.etzhayyim.com&quot;, src_vid: vertexId, dst_vid: hotelId, role: &quot;for-hotel&quot;, created_at: createdAt, org_id: orgId, user_id: userId, actor_id: &quot;did:web:yadoya.etzhayyim.com&quot;}" target="row"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_E</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
@@ -39,7 +39,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yadoya.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:yadoya.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;yadoya.reservation.create&quot;" target="action"/>
           <zeebe:input source="={reservationId: reservationId, hotelId: hotelId, status: &quot;pending&quot;}" target="payload"/>
         </zeebe:ioMapping>

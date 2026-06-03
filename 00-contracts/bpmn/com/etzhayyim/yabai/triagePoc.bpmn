@@ -24,7 +24,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yabai_triage_poc"
-    targetNamespace="https://gftd.ai/bpmn/yabai"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yabai_triage_poc" name="yabai triage (BPMN-only PoC)" isExecutable="true">
@@ -110,7 +110,7 @@
               reasons:          &quot;bpmn:yabai_triage_poc&quot;,
               owner_did:        &quot;did:web:yabcom.etzhayyim.ai&quot;,
               sensitivity_ord:  100,
-              org_id:           &quot;gftd&quot;,
+              org_id:           &quot;etzhayyim&quot;,
               user_id:          &quot;system&quot;,
               actor_id:         &quot;sys.bpmn.yabai&quot;
           }" target="values"/>

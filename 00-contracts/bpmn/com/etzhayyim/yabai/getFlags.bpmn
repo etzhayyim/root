@@ -18,7 +18,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_yabai_get_flags"
-    targetNamespace="https://gftd.ai/bpmn/yabai"
+    targetNamespace="https://etzhayyim.ai/bpmn/yabai"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="yabai_get_flags" name="yabai get flags" isExecutable="true">
