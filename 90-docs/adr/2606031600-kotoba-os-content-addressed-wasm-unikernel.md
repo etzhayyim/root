@@ -115,7 +115,7 @@ A kotoba-os node boots from a **genesis CID** (its "DNA", in Holochain terms): a
 
 1. Verify the kernel image against its CID (the image *is* a CID; a tampered image fails verification — same trustless `/ipfs/<cid>` re-verify discipline as ADR-2606014600). **Real verification landed** (R2): `kotoba-os-types::cid` computes CIDv1(raw, blake3) matching kotoba-core, and `LowerEdge::verify_artifact(bytes, cid)` recomputes-and-compares (rejects tampered bytes) — its from-scratch base32 encoder is validated against an independent oracle; 6 cargo tests.
 2. Reconstruct local Datom state: from on-device cold blocks if present, else from IPFS + the Base L2 anchor (the disaster-recovery property preserved in ADR-2605312345 — the Datom log is deterministically reconstructible from MST + IPFS + L2).
-3. CID-verify each userland WASM component **before** load (ADR-2606014500/14600 discipline), check it against its content-addressed validation rules (the membrane).
+3. CID-verify each userland WASM component **before** load (ADR-2606014500/14600 discipline), check it against its content-addressed validation rules (the membrane). The boot path also enforces **capability authorization** — `LowerEdge::boot_actor` refuses an actor whose WASM imports the manifest does not grant (validate carve-outs + authorize imports + CID-verify; `kotoba-os-types`, 21 cargo tests).
 4. Join the DHT neighbourhood (`kotoba-net` libp2p QUIC/Noise/GossipSub + `kotoba-dht` Source Chain / Warrant / Neighborhood); the node's local Datom-log segment is its **source chain**.
 5. Start L5 actors; begin transacting.
 

@@ -163,6 +163,12 @@ pub enum Violation {
     NotCivilianOnly,
     /// Structural — userland is empty.
     NoUserland,
+    /// D1 capability scoping — the actor imports an interface the manifest does
+    /// not grant (the boot path must refuse to load it).
+    UnauthorizedImport(WitInterface),
+    /// A content-addressed artifact (kernel / actor / membrane rule) failed CID
+    /// verification.
+    BadArtifact,
 }
 
 impl GenesisManifest {
@@ -245,11 +251,32 @@ pub trait LowerEdge {
                 .flat_map(|a| [&a.actor_cid, &a.validation_rule_cid]),
         ) {
             if !self.verify_cid(cid) {
-                return Err(vec![Violation::NoUserland]); // reuse as "bad artifact"
+                return Err(vec![Violation::BadArtifact]);
             }
             verified += 1;
         }
         Ok(verified)
+    }
+
+    /// Boot with the actor's actual WASM imports (e.g. extracted from the
+    /// component): the complete boot-time check = carve-outs + **capability
+    /// authorization** (every import must be granted, D1) + CID verification.
+    /// The R0 `boot` omitted the authorization step; this is the correct path.
+    fn boot_actor(
+        &self,
+        m: &GenesisManifest,
+        actor_imports: &[WitInterface],
+    ) -> Result<usize, Vec<Violation>> {
+        let mut violations = m.validate();
+        violations.extend(
+            m.ungranted(actor_imports)
+                .into_iter()
+                .map(Violation::UnauthorizedImport),
+        );
+        if !violations.is_empty() {
+            return Err(violations);
+        }
+        self.boot(m)
     }
 }
 
@@ -325,6 +352,30 @@ mod tests {
         let mut m = hikari();
         m.identity.server_key = true;
         assert_eq!(HostedEdge.boot(&m), Err(vec![Violation::ServerKeyHeld]));
+    }
+
+    #[test]
+    fn boot_actor_enforces_capability_authorization() {
+        use WitInterface::{Datom, FieldbusModbus, IoAnalog, IoDigital};
+        let m = hikari(); // grants io-analog + fieldbus-modbus + datom
+        // a modbus actor's imports are all granted + CIDs valid -> boots (3 artifacts)
+        assert_eq!(
+            HostedEdge.boot_actor(&m, &[IoAnalog, FieldbusModbus, Datom]),
+            Ok(3)
+        );
+        // a discrete-I/O actor needs io-digital, which hikari does not grant ->
+        // boot_actor refuses (the R0 `boot` would have wrongly accepted it)
+        let err = HostedEdge
+            .boot_actor(&m, &[IoAnalog, IoDigital, Datom])
+            .unwrap_err();
+        assert!(err.contains(&Violation::UnauthorizedImport(IoDigital)));
+        // and the carve-out checks still run in boot_actor
+        let mut bad = hikari();
+        bad.identity.server_key = true;
+        assert!(HostedEdge
+            .boot_actor(&bad, &[IoAnalog, FieldbusModbus, Datom])
+            .unwrap_err()
+            .contains(&Violation::ServerKeyHeld));
     }
 
     #[test]
