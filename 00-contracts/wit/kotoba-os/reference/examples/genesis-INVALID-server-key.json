@@ -1,0 +1,33 @@
+{
+  "_comment": "NEGATIVE fixture: violates C3/N5 (serverKey must be false), N3 (liveActuation must be false at R0), and N1 (civilianOnly must be true). The schema MUST reject this. Used by test_genesis_manifest_schema.py.",
+  "schema": "https://etzhayyim.com/schemas/kotoba-os-genesis-manifest/v1.json",
+  "name": "bad-node-holding-a-platform-key",
+  "edge": "unikernel",
+  "kernel": {
+    "imageCid": "bafkreigh2akiscaildc2labcdefghijklmnopqrstuvwxyz234567abcd",
+    "arch": "aarch64"
+  },
+  "userland": [
+    {
+      "actorCid": "bafybeigplccontrolactorabcdefghijklmnopqrstuvwxyz234567hikari",
+      "validationRuleCid": "bafybeimembranerulehikariabcdefghijklmnopqrstuvwxyz234567rule",
+      "world": "plc-control"
+    }
+  ],
+  "capabilities": {
+    "interfaces": ["io-analog", "datom"]
+  },
+  "identity": {
+    "didCapability": "cacao:something",
+    "serverKey": true
+  },
+  "neighbourhood": {
+    "peers": ["did:web:etzhayyim.com:actor:hikari"],
+    "witnessQuorum": 2
+  },
+  "safety": {
+    "realtimeClass": "soft",
+    "liveActuation": true,
+    "civilianOnly": true
+  }
+}

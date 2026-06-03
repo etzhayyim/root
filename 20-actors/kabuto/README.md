@@ -44,7 +44,7 @@ never a target-list.**
 ├── README.md                             # this file
 ├── CLAUDE.md                             # agent reference
 ├── data/
-│   ├── seed-public-companies.kotoba.edn  # 742 companies · 234 supply edges · 99 HQ · 53 contacts · 2 BPMN seeds (:representative; grows each /loop)
+│   ├── seed-public-companies.kotoba.edn  # 1,719 companies · 361 supply edges · 259 HQ · 155 contacts · 205 market caps · 2 BPMN seeds (:representative; grows each /loop)
 │   └── companies.merged.kotoba.edn       # GENERATED: seed + ingest bridge (dedup)
 ├── methods/
 │   ├── kabuto_edn.py                     # shared minimal EDN reader + classifier (stdlib)
@@ -70,7 +70,8 @@ never a target-list.**
 cd 20-actors/kabuto
 python3 methods/ingest.py                       # R1: bridge data/ingest/*.json + seed → companies.merged (offline default)
 python3 methods/analyze.py                       # → concentration report + derived datoms
-python3 methods/bpmn.py                           # → per-company BPMN + process datoms
+python3 methods/bpmn.py                           # → per-company BPMN 2.0 (with BPMNDI layout) + process datoms
+python3 viz/build_bpmn_manifest.py                # → viz/bpmn-manifest.json (featured set, served at /actor-bpmn/kabuto.json)
 python3 viz/build_viz_data.py                     # → viz/supply-chain.htm (open in a browser)
 python3 methods/social.py --dry-run               # compose atproto posts (dry-run)
 ```
@@ -79,8 +80,8 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ### Result (seed)
 
-- **742** public companies · **234** disclosed supply edges · **15** sectors · **52** countries · **99** HQ addresses
-  (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 52 countries
+- **1,719** public companies · **361** disclosed supply edges · **15** sectors · **116** countries · **259** HQ addresses · **205** market caps
+  (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 116 countries
   across every macro-region; incl. Japanese sōgō shōsha, commodity traders/agribusiness, and deep
   fab-input suppliers — wafers, OSAT assembly/test, specialty gases, photoresist, mask-blanks,
   substrates, carbon fiber).
@@ -117,6 +118,26 @@ out-degree; edges weighted by criticality; click a company → HQ + contact). Se
 `etzhayyim.com`, the in-browser **kotoba-wasm node** queries the live supply graph instead
 (ADR-2606013600); the inlined payload is the offline data contract. A resilience/accountability
 surface, never a target-list (G2).
+
+### BPMN on the profile page (`プロセス` tab)
+
+The profile at `https://etzhayyim.com/profile/did:web:etzhayyim.com:actor:kabuto` renders kabuto's
+BPMN process models read-only via **bpmn-js**, through a **generic mechanism** in the yoro
+`AgentProfile` component — *any* actor that publishes a BPMN manifest gets a **`プロセス` tab**
+(no per-actor front-end code). Discovery order:
+
+1. `actor.bpmnUrl` (explicit field on the PDS profile record), else
+2. `<app-base>/_app/bpmn.json` (the actor's own app origin), else
+3. `/actor-bpmn/<handle>.json` (same-origin static fallback, appview-bundled).
+
+`viz/build_bpmn_manifest.py` emits the manifest `{ total, processes: [{ id, name, company, kind,
+cid, xml }] }`. It inlines a bounded **featured** set (notable companies) — the full ~1.7k templates
+would be multi-MB — and reports `total`. The generated BPMN now carries a full **BPMNDI** layout
+(left-to-right lane) so it renders directly in any BPMN viewer. The kabuto manifest ships to the
+appview at `public/actor-bpmn/kabuto.json`. **HONEST (G5)**: these are `:synthesized` generic
+procurement/disclosure templates — NOT a company's actual internal process.
+
+Front-end: `BpmnDiagram.svelte` (read-only `NavigatedViewer`) + a `bpmnTab` in `AgentProfile.svelte`.
 
 ## Display on etzhayyim.com
 

@@ -52,7 +52,8 @@
   {:db/ident :company/country       :db/valueType :db.type/string  :db/doc "ISO 3166-1 alpha-2 of domicile"}
   {:db/ident :company/sector        :db/valueType :db.type/keyword :db/doc ":semiconductors | :automotive | :electronics | :energy | :pharma | :shipping | :materials | :industrials | :consumer | :financials | :telecom | :software | :utilities | :healthcare | :real-estate (GICS-flavoured)"}
   {:db/ident :company/industry      :db/valueType :db.type/string  :db/doc "finer industry label, free text"}
-  {:db/ident :company/status        :db/valueType :db.type/keyword :db/doc ":listed | :delisted | :acquired | :private (was-listed)"}
+  {:db/ident :company/status        :db/valueType :db.type/keyword :db/doc ":listed | :delisted | :acquired | :private (was-listed). Delisted/acquired companies are RETAINED as history (Datomic as-of, 非終末論 — facts are not deleted, only superseded)"}
+  {:db/ident :company/delisted-year :db/valueType :db.type/long :db/doc "year the listing ended (delisting / take-private / acquisition); present only when :company/status ≠ :listed. The as-of marker for the status transition"}
   {:db/ident :company/market-cap-busd :db/valueType :db.type/double :db/doc "approx market cap in billion USD; :representative snapshot, NOT live quote"}
   {:db/ident :company/sourcing      :db/valueType :db.type/keyword :db/doc ":authoritative | :representative | :synthesized"}
 
@@ -84,7 +85,7 @@
   {:db/ident :supply.edge/from        :db/valueType :db.type/ref     :db/doc ":company/id of the SUPPLIER"}
   {:db/ident :supply.edge/to          :db/valueType :db.type/ref     :db/doc ":company/id of the CUSTOMER"}
   {:db/ident :supply.edge/tier        :db/valueType :db.type/long    :db/doc "supplier tier relative to customer (1 = direct), if disclosed"}
-  {:db/ident :supply.edge/commodity   :db/valueType :db.type/keyword :db/doc ":foundry | :lithography | :assembly | :memory | :display | :battery | :sensor | :logistics | :steel | :polysilicon | :wafer | :photoresist | :mask-blank | :substrate | :gas | :composite | :eda | :copper | :aluminium | … what flows along the edge"}
+  {:db/ident :supply.edge/commodity   :db/valueType :db.type/keyword :db/doc ":foundry | :lithography | :assembly | :memory | :display | :battery | :sensor | :logistics | :steel | :polysilicon | :wafer | :photoresist | :mask-blank | :substrate | :gas | :composite | :eda | :copper | :aluminium | :rare-earth | :api (active pharmaceutical ingredient / CDMO drug substance) | … what flows along the edge"}
   {:db/ident :supply.edge/criticality :db/valueType :db.type/double  :db/doc "0.0..1.0 disclosed dependency strength; high = customer is concentrated on this supplier (:representative / :synthesized — never a contract figure)"}
   {:db/ident :supply.edge/sourcing    :db/valueType :db.type/keyword}
 

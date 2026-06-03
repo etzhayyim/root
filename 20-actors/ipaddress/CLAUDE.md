@@ -2,6 +2,45 @@
 
 1次ソース IP/ASN/WHOIS/GeoIP 収集・正規化。全 entity を AI Agent (DID Performer) として管理。
 
+## kotoba refactor (ADR-2605301400 §T2) — STORAGE MIGRATED off RisingWave
+
+> **Canonical state is now the kotoba Datom log** (ADR-2605262130 + 2605312345), NOT the
+> RisingWave / yata Workers-RPC SQL graph. The legacy `vertex_ip_address /
+> vertex_ipaddress_asn / vertex_ipaddress_range` SQL model below is **retired** (kept only as
+> the historical DID-hierarchy design reference). New work uses:
+>
+> - **Vocab** `00-contracts/schemas/ip-network-ontology.kotoba.edn` — `:rir/* :asn/* :iprange/*
+>   :ip/* :net.announce/* :net.member/* :geo/* :rdns/* :whois/*` (sourcing-honest, scope-guarded).
+> - **Seed** `data/seed-ip-network.kotoba.edn` (5 RIRs · major ASNs · CIDR ranges · enrichment).
+> - **Active collector** `methods/ingest.py` — RIR delegated-stats / RDAP / reverse-DNS
+>   (能動的, real parsers), **offline-default + G7 operator-gated** (`IPADDRESS_OPERATOR_GATE`,
+>   `--live`); writes `data/ip-network.merged.kotoba.edn`.
+> - **Analyzer** `methods/analyze.py` — RIR coverage · ASN prefix-load · hosting-class /
+>   per-country address space · space/prefix HHI → `out/intel-report.md` + derived `:ipnet/*` datoms.
+>
+> ```bash
+> python3 methods/ingest.py                                   # offline: seed → merged graph
+> python3 methods/ingest.py --source file --in data/ingest/apnic-sample.txt --rir apnic
+> python3 methods/ingest.py --source rir --rir apnic --live    # G7: live RIR pull (operator gate)
+> python3 methods/analyze.py                                    # → out/
+> python3 methods/transact.py                                   # SAVE → kotoba Datom log (dry-run;
+> #   live needs a running node on :8077 + KOTOBA_SESSION_POP/KOTOBA_TOKEN, ADR-2605231525)
+> ```
+>
+> **Saved + verified live (2026-06-03)**: the merged graph was transacted into a running kotoba
+> node's Datom log and read back via the AEVT arrangement — **60 `:db/ident` schema attrs + 427
+> data datoms** (5 RIRs · 17 ASNs · 12 ranges · whois), e.g. `:asn/name` → CLOUDFLARENET / GOOGLE /
+> NTT-LTD. Also: an operator-gated AFRINIC `delegated-stats` pull parsed 2,734 real ASNs as
+> `:authoritative`. **Working node recipe**: the `datomic.transact` route + WASM-executor dispatch
+> live in the `kotoba-server` **binary** built `--features wasm-runtime` (the `kotoba serve` CLI
+> subcommand mounts a reduced router) — `cargo build -p kotoba-server --features wasm-runtime`,
+> run with `KOTOBA_PORT`, auth = operator JWT (`sub` == node's keychain `operator_did`), graph =
+> a CIDv1 multibase. Production `did:web` node stays untouched.
+>
+> **Honest R0/T2**: bounded `:representative` seed; live full-universe RIR/RDAP ingest is
+> G7 Council+operator gated; aggregate-first RESILIENCE map, never a target-list; no host is
+> port/vuln-scanned (that is an akuma/aratame caseMandate boundary, not 1次 collection).
+
 ## Architecture
 
 | 項目 | 値 |
@@ -9,7 +48,7 @@
 | **Runtime** | Single Worker |
 | **performerType** | `system` (default sensitivity: `restricted`) |
 | **UI** | appview (Protocol Canvas card UI) |
-| **Data** | SQL graph (yata Workers RPC) — Role-based DID hierarchy (C 案: Shannon 最適) |
+| **Data** | **kotoba Datom log** (`kotoba-kqe` EAVT; ADR-2605301400 §T2) — NOT RisingWave / yata SQL. Read path = EAVT/AEVT/AVET/VAET arrangements over the canonical Datom log |
 | **W Protocol Event Stream** | Design E 3-Tier Write。Social: `AppBskyFeedPost`、Domain: `ComAtprotoRepoCreateRecord`、State: `Preferences`、Read: `G()` |
 | **WIT export** | `gftd:ipaddress/ip-registry@1.0.0`, `network-topology@1.0.0`, `delegation-chain@1.0.0` |
 | **Domain** | `ipaddress.etzhayyim.com` |
@@ -73,7 +112,14 @@ ITU (treaty:itu)                         ← ITU Constitution Art.44
 | `membership` | RIR membership agreement (APNIC, RIPE NCC, ARIN) |
 | `service-agreement` | LIR ↔ RIR, ISP ↔ end user allocation |
 
-## SQL Graph Model `[DESIGN]`
+## SQL Graph Model `[RETIRED — superseded by kotoba EAVT, ADR-2605301400 §T2]`
+
+> The RisingWave node/edge model below is the **historical** design. Canonical state is now
+> the kotoba Datom log (`ip-network-ontology.kotoba.edn`). Mapping: `IPAddress→:ip/*`,
+> `IPRange→:iprange/*`, `ASN→:asn/*`, `RIR→:rir/*`, `Geolocation→:geo/*`, `ReverseDns→:rdns/*`,
+> `WhoisSnapshot→:whois/*`, `(:IPRange)-[:ANNOUNCED_BY]->(:ASN)→:net.announce/*`,
+> `(:IPAddress)-[:BELONGS_TO]->(:IPRange)→:net.member/*`. `ScanResult` is intentionally NOT
+> carried (host scanning = akuma/aratame caseMandate boundary, not 1次 collection).
 
 ### Node Labels
 

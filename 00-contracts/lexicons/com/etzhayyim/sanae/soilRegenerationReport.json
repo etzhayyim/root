@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sanae.soilRegenerationReport",
+  "description": "Soil-regeneration audit report for sanae field-agriculture robotics. Tracks regenerative indicators and preserves the net-soil-carbon gate.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fieldDid", "reportedAt", "rPhase", "operatorDid"],
+        "properties": {
+          "fieldDid": {"type": "string", "format": "did"},
+          "soilOrganicCarbonDeltaBps": {"type": "integer", "description": "Basis-point delta from prior measurement; negative values require Council review before activation."},
+          "biodiversityNotes": {"type": "string", "maxLength": 1024},
+          "syntheticPesticideUsed": {"type": "boolean", "const": false},
+          "syntheticHerbicideUsed": {"type": "boolean", "const": false},
+          "reportedAt": {"type": "string", "format": "datetime"},
+          "rPhase": {"type": "string", "knownValues": ["R0", "R1", "R2", "R3"]},
+          "operatorDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}

@@ -1,27 +1,21 @@
 ;; ooyake 公 — gov-units.world-countries.edn
 ;;
-;; REAL DATA — every UN-member sovereign state's COUNTRY unit (the world-government
-;; breadth layer), per founder directive to raise coverage to 全世界政府. Generated
-;; deterministically from a one-time maintainer pull of the Wikidata SPARQL endpoint
-;; (query.wikidata.org) on 2026-06-03: UN members (wdt:P463 wd:Q1065) carrying an
-;; ISO 3166-1 alpha-3 code (wdt:P298) + official website (wdt:P856). No summarizing
-;; model in the loop — exact QIDs parsed straight from the SPARQL JSON.
+;; REAL DATA — every CURRENT UN-member sovereign state's COUNTRY unit (全世界政府
+;; breadth layer). Generated deterministically from a one-time maintainer pull of the
+;; Wikidata SPARQL endpoint on 2026-06-03: CURRENT UN members (p:P463 ps:P463 wd:Q1065
+;; with NO end qualifier P582) that are NOT dissolved (no P576) and carry an ISO
+;; 3166-1 alpha-3 (P298) + official site (P856). Exact QIDs parsed from the SPARQL
+;; JSON (no summarizing model). Dissolved/historical states (Czechoslovakia, USSR,
+;; East Germany, Byelorussian SSR, …) are excluded by the membership-end + dissolution
+;; filters. The 19 G20 countries already live in gov-units.seed.edn / gov-units.g20.edn
+;; and are EXCLUDED here (no duplicate ids). EU is supranational (base seed).
 ;;
-;; G20 country rows already live in gov-units.seed.edn / gov-units.g20.edn and are
-;; EXCLUDED here (no duplicate ids). EU is supranational (no ISO3) and stays in the
-;; base seed.
-;;
-;; SOURCING: :authoritative + :maintainer-verified — each QID is the Wikidata entity
-;; that canonically bears the country's ISO 3166-1 alpha-3 code (an authoritative
-;; identifier mapping). :official-url / :provenance = the state's OWN official portal
-;; (Wikidata P856, the body's url) where Wikidata records one; for the few without a
-;; P856 the row carries the Wikidata entity as provenance and omits official-url
-;; (honest — the ISO3↔QID identity is verified even when the portal URL is unknown).
-;;
-;; Posture (G3/G11): each row is an OBSERVATIONAL MIRROR of a real state, descriptive
-;; + neutral, never an official channel, never ranked. Same gating as the rest of the
-;; real-data set: live kotoba ingest (KOTOBA_TOKEN) + public publication are separate
-;; operator/Council steps.
+;; :sourcing :authoritative + :maintainer-verified — each QID is the Wikidata entity
+;; that canonically bears the country's ISO 3166-1 alpha-3 code. :official-url /
+;; :provenance = the state's OWN official portal (P856) where recorded, else the
+;; Wikidata entity (ISO3↔QID identity verified either way). Observational mirror
+;; (G3/G11): descriptive, neutral, never an official channel, never ranked. Live
+;; ingest + publication remain operator/Council steps.
 
 {:graph {:name "gov-atlas-v1" :visibility :public}
 
@@ -324,17 +318,6 @@
    :gov.unit/provenance "https://gov.bw/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.bys"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:bys"
-   :gov.unit/level :country :gov.unit/branch :executive
-   :gov.unit/jurisdiction "bys"
-   :gov.unit/name-en "Byelorussian Soviet Socialist Republic"
-   :gov.unit/wikidata "Q2895"
-   :gov.unit/external-code ["iso3166-1-alpha3:BYS"]
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2895" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.caf"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:caf"
    :gov.unit/level :country :gov.unit/branch :executive
@@ -465,17 +448,6 @@
    :gov.unit/provenance "https://www.presidencia.go.cr/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.csk"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:csk"
-   :gov.unit/level :country :gov.unit/branch :executive
-   :gov.unit/jurisdiction "csk"
-   :gov.unit/name-en "Czechoslovakia"
-   :gov.unit/wikidata "Q33946"
-   :gov.unit/external-code ["iso3166-1-alpha3:CSK"]
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q33946" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.cub"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:cub"
    :gov.unit/level :country :gov.unit/branch :executive
@@ -510,17 +482,6 @@
    :gov.unit/external-code ["iso3166-1-alpha3:CZE"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.czechia.eu/" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.ddr"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ddr"
-   :gov.unit/level :country :gov.unit/branch :executive
-   :gov.unit/jurisdiction "ddr"
-   :gov.unit/name-en "German Democratic Republic"
-   :gov.unit/wikidata "Q16957"
-   :gov.unit/external-code ["iso3166-1-alpha3:DDR"]
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16957" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dji"
@@ -1154,11 +1115,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Morocco"
-   :gov.unit/official-url "https://www.maroc.ma/fr"
+   :gov.unit/official-url "https://www.maroc.ma/es"
    :gov.unit/wikidata "Q1028"
    :gov.unit/external-code ["iso3166-1-alpha3:MAR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.maroc.ma/fr" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.maroc.ma/es" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mco"
@@ -1751,17 +1712,6 @@
    :gov.unit/provenance "http://www.saotome.st/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.sun"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:sun"
-   :gov.unit/level :country :gov.unit/branch :executive
-   :gov.unit/jurisdiction "sun"
-   :gov.unit/name-en "Soviet Union"
-   :gov.unit/wikidata "Q15180"
-   :gov.unit/external-code ["iso3166-1-alpha3:SUN"]
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q15180" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.sur"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:sur"
    :gov.unit/level :country :gov.unit/branch :executive
@@ -1959,18 +1909,6 @@
    :gov.unit/external-code ["iso3166-1-alpha3:TUV"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.wikidata.org/wiki/Q672" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.twn"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:twn"
-   :gov.unit/level :country :gov.unit/branch :executive
-   :gov.unit/jurisdiction "twn"
-   :gov.unit/name-en "Taiwan"
-   :gov.unit/official-url "https://www.gov.tw"
-   :gov.unit/wikidata "Q865"
-   :gov.unit/external-code ["iso3166-1-alpha3:TWN"]
-   :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.gov.tw" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tza"

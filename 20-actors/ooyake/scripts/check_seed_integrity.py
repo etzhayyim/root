@@ -93,6 +93,9 @@ def check(files=None, auth_file=None) -> list[str]:
             errors.append(f"[bad-sourcing] {uid}: {u.get(':gov.unit/sourcing')!r}")
         if u.get(":gov.unit/verification-status") not in _VSTATUS_OK:
             errors.append(f"[bad-verification-status] {uid}: {u.get(':gov.unit/verification-status')!r}")
+        parent = u.get(":gov.unit/parent")
+        if parent and parent not in units:
+            errors.append(f"[dangling-parent] {uid}: :parent {parent!r} is not a known gov.unit")
 
     # addresses
     addr_seen: dict[str, str] = {}
