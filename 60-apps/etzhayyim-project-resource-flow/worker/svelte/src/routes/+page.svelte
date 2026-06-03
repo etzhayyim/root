@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Worker",
-  "project": "ai-gftd-project-resource-flow",
+  "project": "etzhayyim-project-resource-flow",
   "name": "worker",
   "kind": "worker",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-resource-flow/worker/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-resource-flow/worker/svelte/src/routes/+page.svelte"
 };
 </script>
 

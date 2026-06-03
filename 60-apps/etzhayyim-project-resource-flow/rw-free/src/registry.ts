@@ -1,7 +1,7 @@
 /**
  * resource-flow rw-free — emitter + flow + anomaly registries + coverage.
  * AT PDS records (no RW). Flows & anomalies FK→emitter (by source DID). Public
- * 2次ソース data only; anomaly-detection + sankey-MV compute stays gftd.
+ * 2次ソース data only; anomaly-detection + sankey-MV compute stays etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

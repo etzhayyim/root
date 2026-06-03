@@ -32,7 +32,7 @@
     "isBot": true,
     "agentType": "autonomous",
     "category": "service",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": ["resource-flow-projection", "sankey-aggregation", "adr-0028"]
   },
   "space": {

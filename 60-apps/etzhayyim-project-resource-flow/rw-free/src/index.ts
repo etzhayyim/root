@@ -11,7 +11,7 @@
  *
  * (c) MIXED SPLIT: the public flow/emitter/anomaly DATA migrates (externally-
  * authored by gov + legal-entity emitters). The anomaly-detection algorithm
- * (BPMN R/PT24H) + sankey-MV aggregation are derived COMPUTE that stays gftd,
+ * (BPMN R/PT24H) + sankey-MV aggregation are derived COMPUTE that stays etzhayyim,
  * consumed via consent-capability — NOT in this package.
  */
 

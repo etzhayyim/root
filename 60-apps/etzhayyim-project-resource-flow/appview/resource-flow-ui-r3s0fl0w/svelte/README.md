@@ -9,7 +9,7 @@ Svelte 5 (runes mode) AppView for `resource-flow.etzhayyim.com`.
 ## Build
 
 ```bash
-cd 60-apps/ai-gftd-project-resource-flow/appview/resource-flow-ui-r3s0fl0w/svelte
+cd 60-apps/etzhayyim-project-resource-flow/appview/resource-flow-ui-r3s0fl0w/svelte
 pnpm install
 pnpm build      # → ./dist/
 ```

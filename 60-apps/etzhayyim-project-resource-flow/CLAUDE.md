@@ -1,4 +1,4 @@
-# ai-gftd-project-resource-flow — Resource Flow Visualization Platform
+# etzhayyim-project-resource-flow — Resource Flow Visualization Platform
 
 resource-flow.etzhayyim.com — 公的団体 **+ 民間法人** の 12 resource class flow を social post で可視化する 2次ソース platform。
 民間拡張は `90-docs/adr/0028-resource-flow-private-sector-extension.md` が権威 (gov 限定撤廃、legal-entity DID を source として accept)。
@@ -206,15 +206,15 @@ result, _ := magatama.G("GovCurrencyFlow").
 
 ## WIT
 
-`gftd:resource-flow@1.0.0` — 集約・可視化 capability
+`etzhayyim:resource-flow@1.0.0` — 集約・可視化 capability
 
 ```
-60-apps/ai-gftd-project-resource-flow/wit/resource-flow/package.wit
+60-apps/etzhayyim-project-resource-flow/wit/resource-flow/package.wit
 ```
 
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-resource-flow/wasm/ai-gftd-wasm-resource-flow-r3s0fl0w
-gftd build --no-check && gftd deploy --no-smoke
+cd 60-apps/etzhayyim-project-resource-flow/wasm/etzhayyim-wasm-resource-flow-r3s0fl0w
+etzhayyim build --no-check && etzhayyim deploy --no-smoke
 ```

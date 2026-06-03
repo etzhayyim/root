@@ -1,6 +1,6 @@
 # 260327 Resource Flow TS Native Pilot
 
-対象: `60-apps/ai-gftd-project-resource-flow/wasm/ai-gftd-wasm-resource-flow-r3s0fl0w`
+対象: `60-apps/etzhayyim-project-resource-flow/wasm/etzhayyim-wasm-resource-flow-r3s0fl0w`
 
 ## Scope
 

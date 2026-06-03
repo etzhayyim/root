@@ -13,7 +13,7 @@
  * emitting gov/legal-entity actor), no PII / settlement / liability.
  *   PUBLIC (THIS PACKAGE) — emitter registry + aggregated flow edges + anomaly
  *   records + review state → migrated to etzhayyim front (AT PDS records).
- *   COMPUTE (STAYS gftd) — the anomaly-detection algorithm (BPMN R/PT24H job)
+ *   COMPUTE (STAYS etzhayyim) — the anomaly-detection algorithm (BPMN R/PT24H job)
  *   and the sankey-MV aggregation are derived compute, consumed via
  *   consent-capability. Not in this package.
  *
