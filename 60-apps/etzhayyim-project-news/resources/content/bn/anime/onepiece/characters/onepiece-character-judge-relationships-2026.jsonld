@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-judge-relationships-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-judge-relationships-2026",
   "identifier": "onepiece-character-judge-relationships-2026",
   "headline": "Vinsmoke Judge relationship analysis: bonds, conflicts, and character growth",
   "description": "Reading Vinsmoke Judge through key relationships to surface growth and thematic tension.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
