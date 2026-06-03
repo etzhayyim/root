@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Yuubin Y00b1nx9",
-  "project": "ai-gftd-project-yuubin",
-  "name": "ai-gftd-wasm-yuubin-y00b1nx9",
+  "project": "etzhayyim-project-yuubin",
+  "name": "etzhayyim-wasm-yuubin-y00b1nx9",
   "kind": "cloudflare surface",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-yuubin/ai-gftd-wasm-yuubin-y00b1nx9/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-yuubin/etzhayyim-wasm-yuubin-y00b1nx9/svelte/src/routes/+page.svelte"
 };
 </script>
 

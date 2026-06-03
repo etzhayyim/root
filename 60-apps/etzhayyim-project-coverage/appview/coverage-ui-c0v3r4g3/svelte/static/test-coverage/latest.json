@@ -8,7 +8,7 @@
   "entries": [
     {
       "language": "go",
-      "directory": "70-tools/gftd/gftd",
+      "directory": "70-tools/etzhayyim/etzhayyim",
       "test_count": 339,
       "pass_count": 326,
       "fail_count": 8,
@@ -20,7 +20,7 @@
     },
     {
       "language": "go",
-      "directory": "60-apps/ai-gftd-project-murakumo/cmd/murakumo-mesh",
+      "directory": "60-apps/etzhayyim-project-murakumo/cmd/murakumo-mesh",
       "test_count": 0,
       "pass_count": 0,
       "fail_count": 0,

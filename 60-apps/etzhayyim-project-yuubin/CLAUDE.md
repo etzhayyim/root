@@ -1,4 +1,4 @@
-# ai-gftd-project-yuubin — 日本郵便 Web ゆうびん 自動化 actor
+# etzhayyim-project-yuubin — 日本郵便 Web ゆうびん 自動化 actor
 
 **URL**: `https://yuubin.etzhayyim.com` / `https://y00b1nx9.etzhayyim.com`
 **DID**: `did:web:yuubin.etzhayyim.com`
@@ -37,7 +37,7 @@
 ## Topology
 
 ```
-Caller (kaisya/lawfirm/agent) 
+Caller (kaisya/lawfirm/agent)
   ↓ XRPC /xrpc/com.etzhayyim.apps.yuubin.composeAndPost
 yuubin actor
   ├─ uploadDocument → CDN R2 (SHA-256 keyed, dedup)
@@ -63,11 +63,11 @@ yuubin actor
 | Type | Name | Source |
 |---|---|---|
 | browser | `HEADLESS_BROWSER` | CF Browser Rendering (puppeteer) |
-| b2 (S3 SigV4, ADR-0048) | `B2_KEY_ID` / `B2_APPLICATION_KEY` | bucket `ai-gftd-yuubin` (rendered PDF + screenshot, content-addressed) |
+| b2 (S3 SigV4, ADR-0048) | `B2_KEY_ID` / `B2_APPLICATION_KEY` | bucket `etzhayyim-yuubin` (rendered PDF + screenshot, content-addressed) |
 | hyperdrive | `HYPERDRIVE` | RisingWave shared |
-| service | `PDS_SERVICE` / `PDS_RPC` | ai-gftd-pds-2603241700 |
-| secret | `SS_WEBYUBIN_USERNAME` | gftd.webyubin keychain |
-| secret | `SS_WEBYUBIN_PASSWORD` | gftd.webyubin keychain |
+| service | `PDS_SERVICE` / `PDS_RPC` | etzhayyim-pds-2603241700 |
+| secret | `SS_WEBYUBIN_USERNAME` | etzhayyim.webyubin keychain |
+| secret | `SS_WEBYUBIN_PASSWORD` | etzhayyim.webyubin keychain |
 | secret | `SS_WEBYUBIN_PAYMENT_CARD_LAST4` | 決済確認用末尾 4 桁 |
 
 ## Bootstrap Steps (deploy 前に必要)
@@ -82,16 +82,16 @@ yuubin actor
 ### 2. 認証情報を Keychain に保存
 
 ```bash
-security add-generic-password -s "gftd.webyubin" -a "USERNAME" -w "<法人ID>" -U
-security add-generic-password -s "gftd.webyubin" -a "PASSWORD" -w "<password>" -U
-security add-generic-password -s "gftd.webyubin" -a "PAYMENT_CARD_LAST4" -w "<末尾4桁>" -U
+security add-generic-password -s "etzhayyim.webyubin" -a "USERNAME" -w "<法人ID>" -U
+security add-generic-password -s "etzhayyim.webyubin" -a "PASSWORD" -w "<password>" -U
+security add-generic-password -s "etzhayyim.webyubin" -a "PAYMENT_CARD_LAST4" -w "<末尾4桁>" -U
 ```
 
 ### 3. Cloudflare Secrets Store に同期
 
 ```bash
-USERNAME=$(security find-generic-password -s gftd.webyubin -a USERNAME -w)
-PASSWORD=$(security find-generic-password -s gftd.webyubin -a PASSWORD -w)
+USERNAME=$(security find-generic-password -s etzhayyim.webyubin -a USERNAME -w)
+PASSWORD=$(security find-generic-password -s etzhayyim.webyubin -a PASSWORD -w)
 echo "$USERNAME" | wrangler secret put webyubin_username --secret-store 1824561668fe47cc9127d493961885af
 echo "$PASSWORD" | wrangler secret put webyubin_password --secret-store 1824561668fe47cc9127d493961885af
 ```
@@ -106,9 +106,9 @@ echo "$PASSWORD" | wrangler secret put webyubin_password --secret-store 18245616
 ### 5. Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-yuubin/ai-gftd-wasm-yuubin-y00b1nx9
+cd 60-apps/etzhayyim-project-yuubin/etzhayyim-wasm-yuubin-y00b1nx9
 pnpm install
-gftd deploy
+etzhayyim deploy
 ```
 
 ### 6. Selector Live Validation
@@ -185,7 +185,7 @@ Dependencies: `fflate` for zip manipulation (pure JS, CF Worker compatible).
 
 ## TODO
 
-- [ ] ~~Web ゆうびん 法人アカウント開設~~ — **既存 GJ 法人アカウント発見済 (Bitwarden → keychain `gftd.webyubin`)**
+- [ ] ~~Web ゆうびん 法人アカウント開設~~ — **既存 GJ 法人アカウント発見済 (Bitwarden → keychain `etzhayyim.webyubin`)**
 - [ ] Cloudflare Secrets Store に `webyubin_username` / `webyubin_password` 同期 (keychain → `wrangler secret put`)
 - [ ] Browser Rendering 有効化 ($5/月 Workers Paid プラン確認)
 - [ ] Selector live validation — **部分済** (login / DYFR410 Webレター flow / 登録情報変更 は検証済、e内容証明 は multi-tab detection でブロック)
@@ -196,8 +196,8 @@ Dependencies: `fflate` for zip manipulation (pure JS, CF Worker compatible).
 
 ## Related
 
-- `60-apps/ai-gftd-project-fax/` — FAX gateway (Dropbox Fax UI manual handoff)
-- `60-apps/ai-gftd-project-mailer/` — Email gateway (Microsoft Graph)
-- `60-apps/ai-gftd-project-kaisya/` — case management (commons-ag-litigation 等)
+- `60-apps/etzhayyim-project-fax/` — FAX gateway (Dropbox Fax UI manual handoff)
+- `60-apps/etzhayyim-project-mailer/` — Email gateway (Microsoft Graph)
+- `60-apps/etzhayyim-project-kaisya/` — case management (commons-ag-litigation 等)
 - ADR-0019 (atproto-native identifier topology)
 - 民事執行法 207 条 (第三者からの情報取得手続申立、本 actor の主要送付対象)

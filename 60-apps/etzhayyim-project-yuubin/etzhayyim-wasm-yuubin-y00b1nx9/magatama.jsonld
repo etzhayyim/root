@@ -18,7 +18,7 @@
     "capabilities": ["yuubin-compose-and-post", "yuubin-submit-naiyo-shomei", "yuubin-submit-letterpack", "yuubin-upload-document", "yuubin-get-status", "yuubin-list-submissions", "document-transport"],
     "isBot": true,
     "agentType": "semi-autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "country": "jpn",
     "website": "https://yuubin.etzhayyim.com/",
     "sourceUrl": "https://webyubin.jpi.post.japanpost.jp/"
@@ -31,7 +31,7 @@
       "sourceId": "src-webyubin",
       "url": "https://webyubin.jpi.post.japanpost.jp/",
       "role": "active-browser-automation-target",
-      "note": "Primary: Word/PDF up → 機械印刷・封入・通常郵便で投函。法人 my page でログイン (id/pass を gftd.webyubin keychain から取得)、puppeteer で操作。プログラマブル REST API 未提供。"
+      "note": "Primary: Word/PDF up → 機械印刷・封入・通常郵便で投函。法人 my page でログイン (id/pass を etzhayyim.webyubin keychain から取得)、puppeteer で操作。プログラマブル REST API 未提供。"
     },
     {
       "category": "provider",

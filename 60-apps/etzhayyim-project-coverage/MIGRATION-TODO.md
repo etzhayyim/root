@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-coverage`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/etzhayyim-project-coverage`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -44,7 +44,7 @@ equivalents listed at the top of this file.
 Detected violations:
 
 ```
-  RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:3
+  RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts:3
 ```
 
 ---
@@ -54,7 +54,7 @@ Detected violations:
 Additional violations detected in re-scan:
 
 ```
-  - 60-apps/ai-gftd-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts
+  - 60-apps/etzhayyim-project-coverage/appview/coverage-ui-c0v3r4g3/src/app.ts
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.

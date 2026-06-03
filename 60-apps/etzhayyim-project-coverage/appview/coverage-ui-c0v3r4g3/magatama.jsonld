@@ -12,7 +12,7 @@
   "profile": {
     "displayName": "Coverage",
     "description": "World coverage monitor backed by RisingWave live materialized views",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "isBot": true,
     "agentType": "autonomous",
     "capabilities": [

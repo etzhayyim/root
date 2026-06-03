@@ -216,7 +216,7 @@ async function browserAutomateWebyubin(
   const username = await resolveSecret(sdk.env.SS_WEBYUBIN_USERNAME);
   const password = await resolveSecret(sdk.env.SS_WEBYUBIN_PASSWORD);
   if (!username || !password) {
-    throw new Error("Web ゆうびん credentials missing (SS_WEBYUBIN_USERNAME / SS_WEBYUBIN_PASSWORD). gftd.webyubin keychain に登録 → Secrets Store に同期してください。");
+    throw new Error("Web ゆうびん credentials missing (SS_WEBYUBIN_USERNAME / SS_WEBYUBIN_PASSWORD). etzhayyim.webyubin keychain に登録 → Secrets Store に同期してください。");
   }
 
   const browser = await puppeteer.launch(browserBinding as any);
