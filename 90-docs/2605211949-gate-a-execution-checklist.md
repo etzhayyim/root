@@ -97,14 +97,14 @@ tests use `tempfile.TemporaryDirectory()`.
 
 | # | Target file | Pattern | Smoke | Done |
 |---|---|---|---|---|
-| W1 | `hakkou_worker_main.py` | BeliefStore | task_create_ferment_record + task_finalize_ferment | [ ] |
-| W2 | `kabi_worker_main.py` | BeliefStore | task_anastomosis_probe | [ ] |
-| W3 | `ki_worker_main.py` | BeliefStore | task_absorb + task_bloom + task_ring + task_synthesize | [ ] |
-| W4 | `kinoko_worker_main.py` | BeliefStore | task_check_flow_threshold | [ ] |
-| W5 | `kobo_worker_main.py` | BeliefStore | task_bud_agent + task_sporulate + task_germinate | [ ] |
-| W6 | `koke_worker_main.py` | BeliefStore | task_scan_raw_signals + task_handoff_to_hakkou + task_handoff_to_saikin | [ ] |
-| W7 | `saikin_worker_main.py` | BeliefStore | task_probe_environment + task_form_colony + task_handoff_to_ki | [ ] |
-| W8 | `myco_yeast_worker_main.py` | BeliefStore | (per ADR-2605211200 Phase 2A-2D origin task set) | [ ] |
+| W1 | `hakkou_worker_main.py` | BeliefStore | task_create_ferment_record + task_finalize_ferment | [x] 2026-06-03 |
+| W2 | `kabi_worker_main.py` | BeliefStore | task_anastomosis_probe | [x] 2026-06-03 |
+| W3 | `ki_worker_main.py` | BeliefStore | task_absorb + task_bloom + task_ring + task_synthesize | [x] 2026-06-03 |
+| W4 | `kinoko_worker_main.py` | BeliefStore | task_check_flow_threshold | [x] 2026-06-03 |
+| W5 | `kobo_worker_main.py` | BeliefStore | task_bud_agent + task_sporulate + task_germinate | [x] 2026-06-03 |
+| W6 | `koke_worker_main.py` | BeliefStore | task_scan_raw_signals + task_handoff_to_hakkou + task_handoff_to_saikin | [x] 2026-06-03 |
+| W7 | `saikin_worker_main.py` | BeliefStore | task_probe_environment + task_form_colony + task_handoff_to_ki | [x] 2026-06-03 |
+| W8 | `myco_yeast_worker_main.py` | BeliefStore | (per ADR-2605211200 Phase 2A-2D origin task set) | [x] 2026-06-03 |
 
 ## §3 Primary-store + read-cache + audit workers (12 — Waves A-C)
 
@@ -119,30 +119,30 @@ tests use `tempfile.TemporaryDirectory()`.
 
 | # | Target file | Pattern | Smoke | Done |
 |---|---|---|---|---|
-| W11 | `hub_worker_main.py` | primary store (2 tables: endpoint + webhook) | full CRUD + metrics | [ ] |
-| W12 | `web4_worker_main.py` | primary store (2 tables: expert + inference_job; **also**: fix f-string LIMIT/OFFSET SQL injection from legacy) | full CRUD + UPDATE + cluster_stats | [ ] |
-| W13 | `ge_worker_main.py` (covers legal-entity) | primary store (3 tables: org + project + resource_assignment) | full CRUD + JOIN metrics | [ ] |
-| W14 | `oshiete_worker_main.py` | primary store (2 tables: question + answer) | full CRUD + vote_count update + JOIN topic_expert | [ ] |
+| W11 | `hub_worker_main.py` | primary store (2 tables: endpoint + webhook) | full CRUD + metrics | [x] 2026-06-03 |
+| W12 | `web4_worker_main.py` | primary store (2 tables: expert + inference_job; **also**: fix f-string LIMIT/OFFSET SQL injection from legacy) | full CRUD + UPDATE + cluster_stats | [x] 2026-06-03 |
+| W13 | `ge_worker_main.py` (covers legal-entity) | primary store (3 tables: org + project + resource_assignment) | full CRUD + JOIN metrics | [x] 2026-06-03 |
+| W14 | `oshiete_worker_main.py` | primary store (2 tables: question + answer) | full CRUD + vote_count update + JOIN topic_expert | [x] 2026-06-03 |
 
 ### Wave C (multi-table + JOIN primary)
 
 | # | Target file | Pattern | Smoke | Done |
 |---|---|---|---|---|
-| W15 | `resources_worker_main.py` | primary store (2 tables: resource + allocation) | full CRUD + DELETE + usage metrics | [ ] |
-| W16 | `omikuji_worker_main.py` | primary store (2 tables: fortune_draw + shrine) | full CRUD + JP fortune random | [ ] |
-| W17 | `kareyanagi_worker_main.py` | primary store (2 tables: listing + order) | full CRUD + UPDATE inventory + trade_history JOIN | [ ] |
-| W18 | `kiyome_worker_main.py` | primary store (2 tables: clearance + audit_log) | full CRUD + approve/reject + compliance_status | [ ] |
-| W19 | `gov_worker_main.py` | primary store (4 tables: agency + official + consult + municipality; **also**: dynamic WHERE builder for list_agencies / list_officials / list_consults) | full CRUD + JOIN getAgency | [ ] |
-| W20 | `narou_worker_main.py` | primary store (4 tables: novel + chapter + character + world_setting) — write-heavy + LLM placeholder generate + post-filter search | 11 task handlers + search 'dragon' / 'tokyo' genre=scifi | [ ] |
+| W15 | `resources_worker_main.py` | primary store (2 tables: resource + allocation) | full CRUD + DELETE + usage metrics | [x] 2026-06-03 |
+| W16 | `omikuji_worker_main.py` | primary store (2 tables: fortune_draw + shrine) | full CRUD + JP fortune random | [x] 2026-06-03 |
+| W17 | `kareyanagi_worker_main.py` | primary store (2 tables: listing + order) | full CRUD + UPDATE inventory + trade_history JOIN | [x] 2026-06-03 |
+| W18 | `kiyome_worker_main.py` | primary store (2 tables: clearance + audit_log) | full CRUD + approve/reject + compliance_status | [x] 2026-06-03 |
+| W19 | `gov_worker_main.py` | primary store (4 tables: agency + official + consult + municipality; **also**: dynamic WHERE builder for list_agencies / list_officials / list_consults) | full CRUD + JOIN getAgency | [x] 2026-06-03 |
+| W20 | `narou_worker_main.py` | primary store (4 tables: novel + chapter + character + world_setting) — write-heavy + LLM placeholder generate + post-filter search | 11 task handlers + search 'dragon' / 'tokyo' genre=scifi | [x] 2026-06-03 |
 
 ## §4 Ingest-coupled workers (4 — Wave D group, gated on §1 ingest modules)
 
 | # | Target file | Pattern | Smoke | Done |
 |---|---|---|---|---|
-| W21 | `blockchain_worker_main.py` | worker_runtime + ingest delegate to `ingest/blockchain.py` (replaces zeebe_worker_main + db_sync import) | task_blockchain_head_ingest (delegating to ingest.blockchain) + task_sqlite_health_probe | [ ] |
-| W22 | `houbun_worker_main.py` | worker_runtime + ingest delegate to `ingest/houbun.py` (8 task handlers, all real not stub) | 8 task delegations + health | [ ] |
-| W23 | `curpus2skill_worker_main.py` | worker_runtime + ingest delegate to `ingest/curpus2skill.py` (1 task) | extractEvidence delegation | [ ] |
-| W24 | `site_common_crawl_worker_main.py` | worker_runtime + ingest delegate to `ingest/site_common_crawl.py` (8 task handlers) | 8 task delegations + health | [ ] |
+| W21 | `blockchain_worker_main.py` | worker_runtime + ingest delegate to `ingest/blockchain.py` (replaces zeebe_worker_main + db_sync import) | task_blockchain_head_ingest (delegating to ingest.blockchain) + task_sqlite_health_probe | [x] 2026-06-03 |
+| W22 | `houbun_worker_main.py` | worker_runtime + ingest delegate to `ingest/houbun.py` (8 task handlers, all real not stub) | 8 task delegations + health | [x] 2026-06-03 |
+| W23 | `curpus2skill_worker_main.py` | worker_runtime + ingest delegate to `ingest/curpus2skill.py` (1 task) | extractEvidence delegation | [x] 2026-06-03 |
+| W24 | `site_common_crawl_worker_main.py` | worker_runtime + ingest delegate to `ingest/site_common_crawl.py` (8 task handlers) | 8 task delegations + health | [x] 2026-06-03 |
 
 ## §5 Truly-clean utility workers (5 — no port work, audit only)
 
@@ -161,10 +161,10 @@ audit, then check off.
 
 | # | Target file | Pattern | Smoke | Done |
 |---|---|---|---|---|
-| I1 | `ingest/blockchain.py` | ingest module (Bitcoin + Ethereum RPC, 4 tables: block + tx + actor + cursor) | mock RPC cold-start + idempotent re-run | [ ] |
-| I2 | `ingest/houbun.py` | ingest module (eGov JPN + eCFR USA + NPC China RPC, 3 tables: statute + article + edge; `_insert_ignore` → `INSERT OR IGNORE`) | USA + JPN write + idempotent re-run | [ ] |
-| I3 | `ingest/curpus2skill.py` | ingest module (corpus → ESCO skill evidence; 2 write tables + 5 source-read mirrors) | seed legal-corpus doc + exact_label match | [ ] |
-| I4 | `ingest/site_common_crawl.py` | ingest module (artifact-first; 2 read tables: vertex_page + vertex_collection_job) | seed pages + count assertions | [ ] |
+| I1 | `ingest/blockchain.py` | ingest module (Bitcoin + Ethereum RPC, 4 tables: block + tx + actor + cursor) | mock RPC cold-start + idempotent re-run | [x] 2026-06-03 |
+| I2 | `ingest/houbun.py` | ingest module (eGov JPN + eCFR USA + NPC China RPC, 3 tables: statute + article + edge; `_insert_ignore` → `INSERT OR IGNORE`) | USA + JPN write + idempotent re-run | [x] 2026-06-03 |
+| I3 | `ingest/curpus2skill.py` | ingest module (corpus → ESCO skill evidence; 2 write tables + 5 source-read mirrors) | seed legal-corpus doc + exact_label match | [x] 2026-06-03 |
+| I4 | `ingest/site_common_crawl.py` | ingest module (artifact-first; 2 read tables: vertex_page + vertex_collection_job) | seed pages + count assertions | [x] 2026-06-03 |
 
 ## Total
 

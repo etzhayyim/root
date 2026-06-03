@@ -14,7 +14,7 @@ Handles 11 BPMN task types for narou.etzhayyim.com:
   com.etzhayyim.apps.narou.listChapters
   com.etzhayyim.apps.narou.searchNovels
 
-Tables (RisingWave via asyncpg):
+Tables (SQLite):
   vertex_narou_novel:         vertex_id, _seq, created_date, sensitivity_ord, owner_did,
                               rkey, repo, did, collection, status, id, title, description,
                               genre, tags, user_id, org_id, actor_id, created_at, updated_at
@@ -29,8 +29,6 @@ Tables (RisingWave via asyncpg):
                               rkey, repo, did, collection, status, id, novel_id, name,
                               description, user_id, org_id, actor_id, created_at, updated_at
 
-RW rule: LIMIT must be f-string interpolated (not parameterized) per
-[[conventions]] rw-psycopg3-no-param-limit.
 """
 
 import asyncio

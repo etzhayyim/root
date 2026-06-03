@@ -18,7 +18,7 @@ from pymagatama.ingest.site_common_crawl import (
     task_site_cc_run_phase,
     task_site_cc_verify_visibility,
 )
-from pymagatama.zeebe_worker_main import task_rw_health_probe
+from pymagatama.worker_runtime import task_sqlite_health_probe
 
 LOG = logging.getLogger("site_common_crawl_worker")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
@@ -42,8 +42,8 @@ def register_site_common_crawl_tasks(worker: LangServerWorker) -> None:
     short_timeout_ms = 120_000
     medium_timeout_ms = 300_000
     long_timeout_ms = int(os.environ.get("SITE_CC_ZEEBE_TASK_TIMEOUT_MS", "21600000"))
-    worker.task(task_type="rw.health.probe", single_value=False, timeout_ms=60_000)(
-        task_rw_health_probe
+    worker.task(task_type="sqlite.health.probe", single_value=False, timeout_ms=60_000)(
+        task_sqlite_health_probe
     )
     worker.task(task_type="site.commonCrawl.createRun", single_value=False, timeout_ms=short_timeout_ms)(
         task_site_cc_create_run

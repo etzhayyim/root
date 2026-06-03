@@ -16,13 +16,12 @@ from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 
-from pymagatama.db_sync import close_sync_pool
-from pymagatama.zeebe_worker_main import (
-    _activation_monitor,
-    _watchdog,
-    task_blockchain_head_ingest,
-    task_rw_health_probe,
+from pymagatama.worker_runtime import (
+    watchdog,
+    activation_monitor,
+    task_sqlite_health_probe,
 )
+from pymagatama.ingest.blockchain import task_blockchain_head_ingest
 
 
 LOG = logging.getLogger("blockchain_worker")
@@ -56,15 +55,15 @@ async def main() -> None:
         max_running_jobs=max_running,
     )(task_blockchain_head_ingest)
     worker.task(
-        task_type="rw.health.probe",
+        task_type="sqlite.health.probe",
         single_value=False,
         timeout_ms=60_000,
         max_jobs_to_activate=2,
         max_running_jobs=4,
-    )(task_rw_health_probe)
+    )(task_sqlite_health_probe)
     LOG.info(
         "registered blockchain tasks: blockchain.head.ingest(max_running=%s), "
-        "rw.health.probe",
+        "sqlite.health.probe",
         max_running,
     )
 
@@ -73,9 +72,25 @@ async def main() -> None:
     for sig in (signal.SIGINT, signal.SIGTERM):
         loop.add_signal_handler(sig, stop.set)
 
+    async def _watchdog_loop() -> None:
+        while not stop.is_set():
+            await watchdog(worker_name="blockchain_worker")
+            try:
+                await asyncio.wait_for(stop.wait(), timeout=30.0)
+            except asyncio.TimeoutError:
+                pass
+
+    async def _activation_loop() -> None:
+        while not stop.is_set():
+            await activation_monitor()
+            try:
+                await asyncio.wait_for(stop.wait(), timeout=60.0)
+            except asyncio.TimeoutError:
+                pass
+
     work_task = asyncio.create_task(worker.work())
-    watchdog_task = asyncio.create_task(_watchdog(channel, stop))
-    activation_task = asyncio.create_task(_activation_monitor(stop))
+    watchdog_task = asyncio.create_task(_watchdog_loop())
+    activation_task = asyncio.create_task(_activation_loop())
     await stop.wait()
     LOG.info("shutdown requested")
     for task in (work_task, watchdog_task, activation_task):
@@ -85,10 +100,6 @@ async def main() -> None:
             await task
         except (asyncio.CancelledError, Exception):
             pass
-    try:
-        close_sync_pool()
-    except Exception as e:  # noqa: BLE001
-        LOG.warning("sync pool close failed: %s", e)
     LOG.info("blockchain_worker stopped cleanly")
 
 

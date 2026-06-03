@@ -18,7 +18,6 @@ Run:
 
 Env:
   AGENTGATEWAY_MCP_URL     — LangServer AgentGateway URL (default 127.0.0.1:8080)
-  RW_URL            — RisingWave postgres URL
   SAIKIN_BATCH_SIZE — max signals per probe cycle (default 10)
 """
 
@@ -37,7 +36,7 @@ from typing import Any
 
 from pymagatama.langserver_compat import LangServerWorker, create_langserver_channel
 from pymagatama.primitives.active_inference_substrate import select_belief_store, SaikinSignalRecord, SaikinTransferRecord, SaikinColonyRecord, SaikinMemberRecord, KiAbsorbRecord
-from pymagatama.local_agent_env import load_env_file, load_keychain_secret
+from pymagatama.local_agent_env import load_env_file
 
 LOG = logging.getLogger("saikin_worker")
 
@@ -429,10 +428,6 @@ async def run_worker() -> None:
 
 def main() -> None:
     load_env_file()
-    if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
-        if rw_url:
-            os.environ["RW_URL"] = rw_url
     os.environ.setdefault("PYTHONUNBUFFERED", "1")
     os.environ.setdefault("AGENTGATEWAY_MCP_URL", "127.0.0.1:8080")
     os.environ.setdefault("RW_SYNC_POOL", "0")

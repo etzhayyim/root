@@ -22,7 +22,7 @@ from pymagatama.ingest.houbun import (
     task_houbun_verify_visibility,
     task_houbun_write_graph,
 )
-from pymagatama.zeebe_worker_main import task_rw_health_probe
+from pymagatama.worker_runtime import task_sqlite_health_probe
 
 LOG = logging.getLogger("houbun_worker")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
@@ -45,8 +45,8 @@ GRPC_CHANNEL_OPTIONS = (
 def register_houbun_tasks(worker: LangServerWorker) -> None:
     short_timeout_ms = 120_000
     long_timeout_ms = 300_000
-    worker.task(task_type="rw.health.probe", single_value=False, timeout_ms=60_000)(
-        task_rw_health_probe
+    worker.task(task_type="sqlite.health.probe", single_value=False, timeout_ms=60_000)(
+        task_sqlite_health_probe
     )
     worker.task(task_type="houbun.createRun", single_value=False, timeout_ms=short_timeout_ms)(
         task_houbun_create_run

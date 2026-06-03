@@ -13,8 +13,6 @@ import hashlib
 import json
 import os
 import re
-import shutil
-import subprocess
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -295,20 +293,6 @@ def _insert_ignore(cur: Any, table: str, id_col: str, values: dict[str, Any]) ->
     return int(cur.rowcount or 0)
 
 
-def _flush_rw() -> None:
-    if not os.environ.get("RW_URL") or not shutil.which("psql"):
-        return
-    subprocess.run(
-        ["psql", os.environ["RW_URL"], "-v", "ON_ERROR_STOP=1", "-Atc", "FLUSH;"],
-        env={**os.environ, "PGCONNECT_TIMEOUT": os.environ.get("PGCONNECT_TIMEOUT", "10")},
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        timeout=int(os.environ.get("RW_PSQL_TIMEOUT_SEC", "240")),
-        check=True,
-    )
-
-
 def _fetch_ecfr_title_xml(title_num: int, date_str: str) -> str:
     url = f"{ECFR_BASE}/versioner/v1/full/{date_str}/title-{title_num}.xml"
     req = urllib.request.Request(
@@ -485,7 +469,6 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
                     "actor_id": "sys.houbun",
                 },
             )
-    _flush_rw()
     return {
         "statutesInserted": statute_inserted,
         "articlesInserted": article_inserted,
@@ -598,7 +581,6 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
                     "actor_id": "sys.houbun",
                 },
             )
-    _flush_rw()
     return {
         "statutesInserted": statute_inserted,
         "articlesInserted": article_inserted,
@@ -1158,7 +1140,6 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
                     "actor_id": "sys.houbun",
                 },
             )
-    _flush_rw()
     return {
         "statutesInserted": statute_inserted,
         "articlesInserted": article_inserted,

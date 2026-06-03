@@ -3747,8 +3747,9 @@ deletion). No file content is moved in Phase 2; Phase 3 (content copy via
 # gate-a-execution-checklist + session post-mortem.
 status = "governance-complete-2026-05-21"
 gates_design_closed_at = "2026-05-21T17:57:00Z"
-gate_a_execution_state = "IN_PROGRESS — 11 / 42 rows ticked in checklist (§1 primitives 4/4 + §5 utility audit 5/5 + §3 Wave A 2/2; 31 remaining across §2/§3 Wave B-C/§4/§6)"
-gate_a_execution_percent = 26  # 11/42 ≈ 26%
+gate_a_execution_state = "CLOSED — 37 / 37 rows ticked 2026-06-03 (all §1-§6 complete; Wave B/C SQLite + Wave D BeliefStore + §4 worker_runtime + §6 ingest modules)"
+gate_a_execution_percent = 100
+gate_a_execution_completed_at = "2026-06-03T00:00:00Z"
 gate_a_session_progress_2026_05_21 = """Session 2026-05-21 evening Phase 1 close:
 
 §1 substrate primitives (P1-P4): 4/4 ✅
