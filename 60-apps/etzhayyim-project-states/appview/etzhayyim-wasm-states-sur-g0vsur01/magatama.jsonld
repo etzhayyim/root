@@ -37,7 +37,7 @@
     "ministryCount": 0,
     "contractCount": 1,
     "bpmnCount": 2,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/sur/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/sur/",
     "addresses": [
       {
         "kind": "headquarters",

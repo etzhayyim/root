@@ -37,7 +37,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 85,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/tur/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/tur/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -76,7 +76,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/tur/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/tur/bpmn/executive.bpmn"
       }
     ],
     "documentTemplates": [

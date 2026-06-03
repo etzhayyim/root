@@ -30,7 +30,7 @@
     "ministryCount": 0,
     "contractCount": 1,
     "bpmnCount": 3,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/syr/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/syr/",
     "addresses": [
       {
         "kind": "headquarters",

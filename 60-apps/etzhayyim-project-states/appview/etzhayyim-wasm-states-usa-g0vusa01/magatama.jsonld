@@ -91,7 +91,7 @@
         "authority": "Department Of Defense",
         "basis": "Defence Act",
         "portalUri": "https://www.defense.gov/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/usa/bpmn/department-of-defense.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/usa/bpmn/department-of-defense.bpmn"
       },
       {
         "id": "usa.federal-bureau-of-investigation",
@@ -100,7 +100,7 @@
         "authority": "Federal Bureau Of Investigation",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/usa/bpmn/federal-bureau-of-investigation.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/usa/bpmn/federal-bureau-of-investigation.bpmn"
       },
       {
         "id": "usa.finance-department-of-treasury",
@@ -109,7 +109,7 @@
         "authority": "Finance Department Of Treasury",
         "basis": "Economic Affairs Act",
         "portalUri": "https://home.treasury.gov/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/usa/bpmn/finance-department-of-treasury.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/usa/bpmn/finance-department-of-treasury.bpmn"
       },
       {
         "id": "usa.foreign-department-of-state",
@@ -118,7 +118,7 @@
         "authority": "Foreign Department Of State",
         "basis": "General Public Services Act",
         "portalUri": "https://www.state.gov/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/usa/bpmn/foreign-department-of-state.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/usa/bpmn/foreign-department-of-state.bpmn"
       },
       {
         "id": "usa.justice-department-of-justice",
@@ -127,7 +127,7 @@
         "authority": "Justice Department Of Justice",
         "basis": "Public Order and Safety Act",
         "portalUri": "https://www.justice.gov/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/usa/bpmn/justice-department-of-justice.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/usa/bpmn/justice-department-of-justice.bpmn"
       },
       {
         "id": "usa.executive-office-of-president",
@@ -136,7 +136,7 @@
         "authority": "Executive Office Of President",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/usa/bpmn/executive-office-of-president.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/usa/bpmn/executive-office-of-president.bpmn"
       },
       {
         "id": "usa.foia.request",
@@ -203,7 +203,7 @@
     "ministryCount": 6,
     "contractCount": 1,
     "bpmnCount": 133,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/usa/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/usa/",
     "complianceFrameworks": [
       "U.S. Constitution (1789)",
       "Freedom of Information Act (5 U.S.C. §552)",

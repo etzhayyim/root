@@ -37,7 +37,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 18,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/uga/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/uga/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -73,7 +73,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/uga/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/uga/bpmn/executive.bpmn"
       },
       {
         "id": "uga.access_info",
