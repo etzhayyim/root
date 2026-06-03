@@ -4,7 +4,7 @@
 ; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
 ;
 [subrepo]
-	remote = git@github.com:gftdcojp/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0520-wastewater-management-4butqzx9.git
+	remote = git@github.com:etzhayyimcojp/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0520-wastewater-management-4butqzx9.git
 	branch = main
 	commit = 00785700b9a6592920096ee57fea4ed753731e36
 	parent = 0cd396ed416e35eed8afbab2c9898de7a0a283b6
