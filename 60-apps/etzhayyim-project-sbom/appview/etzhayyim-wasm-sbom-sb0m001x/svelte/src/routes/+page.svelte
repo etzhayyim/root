@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Sbom Sb0m001x",
-  "project": "ai-gftd-project-sbom",
-  "name": "ai-gftd-wasm-sbom-sb0m001x",
+  "project": "etzhayyim-project-sbom",
+  "name": "etzhayyim-wasm-sbom-sb0m001x",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-sbom/appview/ai-gftd-wasm-sbom-sb0m001x/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-sbom/appview/etzhayyim-wasm-sbom-sb0m001x/svelte/src/routes/+page.svelte"
 };
 </script>
 

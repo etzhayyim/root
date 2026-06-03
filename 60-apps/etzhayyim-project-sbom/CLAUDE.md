@@ -1,6 +1,6 @@
 # sbom.etzhayyim.com — SBOM + Patch Management
 
-Software Bill of Materials。`gftd build` 時に SBOM 自動生成 → yabai CVE マッチ → 影響 app blast radius → completer 連携。
+Software Bill of Materials。`etzhayyim build` 時に SBOM 自動生成 → yabai CVE マッチ → 影響 app blast radius → completer 連携。
 
 ## Architecture
 
@@ -10,7 +10,7 @@ Software Bill of Materials。`gftd build` 時に SBOM 自動生成 → yabai CVE
 | **UI** | appview (Protocol Canvas card UI) |
 | **Data** | SQL graph — `SbomArtifact`, `SbomComponent`, `VulnMatch`, `PatchPolicy`, `PatchAction` |
 | **W Protocol Event Stream** | WRecord kinds: `sbom.sbom_artifact`, `sbom.component`, `sbom.vuln_match`, `sbom.patch_policy`, `sbom.patch_action` |
-| **WIT export** | `gftd:sbom/component-registry@1.0.0`, `vuln-match@1.0.0`, `patch-management@1.0.0` |
+| **WIT export** | `etzhayyim:sbom/component-registry@1.0.0`, `vuln-match@1.0.0`, `patch-management@1.0.0` |
 | **Domain** | `sbom.etzhayyim.com` / `sb0m001x.etzhayyim.com` |
 
 ## Graph Relationships
@@ -27,7 +27,7 @@ SbomArtifact -[:BUILT_FOR]-> App (yata)
 ## CVE → App Blast Radius Pipeline
 
 ```
-[gftd build] → register-sbom (CycloneDX/SPDX) → SbomComponent graph
+[etzhayyim build] → register-sbom (CycloneDX/SPDX) → SbomComponent graph
 [ct-monitor] → poll-vuln-feeds → yabai ingest-cve → CveEntry graph
 [sbom] → run-vuln-match → CveEntry × SbomComponent → VulnMatch → affected apps
 [sbom] → get-blast-radius(cve_id) → all affected apps/components
@@ -59,6 +59,6 @@ SbomArtifact -[:BUILT_FOR]-> App (yata)
 
 | File | Purpose |
 |---|---|
-| `wasm/ai-gftd-wasm-sbom-sb0m001x/src/app.ts` | Single-file business logic |
-| `wasm/ai-gftd-wasm-sbom-sb0m001x/magatama.jsonld` | Runtime config |
+| `wasm/etzhayyim-wasm-sbom-sb0m001x/src/app.ts` | Single-file business logic |
+| `wasm/etzhayyim-wasm-sbom-sb0m001x/magatama.jsonld` | Runtime config |
 | `wit/sbom/package.wit` | Domain WIT (component-registry, vuln-match, patch-management) |

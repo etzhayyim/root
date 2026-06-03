@@ -99,6 +99,6 @@ Option C (IPFS) rejected — SBOM records are small structured data, not blobs.
 
 - [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
-- [hanrei rw-free](../../ai-gftd-project-hanrei/rw-free/) — Option B reference (31/31 complete)
-- [ipaddress rw-free](../../ai-gftd-project-ipaddress/rw-free/) — Option B reference (37/37 complete)
+- [hanrei rw-free](../../etzhayyim-project-hanrei/rw-free/) — Option B reference (31/31 complete)
+- [ipaddress rw-free](../../etzhayyim-project-ipaddress/rw-free/) — Option B reference (37/37 complete)
 - [sbom CLAUDE.md](../CLAUDE.md) — actor design + graph relationships

@@ -2,7 +2,7 @@
  * sbom rw-free — record types.
  *
  * Per ADR-2605203000 Option B (PDS XRPC). SBOM = Software Bill of Materials.
- * gftd build → SBOM auto-gen → yabai CVE match → blast radius → completer.
+ * etzhayyim build → SBOM auto-gen → yabai CVE match → blast radius → completer.
  *
  * Identity hierarchy (per sbom CLAUDE.md graph relationships):
  *   did:web:sbom.etzhayyim.com                              — controller

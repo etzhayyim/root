@@ -1,4 +1,4 @@
-# sbom.etzhayyim.com — `ai-gftd-wasm-sbom-sb0m001x`
+# sbom.etzhayyim.com — `etzhayyim-wasm-sbom-sb0m001x`
 
 CF Worker facade for the SBOM artifact registry. **Edge layer only** —
 all RisingWave writes happen in the K8s LangServer pod (ADR-2604282300).
@@ -85,8 +85,8 @@ helm upgrade mitama-udf/langserver-worker --reuse-values \
   --set "image.tag=0.4.0-amd64"
 
 # 4. deploy CF Worker
-cd 60-apps/ai-gftd-project-sbom/appview/ai-gftd-wasm-sbom-sb0m001x
-gftd deploy
+cd 60-apps/etzhayyim-project-sbom/appview/etzhayyim-wasm-sbom-sb0m001x
+etzhayyim deploy
 ```
 
 ## Smoke
@@ -97,7 +97,7 @@ cargo run -p kami-cad-import --example register_roadster | bash
 
 # Software SBOM (cargo-cyclonedx)
 cargo cyclonedx -f json
-gftd agent-token --lxm com.etzhayyim.sbom.registerArtifact > /tmp/tok
+etzhayyim agent-token --lxm com.etzhayyim.sbom.registerArtifact > /tmp/tok
 curl -fsSL -X POST https://sbom.etzhayyim.com/xrpc/com.etzhayyim.sbom.registerArtifact \
   -H "Authorization: Bearer $(cat /tmp/tok)" \
   -H "Content-Type: application/json" \

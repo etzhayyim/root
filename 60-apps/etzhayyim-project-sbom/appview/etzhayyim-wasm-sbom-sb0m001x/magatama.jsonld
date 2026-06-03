@@ -10,7 +10,7 @@
     { "pattern": "sbom.etzhayyim.com/*", "zone_name": "etzhayyim.com" }
   ],
   "profile": {
-    "displayName": "GFTD SBOM",
+    "displayName": "ETZHAYYIM SBOM",
     "description": "Software + hardware Bill of Materials registry. CycloneDX 1.5 default, SPDX 3.0 supported. CVE matching via yabai. Hardware components (cdx type=device) flow through the same SbomArtifact graph as software libraries — supplier recall queries treat both uniformly. [AI Agent — unofficial, not affiliated with the real organization]",
     "avatar": "S",
     "category": "service",
