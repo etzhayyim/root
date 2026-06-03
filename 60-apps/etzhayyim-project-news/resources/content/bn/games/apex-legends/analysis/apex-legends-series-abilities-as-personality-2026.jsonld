@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:apex-legends-series-abilities-as-personality-2026",
+  "@id": "urn:etzhayyim:news:apex-legends-series-abilities-as-personality-2026",
   "identifier": "apex-legends-series-abilities-as-personality-2026",
   "headline": "Apex Legends analysis: Abilities as personality",
   "description": "A thematic essay on Apex Legends, organized around: Abilities as personality.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

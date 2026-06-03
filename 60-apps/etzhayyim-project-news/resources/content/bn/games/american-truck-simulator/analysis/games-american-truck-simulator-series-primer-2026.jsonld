@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-american-truck-simulator-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-american-truck-simulator-series-primer-2026",
   "identifier": "games-american-truck-simulator-series-primer-2026",
   "headline": "American Truck Simulator primer: the design ideas behind its world and characters",
   "description": "A starter guide to American Truck Simulator, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

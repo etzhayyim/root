@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:anime-violet-evergarden-series-primer-2026",
+  "@id": "urn:etzhayyim:news:anime-violet-evergarden-series-primer-2026",
   "identifier": "anime-violet-evergarden-series-primer-2026",
   "headline": "Violet Evergarden primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Violet Evergarden, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

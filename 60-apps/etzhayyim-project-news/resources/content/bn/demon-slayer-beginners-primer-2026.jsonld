@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:bn:demon-slayer-beginners-primer-2026",
+  "@id": "urn:etzhayyim:news:bn:demon-slayer-beginners-primer-2026",
   "identifier": "bn-demon-slayer-beginners-primer-2026",
   "headline": "ডেমন স্লেয়ার - শিক্ষানবিসদের জন্য সম্পূর্ণ প্রাইমার",
   "description": "ডেমন স্লেয়ার একটি চমৎকার অ্যানিমে যেখানে একটি ছেলে তার রূপান্তরিত বোনকে বাঁচানোর চেষ্টা করে। প্রধান চরিত্র, শয়তান শিকার এবং দেখার ক্রম জানুন।",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

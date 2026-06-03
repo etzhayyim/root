@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:anime-wotaku-ni-koi-wa-muzukashii-series-primer-2026",
+  "@id": "urn:etzhayyim:news:anime-wotaku-ni-koi-wa-muzukashii-series-primer-2026",
   "identifier": "anime-wotaku-ni-koi-wa-muzukashii-series-primer-2026",
   "headline": "Wotakoi: Love is Hard for Otaku primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Wotakoi: Love is Hard for Otaku, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-age-of-empires-iv-anniversary-edition-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-age-of-empires-iv-anniversary-edition-series-primer-2026",
   "identifier": "games-age-of-empires-iv-anniversary-edition-series-primer-2026",
   "headline": "Age of Empires IV: Anniversary Edition primer: the design ideas behind its world and characters",
   "description": "A starter guide to Age of Empires IV: Anniversary Edition, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
