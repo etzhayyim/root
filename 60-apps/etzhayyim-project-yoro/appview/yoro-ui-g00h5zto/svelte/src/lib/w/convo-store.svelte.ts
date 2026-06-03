@@ -397,7 +397,7 @@ export const convos = {
 								newMap.set(p.did, p);
 							}
 							_presenceMap = newMap;
-						}).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/convo-store.svelte.ts: suppressed async error", error); });
+						}).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/convo-store.svelte.ts: suppressed async error", error); });
 					}
 				}
 			} catch (err) {

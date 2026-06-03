@@ -7,7 +7,7 @@
 	 * on resume. Respects `prefers-reduced-motion` and `prefers-reduced-sound`
 	 * via the shared `sound.ts` helpers.
 	 *
-	 * Plan: /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md
+	 * Plan: /root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md
 	 */
 	import { onMount, onDestroy } from 'svelte';
 	import { playWindBell, playChimeC5 } from '../sound';

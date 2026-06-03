@@ -11,7 +11,7 @@
 	 * (vitality / serenity / connection / growth / resilience) plus 3
 	 * AT Protocol-standard social reactions (laugh / wow / sad).
 	 *
-	 * Plan: /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md
+	 * Plan: /root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md
 	 */
 	import { onMount, onDestroy } from 'svelte';
 	import { playTick, playChimeC5 } from '../sound';

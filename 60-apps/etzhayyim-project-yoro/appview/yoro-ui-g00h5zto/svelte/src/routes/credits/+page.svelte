@@ -110,7 +110,7 @@
 	let hcJobs = $state<HCJob[]>([]);
 	let hcLoading = $state(true);
 
-	// Credits ledger (ai-gftd-project-credits integration)
+	// Credits ledger (etzhayyim-project-credits integration)
 	interface CreditTx { id: string; type: 'earn' | 'spend'; amount: number; source: string; description: string; createdAt: string; }
 	let ledgerBalance = $state<number | null>(null);
 	let txHistory = $state<CreditTx[]>([]);

@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 
-	// Query: /bpmn-viewer?path=60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/moj.bpmn
+	// Query: /bpmn-viewer?path=60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/moj.bpmn
 	//   or:  /bpmn-viewer?iso=jpn&file=moj
 	let path = $state('');
 	let iso = $state('');
@@ -28,7 +28,7 @@
 		error = '';
 		xml = '';
 		try {
-			// Resolve URL. The BPMN files live under the ai-gftd-apps repo. For
+			// Resolve URL. The BPMN files live under the etzhayyim-apps repo. For
 			// production we expose them via a simple /bpmn-files/{iso}/{file}.bpmn
 			// static path that the Worker proxies to the repo asset. Until that
 			// proxy exists, fall back to a clear error message.
@@ -105,7 +105,7 @@
 				<p class="mt-1 font-mono">{error}</p>
 				<p class="mt-3 text-gv2-text-muted">
 					BPMN files are sourced from
-					<span class="font-mono">60-apps/ai-gftd-project-states/data/gov/{'{iso}'}/bpmn/</span>.
+					<span class="font-mono">60-apps/etzhayyim-project-states/data/gov/{'{iso}'}/bpmn/</span>.
 					A static asset proxy is required to serve them to the browser.
 				</p>
 			</div>
