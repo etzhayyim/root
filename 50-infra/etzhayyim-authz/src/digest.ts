@@ -53,7 +53,7 @@ export function provisionDigest(args: {
  * inner = keccak256("etzhayyim-vendor-continuity" || vendorRootDid || dwebHandleHash || newActiveKey)
  * digest = keccak256("\x19Ethereum Signed Message:\n32" || inner)
  *
- * The vendorRootDid is a string (e.g. "did:erc725:gftd:260425:0x..."), encoded as UTF-8 bytes.
+ * The vendorRootDid is a string (e.g. "did:erc725:etzhayyim:260425:0x..."), encoded as UTF-8 bytes.
  */
 export function vendorContinuityDigest(args: {
   vendorRootDid: string;

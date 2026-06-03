@@ -4,4 +4,4 @@ metadata:
   name: buildkit
   labels:
     app.kubernetes.io/name: buildkit
-    app.kubernetes.io/part-of: gftd-remote-build
+    app.kubernetes.io/part-of: etzhayyim-remote-build

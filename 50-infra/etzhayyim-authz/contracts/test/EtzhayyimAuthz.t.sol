@@ -80,7 +80,7 @@ contract EtzhayyimAuthzTest is Test {
     // ─── mirrorVendorRoot ─────────────────────────────────────────────
 
     function test_mirrorVendorRoot_happyPath() public {
-        bytes32 vendorRootHash = keccak256("did:erc725:gftd:260425:0xVENDOR");
+        bytes32 vendorRootHash = keccak256("did:erc725:etzhayyim:260425:0xVENDOR");
         address vendorAddr = makeAddr("vendorWallet");
 
         vm.prank(council);

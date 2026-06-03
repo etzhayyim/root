@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-05-21T12:31:19.092630Z",
   "mesh_subnet": "10.99.0.0/16",
-  "mesh_ip_note": "Computed locally; runtime mesh-IP comes from ~/.etzhayyim/mesh/identity.json (or legacy ~/.gftd/mesh/identity.json).",
+  "mesh_ip_note": "Computed locally; runtime mesh-IP comes from ~/.etzhayyim/mesh/identity.json (or legacy ~/.etzhayyim/mesh/identity.json).",
   "entries": [
     {
       "lang": "rust",

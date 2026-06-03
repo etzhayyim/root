@@ -8,10 +8,10 @@ metadata:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshgtfsjp
+  name: etzhayyim-apps-maps-bulkrefreshgtfsjp
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshgtfsjp
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshgtfsjp
     etzhayyim.com/bpmn-process: maps_bulk_refresh_gtfs_jp
 spec:
   schedule: "0 0 * * *"
@@ -41,10 +41,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-refreshcoveragestats
+  name: etzhayyim-apps-maps-refreshcoveragestats
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-refreshcoveragestats
+    app.kubernetes.io/name: etzhayyim-apps-maps-refreshcoveragestats
     etzhayyim.com/bpmn-process: maps_refresh_coverage_stats
 spec:
   schedule: "*/5 * * * *"
@@ -74,10 +74,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-computeaircrafttrack
+  name: etzhayyim-apps-maps-computeaircrafttrack
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-computeaircrafttrack
+    app.kubernetes.io/name: etzhayyim-apps-maps-computeaircrafttrack
     etzhayyim.com/bpmn-process: maps_compute_aircraft_track
 spec:
   schedule: "*/5 * * * *"
@@ -107,10 +107,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshwikipedia
+  name: etzhayyim-apps-maps-bulkrefreshwikipedia
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshwikipedia
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshwikipedia
     etzhayyim.com/bpmn-process: maps_bulk_refresh_wikipedia
 spec:
   schedule: "0 0 * * *"
@@ -140,10 +140,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-ingestcelestialcatalogs
+  name: etzhayyim-apps-maps-ingestcelestialcatalogs
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-ingestcelestialcatalogs
+    app.kubernetes.io/name: etzhayyim-apps-maps-ingestcelestialcatalogs
     etzhayyim.com/bpmn-process: maps_ingest_celestial_catalogs
 spec:
   schedule: "0 0 1 * *"
@@ -173,10 +173,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-sciencetaxonsync
+  name: etzhayyim-apps-maps-sciencetaxonsync
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-sciencetaxonsync
+    app.kubernetes.io/name: etzhayyim-apps-maps-sciencetaxonsync
     etzhayyim.com/bpmn-process: science_taxon_sync
 spec:
   schedule: "0 */12 * * *"
@@ -206,10 +206,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshosmplanet
+  name: etzhayyim-apps-maps-bulkrefreshosmplanet
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshosmplanet
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshosmplanet
     etzhayyim.com/bpmn-process: maps_bulk_refresh_osm_planet
 spec:
   schedule: "0 0 * * 0"
@@ -239,10 +239,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-sentinelingest
+  name: etzhayyim-apps-maps-sentinelingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-sentinelingest
+    app.kubernetes.io/name: etzhayyim-apps-maps-sentinelingest
     etzhayyim.com/bpmn-process: maps_sentinel_ingest
 spec:
   schedule: "0 0 * * *"
@@ -272,10 +272,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-runpendingcoveragejobs
+  name: etzhayyim-apps-maps-runpendingcoveragejobs
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-runpendingcoveragejobs
+    app.kubernetes.io/name: etzhayyim-apps-maps-runpendingcoveragejobs
     etzhayyim.com/bpmn-process: maps_run_pending_coverage_jobs
 spec:
   schedule: "0 0 * * *"
@@ -305,10 +305,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-sciencepaperingest
+  name: etzhayyim-apps-maps-sciencepaperingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-sciencepaperingest
+    app.kubernetes.io/name: etzhayyim-apps-maps-sciencepaperingest
     etzhayyim.com/bpmn-process: science_paper_ingest
 spec:
   schedule: "0 */6 * * *"
@@ -338,10 +338,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-refreshtlecatalog
+  name: etzhayyim-apps-maps-refreshtlecatalog
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-refreshtlecatalog
+    app.kubernetes.io/name: etzhayyim-apps-maps-refreshtlecatalog
     etzhayyim.com/bpmn-process: maps_refresh_tle_catalog
 spec:
   schedule: "0 */6 * * *"
@@ -371,10 +371,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-advancecoverage
+  name: etzhayyim-apps-maps-advancecoverage
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-advancecoverage
+    app.kubernetes.io/name: etzhayyim-apps-maps-advancecoverage
     etzhayyim.com/bpmn-process: maps_advance_coverage
 spec:
   schedule: "*/1 * * * *"
@@ -404,10 +404,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-backfillaircraftregistry
+  name: etzhayyim-apps-maps-backfillaircraftregistry
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-backfillaircraftregistry
+    app.kubernetes.io/name: etzhayyim-apps-maps-backfillaircraftregistry
     etzhayyim.com/bpmn-process: maps_backfill_aircraft_registry
 spec:
   schedule: "0 0 * * 0"
@@ -437,10 +437,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshgeonames
+  name: etzhayyim-apps-maps-bulkrefreshgeonames
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshgeonames
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshgeonames
     etzhayyim.com/bpmn-process: maps_bulk_refresh_geonames
 spec:
   schedule: "0 0 * * *"
@@ -470,10 +470,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-buildingingest3d
+  name: etzhayyim-apps-maps-buildingingest3d
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-buildingingest3d
+    app.kubernetes.io/name: etzhayyim-apps-maps-buildingingest3d
     etzhayyim.com/bpmn-process: maps_building_ingest_3d
 spec:
   schedule: "0 * * * *"
@@ -503,10 +503,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshferryroutes
+  name: etzhayyim-apps-maps-bulkrefreshferryroutes
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshferryroutes
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshferryroutes
     etzhayyim.com/bpmn-process: maps_bulk_refresh_ferry_routes
 spec:
   schedule: "0 0 * * 0"
@@ -536,10 +536,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshwikidata
+  name: etzhayyim-apps-maps-bulkrefreshwikidata
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshwikidata
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshwikidata
     etzhayyim.com/bpmn-process: maps_bulk_refresh_wikidata
 spec:
   schedule: "0 0 * * *"
@@ -569,10 +569,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-bulkrefreshopenflights
+  name: etzhayyim-apps-maps-bulkrefreshopenflights
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-bulkrefreshopenflights
+    app.kubernetes.io/name: etzhayyim-apps-maps-bulkrefreshopenflights
     etzhayyim.com/bpmn-process: maps_bulk_refresh_openflights
 spec:
   schedule: "0 0 * * 0"
@@ -602,10 +602,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-precomputesatellitepasses
+  name: etzhayyim-apps-maps-precomputesatellitepasses
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-precomputesatellitepasses
+    app.kubernetes.io/name: etzhayyim-apps-maps-precomputesatellitepasses
     etzhayyim.com/bpmn-process: maps_precompute_satellite_passes
 spec:
   schedule: "0 * * * *"
@@ -635,10 +635,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-purgestalelivetracker
+  name: etzhayyim-apps-maps-purgestalelivetracker
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-purgestalelivetracker
+    app.kubernetes.io/name: etzhayyim-apps-maps-purgestalelivetracker
     etzhayyim.com/bpmn-process: maps_purge_stale_live_tracker
 spec:
   schedule: "0 0 * * *"
@@ -668,10 +668,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-livetrackaircraft
+  name: etzhayyim-apps-maps-livetrackaircraft
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-livetrackaircraft
+    app.kubernetes.io/name: etzhayyim-apps-maps-livetrackaircraft
     etzhayyim.com/bpmn-process: maps_live_track_aircraft
 spec:
   schedule: "0 0 * * *"
@@ -701,10 +701,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-scienceelementseed
+  name: etzhayyim-apps-maps-scienceelementseed
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-scienceelementseed
+    app.kubernetes.io/name: etzhayyim-apps-maps-scienceelementseed
     etzhayyim.com/bpmn-process: science_element_seed
 spec:
   schedule: "0 0 * * *"
@@ -734,10 +734,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-aismarine-refreshvesseldensity
+  name: etzhayyim-apps-maps-aismarine-refreshvesseldensity
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-aismarine-refreshvesseldensity
+    app.kubernetes.io/name: etzhayyim-apps-maps-aismarine-refreshvesseldensity
     etzhayyim.com/bpmn-process: maps_aismarine_refresh_vessel_density
 spec:
   schedule: "*/15 * * * *"
@@ -767,10 +767,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-aismarine-voyagedetector
+  name: etzhayyim-apps-maps-aismarine-voyagedetector
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-aismarine-voyagedetector
+    app.kubernetes.io/name: etzhayyim-apps-maps-aismarine-voyagedetector
     etzhayyim.com/bpmn-process: maps_aismarine_voyage_detector
 spec:
   schedule: "*/5 * * * *"
@@ -800,10 +800,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps-aismarine-refreshvesselmaster
+  name: etzhayyim-apps-maps-aismarine-refreshvesselmaster
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps-aismarine-refreshvesselmaster
+    app.kubernetes.io/name: etzhayyim-apps-maps-aismarine-refreshvesselmaster
     etzhayyim.com/bpmn-process: maps_aismarine_refresh_vessel_master
 spec:
   schedule: "0 0 * * *"
@@ -833,10 +833,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-tasks-crontick
+  name: etzhayyim-apps-tasks-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-tasks-crontick
+    app.kubernetes.io/name: etzhayyim-apps-tasks-crontick
     etzhayyim.com/bpmn-process: tasks_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -866,10 +866,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-calendar-crontick
+  name: etzhayyim-apps-calendar-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-calendar-crontick
+    app.kubernetes.io/name: etzhayyim-apps-calendar-crontick
     etzhayyim.com/bpmn-process: calendar_cron_tick
 spec:
   schedule: "*/15 * * * *"
@@ -899,10 +899,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-sheets-crontick
+  name: etzhayyim-apps-sheets-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-sheets-crontick
+    app.kubernetes.io/name: etzhayyim-apps-sheets-crontick
     etzhayyim.com/bpmn-process: sheets_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -932,10 +932,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-murakumo-crontick
+  name: etzhayyim-apps-murakumo-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-murakumo-crontick
+    app.kubernetes.io/name: etzhayyim-apps-murakumo-crontick
     etzhayyim.com/bpmn-process: murakumo_cron_tick
 spec:
   schedule: "*/5 * * * *"
@@ -965,10 +965,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-murakumo-fleethealthcheck
+  name: etzhayyim-apps-murakumo-fleethealthcheck
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-murakumo-fleethealthcheck
+    app.kubernetes.io/name: etzhayyim-apps-murakumo-fleethealthcheck
     etzhayyim.com/bpmn-process: murakumo_fleet_health_check
 spec:
   schedule: "*/5 * * * *"
@@ -998,10 +998,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-otakiage-matsurischedule
+  name: etzhayyim-apps-otakiage-matsurischedule
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-otakiage-matsurischedule
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-matsurischedule
     etzhayyim.com/bpmn-process: otakiage_matsuri_schedule
 spec:
   schedule: "0 0 * * *"
@@ -1031,10 +1031,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-otakiage-reuseexpire
+  name: etzhayyim-apps-otakiage-reuseexpire
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-otakiage-reuseexpire
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-reuseexpire
     etzhayyim.com/bpmn-process: otakiage_reuse_expire
 spec:
   schedule: "0 0 * * *"
@@ -1064,10 +1064,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-otakiage-certificateanchorsweep
+  name: etzhayyim-apps-otakiage-certificateanchorsweep
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-otakiage-certificateanchorsweep
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-certificateanchorsweep
     etzhayyim.com/bpmn-process: otakiage_certificate_anchor_sweep
 spec:
   schedule: "0 * * * *"
@@ -1097,10 +1097,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-otakiage-reusematch
+  name: etzhayyim-apps-otakiage-reusematch
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-otakiage-reusematch
+    app.kubernetes.io/name: etzhayyim-apps-otakiage-reusematch
     etzhayyim.com/bpmn-process: otakiage_reuse_match
 spec:
   schedule: "0 * * * *"
@@ -1130,10 +1130,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-meet-crontick
+  name: etzhayyim-apps-meet-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-meet-crontick
+    app.kubernetes.io/name: etzhayyim-apps-meet-crontick
     etzhayyim.com/bpmn-process: meet_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -1163,10 +1163,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-ingest-netintelfingerprintdelta
+  name: etzhayyim-apps-ingest-netintelfingerprintdelta
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelfingerprintdelta
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelfingerprintdelta
     etzhayyim.com/bpmn-process: netintel_fingerprint_delta
 spec:
   schedule: "*/1 * * * *"
@@ -1196,10 +1196,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-ingest-netintelwhoisdelta
+  name: etzhayyim-apps-ingest-netintelwhoisdelta
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelwhoisdelta
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelwhoisdelta
     etzhayyim.com/bpmn-process: netintel_whois_delta
 spec:
   schedule: "*/1 * * * *"
@@ -1229,10 +1229,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-ingest-netintelipenrichdelta
+  name: etzhayyim-apps-ingest-netintelipenrichdelta
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelipenrichdelta
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelipenrichdelta
     etzhayyim.com/bpmn-process: netintel_ip_enrich_delta
 spec:
   schedule: "*/1 * * * *"
@@ -1262,10 +1262,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-ingest-netintelscanbannerdelta
+  name: etzhayyim-apps-ingest-netintelscanbannerdelta
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-ingest-netintelscanbannerdelta
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netintelscanbannerdelta
     etzhayyim.com/bpmn-process: netintel_scan_banner_delta
 spec:
   schedule: "*/1 * * * *"
@@ -1295,10 +1295,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-ingest-netinteldnsdelta
+  name: etzhayyim-apps-ingest-netinteldnsdelta
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-ingest-netinteldnsdelta
+    app.kubernetes.io/name: etzhayyim-apps-ingest-netinteldnsdelta
     etzhayyim.com/bpmn-process: netintel_dns_delta
 spec:
   schedule: "*/1 * * * *"
@@ -1328,10 +1328,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-contacts-crontick
+  name: etzhayyim-apps-contacts-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-contacts-crontick
+    app.kubernetes.io/name: etzhayyim-apps-contacts-crontick
     etzhayyim.com/bpmn-process: contacts_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -1361,10 +1361,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-graph-expandtick
+  name: etzhayyim-apps-graph-expandtick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-graph-expandtick
+    app.kubernetes.io/name: etzhayyim-apps-graph-expandtick
     etzhayyim.com/bpmn-process: graph_expand_tick
 spec:
   schedule: "*/30 * * * *"
@@ -1394,10 +1394,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-graph-consumerepocommits
+  name: etzhayyim-apps-graph-consumerepocommits
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-graph-consumerepocommits
+    app.kubernetes.io/name: etzhayyim-apps-graph-consumerepocommits
     etzhayyim.com/bpmn-process: graph_consume_repo_commits
 spec:
   schedule: "*/1 * * * *"
@@ -1427,10 +1427,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-minimaxsweep
+  name: etzhayyim-apps-wellbecoming-minimaxsweep
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-minimaxsweep
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-minimaxsweep
     etzhayyim.com/bpmn-process: wellbecoming_minimax_sweep
 spec:
   schedule: "*/5 * * * *"
@@ -1460,10 +1460,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-beliefnoiseinject
+  name: etzhayyim-apps-wellbecoming-beliefnoiseinject
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-beliefnoiseinject
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-beliefnoiseinject
     etzhayyim.com/bpmn-process: wellbecoming_belief_noise_inject
 spec:
   schedule: "0 * * * *"
@@ -1493,10 +1493,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-processmining
+  name: etzhayyim-apps-wellbecoming-processmining
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-processmining
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-processmining
     etzhayyim.com/bpmn-process: wellbecoming_process_mining
 spec:
   schedule: "0 */6 * * *"
@@ -1526,10 +1526,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-floorviolationalert
+  name: etzhayyim-apps-wellbecoming-floorviolationalert
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-floorviolationalert
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-floorviolationalert
     etzhayyim.com/bpmn-process: wellbecoming_floor_violation_alert
 spec:
   schedule: "*/30 * * * *"
@@ -1559,10 +1559,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-trustweightupdate
+  name: etzhayyim-apps-wellbecoming-trustweightupdate
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-trustweightupdate
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-trustweightupdate
     etzhayyim.com/bpmn-process: wellbecoming_trust_weight_update
 spec:
   schedule: "0 * * * *"
@@ -1592,10 +1592,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-beliefinfluencepropagate
+  name: etzhayyim-apps-wellbecoming-beliefinfluencepropagate
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-beliefinfluencepropagate
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-beliefinfluencepropagate
     etzhayyim.com/bpmn-process: wellbecoming_belief_influence_propagate
 spec:
   schedule: "0 * * * *"
@@ -1625,10 +1625,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-detectbottleneck
+  name: etzhayyim-apps-wellbecoming-detectbottleneck
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-detectbottleneck
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-detectbottleneck
     etzhayyim.com/bpmn-process: wellbecoming_detect_bottleneck
 spec:
   schedule: "0 * * * *"
@@ -1658,10 +1658,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-beliefrestoringcapture
+  name: etzhayyim-apps-wellbecoming-beliefrestoringcapture
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-beliefrestoringcapture
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-beliefrestoringcapture
     etzhayyim.com/bpmn-process: wellbecoming_belief_restoring_capture
 spec:
   schedule: "0 * * * *"
@@ -1691,10 +1691,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-wellbecoming-proactiveconnect
+  name: etzhayyim-apps-wellbecoming-proactiveconnect
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-wellbecoming-proactiveconnect
+    app.kubernetes.io/name: etzhayyim-apps-wellbecoming-proactiveconnect
     etzhayyim.com/bpmn-process: wellbecoming_proactive_connect
 spec:
   schedule: "0 */2 * * *"
@@ -1724,10 +1724,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-science-sciencepaperingest
+  name: etzhayyim-apps-science-sciencepaperingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-science-sciencepaperingest
+    app.kubernetes.io/name: etzhayyim-apps-science-sciencepaperingest
     etzhayyim.com/bpmn-process: science_paper_ingest
 spec:
   schedule: "0 0 * * *"
@@ -1757,10 +1757,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-science-kamiseedscientific
+  name: etzhayyim-apps-science-kamiseedscientific
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-science-kamiseedscientific
+    app.kubernetes.io/name: etzhayyim-apps-science-kamiseedscientific
     etzhayyim.com/bpmn-process: science_kami_seed_scientific
 spec:
   schedule: "0 */6 * * *"
@@ -1790,10 +1790,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-lifehack-dailydustpost
+  name: etzhayyim-apps-lifehack-dailydustpost
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-lifehack-dailydustpost
+    app.kubernetes.io/name: etzhayyim-apps-lifehack-dailydustpost
     etzhayyim.com/bpmn-process: lifehack_daily_dust_post
 spec:
   schedule: "0 0 * * *"
@@ -1823,10 +1823,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-pds-resyncmitamacrontriggers
+  name: etzhayyim-apps-pds-resyncmitamacrontriggers
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-pds-resyncmitamacrontriggers
+    app.kubernetes.io/name: etzhayyim-apps-pds-resyncmitamacrontriggers
     etzhayyim.com/bpmn-process: pds_resync_mitama_cron_triggers
 spec:
   schedule: "*/5 * * * *"
@@ -1856,10 +1856,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-pds-warmdiscovercache
+  name: etzhayyim-apps-pds-warmdiscovercache
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-pds-warmdiscovercache
+    app.kubernetes.io/name: etzhayyim-apps-pds-warmdiscovercache
     etzhayyim.com/bpmn-process: pds_warm_discover_cache
 spec:
   schedule: "*/5 * * * *"
@@ -1889,10 +1889,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-pds-syncwriteoutbox
+  name: etzhayyim-apps-pds-syncwriteoutbox
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-pds-syncwriteoutbox
+    app.kubernetes.io/name: etzhayyim-apps-pds-syncwriteoutbox
     etzhayyim.com/bpmn-process: pds_sync_write_outbox
 spec:
   schedule: "*/5 * * * *"
@@ -1922,10 +1922,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-pds-runheartbeatcron
+  name: etzhayyim-apps-pds-runheartbeatcron
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-pds-runheartbeatcron
+    app.kubernetes.io/name: etzhayyim-apps-pds-runheartbeatcron
     etzhayyim.com/bpmn-process: pds_run_heartbeat_cron
 spec:
   schedule: "*/5 * * * *"
@@ -1955,10 +1955,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-pds-rotatesigningkeys
+  name: etzhayyim-apps-pds-rotatesigningkeys
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-pds-rotatesigningkeys
+    app.kubernetes.io/name: etzhayyim-apps-pds-rotatesigningkeys
     etzhayyim.com/bpmn-process: pds_rotate_signing_keys
 spec:
   schedule: "*/5 * * * *"
@@ -1988,10 +1988,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-opensmartphonesoc-fetchriscvecosystemde
+  name: etzhayyim-apps-opensmartphonesoc-fetchriscvecosystemde
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-opensmartphonesoc-fetchriscvecosystemde
+    app.kubernetes.io/name: etzhayyim-apps-opensmartphonesoc-fetchriscvecosystemde
     etzhayyim.com/bpmn-process: open_smartphone_soc_fetch_riscv_ecosystem_delta
 spec:
   schedule: "0 0 * * 0"
@@ -2021,10 +2021,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-docs-crontick
+  name: etzhayyim-apps-docs-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-docs-crontick
+    app.kubernetes.io/name: etzhayyim-apps-docs-crontick
     etzhayyim.com/bpmn-process: docs_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -2054,10 +2054,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-yoro-platformpulse
+  name: etzhayyim-apps-yoro-platformpulse
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-yoro-platformpulse
+    app.kubernetes.io/name: etzhayyim-apps-yoro-platformpulse
     etzhayyim.com/bpmn-process: yoro_platform_pulse
 spec:
   schedule: "0 */4 * * *"
@@ -2087,10 +2087,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-atproto-crontick
+  name: etzhayyim-apps-atproto-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-atproto-crontick
+    app.kubernetes.io/name: etzhayyim-apps-atproto-crontick
     etzhayyim.com/bpmn-process: atproto_cron_tick
 spec:
   schedule: "*/5 * * * *"
@@ -2120,10 +2120,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-slides-crontick
+  name: etzhayyim-apps-slides-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-slides-crontick
+    app.kubernetes.io/name: etzhayyim-apps-slides-crontick
     etzhayyim.com/bpmn-process: slides_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -2153,10 +2153,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-hanrei-hanreiingest
+  name: etzhayyim-apps-hanrei-hanreiingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-hanrei-hanreiingest
+    app.kubernetes.io/name: etzhayyim-apps-hanrei-hanreiingest
     etzhayyim.com/bpmn-process: hanrei_ingest
 spec:
   schedule: "0 0 * * *"
@@ -2186,10 +2186,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-businessperson-enrichorglei
+  name: etzhayyim-apps-businessperson-enrichorglei
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-businessperson-enrichorglei
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-enrichorglei
     etzhayyim.com/bpmn-process: business_person_enrich_org_lei
 spec:
   schedule: "0 0 * * *"
@@ -2219,10 +2219,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-businessperson-scoreinfluence
+  name: etzhayyim-apps-businessperson-scoreinfluence
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-businessperson-scoreinfluence
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-scoreinfluence
     etzhayyim.com/bpmn-process: business_person_score_influence
 spec:
   schedule: "0 0 * * *"
@@ -2252,10 +2252,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-businessperson-enrichglobalpersons
+  name: etzhayyim-apps-businessperson-enrichglobalpersons
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-businessperson-enrichglobalpersons
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-enrichglobalpersons
     etzhayyim.com/bpmn-process: business_person_enrich_global_persons
 spec:
   schedule: "0 0 * * *"
@@ -2285,10 +2285,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-businessperson-enrichcareerllm
+  name: etzhayyim-apps-businessperson-enrichcareerllm
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-businessperson-enrichcareerllm
+    app.kubernetes.io/name: etzhayyim-apps-businessperson-enrichcareerllm
     etzhayyim.com/bpmn-process: business_person_enrich_career_llm
 spec:
   schedule: "0 0 * * *"
@@ -2318,10 +2318,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-jpcorpfinance-startdailyingest
+  name: etzhayyim-apps-jpcorpfinance-startdailyingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-jpcorpfinance-startdailyingest
+    app.kubernetes.io/name: etzhayyim-apps-jpcorpfinance-startdailyingest
     etzhayyim.com/bpmn-process: jp_corp_finance_daily
 spec:
   schedule: "0 0 * * *"
@@ -2351,10 +2351,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-attentioningest
+  name: etzhayyim-apps-aria-attentioningest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-attentioningest
+    app.kubernetes.io/name: etzhayyim-apps-aria-attentioningest
     etzhayyim.com/bpmn-process: aria_attention_ingest
 spec:
   schedule: "*/5 * * * *"
@@ -2384,10 +2384,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-marketingest
+  name: etzhayyim-apps-aria-marketingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-marketingest
+    app.kubernetes.io/name: etzhayyim-apps-aria-marketingest
     etzhayyim.com/bpmn-process: aria_market_ingest
 spec:
   schedule: "*/5 * * * *"
@@ -2417,10 +2417,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-emotioningest
+  name: etzhayyim-apps-aria-emotioningest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-emotioningest
+    app.kubernetes.io/name: etzhayyim-apps-aria-emotioningest
     etzhayyim.com/bpmn-process: aria_emotion_ingest
 spec:
   schedule: "*/5 * * * *"
@@ -2450,10 +2450,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-requestingest
+  name: etzhayyim-apps-aria-requestingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-requestingest
+    app.kubernetes.io/name: etzhayyim-apps-aria-requestingest
     etzhayyim.com/bpmn-process: aria_request_ingest
 spec:
   schedule: "0 * * * *"
@@ -2483,10 +2483,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-influenceingest
+  name: etzhayyim-apps-aria-influenceingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-influenceingest
+    app.kubernetes.io/name: etzhayyim-apps-aria-influenceingest
     etzhayyim.com/bpmn-process: aria_influence_ingest
 spec:
   schedule: "*/5 * * * *"
@@ -2516,10 +2516,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-moneyflowingest
+  name: etzhayyim-apps-aria-moneyflowingest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-moneyflowingest
+    app.kubernetes.io/name: etzhayyim-apps-aria-moneyflowingest
     etzhayyim.com/bpmn-process: aria_money_flow_ingest
 spec:
   schedule: "0 0 * * *"
@@ -2549,10 +2549,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-aria-minimaxsweep
+  name: etzhayyim-apps-aria-minimaxsweep
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-aria-minimaxsweep
+    app.kubernetes.io/name: etzhayyim-apps-aria-minimaxsweep
     etzhayyim.com/bpmn-process: aria_minimax_sweep
 spec:
   schedule: "*/5 * * * *"
@@ -2582,10 +2582,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-bluesky-refreshstalest
+  name: etzhayyim-apps-bluesky-refreshstalest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-bluesky-refreshstalest
+    app.kubernetes.io/name: etzhayyim-apps-bluesky-refreshstalest
     etzhayyim.com/bpmn-process: bluesky_refresh_stalest
 spec:
   schedule: "*/30 * * * *"
@@ -2615,10 +2615,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-hf-modelscan
+  name: etzhayyim-apps-hf-modelscan
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-hf-modelscan
+    app.kubernetes.io/name: etzhayyim-apps-hf-modelscan
     etzhayyim.com/bpmn-process: hf_model_scan
 spec:
   schedule: "0 */12 * * *"
@@ -2648,10 +2648,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-hf-datasetscan
+  name: etzhayyim-apps-hf-datasetscan
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-hf-datasetscan
+    app.kubernetes.io/name: etzhayyim-apps-hf-datasetscan
     etzhayyim.com/bpmn-process: hf_dataset_scan
 spec:
   schedule: "0 0 * * *"
@@ -2681,10 +2681,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-irscrape-processqueue
+  name: etzhayyim-apps-irscrape-processqueue
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-irscrape-processqueue
+    app.kubernetes.io/name: etzhayyim-apps-irscrape-processqueue
     etzhayyim.com/bpmn-process: ir_scrape_process_queue
 spec:
   schedule: "0 * * * *"
@@ -2714,10 +2714,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-irscrape-queueseeds
+  name: etzhayyim-apps-irscrape-queueseeds
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-irscrape-queueseeds
+    app.kubernetes.io/name: etzhayyim-apps-irscrape-queueseeds
     etzhayyim.com/bpmn-process: ir_scrape_queue_seeds
 spec:
   schedule: "0 */6 * * *"
@@ -2747,10 +2747,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-handotai-handotaicollect
+  name: etzhayyim-apps-handotai-handotaicollect
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-handotai-handotaicollect
+    app.kubernetes.io/name: etzhayyim-apps-handotai-handotaicollect
     etzhayyim.com/bpmn-process: handotai_collect
 spec:
   schedule: "0 */4 * * *"
@@ -2780,10 +2780,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-market-chaindemandpoll
+  name: etzhayyim-market-chaindemandpoll
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-market-chaindemandpoll
+    app.kubernetes.io/name: etzhayyim-market-chaindemandpoll
     etzhayyim.com/bpmn-process: market_chain_demand_poll
 spec:
   schedule: "*/30 * * * *"
@@ -2813,10 +2813,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-market-internetdemandpoll
+  name: etzhayyim-market-internetdemandpoll
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-market-internetdemandpoll
+    app.kubernetes.io/name: etzhayyim-market-internetdemandpoll
     etzhayyim.com/bpmn-process: market_internet_demand_poll
 spec:
   schedule: "*/30 * * * *"
@@ -2846,10 +2846,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-market-settlementbundle
+  name: etzhayyim-market-settlementbundle
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-market-settlementbundle
+    app.kubernetes.io/name: etzhayyim-market-settlementbundle
     etzhayyim.com/bpmn-process: market_settlement_bundle
 spec:
   schedule: "0 0 * * *"
@@ -2879,10 +2879,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-scanrealestate
+  name: etzhayyim-apps-arb-scanrealestate
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-scanrealestate
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanrealestate
     etzhayyim.com/bpmn-process: arb_scan_re
 spec:
   schedule: "0 * * * *"
@@ -2912,10 +2912,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-scanequities
+  name: etzhayyim-apps-arb-scanequities
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-scanequities
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanequities
     etzhayyim.com/bpmn-process: arb_scan_eq
 spec:
   schedule: "*/5 * * * *"
@@ -2945,10 +2945,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-scancommodities
+  name: etzhayyim-apps-arb-scancommodities
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-scancommodities
+    app.kubernetes.io/name: etzhayyim-apps-arb-scancommodities
     etzhayyim.com/bpmn-process: arb_scan_com
 spec:
   schedule: "*/5 * * * *"
@@ -2978,10 +2978,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-publishdigest
+  name: etzhayyim-apps-arb-publishdigest
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-publishdigest
+    app.kubernetes.io/name: etzhayyim-apps-arb-publishdigest
     etzhayyim.com/bpmn-process: arb_publish_digest
 spec:
   schedule: "*/15 * * * *"
@@ -3011,10 +3011,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-scanfx
+  name: etzhayyim-apps-arb-scanfx
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-scanfx
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanfx
     etzhayyim.com/bpmn-process: arb_scan_fx
 spec:
   schedule: "* * * * *"
@@ -3044,10 +3044,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-scanfutures
+  name: etzhayyim-apps-arb-scanfutures
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-scanfutures
+    app.kubernetes.io/name: etzhayyim-apps-arb-scanfutures
     etzhayyim.com/bpmn-process: arb_scan_fut
 spec:
   schedule: "*/1 * * * *"
@@ -3077,10 +3077,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arb-scancrypto
+  name: etzhayyim-apps-arb-scancrypto
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arb-scancrypto
+    app.kubernetes.io/name: etzhayyim-apps-arb-scancrypto
     etzhayyim.com/bpmn-process: arb_scan_cr
 spec:
   schedule: "0 0 * * *"
@@ -3110,10 +3110,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-copyright-socialcoveragereport
+  name: etzhayyim-apps-copyright-socialcoveragereport
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-copyright-socialcoveragereport
+    app.kubernetes.io/name: etzhayyim-apps-copyright-socialcoveragereport
     etzhayyim.com/bpmn-process: copyright_coverage_report
 spec:
   schedule: "0 */6 * * *"
@@ -3143,10 +3143,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-copyright-ingestdatacite
+  name: etzhayyim-apps-copyright-ingestdatacite
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-copyright-ingestdatacite
+    app.kubernetes.io/name: etzhayyim-apps-copyright-ingestdatacite
     etzhayyim.com/bpmn-process: copyright_datacite_ingest
 spec:
   schedule: "0 0 * * *"
@@ -3176,10 +3176,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-copyright-ingestcrossref
+  name: etzhayyim-apps-copyright-ingestcrossref
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-copyright-ingestcrossref
+    app.kubernetes.io/name: etzhayyim-apps-copyright-ingestcrossref
     etzhayyim.com/bpmn-process: copyright_crossref_ingest
 spec:
   schedule: "0 0 * * *"
@@ -3209,10 +3209,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-flightoffer-cleanupruns
+  name: etzhayyim-apps-flightoffer-cleanupruns
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-flightoffer-cleanupruns
+    app.kubernetes.io/name: etzhayyim-apps-flightoffer-cleanupruns
     etzhayyim.com/bpmn-process: flight_offer_cleanup_runs
 spec:
   schedule: "0 0 * * *"
@@ -3242,10 +3242,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-flightoffer-pollwatchlist
+  name: etzhayyim-apps-flightoffer-pollwatchlist
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-flightoffer-pollwatchlist
+    app.kubernetes.io/name: etzhayyim-apps-flightoffer-pollwatchlist
     etzhayyim.com/bpmn-process: flight_offer_poll_watchlist
 spec:
   schedule: "0 */6 * * *"
@@ -3275,10 +3275,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-magatama-organizerrun
+  name: etzhayyim-apps-magatama-organizerrun
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-magatama-organizerrun
+    app.kubernetes.io/name: etzhayyim-apps-magatama-organizerrun
     etzhayyim.com/bpmn-process: magatama_organizer_run
 spec:
   schedule: "*/5 * * * *"
@@ -3308,10 +3308,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-arms-scanexpiredpermits
+  name: etzhayyim-apps-arms-scanexpiredpermits
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-arms-scanexpiredpermits
+    app.kubernetes.io/name: etzhayyim-apps-arms-scanexpiredpermits
     etzhayyim.com/bpmn-process: arms_expired_permit_scanner
 spec:
   schedule: "0 0 * * *"
@@ -3341,10 +3341,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-drive-crontick
+  name: etzhayyim-apps-drive-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-drive-crontick
+    app.kubernetes.io/name: etzhayyim-apps-drive-crontick
     etzhayyim.com/bpmn-process: drive_cron_tick
 spec:
   schedule: "*/30 * * * *"
@@ -3374,10 +3374,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-resourceflow-detectanomaly
+  name: etzhayyim-apps-resourceflow-detectanomaly
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-resourceflow-detectanomaly
+    app.kubernetes.io/name: etzhayyim-apps-resourceflow-detectanomaly
     etzhayyim.com/bpmn-process: resource_flow_detect_anomaly
 spec:
   schedule: "0 0 * * *"
@@ -3407,10 +3407,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-isin-isincollect
+  name: etzhayyim-apps-isin-isincollect
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-isin-isincollect
+    app.kubernetes.io/name: etzhayyim-apps-isin-isincollect
     etzhayyim.com/bpmn-process: isin_collect
 spec:
   schedule: "0 */6 * * *"
@@ -3440,10 +3440,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-maps3d-processtile
+  name: etzhayyim-apps-maps3d-processtile
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-maps3d-processtile
+    app.kubernetes.io/name: etzhayyim-apps-maps3d-processtile
     etzhayyim.com/bpmn-process: maps3d_process_tile
 spec:
   schedule: "*/15 * * * *"
@@ -3473,10 +3473,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-jpfiscal-fiscaledinetdaily
+  name: etzhayyim-apps-jpfiscal-fiscaledinetdaily
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-jpfiscal-fiscaledinetdaily
+    app.kubernetes.io/name: etzhayyim-apps-jpfiscal-fiscaledinetdaily
     etzhayyim.com/bpmn-process: jp_fiscal_edinet_daily
 spec:
   schedule: "0 0 * * *"
@@ -3506,10 +3506,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-jpfiscal-runscrapers
+  name: etzhayyim-apps-jpfiscal-runscrapers
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-jpfiscal-runscrapers
+    app.kubernetes.io/name: etzhayyim-apps-jpfiscal-runscrapers
     etzhayyim.com/bpmn-process: jp_fiscal_run_scrapers
 spec:
   schedule: "0 */6 * * *"
@@ -3539,10 +3539,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-jpfiscal-fiscalcontractweekly
+  name: etzhayyim-apps-jpfiscal-fiscalcontractweekly
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-jpfiscal-fiscalcontractweekly
+    app.kubernetes.io/name: etzhayyim-apps-jpfiscal-fiscalcontractweekly
     etzhayyim.com/bpmn-process: jp_fiscal_contract_weekly
 spec:
   schedule: "0 0 * * 0"
@@ -3572,10 +3572,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferkdrift
+  name: etzhayyim-apps-coverage-inferkdrift
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferkdrift
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferkdrift
     etzhayyim.com/bpmn-process: coverage_infer_kdrift
 spec:
   schedule: "*/15 * * * *"
@@ -3605,10 +3605,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferpersoncohorts
+  name: etzhayyim-apps-coverage-inferpersoncohorts
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferpersoncohorts
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferpersoncohorts
     etzhayyim.com/bpmn-process: coverage_infer_person_cohorts
 spec:
   schedule: "0 0 * * 0"
@@ -3638,10 +3638,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferldatopics
+  name: etzhayyim-apps-coverage-inferldatopics
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldatopics
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldatopics
     etzhayyim.com/bpmn-process: coverage_infer_lda_topics
 spec:
   schedule: "0 0 * * 0"
@@ -3671,10 +3671,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-coveragegapbridge
+  name: etzhayyim-apps-coverage-coveragegapbridge
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-coveragegapbridge
+    app.kubernetes.io/name: etzhayyim-apps-coverage-coveragegapbridge
     etzhayyim.com/bpmn-process: coverage_gap_bridge
 spec:
   schedule: "0 */6 * * *"
@@ -3704,10 +3704,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferdeceasedcohorts
+  name: etzhayyim-apps-coverage-inferdeceasedcohorts
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferdeceasedcohorts
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferdeceasedcohorts
     etzhayyim.com/bpmn-process: coverage_infer_deceased_cohorts
 spec:
   schedule: "0 0 1 * *"
@@ -3737,10 +3737,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferldasignals
+  name: etzhayyim-apps-coverage-inferldasignals
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldasignals
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldasignals
     etzhayyim.com/bpmn-process: coverage_infer_lda_signals
 spec:
   schedule: "0 0 * * *"
@@ -3770,10 +3770,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferldaentities
+  name: etzhayyim-apps-coverage-inferldaentities
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldaentities
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldaentities
     etzhayyim.com/bpmn-process: coverage_infer_lda_entities
 spec:
   schedule: "0 0 * * 0"
@@ -3803,10 +3803,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferldaincremental
+  name: etzhayyim-apps-coverage-inferldaincremental
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferldaincremental
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferldaincremental
     etzhayyim.com/bpmn-process: coverage_infer_lda_incremental_v1
 spec:
   schedule: "0 0 * * *"
@@ -3836,10 +3836,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-coverage-inferfission
+  name: etzhayyim-apps-coverage-inferfission
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-coverage-inferfission
+    app.kubernetes.io/name: etzhayyim-apps-coverage-inferfission
     etzhayyim.com/bpmn-process: coverage_infer_fission_v1
 spec:
   schedule: "0 0 * * 0"
@@ -3869,10 +3869,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-gmail-crontick
+  name: etzhayyim-apps-gmail-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-gmail-crontick
+    app.kubernetes.io/name: etzhayyim-apps-gmail-crontick
     etzhayyim.com/bpmn-process: gmail_cron_tick
 spec:
   schedule: "*/15 * * * *"
@@ -3902,10 +3902,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-rl-collecttrajectories
+  name: etzhayyim-apps-rl-collecttrajectories
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-rl-collecttrajectories
+    app.kubernetes.io/name: etzhayyim-apps-rl-collecttrajectories
     etzhayyim.com/bpmn-process: rl_collect_trajectories
 spec:
   schedule: "0 * * * *"
@@ -3935,10 +3935,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-rl-aifattributeoutcomes
+  name: etzhayyim-apps-rl-aifattributeoutcomes
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-rl-aifattributeoutcomes
+    app.kubernetes.io/name: etzhayyim-apps-rl-aifattributeoutcomes
     etzhayyim.com/bpmn-process: rl_aif_attribute_outcomes
 spec:
   schedule: "0 * * * *"
@@ -3968,10 +3968,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-rl-aiflearnmodel
+  name: etzhayyim-apps-rl-aiflearnmodel
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-rl-aiflearnmodel
+    app.kubernetes.io/name: etzhayyim-apps-rl-aiflearnmodel
     etzhayyim.com/bpmn-process: rl_aif_learn_model
 spec:
   schedule: "0 0 * * *"
@@ -4001,10 +4001,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-rl-policydispatch
+  name: etzhayyim-apps-rl-policydispatch
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-rl-policydispatch
+    app.kubernetes.io/name: etzhayyim-apps-rl-policydispatch
     etzhayyim.com/bpmn-process: rl_policy_dispatch
 spec:
   schedule: "0 * * * *"
@@ -4034,10 +4034,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-rl-generatepreferences
+  name: etzhayyim-apps-rl-generatepreferences
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-rl-generatepreferences
+    app.kubernetes.io/name: etzhayyim-apps-rl-generatepreferences
     etzhayyim.com/bpmn-process: rl_generate_preferences
 spec:
   schedule: "0 0 * * *"
@@ -4067,10 +4067,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-rl-aifupdatebeliefs
+  name: etzhayyim-apps-rl-aifupdatebeliefs
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-rl-aifupdatebeliefs
+    app.kubernetes.io/name: etzhayyim-apps-rl-aifupdatebeliefs
     etzhayyim.com/bpmn-process: rl_aif_belief_update
 spec:
   schedule: "0 * * * *"
@@ -4100,10 +4100,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-claim-crontick
+  name: etzhayyim-apps-claim-crontick
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-claim-crontick
+    app.kubernetes.io/name: etzhayyim-apps-claim-crontick
     etzhayyim.com/bpmn-process: claim_cron_tick
 spec:
   schedule: "*/1 * * * *"
@@ -4133,10 +4133,10 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ai-gftd-apps-claim-unchallengedsweep
+  name: etzhayyim-apps-claim-unchallengedsweep
   namespace: bpmn-timers
   labels:
-    app.kubernetes.io/name: ai-gftd-apps-claim-unchallengedsweep
+    app.kubernetes.io/name: etzhayyim-apps-claim-unchallengedsweep
     etzhayyim.com/bpmn-process: claim_auto_challenge
 spec:
   schedule: "0 * * * *"

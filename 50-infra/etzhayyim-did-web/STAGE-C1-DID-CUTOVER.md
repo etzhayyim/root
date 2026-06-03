@@ -189,6 +189,6 @@ mv did.json.next did.json
 
 - [ADR-2605231525](../../90-docs/adr/2605231525-no-server-key-religious-corp-architecture.md)
 - [ADR-2605192300](../../90-docs/adr/2605192300-bootstrap-council-religious-corp.md) (5-of-7 Safe)
-- [`STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`](../../60-apps/ai-gftd-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md) (auth Worker side, Stage C-2 + C-3)
+- [`STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md`](../../60-apps/etzhayyim-project-auth/STAGE-C-IDENTITY-SIGNING-DEVOLUTION.md) (auth Worker side, Stage C-2 + C-3)
 - ERC-1271 reference: <https://eips.ethereum.org/EIPS/eip-1271>
 - W3C DID Core controller: <https://www.w3.org/TR/did-core/#did-controller>

@@ -462,7 +462,7 @@ def build_fetch_and_embed_graph() -> Any:
 # EUR-Lex body-text fetch helpers (shared with FetchAndEmbed)
 # ─────────────────────────────────────────────────────────────
 
-_UA = "Mozilla/5.0 (compatible; gftd-legal-corpus/1.0; +https://legal-corpus.etzhayyim.com)"
+_UA = "Mozilla/5.0 (compatible; etzhayyim-legal-corpus/1.0; +https://legal-corpus.etzhayyim.com)"
 _MAX_BODY_CHARS = 50_000
 
 
@@ -612,7 +612,7 @@ async def _eurlex_fetch(state: FetchEurLexState) -> FetchEurLexState:
                 headers={
                     "Content-Type": "application/sparql-query",
                     "Accept": "application/sparql-results+json",
-                    "User-Agent": "gftd-legal-corpus/1.0",
+                    "User-Agent": "etzhayyim-legal-corpus/1.0",
                 },
             )
         bindings = r.json().get("results", {}).get("bindings", [])

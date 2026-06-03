@@ -18,7 +18,7 @@
 #      Default mode = mesh-both (Unix socket + mesh-IP TCP).
 #
 # Mesh-IP is read from $HOME/.etzhayyim/mesh/identity.json or, if the
-# cutover hasn't landed, from $HOME/.gftd/mesh/identity.json.
+# cutover hasn't landed, from $HOME/.etzhayyim/mesh/identity.json.
 
 set -euo pipefail
 
@@ -122,7 +122,7 @@ spawn_healthz_sidecar() {
 
 resolve_mesh_ip() {
   local id
-  for id in "$HOME/.etzhayyim/mesh/identity.json" "$HOME/.gftd/mesh/identity.json"; do
+  for id in "$HOME/.etzhayyim/mesh/identity.json" "$HOME/.etzhayyim/mesh/identity.json"; do
     if [ -r "$id" ]; then
       # jq is a L3 prereq; fall back to python3 if missing
       if command -v jq >/dev/null 2>&1; then
@@ -181,7 +181,7 @@ case "$LISTEN" in
     ;;
   mesh-tcp:*)
     PORT="${LISTEN#mesh-tcp:}"
-    BIND="$(resolve_mesh_ip)" || { echo "FATAL: mesh identity not found (looked in ~/.etzhayyim/mesh/, ~/.gftd/mesh/)" >&2; exit 72; }
+    BIND="$(resolve_mesh_ip)" || { echo "FATAL: mesh identity not found (looked in ~/.etzhayyim/mesh/, ~/.etzhayyim/mesh/)" >&2; exit 72; }
     cd "$WORKSPACE"
     spawn_healthz_sidecar "$BIND" "$PORT"
     socat_tcp_listener "$BIND" "$PORT"

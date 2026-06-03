@@ -6,7 +6,7 @@
 # validated by mcp_server.py — no nginx auth-snippet needed.
 #
 # TLS secret must be a CF Origin Certificate:
-#   kubectl create secret tls legal-corpus-gftd-ai-tls \
+#   kubectl create secret tls legal-corpus-etzhayyim-ai-tls \
 #     --cert=origin.pem --key=origin-key.pem -n mitama-udf
 #
 # MCP endpoint: POST https://legal-corpus.etzhayyim.com/
@@ -17,7 +17,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: legal-corpus-gftd-ai
+  name: legal-corpus-etzhayyim-ai
   namespace: mitama-udf
   annotations:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "90"
@@ -28,7 +28,7 @@ spec:
   tls:
     - hosts:
         - legal-corpus.etzhayyim.com
-      secretName: legal-corpus-gftd-ai-tls
+      secretName: legal-corpus-etzhayyim-ai-tls
   rules:
     - host: legal-corpus.etzhayyim.com
       http:

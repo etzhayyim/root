@@ -6,10 +6,10 @@
  * etzhayyim.com namespace serve the existing AT Protocol / Bluesky
  * stack without redeploying the upstreams.
  *
- *   atproto.etzhayyim.com  → ai-gftd-pds-2603241700 (PDS)
- *   bsky.etzhayyim.com     → ai-gftd-appview        (AppView)
- *   authn.etzhayyim.com    → ai-gftd-auth           (Passkey)
- *   mcp.etzhayyim.com      → ai-gftd-agentgateway   (MCP router)
+ *   atproto.etzhayyim.com  → etzhayyim-pds-2603241700 (PDS)
+ *   bsky.etzhayyim.com     → etzhayyim-appview        (AppView)
+ *   authn.etzhayyim.com    → etzhayyim-auth           (Passkey)
+ *   mcp.etzhayyim.com      → etzhayyim-agentgateway   (MCP router)
  *
  * Per-host hostname rewrite: the upstream expects its canonical etzhayyim.com
  * host (e.g. it may check Host / Origin / CORS allow-lists). The proxy

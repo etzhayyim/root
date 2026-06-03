@@ -32,7 +32,7 @@ The Phase α P0 contract has been smoke-tested against a local Anvil (chain id 3
    # Record the address as COUNCIL_SAFE_SEPOLIA
    ```
 
-3. **Export env vars** (`~/.gftd/etzhayyim-authz.env`, `chmod 600`):
+3. **Export env vars** (`~/.etzhayyim/etzhayyim-authz.env`, `chmod 600`):
    ```bash
    export DEPLOYER_PRIVATE_KEY=0x...                       # funded Base Sepolia key
    export COUNCIL_SAFE_SEPOLIA=0x...                       # 5-of-7 Safe address
@@ -40,7 +40,7 @@ The Phase α P0 contract has been smoke-tested against a local Anvil (chain id 3
    export BASE_SEPOLIA_RPC=https://sepolia.base.org         # default; override if needed
    ```
 
-   Load: `set -a; source ~/.gftd/etzhayyim-authz.env; set +a`.
+   Load: `set -a; source ~/.etzhayyim/etzhayyim-authz.env; set +a`.
 
 ## Deploy
 
@@ -65,7 +65,7 @@ owner (Council Safe): 0x...
 Record both. Save the deployment artifact:
 ```bash
 cp broadcast/Deploy.s.sol/84532/run-latest.json \
-   ~/.gftd/etzhayyim-authz/deploy-base-sepolia-$(date +%Y%m%d-%H%M).json
+   ~/.etzhayyim/etzhayyim-authz/deploy-base-sepolia-$(date +%Y%m%d-%H%M).json
 ```
 
 ## Post-deploy smoke

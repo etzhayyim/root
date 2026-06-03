@@ -29,10 +29,10 @@ https://etzhayyim.com/.well-known/did.json
   - JWK: `verificationMethod[0].publicKeyJwk.x`
   - Multibase: `verificationMethod[1].publicKeyMultibase`
 - **Private key** is in **macOS Keychain** (per CLAUDE.md "Local Secret Storage" rule):
-  - Service: `gftd.etzhayyim`
+  - Service: `etzhayyim.etzhayyim`
   - Account: `DID_PRIVATE_KEY_ED25519`
   - Label: "etzhayyim did:web Ed25519 private key (created 2026-05-17, key-0)"
-  - Read: `security find-generic-password -s gftd.etzhayyim -a DID_PRIVATE_KEY_ED25519 -w`
+  - Read: `security find-generic-password -s etzhayyim.etzhayyim -a DID_PRIVATE_KEY_ED25519 -w`
 - **1Password mirror**: pending. Mirror to `etzhayyim Japan株式会社` vault, item name `etzhayyim/did-web/key-0`.
 - **Key rotation**: append a new `#key-N` verification method to `did.json`, re-deploy, then remove `#key-0` after the rotation window. Never re-use a `kid`.
 

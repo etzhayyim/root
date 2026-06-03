@@ -1,6 +1,6 @@
 # 50-infra/k8s/atproto-pds
 
-K8s pod replacement for the `atproto.etzhayyim.com` PDS CF Worker (`ai-gftd-pds-2603241700`).
+K8s pod replacement for the `atproto.etzhayyim.com` PDS CF Worker (`etzhayyim-pds-2603241700`).
 
 **ADR**: [`90-docs/adr/2605111300-pds-to-pod-bun-container.md`](../../../90-docs/adr/2605111300-pds-to-pod-bun-container.md)
 

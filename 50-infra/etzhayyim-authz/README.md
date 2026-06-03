@@ -25,7 +25,7 @@
 Per ADR-2605211950 (substrate centralization axis), decentralization
 primitives — including **ERC725 root identity issuance** — are
 etzhayyim-exclusive. The current implementation lives in the vendor
-repo at `etzhayyim-root/60-apps/ai-gftd-project-auth/worker-authz/`
+repo at `etzhayyim-root/60-apps/etzhayyim-project-auth/worker-authz/`
 and is reachable via the `com.etzhayyim.authz.linkEthereum{Begin,Verify}`
 lexicons (now marked `[DEPRECATED — migration target]` in the vendor
 repo).
@@ -37,7 +37,7 @@ identity issuance once migration is scheduled.
 
 | Vendor source (to be relocated) | etzhayyim target |
 |---|---|
-| `60-apps/ai-gftd-project-auth/worker-authz/src-ts/sign-up.ts` (Ethereum branch — `rootDidFromIdentity`, `rootDidHashFromIdentity`, `ETH_PRIVATE_CHAIN_ID` reads) | `etzhayyim-authz/src/erc725-root-issuer.ts` |
+| `60-apps/etzhayyim-project-auth/worker-authz/src-ts/sign-up.ts` (Ethereum branch — `rootDidFromIdentity`, `rootDidHashFromIdentity`, `ETH_PRIVATE_CHAIN_ID` reads) | `etzhayyim-authz/src/erc725-root-issuer.ts` |
 | `70-tools/scripts/provision-actors-erc725.mjs` (batch root provisioning) | `etzhayyim-authz/scripts/provision-root.ts` |
 | `00-contracts/lexicons/com/etzhayyim/authz/linkEthereumBegin.json` | new etzhayyim lexicon under `00-contracts/lexicons/org/etzhayyim/authz/` (NSID TBD) |
 | `00-contracts/lexicons/com/etzhayyim/authz/linkEthereumVerify.json` | same as above (verify side) |

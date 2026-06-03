@@ -7,8 +7,8 @@
  * Sources (no fabrication, G5; synthetic tiers excluded — see ingest_states_global.py):
  *   - 20-actors/ooyake/registry/gov-units.seed.edn          (proof-of-model chain + world tops)
  *   - 20-actors/ooyake/registry/gov-units.jp-central.seed.edn (JP 府省庁)
- *   - 60-apps/ai-gftd-project-states/data/gov/jpn/{prefecture,municipality}.ndjson
- *   - 60-apps/ai-gftd-project-states/data/gov/<cc>/municipality.ndjson  (real-named only)
+ *   - 60-apps/etzhayyim-project-states/data/gov/jpn/{prefecture,municipality}.ndjson
+ *   - 60-apps/etzhayyim-project-states/data/gov/<cc>/municipality.ndjson  (real-named only)
  *
  * Emits a compact array of {id,name,nameEn,level,jurisdiction,parent,url,sourcing}
  * to ./out/gov-units.json. Put into ACTOR_KV (key `gov-atlas:index`) with
@@ -24,7 +24,7 @@ import { dirname, resolve, join } from "node:path";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, "../../..");
 const OOYAKE = join(REPO, "20-actors/ooyake/registry");
-const STATES = join(REPO, "60-apps/ai-gftd-project-states/data/gov");
+const STATES = join(REPO, "60-apps/etzhayyim-project-states/data/gov");
 
 // ── tiny EDN reader (maps/vectors/strings/keywords/numbers/comments) ──────────
 function parseEdn(src) {
@@ -117,7 +117,7 @@ for (const u of units) bySourcing[u.sourcing] = (bySourcing[u.sourcing] || 0) + 
 const countries = new Set(units.map((u) => u.jurisdiction.split("-")[0])).size;
 const index = {
   graph: "gov-atlas-v1",
-  generatedFrom: "ooyake seeds + ai-gftd-project-states (real-named municipalities only; synthetic district/ministry/office/lea tiers excluded per G5)",
+  generatedFrom: "ooyake seeds + etzhayyim-project-states (real-named municipalities only; synthetic district/ministry/office/lea tiers excluded per G5)",
   adr: "2606021600",
   note: "All units :sourcing :representative / :unverified-seed (G5). Observational mirror + civic wayfinding — never the government, never a target-list (G3/G10).",
   count: units.length,

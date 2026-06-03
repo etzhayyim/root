@@ -1,6 +1,6 @@
 # atproto-pds RUNBOOK (ADR-2605111300)
 
-Operational runbook for the K8s pod replacement of the PDS CF Worker (`ai-gftd-pds-2603241700`).
+Operational runbook for the K8s pod replacement of the PDS CF Worker (`etzhayyim-pds-2603241700`).
 
 ## Status (2026-05-14)
 
@@ -22,7 +22,7 @@ Operational runbook for the K8s pod replacement of the PDS CF Worker (`ai-gftd-p
 ## Build (Phase P1)
 
 ```bash
-# Wrapper around 70-tools/scripts/buildkit/remote-build.sh (gftd-vke builder).
+# Wrapper around 70-tools/scripts/buildkit/remote-build.sh (etzhayyim-vke builder).
 50-infra/k8s/atproto-pds/build.sh                  # → ghcr.io/etzhayyim/atproto-pds:bun-canary
 50-infra/k8s/atproto-pds/build.sh v1               # → ghcr.io/etzhayyim/atproto-pds:bun-v1
 50-infra/k8s/atproto-pds/build.sh canary --load    # local Docker only (smoke run)
@@ -55,13 +55,13 @@ curl -i http://localhost:8787/_app/meta
 ## Tunnel setup (manual, once)
 
 1. CF dashboard → Zero Trust → Networks → Tunnels → Create a tunnel
-2. Name: `atproto-gftd-pds`
+2. Name: `atproto-etzhayyim-pds`
 3. Public hostname: `atproto-canary.etzhayyim.com` → `http://atproto-pds.atproto.svc.cluster.local:8787` (during P1-P3), then add `atproto.etzhayyim.com` in P3
 4. Copy tunnel token → `kubectl -n atproto create secret generic atproto-pds-tunnel-token --from-literal=token=<token>`
 
 ## Secrets (manual via Vault)
 
-Provision via `gftd vault` (preferred) or directly:
+Provision via `etzhayyim vault` (preferred) or directly:
 
 ```bash
 kubectl -n atproto apply -f 50-infra/k8s/atproto-pds/secrets-template.yaml

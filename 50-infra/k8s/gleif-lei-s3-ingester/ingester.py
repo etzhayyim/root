@@ -31,7 +31,7 @@ import psycopg2
 
 # ── config ────────────────────────────────────────────────────────────────────
 RW_DSN = os.environ["RW_DSN"]
-B2_BUCKET = os.environ.get("B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 B2_REGION = os.environ.get("B2_REGION", "us-west-004")
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
@@ -45,7 +45,7 @@ GLEIF_GOLDEN_COPY_API = os.environ.get(
     "https://goldencopy.gleif.org/api/v2/golden-copies/publishes/latest",
 )
 FETCH_TIMEOUT = int(os.environ.get("FETCH_TIMEOUT", "120"))
-USER_AGENT = "gftd-gleif-s3-ingester/1.0 (+https://etzhayyim.com)"
+USER_AGENT = "etzhayyim-gleif-s3-ingester/1.0 (+https://etzhayyim.com)"
 
 RW_HEALTH_GATE = os.environ.get("RW_HEALTH_GATE", "true").lower() == "true"
 RW_MIN_COMPUTE_READY = int(os.environ.get("RW_MIN_COMPUTE_READY", "2"))

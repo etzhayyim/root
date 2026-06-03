@@ -30,24 +30,24 @@ pattern = "mcp.etzhayyim.com"
 zone_name = "etzhayyim.com"
 custom_domain = true
 
-# Service bindings — Worker→Worker calls within ai-gftd-cloud account.
+# Service bindings — Worker→Worker calls within etzhayyim-cloud account.
 # These bypass the CF Bot Management blocks at the public HTTP edge that
 # affect *.etzhayyim.com requests.
 [[services]]
 binding = "PDS"
-service = "ai-gftd-pds-2603241700"
+service = "etzhayyim-pds-2603241700"
 
 [[services]]
 binding = "APPVIEW"
-service = "ai-gftd-appview"
+service = "etzhayyim-appview"
 
 [[services]]
 binding = "AUTHN"
-service = "ai-gftd-auth"
+service = "etzhayyim-auth"
 
 [[services]]
 binding = "MCP"
-service = "ai-gftd-agentgateway"
+service = "etzhayyim-agentgateway"
 
 [observability]
 enabled = true

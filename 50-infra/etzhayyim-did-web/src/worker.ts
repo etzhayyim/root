@@ -917,7 +917,7 @@ export default {
     // gov-atlas machine-readable index — `/.well-known/gov-units.json`.
     // Served from ACTOR_KV (`gov-atlas:index`), generated offline by
     // scripts/gen-gov-atlas-index.mjs from the ooyake seeds + the
-    // ai-gftd-project-states real-named municipality dataset (synthetic tiers
+    // etzhayyim-project-states real-named municipality dataset (synthetic tiers
     // excluded, G5). Observational mirror + civic wayfinding, never a target-list
     // (G3/G10). Per ADR-2606021600. GET/HEAD only.
     if (url.pathname === "/.well-known/gov-units.json") {

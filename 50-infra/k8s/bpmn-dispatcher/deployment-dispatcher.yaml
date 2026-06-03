@@ -9,7 +9,7 @@
 # mcp.etzhayyim.com → Cloudflare Tunnel and is forwarded here before
 # pod-side LangServer/LangGraph execution.
 #
-# Extracted from ai-gftd-apps-gftdcojp/50-infra/vultr/mitama-udf-pool/
+# Extracted from etzhayyim-apps-etzhayyimcojp/50-infra/vultr/mitama-udf-pool/
 # templates/dispatcher.yaml (Helm template) per ADR-2605181400 §D2
 # amendment 2026-05-22. Helm value placeholders rendered inline with
 # operator-tunable defaults. Values that must be supplied at apply time

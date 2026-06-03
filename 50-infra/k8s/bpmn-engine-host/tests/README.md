@@ -32,7 +32,7 @@ ADR 2605081200 PoC Phase 1 acceptance harness.
 kubectl -n mitama-udf port-forward svc/bpmn-engine-host 8080:80 &
 
 export BPMN_ENGINE_URL=http://localhost:8080
-export RW_DSN="$(security find-generic-password -s gftd.risingwave -a RW_DSN -w)"
+export RW_DSN="$(security find-generic-password -s etzhayyim.risingwave -a RW_DSN -w)"
 
 cd 50-infra/k8s/bpmn-engine-host/tests
 python smoke.py --process-id lawfirm_intake_funnel \
