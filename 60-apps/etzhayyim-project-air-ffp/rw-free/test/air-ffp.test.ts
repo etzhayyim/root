@@ -86,7 +86,7 @@ describe("air-ffp rw-free (kotoba-E2E split)", () => {
       const acc = await postLedgerEntry(e, { entryId: "L1", memberNumber: "M001", kind: "accrual", miles: 1200, reference: "NH006", partnerCode: "NH" });
       expect(acc.status).toBe("posted");
       expect(acc.keyId).toBeTruthy();
-      // purchase carries fiat money as decimal strings (settlement CALL stays gftd)
+      // purchase carries fiat money as decimal strings (settlement CALL stays etzhayyim)
       const buy = await postLedgerEntry(e, { entryId: "L2", memberNumber: "M001", kind: "purchase", miles: 5000, amount: "150.00", currency: "USD", pricePerMile: "0.03" });
       expect(buy.status).toBe("posted");
       expect((await postLedgerEntry(e, { entryId: "LB", memberNumber: "M001", kind: "purchase", miles: 1, amount: "abc" })).status).toBe("rejected");

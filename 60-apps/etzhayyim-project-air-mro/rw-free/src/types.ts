@@ -1,7 +1,7 @@
 /**
  * air-mro rw-free — airline maintenance, repair & overhaul. Maximal migration:
  * front everything that can move; only the irreducible regulated EXECUTION
- * stays gftd.
+ * stays etzhayyim.
  *
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
  * (3-axis split) + ADR-2605181100 (kotoba E2E encrypted-record envelope).
@@ -26,16 +26,16 @@
  *                             (supply-chain CUI, asset commercial value).
  *     - sparePartOrder      : procurement LEDGER entry (supplier terms, unit
  *                             price, line value). The ledger DATA migrates E2E;
- *                             the fiat settlement CALL stays gftd.
+ *                             the fiat settlement CALL stays etzhayyim.
  *     - reliabilityReport   : confidential per-aircraft reliability + technical
  *                             occurrence (MTBF, safety-sensitive occurrence).
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection):
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection):
  *     - FIAT settlement EXECUTION for spare-part procurement (IATA-BSP / bank
  *       wire / merchant-of-record rail). Per Operating Entity Boundary
  *       (ADR-2605172100) etzhayyim never becomes the fiat MoR/counterparty, so
  *       the procurement ledger is fronted E2E but the fiat-clearing call stays
- *       gftd.
+ *       etzhayyim.
  *     - Airworthiness GROUNDING / no-fly enforcement ACTION execution (the
  *       regulated blocking act, not the AD reference record).
  *

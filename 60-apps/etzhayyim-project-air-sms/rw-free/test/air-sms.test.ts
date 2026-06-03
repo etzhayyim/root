@@ -120,7 +120,7 @@ describe("air-sms rw-free (kotoba-E2E split)", () => {
     });
   });
 
-  describe("regulatoryReport (E2E-ENCRYPTED filing DATA; transmission stays gftd)", () => {
+  describe("regulatoryReport (E2E-ENCRYPTED filing DATA; transmission stays etzhayyim)", () => {
     it("seals filing data + round-trips + validates", async () => {
       expect((await fileReport(e, { filingId: "g1", authority: "faa", filingType: "mor", content: "engine surge FL350" })).status).toBe("filed");
       expect((await fileReport(e, { filingId: "", authority: "faa", filingType: "mor", content: "x" })).status).toBe("rejected");

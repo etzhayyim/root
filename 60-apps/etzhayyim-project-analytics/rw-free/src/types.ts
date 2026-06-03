@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys pattern) — MIXED split:
  *   - PRODUCT (etzhayyim front, this package): the public catalog of dashboards +
  *     AGGREGATE metric datapoints + reports (classification=public AT records).
- *   - INFRA (stays gftd, NOT here): raw per-user behavioral-event ingestion +
+ *   - INFRA (stays etzhayyim, NOT here): raw per-user behavioral-event ingestion +
  *     warehouse aggregation (the "funnel analysis" engine, pod-side). PII-derived
  *     raw events are consumed via consent-capability and never enter these public
  *     records.

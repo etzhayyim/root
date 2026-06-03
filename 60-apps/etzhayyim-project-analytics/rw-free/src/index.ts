@@ -9,7 +9,7 @@
  *   report    : createReport (optional FK→dashboard) / publishReport / listReports
  *   coverage
  *
- * Raw per-user behavioral ingestion + warehouse aggregation stays gftd infra.
+ * Raw per-user behavioral ingestion + warehouse aggregation stays etzhayyim infra.
  */
 
 export * from "./types.js";

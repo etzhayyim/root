@@ -9,7 +9,7 @@
  * never sees enrollee PII or ledger detail in plaintext.
  *
  * The fiat merchant-of-record settlement rail (mile-purchase charge, transfer
- * fee, IATA-BSP partner clearing) stays gftd and is consumed via
+ * fee, IATA-BSP partner clearing) stays etzhayyim and is consumed via
  * consent-capability; here we only persist the resulting ledger ENTRY.
  */
 

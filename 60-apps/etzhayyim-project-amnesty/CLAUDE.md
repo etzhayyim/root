@@ -1,6 +1,6 @@
 # etzhayyim-project-amnesty — Legal-Person Debt Restructuring Actor
 
-Sibling actor to [yobel](../ai-gftd-project-yobel/) — handles **legal-person** debt restructuring (sovereign / corporate / multilateral / partnership). What yobel rejects under DMN R14 (natural-person-only invariant), amnesty accepts.
+Sibling actor to [yobel](../etzhayyim-project-yobel/) — handles **legal-person** debt restructuring (sovereign / corporate / multilateral / partnership). What yobel rejects under DMN R14 (natural-person-only invariant), amnesty accepts.
 
 **Design SSoT**: [`90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md`](../../90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md)
 
@@ -95,7 +95,7 @@ amnesty.etzhayyim.com (legal-person, voluntary multi-creditor)
 
 ## See also
 
-- [yobel](../ai-gftd-project-yobel/) — natural-person sibling actor
+- [yobel](../etzhayyim-project-yobel/) — natural-person sibling actor
 - [ADR-2605202000](../../90-docs/adr/2605202000-etzhayyim-amnesty-legal-person-debt-actor.md) — design SSoT
 - [ADR-2605201800](../../90-docs/adr/2605201800-etzhayyim-yobel-debt-release-actor.md) — yobel ADR (natural-person scope basis)
 - vendor:bankruptcy.etzhayyim.com — mandatory legal procedure fallback (both natural + legal person cases)

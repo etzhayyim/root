@@ -11,10 +11,10 @@
  * read-cap = owner DID + explicit recipients. The substrate never sees supplier
  * terms, valuations, or occurrence narratives in plaintext.
  *
- * STAYS gftd (consent-capability): fiat settlement EXECUTION for spare-part
+ * STAYS etzhayyim (consent-capability): fiat settlement EXECUTION for spare-part
  * procurement (IATA-BSP / wire / MoR rail) + airworthiness grounding enforcement
  * ACTION. The procurement ledger DATA is fronted E2E; the fiat-clearing CALL and
- * the no-fly blocking act stay gftd.
+ * the no-fly blocking act stay etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
@@ -304,7 +304,7 @@ export async function orderSparePart(e: Etzhayyim, input: OrderSparePartInput): 
     lineValueUsd: input.lineValueUsd,
     orderedAt: input.orderedAt ?? new Date().toISOString(),
   };
-  // Ledger entry fronted E2E; the fiat settlement CALL stays gftd (consent-capability).
+  // Ledger entry fronted E2E; the fiat settlement CALL stays etzhayyim (consent-capability).
   const receipt = await e.encryptedWrite<Record<string, unknown>>({
     innerType: SPARE_PART_ORDER_INNER_TYPE,
     record: body as unknown as Record<string, unknown>,

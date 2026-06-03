@@ -1,7 +1,7 @@
 /**
  * air-ffp rw-free — barrel. kotoba-E2E split (ADR-2605181100): public program
  * catalog + de-identified aggregates plaintext; enrollee PII + per-member
- * ledger E2E. Fiat MoR settlement rail stays gftd (consent-capability).
+ * ledger E2E. Fiat MoR settlement rail stays etzhayyim (consent-capability).
  */
 export * from "./types.js";
 export {

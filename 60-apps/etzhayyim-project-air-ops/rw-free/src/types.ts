@@ -1,7 +1,7 @@
 /**
  * air-ops rw-free — kotoba-E2E split. Maximal migration of airline flight
  * operations: front everything that can move; only the irreducible regulated
- * EXECUTION stays gftd.
+ * EXECUTION stays etzhayyim.
  *
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
  * (3-axis Liability/Custody/Settlement) + ADR-2605181100 (kotoba E2E
@@ -20,13 +20,13 @@
  *     techLog: tail number + defect/rectification (confidential maintenance).
  *     fuelOrder: supplier + commercial fuel-uplift terms (the LEDGER entry).
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   IATA-BSP fiat-clearing settlement rail for fuel uplift and ground services.
  *   Per Operating Entity Boundary (ADR-2605172100) etzhayyim never becomes the
  *   fiat counterparty. So the fuel-order LEDGER + commercial-terms DATA fronts
- *   here as E2E records — only the BSP fiat-clearing CALL stays gftd.
+ *   here as E2E records — only the BSP fiat-clearing CALL stays etzhayyim.
  *   Likewise GPU/LLM weather-brief inference + the NOTAM/weather upstream feed
- *   EXECUTION stay gftd; the resulting facts front as records above.
+ *   EXECUTION stay etzhayyim; the resulting facts front as records above.
  *
  * AT-Lexicon: no float — all counts/altitudes/winds are integers; fuel and
  * lat/lon (DOUBLE in the legacy schema) are decimal STRINGS; severity scales
@@ -306,7 +306,7 @@ export interface GetTechLogOutput {
 
 // ─── Fuel order (E2E, commercial terms; LEDGER entry) ───────────────
 // The fuel-uplift commercial-terms DATA fronts here as an E2E ledger entry.
-// The IATA-BSP fiat-clearing settlement CALL stays gftd (consent-capability).
+// The IATA-BSP fiat-clearing settlement CALL stays etzhayyim (consent-capability).
 
 export interface FuelOrderBody {
   fuelOrderId: string;
@@ -316,7 +316,7 @@ export interface FuelOrderBody {
   /** Decimal string. */
   requestedKg: string;
   supplier?: string;
-  /** Decimal string (unit price); settlement clears off-substrate via gftd. */
+  /** Decimal string (unit price); settlement clears off-substrate via etzhayyim. */
   unitPrice?: string;
   currency?: string;
   upliftRef?: string;
