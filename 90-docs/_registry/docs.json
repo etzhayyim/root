@@ -19693,6 +19693,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor.md",
+      "id": "adr-2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
+      "title": "ADR-2606033600: tsuzuri 綴 — Adobe-independent, in-browser (WASM) PDF editor",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps/tsuzuri"
+      ],
+      "related": [
+        "2605262130",
+        "2605231525",
+        "2605215000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606014500",
+        "2606013800",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
