@@ -1,6 +1,6 @@
-# ai-gftd-project-shigotoba
+# etzhayyim-project-shigotoba
 
-`ai-gftd-project-shigotoba` は `shigotoba.etzhayyim.com` 向けのグローバル求人サイト設計・実装プロジェクトです。
+`etzhayyim-project-shigotoba` は `shigotoba.etzhayyim.com` 向けのグローバル求人サイト設計・実装プロジェクトです。
 
 ## Goal
 
@@ -30,7 +30,7 @@
   - MCP endpoint (`POST /api/mcp`)
 - 求人 catalogue は公開 API (`remotive`, `arbeitnow`, `remoteok`) から定期取得して反映
 - application store は現時点でインメモリ（次段階で `performer/rdbms` (cypher graph RDBMS) へ移行）
-- データソース設計: `60-apps/ai-gftd-project-shigotoba/wasm/shigotoba-jobs-component/DATA_SOURCES.md`
+- データソース設計: `60-apps/etzhayyim-project-shigotoba/wasm/shigotoba-jobs-component/DATA_SOURCES.md`
 
 ## API (MVP)
 

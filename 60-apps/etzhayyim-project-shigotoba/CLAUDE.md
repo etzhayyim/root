@@ -1,4 +1,4 @@
-# ai-gftd-project-shigotoba — Business Establishment Registry
+# etzhayyim-project-shigotoba — Business Establishment Registry
 
 > **T1 Logical Actor**: Manifest-driven (`20-actors/shigotoba/actor-manifest.jsonld`).
 

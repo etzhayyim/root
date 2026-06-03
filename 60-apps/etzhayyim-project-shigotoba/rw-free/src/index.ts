@@ -9,7 +9,7 @@
  *   coverage
  *
  * (a) etzhayyim front. Employer-side public data only (no job-seeker PII). The
- * `summarize` LLM proxy is AI compute and stays gftd.
+ * `summarize` LLM proxy is AI compute and stays etzhayyim.
  */
 
 export * from "./types.js";

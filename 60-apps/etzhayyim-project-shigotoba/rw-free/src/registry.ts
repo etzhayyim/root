@@ -1,7 +1,7 @@
 /**
  * shigotoba rw-free — companyProfile + jobPosting registries + coverage.
  * AT PDS records (no RW). Job postings FK→company. Public employer-side
- * registry + job-board open-data only; LLM summarize stays gftd.
+ * registry + job-board open-data only; LLM summarize stays etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

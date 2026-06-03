@@ -1,6 +1,6 @@
-# ai-gftd-project-shigotoba wasm
+# etzhayyim-project-shigotoba wasm
 
-このディレクトリは `ai-gftd-project-shigotoba` の App 実装です。
+このディレクトリは `etzhayyim-project-shigotoba` の App 実装です。
 
 - `shigotoba-jobs-component`
   - UI (`/`)
@@ -11,7 +11,7 @@ Build:
 
 ```bash
 cd shigotoba-jobs-component
-gftd build
+etzhayyim build
 ```
 
 Deploy:

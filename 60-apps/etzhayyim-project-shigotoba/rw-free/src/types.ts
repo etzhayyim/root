@@ -8,7 +8,7 @@
  * collections model PUBLIC employer data (company profiles + listings), not job
  * seekers: no applicant / resume / PII custody, no settlement (salary ranges are
  * published listing data, not money movement), no fulfillment liability. The
- * `summarize` LLM proxy is AI compute and stays gftd; the catalog migrates.
+ * `summarize` LLM proxy is AI compute and stays etzhayyim; the catalog migrates.
  *
  * Cross-actor refs (external, kept as opaque strings — NOT FKs into this app):
  *   legalEntityRef → legal-entity (parent corporate identity)

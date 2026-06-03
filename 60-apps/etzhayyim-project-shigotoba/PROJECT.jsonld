@@ -1,9 +1,9 @@
 {
   "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
-  "name": "ai-gftd-project-shigotoba",
+  "name": "etzhayyim-project-shigotoba",
   "description": "Global job marketplace for shigotoba.etzhayyim.com (Indeed-style) on SpinApp",
-  "category": "ai-gftd-project-workers",
+  "category": "etzhayyim-project-workers",
   "components": {
     "app": {
       "appId": "shigotoba-jobs",
