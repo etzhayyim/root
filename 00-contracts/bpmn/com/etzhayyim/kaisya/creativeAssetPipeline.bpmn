@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  kaisya.creativeAssetPipeline — gftdcojp Artificial Organism
+  kaisya.creativeAssetPipeline — etzhayyimcojp Artificial Organism
 
   Fires every 24h. Creative agent (kaisya_creative_agent) runs:
     1. Query pending creative requests from vertex_kaisya_task (brand requests)
@@ -9,14 +9,14 @@
     4. If new creative direction needs sign-off → create task for creative director
 
   NSID: com.etzhayyim.apps.kaisya.creativeAssetPipeline
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_kaisya_creative_asset"
-    targetNamespace="https://gftd.ai/bpmn/kaisya"
+    targetNamespace="https://etzhayyim.ai/bpmn/kaisya"
     exporter="hand-written"
     exporterVersion="2.0">
 

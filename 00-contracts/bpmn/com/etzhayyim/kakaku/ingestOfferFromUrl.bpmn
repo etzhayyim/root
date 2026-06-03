@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_kakaku_ingest_offer_from_url"
-    targetNamespace="https://gftd.ai/bpmn/kakaku"
+    targetNamespace="https://etzhayyim.ai/bpmn/kakaku"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="kakaku_ingest_offer_from_url" name="kakaku ingest offer from URL" isExecutable="true">

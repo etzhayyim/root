@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  kaisya.ceoDailyBriefing — gftdcojp Artificial Organism
+  kaisya.ceoDailyBriefing — etzhayyimcojp Artificial Organism
 
   Fires every 24h. CEO agent (kaisya_ceo_agent) runs:
     1. Query RisingWave for org metrics (agent run counts, pending tasks, infra cost snapshot)
@@ -9,14 +9,14 @@
     4. If OKR drift detected → create vertex_kaisya_task for CEO approval
 
   NSID: com.etzhayyim.apps.kaisya.ceoDailyBriefing
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_kaisya_ceo_daily"
-    targetNamespace="https://gftd.ai/bpmn/kaisya"
+    targetNamespace="https://etzhayyim.ai/bpmn/kaisya"
     exporter="hand-written"
     exporterVersion="2.0">
 
