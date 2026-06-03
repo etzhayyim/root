@@ -9,28 +9,28 @@
  * PAGES
  */
 const PAGES = {
-  
+
 }
 
 /**
  * SERVERS
  */
 const SERVERS = {
-  
+
 }
 
 /**
  * ACTIONS
  */
 const ACTIONS = {
-  
+
 }
 
 /**
  * LINKS
  */
 const LINKS = {
-  
+
 }
 
 type ParamValue = string | number | boolean | null | undefined
@@ -75,12 +75,12 @@ export const appendSp = (
 
 /**
  * get the current search params
- * 
+ *
  * Could be use like this:
  * ```
  * route("/cities", { page: 2 }, { ...currentSP() })
  * ```
- */ 
+ */
 export const currentSp = () => {
   const params = new URLSearchParams(window.location.search)
   const record: Record<string, string> = {}
@@ -104,10 +104,10 @@ export const routes = [
 ] as Routes[]
 
 /**
- * To be used like this: 
+ * To be used like this:
  * ```ts
  * import { route } from './ROUTES'
- * 
+ *
  * route('site_id', { id: 1 })
  * ```
  */
