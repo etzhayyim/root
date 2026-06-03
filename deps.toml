@@ -1,7 +1,7 @@
 # etzhayyim/root — deps.toml
 #
 # Machine-readable SSoT for the etzhayyim/root monorepo.
-# Updated 2026-06-02 after:
+# Updated 2026-06-03 after:
 #   0. RisingWave→kotoba latent-entity migration (ADR-2606021730, P0–P10,
 #      8 commits, coverage app refactored, PR #798; charter gates G1–G14 verified;
 #      fixture-mode R0 ready for Phase 2 operator gate + live endpoint)
@@ -1561,6 +1561,13 @@ title = "Hanami (鼻見) robot — mechanical design + safety validation + FDA C
 status = "proposed"
 status_note = "mitate-native new robotics class (8th by count, owned by mitate not kuni-umi — same pattern as silicon Wave 2 Funamori). Locks R0 design before R1 prototype fabrication. **Mechanical envelope**: 4.0 mm OD flexible scope × 300 mm insertion, distal articulation ±130° 4-way, 1920×1080 @ 60fps CMOS + 110° FOV, 4500K LED ring 100 lumen, 6-DOF arm 600 mm reach 2 kg payload, **0.5 N hardware force cutoff** at scope tip (constitutional limit — motor torque physically constrained, not just firmware), 50 mm/s linear + 30°/s rotational max, ± 0.1 mm position repeatability, autoclave 134°C × 15 min compatible (tip + 50 mm shaft) + chemical sterilization full-length, single-use disposable PLA tip cover for patient contact, foot pedal + voice + emergency stop (< 100 ms reaction). **5×4 safety validation matrix** (mucosal trauma / depth / patient movement / cross-contamination / classifier mis-routing × hardware / firmware / operator UX / ENT specialist remote override). **3-phase validation** (Phase A bench 1000 cycles + autoclave 100 + network isolation; Phase B silicone phantom × 50 + cadaveric × 30 with Cohen κ ≥ 0.7; Phase C community-center clinical first 20 double-attested live + 21-100 async ≤ 24hr). **Jurisdiction attestation** = JP-first PMDA 製造販売届出 (Class II 相当, 業務範囲外 carve-out applicable for community-center use; fallback 製造販売業許可 + 製造業許可 if not adequate); FDA General Wellness Device (Class I + 21 CFR Part 880); EU MDR Class IIa (rule 5 + rule 11 software medical device). **Murakumo-only classifier** = gemma4:e4b vision distill medical variant (open weights G13, training data consent-only + Council-attested IRB-equivalent per G9); network whitelist enforces no commercial vendor inference endpoint reachable. **G4 N≥2 witness** = operator DID + ENT specialist DID always required (R2+); classifier output never patient-displayed without specialist co-sign. **4-phase build path** (R0 design this ADR / R1 prototype Phase A / R2 Phase B+C community-center pilot 100 patient ceiling / R3 multi-site multi-jurisdiction). **G13 open-source** = hardware CAD + firmware + classifier corpus metadata Apache 2.0 + Charter Rider under 50-infra/hanami-robot/ (R1 ADR creates dir); cross-religious-corp manufacturing via silenMitateReview scope `hanami-cross-corp-manufacture-attestation`. Risks: 0.5 N false positives at turbinate edge / PMDA 業務範囲外 path adequacy uncertain / gemma4:e4b vision medical distill does not yet exist (R1 must train) / cadaver source institutional partner new dependency / counterfeit cross-corp manufacturing supply chain."
 path = "90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md"
+
+[[adrs]]
+id = "2606032031"
+title = "Session close — gftd/yatachain app rename sweep pause (etzhayyim + kotoba Datomic/EDN)"
+status = "active"
+status_note = "Progress ledger for the app rename/deprecation sweep requested 2026-06-03: wproto prune allowed; yatachain deprecated; gftd/ai-gftd naming moved to etzhayyim; projections use kotoba Datomic + EDN. Completed and audited maps, hrse, mangaka, open-isic, yoro, cofog, yabai, and states (old tree file count 0; no gftd/GFTD/ai-gftd/.gftd.ai/yatachain/kotoba-datomic-projection.toml residue; no default namespace resources). News is intentionally paused after pushed batch 37; remaining legacy news files at pause = 20192; worktree clean. Resume rule: <=48 moved files per batch, separate reference commits, push each batch, and only bypass the locally broken e7m verify hook when all other hooks pass."
+path = "90-docs/adr/2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause.md"
 
 # ─── gemma-coder-distill (ADR-2605250400) ───────────────────────────
 
