@@ -19926,6 +19926,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606035000-session-close-labor-liberation-robotics-wave.md",
+      "id": "adr-2606035000",
+      "title": "Session close — labor-liberation OSS-robotics actor wave + Displacement Dividend + concurrent-tree recovery",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-labor-liberation-robotics-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "session-close record for the labor-liberation robotics-actor wave (2026-06-03)"
+      ],
+      "related": [
+        "adr-2606032100",
+        "adr-2606032130",
+        "adr-2605173100",
+        "adr-2605172000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606032100 (Robotics-Actor Wave)",
+        "ADR-2606032130 (Displacement Dividend)"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606035000-session-close-pr-865-review-ipaddress-yabai-extract-merge.md",
       "id": "adr-2606035000-session-close-pr-865-review-ipaddress-yabai-extract-merge",
       "title": "ADR-2606035000: Session close — PR",
