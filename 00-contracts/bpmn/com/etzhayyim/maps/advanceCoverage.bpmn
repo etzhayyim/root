@@ -5,7 +5,7 @@
   Pipeline (ADR-0056 generic primitives, no custom task type):
 
     1. generic.db.select     — top gap from view_maps_coverage_gap_ranked
-    2. generic.http.fetch    — POST to dispatcher.gftd.ai/xrpc/com.etzhayyim.apps.maps.advanceCoverage
+    2. generic.http.fetch    — POST to dispatcher.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.advanceCoverage
                                 (the XRPC handler runs createCollectionJob + bumps last_fetched_at)
     3. generic.audit.emit    — OCEL 2.0 event for coverage.advance
 
@@ -16,7 +16,7 @@
   NSID derivation (sync-bpmn-actors.py convention):
     path = 00-contracts/bpmn/com/etzhayyim/maps/advanceCoverage.bpmn
     NSID = com.etzhayyim.apps.maps.advanceCoverage
-    vertex_id = at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/maps-advance-coverage-v1
+    vertex_id = at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-advance-coverage-v1
 
   Timer-start processes get no lexicon binding row — they fire on Zeebe's
   schedule, not XRPC. The XRPC NSID `com.etzhayyim.apps.maps.advanceCoverage`
@@ -26,7 +26,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_maps_advance_coverage"
-    targetNamespace="https://gftd.ai/bpmn/maps"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="maps_advance_coverage" name="maps coverage advance" isExecutable="true">
@@ -88,7 +88,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://maps.gftd.ai/xrpc/com.etzhayyim.apps.maps.advanceCoverage&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://maps.etzhayyim.com/xrpc/com.etzhayyim.apps.maps.advanceCoverage&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;"                           target="method"/>
           <zeebe:input source="=&quot;application/json&quot;"               target="contentType"/>
           <zeebe:input source="={ &quot;limit&quot;: 1, &quot;sourceDid&quot;: gapRows[0].source_did, &quot;label&quot;: gapRows[0].label }" target="body"/>
