@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys) + ADR-2605172400 (3-axis) + ADR-2605181100
  * (kotoba E2E encrypted-record envelope). Founder directive 2026-06-03: MAXIMAL
  * migration — front everything that can move; only irreducible regulated
- * EXECUTION stays gftd.
+ * EXECUTION stays etzhayyim.
  *
  * SPLIT (from the actual webmk data model: vertex_webmk_client /
  * vertex_webmk_proposal / edge_webmk_campaign_link):
@@ -20,7 +20,7 @@
  *       copyMarkdown (the confidential deliverable) + qualityScore + status.
  *   Both sealed via sdk.encryptedWrite; substrate never sees them plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the LLM
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the LLM
  *   INFERENCE that generates strategy/copy (Claude) and the Resend email
  *   delivery EXECUTION (credential custody + the actual send action). Those are
  *   regulated/secret-bearing acts; their RESULTS (the proposal text, the

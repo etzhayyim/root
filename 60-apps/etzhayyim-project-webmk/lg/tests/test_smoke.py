@@ -1,7 +1,7 @@
 """Smoke tests for lg-webmk graphs (no LLM / no DB required).
 
 Run:
-  LG_AUDIT_DISABLED=1 pytest 60-apps/ai-gftd-project-webmk/lg/tests/ -v
+  LG_AUDIT_DISABLED=1 pytest 60-apps/etzhayyim-project-webmk/lg/tests/ -v
 """
 
 from __future__ import annotations

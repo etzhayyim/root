@@ -1,8 +1,8 @@
-# ai-gftd-project-webmk — Web Marketing Proposal Agent
+# etzhayyim-project-webmk — Web Marketing Proposal Agent
 
-**URL**: `https://webmk.etzhayyim.com` / `https://wbmk0001.etzhayyim.com`  
-**DID**: `did:web:webmk.etzhayyim.com`  
-**nanoid**: `wbmk0001`  
+**URL**: `https://webmk.etzhayyim.com` / `https://wbmk0001.etzhayyim.com`
+**DID**: `did:web:webmk.etzhayyim.com`
+**nanoid**: `wbmk0001`
 **ADR**: `90-docs/adr/2605072000-langgraph-agent-loop-pattern.md`
 
 ## Architecture
@@ -74,8 +74,8 @@ ADS_XRPC_URL    — ads.etzhayyim.com base URL (default https://adsm4d5c.etzhayy
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-webmk/appview/webmk-wbmk0001
-gftd deploy
+cd 60-apps/etzhayyim-project-webmk/appview/webmk-wbmk0001
+etzhayyim deploy
 
 # Start Python worker
 python -m pymagatama.webmk_worker_main

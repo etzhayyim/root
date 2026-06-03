@@ -5,7 +5,7 @@
   "nanoid": "wbmk0001",
   "runtimeType": "worker",
   "profile": {
-    "displayName": "GFTD Web Marketing",
+    "displayName": "ETZHAYYIM Web Marketing",
     "description": "AI web-marketing proposal agent. Research, competitor analysis, strategy generation, and copy writing — fully automated.",
     "avatar": "WM",
     "category": "marketing",
@@ -25,7 +25,7 @@
     }
   },
   "space": {
-    "name": "GFTD Web Marketing",
+    "name": "ETZHAYYIM Web Marketing",
     "description": "Marketing proposals and campaign workspace",
     "joinRule": "invite",
     "historyVisibility": "invited",

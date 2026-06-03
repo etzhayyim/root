@@ -8,7 +8,7 @@
  * deliverable (strategyJson/copyMarkdown) sealed in the kotoba envelope
  * (ADR-2605181100), read-cap = owner DID + explicit recipients.
  *
- * STAYS gftd (consent-capability, not here): Claude strategy/copy INFERENCE and
+ * STAYS etzhayyim (consent-capability, not here): Claude strategy/copy INFERENCE and
  * the Resend email-delivery EXECUTION (credential custody + send action).
  */
 

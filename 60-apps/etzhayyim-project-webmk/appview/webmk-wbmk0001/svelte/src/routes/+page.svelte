@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Webmk Wbmk0001",
-  "project": "ai-gftd-project-webmk",
+  "project": "etzhayyim-project-webmk",
   "name": "webmk-wbmk0001",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-webmk/appview/webmk-wbmk0001/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-webmk/appview/webmk-wbmk0001/svelte/src/routes/+page.svelte"
 };
 </script>
 
