@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-fumetsu-no-anata-e-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-fumetsu-no-anata-e-series-primer-2026",
   "identifier": "manga-fumetsu-no-anata-e-series-primer-2026",
   "headline": "To Your Eternity primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to To Your Eternity, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

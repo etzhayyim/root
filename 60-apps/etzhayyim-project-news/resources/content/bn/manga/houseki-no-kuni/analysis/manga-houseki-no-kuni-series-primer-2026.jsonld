@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-houseki-no-kuni-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-houseki-no-kuni-series-primer-2026",
   "identifier": "manga-houseki-no-kuni-series-primer-2026",
   "headline": "Land of the Lustrous primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Land of the Lustrous, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
