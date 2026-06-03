@@ -1,0 +1,21 @@
+# Minimal kotoba-os unikernel boot PoC (ADR-2606031600 L1/L2).
+# A no_std, single-address-space aarch64 image that boots on the QEMU `virt`
+# hypervisor machine and writes to the real PL011 UART via MMIO — a genuine
+# (if minimal) "unikernel boot + real memory-mapped device I/O". Standalone
+# ([workspace]) so the parent Rust workspaces never adopt it.
+[package]
+name = "kotoba-os-boot"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Minimal no_std aarch64 unikernel boot PoC for kotoba-os (QEMU virt + PL011 MMIO)"
+
+[workspace]
+
+[[bin]]
+name = "kotoba-os-boot"
+path = "src/main.rs"
+
+[profile.release]
+panic = "abort"
+opt-level = "s"
