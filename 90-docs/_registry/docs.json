@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-02",
+  "updated_at": "2026-06-03",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -14,29 +14,6 @@
         "magatama wit package coverage and compliance mapping"
       ],
       "related": [
-        "260320-magatama-cloudflare-containers-evaluation",
-        "260319-w-protocol-component-composition-design"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/wproto/260319-w-protocol-component-composition-design.md",
-      "id": "260319-w-protocol-component-composition-design",
-      "title": "W Protocol Component Composition Design",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "w-protocol-component-composition",
-      "authoritative": true,
-      "authoritative_for": [
-        "cross app wit level typed function call over w protocol"
-      ],
-      "related": [
-        "260317-w-protocol-design",
-        "260317-w-protocol-wrpc-design",
         "260320-magatama-cloudflare-containers-evaluation"
       ],
       "supersedes": [],
@@ -109,30 +86,6 @@
       "supersedes": [],
       "superseded_by": [],
       "last_verified": "2026-03-20",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/wproto/260322-w-protocol-record-encryption-lexicon-design.md",
-      "id": "260322-w-protocol-record-encryption-lexicon-design",
-      "title": "W Protocol Record Encryption & Lexicon Design — API 使い分けガイド",
-      "status": "active",
-      "doc_type": "reference",
-      "topic": "w-protocol-encryption-lexicon",
-      "authoritative": true,
-      "authoritative_for": [
-        "W Protocol record encryption model",
-        "Lexicon namespace encryption classification",
-        "ATPost vs WRecord vs WSend API selection"
-      ],
-      "related": [
-        "260317-w-protocol-design",
-        "260318-w-protocol-sender-trust-design",
-        "yoro-superapp-oembed-design"
-      ],
-      "supersedes": [],
-      "superseded_by": [],
-      "last_verified": "2026-03-22",
       "amends": [],
       "amended_by": []
     },
@@ -257,36 +210,6 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/wproto/260403-did-namespace-and-lexicon-consolidated.md",
-      "id": "260403-did-namespace-and-lexicon-consolidated",
-      "title": "DID, Namespace, and Lexicon Mapping (Consolidated)",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "did-namespace-lexicon",
-      "authoritative": true,
-      "authoritative_for": [
-        "did path and nsid correspondence baseline",
-        "performerType and multi-did consolidation baseline",
-        "namespace and resource-flow lexicon governance"
-      ],
-      "related": [
-        "260403-wproto-transport-and-routing-consolidated"
-      ],
-      "supersedes": [
-        "260324-source-graph-hybrid-design",
-        "260324-source-graph-hybrid-design",
-        "260324-source-graph-hybrid-design",
-        "260323-yoro-human-credit-economy-design",
-        "260323-yoro-human-credit-economy-design",
-        "260323-yoro-human-credit-economy-design",
-        "260326-did-follow-deps-governance-design"
-      ],
-      "superseded_by": [],
-      "last_verified": "2026-04-03",
-      "amends": [],
-      "amended_by": []
-    },
-    {
       "path": "90-docs/platform/260403-governance-and-compliance-consolidated.md",
       "id": "260403-governance-and-compliance-consolidated",
       "title": "Governance and Compliance (Consolidated)",
@@ -298,9 +221,7 @@
         "governance policy baseline across visibility and consent",
         "authority chain and content access compliance baseline"
       ],
-      "related": [
-        "260403-w-protocol-core-and-security-consolidated"
-      ],
+      "related": [],
       "supersedes": [
         "yoro-superapp-oembed-design",
         "260323-yoro-human-credit-economy-design",
@@ -324,9 +245,7 @@
         "inference runtime baseline across rust and wasm paths",
         "hayate artifact schema and runtime compatibility baseline"
       ],
-      "related": [
-        "260403-wproto-transport-and-routing-consolidated"
-      ],
+      "related": [],
       "supersedes": [
         "260325-claude-native-lifecycle-management",
         "ingredient-safety-scoring",
@@ -352,9 +271,7 @@
         "per-did autonomy integration baseline",
         "standard rule for all actor/app DIDs"
       ],
-      "related": [
-        "260403-reactive-event-stream-architecture-consolidated"
-      ],
+      "related": [],
       "supersedes": [
         "260326-shinka-kyumei-koji-design",
         "260402-live-data-stability-architecture",
@@ -362,33 +279,6 @@
         "260402-per-did-autonomous-kyumei-shinka-architecture",
         "260402-hinshitsu-fleet-kaizen-design",
         "260402-hinshitsu-ops-and-policy"
-      ],
-      "superseded_by": [],
-      "last_verified": "2026-04-03",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/wproto/260403-reactive-event-stream-architecture-consolidated.md",
-      "id": "260403-reactive-event-stream-architecture-consolidated",
-      "title": "Reactive Event Stream Architecture (Consolidated)",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "reactive-event-stream-architecture",
-      "authoritative": true,
-      "authoritative_for": [
-        "reactive event stream architecture for app workloads on gftd",
-        "firehose to app processing and subscriber delivery model",
-        "no polling and no do queue baseline for reactive delivery"
-      ],
-      "related": [
-        "wrpc-stream-native",
-        "w-protocol-at-superset",
-        "data-gateway-consolidation"
-      ],
-      "supersedes": [
-        "news-wrpc-stream-reactive",
-        "reactive-observe-firehose"
       ],
       "superseded_by": [],
       "last_verified": "2026-04-03",
@@ -416,60 +306,6 @@
         "security-architecture",
         "security-threat-model",
         "security-key-management"
-      ],
-      "superseded_by": [],
-      "last_verified": "2026-04-03",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/wproto/260403-w-protocol-core-and-security-consolidated.md",
-      "id": "260403-w-protocol-core-and-security-consolidated",
-      "title": "W Protocol Core and Security (Consolidated)",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "w-protocol-core-security",
-      "authoritative": true,
-      "authoritative_for": [
-        "w protocol core architecture baseline",
-        "federation and trust boundary baseline",
-        "confidential container position in w protocol security model"
-      ],
-      "related": [
-        "260403-wproto-transport-and-routing-consolidated"
-      ],
-      "supersedes": [
-        "260317-w-protocol-design",
-        "260318-confidential-container-design",
-        "260318-w-protocol-federation-design",
-        "260318-w-protocol-sender-trust-design"
-      ],
-      "superseded_by": [],
-      "last_verified": "2026-04-03",
-      "amends": [],
-      "amended_by": []
-    },
-    {
-      "path": "90-docs/wproto/260403-wproto-transport-and-routing-consolidated.md",
-      "id": "260403-wproto-transport-and-routing-consolidated",
-      "title": "W Protocol Transport and Routing (Consolidated)",
-      "status": "active",
-      "doc_type": "explanation",
-      "topic": "wproto-transport-routing",
-      "authoritative": true,
-      "authoritative_for": [
-        "w protocol stream transport baseline",
-        "wit to transport binding generation policy",
-        "xrpc service-proxy routing boundary"
-      ],
-      "related": [
-        "260317-w-protocol-design",
-        "w-protocol-at-superset"
-      ],
-      "supersedes": [
-        "wrpc-stream-native",
-        "260324-source-graph-hybrid-design",
-        "xrpc-cqrs-service-proxy"
       ],
       "superseded_by": [],
       "last_verified": "2026-04-03",
@@ -19776,6 +19612,48 @@
         "ADR-2605302130 (himotoki) · ADR-2605262700 (chigiri) · ADR-2605263400 (musubi)"
       ],
       "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md",
+      "id": "adr-2606023200-session-close-ooyake-world-government-atlas",
+      "title": "ADR-2606023200: Session close — ooyake (公) world government atlas R0/R1 build + self-paced /loop maturation",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-ooyake-world-government-atlas",
+      "authoritative": false,
+      "related": [
+        "adr-2606021600-ooyake-world-government-atlas",
+        "adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606033400-session-close-consensys-rw-free-migration-sweep.md",
+      "id": "adr-2606033400-session-close-consensys-rw-free-migration-sweep",
+      "title": "ADR-2606033400: Session close — Consensys-pattern rw-free migration sweep complete + vendor-resident roster (75) + tracker truth-pass",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-consensys-rw-free-migration-sweep",
+      "authoritative": true,
+      "related": [
+        "adr-2606011400-consensys-pattern-etzhayyim-product-gftd-infra-vendor",
+        "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "adr-2605152100-etzhayyim-github-org-boundary",
+        "adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-03",
+      "authoritative_for": [],
       "amends": [],
       "amended_by": []
     },

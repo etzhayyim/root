@@ -10,7 +10,6 @@ authoritative_for:
   - magatama wit package coverage and compliance mapping
 related:
   - 260320-magatama-cloudflare-containers-evaluation
-  - 260319-w-protocol-component-composition-design
 supersedes: []
 superseded_by: []
 ---

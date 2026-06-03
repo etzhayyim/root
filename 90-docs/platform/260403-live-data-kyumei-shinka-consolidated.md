@@ -12,7 +12,6 @@ authoritative_for:
   - per-did autonomy integration baseline
   - standard rule for all actor/app DIDs
 related:
-  - 260403-reactive-event-stream-architecture-consolidated
 supersedes:
   - 260326-shinka-kyumei-koji-design
   - 260402-live-data-stability-architecture

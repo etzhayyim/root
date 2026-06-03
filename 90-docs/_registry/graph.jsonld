@@ -40,27 +40,7 @@
       "authoritativeFor": [
         "magatama wit package coverage and compliance mapping"
       ],
-      "related": [
-        "doc:260320-magatama-cloudflare-containers-evaluation",
-        "doc:260319-w-protocol-component-composition-design"
-      ],
-      "lastVerified": "2026-03-20"
-    },
-    {
-      "id": "doc:260319-w-protocol-component-composition-design",
-      "type": "Article",
-      "title": "W Protocol Component Composition Design",
-      "status": "active",
-      "topic": "w-protocol-component-composition",
-      "authoritative": true,
-      "authoritativeFor": [
-        "cross app wit level typed function call over w protocol"
-      ],
-      "related": [
-        "doc:260317-w-protocol-design",
-        "doc:260317-w-protocol-wrpc-design",
-        "doc:260320-magatama-cloudflare-containers-evaluation"
-      ],
+      "related": "doc:260320-magatama-cloudflare-containers-evaluation",
       "lastVerified": "2026-03-20"
     },
     {
@@ -114,25 +94,6 @@
         "doc:260319-magatama-wit-dodaf-nist-coverage"
       ],
       "lastVerified": "2026-03-20"
-    },
-    {
-      "id": "doc:260322-w-protocol-record-encryption-lexicon-design",
-      "type": "TechArticle",
-      "title": "W Protocol Record Encryption & Lexicon Design — API 使い分けガイド",
-      "status": "active",
-      "topic": "w-protocol-encryption-lexicon",
-      "authoritative": true,
-      "authoritativeFor": [
-        "W Protocol record encryption model",
-        "Lexicon namespace encryption classification",
-        "ATPost vs WRecord vs WSend API selection"
-      ],
-      "related": [
-        "doc:260317-w-protocol-design",
-        "doc:260318-w-protocol-sender-trust-design",
-        "doc:yoro-superapp-oembed-design"
-      ],
-      "lastVerified": "2026-03-22"
     },
     {
       "id": "doc:260323-yoro-human-credit-economy-design",
@@ -228,30 +189,6 @@
       "lastVerified": "2026-04-03"
     },
     {
-      "id": "doc:260403-did-namespace-and-lexicon-consolidated",
-      "type": "Article",
-      "title": "DID, Namespace, and Lexicon Mapping (Consolidated)",
-      "status": "active",
-      "topic": "did-namespace-lexicon",
-      "authoritative": true,
-      "authoritativeFor": [
-        "did path and nsid correspondence baseline",
-        "performerType and multi-did consolidation baseline",
-        "namespace and resource-flow lexicon governance"
-      ],
-      "related": "doc:260403-wproto-transport-and-routing-consolidated",
-      "supersedes": [
-        "doc:260324-source-graph-hybrid-design",
-        "doc:260324-source-graph-hybrid-design",
-        "doc:260324-source-graph-hybrid-design",
-        "doc:260323-yoro-human-credit-economy-design",
-        "doc:260323-yoro-human-credit-economy-design",
-        "doc:260323-yoro-human-credit-economy-design",
-        "doc:260326-did-follow-deps-governance-design"
-      ],
-      "lastVerified": "2026-04-03"
-    },
-    {
       "id": "doc:260403-governance-and-compliance-consolidated",
       "type": "Article",
       "title": "Governance and Compliance (Consolidated)",
@@ -262,7 +199,6 @@
         "governance policy baseline across visibility and consent",
         "authority chain and content access compliance baseline"
       ],
-      "related": "doc:260403-w-protocol-core-and-security-consolidated",
       "supersedes": [
         "doc:yoro-superapp-oembed-design",
         "doc:260323-yoro-human-credit-economy-design",
@@ -282,7 +218,6 @@
         "inference runtime baseline across rust and wasm paths",
         "hayate artifact schema and runtime compatibility baseline"
       ],
-      "related": "doc:260403-wproto-transport-and-routing-consolidated",
       "supersedes": [
         "doc:260325-claude-native-lifecycle-management",
         "doc:ingredient-safety-scoring",
@@ -304,7 +239,6 @@
         "per-did autonomy integration baseline",
         "standard rule for all actor/app DIDs"
       ],
-      "related": "doc:260403-reactive-event-stream-architecture-consolidated",
       "supersedes": [
         "doc:260326-shinka-kyumei-koji-design",
         "doc:260402-live-data-stability-architecture",
@@ -312,29 +246,6 @@
         "doc:260402-per-did-autonomous-kyumei-shinka-architecture",
         "doc:260402-hinshitsu-fleet-kaizen-design",
         "doc:260402-hinshitsu-ops-and-policy"
-      ],
-      "lastVerified": "2026-04-03"
-    },
-    {
-      "id": "doc:260403-reactive-event-stream-architecture-consolidated",
-      "type": "Article",
-      "title": "Reactive Event Stream Architecture (Consolidated)",
-      "status": "active",
-      "topic": "reactive-event-stream-architecture",
-      "authoritative": true,
-      "authoritativeFor": [
-        "reactive event stream architecture for app workloads on gftd",
-        "firehose to app processing and subscriber delivery model",
-        "no polling and no do queue baseline for reactive delivery"
-      ],
-      "related": [
-        "doc:wrpc-stream-native",
-        "doc:w-protocol-at-superset",
-        "doc:data-gateway-consolidation"
-      ],
-      "supersedes": [
-        "doc:news-wrpc-stream-reactive",
-        "doc:reactive-observe-firehose"
       ],
       "lastVerified": "2026-04-03"
     },
@@ -358,50 +269,6 @@
         "doc:security-architecture",
         "doc:security-threat-model",
         "doc:security-key-management"
-      ],
-      "lastVerified": "2026-04-03"
-    },
-    {
-      "id": "doc:260403-w-protocol-core-and-security-consolidated",
-      "type": "Article",
-      "title": "W Protocol Core and Security (Consolidated)",
-      "status": "active",
-      "topic": "w-protocol-core-security",
-      "authoritative": true,
-      "authoritativeFor": [
-        "w protocol core architecture baseline",
-        "federation and trust boundary baseline",
-        "confidential container position in w protocol security model"
-      ],
-      "related": "doc:260403-wproto-transport-and-routing-consolidated",
-      "supersedes": [
-        "doc:260317-w-protocol-design",
-        "doc:260318-confidential-container-design",
-        "doc:260318-w-protocol-federation-design",
-        "doc:260318-w-protocol-sender-trust-design"
-      ],
-      "lastVerified": "2026-04-03"
-    },
-    {
-      "id": "doc:260403-wproto-transport-and-routing-consolidated",
-      "type": "Article",
-      "title": "W Protocol Transport and Routing (Consolidated)",
-      "status": "active",
-      "topic": "wproto-transport-routing",
-      "authoritative": true,
-      "authoritativeFor": [
-        "w protocol stream transport baseline",
-        "wit to transport binding generation policy",
-        "xrpc service-proxy routing boundary"
-      ],
-      "related": [
-        "doc:260317-w-protocol-design",
-        "doc:w-protocol-at-superset"
-      ],
-      "supersedes": [
-        "doc:wrpc-stream-native",
-        "doc:260324-source-graph-hybrid-design",
-        "doc:xrpc-cqrs-service-proxy"
       ],
       "lastVerified": "2026-04-03"
     },
@@ -12563,6 +12430,25 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021730-latent-entity-kotoba-datomic-refactor",
+      "type": "TechArticle",
+      "title": "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor",
+      "status": "proposed",
+      "topic": "latent-entity-kotoba-refactor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "latent-entity statistical resolution design — kotoba-EAVT canonical form"
+      ],
+      "related": [
+        "doc:/90-docs/260430-natural-person-latent-entity-backend-design.md (superseded design)",
+        "doc:/00-contracts/schemas/latent-entity-ontology.kotoba.edn (new schema)",
+        "doc:/30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)",
+        "doc:/60-apps/ai-gftd-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
+      ],
+      "supersedes": "doc:/90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)",
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606022000",
       "type": "TechArticle",
       "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",
@@ -12709,6 +12595,36 @@
         "doc:adr-2606022600-session-close-r0-actor-coverage-sweep-and-organism-axis-convention"
       ],
       "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606023200-session-close-ooyake-world-government-atlas",
+      "type": "TechArticle",
+      "title": "ADR-2606023200: Session close — ooyake (公) world government atlas R0/R1 build + self-paced /loop maturation",
+      "status": "active",
+      "topic": "session-close-ooyake-world-government-atlas",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606021600-ooyake-world-government-atlas",
+        "doc:adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606033400-session-close-consensys-rw-free-migration-sweep",
+      "type": "TechArticle",
+      "title": "ADR-2606033400: Session close — Consensys-pattern rw-free migration sweep complete + vendor-resident roster (75) + tracker truth-pass",
+      "status": "active",
+      "topic": "session-close-consensys-rw-free-migration-sweep",
+      "authoritative": true,
+      "related": [
+        "doc:adr-2606011400-consensys-pattern-etzhayyim-product-gftd-infra-vendor",
+        "doc:adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
+        "doc:adr-2605152100-etzhayyim-github-org-boundary",
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate"
+      ],
+      "lastVerified": "2026-06-03"
     },
     {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",

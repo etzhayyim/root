@@ -290,13 +290,6 @@ role = "soshiki-docs"
 tier = "production"
 description = "soshiki.etzhayyim.com biological + social org docs"
 
-[subdirs.wproto]
-role = "wproto-docs"
-tier = "archived"
-flags = ["archived", "deprecated"]
-description = "Legacy W Protocol design docs. wproto is a dead path; active protocol docs use AT Protocol/XRPC ADRs."
-replaced_by = "90-docs/adr/2604251700-wproto-wit-dead-path.md"
-
 [subdirs.yoro]
 role = "yoro-docs"
 tier = "production"

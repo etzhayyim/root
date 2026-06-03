@@ -10,7 +10,6 @@ authoritative_for:
   - governance policy baseline across visibility and consent
   - authority chain and content access compliance baseline
 related:
-  - 260403-w-protocol-core-and-security-consolidated
 supersedes:
   - yoro-superapp-oembed-design
   - 260323-yoro-human-credit-economy-design

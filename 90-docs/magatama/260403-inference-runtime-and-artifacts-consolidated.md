@@ -10,7 +10,6 @@ authoritative_for:
   - inference runtime baseline across rust and wasm paths
   - hayate artifact schema and runtime compatibility baseline
 related:
-  - 260403-wproto-transport-and-routing-consolidated
 supersedes:
   - 260325-claude-native-lifecycle-management
   - ingredient-safety-scoring
