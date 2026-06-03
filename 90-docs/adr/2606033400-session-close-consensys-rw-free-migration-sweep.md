@@ -147,6 +147,26 @@ EXECUTION backends consumed via consent-capability. The full 32-app founder
 directive is complete: 24 migrated V→A (incl. air-cargo), 8 accepted as
 already-fronted.
 
+# Amendment 2026-06-03 (2) — E2E wave 2 + program close
+
+Wave 2 (29 apps V→A, all green ~260 tests): aviation-8 FULL migration
+(air-book/crew/dcs/ffp/mro/ops/sms/yield) + harai/shiharai/wire/web4/credits/
+resource-provider + communicator/meet/meeting-recorder/messenger/phone/
+os-messaging/fax/briefing/external-service-adapter + webmk/webya/site/hub/coverage/
+cowork. DATA migrated (plaintext public + E2E sensitive); only irreducible
+EXECUTION stays gftd (fiat-MoR rail per ADR-2605172100, GPU/LLM inference,
+credential custody, 100B site archive). Counts: **A 129→158, V 51→22.**
+
+**MIGRATION PROGRAM COMPLETE (founder option 1).** The 22 remaining vendor apps
+are CONFIRMED FINAL — credential custody (accounts/auth), third-party-ToS social
+PII (facebook/x/gmail/outreach), external-IdP token exec (microsoft/microsoft-graph/
+mailer), fiat-MoR settlement (kaikei/game-play-uploader), GPU/LLM generation
+(mangaka/dougaka/yukkuri/ongakuka/recap), infra/gateway/storage (cloudflare-browser-
+render/playwright/llm/yatabase/cyber-drill), regulated PII intake (ses). Each stays
+gftd for a reason E2E cannot resolve; further migration would require redesigning the
+underlying execution (e.g. on-chain USDC rails). Across both E2E waves, 53 apps
+migrated V→A. Final: **A=158, V=22.**
+
 # Consequences
 
 - The Consensys boundary is now per-function reconciled across the full app

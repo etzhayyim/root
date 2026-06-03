@@ -95,10 +95,28 @@ one-at-a-time loop; superset of the original audit's 43.)
 > (100B archive stays gftd). Only irreducible regulated EXECUTION stays gftd:
 > fiat-MoR settlement rail (ADR-2605172100 — etzhayyim never the fiat counterparty,
 > on-chain USDC only), GPU/LLM inference, credential custody.
-> **Remaining vendor (22):** accounts, auth, cloudflare-browser-render, cyber-drill,
-> dougaka, facebook, game-play-uploader, gmail, kaikei, llm, mailer, mangaka,
-> microsoft, microsoft-graph, ongakuka, outreach, playwright, recap, ses, x,
-> yatabase, yukkuri. (Entries below for migrated apps are superseded — now Bucket A.)
+> **Remaining vendor (22) — CONFIRMED FINAL (founder 2026-06-03, option 1):**
+> these stay gftd for irreducible reasons E2E cannot resolve. No further migration
+> unless the underlying EXECUTION is itself redesigned (e.g. on-chain USDC rails).
+> (Entries below for migrated apps are superseded — now Bucket A.)
+>
+> - **Credential custody (2)** — raw key/passkey/session cannot leave gftd:
+>   `accounts`, `auth`.
+> - **Third-party-ToS social PII + send/receive execution (4)**: `facebook`, `x`,
+>   `gmail`, `outreach`.
+> - **External-IdP token execution (M365/Google) (3)**: `microsoft`,
+>   `microsoft-graph`, `mailer`.
+> - **Fiat-MoR / accounting settlement execution (2)**: `kaikei`,
+>   `game-play-uploader`.
+> - **GPU/LLM generation-compute execution (5)**: `mangaka`, `dougaka`, `yukkuri`,
+>   `ongakuka`, `recap` (recap also copyright/fair-use liability).
+> - **Infra / browser-exec / LLM gateway / tenant-storage (5)**:
+>   `cloudflare-browser-render`, `playwright`, `llm`, `yatabase`, `cyber-drill`.
+> - **Regulated PII intake (1)**: `ses` (SES案件 Tier-3 PII + IT-staffing settlement).
+>
+> **MIGRATION PROGRAM COMPLETE** — A=158 / B / C=0 / D / V=22. The Consensys
+> product-front/infra-vendor boundary is fully reconciled per-function across the
+> app surface; regulated functions consumed by etzhayyim fronts via consent-capability.
 
 > **kotoba-E2E migration wave (2026-06-03, founder-directed)**: 24 apps moved
 > V→A. Founder ruled PII/CUI/LE/yabai-risk safe to migrate on-substrate via
