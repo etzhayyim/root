@@ -12786,6 +12786,20 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606034800-manako-browser-local-yolo26-object-detection",
+      "type": "TechArticle",
+      "title": "ADR-2606034800: manako 眼 — browser-local YOLO26 object detection (WebGPU/wasm)",
+      "status": "accepted",
+      "topic": "manako-browser-local-yolo26",
+      "authoritative": true,
+      "authoritativeFor": [
+        "manako-browser-local-yolo26",
+        "yolo26-onnx-dual-mode-postprocessing"
+      ],
+      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606035000",
       "type": "TechArticle",
       "title": "Session close — labor-liberation OSS-robotics actor wave + Displacement Dividend + concurrent-tree recovery",
@@ -12801,20 +12815,6 @@
         "doc:adr-2605173100",
         "doc:adr-2605172000"
       ],
-      "lastVerified": "2026-06-03"
-    },
-    {
-      "id": "doc:adr-2606034800-manako-browser-local-yolo26-object-detection",
-      "type": "TechArticle",
-      "title": "ADR-2606034800: manako 眼 — browser-local YOLO26 object detection (WebGPU/wasm)",
-      "status": "accepted",
-      "topic": "manako-browser-local-yolo26",
-      "authoritative": true,
-      "authoritativeFor": [
-        "manako-browser-local-yolo26",
-        "yolo26-onnx-dual-mode-postprocessing"
-      ],
-      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
       "lastVerified": "2026-06-03"
     },
     {
@@ -12841,6 +12841,20 @@
       "topic": "session-close-sumitsubo-cleanroom-cad-interop",
       "authoritative": false,
       "related": "doc:adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling",
+      "lastVerified": "2026-06-03"
+    },
+    {
+      "id": "doc:adr-2606036000-session-close-kotoba-os-r0-r2-reference",
+      "type": "TechArticle",
+      "title": "ADR-2606036000: Session close — kotoba-os (ADR-2606031600) R0 charter → tested R1/R2 reference",
+      "status": "active",
+      "topic": "storage-substrate",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606031600-kotoba-os-content-addressed-wasm-unikernel",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
       "lastVerified": "2026-06-03"
     },
     {
