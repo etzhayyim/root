@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0731-hospital-services-xcbpyu7s",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0731-hospital-services-xcbpyu7s",
   "version": "1.0.0",
   "description": "COFOG component (TS-native migration)",
   "main": "src/app.ts",
