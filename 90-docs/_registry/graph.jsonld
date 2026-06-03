@@ -12868,6 +12868,25 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606032000-kanjo-corporate-financial-disclosure-ingest-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606032000: kanjō 勘定 — Public-Company Financial-Disclosure (決算) Ingest Tier-B Actor (R0)",
+      "status": "proposed",
+      "topic": "kanjo-corporate-financial-disclosure-ingest",
+      "authoritative": true,
+      "authoritativeFor": [
+        "corporate-financial-disclosure-ingest-actor",
+        "fin-fact-eavt-vocabulary",
+        "gaap-concept-normalization-map"
+      ],
+      "related": [
+        "doc:2605301600",
+        "doc:2606011800",
+        "doc:2606013800"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

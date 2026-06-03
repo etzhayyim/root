@@ -20000,6 +20000,39 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606032000-kanjo-corporate-financial-disclosure-ingest-tier-b-actor-r0.md",
+      "id": "adr-2606032000-kanjo-corporate-financial-disclosure-ingest-tier-b-actor-r0",
+      "title": "ADR-2606032000: kanjō 勘定 — Public-Company Financial-Disclosure (決算) Ingest Tier-B Actor (R0)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "kanjo-corporate-financial-disclosure-ingest",
+      "authoritative": true,
+      "authoritative_for": [
+        "corporate-financial-disclosure-ingest-actor",
+        "fin-fact-eavt-vocabulary",
+        "gaap-concept-normalization-map"
+      ],
+      "related": [
+        "2605301600",
+        "2606011800",
+        "2606013800"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605263800",
+        "2606022000",
+        "2604291500",
+        "2605262900",
+        "2605262130",
+        "2605312345",
+        "2605215000"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
