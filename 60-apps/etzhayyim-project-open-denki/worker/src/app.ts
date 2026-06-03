@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-denki — smart-grid network design + operations
+// etzhayyim-project-open-denki — smart-grid network design + operations
 //
 // 12 XRPC under com.etzhayyim.apps.openDenki.*:
 //   defineGenerationNode   (proc)   thermal / hydro / solar / wind / nuclear / storage

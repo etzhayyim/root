@@ -10,7 +10,7 @@
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["iec-61968-cim", "iec-61970-cim", "gftd-ops-policy"]
+    "complianceFrameworks": ["iec-61968-cim", "iec-61970-cim", "etzhayyim-ops-policy"]
   },
   "profile": {
     "displayName": "GFTD Open Denki",
@@ -18,7 +18,7 @@
     "avatar": "⚡",
     "category": "utility",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "generation-node-define",

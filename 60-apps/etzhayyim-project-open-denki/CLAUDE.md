@@ -43,7 +43,7 @@ Apache-2.0. IEC 61968/61970 CIM aligned.
 - IEC 61968 CIM (Distribution Management)
 - IEC 61970 CIM (Energy Management System)
 
-## Downstream consumer: `ai-gftd-project-open-ot` (2026-05-15)
+## Downstream consumer: `etzhayyim-project-open-ot` (2026-05-15)
 
 `open-ot` (WASM-native PLC + Distributed Logic Controller, ADR-2605151200) consumes open-denki as **configuration SSoT** and adds **control verbs** on top:
 
@@ -54,7 +54,7 @@ Apache-2.0. IEC 61968/61970 CIM aligned.
 | `recordDemandResponse` | triggers `setpointChange` cascade across BESS / curtailable PV / load |
 | `reportFault` (CIM fault) | `reportFault` (control-side fault) carries optional `cimFaultDid` cross-link |
 
-First open-ot prototype is a **community microgrid** (per ADR §R3, scope in `60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md`). open-denki record DIDs are referenced directly from open-ot loop / cell manifests; no schema duplication.
+First open-ot prototype is a **community microgrid** (per ADR §R3, scope in `60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md`). open-denki record DIDs are referenced directly from open-ot loop / cell manifests; no schema duplication.
 
 ## Not in MVP
 
@@ -67,8 +67,8 @@ First open-ot prototype is a **community microgrid** (per ADR §R3, scope in `60
 ## Local Dev / Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-denki/worker
-wrangler d1 create ai-gftd-open-denki
+cd 60-apps/etzhayyim-project-open-denki/worker
+wrangler d1 create etzhayyim-open-denki
 # set OPEN_DENKI_D1_ID in .dev.vars
 e7m actor deploy .
 ```
