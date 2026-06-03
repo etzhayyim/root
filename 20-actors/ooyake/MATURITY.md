@@ -43,6 +43,14 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — national capitals (geolocation hierarchy complete)
+
+`gov-units.capitals.edn` adds **191 `:gov.address :capital` records** — each country
+unit's capital city (Wikidata country P36 → capital's P625 coordinate + label), all
+191 with precise lat/lon. This completes the geolocation hierarchy: IGO/national-body
+HQs + subnational seats + **national capitals**. `viz/gov-atlas.geojson` regenerated to
+**4,521 features**; total `:gov.address` now **5,693** (4,521 with coordinates).
+
 ## 2026-06-03 — self-contained map viewer
 
 `viz/gov-atlas-map.htm` renders `gov-atlas.geojson` in the browser — a pure-canvas
