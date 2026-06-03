@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_biosecurity_certification_track_bsl_export_control"
-    targetNamespace="https://gftd.ai/bpmn/open-biosecurity-certification"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-biosecurity-certification"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_biosecurity_certification_track_bsl_export_control" name="BSL 設備 輸出管理" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-biosecurity-certification.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-biosecurity-certification.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;bio.bslExport&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: equipmentVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>
