@@ -32,10 +32,23 @@ def _w(tmp, name, body):
 
 _GOOD = (
     '{:gov.unit/id "gov.x" :gov.unit/wikidata "Q1" '
+    ':gov.unit/level :country :gov.unit/branch :executive '
     ':gov.unit/official-url "https://x/" :gov.unit/sourcing :authoritative '
     ':gov.unit/provenance "https://x/" :gov.unit/last-verified "2026-06-03" '
     ':gov.unit/verification-status :maintainer-verified}'
 )
+
+
+def test_bad_level_fires():
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        seed = _w(tmp, "gov-units.s.edn",
+                  '{:units [{:gov.unit/id "gov.z" :gov.unit/wikidata "Q9" '
+                  ':gov.unit/level :galaxy :gov.unit/branch :executive '
+                  ':gov.unit/sourcing :authoritative :gov.unit/provenance "https://z/" '
+                  ':gov.unit/last-verified "2026-06-03"}]}')
+        auth = _w(tmp, "authority-reference.edn", "{:authority-records []}")
+        assert any("bad-level" in e for e in check([seed], auth))
 
 
 def test_duplicate_qid_fires():

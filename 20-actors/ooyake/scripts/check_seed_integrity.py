@@ -43,6 +43,12 @@ _QID_RE = re.compile(r"^Q[1-9][0-9]*$")
 _G5_REQUIRED = (":gov.unit/sourcing", ":gov.unit/provenance", ":gov.unit/last-verified")
 _SOURCING_OK = {":authoritative", ":representative"}
 _VSTATUS_OK = {":unverified-seed", ":maintainer-verified", ":stale", None}
+# must mirror gov-atlas-ontology.kotoba.edn :gov.unit/level and :gov.unit/branch enums
+_LEVEL_OK = {":supranational", ":country", ":region", ":subdivision", ":prefecture",
+             ":municipality", ":ward", ":ministry", ":agency", ":bureau", ":division",
+             ":section", ":madoguchi", ":legislature", ":court"}
+_BRANCH_OK = {":executive", ":legislative", ":judicial", ":independent", ":local",
+              ":intergovernmental", None}
 
 
 def seed_files() -> list[str]:
@@ -91,6 +97,10 @@ def check(files=None, auth_file=None) -> list[str]:
                 errors.append(f"[g5-missing] {uid}: missing {key} (provenance discipline)")
         if u.get(":gov.unit/sourcing") not in _SOURCING_OK:
             errors.append(f"[bad-sourcing] {uid}: {u.get(':gov.unit/sourcing')!r}")
+        if u.get(":gov.unit/level") not in _LEVEL_OK:
+            errors.append(f"[bad-level] {uid}: {u.get(':gov.unit/level')!r} not in ontology :gov.unit/level enum")
+        if u.get(":gov.unit/branch") not in _BRANCH_OK:
+            errors.append(f"[bad-branch] {uid}: {u.get(':gov.unit/branch')!r} not in ontology :gov.unit/branch enum")
         if u.get(":gov.unit/verification-status") not in _VSTATUS_OK:
             errors.append(f"[bad-verification-status] {uid}: {u.get(':gov.unit/verification-status')!r}")
         parent = u.get(":gov.unit/parent")
