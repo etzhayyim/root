@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_panama_queue_anchorage"
-    targetNamespace="https://gftd.ai/bpmn/open-panama-queue"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-panama-queue"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_panama_queue_anchorage" name="錨地待機" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -25,7 +25,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-panama-queue.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-panama-queue.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openPanamaQueue.anchorage.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, queueId: queueId, anchorageZone: anchorageZone}" target="payload"/>
         </zeebe:ioMapping>
