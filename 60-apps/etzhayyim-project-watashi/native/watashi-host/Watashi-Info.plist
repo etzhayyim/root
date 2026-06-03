@@ -27,7 +27,7 @@
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright 2026 GFTD Co., Ltd.</string>
+	<string>Copyright 2026 Etzhayyim Co., Ltd.</string>
 	<key>NSInputMonitoringUsageDescription</key>
 	<string>Watashi needs Input Monitoring to capture mouse and keyboard events for cross-device sharing.</string>
 	<key>NSLocalNetworkUsageDescription</key>

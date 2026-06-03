@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
-  "title": "Relay D1",
-  "project": "ai-gftd-project-watashi",
-  "name": "relay-d1",
-  "kind": "cloudflare surface",
+  "title": "Watashi Mfbtsuyc",
+  "project": "etzhayyim-project-watashi",
+  "name": "etzhayyim-wasm-watashi-mfbtsuyc",
+  "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-watashi/relay-d1/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-watashi/appview/etzhayyim-wasm-watashi-mfbtsuyc/svelte/src/routes/+page.svelte"
 };
 </script>
 
