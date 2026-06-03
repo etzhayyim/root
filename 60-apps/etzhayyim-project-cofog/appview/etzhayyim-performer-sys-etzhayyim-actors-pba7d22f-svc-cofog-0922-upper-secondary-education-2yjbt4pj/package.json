@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0922-upper-secondary-education-2yjbt4pj",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0922-upper-secondary-education-2yjbt4pj",
   "version": "1.0.0",
   "description": "COFOG runtime component (TS-native migration)",
   "main": "src/app.ts",
