@@ -13,6 +13,7 @@ description = "Reference Rust types for the kotoba-os genesis manifest + LowerEd
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
+blake3 = "1"
 
 [dev-dependencies]
 serde_json = "1.0"

@@ -17,6 +17,7 @@
 
 use serde::{Deserialize, Serialize};
 
+pub mod cid;
 pub mod mesh;
 
 /// The L1 lower edge a manifest targets. L3–L5 are identical across edges.
@@ -197,14 +198,20 @@ pub trait LowerEdge {
     /// Which edge this implementation is.
     fn edge(&self) -> Edge;
 
-    /// Verify a content-addressed artifact against its CID before load
-    /// (the trustless `/ipfs/<cid>` re-verify discipline, ADR-2606014600).
-    /// Reference impl: structural CIDv1-base32 shape check only — the real
-    /// host recomputes the blake3 multihash.
+    /// Structural CIDv1-base32 shape check (cheap pre-filter; used when the
+    /// artifact bytes are not yet in hand, e.g. validating a manifest offline).
     fn verify_cid(&self, cid: &str) -> bool {
         cid.len() > 8
             && cid.starts_with('b')
             && cid[1..].bytes().all(|c| c.is_ascii_lowercase() || c.is_ascii_digit())
+    }
+
+    /// REAL content-address verification: recompute the CIDv1(raw, blake3) of the
+    /// fetched bytes and compare to the claimed CID (kotoba-core content address,
+    /// trustless `/ipfs/<cid>` re-verify discipline, ADR-2606014600). This is what
+    /// the boot path runs before loading a kernel image / actor / membrane rule.
+    fn verify_artifact(&self, bytes: &[u8], claimed_cid: &str) -> bool {
+        crate::cid::verify_blake3(bytes, claimed_cid)
     }
 
     /// Boot a manifest on this edge: validate carve-outs, then verify the
@@ -302,5 +309,15 @@ mod tests {
         let mut m = hikari();
         m.identity.server_key = true;
         assert_eq!(HostedEdge.boot(&m), Err(vec![Violation::ServerKeyHeld]));
+    }
+
+    #[test]
+    fn lower_edge_verifies_real_blake3_cid() {
+        let bytes = b"a kernel image / actor / membrane rule";
+        let cid = crate::cid::cidv1_raw_blake3(bytes);
+        // the edge accepts the bytes that hash to the claimed CID...
+        assert!(HostedEdge.verify_artifact(bytes, &cid));
+        // ...and rejects tampered bytes (real recompute, not a shape check)
+        assert!(!HostedEdge.verify_artifact(b"tampered", &cid));
     }
 }

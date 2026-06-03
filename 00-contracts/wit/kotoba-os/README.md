@@ -138,7 +138,13 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
   deterministic `witness_index`/`select_witnesses` (the ADR-2605231902
   `hash(record_cid) + i mod n` rule), and a `Membrane` trait + `CapabilityMembrane`
   + `quorum_accepts()`.
-- **13 `cargo test` green**: 6 manifest/edge (valid deserialize+validate,
+- **`cid` module** (ADR §D1, R2): real CIDv1 content addressing matching
+  kotoba-core's "CIDv1 blake3" — `cidv1_raw_blake3()`, `verify_blake3()`, and an
+  OCI-bridge `cidv1_raw_sha256()`. From-scratch base32 encoder validated against an
+  independent oracle (the sha256 CID python produced for §D4). `LowerEdge` gains
+  `verify_artifact(bytes, cid)` = **real recompute** (rejects tampered bytes), not
+  the R0 structural shape check.
+- **19 `cargo test` green**: 6 manifest/edge (valid deserialize+validate,
   deny-unknown-fields matches schema, validate() catches all three violations,
   capability scoping, HostedEdge boots 3 artifacts, boot refuses server-key) + 7
   mesh (chain links+verifies, verify detects tampering, witness selection
@@ -205,4 +211,7 @@ E2E OK
   scan-cycle Datom history + N3 fault-atomicity through actual WASM (3 tests green).
 - ✅ D4 k8s OCI-CID artifact convention (digest = CID, IPFS-pulled; 8 tests, incl.
   the decode-cid-equals-digest invariant + registry-ref rejection).
-- R2: real blake3 CID verification in the `LowerEdge` boot path (kotoba-core).
+- ✅ Cross-artifact drift guard — WIT == schema == Rust types (5 tests).
+- ✅ R2 real blake3 CID verification in `LowerEdge::verify_artifact` (`cid` module,
+  6 tests; from-scratch base32 validated vs an independent oracle).
+- A consolidated coverage entry point + the real production crate (kotoba subrepo).
