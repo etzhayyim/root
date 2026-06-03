@@ -12762,6 +12762,22 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606035000-session-close-pr-865-review-ipaddress-yabai-extract-merge",
+      "type": "TechArticle",
+      "title": "ADR-2606035000: Session close — PR",
+      "status": "active",
+      "topic": "session-close-pr-865-review-ipaddress-yabai-extract-merge",
+      "authoritative": true,
+      "related": [
+        "doc:adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+        "doc:adr-2605301400-tadori-onchain-tracing-actor-and-kotoba-eavt-migration",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2606014500-one-worker-many-wasm-actors",
+        "doc:adr-2605231525-no-platform-held-signing-key"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
