@@ -90,7 +90,7 @@
 
 			<!-- App info -->
 			<div class="flex items-center gap-3 px-5 pb-4">
-				<span class="flex items-center justify-center w-12 h-12 rounded-xl bg-gftd-hover text-2xl">
+				<span class="flex items-center justify-center w-12 h-12 rounded-xl bg-etzhayyim-hover text-2xl">
 					{appIcon}
 				</span>
 				<div>
@@ -138,7 +138,7 @@
 			<!-- Actions -->
 			<div class="flex gap-3 px-5 pb-5">
 				<button
-					class="flex-1 py-3 rounded-xl border border-etzhayyim-border text-[15px] font-medium text-etzhayyim-secondary active:bg-gftd-hover transition-colors touch-manipulation min-h-[48px]"
+					class="flex-1 py-3 rounded-xl border border-etzhayyim-border text-[15px] font-medium text-etzhayyim-secondary active:bg-etzhayyim-hover transition-colors touch-manipulation min-h-[48px]"
 					onclick={handleCancel}
 					disabled={installing}
 				>

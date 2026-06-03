@@ -3,7 +3,7 @@
  *
  * Caller must already hold a yoro session (passkey-first policy). This module
  * only adds an Ethereum address or Coinbase Smart Wallet as a *linked method*
- * on the existing ERC725 root / legacy did:gftd account; it never creates a
+ * on the existing ERC725 root / legacy did:etzhayyim account; it never creates a
  * new account. Use after primary passkey signin.
  *
  * Wire path:

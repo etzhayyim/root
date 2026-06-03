@@ -188,7 +188,7 @@ export function buildEmergencyKitText(input: {
 }
 
 export function downloadEmergencyKit(filename: string, content: string): void {
-	const safeName = filename.trim() || 'gftd-emergency-kit.txt';
+	const safeName = filename.trim() || 'etzhayyim-emergency-kit.txt';
 	const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
 	const url = URL.createObjectURL(blob);
 	try {

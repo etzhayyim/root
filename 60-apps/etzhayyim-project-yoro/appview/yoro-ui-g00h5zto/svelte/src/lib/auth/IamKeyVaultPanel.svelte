@@ -114,7 +114,7 @@
 			saltBase64Url: lastSalt,
 			iterations: lastIterations,
 		});
-		downloadEmergencyKit(`gftd-emergency-kit-${userId}-${deviceId}.txt`, content);
+		downloadEmergencyKit(`etzhayyim-emergency-kit-${userId}-${deviceId}.txt`, content);
 		status = 'emergency kit downloaded';
 	}
 </script>

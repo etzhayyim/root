@@ -3,7 +3,7 @@ import type { GfAppLink } from './types';
 export const apps: GfAppLink[] = [
 	// ── Orgs ──
 	{
-		id: 'gftd',
+		id: 'etzhayyim',
 		name: 'etzhayyim.com',
 		shortName: 'etzhayyim',
 		href: 'https://etzhayyim.com',
@@ -788,7 +788,7 @@ const appAliases: Record<string, string> = {
 };
 
 export function normalizeAppId(appId: string): string {
-	const normalized = appId.trim().toLowerCase().replace(/\.gftd\.ai$/, '').replace(/_/g, '-');
+	const normalized = appId.trim().toLowerCase().replace(/\.etzhayyim\.ai$/, '').replace(/_/g, '-');
 	return appAliases[normalized] ?? normalized;
 }
 

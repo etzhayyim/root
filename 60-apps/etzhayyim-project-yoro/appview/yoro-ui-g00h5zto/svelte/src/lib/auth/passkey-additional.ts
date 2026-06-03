@@ -1,7 +1,7 @@
 /**
  * Multi-device passkey enrolment — ADR-0074 Phase 1.
  *
- * Adds another WebAuthn credential to the *currently signed-in* did:gftd
+ * Adds another WebAuthn credential to the *currently signed-in* did:etzhayyim
  * account. After this completes, the new device can drive primary signin via
  * the existing `passkeyVerifyAuth` path (the credential is registered against
  * the same DID, so signin transparently resolves either device).

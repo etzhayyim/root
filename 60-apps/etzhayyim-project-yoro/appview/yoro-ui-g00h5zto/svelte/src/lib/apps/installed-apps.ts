@@ -73,7 +73,7 @@ export async function fetchInstalledApps(): Promise<InstalledApp[]> {
 	installedAppsLoading.set(true);
 	try {
 		const headers = await authHeaders();
-		const res = await fetch(`${APPSTORE_ENDPOINT}/gftd.appstore.v1.DistributionService/ListInstalled`, {
+		const res = await fetch(`${APPSTORE_ENDPOINT}/etzhayyim.appstore.v1.DistributionService/ListInstalled`, {
 			method: 'POST',
 			headers,
 			body: JSON.stringify({ limit: 100 })
@@ -111,7 +111,7 @@ export async function installApp(
 ): Promise<{ ok: boolean; installationId?: string }> {
 	try {
 		const headers = await authHeaders();
-		const res = await fetch(`${APPSTORE_ENDPOINT}/gftd.appstore.v1.DistributionService/Install`, {
+		const res = await fetch(`${APPSTORE_ENDPOINT}/etzhayyim.appstore.v1.DistributionService/Install`, {
 			method: 'POST',
 			headers,
 			body: JSON.stringify({
@@ -136,7 +136,7 @@ export async function installApp(
 export async function uninstallApp(installationId: string): Promise<boolean> {
 	try {
 		const headers = await authHeaders();
-		const res = await fetch(`${APPSTORE_ENDPOINT}/gftd.appstore.v1.DistributionService/Uninstall`, {
+		const res = await fetch(`${APPSTORE_ENDPOINT}/etzhayyim.appstore.v1.DistributionService/Uninstall`, {
 			method: 'POST',
 			headers,
 			body: JSON.stringify({ 'installationId': installationId })

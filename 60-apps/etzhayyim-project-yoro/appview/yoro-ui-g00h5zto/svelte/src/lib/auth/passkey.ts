@@ -60,10 +60,10 @@ export function getKeyHierarchy(): KeyHierarchy | null {
 
 const AUTH_BASE = 'https://atproto.etzhayyim.com';
 const AUTH_RPC_BASE = 'https://authn.etzhayyim.com';
-const SESSION_STORAGE_KEY = 'gftd-auth-session';
-const CREDENTIAL_STORAGE_KEY = 'gftd-auth-credential';
-const DID_STORAGE_KEY = 'gftd-auth-did';
-const AUTH_TRANSFER_STORAGE_KEY = 'gftd-auth-transfer';
+const SESSION_STORAGE_KEY = 'etzhayyim-auth-session';
+const CREDENTIAL_STORAGE_KEY = 'etzhayyim-auth-credential';
+const DID_STORAGE_KEY = 'etzhayyim-auth-did';
+const AUTH_TRANSFER_STORAGE_KEY = 'etzhayyim-auth-transfer';
 
 // Keep the same export name for backward compat
 export const DEFAULT_CLERK_PUBLISHABLE_KEY = '';
