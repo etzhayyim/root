@@ -65,9 +65,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..', '..', '..');
 const defaultManifestPath = path.resolve(
   repoRoot,
-  '60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json',
+  '60-apps/etzhayyim-project-states/data/jp_fiscal/sources.json',
 );
-const userAgent = 'gftd-jp-fiscal-appropriations/0.1 (+https://etzhayyim.com)';
+const userAgent = 'etzhayyim-jp-fiscal-appropriations/0.1 (+https://etzhayyim.com)';
 
 const ministryDidByCode: Record<string, string> = {
   '01': 'did:web:gov-jpn.etzhayyim.com:imperial-household',

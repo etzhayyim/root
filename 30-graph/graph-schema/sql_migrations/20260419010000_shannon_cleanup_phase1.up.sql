@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS vertex_actor_profile (
     sensitivity_ord   BIGINT,
     owner_did         VARCHAR,
 
-    did               VARCHAR,   -- FK → vertex_gftd_identity.did
+    did               VARCHAR,   -- FK → vertex_etzhayyim_identity.did
     handle            VARCHAR,
     display_name      VARCHAR,
     description       VARCHAR,
@@ -36,11 +36,11 @@ CREATE INDEX IF NOT EXISTS idx_vertex_actor_profile_handle
 
 FLUSH;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN capabilities VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN capabilities VARCHAR;
 
 FLUSH;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN profile_json VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN profile_json VARCHAR;
 
 FLUSH;
 
@@ -69,7 +69,7 @@ CREATE VIEW view_actor_unified AS
       am.governance_json                                                   AS governance_json,
       am.capabilities_json                                                 AS capabilities_json_legacy,
       i.profile_json                                                       AS profile_json
-    FROM vertex_gftd_identity i
+    FROM vertex_etzhayyim_identity i
     LEFT JOIN vertex_actor_profile ap ON ap.did = i.did
     LEFT JOIN vertex_actor         a  ON a.did  = i.did
     LEFT JOIN vertex_actor_manifest am ON am.did = i.did

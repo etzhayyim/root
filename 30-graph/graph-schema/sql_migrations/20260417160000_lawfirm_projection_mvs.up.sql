@@ -16,12 +16,12 @@ CREATE VIEW view_lawfirm_matter_roster AS
       COALESCE(docs.active_child_count,  0) AS active_doc_count,
       COALESCE(grants.child_count,       0) AS total_grant_count,
       COALESCE(grants.active_child_count,0) AS active_grant_count
-    FROM vertex_gftd_identity m
-    LEFT JOIN vertex_gftd_identity firm
+    FROM vertex_etzhayyim_identity m
+    LEFT JOIN vertex_etzhayyim_identity firm
       ON firm.did = m.parent_did
-    LEFT JOIN mv_gftd_identity_children docs
+    LEFT JOIN mv_etzhayyim_identity_children docs
       ON docs.parent_did = m.did AND docs.material_kind = 'doc'
-    LEFT JOIN mv_gftd_identity_children grants
+    LEFT JOIN mv_etzhayyim_identity_children grants
       ON grants.parent_did = m.did AND grants.material_kind = 'grant'
     WHERE m.material_kind = 'matter'
       AND m.parent_did IS NOT NULL
@@ -38,8 +38,8 @@ CREATE VIEW view_lawfirm_external_counsel_access AS
       g.updated_at,
       g.revoked_at,
       m.revoked_at               AS parent_revoked_at
-    FROM vertex_gftd_identity g
-    LEFT JOIN vertex_gftd_identity m
+    FROM vertex_etzhayyim_identity g
+    LEFT JOIN vertex_etzhayyim_identity m
       ON m.did = g.parent_did
     WHERE g.material_kind = 'grant'
       AND g.parent_did IS NOT NULL

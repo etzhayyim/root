@@ -1,12 +1,12 @@
 /**
- * One-off: register junkawasaki.com as a did:gftd actor DID profile.
+ * One-off: register junkawasaki.com as a did:etzhayyim actor DID profile.
  *
  * Steps:
  *   1. Ed25519 keypair (node:crypto)
  *   2. Multikey encoding (0xED 0x01 + base58btc)
- *   3. Genesis op → CIDv1 → did:gftd
- *   4. Private key JWK → macOS Keychain (gftd.identity / junkawasaki.com)
- *   5. INSERT vertex_gftd_identity + vertex_actor_profile + vertex_gftd_op_log
+ *   3. Genesis op → CIDv1 → did:etzhayyim
+ *   4. Private key JWK → macOS Keychain (etzhayyim.identity / junkawasaki.com)
+ *   5. INSERT vertex_etzhayyim_identity + vertex_actor_profile + vertex_etzhayyim_op_log
  */
 import crypto from "node:crypto";
 import { execSync } from "node:child_process";
@@ -36,7 +36,7 @@ async function main() {
   multikeyBytes.set(rawPub, 2);
   const publicKeyMultibase = multibaseEncode("z", multikeyBytes);
 
-  // ── 3. Genesis op → did:gftd ───────────────────────────────────────
+  // ── 3. Genesis op → did:etzhayyim ───────────────────────────────────────
   const createdAt = new Date().toISOString();
   const genesis = await createGenesis({
     type: "root",
@@ -55,10 +55,10 @@ async function main() {
   const privJson = JSON.stringify(privJwk);
   try {
     execSync(
-      `security add-generic-password -s gftd.identity -a ${HANDLE} -w ${JSON.stringify(privJson)} -U`,
+      `security add-generic-password -s etzhayyim.identity -a ${HANDLE} -w ${JSON.stringify(privJson)} -U`,
       { stdio: ["ignore", "ignore", "pipe"] },
     );
-    console.log("privKey stored: macOS Keychain (gftd.identity / junkawasaki.com)");
+    console.log("privKey stored: macOS Keychain (etzhayyim.identity / junkawasaki.com)");
   } catch (e: any) {
     console.error("Keychain write failed:", e.message);
   }
@@ -67,7 +67,7 @@ async function main() {
   const pool = new pg.Pool({ connectionString: url, max: 2 });
   try {
     const existing = await pool.query(
-      `SELECT did FROM vertex_gftd_identity WHERE handle = $1 OR did = $2 LIMIT 1`,
+      `SELECT did FROM vertex_etzhayyim_identity WHERE handle = $1 OR did = $2 LIMIT 1`,
       [HANDLE, genesis.did],
     );
     if ((existing.rowCount ?? 0) > 0) {
@@ -79,7 +79,7 @@ async function main() {
     const today = nowIso.slice(0, 10);
 
     await pool.query(
-      `INSERT INTO vertex_gftd_identity (
+      `INSERT INTO vertex_etzhayyim_identity (
         vertex_id, did, entity_type, performer_type, handle,
         display_name, description, controller_did,
         public_key_multibase, status, pii_tier,
@@ -98,7 +98,7 @@ async function main() {
       )`,
       [genesis.did, HANDLE, DISPLAY_NAME, DESCRIPTION, publicKeyMultibase, genesis.cidString, nowIso, today],
     );
-    console.log("INSERT vertex_gftd_identity OK");
+    console.log("INSERT vertex_etzhayyim_identity OK");
 
     await pool.query(
       `INSERT INTO vertex_actor_profile (
@@ -115,7 +115,7 @@ async function main() {
     console.log("INSERT vertex_actor_profile OK");
 
     await pool.query(
-      `INSERT INTO vertex_gftd_op_log (
+      `INSERT INTO vertex_etzhayyim_op_log (
         vertex_id, did, op_seq, op_type, op_cid, prev_cid,
         op_cbor_hex, sig, sig_kid, created_at,
         _seq, created_date, sensitivity_ord, owner_did
@@ -134,7 +134,7 @@ async function main() {
         today,
       ],
     );
-    console.log("INSERT vertex_gftd_op_log OK");
+    console.log("INSERT vertex_etzhayyim_op_log OK");
 
     await pool.query("FLUSH");
 

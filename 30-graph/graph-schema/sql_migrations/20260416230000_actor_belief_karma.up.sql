@@ -108,21 +108,21 @@ INSERT INTO edge_constrained_by (
     edge_id, src_vid, dst_vid, created_date, sensitivity_ord, owner_did,
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
-    'edge:belief:gftd:secular',
+    'edge:belief:etzhayyim:secular',
     'did:web:etzhayyim.com',
     'belief:secular',
     CURRENT_DATE, 0, 'did:web:etzhayyim.com',
     'epistemological', 0.65,
     '2023-present',
     'institutional',
-    'GFTD is a technology platform built on Shannon information theory, AT Protocol, and empirical agent evaluation. Secular rationalist epistemology underlies design principles (η efficiency, formal verification, game-theoretic trust).'
+    'Etzhayyim is a technology platform built on Shannon information theory, AT Protocol, and empirical agent evaluation. Secular rationalist epistemology underlies design principles (η efficiency, formal verification, game-theoretic trust).'
   );
 
 INSERT INTO edge_constrained_by (
     edge_id, src_vid, dst_vid, created_date, sensitivity_ord, owner_did,
     constraint_type, binding_strength, epoch, evidence_type, rationale
   ) VALUES (
-    'edge:belief:gftd:shinto',
+    'edge:belief:etzhayyim:shinto',
     'did:web:etzhayyim.com',
     'belief:shinto',
     CURRENT_DATE, 0, 'did:web:etzhayyim.com',

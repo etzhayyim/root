@@ -20,7 +20,7 @@
 -- POST to https://adsk.etzhayyim.com/xrpc/com.etzhayyim.mcp.message will fail at edge.
 -- This migration is **data-only** — the lexicon, seed, and topology rows
 -- describe the intended target. Before the pin flip is applicable, either:
---   (a) Create 60-apps/ai-gftd-project-adsk/src/app.ts following the
+--   (a) Create 60-apps/etzhayyim-project-adsk/src/app.ts following the
 --       saikin/ki Worker template (NSID_PREFIX + MCP_NSID branches), OR
 --   (b) UPDATE vertex_mcp_tool_def SET actor_host='saikin.etzhayyim.com' WHERE
 --       nsid='com.etzhayyim.apps.adsk.datasetIngestAll'  -- route via existing
@@ -33,7 +33,7 @@ INSERT INTO vertex_mcp_tool_def
    visibility, version, enabled, source_path,
    org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:adsk.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-adsk-datasetIngestAll',
+  ('at://did:web:adsk.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-adsk-datasetIngestAll',
    0, 0,
    'com.etzhayyim.apps.adsk.datasetIngestAll', 'did:web:adsk.etzhayyim.com', 'adsk.etzhayyim.com', 'procedure',
    'Re-ingest stale rows from vertex_hf_dataset (R/P30D autopilot).',

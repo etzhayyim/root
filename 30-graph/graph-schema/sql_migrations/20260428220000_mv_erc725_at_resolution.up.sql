@@ -12,7 +12,7 @@ DROP MATERIALIZED VIEW IF EXISTS mv_actor_canonical_did;
 CREATE MATERIALIZED VIEW mv_actor_canonical_did AS
     SELECT DISTINCT raw_did, canonical_did
     FROM (
-      -- Path A: did:web path normalization for registered gftd actors.
+      -- Path A: did:web path normalization for registered etzhayyim actors.
       SELECT
         raw_did,
         normalize_actor_did(raw_did) AS canonical_did
@@ -25,7 +25,7 @@ CREATE MATERIALIZED VIEW mv_actor_canonical_did AS
       ) AS s
       UNION ALL
       -- Path B: AT Protocol at_did → ERC725 actor_did resolution.
-      --         Handles did:plc and non-gftd did:web federation aliases.
+      --         Handles did:plc and non-etzhayyim did:web federation aliases.
       SELECT at_did AS raw_did, actor_did AS canonical_did
       FROM mv_erc725_at_resolution
     ) AS combined;

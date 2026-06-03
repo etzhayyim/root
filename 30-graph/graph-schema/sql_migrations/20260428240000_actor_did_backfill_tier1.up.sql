@@ -382,9 +382,9 @@ ALTER TABLE vertex_gdrive_watch_channel ADD COLUMN IF NOT EXISTS actor_did VARCH
 
 ALTER TABLE vertex_gdrive_watch_channel ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN IF NOT EXISTS actor_did VARCHAR;
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN IF NOT EXISTS actor_did VARCHAR;
 
-ALTER TABLE vertex_gftd_identity ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
+ALTER TABLE vertex_etzhayyim_identity ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon';
 
 ALTER TABLE vertex_gitrepo ADD COLUMN IF NOT EXISTS actor_did VARCHAR;
 

@@ -4,9 +4,9 @@
 # Lookup chain (highest privilege first):
 #
 #   1. Already-set `DATABASE_URL` env var               (caller-provided, win)
-#   2. 1Password item `gftd.rw/ROOT_URL`                (root user, full DDL)
-#   3. macOS Keychain `gftd.rw / KAISYA_URL`            (kaisya_app, read-only)
-#   4. `~/.gftd/rw-credentials.env` ROOT_URL            (last-resort fallback)
+#   2. 1Password item `etzhayyim.rw/ROOT_URL`                (root user, full DDL)
+#   3. macOS Keychain `etzhayyim.rw / KAISYA_URL`            (kaisya_app, read-only)
+#   4. `~/.etzhayyim/rw-credentials.env` ROOT_URL            (last-resort fallback)
 #
 # This file MUST be `source`d, not executed, because it sets
 # `DATABASE_URL` in the parent shell.
@@ -47,12 +47,12 @@ fi
 
 # 2. 1Password — preferred (root user). The Japanese vault name
 # breaks `op://` reference syntax, so we resolve by item ID.
-# Item id `yi7hc5wozgfhbaneb3ny46w6ua` = `gftd.rw/ROOT_URL` in
+# Item id `yi7hc5wozgfhbaneb3ny46w6ua` = `etzhayyim.rw/ROOT_URL` in
 # vault `etzhayyim Japan株式会社`.
 if command -v op >/dev/null 2>&1 && op whoami >/dev/null 2>&1; then
     if url=$(op item get yi7hc5wozgfhbaneb3ny46w6ua --fields label=credential 2>/dev/null) \
        && [[ -n "$url" ]]; then
-        _emit "$url" "1Password gftd.rw/ROOT_URL"
+        _emit "$url" "1Password etzhayyim.rw/ROOT_URL"
         return 0 2>/dev/null || exit 0
     fi
 fi
@@ -61,19 +61,19 @@ fi
 # read-only / drift checks; insufficient for `db:migrate` if it
 # needs CREATE / ALTER. Caller can use it then re-try with op
 # signed in for write paths.
-if url=$(security find-generic-password -s gftd.rw -a KAISYA_URL -w 2>/dev/null) \
+if url=$(security find-generic-password -s etzhayyim.rw -a KAISYA_URL -w 2>/dev/null) \
    && [[ -n "$url" ]]; then
-    _emit "$url" "Keychain gftd.rw/KAISYA_URL (read-only kaisya_app)"
+    _emit "$url" "Keychain etzhayyim.rw/KAISYA_URL (read-only kaisya_app)"
     return 0 2>/dev/null || exit 0
 fi
 
 # 4. Local fallback file (chmod 600). May contain stale Linode IP —
 # refresh by re-pulling from 1Password.
-if [[ -f "$HOME/.gftd/rw-credentials.env" ]]; then
+if [[ -f "$HOME/.etzhayyim/rw-credentials.env" ]]; then
     # shellcheck disable=SC1091
-    set -a; source "$HOME/.gftd/rw-credentials.env"; set +a
+    set -a; source "$HOME/.etzhayyim/rw-credentials.env"; set +a
     if [[ -n "${ROOT_URL:-}" ]]; then
-        _emit "$ROOT_URL" "$HOME/.gftd/rw-credentials.env (may be stale)"
+        _emit "$ROOT_URL" "$HOME/.etzhayyim/rw-credentials.env (may be stale)"
         return 0 2>/dev/null || exit 0
     fi
 fi

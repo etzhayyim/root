@@ -58,9 +58,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..', '..', '..');
 const defaultManifestPath = path.resolve(
   repoRoot,
-  '60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json',
+  '60-apps/etzhayyim-project-states/data/jp_fiscal/sources.json',
 );
-const userAgent = 'gftd-jp-fiscal-source-audit/0.1 (+https://etzhayyim.com)';
+const userAgent = 'etzhayyim-jp-fiscal-source-audit/0.1 (+https://etzhayyim.com)';
 
 function parseArgs(argv: string[]): { apply: boolean; manifestPath: string; limit: number; sourceId?: string } {
   let apply = false;

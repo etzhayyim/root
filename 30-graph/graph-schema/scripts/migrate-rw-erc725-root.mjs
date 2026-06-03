@@ -114,17 +114,17 @@ async function loadCandidates(pool, onlyDid, limit) {
   const limitSql = limit > 0 ? `LIMIT ${limit}` : "";
   const q = `
     SELECT did FROM (
-      SELECT did FROM vertex_gftd_identity WHERE did IS NOT NULL AND did <> ''
+      SELECT did FROM vertex_etzhayyim_identity WHERE did IS NOT NULL AND did <> ''
       UNION
-      SELECT legacy_did AS did FROM vertex_gftd_identity WHERE legacy_did IS NOT NULL AND legacy_did <> ''
+      SELECT legacy_did AS did FROM vertex_etzhayyim_identity WHERE legacy_did IS NOT NULL AND legacy_did <> ''
       UNION
-      SELECT federation_did AS did FROM vertex_gftd_identity WHERE federation_did IS NOT NULL AND federation_did <> ''
+      SELECT federation_did AS did FROM vertex_etzhayyim_identity WHERE federation_did IS NOT NULL AND federation_did <> ''
       UNION
       SELECT claimant_did AS did FROM vertex_claim_stake WHERE claimant_did IS NOT NULL AND claimant_did <> ''
       UNION
       SELECT challenger_did AS did FROM vertex_claim_challenge WHERE challenger_did IS NOT NULL AND challenger_did <> ''
     ) s
-    WHERE did LIKE 'did:gftd:%'
+    WHERE did LIKE 'did:etzhayyim:%'
        OR did LIKE 'did:web:%'
        OR did LIKE 'did:plc:%'
        OR did LIKE 'did:ethr:%'
@@ -166,7 +166,7 @@ async function applyProjection(pool, row) {
     row.identity,
     row.chainId,
     row.registryAddr,
-    "gftd-root-registry",
+    "etzhayyim-root-registry",
     "active",
     now,
     now,
@@ -209,7 +209,7 @@ async function applyProjection(pool, row) {
   ]);
 
   await pool.query(
-    `UPDATE vertex_gftd_identity
+    `UPDATE vertex_etzhayyim_identity
         SET root_did = $1,
             root_did_hash = $2,
             root_identity_addr = $3,
@@ -287,7 +287,7 @@ async function main() {
         samples.push({ facadeDid, status: "root_without_identity", rootDidHash });
         continue;
       }
-      const rootDid = `did:erc725:gftd:${chainId}:${identity}`;
+      const rootDid = `did:erc725:etzhayyim:${chainId}:${identity}`;
       const canonicalRootDidHash = keccakHex(rootDid);
       const row = {
         facadeDid,

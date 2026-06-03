@@ -2,11 +2,11 @@ DROP VIEW IF EXISTS view_actor_unified;
 
 FLUSH;
 
-ALTER TABLE vertex_gftd_identity DROP COLUMN profile_json;
+ALTER TABLE vertex_etzhayyim_identity DROP COLUMN profile_json;
 
 FLUSH;
 
-ALTER TABLE vertex_gftd_identity DROP COLUMN capabilities;
+ALTER TABLE vertex_etzhayyim_identity DROP COLUMN capabilities;
 
 FLUSH;
 
