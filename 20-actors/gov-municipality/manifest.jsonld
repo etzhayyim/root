@@ -35,6 +35,11 @@
     }
   ],
   "lexicons": [
+    "com.etzhayyim.gov.agency",
+    "com.etzhayyim.gov.consult",
+    "com.etzhayyim.gov.municipality",
+    "com.etzhayyim.gov.official",
+    "com.etzhayyim.gov.procedure",
     "com.etzhayyim.gov.permitApplication",
     "com.etzhayyim.gov.inspectionSchedule",
     "com.etzhayyim.gov.permitsFinalizedRecord"
