@@ -63,7 +63,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="={
             &quot;eventType&quot;: &quot;naturalPerson.visibilityReconcile.complete&quot;,
-            &quot;actorDid&quot;: &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;actorDid&quot;: &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;attributes&quot;: {
               &quot;applyOpenalexPublic&quot;: applyOpenalexPublic,
               &quot;plannedOpenalexPublic&quot;: visibilityPlan.planned_openalex_public,

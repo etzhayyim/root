@@ -27,7 +27,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_media_gamers_chart_fetch"
-    targetNamespace="https://gftd.ai/bpmn/media-gamers"
+    targetNamespace="https://etzhayyim.ai/bpmn/media-gamers"
     exporter="hand-written"
     exporterVersion="2.0">
 

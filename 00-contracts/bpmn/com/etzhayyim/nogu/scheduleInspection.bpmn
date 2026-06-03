@@ -14,7 +14,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_nogu_schedule_inspection"
-  targetNamespace="https://gftd.ai/bpmn/nogu"
+  targetNamespace="https://etzhayyim.ai/bpmn/nogu"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="nogu_schedule_inspection" name="nogu Schedule Inspection" isExecutable="true">
@@ -69,7 +69,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;inspectionScheduled&quot;" target="action"/>
           <zeebe:input source="={ itemId: itemId, inspectionType: inspectionType, scheduledDate: scheduledDate, inspectorDid: inspectorDid }" target="payload"/>
         </zeebe:ioMapping>
@@ -83,7 +83,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:nogu.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:nogu.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;inspectionScheduleError&quot;" target="action"/>
           <zeebe:input source="={ itemId: itemId, error: &quot;item not found&quot; }" target="payload"/>
         </zeebe:ioMapping>

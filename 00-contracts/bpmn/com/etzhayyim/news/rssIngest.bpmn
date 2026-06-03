@@ -2,7 +2,7 @@
 <!--
   news.rssIngest
 
-  Zeebe-owned RSS pipeline for news.gftd.ai. Python worker performs feed fetch,
+  Zeebe-owned RSS pipeline for news.etzhayyim.com. Python worker performs feed fetch,
   parsing, translation, and social-post drafting. The Cloudflare news worker is
   only the thin edge boundary for PDS writes through commitArticle.
 
@@ -13,7 +13,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_news_rss_ingest"
-    targetNamespace="https://gftd.ai/bpmn/news"
+    targetNamespace="https://etzhayyim.ai/bpmn/news"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="news_rss_ingest" name="news rss ingest" isExecutable="true">
@@ -55,7 +55,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:news.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:news.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;news.rssIngest&quot;" target="action"/>
           <zeebe:input source="={ sourceId: string(sourceId), results: results }" target="payload"/>
           <zeebe:output source="=rkey" target="auditRkey"/>

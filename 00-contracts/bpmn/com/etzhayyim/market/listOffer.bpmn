@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_market_list_offer" targetNamespace="https://gftd.ai/bpmn/market">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_market_list_offer" targetNamespace="https://etzhayyim.ai/bpmn/market">
   <bpmn:process id="market_list_offer" name="market.listOffer" isExecutable="true">
     <bpmn:startEvent id="Start">
       <bpmn:outgoing>Flow_Start_Task</bpmn:outgoing>

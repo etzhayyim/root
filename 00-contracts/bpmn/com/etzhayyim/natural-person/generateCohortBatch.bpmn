@@ -15,7 +15,7 @@
     4. generic.db.select  — COUNT post-generation (verification)
     5. generic.audit.emit — OCEL event (cohortsGenerated, sources, duration)
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/natural-person-generate-cohort-batch-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/natural-person-generate-cohort-batch-v1
   NSID:      com.etzhayyim.apps.naturalPerson.generateCohortBatch
 -->
 <bpmn:definitions
@@ -71,7 +71,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.db.insert" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;SET dml_rate_limit = 1000; INSERT INTO vertex_natural_person_cohort_person (vertex_id, created_date, sensitivity_ord, owner_did, rkey, repo, cohort_hash, vital_status, era, data_classification, created_at, org_id, user_id, actor_id) SELECT &apos;at://did:web:natural-person.gftd.ai/com.etzhayyim.apps.naturalPerson.cohortPerson/batch-&apos; || NOW()::TEXT, CURRENT_DATE, 100, &apos;did:web:natural-person.gftd.ai&apos;, &apos;batch-generated&apos;, &apos;did:web:natural-person.gftd.ai&apos;, &apos;batch-placeholder&apos;, &apos;alive&apos;, &apos;modern&apos;, &apos;restricted&apos;, NOW()::TEXT, &apos;gftd&apos;, &apos;system&apos;, &apos;bpmn&apos; WHERE false&quot;" target="statement"/>
+          <zeebe:input source="=&quot;SET dml_rate_limit = 1000; INSERT INTO vertex_natural_person_cohort_person (vertex_id, created_date, sensitivity_ord, owner_did, rkey, repo, cohort_hash, vital_status, era, data_classification, created_at, org_id, user_id, actor_id) SELECT &apos;at://did:web:natural-person.etzhayyim.com/com.etzhayyim.apps.naturalPerson.cohortPerson/batch-&apos; || NOW()::TEXT, CURRENT_DATE, 100, &apos;did:web:natural-person.etzhayyim.com&apos;, &apos;batch-generated&apos;, &apos;did:web:natural-person.etzhayyim.com&apos;, &apos;batch-placeholder&apos;, &apos;alive&apos;, &apos;modern&apos;, &apos;restricted&apos;, NOW()::TEXT, &apos;etzhayyim&apos;, &apos;system&apos;, &apos;bpmn&apos; WHERE false&quot;" target="statement"/>
           <zeebe:input source="={&quot;countries&quot;: [&quot;JPN&quot;, &quot;USA&quot;, &quot;CHN&quot;, &quot;IND&quot;, &quot;DEU&quot;], &quot;eras&quot;: [&quot;modern&quot;, &quot;industrial&quot;]}" target="batchParams"/>
           <zeebe:input source="=300000" target="resultTimeoutMs"/>
           <zeebe:output source="=rowsAffected" target="cohortsGenerated"/>
@@ -100,7 +100,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="={
             &quot;eventType&quot;: &quot;naturalPerson.cohortBatch.complete&quot;,
-            &quot;actorDid&quot;: &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;actorDid&quot;: &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;attributes&quot;: {
               &quot;cohortsGenerated&quot;: cohortsGenerated,
               &quot;totalCohorts&quot;: totalCohorts,
