@@ -1126,7 +1126,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-approveTask-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'com.etzhayyim.apps.kaisya.approveTask',
                  'kaisya_approve_task',
@@ -1134,7 +1134,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-approveTask-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1147,7 +1147,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-rejectTask-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'com.etzhayyim.apps.kaisya.rejectTask',
                  'kaisya_reject_task',
@@ -1155,7 +1155,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-rejectTask-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1168,7 +1168,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-listTasks-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'com.etzhayyim.apps.kaisya.listTasks',
                  'kaisya_list_tasks',
@@ -1176,7 +1176,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1']},
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-listTasks-v1']},
  {'sql': '\n'
          '      INSERT INTO vertex_bpmn_lexicon_binding\n'
          '        (vertex_id, owner_did, nsid, bpmn_process_id, bpmn_version, result_timeout_ms,\n'
@@ -1189,7 +1189,7 @@ UP = [{'sql': '\n'
          '        SELECT 1 FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $9\n'
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1',
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-getAgentLog-v1',
                  'did:web:bpmn.etzhayyim.com',
                  'com.etzhayyim.apps.kaisya.getAgentLog',
                  'kaisya_get_agent_log',
@@ -1197,7 +1197,7 @@ UP = [{'sql': '\n'
                  'did:web:bpmn.etzhayyim.com',
                  'did:web:bpmn.etzhayyim.com',
                  'sys.bpmn.seed.kaisya',
-                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1']}]
+                 'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-getAgentLog-v1']}]
 
 DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-ceo-daily-briefing-v1']},
@@ -1214,13 +1214,13 @@ DOWN = [{'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $
  {'sql': '\n      DELETE FROM vertex_bpmn_process_def WHERE vertex_id = $1\n    ',
   'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-creative-asset-pipeline-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-approveTask-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-rejectTask-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1']},
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-listTasks-v1']},
  {'sql': '\n      DELETE FROM vertex_bpmn_lexicon_binding WHERE vertex_id = $1\n    ',
-  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1']}]
+  'parameters': ['at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-getAgentLog-v1']}]
 
 
 def upgrade() -> None:
