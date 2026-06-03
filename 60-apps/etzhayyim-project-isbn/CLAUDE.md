@@ -147,10 +147,10 @@ print(asyncio.run(task_isbn_hathitrust_ingest(
 
 **Read access** = RisingWave Hyperdrive 直接 (ADR-0036)。downstream consumer (yoro / search etc.) は `db.selectFrom("vertex_isbn_book")` で query。XRPC `lookup`/`list`/`coverage` lexicon は **schema 文書化のみ** で active endpoint なし。
 
-### B2 storage layout (env: `B2_ISBN_BUCKET`, default `ai-gftd-isbn`)
+### B2 storage layout (env: `B2_ISBN_BUCKET`, default `etzhayyim-isbn`)
 
 ```
-ai-gftd-isbn/
+etzhayyim-isbn/
 ├── aozora/{work_id}/original.txt
 ├── aozora/{work_id}/ch{NNNN}.txt
 ├── gutenberg/{ebook_id}/original.txt

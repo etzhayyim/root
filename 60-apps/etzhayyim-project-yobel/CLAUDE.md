@@ -1,4 +1,4 @@
-# ai-gftd-project-yobel — Collective Debt Release Rites
+# etzhayyim-project-yobel — Collective Debt Release Rites
 
 集合的・教義的・政治的な債務免除 rite (`yobel.etzhayyim.com` / `yobel.etzhayyim.com` federation alias)。
 שמיטה (shmita 7yr) / יובל (yobel 49yr) / 徳政令 / Catholic Jubilee / modern political amnesty を統一データモデルで扱う。

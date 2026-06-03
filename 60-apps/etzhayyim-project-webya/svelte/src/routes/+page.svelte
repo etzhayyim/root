@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Ai etzhayyim Project Webya",
-  "project": "ai-gftd-project-webya",
-  "name": "ai-gftd-project-webya",
+  "project": "etzhayyim-project-webya",
+  "name": "etzhayyim-project-webya",
   "kind": "cloudflare surface",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-webya/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-webya/svelte/src/routes/+page.svelte"
 };
 </script>
 
