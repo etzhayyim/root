@@ -16,7 +16,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_loading_robot_execute_mission"
-    targetNamespace="https://gftd.ai/bpmn/loading-robot"
+    targetNamespace="https://etzhayyim.ai/bpmn/loading-robot"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="loading_robot_execute_mission" name="Loading robot mission planning" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:robot.gftd.ai:loading-robot&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:robot.etzhayyim.com:loading-robot&quot;" target="actor"/>
           <zeebe:input source="=&quot;loadingRobot.mission.planned&quot;" target="action"/>
           <zeebe:input source="={ requestId: requestId, mission: loadingRobotMission }" target="payload"/>
         </zeebe:ioMapping>

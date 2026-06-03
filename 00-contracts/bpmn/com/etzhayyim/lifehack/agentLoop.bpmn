@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — agentLoop (XRPC com.etzhayyim.apps.lifehack.agentLoop).
+  lifehack.etzhayyim.com — agentLoop (XRPC com.etzhayyim.apps.lifehack.agentLoop).
 
   Path F unified agent loop entry (ADR 260413). The pyzeebe handler
   lifehack.agent.chat:
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_agent_loop"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_agent_loop" name="lifehack agent loop" isExecutable="true">
@@ -52,7 +52,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.agentLoop&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;model&quot;: model, &quot;latencyMs&quot;: latencyMs, &quot;topicsUsed&quot;: topicsUsed, &quot;tipsUsed&quot;: tipsUsed }" target="attributes"/>
         </zeebe:ioMapping>

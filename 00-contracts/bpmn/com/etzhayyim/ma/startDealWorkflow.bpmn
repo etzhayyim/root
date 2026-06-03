@@ -3,10 +3,10 @@
   Global M&A brokerage workflow.
 
   NSID:       com.etzhayyim.apps.ma.startDealWorkflow
-  Owner DID:  did:web:ma.gftd.ai
+  Owner DID:  did:web:ma.etzhayyim.com
   Process ID: ma_start_deal_workflow
 
-  This is the first executable shell for ai-gftd-project-ma. It wires MA Core,
+  This is the first executable shell for etzhayyim-project-ma. It wires MA Core,
   APQC, ISCO, and ISIC actors through stable Zeebe task types and emits a final
   audit event for process-mining visibility.
 -->
@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_ma_start_deal_workflow"
-    targetNamespace="https://gftd.ai/bpmn/ma"
+    targetNamespace="https://etzhayyim.ai/bpmn/ma"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="ma_start_deal_workflow" name="M&amp;A deal workflow" isExecutable="true">
@@ -168,7 +168,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;ma.startDealWorkflow.rwDegraded&quot;" target="action"/>
           <zeebe:input source="={dealId: dealId, side: side, sector: sector, rwHealthy: rwHealthy, rwHealthReason: rwHealthReason, status: &quot;rw-degraded&quot;}" target="payload"/>
         </zeebe:ioMapping>
@@ -182,7 +182,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;ma.startDealWorkflow.completed&quot;" target="action"/>
           <zeebe:input source="={dealId: dealId, side: side, sector: sector, status: status, matchedBuyerCount: matchedBuyerCount, closingStage: closingStage}" target="payload"/>
         </zeebe:ioMapping>

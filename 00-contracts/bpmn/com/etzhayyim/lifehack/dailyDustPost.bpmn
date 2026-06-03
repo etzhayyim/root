@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — daily dust-prevention bsky post (cron 09:00 JST).
+  lifehack.etzhayyim.com — daily dust-prevention bsky post (cron 09:00 JST).
 
   Pipeline:
     1. lifehack.topic.pickTrending     pick the most engagement-weighted topic
@@ -20,7 +20,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_daily_dust_post"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_daily_dust_post" name="lifehack daily dust post" isExecutable="true">
@@ -100,7 +100,7 @@
         <zeebe:taskDefinition type="generic.pds.dispatch"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="did"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="did"/>
           <zeebe:input source="=postText" target="text"/>
           <zeebe:output source="=uri" target="bskyUri"/>
           <zeebe:output source="=cid" target="bskyCid"/>
@@ -131,7 +131,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.dailyDustPost&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;tipId&quot;: tipId, &quot;topicId&quot;: topicId, &quot;bskyUri&quot;: bskyUri }" target="attributes"/>
         </zeebe:ioMapping>
@@ -146,7 +146,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.dailyDustPost.skip&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;topicId&quot;: topicId }" target="attributes"/>
         </zeebe:ioMapping>

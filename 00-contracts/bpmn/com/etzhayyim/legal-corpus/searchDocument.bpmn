@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_search_document" targetNamespace="https://gftd.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="2.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_legal_corpus_search_document" targetNamespace="https://etzhayyim.ai/bpmn/legal-corpus" exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="legal_corpus_search_document" name="searchDocument" isExecutable="true">
 
     <!-- Manual trigger (for ad-hoc testing) -->

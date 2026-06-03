@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  lifehack.gftd.ai — research topic (autonomous, R/PT24H).
+  lifehack.etzhayyim.com — research topic (autonomous, R/PT24H).
 
   Pipeline:
     1. lifehack.topic.findStale       topics needing fresh tips
@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_lifehack_research_topic"
-    targetNamespace="https://gftd.ai/bpmn/lifehack"
+    targetNamespace="https://etzhayyim.ai/bpmn/lifehack"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="lifehack_research_topic" name="lifehack research topic (daily)" isExecutable="true">
@@ -85,7 +85,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lifehack.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lifehack.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.lifehack.researchTopic&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;topicCount&quot;: count(topicIds), &quot;insertedCount&quot;: insertedCount }" target="attributes"/>
         </zeebe:ioMapping>
