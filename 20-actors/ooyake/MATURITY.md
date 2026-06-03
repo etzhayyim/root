@@ -43,6 +43,19 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-03 — coverage matrix (per-country functional-coverage dashboard)
+
+`scripts/atlas_summary.py` shows the atlas by level/branch; the new
+`scripts/coverage_matrix.py` (wired into `run_tests.sh`) shows it **per country** —
+192 country units × 35 functional categories (the 18 executive ministries +
+legislature + supreme court + central bank + the 11 independent oversight/regulatory
+bodies), robust to the G20/Japan bespoke ids (mof/treasury/boj/mext/…). Surfaces, for
+each category, how many of the 192 countries carry such a body + example gaps, and
+per-country completeness. Current shape: **avg 13.7/35 categories per country**; most
+complete ZAF/USA(29) · IND/DEU(28); thinnest the microstates (TUV 1, DMA/SMR 2). This
+turns "how complete is each government's record" into a measured, gap-aware number —
+the maturity counterpart to the raw 6,535-unit coverage.
+
 ## 2026-06-03 — schema maturity (enum-validated levels/branches + atlas dashboard)
 
 Hardened the substrate now that coverage spans 6,031 units:
