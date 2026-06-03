@@ -267,7 +267,7 @@
     "description": "Credit ledger for yoro.etzhayyim.com. Earn from HC tasks and Murakumo compute. Purchase with 30% platform fee. Spend with 10% public fund allocation. Anti-fraud rate limiting.",
     "displayName": "Credits — Credit Ledger & Public Fund Routing",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

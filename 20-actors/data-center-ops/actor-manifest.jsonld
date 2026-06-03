@@ -395,7 +395,7 @@
     "description": "Tracks data center facilities, rack pressure, power/cooling posture, and SLA compliance with incident visibility.",
     "displayName": "Data Center Ops \\u2014 Facility and SLA Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

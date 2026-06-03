@@ -21,7 +21,7 @@ compatibility identifiers** (per Google v. Oracle, 593 U.S. ___ (2021)).
 
 Canonical KAMI implementations have distinct names (see `nv-compat-map.json`
 when generated): `amenominaka` / `e7m-sim` / `e7m-shugyo` / `hikari-rt` /
-`kami-rtx` / `utsushimi` / `wadachi-sim` / `murakumo-render` / `yatachain-nucleus`.
+`kami-rtx` / `utsushimi` / `wadachi-sim` / `murakumo-render` / `kotoba-datomic-nucleus`.
 
 ## Scope (intentionally limited)
 

@@ -118,7 +118,7 @@
           "fn": "policy.evaluate",
           "depends_on": ["loadScope", "rateBudget"],
           "args": {
-            "package": "gftd.akuma.scope",
+            "package": "etzhayyim.akuma.scope",
             "input": {
               "scope": "$loadScope.rows[0]",
               "probe": "$input",

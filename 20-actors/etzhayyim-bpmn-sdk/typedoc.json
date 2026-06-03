@@ -55,7 +55,7 @@
   "theme": "default",
   "readme": "none",
   "disableSources": false,
-  "sourceLinkTemplate": "https://github.com/etzhayyim/gftd-bpmn-sdk/blob/main/{path}#L{line}",
+  "sourceLinkTemplate": "https://github.com/etzhayyim/etzhayyim-bpmn-sdk/blob/main/{path}#L{line}",
   "gitRevision": "main",
   "validation": {
     "notDocumented": false,

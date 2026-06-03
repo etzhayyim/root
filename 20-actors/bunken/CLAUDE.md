@@ -1,4 +1,4 @@
-# ai-gftd-project-bunken — 文献書誌 Intelligence
+# etzhayyim-project-bunken — 文献書誌 Intelligence
 
 **bunken.etzhayyim.com** — 全世界の図書館・アーカイブ文献を actor 化する書誌 intelligence。
 
@@ -98,9 +98,9 @@ Common Crawl CDX API → 書誌 URL 発見 (NDL/LOC/WorldCat/CiNii/VIAF/DOI/ARK)
 
 | File | Role |
 |---|---|
-| `wasm/ai-gftd-wasm-bunken-bk7n2d8x/src/app.ts` | App Worker |
-| `wasm/ai-gftd-wasm-bunken-bk7n2d8x/magatama.jsonld` | App config (nanoid: bk7n2d8x) |
-| `wasm/ai-gftd-wasm-bunken-bk7n2d8x/wit/world.wit` | WIT capability contract |
+| `wasm/etzhayyim-wasm-bunken-bk7n2d8x/src/app.ts` | App Worker |
+| `wasm/etzhayyim-wasm-bunken-bk7n2d8x/magatama.jsonld` | App config (nanoid: bk7n2d8x) |
+| `wasm/etzhayyim-wasm-bunken-bk7n2d8x/wit/world.wit` | WIT capability contract |
 
 ## Historical Propagation Integration
 

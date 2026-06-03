@@ -32,7 +32,7 @@ export interface EtzhayyimConfig {
   l2RpcUrl?: string;
 
   /**
-   * yatachain-projection: feed-discover projector DID (ADR-2605231500).
+   * kotoba-datomic-projection: feed-discover projector DID (ADR-2605231500).
    * When set, feed read paths (`yoro-rw-free/src/feed.ts` getTimeline /
    * getDiscoverFeed) consult the cross-DID projection emitted by
    * mst-projector instead of the single-actor MST. Falls back to the
@@ -44,7 +44,7 @@ export interface EtzhayyimConfig {
    * kotoba server base URL (e.g. `https://kotoba.etzhayyim.com` or
    * `http://127.0.0.1:8077`). When set, `yoro-rw-free` feed/graph/actor reads
    * resolve through the kotoba Datom log (`datomic.datoms`) — the canonical
-   * read path (ADR-2606013200, supersedes the yatachain-projection leg).
+   * read path (ADR-2606013200, supersedes the kotoba-datomic-projection leg).
    * Falls back to the PDS/projection path when unset.
    */
   kotobaUrl?: string;
@@ -624,7 +624,7 @@ export * as crypto from "./crypto.js";
 export * as signal from "./signal.js";
 export * as didSignal from "./did-signal.js";
 export * as atproto from "./atproto.js";
-export * as yatachain from "./yatachain/index.js";
+export * as kotoba-datomic from "./kotoba-datomic/index.js";
 export { parseUsdc, parseUsdcPerSecond, USDC_BASE } from "./pay.js";
 export {
   ETZHAYYIM_PRIVATE_CHAIN_ID,

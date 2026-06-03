@@ -1,4 +1,4 @@
-# ai-gftd-project-credits — Credit Ledger & Public Fund Routing
+# etzhayyim-project-credits — Credit Ledger & Public Fund Routing
 
 **URL**: `https://credits.etzhayyim.com`
 
@@ -9,7 +9,7 @@ Credits は yoro.etzhayyim.com の human participation 課金システム。Earn
 2026-03-30 時点の標準ポリシー:
 
 - credits 購入時は 30% を platform fee として控除
-- credits 消費時は 10% を `ai-gftd-project-public-fund` に自動分配
+- credits 消費時は 10% を `etzhayyim-project-public-fund` に自動分配
 - 10% の分配先は user が `credits` UI で選択可能
 - 分配先未指定時は `public-fund:common` を使用
 

@@ -37,7 +37,7 @@ Small-displacement motorcycle manufacturing Tier-B actor for adherent personal m
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: CAD + firmware + tool fixtures open-source (foundation for G12)
-- **G2**: Mass-balance ≥98% closure on yatachain (inherits kanayama + hodoki pattern)
+- **G2**: Mass-balance ≥98% closure on kotoba-datomic (inherits kanayama + hodoki pattern)
 - **G3**: ≥2-robot witness quorum per critical step (frame weld + engine + brake torque)
 - **G4**: JP + EN bilingual owner + service manual + safety labels + parts catalog
 - **G5**: Charter §2(a-h) scan on paint artwork + decals (no military / licensed-IP / addictive-thrill / racing-glorification)

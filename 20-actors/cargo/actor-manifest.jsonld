@@ -304,7 +304,7 @@
     "description": "Maritime cargo management — bill of lading lifecycle (draft→issued→surrendered→accomplished), cargo items with HS codes, intermodal container tracking, IMDG dangerous goods declarations. Links to vessel.etzhayyim.com voyages and port.etzhayyim.com operations.",
     "displayName": "Cargo & Container Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -9,10 +9,10 @@ export interface SessionEnv {
   /** atproto refresh JWT (long-lived) — stored as CF Workers Secret. */
   PDS_REFRESH_JWT?: string;
   /**
-   * yatachain-projection: feed-discover projector DID (ADR-2605231500).
+   * kotoba-datomic-projection: feed-discover projector DID (ADR-2605231500).
    * When set, feed read paths read the cross-DID projection emitted by
    * `50-infra/mst-projector/` instead of the single ACTOR_DID MST.
-   * See `50-infra/mst-projector/projection/yatachain-projection.toml`.
+   * See `50-infra/mst-projector/projection/kotoba-datomic-projection.edn`.
    */
   PROJECTION_DISCOVER_DID?: string;
   /**
