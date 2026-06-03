@@ -9,7 +9,7 @@
  * plaintext.
  *
  * WAF enforcement / blocking actions, live sanctions-feed screening, and LLM
- * analysis inference STAY gftd (consumed via consent-capability); only the
+ * analysis inference STAY etzhayyim (consumed via consent-capability); only the
  * resulting DATA records migrate here.
  */
 

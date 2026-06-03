@@ -17,12 +17,12 @@
  *   per-subject risk assessments (subjectDid + score + sanction / AML /
  *   anti-social-forces signals). Written via sdk.encryptedWrite (read-cap =
  *   owner DID + explicit recipients), so confidential per-person scoring lives
- *   on-substrate encrypted, never gftd-resident or substrate-plaintext.
+ *   on-substrate encrypted, never etzhayyim-resident or substrate-plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — WAF
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — WAF
  *   enforcement / blocking ACTIONS (Deny/Challenge), live sanctions-feed
  *   screening EXECUTION, and LLM analysis INFERENCE. These are regulated *acts*;
- *   only the EXECUTION stays gftd. Resulting risk DATA records migrate (E2E).
+ *   only the EXECUTION stays etzhayyim. Resulting risk DATA records migrate (E2E).
  *
  * AT-Lexicon: no float. severity/confidence/riskScore are integers (0-100 where
  * a percentage); inherently-decimal CTI metrics (e.g. CVSS) are scaled to
