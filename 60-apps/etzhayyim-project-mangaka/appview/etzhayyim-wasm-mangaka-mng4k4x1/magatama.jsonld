@@ -5,12 +5,12 @@
     "env": {
       "APP_EMBED_MODE": "draw",
       "B2_ENDPOINT": "s3.us-west-004.backblazeb2.com",
-      "B2_BUCKET": "ai-gftd-cdn",
+      "B2_BUCKET": "etzhayyim-cdn",
       "B2_REGION": "us-west-004"
     },
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-mangaka agent. Manga creation platform powered by KAMI Engine canvas -- help users create, edit, and publish manga works with AI-assisted panel layout, inking, and toning. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-mangaka agent. Manga creation platform powered by KAMI Engine canvas -- help users create, edit, and publish manga works with AI-assisted panel layout, inking, and toning. Respond helpfully in the users language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -25,7 +25,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-mangaka",
+  "name": "etzhayyim-wasm-mangaka",
   "nanoid": "mng4k4x1",
   "performerType": "service",
   "profile": {

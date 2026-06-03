@@ -10,13 +10,13 @@
     "complianceFrameworks": ["studio-policy"]
   },
   "kpi": ["agent debug 効率"],
-  "name": "ai-gftd-wasm-studio",
+  "name": "etzhayyim-wasm-studio",
   "nanoid": "stdk2024",
   "performerType": "service",
   "profile": {
     "agentType": "reactive",
     "capabilities": ["langgraph-inspect", "pregel-viz", "graph-invoke"],
-    "description": "LangGraph Studio replacement (Svelte SPA on CF Worker, proxies to lg-mangaka-studio k8s pod). Internal-only behind CF Access @gftd.co.jp / Microsoft IdP.",
+    "description": "LangGraph Studio replacement (Svelte SPA on CF Worker, proxies to lg-mangaka-studio k8s pod). Internal-only behind CF Access @etzhayyim.co.jp / Microsoft IdP.",
     "displayName": "Studio",
     "isBot": true
   },

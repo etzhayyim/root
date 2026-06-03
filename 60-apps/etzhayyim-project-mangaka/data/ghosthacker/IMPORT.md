@@ -5,7 +5,7 @@ Imported from `~/github/ghosthacker/260123-jump/` on **2026-05-12** so the serie
 ## Layout
 
 ```
-60-apps/ai-gftd-project-mangaka/
+60-apps/etzhayyim-project-mangaka/
 ├── data/ghosthacker/                  # this directory (imported)
 │   ├── PROJECT.jsonld                 # series-level manifest (gh:Project)
 │   ├── README.md                      # arc 0-1 raw script
@@ -62,7 +62,7 @@ Two complementary paths:
 ### Path A — Direct manga authoring on mangaka.etzhayyim.com (Genko canvas)
 
 The mangaka appview already has import scripts at
-`60-apps/ai-gftd-project-mangaka/scripts/import-jump-all.ts` that ingest these
+`60-apps/etzhayyim-project-mangaka/scripts/import-jump-all.ts` that ingest these
 episodes into the live `mangaka.etzhayyim.com` PDS as `com.etzhayyim.mangaka.document`
 records. Each episode becomes 1 document with deep-link
 `https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/com.etzhayyim.mangaka.document/doc-gh-<slug>`.
@@ -73,11 +73,11 @@ constant if needed (currently points at the original `~/github/...` path).
 
 ```bash
 # 1. Provide OpenAI / OpenRouter keys (Keychain → env)
-export OPENAI_API_KEY=$(security find-generic-password -s gftd.openai -a OPENAI_API_KEY -w)
-export OPENROUTER_API_KEY=$(security find-generic-password -s gftd.openrouter -a OPENROUTER_API_KEY -w)
+export OPENAI_API_KEY=$(security find-generic-password -s etzhayyim.openai -a OPENAI_API_KEY -w)
+export OPENROUTER_API_KEY=$(security find-generic-password -s etzhayyim.openrouter -a OPENROUTER_API_KEY -w)
 
 # 2. Install + run on the next episode
-cd 60-apps/ai-gftd-project-mangaka/lg-image-gen
+cd 60-apps/etzhayyim-project-mangaka/lg-image-gen
 npm install
 # generate the missing panels (uses gh:needsImageGeneration flag)
 npx tsx src/run.ts --pipeline m2ref --only-pending \
@@ -88,9 +88,9 @@ The pipeline reads `resources/images/episodes/episode:<slug>/pages/<n>/panel_<id
 
 ### Updating JUMP_DIR in import scripts
 
-The scripts in `60-apps/ai-gftd-project-mangaka/scripts/import-jump*.ts` still
+The scripts in `60-apps/etzhayyim-project-mangaka/scripts/import-jump*.ts` still
 hard-code `/Users/junkawasaki/github/ghosthacker/260123-jump/resources`. After
 this import you can either keep that path (works because of symlinks pointing
 back) or rewrite it to
-`60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources` so the in-repo
+`60-apps/etzhayyim-project-mangaka/data/ghosthacker/resources` so the in-repo
 copy is the source.

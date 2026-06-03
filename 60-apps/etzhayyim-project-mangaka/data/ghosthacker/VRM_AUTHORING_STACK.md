@@ -19,7 +19,7 @@ Concrete consequence: even though Mixamo's auto-rig API is free + no-
 key + high-quality, it does NOT appear in `compose_character_vrm.topology.yaml`.
 It only appears in `TRAINING_PIPELINE.md` as a teacher signal used
 once-per-quarter to refresh the in-house `rignet-anime-v0.<n>` student
-checkpoint stored at `b2://gftd-models/rignet-anime-v0.*/`.
+checkpoint stored at `b2://etzhayyim-models/rignet-anime-v0.*/`.
 
 ## Recommended stack (best fit for anime / cell-shaded characters)
 
@@ -83,7 +83,7 @@ well-lit refs).
 | Tool | License | Runtime fit | Notes |
 |---|---|---|---|
 | **Rigify (Blender)** | GPL tool | ✓ **production** | Manual meta-rig placement → auto-generate. We automate the meta-rig fit via mesh bounding box + MediaPipe head landmark; works offline + self-hosted. |
-| **RigNet** | MIT | ✓ **production fallback** | Voxel-based ML auto-rig. We host our own distilled-on-anime checkpoint at `b2://gftd-models/rignet-anime-v0.*/`. |
+| **RigNet** | MIT | ✓ **production fallback** | Voxel-based ML auto-rig. We host our own distilled-on-anime checkpoint at `b2://etzhayyim-models/rignet-anime-v0.*/`. |
 | **Mixamo** (Adobe) | proprietary free | ✗ **train-only** | HTTP API, no key needed. Used offline as the teacher signal for the in-house RigNet distill. Never called from production. |
 | **AccuRIG** (Reallusion) | proprietary standalone-free | ✗ **train-only** | CLI usable; same role as Mixamo — offline teacher only. |
 
@@ -133,7 +133,7 @@ its own ghcr.io image. Build invocations live in
 
 | Image | Base | Approx size | External calls? |
 |---|---|---|---|
-| `ghcr.io/etzhayyim/character-gen:0.1` | nvidia/cuda:12.4 + CharacterGen weights (mirrored at `b2://gftd-models/character-gen-v1/`) | ~6 GB | none |
+| `ghcr.io/etzhayyim/character-gen:0.1` | nvidia/cuda:12.4 + CharacterGen weights (mirrored at `b2://etzhayyim-models/character-gen-v1/`) | ~6 GB | none |
 | `ghcr.io/etzhayyim/hunyuan3d-2:0.2` | nvidia/cuda:12.4 + Hunyuan3D-2 weights (B2 mirror) | ~12 GB | none |
 | `ghcr.io/etzhayyim/mediapipe-face:1` | python:3.11-slim + mediapipe wheel (bundled blendshape model) | ~600 MB | none |
 | `ghcr.io/etzhayyim/blender-rigify-rignet:0.1` | blender:4.1 + Rigify addon + saturday06/VRM_Addon + in-house RigNet checkpoint | ~3.5 GB | none |
@@ -163,8 +163,8 @@ Outputs:
 
 | Risk | Mitigation |
 |---|---|
-| CharacterGen license amendment / model takedown | Weights already mirrored at `b2://gftd-models/character-gen-v1/`; runtime never touches GitHub or Hugging Face. Track `Era3D` as the OSS-stable backup. |
-| Anime character geometry fails Hunyuan3D-2 priors | TripoSR fallback (MIT, baseline weights mirrored at `b2://gftd-models/triposr-v1/`) — manual touch-up if both fail. |
+| CharacterGen license amendment / model takedown | Weights already mirrored at `b2://etzhayyim-models/character-gen-v1/`; runtime never touches GitHub or Hugging Face. Track `Era3D` as the OSS-stable backup. |
+| Anime character geometry fails Hunyuan3D-2 priors | TripoSR fallback (MIT, baseline weights mirrored at `b2://etzhayyim-models/triposr-v1/`) — manual touch-up if both fail. |
 | Rigify template-fit produces broken bind on unusual proportions | In-house RigNet distill fires as the second track inside the same pod. Both report `rigSource` to the state channel so visual review can sort failures. |
 | In-house RigNet checkpoint regression after a retrain | Roll back B2 model bucket via versioned key; pod image picks the active version via env var. Distill workflow keeps the 3 most recent checkpoints. |
 | GPU pool saturation | Sequential by default; `concurrency` flag opt-in only |
