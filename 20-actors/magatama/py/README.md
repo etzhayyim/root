@@ -13,7 +13,7 @@ Counterpart to `@etzhayyim/magatama-host-sdk` (TS, used by CF Worker Mode B / in
 
 ## Contract layer
 
-**WIT bindgen is retired** (ADR-0049 §M1). AT Lexicon JSON at `00-contracts/lexicons/**/*.json` is the surviving contract. Python types are generated into `pymagatama.generated.*` via `gftd lexicon-gen py` (to be implemented).
+**WIT bindgen is retired** (ADR-0049 §M1). AT Lexicon JSON at `00-contracts/lexicons/**/*.json` is the surviving contract. Python types are generated into `pymagatama.generated.*` via `etzhayyim lexicon-gen py` (to be implemented).
 
 ## Quick start
 

@@ -1,7 +1,7 @@
 """
 MitateSlitCohortTrackerCell — SLIT 3-5 yr longitudinal cohort.
 
-Per ADR-2605260115 §Decision 5 + ADR-2605231500 (yatachain-projection hot-path).
+Per ADR-2605260115 §Decision 5 + ADR-2605231500 (kotoba-datomic-projection hot-path).
 
 Pregel graph (daily cron, R3):
 
@@ -50,5 +50,5 @@ if (
         "attested R3 deploy prerequisites (master charter + SLIT cohort "
         "protocol baseline + allergist registry + G11 reminder opt-in "
         "protocol + yakushi cross-actor signal baseline + licensed MD "
-        "registry + yatachain-projection baseline). Do not deploy."
+        "registry + kotoba-datomic-projection baseline). Do not deploy."
     )

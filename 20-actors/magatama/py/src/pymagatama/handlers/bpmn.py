@@ -2,7 +2,7 @@
 ADR-0047 Phase B pilot — bpmn actor on shared Python UDF pool.
 
 Ports the *pure* subset of the TS implementation at
-`60-apps/ai-gftd-project-bpmn/.../src/app.ts`:
+`60-apps/etzhayyim-project-bpmn/.../src/app.ts`:
 
 - `com.etzhayyim.apps.bpmn.compileJsonToXml` — JSON subset → BPMN 2.0 XML
 - `com.etzhayyim.apps.bpmn.validateXml` — cheap well-formedness check
@@ -107,7 +107,7 @@ def _compile_json_to_xml(doc: dict[str, Any]) -> str:
                 f'<bpmn:serviceTask id="{id_}" name="{nsid_val}" '
                 f'implementation="${{environment.services.xrpc}}">{refs}'
                 f'<bpmn:extensionElements>'
-                f'<gftd:xrpc nsid="{nsid_val}" resultAs="{result_as}"/>'
+                f'<etzhayyim:xrpc nsid="{nsid_val}" resultAs="{result_as}"/>'
                 f'</bpmn:extensionElements></bpmn:serviceTask>'
             )
         elif t == "userTask":
@@ -164,7 +164,7 @@ def _compile_json_to_xml(doc: dict[str, Any]) -> str:
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" '
         'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-        'xmlns:gftd="https://etzhayyim.com/bpmn/extension" '
+        'xmlns:etzhayyim="https://etzhayyim.com/bpmn/extension" '
         f'id="def-{process_id}" targetNamespace="https://etzhayyim.com/bpmn">\n'
         f"  {message_defs}\n"
         f'  <bpmn:process id="{process_id}" name="{process_name}" isExecutable="true">\n'
@@ -186,7 +186,7 @@ def compile_json_to_xml(doc_json: str) -> str:
     """
     Input: JSON-stringified BpmnJson `{id, name, flow[]}` OR an XRPC body
     wrapper `{"json": {id, name, flow}}` (matches the TS handler at
-    `60-apps/ai-gftd-project-bpmn/.../src/app.ts` which also reads
+    `60-apps/etzhayyim-project-bpmn/.../src/app.ts` which also reads
     `params.json`).
     Output: JSON-stringified `{xml, byteSize}` or `{error}`.
     """

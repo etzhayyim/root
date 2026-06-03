@@ -1,4 +1,4 @@
-"""Unit + determinism tests for FeedPostCell (yatachain §4 L3)."""
+"""Unit + determinism tests for FeedPostCell (kotoba-datomic §4 L3)."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from .cell import verdict_for
 def _baseline_record(**overrides):
     rec = {
         "$type": "app.bsky.feed.post",
-        "text": "hello yatachain",
+        "text": "hello kotoba-datomic",
         "createdAt": "2026-05-23T00:00:00Z",
     }
     rec.update(overrides)
@@ -134,7 +134,7 @@ def test_external_rego_decision_overrides_python_mirror():
 @pytest.mark.parametrize(
     "text,expected_kind",
     [
-        ("hello yatachain", "approve"),
+        ("hello kotoba-datomic", "approve"),
         ("assault rifle wholesale", "reject"),
         ("limited time offer click my referral", "reject"),
         ("historical treaty review (munition)", "approve"),

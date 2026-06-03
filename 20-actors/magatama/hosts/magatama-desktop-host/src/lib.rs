@@ -46,7 +46,7 @@ impl DesktopHostPlan {
         self.bundle
             .bundle_id
             .as_deref()
-            .unwrap_or("jp.co.gftd.magatama.app")
+            .unwrap_or("jp.co.etzhayyim.magatama.app")
     }
 
     pub fn executable_name(&self) -> String {

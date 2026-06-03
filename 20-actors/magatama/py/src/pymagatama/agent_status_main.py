@@ -205,7 +205,7 @@ def load_development_memory() -> dict[str, Any]:
 
 def load_resend_domain_statuses() -> dict[str, str]:
     api_key = os.environ.get("RESEND_API_KEY") or load_keychain_secret(
-        service="gftd.resend", account="API_KEY"
+        service="etzhayyim.resend", account="API_KEY"
     )
     if not api_key:
         return {}
@@ -215,7 +215,7 @@ def load_resend_domain_statuses() -> dict[str, str]:
         headers={
             "authorization": f"Bearer {api_key}",
             "accept": "application/json",
-            "user-agent": "gftd-mailer-zeebe/1",
+            "user-agent": "etzhayyim-mailer-zeebe/1",
         },
     )
     try:
@@ -269,9 +269,9 @@ def diagnose_email_live_channel(
         if domain == active_domain and not dkim_ready:
             blockers.append(f"resend_dkim_missing:{domain}")
 
-    resend_key = _secret_configured("RESEND_API_KEY", service="gftd.resend", account="API_KEY")
-    cloudflare_token = _secret_configured("CLOUDFLARE_API_TOKEN", service="gftd.cloudflare", account="API_TOKEN")
-    cloudflare_zone = _secret_configured("CLOUDFLARE_ZONE_ID", service="gftd.cloudflare", account="ZONE_ID")
+    resend_key = _secret_configured("RESEND_API_KEY", service="etzhayyim.resend", account="API_KEY")
+    cloudflare_token = _secret_configured("CLOUDFLARE_API_TOKEN", service="etzhayyim.cloudflare", account="API_TOKEN")
+    cloudflare_zone = _secret_configured("CLOUDFLARE_ZONE_ID", service="etzhayyim.cloudflare", account="ZONE_ID")
     if not resend_key:
         blockers.append("resend_api_key_missing")
     active_dns_ready = bool(dns.get(active_domain, {}).get("dnsReady"))
@@ -976,7 +976,7 @@ def format_text(report: dict[str, Any]) -> str:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Report local agent organism status")
-    parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:gftd:agent:local"))
+    parser.add_argument("--agent-did", default=os.environ.get("AGENT_DID", "did:etzhayyim:agent:local"))
     parser.add_argument("--json", action="store_true", help="emit JSON")
     return parser.parse_args(argv)
 
@@ -984,7 +984,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> None:
     load_env_file()
     if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
+        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
         if rw_url:
             os.environ["RW_URL"] = rw_url
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")

@@ -1,6 +1,6 @@
 """IPFS CIDv1 (raw / sha2-256 / base32-lower) helper.
 
-Matches the gftd convention (ADR-0029): CIDv1, multicodec=raw (0x55),
+Matches the etzhayyim convention (ADR-0029): CIDv1, multicodec=raw (0x55),
 multihash=sha2-256 (0x12), multibase=base32 lower (`b` prefix).
 
 Used by the screenshot persistence path so the same file deduplicates

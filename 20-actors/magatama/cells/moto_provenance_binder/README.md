@@ -4,5 +4,5 @@ Yatachain anchoring (input material lots → output VIN + parts catalog + tests 
 Per ADR-2605261330 §6 terminal. R0 scaffold — `.solve()` raises until R1.
 
 - **Murakumo node**: judah
-- **Output**: yatachain-anchored audit binder + mass-balance attestation
+- **Output**: kotoba-datomic-anchored audit binder + mass-balance attestation
 - **Constraints**: G2 mass-balance ≥98% closure; inherits kanayama + hodoki G2 pattern

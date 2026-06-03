@@ -147,7 +147,7 @@ async def task_write_snapshot(
                     f"Topology snapshot {snapshot_id}: {relationTotal} relations",
                     json.dumps({}), json.dumps({"observedAt": observedAt}),
                     created_at, created_at, ACTOR_DID,
-                    "gftd", "graph-sos-intel", "gs0s1nt7", 0,
+                    "etzhayyim", "graph-sos-intel", "gs0s1nt7", 0,
                 ),
             )
 
@@ -274,7 +274,7 @@ async def task_detect_findings(
                             f["summary"], f["evidence_json"],
                             f["recommendation"], f["recommended_action_kind"],
                             snapshotId, created_at, created_at,
-                            ACTOR_DID, "gftd", "graph-sos-intel", "gs0s1nt7", 0,
+                            ACTOR_DID, "etzhayyim", "graph-sos-intel", "gs0s1nt7", 0,
                         ),
                     )
 
@@ -406,7 +406,7 @@ async def task_write_finding(
                     briefingText[:1000], json.dumps({"snapshotId": snapshotId}),
                     "Review latest snapshot findings", "review",
                     snapshotId, created_at, created_at,
-                    ACTOR_DID, "gftd", "graph-sos-intel", "gs0s1nt7", 0,
+                    ACTOR_DID, "etzhayyim", "graph-sos-intel", "gs0s1nt7", 0,
                 ),
             )
 
@@ -456,7 +456,7 @@ async def run_worker() -> None:
 def main() -> None:
     load_env_file()
     if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
+        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
         if rw_url:
             os.environ["RW_URL"] = rw_url
     os.environ.setdefault("PYTHONUNBUFFERED", "1")

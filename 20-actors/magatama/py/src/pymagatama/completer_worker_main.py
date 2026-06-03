@@ -2,7 +2,7 @@
 completer LangServer worker — DID Compliance Actor.
 
 Subscribes to Zeebe job types matching the BPMN service tasks in
-60-apps/ai-gftd-project-completer/bpmn/evaluate-compliance.bpmn.
+60-apps/etzhayyim-project-completer/bpmn/evaluate-compliance.bpmn.
 
 Job types:
   com.etzhayyim.apps.completer.queryRules        — fetch applicable rules from graph

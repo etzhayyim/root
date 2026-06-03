@@ -13,4 +13,4 @@ Cohort tracking:
 
 R3 phase activation only. Requires allergist on Council Lv6+.
 
-yatachain-projection hot-path read carve-out (per ADR-2605231500) for cohort time-series queries.
+kotoba-datomic-projection hot-path read carve-out (per ADR-2605231500) for cohort time-series queries.

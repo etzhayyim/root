@@ -1290,9 +1290,9 @@ async def _proxy_to_lg_yatabase(
     # Forward HMAC + identity + trace headers verbatim.
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
         "content-type",
     ):
         v = request.headers.get(h)
@@ -1358,9 +1358,9 @@ async def _proxy_to_lg_animeka(
     headers: dict[str, str] = {}
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
         "content-type",
     ):
         v = request.headers.get(h)
@@ -1427,9 +1427,9 @@ async def _proxy_to_lg_recap(
     headers: dict[str, str] = {}
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
         "content-type",
     ):
         v = request.headers.get(h)
@@ -1496,9 +1496,9 @@ async def _proxy_to_lg_mangaka(
     headers: dict[str, str] = {}
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
         "content-type",
     ):
         v = request.headers.get(h)
@@ -1570,7 +1570,7 @@ async def _proxy_to_lg_pod_sse(
     import aiohttp as _aiohttp
     target = f"{internal_url.rstrip('/')}/xrpc/{nsid}"
     headers: dict[str, str] = {"accept": "text/event-stream"}
-    for h in (INTERNAL_TRUST_HEADER, "x-gftd-actor-did", "x-gftd-org-did", "x-gftd-trace-id"):
+    for h in (INTERNAL_TRUST_HEADER, "x-etzhayyim-actor-did", "x-etzhayyim-org-did", "x-etzhayyim-trace-id"):
         v = request.headers.get(h)
         if v is not None:
             headers[h] = v
@@ -1635,9 +1635,9 @@ async def _proxy_to_lg_pod(
     headers: dict[str, str] = {}
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
         "content-type",
     ):
         v = request.headers.get(h)
@@ -1743,9 +1743,9 @@ async def mcp_route(request: web.Request) -> web.Response:
     headers: dict[str, str] = {"content-type": "application/json"}
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
     ):
         v = request.headers.get(h)
         if v is not None:
@@ -1808,9 +1808,9 @@ async def _proxy_to_lg_mangaka(
     headers: dict[str, str] = {}
     for h in (
         INTERNAL_TRUST_HEADER,
-        "x-gftd-actor-did",
-        "x-gftd-org-did",
-        "x-gftd-trace-id",
+        "x-etzhayyim-actor-did",
+        "x-etzhayyim-org-did",
+        "x-etzhayyim-trace-id",
         "content-type",
     ):
         v = request.headers.get(h)

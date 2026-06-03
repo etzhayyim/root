@@ -2,7 +2,7 @@
 KuniUmiApiCell — HTTP gateway for the 6 kuni-umi cells.
 
 Per ADR-2605201400 + ADR-2605192415 §4. This cell is the front door that
-the ``gftd kuni-umi`` CLI POSTs into. Each XRPC NSID is routed to the
+the ``etzhayyim kuni-umi`` CLI POSTs into. Each XRPC NSID is routed to the
 corresponding kuni-umi cell module:
 
   defineDeploymentSite          → site_survey.cell

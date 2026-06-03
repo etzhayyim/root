@@ -338,15 +338,15 @@ async def _cell_runner_healthz(request: Any) -> Any:
     })
 
 
-async def _cell_runner_yatachain_attest(request: Any) -> Any:
-    """yatachain witness endpoint. Receives a WitnessRequest from the
-    orchestrator (`@etzhayyim/sdk/yatachain`), produces a signed
+async def _cell_runner_kotoba-datomic_attest(request: Any) -> Any:
+    """kotoba-datomic witness endpoint. Receives a WitnessRequest from the
+    orchestrator (`@etzhayyim/sdk/kotoba-datomic`), produces a signed
     attestation against this node's hosted cells, and writes the
-    resulting `com.etzhayyim.yatachain.attestation` record back to PDS.
+    resulting `com.etzhayyim.kotoba-datomic.attestation` record back to PDS.
 
     Wire contract (matches TS `WitnessTransport.requestAttestation`):
 
-        POST /yatachain/attest
+        POST /kotoba-datomic/attest
         Content-Type: application/json
         {
           "v": 1,
@@ -354,7 +354,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
           "recordUri": "at://...",
           "recordCid": "bafy...",
           "record": { ... domain record being attested ... },
-          "rule": { ... com.etzhayyim.yatachain.membraneRule shape ... }
+          "rule": { ... com.etzhayyim.kotoba-datomic.membraneRule shape ... }
         }
 
     Response:
@@ -363,10 +363,10 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
       400           — malformed body.
       500           — internal error during attestation.
 
-    Per ADR-2605231400 §"Implementation plan" #2 + yatachain SPEC §5.
+    Per ADR-2605231400 §"Implementation plan" #2 + kotoba-datomic SPEC §5.
     """
     from aiohttp import web as _web
-    from .yatachain import (
+    from .kotoba-datomic import (
         WitnessRequest,
         make_cell_signer,
         produce_attestation,
@@ -412,14 +412,14 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
     # deploys, e.g. K8s Secret-injected) → deterministic test signer
     # (dev / unit-test only; logged loudly so it's not used in prod).
     # Per fleet.toml `cell_key_rotation_period_days = 90`, operator runs
-    # `security add-generic-password -s com.etzhayyim.yatachain -a {cellId} -w '{hexSeed}'`
+    # `security add-generic-password -s com.etzhayyim.kotoba-datomic -a {cellId} -w '{hexSeed}'`
     # quarterly to rotate.
     signer, signer_source = make_cell_signer(cell_id)
     if signer_source == "deterministic":
         _log.warning(
-            "yatachain.attest cellId=%s using DETERMINISTIC TEST SIGNER — "
+            "kotoba-datomic.attest cellId=%s using DETERMINISTIC TEST SIGNER — "
             "production deploys must publish a real Ed25519 key to macOS "
-            "Keychain (service=com.etzhayyim.yatachain, account=%s) OR set "
+            "Keychain (service=com.etzhayyim.kotoba-datomic, account=%s) OR set "
             "CELL_PRIVATE_KEY_%s env var (hex 32-byte seed)",
             cell_id, cell_id, cell_id,
         )
@@ -436,7 +436,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
         )
     except Exception as caught:  # noqa: BLE001
         _log.error(
-            "yatachain.attest cellId=%s failed during produce_attestation: %s",
+            "kotoba-datomic.attest cellId=%s failed during produce_attestation: %s",
             cell_id, caught, exc_info=True,
         )
         return _web.json_response(
@@ -455,7 +455,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
             async with Etzhayyim(did=substrate_did) as e:
                 await e.write(
                     WriteOpts(
-                        collection="com.etzhayyim.yatachain.attestation",
+                        collection="com.etzhayyim.kotoba-datomic.attestation",
                         record=attestation.to_wire(),
                     )
                 )
@@ -465,7 +465,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
             # Orchestrator will time out the slot and either reduce quorum
             # or escalate per rule.escalationPolicy.
             _log.warning(
-                "yatachain.attest cellId=%s PDS write failed: %s",
+                "kotoba-datomic.attest cellId=%s PDS write failed: %s",
                 cell_id, caught,
             )
 
@@ -482,7 +482,7 @@ async def _cell_runner_yatachain_attest(request: Any) -> Any:
 
 
 async def _start_healthz_server(port: int) -> None:
-    """Run /healthz + /yatachain/attest endpoints as concurrent asyncio task.
+    """Run /healthz + /kotoba-datomic/attest endpoints as concurrent asyncio task.
 
     Bind defaults to 127.0.0.1 (launchd / local-dev). In-Pod deploys per
     ADR-2605232100 set ETZ_HEALTHZ_BIND=0.0.0.0 so kubelet probes against
@@ -493,13 +493,13 @@ async def _start_healthz_server(port: int) -> None:
     bind = os.environ.get("ETZ_HEALTHZ_BIND", "127.0.0.1")
     app = _web.Application()
     app.router.add_get("/healthz", _cell_runner_healthz)
-    app.router.add_post("/yatachain/attest", _cell_runner_yatachain_attest)
+    app.router.add_post("/kotoba-datomic/attest", _cell_runner_kotoba-datomic_attest)
     runner = _web.AppRunner(app)
     await runner.setup()
     site = _web.TCPSite(runner, bind, port)
     await site.start()
     _log.info(
-        "cell-runner http://%s:%d {/healthz, /yatachain/attest}", bind, port
+        "cell-runner http://%s:%d {/healthz, /kotoba-datomic/attest}", bind, port
     )
 
 

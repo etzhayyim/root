@@ -1602,154 +1602,154 @@
   }
 
   {
-   :view/name "mv_gftd_actor_score"
+   :view/name "mv_etzhayyim_actor_score"
    :view/kind :full
    :view/grain ["did"]
-   :view/tags ["gftd" "actor" "score" "trust"]
+   :view/tags ["etzhayyim" "actor" "score" "trust"]
    :view/description "Per DID: verified method count, total method count, and actor score (capped at 100)."
-   :view/sources ["edge.gftd-authenticates"]
+   :view/sources ["edge.etzhayyim-authenticates"]
    :view/translation :manual
    :view/manual-reason "single-source aggregate with computed/distinct/where expr — kqe rule"
-   :view/sql-source "-- GFTD actor score: verified method count and trust score per DID.   SELECT   src_vid AS did,   COUNT(*) FILTER (WHERE verified = 1) AS verified_method_count,   COUNT(*) AS total_method_count,   LEAST(COUNT(*) FILTER (WHERE verified = 1) * 25, 100) AS actor_score FROM edge_gftd_authenticates GROUP BY src_vid"
+   :view/sql-source "-- Etzhayyim actor score: verified method count and trust score per DID.   SELECT   src_vid AS did,   COUNT(*) FILTER (WHERE verified = 1) AS verified_method_count,   COUNT(*) AS total_method_count,   LEAST(COUNT(*) FILTER (WHERE verified = 1) * 25, 100) AS actor_score FROM edge_etzhayyim_authenticates GROUP BY src_vid"
   }
 
   {
-   :view/name "mv_gftd_delegation_chain"
+   :view/name "mv_etzhayyim_delegation_chain"
    :view/kind :full
    :view/grain ["delegatee_did" "delegator_did"]
-   :view/tags ["gftd" "delegation" "raci" "identity"]
+   :view/tags ["etzhayyim" "delegation" "raci" "identity"]
    :view/description "Per delegation edge: delegatee DID, delegator DID, RACI role, scope."
-   :view/sources ["edge.gftd-delegates-to"]
+   :view/sources ["edge.etzhayyim-delegates-to"]
    :view/translation :auto
-   :view/query "[:find ?dst-vid ?src-vid ?raci ?role ?scope :where [?e :edge.gftd-delegates-to/dst-vid ?dst-vid] [?e :edge.gftd-delegates-to/src-vid ?src-vid] [?e :edge.gftd-delegates-to/raci ?raci] [?e :edge.gftd-delegates-to/role ?role] [?e :edge.gftd-delegates-to/scope ?scope]]"
+   :view/query "[:find ?dst-vid ?src-vid ?raci ?role ?scope :where [?e :edge.etzhayyim-delegates-to/dst-vid ?dst-vid] [?e :edge.etzhayyim-delegates-to/src-vid ?src-vid] [?e :edge.etzhayyim-delegates-to/raci ?raci] [?e :edge.etzhayyim-delegates-to/role ?role] [?e :edge.etzhayyim-delegates-to/scope ?scope]]"
   }
 
   {
-   :view/name "mv_gftd_identity_children"
+   :view/name "mv_etzhayyim_identity_children"
    :view/kind :full
    :view/grain ["parent_did" "segment_kind"]
-   :view/tags ["gftd" "did" "identity" "children"]
+   :view/tags ["etzhayyim" "did" "identity" "children"]
    :view/description "Per (parent_did, segment_kind): total child count and active (non-revoked) child count."
-   :view/sources ["vertex.gftd-identity"]
+   :view/sources ["vertex.etzhayyim-identity"]
    :view/translation :manual
    :view/manual-reason "single-source aggregate with computed/distinct/where expr — kqe rule"
-   :view/sql-source "-- GFTD identity children: child count per parent DID and segment kind.   SELECT   parent_did,   segment_kind,   COUNT(*) AS child_count,   COUNT(*) FILTER (WHERE revoked_at IS NULL) AS active_child_count FROM vertex_gftd_identity WHERE parent_did IS NOT NULL GROUP BY parent_did, segment_kind"
+   :view/sql-source "-- Etzhayyim identity children: child count per parent DID and segment kind.   SELECT   parent_did,   segment_kind,   COUNT(*) AS child_count,   COUNT(*) FILTER (WHERE revoked_at IS NULL) AS active_child_count FROM vertex_etzhayyim_identity WHERE parent_did IS NOT NULL GROUP BY parent_did, segment_kind"
   }
 
   {
-   :view/name "mv_gftd_op_log_head"
+   :view/name "mv_etzhayyim_op_log_head"
    :view/kind :full
    :view/grain ["did"]
-   :view/tags ["gftd" "did" "op_log" "identity"]
+   :view/tags ["etzhayyim" "did" "op_log" "identity"]
    :view/description "Per DID: maximum op_seq (head of the op log)."
-   :view/sources ["vertex.gftd-op-log"]
+   :view/sources ["vertex.etzhayyim-op-log"]
    :view/translation :auto
-   :view/query "[:find ?did (max ?op-seq) :where [?e :vertex.gftd-op-log/did ?did] [?e :vertex.gftd-op-log/op-seq ?op-seq]]"
+   :view/query "[:find ?did (max ?op-seq) :where [?e :vertex.etzhayyim-op-log/did ?did] [?e :vertex.etzhayyim-op-log/op-seq ?op-seq]]"
   }
 
   {
-   :view/name "mv_gftd_org_member_count"
+   :view/name "mv_etzhayyim_org_member_count"
    :view/kind :full
    :view/grain ["org_did"]
-   :view/tags ["gftd" "org" "member" "role"]
+   :view/tags ["etzhayyim" "org" "member" "role"]
    :view/description "Per org_did: member counts by role (owner/admin/member/viewer/agent) and invite status (accepted/pending)."
-   :view/sources ["edge.gftd-member-of"]
+   :view/sources ["edge.etzhayyim-member-of"]
    :view/translation :manual
    :view/manual-reason "single-source aggregate with computed/distinct/where expr — kqe rule"
-   :view/sql-source "-- GFTD org member count: role and invite status breakdown per org.   SELECT   dst_vid AS org_did,   COUNT(*) AS total_members,   COUNT(*) FILTER (WHERE role = 'owner') AS owner_count,   COUNT(*) FILTER (WHERE role = 'admin') AS admin_count,   COUNT(*) FILTER (WHERE role = 'member') AS member_count,   COUNT(*) FILTER (WHERE role = 'viewer') AS viewer_count,   COUNT(*) FILTER (WHERE role = 'agent-runtime') AS agent_count,   COUNT(*) FILTER (WHERE invite_status = 'accepted') AS accepted_count,   COUNT(*) FILTER (WHERE invite_status = 'pending') AS pending_count FROM edge_gftd_member_of GROUP BY dst_vid"
+   :view/sql-source "-- Etzhayyim org member count: role and invite status breakdown per org.   SELECT   dst_vid AS org_did,   COUNT(*) AS total_members,   COUNT(*) FILTER (WHERE role = 'owner') AS owner_count,   COUNT(*) FILTER (WHERE role = 'admin') AS admin_count,   COUNT(*) FILTER (WHERE role = 'member') AS member_count,   COUNT(*) FILTER (WHERE role = 'viewer') AS viewer_count,   COUNT(*) FILTER (WHERE role = 'agent-runtime') AS agent_count,   COUNT(*) FILTER (WHERE invite_status = 'accepted') AS accepted_count,   COUNT(*) FILTER (WHERE invite_status = 'pending') AS pending_count FROM edge_etzhayyim_member_of GROUP BY dst_vid"
   }
 
   {
-   :view/name "mv_gftd_path_depth_dist"
+   :view/name "mv_etzhayyim_path_depth_dist"
    :view/kind :full
    :view/grain ["depth"]
-   :view/tags ["gftd" "did" "path" "depth"]
+   :view/tags ["etzhayyim" "did" "path" "depth"]
    :view/description "Per depth: count of DIDs at that depth in the path hierarchy."
-   :view/sources ["vertex.gftd-identity"]
+   :view/sources ["vertex.etzhayyim-identity"]
    :view/translation :manual
    :view/manual-reason "single-source aggregate with computed/distinct/where expr — kqe rule"
-   :view/sql-source "-- GFTD path depth distribution: DID count per depth level.   SELECT   depth,   COUNT(*) AS dids FROM vertex_gftd_identity WHERE depth IS NOT NULL GROUP BY depth"
+   :view/sql-source "-- Etzhayyim path depth distribution: DID count per depth level.   SELECT   depth,   COUNT(*) AS dids FROM vertex_etzhayyim_identity WHERE depth IS NOT NULL GROUP BY depth"
   }
 
   {
-   :view/name "mv_gftdcojp_active_assignments"
+   :view/name "mv_etzhayyimcojp_active_assignments"
    :view/kind :full
    :view/grain ["person_did" "role_id" "project_id"]
-   :view/tags ["gftdcojp" "personnel" "assignment" "active"]
+   :view/tags ["etzhayyimcojp" "personnel" "assignment" "active"]
    :view/description "Active personnel assignments joined with person and role display info."
-   :view/sources ["vertex.gftdcojp-assignment" "vertex.gftdcojp-person" "vertex.gftdcojp-role"]
+   :view/sources ["vertex.etzhayyimcojp-assignment" "vertex.etzhayyimcojp-person" "vertex.etzhayyimcojp-role"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp active assignments: active person-role-project assignments with display metadata.   SELECT   a.person_did,   a.role_id,   a.project_id,   a.project_name,   a.allocation_pct,   a.start_date,   a.end_date,   p.display_name,   p.display_name_ja,   p.department,   p.title,   p.title_ja,   r.role_name,   r.role_name_ja,   r.is_leadership FROM vertex_gftdcojp_assignment a LEFT JOIN vertex_gftdcojp_person p ON p.person_did = a.person_did LEFT JOIN vertex_gftdcojp_role r ON r.role_id = a.role_id WHERE a.status = 'active'"
+   :view/sql-source "-- Gftdcojp active assignments: active person-role-project assignments with display metadata.   SELECT   a.person_did,   a.role_id,   a.project_id,   a.project_name,   a.allocation_pct,   a.start_date,   a.end_date,   p.display_name,   p.display_name_ja,   p.department,   p.title,   p.title_ja,   r.role_name,   r.role_name_ja,   r.is_leadership FROM vertex_etzhayyimcojp_assignment a LEFT JOIN vertex_etzhayyimcojp_person p ON p.person_did = a.person_did LEFT JOIN vertex_etzhayyimcojp_role r ON r.role_id = a.role_id WHERE a.status = 'active'"
   }
 
   {
-   :view/name "mv_gftdcojp_active_contracts"
+   :view/name "mv_etzhayyimcojp_active_contracts"
    :view/kind :full
    :view/grain ["contract_id"]
-   :view/tags ["gftdcojp" "contract" "active"]
+   :view/tags ["etzhayyimcojp" "contract" "active"]
    :view/description "Per active contract: parties, dates, monthly rate, and distinct clause kind count."
-   :view/sources ["vertex.gftdcojp-contract" "vertex.gftdcojp-contract-clause"]
+   :view/sources ["vertex.etzhayyimcojp-contract" "vertex.etzhayyimcojp-contract-clause"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp active contracts: active contracts with clause counts.   SELECT   c.contract_id,   c.contract_kind,   c.counterparty_did,   c.principal_did,   c.vendor_did,   c.title,   c.start_date,   c.end_date,   c.monthly_rate_jpy,   c.status,   COUNT(DISTINCT cc.clause_kind) AS clause_count FROM vertex_gftdcojp_contract c LEFT JOIN vertex_gftdcojp_contract_clause cc ON cc.contract_id = c.contract_id WHERE c.status = 'active' GROUP BY c.contract_id, c.contract_kind, c.counterparty_did,          c.principal_did, c.vendor_did, c.title, c.start_date,          c.end_date, c.monthly_rate_jpy, c.status"
+   :view/sql-source "-- Gftdcojp active contracts: active contracts with clause counts.   SELECT   c.contract_id,   c.contract_kind,   c.counterparty_did,   c.principal_did,   c.vendor_did,   c.title,   c.start_date,   c.end_date,   c.monthly_rate_jpy,   c.status,   COUNT(DISTINCT cc.clause_kind) AS clause_count FROM vertex_etzhayyimcojp_contract c LEFT JOIN vertex_etzhayyimcojp_contract_clause cc ON cc.contract_id = c.contract_id WHERE c.status = 'active' GROUP BY c.contract_id, c.contract_kind, c.counterparty_did,          c.principal_did, c.vendor_did, c.title, c.start_date,          c.end_date, c.monthly_rate_jpy, c.status"
   }
 
   {
-   :view/name "mv_gftdcojp_minimax_top_assignments"
+   :view/name "mv_etzhayyimcojp_minimax_top_assignments"
    :view/kind :full
    :view/grain ["decision_kind" "candidate_target" "person_did"]
-   :view/tags ["gftdcojp" "minimax" "assignment" "decision"]
+   :view/tags ["etzhayyimcojp" "minimax" "assignment" "decision"]
    :view/description "Per minimax decision (passing spirit floor): candidate, person, regret, loss, value, recommendation."
-   :view/sources ["vertex.gftdcojp-person-minimax"]
+   :view/sources ["vertex.etzhayyimcojp-person-minimax"]
    :view/translation :auto
-   :view/query "[:find ?decision-kind ?candidate-target ?person-did ?regret-score ?worst-case-loss-jpy ?expected-value-jpy ?spirit-floor-violated ?ip-leak-risk ?recommendation ?assessed-at :where [?e :vertex.gftdcojp-person-minimax/decision-kind ?decision-kind] [?e :vertex.gftdcojp-person-minimax/candidate-target ?candidate-target] [?e :vertex.gftdcojp-person-minimax/person-did ?person-did] [?e :vertex.gftdcojp-person-minimax/regret-score ?regret-score] [?e :vertex.gftdcojp-person-minimax/worst-case-loss-jpy ?worst-case-loss-jpy] [?e :vertex.gftdcojp-person-minimax/expected-value-jpy ?expected-value-jpy] [?e :vertex.gftdcojp-person-minimax/spirit-floor-violated ?spirit-floor-violated] [?e :vertex.gftdcojp-person-minimax/ip-leak-risk ?ip-leak-risk] [?e :vertex.gftdcojp-person-minimax/recommendation ?recommendation] [?e :vertex.gftdcojp-person-minimax/assessed-at ?assessed-at]]"
+   :view/query "[:find ?decision-kind ?candidate-target ?person-did ?regret-score ?worst-case-loss-jpy ?expected-value-jpy ?spirit-floor-violated ?ip-leak-risk ?recommendation ?assessed-at :where [?e :vertex.etzhayyimcojp-person-minimax/decision-kind ?decision-kind] [?e :vertex.etzhayyimcojp-person-minimax/candidate-target ?candidate-target] [?e :vertex.etzhayyimcojp-person-minimax/person-did ?person-did] [?e :vertex.etzhayyimcojp-person-minimax/regret-score ?regret-score] [?e :vertex.etzhayyimcojp-person-minimax/worst-case-loss-jpy ?worst-case-loss-jpy] [?e :vertex.etzhayyimcojp-person-minimax/expected-value-jpy ?expected-value-jpy] [?e :vertex.etzhayyimcojp-person-minimax/spirit-floor-violated ?spirit-floor-violated] [?e :vertex.etzhayyimcojp-person-minimax/ip-leak-risk ?ip-leak-risk] [?e :vertex.etzhayyimcojp-person-minimax/recommendation ?recommendation] [?e :vertex.etzhayyimcojp-person-minimax/assessed-at ?assessed-at]]"
   }
 
   {
-   :view/name "mv_gftdcojp_omega_daily"
+   :view/name "mv_etzhayyimcojp_omega_daily"
    :view/kind :full
    :view/grain ["day"]
-   :view/tags ["gftdcojp" "omega" "governance" "daily"]
-   :view/description "Per day: avg/min/max omega score and floor violation flag from vertex_gftdcojp_governance_event."
-   :view/sources ["ent.governance" "vertex.gftdcojp-governance-event"]
+   :view/tags ["etzhayyimcojp" "omega" "governance" "daily"]
+   :view/description "Per day: avg/min/max omega score and floor violation flag from vertex_etzhayyimcojp_governance_event."
+   :view/sources ["ent.governance" "vertex.etzhayyimcojp-governance-event"]
    :view/translation :manual
    :view/manual-reason "single-source aggregate with computed/distinct/where expr — kqe rule"
-   :view/sql-source "-- Gftdcojp omega daily: daily omega score aggregates from governance events.   SELECT   DATE(created_at::TIMESTAMP) AS day,   AVG(omega_score) AS avg_omega,   MIN(omega_score) AS min_omega,   MAX(omega_score) AS max_omega,   COUNT(*) AS check_count,   BOOL_OR(floor_violated) AS any_floor_violated FROM vertex_gftdcojp_governance_event WHERE omega_score IS NOT NULL GROUP BY DATE(created_at::TIMESTAMP)"
+   :view/sql-source "-- Gftdcojp omega daily: daily omega score aggregates from governance events.   SELECT   DATE(created_at::TIMESTAMP) AS day,   AVG(omega_score) AS avg_omega,   MIN(omega_score) AS min_omega,   MAX(omega_score) AS max_omega,   COUNT(*) AS check_count,   BOOL_OR(floor_violated) AS any_floor_violated FROM vertex_etzhayyimcojp_governance_event WHERE omega_score IS NOT NULL GROUP BY DATE(created_at::TIMESTAMP)"
   }
 
   {
-   :view/name "mv_gftdcojp_profile_risk_summary"
+   :view/name "mv_etzhayyimcojp_profile_risk_summary"
    :view/kind :full
-   :view/tags ["gftdcojp" "profile" "big5" "risk"]
+   :view/tags ["etzhayyimcojp" "profile" "big5" "risk"]
    :view/description "Aggregate Big5/self-preservation/risk-tolerance/autonomy averages from person profiles."
-   :view/sources ["vertex.gftdcojp-person-profile"]
+   :view/sources ["vertex.etzhayyimcojp-person-profile"]
    :view/translation :auto
-   :view/query "[:find (count-distinct ?person-did) (avg ?big5-openness) (avg ?big5-conscientiousness) (avg ?big5-extraversion) (avg ?big5-agreeableness) (avg ?big5-neuroticism) (avg ?self-preservation) (avg ?risk-tolerance) (avg ?autonomy-level) :where [?e :vertex.gftdcojp-person-profile/person-did ?person-did] [?e :vertex.gftdcojp-person-profile/big5-openness ?big5-openness] [?e :vertex.gftdcojp-person-profile/big5-conscientiousness ?big5-conscientiousness] [?e :vertex.gftdcojp-person-profile/big5-extraversion ?big5-extraversion] [?e :vertex.gftdcojp-person-profile/big5-agreeableness ?big5-agreeableness] [?e :vertex.gftdcojp-person-profile/big5-neuroticism ?big5-neuroticism] [?e :vertex.gftdcojp-person-profile/self-preservation ?self-preservation] [?e :vertex.gftdcojp-person-profile/risk-tolerance ?risk-tolerance] [?e :vertex.gftdcojp-person-profile/autonomy-level ?autonomy-level]]"
+   :view/query "[:find (count-distinct ?person-did) (avg ?big5-openness) (avg ?big5-conscientiousness) (avg ?big5-extraversion) (avg ?big5-agreeableness) (avg ?big5-neuroticism) (avg ?self-preservation) (avg ?risk-tolerance) (avg ?autonomy-level) :where [?e :vertex.etzhayyimcojp-person-profile/person-did ?person-did] [?e :vertex.etzhayyimcojp-person-profile/big5-openness ?big5-openness] [?e :vertex.etzhayyimcojp-person-profile/big5-conscientiousness ?big5-conscientiousness] [?e :vertex.etzhayyimcojp-person-profile/big5-extraversion ?big5-extraversion] [?e :vertex.etzhayyimcojp-person-profile/big5-agreeableness ?big5-agreeableness] [?e :vertex.etzhayyimcojp-person-profile/big5-neuroticism ?big5-neuroticism] [?e :vertex.etzhayyimcojp-person-profile/self-preservation ?self-preservation] [?e :vertex.etzhayyimcojp-person-profile/risk-tolerance ?risk-tolerance] [?e :vertex.etzhayyimcojp-person-profile/autonomy-level ?autonomy-level]]"
   }
 
   {
-   :view/name "mv_gftdcojp_raci_by_task"
+   :view/name "mv_etzhayyimcojp_raci_by_task"
    :view/kind :full
    :view/grain ["task_nsid" "raci_role"]
-   :view/tags ["gftdcojp" "raci" "task"]
+   :view/tags ["etzhayyimcojp" "raci" "task"]
    :view/description "Per (task_nsid, task_name, domain, raci_role): person count and aggregated names."
-   :view/sources ["vertex.gftdcojp-raci" "vertex.gftdcojp-person"]
+   :view/sources ["vertex.etzhayyimcojp-raci" "vertex.etzhayyimcojp-person"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp RACI by task: active RACI assignments grouped by task and role.   SELECT   r.task_nsid,   r.task_name,   r.domain,   r.raci_role,   COUNT(*) AS person_count,   STRING_AGG(p.display_name, ', ') AS persons FROM vertex_gftdcojp_raci r LEFT JOIN vertex_gftdcojp_person p ON p.person_did = r.person_did WHERE r.status = 'active' GROUP BY r.task_nsid, r.task_name, r.domain, r.raci_role"
+   :view/sql-source "-- Gftdcojp RACI by task: active RACI assignments grouped by task and role.   SELECT   r.task_nsid,   r.task_name,   r.domain,   r.raci_role,   COUNT(*) AS person_count,   STRING_AGG(p.display_name, ', ') AS persons FROM vertex_etzhayyimcojp_raci r LEFT JOIN vertex_etzhayyimcojp_person p ON p.person_did = r.person_did WHERE r.status = 'active' GROUP BY r.task_nsid, r.task_name, r.domain, r.raci_role"
   }
 
   {
-   :view/name "mv_gftdcojp_skill_coverage"
+   :view/name "mv_etzhayyimcojp_skill_coverage"
    :view/kind :full
    :view/grain ["skill_id"]
-   :view/tags ["gftdcojp" "skill" "coverage"]
+   :view/tags ["etzhayyimcojp" "skill" "coverage"]
    :view/description "Per skill: headcount, avg/max proficiency, peer-verified count."
-   :view/sources ["vertex.gftdcojp-person-skill" "vertex.gftdcojp-skill"]
+   :view/sources ["vertex.etzhayyimcojp-person-skill" "vertex.etzhayyimcojp-skill"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp skill coverage: per-skill headcount, proficiency, and verification metrics.   SELECT   ps.skill_id,   s.name,   s.category,   COUNT(DISTINCT ps.person_did) AS headcount,   AVG(ps.proficiency) AS avg_proficiency,   MAX(ps.proficiency) AS max_proficiency,   SUM(CASE WHEN ps.peer_verified THEN 1 ELSE 0 END) AS verified_count FROM vertex_gftdcojp_person_skill ps LEFT JOIN vertex_gftdcojp_skill s ON s.skill_id = ps.skill_id GROUP BY ps.skill_id, s.name, s.category"
+   :view/sql-source "-- Gftdcojp skill coverage: per-skill headcount, proficiency, and verification metrics.   SELECT   ps.skill_id,   s.name,   s.category,   COUNT(DISTINCT ps.person_did) AS headcount,   AVG(ps.proficiency) AS avg_proficiency,   MAX(ps.proficiency) AS max_proficiency,   SUM(CASE WHEN ps.peer_verified THEN 1 ELSE 0 END) AS verified_count FROM vertex_etzhayyimcojp_person_skill ps LEFT JOIN vertex_etzhayyimcojp_skill s ON s.skill_id = ps.skill_id GROUP BY ps.skill_id, s.name, s.category"
   }
 
   {

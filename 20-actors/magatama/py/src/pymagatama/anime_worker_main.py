@@ -2,7 +2,7 @@
 anime LangServer worker — Anime Intelligence Platform.
 
 Subscribes to Zeebe job types matching the BPMN service tasks in
-60-apps/ai-gftd-project-anime/bpmn/ingest-anime.bpmn.
+60-apps/etzhayyim-project-anime/bpmn/ingest-anime.bpmn.
 
 Job types:
   com.etzhayyim.apps.anime.createTitle      — persist new anime title

@@ -430,14 +430,14 @@ async def xrpc_delete_conversation(request: web.Request) -> web.Response:
 #                                    (streaming + non-streaming, tool calling)
 #
 # Authentication: Phase 1 accepts any `Authorization: Bearer …` header (or
-# none). The header is recorded in the `x-gftd-viewer-did` derivation but
+# none). The header is recorded in the `x-etzhayyim-viewer-did` derivation but
 # not validated. Phase 2 will check `sk_live_*` keys against the AT
 # Protocol vault and the AuthN Worker.
 #
 # Model name → tier mapping:
-#   gftd-chat / gftd-chat-balanced    → tier=balanced (Vultr Devstral-2-123B)
-#   gftd-chat-fast                    → tier=fast
-#   gftd-chat-reasoning               → tier=reasoning (Qwen3.5-397B)
+#   etzhayyim-chat / etzhayyim-chat-balanced    → tier=balanced (Vultr Devstral-2-123B)
+#   etzhayyim-chat-fast                    → tier=fast
+#   etzhayyim-chat-reasoning               → tier=reasoning (Qwen3.5-397B)
 #   any other                         → treated as model_hint, tier=balanced
 #
 # Tools: OpenAI clients can pass `tools=[…]` — these are merged into the
@@ -445,21 +445,21 @@ async def xrpc_delete_conversation(request: web.Request) -> web.Response:
 # available. To run "plain LLM with no tool access", pass `tools=[]`.
 
 _OPENAI_MODELS: list[dict[str, Any]] = [
-    {"id": "gftd-chat", "object": "model", "owned_by": "gftd",
+    {"id": "etzhayyim-chat", "object": "model", "owned_by": "etzhayyim",
      "description": "etzhayyim chat assistant (default). Built-in tools: code, image, file save, history search, web search."},
-    {"id": "gftd-chat-fast", "object": "model", "owned_by": "gftd",
+    {"id": "etzhayyim-chat-fast", "object": "model", "owned_by": "etzhayyim",
      "description": "Lower-latency variant for short replies."},
-    {"id": "gftd-chat-balanced", "object": "model", "owned_by": "gftd",
-     "description": "Balanced quality + speed (alias for gftd-chat)."},
-    {"id": "gftd-chat-reasoning", "object": "model", "owned_by": "gftd",
+    {"id": "etzhayyim-chat-balanced", "object": "model", "owned_by": "etzhayyim",
+     "description": "Balanced quality + speed (alias for etzhayyim-chat)."},
+    {"id": "etzhayyim-chat-reasoning", "object": "model", "owned_by": "etzhayyim",
      "description": "Higher-quality reasoning for harder tasks (slower)."},
 ]
 
 _MODEL_TO_TIER: dict[str, str] = {
-    "gftd-chat":           "balanced",
-    "gftd-chat-balanced":  "balanced",
-    "gftd-chat-fast":      "fast",
-    "gftd-chat-reasoning": "reasoning",
+    "etzhayyim-chat":           "balanced",
+    "etzhayyim-chat-balanced":  "balanced",
+    "etzhayyim-chat-fast":      "fast",
+    "etzhayyim-chat-reasoning": "reasoning",
 }
 
 
@@ -515,11 +515,11 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
             status=400,
         )
 
-    model = str(payload.get("model") or "gftd-chat")
+    model = str(payload.get("model") or "etzhayyim-chat")
     tier = _MODEL_TO_TIER.get(model, "balanced")
     # If the caller asked for a non-etzhayyim model name (e.g. "gpt-4o-mini"), pass
     # it through as a model_hint so the upstream LLM sees the requested name.
-    model_hint = "" if model.startswith("gftd-chat") else model
+    model_hint = "" if model.startswith("etzhayyim-chat") else model
 
     stream = bool(payload.get("stream"))
     max_tokens = min(int(payload.get("max_tokens") or 2048), 8192)
@@ -575,7 +575,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
                          "finish_reason": None}],
         })
 
-        gftd_meta: dict[str, Any] = {}
+        etzhayyim_meta: dict[str, Any] = {}
         try:
             async for ev in chat_mod.stream_turn(
                 owner_did=owner_did, user_text=user_text,
@@ -599,12 +599,12 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
                         "created": created, "model": model,
                         "choices": [{"index": 0, "delta": {},
                                      "finish_reason": None}],
-                        "x_gftd": {"tool": ev.get("tool"),
+                        "x_etzhayyim": {"tool": ev.get("tool"),
                                    "ok": ev.get("ok"),
                                    "summary": ev.get("summary")},
                     })
                 elif ev["event"] == "final":
-                    gftd_meta = {
+                    etzhayyim_meta = {
                         "convId": ev.get("convId"),
                         "finalMsgId": ev.get("finalMsgId"),
                         "iterations": ev.get("iterations"),
@@ -617,7 +617,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
                         "created": created, "model": model,
                         "choices": [{"index": 0, "delta": {},
                                      "finish_reason": "error"}],
-                        "x_gftd": {"error": ev.get("error")},
+                        "x_etzhayyim": {"error": ev.get("error")},
                     })
         except asyncio.CancelledError:
             LOG.info("[openai-sse] client disconnect")
@@ -629,7 +629,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
                 "created": created, "model": model,
                 "choices": [{"index": 0, "delta": {},
                              "finish_reason": "error"}],
-                "x_gftd": {"error": str(e)},
+                "x_etzhayyim": {"error": str(e)},
             })
 
         # Final chunk with finish_reason.
@@ -637,7 +637,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
             "id": chat_id, "object": "chat.completion.chunk",
             "created": created, "model": model,
             "choices": [{"index": 0, "delta": {}, "finish_reason": "stop"}],
-            "x_gftd": gftd_meta,
+            "x_etzhayyim": etzhayyim_meta,
         })
         # OpenAI sentinel terminator.
         await resp.write(b"data: [DONE]\n\n")
@@ -673,7 +673,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
         }],
         "usage": {"prompt_tokens": 0, "completion_tokens": total_tokens,
                   "total_tokens": total_tokens},
-        "x_gftd": {
+        "x_etzhayyim": {
             "convId": out.get("convId"),
             "finalMsgId": out.get("finalMsgId"),
             "iterations": out.get("iterations"),
@@ -707,7 +707,7 @@ async def openai_chat_completions(request: web.Request) -> web.StreamResponse:
 # https://etzhayyim.com/mcp via the chat-shell Worker's /.well-known/did.json.
 
 MCP_PROTOCOL_VERSION = "2025-03-26"
-MCP_SERVER_NAME = "gftd-chat-mcp"
+MCP_SERVER_NAME = "etzhayyim-chat-mcp"
 MCP_SERVER_VERSION = "0.1.0"
 
 
@@ -955,10 +955,10 @@ async def health(_request: web.Request) -> web.Response:
 
 async def app_meta(_request: web.Request) -> web.Response:
     return web.json_response({
-        "app": "ai-gftd-chat-agent",
+        "app": "etzhayyim-chat-agent",
         "did": chat_mod.CHAT_ACTOR,
         "tools": list(chat_mod.TOOL_SCHEMAS.keys()),
-        "defaultModel": "gftd-chat",
+        "defaultModel": "etzhayyim-chat",
         "version": "0.1.0",
     })
 

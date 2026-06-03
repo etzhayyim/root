@@ -62,7 +62,7 @@ def _http_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
         or os.environ.get("PDS_INTERNAL_TOKEN")
         or ""
     )
-    headers = {"content-type": "application/json", "user-agent": "gftd-ads-zeebe/1"}
+    headers = {"content-type": "application/json", "user-agent": "etzhayyim-ads-zeebe/1"}
     if token:
         headers["authorization"] = f"Bearer {token}"
     req = urllib.request.Request(url, method="POST", data=json.dumps(payload).encode(), headers=headers)

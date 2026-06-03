@@ -28,7 +28,7 @@ Query-side: pass ``mode='query'`` so E5's "query: " prefix is applied.
   SELECT did, handle, display_name
   FROM vertex_actor_embedding e
   JOIN view_actor_universal v ON v.vertex_id = e.vertex_id
-  ORDER BY e.emb <=> actor_embed('gftd semiconductor', NULL, NULL, 'query')
+  ORDER BY e.emb <=> actor_embed('etzhayyim semiconductor', NULL, NULL, 'query')
   LIMIT 10;
 
 Model weights
