@@ -1,4 +1,4 @@
-# ai-gftd-project-rare-earth appview
+# etzhayyim-project-rare-earth appview
 
 - primary actor: `did:web:rare-earth-coverage.etzhayyim.com`
 - appview did: `did:web:rare-earth.etzhayyim.com`

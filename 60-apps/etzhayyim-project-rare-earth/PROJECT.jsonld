@@ -2,29 +2,29 @@
   "@context": {
     "@version": 1.1,
     "schema": "https://schema.org/",
-    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
+    "etzhayyim": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/",
     "id": "@id",
     "type": "@type"
   },
-  "@type": "gftd:Project",
-  "@id": "https://resources.etzhayyim.com/ai-gftd-project-rare-earth/id/Project/ai-gftd-project-rare-earth",
-  "schema:name": "ai-gftd-project-rare-earth",
+  "@type": "etzhayyim:Project",
+  "@id": "https://resources.etzhayyim.com/etzhayyim-project-rare-earth/id/Project/etzhayyim-project-rare-earth",
+  "schema:name": "etzhayyim-project-rare-earth",
   "schema:description": "Rare earth supply chain coverage project. Registers major mining, separation, magnet, policy, finance, and demand actors as mitama DIDs and exposes coverage, actor, and flow views for bottleneck analysis.",
   "schema:dateModified": "2026-04-13T17:40:00Z",
-  "gftd:domain": "rare-earth-supply-chain",
-  "gftd:architecture": "contract-bounded",
-  "gftd:primaryActorDid": "did:web:rare-earth-coverage.etzhayyim.com",
-  "gftd:coverageCollections": [
+  "etzhayyim:domain": "rare-earth-supply-chain",
+  "etzhayyim:architecture": "contract-bounded",
+  "etzhayyim:primaryActorDid": "did:web:rare-earth-coverage.etzhayyim.com",
+  "etzhayyim:coverageCollections": [
     "com.etzhayyim.apps.rareEarth.actor",
     "com.etzhayyim.apps.rareEarth.flow",
     "com.etzhayyim.apps.rareEarth.coverageSnapshot"
   ],
-  "gftd:xrpc": [
+  "etzhayyim:xrpc": [
     "com.etzhayyim.apps.rareEarth.coverage.get",
     "com.etzhayyim.apps.rareEarth.coverage.listActors",
     "com.etzhayyim.apps.rareEarth.coverage.listFlows"
   ],
-  "gftd:stages": [
+  "etzhayyim:stages": [
     "extraction",
     "separation",
     "magnet-manufacturing",
@@ -32,7 +32,7 @@
     "finance",
     "demand"
   ],
-  "gftd:keyJurisdictions": [
+  "etzhayyim:keyJurisdictions": [
     "CN",
     "US",
     "AU",
@@ -42,7 +42,7 @@
     "FR",
     "MM"
   ],
-  "gftd:keyConcentrationRisks": [
+  "etzhayyim:keyConcentrationRisks": [
     "China separation and magnet concentration",
     "Heavy rare earth feed exposure through Myanmar and southern China",
     "Long lead time for non-China refining diversification"
