@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-power — electric distribution operations + grid design
+// etzhayyim-project-open-power — electric distribution operations + grid design
 //
 // 8 XRPC under com.etzhayyim.apps.openPower.*:
 //   defineSubstation  (proc)   network design — substation node

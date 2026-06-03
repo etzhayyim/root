@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-power-define-feeder"
-                  targetNamespace="https://gftd.ai/bpmn/open-power">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-power">
   <bpmn:process id="defineFeeder" name="Define Feeder" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Init" name="Network design request"/>
     <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectFeederForm"/>

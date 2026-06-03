@@ -39,7 +39,7 @@ distribution network design (substations / feeders) and operations
 ## Local Dev / Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-power/worker
-wrangler d1 create ai-gftd-open-power
+cd 60-apps/etzhayyim-project-open-power/worker
+wrangler d1 create etzhayyim-open-power
 e7m actor deploy .
 ```

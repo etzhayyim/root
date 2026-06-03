@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-power",
-  "convoSystemPrompt": "You are the GFTD Open Power agent. You manage electric distribution network design (substations, feeders, service points), meter reading ingest, and outage reporting for DID-identified DSOs and meters. Apply grid safety rules: voltage-monotonic downstream, monotonic meter readings, regulator audit on regional+ outages.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Power agent. You manage electric distribution network design (substations, feeders, service points), meter reading ingest, and outage reporting for DID-identified DSOs and meters. Apply grid safety rules: voltage-monotonic downstream, monotonic meter readings, regulator audit on regional+ outages.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["iec-61968-aligned", "gftd-ops-policy"]
+    "complianceFrameworks": ["iec-61968-aligned", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Power",
+    "displayName": "ETZHAYYIM Open Power",
     "description": "Open-source electric distribution operations reference implementation — substation/feeder design + meter readings + outage reporting (DMN class).",
     "avatar": "⚡",
     "category": "energy",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "substation-define",
@@ -42,7 +42,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Power",
+    "name": "ETZHAYYIM Open Power",
     "description": "Open-source electric distribution operations reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",

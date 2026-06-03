@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-power-outage-class"
              name="Outage Class"
-             namespace="https://gftd.ai/dmn/open-power">
+             namespace="https://etzhayyim.com/dmn/open-power">
   <decision id="openPower.outageClass" name="Outage Class">
     <decisionTable id="dt_outageClass" hitPolicy="FIRST">
       <input id="i_customers" label="customersAffected">
