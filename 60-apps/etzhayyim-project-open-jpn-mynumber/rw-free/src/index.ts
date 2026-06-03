@@ -11,7 +11,7 @@
  *
  * (a) PUBLIC open-data: gov-published My Number policy/spec/API docs (Digital
  * Agency / Myna Portal / 自治体, external authority via source URL). No PII, no
- * commerce. The LangGraph ingest / corpus-build compute stays gftd.
+ * commerce. The LangGraph ingest / corpus-build compute stays etzhayyim.
  */
 
 export * from "./types.js";

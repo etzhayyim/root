@@ -60,7 +60,7 @@ Example:
 
 ```bash
 export MYNUMBER_IPFS_API=https://ipfs.etzhayyim.com/api/v0
-export MYNUMBER_IPFS_HMAC="$(security find-generic-password -s gftd.cloudflare -a IPFS_HMAC -w)"
+export MYNUMBER_IPFS_HMAC="$(security find-generic-password -s etzhayyim.cloudflare -a IPFS_HMAC -w)"
 python3 ingest/ingest_public_sources.py --ipfs
 ```
 

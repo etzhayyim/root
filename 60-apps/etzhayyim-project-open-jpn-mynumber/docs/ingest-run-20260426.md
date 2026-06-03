@@ -55,6 +55,6 @@ The full operational manifest is intentionally ignored by git because it points
 to local blob paths and can be regenerated:
 
 ```text
-60-apps/ai-gftd-project-open-jpn-mynumber/data/ingest/manifest.json
+60-apps/etzhayyim-project-open-jpn-mynumber/data/ingest/manifest.json
 ```
 

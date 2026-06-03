@@ -1,7 +1,7 @@
 /**
  * open-jpn-mynumber rw-free — source + document registries + coverage.
  * AT PDS records (no RW). Documents FK→source. Public gov-published My Number
- * reference docs only (no PII); ingest/corpus-build compute stays gftd.
+ * reference docs only (no PII); ingest/corpus-build compute stays etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

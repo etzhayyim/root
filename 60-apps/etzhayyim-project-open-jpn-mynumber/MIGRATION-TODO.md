@@ -9,7 +9,7 @@ that were not previously flagged.
 ## Detected violations (per re-scan 2026-05-21):
 
 ```
-  - 60-apps/ai-gftd-project-open-jpn-mynumber/worker/python/open_jpn_mynumber_worker.py
+  - 60-apps/etzhayyim-project-open-jpn-mynumber/worker/python/open_jpn_mynumber_worker.py
 ```
 
 ## Required remediation (per CLAUDE.md substrate boundary):

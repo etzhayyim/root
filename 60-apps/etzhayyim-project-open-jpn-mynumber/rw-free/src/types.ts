@@ -10,7 +10,7 @@
  * pages). Tranche-F-judged etzhayyim: no citizen PII, no fiduciary, no commerce
  * (only public links ingested; NDA/application-gated specs excluded). External
  * authority = the government publisher (source URL). The LangGraph ingest /
- * corpus-build (gov-source fetch + extraction) is COMPUTE and stays gftd; this
+ * corpus-build (gov-source fetch + extraction) is COMPUTE and stays etzhayyim; this
  * package is the public document catalog.
  *
  * AT-Lexicon: no float. Plain string/enum fields only (no numeric metrics).

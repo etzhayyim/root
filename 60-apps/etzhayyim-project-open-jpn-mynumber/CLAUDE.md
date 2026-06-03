@@ -14,7 +14,7 @@ This is not a government production system and does not contain private J-LIS, D
 | Corpus blobs (923 files, ~177 MB on disk; ~280 MB before pruning) | **present** (`data/ingest/`) — kept per Option A | absent (read-fresh from gov sources) |
 | `corpus.sqlite3` / `corpus.jsonl` / `manifest.json` | present | absent |
 
-**Corpus residency = Option A (vendor RW mirror, etzhayyim worker reads fresh from gov sources).** Same architectural shape as ADR-2605202400 GTFS-RT carve-out and `public-malak-scaffold-2026-05-21`. Vendor `60-apps/ai-gftd-project-open-jpn-mynumber/data/ingest/` stays vendor-side as historical artifact.
+**Corpus residency = Option A (vendor RW mirror, etzhayyim worker reads fresh from gov sources).** Same architectural shape as ADR-2605202400 GTFS-RT carve-out and `public-malak-scaffold-2026-05-21`. Vendor `60-apps/etzhayyim-project-open-jpn-mynumber/data/ingest/` stays vendor-side as historical artifact.
 
 ## Substrate-boundary notes
 

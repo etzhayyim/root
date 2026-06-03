@@ -130,7 +130,7 @@ def fetch(url: str) -> tuple[bytes, str]:
     req = urllib.request.Request(
         url,
         headers={
-            "user-agent": "gftd-open-jpn-mynumber-public-ingest/0.1 (+https://etzhayyim.com)",
+            "user-agent": "etzhayyim-open-jpn-mynumber-public-ingest/0.1 (+https://etzhayyim.com)",
             "accept": "*/*",
         },
     )
@@ -232,7 +232,7 @@ def ipfs_add_http(path: Path) -> dict[str, Any] | None:
     api = os.environ.get("MYNUMBER_IPFS_API", "").rstrip("/")
     if not api:
         return None
-    boundary = f"gftd{hashlib.sha256(path.name.encode()).hexdigest()[:24]}"
+    boundary = f"etzhayyim{hashlib.sha256(path.name.encode()).hexdigest()[:24]}"
     data = path.read_bytes()
     body = (
         f"--{boundary}\r\n"
