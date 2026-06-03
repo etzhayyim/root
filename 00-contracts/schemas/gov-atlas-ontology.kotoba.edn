@@ -74,6 +74,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/many
   :db/doc "UN COFOG functional code(s) this unit serves (e.g. 01.1 general public services, 10 social protection). Reconciles with the legacy gov* COFOG actor-bundles"}
+ {:db/ident :gov.unit/hq-city
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "headquarters city name (descriptive, for supranational/intergovernmental units that have no single jurisdiction address; e.g. an IGO's seat). Optional"}
  {:db/ident :gov.unit/jurisdiction
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one

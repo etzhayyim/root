@@ -3,6 +3,22 @@
 Honest status per the gov-coverage maturity model (ADR-2605250680). Coverage gated
 by `:sourcing` (G5): only `:authoritative` rows count.
 
+## 2026-06-03 — schema maturity (enum-validated levels/branches + atlas dashboard)
+
+Hardened the substrate now that coverage spans 6,031 units:
+- `gov-atlas-ontology.kotoba.edn`: declared `:gov.unit/hq-city` (was an undeclared
+  ad-hoc attribute on the IGO layer) — schema debt cleared.
+- `scripts/check_seed_integrity.py`: now validates `:gov.unit/level` and
+  `:gov.unit/branch` against the ontology enums (mirrors the `:gov.unit/level`/`branch`
+  `:db/doc` enums) — schema drift is caught at the EDN tier, not only by
+  `validate_atlas.py` against the generated JSON. + a self-test (`bad-level` fires).
+- `scripts/atlas_summary.py` (NEW, wired into `run_tests.sh`): by-level / by-branch /
+  by-sourcing / jurisdiction dashboard. Current shape: **6,031 units, 198 distinct
+  jurisdictions; by level** subdivision 3599 · ministry 1648 · country 192 ·
+  legislature 186 · agency 159 · court 144 · supranational 99 · …; **by branch** local
+  3601 · executive 1846 · legislative 186 · independent 158 · judicial 144 ·
+  intergovernmental 96. 6,027 :authoritative.
+
 ## 2026-06-03 — REAL DATA: the full G20 (founder directive "demo じゃなくて実データ, G20")
 
 The atlas carries the **entire G20 as real committed data**, not a proof-of-model
