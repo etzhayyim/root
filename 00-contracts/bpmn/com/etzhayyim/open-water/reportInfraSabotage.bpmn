@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_water_report_infra_sabotage"
-    targetNamespace="https://gftd.ai/bpmn/open-water"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-water"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_water_report_infra_sabotage" name="水道施設破壊 報告" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-water.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-water.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;openWater.main.reportSabotage&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: mainVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>
