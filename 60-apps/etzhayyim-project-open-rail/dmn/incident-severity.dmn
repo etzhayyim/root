@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-rail-incident-severity"
              name="Incident Severity"
-             namespace="https://gftd.ai/dmn/open-rail">
+             namespace="https://etzhayyim.com/dmn/open-rail">
   <decision id="openRail.incidentSeverity" name="Incident Severity">
     <decisionTable id="dt_incidentSeverity" hitPolicy="FIRST">
       <input id="i_injuries" label="injuries">

@@ -40,19 +40,19 @@ design (line / station topology). Apache-2.0.
 ## Local Dev
 
 ```bash
-cd 60-apps/ai-gftd-project-open-rail/worker
+cd 60-apps/etzhayyim-project-open-rail/worker
 npm i -g wrangler
-wrangler d1 create ai-gftd-open-rail
+wrangler d1 create etzhayyim-open-rail
 wrangler dev --local
 ```
 
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-rail/worker
+cd 60-apps/etzhayyim-project-open-rail/worker
 e7m actor deploy .
 ```
 
 ## OSS Split
 
-Mirror to `etzhayyim/ai-gftd-project-open-rail` (Apache-2.0) via subtree.
+Mirror to `etzhayyim/etzhayyim-project-open-rail` (Apache-2.0) via subtree.

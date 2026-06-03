@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-rail-define-line"
-                  targetNamespace="https://gftd.ai/bpmn/open-rail">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-rail">
   <bpmn:process id="defineLine" name="Define Line" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Init" name="Network design request"/>
     <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectLineForm"/>

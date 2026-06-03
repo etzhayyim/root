@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-rail — railway operations + network design (CF Worker + D1)
+// etzhayyim-project-open-rail — railway operations + network design (CF Worker + D1)
 //
 // 7 XRPC methods under com.etzhayyim.apps.openRail.*:
 //   defineLine       (procedure)  network design — line + station sequence

@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-rail",
-  "convoSystemPrompt": "You are the GFTD Open Rail agent. You manage railway network design (lines + stations), train run scheduling, and incident reporting for DID-identified operators. Apply railway safety rules: append-only incident log, monotonic km posts, severity-driven gov-audit posts.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Rail agent. You manage railway network design (lines + stations), train run scheduling, and incident reporting for DID-identified operators. Apply railway safety rules: append-only incident log, monotonic km posts, severity-driven gov-audit posts.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["rail-safety-baseline", "gftd-ops-policy"]
+    "complianceFrameworks": ["rail-safety-baseline", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Rail",
+    "displayName": "ETZHAYYIM Open Rail",
     "description": "Open-source railway operations reference implementation — line/station design + train scheduling + incident reporting (DMN severity).",
     "avatar": "🚆",
     "category": "transport",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "line-define",
@@ -40,7 +40,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Rail",
+    "name": "ETZHAYYIM Open Rail",
     "description": "Open-source railway operations reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",
