@@ -2,13 +2,43 @@
 
 AML/sanctions/anti-social forces risk scoring + IP access filtering。
 
+## kotoba refactor (ADR-2605301400 §T3) — CTI/DNS/IP-history MIGRATED off RisingWave
+
+> The CTI / passive-DNS / IP-history / access-audit graph is **kotoba-native**. Canonical
+> state is the kotoba Datom log (ADR-2605262130 + 2605312345), NOT the RisingWave / yata
+> Workers-RPC SQL graph. The full SQL node roster below is the **legacy** model.
+>
+> - **Vocab** `00-contracts/schemas/passive-dns-cti-ontology.kotoba.edn` — `:domain/* :pdns/*
+>   :iphist/* :tlscert/* :indicator/* :access/*` (sourcing-honest; `:access/*` PII **always
+>   encrypted** under `com.etzhayyim.encrypted.*`, G6/G10).
+> - **Seed** `data/seed-passive-dns.kotoba.edn` (domains · passive-DNS · IP-history · CT-log
+>   certs · IOCs · 1 encrypted access record).
+> - **Active collector** `methods/ingest.py` — crt.sh CT logs / passive-DNS bridge / vendor
+>   feeds (能動的, real parsers), **offline-default + G7 operator-gated** (`YABAI_OPERATOR_GATE`,
+>   `--live`). Vendor feeds (SecurityTrails/DNSDB/Recorded-Future) are `:feature-flagged-input`,
+>   **never** system-of-record (tadori G4 discipline).
+> - **Analyzer** `methods/analyze.py` — fast-flux candidates · hosting concentration · IOC
+>   TLP/category load · IP-movement churn · cert-SAN pivots · **G6/G10 encryption self-audit**
+>   → `out/intel-report.md` + derived `:cti/*` datoms.
+>
+> ```bash
+> python3 methods/ingest.py                                    # offline: seed → merged graph
+> python3 methods/ingest.py --source pdns --in data/ingest/pdns-sample.json
+> python3 methods/ingest.py --source ct --domain example.com --live   # G7: live crt.sh pull
+> python3 methods/analyze.py                                    # → out/ (encryption audit = PASS)
+> ```
+>
+> **Separation of duties unchanged**: yabai SCORES risk; the Council authorizes enforcement;
+> tadori holds case-anchored evidence. Defensive CTI only — no adherent de-anon, no mass
+> surveillance, access-audit PII stays encrypted. IP refs point into the ipaddress graph id space.
+
 ## Architecture
 
 | 項目 | 値 |
 |---|---|
 | **Runtime** | Single Worker (`y8b41k0x`) |
 | **UI** | appview (Protocol Canvas card UI) |
-| **Data** | SQL graph (yata Workers RPC) — `YabaiEntity`, `YabaiEvidence`, `YabaiRisk`, `YabaiAlert`, `YabaiEnforcement`, `YabaiAuditLog`, `YabaiEvolution*`, `WhoisRecord`, `DnsRecord`, `AsnInfo`, `GeoipEnrichment`, `CveEntry`, `MitreTechnique`, `ExploitObservation`, `TlsCertificate`, `TlsAnomaly`, `MalwareSample`, `IocIndicator`, `PhishingUrl`, `StixBundle`, `BgpEvent`, `AbuseReport`, `HostingProvider`, `IpHostingHistory`, `IpLocationHistory`, `EmailAddress`, `PhishingSite`, `IntelAccessLog`, `IntelSession`, `IntelDevice`, `CfHttpRequestLog`, `CfFirewallEvent`, `CfBotScore` |
+| **Data** | **kotoba Datom log** (`kotoba-kqe` EAVT; ADR-2605301400 §T3) — NOT RisingWave / yata SQL. Legacy SQL roster (retired, mapping in ADR §T3): `WhoisRecord/DnsRecord→:domain/*+:pdns/*`, `AsnInfo/GeoipEnrichment/IpHostingHistory/IpLocationHistory→:iphist/*`, `TlsCertificate/TlsAnomaly→:tlscert/*`, `IocIndicator/PhishingUrl→:indicator/*`, `IntelAccessLog/IntelSession/IntelDevice→:access/* (encrypted)`. Risk/alert/enforcement scoring tables (`YabaiRisk/YabaiAlert/YabaiEnforcement`) remain scoring-layer, fed FROM the kotoba CTI graph |
 | **W Protocol Event Stream** | WRecord kinds: `yabai.entity`, `yabai.evidence`, `yabai.risk`, `yabai.alert`, `yabai.enforcement`, `yabai.ip_risk`, `yabai.whois_record`, `yabai.dns_record`, `yabai.asn_info`, `yabai.geoip_enrichment`, `yabai.cve_entry`, `yabai.mitre_technique`, `yabai.exploit_observation`, `yabai.tls_certificate`, `yabai.tls_anomaly`, `yabai.malware_sample`, `yabai.ioc_indicator`, `yabai.phishing_url`, `yabai.stix_bundle`, `yabai.bgp_event`, `yabai.abuse_report`。Write: `WRecord(kind, payload)`、Read: `G("Label").Match(Eq{...}).Query()` |
 | **W Protocol** | 4 channels: `yabai-feed`, `yabai-alerts`, `yabai-audit`, `yabai-evolution` + stream method `stream-alerts` |
 | **WIT export** | `gftd:yabai-risk/risk-assessment@1.0.0`, `network-intel@1.0.0`, `vuln-intel@1.0.0`, `threat-intel@1.0.0`, `exchange-intel@1.0.0`, `infra-intel@1.0.0`, `access-audit@1.0.0`, `cf-metrics-ingest@1.0.0` |

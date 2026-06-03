@@ -12847,6 +12847,27 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606031600-ipaddress-yabai-kotoba-eavt-refactor-active-collection",
+      "type": "TechArticle",
+      "title": "ADR-2606031600: ipaddress + yabai → kotoba EAVT refactor (ADR-2605301400 §T2/§T3 execution) — active SecurityTrails-class IP/DNS collection on the Datom log",
+      "status": "proposed",
+      "topic": "ipaddress-yabai-kotoba-refactor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba EAVT vocabulary `ip-network-ontology` (RIR/ASN/IPrange/IP/geo/rdns/whois + announce/member edges)",
+        "kotoba EAVT vocabulary `passive-dns-cti-ontology` (domain/passive-DNS/IP-history/TLS-cert/IOC/access-audit)",
+        "ipaddress active collector + analyzer (methods/ingest.py + analyze.py) on the Datom log",
+        "yabai active CTI collector + analyzer (methods/ingest.py + analyze.py) on the Datom log",
+        "the ACTIVE-collection authorization for these two 1次/CTI actors (offline-default, G7 operator-gated)"
+      ],
+      "related": [
+        "doc:adr-2606022000-kabuto-public-company-supply-chain-kg",
+        "doc:adr-2606012600-watatsuna-submarine-cable-kg",
+        "doc:adr-2605301600-danjo-public-accountability-actor"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
