@@ -33,6 +33,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/etzhayyim/root.git",
-    "directory": "60-apps/ai-gftd-project-ameno/daemon"
+    "directory": "60-apps/etzhayyim-project-ameno/daemon"
   }
 }

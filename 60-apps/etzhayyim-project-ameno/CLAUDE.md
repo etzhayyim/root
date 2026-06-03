@@ -1,4 +1,4 @@
-# ai-gftd-project-ameno — Browser WebGPU Inference Platform
+# etzhayyim-project-ameno — Browser WebGPU Inference Platform
 
 ## Overview
 
@@ -53,8 +53,8 @@ ameno は murakumo の **Tier 2 inference layer** として機能。murakumo Inf
 | Inference engine | `40-engine/llm/inference/ameno/src/inference.ts` |
 | WebGPU LoRA merge | `40-engine/llm/inference/ameno/src/lora-runtime.ts` |
 | RAG-LoRA pipeline | `40-engine/llm/inference/ameno/src/rag-lora.ts` |
-| Backend (TS Native) | `wasm/ai-gftd-wasm-ameno-d94d27cb/src/app.ts` |
-| Frontend (re-export) | `wasm/ai-gftd-wasm-ameno-d94d27cb/svelte/src/lib/` |
+| Backend (TS Native) | `wasm/etzhayyim-wasm-ameno-d94d27cb/src/app.ts` |
+| Frontend (re-export) | `wasm/etzhayyim-wasm-ameno-d94d27cb/svelte/src/lib/` |
 | Domain WIT | `wit/ameno/package.wit` |
 
 ## Hard Constraints

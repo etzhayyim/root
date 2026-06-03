@@ -1,7 +1,7 @@
 /**
  * private-vault.ts — Browser-local AES-256-GCM field encryption.
  *
- * Implements the gftd `signal:v1:{ciphertext}` field convention
+ * Implements the etzhayyim `signal:v1:{ciphertext}` field convention
  * (10-protocol/atproto/src/signal.ts) for ameno inference outputs that
  * the user marks as private. The server only sees ciphertext; per the
  * Vault zero-knowledge invariant in CLAUDE.md, plaintext / raw key

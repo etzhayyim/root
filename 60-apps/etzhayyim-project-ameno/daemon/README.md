@@ -30,7 +30,7 @@ shell, not a daemon runtime — we want headless).
 ## Install / run (interactive)
 
 ```sh
-cd 60-apps/ai-gftd-project-ameno/daemon
+cd 60-apps/etzhayyim-project-ameno/daemon
 pnpm install              # via the monorepo workspace
 bun run src/server.ts     # or: node --experimental-strip-types src/server.ts
 ```
