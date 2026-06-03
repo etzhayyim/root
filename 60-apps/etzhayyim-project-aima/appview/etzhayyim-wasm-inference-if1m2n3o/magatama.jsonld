@@ -51,7 +51,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-inference-if1m2n3o",
+  "name": "etzhayyim-wasm-inference-if1m2n3o",
   "nanoid": "if1m2n3o",
   "performerType": "service",
   "profile": {
@@ -63,7 +63,7 @@
     "description": "Inference — AI Agent",
     "displayName": "Inference",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "aima",
   "runtimeType": "worker",

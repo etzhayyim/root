@@ -63,7 +63,7 @@
     "description": "Aima Mcp — AI Agent",
     "displayName": "Aima Mcp",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "aima",
   "runtimeType": "worker",

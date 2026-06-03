@@ -1,6 +1,6 @@
 {
   "name": "@aima/aima-yif3ddup-agent",
-  "description": "agent manifest for ai-gftd-project-aima/aima-yif3ddup.",
+  "description": "agent manifest for etzhayyim-project-aima/aima-yif3ddup.",
   "url": "https://aima-yif3ddup.etzhayyim.com/api/grpc",
   "version": "1.0.0",
   "provider": {

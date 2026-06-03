@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "AI Real-Name Social Network 'AIMA' (ai-gftd-project-aima)",
+  "name": "AI Real-Name Social Network 'AIMA' (etzhayyim-project-aima)",
   "status": "Public Beta",
-  "identifier": "ai-gftd-project-aima",
+  "identifier": "etzhayyim-project-aima",
   "description": "A real-name AI-driven social networking platform inspired by Facebook-class trust graphs, focused on 'Well-becoming' — continuous self-growth, trusted communities, and meaningful long-term relationships (friends, collaborators, mentors, and families) powered by Production AGI.",
   "hasPart": [
     {
@@ -128,13 +128,13 @@
     {
       "@type": "Service",
       "name": "AIMA Social Graph Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-aima-matching",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-aima-matching",
       "description": "Production AGI actor specialized in trusted-connection recommendations and community relevance ranking."
     },
     {
       "@type": "Service",
       "name": "AIMA Community Concierge Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-aima-concierge",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-aima-concierge",
       "description": "AI concierge for communication guidance, introductions, and community event coordination."
     }
   ],
@@ -149,12 +149,12 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://etzhayyim.com/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/architecture",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aima/architecture",
           "type": "dodaf:SystemView",
           "dct:title": "AIMA Well-becoming Real-Name SNS System Architecture (SV-1)",
-          "gftd:components": [
+          "etzhayyim:components": [
             {
               "name": "AIMA Social Graph Actor",
               "technology": "Go / ConnectRPC / Temporal / LLM / Vector DB (Qdrant)",
@@ -171,7 +171,7 @@
               "description": "Manages reputation trends, safety risk workflows, and healthy participation loops."
             }
           ],
-          "gftd:data_model": [
+          "etzhayyim:data_model": [
             {
               "entity": "VerifiedUserProfile",
               "properties": [
@@ -213,13 +213,13 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://etzhayyim.com/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/engineer",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aima/engineer",
           "type": "dodaf:EngineeringView",
           "name": "AIMA Well-becoming Real-Name SNS Engineering Specification",
           "description": "Technical implementation for trusted social graph operations, community intelligence, and AI-assisted communication.",
-          "gftd:implementations": [
+          "etzhayyim:implementations": [
             {
               "component": "AIMA Social Graph Actor",
               "framework": "Go / ConnectRPC / Temporal",
@@ -262,7 +262,7 @@
               }
             }
           ],
-          "gftd:deployment": {
+          "etzhayyim:deployment": {
             "platform": "Linode LKE / Gateway API",
             "ciCd": "GitOps with SHA256 digest pinning for all AGI and UI components."
           }
@@ -275,7 +275,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/strategy",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aima/strategy",
           "type": "dodaf:StrategicView",
           "dct:title": "AIMA Well-becoming Real-Name SNS Strategy",
           "dct:description": "To redefine trusted digital communities through the lens of 'Well-becoming', where Production AGI supports authentic identity, healthy discourse, and long-term human connections beyond dating.",
@@ -294,40 +294,40 @@
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/",
-            "gftd": "https://etzhayyim.com/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
-          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/activities",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aima/activities",
           "type": "dodaf:OperationalActivity",
           "dct:title": "AIMA Well-becoming Real-Name SNS Operational Process (OV-5b)",
           "dct:description": "AGI-driven real-name social networking workflow focusing on trusted identity, healthy communities, and collective flourishing.",
-          "gftd:processes": [
+          "etzhayyim:processes": [
             {
               "name": "AIMA Trust & Community Cycle",
               "steps": [
                 {
                   "activity": "Identity & Baseline Assessment",
-                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-aima-matching",
+                  "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-aima-matching",
                   "action": "Verify user identity and analyze communication style for baseline trust and well-becoming score.",
                   "input": "ID/KYC Data / User Media / Chat / Personality Interview",
                   "output": "Verified Real-Name Profile & Trust Baseline"
                 },
                 {
                   "activity": "Continuous Coaching & Habit Formation",
-                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-aima-concierge",
+                  "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-aima-concierge",
                   "action": "Provide daily feedback on posting quality, communication, and community participation.",
                   "input": "User Activity / Coaching Plan / Community Signals",
                   "output": "Improved Reputation, Readiness, and Social Habits"
                 },
                 {
                   "activity": "Social Graph Recommendation",
-                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-aima-matching",
+                  "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-aima-matching",
                   "action": "Recommend friends, groups, creators, and events based on trust, relevance, and shared growth context.",
                   "input": "Verified Profiles / Interaction Graph",
                   "output": "High-Quality Connections & Community Discovery"
                 },
                 {
                   "activity": "Community Safety & Co-flourishing Support",
-                  "performer": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-aima-concierge",
+                  "performer": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-aima-concierge",
                   "action": "Facilitate constructive conversations, event coordination, and moderation escalation when risk is detected.",
                   "input": "Feed Data / Group Activity / Safety Signals",
                   "output": "Safer, Meaningful, and Sustainable Social Network"
@@ -344,7 +344,7 @@
           "@type": "PriceSpecification",
           "name": "AIMA Billing & Subscription Model",
           "description": "Value-based monetization for real-name social networking, trusted communities, and AI concierge services.",
-          "gftd:tiers": [
+          "etzhayyim:tiers": [
             {
               "name": "AIMA Basic (Free)",
               "price": 0,
@@ -385,7 +385,7 @@
               ]
             }
           ],
-          "gftd:oneTimeServices": [
+          "etzhayyim:oneTimeServices": [
             {
               "name": "Enterprise Community Launch Concierge",
               "price": 50000,
@@ -397,7 +397,7 @@
               "description": "Comprehensive AGI-generated analysis of network trust position and improvement opportunities."
             }
           ],
-          "gftd:stripeIntegration": {
+          "etzhayyim:stripeIntegration": {
             "provider": "Stripe",
             "mode": "Subscription & Checkout",
             "webhooks": [
@@ -416,7 +416,7 @@
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
             "dct": "http://purl.org/dc/terms/"
           },
-          "id": "https://etzhayyim.com/projects/ai-gftd-project-aima/capabilities",
+          "id": "https://etzhayyim.com/projects/etzhayyim-project-aima/capabilities",
           "type": "dodaf:Capability",
           "dct:title": "AIMA Real-Name SNS Capability Catalog (Threads Reference)",
           "capabilities": [
@@ -448,12 +448,12 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://etzhayyim.com/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Measure",
           "name": "AIMA Real-Name SNS Performance Measures",
           "description": "Metrics and KPIs to evaluate trust, community health, and growth of the AI-supported real-name social network.",
-          "gftd:measures": [
+          "etzhayyim:measures": [
             {
               "id": "M-001",
               "name": "Verified User Ratio",
@@ -490,12 +490,12 @@
         "content": {
           "@context": {
             "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
-            "gftd": "https://etzhayyim.com/schemas/"
+            "etzhayyim": "https://etzhayyim.com/schemas/"
           },
           "@type": "dodaf:Rule",
           "name": "AIMA Real-Name SNS Operational Rules",
           "description": "Rules governing trusted identity, platform integrity, and safe community operations.",
-          "gftd:rules": [
+          "etzhayyim:rules": [
             {
               "id": "RULE-001",
               "name": "Strict Real-Name Identity Verification",
@@ -529,24 +529,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "AI Real-Name Social Network 'AIMA' (ai-gftd-project-aima) Scheduler",
-          "identifier": "ai-gftd-project-aima/scheduler",
+          "name": "AI Real-Name Social Network 'AIMA' (etzhayyim-project-aima) Scheduler",
+          "identifier": "etzhayyim-project-aima/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],
@@ -560,13 +560,13 @@
           "@type": "CreativeWork",
           "name": "AIMA Well-becoming Real-Name SNS UI/UX Design",
           "description": "An interface that guides users through trusted identity, meaningful community participation, and long-term human connection.",
-          "gftd:designPrinciples": [
+          "etzhayyim:designPrinciples": [
             "Apple Human Interface Guidelines (iPad-first)",
             "Trust-first visual patterns (real-name badge, relationship context, provenance)",
             "Non-judgmental, encouraging AI feedback",
             "Transparency in feed ranking, recommendation logic, and safety interventions"
           ],
-          "gftd:uiComponents": [
+          "etzhayyim:uiComponents": [
             {
               "name": "Trust & Identity Dashboard",
               "type": "InteractiveDashboard",
@@ -595,7 +595,7 @@
               ]
             }
           ],
-          "gftd:uxFlows": [
+          "etzhayyim:uxFlows": [
             {
               "name": "Real-Name Onboarding Journey",
               "steps": [

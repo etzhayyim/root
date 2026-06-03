@@ -36,7 +36,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-mesh-ms4p5q6r",
+  "name": "etzhayyim-wasm-mesh-ms4p5q6r",
   "nanoid": "ms4p5q6r",
   "performerType": "service",
   "profile": {
@@ -48,7 +48,7 @@
     "description": "Mesh — AI Agent",
     "displayName": "Mesh",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "aima",
   "runtimeType": "worker",

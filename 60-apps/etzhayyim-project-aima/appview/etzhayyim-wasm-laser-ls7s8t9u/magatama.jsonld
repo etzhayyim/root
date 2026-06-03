@@ -36,7 +36,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-laser-ls7s8t9u",
+  "name": "etzhayyim-wasm-laser-ls7s8t9u",
   "nanoid": "ls7s8t9u",
   "performerType": "service",
   "profile": {
@@ -48,7 +48,7 @@
     "description": "Laser — AI Agent",
     "displayName": "Laser",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "aima",
   "runtimeType": "worker",

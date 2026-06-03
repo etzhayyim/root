@@ -64,7 +64,7 @@
     "description": "Aima — AI Agent for ai-assistant intelligence and analytics",
     "displayName": "Aima",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "aima",
   "routes": [

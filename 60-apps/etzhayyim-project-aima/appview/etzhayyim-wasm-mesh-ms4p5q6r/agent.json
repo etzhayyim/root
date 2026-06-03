@@ -1,7 +1,7 @@
 {
-  "name": "@aima/ai-gftd-wasm-mesh-ms4p5q6r-agent",
-  "description": "agent manifest for ai-gftd-project-aima/ai-gftd-wasm-mesh-ms4p5q6r.",
-  "url": "https://ai-gftd-wasm-mesh-ms4p5q6r.etzhayyim.com/api/grpc",
+  "name": "@aima/etzhayyim-wasm-mesh-ms4p5q6r-agent",
+  "description": "agent manifest for etzhayyim-project-aima/etzhayyim-wasm-mesh-ms4p5q6r.",
+  "url": "https://etzhayyim-wasm-mesh-ms4p5q6r.etzhayyim.com/api/grpc",
   "version": "1.0.0",
   "provider": {
     "service": "etzhayyim",
@@ -12,8 +12,8 @@
   ],
   "skills": [
     {
-      "name": "ai-gftd-wasm-mesh-ms4p5q6r.handle",
-      "description": "Default default handler skill for ai-gftd-wasm-mesh-ms4p5q6r."
+      "name": "etzhayyim-wasm-mesh-ms4p5q6r.handle",
+      "description": "Default default handler skill for etzhayyim-wasm-mesh-ms4p5q6r."
     }
   ]
 }
