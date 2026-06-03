@@ -43,6 +43,16 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — national meteorological services (49)
+
+`gov-units.meteorology.edn` adds **49 national meteorological/weather services** (the
+public weather/warning bodies citizens rely on; Wikidata P31 `Q1266087`). A POSITIVE
+label filter (must denote meteorology/weather/climate) drops the private weather brands
+the class also tags (e.g. Windfinder mis-resolved for DE) — quality-first, learning from
+the audit pass. `:level :agency` `:branch :executive`. quality_audit stays clean (0
+flagged). Atlas now **7,061 units / 56 files, 7,059 QIDs all unique, 7,057
+:authoritative**.
+
 ## 2026-06-04 — data-quality audit + correction (sub-national de-noising)
 
 New `scripts/quality_audit.py` (wired into `run_tests.sh`) scans national-level bodies
