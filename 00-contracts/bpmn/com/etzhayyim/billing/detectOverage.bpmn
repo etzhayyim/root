@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  billing.gftd.ai — quota overage detector (autonomous, R/PT5M).
+  billing.etzhayyim.com — quota overage detector (autonomous, R/PT5M).
 
   Pipeline:
     1. billing.detect.overage     scan mv_billing_overage_alert × plan-limit
@@ -18,7 +18,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_billing_detect_overage"
-    targetNamespace="https://gftd.ai/bpmn/billing"
+    targetNamespace="https://etzhayyim.ai/bpmn/billing"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="billing_detect_overage" name="billing detect overage (5min)" isExecutable="true">
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:billing.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:billing.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.billing.detectOverage&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;alertsEmitted&quot;: alertsEmitted, &quot;orgsScanned&quot;: orgsScanned }" target="attributes"/>
         </zeebe:ioMapping>

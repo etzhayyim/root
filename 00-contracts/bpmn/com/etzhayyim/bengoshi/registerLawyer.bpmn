@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_bengoshi_register_lawyer" targetNamespace="https://gftd.ai/bpmn/bengoshi" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_bengoshi_register_lawyer" targetNamespace="https://etzhayyim.ai/bpmn/bengoshi" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="bengoshi_register_lawyer" name="registerLawyer" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Insert"/>
@@ -7,7 +7,7 @@
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.db.insert" retries="3"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_lawyer&quot;" target="table"/>
-          <zeebe:input source="={vertex_id: &quot;at://did:web:bengoshi.gftd.ai:&quot; + jurisdiction + &quot;:&quot; + lawyerSlug + &quot;/com.etzhayyim.apps.bengoshi.profile/self&quot;, lawyer_did: &quot;did:web:bengoshi.gftd.ai:&quot; + jurisdiction + &quot;:&quot; + lawyerSlug, full_name: fullName, full_name_local: fullNameLocal, bar_id: barId, bar_association: barAssociation, jurisdiction: jurisdiction, admitted_at: admittedAt, practice_areas_csv: practiceAreas, languages_csv: languages, firm_did: firmDid, owner_did: &quot;did:web:bengoshi.gftd.ai&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
+          <zeebe:input source="={vertex_id: &quot;at://did:web:bengoshi.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + lawyerSlug + &quot;/com.etzhayyim.apps.bengoshi.profile/self&quot;, lawyer_did: &quot;did:web:bengoshi.etzhayyim.com:&quot; + jurisdiction + &quot;:&quot; + lawyerSlug, full_name: fullName, full_name_local: fullNameLocal, bar_id: barId, bar_association: barAssociation, jurisdiction: jurisdiction, admitted_at: admittedAt, practice_areas_csv: practiceAreas, languages_csv: languages, firm_did: firmDid, owner_did: &quot;did:web:bengoshi.etzhayyim.com&quot;, sensitivity_ord: 1, created_at: now}" target="row"/>
           <zeebe:input source="=&quot;upsert&quot;" target="onConflict"/>
           <zeebe:output source="=vertex_id" target="vertexId"/>
           <zeebe:output source="=row.lawyer_did" target="did"/>

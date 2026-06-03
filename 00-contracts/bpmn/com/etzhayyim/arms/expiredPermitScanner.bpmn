@@ -7,14 +7,14 @@
   (same vertex_id re-insert = implicit overwrite per ADR-0036 / record-log semantics).
 
   NSID: com.etzhayyim.apps.arms.scanExpiredPermits  (manual trigger + timer)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/arms-expired-permit-scanner-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_arms_expired_permit_scanner"
-    targetNamespace="https://gftd.ai/bpmn/arms"
+    targetNamespace="https://etzhayyim.ai/bpmn/arms"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="arms_expired_permit_scanner" name="arms expired permit scanner" isExecutable="true">
@@ -73,7 +73,7 @@
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.arms.scanExpiredPermits&quot;" target="activity"/>
-          <zeebe:input source="=&quot;arms.gftd.ai&quot;" target="actorDid"/>
+          <zeebe:input source="=&quot;arms.etzhayyim.com&quot;" target="actorDid"/>
           <zeebe:input source="=expiredRows" target="expiredRows"/>
           <zeebe:input source="=expiredCount" target="expiredCountBefore"/>
         </zeebe:ioMapping>

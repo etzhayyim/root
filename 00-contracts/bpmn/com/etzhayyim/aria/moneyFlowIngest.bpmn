@@ -6,14 +6,14 @@
   Fetches on-chain + payment flow signals (blockchain.info stats).
 
   NSID: com.etzhayyim.apps.aria.moneyFlowIngest (BPMN dispatcher T2 tier)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/aria-money-flow-ingest-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/aria-money-flow-ingest-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_aria_money_flow_ingest"
-    targetNamespace="https://gftd.ai/bpmn/aria"
+    targetNamespace="https://etzhayyim.ai/bpmn/aria"
     exporter="hand-written"
     exporterVersion="2.0">
 
