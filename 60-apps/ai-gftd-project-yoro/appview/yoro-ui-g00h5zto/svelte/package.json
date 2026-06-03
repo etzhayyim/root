@@ -48,7 +48,7 @@
     "vitest": "^4.1.0"
   },
   "dependencies": {
-    "@atproto/api": "^0.13.18",
+    "@atproto/api": "^0.20.8",
     "@bufbuild/protobuf": "^2.11.0",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
