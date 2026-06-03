@@ -1,7 +1,7 @@
 /// Hoge Shannon JCO — Rust WIT Component Model implementation.
 ///
 /// Pattern C: WIT Component Model (P2) via cargo-component + jco transpile.
-/// Exports: gftd:hoge-compute/compute → shannon-score(params: string) -> result<string, string>
+/// Exports: etzhayyim:hoge-compute/compute → shannon-score(params: string) -> result<string, string>
 ///
 /// ABI: Component Model canonical ABI (managed by wit-bindgen).
 /// No manual memory management — wit-bindgen generates all glue.
@@ -13,7 +13,7 @@ wit_bindgen::generate!({
 
 struct Component;
 
-impl exports::gftd::hoge_compute::compute::Guest for Component {
+impl exports::etzhayyim::hoge_compute::compute::Guest for Component {
     /// Shannon entropy of UTF-8 bytes in `params`.
     /// Returns JSON: {"score": f64, "len": usize, "pattern": "jco"}
     fn shannon_score(params: String) -> Result<String, String> {

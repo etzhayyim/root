@@ -38,7 +38,7 @@ cp /tmp/jco-out/shannon-jco.core.wasm \
    /tmp/jco-out/shannon-jco.js \
    /tmp/jco-out/shannon-jco.d.ts \
    "$APPVIEW/"
-cp /tmp/jco-out/interfaces/gftd-hoge-compute-compute.d.ts \
+cp /tmp/jco-out/interfaces/etzhayyim-hoge-compute-compute.d.ts \
    "$APPVIEW/interfaces/"
 
 echo "Done. Output:"

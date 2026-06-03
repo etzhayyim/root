@@ -109,10 +109,10 @@ app.post("/xrpc/com.etzhayyim.apps.hoge.wasmEval", async (c) => {
 
 // ── Pattern 3: WIT-shaped manual ABI ────────────────────────────────────────
 //
-// WIT contract (design-time, gftd wit-gen as-glue pattern):
+// WIT contract (design-time, etzhayyim wit-gen as-glue pattern):
 //   shannon-score: func(params: string) -> result<string, string>
 //
-// ABI bridge (what gftd wit-gen as-glue generates):
+// ABI bridge (what etzhayyim wit-gen as-glue generates):
 //   AS exports: inputPtr(): i32, shannonScore(len: i32): f64
 //   1. Host encodes text → Uint8Array (UTF-8)
 //   2. Host writes bytes to wasm.memory[inputPtr()..len]  (ptr always 0)

@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-hoge-appview",
+  "name": "etzhayyim-hoge-appview",
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",

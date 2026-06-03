@@ -6,7 +6,7 @@
 /// CF Workers: CompiledWasm rule bundles shannon-jco.core.wasm as WebAssembly.Module.
 ///
 /// NSID: com.etzhayyim.apps.hoge.witShannonJco
-package gftd:hoge-compute@1.0.0;
+package etzhayyim:hoge-compute@1.0.0;
 
 world compute-world {
     export compute;

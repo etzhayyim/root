@@ -1,6 +1,6 @@
 "use jco";
 export function instantiate(getCoreModule, imports, instantiateCore = WebAssembly.instantiate) {
-  
+
   function promiseWithResolvers() {
     if (Promise.withResolvers) {
       return Promise.withResolvers();
@@ -14,9 +14,9 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       return { promise, resolve, reject };
     }
   }
-  
+
   const symbolDispose = Symbol.dispose || Symbol.for('dispose');
-  
+
   const _debugLog = (...args) => {
     if (!globalThis?.process?.env?.JCO_DEBUG) { return; }
     console.debug(...args);
@@ -24,13 +24,13 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
   const ASYNC_DETERMINISM = 'random';
   const GLOBAL_COMPONENT_MEMORY_MAP = new Map();
   const CURRENT_TASK_META = {};
-  
+
   function _getGlobalCurrentTaskMeta(componentIdx) {
     const v = CURRENT_TASK_META[componentIdx];
     if (v === undefined) { return v; }
     return { ...v };
   }
-  
+
   function _setGlobalCurrentTaskMeta(args) {
     if (!args) { throw new TypeError('args missing'); }
     if (args.taskID === undefined) { throw new TypeError('missing task ID'); }
@@ -38,7 +38,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     const { taskID, componentIdx } = args;
     return CURRENT_TASK_META[componentIdx] = { taskID, componentIdx };
   }
-  
+
   function _withGlobalCurrentTaskMeta(args) {
     _debugLog('[_withGlobalCurrentTaskMeta()] args', args);
     if (!args) { throw new TypeError('args missing'); }
@@ -46,7 +46,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     if (args.componentIdx === undefined) { throw new TypeError('missing component idx'); }
     if (!args.fn) { throw new TypeError('missing fn'); }
     const { taskID, componentIdx, fn } = args;
-    
+
     try {
       CURRENT_TASK_META[componentIdx] = { taskID, componentIdx };
       return fn();
@@ -60,7 +60,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       CURRENT_TASK_META[componentIdx] = null;
     }
   }
-  
+
   async function _withGlobalCurrentTaskMetaAsync(args) {
     _debugLog('[_withGlobalCurrentTaskMetaAsync()] args', args);
     if (!args) { throw new TypeError('args missing'); }
@@ -68,7 +68,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     if (args.componentIdx === undefined) { throw new TypeError('missing component idx'); }
     if (!args.fn) { throw new TypeError('missing fn'); }
     const { taskID, componentIdx, fn } = args;
-    
+
     // If there is already an async task executing, we must wait for it
     // to complete before we can can run the closure we were given
     //
@@ -82,12 +82,12 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         await promise;
         current = CURRENT_TASK_META[componentIdx];
       }
-      
+
       // Since we've just waited for the component to not be locked, re-lock
       // exclusivity so we can run the fn below (likely a callee/callback)
       cstate.exclusiveLock();
     }
-    
+
     try {
       CURRENT_TASK_META[componentIdx] = { taskID, componentIdx };
       return await fn();
@@ -101,42 +101,42 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       CURRENT_TASK_META[componentIdx] = null;
     }
   }
-  
+
   async function _clearCurrentTask(args) {
     _debugLog('[_clearCurrentTask()] args', args);
     if (!args) { throw new TypeError('args missing'); }
     if (args.taskID === undefined) { throw new TypeError('missing task ID'); }
     if (args.componentIdx === undefined) { throw new TypeError('missing component idx'); }
     const { taskID, componentIdx } = args;
-    
+
     const meta = CURRENT_TASK_META[componentIdx];
     if (!meta) { throw new Error(`missing current task meta for component idx [${componentIdx}]`); }
-    
+
     if (meta.taskID !== taskID) {
       throw new Error(`task ID [${meta.taskID}] != requested ID [${taskID}]`);
     }
     if (meta.componentIdx !== componentIdx) {
       throw new Error(`component idx [${meta.componentIdx}] != requested idx [${componentIdx}]`);
     }
-    
+
     CURRENT_TASK_META[componentIdx] = null;
   }
-  
+
   function lookupMemoriesForComponent(args) {
     const { componentIdx } = args ?? {};
     if (args.componentIdx === undefined) { throw new TypeError("missing component idx"); }
-    
+
     const metas = GLOBAL_COMPONENT_MEMORY_MAP.get(componentIdx);
     if (!metas) { return []; }
-    
+
     if (args.memoryIdx === undefined) {
       return Object.values(metas);
     }
-    
+
     const meta = metas[args.memoryIdx];
     return meta?.memory;
   }
-  
+
   function registerGlobalMemoryForComponent(args) {
     const { componentIdx, memory, memoryIdx } = args ?? {};
     if (componentIdx === undefined) { throw new TypeError('missing component idx'); }
@@ -146,20 +146,20 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       inner = {};
       GLOBAL_COMPONENT_MEMORY_MAP.set(componentIdx, inner);
     }
-    
+
     inner[memoryIdx] = { memory, memoryIdx, componentIdx };
   }
-  
+
   class RepTable {
     #data = [0, null];
     #target;
-    
+
     constructor(args) {
       this.target = args?.target;
     }
-    
+
     data() { return this.#data; }
-    
+
     insert(val) {
       _debugLog('[RepTable#insert()] args', { val, target: this.target });
       const freeIdx = this.#data[0];
@@ -177,38 +177,38 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       _debugLog('[RepTable#insert()] inserted', { val, target: this.target, rep: freeIdx });
       return freeIdx;
     }
-    
+
     get(rep) {
       _debugLog('[RepTable#get()] args', { rep, target: this.target });
       if (rep === 0) { throw new Error('invalid resource rep during get, (cannot be 0)'); }
-      
+
       const baseIdx = rep << 1;
       const val = this.#data[baseIdx];
       return val;
     }
-    
+
     contains(rep) {
       _debugLog('[RepTable#contains()] args', { rep, target: this.target });
       if (rep === 0) { throw new Error('invalid resource rep during contains, (cannot be 0)'); }
-      
+
       const baseIdx = rep << 1;
       return !!this.#data[baseIdx];
     }
-    
+
     remove(rep) {
       _debugLog('[RepTable#remove()] args', { rep, target: this.target });
       if (rep === 0) { throw new Error('invalid resource rep during remove, (cannot be 0)'); }
       if (this.#data.length === 2) { throw new Error('invalid'); }
-      
+
       const baseIdx = rep << 1;
       const val = this.#data[baseIdx];
-      
+
       this.#data[baseIdx] = this.#data[0];
       this.#data[0] = rep;
-      
+
       return val;
     }
-    
+
     clear() {
       _debugLog('[RepTable#clear()] args', { rep, target: this.target });
       this.#data = [0, null];
@@ -219,20 +219,20 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
   const I32_MIN = -2_147_483_648;
   const I32_MAX = 2_147_483_647;
   const _typeCheckValidI32 = (n) => typeof n === 'number' && n >= I32_MIN && n <= I32_MAX;
-  
+
   const _typeCheckAsyncFn= (f) => {
     return f instanceof ASYNC_FN_CTOR;
   };
-  
+
   const ASYNC_FN_CTOR = (async () => {}).constructor;
-  
+
   function clearCurrentTask(componentIdx, taskID) {
     _debugLog('[clearCurrentTask()] args', { componentIdx, taskID });
-    
+
     if (componentIdx === undefined || componentIdx === null) {
       throw new Error('missing/invalid component instance index while ending current task');
     }
-    
+
     const tasks = ASYNC_TASKS_BY_COMPONENT_IDX.get(componentIdx);
     if (!tasks || !Array.isArray(tasks)) {
       throw new Error('missing/invalid tasks for component instance while ending task');
@@ -240,7 +240,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     if (tasks.length == 0) {
       throw new Error(`no current tasks for component instance [${componentIdx}] while ending task`);
     }
-    
+
     if (taskID !== undefined) {
       const last = tasks[tasks.length - 1];
       if (last.id !== taskID) {
@@ -248,17 +248,17 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         return;
       }
     }
-    
+
     ASYNC_CURRENT_TASK_IDS.pop();
     ASYNC_CURRENT_COMPONENT_IDXS.pop();
-    
+
     const taskMeta = tasks.pop();
     return taskMeta.task;
   }
   const CURRENT_TASK_MAY_BLOCK = new WebAssembly.Global({ value: 'i32', mutable: true }, 0);
   const ASYNC_CURRENT_TASK_IDS = [];
   const ASYNC_CURRENT_COMPONENT_IDXS = [];
-  
+
   function unpackCallbackResult(result) {
     if (!(_typeCheckValidI32(result))) { throw new Error('invalid callback return value [' + result + '], not a valid i32'); }
     const eventCode = result & 0xF;
@@ -270,10 +270,10 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     const waitableSetRep = result >> 4;
     return [eventCode, waitableSetRep];
   }
-  
+
   class AsyncSubtask {
     static _ID = 0n;
-    
+
     static State = {
       STARTING: 0,
       STARTED: 1,
@@ -281,86 +281,86 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       CANCELLED_BEFORE_STARTED: 3,
       CANCELLED_BEFORE_RETURNED: 4,
     };
-    
+
     #id;
     #state = AsyncSubtask.State.STARTING;
     #componentIdx;
-    
+
     #parentTask;
     #childTask = null;
-    
+
     #dropped = false;
     #cancelRequested = false;
-    
+
     #memoryIdx = null;
     #lenders = null;
-    
+
     #waitable = null;
-    
+
     #callbackFn = null;
     #callbackFnName = null;
-    
+
     #postReturnFn = null;
     #onProgressFn = null;
     #pendingEventFn = null;
-    
+
     #callMetadata = {};
-    
+
     #resolved = false;
-    
+
     #onResolveHandlers = [];
     #onStartHandlers = [];
-    
+
     #result = null;
     #resultSet = false;
-    
+
     fnName;
     target;
     isAsync;
     isManualAsync;
-    
+
     constructor(args) {
       if (typeof args.componentIdx !== 'number') {
         throw new Error('invalid componentIdx for subtask creation');
       }
       this.#componentIdx = args.componentIdx;
-      
+
       this.#id = ++AsyncSubtask._ID;
       this.fnName = args.fnName;
-      
+
       if (!args.parentTask) { throw new Error('missing parent task during subtask creation'); }
       this.#parentTask = args.parentTask;
-      
+
       if (args.childTask) { this.#childTask = args.childTask; }
-      
+
       if (args.memoryIdx) { this.#memoryIdx = args.memoryIdx; }
-      
+
       if (!args.waitable) { throw new Error("missing/invalid waitable"); }
       this.#waitable = args.waitable;
-      
+
       if (args.callMetadata) { this.#callMetadata = args.callMetadata; }
-      
+
       this.#lenders = [];
       this.target = args.target;
       this.isAsync = args.isAsync;
       this.isManualAsync = args.isManualAsync;
     }
-    
+
     id() { return this.#id; }
     parentTaskID() { return this.#parentTask?.id(); }
     childTaskID() { return this.#childTask?.id(); }
     state() { return this.#state; }
-    
+
     waitable() { return this.#waitable; }
     waitableRep() { return this.#waitable.idx(); }
-    
+
     join() { return this.#waitable.join(...arguments); }
     getPendingEvent() { return this.#waitable.getPendingEvent(...arguments); }
     hasPendingEvent() { return this.#waitable.hasPendingEvent(...arguments); }
     setPendingEvent() { return this.#waitable.setPendingEvent(...arguments); }
-    
+
     setTarget(tgt) { this.target = tgt; }
-    
+
     getResult() {
       if (!this.#resultSet) { throw new Error("subtask result has not been set") }
       return this.#result;
@@ -370,9 +370,9 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       this.#result = v;
       this.#resultSet = true;
     }
-    
+
     componentIdx() { return this.#componentIdx; }
-    
+
     setChildTask(t) {
       if (!t) { throw new Error('cannot set missing/invalid child task on subtask'); }
       if (this.#childTask) { throw new Error('child task is already set on subtask'); }
@@ -380,40 +380,40 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       this.#childTask = t;
     }
     getChildTask(t) { return this.#childTask; }
-    
+
     getParentTask() { return this.#parentTask; }
-    
+
     setCallbackFn(f, name) {
       if (!f) { return; }
       if (this.#callbackFn) { throw new Error('callback fn can only be set once'); }
       this.#callbackFn = f;
       this.#callbackFnName = name;
     }
-    
+
     getCallbackFnName() {
       if (!this.#callbackFn) { return undefined; }
       return this.#callbackFn.name;
     }
-    
+
     setPostReturnFn(f) {
       if (!f) { return; }
       if (this.#postReturnFn) { throw new Error('postReturn fn can only be set once'); }
       this.#postReturnFn = f;
     }
-    
+
     setOnProgressFn(f) {
       if (this.#onProgressFn) { throw new Error('on progress fn can only be set once'); }
       this.#onProgressFn = f;
     }
-    
+
     isNotStarted() {
       return this.#state == AsyncSubtask.State.STARTING;
     }
-    
+
     registerOnStartHandler(f) {
       this.#onStartHandlers.push(f);
     }
-    
+
     onStart(args) {
       _debugLog('[AsyncSubtask#onStart()] args', {
         componentIdx: this.#componentIdx,
@@ -421,13 +421,13 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         parentTaskID: this.parentTaskID(),
         fnName: this.fnName,
       });
-      
+
       if (this.#onProgressFn) { this.#onProgressFn(); }
-      
+
       this.#state = AsyncSubtask.State.STARTED;
-      
+
       let result;
-      
+
       // If we have been provided a helper start function as a result of
       // component fusion performed by wasmtime tooling, then we can call that helper and lifts/lowers will
       // be performed for us.
@@ -437,19 +437,19 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       if (this.#callMetadata.startFn) {
         result = this.#callMetadata.startFn.apply(null, args?.startFnParams ?? []);
       }
-      
+
       return result;
     }
-    
-    
+
+
     registerOnResolveHandler(f) {
       this.#onResolveHandlers.push(f);
     }
-    
+
     reject(subtaskErr) {
       this.#childTask?.reject(subtaskErr);
     }
-    
+
     onResolve(subtaskValue) {
       _debugLog('[AsyncSubtask#onResolve()] args', {
         componentIdx: this.#componentIdx,
@@ -460,18 +460,18 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         parentTaskFnName: this.#parentTask?.entryFnName(),
         fnName: this.fnName,
       });
-      
+
       if (this.#resolved) {
         throw new Error('subtask has already been resolved');
       }
-      
+
       if (this.#onProgressFn) { this.#onProgressFn(); }
-      
+
       if (subtaskValue === null) {
         if (this.#cancelRequested) {
           throw new Error('cancel was not requested, but no value present at return');
         }
-        
+
         if (this.#state === AsyncSubtask.State.STARTING) {
           this.#state = AsyncSubtask.State.CANCELLED_BEFORE_STARTED;
         } else {
@@ -486,9 +486,9 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }
         this.#state = AsyncSubtask.State.RETURNED;
       }
-      
+
       this.setResult(subtaskValue);
-      
+
       for (const f of this.#onResolveHandlers) {
         try {
           f(subtaskValue);
@@ -497,9 +497,9 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           throw err;
         }
       }
-      
+
       const callMetadata = this.getCallMetadata();
-      
+
       // TODO(fix): we should be able to easily have the caller's meomry
       // to lower into here, but it's not present in PrepareCall
       const memory = callMetadata.memory ?? this.#parentTask?.getReturnMemory() ?? lookupMemoriesForComponent({ componentIdx: this.#parentTask?.componentIdx() })[0];
@@ -516,16 +516,16 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           });
         }
       }
-      
+
       this.#resolved = true;
       this.#parentTask.removeSubtask(this);
     }
-    
+
     getStateNumber() { return this.#state; }
     isReturned() { return this.#state === AsyncSubtask.State.RETURNED; }
-    
+
     getCallMetadata() { return this.#callMetadata; }
-    
+
     isResolved() {
       if (this.#state === AsyncSubtask.State.STARTING
       || this.#state === AsyncSubtask.State.STARTED) {
@@ -538,19 +538,19 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       }
       throw new Error('unrecognized internal Subtask state [' + this.#state + ']');
     }
-    
+
     addLender(handle) {
       _debugLog('[AsyncSubtask#addLender()] args', { handle });
       if (!Number.isNumber(handle)) { throw new Error('missing/invalid lender handle [' + handle + ']'); }
-      
+
       if (this.#lenders.length === 0 || this.isResolved()) {
         throw new Error('subtask has no lendors or has already been resolved');
       }
-      
+
       handle.lends++;
       this.#lenders.push(handle);
     }
-    
+
     deliverResolve() {
       _debugLog('[AsyncSubtask#deliverResolve()] args', {
         lenders: this.#lenders,
@@ -560,19 +560,19 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         resolved: this.isResolved(),
         resolveDelivered: this.resolveDelivered(),
       });
-      
+
       const cannotDeliverResolve = this.resolveDelivered() || !this.isResolved();
       if (cannotDeliverResolve) {
         throw new Error('subtask cannot deliver resolution twice, and the subtask must be resolved');
       }
-      
+
       for (const lender of this.#lenders) {
         lender.lends--;
       }
-      
+
       this.#lenders = null;
     }
-    
+
     resolveDelivered() {
       _debugLog('[AsyncSubtask#resolveDelivered()] args', { });
       if (this.#lenders === null && !this.isResolved()) {
@@ -580,7 +580,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       }
       return this.#lenders === null;
     }
-    
+
     drop() {
       _debugLog('[AsyncSubtask#drop()] args', {
         componentIdx: this.#componentIdx,
@@ -597,7 +597,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       if (this.#waitable) { this.#waitable.drop() }
       this.#dropped = true;
     }
-    
+
     #getComponentState() {
       const state = getOrCreateAsyncState(this.#componentIdx);
       if (!state) {
@@ -605,14 +605,14 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       }
       return state;
     }
-    
+
     getWaitableHandleIdx() {
       _debugLog('[AsyncSubtask#getWaitableHandleIdx()] args', { });
       if (!this.#waitable) { throw new Error('missing/invalid waitable'); }
       return this.waitableRep();
     }
   }
-  
+
   function _prepareCall(
   memoryIdx,
   getMemoryFn,
@@ -635,10 +635,10 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       resultCountOrAsync,
     });
     const argArray = [...arguments];
-    
+
     // value passed in *may* be as large as u32::MAX which may be mangled into -2
     resultCountOrAsync >>>= 0;
-    
+
     let isAsync = false;
     let hasResultPointer = false;
     if (resultCountOrAsync === 2**32 - 1) {
@@ -650,21 +650,21 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       isAsync = true;
       hasResultPointer = true;
     }
-    
+
     const currentCallerTaskMeta = getCurrentTask(callerComponentIdx);
     if (!currentCallerTaskMeta) {
       throw new Error('invalid/missing current task for caller during prepare call');
     }
-    
+
     const currentCallerTask = currentCallerTaskMeta.task;
     if (!currentCallerTask) {
       throw new Error('unexpectedly missing task in meta for caller during prepare call');
     }
-    
+
     if (currentCallerTask.componentIdx() !== callerComponentIdx) {
       throw new Error(`task component idx [${ currentCallerTask.componentIdx() }] !== [${ callerComponentIdx }] (callee ${ calleeComponentIdx })`);
     }
-    
+
     let getCalleeParamsFn;
     let resultPtr = null;
     let directParamsArr;
@@ -676,7 +676,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       directParamsArr = argArray.slice(10);
       getCalleeParamsFn = () => directParamsArr;
     }
-    
+
     let encoding;
     switch (stringEncoding) {
       case 0:
@@ -691,7 +691,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       default:
       throw new Error(`unrecognized string encoding enum [${stringEncoding}]`);
     }
-    
+
     const subtask = currentCallerTask.createSubtask({
       componentIdx: callerComponentIdx,
       parentTask: currentCallerTask,
@@ -704,7 +704,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         startFn,
       }
     });
-    
+
     const [newTask, newTaskID] = createNewCurrentTask({
       componentIdx: calleeComponentIdx,
       isAsync,
@@ -722,7 +722,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     newTask.setReturnMemoryIdx(memoryIdx);
     newTask.setReturnMemory(getMemoryFn);
     subtask.setChildTask(newTask);
-    
+
     newTask.subtaskMeta = {
       subtask,
       calleeComponentIdx,
@@ -731,30 +731,30 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       stringEncoding,
       isAsync,
     };
-    
+
     _setGlobalCurrentTaskMeta({
       taskID: newTask.id(),
       componentIdx: newTask.componentIdx(),
     });
   }
-  
+
   function _asyncStartCall(args, callee, paramCount, resultCount, flags) {
     const componentIdx = ASYNC_CURRENT_COMPONENT_IDXS.at(-1);
-    
+
     const globalTaskMeta = _getGlobalCurrentTaskMeta(componentIdx);
     if (!globalTaskMeta) { throw new Error('missing global current task globalTaskMeta'); }
     const taskID = globalTaskMeta.taskID;
-    
+
     _debugLog('[_asyncStartCall()] args', { args, componentIdx });
     const { getCallbackFn, callbackIdx, getPostReturnFn, postReturnIdx } = args;
-    
+
     const preparedTaskMeta = getCurrentTask(componentIdx, taskID);
     if (!preparedTaskMeta) { throw new Error('unexpectedly missing current task'); }
-    
+
     const preparedTask = preparedTaskMeta.task;
     if (!preparedTask) { throw new Error('unexpectedly missing current task'); }
     if (!preparedTask.subtaskMeta) { throw new Error('missing subtask meta from prepare'); }
-    
+
     const {
       subtask,
       returnMemoryIdx,
@@ -772,39 +772,39 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     if (calleeComponentIdx !== componentIdx) {
       throw new Error("mismatched componentIdx for async start call (does not match prepare)");
     }
-    
+
     const argArray = [...arguments];
-    
+
     if (resultCount < 0 || resultCount > 1) { throw new Error('invalid/unsupported result count'); }
-    
+
     const callbackFnName = 'callback_' + callbackIdx;
     const callbackFn = getCallbackFn();
     preparedTask.setCallbackFn(callbackFn, callbackFnName);
     preparedTask.setPostReturnFn(getPostReturnFn());
-    
+
     if (resultCount < 0 || resultCount > 1) {
       throw new Error(`unsupported result count [${ resultCount }]`);
     }
-    
+
     const params = preparedTask.getCalleeParams();
     if (paramCount !== params.length) {
       throw new Error(`unexpected callee param count [${ params.length }], _asyncStartCall invocation expected [${ paramCount }]`);
     }
-    
+
     const callerComponentState = getOrCreateAsyncState(subtask.componentIdx());
-    
+
     const calleeComponentState = getOrCreateAsyncState(preparedTask.componentIdx());
     const calleeBackpressure = calleeComponentState.hasBackpressure();
-    
+
     // Set up a handler on subtask completion to lower results from the call into the caller's memory region.
     //
     // NOTE: during fused guest->guest calls this handler is triggered, but does not actually perform
     // lowering manually, as fused modules provider helper functions that can
     subtask.registerOnResolveHandler((res) => {
       _debugLog('[_asyncStartCall()] handling subtask result', { res, subtaskID: subtask.id() });
-      
+
       let subtaskCallMeta = subtask.getCallMetadata();
-      
+
       // NOTE: in the case of guest -> guest async calls, there may be no memory/realloc present,
       // as the host will intermediate the value storage/movement between calls.
       //
@@ -812,30 +812,30 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       if (subtaskCallMeta.memory || subtaskCallMeta.realloc) {
         throw new Error("call metadata unexpectedly contains memory/realloc for guest->guest call");
       }
-      
+
       const callerTask = subtask.getParentTask();
       const calleeTask = preparedTask;
       const callerMemoryIdx = callerTask.getReturnMemoryIdx();
       const callerComponentIdx = callerTask.componentIdx();
-      
+
       // If a helper function was provided we are likely in a fused guest->guest call,
       // and the result will be delivered (lift/lowered) via helper function
       if (subtaskCallMeta && subtaskCallMeta.returnFn) {
         _debugLog('[_asyncStartCall()] return function present while handling subtask result, returning early (skipping lower)');
-        
+
         // TODO: centralize calling of returnFn to *one place* (if possible)
         if (subtaskCallMeta.returnFnCalled) { return; }
-        
+
         subtaskCallMeta.returnFn.apply(null, [subtaskCallMeta.resultPtr]);
         return;
       }
-      
+
       // If there is no where to lower the results, exit early
       if (!subtaskCallMeta.resultPtr) {
         _debugLog('[_asyncStartCall()] no result ptr during subtask result handling, returning early (skipping lower)');
         return;
       }
-      
+
       let callerMemory;
       if (callerMemoryIdx !== null && callerMemoryIdx !== undefined) {
         callerMemory = lookupMemoriesForComponent({ componentIdx: callerComponentIdx, memoryIdx: callerMemoryIdx });
@@ -844,23 +844,23 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         if (callerMemories.length !== 1) { throw new Error(`unsupported amount of caller memories`); }
         callerMemory = callerMemories[0];
       }
-      
+
       if (!callerMemory) {
         _debugLog('[_asyncStartCall()] missing memory', { subtaskID: subtask.id(), res });
         throw new Error(`missing memory for to guest->guest call result (subtask [${subtask.id()}])`);
       }
-      
+
       const lowerFns = calleeTask.getReturnLowerFns();
       if (!lowerFns || lowerFns.length === 0) {
         _debugLog('[_asyncStartCall()] missing result lower metadata for guest->guest call', { subtaskID: subtask.id() });
         throw new Error(`missing result lower metadata for guest->guest call (subtask [${subtask.id()}])`);
       }
-      
+
       if (lowerFns.length !== 1) {
         _debugLog('[_asyncStartCall()] only single result reportetd for guest->guest call', { subtaskID: subtask.id() });
         throw new Error(`only single result supported for guest->guest calls (subtask [${subtask.id()}])`);
       }
-      
+
       _debugLog('[_asyncStartCall()] lowering results', { subtaskID: subtask.id() });
       lowerFns[0]({
         realloc: undefined,
@@ -869,9 +869,9 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         storagePtr: subtaskCallMeta.resultPtr,
         componentIdx: callerComponentIdx
       });
-      
+
     });
-    
+
     subtask.setOnProgressFn(() => {
       subtask.setPendingEvent(() => {
         if (subtask.isResolved()) { subtask.deliverResolve(); }
@@ -883,17 +883,17 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         return event;
       });
     });
-    
+
     // Start the (event) driver loop that will resolve the task
     queueMicrotask(async () => {
       let startRes = subtask.onStart({ startFnParams: params });
       startRes = Array.isArray(startRes) ? startRes : [startRes];
-      
+
       await calleeComponentState.suspendTask({
         task: preparedTask,
         readyFn: () => !calleeComponentState.isExclusivelyLocked(),
       });
-      
+
       const started = await preparedTask.enter();
       if (!started) {
         _debugLog('[_asyncStartCall()] task failed early', {
@@ -903,7 +903,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         throw new Error("task failed to start");
         return;
       }
-      
+
       let callbackResult;
       try {
         let jspiCallee = WebAssembly.promising(callee);
@@ -919,12 +919,12 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         // NOTE: a good place to rejectt the parent task, if rejection API is enabled
         // subtask.reject(err);
         // subtask.getParentTask().reject(err);
-        
+
         subtask.getParentTask().setErrored(err);
-        
+
         return;
       }
-      
+
       // If there was no callback function, we're dealing with a sync function
       // that was lifted as async without one, there is only the callee.
       if (!callbackFn) {
@@ -939,7 +939,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         preparedTask.resolve([callbackResult]);
         return;
       }
-      
+
       let fnName = callbackFn.fnName;
       if (!fnName) {
         fnName = [
@@ -952,7 +952,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         '>',
         ].join("");
       }
-      
+
       try {
         _debugLog("[_asyncStartCall()] starting driver loop", {
           fnName,
@@ -961,7 +961,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           childTaskID: subtask.childTaskID(),
           parentTaskID: subtask.parentTaskID(),
         });
-        
+
         await _driverLoop({
           componentState: calleeComponentState,
           task: preparedTask,
@@ -974,73 +974,73 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       } catch (err) {
         _debugLog("[AsyncStartCall] drive loop call failure", { err });
       }
-      
+
     });
-    
+
     const subtaskState = subtask.getStateNumber();
     if (subtaskState < 0 || subtaskState > 2**5) {
       throw new Error('invalid subtask state, out of valid range');
     }
-    
+
     _debugLog('[_asyncStartCall()] returning subtask rep & state', {
       subtask: {
         rep: subtask.waitableRep(),
         state: subtaskState,
       }
     });
-    
+
     return Number(subtask.waitableRep()) << 4 | subtaskState;
   }
-  
+
   function _syncStartCall(callbackIdx) {
     _debugLog('[_syncStartCall()] args', { callbackIdx });
     throw new Error('synchronous start call not implemented!');
   }
-  
+
   class Waitable {
     #componentIdx;
-    
+
     #pendingEventFn = null;
-    
+
     #promise;
     #resolve;
     #reject;
-    
+
     #waitableSet = null;
-    
+
     #idx = null; // to component-global waitables
-    
+
     target;
-    
+
     constructor(args) {
       const { componentIdx, target } = args;
       this.#componentIdx = componentIdx;
       this.target = args.target;
       this.#resetPromise();
     }
-    
+
     componentIdx() { return this.#componentIdx; }
     isInSet() { return this.#waitableSet !== null; }
-    
+
     idx() { return this.#idx; }
     setIdx(idx) {
       if (idx === 0) { throw new Error("waitable idx cannot be zero"); }
       this.#idx = idx;
     }
-    
+
     setTarget(tgt) { this.target = tgt; }
-    
+
     #resetPromise() {
       const { promise, resolve, reject } = promiseWithResolvers()
       this.#promise = promise;
       this.#resolve = resolve;
       this.#reject = reject;
     }
-    
+
     resolve() { this.#resolve(); }
     reject(err) { this.#reject(err); }
     promise() { return this.#promise; }
-    
+
     hasPendingEvent() {
       // _debugLog('[Waitable#hasPendingEvent()]', {
         //     componentIdx: this.#componentIdx,
@@ -1050,7 +1050,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         // });
         return this.#pendingEventFn !== null;
       }
-      
+
       setPendingEvent(fn) {
         _debugLog('[Waitable#setPendingEvent()] args', {
           waitable: this,
@@ -1058,7 +1058,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         });
         this.#pendingEventFn = fn;
       }
-      
+
       getPendingEvent() {
         _debugLog('[Waitable#getPendingEvent()] args', {
           waitable: this,
@@ -1072,7 +1072,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         this.#resetPromise();
         return e;
       }
-      
+
       join(waitableSet) {
         _debugLog('[Waitable#join()] args', {
           waitable: this,
@@ -1086,7 +1086,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         waitableSet.addWaitable(this);
         this.#waitableSet = waitableSet;
       }
-      
+
       drop() {
         _debugLog('[Waitable#drop()] args', {
           componentIdx: this.#componentIdx,
@@ -1097,16 +1097,16 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }
         this.join(null);
       }
-      
+
     }
-    
+
     const ERR_CTX_TABLES = {};
-    
+
     let dv = new DataView(new ArrayBuffer());
     const dataView = mem => dv.buffer === mem.buffer ? dv : dv = new DataView(mem.buffer);
     const TEXT_DECODER_UTF8 = new TextDecoder();
     const TEXT_ENCODER_UTF8 = new TextEncoder();
-    
+
     function _utf8AllocateAndEncode(s, realloc, memory) {
       if (typeof s !== 'string') {
         throw new TypeError('expected a string, received [' + typeof s + ']');
@@ -1118,8 +1118,8 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       const res = { ptr, len: buf.length, codepoints: [...s].length };
       return res;
     }
-    
-    
+
+
     function createNewCurrentTask(args) {
       _debugLog('[createNewCurrentTask()] args', args);
       const {
@@ -1142,7 +1142,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       }
       let taskMetas = ASYNC_TASKS_BY_COMPONENT_IDX.get(componentIdx);
       const callbackFn = getCallbackFn ? getCallbackFn() : null;
-      
+
       const newTask = new AsyncTask({
         componentIdx,
         isAsync,
@@ -1155,28 +1155,28 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         resultPtr,
         errHandling,
       });
-      
+
       const newTaskID = newTask.id();
       const newTaskMeta = { id: newTaskID, componentIdx, task: newTask };
-      
+
       // NOTE: do not track host tasks
       ASYNC_CURRENT_TASK_IDS.push(newTaskID);
       ASYNC_CURRENT_COMPONENT_IDXS.push(componentIdx);
-      
+
       if (!taskMetas) {
         taskMetas = [newTaskMeta];
         ASYNC_TASKS_BY_COMPONENT_IDX.set(componentIdx, [newTaskMeta]);
       } else {
         taskMetas.push(newTaskMeta);
       }
-      
+
       return [newTask, newTaskID];
     }
     const ASYNC_TASKS_BY_COMPONENT_IDX = new Map();
-    
+
     class AsyncTask {
       static _ID = 0n;
-      
+
       static State = {
         INITIAL: 'initial',
         CANCELLED: 'cancelled',
@@ -1184,83 +1184,83 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         CANCEL_DELIVERED: 'cancel-delivered',
         RESOLVED: 'resolved',
       }
-      
+
       static BlockResult = {
         CANCELLED: 'block.cancelled',
         NOT_CANCELLED: 'block.not-cancelled',
       }
-      
+
       #id;
       #componentIdx;
       #state;
       #isAsync;
       #isManualAsync;
       #entryFnName = null;
-      
+
       #onResolveHandlers = [];
       #completionPromise = null;
       #rejected = false;
-      
+
       #exitPromise = null;
       #onExitHandlers = [];
-      
+
       #memoryIdx = null;
       #memory = null;
-      
+
       #callbackFn = null;
       #callbackFnName = null;
-      
+
       #postReturnFn = null;
-      
+
       #getCalleeParamsFn = null;
-      
+
       #stringEncoding = null;
-      
+
       #parentSubtask = null;
-      
+
       #needsExclusiveLock = false;
-      
+
       #errHandling;
-      
+
       #backpressurePromise;
       #backpressureWaiters = 0n;
-      
+
       #returnLowerFns = null;
-      
+
       #subtasks = [];
-      
+
       #entered = false;
       #exited = false;
       #errored = null;
-      
+
       cancelled = false;
       cancelRequested = false;
       alwaysTaskReturn = false;
-      
+
       returnCalls =  0;
       storage = [0, 0];
       borrowedHandles = {};
-      
+
       constructor(opts) {
         this.#id = ++AsyncTask._ID;
-        
+
         if (opts?.componentIdx === undefined) {
           throw new TypeError('missing component id during task creation');
         }
         this.#componentIdx = opts.componentIdx;
-        
+
         this.#state = AsyncTask.State.INITIAL;
         this.#isAsync = opts?.isAsync ?? false;
         this.#isManualAsync = opts?.isManualAsync ?? false;
         this.#entryFnName = opts.entryFnName;
-        
+
         const {
           promise: completionPromise,
           resolve: resolveCompletionPromise,
           reject: rejectCompletionPromise,
         } = promiseWithResolvers();
         this.#completionPromise = completionPromise;
-        
+
         this.#onResolveHandlers.push((results) => {
           if (this.#errored !== null) {
             rejectCompletionPromise(this.#errored);
@@ -1271,70 +1271,70 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           }
           resolveCompletionPromise(results);
         });
-        
+
         const {
           promise: exitPromise,
           resolve: resolveExitPromise,
           reject: rejectExitPromise,
         } = promiseWithResolvers();
         this.#exitPromise = exitPromise;
-        
+
         this.#onExitHandlers.push(() => {
           resolveExitPromise();
         });
-        
+
         if (opts.callbackFn) { this.#callbackFn = opts.callbackFn; }
         if (opts.callbackFnName) { this.#callbackFnName = opts.callbackFnName; }
-        
+
         if (opts.getCalleeParamsFn) { this.#getCalleeParamsFn = opts.getCalleeParamsFn; }
-        
+
         if (opts.stringEncoding) { this.#stringEncoding = opts.stringEncoding; }
-        
+
         if (opts.parentSubtask) { this.#parentSubtask = opts.parentSubtask; }
-        
+
         this.#needsExclusiveLock = this.isSync() || !this.hasCallback();
-        
+
         if (opts.errHandling) { this.#errHandling = opts.errHandling; }
       }
-      
+
       taskState() { return this.#state; }
       id() { return this.#id; }
       componentIdx() { return this.#componentIdx; }
       entryFnName() { return this.#entryFnName; }
-      
+
       completionPromise() { return this.#completionPromise; }
       exitPromise() { return this.#exitPromise; }
-      
+
       isAsync() { return this.#isAsync; }
       isSync() { return !this.isAsync(); }
-      
+
       getErrHandling() { return this.#errHandling; }
-      
+
       hasCallback() { return this.#callbackFn !== null; }
-      
+
       getReturnMemoryIdx() { return this.#memoryIdx; }
       setReturnMemoryIdx(idx) {
         if (idx === null) { return; }
         this.#memoryIdx = idx;
       }
-      
+
       getReturnMemory() { return this.#memory; }
       setReturnMemory(m) {
         if (m === null) { return; }
         this.#memory = m;
       }
-      
+
       setReturnLowerFns(fns) { this.#returnLowerFns = fns; }
       getReturnLowerFns() { return this.#returnLowerFns; }
-      
+
       setParentSubtask(subtask) {
         if (!subtask || !(subtask instanceof AsyncSubtask)) { return }
         if (this.#parentSubtask) { throw new Error('parent subtask can only be set once'); }
         this.#parentSubtask = subtask;
       }
-      
+
       getParentSubtask() { return this.#parentSubtask; }
-      
+
       // TODO(threads): this is very inefficient, we can pass along a root task,
       // and ideally do not need this once thread support is in place
       getRootTask() {
@@ -1346,37 +1346,37 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }
         return task;
       }
-      
+
       setPostReturnFn(f) {
         if (!f) { return; }
         if (this.#postReturnFn) { throw new Error('postReturn fn can only be set once'); }
         this.#postReturnFn = f;
       }
-      
+
       setCallbackFn(f, name) {
         if (!f) { return; }
         if (this.#callbackFn) { throw new Error('callback fn can only be set once'); }
         this.#callbackFn = f;
         this.#callbackFnName = name;
       }
-      
+
       getCallbackFnName() {
         if (!this.#callbackFnName) { return undefined; }
         return this.#callbackFnName;
       }
-      
+
       async runCallbackFn(...args) {
         if (!this.#callbackFn) { throw new Error('on callback function has been set for task'); }
         return await this.#callbackFn.apply(null, args);
       }
-      
+
       getCalleeParams() {
         if (!this.#getCalleeParamsFn) { throw new Error('missing/invalid getCalleeParamsFn'); }
         return this.#getCalleeParamsFn();
       }
-      
+
       mayBlock() { return this.isAsync() || this.isResolvedState() }
-      
+
       mayEnter(task) {
         const cstate = getOrCreateAsyncState(this.#componentIdx);
         if (cstate.hasBackpressure()) {
@@ -1394,7 +1394,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }
         return true;
       }
-      
+
       enterSync() {
         if (this.needsExclusiveLock()) {
           const cstate = getOrCreateAsyncState(this.#componentIdx);
@@ -1402,72 +1402,72 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }
         return true;
       }
-      
+
       async enter(opts) {
         _debugLog('[AsyncTask#enter()] args', {
           taskID: this.#id,
           componentIdx: this.#componentIdx,
           subtaskID: this.getParentSubtask()?.id(),
         });
-        
+
         if (this.#entered) {
           throw new Error(`task with ID [${this.#id}] should not be entered twice`);
         }
-        
+
         const cstate = getOrCreateAsyncState(this.#componentIdx);
-        
+
         // If a task is either synchronous or host-provided (e.g. a host import, whether sync or async)
         // then we can avoid component-relevant tracking and immediately enter
         if (this.isSync() || opts?.isHost) {
           this.#entered = true;
-          
+
           // TODO(breaking): remove once manually-spccifying async fns is removed
           // It is currently possible for an actually sync export to be specified
           // as async via JSPI
           if (this.#isManualAsync) {
             if (this.needsExclusiveLock()) { cstate.exclusiveLock(); }
           }
-          
+
           return this.#entered;
         }
-        
+
         if (cstate.hasBackpressure()) {
           cstate.addBackpressureWaiter();
-          
+
           const result = await this.waitUntil({
             readyFn: () => !cstate.hasBackpressure(),
             cancellable: true,
           });
-          
+
           cstate.removeBackpressureWaiter();
-          
+
           if (result === AsyncTask.BlockResult.CANCELLED) {
             this.cancel();
             return false;
           }
         }
-        
+
         if (this.needsExclusiveLock()) { cstate.exclusiveLock(); }
-        
+
         this.#entered = true;
         return this.#entered;
       }
-      
+
       isRunningState() { return this.#state !== AsyncTask.State.RESOLVED; }
       isResolvedState() { return this.#state === AsyncTask.State.RESOLVED; }
       isResolved() { return this.#state === AsyncTask.State.RESOLVED; }
-      
+
       async waitUntil(opts) {
         const { readyFn, waitableSetRep, cancellable } = opts;
         _debugLog('[AsyncTask#waitUntil()] args', { taskID: this.#id, waitableSetRep, cancellable });
-        
+
         const state = getOrCreateAsyncState(this.#componentIdx);
         const wset = state.handles.get(waitableSetRep);
-        
+
         let event;
-        
+
         wset.incrementNumWaiting();
-        
+
         const keepGoing = await this.suspendUntil({
           readyFn: () => {
             const hasPendingEvent = wset.hasPendingEvent();
@@ -1476,7 +1476,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           },
           cancellable,
         });
-        
+
         if (keepGoing) {
           event = wset.getPendingEvent();
         } else {
@@ -1486,16 +1486,16 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
             payload1: 0,
           };
         }
-        
+
         wset.decrementNumWaiting();
-        
+
         return event;
       }
-      
+
       async yieldUntil(opts) {
         const { readyFn, cancellable } = opts;
         _debugLog('[AsyncTask#yieldUntil()] args', { taskID: this.#id, cancellable });
-        
+
         const keepGoing = await this.suspendUntil({ readyFn, cancellable });
         if (keepGoing) {
           return {
@@ -1504,68 +1504,68 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
             payload1: 0,
           };
         }
-        
+
         return {
           code: ASYNC_EVENT_CODE.TASK_CANCELLED,
           payload0: 0,
           payload1: 0,
         };
       }
-      
+
       async suspendUntil(opts) {
         const { cancellable, readyFn } = opts;
         _debugLog('[AsyncTask#suspendUntil()] args', { cancellable });
-        
+
         const pendingCancelled = this.deliverPendingCancel({ cancellable });
         if (pendingCancelled) { return false; }
-        
+
         const completed = await this.immediateSuspendUntil({ readyFn, cancellable });
         return completed;
       }
-      
+
       // TODO(threads): equivalent to thread.suspend_until()
       async immediateSuspendUntil(opts) {
         const { cancellable, readyFn } = opts;
         _debugLog('[AsyncTask#immediateSuspendUntil()] args', { cancellable, readyFn });
-        
+
         const ready = readyFn();
         if (ready && ASYNC_DETERMINISM === 'random') {
           // const coinFlip = _coinFlip();
           // if (coinFlip) { return true }
           return true;
         }
-        
+
         const keepGoing = await this.immediateSuspend({ cancellable, readyFn });
         return keepGoing;
       }
-      
+
       async immediateSuspend(opts) { // NOTE: equivalent to thread.suspend()
       // TODO(threads): store readyFn on the thread
       const { cancellable, readyFn } = opts;
       _debugLog('[AsyncTask#immediateSuspend()] args', { cancellable, readyFn });
-      
+
       const pendingCancelled = this.deliverPendingCancel({ cancellable });
       if (pendingCancelled) { return false; }
-      
+
       const cstate = getOrCreateAsyncState(this.#componentIdx);
       const keepGoing = await cstate.suspendTask({ task: this, readyFn });
       return keepGoing;
     }
-    
+
     deliverPendingCancel(opts) {
       const { cancellable } = opts;
       _debugLog('[AsyncTask#deliverPendingCancel()] args', { cancellable });
-      
+
       if (cancellable && this.#state === AsyncTask.State.PENDING_CANCEL) {
         this.#state = AsyncTask.State.CANCEL_DELIVERED;
         return true;
       }
-      
+
       return false;
     }
-    
+
     isCancelled() { return this.cancelled }
-    
+
     cancel(args) {
       _debugLog('[AsyncTask#cancel()] args', { });
       if (this.taskState() !== AsyncTask.State.CANCEL_DELIVERED) {
@@ -1576,7 +1576,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       this.onResolve(args?.error ?? new Error('task cancelled'));
       this.#state = AsyncTask.State.RESOLVED;
     }
-    
+
     onResolve(taskValue) {
       const handlers = this.#onResolveHandlers;
       this.#onResolveHandlers = [];
@@ -1589,7 +1589,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           throw err;
         }
       }
-      
+
       if (this.#parentSubtask) {
         const meta = this.#parentSubtask.getCallMetadata();
         // Run the rturn fn if it has not already been called -- this *should* have happened in
@@ -1606,7 +1606,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           meta.returnFnCalled = true;
         }
       }
-      
+
       if (this.#postReturnFn) {
         _debugLog('[AsyncTask#onResolve()] running post return ', {
           componentIdx: this.#componentIdx,
@@ -1619,22 +1619,22 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           throw err;
         }
       }
-      
+
       if (this.#parentSubtask) {
         this.#parentSubtask.onResolve(taskValue);
       }
     }
-    
+
     registerOnResolveHandler(f) {
       this.#onResolveHandlers.push(f);
     }
-    
+
     isRejected() { return this.#rejected; }
-    
+
     setErrored(err) {
       this.#errored = err;
     }
-    
+
     reject(taskErr) {
       _debugLog('[AsyncTask#reject()] args', {
         componentIdx: this.#componentIdx,
@@ -1645,24 +1645,24 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         callbackFnName: this.#callbackFnName,
         errMsg: taskErr.message,
       });
-      
+
       if (this.isResolvedState() || this.#rejected) { return; }
-      
+
       for (const subtask of this.#subtasks) {
         subtask.reject(taskErr);
       }
-      
+
       this.#rejected = true;
       this.cancelRequested = true;
       this.#state = AsyncTask.State.PENDING_CANCEL;
       const cancelled = this.deliverPendingCancel({ cancellable: true });
-      
+
       // TODO: do cleanup here to reset the machinery so we can run again?
-      
-      
+
+
       this.cancel({ error: taskErr });
     }
-    
+
     resolve(results) {
       _debugLog('[AsyncTask#resolve()] args', {
         componentIdx: this.#componentIdx,
@@ -1670,17 +1670,17 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         entryFnName: this.entryFnName(),
         callbackFnName: this.#callbackFnName,
       });
-      
+
       if (this.#state === AsyncTask.State.RESOLVED) {
         throw new Error(`(component [${this.#componentIdx}]) task [${this.#id}]  is already resolved (did you forget to wait for an import?)`);
       }
-      
+
       if (this.borrowedHandles.length > 0) {
         throw new Error('task still has borrow handles');
       }
-      
+
       this.#state = AsyncTask.State.RESOLVED;
-      
+
       switch (results.length) {
         case 0:
         this.onResolve(undefined);
@@ -1700,15 +1700,15 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         throw new Error('unexpected number of results');
       }
     }
-    
+
     exit() {
       _debugLog('[AsyncTask#exit()]', {
         componentIdx: this.#componentIdx,
         taskID: this.#id,
       });
-      
+
       if (this.#exited)  { throw new Error("task has already exited"); }
-      
+
       if (this.#state !== AsyncTask.State.RESOLVED) {
         // TODO(fix): only fused, manually specified post returns seem to break this invariant,
         // as the TaskReturn trampoline is not activated it seems.
@@ -1727,21 +1727,21 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         });
         this.#state = AsyncTask.State.RESOLVED;
       }
-      
+
       if (this.borrowedHandles > 0) {
         throw new Error('task [${this.#id}] exited without clearing borrowed handles');
       }
-      
+
       const state = getOrCreateAsyncState(this.#componentIdx);
       if (!state) { throw new Error('missing async state for component [' + this.#componentIdx + ']'); }
-      
+
       // Exempt the host from exclusive lock check
       if (this.#componentIdx !== -1 && this.needsExclusiveLock() && !state.isExclusivelyLocked()) {
         throw new Error(`task [${this.#id}] exit: component [${this.#componentIdx}] should have been exclusively locked`);
       }
-      
+
       state.exclusiveRelease();
-      
+
       for (const f of this.#onExitHandlers) {
         try {
           f();
@@ -1750,29 +1750,29 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           throw err;
         }
       }
-      
+
       this.#exited = true;
       clearCurrentTask(this.#componentIdx, this.id());
     }
-    
+
     needsExclusiveLock() {
       return !this.#isAsync || this.hasCallback();
     }
-    
+
     createSubtask(args) {
       _debugLog('[AsyncTask#createSubtask()] args', args);
       const { componentIdx, childTask, callMetadata, fnName, isAsync, isManualAsync } = args;
-      
+
       const cstate = getOrCreateAsyncState(this.#componentIdx);
       if (!cstate) {
         throw new Error(`invalid/missing async state for component idx [${componentIdx}]`);
       }
-      
+
       const waitable = new Waitable({
         componentIdx: this.#componentIdx,
         target: `subtask (internal ID [${this.#id}])`,
       });
-      
+
       const newSubtask = new AsyncSubtask({
         componentIdx,
         childTask,
@@ -1787,35 +1787,35 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       newSubtask.setTarget(`subtask (internal ID [${newSubtask.id()}], waitable [${waitable.idx()}], component [${componentIdx}])`);
       waitable.setIdx(cstate.handles.insert(newSubtask));
       waitable.setTarget(`waitable for subtask (waitable id [${waitable.idx()}], subtask internal ID [${newSubtask.id()}])`);
-      
+
       return newSubtask;
     }
-    
+
     getLatestSubtask() {
       return this.#subtasks.at(-1);
     }
-    
+
     getSubtaskByWaitableRep(rep) {
       if (rep === undefined) { throw new TypeError('missing rep'); }
       return this.#subtasks.find(s => s.waitableRep() === rep);
     }
-    
+
     currentSubtask() {
       _debugLog('[AsyncTask#currentSubtask()]');
       if (this.#subtasks.length === 0) { return undefined; }
       return this.#subtasks.at(-1);
     }
-    
+
     removeSubtask(subtask) {
       if (this.#subtasks.length === 0) { throw new Error('cannot end current subtask: no current subtask'); }
       this.#subtasks = this.#subtasks.filter(t => t !== subtask);
       return subtask;
     }
   }
-  
+
   const STREAMS = new RepTable({ target: 'global stream map' });
   const ASYNC_STATE = new Map();
-  
+
   function getOrCreateAsyncState(componentIdx, init) {
     if (!ASYNC_STATE.has(componentIdx)) {
       const newState = new ComponentAsyncState({ componentIdx });
@@ -1823,10 +1823,10 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     }
     return ASYNC_STATE.get(componentIdx);
   }
-  
+
   class ComponentAsyncState {
     static EVENT_HANDLER_EVENTS = [ 'backpressure-change' ];
-    
+
     #componentIdx;
     #callingAsyncImport = false;
     #syncImportWait = promiseWithResolvers();
@@ -1835,31 +1835,31 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     #suspendedTasksByTaskID = new Map();
     #suspendedTaskIDs = [];
     #errored = null;
-    
+
     #backpressure = 0;
     #backpressureWaiters = 0n;
-    
+
     #handlerMap = new Map();
     #nextHandlerID = 0n;
-    
+
     #tickLoop = null;
     #tickLoopInterval = null;
-    
+
     #onExclusiveReleaseHandlers = [];
-    
+
     mayLeave = true;
-    
+
     handles;
     subtasks;
-    
+
     constructor(args) {
       this.#componentIdx = args.componentIdx;
       this.handles = new RepTable({ target: `component [${this.#componentIdx}] handles (waitable objects)` });
       this.subtasks = new RepTable({ target: `component [${this.#componentIdx}] subtasks` });
     };
-    
+
     componentIdx() { return this.#componentIdx; }
-    
+
     errored() { return this.#errored !== null; }
     setErrored(err) {
       _debugLog('[ComponentAsyncState#setErrored()] component errored', { err, componentIdx: this.#componentIdx });
@@ -1870,7 +1870,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       }
       this.#errored = err;
     }
-    
+
     callingSyncImport(val) {
       if (val === undefined) { return this.#callingAsyncImport; }
       if (typeof val !== 'boolean') { throw new TypeError('invalid setting for async import'); }
@@ -1880,23 +1880,23 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         this.#notifySyncImportEnd();
       }
     }
-    
+
     #notifySyncImportEnd() {
       const existing = this.#syncImportWait;
       this.#syncImportWait = promiseWithResolvers();
       existing.resolve();
     }
-    
+
     async waitForSyncImportCallEnd() {
       await this.#syncImportWait.promise;
     }
-    
+
     setBackpressure(v) {
       this.#backpressure = v;
       return this.#backpressure
     }
     getBackpressure() { return this.#backpressure; }
-    
+
     incrementBackpressure() {
       const current = this.#backpressure;
       if (current < 0 || current > 2**16) {
@@ -1908,7 +1908,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       }
       return this.setBackpressure(newValue);
     }
-    
+
     decrementBackpressure() {
       const current = this.#backpressure;
       if (current < 0 || current > 2**16) {
@@ -1921,7 +1921,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       return this.setBackpressure(newValue);
     }
     hasBackpressure() { return this.#backpressure > 0; }
-    
+
     waitForBackpressure() {
       let backpressureCleared = false;
       const cstate = this;
@@ -1944,27 +1944,27 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }, 0);
       });
     }
-    
+
     registerHandler(args) {
       const { event, fn } = args;
       if (!event) { throw new Error("missing handler event"); }
       if (!fn) { throw new Error("missing handler fn"); }
-      
+
       if (!ComponentAsyncState.EVENT_HANDLER_EVENTS.includes(event)) {
         throw new Error(`unrecognized event handler [${event}]`);
       }
-      
+
       const handlerID = this.#nextHandlerID++;
       let handlers = this.#handlerMap.get(event);
       if (!handlers) {
         handlers = [];
         this.#handlerMap.set(event, handlers)
       }
-      
+
       handlers.push({ id: handlerID, fn, event });
       return handlerID;
     }
-    
+
     removeHandler(args) {
       const { event, handlerID } = args;
       const registeredHandlers = this.#handlerMap.get(event);
@@ -1973,7 +1973,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       if (!found) { return; }
       this.#handlerMap.set(event, this.#handlerMap.get(event).filter(h => h.id !== handlerID));
     }
-    
+
     getBackpressureWaiters() { return this.#backpressureWaiters; }
     addBackpressureWaiter() { this.#backpressureWaiters++; }
     removeBackpressureWaiter() {
@@ -1982,12 +1982,12 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         throw new Error("unexepctedly negative number of backpressure waiters");
       }
     }
-    
+
     isExclusivelyLocked() { return this.#locked === true; }
     setLocked(locked) {
       this.#locked = locked;
     }
-    
+
     // TODO(fix): we might want to check for pre-locked status here, we should be deterministically
     // going from locked -> unlocked and vice versa
     exclusiveLock() {
@@ -1997,14 +1997,14 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       });
       this.setLocked(true);
     }
-    
+
     exclusiveRelease() {
       _debugLog('[ComponentAsyncState#exclusiveRelease()] args', {
         locked: this.#locked,
         componentIdx: this.#componentIdx,
       });
       this.setLocked(false);
-      
+
       this.#onExclusiveReleaseHandlers = this.#onExclusiveReleaseHandlers.filter(v => !!v);
       for (const [idx, f] of this.#onExclusiveReleaseHandlers.entries()) {
         try {
@@ -2016,16 +2016,16 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         }
       }
     }
-    
+
     onNextExclusiveRelease(fn) {
       _debugLog('[ComponentAsyncState#()onNextExclusiveRelease] registering');
       this.#onExclusiveReleaseHandlers.push(fn);
     }
-    
+
     #getSuspendedTaskMeta(taskID) {
       return this.#suspendedTasksByTaskID.get(taskID);
     }
-    
+
     #removeSuspendedTaskMeta(taskID) {
       _debugLog('[ComponentAsyncState#removeSuspendedTaskMeta()] removing suspended task', { taskID });
       const idx = this.#suspendedTaskIDs.findIndex(t => t === taskID);
@@ -2034,7 +2034,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       this.#suspendedTasksByTaskID.delete(taskID);
       return meta;
     }
-    
+
     #addSuspendedTaskMeta(meta) {
       if (!meta) { throw new Error('missing task meta'); }
       const taskID = meta.taskID;
@@ -2044,7 +2044,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         this.#suspendedTaskIDs = this.#suspendedTaskIDs.filter(t => t !== null);
       }
     }
-    
+
     // TODO(threads): readyFn is normally on the thread
     suspendTask(args) {
       const { task, readyFn } = args;
@@ -2055,11 +2055,11 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         taskEntryFnName: task.entryFnName(),
         subtask: task.getParentSubtask(),
       });
-      
+
       if (this.#getSuspendedTaskMeta(taskID)) {
         throw new Error(`task [${taskID}] already suspended`);
       }
-      
+
       const { promise, resolve, reject } = promiseWithResolvers();
       this.#addSuspendedTaskMeta({
         task,
@@ -2071,19 +2071,19 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           resolve(!task.isCancelled());
         },
       });
-      
+
       this.runTickLoop();
-      
+
       return promise;
     }
-    
+
     resumeTaskByID(taskID) {
       const meta = this.#removeSuspendedTaskMeta(taskID);
       if (!meta) { return; }
       if (meta.taskID !== taskID) { throw new Error('task ID does not match'); }
       meta.resume();
     }
-    
+
     async runTickLoop() {
       if (this.#tickLoop !== null) { return; }
       this.#tickLoop = 1;
@@ -2096,17 +2096,17 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         this.#tickLoop = null;
       }, 10);
     }
-    
+
     tick() {
       // _debugLog('[ComponentAsyncState#tick()]', { suspendedTaskIDs: this.#suspendedTaskIDs });
-      
+
       const resumableTasks = this.#suspendedTaskIDs.filter(t => t !== null);
       for (const taskID of resumableTasks) {
         const meta = this.#suspendedTasksByTaskID.get(taskID);
         if (!meta || !meta.readyFn) {
           throw new Error(`missing/invalid task despite ID [${taskID}] being present`);
         }
-        
+
         // If the task failed via any means, allow the task to resume because
         // it's been cancelled -- the callback should immediately exit as well
         if (meta.task.isRejected()) {
@@ -2114,34 +2114,34 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           this.resumeTaskByID(taskID);
           return;
         }
-        
+
         const isReady = meta.readyFn();
         if (!isReady) { continue; }
-        
+
         this.resumeTaskByID(taskID);
       }
-      
+
       return this.#suspendedTaskIDs.filter(t => t !== null).length === 0;
     }
-    
+
     addStreamEndToTable(args) {
       _debugLog('[ComponentAsyncState#addStreamEnd()] args', args);
       const { tableIdx, streamEnd } = args;
       if (typeof streamEnd === 'number') { throw new Error("INSERTING BAD STREAMEND"); }
-      
+
       let { table, componentIdx } = STREAM_TABLES[tableIdx];
       if (componentIdx === undefined || !table) {
         throw new Error(`invalid global stream table state for table [${tableIdx}]`);
       }
-      
+
       const handle = table.insert(streamEnd);
       streamEnd.setHandle(handle);
       streamEnd.setStreamTableIdx(tableIdx);
-      
+
       const cstate = getOrCreateAsyncState(componentIdx);
       const waitableIdx = cstate.handles.insert(streamEnd);
       streamEnd.setWaitableIdx(waitableIdx);
-      
+
       _debugLog('[ComponentAsyncState#addStreamEnd()] added stream end', {
         tableIdx,
         table,
@@ -2149,20 +2149,20 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         streamEnd,
         destComponentIdx: componentIdx,
       });
-      
+
       return { handle, waitableIdx };
     }
-    
+
     createWaitable(args) {
       return new Waitable({ target: args?.target, });
     }
-    
+
     createStream(args) {
       _debugLog('[ComponentAsyncState#createStream()] args', args);
       const { tableIdx, elemMeta } = args;
       if (tableIdx === undefined) { throw new Error("missing table idx while adding stream"); }
       if (elemMeta === undefined) { throw new Error("missing element metadata while adding stream"); }
-      
+
       const { table: localStreamTable, componentIdx } = STREAM_TABLES[tableIdx];
       if (!localStreamTable) {
         throw new Error(`missing global stream table lookup for table [${tableIdx}] while creating stream`);
@@ -2170,10 +2170,10 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       if (componentIdx !== this.#componentIdx) {
         throw new Error('component idx mismatch while creating stream');
       }
-      
+
       const readWaitable = this.createWaitable();
       const writeWaitable = this.createWaitable();
-      
+
       const stream = new InternalStream({
         tableIdx,
         componentIdx: this.#componentIdx,
@@ -2182,27 +2182,27 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         writeWaitable,
       });
       stream.setGlobalStreamMapRep(STREAMS.insert(stream));
-      
+
       const writeEnd = stream.writeEnd();
       writeEnd.setWaitableIdx(this.handles.insert(writeEnd));
       writeEnd.setHandle(localStreamTable.insert(writeEnd));
       if (writeEnd.streamTableIdx() !== tableIdx) { throw new Error("unexpectedly mismatched stream table"); }
-      
+
       const writeEndWaitableIdx = writeEnd.waitableIdx();
       const writeEndHandle = writeEnd.handle();
       writeWaitable.setTarget(`waitable for stream write end (waitable [${writeEndWaitableIdx}])`);
       writeEnd.setTarget(`stream write end (waitable [${writeEndWaitableIdx}])`);
-      
+
       const readEnd = stream.readEnd();
       readEnd.setWaitableIdx(this.handles.insert(readEnd));
       readEnd.setHandle(localStreamTable.insert(readEnd));
       if (readEnd.streamTableIdx() !== tableIdx) { throw new Error("unexpectedly mismatched stream table"); }
-      
+
       const readEndWaitableIdx = readEnd.waitableIdx();
       const readEndHandle = readEnd.handle();
       readWaitable.setTarget(`waitable for read end (waitable [${readEndWaitableIdx}])`);
       readEnd.setTarget(`stream read end (waitable [${readEndWaitableIdx}])`);
-      
+
       return {
         writeEndWaitableIdx,
         writeEndHandle,
@@ -2210,15 +2210,15 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         readEndHandle,
       };
     }
-    
+
     getStreamEnd(args) {
       _debugLog('[ComponentAsyncState#getStreamEnd()] args', args);
       const { tableIdx, streamEndHandle, streamEndWaitableIdx } = args;
       if (tableIdx === undefined) { throw new Error('missing table idx while getting stream end'); }
-      
+
       const { table, componentIdx } = STREAM_TABLES[tableIdx];
       const cstate = getOrCreateAsyncState(componentIdx);
-      
+
       let streamEnd;
       if (streamEndWaitableIdx !== undefined) {
         streamEnd = cstate.handles.get(streamEndWaitableIdx);
@@ -2228,26 +2228,26 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       } else {
         throw new TypeError("must specify either waitable idx or handle to retrieve stream");
       }
-      
+
       if (!streamEnd) {
         throw new Error(`missing stream end (tableIdx [${tableIdx}], handle [${streamEndHandle}], waitableIdx [${streamEndWaitableIdx}])`);
       }
       if (tableIdx && streamEnd.streamTableIdx() !== tableIdx) {
         throw new Error(`stream end table idx [${streamEnd.streamTableIdx()}] does not match [${tableIdx}]`);
       }
-      
+
       return streamEnd;
     }
-    
+
     deleteStreamEnd(args) {
       _debugLog('[ComponentAsyncState#deleteStreamEnd()] args', args);
       const { tableIdx, streamEndWaitableIdx } = args;
       if (tableIdx === undefined) { throw new Error("missing table idx while removing stream end"); }
       if (streamEndWaitableIdx === undefined) { throw new Error("missing stream idx while removing stream end"); }
-      
+
       const { table, componentIdx } = STREAM_TABLES[tableIdx];
       const cstate = getOrCreateAsyncState(componentIdx);
-      
+
       const streamEnd = cstate.handles.get(streamEndWaitableIdx);
       if (!streamEnd) {
         throw new Error(`missing stream end [${streamEndWaitableIdx}] in component handles while deleting stream`);
@@ -2255,56 +2255,56 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       if (streamEnd.streamTableIdx() !== tableIdx) {
         throw new Error(`stream end table idx [${streamEnd.streamTableIdx()}] does not match [${tableIdx}]`);
       }
-      
+
       let removed = cstate.handles.remove(streamEnd.waitableIdx());
       if (!removed) {
         throw new Error(`failed to remove stream end [${streamEndWaitableIdx}] waitable obj in component [${componentIdx}]`);
       }
-      
+
       removed = table.remove(streamEnd.handle());
       if (!removed) {
         throw new Error(`failed to remove stream end with handle [${streamEnd.handle()}] from stream table [${tableIdx}] in component [${componentIdx}]`);
       }
-      
+
       return streamEnd;
     }
-    
+
     removeStreamEndFromTable(args) {
       _debugLog('[ComponentAsyncState#removeStreamEndFromTable()] args', args);
-      
+
       const { tableIdx, streamWaitableIdx } = args;
       if (tableIdx === undefined) { throw new Error("missing table idx while removing stream end"); }
       if (streamWaitableIdx === undefined) {
         throw new Error("missing stream end waitable idx while removing stream end");
       }
-      
+
       const { table, componentIdx } = STREAM_TABLES[tableIdx];
       if (!table) { throw new Error(`missing/invalid table [${tableIdx}] while removing stream end`); }
-      
+
       const cstate = getOrCreateAsyncState(componentIdx);
-      
+
       const streamEnd = cstate.handles.get(streamWaitableIdx);
       if (!streamEnd) {
         throw new Error(`missing stream end (handle [${streamWaitableIdx}], table [${tableIdx}])`);
       }
       const handle = streamEnd.handle();
-      
+
       let removed = cstate.handles.remove(streamWaitableIdx);
       if (!removed) {
         throw new Error(`failed to remove streamEnd from handles (waitable idx [${streamWaitableIdx}]), component [${componentIdx}])`);
       }
-      
+
       removed = table.remove(handle);
       if (!removed) {
         throw new Error(`failed to remove streamEnd from table (handle [${handle}]), table [${tableIdx}], component [${componentIdx}])`);
       }
-      
+
       return streamEnd;
     }
   }
-  
+
   const fetchCompile = url => fetch(url).then(WebAssembly.compileStreaming);
-  
+
   class ComponentError extends Error {
     constructor (value) {
       const enumerable = typeof value !== 'string';
@@ -2312,11 +2312,11 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       Object.defineProperty(this, 'payload', { value, enumerable });
     }
   }
-  
-  
+
+
   if (!getCoreModule) getCoreModule = (name) => fetchCompile(new URL(`./${name}`, import.meta.url));
   const module0 = getCoreModule('shannon-jco.core.wasm');
-  
+
   let gen = (function* _initGenerator () {
     let exports0;
     let memory0;
@@ -2325,21 +2325,21 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
     let postReturn0;
     let postReturn0Async;
     let compute100ShannonScore;
-    
+
     function shannonScore(arg0) {
-      
+
       var encodeRes = _utf8AllocateAndEncode(arg0, realloc0, memory0);
       var ptr0= encodeRes.ptr;
       var len0 = encodeRes.len;
-      
-      _debugLog('[iface="gftd:hoge-compute/compute@1.0.0", function="shannon-score"][Instruction::CallWasm] enter', {
+
+      _debugLog('[iface="etzhayyim:hoge-compute/compute@1.0.0", function="shannon-score"][Instruction::CallWasm] enter', {
         funcName: 'shannon-score',
         paramCount: 2,
         async: false,
         postReturn: true,
       });
       const hostProvided = false;
-      
+
       const [task, _wasm_call_currentTaskID] = createNewCurrentTask({
         componentIdx: 0,
         isAsync: false,
@@ -2350,7 +2350,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         errHandling: 'throw-result-err',
         callingWasmExport: true,
       });
-      
+
       const started = task.enterSync();
       task.setReturnMemoryIdx(0);
       task.setReturnMemory(memory0);
@@ -2359,7 +2359,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
         componentIdx: task.componentIdx(),
         fn: () => compute100ShannonScore(ptr0, len0),
       });
-      
+
       let variant3;
       switch (dataView(memory0).getUint8(ret + 0, true)) {
         case 0: {
@@ -2386,7 +2386,7 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
           throw new TypeError('invalid variant discriminant for expected');
         }
       }
-      _debugLog('[iface="gftd:hoge-compute/compute@1.0.0", function="shannon-score"][Instruction::Return]', {
+      _debugLog('[iface="etzhayyim:hoge-compute/compute@1.0.0", function="shannon-score"][Instruction::Return]', {
         funcName: 'shannon-score',
         paramCount: 1,
         async: false,
@@ -2394,46 +2394,46 @@ export function instantiate(getCoreModule, imports, instantiateCore = WebAssembl
       });
       const retCopy = variant3;
       task.resolve([retCopy.val]);
-      
+
       let cstate = getOrCreateAsyncState(0);
       cstate.mayLeave = false;
       postReturn0(ret);
       cstate.mayLeave = true;
       task.exit();
-      
-      
-      
+
+
+
       if (typeof retCopy === 'object' && retCopy.tag === 'err') {
         throw new ComponentError(retCopy.val);
       }
       return retCopy.val;
-      
+
     }
     ({ exports: exports0 } = yield instantiateCore(yield module0));
     memory0 = exports0.memory;
     realloc0 = exports0.cabi_realloc;
-    
+
     try {
       realloc0Async = WebAssembly.promising(exports0.cabi_realloc);
     } catch(err) {
       realloc0Async = exports0.cabi_realloc;
     }
-    
-    postReturn0 = exports0['cabi_post_gftd:hoge-compute/compute@1.0.0#shannon-score'];
-    
+
+    postReturn0 = exports0['cabi_post_etzhayyim:hoge-compute/compute@1.0.0#shannon-score'];
+
     try {
-      postReturn0Async = WebAssembly.promising(exports0['cabi_post_gftd:hoge-compute/compute@1.0.0#shannon-score']);
+      postReturn0Async = WebAssembly.promising(exports0['cabi_post_etzhayyim:hoge-compute/compute@1.0.0#shannon-score']);
     } catch(err) {
-      postReturn0Async = exports0['cabi_post_gftd:hoge-compute/compute@1.0.0#shannon-score'];
+      postReturn0Async = exports0['cabi_post_etzhayyim:hoge-compute/compute@1.0.0#shannon-score'];
     }
-    
-    compute100ShannonScore = exports0['gftd:hoge-compute/compute@1.0.0#shannon-score'];
+
+    compute100ShannonScore = exports0['etzhayyim:hoge-compute/compute@1.0.0#shannon-score'];
     const compute100 = {
       shannonScore: shannonScore,
-      
+
     };
-    
-    return { compute: compute100, 'gftd:hoge-compute/compute@1.0.0': compute100,  };
+
+    return { compute: compute100, 'etzhayyim:hoge-compute/compute@1.0.0': compute100,  };
   })();
   let promise, resolve, reject;
   function runNext (value) {

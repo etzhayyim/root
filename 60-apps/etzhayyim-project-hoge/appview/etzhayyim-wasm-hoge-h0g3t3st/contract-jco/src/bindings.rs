@@ -4,7 +4,7 @@
 #[rustfmt::skip]
 #[allow(dead_code, clippy::all)]
 pub mod exports {
-    pub mod gftd {
+    pub mod etzhayyim {
         pub mod hoge_compute {
             #[allow(dead_code, async_fn_in_trait, unused_imports, clippy::all)]
             pub mod compute {
@@ -87,22 +87,22 @@ pub mod exports {
                     ) -> Result<_rt::String, _rt::String>;
                 }
                 #[doc(hidden)]
-                macro_rules! __export_gftd_hoge_compute_compute_1_0_0_cabi {
+                macro_rules! __export_etzhayyim_hoge_compute_compute_1_0_0_cabi {
                     ($ty:ident with_types_in $($path_to_types:tt)*) => {
                         const _ : () = { #[unsafe (export_name =
-                        "gftd:hoge-compute/compute@1.0.0#shannon-score")] unsafe extern
+                        "etzhayyim:hoge-compute/compute@1.0.0#shannon-score")] unsafe extern
                         "C" fn export_shannon_score(arg0 : * mut u8, arg1 : usize,) -> *
                         mut u8 { unsafe { $($path_to_types)*::
                         _export_shannon_score_cabi::<$ty > (arg0, arg1) } } #[unsafe
                         (export_name =
-                        "cabi_post_gftd:hoge-compute/compute@1.0.0#shannon-score")]
+                        "cabi_post_etzhayyim:hoge-compute/compute@1.0.0#shannon-score")]
                         unsafe extern "C" fn _post_return_shannon_score(arg0 : * mut u8,)
                         { unsafe { $($path_to_types)*:: __post_return_shannon_score::<$ty
                         > (arg0) } } };
                     };
                 }
                 #[doc(hidden)]
-                pub(crate) use __export_gftd_hoge_compute_compute_1_0_0_cabi;
+                pub(crate) use __export_etzhayyim_hoge_compute_compute_1_0_0_cabi;
                 #[cfg_attr(target_pointer_width = "64", repr(align(8)))]
                 #[cfg_attr(target_pointer_width = "32", repr(align(4)))]
                 struct _RetArea(
@@ -168,22 +168,22 @@ macro_rules! __export_compute_world_impl {
     };
     ($ty:ident with_types_in $($path_to_types_root:tt)*) => {
         $($path_to_types_root)*::
-        exports::gftd::hoge_compute::compute::__export_gftd_hoge_compute_compute_1_0_0_cabi!($ty
-        with_types_in $($path_to_types_root)*:: exports::gftd::hoge_compute::compute);
+        exports::etzhayyim::hoge_compute::compute::__export_etzhayyim_hoge_compute_compute_1_0_0_cabi!($ty
+        with_types_in $($path_to_types_root)*:: exports::etzhayyim::hoge_compute::compute);
     };
 }
 #[doc(inline)]
 pub(crate) use __export_compute_world_impl as export;
 #[cfg(target_arch = "wasm32")]
 #[unsafe(
-    link_section = "component-type:wit-bindgen:0.41.0:gftd:hoge-compute@1.0.0:compute-world:encoded world"
+    link_section = "component-type:wit-bindgen:0.41.0:etzhayyim:hoge-compute@1.0.0:compute-world:encoded world"
 )]
 #[doc(hidden)]
 #[allow(clippy::octal_escapes)]
 pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 255] = *b"\
 \0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07|\x01A\x02\x01A\x02\x01\
 B\x03\x01j\x01s\x01s\x01@\x01\x06paramss\0\0\x04\0\x0dshannon-score\x01\x01\x04\0\
-\x1fgftd:hoge-compute/compute@1.0.0\x05\0\x04\0%gftd:hoge-compute/compute-world@\
+\x1fetzhayyim:hoge-compute/compute@1.0.0\x05\0\x04\0%etzhayyim:hoge-compute/compute-world@\
 1.0.0\x04\0\x0b\x13\x01\0\x0dcompute-world\x03\0\0\0G\x09producers\x01\x0cproces\
 sed-by\x02\x0dwit-component\x070.227.1\x10wit-bindgen-rust\x060.41.0";
 #[inline(never)]
