@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_agri_food_security_flag_food_weaponization"
-    targetNamespace="https://gftd.ai/bpmn/open-agri-food-security"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-agri-food-security"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_agri_food_security_flag_food_weaponization" name="食料 兵器化 フラグ" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-agri-food-security.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-agri-food-security.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;bio.foodWeaponization&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: incidentVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_airplane_flag_airspace_violation"
-    targetNamespace="https://gftd.ai/bpmn/open-airplane"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-airplane"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_airplane_flag_airspace_violation" name="領空侵犯 フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-airplane.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-airplane.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;openAirplane.airspace.flagViolation&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: aircraftVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

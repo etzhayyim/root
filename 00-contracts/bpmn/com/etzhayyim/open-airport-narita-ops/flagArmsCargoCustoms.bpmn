@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_airport_narita_ops_flag_arms_cargo_customs"
-    targetNamespace="https://gftd.ai/bpmn/open-airport-narita-ops"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-airport-narita-ops"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_airport_narita_ops_flag_arms_cargo_customs" name="成田 武器貨物 通関" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-airport-narita-ops.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-airport-narita-ops.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;customs.armsCargo&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: cargoVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

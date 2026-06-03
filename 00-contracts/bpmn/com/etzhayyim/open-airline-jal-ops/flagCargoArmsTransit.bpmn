@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_airline_jal_ops_flag_cargo_arms_transit"
-    targetNamespace="https://gftd.ai/bpmn/open-airline-jal-ops"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-airline-jal-ops"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_airline_jal_ops_flag_cargo_arms_transit" name="JAL 貨物 武器輸送" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-airline-jal-ops.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-airline-jal-ops.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;cargo.armsTransit&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: wayBillId, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_antarctic_treaty_flag_antarctic_military"
-    targetNamespace="https://gftd.ai/bpmn/open-antarctic-treaty"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-antarctic-treaty"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_antarctic_treaty_flag_antarctic_military" name="南極条約違反" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-antarctic-treaty.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-antarctic-treaty.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;treaty.antarcticBreach&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: incidentVid, severity: &quot;critical&quot;}" target="payload"/>
         </zeebe:ioMapping>
