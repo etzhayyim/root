@@ -12790,6 +12790,23 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606032335-session-close-gftd-to-etzhayyim-contract-rename-sweep-batch106-pause",
+      "type": "TechArticle",
+      "title": "ADR-2606032335: Session close - gftd/yatachain rename sweep paused after contract path batch 106",
+      "status": "active",
+      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause",
+        "doc:adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause",
+        "doc:adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606033400-session-close-consensys-rw-free-migration-sweep",
       "type": "TechArticle",
       "title": "ADR-2606033400: Session close — Consensys rw-free migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",

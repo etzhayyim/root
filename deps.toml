@@ -1563,6 +1563,13 @@ status_note = "mitate-native new robotics class (8th by count, owned by mitate n
 path = "90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md"
 
 [[adrs]]
+id = "2606032335"
+title = "Session close - gftd/yatachain rename sweep paused after contract path batch 106"
+status = "active"
+status_note = "Progress ledger update requested 2026-06-03 after completing the 60-apps rename sweep and advancing contract path renames through batch 106. 60-apps path residue is 0 and non-Charter-Rider content residue is 0. Last pushed contract rename commit = ca9fb3d7a6; next contract path batch = 107; remaining repo path-level residue for gftd/GFTD/ai-gftd/yatachain/kotoba-datomic-projection.toml = 1033. Resume with <=48 moved files per batch, rewrite only just-moved destination files until path residue is zero, keep status under 50, preserve kotoba Datomic/EDN, do not create Kubernetes resources in the default namespace, and bypass only the locally broken e7m verify hook after other hooks pass."
+path = "90-docs/adr/2606032335-session-close-gftd-to-etzhayyim-contract-rename-sweep-batch106-pause.md"
+
+[[adrs]]
 id = "2606032212"
 title = "Session close — gftd/yatachain app rename sweep paused after news batch 320"
 status = "active"
