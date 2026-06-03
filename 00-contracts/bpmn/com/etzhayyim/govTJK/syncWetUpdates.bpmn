@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_tjk_sync_wet_updates"
-    targetNamespace="https://gftd.ai/bpmn/govTjk"
+    targetNamespace="https://etzhayyim.ai/bpmn/govTjk"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_tjk_sync_wet_updates" name="govTjk sync wet updates" isExecutable="true">

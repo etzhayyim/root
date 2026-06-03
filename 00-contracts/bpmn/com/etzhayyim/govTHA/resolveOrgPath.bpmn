@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_tha_resolve_org_path"
-    targetNamespace="https://gftd.ai/bpmn/govTha"
+    targetNamespace="https://etzhayyim.ai/bpmn/govTha"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_tha_resolve_org_path" name="govTha resolve org path" isExecutable="true">
