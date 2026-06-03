@@ -80,5 +80,5 @@ const got = await getJurisdiction(e, { iso3: "JPN" });
 
 - [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E decision matrix
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
-- [ipaddress rw-free](../../ai-gftd-project-ipaddress/rw-free/) — Option B sibling reference (2/37 commands)
-- [tsukuru rw-free](../../ai-gftd-project-tsukuru/rw-free/) — Option B full app (13/46 commands)
+- [ipaddress rw-free](../../etzhayyim-project-ipaddress/rw-free/) — Option B sibling reference (2/37 commands)
+- [tsukuru rw-free](../../etzhayyim-project-tsukuru/rw-free/) — Option B full app (13/46 commands)

@@ -6,8 +6,8 @@
  * with:
  *   e.write({ collection, record, rkey })
  *
- * Vendor reference: `60-apps/ai-gftd-project-hanrei/appview/
- *   ai-gftd-wasm-hanrei-jp-h4nr31jp/src/app.ts` (cmdGetJurisdiction +
+ * Vendor reference: `60-apps/etzhayyim-project-hanrei/appview/
+ *   etzhayyim-wasm-hanrei-jp-h4nr31jp/src/app.ts` (cmdGetJurisdiction +
  *   cmdListJurisdictions + cmdRegisterJurisdictions stubs).
  *
  * Scope: 3 reference commands of 31 total in vendor.

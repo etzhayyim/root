@@ -3,7 +3,7 @@
     "@vocab": "https://schema.org/"
   },
   "@type": "SoftwareApplication",
-  "name": "ai-gftd-project-hanrei",
+  "name": "etzhayyim-project-hanrei",
   "applicationCategory": "LegalTechApplication",
   "description": "Japanese case law, official gazette, and legislation intelligence platform (hanrei.etzhayyim.com). TS native App."
 }

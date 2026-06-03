@@ -1,4 +1,4 @@
-# ai-gftd-project-hanrei
+# etzhayyim-project-hanrei
 
 判例・官報・法令 intelligence platform (hanrei.etzhayyim.com)。
 
@@ -23,6 +23,6 @@ TS Native App — WASM 不使用、`@etzhayyim/magatama-host-sdk` + esbuild。
 ## Build & Deploy
 
 ```bash
-cd wasm/ai-gftd-wasm-hanrei-jp-h4nr31jp
-gftd deploy
+cd wasm/etzhayyim-wasm-hanrei-jp-h4nr31jp
+etzhayyim deploy
 ```

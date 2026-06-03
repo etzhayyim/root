@@ -18,7 +18,7 @@ CF Worker that exposes the 31 rw-free commands across 10 tiers as XRPC endpoints
 ## Setup
 
 ```bash
-cd 60-apps/ai-gftd-project-hanrei/xrpc-adapter
+cd 60-apps/etzhayyim-project-hanrei/xrpc-adapter
 npm install
 ```
 
