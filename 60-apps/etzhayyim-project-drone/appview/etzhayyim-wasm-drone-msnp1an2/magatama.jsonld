@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:drone.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:drone.etzhayyim.com",
   "accent": "#6366f1",
   "component": {
     "path": "component.wasm"
@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-drone-msnp1an2",
+  "name": "etzhayyim-wasm-drone-msnp1an2",
   "nanoid": "msnp1an2",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Drone — AI Agent",
     "displayName": "Drone",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "drone",
   "runtimeType": "worker",

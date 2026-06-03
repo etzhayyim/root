@@ -1,14 +1,14 @@
 {
   "@context": {
-    "gftd": "https://resources.gftd.ai/ai-gftd-project-resources/id/",
+    "etzhayyim": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.gftd.ai/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/DM2/"
   },
-  "@type": "gftd:Project",
-  "@id": "https://resources.gftd.ai/ai-gftd-project-drone/id/Project/ai-gftd-project-drone",
-  "schema:name": "ai-gftd-project-drone",
+  "@type": "etzhayyim:Project",
+  "@id": "https://resources.etzhayyim.com/etzhayyim-project-drone/id/Project/etzhayyim-project-drone",
+  "schema:name": "etzhayyim-project-drone",
   "schema:description": "Autonomous drone operation AI agent platform. Matrix protocol for command/video/telemetry, Connect gRPC for queries. MAVLink v2 integration via Native Go bridge.",
-  "schema:url": "https://drone.gftd.ai",
+  "schema:url": "https://drone.etzhayyim.com",
   "dodaf:capability": [
     {
       "@type": "dodaf:Capability",
@@ -40,12 +40,12 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "drone-main-component",
-      "schema:description": "SpinApp at dr0n3x8k.gftd.ai — UI + Connect gRPC Command/Query facade + Matrix event handling"
+      "schema:description": "SpinApp at dr0n3x8k.etzhayyim.com — UI + Connect gRPC Command/Query facade + Matrix event handling"
     },
     {
       "@type": "dodaf:Performer",
       "schema:name": "drone-mission-planner",
-      "schema:description": "SpinApp at msnp1an2.gftd.ai — AI mission planner with LLM Tool Use for autonomous flight planning"
+      "schema:description": "SpinApp at msnp1an2.etzhayyim.com — AI mission planner with LLM Tool Use for autonomous flight planning"
     },
     {
       "@type": "dodaf:Performer",

@@ -1,10 +1,10 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:drone.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:drone.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-drone agent. Drone — AI Agent for drone intelligence and analytics. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-drone agent. Drone — AI Agent for drone intelligence and analytics. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -18,7 +18,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-drone",
+  "name": "etzhayyim-wasm-drone",
   "nanoid": "dr0n3x8k",
   "performerType": "service",
   "profile": {
@@ -30,7 +30,7 @@
     "description": "Drone — AI Agent for drone intelligence and analytics",
     "displayName": "Drone",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "drone",
   "runtimeType": "worker",

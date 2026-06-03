@@ -1,16 +1,16 @@
-# ai-gftd-project-drone
+# etzhayyim-project-drone
 
 Autonomous drone operation AI agent platform (drone.etzhayyim.com). Matrix protocol for command/video/telemetry, XRPC for queries.
 
 ## Frontend UI
 
 - **UI**: Mobile-first 5 tab (Dashboard, Map, Mission, Log, Chat)
-- **UIKit**: `@gftdcojp/design-system` mandatory. Map overlay uses `Card`, `Badge`, `ActionSheet`
-- **Matrix UI**: Telemetry timeline + chat via `@gftdcojp/appshell/matrix`
+- **UIKit**: `@etzhayyimcojp/design-system` mandatory. Map overlay uses `Card`, `Badge`, `ActionSheet`
+- **Matrix UI**: Telemetry timeline + chat via `@etzhayyimcojp/appshell/matrix`
 
 ## CRITICAL: XRPC URL Pattern
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-drone-xrpc-url-pattern` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-drone-xrpc-url-pattern` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Architecture
 
@@ -24,8 +24,8 @@ Autonomous drone operation AI agent platform (drone.etzhayyim.com). Matrix proto
 
 | Component | Type | Purpose |
 |---|---|---|
-| `ai-gftd-wasm-drone-dr0n3x8k` | App | UI + Command/Query facade |
-| `ai-gftd-wasm-drone-msnp1an2` | App | Mission planner (LLM agent) |
+| `etzhayyim-wasm-drone-dr0n3x8k` | App | UI + Command/Query facade |
+| `etzhayyim-wasm-drone-msnp1an2` | App | Mission planner (LLM agent) |
 | `provider/drone-bridge` | Native Go | MAVLink, WebRTC, telemetry ingest |
 
 ## Matrix Protocol Integration

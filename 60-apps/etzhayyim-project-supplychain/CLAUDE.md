@@ -1,4 +1,4 @@
-# ai-gftd-project-supplychain — Cleaning Robot Manufacturing Supply Chain
+# etzhayyim-project-supplychain — Cleaning Robot Manufacturing Supply Chain
 
 > **Runtime**: K8s pod-side LangServer / MCP / LangGraph Pregel. Cloudflare edge is UI and proxy only.
 
@@ -97,9 +97,9 @@ Auth: `LG_SUPPLYCHAIN_API_KEY` env var. Unset = unauthenticated access allowed (
 
 ## K8s / Helm
 
-Helm release: `lg-supplychain-pool` in namespace `mitama-udf`  
-Chart: `50-infra/vultr/lg-supplychain-pool/`  
-Image: `ghcr.io/etzhayyim/lg-supplychain:0.1.0-amd64`  
+Helm release: `lg-supplychain-pool` in namespace `mitama-udf`
+Chart: `50-infra/vultr/lg-supplychain-pool/`
+Image: `ghcr.io/etzhayyim/lg-supplychain:0.1.0-amd64`
 Dockerfile: `20-actors/magatama/py/Dockerfile.supplychain`
 
 Build:

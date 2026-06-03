@@ -1,8 +1,8 @@
 {
   "@context": "https://schema.org/",
   "@type": "CreativeWork",
-  "name": "ai gftd project supplychain Scheduler",
-  "identifier": "ai-gftd-project-supplychain/scheduler",
+  "name": "etzhayyim project supplychain Scheduler",
+  "identifier": "etzhayyim-project-supplychain/scheduler",
   "description": "Initial milestones for the supply chain visualization SpinApp.",
   "dateCreated": "2026-03-13T00:00:00Z",
   "milestones": [
@@ -14,7 +14,7 @@
     {
       "@type": "DefinedTerm",
       "name": "Integrate resources supply-chain catalog",
-      "description": "Reference ai-gftd-project-resources content/supply-chain as the canonical model source."
+      "description": "Reference etzhayyim-project-resources content/supply-chain as the canonical model source."
     },
     {
       "@type": "DefinedTerm",

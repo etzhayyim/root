@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-drone-dr0n3x8k</h1>
+  <h1>etzhayyim-wasm-drone-dr0n3x8k</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

@@ -1,4 +1,4 @@
-# ai-gftd-project-ec: Ecommerce Design
+# etzhayyim-project-ec: Ecommerce Design
 
 Scope: a global storefront that can run standalone (own domain) while integrating with marketplaces and autonomous actors for procurement, listings, fulfillment, settlement, and support.
 
@@ -107,4 +107,3 @@ Actor-facing (internal):
 - PII minimization: store only what is needed for fulfillment and support.
 - Webhook verification and request signing for all inbound provider callbacks.
 - RBAC for admin; audit log for all changes affecting price/inventory/orders.
-
