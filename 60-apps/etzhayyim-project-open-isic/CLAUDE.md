@@ -1,4 +1,4 @@
-# ai-gftd-project-open-isic
+# etzhayyim-project-open-isic
 
 Industrial classification runtime for UN ISIC Rev.4.
 
@@ -10,7 +10,7 @@ Industrial classification runtime for UN ISIC Rev.4.
 - Static taxonomy: `data/classes/{4digit}.json`
 - Runtime pattern: LangServer + LangGraph (Pregel) + Explicit MCP Tools
 
-Standalone component runtime (WASM) and legacy Zeebe BPMN orchestration for `classifyEntity` are retired. The system now uses a fine-grained, LLM-implemented MCP tool for every single ISIC Rev.4 class. The retired Cloudflare Worker source is archived under `_archive/retired-cf-workers/adr-2604282300/60-apps/ai-gftd-project-open-isic/worker`.
+Standalone component runtime (WASM) and legacy Zeebe BPMN orchestration for `classifyEntity` are retired. The system now uses a fine-grained, LLM-implemented MCP tool for every single ISIC Rev.4 class. The retired Cloudflare Worker source is archived under `_archive/retired-cf-workers/adr-2604282300/60-apps/etzhayyim-project-open-isic/worker`.
 
 ## Coverage
 
@@ -76,10 +76,10 @@ Primary graph writes:
 
 | Link | Use |
 |---|---|
-| `ai-gftd-project-open-isco` | Occupation/labor mapping |
-| `ai-gftd-project-apqc` | Process classification alignment |
-| `ai-gftd-project-cpc` | Product/material concordance |
-| `ai-gftd-project-states` | Public administration and regulated entities |
+| `etzhayyim-project-open-isco` | Occupation/labor mapping |
+| `etzhayyim-project-apqc` | Process classification alignment |
+| `etzhayyim-project-cpc` | Product/material concordance |
+| `etzhayyim-project-states` | Public administration and regulated entities |
 
 ## Local Checks
 

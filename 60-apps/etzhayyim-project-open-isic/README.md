@@ -27,7 +27,7 @@ resolved from the code itself (`groupOf` / `divisionOf` / `sectionOf`).
 ## Runtime
 
 The Cloudflare Worker implementation has been retired to
-`_archive/retired-cf-workers/adr-2604282300/60-apps/ai-gftd-project-open-isic/worker`.
+`_archive/retired-cf-workers/adr-2604282300/60-apps/etzhayyim-project-open-isic/worker`.
 Active writes and classification workflows are owned by:
 
 - `00-contracts/bpmn/com/etzhayyim/open-isic`
