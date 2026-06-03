@@ -19901,7 +19901,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606032335-session-close-gftd-to-etzhayyim-contract-rename-sweep-batch106-pause.md",
+      "path": "90-docs/adr/2606032335-session-close-etzhayyim-rename-sweep-contract-batch106-pause.md",
       "id": "adr-2606032335-session-close-gftd-to-etzhayyim-contract-rename-sweep-batch106-pause",
       "title": "ADR-2606032335: Session close - gftd/yatachain rename sweep paused after contract path batch 106",
       "status": "active",
