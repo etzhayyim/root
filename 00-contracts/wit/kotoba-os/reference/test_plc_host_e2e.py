@@ -83,6 +83,12 @@ class PlcHostEndToEnd(unittest.TestCase):
         self.assertIn("MULTI OK", self.out)
         self.assertIn("MULTI control_facts=2 heartbeats=2", self.out)
 
+    def test_mesh_agent_source_chain_grows_monotonically(self):
+        # ADR §D5: the agent's source chain (local Datom segment) is append-only;
+        # 5 steps -> 5 heartbeats, growing by exactly one each step.
+        self.assertIn("CHAIN OK", self.out)
+        self.assertIn("CHAIN heartbeats=5 (monotone over 5 steps)", self.out)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

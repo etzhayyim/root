@@ -166,7 +166,40 @@ fn main() -> Result<()> {
     println!("E2E OK");
 
     fuel_demo(comp_path)?;
-    multi_actor_demo(comp_path, "../mesh-agent-guest/mesh-agent.component.wasm")?;
+    let mesh = "../mesh-agent-guest/mesh-agent.component.wasm";
+    multi_actor_demo(comp_path, mesh)?;
+    source_chain_demo(mesh)?;
+    Ok(())
+}
+
+/// ADR §D5: a mesh agent's source chain IS its local Datom-log segment —
+/// append-only, monotonically growing. Runs the real mesh-agent component for N
+/// steps and asserts each committed step appends exactly one heartbeat (the chain
+/// only ever grows; nothing is overwritten).
+fn source_chain_demo(comp_mesh: &str) -> Result<()> {
+    let engine = Engine::default();
+    let mesh = Component::from_file(&engine, comp_mesh)?;
+    let mut linker: Linker<HostState> = Linker::new(&engine);
+    MeshHost::add_to_linker(&mut linker, |s: &mut HostState| s)?;
+    let mut store = Store::new(&engine, HostState::default());
+    let agent = MeshHost::instantiate(&mut store, &mesh, &linker)?;
+
+    let mut prev = 0usize;
+    for step in 1..=5u64 {
+        agent.call_step(&mut store)?.map_err(|e| anyhow!("step: {e}"))?;
+        store.data_mut().commit(step);
+        let beats = store
+            .data()
+            .log
+            .iter()
+            .filter(|(_, _, a, _)| a == ":agent/heartbeat")
+            .count();
+        assert_eq!(beats, step as usize, "source chain must grow by 1 per step");
+        assert!(beats > prev, "source chain is append-only / monotone");
+        prev = beats;
+    }
+    println!("CHAIN heartbeats={prev} (monotone over 5 steps)");
+    println!("CHAIN OK");
     Ok(())
 }
 

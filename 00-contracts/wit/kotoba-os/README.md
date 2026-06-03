@@ -8,7 +8,7 @@
 ## Verify everything
 
 ```bash
-bash reference/run-all.sh        # WIT validate + Rust crate suite + Python suite
+bash reference/run-all.sh   # WIT + Rust suite + wasm32 browser-edge build + Python suite
 ```
 
 One command runs every check; stages whose tooling is absent are SKIPPED (not
@@ -21,13 +21,14 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 | ADR | Pillar | Artifact | Tests |
 |---|---|---|---|
 | D1 | boot manifest | `schemas/…-genesis-manifest.json` + Rust `GenesisManifest`/`validate()` | 3 py + (in 19 rust) |
-| D2 | userland | **3 real WASM components** `plc-control` + `mesh-agent` + `modbus-control` (capability-minimized) | 3+3+3 py |
+| D2 | userland | **4 real WASM components** plc-control + mesh-agent + modbus-control + device-coverage (all 8 device interfaces bind) | 3+3+3+2 py |
 | D3 | scan-cycle = Datom txn | `scan_cycle_model.py` + **wasmtime e2e** (control+fuel+N3+**multi-actor**) | 6 + 5 py |
 | D4 | k8s OCI-CID | `schemas/…-oci-artifact.json` (digest=CID decode invariant) | 8 py |
 | D5 | agent-centric mesh | `kotoba-os-types::mesh` (source chain + witness quorum + membrane) | 7 rust |
 | D6 | sizing budget | `sizing-budget.json` (estimates, honestly labeled) | 7 py |
 | —  | content addressing | `kotoba-os-types::cid` (real CIDv1 blake3 verify) | 6 rust |
 | —  | drift guard | `test_artifact_consistency.py` (WIT==schema==Rust) | 5 py |
+| —  | browser edge (L1c) | `kotoba-os-types` compiles to wasm32 (baien target) | run-all gate |
 
 ## What this is
 
@@ -205,7 +206,10 @@ authority** — its component imports only `kotoba:os/datom` (no `io-*`/`fieldbu
 3 toolchain-guarded tests. **Modbus controller** (`modbus-control-guest/`): the first component to exercise a
 `fieldbus-*` interface — tree-shakes to {io-analog, fieldbus-modbus, datom}, which is
 exactly what the hikari grid-edge manifest grants, so hikari authorizes a real built
-component (3 tests).
+component (3 tests). **Device-surface coverage** (`device-coverage-guest/`): a single component touching
+every kotoba:os device interface — its tree-shaken imports are all 8 (io-{digital,analog,
+gpio} + fieldbus-{modbus,opcua,ethercat,canopen} + datom), proving the whole WIT device
+surface binds to real WASM imports (2 tests; a completeness smoke test, not a controller).
 
 ## End-to-end host run (`reference/plc-host-runner/`)
 
