@@ -7,7 +7,7 @@
   certificateAnchorSweep picks queued rows up. Phase 2b2 = real
   on-chain submission via ethers/viem.
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/otakiage-anchor-certificate-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-anchor-certificate-v1
   NSID: com.etzhayyim.apps.otakiage.anchorCertificate
 -->
 <bpmn:definitions
@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_otakiage_anchor_certificate"
-    targetNamespace="https://gftd.ai/bpmn/otakiage"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="otakiage_anchor_certificate" name="otakiage anchorCertificate" isExecutable="true">
@@ -50,7 +50,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:otakiage.gftd.ai:ritual&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:ritual&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.anchorCertificate&quot;" target="nsid"/>
           <zeebe:input source="={ certificateUri: certificateUri, anchorStatus: anchorStatus, chain: chain, contentHash: contentHash }" target="payload"/>
         </zeebe:ioMapping>

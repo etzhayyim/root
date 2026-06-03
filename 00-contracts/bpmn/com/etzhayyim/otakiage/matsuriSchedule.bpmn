@@ -9,14 +9,14 @@
   Trigger: cron 0 0 0 1 * ? (UTC; 月初 00:00)
 
   NSID (informational): com.etzhayyim.apps.otakiage.matsuriSchedule
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/otakiage-matsuri-schedule-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/otakiage-matsuri-schedule-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_otakiage_matsuri_schedule"
-    targetNamespace="https://gftd.ai/bpmn/otakiage"
+    targetNamespace="https://etzhayyim.ai/bpmn/otakiage"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="otakiage_matsuri_schedule" name="otakiage matsuriSchedule" isExecutable="true">
@@ -49,7 +49,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:otakiage.gftd.ai:matsuri&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:otakiage.etzhayyim.com:matsuri&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.otakiage.matsuriSchedule&quot;" target="nsid"/>
           <zeebe:input source="={ seededCount: seededCount, skippedCount: skippedCount }" target="payload"/>
         </zeebe:ioMapping>

@@ -93,7 +93,7 @@
       <bpmn:outgoing>toSponsor</bpmn:outgoing>
     </bpmn:serviceTask>
 
-    <!-- Optional ads.gftd.ai sponsor slot -->
+    <!-- Optional ads.etzhayyim.com sponsor slot -->
     <bpmn:serviceTask id="CreateSponsorSlot" name="Create Sponsor Slot (optional)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="outreach.create_sponsor_slot" retries="2" />
