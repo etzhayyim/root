@@ -37,7 +37,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 31,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/zaf/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/zaf/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -73,7 +73,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/zaf/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/zaf/bpmn/executive.bpmn"
       },
       {
         "id": "zaf.paia",
