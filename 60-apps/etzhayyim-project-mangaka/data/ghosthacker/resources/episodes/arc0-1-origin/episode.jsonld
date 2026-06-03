@@ -1289,7 +1289,7 @@
               "gh:speaker": "Narration",
               "en": "廊下から、隣のD組の白瀬寧が、コメッコンのドーナツ袋を片手に、ずかずかと入ってきた。",
               "gh:mangaLayout": {
-                "$typeName": "gftd.ghosthacker.storyboard.v1.MangaText",
+                "$typeName": "etzhayyim.ghosthacker.storyboard.v1.MangaText",
                 "text": "廊下から、隣のD組の白瀬寧が、コメッコンのドーナツ袋を片手に、ずかずかと入ってきた。",
                 "type": "dialogue",
                 "x": 7.505197505197505,
@@ -54905,7 +54905,7 @@
               "gh:speaker": "Nei",
               "en": "ここに、藤崎くんのメールアドレス、入れてください",
               "gh:mangaLayout": {
-                "$typeName": "gftd.ghosthacker.storyboard.v1.MangaText",
+                "$typeName": "etzhayyim.ghosthacker.storyboard.v1.MangaText",
                 "text": "ここに、藤崎くんのメールアドレス、入れてください",
                 "type": "dialogue",
                 "x": 16.074766355140188,
@@ -55141,7 +55141,7 @@
               "gh:speaker": "Yuto",
               "en": "え、入れていいの？",
               "gh:mangaLayout": {
-                "$typeName": "gftd.ghosthacker.storyboard.v1.MangaText",
+                "$typeName": "etzhayyim.ghosthacker.storyboard.v1.MangaText",
                 "text": "え、入れていいの？",
                 "type": "dialogue",
                 "x": 14.355058218660215,
