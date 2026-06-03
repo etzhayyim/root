@@ -109,10 +109,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "aut"
    :gov.unit/name-en "Austria"
+   :gov.unit/official-url "https://www.oesterreich.gv.at/"
    :gov.unit/wikidata "Q40"
    :gov.unit/external-code ["iso3166-1-alpha3:AUT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q40" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.oesterreich.gv.at/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.aze"
@@ -264,10 +265,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "bol"
    :gov.unit/name-en "Bolivia"
+   :gov.unit/official-url "https://www.gob.bo/"
    :gov.unit/wikidata "Q750"
    :gov.unit/external-code ["iso3166-1-alpha3:BOL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q750" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gob.bo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.brb"
@@ -323,10 +325,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "caf"
    :gov.unit/name-en "Central African Republic"
+   :gov.unit/official-url "https://www.gouv.cf/"
    :gov.unit/wikidata "Q929"
    :gov.unit/external-code ["iso3166-1-alpha3:CAF"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q929" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gouv.cf/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.che"
@@ -382,10 +385,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Democratic Republic of the Congo"
+   :gov.unit/official-url "https://www.primature.gouv.cd/"
    :gov.unit/wikidata "Q974"
    :gov.unit/external-code ["iso3166-1-alpha3:COD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q974" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.primature.gouv.cd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cog"
@@ -549,10 +553,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Egypt"
+   :gov.unit/official-url "https://digital.gov.eg/"
    :gov.unit/wikidata "Q79"
    :gov.unit/external-code ["iso3166-1-alpha3:EGY"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q79" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://digital.gov.eg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.eri"
@@ -596,10 +601,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Ethiopia"
+   :gov.unit/official-url "https://www.pmo.gov.et/"
    :gov.unit/wikidata "Q115"
    :gov.unit/external-code ["iso3166-1-alpha3:ETH"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q115" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.pmo.gov.et/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fin"
@@ -655,10 +661,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Georgia"
+   :gov.unit/official-url "https://www.gov.ge/"
    :gov.unit/wikidata "Q230"
    :gov.unit/external-code ["iso3166-1-alpha3:GEO"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q230" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.ge/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gha"
@@ -690,10 +697,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "gmb"
    :gov.unit/name-en "The Gambia"
+   :gov.unit/official-url "https://gambia.gov.gm/"
    :gov.unit/wikidata "Q1005"
    :gov.unit/external-code ["iso3166-1-alpha3:GMB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1005" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gambia.gov.gm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gnb"
@@ -845,10 +853,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "irq"
    :gov.unit/name-en "Iraq"
+   :gov.unit/official-url "https://gds.gov.iq/"
    :gov.unit/wikidata "Q796"
    :gov.unit/external-code ["iso3166-1-alpha3:IRQ"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q796" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gds.gov.iq/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.isl"
@@ -892,10 +901,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "jor"
    :gov.unit/name-en "Jordan"
+   :gov.unit/official-url "https://jordan.gov.jo/"
    :gov.unit/wikidata "Q810"
    :gov.unit/external-code ["iso3166-1-alpha3:JOR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q810" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://jordan.gov.jo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz"
@@ -939,10 +949,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Cambodia"
+   :gov.unit/official-url "https://www.ocm.gov.kh/"
    :gov.unit/wikidata "Q424"
    :gov.unit/external-code ["iso3166-1-alpha3:KHM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q424" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.ocm.gov.kh/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kir"
@@ -998,10 +1009,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbn"
    :gov.unit/name-en "Lebanon"
+   :gov.unit/official-url "https://presidency.gov.lb/"
    :gov.unit/wikidata "Q822"
    :gov.unit/external-code ["iso3166-1-alpha3:LBN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q822" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://presidency.gov.lb/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lbr"
@@ -1009,10 +1021,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "lbr"
    :gov.unit/name-en "Liberia"
+   :gov.unit/official-url "https://www.emansion.gov.lr/"
    :gov.unit/wikidata "Q1014"
    :gov.unit/external-code ["iso3166-1-alpha3:LBR"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1014" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.emansion.gov.lr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lby"
@@ -1020,10 +1033,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "lby"
    :gov.unit/name-en "Libya"
+   :gov.unit/official-url "https://gnu.gov.ly/"
    :gov.unit/wikidata "Q1016"
    :gov.unit/external-code ["iso3166-1-alpha3:LBY"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1016" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://gnu.gov.ly/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lca"
@@ -1151,10 +1165,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "mdg"
    :gov.unit/name-en "Madagascar"
+   :gov.unit/official-url "https://www.primature.gov.mg/"
    :gov.unit/wikidata "Q1019"
    :gov.unit/external-code ["iso3166-1-alpha3:MDG"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1019" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.primature.gov.mg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mdv"
@@ -1174,10 +1189,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "mhl"
    :gov.unit/name-en "Marshall Islands"
+   :gov.unit/official-url "https://rmigov.com/"
    :gov.unit/wikidata "Q709"
    :gov.unit/external-code ["iso3166-1-alpha3:MHL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q709" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://rmigov.com/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mkd"
@@ -1269,10 +1285,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "mrt"
    :gov.unit/name-en "Mauritania"
+   :gov.unit/official-url "https://www.primature.gov.mr/"
    :gov.unit/wikidata "Q1025"
    :gov.unit/external-code ["iso3166-1-alpha3:MRT"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1025" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.primature.gov.mr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mus"
@@ -1328,10 +1345,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "ner"
    :gov.unit/name-en "Niger"
+   :gov.unit/official-url "https://www.gouv.ne/"
    :gov.unit/wikidata "Q1032"
    :gov.unit/external-code ["iso3166-1-alpha3:NER"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1032" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gouv.ne/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga"
@@ -1399,10 +1417,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "nru"
    :gov.unit/name-en "Nauru"
+   :gov.unit/official-url "https://www.nauru.gov.nr/"
    :gov.unit/wikidata "Q697"
    :gov.unit/external-code ["iso3166-1-alpha3:NRU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q697" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nauru.gov.nr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nzl"
@@ -1506,10 +1525,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "pol"
    :gov.unit/name-en "Poland"
+   :gov.unit/official-url "https://www.gov.pl/"
    :gov.unit/wikidata "Q36"
    :gov.unit/external-code ["iso3166-1-alpha3:POL"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q36" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.pl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.prk"
@@ -1517,10 +1537,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "prk"
    :gov.unit/name-en "North Korea"
+   :gov.unit/official-url "http://www.naenara.com.kp/"
    :gov.unit/wikidata "Q423"
    :gov.unit/external-code ["iso3166-1-alpha3:PRK"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q423" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.naenara.com.kp/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.prt"
@@ -1564,10 +1585,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "rou"
    :gov.unit/name-en "Romania"
+   :gov.unit/official-url "https://www.gov.ro/"
    :gov.unit/wikidata "Q218"
    :gov.unit/external-code ["iso3166-1-alpha3:ROU"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q218" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.ro/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rwa"
@@ -1671,10 +1693,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "som"
    :gov.unit/name-en "Somalia"
+   :gov.unit/official-url "https://www.somalia.gov.so/"
    :gov.unit/wikidata "Q1045"
    :gov.unit/external-code ["iso3166-1-alpha3:SOM"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1045" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.somalia.gov.so/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.srb"
@@ -1694,10 +1717,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "South Sudan"
+   :gov.unit/official-url "https://op.gov.ss/"
    :gov.unit/wikidata "Q958"
    :gov.unit/external-code ["iso3166-1-alpha3:SSD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q958" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://op.gov.ss/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.stp"
@@ -1800,10 +1824,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "tcd"
    :gov.unit/name-en "Chad"
+   :gov.unit/official-url "https://presidence.td/"
    :gov.unit/wikidata "Q657"
    :gov.unit/external-code ["iso3166-1-alpha3:TCD"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q657" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://presidence.td/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tgo"
@@ -1835,10 +1860,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "tjk"
    :gov.unit/name-en "Tajikistan"
+   :gov.unit/official-url "http://www.president.tj/"
    :gov.unit/wikidata "Q863"
    :gov.unit/external-code ["iso3166-1-alpha3:TJK"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q863" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.president.tj/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tkm"
@@ -1894,10 +1920,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Tunisia"
+   :gov.unit/official-url "https://www.tunisie.gov.tn/"
    :gov.unit/wikidata "Q948"
    :gov.unit/external-code ["iso3166-1-alpha3:TUN"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q948" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.tunisie.gov.tn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tuv"
@@ -1905,10 +1932,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "tuv"
    :gov.unit/name-en "Tuvalu"
+   :gov.unit/official-url "https://www.gov.tv/"
    :gov.unit/wikidata "Q672"
    :gov.unit/external-code ["iso3166-1-alpha3:TUV"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q672" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.gov.tv/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tza"
@@ -2048,10 +2076,11 @@
    :gov.unit/level :country :gov.unit/branch :executive
    :gov.unit/jurisdiction "zmb"
    :gov.unit/name-en "Zambia"
+   :gov.unit/official-url "https://www.zamportal.gov.zm/"
    :gov.unit/wikidata "Q953"
    :gov.unit/external-code ["iso3166-1-alpha3:ZMB"]
    :gov.unit/cofog ["01"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q953" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.zamportal.gov.zm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.zwe"

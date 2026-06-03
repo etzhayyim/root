@@ -43,6 +43,29 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — country official-portal URLs: 29 sovereign states web-verified (162 → 191/192)
+
+Coverage-depth pass on the country tier. `world_coverage.py` showed 30 of 192
+sovereign-state country units had no `:gov.unit/official-url` (only the Wikidata page
+as provenance). Fanned out 3 web-research subagents (10 countries each) to find and
+**confirm each state's OWN official central-government portal** by fetching it — never
+guessing. 29 confirmed and added; provenance switched from the Wikidata page to the
+body's own official URL (per the "source = each body's own url/document url" directive);
+`:last-verified` bumped to 2026-06-04.
+
+- 162 → **191/192** country units now carry an official-portal URL.
+- The one remaining null is **Syria (gov.syr)** — HONESTLY left without a URL: no
+  functioning central-government portal could be confirmed for the transitional
+  government (legacy egov.sy unreachable; only the MoFA is active). G5 over coverage-count.
+- Caveats recorded by the researchers (expired TLS on the legacy egypt.gov.eg → used
+  the reachable official digital.gov.eg; Libya's gnu.gov.ly is the genuine GNU domain
+  but still a placeholder; a few head-of-state portals bot-block automated fetch but
+  are live) — all on genuine official government TLDs.
+
+run_tests.sh ALL GREEN (16/16). Sourcing/verification tiers unchanged
+(`:authoritative` + `:maintainer-verified`); the published-index authoritative scope
+gate (check #5, JP backbone only) is untouched.
+
 ## 2026-06-04 — public index generator loads the FULL atlas (publish path E2E-validated)
 
 Third and final wiring fix (after the read client #1057 + ingest #1058): the public
