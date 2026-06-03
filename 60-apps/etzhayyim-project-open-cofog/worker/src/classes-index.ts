@@ -36,4 +36,4 @@ export const CLASSES: Record<string, CofogClass> = {
 };
 
 export const IMPLEMENTED_COUNT = Object.keys(CLASSES).length;
-export const TOTAL_CLASSES = 96; // ai-gftd-project-cofog actor count
+export const TOTAL_CLASSES = 96; // etzhayyim-project-cofog actor count

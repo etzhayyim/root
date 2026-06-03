@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-cofog — UN COFOG (Classification of the Functions of
+// etzhayyim-project-open-cofog — UN COFOG (Classification of the Functions of
 // Government, 1999/2014) open taxonomy.
 //
 // 4 XRPC methods under com.etzhayyim.apps.openCofog.*:

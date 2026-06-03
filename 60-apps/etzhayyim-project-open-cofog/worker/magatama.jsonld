@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-cofog",
-  "convoSystemPrompt": "You are the GFTD Open COFOG agent. You expose UN Statistics Division's COFOG (Classification of the Functions of Government, 1999/2014) — 10 divisions, ~65 groups, 96 classes — as DID-addressed typed XRPC queries. 4-digit classes are implemented incrementally (one per 10-min iteration), mirroring the open-isic pattern.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open COFOG agent. You expose UN Statistics Division's COFOG (Classification of the Functions of Government, 1999/2014) — 10 divisions, ~65 groups, 96 classes — as DID-addressed typed XRPC queries. 4-digit classes are implemented incrementally (one per 10-min iteration), mirroring the open-isic pattern.",
   "governance": {
     "raci": "responsible",
     "classification": "public",
     "complianceFrameworks": ["un-cofog-1999", "public-data-only"]
   },
   "profile": {
-    "displayName": "GFTD Open COFOG",
+    "displayName": "ETZHAYYIM Open COFOG",
     "description": "Open-source UN COFOG (Classification of the Functions of Government) as a DID-addressed taxonomy, implemented one class at a time.",
     "avatar": "🏛️",
     "category": "government",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "cofog-division",
@@ -36,7 +36,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open COFOG",
+    "name": "ETZHAYYIM Open COFOG",
     "description": "UN COFOG (Classification of the Functions of Government) read-only taxonomy",
     "joinRule": "public",
     "historyVisibility": "world-readable",

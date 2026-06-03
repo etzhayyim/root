@@ -41,7 +41,7 @@ export const DIVISIONS: Division[] = [
 ];
 
 // Groups are derived from the 96-class coverage in this monorepo
-// (matches ai-gftd-project-cofog/appview/* per-class actors).
+// (matches etzhayyim-project-cofog/appview/* per-class actors).
 export const GROUPS: Group[] = [
   // 01 General public services
   { code: "011", nameEn: "Executive and legislative organs, financial and fiscal affairs, external affairs", division: "01" },

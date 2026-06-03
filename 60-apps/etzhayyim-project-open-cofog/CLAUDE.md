@@ -20,7 +20,7 @@ Apache-2.0.
   - `com.etzhayyim.apps.openCofog.listGroups`
   - `com.etzhayyim.apps.openCofog.listClasses`
   - `com.etzhayyim.apps.openCofog.getClass`
-- **OSS repo**: `github.com/etzhayyim/ai-gftd-project-open-cofog` (Apache-2.0)
+- **OSS repo**: `github.com/etzhayyim/etzhayyim-project-open-cofog` (Apache-2.0)
 - **Cron**: `*/10 * * * *` for class-by-class implementation (`loop` session)
 
 ## COFOG hierarchy
@@ -55,10 +55,10 @@ Code packing: `{division XX}{group Y}{class Z}` → 4-digit `XXYZ`. Group code
 
 | Link | Use |
 |---|---|
-| `ai-gftd-project-cofog` | Per-class actor APP (96 actors). open-cofog provides the taxonomy lookup; `cofog` provides the live actors. |
-| `ai-gftd-project-open-isic` | Section O (Public administration) ↔ COFOG division 01 — government activity classified two ways (statistical vs functional). |
-| `ai-gftd-project-states` | Government organisations are tagged with the COFOG class(es) they fund / execute. |
-| `ai-gftd-project-open-isco` | Civil-servant occupations (ISCO) by COFOG function. |
+| `etzhayyim-project-cofog` | Per-class actor APP (96 actors). open-cofog provides the taxonomy lookup; `cofog` provides the live actors. |
+| `etzhayyim-project-open-isic` | Section O (Public administration) ↔ COFOG division 01 — government activity classified two ways (statistical vs functional). |
+| `etzhayyim-project-states` | Government organisations are tagged with the COFOG class(es) they fund / execute. |
+| `etzhayyim-project-open-isco` | Civil-servant occupations (ISCO) by COFOG function. |
 
 ## Layout
 
@@ -88,7 +88,7 @@ worker/wrangler.jsonc            CF Worker config (no D1)
 ## Local dev / deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-cofog/worker
+cd 60-apps/etzhayyim-project-open-cofog/worker
 wrangler dev --local                  # static, no D1 binding
 e7m actor deploy .   # standard monorepo deploy
 ```

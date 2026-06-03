@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Worker",
-  "project": "ai-gftd-project-open-cofog",
+  "project": "etzhayyim-project-open-cofog",
   "name": "worker",
   "kind": "worker",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-open-cofog/worker/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-open-cofog/worker/svelte/src/routes/+page.svelte"
 };
 </script>
 
