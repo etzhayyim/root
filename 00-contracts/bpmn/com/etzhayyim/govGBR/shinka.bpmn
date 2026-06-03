@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_gbr_shinka"
-    targetNamespace="https://gftd.ai/bpmn/govGbr"
+    targetNamespace="https://etzhayyim.ai/bpmn/govGbr"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_gbr_shinka" name="govGbr shinka" isExecutable="true">

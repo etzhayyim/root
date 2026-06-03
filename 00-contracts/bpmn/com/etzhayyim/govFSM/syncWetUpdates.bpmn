@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_gov_fsm_sync_wet_updates"
-    targetNamespace="https://gftd.ai/bpmn/govFsm"
+    targetNamespace="https://etzhayyim.ai/bpmn/govFsm"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_fsm_sync_wet_updates" name="govFsm sync wet updates" isExecutable="true">
