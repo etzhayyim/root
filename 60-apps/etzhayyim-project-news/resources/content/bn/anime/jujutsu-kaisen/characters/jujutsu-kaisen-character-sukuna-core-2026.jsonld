@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:jujutsu-kaisen-character-sukuna-core-2026",
+  "@id": "urn:etzhayyim:news:jujutsu-kaisen-character-sukuna-core-2026",
   "identifier": "jujutsu-kaisen-character-sukuna-core-2026",
   "headline": "Ryomen Sukuna character analysis: their role as the story’s engine in Jujutsu Kaisen",
   "description": "A focused look at Ryomen Sukuna in Jujutsu Kaisen, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

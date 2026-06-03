@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:jjk-shibuya-climax-2026",
+  "@id": "urn:etzhayyim:news:jjk-shibuya-climax-2026",
   "identifier": "jjk-shibuya-climax-2026",
   "headline": "『呪術廻戦』渋谷事変クライマックス分析：第47話「変身」に見るMAPPAの演出力と物語の転換点",
   "description": "アニメ『呪術廻戦』渋谷事変編の最終回・第47話を徹底分析。虎杖の絶望、宿儺の覚醒、そして物語が不可逆的に変化する瞬間をMAPPAの映像演出とともに解説する。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
