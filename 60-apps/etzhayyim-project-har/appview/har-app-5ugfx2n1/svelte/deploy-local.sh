@@ -3,10 +3,10 @@ set -e
 
 # Configuration
 REGISTRY="ghcr.io"
-IMAGE_NAME="ai-gftd-har"
+IMAGE_NAME="etzhayyim-har"
 PLATFORM="linux/amd64"
-BUILDER="${BUILDKIT_BUILDER:-gftd-vke}"
-CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:ai-gftd-har}"
+BUILDER="${BUILDKIT_BUILDER:-etzhayyim-vke}"
+CACHE_REF="${BUILDKIT_CACHE_REF:-ghcr.io/etzhayyim/build-cache:etzhayyim-har}"
 
 echo "🚀 Starting local build for ${IMAGE_NAME}..."
 

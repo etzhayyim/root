@@ -65,7 +65,7 @@
       "url": "/en/workspace"
     }
   ],
-  "identifier": "ai-gftd-har",
+  "identifier": "etzhayyim-har",
   "capability": [
     "cap:har:autonomous-workforce",
     "cap:har:escalation-management",

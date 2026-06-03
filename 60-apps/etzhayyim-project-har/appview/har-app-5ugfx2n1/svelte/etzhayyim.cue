@@ -1,11 +1,11 @@
-package gftd
+package etzhayyim
 
 project: #Project & {
 	nanoid: "har-001"
-	name:   "ai-gftd-har-\(nanoid)"
+	name:   "etzhayyim-har-\(nanoid)"
 	type:   "app"
 	app: {
-		domain:     "har.gftd.ai"
+		domain:     "har.etzhayyim.com"
 		framework:  "svelte"
 		output_dir: "build"
 	}
@@ -18,6 +18,6 @@ project: #Project & {
 	}
 	deploy: {
 		type:      "static"
-		namespace: "ai-gftd-har-prod"
+		namespace: "etzhayyim-har-prod"
 	}
 }

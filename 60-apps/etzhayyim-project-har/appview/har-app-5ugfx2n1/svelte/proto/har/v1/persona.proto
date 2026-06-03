@@ -4,7 +4,7 @@ package har.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/gftdcojp/ai-gftd-har/gen/go/har/v1;harv1";
+option go_package = "github.com/etzhayyim/etzhayyim-har/gen/go/har/v1;harv1";
 
 // Persona - AI + Human のハイブリッド・リソース定義
 message HybridPersona {

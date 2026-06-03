@@ -4,7 +4,7 @@
 ; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
 ;
 [subrepo]
-	remote = git@github.com:gftdcojp/ai-gftd-har.git
+	remote = git@github.com:etzhayyim/etzhayyim-har.git
 	branch = main
 	commit = dedc83122e7473650a04c23c7d984e333f348317
 	parent = b668d2ca21b9584519098874669f61b2f463eb6a

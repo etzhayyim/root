@@ -31,7 +31,7 @@
     "description": "Har App — AI Agent",
     "displayName": "Har App",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "har",
   "runtimeType": "worker",

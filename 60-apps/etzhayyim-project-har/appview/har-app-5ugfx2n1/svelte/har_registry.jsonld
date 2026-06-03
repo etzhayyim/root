@@ -13,7 +13,7 @@
       "type": "har:HybridPersona",
       "name": "Legal Reviewer HAR",
       "description": "AI Legal Reviewer with Human Gaiben Counsel backup.",
-      "aiActor": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-11-0-legal-bmde7ez5",
+      "aiActor": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-11-0-legal-bmde7ez5",
       "humanBackupRole": "psn:isco-2421",
       "apqcProcess": "apqc:11.0",
       "capabilities": [
@@ -26,7 +26,7 @@
       "type": "har:HybridPersona",
       "name": "Financial Manager HAR",
       "description": "AI Financial Core with Human Financial Manager backup.",
-      "aiActor": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-9-4-1-financial-core",
+      "aiActor": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-9-4-1-financial-core",
       "humanBackupRole": "psn:isco-1211",
       "apqcProcess": "apqc:9.4.1",
       "capabilities": [
@@ -38,7 +38,7 @@
       "type": "har:HybridPersona",
       "name": "Talent Acquisition HAR",
       "description": "AI Recruiting Screener with Human Talent Manager backup.",
-      "aiActor": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-apqc-7-1-recruiting-rw4vwf4j",
+      "aiActor": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-apqc-7-1-recruiting-rw4vwf4j",
       "humanBackupRole": "psn:isco-1212",
       "apqcProcess": "apqc:7.1",
       "capabilities": [
@@ -51,7 +51,7 @@
       "type": "har:HybridPersona",
       "name": "IAM Admin HAR",
       "description": "AI Auth IAM with Human IAM Administrator backup.",
-      "aiActor": "ai-gftd-performer-sys-gftd-actors-pba7d22f-sys-cpc-8424-auth-iam-wdqaj4pp",
+      "aiActor": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-sys-cpc-8424-auth-iam-wdqaj4pp",
       "humanBackupRole": "psn:isco-2511",
       "apqcProcess": "apqc:8.2",
       "capabilities": [
@@ -63,7 +63,7 @@
       "type": "har:HybridPersona",
       "name": "Translator HAR",
       "description": "AI Translator Actor with Human Translator backup.",
-      "aiActor": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-2643-translator",
+      "aiActor": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-psn-isco-2643-translator",
       "humanBackupRole": "psn:isco-2643",
       "apqcProcess": "apqc:12.6.2",
       "capabilities": [
@@ -75,7 +75,7 @@
       "type": "har:HybridPersona",
       "name": "Executive Assistant HAR",
       "description": "AI Mailer/Scheduler with Human Office Clerk backup.",
-      "aiActor": "ai-gftd-performer-sys-gftd-actors-pba7d22f-psn-isco-4120-mailer-gjdqvee4",
+      "aiActor": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-psn-isco-4120-mailer-gjdqvee4",
       "humanBackupRole": "psn:isco-4120",
       "apqcProcess": "apqc:12.3.1",
       "capabilities": [

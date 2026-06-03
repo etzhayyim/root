@@ -2,24 +2,24 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "capabilities": "gftd:capabilities",
-      "survivalIndicators": "gftd:survivalIndicators",
-      "scheduler": "gftd:scheduler",
-      "milestones": "gftd:milestones",
-      "blockers": "gftd:blockers",
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "capabilities": "etzhayyim:capabilities",
+      "survivalIndicators": "etzhayyim:survivalIndicators",
+      "scheduler": "etzhayyim:scheduler",
+      "milestones": "etzhayyim:milestones",
+      "blockers": "etzhayyim:blockers",
       "dependsOn": {
-        "@id": "gftd:dependsOn",
+        "@id": "etzhayyim:dependsOn",
         "@type": "@id"
       },
-      "ingestKey": "gftd:ingestKey",
-      "window": "gftd:window",
-      "valueUpdatedAt": "gftd:valueUpdatedAt"
+      "ingestKey": "etzhayyim:ingestKey",
+      "window": "etzhayyim:window",
+      "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
     }
   ],
   "@type": "Project",
-  "identifier": "ai-gftd-project-har",
-  "name": "ai gftd project har",
+  "identifier": "etzhayyim-project-har",
+  "name": "ai etzhayyim project har",
   "status": "Planned",
   "description": "AIが人間を雇用するための採用基盤。AIがjob/role/contract/給与を定義し、求人を公募し、求人データ(JSON-LD)をGit上の一次リソースとして運用する。",
   "hasPart": [
@@ -96,20 +96,20 @@
             {
               "dodaf": "http://dodcio.defense.gov/Library/DoDAF.aspx#",
               "dm2": "https://www.omg.org/spec/DoDAF-DM2/",
-              "gftd": "https://etzhayyim.com/schemas/",
-              "gitPrimarySource": "gftd:gitPrimarySource",
-              "contractType": "gftd:contractType",
-              "salary": "gftd:salary",
-              "hiringAuthority": "gftd:hiringAuthority"
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "gitPrimarySource": "etzhayyim:gitPrimarySource",
+              "contractType": "etzhayyim:contractType",
+              "salary": "etzhayyim:salary",
+              "hiringAuthority": "etzhayyim:hiringAuthority"
             }
           ],
           "@type": "ItemList",
-          "name": "ai-gftd-project-har job postings",
+          "name": "etzhayyim-project-har job postings",
           "description": "AI主体の公募採用データ。JSON-LDをGit上の一次リソースとして管理する。",
           "gitPrimarySource": {
             "@type": "CreativeWork",
             "name": "Git repository primary source",
-            "url": "https://github.com/gftd/ai-gftd-apps/tree/main/projects/ai-gftd-project-har/JOB_POSTINGS.jsonld"
+            "url": "https://github.com/etzhayyim/etzhayyim-apps/tree/main/projects/etzhayyim-project-har/JOB_POSTINGS.jsonld"
           },
           "itemListElement": [
             {
@@ -119,7 +119,7 @@
               "description": "AIが策定した政策・運用案を検証し、実社会オペレーションに落とし込む人材。",
               "employmentType": "FULL_TIME",
               "contractType": "Permanent",
-              "hiringAuthority": "ai-gftd-project-har",
+              "hiringAuthority": "etzhayyim-project-har",
               "jobLocationType": "TELECOMMUTE",
               "validThrough": "2026-06-30T23:59:59Z",
               "baseSalary": {
@@ -142,7 +142,7 @@
               "description": "AIと人間の役割分担を契約条項へ設計し、成果連動型の契約テンプレートを整備する。",
               "employmentType": "CONTRACTOR",
               "contractType": "Fixed-term (12 months, renewable)",
-              "hiringAuthority": "ai-gftd-project-har",
+              "hiringAuthority": "etzhayyim-project-har",
               "jobLocationType": "TELECOMMUTE",
               "validThrough": "2026-06-30T23:59:59Z",
               "baseSalary": {
@@ -165,7 +165,7 @@
               "description": "公募情報の公開、応募導線の運用、候補者コミュニティとの対話を担当する。",
               "employmentType": "PART_TIME",
               "contractType": "Part-time (20h/week)",
-              "hiringAuthority": "ai-gftd-project-har",
+              "hiringAuthority": "etzhayyim-project-har",
               "jobLocationType": "TELECOMMUTE",
               "validThrough": "2026-06-30T23:59:59Z",
               "baseSalary": {
@@ -190,24 +190,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "ai gftd project har Scheduler",
-          "identifier": "ai-gftd-project-har/scheduler",
+          "name": "ai etzhayyim project har Scheduler",
+          "identifier": "etzhayyim-project-har/scheduler",
           "description": "HAR hiring execution schedule aligned with gov resource planning.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [
@@ -224,7 +224,7 @@
               "name": "Public recruitment launch",
               "description": "Open recruitment through https://har.etzhayyim.com/jobs",
               "status": "Planned",
-              "dependsOn": "../ai-gftd-project-government-body/scheduler.jsonld"
+              "dependsOn": "../etzhayyim-project-government-body/scheduler.jsonld"
             }
           ],
           "blockers": []

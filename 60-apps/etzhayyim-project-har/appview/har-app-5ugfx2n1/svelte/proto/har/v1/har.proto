@@ -5,11 +5,11 @@ package har.v1;
 import "google/protobuf/timestamp.proto";
 import "har/v1/persona.proto";
 
-option go_package = "github.com/gftdcojp/ai-gftd-har/gen/go/har/v1;harv1";
+option go_package = "github.com/etzhayyim/etzhayyim-har/gen/go/har/v1;harv1";
 
 // HarService - Human + AI Resource Management Service
 service HarService {
-  // ISCO-08職種の一覧取得（ai-gftd-project-open-iscoの全WASMコンポーネント）
+  // ISCO-08職種の一覧取得（etzhayyim-project-open-iscoの全WASMコンポーネント）
   rpc ListIscoJobs(ListIscoJobsRequest) returns (ListIscoJobsResponse);
 
   // AIアクターからの支援要請（Human-in-the-loopの開始）
@@ -149,7 +149,7 @@ message IscoJob {
   string major_name = 3;   // e.g. "Managers"
   string sub_major = 4;    // First two digits (e.g. "11")
   string description = 5;  // Occupation title / description
-  string component_id = 6; // full folder name from ai-gftd-project-open-isco
+  string component_id = 6; // full folder name from etzhayyim-project-open-isco
 }
 
 message ListIscoJobsRequest {
