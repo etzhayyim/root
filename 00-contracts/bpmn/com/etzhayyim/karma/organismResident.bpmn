@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — resident organism heartbeat (R/PT15M).
+  karma.etzhayyim.com — resident organism heartbeat (R/PT15M).
 
   Per-tick supervisor. For each alive organism in vertex_organism_runtime,
   call karma.organism.tick. Tick performs Pregel BFS + observation
@@ -13,7 +13,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_organism_resident"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_organism_resident" name="karma organism resident heartbeat" isExecutable="true">
@@ -65,7 +65,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.organismResident&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;ticked&quot;: ticked, &quot;observations&quot;: observations }" target="attributes"/>
         </zeebe:ioMapping>

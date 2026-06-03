@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — dissolve organism pattern (XRPC entry).
+  karma.etzhayyim.com — dissolve organism pattern (XRPC entry).
 
   Symmetric across individual / collective organism (Karma.lean N4
   organism_kind_symmetry). Sets dissolved_at; existing edges persist
@@ -11,7 +11,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_dissolve_organism"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_dissolve_organism" name="karma dissolve organism" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.dissolveOrganism&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;did&quot;: did, &quot;dissolutionKind&quot;: dissolutionKind, &quot;edgesPersisting&quot;: edgesPersisting }" target="attributes"/>
         </zeebe:ioMapping>

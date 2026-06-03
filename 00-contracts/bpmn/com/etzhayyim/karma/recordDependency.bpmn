@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  karma.gftd.ai — record karma dependency edge (XRPC entry).
+  karma.etzhayyim.com — record karma dependency edge (XRPC entry).
 
   Pipeline:
     1. karma.input.validate          input shape + tier vs Floor preconditions
@@ -19,7 +19,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_karma_record_dependency"
-    targetNamespace="https://gftd.ai/bpmn/karma"
+    targetNamespace="https://etzhayyim.ai/bpmn/karma"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="karma_record_dependency" name="karma record dependency" isExecutable="true">
@@ -117,7 +117,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.recordDependency&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;edgeId&quot;: edgeId, &quot;axis&quot;: axis, &quot;tier&quot;: resolvedTier, &quot;direction&quot;: direction, &quot;signedWeight&quot;: signedWeight }" target="attributes"/>
         </zeebe:ioMapping>
@@ -131,7 +131,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:karma.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:karma.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.karma.recordDependency.reject&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;sourceDid&quot;: sourceDid, &quot;axis&quot;: axis, &quot;tier&quot;: tier, &quot;direction&quot;: direction, &quot;reason&quot;: rejectedReason }" target="attributes"/>
         </zeebe:ioMapping>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_kenkyusha_coverage_map" targetNamespace="https://gftd.ai/bpmn/kenkyusha">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_kenkyusha_coverage_map" targetNamespace="https://etzhayyim.ai/bpmn/kenkyusha">
   <bpmn:process id="kenkyusha_coverage_map" name="kenkyusha.coverageMap" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Task</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_Start_Task" sourceRef="Start" targetRef="Task_coverageMap" />
