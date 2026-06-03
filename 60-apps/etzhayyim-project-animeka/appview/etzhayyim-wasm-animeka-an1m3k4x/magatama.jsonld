@@ -7,7 +7,7 @@
     },
     "path": "src/app.ts"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-animeka agent. Team-based anime creation platform powered by KAMI Engine X-sheet timeline — help users produce anime episodes across the full 12-stage pipeline (script → storyboard → layout → key animation → in-between → color design → finish → background → composite → edit → sound → delivery). Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-animeka agent. Team-based anime creation platform powered by KAMI Engine X-sheet timeline — help users produce anime episodes across the full 12-stage pipeline (script → storyboard → layout → key animation → in-between → color design → finish → background → composite → edit → sound → delivery). Respond helpfully in the users language.",
   "deploy": {},
   "duties": ["勤労の義務"],
   "governance": {
@@ -16,7 +16,7 @@
     "complianceFrameworks": ["animeka-policy"]
   },
   "kpi": ["credits の獲得"],
-  "name": "ai-gftd-wasm-animeka",
+  "name": "etzhayyim-wasm-animeka",
   "nanoid": "an1m3k4x",
   "performerType": "service",
   "profile": {

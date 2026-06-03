@@ -1,4 +1,4 @@
-# ai-gftd-project-animeka — animeka.etzhayyim.com
+# etzhayyim-project-animeka — animeka.etzhayyim.com
 
 **Team-based anime creation appview** — KAMI Engine canvas + X-sheet timeline で、原作 → 脚本 → 絵コンテ → レイアウト → 原画 → 動画 → 色指定 → 仕上げ(色トレス) → 背景 → 撮影 → 編集 → 音響 の 12 工程を 1 project で並走させる。`mangaka` (manga) の anime 版 — atom は `page/panel` ではなく **`cut` (ショット)**。
 
@@ -110,7 +110,7 @@ Build + deploy:
 ```bash
 cd 40-engine/kami-engine
 wasm-pack build kami-app-animeka-timeline --target web --release
-APP=60-apps/ai-gftd-project-animeka/appview/ai-gftd-wasm-animeka-an1m3k4x
+APP=60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x
 mkdir -p $APP/svelte/static/timeline-v1
 cp kami-app-animeka-timeline/pkg/* $APP/svelte/static/timeline-v1/
 ```
@@ -178,10 +178,10 @@ retake comment は `#t={frame}f` fragment で frame pin。
 ## File Structure `[PLANNED]`
 
 ```
-60-apps/ai-gftd-project-animeka/
+60-apps/etzhayyim-project-animeka/
 ├── CLAUDE.md
 ├── appview/
-│   └── ai-gftd-wasm-animeka-an1m3k4x/
+│   └── etzhayyim-wasm-animeka-an1m3k4x/
 │       ├── magatama.jsonld          # triggers + derive rules + profile
 │       ├── wrangler.jsonc
 │       ├── package.json
@@ -194,7 +194,7 @@ Lexicon JSON: `00-contracts/lexicons/com/etzhayyim/apps/animeka/*.json`
 
 ## Cinematic Pipeline (kami-cine)
 
-animeka uses the **撮影 (compositor) ↔ kami-cine pipeline** bridge. Genga / douga / iro-shitei (stages 5-8 of the 12-step anime workflow) hand off to the 8-stage neural pipeline (`gftd:kami-cine@1.0.0`, `40-engine/kami-engine/wit/cine/package.wit`) — shared with mangaka and dogaka — to deliver 3DCG cuts, full-CG episodes, and final composite-quality EXR/mp4.
+animeka uses the **撮影 (compositor) ↔ kami-cine pipeline** bridge. Genga / douga / iro-shitei (stages 5-8 of the 12-step anime workflow) hand off to the 8-stage neural pipeline (`etzhayyim:kami-cine@1.0.0`, `40-engine/kami-engine/wit/cine/package.wit`) — shared with mangaka and dogaka — to deliver 3DCG cuts, full-CG episodes, and final composite-quality EXR/mp4.
 
 | Anime 工程 | kami-cine bridge | Stages |
 |---|---|---|

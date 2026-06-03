@@ -84,7 +84,7 @@
         animeka v9 — USD scene → camera keyframe (TU/PAN/TB/TILT/ZOOM) →
         ControlNet × 3 → keyframe render → inbetween interpolation →
         composite cut. 16-node AnimekaUSDScene pack
-        (<a href="https://github.com/gftdcojp/ai-gftd-apps-gftdcojp/blob/main/90-docs/adr/2605222000-animeka-usd-cinematic-pipeline.md" target="_blank" rel="noopener">ADR-2605222000</a>).
+        (<a href="https://github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/blob/main/90-docs/adr/2605222000-animeka-usd-cinematic-pipeline.md" target="_blank" rel="noopener">ADR-2605222000</a>).
       </p>
     </div>
   {:else if loading}
