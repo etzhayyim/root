@@ -12786,6 +12786,24 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606035000",
+      "type": "TechArticle",
+      "title": "Session close — labor-liberation OSS-robotics actor wave + Displacement Dividend + concurrent-tree recovery",
+      "status": "active",
+      "topic": "session-close-labor-liberation-robotics-wave",
+      "authoritative": true,
+      "authoritativeFor": [
+        "session-close record for the labor-liberation robotics-actor wave (2026-06-03)"
+      ],
+      "related": [
+        "doc:adr-2606032100",
+        "doc:adr-2606032130",
+        "doc:adr-2605173100",
+        "doc:adr-2605172000"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606034800-manako-browser-local-yolo26-object-detection",
       "type": "TechArticle",
       "title": "ADR-2606034800: manako 眼 — browser-local YOLO26 object detection (WebGPU/wasm)",

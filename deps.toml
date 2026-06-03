@@ -9553,6 +9553,58 @@ status_note = "First-party end-user app (tool, NOT a Tier-B religious-corp actor
 path = "90-docs/adr/2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor.md"
 adr = ["2606033600", "2606014500", "2606013800", "2605192200", "2605262130", "2605231525", "2605215000"]
 
+# ─── Labor-liberation OSS-robotics actor wave + Displacement Dividend (2026-06-03) ───
+[[adrs]]
+id = "2606032100"
+title = "Labor-Liberation Robotics-Actor Wave — ISIC/ISCO/UNSPSC ranking of the un-automated toil + sanae/hataori/kiyome R0"
+status = "proposed"
+status_note = "Answers 'which un-automated toil, made OSS+robotics, most advances 人類の構造的労働解放, ranked by ISIC/ISCO/UNSPSC'. The robotics gap maps almost entirely onto ISCO major groups 6-9 (skilled agricultural / craft trades / machine operators-assemblers / elementary occupations); ISCO 1-4 is already software-liberated by the concierge/intel actors. Liberation Priority Score LPS = headcount × misery × automatability × charter_fit × coverage_gap (computed in 20-actors/sanae/methods/labor_liberation.py, ranked_seed(), :representative). Opens the top-3 zero-coverage / highest-misery actors at R0 — sanae 早苗 (field agriculture, A01/6111,9211/70, LPS #1, the robotics body of mitsuho's L2-Sustenance), hataori 機織 (garment, C13-14/7531/53, #2, to END the sweatshop), kiyome 清め (domestic/janitorial cleaning, T,N81/9112/76, #3, privacy-by-construction) — and roadmaps #4-#12 (kamado/kuramori/hofuri/soma/ama/susugi). Each actor follows the funadaiku R0 pattern (cells .solve()->RuntimeError; :representative seed; Murakumo-only) and ships one coded reference cell enforcing its defining gate in executable code. DEFINING wave invariant = G2 displacement-dividend coupling: no actor may displace human labour live without the displaced cohort registered for the tenure-weighted Displacement Dividend (ADR-2606032130) — robotics-without-redistribution is a constitutional violation of the labour-liberation mission. Tests 39/39 (LPS 7 + sanae weeding 5 + hataori finishing 6 + kiyome cleaning 7 + dividend allocator 10 + cross-actor lexicon-const conformance 4). HONEST R0: no hardware; headcount figures order-of-magnitude; seam-level garment + unstructured open-field manipulation unsolved at scale industry-wide (nuidono/kuriya :research maturity); live deployment Council Lv6+ + operator gated (G7) AND dividend-coupled (G2)."
+path = "90-docs/adr/2606032100-labor-liberation-robotics-actor-wave-isic-isco-unspsc-ranking.md"
+adr = ["2606032100", "2606032130", "2605192100", "2605261000", "2605301020", "2605301036", "2606013400", "2605215000"]
+
+[[adrs]]
+id = "2606032130"
+title = "Displacement Dividend — tenure-weighted (勤続年数) in-kind Basic High Income for workers freed by etzhayyim OSS-robotics"
+status = "proposed"
+status_note = "The redistribution half of ADR-2606032100. Designs, as a Public-Fund mechanism, an income distributed to displaced workers weighted by years of service (勤続年数) WITHOUT breaking four immutable invariants: cash≡0 for adherents (N1), no-payroll, donation-only inflow, adherent-gated-but-universally-admissible benefit. Resolution: 'income' = tenure-weighted Basic High Income (imputed income + commons-asset access, ADR-2605301020), delivered IN-KIND through the Liberation Ladder, NEVER cash. Formula w_i = ln(1+min(tenure_years,40)) × hazard_i (hazard ∈ [1.0,2.0]); share_i = w_i/Σw_j governs onboarding-priority rank within a stage capacity cap + an imputed-income transition floor min(prior_imputed, stage_ceiling) × clamp(1−t/5yr,0,1) — never a cash split. ln(1+·) compresses the gradient (40y veteran ≈ ~2× a 5y worker, not 8×) so tenure is honoured without a per-person income leaderboard (N6). Funded by the displacing actor's OWN surplus → donation → TitheRouter (90% earmark displacement-dividend + 10% tithe) → per-cohort Public-Fund earmark, sized via Public-Fund governance (1 SBT=1 vote / 48h timelock, ADR-2605192145). Conversion-gated (§1.16 covenantal-universal; full dividend on the triple-permanent vow, ADR-2605302357). cashStipendUsdMicros is a const-0 field = on-chain proof N1 holds. Artifacts: give.displacementTenureAttestation lexicon (cash field const 0), DisplacementDividend.sol (R0 revert-stub + payoutToSubject tripwire → always reverts), public-fund/displacement/allocate.py reference allocator (10/10 tests). ZERO invariant amendments. HONEST R0: no live disbursement; informal-sector tenure attestation unsolved (R1); hazard table + prior-livelihood valuation Council-attested at R1."
+path = "90-docs/adr/2606032130-displacement-dividend-tenure-weighted-basic-high-income.md"
+adr = ["2606032130", "2606032100", "2605192145", "2605192130", "2605261000", "2605301020", "2605301036", "2605302357", "2605181100"]
+
+[[modules]]
+path = "20-actors/sanae/"
+adr = "ADR-2606032100"
+kind = "tier-b-actor"
+status = "r0"
+description = "sanae 早苗 — labor-liberation OSS-robotics #1: field-agriculture robotics (sow/weed/harvest), the robotics body of mitsuho's L2-Sustenance mandate. ISIC A01 / ISCO 6111,9211 / UNSPSC 70 — the single largest pool of human toil on Earth (~27% of world employment). DID did:web:etzhayyim.com:actor:sanae. Fleet 早乙女/草薙(coded herbicide-free weeder)/稲架/案山子/田螺. 5 cells (.solve()->RuntimeError) + 5 lex + LPS method (7/7) + weeding state-machine (5/5). G9 regenerative-only (no synthetic pesticide/herbicide, net soil-carbon≥0, seed sovereignty) · G2 displacement-dividend coupling. R0 design-only; field deploy Council+operator gated."
+
+[[modules]]
+path = "20-actors/hataori/"
+adr = "ADR-2606032100"
+kind = "tier-b-actor"
+status = "r0"
+description = "hataori 機織 — labor-liberation OSS-robotics #2: garment/apparel robotics (cut-make-trim) to END the sweatshop, not out-compete it. ISIC C13-14 / ISCO 7531,8219 / UNSPSC 53 (~65M workers, overwhelmingly women, wage-theft/disaster-prone). DID did:web:etzhayyim.com:actor:hataori. Fleet 裁/栲幡/縫殿(seam-manip, honest :research)/検針/畳. 5 cells (finishing_packing coded, 6/6) + 5 lex. G9 fair-labor-provenance (no displaced worker re-employed below Basic-High-Income standard) · G8 honesty (robotic sewing of limp fabric unsolved at scale) · G2 dividend coupling. R0 design-only."
+
+[[modules]]
+path = "20-actors/kiyome/"
+adr = "ADR-2606032100"
+kind = "tier-b-actor"
+status = "r0"
+description = "kiyome 清め — labor-liberation OSS-robotics #3: domestic/janitorial cleaning robotics, frees the most invisible/gendered/dignity-poor labour. ISIC T,N81 / ISCO 9111,9112 / UNSPSC 76 (~75M domestic + tens of M cleaners). DID did:web:etzhayyim.com:actor:kiyome. Fleet 箒/拭/厨/塵取(→haraedo)/濯(seeds susugi #12). 5 cells (surface_cleaning coded, 7/7) + 5 lex. G9 privacy-by-construction (homes: on-device only, NO cloud imagery/surveillance/biometric — const invariants in lexicons; the cleaner robot is the opposite of a spy) · G2 dividend coupling. R0 design-only."
+
+[[modules]]
+path = "50-infra/etzhayyim-public-fund/displacement/"
+adr = "ADR-2606032130"
+kind = "public-fund-module"
+status = "r0"
+description = "Displacement Dividend — tenure-weighted in-kind Basic-High-Income transition for workers freed by etzhayyim OSS-robotics. allocate.py reference allocator (w=ln(1+min(tenure,40))×hazard; share governs onboarding priority + stage-capped 5y-decay transition floor; cash≡0; 10/10 tests) + DisplacementDividend.sol (R0 revert-stub + payoutToSubject tripwire) + give.displacementTenureAttestation lexicon (cash field const 0). Funded by displacing-actor surplus→donation→TitheRouter→per-cohort Public-Fund earmark; conversion-gated; Public-Fund vote. Couples to the robotics wave via the G2 gate. ZERO invariant amendments."
+
+[[adrs]]
+id = "2606035000"
+title = "Session close — labor-liberation OSS-robotics actor wave + Displacement Dividend + concurrent-tree recovery"
+status = "active"
+status_note = "Session-close for ADR-2606032100 (robotics-actor wave) + ADR-2606032130 (Displacement Dividend). LANDED on branch feat-labor-liberation-robotics-wave + tag labor-liberation-robotics-wave, PUSHED to origin (commits 5ee50d0141 wave + 7d331e70b5 deps.toml registration + this close). Ranked the un-automated toil by LPS (headcount × misery × automatability × charter_fit × coverage_gap) → robotics gap maps onto ISCO 6-9; opened top-3 zero-coverage actors sanae 早苗 (field ag, A01/6111,9211/70, #1) / hataori 機織 (garment, C13-14/7531/53, #2) / kiyome 清め (cleaning, T,N81/9112/76, #3), each with one coded gate-enforcing cell; roadmapped #4-#12. Displacement Dividend = tenure-weighted (勤続年数) IN-KIND Basic High Income, w=ln(1+min(tenure,40))×hazard, cash≡0 / no-payroll / donation-only / conversion-gated (ZERO invariant amendments), funded by displacing-actor surplus→TitheRouter→Public-Fund earmark; G2 coupling gate makes 'automate now, pay later' structurally impossible. Tests 39/39 (allocator 10 / LPS 7 / sanae 5 / hataori 6 / kiyome 7 / conformance 4). META-FINDINGS (honest): (1) concurrent shared working-tree wiped untracked work twice → recovered via dedicated branch+tag+push; LESSON = per-session git worktree. (2) Real robotics coverage ~0% — actors are R0 design/governance scaffolds; kami-engine submodule NOT populated (partial/foreign checkout blocks clean init; kami-genesis/kami-autodrive solver crates absent); repo-wide robotics = physics SIM only, no hardware/sim-to-real. (3) Active inference EXISTS (Friston discrete-POMDP in pymagatama/primitives/rl_active_inference.py + etzhayyim-organism Axis 4) but is lexical agent-reasoning, NOT wired to robot motor control — R1 path. (4) RisingWave-free reaffirmed — legacy 60-apps/ai-gftd-project-recap (psycopg/RW + rw_ placeholder credential of ADR-2605173100, already-rotated per §61/§18) EXCLUDED then REMOVED; clean manako/unspsc subset committed+pushed on feat/sumitsubo-cad-interop. NEXT: kami-engine re-init (destructive, when tree quiet) → R1 PoC wiring 草薙 weeding cell to kami-genesis + rl_active_inference POMDP."
+path = "90-docs/adr/2606035000-session-close-labor-liberation-robotics-wave.md"
+adr = ["2606035000", "2606032100", "2606032130", "2605173100", "2605172000", "2605215000"]
 [[adrs]]
 id = "2606031600"
 title = "ipaddress + yabai → kotoba EAVT refactor (ADR-2605301400 §T2/§T3) — active SecurityTrails-class IP/DNS collection on the Datom log"
