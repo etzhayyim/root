@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_gov_stp_heartbeat_tick"
-    targetNamespace="https://gftd.ai/bpmn/govStp"
+    targetNamespace="https://etzhayyim.ai/bpmn/govStp"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gov_stp_heartbeat_tick" name="govStp heartbeat tick" isExecutable="true">
