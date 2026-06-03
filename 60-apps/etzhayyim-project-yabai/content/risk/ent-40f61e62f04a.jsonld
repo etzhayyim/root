@@ -1,6 +1,6 @@
 {
   "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
-  "@type": "gftd:YabaiRiskScore",
+  "@type": "etzhayyim:YabaiRiskScore",
   "@id": "https://yabai.etzhayyim.com/content/risk/ent-40f61e62f04a",
   "entityId": "ent-40f61e62f04a",
   "wellBecomingScore": 64.3,
