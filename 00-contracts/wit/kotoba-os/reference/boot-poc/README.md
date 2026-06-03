@@ -15,7 +15,18 @@ L2 kernel: single address space, MMIO UART up (real device I/O)
 boot: kernel image entered at _start, SP set, .text running
 boot: PL011 UART @ 0x09000000 written via volatile MMIO
 KOTOBA-OS BOOT OK
+
+-- scan cycles (each commit = a Datom transaction) --
+DATOM t=0 ctrl :ctrl/command=1     # pv=3  -> ON
+DATOM t=1 ctrl :ctrl/command=0     # pv=20 -> OFF
+DATOM t=2 ctrl :ctrl/command=1     # pv=8  -> ON
+SCAN: committed_cycles=3 faulted=1 faulted_datoms=0 total_datoms=6
+KOTOBA-OS SCAN OK
 ```
+
+After boot it brings up a bump-allocator heap and **runs the kotoba-os scan-cycle
+model inside the unikernel**: each committed cycle is a Datom transaction, and the
+faulted cycle commits nothing (N3 atomicity) — printed over the real UART.
 
 ## What it proves / does NOT
 

@@ -39,6 +39,11 @@ class BootPoc(unittest.TestCase):
         out = r.stdout + r.stderr
         self.assertIn("KOTOBA-OS BOOT OK", out, msg=out[-2000:])
         self.assertIn("PL011 UART @ 0x09000000 written via volatile MMIO", out)
+        # the kotoba-os scan-cycle model runs INSIDE the booted unikernel:
+        # 3 cycles -> 6 Datoms; the faulted cycle (N3) commits 0.
+        self.assertIn("KOTOBA-OS SCAN OK", out, msg=out[-2000:])
+        self.assertIn("faulted_datoms=0 total_datoms=6", out)
+        self.assertIn("DATOM t=2 ctrl :ctrl/command=1", out)
 
 
 if __name__ == "__main__":
