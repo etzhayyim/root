@@ -43,6 +43,32 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — court official sites: 47 high courts web-verified (151 → 198/206)
+
+Coverage-depth pass on the judicial tier (supreme / constitutional / cassation courts),
+same method as the country + legislature + cabinet passes. 55 of 206 courts had no
+`:gov.unit/official-url`. Fanned out 4 web-research subagents (~14 each) to find +
+**confirm each court's own official site by fetching it** — the court itself or the
+national-judiciary portal that hosts it. 47 confirmed and added (provenance → the body's
+own official URL; `:last-verified` → 2026-06-04). Also **fixed 5 bare-QID name-en labels**
+(Ethiopia Federal Supreme Court / Guinea / Libya / Liechtenstein / Saudi Arabia supreme
+courts had a placeholder QID where the English name belonged).
+
+- 151 → **198/206** courts now carry an official site.
+- 8 HONESTLY left null (G5 over coverage-count) — genuinely no confirmable official court
+  site: Burundi SC, Cameroon Constitutional Council, Guinea-Bissau SC, North Korea Central
+  Court, Sudan Constitutional Court, **Syria SC** (court dissolved under the 2025
+  Constitutional Declaration), **Tunisia Constitutional Court** (never established),
+  **Turkmenistan SC** (no web presence).
+- Honest entry-point choices recorded where the high court has no standalone site: the
+  Ministry of Justice / national-judiciary portal that administers it (Bahrain moj, Saudi
+  moj HighCourt page, Sudan sj.gov.sd, South Sudan mojca, Tonga justice.gov.to, Tajikistan
+  egov.tj, Zimbabwe JSC). Anti-bot/TLS-expired caveats noted (Burundi CC expired cert,
+  Djibouti/Vanuatu/Zimbabwe TLS-chain, several 403) — all genuine official domains.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — cabinet/executive official sites: 47 governments web-verified (80 → 127/129)
 
 Coverage-depth pass on the cabinet/executive tier (same method as the country + legislature

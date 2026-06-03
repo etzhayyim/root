@@ -40,9 +40,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "mlt"
    :gov.unit/name-en "Constitutional Court of Malta"
+   :gov.unit/official-url "https://judiciary.mt/"
    :gov.unit/wikidata "Q119988571"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q119988571" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://judiciary.mt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dza.constitutional-court"
@@ -63,9 +64,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "Constitutional Court"
+   :gov.unit/official-url "https://www.ccb.bh/"
    :gov.unit/wikidata "Q125496437"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q125496437" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.ccb.bh/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.khm.constitutional-court"
@@ -86,9 +88,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "sur"
    :gov.unit/name-en "Constitutional Court of Suriname"
+   :gov.unit/official-url "https://constitutioneelhof.sr/"
    :gov.unit/wikidata "Q96375430"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q96375430" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://constitutioneelhof.sr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.ecu.constitutional-court"
@@ -445,9 +448,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Constitutional Court of Georgia"
+   :gov.unit/official-url "https://www.constcourt.ge/en"
    :gov.unit/wikidata "Q5164290"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5164290" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.constcourt.ge/en" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kaz.constitutional-court"
@@ -564,9 +568,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "gtm"
    :gov.unit/name-en "Constitutional Court of Guatemala"
+   :gov.unit/official-url "https://cc.gob.gt/"
    :gov.unit/wikidata "Q5789528"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5789528" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://cc.gob.gt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jor.constitutional-court"
@@ -587,9 +592,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "kgz"
    :gov.unit/name-en "Constitutional Court of Kyrgyzstan"
+   :gov.unit/official-url "https://constsot.kg/"
    :gov.unit/wikidata "Q5164291"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5164291" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://constsot.kg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lbn.constitutional-court"
@@ -669,9 +675,10 @@
    :gov.unit/level :court :gov.unit/branch :judicial
    :gov.unit/jurisdiction "bdi"
    :gov.unit/name-en "Constitutional Court of Burundi"
+   :gov.unit/official-url "https://courconstitutionnelle.gov.bi/"
    :gov.unit/wikidata "Q28024351"
    :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q28024351" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://courconstitutionnelle.gov.bi/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.civ.constitutional-court"
