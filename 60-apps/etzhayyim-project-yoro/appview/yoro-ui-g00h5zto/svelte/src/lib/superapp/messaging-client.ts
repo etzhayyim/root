@@ -6,8 +6,7 @@
  */
 import { get } from 'svelte/store';
 import { currentOrg, clerkUser, getSessionToken } from '../auth.js';
-// TODO(substrate-boundary): wrap AtpAgent + XRPC API calls behind @etzhayyim/sdk facade — see ADR-2605172000
-import { AtpAgent } from '@atproto/api';
+import { AtpAgent } from '@etzhayyim/sdk/atproto';
 
 const _agent = new AtpAgent({ service: 'https://atproto.etzhayyim.com' });
 
@@ -18,9 +17,9 @@ async function buildHeaders(nanoid: string): Promise<Record<string, string>> {
 	const token = await getSessionToken();
 	if (token) h.authorization = `Bearer ${token}`;
 	const user = get(clerkUser);
-	if (user?.id) h['x-gftd-user-id'] = user.id;
+	if (user?.id) h['x-etzhayyim-user-id'] = user.id;
 	const org = get(currentOrg);
-	if (org?.id) h['x-gftd-org-id'] = org.id;
+	if (org?.id) h['x-etzhayyim-org-id'] = org.id;
 	h['atproto-proxy'] = `did:web:${nanoid}.etzhayyim.com#atprotoLabeler`;
 	return h;
 }
