@@ -25,7 +25,7 @@
           },
           "sourceRootDid": {
             "type": "string",
-            "description": "ADR-0074 canonical ERC725 root for sourceDid (did:erc725:gftd:260425:<contract>). Optional during migration; required once etzhayyimRootIdentity is registered."
+            "description": "ADR-0074 canonical ERC725 root for sourceDid (did:erc725:etzhayyim:260425:<contract>). Optional during migration; required once etzhayyimRootIdentity is registered."
           },
           "counterpartyDid": {
             "type": "string",
