@@ -214,7 +214,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ),
       (
         'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.person/n-takahashi',
-        'did:web:n-takahashi.gftd.works',
+        'did:web:n-takahashi.etzhayyim.works',
         'N. Takahashi', '高橋 N',
         'contractor', 'security', 'Cybersecurity Lead', 'サイバーセキュリティ事業部責任者',
         'active', '2024-06-01', 'Asia/Tokyo', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'
@@ -250,7 +250,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.assignment/eng-infra-main', 'did:web:y-nishino.etzhayyim.com', 'eng-infra', 'etzhayyim platform', 100.0, '2024-01-01', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.assignment/brand-main', 'did:web:t-ichihara.etzhayyim.com', 'brand', 'etzhayyim platform', 100.0, '2024-03-01', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.assignment/creative-main', 'did:web:k-takahashi.etzhayyim.com', 'creative', 'etzhayyim platform', 100.0, '2024-03-01', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
-      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.assignment/security-main', 'did:web:n-takahashi.gftd.works', 'security-lead', 'etzhayyim security', 80.0, '2024-06-01', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com')
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.assignment/security-main', 'did:web:n-takahashi.etzhayyim.works', 'security-lead', 'etzhayyim security', 80.0, '2024-06-01', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com')
   `.execute(db);
 
   // ── Seed: RACI matrix (core domain tasks) ─────────────────────────────────
@@ -278,7 +278,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.raci/personnel-assign-r', 'com.etzhayyim.apps.etzhayyim.personnel.assign', 'Assignment Management', 'アサイン管理', 'personnel', 'did:web:a-nakamura.etzhayyim.com', 'R', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.raci/personnel-assign-a', 'com.etzhayyim.apps.etzhayyim.personnel.assign', 'Assignment Management', 'アサイン管理', 'personnel', 'did:web:j-kawasaki.etzhayyim.com', 'A', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
       -- Security domain
-      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.raci/security-incident-r', 'com.etzhayyim.apps.etzhayyim.security.incident', 'Incident Response', 'インシデント対応', 'security', 'did:web:n-takahashi.gftd.works', 'R', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.raci/security-incident-r', 'com.etzhayyim.apps.etzhayyim.security.incident', 'Incident Response', 'インシデント対応', 'security', 'did:web:n-takahashi.etzhayyim.works', 'R', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.raci/security-incident-a', 'com.etzhayyim.apps.etzhayyim.security.incident', 'Incident Response', 'インシデント対応', 'security', 'did:web:j-kawasaki.etzhayyim.com', 'A', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.raci/security-incident-c', 'com.etzhayyim.apps.etzhayyim.security.incident', 'Incident Response', 'インシデント対応', 'security', 'did:web:k-bakshi.etzhayyim.com', 'C', 'active', ${createdAt}, 'did:web:etzhayyim.etzhayyim.com')
   `.execute(db);

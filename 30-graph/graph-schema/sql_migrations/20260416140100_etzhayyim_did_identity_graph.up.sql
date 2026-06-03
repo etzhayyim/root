@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS vertex_gftd_identity (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyim_identity (
     vertex_id       VARCHAR PRIMARY KEY,
     _seq            BIGINT,
     created_date    DATE,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftd_identity (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS vertex_gftd_org (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyim_org (
     vertex_id       VARCHAR PRIMARY KEY,
     _seq            BIGINT,
     created_date    DATE,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftd_org (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS vertex_gftd_team (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyim_team (
     vertex_id       VARCHAR PRIMARY KEY,
     _seq            BIGINT,
     created_date    DATE,
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftd_team (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS edge_gftd_member_of (
+CREATE TABLE IF NOT EXISTS edge_etzhayyim_member_of (
     edge_id         VARCHAR PRIMARY KEY,
     src_vid         VARCHAR,
     dst_vid         VARCHAR,
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS edge_gftd_member_of (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS edge_gftd_belongs_to_team (
+CREATE TABLE IF NOT EXISTS edge_etzhayyim_belongs_to_team (
     edge_id         VARCHAR PRIMARY KEY,
     src_vid         VARCHAR,
     dst_vid         VARCHAR,
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS edge_gftd_belongs_to_team (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS edge_gftd_controls (
+CREATE TABLE IF NOT EXISTS edge_etzhayyim_controls (
     edge_id         VARCHAR PRIMARY KEY,
     src_vid         VARCHAR,
     dst_vid         VARCHAR,
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS edge_gftd_controls (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS edge_gftd_delegates_to (
+CREATE TABLE IF NOT EXISTS edge_etzhayyim_delegates_to (
     edge_id         VARCHAR PRIMARY KEY,
     src_vid         VARCHAR,
     dst_vid         VARCHAR,
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS edge_gftd_delegates_to (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS edge_gftd_federation (
+CREATE TABLE IF NOT EXISTS edge_etzhayyim_federation (
     edge_id         VARCHAR PRIMARY KEY,
     src_vid         VARCHAR,
     dst_vid         VARCHAR,
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS edge_gftd_federation (
 
 FLUSH;
 
-CREATE TABLE IF NOT EXISTS edge_gftd_authenticates (
+CREATE TABLE IF NOT EXISTS edge_etzhayyim_authenticates (
     edge_id         VARCHAR PRIMARY KEY,
     src_vid         VARCHAR,
     dst_vid         VARCHAR,
@@ -190,32 +190,32 @@ CREATE TABLE IF NOT EXISTS edge_gftd_authenticates (
 
 FLUSH;
 
-CREATE INDEX IF NOT EXISTS idx_vertex_gftd_identity_did
-    ON vertex_gftd_identity(did);
+CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_identity_did
+    ON vertex_etzhayyim_identity(did);
 
 FLUSH;
 
-CREATE INDEX IF NOT EXISTS idx_vertex_gftd_identity_handle
-    ON vertex_gftd_identity(handle);
+CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_identity_handle
+    ON vertex_etzhayyim_identity(handle);
 
 FLUSH;
 
-CREATE INDEX IF NOT EXISTS idx_vertex_gftd_identity_controller
-    ON vertex_gftd_identity(controller_did);
+CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_identity_controller
+    ON vertex_etzhayyim_identity(controller_did);
 
 FLUSH;
 
-CREATE INDEX IF NOT EXISTS idx_edge_gftd_member_of_dst
-    ON edge_gftd_member_of(dst_vid);
+CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_member_of_dst
+    ON edge_etzhayyim_member_of(dst_vid);
 
 FLUSH;
 
-CREATE INDEX IF NOT EXISTS idx_edge_gftd_delegates_to_dst
-    ON edge_gftd_delegates_to(dst_vid);
+CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_delegates_to_dst
+    ON edge_etzhayyim_delegates_to(dst_vid);
 
 FLUSH;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftd_org_member_count AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyim_org_member_count AS
     SELECT
       dst_vid AS org_did,
       COUNT(*) AS total_members,
@@ -226,29 +226,29 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftd_org_member_count AS
       COUNT(*) FILTER (WHERE role = 'agent-runtime') AS agent_count,
       COUNT(*) FILTER (WHERE invite_status = 'accepted') AS accepted_count,
       COUNT(*) FILTER (WHERE invite_status = 'pending') AS pending_count
-    FROM edge_gftd_member_of
+    FROM edge_etzhayyim_member_of
     GROUP BY dst_vid;
 
 FLUSH;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftd_actor_score AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyim_actor_score AS
     SELECT
       src_vid AS did,
       COUNT(*) FILTER (WHERE verified = 1) AS verified_method_count,
       COUNT(*) AS total_method_count,
       LEAST(COUNT(*) FILTER (WHERE verified = 1) * 25, 100) AS actor_score
-    FROM edge_gftd_authenticates
+    FROM edge_etzhayyim_authenticates
     GROUP BY src_vid;
 
 FLUSH;
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftd_delegation_chain AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyim_delegation_chain AS
     SELECT
       dst_vid AS delegatee_did,
       src_vid AS delegator_did,
       raci,
       role,
       scope
-    FROM edge_gftd_delegates_to;
+    FROM edge_etzhayyim_delegates_to;
 
 FLUSH;

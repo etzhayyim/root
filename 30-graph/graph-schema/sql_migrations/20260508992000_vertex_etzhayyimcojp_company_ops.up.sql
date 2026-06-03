@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS vertex_gftdcojp_hr_event (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyimcojp_hr_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftdcojp_hr_event (
       sensitivity_ord int DEFAULT 200,
       owner_did varchar);
 
-CREATE TABLE IF NOT EXISTS vertex_gftdcojp_finance_event (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyimcojp_finance_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftdcojp_finance_event (
       sensitivity_ord int DEFAULT 200,
       owner_did varchar);
 
-CREATE TABLE IF NOT EXISTS vertex_gftdcojp_legal_event (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyimcojp_legal_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftdcojp_legal_event (
       sensitivity_ord int DEFAULT 300,
       owner_did varchar);
 
-CREATE TABLE IF NOT EXISTS vertex_gftdcojp_sales_event (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyimcojp_sales_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       action varchar,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS vertex_gftdcojp_sales_event (
       sensitivity_ord int DEFAULT 100,
       owner_did varchar);
 
-CREATE TABLE IF NOT EXISTS vertex_gftdcojp_governance_event (
+CREATE TABLE IF NOT EXISTS vertex_etzhayyimcojp_governance_event (
       vertex_id varchar PRIMARY KEY,
       task_type varchar NOT NULL,
       omega_score double precision,
@@ -73,19 +73,19 @@ INSERT INTO vertex_bpmn_process_def
       (vertex_id, process_id, name, description, version, bpmn_xml, status, created_at)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gftdcojp-governance-daily-v1',
-        'gftdcojp_governance_daily_check',
-        'gftdcojp Governance Daily Check',
-        'Daily Ω(t) governance check via LangGraph gftdcojp-company-ops (amanomibashira principal)',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/etzhayyimcojp-governance-daily-v1',
+        'etzhayyimcojp_governance_daily_check',
+        'etzhayyimcojp Governance Daily Check',
+        'Daily Ω(t) governance check via LangGraph etzhayyimcojp-company-ops (amanomibashira principal)',
         1,
         '',
         'active',
         now()
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gftdcojp-ops-dispatch-v1',
-        'gftdcojp_company_ops_dispatch',
-        'gftdcojp Company Ops Dispatch',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/etzhayyimcojp-ops-dispatch-v1',
+        'etzhayyimcojp_company_ops_dispatch',
+        'etzhayyimcojp Company Ops Dispatch',
         'XRPC-triggered domain task dispatch (HR/Finance/Legal/Sales/Governance) via LangGraph',
         1,
         '',
@@ -97,15 +97,15 @@ INSERT INTO vertex_bpmn_lexicon_binding
       (vertex_id, process_id, nsid, binding_type, status, created_at)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/gftdcojp-ops-dispatch-xrpc-v1',
-        'gftdcojp_company_ops_dispatch',
-        'com.etzhayyim.apps.gftdcojp.companyOpsDispatch',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyimcojp-ops-dispatch-xrpc-v1',
+        'etzhayyimcojp_company_ops_dispatch',
+        'com.etzhayyim.apps.etzhayyimcojp.companyOpsDispatch',
         'xrpc',
         'active',
         now()
       );
 
-CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftdcojp_omega_daily AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS mv_etzhayyimcojp_omega_daily AS
     SELECT
       DATE(created_at::timestamp) AS day,
       AVG(omega_score)            AS avg_omega,
@@ -113,6 +113,6 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS mv_gftdcojp_omega_daily AS
       MAX(omega_score)            AS max_omega,
       COUNT(*)                    AS check_count,
       BOOL_OR(floor_violated)     AS any_floor_violated
-    FROM vertex_gftdcojp_governance_event
+    FROM vertex_etzhayyimcojp_governance_event
     WHERE omega_score IS NOT NULL
     GROUP BY DATE(created_at::timestamp);

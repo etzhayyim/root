@@ -153,7 +153,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`
     INSERT INTO vertex_etzhayyim_skill (vertex_id, skill_id, name, name_ja, category, description, created_at, owner_did)
     VALUES
-      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/deploy-cf-worker', 'deploy.cf-worker', 'Cloudflare Worker Deploy', 'CF Worker デプロイ', 'deploy', 'wrangler / gftd deploy / VKE rollout', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
+      ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/deploy-cf-worker', 'deploy.cf-worker', 'Cloudflare Worker Deploy', 'CF Worker デプロイ', 'deploy', 'wrangler / etzhayyim deploy / VKE rollout', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/deploy-k8s-helm', 'deploy.k8s-helm', 'K8s Helm Operations', 'K8s Helm 運用', 'deploy', 'VKE / Helm / kubectl', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/review-code-quality', 'review.code-quality', 'Code Review (Quality)', 'コードレビュー (品質)', 'review', 'PR review / SOC2-grade audit trail', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
       ('at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.skill/review-shannon-eta', 'review.shannon-eta', 'Shannon η Review', 'Shannon η レビュー', 'review', 'redundancy / 8-layer compliance', now()::varchar, 'did:web:etzhayyim.etzhayyim.com'),
@@ -185,12 +185,12 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     INSERT INTO vertex_etzhayyim_contract (vertex_id, contract_id, contract_kind, principal_did, vendor_did, counterparty_did, title, summary, start_date, auto_renewal, monthly_rate_jpy, payment_terms, status, signed_at, created_at, owner_did)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
-        'gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/etzhayyim-japan-vendor-sow-v1',
+        'etzhayyim-japan-vendor-sow-v1',
         'vendor_sow',
         'did:web:etz-hayim.etzhayyim.com',
-        'did:web:gftd-japan.etzhayyim.com',
-        'did:web:gftd-japan.etzhayyim.com',
+        'did:web:etzhayyim-japan.etzhayyim.com',
+        'did:web:etzhayyim-japan.etzhayyim.com',
         'etzhayyim Japan株式会社 Engineering Capacity SOW',
         'etzhayyim が etzhayyim Japan のエンジニアリング capacity を契約調達。IP は etzhayyim 帰属、開発成果物は work-for-hire',
         '2026-01-01',
@@ -209,8 +209,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     INSERT INTO vertex_etzhayyim_contract_clause (vertex_id, contract_id, clause_kind, ip_assigned_to, nda_scope, term_months, summary, summary_ja, severity, created_at, owner_did)
     VALUES
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-ip-assignment',
-        'gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/etzhayyim-japan-ip-assignment',
+        'etzhayyim-japan-vendor-sow-v1',
         'ip_assignment',
         'did:web:etz-hayim.etzhayyim.com',
         NULL, NULL,
@@ -221,8 +221,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'did:web:etz-hayim.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-nda',
-        'gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/etzhayyim-japan-nda',
+        'etzhayyim-japan-vendor-sow-v1',
         'nda',
         NULL,
         'all etzhayyim platform internals + roadmap + customer info',
@@ -234,8 +234,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         'did:web:etz-hayim.etzhayyim.com'
       ),
       (
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/gftd-japan-termination',
-        'gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contractClause/etzhayyim-japan-termination',
+        'etzhayyim-japan-vendor-sow-v1',
         'termination',
         NULL, NULL, NULL,
         'etzhayyim may terminate for convenience with 30 days notice. Vendor must hand over all materials + access.',
@@ -253,9 +253,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (
         'edge://etzhayyim/personContract/chikada-vendor-sow',
         'did:web:t-chikada.etzhayyim.com',
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/etzhayyim-japan-vendor-sow-v1',
         'did:web:t-chikada.etzhayyim.com',
-        'gftd-japan-vendor-sow-v1',
+        'etzhayyim-japan-vendor-sow-v1',
         'eng-deploy',
         now()::varchar,
         'did:web:etz-hayim.etzhayyim.com'
@@ -263,9 +263,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (
         'edge://etzhayyim/personContract/tanaka-vendor-sow',
         'did:web:f-tanaka.etzhayyim.com',
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/etzhayyim-japan-vendor-sow-v1',
         'did:web:f-tanaka.etzhayyim.com',
-        'gftd-japan-vendor-sow-v1',
+        'etzhayyim-japan-vendor-sow-v1',
         'eng-review',
         now()::varchar,
         'did:web:etz-hayim.etzhayyim.com'
@@ -273,9 +273,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       (
         'edge://etzhayyim/personContract/nishino-vendor-sow',
         'did:web:y-nishino.etzhayyim.com',
-        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/gftd-japan-vendor-sow-v1',
+        'at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.etzhayyim.contract/etzhayyim-japan-vendor-sow-v1',
         'did:web:y-nishino.etzhayyim.com',
-        'gftd-japan-vendor-sow-v1',
+        'etzhayyim-japan-vendor-sow-v1',
         'eng-infra',
         now()::varchar,
         'did:web:etz-hayim.etzhayyim.com'

@@ -8,11 +8,11 @@ import { Kysely, sql } from "kysely";
 // axioms to run EL++ classification over.
 //
 // A-Box facts already flow via v_rdf_triple (pure VIEW, no dual-write):
-//   - vertex_bpmn_process_def  → gftd:Actor rdf:type triples
-//   - edge_follows             → gftd:follows triples
-//   - vertex_profile           → gftd:handle triples
+//   - vertex_bpmn_process_def  → etzhayyim:Actor rdf:type triples
+//   - edge_follows             → etzhayyim:follows triples
+//   - vertex_profile           → etzhayyim:handle triples
 //
-// IMPORTANT: vertex_id values use CURIE prefix format ("gftd:", "rdfs:",
+// IMPORTANT: vertex_id values use CURIE prefix format ("etzhayyim:", "rdfs:",
 // "shacl:") to match the CURIE literals emitted by v_rdf_triple.
 // The streaming MVs (mv_owl_rl_type_d1, mv_owl_rl_domain) join on
 //   edge_owl_subclass.from_vertex_id = v_rdf_triple.object
@@ -20,10 +20,10 @@ import { Kysely, sql } from "kysely";
 // so full-URI vertex IDs would produce zero matches.
 //
 // IRI convention:  https://schema.etzhayyim.com/owl#{LocalName}
-// Profile:         gftd_core_v1
+// Profile:         etzhayyim_core_v1
 // Applied via:     psql (ADR-2604241342 out-of-band pattern)
 
-const PROFILE = "gftd_core_v1";
+const PROFILE = "etzhayyim_core_v1";
 const NS = "https://schema.etzhayyim.com/owl#";
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -34,16 +34,16 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Classes ──────────────────────────────────────────────────────────────
   // vertex_id uses CURIE prefix so mv_owl_rl_type_d1 can join on
-  // v_rdf_triple.object (which emits "gftd:Actor" etc.)
+  // v_rdf_triple.object (which emits "etzhayyim:Actor" etc.)
   const classes = [
-    { vid: "gftd:Thing",          iri: `${NS}Thing`,          label: "owl:Thing (root)" },
-    { vid: "gftd:Resource",       iri: `${NS}Resource`,       label: "etzhayyim Resource" },
-    { vid: "gftd:Actor",          iri: `${NS}Actor`,          label: "etzhayyim Actor" },
-    { vid: "gftd:MagatamaActor",  iri: `${NS}MagatamaActor`,  label: "Magatama Actor (BPMN-resident)" },
-    { vid: "gftd:HumanActor",     iri: `${NS}HumanActor`,     label: "Human Actor (natural person)" },
-    { vid: "gftd:OrgActor",       iri: `${NS}OrgActor`,       label: "Organisation Actor" },
-    { vid: "gftd:BpmnProcess",    iri: `${NS}BpmnProcess`,    label: "BPMN Process (Zeebe-deployed)" },
-    { vid: "gftd:KnowledgeGraph", iri: `${NS}KnowledgeGraph`, label: "Knowledge Graph node" },
+    { vid: "etzhayyim:Thing",          iri: `${NS}Thing`,          label: "owl:Thing (root)" },
+    { vid: "etzhayyim:Resource",       iri: `${NS}Resource`,       label: "etzhayyim Resource" },
+    { vid: "etzhayyim:Actor",          iri: `${NS}Actor`,          label: "etzhayyim Actor" },
+    { vid: "etzhayyim:MagatamaActor",  iri: `${NS}MagatamaActor`,  label: "Magatama Actor (BPMN-resident)" },
+    { vid: "etzhayyim:HumanActor",     iri: `${NS}HumanActor`,     label: "Human Actor (natural person)" },
+    { vid: "etzhayyim:OrgActor",       iri: `${NS}OrgActor`,       label: "Organisation Actor" },
+    { vid: "etzhayyim:BpmnProcess",    iri: `${NS}BpmnProcess`,    label: "BPMN Process (Zeebe-deployed)" },
+    { vid: "etzhayyim:KnowledgeGraph", iri: `${NS}KnowledgeGraph`, label: "Knowledge Graph node" },
   ];
 
   for (const c of classes) {
@@ -55,15 +55,15 @@ export async function up(db: Kysely<unknown>): Promise<void> {
 
   // ── Object properties ─────────────────────────────────────────────────────
   // vertex_id CURIE matches v_rdf_triple.predicate literals
-  // ("gftd:follows", "gftd:handle", "rdfs:label", …)
+  // ("etzhayyim:follows", "etzhayyim:handle", "rdfs:label", …)
   const objProps = [
-    { vid: "gftd:follows",        iri: `${NS}follows`,        functional: false, transitive: false, symmetric: false, inv_functional: false },
-    { vid: "gftd:hasBpmnProcess", iri: `${NS}hasBpmnProcess`, functional: false, transitive: false, symmetric: false, inv_functional: false },
-    { vid: "gftd:managedBy",      iri: `${NS}managedBy`,      functional: true,  transitive: false, symmetric: false, inv_functional: false },
-    { vid: "gftd:memberOf",       iri: `${NS}memberOf`,       functional: false, transitive: false, symmetric: false, inv_functional: false },
+    { vid: "etzhayyim:follows",        iri: `${NS}follows`,        functional: false, transitive: false, symmetric: false, inv_functional: false },
+    { vid: "etzhayyim:hasBpmnProcess", iri: `${NS}hasBpmnProcess`, functional: false, transitive: false, symmetric: false, inv_functional: false },
+    { vid: "etzhayyim:managedBy",      iri: `${NS}managedBy`,      functional: true,  transitive: false, symmetric: false, inv_functional: false },
+    { vid: "etzhayyim:memberOf",       iri: `${NS}memberOf`,       functional: false, transitive: false, symmetric: false, inv_functional: false },
   ];
   const dataProps = [
-    { vid: "gftd:handle",  iri: `${NS}handle`,         functional: false, transitive: false, symmetric: false, inv_functional: false },
+    { vid: "etzhayyim:handle",  iri: `${NS}handle`,         functional: false, transitive: false, symmetric: false, inv_functional: false },
     { vid: "rdfs:label",   iri: `${RDFS_NS}label`,     functional: false, transitive: false, symmetric: false, inv_functional: false },
   ];
 
@@ -95,13 +95,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // ── Subclass axioms (edge_owl_subclass) ──────────────────────────────────
   // from_vertex_id rdfs:subClassOf to_vertex_id  (CURIEs, matches A-Box)
   const subclasses: [string, string][] = [
-    ["gftd:Resource",       "gftd:Thing"],
-    ["gftd:Actor",          "gftd:Resource"],
-    ["gftd:MagatamaActor",  "gftd:Actor"],
-    ["gftd:HumanActor",     "gftd:Actor"],
-    ["gftd:OrgActor",       "gftd:Actor"],
-    ["gftd:BpmnProcess",    "gftd:Resource"],
-    ["gftd:KnowledgeGraph", "gftd:Resource"],
+    ["etzhayyim:Resource",       "etzhayyim:Thing"],
+    ["etzhayyim:Actor",          "etzhayyim:Resource"],
+    ["etzhayyim:MagatamaActor",  "etzhayyim:Actor"],
+    ["etzhayyim:HumanActor",     "etzhayyim:Actor"],
+    ["etzhayyim:OrgActor",       "etzhayyim:Actor"],
+    ["etzhayyim:BpmnProcess",    "etzhayyim:Resource"],
+    ["etzhayyim:KnowledgeGraph", "etzhayyim:Resource"],
   ];
 
   for (const [from, to] of subclasses) {
@@ -114,12 +114,12 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // ── Property domain (edge_owl_property_domain) ───────────────────────────
   // from_vertex_id (property CURIE) → to_vertex_id (domain class CURIE)
   const domains: [string, string][] = [
-    ["gftd:follows",        "gftd:Actor"],
-    ["gftd:hasBpmnProcess", "gftd:Actor"],
-    ["gftd:managedBy",      "gftd:BpmnProcess"],
-    ["gftd:memberOf",       "gftd:Actor"],
-    ["gftd:handle",         "gftd:Resource"],
-    ["rdfs:label",          "gftd:Resource"],
+    ["etzhayyim:follows",        "etzhayyim:Actor"],
+    ["etzhayyim:hasBpmnProcess", "etzhayyim:Actor"],
+    ["etzhayyim:managedBy",      "etzhayyim:BpmnProcess"],
+    ["etzhayyim:memberOf",       "etzhayyim:Actor"],
+    ["etzhayyim:handle",         "etzhayyim:Resource"],
+    ["rdfs:label",          "etzhayyim:Resource"],
   ];
 
   for (const [prop, cls] of domains) {
@@ -132,11 +132,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // ── Property range (edge_owl_property_range) ─────────────────────────────
   // from_vertex_id (property CURIE) → to_vertex_id (range class CURIE or xsd:*)
   const ranges: [string, string][] = [
-    ["gftd:follows",        "gftd:Actor"],
-    ["gftd:hasBpmnProcess", "gftd:BpmnProcess"],
-    ["gftd:managedBy",      "gftd:Actor"],
-    ["gftd:memberOf",       "gftd:OrgActor"],
-    ["gftd:handle",         "xsd:string"],
+    ["etzhayyim:follows",        "etzhayyim:Actor"],
+    ["etzhayyim:hasBpmnProcess", "etzhayyim:BpmnProcess"],
+    ["etzhayyim:managedBy",      "etzhayyim:Actor"],
+    ["etzhayyim:memberOf",       "etzhayyim:OrgActor"],
+    ["etzhayyim:handle",         "xsd:string"],
     ["rdfs:label",          "xsd:string"],
   ];
 
@@ -152,28 +152,28 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     {
       vid:             "shacl:ActorShape",
       shape_iri:       `${NS}ActorShape`,
-      target_class:    "gftd:Actor",
+      target_class:    "etzhayyim:Actor",
       constraint_type: "minCount",
-      constraint_json: JSON.stringify({ path: "gftd:handle", minCount: 1 }),
+      constraint_json: JSON.stringify({ path: "etzhayyim:handle", minCount: 1 }),
       severity:        "Warning",
     },
     {
       vid:             "shacl:BpmnProcessShape",
       shape_iri:       `${NS}BpmnProcessShape`,
-      target_class:    "gftd:BpmnProcess",
+      target_class:    "etzhayyim:BpmnProcess",
       constraint_type: "minCount",
-      constraint_json: JSON.stringify({ path: "gftd:managedBy", minCount: 1 }),
+      constraint_json: JSON.stringify({ path: "etzhayyim:managedBy", minCount: 1 }),
       severity:        "Info",
     },
     {
       vid:             "shacl:FollowsSymmetryShape",
       shape_iri:       `${NS}FollowsSymmetryShape`,
-      target_class:    "gftd:Actor",
+      target_class:    "etzhayyim:Actor",
       constraint_type: "qualifiedValueShape",
       constraint_json: JSON.stringify({
-        path: "gftd:follows",
+        path: "etzhayyim:follows",
         qualifiedMinCount: 0,
-        qualifiedValueShape: { class: "gftd:Actor" },
+        qualifiedValueShape: { class: "etzhayyim:Actor" },
       }),
       severity:        "Info",
     },
