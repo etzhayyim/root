@@ -169,7 +169,7 @@ function parseRssItems(xml) {
 
 async function fetchRss(source) {
   const res = await fetch(source.url, {
-    headers: { "User-Agent": "gftd-recruit-bot/1.0 (+https://etzhayyim.com/recruit)", "Accept": "application/rss+xml, application/xml, text/xml" },
+    headers: { "User-Agent": "etzhayyim-recruit-bot/1.0 (+https://etzhayyim.com/recruit)", "Accept": "application/rss+xml, application/xml, text/xml" },
     signal: AbortSignal.timeout(20000),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);

@@ -20,7 +20,7 @@
  *
  * Usage:
  *   node 70-tools/scripts/projection/bigquery/epa-historical-air-quality.mjs \
- *     --project ai-gftd-ws-ingest \
+ *     --project etzhayyim-ws-ingest \
  *     [--year-from 2024] [--year-to 2025] \
  *     [--max-bytes-billed-per-query 107374182400]  # 100 GiB default \
  *     [--tables o3_daily_summary,pm25_frm_daily_summary,...] \

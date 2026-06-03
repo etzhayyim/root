@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Yabai baseline ingest — loads 1400+ JSON-LD records from
- * 60-apps/ai-gftd-project-yabai/content/{entity,evidence,risk}/*.jsonld
+ * 60-apps/etzhayyim-project-yabai/content/{entity,evidence,risk}/*.jsonld
  * directly into vertex_yabai_{entity,evidence,risk} on RisingWave.
  *
  * Mirrors the direct-PG pattern used by bulk-stream-ingest.mjs (legal-entity).
@@ -19,7 +19,7 @@ const { default: pg } = await import("/Users/junkawasaki/github/etzhayyim-root/3
 const RW_CONN = process.env.RW_CONN
   ?? "REDACTED_USE_DATABASE_URL_ENV?sslmode=disable";
 const REPO_DID = "did:web:yabai.etzhayyim.com";
-const CONTENT_DIR = "/Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-yabai/content";
+const CONTENT_DIR = "/Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-yabai/content";
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");

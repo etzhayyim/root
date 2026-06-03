@@ -19,8 +19,8 @@
  *
  * Usage:
  *   node 70-tools/scripts/migration/r2-to-b2-wrangler.mjs \
- *     --bucket ai-gftd-yuubin \
- *     60-apps/ai-gftd-project-yuubin/.../wrangler.jsonc
+ *     --bucket etzhayyim-yuubin \
+ *     60-apps/etzhayyim-project-yuubin/.../wrangler.jsonc
  *
  * Optional flags:
  *   --region <region>      default: us-east-005
@@ -350,7 +350,7 @@ function main() {
     console.log("  2. wrangler secret put B2_KEY_ID and B2_APPLICATION_KEY");
     console.log("  3. update src/app.ts CDN_R2.{get,put,head,delete} via");
     console.log("     70-tools/scripts/migration/r2-to-b2-codemod.mjs");
-    console.log("  4. gftd build && gftd deploy && smoke-test");
+    console.log("  4. etzhayyim build && etzhayyim deploy && smoke-test");
   }
 }
 

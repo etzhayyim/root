@@ -13,13 +13,13 @@
  * Phase 2 で 47 都道府県 + 指定都市の独自公売システムを追加。
  *
  * Auth: authority Service Auth JWT (lxm=com.etzhayyim.apps.sashiosae.recordKankaResult)
- *   env etzhayyim_AUTHORITY_JWT で渡す (60s TTL、gftd agent-token --lxm で取得)。
+ *   env etzhayyim_AUTHORITY_JWT で渡す (60s TTL、etzhayyim agent-token --lxm で取得)。
  *
  * Tier rule (ADR-0032): auctionId / scheduledAt / estimatedValue / venueUrl は
  *   Tier 1 public (政府公開情報)。落札者 / 正確落札額 は取得対象外 (Tier 3)。
  *
  * Usage:
- *   export etzhayyim_AUTHORITY_JWT=$(gftd agent-token --lxm com.etzhayyim.apps.sashiosae.recordKankaResult --did did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka)
+ *   export etzhayyim_AUTHORITY_JWT=$(etzhayyim agent-token --lxm com.etzhayyim.apps.sashiosae.recordKankaResult --did did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka)
  *   node sashiosae-ingest-nta-koubai.mjs [--dry-run] [--limit 50]
  */
 import { readFile } from "node:fs/promises";
@@ -29,7 +29,7 @@ const JWT = process.env.etzhayyim_AUTHORITY_JWT ?? "";
 const XRPC_HOST = process.env.XRPC_HOST ?? "https://atproto.etzhayyim.com";
 const AUTHORITY_DID = "did:web:jpn-state.etzhayyim.com:mof:nta:choushuu:kanka";
 const NTA_HOST = "www.koubai.nta.go.jp";
-const UA = "gftd-sashiosae-ingest/0.1 (https://jpn-state.etzhayyim.com; adr-0032)";
+const UA = "etzhayyim-sashiosae-ingest/0.1 (https://jpn-state.etzhayyim.com; adr-0032)";
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
@@ -120,7 +120,7 @@ async function postKankaResult(payload) {
     console.log("[dry-run] would POST", JSON.stringify(payload));
     return { kankaId: "dry-run", uri: "" };
   }
-  if (!JWT) throw new Error("etzhayyim_AUTHORITY_JWT env required (gftd agent-token --lxm com.etzhayyim.apps.sashiosae.recordKankaResult)");
+  if (!JWT) throw new Error("etzhayyim_AUTHORITY_JWT env required (etzhayyim agent-token --lxm com.etzhayyim.apps.sashiosae.recordKankaResult)");
   const res = await fetch(`${XRPC_HOST}/xrpc/com.etzhayyim.apps.sashiosae.recordKankaResult`, {
     method: "POST",
     headers: {

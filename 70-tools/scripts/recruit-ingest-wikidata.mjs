@@ -13,7 +13,7 @@ import { writeFile } from "node:fs/promises";
 const RW_CONN = process.env.RW_CONN ?? "postgresql://root@127.0.0.1:14566/dev?sslmode=disable";
 const COLLECTOR_DID = "did:web:recruit.etzhayyim.com";
 const SPARQL_URL = "https://query.wikidata.org/sparql";
-const UA = "gftd-recruit-taxonomy/0.1 (https://recruit.etzhayyim.com; research)";
+const UA = "etzhayyim-recruit-taxonomy/0.1 (https://recruit.etzhayyim.com; research)";
 const LANGS = ["en", "ja", "fr", "de", "es", "zh", "ar", "ru", "pt", "it"];
 
 const args = process.argv.slice(2);

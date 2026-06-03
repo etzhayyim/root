@@ -53,7 +53,7 @@ HANDLES_TS_PATH = (
 # limit. Phase β: replace with an IPFS-pinned CID fetched via gateway + KV cache.
 ADAPTER_TS_PATH = (
     REPO_ROOT
-    / "60-apps/ai-gftd-project-yoro/xrpc-adapter/src/registry/unispsc-agents.gen.ts"
+    / "60-apps/etzhayyim-project-yoro/xrpc-adapter/src/registry/unispsc-agents.gen.ts"
 )
 
 CODE_RE = re.compile(r"^c(\d{6,12})$")

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Thin driver for shinshi.backfillGovernanceEdges BPMN.
 //
-// Replaces: 60-apps/ai-gftd-project-shinshi/scripts/backfill-governance-edges.py
+// Replaces: 60-apps/etzhayyim-project-shinshi/scripts/backfill-governance-edges.py
 // That script iterated 247 models from the manifest and INSERTed 2 policy
 // edges each via direct psycopg2. This driver just reads the manifest +
 // POSTs the model list to the BPMN which does the diff + insert + audit.
@@ -11,13 +11,13 @@
 //
 // Env:
 //   DISPATCHER_URL  (default https://dispatcher.etzhayyim.com)
-//   MANIFEST_PATH   (default 60-apps/ai-gftd-project-shinshi/260304-models-manifest.json)
+//   MANIFEST_PATH   (default 60-apps/etzhayyim-project-shinshi/260304-models-manifest.json)
 
 import { readFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 
 const DISPATCHER = (process.env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/$/, "");
-const DEFAULT_MANIFEST = new URL("../../../60-apps/ai-gftd-project-shinshi/260304-models-manifest.json", import.meta.url);
+const DEFAULT_MANIFEST = new URL("../../../60-apps/etzhayyim-project-shinshi/260304-models-manifest.json", import.meta.url);
 const MANIFEST = process.env.MANIFEST_PATH ?? DEFAULT_MANIFEST;
 
 const raw = readFileSync(MANIFEST, "utf8");

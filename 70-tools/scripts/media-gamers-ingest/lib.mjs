@@ -13,7 +13,7 @@ export const RETRY_BACKOFF_MS = 3000;
 export function requireToken() {
   const t = process.env.etzhayyim_TOKEN;
   if (!t) {
-    console.error("ERROR: set etzhayyim_TOKEN (run: gftd agent-token --lxm <NSID>)");
+    console.error("ERROR: set etzhayyim_TOKEN (run: etzhayyim agent-token --lxm <NSID>)");
     process.exit(2);
   }
   return t;

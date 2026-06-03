@@ -23,7 +23,7 @@ from psycopg2.extras import execute_values
 import requests
 
 WDQS_URL = "https://query.wikidata.org/sparql"
-UA = "gftd-media-gamers-ingest/1.0 (ops@etzhayyim.com)"
+UA = "etzhayyim-media-gamers-ingest/1.0 (ops@etzhayyim.com)"
 
 COUNT_QUERY = """
 SELECT (COUNT(DISTINCT ?game) AS ?cnt) WHERE {

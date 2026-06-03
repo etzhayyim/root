@@ -51,7 +51,7 @@ def tokens(value: object) -> list[str]:
 
 def get_rw_url() -> str:
     return subprocess.check_output(
-        ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+        ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
         text=True,
     ).strip()
 
@@ -133,7 +133,7 @@ def main() -> int:
                 """
                 SELECT vertex_id, name, display_name, item_type
                 FROM vertex_game_item
-                WHERE vertex_id LIKE 'did:gftd:gameitem:pokemon-pokopia:%'
+                WHERE vertex_id LIKE 'did:etzhayyim:gameitem:pokemon-pokopia:%'
                 """
             )
             cols = [d[0] for d in cur.description]
@@ -170,18 +170,18 @@ def main() -> int:
                     chunk_vid = chunk_by_doc.get(doc_vid, f"{doc_vid}/chunk/000")
                 for alias, score, source in build_aliases(entity):
                     norm = normalize(alias)
-                    alias_vid = stable_id("did:gftd:domain-knowledge-alias", [GAME_SLUG, entity_vid, norm])
+                    alias_vid = stable_id("did:etzhayyim:domain-knowledge-alias", [GAME_SLUG, entity_vid, norm])
                     alias_rows.append((
                         alias_vid, created_date, 1, OWNER_DID, GAME_SLUG, kind,
                         entity_vid, doc_vid, chunk_vid, alias, norm, source, score, created,
                     ))
                     edge_rows.append((
-                        stable_id("edge:gftd:domain-knowledge-alias-of", [alias_vid, doc_vid]),
+                        stable_id("edge:etzhayyim:domain-knowledge-alias-of", [alias_vid, doc_vid]),
                         alias_vid, doc_vid, created_date, 1, OWNER_DID, "alias_of", score, created,
                     ))
                     for token in tokens(alias):
                         token_rows.append((
-                            stable_id("did:gftd:domain-knowledge-token", [GAME_SLUG, entity_vid, norm, token]),
+                            stable_id("did:etzhayyim:domain-knowledge-token", [GAME_SLUG, entity_vid, norm, token]),
                             created_date, 1, OWNER_DID, GAME_SLUG, kind, entity_vid,
                             doc_vid, chunk_vid, token, source, score, created,
                         ))
@@ -192,7 +192,7 @@ def main() -> int:
                 "vertex_domain_knowledge_alias",
             ]:
                 cur.execute(f"DELETE FROM {table} WHERE game_slug = %s" if table != "edge_domain_knowledge_alias_of" else "DELETE FROM edge_domain_knowledge_alias_of WHERE edge_id LIKE %s",
-                            (GAME_SLUG,) if table != "edge_domain_knowledge_alias_of" else ("edge:gftd:domain-knowledge-alias-of:%",))
+                            (GAME_SLUG,) if table != "edge_domain_knowledge_alias_of" else ("edge:etzhayyim:domain-knowledge-alias-of:%",))
             conn.commit()
 
             insert_values_batched(

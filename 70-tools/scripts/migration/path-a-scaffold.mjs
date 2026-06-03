@@ -18,8 +18,8 @@ Options:
   --help             Show this help text.
 
 Examples:
-  node scripts/migration/path-a-scaffold.mjs projects/ai-gftd-project-news/wasm/news-core-component
-  node scripts/migration/path-a-scaffold.mjs projects/ai-gftd-project-news/wasm/news-core-component --dry-run
+  node scripts/migration/path-a-scaffold.mjs projects/etzhayyim-project-news/wasm/news-core-component
+  node scripts/migration/path-a-scaffold.mjs projects/etzhayyim-project-news/wasm/news-core-component --dry-run
   node scripts/migration/path-a-scaffold.mjs ./projects/... --force --note-name 260327-news-path-a.md
 `);
 }

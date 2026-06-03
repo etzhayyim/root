@@ -16,8 +16,8 @@ Env:
   CF_WORKER_URL          default https://oss3k41x.etzhayyim.com
   BPMN_DISPATCHER_URL    default https://dispatcher.etzhayyim.com
   DISPATCHER_INTERNAL_SECRET   fetched from kubectl if not set
-  RW_URL                 fetched from Keychain (gftd.rw / ROOT_URL) if not set
-  etzhayyim_TOKEN             Service Auth JWT for CF Worker calls (from `gftd agent-token`)
+  RW_URL                 fetched from Keychain (etzhayyim.rw / ROOT_URL) if not set
+  etzhayyim_TOKEN             Service Auth JWT for CF Worker calls (from `etzhayyim agent-token`)
 
 Usage:
     70-tools/scripts/test/open-ossekai-integration.py
@@ -86,7 +86,7 @@ def _rw_url() -> str:
         return url
     try:
         return subprocess.check_output(
-            ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+            ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
             text=True, stderr=subprocess.DEVNULL,
         ).strip()
     except Exception:
@@ -98,7 +98,7 @@ def _agent_token(nsid: str) -> str:
         return tok
     try:
         return subprocess.check_output(
-            ["gftd", "agent-token", "--lxm", nsid],
+            ["etzhayyim", "agent-token", "--lxm", nsid],
             text=True, stderr=subprocess.DEVNULL,
         ).strip()
     except Exception:
@@ -115,7 +115,7 @@ def _req(
 ) -> tuple[int, Any]:
     url = base + path
     data = json.dumps(body).encode() if body is not None else None
-    hdrs: dict[str, str] = {"User-Agent": "gftd-ossekai-integ/1.0"}
+    hdrs: dict[str, str] = {"User-Agent": "etzhayyim-ossekai-integ/1.0"}
     if data:
         hdrs["Content-Type"] = "application/json"
     if extra_headers:

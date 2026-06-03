@@ -354,7 +354,7 @@ async function ingestGreenhouse(company, seen) {
   let data;
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "gftd-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
+      headers: { "User-Agent": "etzhayyim-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
       signal: AbortSignal.timeout(15000),
     });
     if (res.status === 404) return [];  // company not on GH or board is private
@@ -400,7 +400,7 @@ async function ingestLever(company, seen) {
   let data;
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "gftd-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
+      headers: { "User-Agent": "etzhayyim-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
       signal: AbortSignal.timeout(15000),
     });
     if (res.status === 404) return [];
@@ -449,7 +449,7 @@ async function ingestAshby(company, seen) {
   let data;
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "gftd-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
+      headers: { "User-Agent": "etzhayyim-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
       signal: AbortSignal.timeout(15000),
     });
     if (res.status === 404 || res.status === 403) return [];

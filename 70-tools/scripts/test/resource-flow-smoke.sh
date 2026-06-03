@@ -87,7 +87,7 @@ if [ -n "$BEARER" ]; then
   assert "registerEmitter yadoya" "$code" "$(cat /tmp/rf-smoke.body)" "200"
 
   # 5. projectFlow — synthetic record
-  body='{"flowClass":"currency","recordUri":"at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow/smoke-001","observedAt":"2026-04-28T18:00:00Z","record":{"sourceDid":"did:web:yadoya.etzhayyim.com","counterpartyDid":"did:web:hospitality.etzhayyim.com:actor:chain:hilton","fiscalPeriod":"2026-04","flowType":"revenue","amount":0,"amountBucket":"lt-60k","currency":"JPY","industryCode":"I5510","sourceUrl":"https://yadoya.etzhayyim.com/about","sourceLicense":"gftd-internal-aggregate-v1"}}'
+  body='{"flowClass":"currency","recordUri":"at://did:web:yadoya.etzhayyim.com/com.etzhayyim.apps.resourceFlow.legalEntityCurrencyFlow/smoke-001","observedAt":"2026-04-28T18:00:00Z","record":{"sourceDid":"did:web:yadoya.etzhayyim.com","counterpartyDid":"did:web:hospitality.etzhayyim.com:actor:chain:hilton","fiscalPeriod":"2026-04","flowType":"revenue","amount":0,"amountBucket":"lt-60k","currency":"JPY","industryCode":"I5510","sourceUrl":"https://yadoya.etzhayyim.com/about","sourceLicense":"etzhayyim-internal-aggregate-v1"}}'
   code=$(call POST com.etzhayyim.apps.resourceFlow.projectFlow '' "$body")
   assert "projectFlow currency" "$code" "$(cat /tmp/rf-smoke.body)" "200"
 

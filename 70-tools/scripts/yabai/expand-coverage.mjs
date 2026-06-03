@@ -3,7 +3,7 @@
 //
 // Calls two BPMN actors (reverseIpLookup + crtshFuzzySearch) to discover
 // sibling phishing domain candidates. Replaces the all-in-one
-// 60-apps/ai-gftd-project-yabai/tools/track-phishing-infra/expand-coverage.mjs
+// 60-apps/etzhayyim-project-yabai/tools/track-phishing-infra/expand-coverage.mjs
 // which did the same work inline (curl + psql). BPMNs handle HTTP fetch +
 // audit trail; this driver filters (brand keywords, known-dedup) + writes
 // candidates TSV.
@@ -13,7 +13,7 @@
 //
 // Env:
 //   DISPATCHER_URL  (default https://dispatcher.etzhayyim.com)
-//   RW_URL          (default $(security find-generic-password -s gftd.rw -a ROOT_URL -w))
+//   RW_URL          (default $(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w))
 
 import { spawn, spawnSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
@@ -39,7 +39,7 @@ function sh(cmd, args, opts = {}) {
 
 function rwUrl() {
   if (process.env.RW_URL) return process.env.RW_URL;
-  const r = spawnSync("security", ["find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"]);
+  const r = spawnSync("security", ["find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"]);
   return r.stdout.toString().trim();
 }
 

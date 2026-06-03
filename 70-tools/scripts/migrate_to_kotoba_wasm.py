@@ -12,7 +12,7 @@ import time
 LITELLM_URL = "http://127.0.0.1:4000/v1/chat/completions"
 # Using gemma4 26b a4b per user request
 MODEL = "gemma4:26b-a4b"
-LITELLM_KEY = "sk-gftd-litellm-local"
+LITELLM_KEY = "sk-etzhayyim-litellm-local"
 
 KOTOBA_SERVER = "http://localhost:8077"
 OPERATOR_DID = "did:key:ze2e169933f9bcc6cb218e083b3d2a80c5a5a2b92fbf3cb41b4d5283ce3f6939f"

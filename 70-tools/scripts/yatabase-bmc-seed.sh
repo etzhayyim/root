@@ -10,7 +10,7 @@
 #   YATA_AGENT_ADMIN_KEY   the wrangler secret on magatama-y4t4b4se
 #   YATA_BASE              default https://yatabase.etzhayyim.com
 #
-# Usage:  YATA_AGENT_ADMIN_KEY=$(security find-generic-password -s gftd.yatabase -a YATA_AGENT_ADMIN_KEY -w) \
+# Usage:  YATA_AGENT_ADMIN_KEY=$(security find-generic-password -s etzhayyim.yatabase -a YATA_AGENT_ADMIN_KEY -w) \
 #         ./70-tools/scripts/yatabase-bmc-seed.sh
 
 set -euo pipefail

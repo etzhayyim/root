@@ -3,7 +3,7 @@
  * Register path-based DIDs from ingested domain records.
  *
  * For each domain, creates path-based DIDs via PDS batch-flush
- * (com.atproto.identity.create) so that `gftd coverage` can count them.
+ * (com.atproto.identity.create) so that `etzhayyim coverage` can count them.
  *
  * Usage:
  *   npx tsx scripts/register-dids-from-records.ts [--domain hanrei] [--dry-run]
@@ -14,12 +14,12 @@ const PDS_URL = "https://atproto.etzhayyim.com";
 // ADR-0023 P4: etzhayyim_TOKEN Bearer replaces spoofable x-magatama-verified.
 const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
 if (!etzhayyim_TOKEN) {
-  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first");
+  throw new Error("etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(etzhayyim auth token)` first");
 }
 const AUTH_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
   "Authorization": `Bearer ${etzhayyim_TOKEN}`,
-  "x-gftd-org-id": "anon",
+  "x-etzhayyim-org-id": "anon",
 };
 const DATA_BASE = "/Volumes/251220/domain-data";
 const BATCH_SIZE = 5;

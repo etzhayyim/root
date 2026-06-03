@@ -1,10 +1,10 @@
 # @etzhayyim/seed-post
 
-Step 1 of "display posts on https://etzhayyim.com/ via yatachain".
+Step 1 of "display posts on https://etzhayyim.com/ via kotoba-datomic".
 
 Writes a single `app.bsky.feed.post` record into the operator DID's MST so
 the substrate read path returns a non-empty feed. See ADR-2605172000 and
-yatachain SPEC §1 + §2.
+kotoba-datomic SPEC §1 + §2.
 
 ## Usage
 
@@ -16,7 +16,7 @@ security add-generic-password -s etzhayyim -a PDS_HANDLE       -w '<your-handle>
 security add-generic-password -s etzhayyim -a PDS_APP_PASSWORD -w '<app-password>'
 
 # Post:
-./bin/seed-post.sh "hello yatachain"
+./bin/seed-post.sh "hello kotoba-datomic"
 
 # Verify:
 curl -s 'https://etzhayyim.com/xrpc/app.bsky.feed.getTimeline?limit=5' | jq
@@ -39,6 +39,6 @@ curl -s 'https://etzhayyim.com/xrpc/app.bsky.feed.getTimeline?limit=5' | jq
 the minimal seed we only need the AT-Protocol write. The mst-projector + the
 anchor-cron pick up the new commit from the firehose automatically.
 
-When yatachain §4 membrane lands (Step 2), this CLI will route writes
+When kotoba-datomic §4 membrane lands (Step 2), this CLI will route writes
 through the LangGraph `feed_post` cell verdict gate instead of the bare
 `com.atproto.repo.createRecord` call.

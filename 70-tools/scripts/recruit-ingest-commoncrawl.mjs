@@ -173,7 +173,7 @@ function extractJobPostings(html, sourceUrl) {
 async function queryCdx(pattern, limit = 500) {
   const url = `${CDX_BASE}?url=${encodeURIComponent(pattern)}&output=json&limit=${limit}&filter=status:200&fl=url,filename,offset,length,status`;
   const res = await fetch(url, {
-    headers: { "User-Agent": "gftd-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
+    headers: { "User-Agent": "etzhayyim-recruit-bot/1.0 (+https://etzhayyim.com/recruit)" },
     signal: AbortSignal.timeout(30000),
   });
   if (!res.ok) {
@@ -192,7 +192,7 @@ async function fetchWarcRecord(filename, offset, length) {
   const res = await fetch(`${CC_BASE}/${filename}`, {
     headers: {
       "Range": `bytes=${offset}-${rangeEnd}`,
-      "User-Agent": "gftd-recruit-bot/1.0 (+https://etzhayyim.com/recruit)",
+      "User-Agent": "etzhayyim-recruit-bot/1.0 (+https://etzhayyim.com/recruit)",
     },
     signal: AbortSignal.timeout(20000),
   });

@@ -32,7 +32,7 @@ entry as "accepted-reserved" instead of drift. Two markers supported:
 
   (reserved)         — future R-cycle will produce this path
   (deferred-rename)  — path is intentionally pre-cutover per CLAUDE.md
-                       gftd→etzhayyim rename invariant
+                       etzhayyim→etzhayyim rename invariant
 
 A path that EXISTS but still carries a marker is flagged as
 "stale-marker" (warning, not drift) — operator should drop the

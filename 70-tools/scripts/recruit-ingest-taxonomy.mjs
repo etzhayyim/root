@@ -22,7 +22,7 @@
  *   node 70-tools/scripts/recruit-ingest-taxonomy.mjs --source onet --input "/tmp/.../Occupation Data.txt" [--dry-run]
  *
  * Auth (non-dry-run):
- *   export BEARER_TOKEN=$(gftd agent-token --did did:web:recruit.etzhayyim.com --lxm com.atproto.repo.applyWrites)
+ *   export BEARER_TOKEN=$(etzhayyim agent-token --did did:web:recruit.etzhayyim.com --lxm com.atproto.repo.applyWrites)
  */
 
 import { readFile } from "node:fs/promises";
