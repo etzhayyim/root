@@ -37,7 +37,7 @@
     "ministryCount": 11,
     "contractCount": 1,
     "bpmnCount": 93,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/chn/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/chn/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -77,7 +77,7 @@
         "authority": "Defense Joint Staff Department",
         "basis": "Defence Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/chn/bpmn/defense-joint-staff-department.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/chn/bpmn/defense-joint-staff-department.bpmn"
       },
       {
         "id": "chn.election-central-election-committee",
@@ -86,7 +86,7 @@
         "authority": "Election Central Election Committee",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/chn/bpmn/election-central-election-committee.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/chn/bpmn/election-central-election-committee.bpmn"
       },
       {
         "id": "chn.national-health-commission",
@@ -95,7 +95,7 @@
         "authority": "National Health Commission",
         "basis": "Health Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/chn/bpmn/national-health-commission.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/chn/bpmn/national-health-commission.bpmn"
       },
       {
         "id": "chn.state",
@@ -104,7 +104,7 @@
         "authority": "State",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/chn/bpmn/state.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/chn/bpmn/state.bpmn"
       },
       {
         "id": "chn.ministry-of",
@@ -113,7 +113,7 @@
         "authority": "Ministry Of",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/chn/bpmn/ministry-of.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/chn/bpmn/ministry-of.bpmn"
       },
       {
         "id": "chn.ministry-of-education",
@@ -122,7 +122,7 @@
         "authority": "Ministry Of Education",
         "basis": "Education Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/chn/bpmn/ministry-of-education.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/chn/bpmn/ministry-of-education.bpmn"
       }
     ],
     "documentTemplates": [

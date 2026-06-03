@@ -75,7 +75,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/deu/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/deu/bpmn/executive.bpmn"
       },
       {
         "id": "deu.ifg.request",
@@ -138,7 +138,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 44,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/deu/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/deu/",
     "complianceFrameworks": [
       "Grundgesetz (Basic Law, 1949)",
       "Informationsfreiheitsgesetz (IFG, 2005)",

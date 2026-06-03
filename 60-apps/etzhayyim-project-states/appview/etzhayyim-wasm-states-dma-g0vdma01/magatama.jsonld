@@ -37,7 +37,7 @@
     "ministryCount": 0,
     "contractCount": 0,
     "bpmnCount": 0,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/dma/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/dma/",
     "addresses": [
       {
         "kind": "headquarters",

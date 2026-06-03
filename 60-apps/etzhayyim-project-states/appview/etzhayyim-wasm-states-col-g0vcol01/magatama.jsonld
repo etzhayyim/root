@@ -37,7 +37,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 86,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/col/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/col/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -71,7 +71,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/col/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/col/bpmn/executive.bpmn"
       }
     ],
     "documentTemplates": [
