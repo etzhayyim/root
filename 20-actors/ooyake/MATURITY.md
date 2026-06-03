@@ -43,6 +43,18 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — read-client loads the FULL atlas (major consumer fix) + new queries
+
+**Bug fixed**: `deploy/gov_atlas_client.py` (the read API danjo / kanae / tsumugi /
+toritsugi / himotoki consume) globbed only `gov-units*.seed.edn` — so consumers saw
+**~28 of the ~7,100 units**; the entire real-data atlas (countries, ministries,
+courts, central banks, oversight bodies, ADM1, IGOs, …) was invisible to them. Changed
+the glob to `gov-units*.edn` → the client now loads all **7,106 units + 5,691
+addresses**. Added consumer-grade queries: `by_branch(branch)`, `addresses_for(uid)`,
+`country_profile(cc)` (a country's bodies grouped by branch + subdivision/geocoded
+counts — the one-call view consumers want). Client tests 7 → **11 passed**;
+`run_tests.sh` ALL GREEN.
+
 ## 2026-06-04 — sovereign wealth funds (45)
 
 `gov-units.swf.edn` adds **45 sovereign wealth funds** (state-owned investment funds —
