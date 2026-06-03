@@ -379,71 +379,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-airplane/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-banking/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-cofog/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-denki/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-gas/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-isco/rw-free"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
     directory: "/60-apps/ai-gftd-project-open-isic/appview/worker"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-jpn-gov/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/e2e"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-network/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-ossekai/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-ports/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-power/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-rail/worker/svelte"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
@@ -452,22 +388,6 @@ updates:
       interval: "weekly"
   - package-ecosystem: "npm"
     directory: "/60-apps/ai-gftd-project-open-robo/appview/open-robo-hp/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-swift/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-unispsc/appview/worker"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-water/worker/svelte"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-public-kafun-bokumetsu/appview/ai-gftd-wasm-kafun-bokumetsu-n97ik10n/svelte"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
@@ -480,10 +400,6 @@ updates:
       interval: "weekly"
   - package-ecosystem: "npm"
     directory: "/60-apps/open-otology-uhl-r/worker"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "cargo"
-    directory: "/10-protocol/wproto"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
@@ -791,15 +707,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-comfyui/adapter"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
     directory: "/60-apps/ai-gftd-project-open-isic/lg"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-open-jpn-mynumber/lg"
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
@@ -807,18 +715,6 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-open-patent/lg"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
     directory: "/60-apps/ai-gftd-project-open-robo/firmware"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-public-domain-colorization/lg"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "pip"
-    directory: "/70-tools/gftd-py"
     schedule:
       interval: "weekly"
