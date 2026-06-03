@@ -41,7 +41,7 @@ export function playTuneSweep(frequency: number) {
 		osc.connect(gain).connect(ac.destination);
 		osc.start(ac.currentTime);
 		osc.stop(ac.currentTime + 0.08);
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
 }
 
 /** Mood switch — warm chord confirmation. */
@@ -60,7 +60,7 @@ export function playMoodSwitch() {
 			osc.start(ac.currentTime);
 			osc.stop(ac.currentTime + 0.3);
 		}
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
 }
 
 /** Panel open — rising whoosh. */
@@ -77,7 +77,7 @@ export function playOpen() {
 		osc.connect(gain).connect(ac.destination);
 		osc.start(ac.currentTime);
 		osc.stop(ac.currentTime + 0.2);
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
 }
 
 /** Panel close — falling whoosh. */
@@ -94,7 +94,7 @@ export function playClose() {
 		osc.connect(gain).connect(ac.destination);
 		osc.start(ac.currentTime);
 		osc.stop(ac.currentTime + 0.15);
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
 }
 
 /** Account switch — double click. */
@@ -112,7 +112,7 @@ export function playAccountSwitch() {
 			osc.start(ac.currentTime + i * 0.08);
 			osc.stop(ac.currentTime + i * 0.08 + 0.06);
 		}
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed error", error); }
 }
 
 // === Radio Music Playback (HTML5 Audio) ===
@@ -139,7 +139,7 @@ export function radioPlay(url: string, volume: number, onEnded?: () => void) {
 		audio.load();
 	}
 	audio.volume = Math.max(0, Math.min(1, volume));
-	audio.play().catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed async error", error); });
+	audio.play().catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed async error", error); });
 }
 
 /** Pause radio playback. */
@@ -151,7 +151,7 @@ export function radioPause() {
 export function radioResume(volume: number) {
 	if (!radioAudio) return;
 	radioAudio.volume = Math.max(0, Math.min(1, volume));
-	radioAudio.play().catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed async error", error); });
+	radioAudio.play().catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/tuner/tuner-audio.ts: suppressed async error", error); });
 }
 
 /** Set radio volume (0–1). */

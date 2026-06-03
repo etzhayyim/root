@@ -63,7 +63,7 @@
 
 	$effect(() => {
 		convos.subscribe();
-		getCurrentDID().then((did) => { selfDid = did ?? ''; }).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte: suppressed async error", error); });
+		getCurrentDID().then((did) => { selfDid = did ?? ''; }).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte: suppressed async error", error); });
 	});
 
 	// Load participant types when active convo changes
@@ -75,7 +75,7 @@
 				if (m.participantType) map.set(m.did, m.participantType);
 			}
 			participantTypes = map;
-		}).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte: suppressed async error", error); });
+		}).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte: suppressed async error", error); });
 	});
 
 	function handleSelectConvo(convoId: string) {

@@ -63,7 +63,7 @@
 				if (plaintext !== null) {
 					decryptedBodies = new Map(decryptedBodies).set(rkey, plaintext);
 				}
-			}).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/FeedTimeline.svelte: suppressed async error", error); });
+			}).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/w/FeedTimeline.svelte: suppressed async error", error); });
 		}
 	});
 
