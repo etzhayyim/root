@@ -11,20 +11,20 @@
  *     (geonames / OpenAddresses / etc.) and operator audit is the validation
  *     trail. Set `opts.witness` to `undefined`.
  *
- *   - **L1 witnessed**: full yatachain `writeWithWitnesses` orchestration.
+ *   - **L1 witnessed**: full kotoba-datomic `writeWithWitnesses` orchestration.
  *     Suitable for one-shot heritage registrations (Mountain / Building /
  *     PortOfTokyo) where each write is a sovereign claim that benefits
  *     from ≥3-of-5 cell attestation. Set `opts.witness = { fleet, transport }`.
  *
- * Per yatachain MIGRATION-TODO Phase 3 + ADR-2605231400.
+ * Per kotoba-datomic MIGRATION-TODO Phase 3 + ADR-2605231400.
  */
 
-import { yatachain } from "@etzhayyim/sdk";
+import { kotoba-datomic } from "@etzhayyim/sdk";
 
-type FleetCell = yatachain.FleetCell;
-type QuorumState = yatachain.QuorumState;
-type WitnessTransport = yatachain.WitnessTransport;
-const writeWithWitnesses = yatachain.writeWithWitnesses;
+type FleetCell = kotoba-datomic.FleetCell;
+type QuorumState = kotoba-datomic.QuorumState;
+type WitnessTransport = kotoba-datomic.WitnessTransport;
+const writeWithWitnesses = kotoba-datomic.writeWithWitnesses;
 import {
   bboxFromDegrees,
   pointBbox,

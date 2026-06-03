@@ -22,8 +22,8 @@ metadata:
   namespace: maps-bulk-ingest
 type: Opaque
 stringData:
-  # Source these from gftd vault before apply — values below are EXAMPLE placeholder:
-  #   gftd vault get maps-bulk-ingest DATABASE_URL B2_ACCESS_KEY_ID B2_SECRET_ACCESS_KEY
+  # Source these from etzhayyim vault before apply — values below are EXAMPLE placeholder:
+  #   etzhayyim vault get maps-bulk-ingest DATABASE_URL B2_ACCESS_KEY_ID B2_SECRET_ACCESS_KEY
   DATABASE_URL: "postgres://root:CHANGEME@45.32.79.245:4566/dev"  # EXAMPLE placeholder
   B2_ACCESS_KEY_ID: "CHANGEME"  # EXAMPLE placeholder
   B2_SECRET_ACCESS_KEY: "CHANGEME"  # EXAMPLE placeholder
@@ -70,7 +70,7 @@ spec:
                 name: maps-bulk-ingest-credentials
           env:
             - name: B2_BUCKET
-              value: ai-gftd-nats
+              value: etzhayyim-nats
             - name: B2_PREFIX
               value: maps-bulk-ingest/wikidata
           resources:

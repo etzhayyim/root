@@ -3,7 +3,7 @@
 #
 # Build:
 #   docker build --platform linux/amd64 -f Dockerfile.phase2 \
-#     -t ghcr.io/gftdcojp/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S) .
+#     -t ghcr.io/etzhayyimcojp/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S) .
 #
 # Recommended GPU: L40S 48 GiB. Container Disk: 30 GB (gsplat
 # intermediates + COLMAP database + downloaded Mapillary JPEGs).

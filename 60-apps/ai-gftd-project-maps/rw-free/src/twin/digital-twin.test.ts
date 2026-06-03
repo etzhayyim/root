@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { yatachain } from "@etzhayyim/sdk";
+import { kotoba-datomic } from "@etzhayyim/sdk";
 
 import { featureSchemaValidator } from "../feature/membrane.js";
 import {
@@ -23,9 +23,9 @@ const {
   flattenFleet,
   makeDeterministicTestSigner,
   makeStandardCellHandler,
-} = yatachain;
-type FleetCell = yatachain.FleetCell;
-type MembraneRule = yatachain.MembraneRule;
+} = kotoba-datomic;
+type FleetCell = kotoba-datomic.FleetCell;
+type MembraneRule = kotoba-datomic.MembraneRule;
 
 // ─── fixtures ─────────────────────────────────────────────────────────
 

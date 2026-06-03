@@ -12,7 +12,7 @@
  *   - display-layer — Display layer definitions (Tier A, operator-defined)
  *   - registry      — Legal Entity + Registry (Tier A, Land/Property/Business/Permit/License/Zoning) + Ownership
  *   - collection    — Collection job descriptor + state-event log (Tier A)
- *   - feature       — Geo / Building / Asset feature registration (Tier B, L0 or L1 witnessed via @etzhayyim/sdk/yatachain)
+ *   - feature       — Geo / Building / Asset feature registration (Tier B, L0 or L1 witnessed via @etzhayyim/sdk/kotoba-datomic)
  */
 
 export * as source from "./source/index.js";

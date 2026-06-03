@@ -53,7 +53,7 @@ logging.basicConfig(
 log = logging.getLogger("wikipedia_dumper")
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
-B2_BUCKET = os.environ.get("B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_PREFIX = os.environ.get("B2_PREFIX", "maps-bulk-ingest/wikipedia")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 PORT = int(os.environ.get("PORT", "8080"))
@@ -124,7 +124,7 @@ def _parse_mysql_dump(url: str) -> Iterator[list]:
     Streams gzipped content line-by-line and emits tuples for INSERT VALUES.
     """
     log.info("fetching %s", url)
-    req = Request(url, headers={"User-Agent": "gftd-maps-bulk-ingest/1.0 (contact@etzhayyim.com)"})
+    req = Request(url, headers={"User-Agent": "etzhayyim-maps-bulk-ingest/1.0 (contact@etzhayyim.com)"})
     with urlopen(req, timeout=300) as resp, gzip.open(resp, "rb") as f:
         for line in f:
             if not line.startswith(b"INSERT INTO"):

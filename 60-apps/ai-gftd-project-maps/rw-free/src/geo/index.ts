@@ -169,7 +169,7 @@ export async function listGeoSchemes(): Promise<GeoSchemeDescriptor[]> {
  * Implementation note: vertical zone lookup is by minMeters/maxMeters
  * interval; natural zone lookup requires geometry intersection against
  * Köppen/biome/tectonic polygons. Geometry isn't in MST scope — natural
- * zone polygons live in a yatachain-projection (Phase C). For now this
+ * zone polygons live in a kotoba-datomic-projection (Phase C). For now this
  * returns the matching vertical zone only.
  */
 export async function resolveZones3d(

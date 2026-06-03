@@ -7,7 +7,7 @@
  * Per maps CLAUDE.md §Digital Twin + ADR-2605231400 Phase 3 Tier B.
  *
  * Note: `com.etzhayyim.maps.sensorReading` is intentionally NOT here —
- * high-frequency sensor stream lives in a yatachain-projection (Tier C)
+ * high-frequency sensor stream lives in a kotoba-datomic-projection (Tier C)
  * per MIGRATION-TODO OQ-M-5.
  */
 

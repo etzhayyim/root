@@ -1,8 +1,8 @@
 # maps — RW-free reference implementation (Tier A)
 
 Multi-topic rw-free port covering 5 Tier A surfaces + 1 Tier B surface per [`MIGRATION-TODO.md`](../MIGRATION-TODO.md)
-Phase 1 / Phase 3 + [ADR-2605231400](../../../90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md).
-Mirrors the [`open-isic/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) reference per topic.
+Phase 1 / Phase 3 + [ADR-2605231400](../../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md).
+Mirrors the [`open-isic/rw-free/`](../../etzhayyim-project-open-isco/rw-free/) reference per topic.
 
 > **Status**: scaffold v0.0.0, **235/235 vitest passing**. Live PDS
 > seed run pending `ETZ_SEEDER_DID` + PDS auth credentials. Production
@@ -23,11 +23,11 @@ Mirrors the [`open-isic/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) ref
 
 ## Tier B end-to-end demo
 
-The `feature` module is the first surface that uses the full yatachain
+The `feature` module is the first surface that uses the full kotoba-datomic
 L1 witness pipeline. Call shape:
 
 ```typescript
-import { yatachain } from "@etzhayyim/sdk";
+import { kotoba-datomic } from "@etzhayyim/sdk";
 import { feature } from "@etzhayyim/maps-rw-free";
 
 // L0 — no witnessing
@@ -44,10 +44,10 @@ const r1 = await feature.registerMountain({ /* same */ }, {
   client: etzhayyimClient,
   witness: {
     fleet: fleetFromTomlSnapshot(),
-    transport: yatachain.createPdsPollingWitnessTransport({
+    transport: kotoba-datomic.createPdsPollingWitnessTransport({
       client: etzhayyimClient,
       attestationRepo: "did:web:maps.etzhayyim.com",
-      requestEndpoint: (cell) => `https://${cell.node}/yatachain/attest`,
+      requestEndpoint: (cell) => `https://${cell.node}/kotoba-datomic/attest`,
     }),
   },
 });
@@ -71,7 +71,7 @@ Source DID registry is the smallest, cleanest Tier A surface:
 | Public source (catalog) | No PII; redistribution under Charter §1 |
 | rkey == slug | Stable, kebab-case slugs make MST lookup O(1) by primary key |
 | Append-only + Supersedes edge | No mutation; revision = new record with `supersedesDid` |
-| No spatial query | Doesn't need a yatachain-projection — pure MST works |
+| No spatial query | Doesn't need a kotoba-datomic-projection — pure MST works |
 
 ## Layout
 
@@ -223,16 +223,16 @@ pnpm test
 | Pure-helper tests | ✅ |
 | Live PDS seed run | ⏳ pending `ETZ_SEEDER_DID` + PDS auth credentials |
 | Anchor verify against deployed contract | ⏳ pending `ETZ_ANCHOR_CONTRACT` deploy on target chain |
-| L1-witnessed (Tier B promotion) | ⏳ pending yatachain-witnesses live in Murakumo (ADR-2605231400 impl plan #2-#3) |
+| L1-witnessed (Tier B promotion) | ⏳ pending kotoba-datomic-witnesses live in Murakumo (ADR-2605231400 impl plan #2-#3) |
 
 ## See also
 
-- [`60-apps/ai-gftd-project-open-isic/rw-free/`](../../ai-gftd-project-open-isic/rw-free/) — pattern reference (ISIC-08 classification)
-- [`60-apps/ai-gftd-project-open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) — earlier reference (ISCO occupations)
+- [`60-apps/etzhayyim-project-open-isic/rw-free/`](../../etzhayyim-project-open-isic/rw-free/) — pattern reference (ISIC-08 classification)
+- [`60-apps/etzhayyim-project-open-isco/rw-free/`](../../etzhayyim-project-open-isco/rw-free/) — earlier reference (ISCO occupations)
 - [`20-actors/etzhayyim-sdk/`](../../../20-actors/etzhayyim-sdk/) — the substrate-purity SDK
 - [`50-infra/mst-projector/`](../../../50-infra/mst-projector/) — Stage 3 of the verification chain
 - [`MIGRATION-TODO.md`](../MIGRATION-TODO.md) — full maps migration plan (Tiers A / B / C / D, Phases 0–6)
-- [ADR-2605231400](../../../90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) — yatachain canonical name
+- [ADR-2605231400](../../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md) — kotoba-datomic canonical name
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate rules
 
 ## Next waves (Phase 1 remaining surfaces)

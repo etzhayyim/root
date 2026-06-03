@@ -3,8 +3,8 @@
 
 ADR-2605011500 §Phase-1.2.
 
-yatachain port (TBD): this pod is Phase 1 Tier A in
-``60-apps/ai-gftd-project-maps/MIGRATION-TODO.md``. Target migration is
+kotoba-datomic port (TBD): this pod is Phase 1 Tier A in
+``60-apps/etzhayyim-project-maps/MIGRATION-TODO.md``. Target migration is
 ``edge_vessel_owned_by`` / ``edge_vessel_operated_by`` INSERTs →
 ``com.etzhayyim.maps.ownership`` records via ``pymagatama.substrate``.
 Recipe + per-site row-to-record converter design in
@@ -34,7 +34,7 @@ Run modes:
 ENV:
   DATABASE_URL                — required, RisingWave Postgres URL
   WIKIDATA_SPARQL_URL         — default https://query.wikidata.org/sparql
-  WIKIDATA_USER_AGENT         — default 'gftd-maps/1.0 (https://maps.etzhayyim.com)'
+  WIKIDATA_USER_AGENT         — default 'etzhayyim-maps/1.0 (https://maps.etzhayyim.com)'
   WIKIDATA_BATCH_SIZE         — default 5000 (Wikidata caps at 10000 rows)
   DRY_RUN                     — '1' = parse + count only
   TARGET_LEI                  — optional LEI filter
@@ -76,7 +76,7 @@ log = logging.getLogger("aismarine_wikidata_lei")
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 SPARQL_URL = os.environ.get("WIKIDATA_SPARQL_URL", "https://query.wikidata.org/sparql")
 USER_AGENT = os.environ.get(
-    "WIKIDATA_USER_AGENT", "gftd-maps/1.0 (https://maps.etzhayyim.com)"
+    "WIKIDATA_USER_AGENT", "etzhayyim-maps/1.0 (https://maps.etzhayyim.com)"
 )
 BATCH_SIZE = int(os.environ.get("WIKIDATA_BATCH_SIZE", "5000"))
 DRY_RUN = os.environ.get("DRY_RUN", "0") == "1"

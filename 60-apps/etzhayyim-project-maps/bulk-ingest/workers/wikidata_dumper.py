@@ -12,7 +12,7 @@ Resumable: tracks last-processed offset in a DUMP_CHECKPOINT KV (B2 small file).
 
 ENV:
   DATABASE_URL          postgres://root:...@host:4566/dev  (placeholder — set via k8s Secret)
-  B2_BUCKET             ai-gftd-nats
+  B2_BUCKET             etzhayyim-nats
   B2_PREFIX             maps-bulk-ingest/wikidata
   B2_ACCESS_KEY_ID
   B2_SECRET_ACCESS_KEY
@@ -53,7 +53,7 @@ logging.basicConfig(
 log = logging.getLogger("wikidata_dumper")
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
-B2_BUCKET = os.environ.get("B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_PREFIX = os.environ.get("B2_PREFIX", "maps-bulk-ingest/wikidata")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 DUMP_URL = os.environ.get(

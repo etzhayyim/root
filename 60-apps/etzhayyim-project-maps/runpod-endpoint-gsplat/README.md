@@ -2,7 +2,7 @@
 
 Worker-side counterpart to the Mapillary → 3DGS preview pipeline
 (ADR-2605092800). Invoked by the bulk-ingest k8s pod
-(`60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`)
+(`60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`)
 through the standard RunPod `/run` + `/status/{job_id}` polling path.
 
 Sibling layout to `../runpod-endpoint/` (sentinel L7 worker). Same
@@ -128,7 +128,7 @@ bake API keys into the image.
 Wire format documented in `handler.py` module docstring. Both sides
 of the contract live in this repo:
 
-- **Caller**: `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`
+- **Caller**: `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_train_dumper.py`
 - **Callee** (this dir): `handler.py:handler`
 
 Lexicon `00-contracts/lexicons/com/etzhayyim/apps/maps/trainGsplatFromMapillary.json`

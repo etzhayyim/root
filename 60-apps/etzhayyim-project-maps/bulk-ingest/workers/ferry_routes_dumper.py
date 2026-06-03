@@ -53,7 +53,7 @@ logging.basicConfig(
 log = logging.getLogger("ferry_routes_dumper")
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
-B2_BUCKET = os.environ.get("B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 B2_PREFIX = os.environ.get("B2_PREFIX", "maps-bulk-ingest/ferry-routes")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 PORT = int(os.environ.get("PORT", "8080"))

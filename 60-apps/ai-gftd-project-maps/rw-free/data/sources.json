@@ -140,7 +140,7 @@
       "license": "varies-by-operator",
       "category": "transport",
       "status": "active",
-      "notes": "Heartbeat dispatch + bulk-ingest pod; BPMN bulkRefreshGtfsJp R/PT24H. GTFS-RT (vehicle position / trip update / alerts) tracked as a yatachain-projection per MIGRATION-TODO Tier C."
+      "notes": "Heartbeat dispatch + bulk-ingest pod; BPMN bulkRefreshGtfsJp R/PT24H. GTFS-RT (vehicle position / trip update / alerts) tracked as a kotoba-datomic-projection per MIGRATION-TODO Tier C."
     },
     {
       "slug": "registry-openflights",

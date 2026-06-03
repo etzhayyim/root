@@ -1,20 +1,20 @@
 /**
  * Default `MembraneRule` + `SchemaValidator` for com.etzhayyim.maps.feature.
  *
- * In production the rule is an `com.etzhayyim.yatachain.membraneRule` record
+ * In production the rule is an `com.etzhayyim.kotoba-datomic.membraneRule` record
  * published in PDS by an operator; orchestrators load it at startup. For
  * the rw-free reference + integration tests, this module exports a
  * default rule fixture with placeholder contentHash values. Operators
  * override with the real rule loaded from PDS.
  *
- * Per yatachain SPEC §4 + ADR-2605231400.
+ * Per kotoba-datomic SPEC §4 + ADR-2605231400.
  */
 
 import { isValidGeometryGeoJson, isValidH3Resolution, isValidLabel, type FeatureRecord } from "./types.js";
-import type { yatachain } from "@etzhayyim/sdk";
+import type { kotoba-datomic } from "@etzhayyim/sdk";
 
-type MembraneRule = yatachain.MembraneRule;
-type SchemaValidator = yatachain.SchemaValidator;
+type MembraneRule = kotoba-datomic.MembraneRule;
+type SchemaValidator = kotoba-datomic.SchemaValidator;
 
 export const FEATURE_NSID = "com.etzhayyim.maps.feature";
 

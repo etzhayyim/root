@@ -1,7 +1,7 @@
 # Rebuild runbook — maps-spatial-rw L0-projection
 
-Authoritative: [ADR-2605231500](../../../90-docs/adr/2605231500-yatachain-projection.md)
-+ [`yatachain-projection.toml`](../appview/maps-ui-uqpel6i6/yatachain-projection.toml)
+Authoritative: [ADR-2605231500](../../../90-docs/adr/2605231500-kotoba-datomic-projection.md)
++ [`kotoba-datomic-projection.edn`](../appview/maps-ui-uqpel6i6/kotoba-datomic-projection.edn)
 + [`MIGRATION-TODO.md`](../MIGRATION-TODO.md).
 
 This document is the **rebuild guarantee** for the maps projection. The
@@ -17,7 +17,7 @@ A third party (operator with no prior maps state) needs:
 | atproto PDS read access | `maps.etzhayyim.com` PDS (public-read on `com.etzhayyim.maps.*` collections) | none required for public records; service JWT for `com.etzhayyim.encrypted.*` |
 | IPFS gateway | `https://ipfs.etzhayyim.com` OR any public gateway | none |
 | Base L2 RPC | `https://mainnet.base.org` OR any Base mainnet RPC | none |
-| `com.etzhayyim.yatachain.attestation` collection (for L1+ rebuilds) | same PDS | none |
+| `com.etzhayyim.kotoba-datomic.attestation` collection (for L1+ rebuilds) | same PDS | none |
 | Empty RisingWave (or any compatible substrate) instance | operator-supplied | operator |
 | 30-graph schema migrations | `30-graph/graph-schema/migrations/*.ts` (in this monorepo) | none |
 
@@ -45,7 +45,7 @@ psql "$DATABASE_URL" -c "\dt vertex_spatial vertex_maps_* mv_maps_*"
 
 ### 2.2. Enumerate source records
 
-For each NSID in `yatachain-projection.toml [source_collections]`:
+For each NSID in `kotoba-datomic-projection.edn [source_collections]`:
 
 ```sh
 # List all repos that publish this collection (typically just maps.etzhayyim.com,
@@ -110,7 +110,7 @@ Bottlenecks:
 
 ## 4. L0-projection → L1-projection promotion
 
-To bump this projection to L1-projection per [ADR-2605231500](../../../90-docs/adr/2605231500-yatachain-projection.md):
+To bump this projection to L1-projection per [ADR-2605231500](../../../90-docs/adr/2605231500-kotoba-datomic-projection.md):
 
 - [ ] Implement `tools/rebuild-spatial-projection.ts` automating §2.1–§2.5
 - [ ] Add a CI smoke job that:
@@ -131,5 +131,5 @@ To bump this projection to L1-projection per [ADR-2605231500](../../../90-docs/a
   trust the code.
 - Migration order from primary tier (Tier A/B/C/D) is in
   [`MIGRATION-TODO.md`](../MIGRATION-TODO.md).
-- The yatachain conformance definitions are in
-  [`10-protocol/yatachain/SPEC.md`](../../../10-protocol/yatachain/SPEC.md) §Conformance levels.
+- The kotoba-datomic conformance definitions are in
+  [`10-protocol/kotoba-datomic/SPEC.md`](../../../10-protocol/kotoba-datomic/SPEC.md) §Conformance levels.

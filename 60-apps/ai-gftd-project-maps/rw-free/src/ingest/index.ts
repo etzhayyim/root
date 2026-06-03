@@ -27,13 +27,13 @@
  * same shape as Geography / Transport / Digital Twin helpers.
  */
 
-import { yatachain } from "@etzhayyim/sdk";
+import { kotoba-datomic } from "@etzhayyim/sdk";
 
-type FleetCell = yatachain.FleetCell;
-type QuorumState = yatachain.QuorumState;
-type WitnessTransport = yatachain.WitnessTransport;
-type MembraneRule = yatachain.MembraneRule;
-const writeWithWitnesses = yatachain.writeWithWitnesses;
+type FleetCell = kotoba-datomic.FleetCell;
+type QuorumState = kotoba-datomic.QuorumState;
+type WitnessTransport = kotoba-datomic.WitnessTransport;
+type MembraneRule = kotoba-datomic.MembraneRule;
+const writeWithWitnesses = kotoba-datomic.writeWithWitnesses;
 
 import {
   isValidConfidence01,

@@ -12,7 +12,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { yatachain } from "@etzhayyim/sdk";
+import { kotoba-datomic } from "@etzhayyim/sdk";
 
 import {
   isValidGeometryGeoJson,
@@ -32,8 +32,8 @@ const {
   flattenFleet,
   makeDeterministicTestSigner,
   makeStandardCellHandler,
-} = yatachain;
-type FleetCell = yatachain.FleetCell;
+} = kotoba-datomic;
+type FleetCell = kotoba-datomic.FleetCell;
 
 import { featureSchemaValidator } from "./membrane.js";
 

@@ -9,10 +9,10 @@
 # To enable:
 #   ODPT-only:
 #     kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
-#       ODPT_API_KEY=$(security find-generic-password -s gftd.transit -a ODPT_API_KEY -w)
+#       ODPT_API_KEY=$(security find-generic-password -s etzhayyim.transit -a ODPT_API_KEY -w)
 #   No-auth feeds only:
 #     kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
-#       GTFS_RT_FEED_INDEX_URL=https://ai-gftd-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-rt/index.json
+#       GTFS_RT_FEED_INDEX_URL=https://etzhayyim-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-rt/index.json
 apiVersion: apps/v1
 kind: Deployment
 metadata:

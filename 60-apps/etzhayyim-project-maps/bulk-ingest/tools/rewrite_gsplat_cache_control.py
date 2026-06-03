@@ -15,8 +15,8 @@ for objects whose Cache-Control already matches the target.
 Run from inside the `bulk-ingest` k8s pod (same env vars as the
 dumper) or from a developer laptop:
 
-  cd 60-apps/ai-gftd-project-maps/bulk-ingest
-  source ~/.gftd/maps.env  # B2_ENDPOINT / B2_KEY_ID / B2_APPLICATION_KEY / B2_BUCKET
+  cd 60-apps/etzhayyim-project-maps/bulk-ingest
+  source ~/.etzhayyim/maps.env  # B2_ENDPOINT / B2_KEY_ID / B2_APPLICATION_KEY / B2_BUCKET
   python3 tools/rewrite_gsplat_cache_control.py
   # → updates ~thousands of objects, ~5/s with B2 default rate limit
 

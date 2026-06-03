@@ -5,7 +5,7 @@ shape that matches `com.etzhayyim.maps.feature` lexicon expectations. Does
 not require network access; the substrate primitive itself is tested
 separately in 20-actors/magatama/py/tests/test_substrate.py.
 
-Run with: pytest 60-apps/ai-gftd-project-maps/bulk-ingest/tests/
+Run with: pytest 60-apps/etzhayyim-project-maps/bulk-ingest/tests/
 """
 
 from __future__ import annotations

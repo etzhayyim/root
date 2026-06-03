@@ -1,7 +1,7 @@
 /**
  * Tier B production demo — registerFeature with writeWithWitnesses.
  *
- * This test demonstrates the full yatachain L1-witnessed write path
+ * This test demonstrates the full kotoba-datomic L1-witnessed write path
  * applied to a real Tier B surface (Mountain registration in maps):
  *
  *   1. Operator calls registerMountain(...)
@@ -24,7 +24,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { yatachain } from "@etzhayyim/sdk";
+import { kotoba-datomic } from "@etzhayyim/sdk";
 
 const {
   createInMemoryWitnessTransport,
@@ -32,8 +32,8 @@ const {
   makeDeterministicTestSigner,
   makeStandardCellHandler,
   selectWitnesses,
-} = yatachain;
-type FleetCell = yatachain.FleetCell;
+} = kotoba-datomic;
+type FleetCell = kotoba-datomic.FleetCell;
 
 import {
   DEFAULT_FEATURE_MEMBRANE_RULE,

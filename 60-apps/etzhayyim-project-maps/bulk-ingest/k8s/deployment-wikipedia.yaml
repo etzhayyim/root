@@ -48,7 +48,7 @@ spec:
                 name: maps-bulk-ingest-credentials
           env:
             - name: B2_BUCKET
-              value: ai-gftd-nats
+              value: etzhayyim-nats
             - name: B2_PREFIX
               value: maps-bulk-ingest/wikipedia
           resources:
