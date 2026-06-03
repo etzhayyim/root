@@ -12876,6 +12876,20 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606037000-session-close-kotoba-os-r2-broadening",
+      "type": "TechArticle",
+      "title": "ADR-2606037000: Session close — kotoba-os reference R2 broadening (device coverage, wasm32 edge, boot authorization, source-chain growth)",
+      "status": "active",
+      "topic": "storage-substrate",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606031600-kotoba-os-content-addressed-wasm-unikernel",
+        "doc:adr-2606036000-session-close-kotoba-os-r0-r2-reference",
+        "doc:adr-2605241900-baien-edge-target-invariant"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
