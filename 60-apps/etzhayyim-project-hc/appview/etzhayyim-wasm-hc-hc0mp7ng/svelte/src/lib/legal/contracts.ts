@@ -1,7 +1,7 @@
 /**
  * HC Platform Contracts — Single Source of Truth (日本法基準)
  *
- * Referenced by `60-apps/ai-gftd-project-hc/CLAUDE.md` §Contracts.
+ * Referenced by `60-apps/etzhayyim-project-hc/CLAUDE.md` §Contracts.
  * 全契約の準拠法：日本法 / 専属管轄：東京地方裁判所。
  * 国別 locale addendum は各国強行法規の override 条項のみ。
  * Effective date: 2026-04-22. Amend via PR; versioning by effectiveDate + rev.

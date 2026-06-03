@@ -31,7 +31,7 @@
     "description": "Human Computing Platform — gig work + micro-tasks + OEM service provider registration pipeline (KYC/KYB → factory audit → tsukuru DID registration)",
     "displayName": "HC Platform",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "hc",
   "runtimeType": "worker",

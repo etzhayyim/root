@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyc-kyc49bb7",
+  "name": "etzhayyim-wasm-kyc-kyc49bb7",
   "nanoid": "kyc49bb7",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyc — AI Agent",
     "displayName": "Kyc",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "hc",
   "runtimeType": "worker",

@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/hc/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# ai-gftd-project-hc — Human Computing Platform (スキマバイト + マイクロタスク)
+# etzhayyim-project-hc — Human Computing Platform (スキマバイト + マイクロタスク)
 
 ## Overview
 
@@ -29,8 +29,8 @@ Browser (SuperApp Mobile-First)
 
 | Service | Path |
 |---|---|
-| HCCommandService | `/xrpc/gftd.human_computing.v1.HCCommandService/*` (compatibility ingress) |
-| HCQueryService | `/xrpc/gftd.human_computing.v1.HCQueryService/*` |
+| HCCommandService | `/xrpc/etzhayyim.human_computing.v1.HCCommandService/*` (compatibility ingress) |
+| HCQueryService | `/xrpc/etzhayyim.human_computing.v1.HCQueryService/*` |
 
 ### Transport Rule
 
@@ -127,7 +127,7 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 **運営主体**: etzhayyim (עץ חיים) — 宗教法人・任意団体。規約・名簿は public blockchain 上に登記。日本国 宗教法人法 上の登記宗教法人ではない。契約上の defined nickname 「当社」は本サービス運営主体である etzhayyim を指す (`OPERATOR` 定数 SSoT)。
 
-**権威ソース**: `wasm/ai-gftd-wasm-hc-hc0mp7ng/svelte/src/lib/legal/contracts.ts` (`OPERATOR` / `OPERATOR_NOTE` / `EFFECTIVE_DATE` / `REV` constants)
+**権威ソース**: `wasm/etzhayyim-wasm-hc-hc0mp7ng/svelte/src/lib/legal/contracts.ts` (`OPERATOR` / `OPERATOR_NOTE` / `EFFECTIVE_DATE` / `REV` constants)
 
 ### 契約書 4 種
 
@@ -242,9 +242,9 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 ## Build & Deploy
 
 ```bash
-cd wasm/ai-gftd-wasm-hc-hc0mp7ng/svelte
+cd wasm/etzhayyim-wasm-hc-hc0mp7ng/svelte
 pnpm install && pnpm build
 cd ..
-gftd build
-gftd deploy --smoke-url https://hc0mp7ng.etzhayyim.com/health
+etzhayyim build
+etzhayyim deploy --smoke-url https://hc0mp7ng.etzhayyim.com/health
 ```

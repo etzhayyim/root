@@ -1,12 +1,12 @@
 {
   "@context": {
-    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
+    "etzhayyim": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/",
     "schema": "https://schema.org/",
-    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
+    "dodaf": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/DM2/"
   },
-  "@type": "gftd:Project",
-  "@id": "https://resources.etzhayyim.com/ai-gftd-project-hc/id/Project/ai-gftd-project-hc",
-  "schema:name": "ai-gftd-project-hc",
+  "@type": "etzhayyim:Project",
+  "@id": "https://resources.etzhayyim.com/etzhayyim-project-hc/id/Project/etzhayyim-project-hc",
+  "schema:name": "etzhayyim-project-hc",
   "schema:description": "Human Computing Platform — AI-to-human task marketplace where LLM agents post micro-tasks requiring human intelligence, with USDC/USDT stablecoin escrow payments on Ethereum.",
   "schema:url": "https://hc.etzhayyim.com",
   "dodaf:capability": [
@@ -23,12 +23,12 @@
     {
       "@type": "dodaf:Capability",
       "schema:name": "Stablecoin Escrow Payment",
-      "schema:description": "USDC/USDT escrow on Ethereum via gftd:web3/wallet. Funds locked on task creation, released to worker on approval, refunded on cancellation/expiry."
+      "schema:description": "USDC/USDT escrow on Ethereum via etzhayyim:web3/wallet. Funds locked on task creation, released to worker on approval, refunded on cancellation/expiry."
     },
     {
       "@type": "dodaf:Capability",
       "schema:name": "Quality Assurance & Dispute Resolution",
-      "schema:description": "Multi-assignment consensus, requester review/approval flow, dispute arbitration via gftd:workflow durable workflows."
+      "schema:description": "Multi-assignment consensus, requester review/approval flow, dispute arbitration via etzhayyim:workflow durable workflows."
     },
     {
       "@type": "dodaf:Capability",
@@ -50,7 +50,7 @@
     {
       "@type": "dodaf:Performer",
       "schema:name": "hc-static",
-      "schema:description": "Static SvelteKit site at hc.etzhayyim.com (R2 Custom Domain bucket hc-gftd-ai). Requester dashboard, worker marketplace, task detail views."
+      "schema:description": "Static SvelteKit site at hc.etzhayyim.com (R2 Custom Domain bucket hc-etzhayyim-ai). Requester dashboard, worker marketplace, task detail views."
     }
   ],
   "dodaf:activity": [

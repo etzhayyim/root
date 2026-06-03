@@ -4,7 +4,7 @@
  *
  * Plaintext: contract templates (public legal catalog).
  * E2E: SP KYC/KYB applications (PII + CUI sealed via sdk.encryptedWrite/Read).
- * Stays gftd: fiat shift settlement, USDC escrow, sanctions-screening execution,
+ * Stays etzhayyim: fiat shift settlement, USDC escrow, sanctions-screening execution,
  * credential custody — consumed via consent-capability.
  */
 export * from "./types.js";

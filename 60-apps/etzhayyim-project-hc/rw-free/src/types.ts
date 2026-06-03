@@ -23,15 +23,15 @@
  *   (confidential business PII) folded together with the verification *result*
  *   fields (sanctionsClear / legalEntityVerified / verdict / findings = CUI).
  *   Written via sdk.encryptedWrite (read-cap = owner DID + explicit recipients),
- *   so KYC/KYB content lives on-substrate encrypted, never gftd-resident.
+ *   so KYC/KYB content lives on-substrate encrypted, never etzhayyim-resident.
  *
- *   STAYS gftd (consumed via consent-capability) — fiat shift settlement (JPY
+ *   STAYS etzhayyim (consumed via consent-capability) — fiat shift settlement (JPY
  *   銀行振込 / 即時払い), USDC/USDT escrow EXECUTION, sanctions-SCREENING execution
  *   (yabai), credential/secret custody. These are the regulated *acts*; the
  *   resulting result records (e.g. the sanctionsClear boolean) migrate E2E.
  *
  * AT-Lexicon: no float — counts/years are integers; no money fields here (fee
- * data stays in gftd execution). Verdict is an enum string, not a score.
+ * data stays in etzhayyim execution). Verdict is an enum string, not a score.
  */
 
 // Plaintext public collection.
