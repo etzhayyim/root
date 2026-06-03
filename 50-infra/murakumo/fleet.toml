@@ -37,7 +37,7 @@ learning_loop_status = "Phase A live (wrapper signal across 18,342 actors; refer
 learning_loop_adr = "2605232200"
 # religious-corp Pregel cells run as k3s DaemonSet on a Lima-on-each-Mac-mini
 # fleet per ADR-2605232100. Deployment is driven by the existing Ansible
-# playbook at 60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml
+# playbook at 60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml
 # (NOT the placeholder 50-infra/k8s/lima-k3s/bring-up.sh, which is a local
 # 3-VM smoke test on the developer machine only).
 #
@@ -45,8 +45,8 @@ learning_loop_adr = "2605232200"
 # (ameno-daemon, agent_daemon_main) — NOT for religious-corp cells.
 # Commercial K8s (Vultr/EKS/GKE/AKS/DOK) remains forbidden per ADR-2605191346 §1.
 control_plane = "k3s on Lima VMs across the Mac mini fleet (Ansible-driven, see ansible_playbook below)"
-ansible_inventory = "60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml"
-ansible_playbook = "60-apps/ai-gftd-project-murakumo/ansible/k8s-gpu-cluster.yml"
+ansible_inventory = "60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml"
+ansible_playbook = "60-apps/etzhayyim-project-murakumo/ansible/k8s-gpu-cluster.yml"
 ansible_role = "lima_k3s_gpu"  # roles/lima_k3s_gpu, modes: tools / preflight / bootstrap / deploy_llama_vulkan
 ansible_bootstrap_token_env = "MURAKUMO_K3S_TOKEN"
 control_plane_node = "jacob"  # ansible inventory: control_plane group (this dev machine, 127.0.0.1, doubles as LiteLLM gateway + 11th Ollama worker)
@@ -121,7 +121,7 @@ cells = [
   "CouncilDeliberationCell",  # generic, multi-instance per attestation
   "AuditWitnessCell",  # kuni-umi continuous robot-witness audit (ADR-2605201400 §9)
   "KaizenObserverCell",  # ecosystem self-reflection (ADR-2605240200)
-  "FeedPostCell",  # yatachain §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
+  "FeedPostCell",  # kotoba-datomic §4 L3 verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4)
 ]
 replicas_of = []
 
@@ -306,7 +306,7 @@ llm_fallback_local_secondary = "gemma3:4b (own-node Ollama, on evo-x2 unreachabl
 llm_heavy_review = "llama3.3:70b @ evo-x2 (batch-only, 1.18 tok/s)"
 
 [cells.FeedPostCell]
-# yatachain §4 L3 deterministic verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4).
+# kotoba-datomic §4 L3 deterministic verdict for app.bsky.feed.post (ADR-2605231400 SPEC §4).
 # Trigger: PDS firehose `app.bsky.feed.post` create commits (read-only — does NOT
 # block the write; the verdict is a sidecar that consumes downstream of the firehose).
 # When ADR-2605231525 server-side signing-capability gate lands, this cell becomes
@@ -474,7 +474,7 @@ healthz_port = 13022
 trigger = "cron + governance-vote + lifespan-expiry-monitor"
 cron = "0 0 1 * *"  # monthly check for lifespanYears expiry
 adr = ["2605201400", "2605192345"]
-urban_mining_handoff = "60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md"
+urban_mining_handoff = "60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md"
 
 # ─── External inference backends (non-cell, GPU pods) ───────────────
 # Per ADR-2605202345. Windows / non-launchd machines that provide LLM

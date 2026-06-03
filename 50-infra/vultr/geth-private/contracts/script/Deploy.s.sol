@@ -22,7 +22,7 @@ import {etzhayyimActorRegistry} from "../src/etzhayyimActorRegistry.sol";
 ///      our impl)
 ///   4. etzhayyimActorRegistry (root DID hash → account address index, salt convention)
 ///   5. GCCStablecoin (USDC-style ERC-20 — credits / stake / payment unit)
-///   6. DeployRegistry (`gftd deploy` provenance ledger)
+///   6. DeployRegistry (`etzhayyim deploy` provenance ledger)
 ///
 /// All admin roles (GCC owner / masterMinter / pauser / blacklister,
 /// DeployRegistry owner) start as the deployer (= sealer). Phase 3 will

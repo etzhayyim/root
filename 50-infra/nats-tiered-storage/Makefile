@@ -1,5 +1,5 @@
 VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
-GHCR_IMAGE ?= ghcr.io/$(shell git remote get-url origin 2>/dev/null | sed 's|.*github.com[:/]||;s|\.git$$||' || echo "gftdcojp/nats-tiered-storage")
+GHCR_IMAGE ?= ghcr.io/$(shell git remote get-url origin 2>/dev/null | sed 's|.*github.com[:/]||;s|\.git$$||' || echo "etzhayyimcojp/nats-tiered-storage")
 LDFLAGS := -ldflags "-X main.version=$(VERSION)"
 
 .PHONY: all build test lint clean

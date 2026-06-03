@@ -1,4 +1,4 @@
-// yatachain-projection: feed-discover
+// kotoba-datomic-projection: feed-discover
 //
 // Per ADR-2605231500 and lexicon `com.etzhayyim.projection.feedDiscover`.
 // This module is an L0-projection — derived hot-path read cache for the
@@ -7,10 +7,10 @@
 // alone (no operator-held state); the rebuild runbook lives at
 //   50-infra/mst-projector/projection/REBUILD.md
 // and the manifest at
-//   50-infra/mst-projector/projection/yatachain-projection.toml
+//   50-infra/mst-projector/projection/kotoba-datomic-projection.edn
 //
 // Substrate-boundary lint allow-rule: this directory has a
-// yatachain-projection.toml manifest, so RW-style state primitives are
+// kotoba-datomic-projection.edn manifest, so RW-style state primitives are
 // permitted *for projections only*. The actual primitive used here is
 // just an in-memory sorted index — no DB.
 

@@ -1,8 +1,8 @@
 # Rebuilding the feed-discover projection (L0)
 
 Per ADR-2605231500 §"The 'rebuild' requirement" — this projection is
-yatachain-compliant only if there is a documented, operator-state-free
-procedure that reproduces the projection from `yatachain-chain` (PDS
+kotoba-datomic-compliant only if there is a documented, operator-state-free
+procedure that reproduces the projection from `kotoba-datomic-chain` (PDS
 MST) alone.
 
 ## Inputs

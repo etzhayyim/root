@@ -40,7 +40,7 @@ Per ADR-2604270900 §"Owner set", recommended 2-of-3:
 
 | Slot | Recommended principal | Custody |
 |---|---|---|
-| K1 | platform operator (`jun@etzhayyim.com`) | macOS Keychain `gftd.private-chain` accounts `K1_*` + iCloud sync + gftd Vault L3 |
+| K1 | platform operator (`jun@etzhayyim.com`) | macOS Keychain `etzhayyim.private-chain` accounts `K1_*` + iCloud sync + etzhayyim Vault L3 |
 | K2 | co-owner (etzhayyim Japan board / co-founder) | same pattern, separate physical device |
 | K3 | cold-storage hardware wallet (Ledger / Trezor) | bank safe-deposit box |
 
@@ -48,7 +48,7 @@ Per ADR-2604270900 §"Owner set", recommended 2-of-3:
 the keys aren't):
 
 ```bash
-K1=0x...   # operator's address (gftd authn whoami → linked ethereum-actor)
+K1=0x...   # operator's address (etzhayyim authn whoami → linked ethereum-actor)
 K2=0x...   # co-owner's address
 K3=0x...   # hardware wallet address
 ```

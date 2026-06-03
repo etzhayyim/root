@@ -15,7 +15,7 @@ optimizer = true
 optimizer_runs = 999_999
 via_ir = true
 remappings = [
-  # gftd
+  # etzhayyim
   "@etzhayyim/=src/",
   # vendored top-level
   "forge-std/=lib/forge-std/src/",

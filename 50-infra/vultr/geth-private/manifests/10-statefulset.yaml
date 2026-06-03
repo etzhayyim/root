@@ -1,4 +1,4 @@
-# gftd private-chain Geth — Clique PoA single-sealer (chainId 260425)
+# etzhayyim private-chain Geth — Clique PoA single-sealer (chainId 260425)
 # ADR-0074. Deploy/credits use case; not federation; not public.
 #
 # Topology: 1 StatefulSet replica with PVC. Init container runs `geth init`

@@ -14,7 +14,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 ///
 /// @dev    Stake is the *only* mechanism on-chain. Endpoint URL +
 ///         capabilities are advertised here for off-chain matching by
-///         the gftd routing-gateway; the gateway reads `operatorList` /
+///         the etzhayyim routing-gateway; the gateway reads `operatorList` /
 ///         `operators(did)` to pick a node, and the resulting job lands
 ///         in `MurakumoEscrow` referencing this operator's `did`.
 contract MurakumoRegistry {
@@ -23,7 +23,7 @@ contract MurakumoRegistry {
     uint256 public minStake;
 
     struct Operator {
-        // Operator-side identity. Caller passes a did:gftd hash; gftd
+        // Operator-side identity. Caller passes a did:etzhayyim hash; etzhayyim
         // off-chain code resolves it back to a handle for routing.
         bytes32 operatorDid;
         // Address that receives stake refunds on unregister and earnings
@@ -84,7 +84,7 @@ contract MurakumoRegistry {
 
     /// @notice Register a new operator. Caller pulls `initialStake` GCC
     ///         from themselves into the registry (must `gcc.approve` this
-    ///         contract first). The `did:gftd` is canonical — operators
+    ///         contract first). The `did:etzhayyim` is canonical — operators
     ///         already exist as actors, this just enables them to take
     ///         inference jobs and earn revenue.
     function register(

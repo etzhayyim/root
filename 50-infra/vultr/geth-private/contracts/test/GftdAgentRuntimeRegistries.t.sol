@@ -13,7 +13,7 @@ contract etzhayyimAgentRuntimeRegistriesTest is Test {
 
     address owner = address(0xA11CE);
     address controller = address(0xB0B);
-    bytes32 rootDidHash = keccak256(bytes("did:erc725:gftd:260425:0xroot"));
+    bytes32 rootDidHash = keccak256(bytes("did:erc725:etzhayyim:260425:0xroot"));
     bytes32 facadeDidHash = keccak256(bytes("did:web:yoro.etzhayyim.com"));
 
     function setUp() public {
@@ -23,13 +23,13 @@ contract etzhayyimAgentRuntimeRegistriesTest is Test {
 
     function testDeployRootIdentityAndSetERC725Data() public {
         vm.prank(owner);
-        address identityAddr = rootRegistry.deployRootIdentity(rootDidHash, "did:erc725:gftd:260425:0xroot", controller);
+        address identityAddr = rootRegistry.deployRootIdentity(rootDidHash, "did:erc725:etzhayyim:260425:0xroot", controller);
 
         assertEq(rootRegistry.identityByRootDid(rootDidHash), identityAddr);
         etzhayyimRootIdentity identity = etzhayyimRootIdentity(payable(identityAddr));
         assertEq(identity.owner(), controller);
 
-        bytes32 policyKey = keccak256(bytes("gftd.root.policy.cid"));
+        bytes32 policyKey = keccak256(bytes("etzhayyim.root.policy.cid"));
         bytes memory policyCid = bytes("ipfs://bafy-policy");
         vm.prank(controller);
         identity.setData(policyKey, policyCid);

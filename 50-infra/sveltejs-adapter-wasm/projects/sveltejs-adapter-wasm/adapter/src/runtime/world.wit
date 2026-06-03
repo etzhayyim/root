@@ -1,4 +1,4 @@
-package gftdcojp:svelte-adapter;
+package etzhayyimcojp:svelte-adapter;
 
 world svelte-server {
   include wasmcloud:component-go/sdk;

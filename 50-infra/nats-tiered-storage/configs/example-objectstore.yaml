@@ -18,13 +18,13 @@ nats:
   reconnect_wait: "2s"
 
 streams:
-  - name: "OBJ_gftd-preview"
+  - name: "OBJ_etzhayyim-preview"
     # type: "objectstore"  # auto-detected from OBJ_ prefix
-    consumer_name: "nts-archiver-obj-gftd-preview"
+    consumer_name: "nts-archiver-obj-etzhayyim-preview"
     fetch_batch: 64
     fetch_timeout: "5s"
     # objectstore:
-    #   bucket_name: "gftd-preview"  # auto-derived: strip OBJ_ prefix
+    #   bucket_name: "etzhayyim-preview"  # auto-derived: strip OBJ_ prefix
 
     tiers:
       memory:
@@ -67,7 +67,7 @@ api:
   listen: ":8080"
   nats_responder:
     enabled: true
-    subject_prefix: "nts"    # nts.obj.gftd-preview.get.{name}
+    subject_prefix: "nts"    # nts.obj.etzhayyim-preview.get.{name}
 
 observability:
   metrics:

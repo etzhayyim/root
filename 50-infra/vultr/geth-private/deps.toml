@@ -2,7 +2,7 @@
 status            = "active"
 provider          = "vultr"
 cluster_id        = "a61d513b-f9b7-4121-abb9-b53732aa5ec4"  # shared with risingwave
-cluster_label     = "gftd-risingwave-lax"
+cluster_label     = "etzhayyim-risingwave-lax"
 region            = "lax"
 namespace         = "geth-private"
 node_pool         = "risingwave-pool-32gb"                  # shared with risingwave (geth req 100m CPU / 256Mi)
@@ -45,7 +45,7 @@ tls_cert          = "Cloudflare Origin Cert (15-yr, signed by CF CA, auto-truste
 tls_secret_name   = "caddy-geth-cert"
 
 [geth_private.proxy]
-worker_name       = "ai-gftd-geth-rpc-proxy"
+worker_name       = "etzhayyim-geth-rpc-proxy"
 worker_route      = "geth.etzhayyim.com/*"
 origin_dns        = "geth-origin.etzhayyim.com"   # non-proxied A record → 149.248.2.241
 hmac_secret_id    = "1824561668fe47cc9127d493961885af/geth_rpc_hmac"
@@ -54,13 +54,13 @@ public_methods    = "eth_chainId, net_version, web3_clientVersion, eth_blockNumb
 [geth_private.contracts]
 # Phase 2-A — deployed 2026-04-25, see contracts/ADDRESSES.md
 entry_point             = "0xD94aC1d2F7aE809287dEA27Df140baB2fc9571c5"  # ERC-4337 v0.6, vendored from eth-infinitism
-gftd_actor_account_impl = "0xFd0a3ed845635DD8E316BAa8E69cC1c9d1f9f400"  # CoinbaseSmartWallet subclass with EntryPoint override
+etzhayyim_actor_account_impl = "0xFd0a3ed845635DD8E316BAa8E69cC1c9d1f9f400"  # CoinbaseSmartWallet subclass with EntryPoint override
 csw_factory             = "0x0B71Ffb6D6cD7e9Ca7Fa6574084B55273efb9eE5"  # vendored from coinbase/smart-wallet
-gftd_actor_registry     = "0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025"  # did:gftd → smart-account index
-gftd_credit             = "0x8e9A5162b2800E0D19acC1708A531A3954900E21"  # GCC ERC-20, USDC-style, 1B supply cap
-deploy_registry         = "0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5"  # gftd deploy provenance ledger
-gftd_root_identity_registry = "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8"  # ERC725 root identity registry, ADR-0074 / ADR-2604262100
-gftd_agent_registry     = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"  # ERC-8004-shaped agent identity/validation/reputation registry
+etzhayyim_actor_registry     = "0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025"  # did:etzhayyim → smart-account index
+etzhayyim_credit             = "0x8e9A5162b2800E0D19acC1708A531A3954900E21"  # GCC ERC-20, USDC-style, 1B supply cap
+deploy_registry         = "0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5"  # etzhayyim deploy provenance ledger
+etzhayyim_root_identity_registry = "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8"  # ERC725 root identity registry, ADR-0074 / ADR-2604262100
+etzhayyim_agent_registry     = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"  # ERC-8004-shaped agent identity/validation/reputation registry
 murakumo_registry       = "0x4E3d742ece9483f97c3094b40c4b8C7901a6E3B6"  # operator stake/register, minStake = 1000 GCC
 murakumo_escrow         = "0x4Fa80146EeB115C09C5E0Fe459cdBC19AE75616F"  # 70/25/5 split (operator/treasury/referrer), 5min refund timeout
 actor_runtime_registry  = "0x9C730960e9BF7A403E610Dca0C8a565CF655b6a1"  # WASM/BPMN/browser/LangGraph artifact + execution receipt anchor
@@ -74,10 +74,10 @@ agent_registry = "0xcA3480edDAfa39c9377B83eEB18291286C8Cb865"
 ipfs_gateway = "https://ipfs.etzhayyim.com"
 runtime_schema = "https://etzhayyim.com/schemas/k8s-runtime-public/v1.json"
 registration_schema = "https://etzhayyim.com/schemas/erc8004-agent-registration/v1.json"
-cli = "(removed 2026-05-20 with 70-tools/gftd/; re-port pending)"
+cli = "(removed 2026-05-20 with 70-tools/etzhayyim/; re-port pending)"
 render_script = "70-tools/scripts/contract/render-agent-runtime-public.py"
-publish_auth = "macOS Keychain service=gftd.cloudflare account=IPFS_HMAC"
-register_auth = "Safe 2-of-3 owner keys via macOS Keychain service=gftd.safe-owners accounts=K1_PRIV,K2_PRIV; broadcaster key service=gftd.private-chain account=SEALER_PRIV"
+publish_auth = "macOS Keychain service=etzhayyim.cloudflare account=IPFS_HMAC"
+register_auth = "Safe 2-of-3 owner keys via macOS Keychain service=etzhayyim.safe-owners accounts=K1_PRIV,K2_PRIV; broadcaster key service=etzhayyim.private-chain account=SEALER_PRIV"
 default_namespace_policy = "forbidden; public renderer rejects default namespace workloads"
 protocol_profile_convention = "ERC725/ERC-8004 is the public protocol root; AT Protocol + XRPC are represented by one atproto-xrpc protocol profile"
 protocol_profiles = ["atproto-xrpc", "mcp", "a2a", "k8s-runtime", "ipfs-publication", "evm-runtime-receipt"]
@@ -93,15 +93,15 @@ public_status_api = "https://organism.etzhayyim.com/api/status"
 public_monitor_api = "https://organism.etzhayyim.com/api/monitor"
 public_monitor_cron = "Cloudflare Worker schedule */5 * * * *"
 public_status_latest = "verified; erc8004=verified ipfs=verified runtime=verified rw=verified (2026-05-07)"
-publish_cli = "gftd agent organism publish --no-dry-run --submit-chain"
+publish_cli = "etzhayyim agent organism publish --no-dry-run --submit-chain"
 verified_on = "2026-05-07"
 verified_commands = [
   "go test . -run TestAgentRuntime -count=1",
-  "gftd agent-runtime render --cluster murakumo-vke 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
-  "gftd agent-runtime publish --dry-run --cluster murakumo-vke 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
-  "gftd agent-runtime register --dry-run --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json --agent-uri ipfs://<agent-registration-cid> --root-did did:erc725:gftd:260425:<erc725IdentityContract> --owner <evmOwnerAddress>",
-  "gftd agent-runtime publish-agent --dry-run --cluster murakumo-vke --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json --root-did did:erc725:gftd:260425:<erc725IdentityContract> --owner <evmOwnerAddress> 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
-  "gftd agent-runtime publish-agent --dry-run=false --ipfs http://144.202.126.131 --cluster murakumo-vke --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json --registration-out /tmp/yoro-agent-registration.json 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
+  "etzhayyim agent-runtime render --cluster murakumo-vke 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
+  "etzhayyim agent-runtime publish --dry-run --cluster murakumo-vke 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
+  "etzhayyim agent-runtime register --dry-run --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json --agent-uri ipfs://<agent-registration-cid> --root-did did:erc725:etzhayyim:260425:<erc725IdentityContract> --owner <evmOwnerAddress>",
+  "etzhayyim agent-runtime publish-agent --dry-run --cluster murakumo-vke --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json --root-did did:erc725:etzhayyim:260425:<erc725IdentityContract> --owner <evmOwnerAddress> 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
+  "etzhayyim agent-runtime publish-agent --dry-run=false --ipfs http://144.202.126.131 --cluster murakumo-vke --registration 50-infra/multicluster/murakumo-vke/yoro-actors/public-agent-registration.template.json --registration-out /tmp/yoro-agent-registration.json 50-infra/multicluster/murakumo-vke/yoro-actors/actor-workers.yaml",
   "node 30-graph/graph-schema/scripts/migrate-rw-erc725-root.mjs --limit 25",
 ]
 
@@ -122,7 +122,7 @@ business_profit_artifact_tx = "0x7b245b5a4c9aafa4d79511b8344c15461df619f65c2b0d6
 latest_verified_receipt_tx = "0x0a9d77306160ab912db8293707d5c6db794e0430ecbf33ce594a3913e1b265df"
 latest_verified_receipt_case = "yoro-profit-smoke-20260429-006"
 latest_agent_organism_artifact = "0x0251f25257f58976dd8bc213d0b7d71d63483714df3b64b344f3d1e6d1294da3"
-latest_agent_organism_artifact_name = "gftd-agent-organism-loop.v1"
+latest_agent_organism_artifact_name = "etzhayyim-agent-organism-loop.v1"
 latest_agent_organism_artifact_kind = "LangGraph"
 latest_agent_organism_artifact_tx = "0x465c235e9c1d0ba5ce8a0a5c4fb7d505262a827e8ee2d0270f3b9ec438587ca0"
 latest_agent_organism_receipt_tx = "0xd388f4d2b7c7e690198bd564db403ba240e10a05f00778cf9d74920b8b0dd33d"
@@ -137,42 +137,42 @@ status = "active"
 adr = "90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md"
 chain_id = 260425
 root_identity_registry = "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8"
-authn_worker = "ai-gftd-auth"
-authz_worker = "ai-gftd-authz"
+authn_worker = "etzhayyim-auth"
+authz_worker = "etzhayyim-authz"
 authn_route = "POST https://authn.etzhayyim.com/xrpc/com.etzhayyim.auth.createGuestAccount"
 authz_internal_route = "POST https://authz.etzhayyim.com/internal/provision-root-identity"
-service_binding = "AUTHZ_RPC (ai-gftd-auth -> ai-gftd-authz)"
+service_binding = "AUTHZ_RPC (etzhayyim-auth -> etzhayyim-authz)"
 internal_auth = "HMAC-SHA256 over canonical JSON body in x-claim-settler-auth"
-hmac_secret = "Worker secret CLAIM_SETTLER_HMAC, shared by ai-gftd-auth, ai-gftd-authz, ai-gftd-claim-consumer"
-hmac_operator_copy = "macOS Keychain service=gftd.cloudflare account=CLAIM_SETTLER_HMAC"
-signer_secret = "ai-gftd-authz Worker secret SEALER_PRIV"
-new_session_issuer = "did:erc725:gftd:260425:<rootIdentityContract>"
-legacy_facade_policy = "link did:web/did:gftd as facade in etzhayyimRootIdentityRegistry; do not hash legacy DID directly for new onchain authorization"
+hmac_secret = "Worker secret CLAIM_SETTLER_HMAC, shared by etzhayyim-auth, etzhayyim-authz, etzhayyim-claim-consumer"
+hmac_operator_copy = "macOS Keychain service=etzhayyim.cloudflare account=CLAIM_SETTLER_HMAC"
+signer_secret = "etzhayyim-authz Worker secret SEALER_PRIV"
+new_session_issuer = "did:erc725:etzhayyim:260425:<rootIdentityContract>"
+legacy_facade_policy = "link did:web/did:etzhayyim as facade in etzhayyimRootIdentityRegistry; do not hash legacy DID directly for new onchain authorization"
 migration_script = "70-tools/scripts/migrate-did-web-to-erc725.mjs"
 migration_default_mode = "dry-run"
 verified_on = "2026-04-27"
 verified_deployments = [
-  "ai-gftd-authz version 7ffa68ee-ead5-4d0b-add3-ffd1483bfd1c",
-  "ai-gftd-auth version afacf3b5-416a-49a8-8afb-8107a8e333de",
+  "etzhayyim-authz version 7ffa68ee-ead5-4d0b-add3-ffd1483bfd1c",
+  "etzhayyim-auth version afacf3b5-416a-49a8-8afb-8107a8e333de",
 ]
 verified_commands = [
-  "wrangler secret put CLAIM_SETTLER_HMAC --config 60-apps/ai-gftd-project-auth/worker/wrangler.jsonc",
-  "wrangler secret put CLAIM_SETTLER_HMAC --config 60-apps/ai-gftd-project-auth/worker-authz/wrangler.jsonc",
+  "wrangler secret put CLAIM_SETTLER_HMAC --config 60-apps/etzhayyim-project-auth/worker/wrangler.jsonc",
+  "wrangler secret put CLAIM_SETTLER_HMAC --config 60-apps/etzhayyim-project-auth/worker-authz/wrangler.jsonc",
   "wrangler secret put CLAIM_SETTLER_HMAC --config 50-infra/cloudflare/workers/claim-consumer/wrangler.jsonc",
-  "wrangler deploy --config 60-apps/ai-gftd-project-auth/worker-authz/wrangler.jsonc --dry-run",
-  "wrangler deploy --config 60-apps/ai-gftd-project-auth/worker/wrangler.jsonc --dry-run",
+  "wrangler deploy --config 60-apps/etzhayyim-project-auth/worker-authz/wrangler.jsonc --dry-run",
+  "wrangler deploy --config 60-apps/etzhayyim-project-auth/worker/wrangler.jsonc --dry-run",
   "curl -sS -X POST https://authz.etzhayyim.com/internal/provision-root-identity -H content-type:application/json -H x-claim-settler-auth:<hmac> --data <stableId,label>",
   "curl -sS -X POST https://authn.etzhayyim.com/xrpc/com.etzhayyim.auth.createGuestAccount -H content-type:application/json --data <username,password>",
   "eth_call etzhayyimRootIdentityRegistry.resolveFacade(keccak256(legacyDid))",
 ]
-verified_smoke = "guest signup returned did:erc725:gftd:260425:0x7794624f467730754c00a183662db41395f77d95 and resolveFacade(legacyDid) returned the same identity"
+verified_smoke = "guest signup returned did:erc725:etzhayyim:260425:0x7794624f467730754c00a183662db41395f77d95 and resolveFacade(legacyDid) returned the same identity"
 
 [geth_private.claim_stake_rego_settler]
 status = "active"
 adr = "90-docs/adr/2604261717-staked-claim-truth-incentive.md"
 claim_stake_escrow = "0x7C1d83E42Ac2860eA72Ae2A373e86F67726410A7"
 rego_arbiter = "0x53E29CA12Bd77fD35926627318036c7B2BBE245d"
-claim_consumer_worker = "ai-gftd-claim-consumer"
+claim_consumer_worker = "etzhayyim-claim-consumer"
 claim_consumer_public_entry = "workers_dev=false; scheduled Worker plus service bindings only"
 authz_routes = [
   "/internal/record-rego-decision",
@@ -191,8 +191,8 @@ rw_cursors = [
 ]
 verified_on = "2026-04-27"
 verified_deployments = [
-  "ai-gftd-claim-consumer version e87dc94f-2d71-4012-8b82-0584189175a7",
-  "ai-gftd-authz version 7ffa68ee-ead5-4d0b-add3-ffd1483bfd1c",
+  "etzhayyim-claim-consumer version e87dc94f-2d71-4012-8b82-0584189175a7",
+  "etzhayyim-authz version 7ffa68ee-ead5-4d0b-add3-ffd1483bfd1c",
 ]
 
 [geth_private.root_identity_projection]
@@ -200,12 +200,12 @@ status = "active"
 adr = "90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md"
 registry = "0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8"
 projection_script = "30-graph/graph-schema/scripts/migrate-rw-erc725-root.mjs"
-root_hash_rule = "keccak256(utf8(rootDid)) over did:erc725:gftd:260425:<identity>"
+root_hash_rule = "keccak256(utf8(rootDid)) over did:erc725:etzhayyim:260425:<identity>"
 facade_rule = "did:web/did:plc are facade lookup inputs; they are not root authority keys"
 verified_on = "2026-04-27"
 
 [geth_private.root_identity_projection.yoro]
-root_did = "did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
+root_did = "did:erc725:etzhayyim:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
 root_identity_addr = "0xe506d815690ab0b81bf2f34b5057d7b8b96fe643"
 facade_did = "did:web:yoro.etzhayyim.com"
 register_root_identity_tx = "0x8ec4f45113bd93226fc8caccfd416892ee6da28ec65c186e06f072d6b9f45892"
@@ -215,8 +215,8 @@ vector_embedding_status = "backfilled-one-row"
 
 [geth_private.sealer_key_custody]
 working_copy = "50-infra/vultr/geth-private/.local-secrets/sealer.priv (gitignored)"
-local_backup = "macOS Keychain service=gftd.private-chain accounts=[SEALER_PRIV, SEALER_ADDRESS, SEALER_PASSWORD, SEALER_KEYSTORE]"
-team_backup  = "gftd vault gftd-private-chain (manual followup, see CLAUDE.md §Sealer key custody)"
+local_backup = "macOS Keychain service=etzhayyim.private-chain accounts=[SEALER_PRIV, SEALER_ADDRESS, SEALER_PASSWORD, SEALER_KEYSTORE]"
+team_backup  = "etzhayyim vault etzhayyim-private-chain (manual followup, see CLAUDE.md §Sealer key custody)"
 note         = "Loss of all three = unrecoverable chain. Treat .local-secrets like a TLS root CA private key."
 
 [geth_private.yoro_receipt_signer_key_custody]
@@ -230,11 +230,11 @@ review_recorded_on = "2026-04-30"
 
 [geth_private.callers]
 # What in the platform consumes chain 260425
-authz_worker     = "60-apps/ai-gftd-project-auth/worker-authz/ — getActorAccount XRPC (eth_call into actorByDid via geth.etzhayyim.com)"
-authn_worker     = "60-apps/ai-gftd-project-auth/worker/ — createGuestAccount provisions ERC725 root identity through AUTHZ_RPC"
+authz_worker     = "60-apps/etzhayyim-project-auth/worker-authz/ — getActorAccount XRPC (eth_call into actorByDid via geth.etzhayyim.com)"
+authn_worker     = "60-apps/etzhayyim-project-auth/worker/ — createGuestAccount provisions ERC725 root identity through AUTHZ_RPC"
 claim_consumer   = "50-infra/cloudflare/workers/claim-consumer/ — tails ClaimStakeEscrow + RegoArbiter events, persists rebuttals, judges, and auto-settles through AUTHZ_RPC"
-gftd_cli         = "(removed 2026-05-20 with 70-tools/gftd/; recordDeploy + registerAgent re-port pending)"
-yoro_ui          = "60-apps/ai-gftd-project-yoro/.../svelte/src/lib/superapp/SettingsPanelImpl.svelte — Smart account panel"
+etzhayyim_cli         = "(removed 2026-05-20 with 70-tools/etzhayyim/; recordDeploy + registerAgent re-port pending)"
+yoro_ui          = "60-apps/etzhayyim-project-yoro/.../svelte/src/lib/superapp/SettingsPanelImpl.svelte — Smart account panel"
 
 [geth_private.adr]
 phase_1_phase_2a = "90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md"

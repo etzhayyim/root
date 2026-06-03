@@ -144,7 +144,7 @@ spec:
 
   # ─── Migration history ───
   migrationFromVendor:
-    fromPath: ai-gftd-apps-gftdcojp/50-infra/multicluster/murakumo-vke/
+    fromPath: etzhayyim-apps-etzhayyimcojp/50-infra/multicluster/murakumo-vke/
     droppedComponents:
       - karmada-pull-mode-runbook.md          # Karmada hub control plane
       - placement-contract.yaml (karmada)     # PropagationPolicy shape

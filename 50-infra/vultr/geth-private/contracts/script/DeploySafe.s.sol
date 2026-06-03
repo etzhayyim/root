@@ -12,11 +12,11 @@ import {Script, console2} from "forge-std/Script.sol";
 ///         the Safe team and shipped via the npm package
 ///         `safe-global/safe-contracts` at version 1.4.1) are loaded via
 ///         `vm.readFile` + `vm.parseJsonBytes` and deployed with assembly
-///         `create`. Re-compiling Safe sources under the gftd toolchain
+///         `create`. Re-compiling Safe sources under the etzhayyim toolchain
 ///         (solc 0.8.23, evm_version=paris) hits a Yul stack-too-deep on
 ///         `Safe.execTransaction` regardless of optimizer / via_ir
 ///         settings — Safe is pinned to solc 0.7.6 upstream, and we keep
-///         the gftd contracts on 0.8.23. Pulling the prebuilt JSON
+///         the etzhayyim contracts on 0.8.23. Pulling the prebuilt JSON
 ///         sidesteps that mismatch entirely while still giving us
 ///         canonical, audited Safe bytecode.
 ///

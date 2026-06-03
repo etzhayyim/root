@@ -10,9 +10,9 @@ import {CoinbaseSmartWalletFactory} from "smart-wallet/CoinbaseSmartWalletFactor
 ///         Adds two things on top of the audited factory:
 ///
 ///         1. A salt convention tying ERC-4337 account addresses to root DID
-///            hashes — `nonce = uint256(keccak256("gftd-actor", didHash))`.
+///            hashes — `nonce = uint256(keccak256("etzhayyim-actor", didHash))`.
 ///            New callers hash the ERC725 root DID string; legacy callers may
-///            still hash did:gftd during migration. Off-chain code (yoro UI,
+///            still hash did:etzhayyim during migration. Off-chain code (yoro UI,
 ///            authz Worker) can compute the address before activation.
 ///
 ///         2. A `mapping(didHash => account)` populated on first activation,
@@ -47,7 +47,7 @@ contract etzhayyimActorRegistry {
 
     /// @notice Salt nonce used for the underlying CSW factory call.
     function _nonceFor(bytes32 didHash) internal pure returns (uint256) {
-        return uint256(keccak256(abi.encode("gftd-actor", didHash)));
+        return uint256(keccak256(abi.encode("etzhayyim-actor", didHash)));
     }
 
     /// @notice Predict the address of the actor's smart account before

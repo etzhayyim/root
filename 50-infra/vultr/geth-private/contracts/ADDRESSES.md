@@ -1,4 +1,4 @@
-# gftd private chain — Phase 2-A deployed contracts
+# etzhayyim private chain — Phase 2-A deployed contracts
 
 | Field | Value |
 |---|---|
@@ -18,9 +18,9 @@
 | **EntryPoint** (ERC-4337 v0.6) | `0xD94aC1d2F7aE809287dEA27Df140baB2fc9571c5` | UserOp dispatcher, vendored from eth-infinitism v0.6.0 |
 | **etzhayyimActorAccount** (impl) | `0xFd0a3ed845635DD8E316BAa8E69cC1c9d1f9f400` | CoinbaseSmartWallet subclass, EntryPoint override; serves as the implementation behind every actor's ERC-1967 proxy |
 | **CoinbaseSmartWalletFactory** | `0x0B71Ffb6D6cD7e9Ca7Fa6574084B55273efb9eE5` | Canonical Coinbase factory v1.1.0, points at `etzhayyimActorAccount` |
-| **etzhayyimActorRegistry** | `0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025` | did:gftd → smart-account index. Salt = `keccak256("gftd-actor", didHash)` |
+| **etzhayyimActorRegistry** | `0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025` | did:etzhayyim → smart-account index. Salt = `keccak256("etzhayyim-actor", didHash)` |
 | **GCCStablecoin** (GCC) | `0x8e9A5162b2800E0D19acC1708A531A3954900E21` | USDC-style ERC-20. Supply cap 1B. owner / masterMinter / pauser / blacklister = Safe (Phase 3 complete 2026-04-28) |
-| **DeployRegistry** | `0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5` | `gftd deploy` provenance ledger. owner = Safe |
+| **DeployRegistry** | `0x995AD6A2bb4D8916Ba036f5B2e29E7739Ee243b5` | `etzhayyim deploy` provenance ledger. owner = Safe |
 | **etzhayyimRootIdentityRegistry** (ADR-0074) | `0x11405300Fb75C5CDd665B9c0Ef445F8E312e3ee8` | ERC725 root identity registry. Maps root DID hashes to `etzhayyimRootIdentity` contracts and legacy/facade DID hashes to root DID hashes. owner = Safe. Deployed 2026-04-26 via `forge script script/DeployAgentRuntimeRegistries.s.sol:DeployAgentRuntimeRegistries --rpc-url https://geth.etzhayyim.com --broadcast` — broadcast log at `broadcast/DeployAgentRuntimeRegistries.s.sol/260425/run-latest.json`. `etzhayyim_ROOT_IDENTITY_REGISTRY_ADDR` is set on the `worker-authz` Worker. |
 | **etzhayyimAgentRegistry** (ERC-8004-shaped) | `0xcA3480edDAfa39c9377B83eEB18291286C8Cb865` | Agent identity, validation, and reputation registry keyed by ERC725 root DID hash. owner = Safe, `openRegistration=false`, `nextTokenId=1`. Deployed with `etzhayyimRootIdentityRegistry` on 2026-04-26. |
 | **MurakumoRegistry** | `0x4E3d742ece9483f97c3094b40c4b8C7901a6E3B6` | Inference operator stake + endpoint registry. minStake = 1000 GCC. owner = Safe |
@@ -35,7 +35,7 @@
 ## Phase 3 — Gnosis Safe multisig (2026-04-28)
 
 Deployed via `forge script script/DeploySafe.s.sol --broadcast` with sealer key.
-Owners: K1/K2/K3 (EOA, macOS Keychain `service=gftd.safe-owners`). Threshold: 2-of-3.
+Owners: K1/K2/K3 (EOA, macOS Keychain `service=etzhayyim.safe-owners`). Threshold: 2-of-3.
 
 | Contract | Address | Role |
 |---|---|---|
@@ -84,7 +84,7 @@ Sealer minted initial supply:
 
 Sealer remaining minterAllowance: ~9,994,000 GCC. To distribute GCC to a user:
 ```bash
-SEALER_PRIV=$(security find-generic-password -s "gftd.private-chain" -a "SEALER_PRIV" -w)
+SEALER_PRIV=$(security find-generic-password -s "etzhayyim.private-chain" -a "SEALER_PRIV" -w)
 cast send 0x8e9A5162b2800E0D19acC1708A531A3954900E21 \
   'mint(address,uint256)' <RECIPIENT> <AMOUNT_WEI> \
   --rpc-url https://geth.etzhayyim.com --private-key "$SEALER_PRIV" --legacy
@@ -92,10 +92,10 @@ cast send 0x8e9A5162b2800E0D19acC1708A531A3954900E21 \
 
 ## Read-side callers (post-deploy integration targets)
 
-- **authz Worker** (`60-apps/ai-gftd-project-auth/worker-authz/`): inject `ETH_PRIVATE_RPC_URL` + `etzhayyim_ACTOR_REGISTRY_ADDR` so `linkEthereumVerify` can also activate / look up the actor's smart-account address. Today the link path only stores a raw EOA — Phase 2-B will additionally call `etzhayyimActorRegistry.predictAddress(didHash, owners)` and persist the resulting smart-account address as a second `linked_auth_methods` row (`provider="ethereum-actor"`).
-- **yoro UI** (`60-apps/ai-gftd-project-yoro/.../svelte/src/lib/auth/`): add a "Activate actor account" action that calls `linkPasskeyAdditional` flow + collects WebAuthn pubkey, then submits to authz which calls `etzhayyimActorRegistry.activate(didHash, [packedPubkey])` via the sealer (gas sponsor for now; Phase 3 paymaster).
-- **deploy CLI** (formerly `70-tools/gftd/gftd/deploy.go`, removed 2026-05-20): after `registerProfileToYata` succeeded, this hashed `magatama.jsonld` + build artifacts and called `DeployRegistry.recordDeploy(...)` from sealer key. Failure was non-fatal. Re-port pending (target: `e7m actor deploy` post-hook or a Foundry script).
-- **Murakumo gateway** (`60-apps/ai-gftd-project-murakumo/`): on inbound inference request, (a) caller address must `gcc.approve(escrow, deposit)` then call `MurakumoEscrow.submitJob(jobId, operatorDid, modelId, deposit, referrer)`; (b) gateway selects an operator from `MurakumoRegistry.operators(...)` and forwards the request to its endpoint; (c) on completion, gateway signs `keccak256(jobId, actualCost, escrow, chainId)` with the oracle key and submits `MurakumoEscrow.settleJob(jobId, actualCost, sig)`. If the gateway is down the caller can `MurakumoEscrow.refund(jobId)` after 5 min.
+- **authz Worker** (`60-apps/etzhayyim-project-auth/worker-authz/`): inject `ETH_PRIVATE_RPC_URL` + `etzhayyim_ACTOR_REGISTRY_ADDR` so `linkEthereumVerify` can also activate / look up the actor's smart-account address. Today the link path only stores a raw EOA — Phase 2-B will additionally call `etzhayyimActorRegistry.predictAddress(didHash, owners)` and persist the resulting smart-account address as a second `linked_auth_methods` row (`provider="ethereum-actor"`).
+- **yoro UI** (`60-apps/etzhayyim-project-yoro/.../svelte/src/lib/auth/`): add a "Activate actor account" action that calls `linkPasskeyAdditional` flow + collects WebAuthn pubkey, then submits to authz which calls `etzhayyimActorRegistry.activate(didHash, [packedPubkey])` via the sealer (gas sponsor for now; Phase 3 paymaster).
+- **deploy CLI** (formerly `70-tools/etzhayyim/etzhayyim/deploy.go`, removed 2026-05-20): after `registerProfileToYata` succeeded, this hashed `magatama.jsonld` + build artifacts and called `DeployRegistry.recordDeploy(...)` from sealer key. Failure was non-fatal. Re-port pending (target: `e7m actor deploy` post-hook or a Foundry script).
+- **Murakumo gateway** (`60-apps/etzhayyim-project-murakumo/`): on inbound inference request, (a) caller address must `gcc.approve(escrow, deposit)` then call `MurakumoEscrow.submitJob(jobId, operatorDid, modelId, deposit, referrer)`; (b) gateway selects an operator from `MurakumoRegistry.operators(...)` and forwards the request to its endpoint; (c) on completion, gateway signs `keccak256(jobId, actualCost, escrow, chainId)` with the oracle key and submits `MurakumoEscrow.settleJob(jobId, actualCost, sig)`. If the gateway is down the caller can `MurakumoEscrow.refund(jobId)` after 5 min.
 - **Murakumo operator onboarding**: each inference operator (mac mini node, future GPU partner) `gcc.approve(registry, stake)` and calls `MurakumoRegistry.register(operatorDid, payoutAddress, endpoint, capabilities, stake)`. Stake ≥ 1000 GCC. payoutAddress should be the operator's `etzhayyimActorRegistry`-issued smart-account address.
 
 ## Sanity reads
@@ -118,7 +118,7 @@ cast call 0x8e9A5162b2800E0D19acC1708A531A3954900E21 'symbol()(string)'      --r
 cast call 0x8e9A5162b2800E0D19acC1708A531A3954900E21 'supplyCap()(uint256)'  --rpc-url $RPC
 
 # 4. etzhayyimActorRegistry predicting an address before activation
-DID_HASH=$(cast keccak "did:gftd:test")
+DID_HASH=$(cast keccak "did:etzhayyim:test")
 OWNERS_BYTES=$(cast abi-encode 'f(bytes[])' '[0x000000000000000000000000aaaa00000000000000000000000000000000aaaa]')
 cast call 0xc097cC8f6dfa6f3a539b0De36E9Bb550B9AA7025 'predictAddress(bytes32,bytes[])(address)' \
   $DID_HASH "[0x000000000000000000000000aaaa00000000000000000000000000000000aaaa]" \
