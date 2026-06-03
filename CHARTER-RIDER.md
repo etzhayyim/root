@@ -211,7 +211,7 @@ is distributed. Acceptance of the License constitutes acceptance of this Rider.
        for drop-in interoperability purposes, consistent with Google LLC v.
        Oracle America, Inc., 593 U.S. ___ (2021)). Canonical implementations
        carry distinct (Japanese) names — namely amenominaka (天之御中),
-       yatachain-nucleus, e7m-sim, e7m-shugyo (修行), hikari-rt (光),
+       kotoba-datomic-nucleus, e7m-sim, e7m-shugyo (修行), hikari-rt (光),
        kami-rtx, utsushimi (写身), wadachi-sim, and murakumo-render — and the
        NVIDIA names are confined to a clearly delimited compatibility facade
        namespace (`20-actors/etzhayyim-sdk/src/nv-compat/` for TypeScript and
