@@ -1,7 +1,8 @@
 # kotoba:os — kotoba-os device + control WIT surface
 
 **ADR**: [ADR-2606031600](../../../90-docs/adr/2606031600-kotoba-os-content-addressed-wasm-unikernel.md) — kotoba-os content-addressed WASM-first unikernel OS
-**Status**: R0 DRAFT (charter-level contract; no boot, no live device I/O)
+**Status**: **R1/R2 tested reference landed** (R0 charter ratification still pending Council Lv6+ >=3). Real: 2 validated WASM components (`plc-control` + `mesh-agent`), a wasmtime end-to-end run (scan-cycle Datom history + N3 fault-atomicity + fuel-bounded soft-RT + multi-actor one-log), real CIDv1(blake3) verification, genesis + OCI-CID schemas, cross-artifact drift/authorization guards -- **63 tests** via `run-all.sh`.  
+**Honest boundaries** (still TRUE): NO actual unikernel boot on hardware, NO live device I/O (host-process / simulation only); the **production crate** (real wasmtime host + kotoba-core) lands in the `40-engine/kotoba` subrepo via upstream coordination -- this tree is the contracts + tested reference, not the shipping kernel.
 **Validated**: `wasm-tools component wit kotoba-os.wit` → EXIT 0 (wasm-tools 1.225.0)
 
 ## Verify everything
