@@ -7,8 +7,8 @@
  * company confidential risk sealed in the kotoba envelope (ADR-2605181100),
  * read-cap = owner DID. The substrate never sees the score in plaintext.
  *
- * STAYS gftd (consent-capability): Pregel propagation EXECUTION, LLM INFERENCE,
- * notification DISPATCH ACTION. Only the EXECUTION stays gftd; data migrates.
+ * STAYS etzhayyim (consent-capability): Pregel propagation EXECUTION, LLM INFERENCE,
+ * notification DISPATCH ACTION. Only the EXECUTION stays etzhayyim; data migrates.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

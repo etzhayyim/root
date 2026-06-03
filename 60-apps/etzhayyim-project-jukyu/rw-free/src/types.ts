@@ -22,7 +22,7 @@
  *       read-cap = owner DID (+ explicit recipients). The substrate never sees
  *       the per-company risk score in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability — NOT collections):
+ *   STAYS etzhayyim (consumed via consent-capability — NOT collections):
  *     - Pregel stress-propagation EXECUTION (run_stress_propagation), LLM
  *       INFERENCE (qwen3-30b extraction / gemma-4-e4b-it narrative via
  *       llm.etzhayyim.com), and notification DISPATCH / delivery ACTION
@@ -30,7 +30,7 @@
  *       DATA records migrate (public plaintext / sensitive E2E).
  *
  * AT-Lexicon: no float. Quantities/prices = decimal STRINGS (DOUBLE PRECISION in
- * the gftd graph → string here to preserve precision). utilization/confidence/
+ * the etzhayyim graph → string here to preserve precision). utilization/confidence/
  * risk = integer 0-100.
  */
 

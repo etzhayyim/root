@@ -2,7 +2,7 @@
  * jukyu rw-free — barrel. kotoba-E2E split (plaintext public catalog +
  * market aggregates, kotoba-E2E per-company confidential exposure,
  * ADR-2605181100). Pregel propagation + LLM inference + notification dispatch
- * EXECUTION stay gftd via consent-capability.
+ * EXECUTION stay etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

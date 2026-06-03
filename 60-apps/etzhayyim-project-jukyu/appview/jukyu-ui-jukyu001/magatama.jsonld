@@ -34,7 +34,7 @@
     "displayName": "Jukyu",
     "handle": "jukyu",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "jukyu",
   "runtimeType": "worker",

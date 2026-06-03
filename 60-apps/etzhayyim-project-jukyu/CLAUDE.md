@@ -1,4 +1,4 @@
-# ai-gftd-project-jukyu — Global Supply Demand System
+# etzhayyim-project-jukyu — Global Supply Demand System
 
 > **Runtime**: K8s pod-side LangServer / MCP / LangGraph Pregel. Cloudflare edge is only UI and proxy.
 
@@ -12,7 +12,7 @@
 | **DID** | `did:web:jukyu.etzhayyim.com` |
 | **Runtime** | `k8s-langserver` |
 | **Manifest** | `20-actors/jukyu/actor-manifest.jsonld` |
-| **Design** | `60-apps/ai-gftd-project-jukyu/JUKYU_DESIGN.md` |
+| **Design** | `60-apps/etzhayyim-project-jukyu/JUKYU_DESIGN.md` |
 
 ## UX Contract
 

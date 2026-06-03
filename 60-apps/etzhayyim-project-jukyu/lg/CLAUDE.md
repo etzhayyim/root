@@ -109,5 +109,5 @@ Halting: max 8 supersteps; stop if max delta < 0.03 for 2 consecutive supersteps
 | **P1** build + push amd64 | `ghcr.io/etzhayyim/pymagatama:jukyu-entity-transport-*-amd64` | ✅ uses shared pymagatama image (values.yaml pinned) |
 | **P1** CF tunnel route | cloudflared ConfigMap jukyu NSID routes | ✅ 2026-05-15 added to bpmn-dispatcher-tunnel.yaml |
 | **P2** naphtha MV connection | live `mv_naphtha_*` → jukyu normalization | ⏳ |
-| **P2** UI cockpit | SvelteKit balance/chain/company/scenario views | ✅ `60-apps/ai-gftd-project-jukyu/appview/jukyu-ui-jukyu001/svelte/src/App.svelte` |
+| **P2** UI cockpit | SvelteKit balance/chain/company/scenario views | ✅ `60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/svelte/src/App.svelte` |
 | **P3** non-naphtha adapters | crude_oil, energy, food, metals, logistics, transport (semiconductor runs via transport loop) | ✅ domain adapters implemented in `normalize_domain_adapter.py`; MCP dispatch routes: all 7 domains; K8s CronJobs: naphtha, energy, food, metals, logistics, transport (crude_oil via transport loop) |
