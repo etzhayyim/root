@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:bn:onepiece-beginners-primer-2026",
+  "@id": "urn:etzhayyim:news:bn:onepiece-beginners-primer-2026",
   "identifier": "bn-onepiece-beginners-primer-2026",
   "headline": "ওয়ান পিস - বিগিনারদের জন্য সম্পূর্ণ গাইড",
   "description": "ওয়ান পিস একটি দীর্ঘমেয়াদী সিরিজ যেখানে একজন জলদস্যু রাজা হতে চায়। মূল চরিত্র, দলের তথ্য এবং শুরু করার পদ্ধতি জানুন।",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

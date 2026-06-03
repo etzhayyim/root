@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:ai-agents-enterprise-2026",
+  "@id": "urn:etzhayyim:news:ai-agents-enterprise-2026",
   "identifier": "ai-agents-enterprise-2026",
   "headline": "AIエージェント時代到来、企業の業務自動化が加速",
   "description": "大手テック企業がAIエージェントプラットフォームを続々発表。自律型AIが複雑な業務タスクを遂行する時代が始まった。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com/ja/articles/ai-agents-enterprise-2026"
   },
   "url": "https://news.etzhayyim.com/bn/articles/ai-agents-enterprise-2026"

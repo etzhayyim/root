@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:cloud-native-wasm-2026",
+  "@id": "urn:etzhayyim:news:cloud-native-wasm-2026",
   "identifier": "cloud-native-wasm-2026",
   "headline": "WebAssemblyがクラウドネイティブの主流に、Kubernetes統合が加速",
   "description": "CNCF がWebAssembly(Wasm)ランタイムを正式にGraduatedプロジェクトに昇格。コンテナに次ぐ軽量実行環境として企業採用が拡大。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-11T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com/ja/articles/cloud-native-wasm-2026"
   },
   "url": "https://news.etzhayyim.com/bn/articles/cloud-native-wasm-2026"

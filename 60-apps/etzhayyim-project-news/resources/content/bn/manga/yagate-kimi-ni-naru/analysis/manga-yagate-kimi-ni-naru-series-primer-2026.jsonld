@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-yagate-kimi-ni-naru-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-yagate-kimi-ni-naru-series-primer-2026",
   "identifier": "manga-yagate-kimi-ni-naru-series-primer-2026",
   "headline": "Bloom Into You primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Bloom Into You, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

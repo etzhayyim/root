@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-totsukuni-no-shoujo-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-totsukuni-no-shoujo-series-primer-2026",
   "identifier": "manga-totsukuni-no-shoujo-series-primer-2026",
   "headline": "The Girl From the Other Side: Siúil, a Rún primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to The Girl From the Other Side: Siúil, a Rún, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

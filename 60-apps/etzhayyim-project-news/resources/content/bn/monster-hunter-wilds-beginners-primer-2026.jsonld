@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:bn:monster-hunter-wilds-beginners-primer-2026",
+  "@id": "urn:etzhayyim:news:bn:monster-hunter-wilds-beginners-primer-2026",
   "identifier": "bn-monster-hunter-wilds-beginners-primer-2026",
   "headline": "মনস্টার হান্টার ওয়াইল্ডস - নতুন খেলোয়াড়দের জন্য গাইড",
   "description": "মনস্টার হান্টার ওয়াইল্ডস ক্যাপকমের সর্বশেষ গেম যা PS5, Xbox এবং PC-তে উপলব্ধ। খেলার মূল বিষয়বস্তু, অস্ত্র এবং শিক্ষানবিস টিপস শিখুন।",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
