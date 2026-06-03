@@ -331,11 +331,11 @@ def test_plan_real_world_dispatch_blocks_payload_tampering() -> None:
     assert plan["taskType"] == ""
 
 
-def test_sender_email_for_agent_derives_gftd_sender() -> None:
+def test_sender_email_for_agent_derives_etzhayyim_sender() -> None:
     assert active_inference.sender_email_for_agent("did:web:mailer.etzhayyim.com") == "mailer@etzhayyim.com"
     assert active_inference.sender_email_for_agent("did:web:a8wwtz73.etzhayyim.com") == "a8wwtz73@etzhayyim.com"
-    assert active_inference.sender_email_for_agent("did:gftd:agent:local") == "local@etzhayyim.com"
-    assert active_inference.sender_email_for_agent("did:gftd:agent:123") == "a-123@etzhayyim.com"
+    assert active_inference.sender_email_for_agent("did:etzhayyim:agent:local") == "local@etzhayyim.com"
+    assert active_inference.sender_email_for_agent("did:etzhayyim:agent:123") == "a-123@etzhayyim.com"
 
 
 def test_plan_real_world_dispatch_blocks_unsupported_phone_channel() -> None:

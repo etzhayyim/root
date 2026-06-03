@@ -19,7 +19,7 @@ _FETCH_TIMEOUT = 30
 _MAX_BODY_BYTES = 1_000_000
 _MAX_ARTICLES = 30
 _MAX_SNIPPET = 2_000
-_UA = "gftd-ir-scrape/1.0 (mailto:jun@etzhayyim.com)"
+_UA = "etzhayyim-ir-scrape/1.0 (mailto:jun@etzhayyim.com)"
 
 # Built-in seed: (company_name, company_name_ja, ir_url, exchange, securities_code, country_code)
 # TSE Prime + major US NASDAQ. LEI populated later via GLEIF bulk ingest.

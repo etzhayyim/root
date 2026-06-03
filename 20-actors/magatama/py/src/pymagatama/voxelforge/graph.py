@@ -204,7 +204,7 @@ def export_artifacts(state: VoxelforgeState) -> dict[str, Any]:
     if state.error_text:
         return {"current_node": "export_artifacts"}
 
-    bucket = os.environ.get("VOXELFORGE_B2_BUCKET", "ai-gftd-nats")
+    bucket = os.environ.get("VOXELFORGE_B2_BUCKET", "etzhayyim-nats")
     out: list[Artifact] = []
     ts_ms = int(time.time() * 1000)
     design_id = state.design_vertex_id

@@ -69,7 +69,7 @@ def _http_json(method: str, path: str, payload: dict[str, Any] | None = None, ti
             "accept": "application/json",
             "content-type": "application/json",
             "x-hume-api-key": _api_key(),
-            "user-agent": "gftd-hume-zeebe/1",
+            "user-agent": "etzhayyim-hume-zeebe/1",
         },
     )
     try:
@@ -84,7 +84,7 @@ def _multipart_job_payload(
     job: dict[str, Any],
     files: list[dict[str, Any]] | None = None,
 ) -> tuple[bytes, str]:
-    boundary = f"----gftd-hume-{uuid.uuid4().hex}"
+    boundary = f"----etzhayyim-hume-{uuid.uuid4().hex}"
     chunks: list[bytes] = []
     chunks.append(f"--{boundary}\r\n".encode())
     chunks.append(b'Content-Disposition: form-data; name="json"\r\n')
@@ -209,7 +209,7 @@ def _submit_expression_job(
             "accept": "application/json",
             "content-type": f"multipart/form-data; boundary={boundary}",
             "x-hume-api-key": _api_key(),
-            "user-agent": "gftd-hume-zeebe/1",
+            "user-agent": "etzhayyim-hume-zeebe/1",
         },
     )
     try:

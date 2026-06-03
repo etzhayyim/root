@@ -198,7 +198,7 @@ def test_base_url_default(monkeypatch):
     assert "ipfs" in result.lower() or result.startswith("http")
 
 
-def test_api_requires_hmac_true_for_gftd_domain(monkeypatch):
+def test_api_requires_hmac_true_for_etzhayyim_domain(monkeypatch):
     monkeypatch.setenv("IPFS_API_URL", "https://ipfs.etzhayyim.com")
     assert II._api_requires_hmac() is True
 
@@ -210,14 +210,14 @@ def test_api_requires_hmac_false_for_local(monkeypatch):
 
 def test_load_secret_env_takes_priority(monkeypatch):
     monkeypatch.setenv("IPFS_HMAC", "my-test-hmac-key")
-    result = II._load_secret("IPFS_HMAC", "gftd.ipfs", "HMAC_KEY")
+    result = II._load_secret("IPFS_HMAC", "etzhayyim.ipfs", "HMAC_KEY")
     assert result == "my-test-hmac-key"
 
 
 def test_load_secret_returns_empty_when_not_configured(monkeypatch):
     monkeypatch.delenv("IPFS_HMAC", raising=False)
     # On CI there's no macOS Keychain so this returns ""
-    result = II._load_secret("IPFS_HMAC", "gftd.nonexistent.service", "NONEXISTENT_KEY")
+    result = II._load_secret("IPFS_HMAC", "etzhayyim.nonexistent.service", "NONEXISTENT_KEY")
     assert isinstance(result, str)
 
 

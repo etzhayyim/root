@@ -1334,7 +1334,7 @@ _PD_COLOR_MEDIA_ROUTES = {
 
 def _http_post_json(url: str, payload: dict, headers: dict, timeout: float = 30.0) -> tuple[int, dict | str]:
     body = json.dumps(payload).encode("utf-8")
-    merged_headers = {"User-Agent": "gftd-pymagatama-zeebe/0.2"}
+    merged_headers = {"User-Agent": "etzhayyim-pymagatama-zeebe/0.2"}
     merged_headers.update(headers)
     req = _u_req.Request(url, data=body, headers=merged_headers, method="POST")
     try:
@@ -1484,7 +1484,7 @@ async def _pds_dispatch_internal_xrpc(type: str, payload: dict, started: float) 
 async def _pds_dispatch_legacy(
     type: str, payload: dict, callerDid: str, started: float
 ) -> dict:
-    """Legacy PDS HTTP fallback for non-gftd, non-social NSIDs."""
+    """Legacy PDS HTTP fallback for non-etzhayyim, non-social NSIDs."""
     prefer_legacy_trust = (
         _PDS_LEGACY_INTERNAL_TRUST
         and _PDS_PREFER_LEGACY_TRUST_FOR_REPO_WRITE
@@ -1514,7 +1514,7 @@ async def _pds_dispatch_legacy(
         headers["x-magatama-verified"] = "true"
         internal_hmac = _internal_trust_hmac_header(path)
         if internal_hmac:
-            headers["x-gftd-internal-hmac"] = internal_hmac
+            headers["x-etzhayyim-internal-hmac"] = internal_hmac
         active_did = str(payload.get("repo") or payload.get("did") or callerDid or "").strip()
         if active_did:
             headers["x-active-did"] = active_did
@@ -5281,7 +5281,7 @@ async def task_legal_corpus_fetch_body_text(
                 "Accept": "application/xhtml+xml",
                 "Accept-Language": "en",
                 "User-Agent": (
-                    "Mozilla/5.0 (compatible; gftd-legal-corpus/1.0; "
+                    "Mozilla/5.0 (compatible; etzhayyim-legal-corpus/1.0; "
                     "+https://legal-corpus.etzhayyim.com)"
                 ),
             },
@@ -5331,7 +5331,7 @@ async def task_legal_corpus_fetch_body_text(
             url,
             headers={
                 "Accept": "application/sparql-results+json",
-                "User-Agent": "Mozilla/5.0 (compatible; gftd-legal-corpus/1.0)",
+                "User-Agent": "Mozilla/5.0 (compatible; etzhayyim-legal-corpus/1.0)",
             },
         )
         try:
@@ -5393,7 +5393,7 @@ async def main() -> None:
             "public_malak",
             "public-malak",
             "mailer",
-            "ai-gftd-project-mailer",
+            "etzhayyim-project-mailer",
             "training",
             "training_actor",
             "mitama_training",
@@ -5507,7 +5507,7 @@ async def main() -> None:
         LOG.info("zeebe_worker stopped cleanly (yata profile)")
         return
 
-    if worker_profile in {"mailer", "ai-gftd-project-mailer"}:
+    if worker_profile in {"mailer", "etzhayyim-project-mailer"}:
         for _mailer_task, _mailer_fn, _mailer_timeout in (
             ("health", "health", 30_000),
             ("listEmails", "list_emails", 30_000),
@@ -7915,7 +7915,7 @@ async def main() -> None:
     from pymagatama.primitives import coverage_gap  # noqa: E402
     coverage_gap.register(worker, timeout_ms=300_000)
     # Vector embedding backfill for actor profiles and posts. The worker
-    # writes Phase 1 gftd-mm-768 rows; Zeebe owns batch cadence/retries.
+    # writes Phase 1 etzhayyim-mm-768 rows; Zeebe owns batch cadence/retries.
     from pymagatama.primitives import vector_embedding  # noqa: E402
     vector_embedding.register(worker, timeout_ms=600_000)
     # GLEIF LEI global company-data ingest planning and normalization.
@@ -8479,7 +8479,7 @@ async def main() -> None:
 
     # ongakuka AI music generation (1 task type: ongakuka.music.generate).
     # Calls murakumo /api/audio/v1/music/generations, uploads WAV to B2
-    # ai-gftd-ongakuka, writes vertex_ongakuka_track + vertex_ongakuka_generation.
+    # etzhayyim-ongakuka, writes vertex_ongakuka_track + vertex_ongakuka_generation.
     from pymagatama.primitives import ongakuka  # noqa: E402
     ongakuka.register(worker, timeout_ms=600_000)
 

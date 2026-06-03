@@ -213,7 +213,7 @@ async def task_yata_sparql_run(**kwargs: Any) -> dict[str, Any]:
 _CYPHER_LABEL_TO_TABLE_OVERRIDE: dict[str, str] = {
     # Override map intentionally empty — customer-facing tenants use
     # `vertex_<snake_case(Label)>` uniformly so what they CREATE is what
-    # they MATCH. Internal gftd mappings (Person→vertex_natural_person,
+    # they MATCH. Internal etzhayyim mappings (Person→vertex_natural_person,
     # Organization→vertex_legal_entity) live in the public schema and
     # are not exposed via the tenant Cypher path.
 }

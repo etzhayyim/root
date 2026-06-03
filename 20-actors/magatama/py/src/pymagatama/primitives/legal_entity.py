@@ -201,7 +201,7 @@ async def task_gleif_fetch_pages(
             url = f"{_GLEIF_URL}?{urlencode({'page[number]': page, 'page[size]': page_size})}"
             async with session.get(
                 url,
-                headers={"Accept": "application/vnd.api+json, application/json", "User-Agent": "gftd-legal-entity-zeebe/0.1"},
+                headers={"Accept": "application/vnd.api+json, application/json", "User-Agent": "etzhayyim-legal-entity-zeebe/0.1"},
                 timeout=aiohttp.ClientTimeout(total=45),
             ) as resp:
                 if resp.status != 200:

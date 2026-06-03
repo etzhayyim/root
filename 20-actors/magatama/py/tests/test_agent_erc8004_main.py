@@ -74,7 +74,7 @@ def test_execute_publish_flow_blocks_placeholder_chain_submit(tmp_path: Path) ->
     assert any("rootIdentity.address" in error for error in result["preflight"]["chainErrors"])
 
 
-def test_run_chain_register_uses_gftd_cli(monkeypatch, tmp_path: Path) -> None:
+def test_run_chain_register_uses_etzhayyim_cli(monkeypatch, tmp_path: Path) -> None:
     calls = []
 
     class Result:
@@ -98,7 +98,7 @@ def test_run_chain_register_uses_gftd_cli(monkeypatch, tmp_path: Path) -> None:
     )
 
     assert result["ok"] is True
-    assert calls[0][0][:3] == ["gftd", "agent-runtime", "register"]
+    assert calls[0][0][:3] == ["etzhayyim", "agent-runtime", "register"]
     assert "--dry-run=false" in calls[0][0]
 
 

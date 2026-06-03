@@ -7,7 +7,7 @@ from pymagatama import agent_status_main
 
 def test_summarize_status_reports_repairing_organism() -> None:
     report = agent_status_main.summarize_status(
-        agent_did="did:gftd:agent:test",
+        agent_did="did:etzhayyim:agent:test",
         launchd={
             "com.etzhayyim.agent-daemon": True,
             "com.etzhayyim.agent-zeebe-worker": True,
@@ -69,7 +69,7 @@ def test_summarize_status_reports_repairing_organism() -> None:
             }
         ],
         economy_profile={
-            "root_did": "did:erc725:gftd:260425:0x1",
+            "root_did": "did:erc725:etzhayyim:260425:0x1",
             "erc8004_agent_id": "123",
             "economy_mode": "guarded-social",
             "status": "active",
@@ -168,7 +168,7 @@ def test_summarize_status_reports_repairing_organism() -> None:
 def test_format_text_includes_process_status() -> None:
     text = agent_status_main.format_text(
         {
-            "agentDid": "did:gftd:agent:test",
+            "agentDid": "did:etzhayyim:agent:test",
             "organismState": "active",
             "organismScore": 0.95,
             "homeostasis": {"viabilityState": "normal", "confidence": 0.9, "entropy": 0.1},

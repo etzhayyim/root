@@ -4,9 +4,9 @@ Task types registered:
   ipfs.add      — add content to IPFS node; output: cid, ipfs_url
   ipfs.pinByCid — pin an already-reachable CID; output: pinned (bool)
 
-Required secrets (Keychain gftd.ipfs or env):
+Required secrets (Keychain etzhayyim.ipfs or env):
   IPFS_URL   — https://ipfs.etzhayyim.com (default)
-  IPFS_HMAC  — 32-byte hex HMAC key (same value stored in ai-gftd-ipfs-proxy Worker secret)
+  IPFS_HMAC  — 32-byte hex HMAC key (same value stored in etzhayyim-ipfs-proxy Worker secret)
 
 Task input for ipfs.add:
   source_url  (str)  — URL to fetch and add; mutually exclusive with content_b64
@@ -84,13 +84,13 @@ def _api_requires_hmac() -> bool:
 
 
 def _hmac_key() -> str:
-    return _load_secret("IPFS_HMAC", "gftd.ipfs", "HMAC_KEY")
+    return _load_secret("IPFS_HMAC", "etzhayyim.ipfs", "HMAC_KEY")
 
 
 def _sign(body: bytes) -> str:
     key = _hmac_key()
     if not key:
-        raise RuntimeError("IPFS_HMAC not configured; set env var or Keychain gftd.ipfs/HMAC_KEY")
+        raise RuntimeError("IPFS_HMAC not configured; set env var or Keychain etzhayyim.ipfs/HMAC_KEY")
     return _hmac.new(key.encode(), body, hashlib.sha256).hexdigest()
 
 
@@ -126,7 +126,7 @@ async def add_from_url(source_url: str, filename: Optional[str] = None) -> str:
     async with httpx.AsyncClient(
         timeout=180,
         follow_redirects=True,
-        headers={"User-Agent": "gftd-ipfs-archiver/0.1"},
+        headers={"User-Agent": "etzhayyim-ipfs-archiver/0.1"},
     ) as client:
         r = await client.get(source_url)
         r.raise_for_status()
@@ -146,7 +146,7 @@ async def _download_to_temp(source_url: str, filename: str, max_bytes: int) -> t
         async with httpx.AsyncClient(
             timeout=httpx.Timeout(60.0, read=900.0),
             follow_redirects=True,
-            headers={"User-Agent": "gftd-pdcolor-ipfs-ingest/0.1"},
+            headers={"User-Agent": "etzhayyim-pdcolor-ipfs-ingest/0.1"},
         ) as client:
             async with client.stream("GET", source_url) as resp:
                 resp.raise_for_status()

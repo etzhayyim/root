@@ -9,8 +9,8 @@ Adapters use only legally-clean public surfaces:
   - yodobashi     : sitemap + product page JSON-LD
   - kagu365       : sitemap + product page JSON-LD
 
-Credentials are sourced from gftd Vault at pod bootstrap (CronJob initContainer
-`gftd vault run --env-from amazon-paapi,rakuten-ichiba`) and exposed only as
+Credentials are sourced from etzhayyim Vault at pod bootstrap (CronJob initContainer
+`etzhayyim vault run --env-from amazon-paapi,rakuten-ichiba`) and exposed only as
 process env. No plaintext caching server-side (vault zero-knowledge invariant).
 """
 
@@ -30,7 +30,7 @@ from typing import Any, Iterable
 
 from pydantic import BaseModel, Field, HttpUrl
 
-USER_AGENT = "gftd-yoro-product-ingest/1.0 (+https://yoro.etzhayyim.com/bot)"
+USER_AGENT = "etzhayyim-yoro-product-ingest/1.0 (+https://yoro.etzhayyim.com/bot)"
 DEFAULT_TIMEOUT = 15
 DEFAULT_MAX_ITEMS = 20
 

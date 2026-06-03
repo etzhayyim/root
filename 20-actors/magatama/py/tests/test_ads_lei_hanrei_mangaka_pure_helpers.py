@@ -116,32 +116,32 @@ def test_pma_extract_title_empty_when_no_title():
 # ─── public_malak_ads — _ads_library_url ─────────────────────────────────────
 
 def test_pma_ads_library_url_meta_format():
-    url = PMA._ads_library_url("meta", "gftd", "JP")
+    url = PMA._ads_library_url("meta", "etzhayyim", "JP")
     assert "facebook.com" in url
 
 
 def test_pma_ads_library_url_google_format():
-    url = PMA._ads_library_url("google", "gftd", "JP")
+    url = PMA._ads_library_url("google", "etzhayyim", "JP")
     assert "google.com" in url
 
 
 def test_pma_ads_library_url_linkedin_format():
-    url = PMA._ads_library_url("linkedin", "gftd", "JP")
+    url = PMA._ads_library_url("linkedin", "etzhayyim", "JP")
     assert "linkedin.com" in url
 
 
 def test_pma_ads_library_url_tiktok_format():
-    url = PMA._ads_library_url("tiktok", "gftd", "JP")
+    url = PMA._ads_library_url("tiktok", "etzhayyim", "JP")
     assert "tiktok.com" in url
 
 
 def test_pma_ads_library_url_x_format():
-    url = PMA._ads_library_url("x", "gftd", "JP")
+    url = PMA._ads_library_url("x", "etzhayyim", "JP")
     assert "x.com" in url
 
 
 def test_pma_ads_library_url_unknown_returns_empty():
-    url = PMA._ads_library_url("unknown_platform", "gftd", "JP")
+    url = PMA._ads_library_url("unknown_platform", "etzhayyim", "JP")
     assert url == ""
 
 

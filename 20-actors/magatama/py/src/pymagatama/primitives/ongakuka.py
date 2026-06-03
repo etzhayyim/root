@@ -29,7 +29,7 @@ _MURAKUMO_BASE_URL = os.environ.get("MURAKUMO_BASE_URL", "https://murakumo-serve
 _MURAKUMO_API_KEY  = os.environ.get("SS_MURAKUMO_API_KEY", "").strip()
 _MURAKUMO_MODEL    = "musicgen-small"
 
-_B2_BUCKET   = "ai-gftd-ongakuka"
+_B2_BUCKET   = "etzhayyim-ongakuka"
 _B2_KEY_ID   = os.environ.get("B2_ACCESS_KEY_ID",    "").strip()
 _B2_KEY      = os.environ.get("B2_SECRET_ACCESS_KEY","").strip()
 _B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com").rstrip("/")

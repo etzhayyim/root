@@ -1,6 +1,6 @@
 """Generated Hume text student model data.
 
-Source: 60-apps/ai-gftd-project-hume/training/models/student-text-tfidf-centroid-balanced-20260429.json
+Source: 60-apps/etzhayyim-project-hume/training/models/student-text-tfidf-centroid-balanced-20260429.json
 Do not edit by hand; regenerate from the training artifact.
 """
 from __future__ import annotations

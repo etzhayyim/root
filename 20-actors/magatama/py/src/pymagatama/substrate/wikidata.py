@@ -1,7 +1,7 @@
 """Wikidata SPARQL row → com.etzhayyim.maps.ownership bulk ingest (Python).
 
 Python analog of TS
-``60-apps/ai-gftd-project-maps/rw-free/src/registry/wikidata-ingest.ts``.
+``60-apps/etzhayyim-project-maps/rw-free/src/registry/wikidata-ingest.ts``.
 
 Used by the maps bulk-ingest pods (currently aismarine_wikidata_lei.py)
 to write vessel ↔ legal-entity ownership / operator edges via the PDS

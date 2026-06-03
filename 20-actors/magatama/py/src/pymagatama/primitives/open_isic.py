@@ -2,7 +2,7 @@
 
 These task handlers replace the Cloudflare Worker as the authoritative write
 path for ISIC classifications. The static taxonomy remains in
-`60-apps/ai-gftd-project-open-isic/data/classes`; BPMN/Zeebe owns process
+`60-apps/etzhayyim-project-open-isic/data/classes`; BPMN/Zeebe owns process
 orchestration and these functions own deterministic validation + graph writes.
 """
 
@@ -46,7 +46,7 @@ def _classes_dir() -> Path:
     configured = os.environ.get("OPEN_ISIC_CLASSES_DIR")
     if configured:
         return Path(configured)
-    return _repo_root() / "60-apps/ai-gftd-project-open-isic/data/classes"
+    return _repo_root() / "60-apps/etzhayyim-project-open-isic/data/classes"
 
 
 def _load_class(code: str) -> dict[str, Any] | None:
@@ -326,7 +326,7 @@ _SECTION_NAMES = {
 
 def _get_classes_dir() -> str:
     from pathlib import Path
-    return str(Path(__file__).resolve().parents[6] / "60-apps" / "ai-gftd-project-open-isic" / "data" / "classes")
+    return str(Path(__file__).resolve().parents[6] / "60-apps" / "etzhayyim-project-open-isic" / "data" / "classes")
 
 def _load_all_classes() -> list[dict]:
     d = _get_classes_dir()

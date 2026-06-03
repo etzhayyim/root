@@ -36,8 +36,8 @@ def test_status_payload_delegates_to_status_report(monkeypatch) -> None:
 
     monkeypatch.setattr(agent_status_web_main, "load_status_report", fake_load_status_report)
 
-    assert agent_status_web_main.status_payload("did:gftd:agent:test") == {
-        "agentDid": "did:gftd:agent:test",
+    assert agent_status_web_main.status_payload("did:etzhayyim:agent:test") == {
+        "agentDid": "did:etzhayyim:agent:test",
         "organismState": "active",
     }
-    assert calls == ["did:gftd:agent:test"]
+    assert calls == ["did:etzhayyim:agent:test"]
