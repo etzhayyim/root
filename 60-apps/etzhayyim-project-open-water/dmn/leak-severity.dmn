@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-water-leak-severity"
              name="Leak Severity"
-             namespace="https://gftd.ai/dmn/open-water">
+             namespace="https://etzhayyim.com/dmn/open-water">
   <decision id="openWater.leakSeverity" name="Leak Severity">
     <decisionTable id="dt_leakSeverity" hitPolicy="FIRST">
       <input id="i_flow" label="estLpm">

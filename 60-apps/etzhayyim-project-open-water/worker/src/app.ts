@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-water — water utility operations + network design
+// etzhayyim-project-open-water — water utility operations + network design
 //
 // 9 XRPC under com.etzhayyim.apps.openWater.*:
 //   defineReservoir       (proc)   reservoir / pumping station node

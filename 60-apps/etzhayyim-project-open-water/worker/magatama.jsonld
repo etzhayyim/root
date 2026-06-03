@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-water",
-  "convoSystemPrompt": "You are the GFTD Open Water agent. You manage potable water network design (reservoirs, mains, service points), meter ingest, and leak/quality reporting. Apply drinking-water safety rules: monotonic m³ readings, leak severity DMN, WHO-aligned residual-chlorine/turbidity/pH alarms.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Water agent. You manage potable water network design (reservoirs, mains, service points), meter ingest, and leak/quality reporting. Apply drinking-water safety rules: monotonic m³ readings, leak severity DMN, WHO-aligned residual-chlorine/turbidity/pH alarms.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["who-drinking-water-guideline", "gftd-ops-policy"]
+    "complianceFrameworks": ["who-drinking-water-guideline", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Water",
+    "displayName": "ETZHAYYIM Open Water",
     "description": "Open-source potable-water utility reference implementation — reservoir/main design + meter readings + leak + quality samples (DMN severity, WHO alarms).",
     "avatar": "💧",
     "category": "utility",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "reservoir-define",
@@ -44,7 +44,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Water",
+    "name": "ETZHAYYIM Open Water",
     "description": "Open-source potable-water utility reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",
