@@ -226,7 +226,7 @@ R1 activation gates each cell separately (Council Lv6+ ≥3 attestation per cell
 | Gate | Description |
 |---|---|
 | **G1** | Every water-quality document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.mizuho.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.mizuho.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **Community-scale only** — NOT large municipal utility; per-source service population ≤2,500 at R2, ≤25,000 cumulative at R3. |
 | **G4** | **NO commercial water utility software** — Veolia / Suez / American Water / Aquarion / Évian (Danone) / Nestlé Pure Life / Beck Water / Trojan UV proprietary control systems PROHIBITED per Charter Rider §2(e) anti-gatekeeping + §2(c) vendor data-sovereignty. |
 | **G5** | **NO bottled water vendor relationship** — single-use plastic PROHIBITED per Charter §1.13 Wellbecoming + multi-gen priority; closed-loop reusable container ONLY where containerized delivery unavoidable (disaster relief coordination with future kazaori actor). |

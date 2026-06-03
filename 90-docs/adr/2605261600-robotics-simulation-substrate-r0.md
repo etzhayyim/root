@@ -28,7 +28,7 @@ depends_on:
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
 ---
 
 # ADR-2605261600: Robotics Simulation Substrate R0 Charter
@@ -45,7 +45,7 @@ religious-corp currently has **zero** robotics simulation integration. Audit (20
 - Repo-wide grep of `omniverse` / `isaac.?sim` / `optix` / `physx` / NVIDIA-`hydra` (USD) → **0 hits** (the only `optix` match is an accidental substring inside `package-lock.json` integrity hash).
 - Repo-wide grep of other robotics simulators (Gazebo / MuJoCo / Drake / Webots / PyBullet / CoppeliaSim / CARLA / AWSIM) → **0 hits**.
 - All robotics-bearing actor (wadachi / suki / igata / watatsumi / sarutahiko / futawa / tatekata / kuni-umi / hodoki / makura / tsutae) are R0 scaffolds — every Pregel cell `.solve()` raises import-time RuntimeError. Robot classes (Otete / Mimi / Hitogata / Kasane / Tsugite / Kuwa / Norikata / Hibachi / Tatara / Watari / Awa / Hagasu / Nuku / Tokike / Sango / Tako / Hibiki / Ama / Norimichi / Migaki / Yokin / Kamado / Tedama / Tezukai / Tsutsumi / Akari / Norikata / Sukoyaka / Yutori / Hizukue / Tsumugi / Funamori / Sora / Hoshi / Quad / Giemon) are **class reservations only**; firmware / PoC is R1+ work.
-- Real-machine verification path is currently defined as **yatachain Ed25519 witness quorum + IPFS-pinned photographs** (ADR-2605231400 §4 membrane + ADR-2605231902 first projection precedent); no 3D / physics / sensor sim layer is specified.
+- Real-machine verification path is currently defined as **kotoba-datomic Ed25519 witness quorum + IPFS-pinned photographs** (ADR-2605231400 §4 membrane + ADR-2605231902 first projection precedent); no 3D / physics / sensor sim layer is specified.
 
 This means every R1 ADR (yakushi R1 ADR-2605250630 / igata R1 ADR-2605261215 / mitate R1 ADR-2605260200) currently has to **invent its own sim story from scratch** when commissioning benchtop hardware. Each R1 author independently faces:
 
@@ -55,7 +55,7 @@ This means every R1 ADR (yakushi R1 ADR-2605250630 / igata R1 ADR-2605261215 / m
 4. Which sensor simulator (camera RGB-D / lidar / radar / IMU / contact / force-torque)?
 5. Which RL / planning training pipeline?
 6. Which synthetic-data / domain-randomization tool?
-7. How does sim output get attested back to yatachain?
+7. How does sim output get attested back to kotoba-datomic?
 
 Without a single canonical substrate, each Tier-B actor will land an ad-hoc combination, drift will compound, and the **cross-actor simulation invariants** (e.g., sarutahiko-truck physics must agree with wadachi-operator physics for the same vehicle; suki-tractor sim must agree with mitsuho.harvest_robotics operation envelope) will silently diverge.
 
@@ -103,7 +103,7 @@ Adopting the Omniverse stack as-is would violate **multiple constitutional invar
 
 A constitutional "use Omniverse only for sim, not for shipped firmware" carve-out is **not viable** because:
 
-1. The output of sim (URDF revisions / RL policy weights / synthetic datasets / behavior trees) flows directly into shipped firmware. If the sim runtime is closed, the firmware provenance chain is broken at the sim layer, which means `yatachain attestation lineage` cannot be verified end-to-end (this would violate ADR-2605231400 §4 membrane structurally — auditors cannot reproduce the sim that produced the policy).
+1. The output of sim (URDF revisions / RL policy weights / synthetic datasets / behavior trees) flows directly into shipped firmware. If the sim runtime is closed, the firmware provenance chain is broken at the sim layer, which means `kotoba-datomic attestation lineage` cannot be verified end-to-end (this would violate ADR-2605231400 §4 membrane structurally — auditors cannot reproduce the sim that produced the policy).
 2. §2(b) anti-secrecy applies to the **substrate of decision-making**, not only to the shipped artifact. Closed sim = closed substrate.
 3. Omniverse Cloud is unavoidable in practice once a team adopts Omniverse Kit (collaborative authoring + Nucleus + asset publish) — even if technically possible to self-host all of it, the recommended-path UX herds users into NVIDIA-hosted services.
 
@@ -147,9 +147,9 @@ religious-corp adopts a **first-party robotics simulation substrate** anchored b
 - **Physics**: end-effector trajectory L2 deviation ≤ 5% across 100 standardized articulated-arm reach trials (substrate vs Isaac Sim PhysX 5 reference)
 - **Sim-to-real**: real-world rollout success rate ≥ 0.75 × substrate-sim rollout success rate on the same task (measured at R2 actor pilot using actual robot hardware)
 
-Each metric has a per-actor variance budget ratified at the actor's R1 ADR. **Below 0.75 = R1 ADR is REJECTED.** The Isaac Sim reference scene is generated only once per actor (on a one-time-use Isaac Sim trial license + isolated machine outside the religious-corp infrastructure; **never integrated into the religious-corp runtime**, never connected to Murakumo / Nucleus / Omniverse Cloud, never carries religious-corp keys). After scoring, the Isaac Sim reference scene is archived as a sealed CID on yatachain and the trial machine is decommissioned.
+Each metric has a per-actor variance budget ratified at the actor's R1 ADR. **Below 0.75 = R1 ADR is REJECTED.** The Isaac Sim reference scene is generated only once per actor (on a one-time-use Isaac Sim trial license + isolated machine outside the religious-corp infrastructure; **never integrated into the religious-corp runtime**, never connected to Murakumo / Nucleus / Omniverse Cloud, never carries religious-corp keys). After scoring, the Isaac Sim reference scene is archived as a sealed CID on kotoba-datomic and the trial machine is decommissioned.
 
-**G6 yatachain attestation lineage MANDATORY for every sim run**: every simulation run MUST emit a `simulationRunAttestation` lexicon record with `{sceneCid, physicsConfigCid, rendererConfigCid, sensorConfigCid, seedSequence, witnessQuorum[≥2 substrate-instances], gpuFingerprintCid, durationSec, outputArtifactCids[]}` so that any downstream firmware artifact (URDF revision / RL policy weights / synthetic dataset) is structurally chained back to the sim runs that produced it. Sim that does not attest is unusable for downstream Pregel cell consumption (cell `.solve()` raises `RuntimeError` on un-attested input).
+**G6 kotoba-datomic attestation lineage MANDATORY for every sim run**: every simulation run MUST emit a `simulationRunAttestation` lexicon record with `{sceneCid, physicsConfigCid, rendererConfigCid, sensorConfigCid, seedSequence, witnessQuorum[≥2 substrate-instances], gpuFingerprintCid, durationSec, outputArtifactCids[]}` so that any downstream firmware artifact (URDF revision / RL policy weights / synthetic dataset) is structurally chained back to the sim runs that produced it. Sim that does not attest is unusable for downstream Pregel cell consumption (cell `.solve()` raises `RuntimeError` on un-attested input).
 
 **G7 Reproducibility invariant — deterministic seed + bit-identical replay**: every sim run is reproducible bit-identical given `{sceneCid, physicsConfigCid, rendererConfigCid, sensorConfigCid, seedSequence}` on identical hardware. Cross-hardware reproducibility allows numerical noise ≤ 1e-4 L2 per step (documented in `90-docs/baien/sim-substrate-reproducibility-260526.md` R1+). This is the analogue of ADR-2605242630 R1a `dispatchLoraForward` numerical-path discipline applied to sim.
 
@@ -163,9 +163,9 @@ Each metric has a per-actor variance budget ratified at the actor's R1 ADR. **Be
 
 **G12 KPI caps on substrate runtime resource consumption**: at R1, substrate runs ≤ 1 GPU-hour-equivalent per actor per day (Murakumo capacity-protective). R2 ≤ 4 GPU-hour-equivalent / actor / day. R3 ≤ 16 GPU-hour-equivalent / actor / day. Substrate runs that exceed the cap are queued and warned; Council Lv6+ supermajority can raise per-actor cap on a per-quarter basis. This protects Murakumo fleet inference capacity (ADR-2605215000) from being starved by sim workloads.
 
-**G13 No telemetry / no usage analytics / no crash reporting to third parties**: the substrate emits zero outbound network traffic except to Murakumo fleet endpoints and yatachain attestation endpoints. NVIDIA telemetry / Khronos telemetry / Mesa telemetry / Blender Cycles telemetry / any "anonymous usage statistics" MUST be compile-time disabled at build. §2(c) anti-surveillance applied to the development tooling itself.
+**G13 No telemetry / no usage analytics / no crash reporting to third parties**: the substrate emits zero outbound network traffic except to Murakumo fleet endpoints and kotoba-datomic attestation endpoints. NVIDIA telemetry / Khronos telemetry / Mesa telemetry / Blender Cycles telemetry / any "anonymous usage statistics" MUST be compile-time disabled at build. §2(c) anti-surveillance applied to the development tooling itself.
 
-**G14 30-year reproducibility commitment**: the substrate MUST be reproducible-from-source for 30 years post-release per actor R1 ADR. Source pins (git SHAs, IPFS CIDs of release tarballs, build container manifest CIDs) are sealed on yatachain at every R-phase activation. Closed-source tools cannot satisfy this gate (vendor EULA can revoke access; CUDA versions deprecate; OptiX versions become unsupported). §2(b) anti-secrecy + §1.13 Wellbecoming applied to engineering substrate longevity.
+**G14 30-year reproducibility commitment**: the substrate MUST be reproducible-from-source for 30 years post-release per actor R1 ADR. Source pins (git SHAs, IPFS CIDs of release tarballs, build container manifest CIDs) are sealed on kotoba-datomic at every R-phase activation. Closed-source tools cannot satisfy this gate (vendor EULA can revoke access; CUDA versions deprecate; OptiX versions become unsupported). §2(b) anti-secrecy + §1.13 Wellbecoming applied to engineering substrate longevity.
 
 ## Non-Goals (N1..N10, IMMUTABLE R0..R3)
 
@@ -350,7 +350,7 @@ Blender is GPL-3, which would propagate license contagion if linked into firmwar
 - ADR-2605192100 — etzhayyim Mission Charter (§1.13 Wellbecoming, §2 anti-secrecy + anti-gatekeeping)
 - ADR-2605192200 — etzhayyim IP-Free Release Charter Rider v2.0 (§2(a)-(h))
 - ADR-2605215000 — etzhayyim inference Murakumo-fleet-only (no commercial GPU rental)
-- ADR-2605231400 — yatachain Holochain-isomorphic substrate (§4 membrane; attestation lineage)
+- ADR-2605231400 — kotoba-datomic Holochain-isomorphic substrate (§4 membrane; attestation lineage)
 - ADR-2605242500 — silicon Wave 1 iwakura ternary inference ASIC (future sim-workload hardware path)
 - ADR-2605242000 — wadachi autonomous-mobility R&D R0 (consumer of this charter at R1+)
 - ADR-2605250500 — yakushi pharmaceutical Tier-B R0

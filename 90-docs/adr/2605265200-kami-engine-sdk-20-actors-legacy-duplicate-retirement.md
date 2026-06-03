@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.40
 priority_note: "Removes a dangerous same-package-name-twice scenario from the monorepo; clarifies canonical SDK source."
 authoritative_for:
-  - "@etzhayyim/kami-engine-sdk canonical source location = 40-engine/kami-engine/kami-engine-sdk (git subrepo of github.com/gftdcojp/kami-engine-sdk)"
+  - "@etzhayyim/kami-engine-sdk canonical source location = 40-engine/kami-engine/kami-engine-sdk (git subrepo of github.com/etzhayyimcojp/kami-engine-sdk)"
   - "20-actors/kami-engine-sdk deprecation + retirement schedule"
   - "pnpm workspace registration for the canonical SDK so workspace:* references resolve"
 related:
@@ -36,10 +36,10 @@ Two directories in this monorepo declare `name: "@etzhayyim/kami-engine-sdk"`:
 
 | Path | Status |
 |---|---|
-| `40-engine/kami-engine/kami-engine-sdk/` | **canonical** — git subrepo of `github.com/gftdcojp/kami-engine-sdk` (`.gitrepo` present); has `gsplat/`, `webvr/`, `genko/canvas-pregel.ts`, `dist/`, `package-lock.json`; received all 2026-05-26 SDK three-free cutover work (ADR-2605264300 commits b04c54eb5 + ea0fd3ab8 + 5d2ba4b2d) |
+| `40-engine/kami-engine/kami-engine-sdk/` | **canonical** — git subrepo of `github.com/etzhayyimcojp/kami-engine-sdk` (`.gitrepo` present); has `gsplat/`, `webvr/`, `genko/canvas-pregel.ts`, `dist/`, `package-lock.json`; received all 2026-05-26 SDK three-free cutover work (ADR-2605264300 commits b04c54eb5 + ea0fd3ab8 + 5d2ba4b2d) |
 | `20-actors/kami-engine-sdk/` | **legacy duplicate** — no `.gitrepo` (not a subrepo); missing `gsplat/`, `webvr/`, `genko/canvas-pregel.ts`, `dist/`, `package-lock.json`; some `*.ts` files diverged from canonical because the SDK three-free cutover only landed in the 40-engine copy |
 
-The `20-actors/` copy predates the subrepo migration. It was originally created as a workspace-local sibling SDK for actors in `20-actors/` but was superseded by the upstream subrepo when the SDK became a publishable npm package (`github.com/gftdcojp/kami-engine-sdk`).
+The `20-actors/` copy predates the subrepo migration. It was originally created as a workspace-local sibling SDK for actors in `20-actors/` but was superseded by the upstream subrepo when the SDK became a publishable npm package (`github.com/etzhayyimcojp/kami-engine-sdk`).
 
 `pnpm-workspace.yaml` does NOT list either SDK directory in its `packages:` array. Consumer apps that declare `"@etzhayyim/kami-engine-sdk": "workspace:*"` rely on either (a) wildcard auto-discovery, (b) `link:`-style explicit paths (e.g., cyber-drill: `link:../../../40-engine/kami-engine/kami-engine-sdk`), or (c) the fact that they don't actually `pnpm install` (scaffold-stub apps).
 
@@ -67,9 +67,9 @@ Walk every consumer of `@etzhayyim/kami-engine-sdk`:
 
 | Consumer | Current dependency form | Action |
 |---|---|---|
-| `60-apps/ai-gftd-project-cyber-drill/svelte/` | `link:../../../40-engine/kami-engine/kami-engine-sdk` | already canonical; no-op |
+| `60-apps/etzhayyim-project-cyber-drill/svelte/` | `link:../../../40-engine/kami-engine/kami-engine-sdk` | already canonical; no-op |
 | `20-actors/magatama/sdk/magatama-host-sdk/` | `workspace:*` | confirm resolves to 40-engine after Phase 1 workspace registration |
-| `60-apps/ai-gftd-project-{image2vrm,image2metahuman,baminiku,mangaka}/.../svelte/` | `workspace:*` | confirm resolves to 40-engine; these are scaffold stubs that don't yet build, so the resolution path is currently latent |
+| `60-apps/etzhayyim-project-{image2vrm,image2metahuman,baminiku,mangaka}/.../svelte/` | `workspace:*` | confirm resolves to 40-engine; these are scaffold stubs that don't yet build, so the resolution path is currently latent |
 
 If all consumers resolve to 40-engine cleanly, Phase 3 unblocks.
 
@@ -129,7 +129,7 @@ Three reasons to phase rather than delete in-iteration:
 
 1. **Race risk.** The parallel session has been making 5+ commits per /loop iteration (observed throughout 2026-05-26). A multi-file delete during active parallel work would either fail the HEAD-lock race repeatedly or land in an unrelated parallel commit (the same race that produced commit `b04c54eb5`'s misleading title in ADR-2605264300 §1 Notes).
 2. **Verification.** The workspace-resolution behavior of `workspace:*` against scaffold-stub apps that don't actually install is poorly understood — better to register 40-engine in the workspace first, watch for one R-cycle, then delete.
-3. **Subrepo subtleties.** The canonical 40-engine SDK is a git subrepo (`.gitrepo` metadata). Adding it to `pnpm-workspace.yaml` should not break the subrepo semantics, but earlier this loop the kotoba subrepo (also at 40-engine/) ran into exclusion issues with the no-two-stage-gftd-domains lint (iter-8 / ADR-2605265200 sibling fix). Phase 1 surfaces any such friction before Phase 3 commits to deletion.
+3. **Subrepo subtleties.** The canonical 40-engine SDK is a git subrepo (`.gitrepo` metadata). Adding it to `pnpm-workspace.yaml` should not break the subrepo semantics, but earlier this loop the kotoba subrepo (also at 40-engine/) ran into exclusion issues with the no-two-stage-etzhayyim-domains lint (iter-8 / ADR-2605265200 sibling fix). Phase 1 surfaces any such friction before Phase 3 commits to deletion.
 
 ## Consequences
 
@@ -138,7 +138,7 @@ Three reasons to phase rather than delete in-iteration:
 1. **Eliminates duplicate-package-name danger.** After Phase 3, only one `package.json` in the monorepo will declare `name: "@etzhayyim/kami-engine-sdk"`.
 2. **Workspace resolution becomes explicit.** Phase 1 adds 40-engine to `pnpm-workspace.yaml`, so `workspace:*` references stop relying on auto-discovery / undefined order. Consumer apps that depend on the SDK get the canonical content deterministically.
 3. **Stops iteration friction.** Future SDK changes only need to land in 40-engine. No more manual mirroring (iter-1 / iter-2 pattern goes away).
-4. **Aligns with subrepo discipline.** The canonical SDK lives at the subrepo path (`40-engine/kami-engine/kami-engine-sdk/`) which has a clean upstream (`github.com/gftdcojp/kami-engine-sdk`). The 20-actors copy had no upstream, no `.gitrepo` — its presence created a question about which copy was "real."
+4. **Aligns with subrepo discipline.** The canonical SDK lives at the subrepo path (`40-engine/kami-engine/kami-engine-sdk/`) which has a clean upstream (`github.com/etzhayyimcojp/kami-engine-sdk`). The 20-actors copy had no upstream, no `.gitrepo` — its presence created a question about which copy was "real."
 
 ### Negative / accepted tradeoffs
 
@@ -149,7 +149,7 @@ Three reasons to phase rather than delete in-iteration:
 ### Neutral
 
 - **CLAUDE.md root index Repo Layout section** documents the SDK structure but is currently being heavily edited by the parallel session (Status row contention). The Phase 1 CLAUDE.md update is deferred until the parallel session quiets enough to make it race-safe; the ADR record (this document) is the canonical until then.
-- **subrepo push** to `github.com/gftdcojp/kami-engine-sdk` continues to be deferred per ADR-2605264300; this ADR doesn't change the push posture.
+- **subrepo push** to `github.com/etzhayyimcojp/kami-engine-sdk` continues to be deferred per ADR-2605264300; this ADR doesn't change the push posture.
 
 ## Alternatives Considered
 
@@ -180,13 +180,13 @@ export * from "@etzhayyim/kami-engine-sdk-canonical";
 
 Inverse direction. Put the canonical SDK source under `20-actors/kami-engine-sdk/`, retire 40-engine.
 
-**Rejected**: the canonical SDK is a git subrepo of `github.com/gftdcojp/kami-engine-sdk` and the `.gitrepo` metadata is at the 40-engine path. Moving it would break the subrepo. Also, the SDK as an "engine" sibling-component fits the `40-engine/kami-engine/` family better than `20-actors/` (which is for religious-corp actors, not engine SDKs).
+**Rejected**: the canonical SDK is a git subrepo of `github.com/etzhayyimcojp/kami-engine-sdk` and the `.gitrepo` metadata is at the 40-engine path. Moving it would break the subrepo. Also, the SDK as an "engine" sibling-component fits the `40-engine/kami-engine/` family better than `20-actors/` (which is for religious-corp actors, not engine SDKs).
 
 ## References
 
 - ADR-2605170900 — ADR canonical home policy (this monorepo)
 - ADR-2605264300 — kami-engine-sdk three.js-free cutover (parent commit chain that exposed the duplicate friction)
-- ADR-2605152100 — org-split cutover (Phase A bulk rename; the original gftd→etzhayyim migration that left both SDK copies in different states)
+- ADR-2605152100 — org-split cutover (Phase A bulk rename; the original etzhayyim→etzhayyim migration that left both SDK copies in different states)
 - `40-engine/kami-engine/kami-engine-sdk/.gitrepo` — canonical subrepo metadata
 - `20-actors/kami-engine-sdk/` — retirement target (Phase 3 git rm — **completed iter-11 `2d199cca9`**)
 - `pnpm-workspace.yaml` — Phase 1 registration target
@@ -242,6 +242,6 @@ fast if a future commit:
 
 The workflow's path filter triggers only on changes under
 `40-engine/kami-engine/kami-engine-sdk/**`,
-`60-apps/ai-gftd-project-cyber-drill/**`, `pnpm-workspace.yaml`,
+`60-apps/etzhayyim-project-cyber-drill/**`, `pnpm-workspace.yaml`,
 `pnpm-lock.yaml`, or the workflow file itself — CI cost is minimal
 for unrelated commits.

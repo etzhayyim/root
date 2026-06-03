@@ -22,7 +22,7 @@ depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605231400-yatachain-holochain-iso-substrate
+  - adr-2605231400-kotoba-datomic-holochain-iso-substrate
   - 2605191524-ameno-multi-tab-swarm-broadcast
   - 2605191603-ameno-swarm-leader-election
   - 2605191641-ameno-daemon-did-allowlist
@@ -385,8 +385,8 @@ compute" framing is the constitutional fit.
   is member-held passkey, not server JWT.
 - ADR-2605241500 (Dataset CID substrate) — `datasetPin` lexicon
   used by L2 to resolve training shards.
-- ADR-2605231400 (yatachain) — the 5-layer composition above is
-  yatachain-conformant.
+- ADR-2605231400 (kotoba-datomic) — the 5-layer composition above is
+  kotoba-datomic-conformant.
 - ADR-2605191524 + ADR-2605191603 + ADR-2605191641 (ameno swarm
   primitives) — re-used at L2.
 - ADR-2605242000 (wadachi R0 scaffold) — phased-ADR-per-phase

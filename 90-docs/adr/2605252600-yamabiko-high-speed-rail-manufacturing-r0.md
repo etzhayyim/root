@@ -108,7 +108,7 @@ The user-prompted source reference is YouTube video `KFSPENlRdFU` ("Inside Giant
 | Gate | Requirement |
 |---|---|
 | **G1** | Control firmware (ATP / ATO / traction) + carbody CAD + bogie CAD **open-source** (Apache 2.0 + Charter Rider) |
-| **G2** | Per-trainset manufacturing log **yatachain anchor** + open trainset registry |
+| **G2** | Per-trainset manufacturing log **kotoba-datomic anchor** + open trainset registry |
 | **G3** | Per-trainset **IPFS-pinned photo + video** (FSW seam / dynamic test / homologation) |
 | **G4** | Every critical FSW + bogie marriage signed by witness quorum ≥2 robots (Ed25519, DID-bound) |
 | **G5** | Operator manual + passenger PIS **JP + EN + local-language trilingual minimum** |

@@ -102,11 +102,11 @@ The initial `test_live_litellm_gateway_round_trip` call to judah :4000
 returned `401 Unauthorized`. Investigation:
 
 - Existing config at
-  `60-apps/ai-gftd-project-murakumo/litellm/config.yaml` line 78:
+  `60-apps/etzhayyim-project-murakumo/litellm/config.yaml` line 78:
   `master_key: os.environ/LITELLM_MASTER_KEY`
 - Default value from ansible role
   (`ansible/roles/litellm/defaults/main.yml` line 6):
-  `litellm_master_key: "sk-gftd-litellm-local"`
+  `litellm_master_key: "sk-etzhayyim-litellm-local"`
 - Every other consumer (Workers, langgraph, executor, health-check)
   passes `Authorization: Bearer ${LITELLM_MASTER_KEY}`.
 
@@ -155,7 +155,7 @@ correctly to any reachable backend `fleet.toml` declares.
 | Issue | Suggested next step |
 |---|---|
 | Judah :11434 wedge | Restart Ollama on judah; investigate root cause |
-| Gateway dead-node routing | Re-wire `60-apps/ai-gftd-project-murakumo/litellm/config.yaml` model_list to 11 live tribes |
+| Gateway dead-node routing | Re-wire `60-apps/etzhayyim-project-murakumo/litellm/config.yaml` model_list to 11 live tribes |
 | EVO-X2 WoL | Bring back online or revise fleet.toml `failover.on_unreachable` |
 | `gpu.MacMini(node="auto")` selector | Add health-check-driven auto-tribe selector to `routing.resolve` (Modal-equivalent of automatic GPU pool dispatch) |
 | Live smoke test re-targeting | Update `tests/test_live_fleet_smoke.py` to default to naphtali (known-good) instead of judah :11434 (known-wedged) |
@@ -202,13 +202,13 @@ correctly to any reachable backend `fleet.toml` declares.
    request that unit tests cannot answer.
 2. **Fix the gateway dead-node routing in this same commit**. Rejected
    — that fix lives in
-   `60-apps/ai-gftd-project-murakumo/litellm/config.yaml` which is a
+   `60-apps/etzhayyim-project-murakumo/litellm/config.yaml` which is a
    different concern (fleet ops); bundling would muddy this ADR's scope
    (verification of `kotoba_murakumo`).
 3. **Land the `gpu.MacMini(node="auto")` selector here**. Rejected —
    would require a health-check probe layer + caching; should be its own
    ADR.
-4. **Hard-code the default key `sk-gftd-litellm-local` as a fallback**.
+4. **Hard-code the default key `sk-etzhayyim-litellm-local` as a fallback**.
    Rejected — would violate ADR-2605231525 (no platform-held keys); the
    key must come from the caller's env.
 
@@ -220,9 +220,9 @@ correctly to any reachable backend `fleet.toml` declares.
   relocation path `40-engine/kotoba_murakumo/`)
 - ADR-2605215000 (Murakumo-only invariant)
 - ADR-2605231525 (no platform-held keys — why the bearer comes from env)
-- `60-apps/ai-gftd-project-murakumo/litellm/config.yaml` — gateway
+- `60-apps/etzhayyim-project-murakumo/litellm/config.yaml` — gateway
   config (line 78: `master_key: os.environ/LITELLM_MASTER_KEY`)
-- `60-apps/ai-gftd-project-murakumo/ansible/roles/litellm/defaults/main.yml` —
-  default key value (line 6: `sk-gftd-litellm-local`)
+- `60-apps/etzhayyim-project-murakumo/ansible/roles/litellm/defaults/main.yml` —
+  default key value (line 6: `sk-etzhayyim-litellm-local`)
 - `50-infra/murakumo/fleet.toml` — fleet SSoT
 - `~/.kotoba_murakumo/invocations.ndjson` — live demo NDJSON evidence

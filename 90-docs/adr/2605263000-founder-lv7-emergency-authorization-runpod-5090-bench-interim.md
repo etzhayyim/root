@@ -94,7 +94,7 @@ for baien-moemoekyun bench-eval (inference) workloads** during the window
    (actual wall, actual USD, output JSONLs path, results summary)
 3. **No HF Hub publication** of moemoekyun bench outputs derived from this rental window — fleet-internal use only until P4 (matches G13 distribution boundary)
 4. **Council post-ratification recording**: this ADR + each runlog entry MUST be submitted to Council at the next vote (2026-06-19+) for retroactive ratification or objection
-5. **Cost log on yatachain (deferred to P4)**: full per-rental attestation Lexicon
+5. **Cost log on kotoba-datomic (deferred to P4)**: full per-rental attestation Lexicon
    (`com.etzhayyim.train.rentalCostLog`, ADR-2605262300 §5) cannot fire yet
    (PDS emit dry-run only) — substitute = the `runpod-5090-runlog-260526.jsonl` file
 
@@ -139,7 +139,7 @@ At the 2026-06-19+ Council vote, the bundled package SHOULD include:
 
 - If Council REJECTS this emergency authorization at P3 vote:
   - All bench outputs from this rental window remain in religious-corp substrate (no external publication occurred per §1.3.3 G13 inheritance)
-  - Founder accepts retroactive reprimand recorded on yatachain
+  - Founder accepts retroactive reprimand recorded on kotoba-datomic
   - Future emergency authorizations require pre-Council notification (new ADR + 7-day public notice)
 - If Council RATIFIES: this ADR's status flips `accepted-by-council` and bench outputs become part of canonical moemoekyun baseline
 

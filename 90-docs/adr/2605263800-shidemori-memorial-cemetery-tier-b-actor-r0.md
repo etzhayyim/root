@@ -247,7 +247,7 @@ attestations + ≥1 cemetery Land Registry waqf-attested entry.
 | Gate | Description |
 |---|---|
 | **G1** | Every memorial document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.shidemori.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.shidemori.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **Charter §1.15 non-eschatological** — NO apocalyptic / millennial / specific-heaven-hell-mapping afterlife claims; honors deceased without imposing afterlife doctrine; `memorialNftAttestation.afterlifeDoctrineImposed` const false structural (extends kataribe G4 pattern to memorial domain). |
 | **G4** | **Cross-doctrinal Wellbecoming priority** — Christian + Buddhist (49日 / 中陰) + Shinto (鎮魂) + nondenominational + secular memorial preferences all accommodated (musubi G9+N12 + kataribe G6 + kokoro G12 pattern shared, now 4-actor maturity in memorial domain). |
 | **G5** | **NOT state-licensed mortuary services** — community-witnessed-competent guardians per musubi G3 pattern shared; external licensed mortuary engagement via Public Fund Safe Council Lv6+ ≥4/7 (chigiri G14 + iyashi N9 + kokoro G3 UPL-equivalent pattern extended to mortuary). |

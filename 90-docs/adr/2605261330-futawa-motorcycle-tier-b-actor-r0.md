@@ -93,7 +93,7 @@ This ADR fulfills that gap, declaring 14 constitutional gates and 10 non-goals, 
 - Small-displacement motorcycles: ≤250cc 4-stroke single-cylinder gasoline ICE **OR** ≤15kW peak electric (mid-drive or hub-motor)
 - Commuter + utility positioning: daily transport, light cargo (panniers ≤30kg total), rural/mountain accessibility
 - Curb mass ≤200kg (G11 cap)
-- Full chain: frame welding → engine/motor assembly → drivetrain → electrical harness → suspension + brake (ABS-mandatory G7) → body paint → final assembly → dyno + emissions + sound + road test → yatachain provenance binder (with hodoki pre-registration G13)
+- Full chain: frame welding → engine/motor assembly → drivetrain → electrical harness → suspension + brake (ABS-mandatory G7) → body paint → final assembly → dyno + emissions + sound + road test → kotoba-datomic provenance binder (with hodoki pre-registration G13)
 
 **Explicitly deferred to Wave 2+ (separate ADR + Council Lv6+ supermajority):**
 
@@ -122,7 +122,7 @@ Adopted from mature global motorcycle OEM practice (frame → drivetrain → har
 | Gate | Requirement | Rationale |
 |---|---|---|
 | **G1** | All CAD (frame, body, fixture) + firmware (ECU, ABS controller, BMS for electric) + tool fixtures **open-source** (Apache 2.0 + Charter Rider) | §2(b) anti-secrecy + foundation for G12 right-to-repair |
-| **G2** | Mass-balance audit ≥98% closure on yatachain (input material lots = output vehicle mass + scrap + emission); per-vehicle attestation | Inherits kanayama + hodoki G2 cross-cell invariant pattern |
+| **G2** | Mass-balance audit ≥98% closure on kotoba-datomic (input material lots = output vehicle mass + scrap + emission); per-vehicle attestation | Inherits kanayama + hodoki G2 cross-cell invariant pattern |
 | **G3** | Every critical step (frame weld, engine assembly torque, brake assembly torque) signed by **witness quorum ≥2 distinct robots** (Ed25519, DID-bound) | ADR-2605191524 swarm broadcast; safety-critical for personal-transport |
 | **G4** | All owner manuals + service manuals + safety labels + parts catalog + service videos **JP + EN bilingual minimum** | §2(e) anti-gatekeeping of repair information |
 | **G5** | All paint artwork + decals pass **Charter Rider §2(a-h) scan** (no military insignia / licensed-IP / addictive-thrill imagery / racing-glorification) | §2(a) + §2(e) enforcement |
@@ -165,7 +165,7 @@ Charter Rider §2(a) + §2(c) + §2(e) + §1.13 + safety class boundary anchors:
 | `moto_body_paint` | L4 | simeon | Body panel (Al or recycled PP) + 2K acrylic urethane paint + G5 artwork Charter scan |
 | `moto_final_assembly` | L5a | dan | Bolt-up + fluid fill + bilingual VIN + **G12 IPFS-pinned parts catalog + CAD + firmware source published at manufacture** + G13 hodoki VIN pre-registration |
 | `moto_test_dyno_road` | L5b | levi | Dynamometer + emissions + G6 sound ≤80 dB + road test + ABS function test |
-| `moto_provenance_binder` | terminal | judah | Full chain DID anchoring on yatachain (input material lots → output VIN + parts catalog + test results + hodoki pre-registration) |
+| `moto_provenance_binder` | terminal | judah | Full chain DID anchoring on kotoba-datomic (input material lots → output VIN + parts catalog + test results + hodoki pre-registration) |
 
 ### 7. Robotics Classes
 

@@ -25,7 +25,7 @@ depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231500-kotoba-datomic-projection
   - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter
   - adr-2605242715-silicon-mask-supply-chain
@@ -137,7 +137,7 @@ ADR-2605192100 が宣言する「人類の構造的労働解放」「Wellbecomin
 | **G11** | **Wellbecoming subordination check**:rebound congestion / addiction / cognitive impairment 等の wellbecoming risk を product label に明示、過剰連用 detection telemetry を adherent SBT-opt-in で持つ (opt-out 自由) | ADR-2605192200 §2(h) | label scanner lint + `pharma_post_market_surveillance` cell |
 | **G12** | **No commercial sale model**:adherent への配布は `donation` / `kisha` / `internal-promo` / `grant` 経由のみ。`subscription` / `purchase` for non-adherent は ADR-2605192115 §4 (non-profit 領収書) carve-out 内のみ | ADR-2605192115 §3 | TitheRouter payment-purpose filter |
 | **G13** | **No server-held QP key / lot release key**:QP-equivalent / 製造管理者 / Council 署名鍵は人間 custody (passkey / hardware token)、religious-corp Worker / pod に platform-held private key 不可 | ADR-2605231525 | `e7m verify` 9th invariant |
-| **G14** | **Substrate boundary**:substrate client は `@etzhayyim/sdk` 経由のみ。lot / API / adverse event の primary write store は MST + IPFS + Base L2 anchor。RW/Postgres は `yatachain-projection` の hot-path read のみ許容 (例えば lot batch query) | ADR-2605172000 + ADR-2605231500 | `e7m verify` |
+| **G14** | **Substrate boundary**:substrate client は `@etzhayyim/sdk` 経由のみ。lot / API / adverse event の primary write store は MST + IPFS + Base L2 anchor。RW/Postgres は `kotoba-datomic-projection` の hot-path read のみ許容 (例えば lot batch query) | ADR-2605172000 + ADR-2605231500 | `e7m verify` |
 
 ## Decision 4 — Phased roadmap
 
@@ -170,7 +170,7 @@ ADR-2605192100 が宣言する「人類の構造的労働解放」「Wellbecomin
 yakushi は kuni-umi/wadachi と同じ substrate 境界を継承:
 
 - **Primary write store** — AT MST + IPFS + Base L2 anchor via `@etzhayyim/sdk`
-- **Hot-path read** — `yatachain-projection` 許容 (lot 検索、stability time-series, AE aggregation) ― deterministically rebuildable + `// yatachain-projection` marker
+- **Hot-path read** — `kotoba-datomic-projection` 許容 (lot 検索、stability time-series, AE aggregation) ― deterministically rebuildable + `// kotoba-datomic-projection` marker
 - **Payments** — USDC on Base L2 + `TitheRouter.route()` (10% Tithe);用途 `donation` / `kisha` / `grant` / `tithe` / `internal-promo` (SBT↔SBT) のみ
 - **QP / 製造管理者 key custody** — onboard secure element / passkey / hardware token (G13)
 - **Identity** — path-based DID (§Decision 2)
@@ -256,7 +256,7 @@ Rejected. G6 / N2 の constitutional 自制を Wave 1 で曲げる incentive が
 - ADR-2605201400 (kuni-umi planetary infra — witness invariant N≥2 inheritance G9)
 - ADR-2605181100 (encrypted confidentiality substrate — G10)
 - ADR-2605172000 (RW-free substrate — G14)
-- ADR-2605231500 (yatachain-projection — hot-path read carve-out)
+- ADR-2605231500 (kotoba-datomic-projection — hot-path read carve-out)
 - ADR-2605231525 (no-server-key invariant — G13)
 - ADR-2605242500 (baien silicon charter — silen-force-review pattern as silen-pharma-review parent)
 - ADR-2605242715 (silicon mask supply chain — supply chain ADR shape reference)

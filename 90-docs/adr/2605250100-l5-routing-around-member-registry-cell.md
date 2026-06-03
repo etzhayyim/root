@@ -21,7 +21,7 @@ depends_on:
 related:
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605212100-gftd-to-etzhayyim-migration-batch
+  - adr-2605212100-etzhayyim-to-etzhayyim-migration-batch
 supersedes: []
 superseded_by: []
 ---

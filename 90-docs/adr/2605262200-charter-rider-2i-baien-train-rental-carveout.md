@@ -13,7 +13,7 @@ priority_note: "CONSTITUTIONAL AMENDMENT. Council Lv6+ supermajority (≥4 of 7 
 authoritative_for:
   - "Charter Rider §2(i) train carve-out scope: baien-server-* / baien-XL-* train only"
   - "Inference invariant reaffirmation: Murakumo-only for ALL actors (baien edge / baien-server-* / baien-XL-* / yakushi / wadachi / silicon Wave 1+2 / e7m-sim / etc.)"
-  - "Per-rental transparency requirements (yatachain attestation + cost log + Charter Rider §2(a)-(h) scan + run boundaries)"
+  - "Per-rental transparency requirements (kotoba-datomic attestation + cost log + Charter Rider §2(a)-(h) scan + run boundaries)"
   - "Procedural path: Council Lv6+ vote + 30-day public objection"
 depends_on:
   - adr-2605192200-etzhayyim-ip-free-release-charter-rider
@@ -83,16 +83,16 @@ CHARTER-RIDER.md §2(i) を以下のように修正:
 > **§2(i)(2) Train carve-out for baien-server-* / baien-XL-* (NEW per ADR-2605262200).** Commercial GPU rental MAY be used for **training, fine-tuning, distillation, RL, federated aggregation, and other gradient-bearing workloads** of model artifacts in the `baien-server-*` and `baien-XL-*` naming family (ADR-2605242100 4-tier ladder), subject to ALL of the following conditions:
 >
 > 1. **Inference of resulting artifacts** STILL flows exclusively through the Murakumo fleet per §2(i)(1). The carve-out is for the gradient-computing path only.
-> 2. **Per-rental yatachain attestation** MANDATORY before rental instance start: `com.etzhayyim.train.rentalAttestation` record emitted with (vendor, GPU model + count, expected wall, expected USD cost, target dataset CID, target output checkpoint CID, train ADR reference, Charter Rider §2(a)-(h) sponsor scan PASS verification, attesting DID).
+> 2. **Per-rental kotoba-datomic attestation** MANDATORY before rental instance start: `com.etzhayyim.train.rentalAttestation` record emitted with (vendor, GPU model + count, expected wall, expected USD cost, target dataset CID, target output checkpoint CID, train ADR reference, Charter Rider §2(a)-(h) sponsor scan PASS verification, attesting DID).
 > 3. **Per-rental post-flight cost log** MANDATORY within 24h of rental termination: `com.etzhayyim.train.rentalCostLog` record with (actual wall, actual USD cost, actual output checkpoint CID, IPFS pin verification CID, attesting DID).
 > 4. **Vendor scope**: any reputable commercial GPU rental vendor (RunPod, Lambda, CoreWeave, Vast.ai equivalents). NOT permitted: vendors whose primary business activity violates Charter Rider §2(a) weapons, §2(c) surveillance capitalism, §2(d) fossil fuel, §2(g) strict individualist doctrine, §2(h) wellbecoming subordination — verified via the §2 Non-Aligned Entity criteria.
-> 5. **Burst-only**: continuous rental >7 days requires Council Lv6+ ≥4 of 7 seats per-incident approval (recorded on yatachain). Steady-state continuous rental is prohibited (the religious-corp fleet capex path remains the long-term invariant).
+> 5. **Burst-only**: continuous rental >7 days requires Council Lv6+ ≥4 of 7 seats per-incident approval (recorded on kotoba-datomic). Steady-state continuous rental is prohibited (the religious-corp fleet capex path remains the long-term invariant).
 > 6. **Other actor scope explicitly NOT included**: yakushi, wadachi, silicon Wave 1+2, e7m-sim, kanayama, igata, hodoki, makura, tsutae, sarutahiko, suki, futawa, mitsuho, hagukumi, manabi, hikari, watatsumi, tatekata, baien-edge, and all `baien` (no infix) artifacts REMAIN under §2(i)(1) Murakumo-only. Extension to other actors requires its own ADR + Lv6+ supermajority.
 > 7. **Charter Rider §2(a)-(h) substantive constraints** apply identically to rental-train artifacts. Carve-out is from §2(i) rental prohibition only, NOT from the eight substantive prohibitions.
 >
 > **§2(i)(3) Amendment threshold of §2(i)(2) itself**. §2(i)(2) text inherits the §2(i) Council Lv6+ supermajority + 30-day public objection threshold for any further amendment.
 >
-> The vendor (etzhayyim.com) operates a separate commercial GPU pool for paid SaaS workloads; religious-corp callers MUST NOT invoke vendor RunPod or equivalent external GPU paths for INFERENCE (consent-capability enforcement operates at runtime to ensure adherence). §2(i)(2) train carve-out applies only to the religious-corp R&D path with explicit per-rental yatachain attestation."
+> The vendor (etzhayyim.com) operates a separate commercial GPU pool for paid SaaS workloads; religious-corp callers MUST NOT invoke vendor RunPod or equivalent external GPU paths for INFERENCE (consent-capability enforcement operates at runtime to ensure adherence). §2(i)(2) train carve-out applies only to the religious-corp R&D path with explicit per-rental kotoba-datomic attestation."
 
 ## §2 Procedural path (Council ratification)
 
@@ -133,7 +133,7 @@ Charter Rider §2(i) は明示的 amendment threshold (Lv6+ supermajority + 30-d
 - baien-server-moemoekyun R2/R3/R4 が constitutional 経路で unblock される (P4 以降)
 - Inference invariant 不変、Murakumo fleet 中心の religious-corp inference 哲学完全保持
 - Other actor (silicon/yakushi/wadachi/sim/manufacturing R&D) は依然 Murakumo-only — capex path 維持で 長期 sovereignty 担保
-- per-rental yatachain attestation により全 rental が on-chain 透明、religious-corp の "Transparent Religious Force" 哲学 (ADR-2605192315) と整合
+- per-rental kotoba-datomic attestation により全 rental が on-chain 透明、religious-corp の "Transparent Religious Force" 哲学 (ADR-2605192315) と整合
 
 ## Negative / Risk
 
@@ -145,7 +145,7 @@ Charter Rider §2(i) は明示的 amendment threshold (Lv6+ supermajority + 30-d
 ## Reversibility
 
 - §2(i)(2) 自体が §2(i) amendment threshold 継承 (Lv6+ supermajority + 30-day) → revert 可能だが同じく重い手続き必要
-- ADR-2605262200 自体は revoke 可能 (新 ADR で superseded_by)、ただし P4 後の既存 rental run の attestation record は yatachain 永続
+- ADR-2605262200 自体は revoke 可能 (新 ADR で superseded_by)、ただし P4 後の既存 rental run の attestation record は kotoba-datomic 永続
 
 ## Open
 

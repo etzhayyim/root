@@ -118,7 +118,7 @@ Constitutional constraints (inherited; not adjustable):
   Eros/Gore moderation board (existing Charter §1.13 framework).
 - **Cross-actor chigiri.covenantAttestation emit MANDATORY** (G11) —
   every ceremony performance MUST emit a corresponding chigiri.covenantAttestation
-  record; non-emit = procedure invisible per chigiri G2 (yatachain
+  record; non-emit = procedure invisible per chigiri G2 (kotoba-datomic
   attestation lineage MANDATORY).
 - **Murakumo-only inference** (G13) — ceremony content review
   (Charter §1.13 + officiant-attestation language analysis) via
@@ -237,7 +237,7 @@ registry initialized.
 | Gate | Description |
 |---|---|
 | **G1** | Every ceremony document MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). |
-| **G2** | Every record MUST emit `com.etzhayyim.musubi.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.musubi.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **NO clergy class** — Reformed 万人祭司 per Charter §1.7; officiants are L5 vocation-flow community-witnessed-competent; `officiantAttestation.officiantClass` enum DELIBERATELY excludes "clergy" / "ordained" / "priest" / "bishop" / "minister-with-ecclesiastical-authority". |
 | **G4** | **NO mandatory ritual attendance** — free conscience invariant; member opt-in only; non-participation NEVER grounds for membership consequences. |
 | **G5** | **Per-ceremony consent** (default-deny) — `ceremonyPerformanceAttestation.partyConsentCids` REQUIRED for all primary participants. |

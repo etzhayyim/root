@@ -94,10 +94,10 @@ substantive work cycles:
 | Item | Owner | Disposition |
 |---|---|---|
 | Relation integrity baseline 1011 (tracker) | future cycles | Auto-fix saturated; rest needs per-entry judgment OR recreating archived original docs |
-| id-filename baseline 53 (tracker) | future cycles | Rename-pending floor per CLAUDE.md root §"Do Not" gftd/amanomibashira invariants — blocked until ADR-2605211845 cutover wave |
+| id-filename baseline 53 (tracker) | future cycles | Rename-pending floor per CLAUDE.md root §"Do Not" etzhayyim/amanomibashira invariants — blocked until ADR-2605211845 cutover wave |
 | md-links baseline 24 (tracker; was 33 pre-cycle-75) | future cycles | Mostly truly-broken targets; need manual link cleanup or deletion |
-| Lexicon 3017 gftd-legacy violations | constitutional skip | Pre-cutover invariant; cleanup blocked by rename-cutover |
-| Lexicon 181 non-gftd violations (mostly type='number') | per-actor owners | Breaking schema change; needs Council Lv6+ ≥3 attestation per ADR-2605181100 + Charter Rider §6 |
+| Lexicon 3017 etzhayyim-legacy violations | constitutional skip | Pre-cutover invariant; cleanup blocked by rename-cutover |
+| Lexicon 181 non-etzhayyim violations (mostly type='number') | per-actor owners | Breaking schema change; needs Council Lv6+ ≥3 attestation per ADR-2605181100 + Charter Rider §6 |
 | hrse Cargo workspace orphan (`api/`) | hrse owner | Pre-cutover rename state per sibling MIGRATION-TODO.md |
 
 ### 5. Next-session recommendations

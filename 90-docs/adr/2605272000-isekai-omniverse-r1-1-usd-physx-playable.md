@@ -23,7 +23,7 @@ depends_on:
   - adr-2605264300-kami-engine-sdk-three-free-cutover
 related:
   - adr-0031-kami-vrm-three-free-topology
-  - adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone
+  - adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone
 supersedes: []
 superseded_by: []
 ---
@@ -140,7 +140,7 @@ Mirrors the `<VrmCanvas/>` topology:
 
 ## 4. `omniverse.htm` static page deployed to the existing isekai worker
 
-`60-apps/ai-gftd-project-isekai/appview/ai-gftd-wasm-isekai-is3k41w0/svelte/static/omniverse.htm`
+`60-apps/etzhayyim-project-isekai/appview/etzhayyim-wasm-isekai-is3k41w0/svelte/static/omniverse.htm`
 (~5.1 KB). Editable USDA `<textarea>` + Reload button (sessionStorage
 round-trip) + Default button + HUD pulling from
 `window.__kami_hud_isekai`. The same SvelteKit static pipeline that publishes
@@ -264,4 +264,4 @@ build is deployed and observed live.
 - `40-engine/kami-engine/kami-usd/src/lib.rs`
 - `40-engine/kami-engine/kami-app-isekai/src/omniverse.rs`
 - `40-engine/kami-engine/kami-engine-sdk/src/lib/components/IsekaiCanvas.svelte`
-- `60-apps/ai-gftd-project-isekai/appview/ai-gftd-wasm-isekai-is3k41w0/svelte/static/omniverse.htm`
+- `60-apps/etzhayyim-project-isekai/appview/etzhayyim-wasm-isekai-is3k41w0/svelte/static/omniverse.htm`

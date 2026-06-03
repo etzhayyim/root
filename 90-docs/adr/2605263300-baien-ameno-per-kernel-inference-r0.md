@@ -57,7 +57,7 @@ line 78). Concretely:
 - WASM path falls through to ORT-Web's WASM EP, also fp16, also
   generic GEMM.
 - The `wasm-ternary` kernel label exists in
-  `60-apps/ai-gftd-project-ameno/.../app.ts` MODEL_CATALOG but no
+  `60-apps/etzhayyim-project-ameno/.../app.ts` MODEL_CATALOG but no
   dispatch code reads it — the only effect is a UI badge.
 - ADR-2605092350 §4 specifies what's missing ("custom WebGPU shader,
   i2_s ⇒ packed-int8 dequant in shader", and "wasm-bitnet vendored

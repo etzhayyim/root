@@ -208,7 +208,7 @@ All 5 records require schema-level field validation. R0 = scaffold + skeleton sc
 | Gate | Description |
 |---|---|
 | **G1** | Every report MUST pass `pymagatama.organism.sensors.charter_rider.scan()` §2(a)-(h). Fail = block. |
-| **G2** | Every record MUST emit `com.etzhayyim.toritate.*` Lexicon with yatachain attestation lineage. |
+| **G2** | Every record MUST emit `com.etzhayyim.toritate.*` Lexicon with kotoba-datomic attestation lineage. |
 | **G3** | **100% on-chain transparency** — toritate MUST NOT maintain an off-chain primary ledger. All financial state derives from on-chain transactions. |
 | **G4** | **No fiat reconciliation as primary ledger** — USDC + Base L2 + TitheRouter + Public Fund Safe are canonical SoT. Fiat reporting (if any) is a derived projection only, never primary. |
 | **G5** | UPL-equivalent: toritate MUST NOT render tax advice or accounting opinion. Templates document procedure; opinion happens via external counsel contracted through Public Fund Safe. |

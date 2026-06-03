@@ -184,7 +184,7 @@ Tracked here so the next operator picks them up cleanly.
 | Tracker | What it is | Why not now | Pointer |
 |---|---|---|---|
 | **judah :11434 ollama wedge** | Port open, `/api/tags` fast, but `/api/generate` + `/v1/chat/completions` hang past 180s | Fleet-ops issue (likely OOM, model load loop, or concurrent inference monopoly) — not a kotoba_murakumo bug | ADR-2605282400 §"Honest fleet state" |
-| **judah :4000 gateway dead-node routing** | `model: gemma4-e4b` → `192.168.1.49:11434` (unreachable); `model: gemma3-1b` → `192.168.1.64:11434` (unreachable) | Gateway model→node table predates current 11-tribe layout; needs `60-apps/ai-gftd-project-murakumo/litellm/config.yaml` edit | ADR-2605282400 §"Honest fleet state" |
+| **judah :4000 gateway dead-node routing** | `model: gemma4-e4b` → `192.168.1.49:11434` (unreachable); `model: gemma3-1b` → `192.168.1.64:11434` (unreachable) | Gateway model→node table predates current 11-tribe layout; needs `60-apps/etzhayyim-project-murakumo/litellm/config.yaml` edit | ADR-2605282400 §"Honest fleet state" |
 | **EVO-X2 (192.168.1.70) WoL pending** | Both :4000 and :11434 unreachable | Known per `fleet.toml`; physical WoL action needed | `50-infra/murakumo/fleet.toml` |
 | **`gpu.MacMini(node='auto')` selector** | Health-check-driven auto-tribe selector (Modal-equivalent of automatic scheduler) | Requires probe-cache layer + tribe-health table; own ADR needed | ADR-2605282400 §"Future trackers" |
 | **Live smoke test re-target** | `tests/test_live_fleet_smoke.py` defaults to judah :11434 (wedged) and evo-x2 :11434 (off) | Quick edit; deferred to bundle with the auto-selector ADR | `40-engine/kotoba_murakumo/tests/test_live_fleet_smoke.py` |

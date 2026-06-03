@@ -26,7 +26,7 @@ depends_on:
   - adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet
   - adr-2605181100-mst-encrypted-records-signal-keywrap
   - adr-2605172000-etzhayyim-rw-free-substrate
-  - adr-2605231500-yatachain-projection
+  - adr-2605231500-kotoba-datomic-projection
   - adr-2605231525-no-server-key-religious-corp-architecture
   - adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod
   - adr-2605250500-yakushi-pharmaceutical-rd-charter
@@ -188,7 +188,7 @@ ADR-2605192100 §1.5 「new technology and intellectual property の free releas
 mitate は yakushi と同じ substrate 境界を継承:
 
 - **Primary write store** — AT MST + IPFS + Base L2 anchor via `@etzhayyim/sdk`
-- **Hot-path read** — `yatachain-projection` 許容 (cohort tracking, outcome time-series) ― deterministically rebuildable + `// yatachain-projection` marker
+- **Hot-path read** — `kotoba-datomic-projection` 許容 (cohort tracking, outcome time-series) ― deterministically rebuildable + `// kotoba-datomic-projection` marker
 - **Payments** — USDC on Base L2 + `TitheRouter.route()` (10% Tithe);用途 `donation` / `kisha` / `grant` / `tithe` / `internal-promo` (SBT↔SBT) のみ
 - **Patient identity** — Adherent SBT + passkey (R1+);rotating pseudonym DID for 30-day windows (G2 reinforcement)
 - **Physician identity** — path-based DID + hardware token (G13)
@@ -293,7 +293,7 @@ Considered. ameno は既存 self-care PWA ― mitate を extension にすれば 
 - ADR-2605201400 (kuni-umi planetary infra — robotics class ontology, Hitogata / Mimi / Otete reuse + Hanami/Kafun-watch new placeholders)
 - ADR-2605181100 (encrypted confidentiality substrate — G2)
 - ADR-2605172000 (RW-free substrate — Decision 6 substrate boundary)
-- ADR-2605231500 (yatachain-projection — cohort tracking carve-out)
+- ADR-2605231500 (kotoba-datomic-projection — cohort tracking carve-out)
 - ADR-2605231525 (no-server-key invariant — G13 physician key custody)
 - ADR-2605215000 (etzhayyim inference Murakumo-only — G12)
 - ADR-2605250500 (yakushi pharmaceutical R&D charter — sibling Tier-B; cross-actor lexicon boundary Decision 8)
