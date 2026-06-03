@@ -13,7 +13,7 @@
 # /xrpc/com.etzhayyim.apps.unispsc.* → this Service via env.XRPC_UNISPSC_UPSTREAM.
 # No per-actor subdomain (ADR-2605212030 §D2).
 #
-# Substrate: yatachain (ADR-2605231400) — RW-free per ADR-2605172000. The
+# Substrate: kotoba-datomic (ADR-2605231400) — RW-free per ADR-2605172000. The
 # previous `mitama-udf-pool-rw` secretRef wiring (RW_URL / DATABASE_URL /
 # RW_SYNC_POOL) was removed in ADR-2605232100. State writes flow through the
 # @etzhayyim/sdk MstCheckpointSaver sidecar (Pod sidecar wiring is Stage 2
@@ -68,13 +68,13 @@ spec:
             - "1"
             - pymagatama.langgraph_server_app:app
           env:
-            # Substrate marker — yatachain composition per ADR-2605231400.
+            # Substrate marker — kotoba-datomic composition per ADR-2605231400.
             # No RisingWave / Postgres / Hyperdrive secrets are referenced from
             # this Pod (RW-free per ADR-2605172000, decontaminated by
             # ADR-2605232100). The legacy `mitama-udf-pool-rw` secretRef was
             # removed in the same change.
             - name: ETZ_SUBSTRATE
-              value: "yatachain"
+              value: "kotoba-datomic"
             # Forward-compatible marker for Stage 2 sidecar wiring of
             # @etzhayyim/sdk MstCheckpointSaver (20-actors/etzhayyim-sdk/src/checkpointer.ts).
             # Until the sidecar is added to this Pod (separate ADR), the path
@@ -92,7 +92,7 @@ spec:
               value: "1"
             - name: ORGANISM_SQLITE_DIR
               value: "/tmp/etzhayyim/organism"
-            # Stage D / yatachain wire-up (ADR-2605231400 §2 + §3): each
+            # Stage D / kotoba-datomic wire-up (ADR-2605231400 §2 + §3): each
             # observation is POSTed to the PDS via com.atproto.repo.createRecord
             # in addition to the local SQLite hot cache. Downstream the
             # existing mst-projector + ipfs-pinner + anchor-cron pipeline

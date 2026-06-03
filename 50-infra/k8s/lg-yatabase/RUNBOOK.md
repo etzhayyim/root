@@ -29,10 +29,10 @@ HMAC forwarder (`src/bmc-forward.ts`) and never touches Hyperdrive for BMC.
 ```bash
 # From repo root. Builds the lg-yatabase image with the updated bmc/* modules
 # and bmc_iteration graph. Uses VKE BuildKit cache.
-cd 60-apps/ai-gftd-project-yatabase/lg
+cd 60-apps/etzhayyim-project-yatabase/lg
 
 docker buildx build \
-  --builder gftd-vke \
+  --builder etzhayyim-vke \
   --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
   --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:lg-yatabase \
@@ -47,9 +47,9 @@ Pull RW_URL from macOS Keychain (root role for INSERT), DISPATCHER_INTERNAL_SECR
 from the shared CF Secrets Store, LG_YATABASE_API_KEY freshly minted.
 
 ```bash
-RW_URL=$(security find-generic-password -s gftd.rw -a ROOT_URL -w)
+RW_URL=$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w)
 DSEC=$(op item get 'dispatcher_internal_secret' --fields label=credential 2>/dev/null \
-       || security find-generic-password -s gftd -a DISPATCHER_INTERNAL_SECRET -w)
+       || security find-generic-password -s etzhayyim -a DISPATCHER_INTERNAL_SECRET -w)
 LGK=$(uuidgen)
 ORK=$(op item get 'openrouter_api_key' --fields label=credential 2>/dev/null || echo "")
 SSK=$(op item get 'STRIPE_SECRET_KEY' --fields label=credential 2>/dev/null || echo "")
@@ -100,7 +100,7 @@ cloudflared tunnel route dns <tunnel-id> lg-yatabase.internal.etzhayyim.com
 
 Then on the Worker:
 ```bash
-cd 60-apps/ai-gftd-project-yatabase
+cd 60-apps/etzhayyim-project-yatabase
 wrangler secret put LG_YATABASE_URL   # https://lg-yatabase.internal.etzhayyim.com
 ```
 

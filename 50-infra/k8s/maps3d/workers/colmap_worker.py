@@ -39,7 +39,7 @@ from ._common import log, make_worker, run_forever, task
 
 SCRATCH_DIR = Path(os.environ.get("SCRATCH_DIR", "/scratch"))
 COLMAP_BIN = os.environ.get("COLMAP_BIN", "/usr/bin/colmap")
-B2_BUCKET = os.environ.get("B2_BUCKET", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-nats")
 # colmapTile budget — keep below the BPMN boundary timer (60 min).
 COLMAP_BUDGET_S = int(os.environ.get("MAPS3D_COLMAP_BUDGET_S", "3300"))  # 55 min
 SIMPLIFY_BUDGET_S = int(os.environ.get("MAPS3D_SIMPLIFY_BUDGET_S", "300"))  # 5 min

@@ -21,7 +21,7 @@ metadata:
   namespace: maps
   labels:
     app.kubernetes.io/name: maps-tilemaker-build
-    app.kubernetes.io/part-of: ai-gftd-project-maps
+    app.kubernetes.io/part-of: etzhayyim-project-maps
     app.kubernetes.io/component: tile-generation
 spec:
   backoffLimit: 1
@@ -49,21 +49,21 @@ spec:
             - name: PBF_URL
               value: "https://download.geofabrik.de/asia/japan-latest.osm.pbf"
             - name: R2_BUCKET
-              value: "gftd-maps-tiles"
+              value: "etzhayyim-maps-tiles"
             - name: R2_ACCOUNT_ID
               valueFrom:
                 secretKeyRef:
-                  name: gftd-r2-credentials
+                  name: etzhayyim-r2-credentials
                   key: account_id
             - name: R2_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  name: gftd-r2-credentials
+                  name: etzhayyim-r2-credentials
                   key: access_key_id
             - name: R2_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: gftd-r2-credentials
+                  name: etzhayyim-r2-credentials
                   key: secret_access_key
             - name: TILEMAKER_CONFIG
               value: "/config/openmaptiles.json"

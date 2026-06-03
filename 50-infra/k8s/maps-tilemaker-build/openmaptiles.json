@@ -8,7 +8,7 @@
     "include_ids": false,
     "name": "OpenMapTiles",
     "version": "3.14",
-    "description": "OpenMapTiles-schema vector tiles built by gftd-cojp tilemaker pipeline",
+    "description": "OpenMapTiles-schema vector tiles built by etzhayyim-cojp tilemaker pipeline",
     "compress": "gzip",
     "filemetadata": {
       "attribution": "© OpenStreetMap contributors (ODbL) — tiles by etzhayyim"
