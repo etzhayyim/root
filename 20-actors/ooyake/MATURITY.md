@@ -24,6 +24,12 @@ official URL** (本体の url), on 2026-06-03.
   (Czechoslovakia, USSR, East Germany, Byelorussian SSR, …) are filtered out. 162/192
   carry an official-portal URL; the rest cite Wikidata as provenance. Gate
   `scripts/world_coverage.py` (**192 ≥ 190 floor**).
+- `registry/gov-units.world-finance.edn` — **117 non-G20 finance ministries** (the
+  worldwide executive fiscal-authority layer). Wikidata pull of items typed `P31`
+  *finance ministry* (`Q15711797`), current (no `P576`), country a current UN member.
+  Honest gap: only 117 of the 173 non-G20 countries have a finance ministry typed
+  under that class on Wikidata; the rest use a differently-typed body or are untyped
+  — **not fabricated** (G5). With the 20 G20 ministries → **137 finance ministries**.
 - `registry/gov-units.world-centralbanks.edn` — **138 non-G20 central banks** (the
   worldwide monetary-authority layer; same Wikidata pull via country `P1304`).
   Monetary-union banks are emitted ONCE as `:supranational` units with their member
