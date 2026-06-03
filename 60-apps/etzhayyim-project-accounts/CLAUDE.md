@@ -7,12 +7,12 @@
 ## 目的
 
 ADR-0024 "Auth / Accounts Worker Topology" に基づき、`accounts.etzhayyim.com` を
-`60-apps/ai-gftd-project-auth` から物理分離する。
+`60-apps/etzhayyim-project-auth` から物理分離する。
 
 | Worker | ドメイン | 責務 |
 | --- | --- | --- |
-| `ai-gftd-auth` (既存) | `authn.etzhayyim.com` | Passkey / OAuth PKCE / Session 発行 / DID / Service Auth |
-| `ai-gftd-accounts` (本 Worker) | `accounts.etzhayyim.com` | Linked auth methods / actor.score / provider link-unlink / `/manage` UI |
+| `etzhayyim-auth` (既存) | `authn.etzhayyim.com` | Passkey / OAuth PKCE / Session 発行 / DID / Service Auth |
+| `etzhayyim-accounts` (本 Worker) | `accounts.etzhayyim.com` | Linked auth methods / actor.score / provider link-unlink / `/manage` UI |
 
 ## Migration 前提
 
@@ -25,7 +25,7 @@ ADR-0024 "Auth / Accounts Worker Topology" に基づき、`accounts.etzhayyim.co
 
 ## 移設対象 (auth Worker から剥がす route)
 
-`60-apps/ai-gftd-project-auth/worker/src-ts/index.ts` のうち `accounts.etzhayyim.com`
+`60-apps/etzhayyim-project-auth/worker/src-ts/index.ts` のうち `accounts.etzhayyim.com`
 でのみ serve されるべき path:
 
 - `GET  /manage` — account management UI (Svelte SPA)
@@ -55,4 +55,4 @@ service binding 経由で auth Worker に問い合わせる (直接 `AUTH_DB` �
 
 - `90-docs/adr/0024-auth-accounts-worker-topology.md`
 - `90-docs/adr/0022-auth-topology-consolidation.md`
-- `60-apps/ai-gftd-project-auth/CLAUDE.md`
+- `60-apps/etzhayyim-project-auth/CLAUDE.md`

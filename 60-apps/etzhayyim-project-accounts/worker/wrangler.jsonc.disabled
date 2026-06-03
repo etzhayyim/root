@@ -6,7 +6,7 @@
 //   3) ACCOUNTS_DB (D1) 作成済
 //   4) AUTH_SERVICE service binding 経由の passkey lookup 実装済
 {
-  "name": "ai-gftd-accounts",
+  "name": "etzhayyim-accounts",
   "main": "src-ts/index.ts",
   "compatibility_date": "2025-03-17",
   "assets": {
@@ -19,12 +19,12 @@
   "d1_databases": [
     {
       "binding": "ACCOUNTS_DB",
-      "database_name": "ai-gftd-accounts",
+      "database_name": "etzhayyim-accounts",
       "database_id": "TBD-create-via-wrangler-d1-create"
     }
   ],
   "services": [
-    { "binding": "AUTH_SERVICE", "service": "ai-gftd-auth" }
+    { "binding": "AUTH_SERVICE", "service": "etzhayyim-auth" }
   ],
   "vars": {
     "GOOGLE_OAUTH_CLIENT_ID": "",

@@ -102,7 +102,7 @@ describe("air-crew rw-free (product-front, kotoba E2E split)", () => {
     });
   });
 
-  describe("crewTravel (E2E; fiat/BSP settlement stays gftd)", () => {
+  describe("crewTravel (E2E; fiat/BSP settlement stays etzhayyim)", () => {
     it("validates hotelRequired bit, seals, round-trips", async () => {
       expect((await recordTravel(e, { travelId: "t1", crewDid: "did:web:crew.a", travelType: "POSITIONING", origin: "HND", dest: "ITM", depDate: "2026-06-10", hotelRequired: 1 })).status).toBe("recorded");
       expect((await recordTravel(e, { travelId: "tX", crewDid: "did:web:crew.a", travelType: "x", origin: "o", dest: "d", depDate: "d", hotelRequired: 5 as any })).status).toBe("rejected");

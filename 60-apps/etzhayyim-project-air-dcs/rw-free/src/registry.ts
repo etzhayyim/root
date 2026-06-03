@@ -9,7 +9,7 @@
  * substrate never sees passenger identity, document numbers, or APIS manifests
  * in plaintext.
  *
- * IATA-BSP fiat-clearing settlement EXECUTION for ticket fares stays gftd
+ * IATA-BSP fiat-clearing settlement EXECUTION for ticket fares stays etzhayyim
  * (consent-capability) — not modeled here as a collection.
  */
 

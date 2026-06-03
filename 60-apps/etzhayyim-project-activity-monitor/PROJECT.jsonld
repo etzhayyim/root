@@ -2,24 +2,24 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "capabilities": "gftd:capabilities",
-      "survivalIndicators": "gftd:survivalIndicators",
-      "scheduler": "gftd:scheduler",
-      "milestones": "gftd:milestones",
-      "blockers": "gftd:blockers",
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "capabilities": "etzhayyim:capabilities",
+      "survivalIndicators": "etzhayyim:survivalIndicators",
+      "scheduler": "etzhayyim:scheduler",
+      "milestones": "etzhayyim:milestones",
+      "blockers": "etzhayyim:blockers",
       "dependsOn": {
-        "@id": "gftd:dependsOn",
+        "@id": "etzhayyim:dependsOn",
         "@type": "@id"
       },
-      "ingestKey": "gftd:ingestKey",
-      "window": "gftd:window",
-      "valueUpdatedAt": "gftd:valueUpdatedAt"
+      "ingestKey": "etzhayyim:ingestKey",
+      "window": "etzhayyim:window",
+      "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
     }
   ],
   "@type": "Project",
   "identifier": "etzhayyim-project-activity-monitor",
-  "name": "ai gftd project activity monitor",
+  "name": "ai etzhayyim project activity monitor",
   "status": "Planned",
   "description": "TBD",
   "capabilities": {
@@ -64,23 +64,23 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "ai gftd project activity monitor Scheduler",
+          "name": "ai etzhayyim project activity monitor Scheduler",
           "identifier": "etzhayyim-project-activity-monitor/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",

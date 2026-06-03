@@ -23,11 +23,11 @@
  *   sdk.encryptedWrite (read-cap = owner DID + explicit recipients). The
  *   substrate never sees these in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — IATA-BSP
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — IATA-BSP
  *   fiat-clearing settlement EXECUTION (settleBsp money movement through the
  *   BSP fiat rail) is regulated merchant-of-record settlement; per ADR-2605172100
  *   etzhayyim never becomes the fiat counterparty. The ticket/fare LEDGER DATA
- *   migrates as E2E eTicket records; only the fiat clearing CALL stays gftd.
+ *   migrates as E2E eTicket records; only the fiat clearing CALL stays etzhayyim.
  *
  * AT-Lexicon: no float — fares/amounts are decimal STRINGS; seat row + pax
  * counts are integers.

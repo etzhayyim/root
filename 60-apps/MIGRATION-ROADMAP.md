@@ -39,9 +39,9 @@ Apps querying `vertex_actor`, `vertex_post`, `vertex_profile`:
 - **Assessment**: Most are framework-level (magatama-host-sdk). Mass refactor needed.
 - **Scope**: 50+ apps found. Potential for parallel batch refactor.
 
-### Category E: Legacy ai-gftd Projects
+### Category E: Legacy etzhayyim Projects
 
-Mostly seeded from old gftd project. Most are NOT priority for etzhayyim charter refactoring.
+Mostly seeded from old etzhayyim project. Most are NOT priority for etzhayyim charter refactoring.
 
 - `yatabase`, `ongakuka`, `kyber-*`, `open-*` — **Assessment: Archive-pending**
 - `manimani` — **Assessment: Constitutional audit needed**
@@ -73,7 +73,7 @@ their RW queries to kotoba adapters (similar to P9 pattern).
 
 ### P12 (Low priority — archive)
 
-- **Scope**: Legacy ai-gftd projects (yatabase, ongakuka, etc.)
+- **Scope**: Legacy etzhayyim projects (yatabase, ongakuka, etc.)
 - **Action**: Constitutional audit → archive or rebuild
 - **Target**: Post-mainnet (Phase 3+)
 

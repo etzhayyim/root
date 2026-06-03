@@ -3,7 +3,7 @@
  * pairing TEMPLATES plaintext (public ops catalog) + per-person crew PII
  * (roster / qualification / fatigue / assignment / travel / duty-time /
  * notification) sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100).
- * The crew-travel fiat / IATA-BSP settlement EXECUTION stays gftd, consumed via
+ * The crew-travel fiat / IATA-BSP settlement EXECUTION stays etzhayyim, consumed via
  * consent-capability. Founder directive 2026-06-03: maximal migration.
  */
 export * from "./types.js";

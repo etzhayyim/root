@@ -7,9 +7,9 @@
  * sdk.encryptedRead — PII + confidential commercial terms sealed in the kotoba
  * envelope (ADR-2605181100), read-cap = owner DID + explicit recipients.
  *
- * STAYS gftd (consumed via consent-capability) — IATA-BSP fiat-clearing
+ * STAYS etzhayyim (consumed via consent-capability) — IATA-BSP fiat-clearing
  * settlement EXECUTION. The ticket/fare ledger DATA is migrated here as E2E
- * eTicket records; only the fiat clearing CALL stays gftd.
+ * eTicket records; only the fiat clearing CALL stays etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

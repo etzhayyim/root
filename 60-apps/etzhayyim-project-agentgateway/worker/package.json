@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-agentgateway",
+  "name": "etzhayyim-agentgateway",
   "version": "0.1.0",
   "description": "AI Agent Gateway - MCP Router",
   "main": "src/index.ts",

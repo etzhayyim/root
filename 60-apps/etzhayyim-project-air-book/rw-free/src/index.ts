@@ -2,7 +2,7 @@
  * air-book rw-free — barrel. kotoba-E2E split: plaintext public flight facts
  * (flightSegment, seatAssignment) + kotoba-E2E sensitive payload (pnr, eTicket,
  * ancillary, reprotection = PII + confidential commercial terms, ADR-2605181100).
- * IATA-BSP fiat-clearing settlement EXECUTION stays gftd via consent-capability.
+ * IATA-BSP fiat-clearing settlement EXECUTION stays etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

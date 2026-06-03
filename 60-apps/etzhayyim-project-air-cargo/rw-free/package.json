@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free impl of air-cargo (Consensys c-split). Plaintext operational anchors (shipment + uldAssignment, FK via exists) + kotoba-E2E sensitive payload (awbParties PII/CUI, cargoClaim financial, securityScreening LE+PII via sdk.encryptedWrite/Read, ADR-2605181100). CASS fiat settlement EXECUTION stays gftd via consent-capability. Founder directive 2026-06-03: PII/CUI/LE migrate when E2E-safe.",
+  "description": "RW-free impl of air-cargo (Consensys c-split). Plaintext operational anchors (shipment + uldAssignment, FK via exists) + kotoba-E2E sensitive payload (awbParties PII/CUI, cargoClaim financial, securityScreening LE+PII via sdk.encryptedWrite/Read, ADR-2605181100). CASS fiat settlement EXECUTION stays etzhayyim via consent-capability. Founder directive 2026-06-03: PII/CUI/LE migrate when E2E-safe.",
   "license": "Apache-2.0",
   "main": "src/index.ts",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },

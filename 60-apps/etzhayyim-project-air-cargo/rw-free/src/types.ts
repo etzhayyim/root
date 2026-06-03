@@ -21,10 +21,10 @@
  *   LE result + PII). Written via sdk.encryptedWrite (read-cap = owner DID +
  *   explicit recipients). The substrate never sees these in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — CASS
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — CASS
  *   cargo-account settlement EXECUTION (settleCargoAccount fiat money movement
  *   via IATA CASS clearing) is regulated fiat settlement; only the EXECUTION
- *   act stays gftd.
+ *   act stays etzhayyim.
  *
  * AT-Lexicon: no float — weights/amounts are decimal STRINGS; pieces is integer.
  */

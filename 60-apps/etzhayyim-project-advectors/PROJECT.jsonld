@@ -1,10 +1,10 @@
 {
   "@context": {
     "schema": "https://schema.org/",
-    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
-    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/"
+    "etzhayyim": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/",
+    "dodaf": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/DM2/"
   },
-  "@type": "gftd:Project",
+  "@type": "etzhayyim:Project",
   "@id": "https://resources.etzhayyim.com/etzhayyim-project-advectors/id/Project/etzhayyim-project-advectors",
   "schema:name": "etzhayyim-project-advectors",
   "schema:description": "LLM-first ad operations project for grounded creative submission and policy-aware delivery on advectors.etzhayyim.com",
@@ -35,17 +35,17 @@
       "@type": "dodaf:Performer",
       "schema:name": "advectors-submit-mcp-component",
       "schema:description": "Submission endpoint and MCP facade for grounded text/image creative drafting",
-      "gftd:nanoid": "sv9k3d2m",
-      "gftd:mcpEndpoint": "https://sv9k3d2m.etzhayyim.com/api/mcp",
-      "gftd:serviceEndpoint": "https://advectors.etzhayyim.com/api/v1/submit"
+      "etzhayyim:nanoid": "sv9k3d2m",
+      "etzhayyim:mcpEndpoint": "https://sv9k3d2m.etzhayyim.com/api/mcp",
+      "etzhayyim:serviceEndpoint": "https://advectors.etzhayyim.com/api/v1/submit"
     },
     {
       "@type": "dodaf:Performer",
       "schema:name": "advectors-delivery-mcp-component",
       "schema:description": "Delivery endpoint and telemetry facade for serving approved creatives",
-      "gftd:nanoid": "dz7q1n8r",
-      "gftd:mcpEndpoint": "https://dz7q1n8r.etzhayyim.com/api/mcp",
-      "gftd:serviceEndpoint": "https://advectors.etzhayyim.com/api/v1/serve"
+      "etzhayyim:nanoid": "dz7q1n8r",
+      "etzhayyim:mcpEndpoint": "https://dz7q1n8r.etzhayyim.com/api/mcp",
+      "etzhayyim:serviceEndpoint": "https://advectors.etzhayyim.com/api/v1/serve"
     }
   ],
   "rdfUnifiedDocuments": {
@@ -59,23 +59,23 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "ai gftd project advectors Scheduler",
+          "name": "ai etzhayyim project advectors Scheduler",
           "identifier": "etzhayyim-project-advectors/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-22T00:00:00+00:00",

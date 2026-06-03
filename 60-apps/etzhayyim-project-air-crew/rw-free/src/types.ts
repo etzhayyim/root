@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
  * (3-axis split) + ADR-2605181100 (kotoba E2E encrypted-record envelope).
  * Founder directive 2026-06-03: MAXIMAL migration — front everything that can
- * move; only the irreducible regulated EXECUTION stays gftd.
+ * move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * SPLIT (discriminator = presence of a per-person crewDid):
  *   PUBLIC (plaintext AT records) — pairing TEMPLATES (carrier / base / date
@@ -16,12 +16,12 @@
  *   message / ledger data: crewRoster, qualification, fatigueAssessment,
  *   crewAssignment, crewTravel, dutyTimeRecord, crewNotification. Sealed via
  *   sdk.encryptedWrite (read-cap = owner DID + explicit recipients), so crew PII
- *   lives on-substrate encrypted, never gftd-resident.
+ *   lives on-substrate encrypted, never etzhayyim-resident.
  *
- *   STAYS gftd (consumed via consent-capability) — the crew-travel fiat / IATA
+ *   STAYS etzhayyim (consumed via consent-capability) — the crew-travel fiat / IATA
  *   BSP settlement EXECUTION rail (hotel + positioning-transport payment
  *   clearing). The travel DATA fronts E2E here; only the fiat-clearing CALL
- *   stays gftd, because per ADR-2605172100 etzhayyim never becomes the fiat
+ *   stays etzhayyim, because per ADR-2605172100 etzhayyim never becomes the fiat
  *   merchant-of-record / counterparty.
  *
  * AT-Lexicon: no float. Counts / integer hours are integers; duty-hour decimals
@@ -297,7 +297,7 @@ export interface GetAssignmentOutput {
   error?: string;
 }
 
-// ─── crewTravel (E2E; fiat/BSP settlement CALL stays gftd) ──────────
+// ─── crewTravel (E2E; fiat/BSP settlement CALL stays etzhayyim) ──────────
 
 export interface CrewTravelBody {
   travelId: string;
