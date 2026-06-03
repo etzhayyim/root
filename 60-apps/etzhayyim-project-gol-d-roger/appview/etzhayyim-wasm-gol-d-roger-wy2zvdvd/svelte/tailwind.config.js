@@ -1,5 +1,5 @@
 import plugin from 'tailwindcss/plugin';
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 export default {
 	content: [
@@ -10,7 +10,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				gftd: {
+				etzhayyim: {
 					bg: 'var(--gv2-bg-primary)',
 					text: 'var(--gv2-text-primary)',
 					secondary: 'var(--gv2-text-secondary)',
@@ -25,7 +25,7 @@ export default {
 		},
 	},
 	plugins: [
-		gftdUIKit,
+		etzhayyimUIKit,
 		plugin(({ addBase }) => {
 			addBase({
 				':root': {

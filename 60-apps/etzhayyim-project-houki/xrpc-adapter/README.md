@@ -20,7 +20,7 @@ CF Worker that exposes the 9 rw-free commands as XRPC endpoints.
 ## Setup
 
 ```bash
-cd 60-apps/ai-gftd-project-houki/xrpc-adapter
+cd 60-apps/etzhayyim-project-houki/xrpc-adapter
 npm install
 ```
 

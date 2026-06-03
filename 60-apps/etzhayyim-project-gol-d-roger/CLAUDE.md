@@ -1,4 +1,4 @@
-# ai-gftd-project-gol-d-roger — Gold Asset Management
+# etzhayyim-project-gol-d-roger — Gold Asset Management
 
 ## Overview
 
@@ -7,7 +7,7 @@ Gold collection, portfolio management, and asset preservation platform.
 
 - **Subdomain**: `gol-d-roger.etzhayyim.com`
 - **nanoid**: `wy2zvdvd`
-- **Proto**: `proto/gftd/gol_d_roger/v1/gol_d_roger.proto`
+- **Proto**: `proto/etzhayyim/gol_d_roger/v1/gol_d_roger.proto`
 
 ## Architecture
 
@@ -80,7 +80,7 @@ Control Plane (App, SQL Graph)
 
 | Component | nanoid | Role |
 |-----------|--------|------|
-| `ai-gftd-wasm-gol-d-roger-wy2zvdvd` | wy2zvdvd | Control plane + UI |
+| `etzhayyim-wasm-gol-d-roger-wy2zvdvd` | wy2zvdvd | Control plane + UI |
 
 ## API Surface
 
@@ -112,9 +112,9 @@ Control Plane (App, SQL Graph)
 | `gold_risk_snapshots` | Daily risk metrics (VaR, drawdown, correlations) |
 | `gold_tax_lots` | Tax lot tracking for capital gains |
 
-## Resource Entity Integration (ai-gftd-project-resources)
+## Resource Entity Integration (etzhayyim-project-resources)
 
-金関連の resource entity を `ai-gftd-project-resources` に配置し、gol-d-roger から XRPC で参照する。
+金関連の resource entity を `etzhayyim-project-resources` に配置し、gol-d-roger から XRPC で参照する。
 
 | Entity | nanoid | Description |
 |--------|--------|-------------|
@@ -134,7 +134,7 @@ GoldDistribution ──realizes──→ cap/trade-execution + cap/compliance-re
 
 ## ISIC / ISCO Actor Integration
 
-### ISIC Actors (Industry — ai-gftd-project-open-isic)
+### ISIC Actors (Industry — etzhayyim-project-open-isic)
 
 | ISIC Code | nanoid | Service | Capability |
 |-----------|--------|---------|------------|
@@ -143,7 +143,7 @@ GoldDistribution ──realizes──→ cap/trade-execution + cap/compliance-re
 | K-6630 | k66fnd8m | GoldFundManagementService | ファンド管理 — ETF追跡・配分・NAV計算 |
 | G-4662 | g46mt1w3 | GoldWholesaleService | 金属卸売 — 地金調達・在庫・LBMA認証 |
 
-### ISCO Actors (Occupation — ai-gftd-project-open-isco)
+### ISCO Actors (Occupation — etzhayyim-project-open-isco)
 
 | ISCO Code | nanoid | Service | Actor Role |
 |-----------|--------|---------|------------|
@@ -170,7 +170,7 @@ gol-d-roger (wy2zvdvd)
   └─ XRPC → isco-3315 (va33g0ld)                         # 鑑定・評価
 ```
 
-## Matrix Integration (ai-gftd-project-matrix)
+## Matrix Integration (etzhayyim-project-matrix)
 
 プロジェクト進行は matrix (br8bojxp) で管理する。
 

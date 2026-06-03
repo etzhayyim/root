@@ -1,4 +1,4 @@
-# ai-gftd-project-houki — Private Authority (企業法務文書) Intelligence Agent
+# etzhayyim-project-houki — Private Authority (企業法務文書) Intelligence Agent
 
 ## App Identity
 

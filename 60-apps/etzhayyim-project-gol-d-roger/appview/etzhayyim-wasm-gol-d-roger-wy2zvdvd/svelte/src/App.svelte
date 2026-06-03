@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-gol-d-roger-wy2zvdvd</h1>
+  <h1>etzhayyim-wasm-gol-d-roger-wy2zvdvd</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 
