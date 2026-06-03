@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "com.etzhayyim.identity.submitOp",
-  "description": "ADR-0029 — submit a did:gftd op (create | update | deactivate). For 'create', the server verifies CID(op) matches the last segment of did. The op is persisted to vertex_gftd_op_log and the identity row is upserted into vertex_gftd_identity.",
+  "description": "ADR-0029 — submit a did:etzhayyim op (create | update | deactivate). For 'create', the server verifies CID(op) matches the last segment of did. The op is persisted to vertex_etzhayyim_op_log and the identity row is upserted into vertex_etzhayyim_identity.",
   "defs": {
     "main": {
       "type": "procedure",
@@ -13,7 +13,7 @@
           "properties": {
             "did": {
               "type": "string",
-              "description": "Target did:gftd. For create the did MUST equal parent_did + ':' + CID(op). For update/deactivate the did MUST already exist."
+              "description": "Target did:etzhayyim. For create the did MUST equal parent_did + ':' + CID(op). For update/deactivate the did MUST already exist."
             },
             "opType": {
               "type": "string",
@@ -52,7 +52,7 @@
         }
       },
       "errors": [
-        { "name": "InvalidDid", "description": "did syntax invalid for did:gftd" },
+        { "name": "InvalidDid", "description": "did syntax invalid for did:etzhayyim" },
         { "name": "CidMismatch", "description": "CID(op) does not match DID last segment (create) or prev_cid chain (update)" },
         { "name": "Unauthorized", "description": "sig verification failed" },
         { "name": "NotFound", "description": "did not found for update/deactivate" },
