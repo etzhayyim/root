@@ -311,6 +311,44 @@ export const INFRA_ACTORS: Readonly<Record<string, InfraActorEntry>> = {
     ],
     adrs: ["2606021600"],
   },
+  ipaddress: {
+    description:
+      "1次ソース world IP / ASN number-resource collector. Actively pulls PUBLIC registries (RIR delegated-stats / RDAP / reverse-DNS / BGP) into the kotoba Datom log: RIRs → delegated CIDR ranges → origin ASNs → observed IPs with geo / rDNS / whois. Surfaces address-space + routing-authority concentration routed to diversity + accountability — a resilience map, NEVER a target-list; no host is port/vuln-scanned (akuma/aratame caseMandate boundary), no adherent de-anon. Migrated off RisingWave to kotoba EAVT. Per ADR-2605301400 §T2 + 2606031600.",
+    displayName: "Ipaddress — World IP / ASN Number-Resource Graph",
+    primarySchema: "00-contracts/schemas/ip-network-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:ipaddress#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:ipaddress#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2605301400", "2606031600"],
+  },
+  yabai: {
+    description:
+      "Defensive CTI / passive-DNS risk graph. Actively pulls PUBLIC threat-intel surfaces (Certificate Transparency / passive-DNS history / IOC feeds) into the kotoba Datom log: domains → DNS resolution history, IP hosting/location history, TLS-cert observations, unified IOC store. Scores DEFENSIVE risk context (whose infra, how it moved) — yabai scores, the Council authorizes enforcement, tadori holds case-anchored evidence. Access-audit PII is ALWAYS encrypted (com.etzhayyim.encrypted.*; G6/G10), no adherent de-anon, no mass surveillance. Migrated off RisingWave to kotoba EAVT. Per ADR-2605301400 §T3 + 2606031600.",
+    displayName: "Yabai — Defensive CTI / Passive-DNS Risk Graph",
+    primarySchema: "00-contracts/schemas/passive-dns-cti-ontology.kotoba.edn",
+    service: [
+      {
+        id: "did:web:etzhayyim.com:actor:yabai#atproto_pds",
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: "did:web:etzhayyim.com:actor:yabai#xrpc-libp2p",
+        type: "AtprotoXrpc",
+        serviceEndpoint: `/dnsaddr/etzhayyim.com/p2p/${SIMEON_PEER_ID}`,
+      },
+    ],
+    adrs: ["2605301400", "2606031600"],
+  },
 } as const;
 
 

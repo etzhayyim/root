@@ -225,4 +225,36 @@
    :actor/created-at "2026-06-02"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+  {:actor/handle "ipaddress"
+   :actor/did "did:web:etzhayyim.com:actor:ipaddress"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/display-name-ja "全世界 IP / ASN 番号資源グラフ"
+   :actor/display-name-en "Ipaddress — World IP / ASN Number-Resource Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "1次ソース world IP/ASN number-resource collector. Actively pulls PUBLIC registries (RIR delegated-stats / RDAP / reverse-DNS) into the kotoba Datom log: RIRs → CIDR ranges → origin ASNs → observed IPs + geo/rDNS/whois. Surfaces address-space + routing-authority concentration routed to diversity + accountability — a resilience map, NEVER a target-list; no host scanning, no adherent de-anon. Migrated off RisingWave to kotoba EAVT (ADR-2605301400 §T2 + 2606031600)."
+   :actor/primary-schema "00-contracts/schemas/ip-network-ontology.kotoba.edn"
+   :actor/adr ["2605301400" "2606031600"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:ipaddress#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:ipaddress#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+  {:actor/handle "yabai"
+   :actor/did "did:web:etzhayyim.com:actor:yabai"
+   :actor/kind :tier-b
+   :actor/tier "B"
+   :actor/status :r0
+   :actor/display-name-ja "防御 CTI / パッシブ DNS リスクグラフ"
+   :actor/display-name-en "Yabai — Defensive CTI / Passive-DNS Risk Graph"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Defensive CTI / passive-DNS risk graph. Actively pulls PUBLIC threat-intel (Certificate Transparency / passive-DNS / IOC feeds) into the kotoba Datom log: domains → DNS history, IP hosting/location history, TLS-cert observations, unified IOC store. yabai SCORES defensive risk; the Council authorizes enforcement; tadori holds evidence. Access-audit PII ALWAYS encrypted (G6/G10), no adherent de-anon, no mass surveillance. Migrated off RisingWave to kotoba EAVT (ADR-2605301400 §T3 + 2606031600)."
+   :actor/primary-schema "00-contracts/schemas/passive-dns-cti-ontology.kotoba.edn"
+   :actor/adr ["2605301400" "2606031600"]
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:yabai#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:yabai#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
