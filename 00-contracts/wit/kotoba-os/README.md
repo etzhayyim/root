@@ -4,6 +4,30 @@
 **Status**: R0 DRAFT (charter-level contract; no boot, no live device I/O)
 **Validated**: `wasm-tools component wit kotoba-os.wit` → EXIT 0 (wasm-tools 1.225.0)
 
+## Verify everything
+
+```bash
+bash reference/run-all.sh        # WIT validate + Rust crate suite + Python suite
+```
+
+One command runs every check; stages whose tooling is absent are SKIPPED (not
+failed). Current: **WIT validates · 19 Rust tests · 35 Python tests** (the Python
+suite itself builds the real WASM component and runs the wasmtime e2e when the
+toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
+
+### Coverage matrix (ADR pillar → artifact → tests)
+
+| ADR | Pillar | Artifact | Tests |
+|---|---|---|---|
+| D1 | boot manifest | `schemas/…-genesis-manifest.json` + Rust `GenesisManifest`/`validate()` | 3 py + (in 19 rust) |
+| D2 | userland | **real WASM component** `plc-control-guest/` (capability-minimized) | 3 py |
+| D3 | scan-cycle = Datom txn | `reference/scan_cycle_model.py` + **wasmtime e2e** `plc-host-runner/` | 6 + 3 py |
+| D4 | k8s OCI-CID | `schemas/…-oci-artifact.json` (digest=CID decode invariant) | 8 py |
+| D5 | agent-centric mesh | `kotoba-os-types::mesh` (source chain + witness quorum + membrane) | 7 rust |
+| D6 | sizing budget | `sizing-budget.json` (estimates, honestly labeled) | 7 py |
+| —  | content addressing | `kotoba-os-types::cid` (real CIDv1 blake3 verify) | 6 rust |
+| —  | drift guard | `test_artifact_consistency.py` (WIT==schema==Rust) | 5 py |
+
 ## What this is
 
 The OT/PLC device + control interfaces named in ADR-2606031600 §D3, expressed as
@@ -214,4 +238,6 @@ E2E OK
 - ✅ Cross-artifact drift guard — WIT == schema == Rust types (5 tests).
 - ✅ R2 real blake3 CID verification in `LowerEdge::verify_artifact` (`cid` module,
   6 tests; from-scratch base32 validated vs an independent oracle).
-- A consolidated coverage entry point + the real production crate (kotoba subrepo).
+- ✅ Consolidated coverage runner (`reference/run-all.sh`) + coverage matrix.
+- The real production crate in the kotoba subrepo (upstream coordination) +
+  wasmtime fuel metering / WCET for the soft-RT story (§D3, R3).
