@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_swift_screen_sanctions"
-    targetNamespace="https://gftd.ai/bpmn/open-swift"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-swift"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_swift_screen_sanctions" name="SWIFT 制裁スクリーニング" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-swift.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-swift.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSwift.payment.screenSanctions&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: bicCode, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

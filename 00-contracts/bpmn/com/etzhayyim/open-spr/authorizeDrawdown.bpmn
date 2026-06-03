@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_spr_authorize_drawdown"
-    targetNamespace="https://gftd.ai/bpmn/open-spr"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-spr"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_spr_authorize_drawdown" name="SPR drawdown 認可" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-spr.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-spr.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSpr.drawdown.marketNotice&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, drawdownId: drawdownId, country: country, volumeMmbbl: volumeMmbbl, scopeTier: scopeTier, triggerEvent: triggerEvent}" target="payload"/>
         </zeebe:ioMapping>
@@ -59,7 +59,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-spr.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-spr.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openSpr.drawdown.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, drawdownId: drawdownId, country: country, volumeMmbbl: volumeMmbbl, scopeTier: scopeTier, triggerEvent: triggerEvent}" target="payload"/>
         </zeebe:ioMapping>
