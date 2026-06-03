@@ -1,0 +1,23 @@
+{
+  "name": "ai-gftd-project-vpn",
+  "main": "src/app.ts",
+  "compatibility_date": "2025-03-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "vpn.gftd.ai/*",
+      "zone_name": "gftd.ai"
+    }
+  ],
+  "vars": {
+    "VPN_VERSION": "0.1.0-beta",
+    "VPN_ACTOR_DID": "did:web:vpn.gftd.ai"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // secrets (wrangler secret put):
+  //   VPN_PROVISIONER_URL  — http://<provisioner-lb-ip>:8080
+  //   PROVISIONER_SECRET   — shared secret for x-internal-trust header
+  //   AUTHN_SERVICE_URL    — https://auth.gftd.ai (or service binding)
+}
