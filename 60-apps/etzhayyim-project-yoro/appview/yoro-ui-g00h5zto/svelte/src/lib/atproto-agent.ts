@@ -1,6 +1,4 @@
-// TODO(substrate-boundary): wrap AppBsky types + AtpAgent behind @etzhayyim/sdk facade — see ADR-2605172000
-// SDK gap: does not export Bluesky Lexicon types (AppBskyActorDefs, AppBskyFeedDefs, AppBskyRichtextFacet)
-import { AtpAgent, type AppBskyActorDefs, type AppBskyFeedDefs, type AppBskyRichtextFacet } from '@atproto/api';
+import { AtpAgent } from '@etzhayyim/sdk/atproto';
 import { setSignalTransport } from '@etzhayyim/signal';
 
 export type Did = string;
@@ -11,19 +9,19 @@ export type ConvoGroup = Record<string, unknown>;
 export type ConvoMember = Record<string, unknown>;
 export type ConvoSection = string;
 export type ConvoSnapshot = Record<string, unknown>;
-export type AuthorProfile = AppBskyActorDefs.ProfileViewDetailed & Record<string, unknown>;
-export type PostView = AppBskyFeedDefs.PostView & Record<string, unknown>;
-export type FeedItem = AppBskyFeedDefs.FeedViewPost & Record<string, unknown>;
-export type FollowView = AppBskyActorDefs.ProfileView & Record<string, unknown>;
-export type FeedGeneratorView = AppBskyFeedDefs.GeneratorView & Record<string, unknown>;
+export type AuthorProfile = Record<string, unknown>;
+export type PostView = Record<string, unknown>;
+export type FeedItem = Record<string, unknown>;
+export type FollowView = Record<string, unknown>;
+export type FeedGeneratorView = Record<string, unknown>;
 export type ListView = Record<string, unknown>;
 export type StarterPackView = Record<string, unknown>;
 export type MutedUser = Record<string, unknown>;
 export type BlockedUser = Record<string, unknown>;
 export type ThreadgateRule = Record<string, unknown>;
 export type ThreadgateView = Record<string, unknown>;
-export type RichTextFacet = AppBskyRichtextFacet.Main & Record<string, unknown>;
-export type FacetFeature = AppBskyRichtextFacet.Main['features'][number] & Record<string, unknown>;
+export type RichTextFacet = Record<string, unknown>;
+export type FacetFeature = Record<string, unknown>;
 export type LabelView = Record<string, unknown>;
 export type LabelValue = string;
 export type SelfLabel = Record<string, unknown>;
@@ -79,7 +77,7 @@ let lastSyncedJwt = '';
 
 function readStoredSession(): Session | null {
 	if (typeof localStorage === 'undefined') return inMemorySession;
-	for (const key of ['atproto:session', 'gftd:session']) {
+	for (const key of ['atproto:session', 'etzhayyim:session']) {
 		const raw = localStorage.getItem(key);
 		if (!raw) continue;
 		try {
@@ -249,7 +247,7 @@ function normalizeFeedOptions(limitOrOpts: number | FeedOptions | undefined, cur
 export async function getAuthorFeed(actor: string, limitOrOpts: number | FeedOptions = 30, cursor?: string): Promise<{ feed: FeedItem[]; cursor?: string }> {
 	syncFromAtprotoSession();
 	const { limit, cursor: normalizedCursor } = normalizeFeedOptions(limitOrOpts, cursor);
-    
+
 	if (actor.includes('malak.etzhayyim.com')) {
 		try {
 			const res = await fetch('http://localhost:8099/feed');
@@ -261,7 +259,7 @@ export async function getAuthorFeed(actor: string, limitOrOpts: number | FeedOpt
 			console.error("Local malak feed fetch failed", e);
 		}
 	}
-    
+
 	return atQuery<{ feed: FeedItem[]; cursor?: string }>('app.bsky.feed.getAuthorFeed', { actor, limit, cursor: normalizedCursor });
 }
 
