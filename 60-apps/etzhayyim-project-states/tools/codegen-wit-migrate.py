@@ -3,7 +3,7 @@
 codegen-wit-migrate.py — COFOG WIT linker migration for states project.
 
 Generates component-registry.json and migrates:
-  - wit/world.wit → COFOG world (gftd-gov-*)
+  - wit/world.wit → COFOG world (etzhayyim-gov-*)
   - main.go → NewApp pattern (kuruma-style)
   - magatama.toml → [interfaces] section
 
@@ -28,7 +28,7 @@ from typing import Any
 
 WASM_DIR = Path(__file__).parent.parent / "wasm"
 REGISTRY_PATH = Path(__file__).parent / "component-registry.json"
-DIR_PREFIX = "ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gov-"
+DIR_PREFIX = "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-gov-"
 
 # International org prefixes (no country code)
 INTL_ORGS = {
@@ -42,21 +42,21 @@ INTL_ORGS = {
 # COFOG mapping: gov function pattern → (cofog_code, cofog_name, world)
 COFOG_MAP = [
     # COFOG 02 — Defence
-    (r"(defense|military|joint-staff|armed-forces|army|navy|air-force|korean-peoples-army|mod-|national-guard)", "02", "defence", "gftd-gov-defence"),
+    (r"(defense|military|joint-staff|armed-forces|army|navy|air-force|korean-peoples-army|mod-|national-guard)", "02", "defence", "etzhayyim-gov-defence"),
     # COFOG 03 — Public order and safety
-    (r"(police|justice|prosecutor|supreme-court|law-enforcement|ministry-of-people-security|gendarmerie|carabinieri|judiciary|court-of-appeal|high-court|magistrate)", "03", "public-order-safety", "gftd-gov-public-order"),
+    (r"(police|justice|prosecutor|supreme-court|law-enforcement|ministry-of-people-security|gendarmerie|carabinieri|judiciary|court-of-appeal|high-court|magistrate)", "03", "public-order-safety", "etzhayyim-gov-public-order"),
     # COFOG 04 — Economic affairs
-    (r"(finance|trade|energy|transport|labor|commerce|treasury|central-bank|customs|tax|fazenda|hacienda|revenue|industry|agriculture|competition|budget|economic|procurement|monetary)", "04", "economic-affairs", "gftd-gov-economic"),
+    (r"(finance|trade|energy|transport|labor|commerce|treasury|central-bank|customs|tax|fazenda|hacienda|revenue|industry|agriculture|competition|budget|economic|procurement|monetary)", "04", "economic-affairs", "etzhayyim-gov-economic"),
     # COFOG 05 — Environmental protection
-    (r"(environment|ecology|climate|forestry|water-resources|environmental)", "05", "environmental-protection", "gftd-gov-environment"),
+    (r"(environment|ecology|climate|forestry|water-resources|environmental)", "05", "environmental-protection", "etzhayyim-gov-environment"),
     # COFOG 06 — Housing
-    (r"(housing|urban|construction|public-works|community)", "06", "housing-community", "gftd-gov-housing"),
+    (r"(housing|urban|construction|public-works|community)", "06", "housing-community", "etzhayyim-gov-housing"),
     # COFOG 07 — Health
-    (r"(health|medical|pharmaceutical|public-health|sanitation)", "07", "health-services", "gftd-gov-health"),
+    (r"(health|medical|pharmaceutical|public-health|sanitation)", "07", "health-services", "etzhayyim-gov-health"),
     # COFOG 09 — Education
-    (r"(education|university|school|academic|science|research|culture)", "09", "education-services", "gftd-gov-education"),
+    (r"(education|university|school|academic|science|research|culture)", "09", "education-services", "etzhayyim-gov-education"),
     # COFOG 01 — General public services (catch-all)
-    (r".", "01", "general-public-services", "gftd-gov-general"),
+    (r".", "01", "general-public-services", "etzhayyim-gov-general"),
 ]
 
 # org_tier derivation (searched in order, first match wins)
@@ -103,9 +103,9 @@ def parse_component_dir(dirname: str) -> dict[str, Any] | None:
     if country_code == "0":
         return _classify(dirname, short, "0", remainder, remainder)
 
-    # Handle new-format dirs: ai-gftd-wasm-states-{cc}-{nanoid}
-    if dirname.startswith("ai-gftd-wasm-states-"):
-        wasm_parts = dirname.removeprefix("ai-gftd-wasm-states-").split("-", 1)
+    # Handle new-format dirs: etzhayyim-wasm-states-{cc}-{nanoid}
+    if dirname.startswith("etzhayyim-wasm-states-"):
+        wasm_parts = dirname.removeprefix("etzhayyim-wasm-states-").split("-", 1)
         if len(wasm_parts) == 2:
             return _classify(dirname, dirname, wasm_parts[0], "state-generic", dirname)
         return None
@@ -137,32 +137,32 @@ def _classify(dirname: str, short: str, country_code: str, gov_function: str, fu
     # COFOG classification
     cofog_code = "01"
     cofog_name = "general-public-services"
-    world = "gftd-gov-general"
+    world = "etzhayyim-gov-general"
 
     # Numeric COFOG prefix (Japan-style: 01000000, 02000000, etc.)
     numeric_cofog = re.match(r"^(\d{2})\d{6}", gov_function_clean)
     NUMERIC_COFOG_MAP = {
-        "01": ("01", "general-public-services", "gftd-gov-general"),
-        "02": ("01", "general-public-services", "gftd-gov-general"),  # MIC (internal affairs)
-        "03": ("03", "public-order-safety", "gftd-gov-public-order"),  # MOJ
-        "04": ("01", "general-public-services", "gftd-gov-general"),  # MOFA
-        "05": ("09", "education-services", "gftd-gov-education"),  # MEXT
-        "06": ("07", "health-services", "gftd-gov-health"),  # MHLW
-        "07": ("04", "economic-affairs", "gftd-gov-economic"),  # MAFF
-        "08": ("04", "economic-affairs", "gftd-gov-economic"),  # METI
-        "09": ("04", "economic-affairs", "gftd-gov-economic"),  # MLIT
-        "10": ("05", "environmental-protection", "gftd-gov-environment"),  # MOE
-        "11": ("02", "defence", "gftd-gov-defence"),  # MOD
+        "01": ("01", "general-public-services", "etzhayyim-gov-general"),
+        "02": ("01", "general-public-services", "etzhayyim-gov-general"),  # MIC (internal affairs)
+        "03": ("03", "public-order-safety", "etzhayyim-gov-public-order"),  # MOJ
+        "04": ("01", "general-public-services", "etzhayyim-gov-general"),  # MOFA
+        "05": ("09", "education-services", "etzhayyim-gov-education"),  # MEXT
+        "06": ("07", "health-services", "etzhayyim-gov-health"),  # MHLW
+        "07": ("04", "economic-affairs", "etzhayyim-gov-economic"),  # MAFF
+        "08": ("04", "economic-affairs", "etzhayyim-gov-economic"),  # METI
+        "09": ("04", "economic-affairs", "etzhayyim-gov-economic"),  # MLIT
+        "10": ("05", "environmental-protection", "etzhayyim-gov-environment"),  # MOE
+        "11": ("02", "defence", "etzhayyim-gov-defence"),  # MOD
     }
 
     if is_district:
         cofog_code = "01.6"
         cofog_name = "district-administration"
-        world = "gftd-gov-district"
+        world = "etzhayyim-gov-district"
     elif country_code == "intl":
         cofog_code = "intl"
         cofog_name = "general-public-services"
-        world = "gftd-gov-international"
+        world = "etzhayyim-gov-international"
     elif numeric_cofog:
         prefix = numeric_cofog.group(1)
         if prefix in NUMERIC_COFOG_MAP:
@@ -412,10 +412,10 @@ def gen_world_wit(comp: dict[str, Any]) -> str:
     # Sanitize for WIT package name (alphanumeric + hyphens)
     pkg_name = re.sub(r"[^a-z0-9-]", "-", pkg_name.lower()).strip("-")
 
-    return f"""package gftd:gov-{pkg_name};
+    return f"""package etzhayyim:gov-{pkg_name};
 
 world component {{
-    include gftd:platform/{comp['world']}@0.1.0;
+    include etzhayyim:platform/{comp['world']}@0.1.0;
 }}
 """
 
@@ -666,7 +666,7 @@ data_dir = "/data/yata"
 size = 1
 
 [interfaces]
-package = "gftd:cofog@0.1.0"
+package = "etzhayyim:cofog@0.1.0"
 
 [[interfaces.provides]]
 name = "organization-directory"
@@ -688,7 +688,7 @@ tags = [{tags_str}]
 skill_prompt = "Use for {cc.upper()} government {cofog_name.replace('-', ' ')} operations"
 
 [[interfaces.requires]]
-package = "gftd:cofog@0.1.0"
+package = "etzhayyim:cofog@0.1.0"
 interface = "gov-messaging"
 functions = ["send-message", "receive-message"]
 """

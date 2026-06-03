@@ -44,7 +44,7 @@ for kind in $kinds; do
     if grep -qxF "$key" "$UPLOADED"; then skip=$((skip+1)); continue; fi
     if (( LIMIT > 0 )) && (( ok + fail >= LIMIT )); then break 2; fi
 
-    AT_TOKEN=$(gftd agent-token --lxm com.atproto.repo.putRecord --ttl 60 2>/dev/null)
+    AT_TOKEN=$(etzhayyim agent-token --lxm com.atproto.repo.putRecord --ttl 60 2>/dev/null)
     http=$(curl -s -m "$TIMEOUT" -o /tmp/_up_body.json -w '%{http_code}' \
       -X POST https://atproto.etzhayyim.com/xrpc/com.atproto.repo.putRecord \
       -H "Authorization: Bearer $AT_TOKEN" -H "Content-Type: application/json" \

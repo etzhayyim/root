@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate implementation coverage for ai-gftd-project-states."""
+"""Evaluate implementation coverage for etzhayyim-project-states."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-STRICT_ADM2_RE = re.compile(r"^ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gov-[a-z0-9]+-.*-dst-")
+STRICT_ADM2_RE = re.compile(r"^etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-gov-[a-z0-9]+-.*-dst-")
 
 
 def pct(numerator: int, denominator: int) -> str:
@@ -55,9 +55,9 @@ def collect_metrics(base: Path) -> dict:
         if world.exists():
             metrics["with_world_wit"] += 1
             world_text = read_text(world)
-            if "gftd:workflow" in world_text:
+            if "etzhayyim:workflow" in world_text:
                 metrics["world_with_workflow"] += 1
-            if "gftd:activity" in world_text:
+            if "etzhayyim:activity" in world_text:
                 metrics["world_with_activity"] += 1
             if "wasi:keyvalue" in world_text:
                 metrics["world_with_keyvalue"] += 1
@@ -135,14 +135,14 @@ def build_report(metrics: dict) -> str:
         "# Implementation Coverage Audit",
         "",
         f"- Generated: {today}",
-        "- Scope: `projects/ai-gftd-project-states/wasm`",
+        "- Scope: `projects/etzhayyim-project-states/wasm`",
         f"- Total top-level components: `{total}`",
         "",
         "## Findings",
         "",
         f"1. Structural scaffold coverage is effectively complete: `wit/world.wit`, `main.go`, and `k8s/spinapp.yaml` exist for `{m('with_world_wit')}/{total}`, `{m('with_main_go')}/{total}`, and `{m('with_k8s_spinapp')}/{total}` components respectively.",
         f"2. Business interface depth is limited: only `{m('with_proto')}/{total}` ({pct(m('with_proto'), total)}) components ship a proto contract, `{m('adapter_register_dirs')}/{total}` ({pct(m('adapter_register_dirs'), total)}) register explicit adapter methods, and `{m('main_register_performer_config')}/{total}` ({pct(m('main_register_performer_config'), total)}) use `performer.NewRuntime` + `PerformerConfig`.",
-        f"3. Durable workflow/state coverage is partial: `gftd:workflow` and `gftd:activity` appear in `{m('world_with_workflow')}/{total}` components each, `wasi:keyvalue` appears in `{m('world_with_keyvalue')}/{total}`, `database/` exists in `{m('with_database_dir')}/{total}`, and `db_state.go` exists in only `{m('with_db_state_go')}/{total}`.",
+        f"3. Durable workflow/state coverage is partial: `etzhayyim:workflow` and `etzhayyim:activity` appear in `{m('world_with_workflow')}/{total}` components each, `wasi:keyvalue` appears in `{m('world_with_keyvalue')}/{total}`, `database/` exists in `{m('with_database_dir')}/{total}`, and `db_state.go` exists in only `{m('with_db_state_go')}/{total}`.",
         f"4. Verification and documentation coverage are weak: `_test.go` files exist in `{m('with_tests')}/{total}` components, README files in `{m('with_readme')}/{total}`, while JSON-LD metadata exists in `{m('with_jsonld')}/{total}`.",
         f"5. ADM2 expansion is ahead of the last repo report but still sparse in global terms: current loose `-dst-` count is `{m('adm2_loose')}`, strict canonical ADM2 count is `{m('adm2_strict')}`, versus the 2026-03-03 report baseline of `762` loose / `752` strict.",
         "",
@@ -168,8 +168,8 @@ def build_report(metrics: dict) -> str:
         f"| Adapter method registration (`a.Register`) | {m('adapter_register_dirs')} | {pct(m('adapter_register_dirs'), total)} |",
         f"| Non-empty `registerMethods` body | {m('main_register_methods_nonempty')} | {pct(m('main_register_methods_nonempty'), total)} |",
         f"| `nata.NewStore` / performer nata store | {m('main_nata_store')} | {pct(m('main_nata_store'), total)} |",
-        f"| `gftd:workflow` in `world.wit` | {m('world_with_workflow')} | {pct(m('world_with_workflow'), total)} |",
-        f"| `gftd:activity` in `world.wit` | {m('world_with_activity')} | {pct(m('world_with_activity'), total)} |",
+        f"| `etzhayyim:workflow` in `world.wit` | {m('world_with_workflow')} | {pct(m('world_with_workflow'), total)} |",
+        f"| `etzhayyim:activity` in `world.wit` | {m('world_with_activity')} | {pct(m('world_with_activity'), total)} |",
         f"| `wasi:keyvalue` in `world.wit` | {m('world_with_keyvalue')} | {pct(m('world_with_keyvalue'), total)} |",
         "",
         "## Topology",
@@ -199,7 +199,7 @@ def build_report(metrics: dict) -> str:
             "## Interpretation",
             "",
             "- The repo has very high scaffold coverage, but only a small minority of components have rich service contracts, explicit performer runtime registration, or persistent schema-backed state.",
-            "- `ai-gftd-project-states` should be treated as a mixed estate: a broad generated shell with a narrower band of deeper implementations.",
+            "- `etzhayyim-project-states` should be treated as a mixed estate: a broad generated shell with a narrower band of deeper implementations.",
             "- The highest-risk gap is verification: there are no `_test.go` files under the component directories scanned here.",
         ]
     )
@@ -211,12 +211,12 @@ def main() -> int:
     parser.add_argument("--root", default=str(Path(__file__).resolve().parents[3]))
     parser.add_argument(
         "--output",
-        default="projects/ai-gftd-project-states/reports/260311-implementation-coverage-audit.md",
+        default="projects/etzhayyim-project-states/reports/260311-implementation-coverage-audit.md",
     )
     args = parser.parse_args()
 
     root = Path(args.root).resolve()
-    base = root / "projects/ai-gftd-project-states/wasm"
+    base = root / "projects/etzhayyim-project-states/wasm"
     metrics = collect_metrics(base)
     report = build_report(metrics)
 

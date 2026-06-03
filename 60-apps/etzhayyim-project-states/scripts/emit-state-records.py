@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Emit one stateProfile JSON + N stateProcedure JSONs + N stateDocument JSONs
-per country under 60-apps/ai-gftd-project-states/data/gov/{iso3}/, ready for
+per country under 60-apps/etzhayyim-project-states/data/gov/{iso3}/, ready for
 PDS bulk putRecord.
 
 Usage:
@@ -20,7 +20,7 @@ import argparse, json, os, sys, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-DATA_DIR = ROOT / "60-apps/ai-gftd-project-states/data/gov"
+DATA_DIR = ROOT / "60-apps/etzhayyim-project-states/data/gov"
 REPO = "states.etzhayyim.com"
 
 # ISO3 → (name, region) extracted from seed_domains.go sovereignSeeds()
@@ -145,7 +145,7 @@ def emit_country(iso3, out_dir):
             "authority": m.get("name", ""),
             "basis": m.get("contract", ""),
             "portalUri": m.get("website", ""),
-            "bpmnRef": f"60-apps/ai-gftd-project-states/data/gov/{iso3}/bpmn/{bpmn_name}" if has_bpmn else None,
+            "bpmnRef": f"60-apps/etzhayyim-project-states/data/gov/{iso3}/bpmn/{bpmn_name}" if has_bpmn else None,
         })
     # Build inline documents (top 4 contracts)
     inline_documents = []
@@ -176,7 +176,7 @@ def emit_country(iso3, out_dir):
         "ministryCount": len(ministries),
         "contractCount": len(contracts),
         "bpmnCount": len(bpmn_files),
-        "dataSourceRef": f"60-apps/ai-gftd-project-states/data/gov/{iso3}/",
+        "dataSourceRef": f"60-apps/etzhayyim-project-states/data/gov/{iso3}/",
         "createdAt": "2026-04-18T04:00:00Z",
     }
     (out_dir / "profile").mkdir(parents=True, exist_ok=True)
@@ -202,7 +202,7 @@ def emit_country(iso3, out_dir):
             "portalUri": m.get("website", ""),
             "orgTier": m.get("orgTier", "ministry"),
             "tags": m.get("tags", []),
-            "bpmnRef": f"60-apps/ai-gftd-project-states/data/gov/{iso3}/bpmn/{bpmn_name}" if has_bpmn else None,
+            "bpmnRef": f"60-apps/etzhayyim-project-states/data/gov/{iso3}/bpmn/{bpmn_name}" if has_bpmn else None,
             "createdAt": "2026-04-18T03:30:00Z",
         }
         (out_dir / "procedure" / f"{rkey}.json").write_text(

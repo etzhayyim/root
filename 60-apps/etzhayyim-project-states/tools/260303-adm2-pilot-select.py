@@ -96,7 +96,7 @@ def main() -> int:
             local_name = slugify(feature["shapeName"])
             code_tail = re.sub(r"[^a-z0-9]", "", feature["shapeID"].lower())[-8:] or "00000000"
             suggestion = f"org-gov-{iso_l}-dst-{code_tail}-{local_name}"
-            candidate_dir = WASM_ROOT / f"ai-gftd-performer-sys-gftd-actors-pba7d22f-{suggestion}"
+            candidate_dir = WASM_ROOT / f"etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-{suggestion}"
             if candidate_dir.exists():
                 continue
             emitted += 1

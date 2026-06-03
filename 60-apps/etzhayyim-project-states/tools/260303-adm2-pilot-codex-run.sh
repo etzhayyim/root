@@ -35,7 +35,7 @@ run_one() {
 
   local prompt
   prompt=$(cat <<EOF
-You are implementing an ADM2 pilot item for ai-gftd-project-states.
+You are implementing an ADM2 pilot item for etzhayyim-project-states.
 Return a compact implementation blueprint only.
 
 Input:

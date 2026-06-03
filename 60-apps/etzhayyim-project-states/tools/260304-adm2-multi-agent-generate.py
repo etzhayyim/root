@@ -404,7 +404,7 @@ func agentProfile() map[string]any {{
 
 func agentManifest() map[string]any {{
 \treturn map[string]any{{
-\t\t"name":        "@ai-gftd-project-states/{escaped_slug}-agent",
+\t\t"name":        "@etzhayyim-project-states/{escaped_slug}-agent",
 \t\t"description": "Agent manifest for {escaped_slug}",
 \t\t"url":         "https://" + componentNanoID + ".etzhayyim.com/api/grpc",
 \t\t"version":     "1.0.0",
@@ -473,7 +473,7 @@ watch = ["**/*.go", "go.mod"]
 
 
 def render_go_mod(slug: str) -> str:
-    return f'''module github.com/gftd-ai/performer-sys-gftd-actors-pba7d22f-{slug}
+    return f'''module github.com/etzhayyim-ai/performer-sys-etzhayyim-actors-pba7d22f-{slug}
 
 go 1.23
 
@@ -482,10 +482,10 @@ require github.com/spinframework/spin-go-sdk/v2 v2.2.1
 
 
 def render_world_wit(slug: str) -> str:
-    return f'''package gftd:{slug};
+    return f'''package etzhayyim:{slug};
 
 world component {{
-    include gftd:platform/gftd-mcp@0.1.0;
+    include etzhayyim:platform/etzhayyim-mcp@0.1.0;
     import wasi:keyvalue/store@0.2.0-draft;
 }}
 '''
@@ -527,7 +527,7 @@ def render_jsonld(entity_name: str, iso_u: str, nanoid: str) -> str:
 
 def render_agent_json(slug: str, nanoid: str) -> str:
     payload = {
-        "name": f"@ai-gftd-project-states/{slug}-agent",
+        "name": f"@etzhayyim-project-states/{slug}-agent",
         "description": f"Agent manifest for {slug}.",
         "url": f"https://{nanoid}.etzhayyim.com/api/grpc",
         "version": "1.0.0",
@@ -576,7 +576,7 @@ def main() -> int:
         shape_name = (row.get("pilot_shape_name") or row.get("shape_name") or slug).strip()
         entity_name = f"{shape_name} Municipal Government"
 
-        component_dir = WASM_ROOT / f"ai-gftd-performer-sys-gftd-actors-pba7d22f-{slug}"
+        component_dir = WASM_ROOT / f"etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-{slug}"
         if component_dir.exists():
             skipped += 1
             print(f"skip exists: {component_dir.name}")

@@ -5,7 +5,7 @@ For each INTERPOL member country NOT already covered by Tier 1 (G7 + Five Eyes
 + INTERPOL HQ) or Tier 2 (G20 + key Asia), emit a STUB `lea.ndjson` entry
 representing the country's INTERPOL National Central Bureau (NCB).
 
-Output: `60-apps/ai-gftd-project-states/data/gov/{cc}/lea.ndjson`
+Output: `60-apps/etzhayyim-project-states/data/gov/{cc}/lea.ndjson`
 
 CRITICAL: stub entries carry `status: "stub"` and `phase: 3` tags. The
 heartbeat seeder MUST exclude `status=stub` rows from `vertex_gov_org`
@@ -13,7 +13,7 @@ seed targets until manual review enriches each entry with verified
 headquarters address, website, and INTERPOL NCB designation.
 
 Usage:
-    python3 60-apps/ai-gftd-project-states/tools/gen-lea-stubs.py [--apply]
+    python3 60-apps/etzhayyim-project-states/tools/gen-lea-stubs.py [--apply]
 
 By default runs in --dry-run mode (prints planned files, no writes).
 Use --apply to write files. Files for countries that already have a
@@ -27,7 +27,7 @@ import json
 import pathlib
 import sys
 
-DATA_DIR = pathlib.Path("60-apps/ai-gftd-project-states/data/gov")
+DATA_DIR = pathlib.Path("60-apps/etzhayyim-project-states/data/gov")
 
 # Already-covered country codes (hand-curated Tier 1 + Tier 2 + JPN existing).
 # Skip these to avoid clobbering high-quality entries.

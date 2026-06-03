@@ -3,7 +3,7 @@
 Enrich per-country magatama.jsonld profile sections with fields from the
 generated stateProfile records (/tmp/state-records/profile/{iso3}.json).
 
-When `gftd deploy` runs on the appview, the enriched profile is picked up
+When `etzhayyim deploy` runs on the appview, the enriched profile is picked up
 by `registerProfileToYata()` — a write path that historically works even
 when com.atproto.repo.putRecord is degraded.
 
@@ -17,7 +17,7 @@ import argparse, json, glob, os, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-APPVIEW = ROOT / "60-apps/ai-gftd-project-states/appview"
+APPVIEW = ROOT / "60-apps/etzhayyim-project-states/appview"
 
 # Fields from generated stateProfile record to merge into magatama.jsonld
 # profile block. Keeps magatama.jsonld's existing displayName/description
@@ -29,7 +29,7 @@ LIST_ID_FIELDS = ["procedures", "documentTemplates"]
 LIST_FILL_FIELDS = ["addresses", "contacts", "desks", "complianceFrameworks"]
 
 def find_magatama(iso3):
-    pattern = str(APPVIEW / f"ai-gftd-wasm-states-{iso3}-*")
+    pattern = str(APPVIEW / f"etzhayyim-wasm-states-{iso3}-*")
     dirs = glob.glob(pattern)
     for d in dirs:
         mj = Path(d) / "magatama.jsonld"

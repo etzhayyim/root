@@ -3,7 +3,7 @@
 gen-municipality-ndjson.py
 
 Generate municipality.ndjson and contract.ndjson under data/gov/{cc}/.
-Run from the ai-gftd-project-states/ directory.
+Run from the etzhayyim-project-states/ directory.
 """
 
 import json
@@ -2667,7 +2667,7 @@ def main():
     base_dir = os.path.normpath(base_dir)
 
     if not os.path.isdir(base_dir):
-        print(f"ERROR: {base_dir} not found. Run from ai-gftd-project-states/ directory.", file=sys.stderr)
+        print(f"ERROR: {base_dir} not found. Run from etzhayyim-project-states/ directory.", file=sys.stderr)
         sys.exit(1)
 
     # Collect all existing country dirs

@@ -10,8 +10,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[3]
-WASM_DIR = ROOT / "projects/ai-gftd-project-states/wasm"
-DIR_PREFIX = "ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gov-"
+WASM_DIR = ROOT / "projects/etzhayyim-project-states/wasm"
+DIR_PREFIX = "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-gov-"
 
 L1_ORGS = [
     {
@@ -20,7 +20,7 @@ L1_ORGS = [
         "description": "Coordinates the head of government, cabinet, and national executive decisions.",
         "type": "executive",
         "suffix": "e3x4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "finance",
@@ -28,7 +28,7 @@ L1_ORGS = [
         "description": "Manages treasury, budget, taxation, and public finance policy.",
         "type": "economic-affairs",
         "suffix": "f3n4",
-        "world": "gftd-gov-economic",
+        "world": "etzhayyim-gov-economic",
     },
     {
         "slug": "foreign",
@@ -36,7 +36,7 @@ L1_ORGS = [
         "description": "Leads foreign policy, diplomacy, and treaty relations.",
         "type": "general-public-services",
         "suffix": "f3a4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "interior",
@@ -44,7 +44,7 @@ L1_ORGS = [
         "description": "Oversees internal administration, civil protection, and home affairs.",
         "type": "general-public-services",
         "suffix": "i3n4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "justice",
@@ -52,7 +52,7 @@ L1_ORGS = [
         "description": "Administers justice policy, legal affairs, and rule-of-law operations.",
         "type": "public-order-safety",
         "suffix": "j3u4",
-        "world": "gftd-gov-public-order",
+        "world": "etzhayyim-gov-public-order",
     },
     {
         "slug": "leg-lower",
@@ -60,7 +60,7 @@ L1_ORGS = [
         "description": "Represents the primary legislative chamber of the national parliament.",
         "type": "general-public-services",
         "suffix": "l3l4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "leg-upper",
@@ -68,7 +68,7 @@ L1_ORGS = [
         "description": "Represents the secondary legislative chamber or senate of the national parliament.",
         "type": "general-public-services",
         "suffix": "l3u4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "supreme-court",
@@ -76,7 +76,7 @@ L1_ORGS = [
         "description": "Serves as the highest national court for final judicial review.",
         "type": "public-order-safety",
         "suffix": "s3c4",
-        "world": "gftd-gov-public-order",
+        "world": "etzhayyim-gov-public-order",
     },
     {
         "slug": "prosecutor",
@@ -84,7 +84,7 @@ L1_ORGS = [
         "description": "Leads national prosecution and state representation in criminal matters.",
         "type": "public-order-safety",
         "suffix": "p3g4",
-        "world": "gftd-gov-public-order",
+        "world": "etzhayyim-gov-public-order",
     },
     {
         "slug": "police",
@@ -92,7 +92,7 @@ L1_ORGS = [
         "description": "Provides national policing, law enforcement, and public safety operations.",
         "type": "public-order-safety",
         "suffix": "p3o4",
-        "world": "gftd-gov-public-order",
+        "world": "etzhayyim-gov-public-order",
     },
     {
         "slug": "defense",
@@ -100,7 +100,7 @@ L1_ORGS = [
         "description": "Sets defence policy and oversees military administration.",
         "type": "defence",
         "suffix": "d3e4",
-        "world": "gftd-gov-defence",
+        "world": "etzhayyim-gov-defence",
     },
     {
         "slug": "joint-staff",
@@ -108,7 +108,7 @@ L1_ORGS = [
         "description": "Coordinates operational command across the armed forces.",
         "type": "defence",
         "suffix": "j3s4",
-        "world": "gftd-gov-defence",
+        "world": "etzhayyim-gov-defence",
     },
     {
         "slug": "election",
@@ -116,7 +116,7 @@ L1_ORGS = [
         "description": "Administers national elections, ballots, and electoral oversight.",
         "type": "general-public-services",
         "suffix": "e3c4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "audit",
@@ -124,7 +124,7 @@ L1_ORGS = [
         "description": "Audits public finances, compliance, and state accountability.",
         "type": "general-public-services",
         "suffix": "a3d4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
     {
         "slug": "state-generic",
@@ -132,7 +132,7 @@ L1_ORGS = [
         "description": "Provides a generic state administration facade for cross-government coordination.",
         "type": "general-public-services",
         "suffix": "s3g4",
-        "world": "gftd-gov-general",
+        "world": "etzhayyim-gov-general",
     },
 ]
 
@@ -164,7 +164,7 @@ def nanoid_prefix(iso: str) -> str:
 
 
 def module_name(dirname: str) -> str:
-    return "github.com/gftd-ai/" + dirname.removeprefix("ai-gftd-")
+    return "github.com/etzhayyim-ai/" + dirname.removeprefix("etzhayyim-")
 
 
 def component_name(short: str) -> str:
@@ -177,7 +177,7 @@ def jsonld_name(iso: str, slug: str) -> str:
 
 def adapter_service_path(short: str) -> str:
     cleaned = re.sub(r"[^a-z0-9]+", "_", short)
-    return f"/gftd.{cleaned}.v1.Service"
+    return f"/etzhayyim.{cleaned}.v1.Service"
 
 
 def go_module(dirname: str) -> str:
@@ -230,10 +230,10 @@ size = 1
 
 def world_wit(world: str, short: str) -> str:
     pkg = re.sub(r"[^a-z0-9-]", "-", short)
-    return f"""package gftd:gov-{pkg};
+    return f"""package etzhayyim:gov-{pkg};
 
 world component {{
-    include gftd:platform/{world}@0.1.0;
+    include etzhayyim:platform/{world}@0.1.0;
 }}
 """
 

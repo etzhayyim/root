@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate data/gov/{cc}/{tier}.ndjson from component-registry.json.
-Run from the ai-gftd-project-states/ directory.
+Run from the etzhayyim-project-states/ directory.
 
 Layout mirrors DID path:
   data/gov/{cc}/ministry.ndjson  → did:web:gov-{cc}.etzhayyim.com:{ministry-path}

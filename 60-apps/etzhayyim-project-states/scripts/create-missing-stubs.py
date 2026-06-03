@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Create minimal appview stub dirs for countries in static-profile-data
 that lack an appview dir. Only magatama.jsonld is created — src/app.ts
-and wrangler.jsonc remain absent, so `gftd deploy` will fail until those
+and wrangler.jsonc remain absent, so `etzhayyim deploy` will fail until those
 are added. The stub is enough for `enrich-magatama-profiles.py` to work.
 """
 import json, os, glob
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-APPVIEW = ROOT / "60-apps/ai-gftd-project-states/appview"
+APPVIEW = ROOT / "60-apps/etzhayyim-project-states/appview"
 STATIC = json.loads((Path(__file__).parent / "static-profile-data.json").read_text())
 
 def nanoid_for(iso: str) -> str:
@@ -17,7 +17,7 @@ def nanoid_for(iso: str) -> str:
 
 def existing_isos() -> set:
     out = set()
-    for d in glob.glob(str(APPVIEW / "ai-gftd-wasm-states-*")):
+    for d in glob.glob(str(APPVIEW / "etzhayyim-wasm-states-*")):
         parts = os.path.basename(d).split("-")
         if len(parts) >= 5: out.add(parts[4])
     return out
@@ -68,7 +68,7 @@ def main():
     for iso, entry in STATIC.items():
         if iso in existing: continue
         name = entry.get("displayName") or iso.upper()
-        dir_name = f"ai-gftd-wasm-states-{iso}-{nanoid_for(iso)}"
+        dir_name = f"etzhayyim-wasm-states-{iso}-{nanoid_for(iso)}"
         dir_path = APPVIEW / dir_name
         dir_path.mkdir(parents=True, exist_ok=True)
         (dir_path / "magatama.jsonld").write_text(

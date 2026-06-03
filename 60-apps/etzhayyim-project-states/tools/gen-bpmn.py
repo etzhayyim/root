@@ -18,7 +18,7 @@ COFOG → process template mapping:
   10         → social-protection        (welfare, pensions)
   intl       → international            (multilateral, treaty)
 
-Run from ai-gftd-project-states/:
+Run from etzhayyim-project-states/:
   python3 tools/gen-bpmn.py
 """
 import json, pathlib, re, textwrap

@@ -50,15 +50,15 @@
       {
         "id": "openJpnGov.resolveMinistry",
         "title": "省庁 DID 解決",
-        "bpmn": "etzhayyim-root/60-apps/ai-gftd-project-open-jpn-gov/bpmn/resolve-ministry.bpmn",
-        "form": "60-apps/ai-gftd-project-open-jpn-gov/forms/resolveMinistry.form.json",
+        "bpmn": "etzhayyim-root/60-apps/etzhayyim-project-open-jpn-gov/bpmn/resolve-ministry.bpmn",
+        "form": "60-apps/etzhayyim-project-open-jpn-gov/forms/resolveMinistry.form.json",
         "xrpcRef": "com.etzhayyim.apps.openJpnGov.getMinistry"
       },
       {
         "id": "openJpnGov.searchLaw",
         "title": "法令検索 (e-Gov 法令API v2 proxy)",
-        "bpmn": "etzhayyim-root/60-apps/ai-gftd-project-open-jpn-gov/bpmn/search-law.bpmn",
-        "form": "60-apps/ai-gftd-project-open-jpn-gov/forms/searchLaw.form.json",
+        "bpmn": "etzhayyim-root/60-apps/etzhayyim-project-open-jpn-gov/bpmn/search-law.bpmn",
+        "form": "60-apps/etzhayyim-project-open-jpn-gov/forms/searchLaw.form.json",
         "xrpcRef": "com.etzhayyim.apps.openJpnGov.searchLaws"
       }
     ],

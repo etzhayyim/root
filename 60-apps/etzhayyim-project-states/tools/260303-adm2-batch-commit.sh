@@ -4,8 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 cd "$ROOT"
 
-TARGETS_FILE="${1:-projects/ai-gftd-project-states/tmp/260303-adm2-batch-50-targets.jsonl}"
-TEMPLATE_DIR="60-apps/ai-gftd-project-states/appview/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-gov-usa-state-generic-u1s2s3g4"
+TARGETS_FILE="${1:-projects/etzhayyim-project-states/tmp/260303-adm2-batch-50-targets.jsonl}"
+TEMPLATE_DIR="60-apps/etzhayyim-project-states/appview/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-gov-usa-state-generic-u1s2s3g4"
 
 if [[ ! -f "$TARGETS_FILE" ]]; then
   echo "targets file not found: $TARGETS_FILE" >&2
@@ -31,7 +31,7 @@ while IFS= read -r line; do
   iso_l="$(echo "$iso" | tr 'A-Z' 'a-z')"
   id8="$(nanoid)"
 
-  dst_dir="60-apps/ai-gftd-project-states/appview/ai-gftd-performer-sys-gftd-actors-pba7d22f-${slug}"
+  dst_dir="60-apps/etzhayyim-project-states/appview/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-${slug}"
   if [[ -d "$dst_dir" ]]; then
     echo "skip existing: $slug"
     continue
@@ -90,14 +90,14 @@ for f in [d/'go.mod', d/'main.go', d/'spin.toml', d/'k8s'/'spinapp.yaml', new_js
 (d/'go.mod').write_text(
     (d/'go.mod').read_text(encoding='utf-8').replace(
         re.search(r'^module\s+.*$', (d/'go.mod').read_text(encoding='utf-8'), re.M).group(0),
-        f'module github.com/gftd-ai/performer-sys-gftd-actors-pba7d22f-{slug}'
+        f'module github.com/etzhayyim-ai/performer-sys-etzhayyim-actors-pba7d22f-{slug}'
     ),
     encoding='utf-8'
 )
 
 wit = d/'wit'/'world.wit'
 wit_txt = wit.read_text(encoding='utf-8')
-wit_txt = re.sub(r'^package\s+[^;]+;', f'package gftd:{slug};', wit_txt, flags=re.M)
+wit_txt = re.sub(r'^package\s+[^;]+;', f'package etzhayyim:{slug};', wit_txt, flags=re.M)
 wit.write_text(wit_txt, encoding='utf-8')
 
 # rewrite spin.toml with TOML-safe component id

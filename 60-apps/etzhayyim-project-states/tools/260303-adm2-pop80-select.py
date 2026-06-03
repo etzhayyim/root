@@ -95,7 +95,7 @@ def fetch_candidate_feature(meta: dict, iso_l: str) -> dict | None:
         tail = re.sub(r"[^a-z0-9]", "", str(shape_id).lower())[-8:] or "00000000"
         local_name = slugify(str(shape_name))
         suggested_slug = f"org-gov-{iso_l}-dst-{tail}-{local_name}"
-        candidate_dir = WASM_ROOT / f"ai-gftd-performer-sys-gftd-actors-pba7d22f-{suggested_slug}"
+        candidate_dir = WASM_ROOT / f"etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-{suggested_slug}"
         if candidate_dir.exists():
             continue
         return {
