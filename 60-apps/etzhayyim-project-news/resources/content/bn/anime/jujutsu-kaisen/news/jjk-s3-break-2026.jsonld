@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:jjk-s3-break-2026",
+  "@id": "urn:etzhayyim:news:jjk-s3-break-2026",
   "identifier": "jjk-s3-break-2026",
   "headline": "Jujutsu Kaisen season 3 takes a short break after six episodes",
   "description": "The latest season of Jujutsu Kaisen is pausing after episode six, with a recap special scheduled for February 19 and new episodes set to resume on February 26, according to reports citing the series' official updates.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

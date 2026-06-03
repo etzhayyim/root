@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:anime-kanojo-okarishimasu-series-primer-2026",
+  "@id": "urn:etzhayyim:news:anime-kanojo-okarishimasu-series-primer-2026",
   "identifier": "anime-kanojo-okarishimasu-series-primer-2026",
   "headline": "Rent-a-Girlfriend primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Rent-a-Girlfriend, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

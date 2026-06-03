@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:kimetsu-final-arc-2026",
+  "@id": "urn:etzhayyim:news:kimetsu-final-arc-2026",
   "identifier": "kimetsu-final-arc-2026",
   "headline": "「鬼滅の刃」最終章アニメ化決定！2026年秋放送開始",
   "description": "累計発行部数1億5000万部を突破した大人気マンガの最終章がついにアニメ化。無限列車編、遊郭編に続く感動の最終章に期待が集まる。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com/ja/articles/kimetsu-final-arc-2026"
   },
   "url": "https://news.etzhayyim.com/bn/articles/kimetsu-final-arc-2026"

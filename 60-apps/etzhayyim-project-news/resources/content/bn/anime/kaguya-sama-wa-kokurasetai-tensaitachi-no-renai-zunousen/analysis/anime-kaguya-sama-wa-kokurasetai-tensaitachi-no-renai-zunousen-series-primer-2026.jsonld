@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:anime-kaguya-sama-wa-kokurasetai-tensaitachi-no-renai-zunousen-series-primer-2026",
+  "@id": "urn:etzhayyim:news:anime-kaguya-sama-wa-kokurasetai-tensaitachi-no-renai-zunousen-series-primer-2026",
   "identifier": "anime-kaguya-sama-wa-kokurasetai-tensaitachi-no-renai-zunousen-series-primer-2026",
   "headline": "Kaguya-sama: Love is War primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Kaguya-sama: Love is War, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
