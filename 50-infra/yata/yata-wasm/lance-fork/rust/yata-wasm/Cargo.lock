@@ -1122,7 +1122,7 @@ dependencies = [
  "mock_instant",
  "moka",
  "num_cpus",
- "object_store 0.11.2",
+ "object_store",
  "pin-project",
  "prost",
  "rand",
@@ -1198,7 +1198,7 @@ dependencies = [
  "lance-io",
  "log",
  "num-traits",
- "object_store 0.11.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
@@ -1233,7 +1233,7 @@ dependencies = [
  "lance-core",
  "lazy_static",
  "log",
- "object_store 0.11.2",
+ "object_store",
  "path_abs",
  "pin-project",
  "prost",
@@ -1266,8 +1266,7 @@ dependencies = [
  "lance-file",
  "lance-io",
  "log",
- "object_store 0.11.2",
- "object_store 0.13.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
@@ -1560,27 +1559,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff76201f031d8863c38aa7f905eca4f53abbfa15f609db4277d44cd8938f33fe"
 dependencies = [
  "memchr",
-]
-
-[[package]]
-name = "object_store"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cfccb68961a56facde1163f9319e0d15743352344e7808a11795fb99698dcaf"
-dependencies = [
- "async-trait",
- "bytes",
- "chrono",
- "futures",
- "humantime",
- "itertools 0.13.0",
- "parking_lot",
- "percent-encoding",
- "snafu",
- "tokio",
- "tracing",
- "url",
- "walkdir",
 ]
 
 [[package]]
@@ -2067,9 +2045,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.149"
+version = "1.0.150"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83fc039473c5595ace860d8c4fafa220ff474b3fc6bfdb4293327f1a37e94d86"
+checksum = "e8014e44b4736ed0538adeecded0fce2a272f22dc9578a7eb6b2d9993c74cfb9"
 dependencies = [
  "itoa",
  "memchr",
@@ -2836,7 +2814,7 @@ dependencies = [
  "lance-file",
  "lance-io",
  "lance-table",
- "object_store 0.13.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
