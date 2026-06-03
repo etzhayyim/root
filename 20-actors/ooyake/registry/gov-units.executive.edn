@@ -111,9 +111,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tls"
    :gov.unit/name-en "Cabinet of East Timor"
+   :gov.unit/official-url "https://timor-leste.gov.tl/"
    :gov.unit/wikidata "Q2137629"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2137629" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://timor-leste.gov.tl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nru.executive"
@@ -122,9 +123,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "nru"
    :gov.unit/name-en "Cabinet of Nauru"
+   :gov.unit/official-url "https://www.nauru.gov.nr/"
    :gov.unit/wikidata "Q1637805"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1637805" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.nauru.gov.nr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fsm.executive"
@@ -145,9 +147,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "jam"
    :gov.unit/name-en "Cabinet of Jamaica"
+   :gov.unit/official-url "https://cabinet.gov.jm/"
    :gov.unit/wikidata "Q5015520"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015520" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://cabinet.gov.jm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bhs.executive"
@@ -156,9 +159,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bhs"
    :gov.unit/name-en "Cabinet of the Bahamas"
+   :gov.unit/official-url "https://www.bahamas.gov.bs/the-cabinet"
    :gov.unit/wikidata "Q5015577"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015577" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.bahamas.gov.bs/the-cabinet" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.slv.executive"
@@ -167,9 +171,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "slv"
    :gov.unit/name-en "Government of El Salvador"
+   :gov.unit/official-url "https://www.presidencia.gob.sv/"
    :gov.unit/wikidata "Q5589203"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589203" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.presidencia.gob.sv/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kwt.executive"
@@ -178,9 +183,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "kwt"
    :gov.unit/name-en "Government of Kuwait"
+   :gov.unit/official-url "https://www.cmgs.gov.kw/"
    :gov.unit/wikidata "Q12217491"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12217491" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.cmgs.gov.kw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.npl.executive"
@@ -213,9 +219,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "btn"
    :gov.unit/name-en "Lhengye Zhungtshog"
+   :gov.unit/official-url "https://www.cabinet.gov.bt/"
    :gov.unit/wikidata "Q2081864"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2081864" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.cabinet.gov.bt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tza.executive"
@@ -224,9 +231,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tza"
    :gov.unit/name-en "Cabinet of Tanzania"
+   :gov.unit/official-url "https://www.ikulu.go.tz/cabinet"
    :gov.unit/wikidata "Q5015563"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015563" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.ikulu.go.tz/cabinet" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.phl.executive"
@@ -247,9 +255,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "zmb"
    :gov.unit/name-en "Cabinet of Zambia"
+   :gov.unit/official-url "https://www.cabinet.gov.zm/"
    :gov.unit/wikidata "Q5015573"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015573" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.cabinet.gov.zm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cog.executive"
@@ -258,9 +267,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "cog"
    :gov.unit/name-en "Makosso government"
+   :gov.unit/official-url "https://gouvernement.cg/"
    :gov.unit/wikidata "Q109037591"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q109037591" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://gouvernement.cg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gnq.executive"
@@ -305,9 +315,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "ken"
    :gov.unit/name-en "Government of Kenya"
+   :gov.unit/official-url "https://www.president.go.ke/"
    :gov.unit/wikidata "Q21022441"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q21022441" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.president.go.ke/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.eth.executive"
@@ -400,9 +411,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "svn"
    :gov.unit/name-en "Government of Slovenia"
+   :gov.unit/official-url "https://www.gov.si/en/state-authorities/government/"
    :gov.unit/wikidata "Q1264458"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1264458" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.si/en/state-authorities/government/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rou.executive"
@@ -447,9 +459,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "geo"
    :gov.unit/name-en "Government of Georgia"
+   :gov.unit/official-url "https://www.gov.ge/"
    :gov.unit/wikidata "Q2613132"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2613132" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.ge/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mlt.executive"
@@ -458,9 +471,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mlt"
    :gov.unit/name-en "Government of Malta"
+   :gov.unit/official-url "https://www.gov.mt/"
    :gov.unit/wikidata "Q5589242"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589242" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.mt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mne.executive"
@@ -493,9 +507,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "cub"
    :gov.unit/name-en "Council of Ministers"
+   :gov.unit/official-url "https://www.presidencia.gob.cu/"
    :gov.unit/wikidata "Q834304"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q834304" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.presidencia.gob.cu/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.uzb.executive"
@@ -540,9 +555,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "per"
    :gov.unit/name-en "Government of Peru"
+   :gov.unit/official-url "https://www.gob.pe/"
    :gov.unit/wikidata "Q3649429"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3649429" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gob.pe/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nzl.executive"
@@ -563,9 +579,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "ind"
    :gov.unit/name-en "executive branch of the Government of India"
+   :gov.unit/official-url "https://cabsec.gov.in/"
    :gov.unit/wikidata "Q125132191"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q125132191" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://cabsec.gov.in/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.png.executive"
@@ -574,9 +591,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "png"
    :gov.unit/name-en "National Executive Council of Papua New Guinea"
+   :gov.unit/official-url "https://www.pmnec.gov.pg/"
    :gov.unit/wikidata "Q5015543"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015543" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.pmnec.gov.pg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.plw.executive"
@@ -585,9 +603,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "plw"
    :gov.unit/name-en "Government of Palau"
+   :gov.unit/official-url "https://www.palaugov.pw/executive-branch/"
    :gov.unit/wikidata "Q52898982"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q52898982" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.palaugov.pw/executive-branch/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mng.executive"
@@ -620,9 +639,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "ecu"
    :gov.unit/name-en "Government of Ecuador"
+   :gov.unit/official-url "https://www.gob.ec/"
    :gov.unit/wikidata "Q55645704"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q55645704" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gob.ec/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gtm.executive"
@@ -631,9 +651,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "gtm"
    :gov.unit/name-en "Council of Ministers"
+   :gov.unit/official-url "https://guatemala.gob.gt/"
    :gov.unit/wikidata "Q2879802"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2879802" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://guatemala.gob.gt/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hnd.executive"
@@ -642,9 +663,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "hnd"
    :gov.unit/name-en "Government of Honduras"
+   :gov.unit/official-url "https://www.presidencia.gob.hn/"
    :gov.unit/wikidata "Q17633154"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q17633154" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.presidencia.gob.hn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.irn.executive"
@@ -711,9 +733,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Cabinet of Oman"
+   :gov.unit/official-url "https://gov.om/"
    :gov.unit/wikidata "Q5015541"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015541" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://gov.om/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sau.executive"
@@ -722,9 +745,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Council of Ministers of Saudi Arabia"
+   :gov.unit/official-url "https://my.gov.sa/en/agencies/17489"
    :gov.unit/wikidata "Q14654732"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q14654732" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://my.gov.sa/en/agencies/17489" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.vnm.executive"
@@ -757,9 +781,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bdi"
    :gov.unit/name-en "Council of Ministers"
+   :gov.unit/official-url "https://presidence.gov.bi/"
    :gov.unit/wikidata "Q16952177"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16952177" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://presidence.gov.bi/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cod.executive"
@@ -768,9 +793,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Government of the Democratic Republic of the Congo"
+   :gov.unit/official-url "https://www.primature.gouv.cd/"
    :gov.unit/wikidata "Q3112604"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3112604" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.primature.gouv.cd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mwi.executive"
@@ -779,9 +805,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mwi"
    :gov.unit/name-en "Cabinet of Malawi"
+   :gov.unit/official-url "https://www.malawi.gov.mw/"
    :gov.unit/wikidata "Q5015531"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015531" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.malawi.gov.mw/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mrt.executive"
@@ -790,9 +817,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mrt"
    :gov.unit/name-en "Government of Mauritania"
+   :gov.unit/official-url "https://www.primature.gov.mr/"
    :gov.unit/wikidata "Q3112595"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3112595" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.primature.gov.mr/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mus.executive"
@@ -801,9 +829,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mus"
    :gov.unit/name-en "Government of Mauritius"
+   :gov.unit/official-url "https://pmo.govmu.org/"
    :gov.unit/wikidata "Q12058897"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12058897" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://pmo.govmu.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.moz.executive"
@@ -848,9 +877,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "stp"
    :gov.unit/name-en "government of São Tomé and Príncipe"
+   :gov.unit/official-url "https://stp.gov.st/"
    :gov.unit/wikidata "Q18125240"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18125240" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://stp.gov.st/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.som.executive"
@@ -1159,9 +1189,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "lva"
    :gov.unit/name-en "Government of Latvia"
+   :gov.unit/official-url "https://www.mk.gov.lv/"
    :gov.unit/wikidata "Q2502537"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2502537" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.mk.gov.lv/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.and.executive"
@@ -1206,9 +1237,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "blz"
    :gov.unit/name-en "Government of Belize"
+   :gov.unit/official-url "https://www.pressoffice.gov.bz/"
    :gov.unit/wikidata "Q21129557"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q21129557" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.pressoffice.gov.bz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.brb.executive"
@@ -1217,9 +1249,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "brb"
    :gov.unit/name-en "Government of Barbados"
+   :gov.unit/official-url "https://www.gov.bb/"
    :gov.unit/wikidata "Q5589182"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589182" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.bb/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dza.executive"
@@ -1240,9 +1273,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "chl"
    :gov.unit/name-en "Cabinet of Chile"
+   :gov.unit/official-url "https://www.gob.cl/"
    :gov.unit/wikidata "Q29077203"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q29077203" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gob.cl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lie.executive"
@@ -1311,9 +1345,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tcd"
    :gov.unit/name-en "Government of Chad"
+   :gov.unit/official-url "https://primature.gouv.td/"
    :gov.unit/wikidata "Q5589195"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589195" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://primature.gouv.td/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mhl.executive"
@@ -1322,9 +1357,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mhl"
    :gov.unit/name-en "Government of the Marshall Islands"
+   :gov.unit/official-url "https://rmigov.com/"
    :gov.unit/wikidata "Q5589399"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589399" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://rmigov.com/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.executive"
@@ -1333,9 +1369,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "col"
    :gov.unit/name-en "Government of Colombia"
+   :gov.unit/official-url "https://www.presidencia.gov.co/"
    :gov.unit/wikidata "Q5589197"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589197" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.presidencia.gov.co/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.grd.executive"
@@ -1344,9 +1381,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "grd"
    :gov.unit/name-en "Cabinet of Grenada"
+   :gov.unit/official-url "https://www.gov.gd/"
    :gov.unit/wikidata "Q113555095"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q113555095" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.gd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.hti.executive"
@@ -1355,9 +1393,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "hti"
    :gov.unit/name-en "Government of Haiti"
+   :gov.unit/official-url "https://www.primature.gouv.ht/"
    :gov.unit/wikidata "Q16146706"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q16146706" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.primature.gouv.ht/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.syr.executive"
@@ -1414,9 +1453,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "tgo"
    :gov.unit/name-en "Government of Togo"
+   :gov.unit/official-url "https://togo.gouv.tg/"
    :gov.unit/wikidata "Q3112601"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3112601" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://togo.gouv.tg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tun.executive"
@@ -1437,9 +1477,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "ben"
    :gov.unit/name-en "Government of Benin"
+   :gov.unit/official-url "https://www.gouv.bj/"
    :gov.unit/wikidata "Q3112619"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3112619" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gouv.bj/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bfa.executive"
@@ -1448,9 +1489,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "bfa"
    :gov.unit/name-en "Patriotic Movement for Safeguard and Restoration"
+   :gov.unit/official-url "https://www.presidencedufaso.bf/"
    :gov.unit/wikidata "Q110666433"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q110666433" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.presidencedufaso.bf/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cmr.executive"
@@ -1459,9 +1501,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "Government of Cameroon"
+   :gov.unit/official-url "https://www.spm.gov.cm/"
    :gov.unit/wikidata "Q5026456"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5026456" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.spm.gov.cm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mar.executive"
@@ -1470,9 +1513,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "mar"
    :gov.unit/name-en "Cabinet of Morocco"
+   :gov.unit/official-url "https://www.cg.gov.ma/"
    :gov.unit/wikidata "Q12208534"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q12208534" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.cg.gov.ma/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nam.executive"
@@ -1481,9 +1525,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "nam"
    :gov.unit/name-en "Government of Namibia"
+   :gov.unit/official-url "https://www.gov.na/"
    :gov.unit/wikidata "Q5589263"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5589263" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.na/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.nga.executive"
@@ -1492,9 +1537,10 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "nga"
    :gov.unit/name-en "Cabinet of Nigeria"
+   :gov.unit/official-url "https://statehouse.gov.ng/"
    :gov.unit/wikidata "Q5015542"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5015542" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://statehouse.gov.ng/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.rwa.executive"
@@ -1503,7 +1549,8 @@
    :gov.unit/level :cabinet :gov.unit/branch :executive
    :gov.unit/jurisdiction "rwa"
    :gov.unit/name-en "Cabinet of Rwanda"
+   :gov.unit/official-url "https://www.gov.rw/cabinet"
    :gov.unit/wikidata "Q5176454"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5176454" :gov.unit/last-verified "2026-06-04"
+   :gov.unit/provenance "https://www.gov.rw/cabinet" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}]}
