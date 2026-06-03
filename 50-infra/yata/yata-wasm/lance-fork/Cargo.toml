@@ -168,7 +168,7 @@ tokio-stream = "0.1.14"
 tokio-util = { version = "0.7.10" }
 tracing = "0.1"
 url = "2.3"
-uuid = { version = "1.2", features = ["v4", "serde"] }
+uuid = { version = "1.23", features = ["v4", "serde"] }
 pretty_assertions = "1.4.0"
 zstd = "0.13.1"
 
