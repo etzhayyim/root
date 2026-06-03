@@ -59,8 +59,34 @@ def test_find_service():
     assert res and res[0]["owner"]["name"] == "新宿区"
 
 
+def test_full_atlas_loaded():
+    # the client must load the FULL atlas, not just the *.seed.edn core
+    assert len(A.units) > 6000, len(A.units)
+    assert A.get_unit("gov.fra.minefi") and A.get_unit("gov.deu.bundesbank")
+
+
+def test_by_branch():
+    judic = A.by_branch("judicial")
+    assert any(u[":gov.unit/id"].endswith(".supreme-court") for u in judic)
+    assert len(A.by_branch("legislative")) >= 150
+
+
+def test_country_profile():
+    p = A.country_profile("fra")
+    assert p["country"][":gov.unit/id"] == "gov.fra"
+    assert p["national_body_count"] >= 5
+    assert p["subdivision_count"] >= 1
+    assert "executive" in p["bodies_by_branch"]
+
+
+def test_addresses_for():
+    # France's central bank HQ (Banque de France) is geolocated
+    assert any(a.get(":gov.address/lat") is not None for a in A.addresses_for("gov.fra.banque"))
+
+
 if __name__ == "__main__":
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     for fn in fns:
         fn(); print(f"PASS {fn.__name__}")
     print(f"{len(fns)} passed")
+
