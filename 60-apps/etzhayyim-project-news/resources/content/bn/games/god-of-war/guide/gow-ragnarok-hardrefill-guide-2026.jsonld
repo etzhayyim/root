@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-hardrefill-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-hardrefill-guide-2026",
   "identifier": "gow-ragnarok-hardrefill-guide-2026",
   "headline": "Hardrefill the Callous guide (God of War Ragnarok): evade guard-break pressure, punish slam recoveries",
   "description": "Hardrefill is safer when you evade guard-break chains and punish the jump-slam recovery instead of forcing parries.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

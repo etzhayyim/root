@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-svipdagr-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-svipdagr-guide-2026",
   "identifier": "gow-ragnarok-svipdagr-guide-2026",
   "headline": "Svipdagr the Cold guide (God of War Ragnarok): one-punish resets while you reduce ranged pressure",
   "description": "In the 3-boss fight, Svipdagr punishes greed. Use one-punish resets after big swings while you reduce ranged pressure first.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

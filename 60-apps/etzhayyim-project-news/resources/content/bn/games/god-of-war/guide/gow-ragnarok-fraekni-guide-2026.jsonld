@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-fraekni-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-fraekni-guide-2026",
   "identifier": "gow-ragnarok-fraekni-guide-2026",
   "headline": "Fraekni the Zealous guide (God of War Ragnarok): consistent punishes vs rushes and sweep chains",
   "description": "Fraekni punishes greedy strings. Fix your dodge angle for unblockables and take only end-of-chain confirms for a stable clear.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

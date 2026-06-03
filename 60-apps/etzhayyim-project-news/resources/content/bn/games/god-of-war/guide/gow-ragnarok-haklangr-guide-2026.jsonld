@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-haklangr-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-haklangr-guide-2026",
   "identifier": "gow-ragnarok-haklangr-guide-2026",
   "headline": "Haklangr the Bearded guide (God of War Ragnarok): beat delayed slams by waiting, then punish landings",
   "description": "Haklangr catches early dodges. Win by waiting out delays, dodging late, and punishing only after committed landings.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

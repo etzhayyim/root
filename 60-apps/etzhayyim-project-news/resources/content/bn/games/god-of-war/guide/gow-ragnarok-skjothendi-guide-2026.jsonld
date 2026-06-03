@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-skjothendi-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-skjothendi-guide-2026",
   "identifier": "gow-ragnarok-skjothendi-guide-2026",
   "headline": "Skjothendi the Unerring guide (God of War Ragnarok): prevent Bifrost snowball with short confirms",
   "description": "Skjothendi is a Bifrost snowball fight. Prioritize preventing buildup, take only short confirms, and reset spacing aggressively.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

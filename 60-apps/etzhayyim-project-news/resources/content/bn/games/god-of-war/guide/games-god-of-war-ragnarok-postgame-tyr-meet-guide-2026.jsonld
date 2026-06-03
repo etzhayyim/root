@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-god-of-war-ragnarok-postgame-tyr-meet-guide-2026",
+  "@id": "urn:etzhayyim:news:games-god-of-war-ragnarok-postgame-tyr-meet-guide-2026",
   "identifier": "games-god-of-war-ragnarok-postgame-tyr-meet-guide-2026",
   "headline": "【ゴッド・オブ・ウォー ラグナロク】クリア後にテュールに会う方法: 解放手順と居場所まとめ",
   "description": "本編クリア後に「本物のテュール」と再会するための手順を、発生条件から探索ルート、解放後に会える場所まで簡潔に整理する。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-15T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

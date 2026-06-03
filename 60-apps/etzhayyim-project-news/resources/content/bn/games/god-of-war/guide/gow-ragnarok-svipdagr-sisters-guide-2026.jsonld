@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-svipdagr-sisters-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-svipdagr-sisters-guide-2026",
   "identifier": "gow-ragnarok-svipdagr-sisters-guide-2026",
   "headline": "Svipdagr + Sisters (3-boss) guide (God of War Ragnarok): stop ranged pressure, stabilize camera, then win safely",
   "description": "The 3-boss Berserker encounter is a camera and projectile problem. Fix the order: reduce ranged pressure first, keep multiple threats on-screen, and take only safe end-of-string punishes.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

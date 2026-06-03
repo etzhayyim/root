@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-starolfr-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-starolfr-guide-2026",
   "identifier": "gow-ragnarok-starolfr-guide-2026",
   "headline": "Starolfr the Troublesome guide (God of War Ragnarok): punish dive landings, avoid greedy strings",
   "description": "Starolfr is safest when you punish dive landings and avoid long commitments.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

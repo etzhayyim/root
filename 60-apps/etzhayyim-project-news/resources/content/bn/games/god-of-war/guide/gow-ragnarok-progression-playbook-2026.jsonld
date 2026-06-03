@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-progression-playbook-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-progression-playbook-2026",
   "identifier": "gow-ragnarok-progression-playbook-2026",
   "headline": "God of War Ragnarok progression playbook: a detour checklist that keeps your upgrades on pace",
   "description": "A step-by-step route philosophy: where to detour, what to upgrade, and what to standardize so you do not hit level-gap walls while following the story.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

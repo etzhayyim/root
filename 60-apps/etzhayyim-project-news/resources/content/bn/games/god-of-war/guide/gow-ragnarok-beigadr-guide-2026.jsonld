@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-beigadr-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-beigadr-guide-2026",
   "identifier": "gow-ragnarok-beigadr-guide-2026",
   "headline": "Beigadr the Feared guide (God of War Ragnarok): visibility-first vs teleports and lightning pressure",
   "description": "Beigadr punishes target fixation. Prioritize tracking and visibility, then punish only at end-of-string recoveries.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

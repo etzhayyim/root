@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-berserkers-complete-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-berserkers-complete-guide-2026",
   "identifier": "gow-ragnarok-berserkers-complete-guide-2026",
   "headline": "God of War Ragnarok: All Berserkers Guide (12 bosses + King) with a stability-first strategy",
   "description": "A complete, repeatable plan for the Fit for a King Berserker Gravestones: universal combat rules, multi-boss fight handling, and concise notes for every Berserker plus King Hrolf.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

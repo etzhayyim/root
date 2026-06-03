@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-king-hrolf-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-king-hrolf-guide-2026",
   "identifier": "gow-ragnarok-king-hrolf-guide-2026",
   "headline": "King Hrolf Kraki guide (God of War Ragnarok): a stability-first strategy to beat the Berserker King",
   "description": "King Hrolf is a composite fight. The consistent win condition is short, guaranteed punishes and removing your main failure mode with stability gear and reset discipline.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

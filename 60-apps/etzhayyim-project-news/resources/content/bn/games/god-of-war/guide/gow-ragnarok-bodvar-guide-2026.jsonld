@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-bodvar-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-bodvar-guide-2026",
   "identifier": "gow-ragnarok-bodvar-guide-2026",
   "headline": "Bodvar the Fierce guide (God of War Ragnarok): punish only rush ends for consistent wins",
   "description": "Bodvar is a rush-end punish test. Wait for end states, confirm once, and reset when spacing breaks.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

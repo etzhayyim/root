@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "CollectionPage",
-  "@id": "urn:gftd:news:gow-ragnarok-guide-hub-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-guide-hub-2026",
   "identifier": "gow-ragnarok-guide-hub-2026",
   "headline": "God of War Ragnarok guide hub: story chart, chapter builds, boss guides, and progression checklists",
   "description": "An SEO-friendly entry point that links the full Ragnarok guide set: The Path story chart, chapter build timeline, progression playbook, and endgame boss coverage.",
@@ -25,7 +25,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-hvitserkr-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-hvitserkr-guide-2026",
   "identifier": "gow-ragnarok-hvitserkr-guide-2026",
   "headline": "Hvitserkr the Bold guide (God of War Ragnarok): poison and summon control for a consistent Berserker win",
   "description": "Hvitserkr collapses runs through poison pressure and summons. Fix the fight by prioritizing screen control: clear adds first, then take one safe punish and reset.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

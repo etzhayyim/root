@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-story-chart-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-story-chart-2026",
   "identifier": "gow-ragnarok-story-chart-2026",
   "headline": "God of War Ragnarok Story Chart: The Path (18 main missions) plus the best detour windows",
   "description": "A clear main-story map (The Path) and a chapter-level plan for when to detour for upgrades, exploration, and side content without breaking pacing.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

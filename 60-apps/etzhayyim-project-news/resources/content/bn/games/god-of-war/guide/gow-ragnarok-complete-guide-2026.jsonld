@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-complete-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-complete-guide-2026",
   "identifier": "gow-ragnarok-complete-guide-2026",
   "headline": "God of War Ragnarok Complete Guide Blueprint: A repeatable plan for builds, exploration, and boss pages",
   "description": "A guide design that scales: difficulty-based progression rules, combat fundamentals that always work, and a fixed boss-article template so you can produce consistent, high-quality walkthrough content.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

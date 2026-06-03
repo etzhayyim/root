@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gow-ragnarok-hjalti-guide-2026",
+  "@id": "urn:etzhayyim:news:gow-ragnarok-hjalti-guide-2026",
   "identifier": "gow-ragnarok-hjalti-guide-2026",
   "headline": "Hjalti the Stolid guide (God of War Ragnarok): spacing vs shockwaves and daze pressure",
   "description": "Hjalti wins on tempo breaks. Keep spacing, avoid over-committing in close range, and punish only after slam/shockwave sequences.",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
