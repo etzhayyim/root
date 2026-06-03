@@ -49,7 +49,7 @@ def get_json(url: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         url,
         headers={
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-live-ingest/0.1 (+https://houbun.etzhayyim.com)",
+            "User-Agent": "etzhayyim-houbun-live-ingest/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=45) as resp:
@@ -59,7 +59,7 @@ def get_json(url: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
 def get_bytes(url: str) -> bytes:
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "gftd-houbun-live-ingest/0.1 (+https://houbun.etzhayyim.com)"},
+        headers={"User-Agent": "etzhayyim-houbun-live-ingest/0.1 (+https://houbun.etzhayyim.com)"},
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
         return resp.read()
@@ -368,7 +368,7 @@ def existing_ids(conn: Any, table: str, ids: list[str], column: str = "vertex_id
 
 
 def insert_social_contracts(conn: Any) -> int:
-    base = REPO / "60-apps/ai-gftd-project-contracts/data/social-contracts"
+    base = REPO / "60-apps/etzhayyim-project-contracts/data/social-contracts"
     rows: list[tuple[Any, ...]] = []
     current = now_iso()
     for path in sorted(base.glob("*.jsonld")):

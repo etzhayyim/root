@@ -32,7 +32,7 @@ for (const f of listFiles()) {
   const declaresLocalFactory = /export\s+(function|const)\s+create(Hyperdrive|Kysely)Db\b/.test(text);
   if (!declaresLocalFactory) continue;
   // Allow only if it imports `createKyselyDb` from the SDK and calls it within the factory body.
-  const importsSdk = /from\s+['"]@gftd\/magatama-host-sdk\/kysely['"]/.test(text) || /from\s+['"]@gftd\/magatama-host-sdk['"]/.test(text);
+  const importsSdk = /from\s+['"]@etzhayyim\/magatama-host-sdk\/kysely['"]/.test(text) || /from\s+['"]@etzhayyim\/magatama-host-sdk['"]/.test(text);
   const delegates = /createKyselyDb\s*\(/.test(text);
   if (!(importsSdk && delegates)) offenders.push(f);
 }

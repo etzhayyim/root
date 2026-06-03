@@ -17,7 +17,7 @@ class CertificationPhase(Enum):
     INIT = "init"
     RECORDS_COLLECTED = "records_collected"
     SURVEYOR_REVIEW = "surveyor_review"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 def _init(state: dict[str, Any]) -> dict[str, Any]:

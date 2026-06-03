@@ -18,7 +18,7 @@ class HomologationPhase:
     class SERIAL: value = "serial_assigned"
     class DID: value = "trainset_did_issued"
     class AUTHORITY: value = "authority_review"
-    class ANCHORED: value = "yatachain_anchored"
+    class ANCHORED: value = "kotoba-datomic_anchored"
     class EMITTED: value = "record_emitted"
 
 def _init(state: dict[str, Any]) -> dict[str, Any]:

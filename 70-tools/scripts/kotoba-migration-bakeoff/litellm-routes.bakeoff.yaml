@@ -40,7 +40,7 @@ model_list:
     litellm_params:
       model: openai/gemma-4-26b-a4b-it
       api_base: os.environ/GEMMA26B_OPENAI_BASE
-      api_key: "sk-gftd-litellm-local"
+      api_key: "sk-etzhayyim-litellm-local"
     model_info:
       bakeoff_cost_per_mtok_in: 0.0       # local / Murakumo-native — cost measured as compute-seconds
       bakeoff_cost_per_mtok_out: 0.0

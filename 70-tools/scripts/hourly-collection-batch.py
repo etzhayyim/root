@@ -51,7 +51,7 @@ RW_USER     = "root"
 RW_DB       = "dev"
 RW_PASSWORD = ""
 
-REPO_DID    = "did:plc:gftd-collector"
+REPO_DID    = "did:plc:etzhayyim-collector"
 PATENT_COL  = "com.etzhayyim.apps.patent.patent"
 DNS_COL     = "com.etzhayyim.apps.dns.observation"
 
@@ -80,7 +80,7 @@ DNS_WORKERS  = 20
 INSERT_PAGE  = 500
 SPARQL_TIMEOUT = 90         # seconds
 
-_UA = "gftd-collector/1.0 (https://etzhayyim.com; ops@etzhayyim.com)"
+_UA = "etzhayyim-collector/1.0 (https://etzhayyim.com; ops@etzhayyim.com)"
 
 # ── logging ─────────────────────────────────────────────────────────────────────────
 

@@ -41,7 +41,7 @@ const PATH_EXEMPTIONS = [
   /^90-docs\/adr\/2605172100/,
   /^CLAUDE\.md$/,
   // The Lexicon file itself describes the v0→v1 migration in its description
-  /^00-contracts\/lexicons\/ai\/gftd\/apps\/payment\/sent\.json$/,
+  /^00-contracts\/lexicons\/ai\/etzhayyim\/apps\/payment\/sent\.json$/,
 ];
 
 let violations = 0;

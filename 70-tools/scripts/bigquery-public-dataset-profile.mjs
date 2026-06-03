@@ -31,7 +31,7 @@
  *
  * Usage:
  *   node 70-tools/scripts/bigquery-public-dataset-profile.mjs \
- *     --project gftd-bq-ingest \
+ *     --project etzhayyim-bq-ingest \
  *     --datasets bigquery-public-data:github_repos \
  *     --max-tables 20 \
  *     --max-text-columns-per-table 6 \

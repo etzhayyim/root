@@ -29,8 +29,8 @@ function runTsc(tsconfigPath, label) {
   }
 }
 
-const tmpDir = await mkdtemp(path.join(os.tmpdir(), "gftd-boundary-typecheck-"));
-const pdsSuffix = ".__gftd_boundary_forbidden__";
+const tmpDir = await mkdtemp(path.join(os.tmpdir(), "etzhayyim-boundary-typecheck-"));
+const pdsSuffix = ".__etzhayyim_boundary_forbidden__";
 const pdsForbiddenModuleBody = "export const FORBIDDEN_INDEX_IMPORT = ;\n";
 const pdsForbiddenSrcIndexPath = firstExisting(
   `50-infra/cloudflare/workers/atproto/src/index${pdsSuffix}.ts`,

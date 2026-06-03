@@ -38,7 +38,7 @@ except ImportError as exc:  # pragma: no cover
 ACTOR_DID = "did:web:history.etzhayyim.com"
 HOUBUN_DID = "did:web:houbun.etzhayyim.com"
 SPARQL_URL = "https://query.wikidata.org/sparql"
-USER_AGENT = "gftd-historical-conflict-ingest/0.1 (+https://etzhayyim.com)"
+USER_AGENT = "etzhayyim-historical-conflict-ingest/0.1 (+https://etzhayyim.com)"
 NON_ALNUM = re.compile(r"[^a-z0-9]+")
 WS = re.compile(r"\s+")
 
@@ -285,7 +285,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 0.75,
                 "wikidata",
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"participantQid": participant_qid}, sort_keys=True),
@@ -311,7 +311,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 0.45,
                 "wikidata",
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"treatyQid": treaty_qid}, sort_keys=True),
@@ -346,7 +346,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 None,
                 current,
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"wikidataQid": qid}, sort_keys=True),
@@ -364,7 +364,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 0.80,
                 "wikidata",
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"wikidataQid": qid}, sort_keys=True),
@@ -387,7 +387,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
             None,
             current,
             current,
-            "gftd",
+            "etzhayyim",
             "system",
             "sys.history",
             json.dumps({"wikidataQid": qid}, sort_keys=True),
@@ -415,7 +415,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 0.75,
                 "wikidata",
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"participantQid": participant_qid}, sort_keys=True),
@@ -451,7 +451,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 None,
                 current,
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"wikidataQid": qid}, sort_keys=True),
@@ -469,7 +469,7 @@ def collect(limit_conflicts: int, limit_treaties: int, offset: int) -> dict[str,
                 0.80,
                 "wikidata",
                 current,
-                "gftd",
+                "etzhayyim",
                 "system",
                 "sys.history",
                 json.dumps({"wikidataQid": qid}, sort_keys=True),
@@ -751,7 +751,7 @@ def resolve_rw_url() -> str:
         return os.environ["RW_URL"]
     if shutil.which("security"):
         proc = subprocess.run(
-            ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+            ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
             text=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
@@ -759,7 +759,7 @@ def resolve_rw_url() -> str:
         )
         if proc.returncode == 0 and proc.stdout.strip():
             return proc.stdout.strip()
-    raise SystemExit("RW_URL is required or gftd.rw/ROOT_URL must exist in macOS Keychain")
+    raise SystemExit("RW_URL is required or etzhayyim.rw/ROOT_URL must exist in macOS Keychain")
 
 
 def write_jsonl(path: str, data: dict[str, Any]) -> None:

@@ -53,7 +53,7 @@ const EXEMPT_PATH_PATTERNS = [
   /\/fixtures?\//,
   // Lexicon SoTs (they define the inner schema, not write it).
   /^00-contracts\/lexicons\/app\/etzhayyim\/karute\//,
-  /^00-contracts\/lexicons\/ai\/gftd\/apps\/karute\//,
+  /^00-contracts\/lexicons\/ai\/etzhayyim\/apps\/karute\//,
   // The actor manifest references inner-type names inside the encrypted.write step.
   /^20-actors\/karute\/actor-manifest\.jsonld$/,
   // The ADR + CLAUDE.md explain the rule and cite inner-type names.

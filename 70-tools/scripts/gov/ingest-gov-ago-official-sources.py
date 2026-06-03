@@ -26,7 +26,7 @@ import psycopg2
 
 
 OWNER_DID = "did:web:ago-state.etzhayyim.com"
-BUCKET = os.environ.get("etzhayyim_B2_BUCKET", "ai-gftd-nats")
+BUCKET = os.environ.get("etzhayyim_B2_BUCKET", "etzhayyim-nats")
 ENDPOINT = os.environ.get("etzhayyim_B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")
 PREFIX = "official-sources/ago/governo"
 
@@ -78,7 +78,7 @@ def fetch_html(url: str, out_path: Path) -> bytes:
             "--max-time",
             "180",
             "-A",
-            "gftd-gov-ago-official-source-archiver/0.1",
+            "etzhayyim-gov-ago-official-source-archiver/0.1",
             "-o",
             str(out_path),
             url,
@@ -353,9 +353,9 @@ def upsert_rows_with_retry(conn: Any, source: dict[str, str], assets: dict[str, 
 
 
 def main() -> None:
-    rw_url = os.environ.get("RW_URL") or os.environ.get("DATABASE_URL") or keychain("gftd.rw", "ROOT_URL")
-    key_id = os.environ.get("etzhayyim_B2_KEY_ID") or keychain("gftd.b2", "APPLICATION_KEY_ID")
-    app_key = os.environ.get("etzhayyim_B2_APP_KEY") or keychain("gftd.b2", "APPLICATION_KEY")
+    rw_url = os.environ.get("RW_URL") or os.environ.get("DATABASE_URL") or keychain("etzhayyim.rw", "ROOT_URL")
+    key_id = os.environ.get("etzhayyim_B2_KEY_ID") or keychain("etzhayyim.b2", "APPLICATION_KEY_ID")
+    app_key = os.environ.get("etzhayyim_B2_APP_KEY") or keychain("etzhayyim.b2", "APPLICATION_KEY")
     client = boto3.client(
         "s3",
         endpoint_url=ENDPOINT,

@@ -37,7 +37,7 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
-CLASS_DIR = REPO_ROOT / "60-apps" / "ai-gftd-project-open-isic" / "data" / "classes"
+CLASS_DIR = REPO_ROOT / "60-apps" / "etzhayyim-project-open-isic" / "data" / "classes"
 OUT_DIR = (
     REPO_ROOT
     / "20-actors"

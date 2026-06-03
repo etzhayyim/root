@@ -34,7 +34,7 @@ Safety:
     see a re-deploy, and the F5 watcher doesn't retry.
 
 Env:
-  RW_URL    postgresql://…  ;  default from Keychain gftd.rw/ROOT_URL
+  RW_URL    postgresql://…  ;  default from Keychain etzhayyim.rw/ROOT_URL
 
 Usage:
   migrate-bpmn-vertex-ids.py                          # dry-run (default)
@@ -57,10 +57,10 @@ from typing import Any
 BPMN_REPO_PREFIX = "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn"
 
 CANONICAL_DEF_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.etzhayyim\.ai/com\.etzhayyim\.apps\.bpmn\.processDef/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 CANONICAL_BIND_VID_RE = re.compile(
-    r"^at://did:web:bpmn\.gftd\.ai/com\.etzhayyim\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
+    r"^at://did:web:bpmn\.etzhayyim\.ai/com\.etzhayyim\.apps\.bpmn\.binding/[a-z0-9][a-zA-Z0-9-]*-v\d+$"
 )
 
 
@@ -68,11 +68,11 @@ def rw_url() -> str:
     if url := os.environ.get("RW_URL"):
         return url
     out = subprocess.check_output(
-        ["security", "find-generic-password", "-s", "gftd.rw", "-a", "ROOT_URL", "-w"],
+        ["security", "find-generic-password", "-s", "etzhayyim.rw", "-a", "ROOT_URL", "-w"],
         text=True,
     ).strip()
     if not out:
-        raise SystemExit("RW_URL not in env and not in Keychain (gftd.rw/ROOT_URL)")
+        raise SystemExit("RW_URL not in env and not in Keychain (etzhayyim.rw/ROOT_URL)")
     return out
 
 

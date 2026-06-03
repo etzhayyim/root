@@ -4,7 +4,7 @@
  * ║  SUPERSEDED — DO NOT RUN ON THE RELIGIOUS-CORP SUBSTRATE              ║
  * ║                                                                       ║
  * ║  Status: pre-religious-corp commercial-fund era artifact (writes to   ║
- * ║          AT Protocol PDS but uses gftd-side legacy NSID + pre-Charter ║
+ * ║          AT Protocol PDS but uses etzhayyim-side legacy NSID + pre-Charter ║
  * ║          Rider provenance fields).                                    ║
  * ║                                                                       ║
  * ║  Superseded by: ADR-2605263800 (Global corporate-disclosure ingestion ║
@@ -16,7 +16,7 @@
  * ║    - DataLad subdataset + IPFS-pin storage of full GLEIF L1+L2+RepEx  ║
  * ║      concatenated files (NOT per-row PDS createRecord)                ║
  * ║    - com.etzhayyim.corp.leiReference Lexicon record canonical         ║
- * ║      (NOT legacy gftd-side NSID; CC0 1.0 attribution preserved)       ║
+ * ║      (NOT legacy etzhayyim-side NSID; CC0 1.0 attribution preserved)       ║
  * ║    - LeiSensor Protocol (pymagatama.organism.sensors.corp.lei_sensor) ║
  * ║      acts as the canonical cross-jurisdiction key resolver — other    ║
  * ║      corp sensors look up local registry ID against this pin          ║
@@ -55,7 +55,7 @@
  *   --active-only      Only ingest ACTIVE entities (default: true)
  *
  * Auth (PDS mode):
- *   export BEARER_TOKEN=$(gftd auth token)
+ *   export BEARER_TOKEN=$(etzhayyim auth token)
  *   Or set PDS_HANDLE + PDS_PASSWORD for createSession.
  *
  * Resume:

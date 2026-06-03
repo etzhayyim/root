@@ -458,7 +458,7 @@ async function* streamFraOds(startOffset, totalPages) {
           if (attempt > 0) await new Promise((r) => setTimeout(r, 8_000 * attempt));
           try {
             const resp = await fetch(url, {
-              headers: { "Accept": "application/json", "User-Agent": "gftd-legal-entity/1.0" },
+              headers: { "Accept": "application/json", "User-Agent": "etzhayyim-legal-entity/1.0" },
               signal: AbortSignal.timeout(30_000),
             });
             if (resp.status === 429 || resp.status >= 500) { await new Promise((r) => setTimeout(r, 15_000)); continue; }
@@ -3520,7 +3520,7 @@ function gleifDaysInMonth(year, month) {
 async function gleifFetch(url, attempt = 0) {
   try {
     const resp = await fetch(url, {
-      headers: { "Accept": "application/vnd.api+json", "User-Agent": "gftd-legal-entity/1.0" },
+      headers: { "Accept": "application/vnd.api+json", "User-Agent": "etzhayyim-legal-entity/1.0" },
       signal: AbortSignal.timeout(30_000),
     });
     if (resp.status === 429) {

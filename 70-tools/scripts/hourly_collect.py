@@ -63,7 +63,7 @@ RW_USER     = "root"
 RW_DATABASE = "dev"
 RW_PASSWORD = ""
 
-REPO_DID    = "did:plc:gftd-collector"
+REPO_DID    = "did:plc:etzhayyim-collector"
 PATENT_COL  = "com.etzhayyim.apps.patent.patent"
 DNS_COL     = "com.etzhayyim.apps.dns.observation"
 
@@ -76,7 +76,7 @@ DNS_WORKERS    = 20
 INSERT_PAGE    = 500
 SPARQL_TIMEOUT = 90        # Wikidata server timeout is ~60s; give some headroom
 
-_UA = "gftd-collector/1.0 (contact: ops@etzhayyim.com)"
+_UA = "etzhayyim-collector/1.0 (contact: ops@etzhayyim.com)"
 
 # ── logging ───────────────────────────────────────────────────────────────────
 

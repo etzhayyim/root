@@ -34,7 +34,7 @@ ROOT = Path(__file__).resolve().parents[3]                       # repo root
 HERE = Path(__file__).resolve().parent
 BUILD = ROOT / "40-engine/kotoba/scripts/build-pywasm.sh"
 GATEWAY = os.environ.get("KOTOBA_GATEWAY", "http://127.0.0.1:4000/v1/chat/completions")
-GATEWAY_KEY = os.environ.get("KOTOBA_GATEWAY_KEY", "sk-gftd-litellm-local")
+GATEWAY_KEY = os.environ.get("KOTOBA_GATEWAY_KEY", "sk-etzhayyim-litellm-local")
 KOTOBA = os.environ.get("KOTOBA_SERVER", "http://localhost:8077")
 OPERATOR_DID = os.environ.get("KOTOBA_OPERATOR_DID", "did:key:ze2e169933f9bcc6cb218e083b3d2a80c5a5a2b92fbf3cb41b4d5283ce3f6939f")
 

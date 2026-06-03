@@ -260,7 +260,7 @@ function makeArtifacts(actor, byNode, assistantSpec) {
   let sql = `-- DRAFT — bulk-51 actor ${actor} → mcp_tool migration\n`;
   sql += `-- Re-run the generator (gen-bulk51-mcp-migration-draft.mjs) to refresh.\n\n`;
   for (const m of methods) {
-    const slug = `ai-gftd-apps-${actor}-${m.method}`;
+    const slug = `etzhayyim-apps-${actor}-${m.method}`;
     sql += `INSERT INTO vertex_mcp_tool_def\n`;
     sql += `  (vertex_id, _seq, sensitivity_ord, nsid, actor_did, actor_host, lexicon_type,\n`;
     sql += `   description, input_schema, output_schema, visibility, version, enabled,\n`;
