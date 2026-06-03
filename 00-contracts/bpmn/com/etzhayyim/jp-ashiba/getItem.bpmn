@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_jp_ashiba_get_item" targetNamespace="https://gftd.ai/bpmn/jp-ashiba" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_jp_ashiba_get_item" targetNamespace="https://etzhayyim.ai/bpmn/jp-ashiba" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jp_ashiba_get_item" name="getItem" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Start_Task</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_Start_Task" sourceRef="Start" targetRef="Task_getItem"/>

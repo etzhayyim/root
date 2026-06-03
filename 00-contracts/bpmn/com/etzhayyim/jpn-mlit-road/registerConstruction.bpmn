@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jpn_mlit_road_register_construction"
-    targetNamespace="https://gftd.ai/bpmn/jpn-mlit-road"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-mlit-road"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jpn_mlit_road_register_construction" name="MLIT 道路工事届" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -33,7 +33,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-mlit-road.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-mlit-road.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnMlitRoad.construction.register&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, constructionId: constructionId, roadCode: roadCode, workType: workType, expectedImpact: expectedImpact}" target="payload"/>
         </zeebe:ioMapping>

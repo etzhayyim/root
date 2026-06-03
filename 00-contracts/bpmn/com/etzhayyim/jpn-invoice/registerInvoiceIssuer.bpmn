@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jpn_invoice_register_issuer"
-    targetNamespace="https://gftd.ai/bpmn/jpn-invoice"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-invoice"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jpn_invoice_register_issuer" name="国税庁 インボイス登録" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -32,7 +32,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-invoice.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-invoice.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnInvoice.issuer.register&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, registrationNumber: registrationNumber, issuerType: issuerType, corporateNumber: corporateNumber}" target="payload"/>
         </zeebe:ioMapping>

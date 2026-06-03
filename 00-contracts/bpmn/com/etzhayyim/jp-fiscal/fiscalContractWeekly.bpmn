@@ -11,14 +11,14 @@
   Cadence: R/P7D (weekly; Zeebe timer-start fires once per 7 days).
 
   NSID: com.etzhayyim.apps.jpFiscal.fiscalContractWeekly
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/jp-fiscal-contract-weekly-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jp_fiscal_contract_weekly"
-    targetNamespace="https://gftd.ai/bpmn/jp-fiscal"
+    targetNamespace="https://etzhayyim.ai/bpmn/jp-fiscal"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="jp_fiscal_contract_weekly" name="JP Fiscal contract weekly" isExecutable="true">
@@ -60,7 +60,7 @@
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.etzhayyim.apps.jpFiscal.fiscalContractWeekly&quot;"  target="event_type"/>
-          <zeebe:input source="=&quot;did:web:jp-fiscal.gftd.ai&quot;"                    target="actor_did"/>
+          <zeebe:input source="=&quot;did:web:jp-fiscal.etzhayyim.com&quot;"                    target="actor_did"/>
           <zeebe:input source="={ contractWritten: contractWritten, contractErrors: contractErrors }" target="attributes"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

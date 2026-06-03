@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_jpn_invoice_record_corporate_tax_filing"
-    targetNamespace="https://gftd.ai/bpmn/jpn-invoice"
+    targetNamespace="https://etzhayyim.ai/bpmn/jpn-invoice"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="jpn_invoice_record_corporate_tax_filing" name="国税庁 法人税申告" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -57,7 +57,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-invoice.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-invoice.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnInvoice.tax.auditRequired&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, filerCorporateNumber: filerCorporateNumber, fiscalYear: fiscalYear, sizeTier: sizeTier, taxPayable: taxPayable}" target="payload"/>
         </zeebe:ioMapping>
@@ -69,7 +69,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn-invoice.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn-invoice.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;jpnInvoice.tax.accept&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, filerCorporateNumber: filerCorporateNumber, fiscalYear: fiscalYear, sizeTier: sizeTier, taxPayable: taxPayable}" target="payload"/>
         </zeebe:ioMapping>
