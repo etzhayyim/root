@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Run Murakumo Vision (qwen3-vl-8b) over the curated Mapillary images for a tile, extracting visible entities (Building, Storefront, Sign, Vehicle, Person...) plus OCR text. Emits one VisionResult per detected entity with bbox, label, confidence, and OCR. Re-uses the maps `analyze_image` / `vision_import_entities` pipeline (`60-apps/ai-gftd-project-maps/CLAUDE.md` §Vision Intelligence). Output is consumed by `linkActor` to bind detected entities to legal-entity DIDs.",
+      "description": "Run Murakumo Vision (qwen3-vl-8b) over the curated Mapillary images for a tile, extracting visible entities (Building, Storefront, Sign, Vehicle, Person...) plus OCR text. Emits one VisionResult per detected entity with bbox, label, confidence, and OCR. Re-uses the maps `analyze_image` / `vision_import_entities` pipeline (`60-apps/etzhayyim-project-maps/CLAUDE.md` §Vision Intelligence). Output is consumed by `linkActor` to bind detected entities to legal-entity DIDs.",
       "input": {
         "encoding": "application/json",
         "schema": {
