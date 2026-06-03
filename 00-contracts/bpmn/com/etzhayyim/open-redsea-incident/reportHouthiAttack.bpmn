@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_redsea_incident_houthi"
-    targetNamespace="https://gftd.ai/bpmn/open-redsea-incident"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-redsea-incident"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_redsea_incident_houthi" name="Houthi 攻撃" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -25,7 +25,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-redsea-incident.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-redsea-incident.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openRedseaIncident.attack.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, attackId: attackId, weaponType: weaponType, impact: impact}" target="payload"/>
         </zeebe:ioMapping>
