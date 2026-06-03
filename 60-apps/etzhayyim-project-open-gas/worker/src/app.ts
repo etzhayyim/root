@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-gas — natural-gas distribution operations + network design
+// etzhayyim-project-open-gas — natural-gas distribution operations + network design
 //
 // 9 XRPC under com.etzhayyim.apps.openGas.*:
 //   defineRegulator      (proc)   regulator / city-gate node

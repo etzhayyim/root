@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-gas",
-  "convoSystemPrompt": "You are the GFTD Open Gas agent. You manage natural-gas distribution network design (regulators, pipe segments, MAOP), meter ingest, and leak/pressure reporting. Apply gas safety rules: MAOP enforcement, DOT-aligned 1/2/3 leak grading, immediate emergency notice on class-1 leaks, regulator audit on pressure-over-MAOP.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Gas agent. You manage natural-gas distribution network design (regulators, pipe segments, MAOP), meter ingest, and leak/pressure reporting. Apply gas safety rules: MAOP enforcement, DOT-aligned 1/2/3 leak grading, immediate emergency notice on class-1 leaks, regulator audit on pressure-over-MAOP.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["dot-49cfr192-aligned", "gftd-ops-policy"]
+    "complianceFrameworks": ["dot-49cfr192-aligned", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Gas",
+    "displayName": "ETZHAYYIM Open Gas",
     "description": "Open-source natural-gas utility reference implementation — regulator/segment design + meter readings + leak grading + pressure surveillance.",
     "avatar": "🔥",
     "category": "utility",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "regulator-define",
@@ -44,7 +44,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Gas",
+    "name": "ETZHAYYIM Open Gas",
     "description": "Open-source natural-gas utility reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",
