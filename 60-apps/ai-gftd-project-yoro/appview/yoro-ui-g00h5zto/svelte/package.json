@@ -57,7 +57,7 @@
     "@etzhayyim/xrpc": "workspace:*",
     "@etzhayyim/auth": "workspace:*",
     "@etzhayyim/design-system": "workspace:*",
-    "@huggingface/transformers": "^3.8.1",
+    "@huggingface/transformers": "^4.2.0",
     "@inlang/paraglide-js": "^2.15.3",
     "@langchain/core": "^1.1.46",
     "@langchain/langgraph-sdk": "^1.9.2",
