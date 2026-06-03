@@ -12679,6 +12679,36 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+      "type": "TechArticle",
+      "title": "ADR-2606032031: Session close — gftd/yatachain app rename sweep pause (etzhayyim + kotoba Datomic/EDN)",
+      "status": "active",
+      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605212100-gftd-to-etzhayyim-migration-batch",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
+      "id": "doc:adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause",
+      "type": "TechArticle",
+      "title": "ADR-2606032045: Session close — gftd/yatachain app rename sweep paused after news batch 47",
+      "status": "active",
+      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606032100",
       "type": "TechArticle",
       "title": "Labor-Liberation Robotics-Actor Wave — ISIC/ISCO/UNSPSC ranking of the un-automated toil + sanae/hataori/kiyome R0",
