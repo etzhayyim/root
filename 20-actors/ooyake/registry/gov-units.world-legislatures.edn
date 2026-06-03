@@ -95,9 +95,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "atg"
    :gov.unit/name-en "Parliament of Antigua and Barbuda"
+   :gov.unit/official-url "http://parliament.gov.ag/"
    :gov.unit/wikidata "Q1280751"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1280751" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://parliament.gov.ag/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.aus.legislature"
@@ -142,9 +143,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bdi"
    :gov.unit/name-en "Parliament of Burundi"
+   :gov.unit/official-url "https://assemblee.bi/"
    :gov.unit/wikidata "Q7138930"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7138930" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://assemblee.bi/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bel.legislature"
@@ -213,9 +215,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bhr"
    :gov.unit/name-en "National Assembly of Bahrain"
+   :gov.unit/official-url "https://www.nuwab.bh/en/"
    :gov.unit/wikidata "Q3242616"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3242616" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nuwab.bh/en/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bhs.legislature"
@@ -224,9 +227,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bhs"
    :gov.unit/name-en "Parliament of The Bahamas"
+   :gov.unit/official-url "https://bahamasparliament.org/"
    :gov.unit/wikidata "Q1572486"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1572486" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://bahamasparliament.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bih.legislature"
@@ -247,9 +251,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "blr"
    :gov.unit/name-en "National Assembly of the Republic of Belarus"
+   :gov.unit/official-url "http://www.house.gov.by/en/"
    :gov.unit/wikidata "Q1798607"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1798607" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.house.gov.by/en/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.blz.legislature"
@@ -270,9 +275,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "bol"
    :gov.unit/name-en "Plurinational Legislative Assembly"
+   :gov.unit/official-url "https://diputados.gob.bo/"
    :gov.unit/wikidata "Q1968458"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1968458" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://diputados.gob.bo/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.bra.legislature"
@@ -341,9 +347,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "caf"
    :gov.unit/name-en "National Assembly"
+   :gov.unit/official-url "http://www.assembleenationale-rca.cf/"
    :gov.unit/wikidata "Q1577158"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1577158" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "http://www.assembleenationale-rca.cf/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.can.legislature"
@@ -400,9 +407,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "civ"
    :gov.unit/name-en "Parliament of Ivory Coast"
+   :gov.unit/official-url "https://www.assnat.ci/"
    :gov.unit/wikidata "Q27881072"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q27881072" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.assnat.ci/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cmr.legislature"
@@ -411,9 +419,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "cmr"
    :gov.unit/name-en "Parliament of Cameroon"
+   :gov.unit/official-url "https://www.assnat.cm/"
    :gov.unit/wikidata "Q25039919"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q25039919" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.assnat.cm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cod.legislature"
@@ -422,9 +431,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "cod"
    :gov.unit/name-en "Parliament of the Democratic Republic of the Congo"
+   :gov.unit/official-url "https://assembleenationale.cd/"
    :gov.unit/wikidata "Q282928"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q282928" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://assembleenationale.cd/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.cog.legislature"
@@ -433,9 +443,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "cog"
    :gov.unit/name-en "Parliament of the Republic of the Congo"
+   :gov.unit/official-url "https://www.assemblee-nationale.cg/"
    :gov.unit/wikidata "Q4345421"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4345421" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.assemblee-nationale.cg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.col.legislature"
@@ -444,9 +455,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "col"
    :gov.unit/name-en "Congress of Colombia"
+   :gov.unit/official-url "https://www.camara.gov.co/"
    :gov.unit/wikidata "Q1284236"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1284236" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.camara.gov.co/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.com.legislature"
@@ -514,9 +526,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "cze"
    :gov.unit/name-en "Parliament of the Czech Republic"
+   :gov.unit/official-url "https://www.psp.cz/"
    :gov.unit/wikidata "Q2347172"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2347172" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.psp.cz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.deu.legislature"
@@ -561,9 +574,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "dom"
    :gov.unit/name-en "Congress of the Dominican Republic"
+   :gov.unit/official-url "https://www.camaradediputados.gob.do/"
    :gov.unit/wikidata "Q595411"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q595411" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.camaradediputados.gob.do/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.dza.legislature"
@@ -596,9 +610,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "egy"
    :gov.unit/name-en "Parliament of Egypt"
+   :gov.unit/official-url "https://www.parliament.gov.eg/"
    :gov.unit/wikidata "Q2584535"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2584535" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.parliament.gov.eg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.esp.legislature"
@@ -631,9 +646,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "eth"
    :gov.unit/name-en "Federal Parliamentary Assembly"
+   :gov.unit/official-url "https://www.hopr.gov.et/"
    :gov.unit/wikidata "Q257899"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q257899" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.hopr.gov.et/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.fin.legislature"
@@ -690,9 +706,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "gab"
    :gov.unit/name-en "Parliament of Gabon"
+   :gov.unit/official-url "https://www.assemblee-nationale.ga/"
    :gov.unit/wikidata "Q4345413"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4345413" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.assemblee-nationale.ga/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gbr.legislature"
@@ -737,9 +754,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "gin"
    :gov.unit/name-en "National Assembly"
+   :gov.unit/official-url "https://cnt.gov.gn/"
    :gov.unit/wikidata "Q1853235"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1853235" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://cnt.gov.gn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gmb.legislature"
@@ -1035,9 +1053,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "khm"
    :gov.unit/name-en "Parliament of Cambodia"
+   :gov.unit/official-url "https://www.nac.org.kh/"
    :gov.unit/wikidata "Q1320418"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1320418" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.nac.org.kh/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.kir.legislature"
@@ -1118,9 +1137,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "lbr"
    :gov.unit/name-en "Legislature of Liberia"
+   :gov.unit/official-url "https://www.liberialegislature.org/"
    :gov.unit/wikidata "Q4345418"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q4345418" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.liberialegislature.org/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.lby.legislature"
@@ -1261,9 +1281,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mdg"
    :gov.unit/name-en "Parliament of Madagascar"
+   :gov.unit/official-url "https://assemblee-nationale.mg/"
    :gov.unit/wikidata "Q3919000"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q3919000" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://assemblee-nationale.mg/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mdv.legislature"
@@ -1284,9 +1305,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "mex"
    :gov.unit/name-en "Congress of the Union"
+   :gov.unit/official-url "https://www.diputados.gob.mx/"
    :gov.unit/wikidata "Q1484825"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1484825" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.diputados.gob.mx/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.mhl.legislature"
@@ -1511,9 +1533,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "omn"
    :gov.unit/name-en "Council of Oman"
+   :gov.unit/official-url "https://www.shura.om/"
    :gov.unit/wikidata "Q5176472"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5176472" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.shura.om/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pak.legislature"
@@ -1522,9 +1545,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "pak"
    :gov.unit/name-en "Parliament of Pakistan"
+   :gov.unit/official-url "https://www.na.gov.pk/"
    :gov.unit/wikidata "Q2665089"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2665089" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.na.gov.pk/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.pan.legislature"
@@ -1557,9 +1581,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "phl"
    :gov.unit/name-en "Congress of the Philippines"
+   :gov.unit/official-url "https://www.congress.gov.ph/"
    :gov.unit/wikidata "Q1542985"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1542985" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.congress.gov.ph/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.plw.legislature"
@@ -1592,9 +1617,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "pol"
    :gov.unit/name-en "Parliament of Poland"
+   :gov.unit/official-url "https://www.sejm.gov.pl/"
    :gov.unit/wikidata "Q2102558"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q2102558" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.sejm.gov.pl/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.prk.legislature"
@@ -1686,9 +1712,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "sau"
    :gov.unit/name-en "Government of Saudi Arabia"
+   :gov.unit/official-url "https://www.shura.gov.sa/"
    :gov.unit/wikidata "Q62399316"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q62399316" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://www.shura.gov.sa/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.sdn.legislature"
@@ -1804,9 +1831,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "ssd"
    :gov.unit/name-en "National Legislature of South Sudan"
+   :gov.unit/official-url "https://nla.gov.ss/"
    :gov.unit/wikidata "Q5018721"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q5018721" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://nla.gov.ss/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.stp.legislature"
@@ -1959,9 +1987,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tkm"
    :gov.unit/name-en "National Council of Turkmenistan"
+   :gov.unit/official-url "https://mejlis.gov.tm/"
    :gov.unit/wikidata "Q106506537"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q106506537" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://mejlis.gov.tm/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tls.legislature"
@@ -2006,9 +2035,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tun"
    :gov.unit/name-en "Assembly of the Representatives of the People"
+   :gov.unit/official-url "https://arp.tn/"
    :gov.unit/wikidata "Q18342090"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q18342090" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://arp.tn/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tur.legislature"
@@ -2029,9 +2059,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "tuv"
    :gov.unit/name-en "Parliament of Tuvalu"
+   :gov.unit/official-url "https://parliament.gov.tv/"
    :gov.unit/wikidata "Q897278"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q897278" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://parliament.gov.tv/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.tza.legislature"
@@ -2100,9 +2131,10 @@
    :gov.unit/level :legislature :gov.unit/branch :legislative
    :gov.unit/jurisdiction "uzb"
    :gov.unit/name-en "Oliy Majlis"
+   :gov.unit/official-url "https://parliament.gov.uz/"
    :gov.unit/wikidata "Q1583318"
    :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q1583318" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/provenance "https://parliament.gov.uz/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.vct.legislature"

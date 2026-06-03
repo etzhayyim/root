@@ -43,6 +43,30 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — legislature official sites: 32 parliaments web-verified (150 → 182/186)
+
+Coverage-depth pass on the legislature tier (same method as the country pass). 36 of
+186 national legislatures had no `:gov.unit/official-url`. Fanned out 3 web-research
+subagents (12 each) to find + **confirm each parliament's own official site by fetching
+it** (no guessing). 32 confirmed and added (provenance switched from the Wikidata page
+to the body's own official URL; `:last-verified` → 2026-06-04). For bicameral bodies
+the main/lower chamber's official site was used where no combined-parliament site exists.
+
+- 150 → **182/186** legislatures now carry an official site.
+- 4 HONESTLY left null (G5 over coverage-count):
+  - **Comoros** — the IPU-cited assemblee-comores.com is now a hijacked business directory.
+  - **Equatorial Guinea** — no dedicated official Cámara de los Diputados site exists.
+  - **North Korea (Supreme People's Assembly)** — no official web presence exists.
+  - **Sudan** — National Legislature dissolved 2019, never reconstituted; domain dead.
+- Honest substitutions recorded: **Guinea** → the current Conseil National de la
+  Transition (cnt.gov.gn; the National Assembly was dissolved after the 2021 coup);
+  **Turkmenistan** → the unicameral Mejlis (the Milli Gengesh upper house was abolished
+  Jan 2023). Fetch caveats (DNS-unstable .cf/.ag, bot-blocked .pk/.ph) noted but all on
+  genuine official parliamentary domains, IPU-Parline-corroborated.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — country official-portal URLs: 29 sovereign states web-verified (162 → 191/192)
 
 Coverage-depth pass on the country tier. `world_coverage.py` showed 30 of 192
