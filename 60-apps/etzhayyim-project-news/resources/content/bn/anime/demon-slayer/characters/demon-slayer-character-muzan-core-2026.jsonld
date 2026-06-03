@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:demon-slayer-character-muzan-core-2026",
+  "@id": "urn:etzhayyim:news:demon-slayer-character-muzan-core-2026",
   "identifier": "demon-slayer-character-muzan-core-2026",
   "headline": "Muzan Kibutsuji character analysis: their role as the story’s engine in Demon Slayer: Kimetsu no Yaiba",
   "description": "A focused look at Muzan Kibutsuji in Demon Slayer: Kimetsu no Yaiba, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:tanjiro-growth-analysis-2026",
+  "@id": "urn:etzhayyim:news:tanjiro-growth-analysis-2026",
   "identifier": "tanjiro-growth-analysis-2026",
   "headline": "竈門炭治郎の成長分析：優しさを武器に変えた少年の戦いと、鬼への共感が持つ物語的意義",
   "description": "『鬼滅の刃』の主人公・竈門炭治郎のキャラクター分析。家族を失った炭焼きの少年が鬼殺の剣士へと成長する過程で、「鬼にすら同情する優しさ」がいかに作品のテーマを体現しているかを考察。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
