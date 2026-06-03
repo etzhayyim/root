@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-sky-children-of-the-light-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-sky-children-of-the-light-series-primer-2026",
   "identifier": "games-sky-children-of-the-light-series-primer-2026",
   "headline": "Sky: Children of the Light primer: the design ideas behind its world and characters",
   "description": "A starter guide to Sky: Children of the Light, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

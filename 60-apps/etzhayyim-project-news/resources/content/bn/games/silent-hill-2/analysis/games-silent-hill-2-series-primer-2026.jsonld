@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-silent-hill-2-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-silent-hill-2-series-primer-2026",
   "identifier": "games-silent-hill-2-series-primer-2026",
   "headline": "SILENT HILL 2 primer: the design ideas behind its world and characters",
   "description": "A starter guide to SILENT HILL 2, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

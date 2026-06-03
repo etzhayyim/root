@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-s-t-a-l-k-e-r-2-heart-of-chornobyl-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-s-t-a-l-k-e-r-2-heart-of-chornobyl-series-primer-2026",
   "identifier": "games-s-t-a-l-k-e-r-2-heart-of-chornobyl-series-primer-2026",
   "headline": "S.T.A.L.K.E.R. 2: Heart of Chornobyl primer: the design ideas behind its world and characters",
   "description": "A starter guide to S.T.A.L.K.E.R. 2: Heart of Chornobyl, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
