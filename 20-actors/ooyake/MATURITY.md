@@ -43,6 +43,15 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-03 — HQ locations extended to all national bodies (L3 depth, cont.)
+
+`gov-units.hq-locations-2.edn` extends HQ geolocation to the **remaining national
+bodies** — the 18 executive ministry types + the independent oversight/regulatory +
+statistical/prosecution/revenue agencies (those not in hq-locations.edn). **1,280 more
+`:gov.address` records** (Wikidata P625 + P159 via light REST). Total `:gov.address`
+now **1,913** (was ~633), **743 with precise lat/lon** — the whole national tier of the
+atlas is now substantially map-ready.
+
 ## 2026-06-03 — HQ locations for iconic national institutions (L3 depth)
 
 The L3 public-services-hub axis was JP/G7-only (~21 addresses). `gov-units.hq-locations.edn`
