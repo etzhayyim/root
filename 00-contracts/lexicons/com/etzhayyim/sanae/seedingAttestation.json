@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sanae.seedingAttestation",
+  "description": "Witnessed seeding attestation for sanae precision-seeding work. R0 records are simulation or bench attestations only.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fieldDid", "seedLotCid", "seededAt", "rPhase", "witnessRobotDids", "operatorDid"],
+        "properties": {
+          "fieldDid": {"type": "string", "format": "did"},
+          "seedLotCid": {"type": "string", "description": "CID for the seed-lot provenance record."},
+          "cropKind": {"type": "string", "maxLength": 128},
+          "areaSquareMeters": {"type": "integer", "minimum": 0},
+          "seededAt": {"type": "string", "format": "datetime"},
+          "rPhase": {"type": "string", "knownValues": ["R0", "R1", "R2", "R3"]},
+          "witnessRobotDids": {"type": "array", "items": {"type": "string", "format": "did"}, "minItems": 2},
+          "operatorDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}
