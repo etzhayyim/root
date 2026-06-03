@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "Issue an EIP-4361 (SIWE) message for the caller to sign with an Ethereum EOA or Coinbase Smart Wallet-compatible account. Caller must already hold a valid session (passkey-first policy, ADR-0074) that resolves to an ERC725 root identity. The returned message embeds the wallet address, the configured private chain ID, a server-issued nonce, and an expiration. The nonce is single-use and tied to the caller's ERC725 root DID; legacy did:gftd/did:web values are accepted only as facade lookup inputs.",
+      "description": "Issue an EIP-4361 (SIWE) message for the caller to sign with an Ethereum EOA or Coinbase Smart Wallet-compatible account. Caller must already hold a valid session (passkey-first policy, ADR-0074) that resolves to an ERC725 root identity. The returned message embeds the wallet address, the configured private chain ID, a server-issued nonce, and an expiration. The nonce is single-use and tied to the caller's ERC725 root DID; legacy did:etzhayyim/did:web values are accepted only as facade lookup inputs.",
       "input": {
         "encoding": "application/json",
         "schema": {

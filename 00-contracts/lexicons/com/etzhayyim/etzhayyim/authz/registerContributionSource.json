@@ -13,7 +13,7 @@
           "properties": {
             "canonicalId": {
               "type": "string",
-              "description": "Stable identifier that becomes keccak256(canonicalId) = sourceHash. E.g. 'github.com/etzhayyim/ai-gftd-apps' or 'ipfs://bafyXXX'."
+              "description": "Stable identifier that becomes keccak256(canonicalId) = sourceHash. E.g. 'github.com/etzhayyim/etzhayyim-apps' or 'ipfs://bafyXXX'."
             },
             "contributorAddr": {
               "type": "string",
