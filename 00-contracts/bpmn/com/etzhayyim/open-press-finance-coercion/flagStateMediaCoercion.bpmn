@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_press_finance_coercion_flag_state_media_coercion"
-    targetNamespace="https://gftd.ai/bpmn/open-press-finance-coercion"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-press-finance-coercion"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_press_finance_coercion_flag_state_media_coercion" name="報道機関 国家強要" isExecutable="true">
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-press-finance-coercion.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-press-finance-coercion.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;info.pressCoercion&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: outletLei, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

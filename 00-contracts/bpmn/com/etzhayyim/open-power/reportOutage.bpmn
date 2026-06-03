@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_power_report_outage"
-    targetNamespace="https://gftd.ai/bpmn/open-power"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-power"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_power_report_outage" name="停電 報告" isExecutable="true">
@@ -94,7 +94,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-power.gftd.ai:grid&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-power.etzhayyim.com:grid&quot;" target="actor"/>
           <zeebe:input source="=&quot;openPower.outage.publicNotice&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, severity: severity, feederVertexId: feederVertexId, customersAffected: customersAffected}" target="payload"/>
         </zeebe:ioMapping>
@@ -107,7 +107,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-power.gftd.ai:grid&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-power.etzhayyim.com:grid&quot;" target="actor"/>
           <zeebe:input source="=&quot;openPower.outage.log&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, severity: severity, feederVertexId: feederVertexId}" target="payload"/>
         </zeebe:ioMapping>

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_ports_flag_dark_fleet"
-    targetNamespace="https://gftd.ai/bpmn/open-ports"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-ports"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_ports_flag_dark_fleet" name="ダークフリート フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-ports.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-ports.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;openPorts.vessel.flagDarkFleet&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: vesselVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>
