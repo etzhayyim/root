@@ -49,7 +49,7 @@ zstd.workspace = true
 lz4 = "1.28.1"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-tokio = { version = "1.46", features = ["sync", "macros", "rt", "time"] }
+tokio = { version = "1.52", features = ["sync", "macros", "rt", "time"] }
 
 [dev-dependencies]
 lance-testing.workspace = true

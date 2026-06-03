@@ -44,7 +44,7 @@ tempfile.workspace = true
 datafusion-common.workspace = true
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-tokio = { version = "1.46", features = ["sync", "macros", "rt", "time"] }
+tokio = { version = "1.52", features = ["sync", "macros", "rt", "time"] }
 object_store = { version = "0.13.2", default-features = false }
 
 [dev-dependencies]
