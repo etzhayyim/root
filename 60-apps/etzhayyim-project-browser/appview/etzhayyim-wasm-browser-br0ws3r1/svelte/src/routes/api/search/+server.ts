@@ -2,7 +2,7 @@ import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
   const env = platform?.env as Record<string, string> | undefined;
-  const agentUrl = env?.BROWSER_AGENT_URL ?? 'https://browser-agent.gftd.ai';
+  const agentUrl = env?.BROWSER_AGENT_URL ?? 'https://browser-agent.etzhayyim.ai';
 
   const body = await request.json();
 

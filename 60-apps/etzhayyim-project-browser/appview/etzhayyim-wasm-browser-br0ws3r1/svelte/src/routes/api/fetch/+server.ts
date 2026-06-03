@@ -2,7 +2,7 @@ import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
   const env = platform?.env as Record<string, string> | undefined;
-  const browserlessUrl = env?.BROWSERLESS_URL ?? 'https://browserless.gftd.ai';
+  const browserlessUrl = env?.BROWSERLESS_URL ?? 'https://browserless.etzhayyim.ai';
 
   const { url, waitUntil = 'domcontentloaded' } = await request.json<{ url: string; waitUntil?: string }>();
   if (!url) {
