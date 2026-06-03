@@ -11,7 +11,7 @@
           "type": "object",
           "required": ["domainName", "tld", "registrantDid", "actorKind", "jurisdiction"],
           "properties": {
-            "domainName": {"type": "string", "description": "Fully-qualified domain name including TLD, e.g. 'gftd.law'."},
+            "domainName": {"type": "string", "description": "Fully-qualified domain name including TLD, e.g. 'etzhayyim.law'."},
             "tld": {"type": "string", "description": "Including the dot, e.g. '.law'."},
             "registrantDid": {"type": "string", "description": "DID of the registrant (lawyer / law-firm / company)."},
             "registrantName": {"type": "string", "description": "Legal name to be recorded in WHOIS / registry contact."},
