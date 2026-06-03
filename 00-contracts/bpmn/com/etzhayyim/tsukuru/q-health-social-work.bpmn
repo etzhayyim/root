@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_isic_q_health_social_work"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="generated"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_isic_q_health_social_work" name="tsukuru Q Human Health and Social Work Activities" isExecutable="true">
@@ -37,7 +37,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:q&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:q&quot;" target="actor"/>
           <zeebe:input source="=&quot;industryPulse&quot;" target="action"/>
           <zeebe:input source="={ sectionCode: &quot;Q&quot;, label: &quot;Human Health and Social Work Activities&quot;, industryCodes: [&quot;pharma-medical&quot;], bpmnProcessId: &quot;tsukuru_isic_q_health_social_work&quot;, manufacturerRowCount: manufacturerRowCount, manufacturerRows: manufacturerRows }" target="payload"/>
         </zeebe:ioMapping>

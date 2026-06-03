@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_isic_o_public_administration_defence"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="generated"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_isic_o_public_administration_defence" name="tsukuru O Public Administration and Defence; Compulsory Social Security" isExecutable="true">
@@ -37,7 +37,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:o&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:o&quot;" target="actor"/>
           <zeebe:input source="=&quot;industryPulse&quot;" target="action"/>
           <zeebe:input source="={ sectionCode: &quot;O&quot;, label: &quot;Public Administration and Defence; Compulsory Social Security&quot;, industryCodes: [&quot;aerospace-defense&quot;], bpmnProcessId: &quot;tsukuru_isic_o_public_administration_defence&quot;, manufacturerRowCount: manufacturerRowCount, manufacturerRows: manufacturerRows }" target="payload"/>
         </zeebe:ioMapping>

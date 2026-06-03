@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_isic_g_wholesale_retail_repair"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="generated"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_isic_g_wholesale_retail_repair" name="tsukuru G Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles" isExecutable="true">
@@ -37,7 +37,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:g&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:g&quot;" target="actor"/>
           <zeebe:input source="=&quot;industryPulse&quot;" target="action"/>
           <zeebe:input source="={ sectionCode: &quot;G&quot;, label: &quot;Wholesale and Retail Trade; Repair of Motor Vehicles and Motorcycles&quot;, industryCodes: [&quot;automobile-mobility&quot;,&quot;electronics-semiconductor&quot;,&quot;furniture-home-goods&quot;], bpmnProcessId: &quot;tsukuru_isic_g_wholesale_retail_repair&quot;, manufacturerRowCount: manufacturerRowCount, manufacturerRows: manufacturerRows }" target="payload"/>
         </zeebe:ioMapping>

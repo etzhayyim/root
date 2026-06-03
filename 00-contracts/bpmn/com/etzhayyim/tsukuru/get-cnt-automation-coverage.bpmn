@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_tsukuru_get_cnt_automation_coverage" targetNamespace="https://gftd.ai/bpmn/tsukuru" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_tsukuru_get_cnt_automation_coverage" targetNamespace="https://etzhayyim.ai/bpmn/tsukuru" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="tsukuru_get_cnt_automation_coverage" name="tsukuru get CNT automation coverage" isExecutable="true">
     <bpmn:startEvent id="Start" name="CNT coverage request"><bpmn:outgoing>Flow_Report</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_Report" sourceRef="Start" targetRef="Task_Report"/>
@@ -7,7 +7,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.xrpc.invoke"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.tsukuru.cnt.getAutomationCoverage&quot;" target="nsid"/>
           <zeebe:input source="={}" target="payload"/>
           <zeebe:output source="=result" target="coverageReport"/>
@@ -20,7 +20,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:c&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:c&quot;" target="actor"/>
           <zeebe:input source="=&quot;cntAutomationCoverageReported&quot;" target="action"/>
           <zeebe:input source="={ bpmnProcessId: &quot;tsukuru_get_cnt_automation_coverage&quot;, coverageReport: coverageReport }" target="payload"/>
         </zeebe:ioMapping>

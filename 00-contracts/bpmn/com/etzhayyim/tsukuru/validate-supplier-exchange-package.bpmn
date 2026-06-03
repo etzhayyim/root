@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_validate_supplier_exchange_package"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_validate_supplier_exchange_package" name="tsukuru validate supplier exchange package" isExecutable="true">
@@ -16,7 +16,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.xrpc.invoke"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.tsukuru.supplierExchange.validatePackage&quot;" target="nsid"/>
           <zeebe:input source="={ package_id: packageId, production_order_id: productionOrderId, supplier_did: supplierDid, exchange_format: exchangeFormat, artifacts: artifacts, requirements: requirements, channels: channels }" target="payload"/>
           <zeebe:output source="=result" target="validationReport"/>
@@ -31,7 +31,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:c&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:c&quot;" target="actor"/>
           <zeebe:input source="=&quot;supplierExchangePackageValidated&quot;" target="action"/>
           <zeebe:input source="={ bpmnProcessId: &quot;tsukuru_validate_supplier_exchange_package&quot;, validationReport: validationReport }" target="payload"/>
         </zeebe:ioMapping>

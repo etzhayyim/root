@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_tsukuru_euv_lithography_manufacturing_flow"
-  targetNamespace="https://gftd.ai/bpmn/tsukuru"
+  targetNamespace="https://etzhayyim.ai/bpmn/tsukuru"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="tsukuru_euv_lithography_manufacturing_flow" name="tsukuru EUV lithography manufacturing flow" isExecutable="true">
@@ -16,7 +16,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.xrpc.invoke"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.tsukuru.euv.designManufacturingFlow&quot;" target="nsid"/>
           <zeebe:input source="={ production_order_id: productionOrderId, technology_node_nm: technologyNodeNm, wafer_diameter_mm: waferDiameterMm, numerical_aperture: numericalAperture, source_power_w: sourcePowerW, design_formats: designFormats, supplier_exchange_format: supplierExchangeFormat, supplier_did: supplierDid, artifacts: artifacts, requirements: requirements }" target="payload"/>
           <zeebe:output source="=result" target="euvFlow"/>
@@ -31,7 +31,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.xrpc.invoke"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.tsukuru.supplierExchange.normalizePackage&quot;" target="nsid"/>
           <zeebe:input source="={ package_id: supplierPackageId, production_order_id: productionOrderId, supplier_did: supplierDid, exchange_format: supplierExchangeFormat, artifacts: artifacts, requirements: requirements, channels: [&quot;rfq&quot;,&quot;dfm&quot;,&quot;quotation&quot;,&quot;purchase-order&quot;,&quot;quality-release&quot;] }" target="payload"/>
           <zeebe:output source="=result" target="supplierPackage"/>
@@ -46,7 +46,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:tsukuru.gftd.ai:industry:isic:c&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:tsukuru.etzhayyim.com:industry:isic:c&quot;" target="actor"/>
           <zeebe:input source="=&quot;euvLithographyManufacturingFlowDesigned&quot;" target="action"/>
           <zeebe:input source="={ bpmnProcessId: &quot;tsukuru_euv_lithography_manufacturing_flow&quot;, flow: euvFlow, supplierPackage: supplierPackage }" target="payload"/>
         </zeebe:ioMapping>
