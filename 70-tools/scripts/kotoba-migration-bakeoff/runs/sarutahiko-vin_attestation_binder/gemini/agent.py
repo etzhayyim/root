@@ -18,7 +18,7 @@ class BinderPhase(Enum):
     RECORDS_COLLECTED = "records_collected"
     VIN_ASSIGNED = "vin_assigned"
     VEHICLE_DID_ISSUED = "vehicle_did_issued"
-    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -31,7 +31,7 @@ def transition_to_vehicle_did_issued(state: dict[str, Any]) -> dict[str, Any]:
     return {"binder_state": {**state.get("binder_state", {}), "phase": BinderPhase.VEHICLE_DID_ISSUED.value, "completionPct": 60}}
 
 def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
-    return {"binder_state": {**state.get("binder_state", {}), "phase": BinderPhase.YATACHAIN_ANCHORED.value, "completionPct": 80}}
+    return {"binder_state": {**state.get("binder_state", {}), "phase": BinderPhase.KOTOBA_DATOMIC_ANCHORED.value, "completionPct": 80}}
 
 def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     binder_state = state.get("binder_state", {})

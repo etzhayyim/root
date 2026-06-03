@@ -20,7 +20,7 @@ class BalancePhase:
     INIT = type('Enum', (), {'value': 'init'})
     RECORDS_COLLECTED = type('Enum', (), {'value': 'records_collected'})
     MASS_BALANCE_COMPUTED = type('Enum', (), {'value': 'mass_balance_computed'})
-    YATACHAIN_ANCHORED = type('Enum', (), {'value': 'kotoba-datomic_anchored'})
+    KOTOBA_DATOMIC_ANCHORED = type('Enum', (), {'value': 'kotoba-datomic_anchored'})
     RECORD_EMITTED = type('Enum', (), {'value': 'record_emitted'})
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -30,7 +30,7 @@ def transition_to_mass_balance_computed(state: dict[str, Any]) -> dict[str, Any]
     return {"balance_state": {**state.get("balance_state", {}), "phase": BalancePhase.MASS_BALANCE_COMPUTED.value, "completionPct": 50}}
 
 def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
-    return {"balance_state": {**state.get("balance_state", {}), "phase": BalancePhase.YATACHAIN_ANCHORED.value, "completionPct": 75}}
+    return {"balance_state": {**state.get("balance_state", {}), "phase": BalancePhase.KOTOBA_DATOMIC_ANCHORED.value, "completionPct": 75}}
 
 def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
     return {"balance_state": {**state.get("balance_state", {}), "phase": BalancePhase.RECORD_EMITTED.value, "completionPct": 100}, "final_record": {"lotId": state.get("balance_state", {}).get("lotId"), "status": "emitted"}}

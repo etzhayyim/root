@@ -31,7 +31,7 @@ Furthermore, ADR-2605262700 defines the `chigiri` legal procedure, including the
 
 ## Decision
 
-We define four foundational lifecycle events for the organism ecosystem. These events will be represented as Lexicon schemas under `com.etzhayyim.organism.lifecycle` and will be persisted via on-chain attestation (either Yatachain or Kotoba-KQE).
+We define four foundational lifecycle events for the organism ecosystem. These events will be represented as Lexicon schemas under `com.etzhayyim.organism.lifecycle` and will be persisted via on-chain attestation (either KotobaDatomic or Kotoba-KQE).
 
 The 4 events are:
 
