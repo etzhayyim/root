@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_isco_record_concordance"
-    targetNamespace="https://gftd.ai/bpmn/open-isco"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-isco"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_isco_record_concordance" name="ISCO concordance 記録" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -22,7 +22,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-isco.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-isco.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openIsco.concordance.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, iscoCode: iscoCode, otherTaxonomy: otherTaxonomy, otherCode: otherCode, relation: relation}" target="payload"/>
         </zeebe:ioMapping>

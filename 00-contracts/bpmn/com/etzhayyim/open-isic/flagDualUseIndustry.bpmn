@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_isic_flag_dual_use_industry"
-    targetNamespace="https://gftd.ai/bpmn/open-isic"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-isic"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_isic_flag_dual_use_industry" name="軍民両用産業 フラグ" isExecutable="true">
@@ -23,7 +23,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-isic.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-isic.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;openIsic.industry.flagDualUse&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: entityVid, isicCode: isicCode, dualUseCategory: dualUseCategory, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

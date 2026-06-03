@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_isic_classify_entity"
-    targetNamespace="https://gftd.ai/bpmn/open-isic"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-isic"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_isic_classify_entity" name="法人 分類" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -32,7 +32,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-isic.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-isic.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openIsic.classify.reviewPending&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, isicClassCode: isicClassCode, entityDid: entityDid, confidence: confidence, verification: verification, classifiedAt: classifiedAt}" target="payload"/>
         </zeebe:ioMapping>
@@ -45,7 +45,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-isic.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-isic.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openIsic.classify.accept&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, isicClassCode: isicClassCode, entityDid: entityDid, verification: verification, classifiedAt: classifiedAt}" target="payload"/>
         </zeebe:ioMapping>
