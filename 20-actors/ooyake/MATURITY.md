@@ -43,6 +43,17 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-03 — GeoJSON export (the atlas is now a usable world map)
+
+`scripts/export_geojson.py` derives `viz/gov-atlas.geojson` from the registry —
+joins every coordinate-bearing `:gov.address` to its `:gov.unit` and emits a GeoJSON
+FeatureCollection (**4,330 Point features**, properties: id/name/level/branch/
+jurisdiction/wikidata/kind/city/official_url). Drop-in for any GIS tool or the
+kami-engine viewer. `--check` mode (wired into `run_tests.sh`) validates the output is
+well-formed GeoJSON with ≥4,000 features. The committed `viz/gov-atlas.geojson` (~1.3 MB)
+is the rendered world-government map spanning national institutions + subnational
+seats across ~190 jurisdictions.
+
 ## 2026-06-03 — ADM1 subnational tier geolocated (map-ready)
 
 `gov-units.adm1-coords.edn` adds **3,589 `:gov.address` :seat records** for the world's
