@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-roger-relationships-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-roger-relationships-2026",
   "identifier": "onepiece-character-roger-relationships-2026",
   "headline": "Gol D. Roger relationship analysis: bonds, conflicts, and character growth",
   "description": "Reading Gol D. Roger through key relationships to surface growth and thematic tension.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
