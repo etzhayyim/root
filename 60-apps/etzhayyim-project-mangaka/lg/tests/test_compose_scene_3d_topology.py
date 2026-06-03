@@ -170,9 +170,9 @@ def test_pending_mcp_tools_have_matching_lexicons() -> None:
     """Each `pending_mcp_tools[]` entry must have a lexicon JSON at
     `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/<action>.json`.
     The seed migration 20260514140000 inserts vertex_mcp_tool_def rows
-    pointing at these paths; missing files would make `gftd contract sync`
+    pointing at these paths; missing files would make `etzhayyim contract sync`
     fail."""
-    # _LG_DIR = `<repo>/60-apps/ai-gftd-project-mangaka/lg` → repo is 3 up.
+    # _LG_DIR = `<repo>/60-apps/etzhayyim-project-mangaka/lg` → repo is 3 up.
     repo_root = _LG_DIR.parents[2]
     lex_dir = repo_root / "00-contracts" / "lexicons" / "com" / "etzhayyim" / "apps" / "mangaka" / "tools"
     raw = _TOPOLOGY_PATH.read_text(encoding="utf-8")

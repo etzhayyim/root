@@ -5,7 +5,7 @@ output is fully deterministic. Produces JSON snapshots under
 `scripts/demo_outputs/` that show exactly what the topology nodes write
 into the LangGraph state channel at each step.
 
-    cd 60-apps/ai-gftd-project-mangaka/lg
+    cd 60-apps/etzhayyim-project-mangaka/lg
     python3 scripts/demo_pipeline.py
 """
 

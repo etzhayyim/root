@@ -1,7 +1,7 @@
 """P3 unit tests — LLM merging + B2 content addressing.
 
 Pure-CPU. No network calls (LLM path is mocked), no GPU. Designed to run via
-`pytest 60-apps/ai-gftd-project-mangaka/lg/tests/` once pytest is installed
+`pytest 60-apps/etzhayyim-project-mangaka/lg/tests/` once pytest is installed
 (`pip install pytest` or via `pyproject.toml [project.optional-dependencies]`).
 The lg pod base image already pins pytest in the dev container layer.
 
