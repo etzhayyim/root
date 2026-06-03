@@ -2,7 +2,7 @@
 /**
  * Batch driver for the `composeCharacterVrm` Pregel — authors a VRM
  * for every ghost-hacker character folder under
- *   60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters/
+ *   60-apps/etzhayyim-project-mangaka/data/ghosthacker/resources/characters/
  * and POSTs
  *   POST {POD_BASE}/xrpc/com.etzhayyim.mangaka.composeCharacterVrm
  *        { characterRkey }
@@ -41,7 +41,7 @@
 
 const DEFAULT_POD_BASE = "https://mangaka.etzhayyim.com";
 const DEFAULT_CHARACTERS_DIR =
-  "60-apps/ai-gftd-project-mangaka/data/ghosthacker/resources/characters";
+  "60-apps/etzhayyim-project-mangaka/data/ghosthacker/resources/characters";
 const DEFAULT_CURSOR = "author-ghosthacker-vrms.cursor.json";
 const NSID = "com.etzhayyim.mangaka.composeCharacterVrm";
 

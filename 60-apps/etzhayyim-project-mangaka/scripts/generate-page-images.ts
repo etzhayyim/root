@@ -321,4 +321,4 @@ for (const t of targets) {
 }
 console.log(`\n=== done: ok=${okC} fail=${failC} ===`);
 console.log(`Sidecar per chapter: {chapterPath}/page-images.json`);
-console.log(`Ingest:              etzhayyim_TOKEN=$(gftd auth token) ./import-sip.ts --stage=pages`);
+console.log(`Ingest:              etzhayyim_TOKEN=$(etzhayyim auth token) ./import-sip.ts --stage=pages`);

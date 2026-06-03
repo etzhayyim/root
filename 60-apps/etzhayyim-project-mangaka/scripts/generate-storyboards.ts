@@ -11,7 +11,7 @@
  *   SIP_SOURCE_DIR   default: /Users/junkawasaki/github/260208-spirit-in-physics
  *   MURAKUMO_URL     default: https://murakumo.etzhayyim.com/api/openai/v1/chat/completions
  *   MURAKUMO_MODEL   default: qwen3-30b
- *   MURAKUMO_API_KEY default: macOS Keychain (gftd.murakumo/MURAKUMO_API_KEY) or ansible fallback
+ *   MURAKUMO_API_KEY default: macOS Keychain (etzhayyim.murakumo/MURAKUMO_API_KEY) or ansible fallback
  *
  * Known issue (2026-04-20): The default MURAKUMO_URL returns 404. Root URL
  * serves the Murakumo Chat UI only. Once the LiteLLM OpenAI-compat route is
@@ -32,7 +32,7 @@
  *   - https://murakumo.etzhayyim.com/api/openai/v1/chat/completions  (default, currently degraded 2026-04-20)
  *   - https://api.openai.com/v1/chat/completions               (MODEL=gpt-4o-mini, KEY=sk-…)
  *   - http://localhost:11434/v1/chat/completions                (local Ollama, MODEL=gemma2:2b)
- *   - http://127.0.0.1:4000/v1/chat/completions                 (LiteLLM proxy, MODEL=gemma3:1b, KEY=sk-gftd-litellm-local)
+ *   - http://127.0.0.1:4000/v1/chat/completions                 (LiteLLM proxy, MODEL=gemma3:1b, KEY=sk-etzhayyim-litellm-local)
  *
  * Operational status of the default MURAKUMO_URL (2026-04-20):
  *   curl https://murakumo.etzhayyim.com/health → {"status":"degraded","backend":"unreachable",
@@ -46,13 +46,13 @@
 const SOURCE_DIR   = Deno.env.get("SIP_SOURCE_DIR") ?? "/Users/junkawasaki/github/260208-spirit-in-physics";
 const MURAKUMO_URL = Deno.env.get("MURAKUMO_URL")   ?? "https://murakumo.etzhayyim.com/api/openai/v1/chat/completions";
 const MODEL        = Deno.env.get("MURAKUMO_MODEL") ?? "qwen3-30b";
-// Resolve auth via: env MURAKUMO_API_KEY -> macOS Keychain (gftd.murakumo/MURAKUMO_API_KEY)
-// -> ansible fallback (documented in 60-apps/ai-gftd-project-murakumo/CLAUDE.md §Murakumo Fleet)
+// Resolve auth via: env MURAKUMO_API_KEY -> macOS Keychain (etzhayyim.murakumo/MURAKUMO_API_KEY)
+// -> ansible fallback (documented in 60-apps/etzhayyim-project-murakumo/CLAUDE.md §Murakumo Fleet)
 function resolveMurakumoKey(): string {
   const env = Deno.env.get("MURAKUMO_API_KEY");
   if (env) return env;
   try {
-    const cmd = new Deno.Command("security", { args: ["find-generic-password", "-s", "gftd.murakumo", "-a", "MURAKUMO_API_KEY", "-w"], stdout: "piped", stderr: "null" });
+    const cmd = new Deno.Command("security", { args: ["find-generic-password", "-s", "etzhayyim.murakumo", "-a", "MURAKUMO_API_KEY", "-w"], stdout: "piped", stderr: "null" });
     const { code, stdout } = cmd.outputSync();
     if (code === 0) return new TextDecoder().decode(stdout).trim();
   } catch { /* ignore */ }
@@ -254,7 +254,7 @@ async function probe(): Promise<void> {
     { label: "configured", url: MURAKUMO_URL, model: MODEL, key: MURAKUMO_KEY },
     { label: "murakumo /v1", url: "https://murakumo.etzhayyim.com/v1/chat/completions", model: "gemma4:e4b", key: MURAKUMO_KEY },
     { label: "local-ollama", url: "http://localhost:11434/v1/chat/completions", model: "gemma2:2b" },
-    { label: "litellm-local", url: "http://127.0.0.1:4000/v1/chat/completions", model: "gemma3:1b", key: "sk-gftd-litellm-local" },
+    { label: "litellm-local", url: "http://127.0.0.1:4000/v1/chat/completions", model: "gemma3:1b", key: "sk-etzhayyim-litellm-local" },
   ];
   for (const c of candidates) {
     const headers: Record<string, string> = { "content-type": "application/json" };
