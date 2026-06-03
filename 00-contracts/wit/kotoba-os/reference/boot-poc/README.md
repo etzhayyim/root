@@ -29,7 +29,17 @@ WASM DATOM t=1 ctrl :ctrl/command=0
 WASM DATOM t=2 ctrl :ctrl/command=1
 WASM: cycles=3 datoms=3 (interpreter=wasmi, in-unikernel)
 KOTOBA-OS WASM OK
+WASMEM t=0 ctrl :ctrl/command="ON" (read from guest memory)
+WASMEM t=1 ctrl :ctrl/command="OFF" (read from guest memory)
+WASMEM t=2 ctrl :ctrl/command="ON" (read from guest memory)
+KOTOBA-OS WASMEM OK
 ```
+
+It also reads a command **string** out of the wasm guest's **linear memory**
+(`scanmem.wat` → `scanmem.wasm`): the module returns a packed `(offset<<8)|len`
+into its `mem` export and the host reads that slice via `wasmi::Memory::read`.
+This is the primitive real Component-Model components rely on — `Fact` strings /
+lists live in guest memory, not in i32 returns.
 
 It also runs a **real core-wasm module (`scan.wat` → `scan.wasm`) under the wasmi
 interpreter INSIDE the unikernel**: wasmi loads + instantiates the module, the module
