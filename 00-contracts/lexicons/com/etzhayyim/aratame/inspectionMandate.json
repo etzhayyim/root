@@ -1,0 +1,50 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.aratame.inspectionMandate",
+  "description": "Owner+authority dual-signed authorization for aratame to perform READ-ONLY static-source vulnerability inspection of a specific GitHub repository at a pinned ref. Parallel to akuma's scope contract (ADR-2605151400) and tsukuroi's remediationMandate (ADR-2605291500). readOnly + writeAuthorityHeld are structural consts enforcing the READ-ONLY/STATIC-ONLY ceiling (G3). scanTools is a closed OSS allowlist (G5). For private repos, accessCredentialRef references (never stores) an owner-issued least-privilege read-only expiring credential in vault (G6 / ADR-2605231525). R0 = schema skeleton; R1 = additionalProperties=false + required-field + signature-verification gate.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "repoUrl",
+          "ref",
+          "publicRepo",
+          "scanTools",
+          "ownerDid",
+          "ownerSignature",
+          "authorityDid",
+          "authoritySignature",
+          "validFrom",
+          "validUntil",
+          "readOnly",
+          "writeAuthorityHeld",
+          "revoked"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of mandate creation."},
+          "repoUrl": {"type": "string", "description": "Git remote URL of the repository to inspect."},
+          "ref": {"type": "string", "description": "Branch / tag / commit SHA pinned for this inspection (immutable target)."},
+          "publicRepo": {"type": "boolean", "description": "If true, no credential is needed (public source); accessCredentialRef MUST be absent."},
+          "accessCredentialRef": {"type": "string", "description": "G6: for private repos, a REFERENCE (not the secret) to an owner-issued, least-privilege, READ-ONLY, expiring access token stored as ciphertext in vault.etzhayyim.com. aratame never holds a platform-held credential (ADR-2605231525)."},
+          "scanTools": {"type": "array", "items": {"type": "string", "knownValues": ["semgrep-oss", "codeql-oss", "osv-scanner", "trivy", "gitleaks", "trufflehog-oss"]}, "description": "G5: OSS scanners enabled for this mandate, from the closed allowlist. Commercial SAST/SCA SaaS is PROHIBITED (Charter Rider §2(e))."},
+          "allowedPaths": {"type": "array", "items": {"type": "string"}, "description": "Optional path prefixes to restrict inspection to."},
+          "ownerDid": {"type": "string", "description": "Repo owner DID (ERC725 / did:web / did:plc)."},
+          "ownerSignature": {"type": "string", "description": "Detached owner signature over the mandate payload."},
+          "authorityDid": {"type": "string", "description": "etzhayyim approver DID (∈ authority chain)."},
+          "authoritySignature": {"type": "string", "description": "Detached authority signature over the same payload."},
+          "validFrom": {"type": "string", "format": "datetime", "description": "ISO 8601 window start."},
+          "validUntil": {"type": "string", "format": "datetime", "description": "ISO 8601 window end (default 14 days)."},
+          "legalBasis": {"type": "string", "description": "SOW id / bug-bounty program URL / written-authorization CID."},
+          "readOnly": {"type": "boolean", "const": true, "description": "G3: structurally true. aratame clones source read-only and runs static analyzers; never executes the target code, never writes/commits/pushes to the repo."},
+          "writeAuthorityHeld": {"type": "boolean", "const": false, "description": "G3/G13: structurally false. aratame holds no write/merge authority; remediation is tsukuroi's (propose-only)."},
+          "maxReposPerWindow": {"type": "integer", "description": "G12: rate limit — max repos inspected per window for this mandate."},
+          "revoked": {"type": "boolean", "description": "One-way, immediate revocation."}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.aratame.inspectionReport",
+  "description": "The aggregate report of one aratame inspection run over a repo@ref under an InspectionMandate. executedCode is a structural const false enforcing the STATIC-ONLY ceiling (G3): aratame never ran the inspected code. nonAdjudicating const true (G8): the report is evidence, not a verdict. Aggregate-first surface (counts) with findingCids[] referencing the individual com.etzhayyim.aratame.vulnFinding records. R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "mandateCid",
+          "repoRef",
+          "toolVersions",
+          "countsBySeverity",
+          "findingCids",
+          "executedCode",
+          "nonAdjudicating"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of report emit."},
+          "mandateCid": {"type": "string", "description": "CID of the governing inspectionMandate."},
+          "repoRef": {"type": "string", "description": "repoUrl@ref inspected (mirrors the mandate)."},
+          "toolVersions": {"type": "array", "items": {"type": "string"}, "description": "Pinned OSS scanner name@version used this run (G5 provenance)."},
+          "countsBySeverity": {"type": "string", "description": "JSON object string of severity → count (info/low/medium/high/critical). Aggregate-first."},
+          "findingCids": {"type": "array", "items": {"type": "string"}, "description": "CIDs of the individual com.etzhayyim.aratame.vulnFinding records emitted this run."},
+          "executedCode": {"type": "boolean", "const": false, "description": "G3: structurally false. aratame performed STATIC analysis only — it never executed / ran / fuzzed the inspected code."},
+          "nonAdjudicating": {"type": "boolean", "const": true, "description": "G8: structurally true. The report is evidence / an accountability+resilience map, not a verdict or exploitation target-list."},
+          "remediationHandoffActor": {"type": "string", "description": "G13: actor the findings are handed to for propose-only remediation (did:web:tsukuroi.etzhayyim.com). aratame never patches."},
+          "inferenceProvenance": {"type": "string", "description": "G10: Murakumo judah LiteLLM provenance for the triage_synthesis pass (model gemma4-26b-a4b); no vendor API."}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.aratame.vulnFinding",
+  "description": "A single static-source vulnerability finding produced by aratame under an active InspectionMandate. nonAdjudicating + defensiveContextOnly are structural consts: a finding is EVIDENCE / an accountability+resilience map for the owner (G8), NOT a verdict and NOT an exploitation target-list, and carries NO PoC/exploit content (G9 / Charter Rider §2(a)). This record is the tsukuroi-compatible finding source: tsukuroi.finding_intake (ADR-2605291500) may consume a vulnFinding cid under a RemediationMandate referencing the same owner+repo, alongside akuma's runtime VulnFinding. R0 = schema skeleton; R1 = additionalProperties=false + required-field + Charter Rider scan gate.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "mandateCid",
+          "repoRef",
+          "category",
+          "severity",
+          "ruleId",
+          "nonAdjudicating",
+          "defensiveContextOnly",
+          "charterRiderScanPass"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of finding emit."},
+          "mandateCid": {"type": "string", "description": "CID of the governing com.etzhayyim.aratame.inspectionMandate."},
+          "repoRef": {"type": "string", "description": "repoUrl@ref the finding was observed in (mirrors the mandate)."},
+          "category": {"type": "string", "knownValues": ["Sast", "Dependency", "Secret"], "description": "Source of the finding: static analysis / dependency CVE / leaked secret."},
+          "severity": {"type": "string", "knownValues": ["info", "low", "medium", "high", "critical"], "description": "Normalized severity (triage_synthesis normalizes across tools; non-adjudicating estimate)."},
+          "ruleId": {"type": "string", "description": "Scanner rule / check id (e.g. semgrep rule id, CWE id, gitleaks rule)."},
+          "cweId": {"type": "string", "description": "CWE identifier where applicable."},
+          "location": {"type": "string", "description": "file:line (or file path) where the finding was observed. Static location only."},
+          "detailCid": {"type": "string", "description": "CID of the full finding payload (ciphertext in vault; metadata here)."},
+          "dependencyFindingCid": {"type": "string", "description": "For category=Dependency: CID of the com.etzhayyim.aratame.dependencyFinding."},
+          "secretFindingCid": {"type": "string", "description": "For category=Secret: CID of the com.etzhayyim.aratame.secretFinding (secret value is NEVER inlined; see G7)."},
+          "nonAdjudicating": {"type": "boolean", "const": true, "description": "G8: structurally true. The finding is evidence / an accountability+resilience map, NOT a verdict and NOT an exploitation target-list."},
+          "defensiveContextOnly": {"type": "boolean", "const": true, "description": "G9: structurally true. Describes a weakness defensively; carries NO PoC/exploit/offensive payload even as a test fixture (Charter Rider §2(a))."},
+          "charterRiderScanPass": {"type": "boolean", "description": "G1/G9: Charter Rider §2(a)..(h) + offensive/PoC scan PASS (etzhayyim_organism.sensors.charter_rider.scan)."},
+          "inferenceProvenance": {"type": "string", "description": "G10: if triage was LLM-assisted, records Murakumo judah LiteLLM provenance (model gemma4-26b-a4b); no vendor API."}
+        }
+      }
+    }
+  }
+}

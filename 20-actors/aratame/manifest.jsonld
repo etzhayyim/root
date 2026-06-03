@@ -1,0 +1,238 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://etzhayyim.com/ns/actor-manifest"
+  ],
+  "@type": "ActorManifest",
+  "id": "did:web:aratame.etzhayyim.com",
+  "name": "aratame",
+  "displayName": "改め — Inspect (authorized GitHub-repo source-code vulnerability inspection)",
+  "displayNameJa": "改め",
+  "displayNameEn": "Aratame",
+  "nanoid": "4r4t4m3i",
+  "description": "Non-profit religious-corp authorized static-source vulnerability-inspection actor; the static-source diagnosis sibling of akuma (悪魔, ADR-2605151400, runtime/blackbox) and the upstream finding source for tsukuroi (繕い, ADR-2605291500, remediation). Takes an owner-attested GitHub repo → READ-ONLY clone repo@ref into an egress-restricted sandbox → OSS SAST (Semgrep OSS / CodeQL OSS) + SCA (OSV-Scanner / Trivy + giemon purl→CVE) + secret scan (gitleaks / trufflehog OSS) → Murakumo-only LLM triage (gemma4-26b-a4b, dedup/severity/false-positive, NON-adjudicating) → emit tsukuroi-compatible com.etzhayyim.aratame.vulnFinding + an aggregate inspectionReport. READ-ONLY + STATIC-ONLY: aratame NEVER executes the target code, NEVER writes to the repo, holds NO platform master key; remediation is tsukuroi's (propose-only). 8 cells / 6 Lexicons under com.etzhayyim.aratame.* / 14 immutable gates / 12 non-goals. kotoba-native (datom/EAVT + MST; NOT akuma's older RisingWave plane).",
+  "descriptionJa": "非営利 religious-corp の許可済み静的ソース脆弱性検査 actor。akuma (悪魔, runtime/blackbox) の静的ソース診断 sibling であり、tsukuroi (繕い, remediation) の上流 finding source。owner 署名済み GitHub repo を受け、repo@ref を READ-ONLY で egress 制限 sandbox に clone し、OSS の SAST (Semgrep OSS / CodeQL OSS) + SCA (OSV-Scanner / Trivy + giemon purl→CVE) + secret scan (gitleaks / trufflehog OSS) を実行し、Murakumo-only LLM (gemma4-26b-a4b) で dedup/severity/false-positive triage(非裁定)し、tsukuroi 互換の com.etzhayyim.aratame.vulnFinding と inspectionReport を発行する。READ-ONLY + STATIC-ONLY: 対象コードを実行せず、repo に書き込まず、platform master key も保持しない。修復は tsukuroi(propose-only)。8 cells / 6 Lexicons / 14 不変ゲート / 12 non-goals。kotoba-native (datom/EAVT + MST)。推論モデル gemma4-26b-a4b は Murakumo fleet への新規登録が必要(現状 gemma4:e4b)。",
+  "adr": {
+    "master": "etzhayyim:adr:2606024000",
+    "runtimeDiagnosisSibling": "etzhayyim:adr:2605151400",
+    "remediationSibling": "etzhayyim:adr:2605291500",
+    "parent": "etzhayyim:adr:2605192100",
+    "r0": "etzhayyim:adr:2606024000",
+    "r1": "reserved",
+    "r2": "reserved",
+    "r3": "reserved"
+  },
+  "tier": "Tier-B",
+  "parentActor": null,
+  "siblingActor": "did:web:akuma.etzhayyim.com",
+  "crossActorData": [
+    "did:web:akuma.etzhayyim.com"
+  ],
+  "crossActorProcedure": [
+    "did:web:tsukuroi.etzhayyim.com (downstream remediation — consumes com.etzhayyim.aratame.vulnFinding as a finding source alongside akuma's runtime VulnFinding)",
+    "did:web:akuma.etzhayyim.com (runtime-diagnosis sibling — complementary blackbox finding source; distinct egress namespace)",
+    "did:web:chigiri.etzhayyim.com (dispute mediation sink — any zero-counter violation routes to chigiri.disputeMediation)",
+    "did:web:toritate.etzhayyim.com (future R3 — on-chain inspection audit trail)",
+    "did:web:kataribe.etzhayyim.com (future R3 — coordinated public disclosure)"
+  ],
+  "form": "任意団体 internal source-inspection substrate (NOT a commercial managed SAST/SCA SaaS; non-profit only — Preamble §0.4 Lv7+ unanimity lock)",
+  "capabilityCeiling": {
+    "constitutional": true,
+    "readOnlyStaticOnly": "aratame clones source READ-ONLY and runs STATIC analyzers. It MUST NOT execute the target code, run dynamic analysis / DAST / fuzzing, or write/commit/push to the repo. Structural: inspectionMandate.readOnly const true + inspectionReport.executedCode const false (G3); silenAratameReview.codeExecutionCount=0 + writeToTargetCount=0.",
+    "ossToolingOnly": "Scanners are OSS under an OSS-permitted license (Semgrep OSS / CodeQL OSS terms / OSV-Scanner / Trivy / gitleaks / trufflehog OSS). Commercial SAST/SCA SaaS is PROHIBITED (Charter Rider §2(e)). (G5)",
+    "nonAdjudicating": "Findings are evidence / an accountability + resilience map for the owner to act on — NOT a verdict, NOT an exploitation target-list. Structural: vulnFinding.nonAdjudicating const true + inspectionReport.nonAdjudicating const true (G8).",
+    "defensiveOnly": "Describes a weakness; NO PoC / exploit / offensive payload, even as a test fixture (Charter Rider §2(a)). Structural: vulnFinding.defensiveContextOnly const true (G9).",
+    "noPlatformHeldKey": "aratame never holds a platform master credential (ADR-2605231525). Private-repo read access uses an owner-issued, least-privilege, READ-ONLY, expiring credential referenced (not stored) by accessCredentialRef; vault ciphertext. (G6)"
+  },
+  "scope": {
+    "phase": "R0 scaffold",
+    "scopeBoundary": "Authorized static-source vulnerability inspection of an owner-attested GitHub repository, scoped to a dual-signed InspectionMandate pinned to a repo@ref",
+    "exclusions": [
+      "runtime / blackbox probing / active security testing (that is akuma)",
+      "patch generation / remediation / PR submission (that is tsukuroi)",
+      "code execution / dynamic analysis / DAST / fuzzing",
+      "exploit / PoC / offensive payload generation (Charter Rider §2(a))",
+      "writing / committing / pushing to the target repo",
+      "holding any platform master credential (ADR-2605231525)",
+      "operating outside an active owner+authority dual-signed mandate",
+      "inspecting arbitrary / third-party repos without owner attestation",
+      "producing a target-list / attack-surface-for-offense (non-adjudicating only)",
+      "commercial SAST/SCA SaaS (Snyk / Veracode / Checkmarx / Black Duck / GHAS-paid / SonarQube-paid — Charter Rider §2(e))",
+      "vendor LLM API callout (Murakumo-only per ADR-2605215000)",
+      "state-aligned / military code-audit operations (Charter §1.12)"
+    ]
+  },
+  "cells": [
+    {
+      "name": "repo_intake",
+      "module": "magatama.cells.aratame_repo_intake",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "dual-sig InspectionMandate → read-only clone repo@ref into egress-restricted aratame-scan sandbox",
+      "gate": "G3 (read-only/static-only) + G4 (dual-sig mandate) + G6 (no platform-held key) + G11 (egress-restricted sandbox)"
+    },
+    {
+      "name": "sast_scan",
+      "module": "magatama.cells.aratame_sast_scan",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "cloned source → OSS SAST (Semgrep OSS / CodeQL OSS) → candidate SAST vulnFindings",
+      "gate": "G3 (read-only) + G5 (OSS-tooling-only) + G9 (defensive-only)"
+    },
+    {
+      "name": "sca_scan",
+      "module": "magatama.cells.aratame_sca_scan",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "dependency manifests → OSS SCA (OSV-Scanner / Trivy) + giemon purl→CVE → dependencyFindings",
+      "gate": "G3 (read-only) + G5 (OSS-tooling-only)",
+      "crossActorPair": "giemon (purl_vuln_match, ADR-2605312330)"
+    },
+    {
+      "name": "secret_scan",
+      "module": "magatama.cells.aratame_secret_scan",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "source → OSS secret detection (gitleaks / trufflehog OSS) → secretFindings (encrypted envelope refs only)",
+      "gate": "G3 (read-only) + G7 (secret-encryption)"
+    },
+    {
+      "name": "triage_synthesis",
+      "module": "magatama.cells.aratame_triage_synthesis",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "candidate findings → Murakumo gemma4-26b-a4b dedup/severity/false-positive triage (non-adjudicating)",
+      "gate": "G8 (non-adjudicating) + G10 (Murakumo-only)"
+    },
+    {
+      "name": "charter_rider_scan",
+      "module": "magatama.cells.aratame_charter_rider_scan",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "emitted text → §2(a)..(h) + offensive/PoC scan PASS/BLOCK",
+      "gate": "G1 (Charter Rider scan) + G9 (defensive-only / no exploit)"
+    },
+    {
+      "name": "finding_emit",
+      "module": "magatama.cells.aratame_finding_emit",
+      "murakumoNode": "levi",
+      "phase": "event",
+      "io": "triaged findings → tsukuroi-compatible vulnFinding + aggregate inspectionReport (kotoba datom + MST)",
+      "gate": "G2 (append-only datom) + G13 (propose-only handoff to tsukuroi)",
+      "crossActorPair": "tsukuroi (finding_intake consumes vulnFinding)"
+    },
+    {
+      "name": "silen_aratame_review",
+      "module": "magatama.cells.aratame_silen_aratame_review",
+      "murakumoNode": "levi",
+      "phase": "quarterly",
+      "io": "period → silenAratameReview zero-counters (any nonzero ⇒ halt + chigiri.disputeMediation + Bonsai seed-tier prune)",
+      "gate": "G14 (silen review + Bonsai seed-tier prune on violation)"
+    }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.aratame.inspectionMandate",
+    "com.etzhayyim.aratame.vulnFinding",
+    "com.etzhayyim.aratame.dependencyFinding",
+    "com.etzhayyim.aratame.secretFinding",
+    "com.etzhayyim.aratame.inspectionReport",
+    "com.etzhayyim.aratame.silenAratameReview"
+  ],
+  "dataSubstrate": {
+    "engine": "kotoba (ADR-2605262130) — datom/EAVT on kotoba-kqe + MST records com.etzhayyim.aratame.*; NOT akuma's older RisingWave plane",
+    "vault": "Raw scan payloads + detected secrets + owner-issued read-only credentials ciphertext in vault.etzhayyim.com (zero-knowledge invariant); secrets as com.etzhayyim.encrypted.* envelopes only (ADR-2605181100, G7)",
+    "egressNamespace": "aratame-scan — NetworkPolicy reconciled from active mandates; egress only to the owner-attested git source endpoint (read), never elsewhere; no code execution (G3, G11)",
+    "inferencePath": "Murakumo only (ADR-2605215000) — judah LiteLLM 127.0.0.1:4000 → gemma4-26b-a4b (Gemma 4 MoE ~26B total / ~4B active); NO vendor LLM API callout (G10). NEW fleet registration required (fleet serves gemma4:e4b today)."
+  },
+  "constitutionalGates": {
+    "description": "14 immutable gates per ADR-2606024000. Council Lv6+ supermajority + new ADR to amend (Lv7+ if constitutional invariant per Preamble §0.4).",
+    "gates": {
+      "G1": "Every emitted text MUST pass Charter Rider §2(a)-(h) scan (etzhayyim_organism.sensors.charter_rider.scan); fail = block",
+      "G2": "kotoba datom lineage — append-only EAVT, no soft delete",
+      "G3": "READ-ONLY / STATIC-ONLY — never executes the target code, never writes the repo; codeExecutionCount=0, writeToTargetCount=0; inspectionMandate.readOnly const true + inspectionReport.executedCode const false",
+      "G4": "Dual-signature InspectionMandate (owner + authority ∈ etzhayyim chain), parallel to akuma scope",
+      "G5": "OSS-TOOLING-ONLY — Semgrep OSS / CodeQL OSS terms / OSV-Scanner / Trivy / gitleaks / trufflehog OSS; commercial SAST/SCA SaaS PROHIBITED (§2(e))",
+      "G6": "NO PLATFORM-HELD KEY (ADR-2605231525) — private-repo read via owner-issued least-privilege read-only expiring credential (vault ciphertext); platformHeldKeyCount=0",
+      "G7": "Secret-encryption — detected secrets stored only as com.etzhayyim.encrypted.* envelope refs (Signal-wrapped, DID-bound, ADR-2605181100), never plaintext; plaintextSecretCount=0",
+      "G8": "NON-ADJUDICATING — findings are evidence / accountability map, not a verdict or exploitation target-list; vulnFinding.nonAdjudicating const true",
+      "G9": "DEFENSIVE-ONLY / NO EXPLOIT — Charter Rider §2(a); no PoC/exploit generation even as a test fixture; vulnFinding.defensiveContextOnly const true",
+      "G10": "Murakumo-only inference (ADR-2605215000) — triage_synthesis via judah LiteLLM 127.0.0.1:4000, model gemma4-26b-a4b; no vendor LLM API",
+      "G11": "Egress-restricted sandbox — clone + scan in aratame-scan namespace; egress only to the owner-attested git source (read), never elsewhere",
+      "G12": "Rate limit — maxReposPerWindow per mandate",
+      "G13": "PROPOSE-ONLY HANDOFF — aratame emits findings only; remediation is tsukuroi's (propose-only); aratame never patches/commits/merges/opens a PR",
+      "G14": "Bonsai pruning (ADR-2605091800) — out-of-mandate repo / code execution / plaintext secret / vendor inference → seed-tier prune (full freeze + human review)"
+    }
+  },
+  "nonGoals": {
+    "description": "12 explicitly excluded scopes",
+    "goals": {
+      "N1": "NOT a runtime / blackbox scanner (that is akuma) — static source only",
+      "N2": "NOT a patch generator / remediation actor (that is tsukuroi)",
+      "N3": "NOT a code executor / dynamic analysis / DAST / fuzzer",
+      "N4": "NOT an exploit / PoC generator",
+      "N5": "NOT a commercial SAST/SCA SaaS (Snyk / Veracode / Checkmarx / Black Duck / GHAS-paid / SonarQube-paid PROHIBITED §2(e); OSS only)",
+      "N6": "NOT a platform-key / credential holder",
+      "N7": "NOT operating outside an owner-attested mandate (no inspecting arbitrary / third-party repos)",
+      "N8": "NOT a target-list / attack-surface-for-offense producer (non-adjudicating accountability + resilience map only)",
+      "N9": "NOT a substitute for human security review (it surfaces evidence; humans decide)",
+      "N10": "NOT Murakumo-bypass",
+      "N11": "NOT Charter Rider §2 bypass",
+      "N12": "NOT a state-aligned / military code-audit operation (Charter §1.12; all inspection logged on-chain + open-source — Transparent Force discipline)"
+    }
+  },
+  "roadmap": [
+    {
+      "phase": "R0",
+      "date": "2026-06-02",
+      "scope": "Scaffold only. 8 cells path-reserved under 20-actors/magatama/cells/aratame_*/ (import-time RuntimeError). 6 Lexicon schema skeletons under 00-contracts/lexicons/com/etzhayyim/aratame/. manifest + CLAUDE.md. deps.toml [[adrs]] + [[modules]] registration. Reserved LiteLLM gemma4-26b-a4b route (Murakumo, not RunPod).",
+      "murakumoFleet": "No deployment",
+      "gate": "ADR-2606024000 (PROPOSED)"
+    },
+    {
+      "phase": "R1",
+      "date": "post-Bootstrap-Council (≥2026-06-19 RFP close + Council Lv6+ ≥3 ratify + ≥1 filled seat beyond Founder) + gemma4-26b-a4b provisioned on the fleet",
+      "scope": "Activate 4 core cells (repo_intake / sast_scan / sca_scan / triage_synthesis) + kotoba datom schema. Public repos only. Findings internal. Validated against a benign owned / internal lab repo.",
+      "murakumoFleet": "levi (1 node) + gemma4-26b-a4b registered (LiteLLM route + ollama create on a ≥128 GB node)",
+      "gate": "Future ADR + Council Lv6+ ≥3 attestation per cell (same pattern as ADR-2605215000) + fleet model registration"
+    },
+    {
+      "phase": "R2",
+      "date": "post-R1 + ≥30-day public objection",
+      "scope": "Activate secret_scan (+ encrypted envelopes) + charter_rider_scan + finding_emit + closure into tsukuroi. First silenAratameReview. Private repos under a dual-signed mandate after a benign public dry run; first handoff into tsukuroi finding_intake.",
+      "murakumoFleet": "levi (+ egress-restricted aratame-scan namespace)",
+      "gate": "Future ADR + Council Lv6+ ≥4 attestations"
+    },
+    {
+      "phase": "R3",
+      "date": "post-R2 + Council Lv7+ for any scan_tools allowlist expansion",
+      "scope": "Multi-repo / org-wide mandates. Cross-actor federation — toritate (on-chain audit trail) + chigiri (mandate as covenant / UPL boundary) + kataribe (coordinated public disclosure).",
+      "murakumoFleet": "Full fleet as needed",
+      "gate": "Future ADR + Council Lv7+ (scan_tools expansion only)"
+    }
+  ],
+  "references": {
+    "adr": {
+      "master": "/90-docs/adr/2606024000-aratame-source-vulnerability-inspection-tier-b-actor-r0.md",
+      "runtimeDiagnosisSibling": "/90-docs/adr/2605151400-akuma-authorized-redteam-actor.md",
+      "remediationSibling": "/90-docs/adr/2605291500-tsukuroi-authorized-remediation-tier-b-actor-r0.md",
+      "giemonVulnMatch": "/90-docs/adr/2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte.md",
+      "missionCharter": "/90-docs/adr/2605192100-etzhayyim-mission-charter.md",
+      "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md",
+      "murakumoOnly": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md",
+      "noServerKey": "/90-docs/adr/2605231525-server-side-signing-capability.md",
+      "kotoba": "/90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
+      "encryptedRecords": "/90-docs/adr/2605181100-encrypted-records.md",
+      "pruning": "/90-docs/adr/2605091800-pruning-protocol.md",
+      "chigiri": "/90-docs/adr/2605262700-chigiri-legal-procedure-tier-b-actor-r0.md"
+    },
+    "crossActor": {
+      "akuma": "/20-actors/akuma/CLAUDE.md (runtime-diagnosis sibling — complementary blackbox finding source)",
+      "tsukuroi": "/20-actors/tsukuroi/CLAUDE.md (remediation sibling — downstream vulnFinding consumer)",
+      "chigiri": "/20-actors/chigiri/CLAUDE.md (dispute mediation sink)"
+    },
+    "self": {
+      "claude": "/20-actors/aratame/CLAUDE.md",
+      "lexicons": "/00-contracts/lexicons/com/etzhayyim/aratame/"
+    }
+  }
+}

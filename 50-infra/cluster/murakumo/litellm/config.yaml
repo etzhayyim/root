@@ -60,6 +60,19 @@ model_list:
       timeout: 180
       stream_timeout: 240
 
+  # ── aratame source-inspection triage model (ADR-2606024000) ──
+  # Gemma 4 MoE (~26B total / ~4B active). Murakumo-only per ADR-2605215000 —
+  # routed to a fleet Ollama node, NOT RunPod (religious-corp inference path).
+  # RESERVED / PENDING: requires `ollama create gemma4-26b-a4b` on a ≥128 GB
+  # node (EVO-X2 192.168.1.70 or a 128 GB Mac mini) before R1 activation; the
+  # aratame triage_synthesis cell stays import-gated until this route resolves.
+  - model_name: gemma4-26b-a4b
+    litellm_params:
+      model: ollama/gemma4-26b-a4b
+      api_base: os.environ/MURAKUMO_OLLAMA_BASE   # e.g. http://192.168.1.70:11434
+      timeout: 240
+      stream_timeout: 300
+
 # ── Router settings ──────────────────────────────────────────────────────────
 router_settings:
   num_retries: 3

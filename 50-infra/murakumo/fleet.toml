@@ -509,6 +509,22 @@ api = "openai-compatible"
 auth = "bearer master_key"
 master_key_env = "EVO_X2_LITELLM_KEY"  # rotate per security policy
 
+# ─── aratame source-inspection triage model (ADR-2606024000) ───
+# gemma4-26b-a4b = Gemma 4 MoE (~26B total / ~4B active), the inference target
+# for the aratame (改め) static-source vulnerability-inspection actor's
+# triage_synthesis cell. Murakumo-only (ADR-2605215000); LiteLLM route reserved
+# in litellm/config.yaml (model_name = gemma4-26b-a4b → ollama/gemma4-26b-a4b).
+# PENDING provisioning — not yet pulled on any node. R1 prerequisite:
+#   ollama create gemma4-26b-a4b   (on EVO-X2 128 GB UMA, or a 128 GB Mac mini)
+# ~4B active params keep inference cost inside the fleet envelope.
+[inference_backends.evo-x2.pending_models.gemma4_26b_a4b]
+model_id = "gemma4-26b-a4b"
+arch = "Gemma 4 MoE (~26B total / ~4B active)"
+status = "pending-registration"
+consumer = "aratame triage_synthesis (ADR-2606024000)"
+litellm_route = "gemma4-26b-a4b"
+provision = "ollama create gemma4-26b-a4b on a ≥128 GB node"
+
 [inference_backends.evo-x2.endpoints.comfyui]
 url = "http://192.168.1.70:8188"
 api = "comfyui-native"

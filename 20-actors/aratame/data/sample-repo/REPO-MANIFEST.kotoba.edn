@@ -1,0 +1,12 @@
+;; aratame — sample inspection fixture (ADR-2606024000). :representative ONLY.
+;; A small, intentionally-weak source tree used to demonstrate the R0 static
+;; inspection pipeline offline. NOT a real repository; contains weakness PATTERNS
+;; a scanner flags (no exploit/PoC — G9). The canonical "owner-attested GitHub
+;; repo" of a live mandate replaces this fixture; here repoUrl is synthetic.
+{:repo/id "sample.demo.vulnerable-svc"
+ :repo/url "https://example.invalid/etzhayyim/aratame-sample-vulnerable-svc"
+ :repo/ref "0000000000000000000000000000000000000000"
+ :repo/public true
+ :repo/languages ["python" "javascript"]
+ :repo/sourcing :representative
+ :repo/note "Planted weaknesses only (CWE patterns, vulnerable pinned deps, a fake EXAMPLE secret). No exploit code."}

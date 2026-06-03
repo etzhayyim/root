@@ -1,0 +1,8 @@
+# aratame sample fixture (:representative). Contains a FAKE, well-known
+# documentation EXAMPLE credential so the secret scanner has something to flag.
+# This is AWS's own published example key id — NOT a live credential.
+service:
+  name: report-svc
+  region: us-east-1
+aws_access_key_id: AKIAIOSFODNN7EXAMPLE
+api_token: "demo_t0ken_PLACEHOLDER_not_a_real_secret_value"

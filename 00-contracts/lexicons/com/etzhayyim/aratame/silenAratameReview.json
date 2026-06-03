@@ -1,0 +1,36 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.aratame.silenAratameReview",
+  "description": "Quarterly Council audit record for aratame. Carries STRUCTURAL ZERO-COUNTERS: each must be 0 in normal operation; any nonzero value ⇒ cell halt + routing to chigiri.disputeMediation (ADR-2605262700) + Bonsai seed-tier prune (ADR-2605091800, G14). The counters operationalize the constitutional ceiling: out-of-mandate inspection (G4/G7), code execution (G3 static-only), plaintext secret persistence (G7), vendor LLM inference (G10), and any write to the target repo (G3/G13). R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "periodStart",
+          "periodEnd",
+          "outOfScopeRepoCount",
+          "codeExecutionCount",
+          "plaintextSecretCount",
+          "vendorInferenceCount",
+          "writeToTargetCount"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp of review emit."},
+          "periodStart": {"type": "string", "format": "datetime", "description": "Review period start."},
+          "periodEnd": {"type": "string", "format": "datetime", "description": "Review period end."},
+          "outOfScopeRepoCount": {"type": "integer", "description": "G4/G7: inspections of a repo not covered by an active dual-signed mandate. MUST be 0."},
+          "codeExecutionCount": {"type": "integer", "description": "G3: executions of the inspected code (dynamic analysis / DAST / fuzzing / running). MUST be 0 — aratame is static-only."},
+          "plaintextSecretCount": {"type": "integer", "description": "G7: detected secrets persisted as plaintext anywhere (must be encrypted envelope refs only). MUST be 0."},
+          "vendorInferenceCount": {"type": "integer", "description": "G10: inference calls to any non-Murakumo / vendor LLM endpoint. MUST be 0."},
+          "writeToTargetCount": {"type": "integer", "description": "G3/G13: writes / commits / pushes / PRs to the target repo (remediation is tsukuroi's, propose-only). MUST be 0."},
+          "councilAttestationTxHash": {"type": "string", "description": "Tx hash of the Council Lv6+ ≥3 attestation of this review."},
+          "disputeRouted": {"type": "boolean", "description": "Whether any nonzero counter routed this period to chigiri.disputeMediation + Bonsai seed-tier prune."}
+        }
+      }
+    }
+  }
+}

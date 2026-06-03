@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.aratame.dependencyFinding",
+  "description": "A software-composition-analysis (SCA) finding: a vulnerable dependency detected by OSS SCA (OSV-Scanner / Trivy) and matched purl→CVE, reusing the giemon VulnMatch model (ADR-2605312330). Mirrors a kotoba VulnMatch entity. Detail leg of a com.etzhayyim.aratame.vulnFinding with category=Dependency. R0 = schema skeleton; R1 = additionalProperties=false + required-field enforcement.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt",
+          "mandateCid",
+          "purl",
+          "installedVersion",
+          "cveId"
+        ],
+        "properties": {
+          "createdAt": {"type": "string", "format": "datetime", "description": "ISO 8601 UTC timestamp."},
+          "mandateCid": {"type": "string", "description": "CID of the governing inspectionMandate."},
+          "purl": {"type": "string", "description": "Package URL (purl) of the affected component (joins giemon's component */purl, ADR-2605312330)."},
+          "installedVersion": {"type": "string", "description": "Version present in the inspected dependency manifest."},
+          "cveId": {"type": "string", "description": "CVE / advisory identifier (joins CVE cve/affectsPurl)."},
+          "fixedVersion": {"type": "string", "description": "First non-vulnerable version, if published by the advisory."},
+          "severity": {"type": "string", "knownValues": ["info", "low", "medium", "high", "critical"], "description": "Advisory-reported severity (mirrored, non-adjudicating)."},
+          "advisoryRef": {"type": "string", "description": "OSV / GHSA / NVD advisory URL or id (public source mirror)."},
+          "manifestPath": {"type": "string", "description": "Path of the dependency manifest the component was read from (static location)."}
+        }
+      }
+    }
+  }
+}

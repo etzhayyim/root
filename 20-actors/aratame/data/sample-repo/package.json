@@ -1,0 +1,10 @@
+{
+  "name": "aratame-sample-vulnerable-svc",
+  "version": "0.0.0",
+  "private": true,
+  "description": "aratame sample fixture (:representative) — vulnerable npm deps only.",
+  "dependencies": {
+    "lodash": "4.17.11",
+    "minimist": "1.2.0"
+  }
+}
