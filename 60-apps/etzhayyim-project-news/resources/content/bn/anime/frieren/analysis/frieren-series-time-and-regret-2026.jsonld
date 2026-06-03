@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:frieren-series-time-and-regret-2026",
+  "@id": "urn:etzhayyim:news:frieren-series-time-and-regret-2026",
   "identifier": "frieren-series-time-and-regret-2026",
   "headline": "Frieren: Beyond Journey's End analysis: Time and regret",
   "description": "A thematic essay on Frieren: Beyond Journey's End, organized around: Time and regret.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

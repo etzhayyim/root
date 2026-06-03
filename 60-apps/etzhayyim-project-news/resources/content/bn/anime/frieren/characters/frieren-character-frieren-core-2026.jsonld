@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:frieren-character-frieren-core-2026",
+  "@id": "urn:etzhayyim:news:frieren-character-frieren-core-2026",
   "identifier": "frieren-character-frieren-core-2026",
   "headline": "Frieren character analysis: their role as the story’s engine in Frieren: Beyond Journey's End",
   "description": "A focused look at Frieren in Frieren: Beyond Journey's End, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

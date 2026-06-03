@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:frieren-ep28-analysis-2026",
+  "@id": "urn:etzhayyim:news:frieren-ep28-analysis-2026",
   "identifier": "frieren-ep28-analysis-2026",
   "headline": "『葬送のフリーレン』第28話分析：一級魔法使い試験の結末と「魔法とは何か」への回答",
   "description": "アニメ『葬送のフリーレン』第28話の徹底分析。一級魔法使い試験の最終局面で描かれる魔法の本質、フリーレンとフェルンの師弟関係の深化、そして演出面での卓越した表現を解説。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
