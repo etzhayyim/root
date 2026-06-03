@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  isbn.gftd.ai — Open Library monthly editions dump (autonomous).
+  isbn.etzhayyim.com — Open Library monthly editions dump (autonomous).
 
   Timer-start: every month on the 5th @ 00:00 UTC. Open Library
   publishes ol_dump_editions_latest.txt.gz monthly; the 5th gives
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_isbn_ingest_open_library"
-    targetNamespace="https://gftd.ai/bpmn/isbn"
+    targetNamespace="https://etzhayyim.ai/bpmn/isbn"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="isbn_ingest_open_library" name="isbn ingest Open Library (monthly)" isExecutable="true">
@@ -39,7 +39,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;isbn.ingest.openLibrary&quot;" target="action"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

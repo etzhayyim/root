@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  isbn.gftd.ai — HathiTrust monthly hathifile (autonomous).
+  isbn.etzhayyim.com — HathiTrust monthly hathifile (autonomous).
 
   Timer-start: every month on the 8th @ 00:00 UTC. HathiTrust drops
   hathifile_full_*.txt.gz on the 1st-3rd; the 8th gives buffer.
@@ -18,7 +18,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_isbn_ingest_hathitrust"
-    targetNamespace="https://gftd.ai/bpmn/isbn"
+    targetNamespace="https://etzhayyim.ai/bpmn/isbn"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="isbn_ingest_hathitrust" name="isbn ingest HathiTrust (monthly)" isExecutable="true">
@@ -46,7 +46,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;isbn.ingest.hathitrust&quot;" target="action"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  isbn.gftd.ai — Internet Archive (archive.org) daily.
+  isbn.etzhayyim.com — Internet Archive (archive.org) daily.
 
   Timer-start: every 24h. Pulls 50 PD texts items per run with:
     - cover image  (services/img)
@@ -17,7 +17,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_isbn_ingest_internet_archive"
-    targetNamespace="https://gftd.ai/bpmn/isbn"
+    targetNamespace="https://etzhayyim.ai/bpmn/isbn"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="isbn_ingest_internet_archive" name="isbn ingest Internet Archive (daily)" isExecutable="true">
@@ -49,7 +49,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;isbn.ingest.internetArchive&quot;" target="action"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

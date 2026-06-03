@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  isbn.gftd.ai — NDL Search SRU weekly sweep (autonomous).
+  isbn.etzhayyim.com — NDL Search SRU weekly sweep (autonomous).
 
   Timer-start: every Monday 00:00 UTC. SRU caps maxRecords=200/req
   so this fires once a week with a broad ISBN wildcard query.
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_isbn_ingest_ndl"
-    targetNamespace="https://gftd.ai/bpmn/isbn"
+    targetNamespace="https://etzhayyim.ai/bpmn/isbn"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="isbn_ingest_ndl" name="isbn ingest NDL SRU (weekly)" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:isbn.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:isbn.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;isbn.ingest.ndl&quot;" target="action"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
