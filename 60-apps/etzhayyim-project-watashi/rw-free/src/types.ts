@@ -17,11 +17,11 @@
  *   data — written via sdk.encryptedWrite (read-cap = owner DID), so the
  *   substrate never sees who-did-what in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT collections) — OS input
+ *   STAYS etzhayyim (consumed via consent-capability, NOT collections) — OS input
  *   capture/injection EXECUTION, encrypted UDP (ChaCha20-Poly1305) transport,
  *   WebAuthn assertion verification + PIN/QR-challenge secret custody (the
  *   pairing act), relay HMAC token signing. Resulting records migrate; the
- *   regulated *acts* stay gftd.
+ *   regulated *acts* stay etzhayyim.
  *
  * AT-Lexicon: no float (sizeBytes is an integer; audit body is strings/enums).
  */

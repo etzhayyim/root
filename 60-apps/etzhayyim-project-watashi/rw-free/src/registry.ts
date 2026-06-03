@@ -6,7 +6,7 @@
  * security audit body sealed in the kotoba envelope (ADR-2605181100), read-cap
  * = owner DID. The substrate never sees who-did-what in plaintext.
  *
- * STAYS gftd (consent-capability): input capture/injection, ChaCha20 UDP
+ * STAYS etzhayyim (consent-capability): input capture/injection, ChaCha20 UDP
  * transport, WebAuthn/PIN pairing-secret custody, relay HMAC token signing.
  */
 

@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-watashi-relay-260414",
+  "name": "etzhayyim-watashi-relay-260414",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2026-04-14",
   "routes": [
