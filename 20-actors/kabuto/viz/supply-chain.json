@@ -942,8 +942,17 @@
    "sector": ":energy",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "22777 Springwoods Village Pkwy",
+    "city": "Spring",
+    "country": "US",
+    "lat": 30.04,
+    "lon": -95.46
+   },
+   "contact": {
+    "website": "https://corporate.exxonmobil.com",
+    "ir": "https://investor.exxonmobil.com"
+   }
   },
   {
    "id": "org.corp.us.chevron",
@@ -952,8 +961,17 @@
    "sector": ":energy",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "5001 Energy Pkwy",
+    "city": "Houston",
+    "country": "US",
+    "lat": 29.86,
+    "lon": -95.59
+   },
+   "contact": {
+    "website": "https://www.chevron.com",
+    "ir": "https://www.chevron.com/investors"
+   }
   },
   {
    "id": "org.corp.gb.shell",
@@ -1333,8 +1351,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 1,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "One Johnson & Johnson Plaza",
+    "city": "New Brunswick",
+    "country": "US",
+    "lat": 40.49,
+    "lon": -74.44
+   },
+   "contact": {
+    "website": "https://www.jnj.com",
+    "ir": "https://www.investor.jnj.com"
+   }
   },
   {
    "id": "org.corp.us.merck",
@@ -1343,8 +1370,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "126 E Lincoln Ave",
+    "city": "Rahway",
+    "country": "US",
+    "lat": 40.61,
+    "lon": -74.28
+   },
+   "contact": {
+    "website": "https://www.merck.com",
+    "ir": "https://www.merck.com/investor-relations"
+   }
   },
   {
    "id": "org.corp.ch.roche",
@@ -1404,8 +1440,17 @@
    "sector": ":pharma",
    "country": "GB",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1 Francis Crick Ave, Cambridge Biomedical Campus",
+    "city": "Cambridge",
+    "country": "GB",
+    "lat": 52.18,
+    "lon": 0.14
+   },
+   "contact": {
+    "website": "https://www.astrazeneca.com",
+    "ir": "https://www.astrazeneca.com/investor-relations.html"
+   }
   },
   {
    "id": "org.corp.fr.sanofi",
@@ -1456,8 +1501,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1 Procter & Gamble Plaza",
+    "city": "Cincinnati",
+    "country": "US",
+    "lat": 39.1,
+    "lon": -84.51
+   },
+   "contact": {
+    "website": "https://www.pg.com",
+    "ir": "https://www.pginvestor.com"
+   }
   },
   {
    "id": "org.corp.us.cocacola",
@@ -1466,8 +1520,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 2,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1 Coca-Cola Plaza",
+    "city": "Atlanta",
+    "country": "US",
+    "lat": 33.77,
+    "lon": -84.39
+   },
+   "contact": {
+    "website": "https://www.coca-colacompany.com",
+    "ir": "https://investors.coca-colacompany.com"
+   }
   },
   {
    "id": "org.corp.us.microsoft",
@@ -1658,8 +1721,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "100 N Tryon St",
+    "city": "Charlotte",
+    "country": "US",
+    "lat": 35.23,
+    "lon": -80.84
+   },
+   "contact": {
+    "website": "https://www.bankofamerica.com",
+    "ir": "https://investor.bankofamerica.com"
+   }
   },
   {
    "id": "org.corp.us.berkshire",
@@ -1684,8 +1756,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "900 Metro Center Blvd",
+    "city": "Foster City",
+    "country": "US",
+    "lat": 37.55,
+    "lon": -122.27
+   },
+   "contact": {
+    "website": "https://www.visa.com",
+    "ir": "https://investor.visa.com"
+   }
   },
   {
    "id": "org.corp.us.mastercard",
@@ -1694,8 +1775,17 @@
    "sector": ":financials",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "2000 Purchase St",
+    "city": "Purchase",
+    "country": "US",
+    "lat": 41.04,
+    "lon": -73.71
+   },
+   "contact": {
+    "website": "https://www.mastercard.com",
+    "ir": "https://investor.mastercard.com"
+   }
   },
   {
    "id": "org.corp.gb.hsbc",
@@ -1704,8 +1794,17 @@
    "sector": ":financials",
    "country": "GB",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "8 Canada Square, Canary Wharf",
+    "city": "London",
+    "country": "GB",
+    "lat": 51.51,
+    "lon": -0.02
+   },
+   "contact": {
+    "website": "https://www.hsbc.com",
+    "ir": "https://www.hsbc.com/investors"
+   }
   },
   {
    "id": "org.corp.ch.ubs",
@@ -1923,8 +2022,17 @@
    "sector": ":consumer",
    "country": "CN",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "No. 1 Yanmai Rd, Maotai Town, Renhuai",
+    "city": "Zunyi",
+    "country": "CN",
+    "lat": 27.85,
+    "lon": 106.38
+   },
+   "contact": {
+    "website": "https://www.moutaichina.com",
+    "ir": "https://www.moutaichina.com/mtgw/touzizhe"
+   }
   },
   {
    "id": "org.corp.cn.smic",
@@ -2087,8 +2195,17 @@
    "sector": ":healthcare",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "UnitedHealth Group Center, 9900 Bren Rd E",
+    "city": "Minnetonka",
+    "country": "US",
+    "lat": 44.91,
+    "lon": -93.46
+   },
+   "contact": {
+    "website": "https://www.unitedhealthgroup.com",
+    "ir": "https://www.unitedhealthgroup.com/investors.html"
+   }
   },
   {
    "id": "org.corp.us.lilly",
@@ -2097,8 +2214,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Lilly Corporate Center, 893 Delaware St",
+    "city": "Indianapolis",
+    "country": "US",
+    "lat": 39.75,
+    "lon": -86.16
+   },
+   "contact": {
+    "website": "https://www.lilly.com",
+    "ir": "https://investor.lilly.com"
+   }
   },
   {
    "id": "org.corp.us.abbvie",
@@ -2107,8 +2233,17 @@
    "sector": ":pharma",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1 N Waukegan Rd",
+    "city": "North Chicago",
+    "country": "US",
+    "lat": 42.31,
+    "lon": -87.86
+   },
+   "contact": {
+    "website": "https://www.abbvie.com",
+    "ir": "https://investors.abbvie.com"
+   }
   },
   {
    "id": "org.corp.us.walmart",
@@ -2117,8 +2252,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "702 SW 8th St",
+    "city": "Bentonville",
+    "country": "US",
+    "lat": 36.36,
+    "lon": -94.21
+   },
+   "contact": {
+    "website": "https://www.walmart.com",
+    "ir": "https://stock.walmart.com"
+   }
   },
   {
    "id": "org.corp.us.costco",
@@ -2127,8 +2271,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "999 Lake Dr",
+    "city": "Issaquah",
+    "country": "US",
+    "lat": 47.53,
+    "lon": -122.07
+   },
+   "contact": {
+    "website": "https://www.costco.com",
+    "ir": "https://investor.costco.com"
+   }
   },
   {
    "id": "org.corp.gb.unilever",
@@ -2584,8 +2737,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "2455 Paces Ferry Rd SE",
+    "city": "Atlanta",
+    "country": "US",
+    "lat": 33.87,
+    "lon": -84.46
+   },
+   "contact": {
+    "website": "https://www.homedepot.com",
+    "ir": "https://ir.homedepot.com"
+   }
   },
   {
    "id": "org.corp.us.cisco",
@@ -2594,8 +2756,17 @@
    "sector": ":telecom",
    "country": "US",
    "out": 2,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "170 W Tasman Dr",
+    "city": "San Jose",
+    "country": "US",
+    "lat": 37.41,
+    "lon": -121.95
+   },
+   "contact": {
+    "website": "https://www.cisco.com",
+    "ir": "https://investor.cisco.com"
+   }
   },
   {
    "id": "org.corp.us.oracle",
@@ -2604,7 +2775,13 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "2300 Oracle Way",
+    "city": "Austin",
+    "country": "US",
+    "lat": 30.23,
+    "lon": -97.71
+   },
    "contact": {
     "website": "https://www.oracle.com",
     "ir": "https://investor.oracle.com"
@@ -2627,8 +2804,17 @@
    "sector": ":consumer",
    "country": "FR",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "41 Rue Martre",
+    "city": "Clichy",
+    "country": "FR",
+    "lat": 48.9,
+    "lon": 2.3
+   },
+   "contact": {
+    "website": "https://www.loreal.com",
+    "ir": "https://www.loreal-finance.com"
+   }
   },
   {
    "id": "org.corp.fr.schneider",
@@ -3518,8 +3704,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "100 Winchester Cir",
+    "city": "Los Gatos",
+    "country": "US",
+    "lat": 37.26,
+    "lon": -121.96
+   },
+   "contact": {
+    "website": "https://www.netflix.com",
+    "ir": "https://ir.netflix.net"
+   }
   },
   {
    "id": "org.corp.us.disney",
@@ -3528,8 +3723,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "500 S Buena Vista St",
+    "city": "Burbank",
+    "country": "US",
+    "lat": 34.16,
+    "lon": -118.32
+   },
+   "contact": {
+    "website": "https://thewaltdisneycompany.com",
+    "ir": "https://thewaltdisneycompany.com/investor-relations"
+   }
   },
   {
    "id": "org.corp.us.nike",
@@ -3548,8 +3752,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "110 N Carpenter St",
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.89,
+    "lon": -87.65
+   },
+   "contact": {
+    "website": "https://www.mcdonalds.com",
+    "ir": "https://investor.mcdonalds.com"
+   }
   },
   {
    "id": "org.corp.us.honeywell",
@@ -4322,8 +4535,17 @@
    "sector": ":consumer",
    "country": "US",
    "out": 1,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "700 Anderson Hill Rd",
+    "city": "Purchase",
+    "country": "US",
+    "lat": 41.03,
+    "lon": -73.7
+   },
+   "contact": {
+    "website": "https://www.pepsico.com",
+    "ir": "https://www.pepsico.com/investors"
+   }
   },
   {
    "id": "org.corp.us.mondelez",
@@ -4352,8 +4574,17 @@
    "sector": ":consumer",
    "country": "ES",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "Avenida de la Diputación, Edificio Inditex, Arteixo",
+    "city": "Arteixo",
+    "country": "ES",
+    "lat": 43.31,
+    "lon": -8.51
+   },
+   "contact": {
+    "website": "https://www.inditex.com",
+    "ir": "https://www.inditex.com/itxcomweb/en/investors"
+   }
   },
   {
    "id": "org.corp.us.public-storage",
@@ -4729,7 +4960,13 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
+   "address": {
+    "street": "Salesforce Tower, 415 Mission St",
+    "city": "San Francisco",
+    "country": "US",
+    "lat": 37.79,
+    "lon": -122.4
+   },
    "contact": {
     "website": "https://www.salesforce.com",
     "ir": "https://investor.salesforce.com"
@@ -5973,8 +6210,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "1725 3rd St",
+    "city": "San Francisco",
+    "country": "US",
+    "lat": 37.77,
+    "lon": -122.39
+   },
+   "contact": {
+    "website": "https://www.uber.com",
+    "ir": "https://investor.uber.com"
+   }
   },
   {
    "id": "org.corp.us.airbnb",
@@ -6513,8 +6759,17 @@
    "sector": ":telecom",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "12920 SE 38th St",
+    "city": "Bellevue",
+    "country": "US",
+    "lat": 47.58,
+    "lon": -122.15
+   },
+   "contact": {
+    "website": "https://www.t-mobile.com",
+    "ir": "https://investor.t-mobile.com"
+   }
   },
   {
    "id": "org.corp.us.verizon",
@@ -7037,8 +7292,17 @@
    "sector": ":software",
    "country": "US",
    "out": 0,
-   "address": null,
-   "contact": null
+   "address": {
+    "street": "800 Connecticut Ave",
+    "city": "Norwalk",
+    "country": "US",
+    "lat": 41.1,
+    "lon": -73.42
+   },
+   "contact": {
+    "website": "https://www.bookingholdings.com",
+    "ir": "https://www.bookingholdings.com/investors"
+   }
   },
   {
    "id": "org.corp.us.altria",
@@ -18935,6 +19199,16 @@
    "ticker": "APA.AX",
    "sector": ":utilities",
    "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mz.cervejas-mocambique",
+   "name": "Cervejas de Moçambique",
+   "ticker": "CDM.MZ",
+   "sector": ":consumer",
+   "country": "MZ",
    "out": 0,
    "address": null,
    "contact": null
