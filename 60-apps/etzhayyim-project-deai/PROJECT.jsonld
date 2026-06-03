@@ -1,7 +1,7 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "gftd": "https://gftd.ai/ns#",
+    "etzhayyim": "https://etzhayyim.com/ns#",
     "atproto": "https://atproto.com/ns#"
   },
   "@type": "SoftwareApplication",
@@ -12,14 +12,14 @@
   "applicationCategory": "SocialNetworkingApplication",
   "operatingSystem": "iOS, Android, Web",
   "url": "https://decom.etzhayyim.ai",
-  "gftd:nanoid": "cgxi8oem",
-  "gftd:did": "did:web:decom.etzhayyim.ai",
-  "gftd:operatingEntity": "etzhayyim",
-  "gftd:runtime": "TS Native Worker + SvelteKit SPA + Capacitor",
-  "gftd:spiritTypesSupported": ["Hero", "Sage", "Lover", "Caregiver"],
-  "gftd:researchBasis": "Spirit in Physics: Spirit as a Thermodynamic Information Quantity (Kawasaki et al., 2026)",
-  "gftd:humeIntegration": true,
-  "gftd:vaultZeroKnowledge": true,
-  "gftd:cohortDID": true,
-  "gftd:piiTier": 3
+  "etzhayyim:nanoid": "cgxi8oem",
+  "etzhayyim:did": "did:web:decom.etzhayyim.ai",
+  "etzhayyim:operatingEntity": "etzhayyim",
+  "etzhayyim:runtime": "TS Native Worker + SvelteKit SPA + Capacitor",
+  "etzhayyim:spiritTypesSupported": ["Hero", "Sage", "Lover", "Caregiver"],
+  "etzhayyim:researchBasis": "Spirit in Physics: Spirit as a Thermodynamic Information Quantity (Kawasaki et al., 2026)",
+  "etzhayyim:humeIntegration": true,
+  "etzhayyim:vaultZeroKnowledge": true,
+  "etzhayyim:cohortDID": true,
+  "etzhayyim:piiTier": 3
 }

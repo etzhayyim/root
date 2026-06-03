@@ -1,5 +1,5 @@
 {
-  "@context": "https://magatama.gftd.ai/ns/actor/v1",
+  "@context": "https://magatama.etzhayyim.com/ns/actor/v1",
   "@type": "MagatamaApp",
   "id": "com.etzhayyim.apps.deai",
   "version": "0.1.0",

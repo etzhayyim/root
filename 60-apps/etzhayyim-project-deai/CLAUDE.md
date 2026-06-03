@@ -1,4 +1,4 @@
-# ai-gftd-project-deai — Project Runbook
+# etzhayyim-project-deai — Project Runbook
 
 ## Project Overview
 
@@ -77,7 +77,7 @@ P(w_O | w_I) = exp(w_I · w_O) × r^α × exp(γ·ΔSP/λ) × exp(η·F) / Z
 | Mobile | `appview/deai-cgxi8oem/mobile/` (Capacitor 6 iOS/Android) |
 | nanoid | `cgxi8oem` |
 | Domain | `decom.etzhayyim.ai` |
-| Deploy | `cd appview/deai-cgxi8oem && gftd deploy` |
+| Deploy | `cd appview/deai-cgxi8oem && etzhayyim deploy` |
 
 ## Data Model
 

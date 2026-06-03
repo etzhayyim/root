@@ -1,7 +1,7 @@
 # deai Mobile — Capacitor + Fastlane
 
-App ID: `com.etzhayyim.deai`  
-Apple Team: `3A5CBTEBFP`  
+App ID: `com.etzhayyim.deai`
+Apple Team: `3A5CBTEBFP`
 ASC Key: `62BW4Q57AB`
 
 ## Prerequisites
