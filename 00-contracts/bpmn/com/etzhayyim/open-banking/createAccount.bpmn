@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_banking_create_account"
-    targetNamespace="https://gftd.ai/bpmn/open-banking"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-banking"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_banking_create_account" name="口座開設" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -41,7 +41,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-banking.gftd.ai:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-banking.etzhayyim.com:core&quot;" target="actor"/>
           <zeebe:input source="=&quot;openBanking.account.open&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, accountType: accountType, currency: currency}" target="payload"/>
         </zeebe:ioMapping>
