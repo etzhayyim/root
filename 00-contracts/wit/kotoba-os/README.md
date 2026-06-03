@@ -101,6 +101,10 @@ neighbourhood"):
 - `reference/test_genesis_manifest_schema.py` — **3 tests** (valid passes;
   invalid rejected at `identity/serverKey` + `safety/liveActuation`; unknown WIT
   interface rejected by capability scoping). Skips cleanly without `jsonschema`.
+- `reference/test_manifest_authorizes_component.py` — **3 tests** wiring D1↔D2: a
+  manifest must grant every interface its actor's real component imports.
+  `genesis-plc-bangbang.json` authorizes the built plc-control component; the
+  modbus `hikari` manifest correctly FAILS to grant `io-digital` (the check has teeth).
 
 ## k8s OCI-CID artifact convention (ADR §D4)
 
