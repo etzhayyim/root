@@ -47,7 +47,7 @@ public class MainActivity extends BridgeActivity {
             normalizedTarget = "/" + normalizedTarget;
         }
 
-        Uri targetUri = Uri.parse("https://yoro.gftd.ai" + normalizedTarget);
+        Uri targetUri = Uri.parse("https://yoro.etzhayyim.com" + normalizedTarget);
         Uri.Builder builder = targetUri.buildUpon().clearQuery();
         appendQueryParameters(builder, targetUri, null);
         appendQueryParameters(builder, data, "target");
