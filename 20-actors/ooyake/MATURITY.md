@@ -64,6 +64,14 @@ official URL** (本体の url), on 2026-06-03.
   atlas-existing QIDs (e.g. Tokyo) + cross-file dups. This takes the atlas from the
   national tier down into subnational government worldwide — **5936 units / 35 files,
   5934 QIDs all unique, 5932 :authoritative**.
+- **SUPRANATIONAL — international / intergovernmental organizations, 95 units**
+  (`gov-units.intergov.edn`): the global-governance layer — the UN system (UN +
+  principal organs + funds/programmes + specialized agencies via `P31 Q15925165`) and
+  major regional & economic IGOs (AU/ASEAN/Arab League/OAS/Council of Europe/NATO/
+  OECD/WTO/OPEC/BIS/Commonwealth/AfDB/ADB/IDB/AIIB/OSCE/…). `:level :supranational`,
+  `:branch :intergovernmental`, `:jurisdiction "intl"`, `:hq-city` where known.
+  Dissolved orgs (P576, e.g. IRO) and the already-present EU dropped. Atlas now
+  **6031 units / 36 files, 6029 QIDs all unique, 6027 :authoritative**.
 - `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
   worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
   `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
