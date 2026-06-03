@@ -1,4 +1,4 @@
-# ai-gftd-project-pptx — pptx.etzhayyim.com
+# etzhayyim-project-pptx — pptx.etzhayyim.com
 
 **PowerPoint editor + image conversion + content extraction** — PPTX upload, Canvas 2D + KAMI Engine wgpu (WebGPU/WebGL2) editing, kagami graph persistence, OOXML export. Figma-like UX. Consolidates img2pptx + mime-pptx.
 
@@ -62,7 +62,7 @@ Content extraction:
 
 ```bash
 cd svelte && pnpm build    # vite build → _svelte/ → inline-build.mjs patches src/app.ts
-cd .. && gftd deploy --no-check --smoke-url https://t53br1o0.etzhayyim.com/health
+cd .. && etzhayyim deploy --no-check --smoke-url https://t53br1o0.etzhayyim.com/health
 ```
 
 ## Rendering Architecture
@@ -245,10 +245,10 @@ Keynote/PowerPoint 互換:
 ## File Structure
 
 ```
-60-apps/ai-gftd-project-pptx/
+60-apps/etzhayyim-project-pptx/
 ├── CLAUDE.md
 ├── wit/pptx/package.wit                         # 5 WIT interfaces (25 functions)
-└── wasm/ai-gftd-wasm-pptx-t53br1o0/
+└── wasm/etzhayyim-wasm-pptx-t53br1o0/
     ├── magatama.jsonld                          # Agent profile, triggers, routes
     ├── wrangler.jsonc                           # Workers Assets + PDS binding
     ├── src/

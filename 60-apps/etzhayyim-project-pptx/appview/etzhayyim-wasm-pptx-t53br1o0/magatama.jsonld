@@ -5,7 +5,7 @@
     "env": {},
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-pptx agent. PowerPoint editor — upload, edit via WebGPU/KAMI Engine, and export PPTX presentations. Kagami graph persistence with DuckDB-WASM client reads. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-pptx agent. PowerPoint editor — upload, edit via WebGPU/KAMI Engine, and export PPTX presentations. Kagami graph persistence with DuckDB-WASM client reads. Respond helpfully in the users language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-pptx",
+  "name": "etzhayyim-wasm-pptx",
   "nanoid": "t53br1o0",
   "performerType": "service",
   "profile": {
