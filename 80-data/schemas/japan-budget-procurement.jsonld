@@ -1,17 +1,17 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "gftd": "https://etzhayyim.com/ns/",
+    "etzhayyim": "https://etzhayyim.com/ns/",
     "cofog": "https://unstats.un.org/unsd/cr/registry/regcst.asp?Cl=4&Lg=1",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   },
   "@graph": [
     {
-      "@id": "gftd:BudgetAllocation",
+      "@id": "etzhayyim:BudgetAllocation",
       "@type": "rdfs:Class",
       "rdfs:label": "Budget Allocation",
       "rdfs:comment": "A government budget allocation record with COFOG classification.",
-      "gftd:properties": [
+      "etzhayyim:properties": [
         {
           "name": "country",
           "type": "xsd:string",
@@ -24,17 +24,17 @@
         },
         {
           "name": "phase",
-          "type": "gftd:BudgetPhase",
+          "type": "etzhayyim:BudgetPhase",
           "description": "Budget phase (request/draft/approved/supplementary/settlement)"
         },
         {
           "name": "owner",
-          "type": "gftd:BudgetOwner",
+          "type": "etzhayyim:BudgetOwner",
           "description": "Ministry or agency owning the budget"
         },
         {
           "name": "category",
-          "type": "gftd:BudgetCategory",
+          "type": "etzhayyim:BudgetCategory",
           "description": "COFOG category"
         },
         {
@@ -55,11 +55,11 @@
       ]
     },
     {
-      "@id": "gftd:ProcurementRecord",
+      "@id": "etzhayyim:ProcurementRecord",
       "@type": "rdfs:Class",
       "rdfs:label": "Procurement Record",
       "rdfs:comment": "A government procurement/bidding record including award information.",
-      "gftd:properties": [
+      "etzhayyim:properties": [
         {
           "name": "country",
           "type": "xsd:string"
@@ -76,15 +76,15 @@
         },
         {
           "name": "method",
-          "type": "gftd:ProcurementMethod"
+          "type": "etzhayyim:ProcurementMethod"
         },
         {
           "name": "status",
-          "type": "gftd:ProcurementStatus"
+          "type": "etzhayyim:ProcurementStatus"
         },
         {
           "name": "entity",
-          "type": "gftd:ProcuringEntity",
+          "type": "etzhayyim:ProcuringEntity",
           "description": "Issuing government entity"
         },
         {
@@ -94,17 +94,17 @@
         },
         {
           "name": "contractor",
-          "type": "gftd:Contractor",
+          "type": "etzhayyim:Contractor",
           "description": "Awarded contractor"
         }
       ]
     },
     {
-      "@id": "gftd:CorporateProfile",
+      "@id": "etzhayyim:CorporateProfile",
       "@type": "rdfs:Class",
       "rdfs:label": "Corporate Profile",
       "rdfs:comment": "Japanese corporate entity profile from 法人番号 system.",
-      "gftd:properties": [
+      "etzhayyim:properties": [
         {
           "name": "corporateNumber",
           "type": "xsd:string",
@@ -145,11 +145,11 @@
       ]
     },
     {
-      "@id": "gftd:DocumentPreview",
+      "@id": "etzhayyim:DocumentPreview",
       "@type": "rdfs:Class",
       "rdfs:label": "Document Preview",
       "rdfs:comment": "WebP preview images of government documents (PDF/Word/Excel) stored in NATS JetStream Object Store.",
-      "gftd:properties": [
+      "etzhayyim:properties": [
         {
           "name": "sourceHash",
           "type": "xsd:string",
@@ -166,19 +166,19 @@
         },
         {
           "name": "pageKeys",
-          "type": "gftd:PagePreview",
+          "type": "etzhayyim:PagePreview",
           "description": "Object keys for each page's WebP image"
         }
       ]
     },
     {
-      "@id": "gftd:DataSource",
+      "@id": "etzhayyim:DataSource",
       "@type": "rdfs:Class",
       "rdfs:label": "Government Data Source",
       "rdfs:comment": "External data source for budget/procurement data.",
-      "gftd:instances": [
+      "etzhayyim:instances": [
         {
-          "@id": "gftd:datasource-estat",
+          "@id": "etzhayyim:datasource-estat",
           "name": "e-Stat API",
           "url": "https://api.e-stat.go.jp/rest/3.0/app/",
           "format": "JSON/XML/CSV",
@@ -186,7 +186,7 @@
           "dataType": "budget"
         },
         {
-          "@id": "gftd:datasource-egov",
+          "@id": "etzhayyim:datasource-egov",
           "name": "e-Gov Data Portal",
           "url": "https://data.e-gov.go.jp/data/api/action/",
           "format": "JSON (CKAN)",
@@ -194,7 +194,7 @@
           "dataType": "budget"
         },
         {
-          "@id": "gftd:datasource-procurement-portal",
+          "@id": "etzhayyim:datasource-procurement-portal",
           "name": "調達ポータル",
           "url": "https://www.p-portal.go.jp/",
           "format": "CSV (ZIP)",
@@ -202,7 +202,7 @@
           "dataType": "procurement"
         },
         {
-          "@id": "gftd:datasource-kkj",
+          "@id": "etzhayyim:datasource-kkj",
           "name": "官公需情報ポータル",
           "url": "https://www.kkj.go.jp/s/",
           "format": "XML",
@@ -210,7 +210,7 @@
           "dataType": "procurement"
         },
         {
-          "@id": "gftd:datasource-houjin-bangou",
+          "@id": "etzhayyim:datasource-houjin-bangou",
           "name": "法人番号 Web-API",
           "url": "https://api.houjin-bangou.nta.go.jp/",
           "format": "XML/CSV",
@@ -218,7 +218,7 @@
           "dataType": "corporate"
         },
         {
-          "@id": "gftd:datasource-edinet",
+          "@id": "etzhayyim:datasource-edinet",
           "name": "EDINET API",
           "url": "https://api.edinet-fsa.go.jp/api/v2/",
           "format": "JSON/ZIP/PDF/CSV",

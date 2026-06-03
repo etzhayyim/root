@@ -16,7 +16,7 @@ superseded_by: []
 # Goal
 
 `com.etzhayyim.cohort.seed` procedure (`00-contracts/lexicons/com/etzhayyim/cohort/seed.json`) の実装手順を固定。
-`gftd cohort seed --segment <jsonld>` CLI が XRPC 経由で PDS に call して
+`etzhayyim cohort seed --segment <jsonld>` CLI が XRPC 経由で PDS に call して
 `vertex_cohort_actor` row を insert する経路。
 
 # Input / Output (lexicon 既定)

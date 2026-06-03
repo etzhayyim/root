@@ -20,7 +20,7 @@ related:
 
 ## Goal
 
-Autonomous domain coverage growth without manual `gftd seed`. PDS cron discovers new domains from Common Crawl bulk ingest, enriches via LLM, registers as apps, generates social posts and knowledge graphs — all visible on yoro.etzhayyim.com.
+Autonomous domain coverage growth without manual `etzhayyim seed`. PDS cron discovers new domains from Common Crawl bulk ingest, enriches via LLM, registers as apps, generates social posts and knowledge graphs — all visible on yoro.etzhayyim.com.
 
 ## Decision
 
@@ -118,13 +118,13 @@ PDS cron (*/5 min) → expandDomainCoverage()
 | PDS `pds-cache.ts` | `cyWithDiag()` error-preserving queries | deployed |
 | PDS `pds-agent-infer.ts` | STARTS WITH → exact match (transpiler-safe) | deployed |
 | PDS `pds-helpers.ts` | Authority column promotion (kind/authority_kind/tier/jurisdiction) | deployed |
-| PDS `pds-handlers-gftd.ts` | `com.etzhayyim.graph.query` legacy alias | deployed |
+| PDS `pds-handlers-etzhayyim.ts` | `com.etzhayyim.graph.query` legacy alias | deployed |
 | PDS `pds-dispatch.ts` | Stale legacy NSID cleanup | deployed |
-| gftd `seed.go` | applyWrites → registerApp canonical path | committed |
-| gftd `domain_coverage.go` | vertex_authority_* + vertex_did batch UNION ALL | committed |
-| gftd `world_coverage.go` | `_alive` column removal (P10v2) | committed |
-| gftd `graph_client.go` | Canonical graph SQL NSID `com.etzhayyim.graph.cypher` | committed |
-| gftd `seed_domains.go` | Enriched columns (kind/authority_kind/tier) | committed |
+| etzhayyim `seed.go` | applyWrites → registerApp canonical path | committed |
+| etzhayyim `domain_coverage.go` | vertex_authority_* + vertex_did batch UNION ALL | committed |
+| etzhayyim `world_coverage.go` | `_alive` column removal (P10v2) | committed |
+| etzhayyim `graph_client.go` | Canonical graph SQL NSID `com.etzhayyim.graph.cypher` | committed |
+| etzhayyim `seed_domains.go` | Enriched columns (kind/authority_kind/tier) | committed |
 
 ## Key Design Decisions
 
@@ -144,6 +144,6 @@ PDS cron (*/5 min) → expandDomainCoverage()
 | `50-infra/cloudflare/workers/graph/worker.ts` | Structured error responses |
 | `50-infra/cloudflare/workers/atproto/src/pds-cache.ts` | `cyWithDiag()` |
 | `50-infra/cloudflare/workers/atproto/src/pds-agent-infer.ts` | Transpiler-safe queries |
-| `70-tools/gftd/gftd/domain_coverage.go` | Coverage reconciliation |
-| `70-tools/gftd/gftd/seed.go` | registerApp canonical path |
+| `70-tools/etzhayyim/etzhayyim/domain_coverage.go` | Coverage reconciliation |
+| `70-tools/etzhayyim/etzhayyim/seed.go` | registerApp canonical path |
 | `90-docs/260411-domain-expansion-agent-loop-design.md` | This document |

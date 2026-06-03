@@ -34,7 +34,7 @@ Provision once:
   security add-generic-password -s etzhayyim -a PDS_APP_PASSWORD  -w '<app-password>'
 
 Then re-run:
-  ./bin/seed-post.sh "hello yatachain"
+  ./bin/seed-post.sh "hello kotoba-datomic"
 
 Or pass inline (note: leaks into shell history):
   PDS_HANDLE=... PDS_APP_PASSWORD=... ./bin/seed-post.sh "..."

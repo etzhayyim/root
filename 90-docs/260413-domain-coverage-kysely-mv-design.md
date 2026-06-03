@@ -2,7 +2,7 @@
 
 ## Goal
 
-`gftd coverage domain` の live reconciliation を、`vertex_did` / `vertex_authority_*` への逐次 `COUNT(*)` / `COUNT(DISTINCT)` ではなく、RisingWave の materialized view 経由で安定・低レイテンシに取得する。
+`etzhayyim coverage domain` の live reconciliation を、`vertex_did` / `vertex_authority_*` への逐次 `COUNT(*)` / `COUNT(DISTINCT)` ではなく、RisingWave の materialized view 経由で安定・低レイテンシに取得する。
 
 狙いは 3 つ:
 
@@ -29,7 +29,7 @@
 - 運用上は次の順で復旧する:
   1. Kysely migration を適用
   2. `mv_domain_coverage_live` の存在確認
-  3. `gftd coverage domain` の Reconciliation で live 値確認
+  3. `etzhayyim coverage domain` の Reconciliation で live 値確認
 
 ## Current Problem
 

@@ -2,7 +2,7 @@
 
 **Date**: 2026-04-14
 **Status**: Active
-**Project**: `60-apps/ai-gftd-project-legal-entity/`
+**Project**: `60-apps/etzhayyim-project-legal-entity/`
 **Component**: `le9k4x2m` (GLEIF LEI collector, extended to multi-source)
 
 ## Summary
@@ -394,7 +394,7 @@ Build bridging edges between records from different sources.
 ## References
 
 - Existing GLEIF ingest: `70-tools/scripts/gleif-bulk-ingest.mjs`
-- Legal entity project: `60-apps/ai-gftd-project-legal-entity/CLAUDE.md`
+- Legal entity project: `60-apps/etzhayyim-project-legal-entity/CLAUDE.md`
 - Lexicons: `00-contracts/lexicons/com/etzhayyim/apps/legalEntity/`
 - Graph schema: `30-graph/graph-schema/src/database.ts` (`VertexLegalEntityRow`)
 - PDS typed vertex: `50-infra/cloudflare/workers/atproto/src/core.ts` (`buildTypedVertex("LegalEntity", ...)`)

@@ -11,7 +11,7 @@ KAMI Engine に **EDA / CAD / CAM / RTL / CAE** の 5 ドメインを統合し�
 1. **wgpu 統一レンダラ** — Threlte/three.js 不使用。全描画は kami-render wgpu PBR pipeline + 2D overlay (kami-ui-gpu)
 2. **Rust WASM** — 全計算カーネルは Rust → wasm-pack → ブラウザ。JS 再実装禁止
 3. **既存 crate 再利用** — kami-sdf (CSG), kami-scad (parametric), kami-mesher (mesh), kami-graph (PCB layout), kami-scene-graph (hierarchy), kami-input (stylus), kami-physics-2d (constraint solver seed)
-4. **WIT contract** — 各ドメインに WIT interface 定義。`gftd:kami-eng-*@1.0.0`
+4. **WIT contract** — 各ドメインに WIT interface 定義。`etzhayyim:kami-eng-*@1.0.0`
 5. **Nintendo UI/UX** — クリーム背景 `#f0ead6`, Nunito, spring physics, kami-ui-sdk overlay
 6. **AT Protocol faithful** — 設計データは W Protocol Event Stream。Design E 3-Tier Write
 
@@ -948,10 +948,10 @@ pub struct PostProcessView {
 
 ## WIT Interface Design
 
-### Package: `gftd:kami-eng-core@1.0.0`
+### Package: `etzhayyim:kami-eng-core@1.0.0`
 
 ```wit
-package gftd:kami-eng-core@1.0.0;
+package etzhayyim:kami-eng-core@1.0.0;
 
 interface constraint-solver {
     record constraint {
@@ -1031,13 +1031,13 @@ interface layer-manager {
 }
 ```
 
-### Package: `gftd:kami-eda@1.0.0`
+### Package: `etzhayyim:kami-eda@1.0.0`
 
 ```wit
-package gftd:kami-eda@1.0.0;
+package etzhayyim:kami-eda@1.0.0;
 
 interface schematic {
-    use gftd:kami-eng-core/layer-manager.{layer};
+    use etzhayyim:kami-eng-core/layer-manager.{layer};
 
     record symbol-instance {
         id: u64,
@@ -1074,10 +1074,10 @@ interface pcb-layout {
 }
 ```
 
-### Package: `gftd:kami-cad@1.0.0`
+### Package: `etzhayyim:kami-cad@1.0.0`
 
 ```wit
-package gftd:kami-cad@1.0.0;
+package etzhayyim:kami-cad@1.0.0;
 
 interface modeling {
     record solid-id { value: u64 }
@@ -1105,10 +1105,10 @@ interface assembly {
 }
 ```
 
-### Package: `gftd:kami-cam@1.0.0`
+### Package: `etzhayyim:kami-cam@1.0.0`
 
 ```wit
-package gftd:kami-cam@1.0.0;
+package etzhayyim:kami-cam@1.0.0;
 
 interface toolpath {
     record tool { id: u64, name: string, diameter: f64, flute-length: f64, tool-type: string }
@@ -1125,10 +1125,10 @@ interface toolpath {
 }
 ```
 
-### Package: `gftd:kami-rtl@1.0.0`
+### Package: `etzhayyim:kami-rtl@1.0.0`
 
 ```wit
-package gftd:kami-rtl@1.0.0;
+package etzhayyim:kami-rtl@1.0.0;
 
 interface hdl {
     record module-info { name: string, port-count: u32, instance-count: u32 }
@@ -1161,10 +1161,10 @@ interface synthesis {
 }
 ```
 
-### Package: `gftd:kami-cae@1.0.0`
+### Package: `etzhayyim:kami-cae@1.0.0`
 
 ```wit
-package gftd:kami-cae@1.0.0;
+package etzhayyim:kami-cae@1.0.0;
 
 interface meshing {
     record mesh-stats { node-count: u32, element-count: u32, min-quality: f64, avg-quality: f64 }
@@ -1408,15 +1408,15 @@ Integration points:
 
 | Project | Integration | Purpose |
 |---|---|---|
-| `ai-gftd-project-cad` | Merge into kami-cad | Existing CAD viewer → enhanced with BREP kernel |
-| `ai-gftd-project-handotai` | Invoke `kami.eda.*` | Semiconductor article → related EDA designs |
-| `ai-gftd-project-tsukuru` | Invoke `kami.cam.*` | Manufacturing order → G-code generation |
-| `ai-gftd-project-sense` | Invoke `kami.cae.*` | 3D scan → structural analysis |
-| `ai-gftd-project-maps` | Invoke `kami.cad.*` | Spatial intelligence → building 3D model |
-| `ai-gftd-project-sbom` | Invoke `kami.eda.*` | Component BOM → SBOM tracking |
-| `ai-gftd-project-supply-chain` | Invoke `kami.eda.*` | Component sourcing risk |
-| `ai-gftd-project-pptx` | Invoke `kami.cad.*` | 3D model → presentation slide rendering |
-| `ai-gftd-project-okaimono` | Invoke `kami.cam.*` | D2C product → manufacturing spec |
+| `etzhayyim-project-cad` | Merge into kami-cad | Existing CAD viewer → enhanced with BREP kernel |
+| `etzhayyim-project-handotai` | Invoke `kami.eda.*` | Semiconductor article → related EDA designs |
+| `etzhayyim-project-tsukuru` | Invoke `kami.cam.*` | Manufacturing order → G-code generation |
+| `etzhayyim-project-sense` | Invoke `kami.cae.*` | 3D scan → structural analysis |
+| `etzhayyim-project-maps` | Invoke `kami.cad.*` | Spatial intelligence → building 3D model |
+| `etzhayyim-project-sbom` | Invoke `kami.eda.*` | Component BOM → SBOM tracking |
+| `etzhayyim-project-supply-chain` | Invoke `kami.eda.*` | Component sourcing risk |
+| `etzhayyim-project-pptx` | Invoke `kami.cad.*` | 3D model → presentation slide rendering |
+| `etzhayyim-project-okaimono` | Invoke `kami.cam.*` | D2C product → manufacturing spec |
 
 ## Build & Deploy
 
@@ -1435,8 +1435,8 @@ cargo test --workspace
 wasm-pack build --target web kami-eng-web
 
 # Deploy engineering workbench app
-cd 60-apps/ai-gftd-project-kami/appview/kami-eng-workbench
-gftd deploy --smoke-url https://eng.kami.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-kami/appview/kami-eng-workbench
+etzhayyim deploy --smoke-url https://eng.kami.etzhayyim.com/health
 ```
 
 ## Phase Plan

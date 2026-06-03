@@ -40,7 +40,7 @@
 |---|---|
 | **定義** | `actor-manifest.jsonld` |
 | **実行** | PDS Shared Executor (`executePipeline()`) |
-| **Deploy** | `gftd mitama` → `POST /xrpc/com.etzhayyim.actor.registerManifest` → graph MERGE |
+| **Deploy** | `etzhayyim mitama` → `POST /xrpc/com.etzhayyim.actor.registerManifest` → graph MERGE |
 | **Worker** | 不要 |
 | **Build** | 不要 |
 | **wrangler** | 不要 |
@@ -57,7 +57,7 @@
 |---|---|
 | **定義** | `src/app.ts` + `nono-manifest.jsonld` |
 | **実行** | 専用 CF Worker (T3) |
-| **Deploy** | `gftd nono` → `npx wrangler deploy` (既存 deploy 相当) |
+| **Deploy** | `etzhayyim nono` → `npx wrangler deploy` (既存 deploy 相当) |
 | **Worker** | 必要 (CF binding を握るため) |
 | **Build** | esbuild (<1s) |
 | **Trigger** | XRPC 受信のみ (actor からの agent.invoke) |
@@ -115,7 +115,7 @@ actor-manifest.jsonld                   src/app.ts (Worker)
 
 ```
 1. 設計:   actor-manifest.jsonld を書く (宣言的)
-2. 命:     gftd mitama → registerManifest() → graph MERGE
+2. 命:     etzhayyim mitama → registerManifest() → graph MERGE
 3. 自律:   PDS Shared Executor が cron/subscribeRepos で executePipeline()
 4. 進化:   shinka coverage healing (Murakumo LLM autonomous)
 5. 休眠:   status = "dormant" (graph に残る、実行されない)
@@ -128,8 +128,8 @@ No build. No deploy. No Worker. Graph に存在 = 生きている。
 
 ```
 1. 実装:   src/app.ts + nono-manifest.jsonld
-2. Build:  gftd nono build → esbuild (<1s)
-3. Deploy: gftd nono deploy → CF Worker deploy + smoke test
+2. Build:  etzhayyim nono build → esbuild (<1s)
+3. Deploy: etzhayyim nono deploy → CF Worker deploy + smoke test
 4. 登録:   nono-manifest → graph MERGE (capability discovery 用)
 5. 提供:   actor からの agent.invoke / MCP primitive dispatch を受信
 ```
@@ -233,21 +233,21 @@ CF binding / crypto / real-time protocol が必須な app:
 
 ```bash
 # Actor lifecycle (mitama)
-gftd mitama                     # actor-manifest.jsonld → graph MERGE → 自律開始
-gftd mitama list                # 全 actor 一覧 (graph query)
-gftd mitama inspect <did>       # actor 詳細 (pipelines, capabilities, status)
-gftd mitama dormant <did>       # 休眠 (status → dormant)
-gftd mitama revive <did>        # 復活 (status → active)
+etzhayyim mitama                     # actor-manifest.jsonld → graph MERGE → 自律開始
+etzhayyim mitama list                # 全 actor 一覧 (graph query)
+etzhayyim mitama inspect <did>       # actor 詳細 (pipelines, capabilities, status)
+etzhayyim mitama dormant <did>       # 休眠 (status → dormant)
+etzhayyim mitama revive <did>        # 復活 (status → active)
 
 # Capability lifecycle (nono)
-gftd nono build                 # esbuild + validation
-gftd nono deploy                # CF Worker deploy + skill 登録
-gftd nono list                  # 全 nono 一覧
-gftd nono skills <nanoid>       # nono が提供する skill 一覧
+etzhayyim nono build                 # esbuild + validation
+etzhayyim nono deploy                # CF Worker deploy + skill 登録
+etzhayyim nono list                  # 全 nono 一覧
+etzhayyim nono skills <nanoid>       # nono が提供する skill 一覧
 
 # Coverage
-gftd coverage eta               # system-wide η (mitama + nono)
-gftd coverage heal              # shinka autonomous healing
+etzhayyim coverage eta               # system-wide η (mitama + nono)
+etzhayyim coverage heal              # shinka autonomous healing
 ```
 
 ## Primitive 拡張: nono が新 MCP primitive を提供
@@ -291,16 +291,16 @@ Actor manifest から呼べるようになる:
 
 → `deps.toml [[nono_workers]]` が SSoT (binding・primitive_backend 全量)
 
-### Phase 5 完了: gftd mitama CLI
+### Phase 5 完了: etzhayyim mitama CLI
 
-`70-tools/gftd/gftd/mitama.go` — 実装完了。
+`70-tools/etzhayyim/etzhayyim/mitama.go` — 実装完了。
 
 ```bash
-gftd mitama [-dir <path>]     # actor-manifest.jsonld → graph MERGE → 自律開始
-gftd mitama list               # 全 T1 actor 一覧
-gftd mitama inspect <did>      # manifest 詳細
-gftd mitama dormant <did>      # 休眠
-gftd mitama revive <did>       # 復活
+etzhayyim mitama [-dir <path>]     # actor-manifest.jsonld → graph MERGE → 自律開始
+etzhayyim mitama list               # 全 T1 actor 一覧
+etzhayyim mitama inspect <did>      # manifest 詳細
+etzhayyim mitama dormant <did>      # 休眠
+etzhayyim mitama revive <did>       # 復活
 ```
 
 ### Final Numbers

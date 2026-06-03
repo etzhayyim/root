@@ -95,7 +95,7 @@ POST /xrpc/com.etzhayyim.actor.executePipeline
 ## Mitama Lifecycle × Heartbeat
 
 ```
-gftd mitama [-dir <path>]
+etzhayyim mitama [-dir <path>]
   ↓
 Phase 1: validate manifest
   ↓
@@ -110,12 +110,12 @@ Phase 4: subscribeRepos collections → PDS trigger registry
   ├── subscribeRepos: commit event → executePipeline
   └── xrpc: on-demand → executePipeline
 
-gftd mitama dormant <did>
+etzhayyim mitama dormant <did>
   → ActorManifest.status = "dormant"
   → DO alarm cancelled
   → subscribeRepos dispatch skips dormant actors
 
-gftd mitama revive <did>
+etzhayyim mitama revive <did>
   → ActorManifest.status = "active"
   → scheduleCronTriggers() for this actor
   → subscribeRepos dispatch resumes

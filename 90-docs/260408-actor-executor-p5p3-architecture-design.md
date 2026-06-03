@@ -3,7 +3,7 @@
 **Date**: 2026-04-08
 **Status**: `[IMPLEMENTED]` `[PRODUCTION]`
 **Evidence**: `50-infra/cloudflare/workers/atproto/src/actor-executor-*.ts`, `50-infra/cloudflare/workers/atproto/src/bpmn-pipeline-compiler.ts`, `00-contracts/wit/deps/magatama-actor-executor/package.wit`
-**Deploy**: PDS Worker `ai-gftd-pds-2603241700` (atproto.etzhayyim.com)
+**Deploy**: PDS Worker `etzhayyim-pds-2603241700` (atproto.etzhayyim.com)
 **Graph**: RisingWave `graphar.vertex_actor` (1,732 rows), `graphar.vertex_actor_manifest`
 
 ## Problem
@@ -74,12 +74,12 @@ interface ActorManifest {
 | `graph.write` | `magatama:graph/cypher.cypherBatchExec` | ServiceTask (camunda:type=graph-write) |
 | `graph.vectorSearch` | `magatama:graph/vector-search.vectorSearch` | ServiceTask |
 | `agent.chat` | `magatama:agent.agentChat` | ServiceTask (camunda:type=agent-chat) |
-| `agent.invoke` | `ai-gftd:invoke/invoke.invoke` | ServiceTask (camunda:type=agent-invoke) |
+| `agent.invoke` | `etzhayyim:invoke/invoke.invoke` | ServiceTask (camunda:type=agent-invoke) |
 | `identity.resolve` | `magatama:identity.identityResolve` | ServiceTask |
 | `browser.fetch` | `magatama:browser.navigate` | ServiceTask (camunda:type=browser-fetch) |
-| `signal.encrypt` | `ai-gftd:signal.ratchetEncrypt` | ServiceTask |
+| `signal.encrypt` | `etzhayyim:signal.ratchetEncrypt` | ServiceTask |
 | `consent.check` | `magatama:consent.consentCheck` | ServiceTask |
-| `derive:social` | PDS commit pipeline | EndEvent (gftd:deriveTemplate) |
+| `derive:social` | PDS commit pipeline | EndEvent (etzhayyim:deriveTemplate) |
 | `dmn.evaluate` | FEEL decision table eval | BusinessRuleTask |
 | `form.collect` | FormTask graph node | UserTask |
 
@@ -90,7 +90,7 @@ interface ActorManifest {
 ```
 BPMN Element          →  Pipeline Step
 ─────────────────────────────────────────
-ServiceTask           →  MCP primitive (gftd:primitive or camunda:type)
+ServiceTask           →  MCP primitive (etzhayyim:primitive or camunda:type)
 BusinessRuleTask      →  dmn.evaluate (decisionRef → args.decisionId)
 UserTask              →  form.collect (formRef → args.formId)
 ScriptTask            →  custom handler (T2 only, script body → step.handler)
@@ -99,7 +99,7 @@ ParallelGateway       →  parallel step group
 StartEvent (Timer)    →  trigger: { type: "cron" }
 StartEvent (Signal)   →  trigger: { type: "subscribeRepos" }
 StartEvent (Message)  →  trigger: { type: "a2aInvoke" }
-EndEvent              →  derive:social (gftd:deriveTemplate)
+EndEvent              →  derive:social (etzhayyim:deriveTemplate)
 ```
 
 ## Runtime Triggers
@@ -214,7 +214,7 @@ Proof:                  filesystem ⊆ graph = PASS
 |---|---|---|---|
 | `app.ts` scaffold (< 500 LOC) | 314 | 0 (deleted) | graph Actor T1 node exists |
 | Code-less wasm dirs | 1,390 | 0 (deleted) | graph Actor T1 node exists |
-| `.gftd-deploy/` git tracked | 1,660 | 0 (gitignored) | deploy artifact, not source |
+| `.etzhayyim-deploy/` git tracked | 1,660 | 0 (gitignored) | deploy artifact, not source |
 | Real `app.ts` (>= 500 LOC) | 37 | 37 (preserved) | T3 dedicated Worker |
 | Remaining wasm dirs | — | 351 | T3 + WIT contracts |
 

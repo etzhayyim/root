@@ -32,7 +32,7 @@ shinka cron (*/5 min)
 2. Priority Queue: critical → incomplete → complete (by score ascending)
   ↓
 3. Per-Actor Healing (Murakumo LLM):
-   ├── Missing WIT?      → gftd wit-gen (generate from name + description + capabilities)
+   ├── Missing WIT?      → etzhayyim wit-gen (generate from name + description + capabilities)
    ├── Missing prompt?    → agent.chat("Generate convo system prompt for: {displayName} - {description}")
    ├── Missing caps?      → agent.chat("List capabilities for: {displayName}") → parse JSON
    ├── Missing performer? → infer from project type (service/system)
@@ -45,36 +45,36 @@ shinka cron (*/5 min)
 
 ## Architecture
 
-### gftd coverage Command
+### etzhayyim coverage Command
 
 ```bash
 # Show per-actor coverage scores
-gftd coverage list [--grade critical|incomplete|complete] [--limit 20]
+etzhayyim coverage list [--grade critical|incomplete|complete] [--limit 20]
 
 # Show system-wide η
-gftd coverage eta
+etzhayyim coverage eta
 
 # Show missing fields for specific actor
-gftd coverage inspect <did>
+etzhayyim coverage inspect <did>
 
 # Trigger healing for worst N actors
-gftd coverage heal [--limit 10] [--dry-run]
+etzhayyim coverage heal [--limit 10] [--dry-run]
 ```
 
-### gftd hinshitsu Command
+### etzhayyim hinshitsu Command
 
 ```bash
 # Quality dashboard (coverage + staleness + consistency)
-gftd hinshitsu report
+etzhayyim hinshitsu report
 
 # Per-field coverage breakdown
-gftd hinshitsu fields
+etzhayyim hinshitsu fields
 
 # Actor ranking by quality score
-gftd hinshitsu rank [--worst 20]
+etzhayyim hinshitsu rank [--worst 20]
 
 # Validate actor data consistency (graph ↔ manifest ↔ WIT)
-gftd hinshitsu validate <did>
+etzhayyim hinshitsu validate <did>
 ```
 
 ### Shinka Healing Pipeline (T1 MCP-Compose)
@@ -97,7 +97,7 @@ gftd hinshitsu validate <did>
       {
         "fn": "custom",
         "id": "heal",
-        "handler": "export default async (ctx, input) => {\n  const results = [];\n  for (const actor of input.gaps.rows) {\n    const fixes = {};\n    if (!actor.convo_system_prompt) {\n      const r = await ctx.agent.chat({ message: `Generate a concise system prompt for AI actor: ${actor.display_name} - ${actor.description}. Return only the prompt text.` });\n      fixes.convo_system_prompt = r.text;\n    }\n    if (!actor.wit_imports || actor.wit_imports === '[]') {\n      fixes.wit_imports = JSON.stringify(['magatama:governance/governance', 'magatama:identity/capability', 'magatama:agent/agent']);\n      fixes.wit_exports = JSON.stringify([`gftd:${actor.name}/service`]);\n    }\n    if (!actor.performer_type) fixes.performer_type = 'service';\n    if (Object.keys(fixes).length > 0) {\n      const sets = Object.entries(fixes).map(([k,v]) => `${k} = '${v.replace(/'/g, \"\\\\'\")}'`).join(', ');\n      await ctx.graph.write({ template: `UPDATE graphar.vertex_actor SET ${sets} WHERE did = '${actor.did}'` });\n      results.push({ did: actor.did, fixed: Object.keys(fixes) });\n    }\n  }\n  return { healed: results.length, results };\n}",
+        "handler": "export default async (ctx, input) => {\n  const results = [];\n  for (const actor of input.gaps.rows) {\n    const fixes = {};\n    if (!actor.convo_system_prompt) {\n      const r = await ctx.agent.chat({ message: `Generate a concise system prompt for AI actor: ${actor.display_name} - ${actor.description}. Return only the prompt text.` });\n      fixes.convo_system_prompt = r.text;\n    }\n    if (!actor.wit_imports || actor.wit_imports === '[]') {\n      fixes.wit_imports = JSON.stringify(['magatama:governance/governance', 'magatama:identity/capability', 'magatama:agent/agent']);\n      fixes.wit_exports = JSON.stringify([`etzhayyim:${actor.name}/service`]);\n    }\n    if (!actor.performer_type) fixes.performer_type = 'service';\n    if (Object.keys(fixes).length > 0) {\n      const sets = Object.entries(fixes).map(([k,v]) => `${k} = '${v.replace(/'/g, \"\\\\'\")}'`).join(', ');\n      await ctx.graph.write({ template: `UPDATE graphar.vertex_actor SET ${sets} WHERE did = '${actor.did}'` });\n      results.push({ did: actor.did, fixed: Object.keys(fixes) });\n    }\n  }\n  return { healed: results.length, results };\n}",
         "capabilities": ["agent.chat", "graph.query", "graph.write"]
       },
       {
@@ -120,7 +120,7 @@ Murakumo Fleet (resolveModel(undefined, "shinka") → gemma-4-e4b-it)
    Model: resolveModel(undefined, "structured") → gemma-4-e4b-it
    Input:  { name: "isbn", description: "ISBN 書籍識別", capabilities: ["graph.write", "browser.fetch"] }
    Output: { imports: ["magatama:governance/governance", "magatama:identity/capability", ...],
-             exports: ["gftd:isbn/book-registry", "gftd:isbn/publisher-registry"] }
+             exports: ["etzhayyim:isbn/book-registry", "etzhayyim:isbn/publisher-registry"] }
 
 2. Convo Prompt Generation (useCase: "general"):
    Model: resolveModel(undefined, "general") → gemma-4-e4b-it
@@ -159,7 +159,7 @@ Time to η=1.0: ~283 actors / 120 = ~2.4 hours
 | File | Purpose |
 |---|---|
 | `80-data/shannon/snapshots/snap-20260409-actor-hinshitsu.parquet` | Per-actor quality scores |
-| `70-tools/gftd/gftd/coverage.go` | `gftd coverage` CLI (planned) |
-| `70-tools/gftd/gftd/hinshitsu.go` | `gftd hinshitsu` CLI (planned) |
+| `70-tools/etzhayyim/etzhayyim/coverage.go` | `etzhayyim coverage` CLI (planned) |
+| `70-tools/etzhayyim/etzhayyim/hinshitsu.go` | `etzhayyim hinshitsu` CLI (planned) |
 | `50-infra/.../pds/src/actor-executor-shared.ts` | Shinka healing pipeline execution |
-| `60-apps/ai-gftd-project-shinka/` | Shinka actor (cron */5 min evolution) |
+| `60-apps/etzhayyim-project-shinka/` | Shinka actor (cron */5 min evolution) |

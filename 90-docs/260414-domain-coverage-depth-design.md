@@ -234,7 +234,7 @@ did:web:media-gamers.etzhayyim.com:esports:{event-id}
 
 per-subdomain coverage rate = `count(vertex_<domain>_<sub>) / world_total_estimate`
 
-`mv_<domain>_sub_coverage` を 3 ドメイン分追加し、`mv_world_coverage_live` と左 JOIN して `gftd coverage world --depth` で表示:
+`mv_<domain>_sub_coverage` を 3 ドメイン分追加し、`mv_world_coverage_live` と左 JOIN して `etzhayyim coverage world --depth` で表示:
 
 ```
 DOMAIN            COLLECTED    WORLD_TOTAL   COVERAGE    SUB-DEPTH

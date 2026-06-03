@@ -103,7 +103,7 @@ GeoJSON properties:
 - 配置:
   - App platform/system: `magatama-system`
   - WADM app resources: `magatama-runtime`
-  - HTTPRoute: `ai-gftd-performers-org-etzhayyim`
+  - HTTPRoute: `etzhayyim-performers-org-etzhayyim`
 - 既存運用と合わせ、`mage Deploy` でデプロイ。
 - 画像配布は `ghcr.io/etzhayyim/*` のみ。
 

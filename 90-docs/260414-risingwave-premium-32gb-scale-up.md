@@ -30,7 +30,7 @@ and record the observations that drove the design.
 ## Executive Summary
 
 Streaming MV backfill (migration 0025 world coverage) + bulk INSERT from
-`gftd collect` triggered 3 compute-pod OOM restarts in a 3-hour window.
+`etzhayyim collect` triggered 3 compute-pod OOM restarts in a 3-hour window.
 Per RisingWave official guidance, scaled up to Premium 32GB single-node.
 Net cost delta: **+$202/mo** ($144 → $346). Outcome: stable MV execution,
 block cache locality, single-node shuffle.

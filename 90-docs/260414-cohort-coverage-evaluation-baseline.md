@@ -351,7 +351,7 @@ fission 後の individual actor が cohort から derive されたことを grap
 2. `onCommit` handler: evidence commit → deriveCohortEventType → apqc projector emit
 3. en locale × industry overlay 5 件 (mfg-en, bank-en, hc-en, retail-en, pharma-en)
 4. `com.etzhayyim.cohort.seed` procedure の実装 (pds handler) — `vertex_cohort_actor` INSERT
-5. `gftd cohort seed --segment` CLI skeleton
+5. `etzhayyim cohort seed --segment` CLI skeleton
 
 # Iteration 6 — 2026-04-14
 
@@ -551,7 +551,7 @@ cron match → parseCohortAction → runCohortKReevaluate (JOIN 済み)
 
 ## Risk / Open Items
 
-- projector の XRPC write は PDS-internal fetch で行うが auth header なし (trusted intra-pds path)。本番で 401 が出る場合は `gftd agent-token --lxm com.atproto.repo.createRecord` で JWT 取得経路を入れる必要
+- projector の XRPC write は PDS-internal fetch で行うが auth header なし (trusted intra-pds path)。本番で 401 が出る場合は `etzhayyim agent-token --lxm com.atproto.repo.createRecord` で JWT 取得経路を入れる必要
 - `onCommit` handler (evidence commit → projector emit) は依然未実装
 - `com.etzhayyim.cohort.seed` procedure も依然未実装
 
@@ -604,7 +604,7 @@ locale × seniority matrix が jp/en 両言語で senior 確保。
 - ✅ segment_hash parser (Iter 4)
 - ✅ forwardOcelToApqc genesis route (Iter 11 — 本 iter)
 - ⏳ PDS handler registration (次 iter)
-- ⏳ gftd CLI `cohort seed` skeleton (次 iter)
+- ⏳ etzhayyim CLI `cohort seed` skeleton (次 iter)
 
 ## Risk / Open Items
 
@@ -614,7 +614,7 @@ locale × seniority matrix が jp/en 両言語で senior 確保。
 ## 次 iteration TODO
 
 1. `sdk.app.command(nsid('com.etzhayyim.cohort.seed'), ...)` 実装 (50-infra/cloudflare/workers/atproto/src/handlers/cohort.ts 新規)
-2. `gftd cohort seed --segment <json>` CLI skeleton (70-tools/cmd/gftd/cohort/)
+2. `etzhayyim cohort seed --segment <json>` CLI skeleton (70-tools/cmd/etzhayyim/cohort/)
 3. `forwardOcelToApqc` に ADR-0022 agent-token 経由の Authorization header を追加
 4. evidence onCommit: `collection === 'com.etzhayyim.cohort.evidence'` 分岐
 5. migration 0055: `deps.toml [[cohort_actors]]` から `vertex_cohort_actor` への bootstrap insert
@@ -625,8 +625,8 @@ locale × seniority matrix が jp/en 両言語で senior 確保。
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | 新規: `handleCohortSeed(env, input)` 実装 — k≥50 検証 / segment_hash 導出 / nano 生成 / vertex_cohort_actor INSERT / forwardOcelToApqc('cohort.genesis') |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.test.ts` | 新規: segment_hash 導出契約 test 3 cases (minimum / overlay / 順序不変) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | 新規: `handleCohortSeed(env, input)` 実装 — k≥50 検証 / segment_hash 導出 / nano 生成 / vertex_cohort_actor INSERT / forwardOcelToApqc('cohort.genesis') |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.test.ts` | 新規: segment_hash 導出契約 test 3 cases (minimum / overlay / 順序不変) |
 | `deps.toml` | +2 cohort (L7 HR senior / L12 ER senior, jp) |
 
 ## Cohort Total N=63
@@ -648,7 +648,7 @@ senior tier が 7 L1 (IT/sales/finance/risk/HR/ER) をカバー。gap は L1/L2/
 | forwardOcelToApqc genesis route | ✅ |
 | **PDS handler function** | **✅ (本 iter)** |
 | XRPC dispatch wiring (`sdk.app.command`) | ⏳ 次 iter |
-| gftd CLI skeleton | ⏳ 次 iter |
+| etzhayyim CLI skeleton | ⏳ 次 iter |
 
 handler 関数は完成、XRPC dispatch 登録のみ残。
 
@@ -671,14 +671,14 @@ POST /xrpc/com.etzhayyim.cohort.seed
 ## Risk / Open Items
 
 - dispatch 登録が未完のため handler は未 reachable (直接 import/test のみ可能)
-- CLI 側 (`gftd cohort seed`) も未実装
+- CLI 側 (`etzhayyim cohort seed`) も未実装
 - Service Auth header 未付与は継続 risk
 
 ## 次 iteration TODO
 
-1. `handlers/gftd/index.ts` で `handleCohortSeed` を `com.etzhayyim.cohort.seed` NSID 分岐に登録
-2. `gftd cohort seed --segment <json>` CLI subcommand (70-tools/cmd/gftd/cohort.go or ts)
-3. `forwardOcelToApqc` に `gftd agent-token --lxm com.atproto.repo.createRecord` 経由の Authorization 取得
+1. `handlers/etzhayyim/index.ts` で `handleCohortSeed` を `com.etzhayyim.cohort.seed` NSID 分岐に登録
+2. `etzhayyim cohort seed --segment <json>` CLI subcommand (70-tools/cmd/etzhayyim/cohort.go or ts)
+3. `forwardOcelToApqc` に `etzhayyim agent-token --lxm com.atproto.repo.createRecord` 経由の Authorization 取得
 4. en × L7/L12 senior overlay (+2)
 5. onCommit handler: evidence 分岐 (次回確実に着手)
 
@@ -688,7 +688,7 @@ POST /xrpc/com.etzhayyim.cohort.seed
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `com.etzhayyim.cohort.seed` NSID を `XRPC_PLATFORM_WRITE_METHODS` に追加、dispatch switch に `case "com.etzhayyim.cohort.seed"` を新設 (dynamic import で cohort.ts 呼び出し) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | `com.etzhayyim.cohort.seed` NSID を `XRPC_PLATFORM_WRITE_METHODS` に追加、dispatch switch に `case "com.etzhayyim.cohort.seed"` を新設 (dynamic import で cohort.ts 呼び出し) |
 | `deps.toml` | +2 cohort (en L7/L12 senior) |
 
 ## Cohort Total N=65
@@ -711,7 +711,7 @@ senior tier jp/en 両対応が 7 L1 に到達 (IT/sales/finance/risk/HR/ER × jp
 | handler function | ✅ |
 | **XRPC dispatch wiring** | **✅ (本 iter)** |
 | PLATFORM_WRITE_METHODS entry | ✅ |
-| gftd CLI skeleton | ⏳ |
+| etzhayyim CLI skeleton | ⏳ |
 
 POST `/xrpc/com.etzhayyim.cohort.seed` が reachable (要 auth)。
 
@@ -738,7 +738,7 @@ curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.cohort.seed \
 
 ## 次 iteration TODO
 
-1. `gftd cohort seed` CLI subcommand 実装 (70-tools/cmd/gftd/)
+1. `etzhayyim cohort seed` CLI subcommand 実装 (70-tools/cmd/etzhayyim/)
 2. `forwardOcelToApqc` Service Auth wrapping
 3. onCommit handler (evidence → projector)
 4. migration 0055 draft: [[cohort_actors]] toml → vertex_cohort_actor bootstrap INSERT
@@ -750,18 +750,18 @@ curl -X POST https://atproto.etzhayyim.com/xrpc/com.etzhayyim.cohort.seed \
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | 新規: `gftd cohort seed --segment <json> --k 50` CLI。agent_token.go 準拠の XRPC POST pattern |
-| `70-tools/gftd/gftd/main.go` | `case "cohort":` dispatch 追加 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | 新規: `etzhayyim cohort seed --segment <json> --k 50` CLI。agent_token.go 準拠の XRPC POST pattern |
+| `70-tools/etzhayyim/etzhayyim/main.go` | `case "cohort":` dispatch 追加 |
 
 ## CLI Usage
 
 ```bash
 # Interactive:
-gftd authn signin
+etzhayyim authn signin
 
 # Minted per-call scoped auth:
-AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.cohort.seed --ttl 60)
-etzhayyim_TOKEN=$AT_TOKEN gftd cohort seed \
+AT_TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.cohort.seed --ttl 60)
+etzhayyim_TOKEN=$AT_TOKEN etzhayyim cohort seed \
   --segment '{"pcfL1":"3-market-sell","role":"salesRep","locale":"jp"}' \
   --k 50
 
@@ -776,7 +776,7 @@ etzhayyim_TOKEN=$AT_TOKEN gftd cohort seed \
 ## Cohort Total N=65 (unchanged)
 
 CLI 経由で seed できる状態になったため、今後は `deps.toml` への直接追加ではなく
-`gftd cohort seed` で投入する運用に移行可能。
+`etzhayyim cohort seed` で投入する運用に移行可能。
 
 ## Evaluation — Phase A Readiness Complete
 
@@ -789,7 +789,7 @@ CLI 経由で seed できる状態になったため、今後は `deps.toml` へ
 | handler function | ✅ |
 | XRPC dispatch wiring | ✅ |
 | PLATFORM_WRITE_METHODS entry | ✅ |
-| **gftd CLI** | **✅ (本 iter)** |
+| **etzhayyim CLI** | **✅ (本 iter)** |
 
 ADR-0026 Phase A (genesis) が E2E 完結。CLI → XRPC → handler → graph write → projector OCEL の full path 完成。
 
@@ -805,7 +805,7 @@ ADR-0026 Phase A (genesis) が E2E 完結。CLI → XRPC → handler → graph w
 2. onCommit handler (evidence → deriveCohortEventType → forwardOcelToApqc)
 3. `forwardOcelToApqc` の JWT 付与 (ADR-0022 agent-token API or identity: internal service binding)
 4. `com.etzhayyim.cohort.listCohorts` query NSID 仕様化
-5. bulk seed automation: `gftd cohort seed-all --from deps.toml`
+5. bulk seed automation: `etzhayyim cohort seed-all --from deps.toml`
 
 # Iteration 15 — 2026-04-15
 
@@ -813,18 +813,18 @@ ADR-0026 Phase A (genesis) が E2E 完結。CLI → XRPC → handler → graph w
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort bootstrap` 追加 — deps.toml を line-by-line parse し `[[cohort_actors]]` を全件 POST。`--dry-run` default, `--limit N` で段階投入 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort bootstrap` 追加 — deps.toml を line-by-line parse し `[[cohort_actors]]` を全件 POST。`--dry-run` default, `--limit N` で段階投入 |
 | `00-contracts/lexicons/com/etzhayyim/cohort/listCohorts.json` | 新規 query lexicon: kind/pcfL1/locale/fissionEnabled フィルタ + limit/offset pagination |
 
 ## CLI
 
 ```bash
 # Preview deps.toml → genesis plan
-gftd cohort bootstrap --deps deps.toml
+etzhayyim cohort bootstrap --deps deps.toml
 
 # Apply (limited batch for safety)
-AT_TOKEN=$(gftd agent-token --lxm com.etzhayyim.cohort.seed --ttl 600) \
-  etzhayyim_TOKEN=$AT_TOKEN gftd cohort bootstrap --dry-run=false --limit 10 -v
+AT_TOKEN=$(etzhayyim agent-token --lxm com.etzhayyim.cohort.seed --ttl 600) \
+  etzhayyim_TOKEN=$AT_TOKEN etzhayyim cohort bootstrap --dry-run=false --limit 10 -v
 ```
 
 ## Cohort Total N=65 in deps.toml
@@ -844,7 +844,7 @@ bootstrap 完了後、`vertex_cohort_actor` にも N=65 row が存在する状�
 ## Risk / Open Items
 
 - bootstrap は idempotent **ではない**: 毎回新 nano でも新 row が増える。次 iter で handler 側に `segment_hash` UNIQUE constraint or SELECT-before-INSERT を追加する必要
-- listCohorts query の PDS handler (handlers/gftd/index.ts で `case "com.etzhayyim.cohort.listCohorts"`) は未実装
+- listCohorts query の PDS handler (handlers/etzhayyim/index.ts で `case "com.etzhayyim.cohort.listCohorts"`) は未実装
 - 診断警告は全て pre-existing (本 iter 由来なし)
 
 ## 次 iteration TODO
@@ -861,17 +861,17 @@ bootstrap 完了後、`vertex_cohort_actor` にも N=65 row が存在する状�
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortSeed` に idempotency 追加 (segment_hash + kind='cohort' で SELECT-before-INSERT); 新規 `handleCohortList(input)` 実装 (kind/pcfL1/locale/fissionEnabled filter + limit/offset pagination) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "com.etzhayyim.cohort.listCohorts"` dispatch 追加; `XRPC_PLATFORM_READ_METHODS` に NSID 追加 |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort list` subcommand 実装 (--kind / --pcfL1 / --locale / --limit / --offset / --json) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortSeed` に idempotency 追加 (segment_hash + kind='cohort' で SELECT-before-INSERT); 新規 `handleCohortList(input)` 実装 (kind/pcfL1/locale/fissionEnabled filter + limit/offset pagination) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | `case "com.etzhayyim.cohort.listCohorts"` dispatch 追加; `XRPC_PLATFORM_READ_METHODS` に NSID 追加 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort list` subcommand 実装 (--kind / --pcfL1 / --locale / --limit / --offset / --json) |
 
 ## Phase A E2E 完成
 
 | Op | CLI | XRPC | Handler | 状態 |
 |---|---|---|---|---|
-| Genesis (idempotent) | `gftd cohort seed` | POST com.etzhayyim.cohort.seed | handleCohortSeed | ✅ |
-| Bootstrap from toml | `gftd cohort bootstrap` | (POST xN) | (同上) | ✅ |
-| List / query | `gftd cohort list` | GET com.etzhayyim.cohort.listCohorts | handleCohortList | ✅ |
+| Genesis (idempotent) | `etzhayyim cohort seed` | POST com.etzhayyim.cohort.seed | handleCohortSeed | ✅ |
+| Bootstrap from toml | `etzhayyim cohort bootstrap` | (POST xN) | (同上) | ✅ |
+| List / query | `etzhayyim cohort list` | GET com.etzhayyim.cohort.listCohorts | handleCohortList | ✅ |
 
 ## Evaluation — Idempotency
 
@@ -884,10 +884,10 @@ seed の同一 segment_hash 重複防止:
 listCohorts が分析クエリに使える:
 
 ```bash
-gftd cohort list --kind cohort --pcfL1 8-info-technology --limit 50
+etzhayyim cohort list --kind cohort --pcfL1 8-info-technology --limit 50
 # → IT L1 の cohort を列挙 (jp/en/industry overlay 混在)
 
-gftd cohort list --locale en --json | jq '.cohorts | length'
+etzhayyim cohort list --locale en --json | jq '.cohorts | length'
 # → 英語 cohort 件数
 ```
 
@@ -901,8 +901,8 @@ gftd cohort list --locale en --json | jq '.cohorts | length'
 
 1. idempotent hit 時の OCEL 重複抑止 (既存ヒットで `cohort.genesis` emit せず early return)
 2. onCommit handler (com.etzhayyim.cohort.evidence commit → projector emit)
-3. Murakumo agent tool 登録 (LLM drives `gftd cohort seed` via function call)
-4. `gftd cohort fission --cohort <did>` stub (Phase C trigger API)
+3. Murakumo agent tool 登録 (LLM drives `etzhayyim cohort seed` via function call)
+4. `etzhayyim cohort fission --cohort <did>` stub (Phase C trigger API)
 5. listCohorts に accurate total count option (`--count true` で二次 SELECT count(*))
 
 # Iteration 17 — 2026-04-15
@@ -911,20 +911,20 @@ gftd cohort list --locale en --json | jq '.cohorts | length'
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | idempotent hit 時の挙動を明示 comment 化 (既に early return なので OCEL skip は構造的に成立) |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort fission` CLI 追加 (posterior>=0.95 + judge=true + evidence[] gate を CLI 側で先行検証) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | idempotent hit 時の挙動を明示 comment 化 (既に early return なので OCEL skip は構造的に成立) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort fission` CLI 追加 (posterior>=0.95 + judge=true + evidence[] gate を CLI 側で先行検証) |
 | `90-docs/260415-cohort-evidence-oncommit-spec.md` | Phase B onCommit handler の完全 spec (PDS commit dispatcher 挿入 point + code) |
 
 ## Phase A (genesis) + B (evidence) + C (fission) CLI surface 完成
 
 ```bash
 # Phase A (本番動作)
-gftd cohort seed --segment '...' --k 50
-gftd cohort bootstrap --deps deps.toml
-gftd cohort list --pcfL1 8-info-technology
+etzhayyim cohort seed --segment '...' --k 50
+etzhayyim cohort bootstrap --deps deps.toml
+etzhayyim cohort list --pcfL1 8-info-technology
 
 # Phase C (CLI 完成 / handler pending)
-gftd cohort fission --cohort did:plc:... --posterior 0.97 --judge=true \
+etzhayyim cohort fission --cohort did:plc:... --posterior 0.97 --judge=true \
   --evidence at://...,at://...
 ```
 
@@ -957,14 +957,14 @@ gftd cohort fission --cohort did:plc:... --posterior 0.97 --judge=true \
 | File | 変更 |
 |---|---|
 | `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` | `forwardOcelToApqc` 引数 `kProxy → numericPayload` rename + 意味付け JSDoc。既存 `kProxy` は `CohortKDriftResult.ocelEvents` の legacy field として temporary 保持 |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortFission(env, input)` 実装 — cohort lookup + fission_enabled 検証 + 子 actor INSERT (kind='fissioned', derived_from=parent) + `cohort.fission` OCEL emit |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "com.etzhayyim.cohort.fission"` dispatch + PLATFORM_WRITE_METHODS 登録 |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortFission(env, input)` 実装 — cohort lookup + fission_enabled 検証 + 子 actor INSERT (kind='fissioned', derived_from=parent) + `cohort.fission` OCEL emit |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | `case "com.etzhayyim.cohort.fission"` dispatch + PLATFORM_WRITE_METHODS 登録 |
 
 ## Phase C (Fission) E2E 完成
 
 ```bash
 # CLI
-gftd cohort fission --cohort did:plc:pending-abc \
+etzhayyim cohort fission --cohort did:plc:pending-abc \
   --posterior 0.97 --judge=true \
   --evidence at://...,at://...
 
@@ -1021,7 +1021,7 @@ gftd cohort fission --cohort did:plc:pending-abc \
 1. commit dispatcher (handlers/feed.ts or similar) に `com.etzhayyim.cohort.evidence` 分岐を insert
 2. `forwardOcelToApqc` legacy `kProxy` field 削除 (app.ts 側 writeDataPoint も更新)
 3. `com.etzhayyim.cohort.fissionLineage` record lexicon 定義
-4. `gftd cohort lineage --did <fissioned>` CLI で derived_from chain を辿る
+4. `etzhayyim cohort lineage --did <fissioned>` CLI で derived_from chain を辿る
 5. Murakumo agent tool registration
 
 # Iteration 19 — 2026-04-15
@@ -1031,14 +1031,14 @@ gftd cohort fission --cohort did:plc:pending-abc \
 | File | 変更 |
 |---|---|
 | `00-contracts/lexicons/com/etzhayyim/cohort/fissionLineage.json` | 新規 record lexicon: individualDid / derivedFrom / posteriorAtFission (>=0.95) / judgeAgreement=true / evidenceUris / fissionAt / parentSegmentHash。rkey=literal:self |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort lineage --did <did>` subcommand — listCohorts 経由で derived_from chain を上方向に辿る。`--max` で最大 hop 数指定、`--json` で生 output |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort lineage --did <did>` subcommand — listCohorts 経由で derived_from chain を上方向に辿る。`--max` で最大 hop 数指定、`--json` で生 output |
 | `50-infra/cloudflare/workers/atproto/src/agent/cohort-watchdog.ts` | `CohortKDriftResult.ocelEvents` から legacy `kProxy` field 削除。`numericPayload` のみに統一 |
 | `50-infra/cloudflare/workers/atproto/src/app.ts` | `ev.kProxy → ev.numericPayload` 参照更新 |
 
 ## Lineage CLI Example
 
 ```bash
-gftd cohort lineage --did did:plc:pending-<fissioned>
+etzhayyim cohort lineage --did did:plc:pending-<fissioned>
 # lineage (2 hop):
 #   ├─ did:plc:pending-xxxxxxxx  agent-xxxxxxxx.etzhayyim.com  kind=fissioned  segment=sha256:pcfL1=3-market-sell;...
 #   └─ did:plc:pending-cmkt003c  cohort-cmkt003c.etzhayyim.com  kind=cohort    segment=sha256:pcfL1=3-market-sell;...
@@ -1051,12 +1051,12 @@ gftd cohort lineage --did did:plc:pending-<fissioned>
 
 ## Process Mining — Lineage Depth Analysis
 
-`gftd cohort lineage --did <x> --json` を集計 pipeline に流すと:
+`etzhayyim cohort lineage --did <x> --json` を集計 pipeline に流すと:
 
 ```bash
 # 全 fissioned の lineage depth 分布
-for did in $(gftd cohort list --kind fissioned --json | jq -r '.cohorts[].cohortDid'); do
-  depth=$(gftd cohort lineage --did "$did" --json | jq 'length')
+for did in $(etzhayyim cohort list --kind fissioned --json | jq -r '.cohorts[].cohortDid'); do
+  depth=$(etzhayyim cohort lineage --did "$did" --json | jq 'length')
   echo "$did $depth"
 done | awk '{print $2}' | sort | uniq -c
 ```
@@ -1074,7 +1074,7 @@ chain が長い = 繰り返し分裂した actor、短い = 1 回のみ fission�
 2. onCommit evidence handler insert (本番 commit pipeline に evidence → projector OCEL の branch を追加)
 3. Murakumo agent tool registration (`cohort.seed` + `cohort.fission` を LLM callable に)
 4. `com.etzhayyim.cohort.listEvidence --cohort <did>` query lexicon (分析 surface 拡張)
-5. `gftd cohort forest --pcfL1 <slug>` — L1 毎の cohort→fissioned tree を ascii 出力
+5. `etzhayyim cohort forest --pcfL1 <slug>` — L1 毎の cohort→fissioned tree を ascii 出力
 
 # Iteration 20 — 2026-04-15
 
@@ -1082,9 +1082,9 @@ chain が長い = 繰り返し分裂した actor、短い = 1 回のみ fission�
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortFission` に `com.etzhayyim.cohort.fissionLineage` record write (PDS XRPC fetch, individualDid 名義) 追加。`handleCohortListEvidence(env, input)` 新規 — cohort_did + optional minPosterior/judgeAgreement filter で vertex_repo_record を read |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortFission` に `com.etzhayyim.cohort.fissionLineage` record write (PDS XRPC fetch, individualDid 名義) 追加。`handleCohortListEvidence(env, input)` 新規 — cohort_did + optional minPosterior/judgeAgreement filter で vertex_repo_record を read |
 | `00-contracts/lexicons/com/etzhayyim/cohort/listEvidence.json` | 新規 query lexicon (required: cohortDid) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | `case "com.etzhayyim.cohort.listEvidence"` dispatch + PLATFORM_READ 登録 |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | `case "com.etzhayyim.cohort.listEvidence"` dispatch + PLATFORM_READ 登録 |
 
 ## API Surface (cohort cluster)
 
@@ -1103,7 +1103,7 @@ curl -H "Authorization: Bearer $AT_TOKEN" \
   "https://atproto.etzhayyim.com/xrpc/com.etzhayyim.cohort.listEvidence?cohortDid=did:plc:pending-abc&minPosterior=0.95&judgeAgreement=true"
 
 # → posterior ≥ 0.95 かつ judge agreed な evidence row を列挙
-#    これが >= 1 かつ fission_enabled=true なら `gftd cohort fission` を発火できる
+#    これが >= 1 かつ fission_enabled=true なら `etzhayyim cohort fission` を発火できる
 ```
 
 ## Fission Lineage Persistence
@@ -1123,8 +1123,8 @@ curl -H "Authorization: Bearer $AT_TOKEN" \
 
 ## 次 iteration TODO
 
-1. `gftd cohort evidence --cohort <did>` CLI (listEvidence wrapper)
-2. `gftd cohort forest --pcfL1 <slug>` — L1 毎の cohort + children tree を ascii 出力
+1. `etzhayyim cohort evidence --cohort <did>` CLI (listEvidence wrapper)
+2. `etzhayyim cohort forest --pcfL1 <slug>` — L1 毎の cohort + children tree を ascii 出力
 3. onCommit dispatcher insert (cohort.evidence commit)
 4. write-outbox 経由の lineage record retry
 5. Murakumo agent tool registration
@@ -1135,24 +1135,24 @@ curl -H "Authorization: Bearer $AT_TOKEN" \
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort evidence --cohort <did> [--min-posterior 0.95 --judge true]` subcommand (listEvidence wrapper); `gftd cohort forest --pcfL1 <slug>` subcommand (cohort + fissioned ascii tree via derived_from index) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort evidence --cohort <did> [--min-posterior 0.95 --judge true]` subcommand (listEvidence wrapper); `etzhayyim cohort forest --pcfL1 <slug>` subcommand (cohort + fissioned ascii tree via derived_from index) |
 
 ## CLI Surface — Complete
 
 ```
-gftd cohort seed        # Phase A genesis (1 segment)
-gftd cohort bootstrap   # Phase A bulk seed from deps.toml
-gftd cohort list        # cohort actor 列挙
-gftd cohort evidence    # evidence 列挙 (cohort scoped)  ← 本 iter
-gftd cohort fission     # Phase C fission
-gftd cohort lineage     # derived_from chain upward
-gftd cohort forest      # cohort + children downward tree  ← 本 iter
+etzhayyim cohort seed        # Phase A genesis (1 segment)
+etzhayyim cohort bootstrap   # Phase A bulk seed from deps.toml
+etzhayyim cohort list        # cohort actor 列挙
+etzhayyim cohort evidence    # evidence 列挙 (cohort scoped)  ← 本 iter
+etzhayyim cohort fission     # Phase C fission
+etzhayyim cohort lineage     # derived_from chain upward
+etzhayyim cohort forest      # cohort + children downward tree  ← 本 iter
 ```
 
 ## Forest Output Example
 
 ```
-$ gftd cohort forest --pcfL1 3-market-sell
+$ etzhayyim cohort forest --pcfL1 3-market-sell
 forest (4 nodes, pcfL1=3-market-sell):
 did:plc:pending-cmkt003c  cohort-cmkt003c.etzhayyim.com  kind=cohort
   did:plc:pending-xxxxxxxx  agent-xxxxxxxx.etzhayyim.com  kind=fissioned
@@ -1166,8 +1166,8 @@ evidence + forest 組合せで operational dashboard 可能:
 
 ```bash
 # L1 毎の fission-ready cohort 検出
-for cohort in $(gftd cohort list --pcfL1 3-market-sell --json | jq -r '.cohorts[].cohortDid'); do
-  ready=$(gftd cohort evidence --cohort "$cohort" --min-posterior 0.95 --judge true --json | jq '.evidence | length')
+for cohort in $(etzhayyim cohort list --pcfL1 3-market-sell --json | jq -r '.cohorts[].cohortDid'); do
+  ready=$(etzhayyim cohort evidence --cohort "$cohort" --min-posterior 0.95 --judge true --json | jq '.evidence | length')
   [ "$ready" -ge 1 ] && echo "$cohort ready=$ready"
 done
 ```
@@ -1183,7 +1183,7 @@ done
 1. onCommit dispatcher insert (com.etzhayyim.cohort.evidence branch)
 2. write-outbox retry for lineage record
 3. Murakumo agent tool registration (cohort.seed + cohort.fission)
-4. `gftd cohort stats` — per-L1 aggregate (cohort count / fissioned count / avg posterior / k-drift rate)
+4. `etzhayyim cohort stats` — per-L1 aggregate (cohort count / fissioned count / avg posterior / k-drift rate)
 5. en × seniority × industry 3 軸 cross-product 展開 (+ N cohort)
 
 # Iteration 22 — 2026-04-15
@@ -1192,7 +1192,7 @@ done
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort stats` subcommand — per-L1 aggregate (cohort / fissioned / fissionEnabled / total) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort stats` subcommand — per-L1 aggregate (cohort / fissioned / fissionEnabled / total) |
 | `deps.toml` | +5 cohort (3-axis cross-product: en×senior×banking IT、en×junior×mfg ops、en×senior×healthcare CS、jp×senior×pharma PS、jp×senior×banking FR) |
 
 ## Cohort Total N=70
@@ -1209,7 +1209,7 @@ done
 ## Stats CLI Example
 
 ```
-$ gftd cohort stats
+$ etzhayyim cohort stats
 pcfL1                                  cohorts  fissioned fissionEnabled  total
 1-vision-strategy                            3          0              0      3
 2-product-service                            5          0              0      5
@@ -1223,7 +1223,7 @@ stats は listCohorts 上に client-side aggregation で実装。専用 MV な�
 
 ## Process Mining
 
-ops dashboard として `gftd cohort stats --json | jq ...` を watch すると:
+ops dashboard として `etzhayyim cohort stats --json | jq ...` を watch すると:
 - 各 L1 の cohort 残量
 - fission で生まれた individual 数
 - watchdog が fission 無効化した数 (fissionEnabled 低下 = k-drift violation の合計)
@@ -1244,7 +1244,7 @@ ADR-0026 の運用健全性を 1 行で把握可能。
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort stats --by <axes>` 実装 — axes = `pcfL1,role,industry,seniority,locale` から任意組合せ。client-side group-by で multi-dim aggregate。`extractPcfL1FromHash` を削除し、汎用 `parseSegmentKV` に統合 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort stats --by <axes>` 実装 — axes = `pcfL1,role,industry,seniority,locale` から任意組合せ。client-side group-by で multi-dim aggregate。`extractPcfL1FromHash` を削除し、汎用 `parseSegmentKV` に統合 |
 | `deps.toml` | +3 cohort (healthcare jp junior / retail jp junior / retail en junior) |
 
 ## Cohort Total N=73
@@ -1259,13 +1259,13 @@ ADR-0026 の運用健全性を 1 行で把握可能。
 
 ```bash
 # 従来 (single axis)
-gftd cohort stats
-gftd cohort stats --by pcfL1
+etzhayyim cohort stats
+etzhayyim cohort stats --by pcfL1
 
 # 新 (composite axis)
-gftd cohort stats --by pcfL1,locale
-gftd cohort stats --by industry,seniority
-gftd cohort stats --by locale,seniority,industry --json | jq
+etzhayyim cohort stats --by pcfL1,locale
+etzhayyim cohort stats --by industry,seniority
+etzhayyim cohort stats --by locale,seniority,industry --json | jq
 ```
 
 例 output (industry × seniority):
@@ -1295,7 +1295,7 @@ healthcare/senior                                1          0              0    
 1. onCommit dispatcher insert
 2. write-outbox retry for lineage
 3. Murakumo tool registration
-4. `gftd cohort stats --kind cohort|fissioned` で cohort/fissioned 別出力
+4. `etzhayyim cohort stats --kind cohort|fissioned` で cohort/fissioned 別出力
 5. 初の実 fission 動作試験 (posterior ≥ 0.95 な evidence を createRecord で投入 → cohort fission)
 
 # Iteration 24 — 2026-04-15
@@ -1304,7 +1304,7 @@ healthcare/senior                                1          0              0    
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort_test.go` | 新規: `parseSegmentKV` (3 cases) + `cohortEntry.toSegmentJsonld` (keys check) + `sortStrings` (duplicate sort) の unit test |
+| `70-tools/etzhayyim/etzhayyim/cohort_test.go` | 新規: `parseSegmentKV` (3 cases) + `cohortEntry.toSegmentJsonld` (keys check) + `sortStrings` (duplicate sort) の unit test |
 | `deps.toml` | +3 cohort (IT L1 role 深堀: dataEngineer / mlEngineer / frontendEngineer jp) |
 
 ## Cohort Total N=76
@@ -1323,12 +1323,12 @@ healthcare/senior                                1          0              0    
 - `cohortEntry.toSegmentJsonld`: JSON-LD 逆変換の key 含有
 - `sortStrings`: insertion sort の duplicate 扱い
 
-go test ./70-tools/gftd/gftd で走行。handler/DB 接続不要の純 logic なので CI で低コスト。
+go test ./70-tools/etzhayyim/etzhayyim で走行。handler/DB 接続不要の純 logic なので CI で低コスト。
 
 ## Process Mining — Role Depth Analysis
 
 ```bash
-gftd cohort stats --by pcfL1,role | grep 8-info
+etzhayyim cohort stats --by pcfL1,role | grep 8-info
 # 8-info-technology/sreEngineer        ...
 # 8-info-technology/secOpsEngineer     ...
 # 8-info-technology/dataEngineer       ...
@@ -1343,7 +1343,7 @@ IT L1 が他 L1 より role 数で先行。次は FR/HR/RC 各 L1 の role 深�
 1. onCommit dispatcher insert
 2. write-outbox retry for lineage
 3. Murakumo tool registration
-4. `gftd cohort stats --kind` 出力フィルタ
+4. `etzhayyim cohort stats --kind` 出力フィルタ
 5. role 深堀第二波: FR (9) / HR (7) / RC (11) 各 L1 に +3 role
 
 # Iteration 25 — 2026-04-15
@@ -1352,7 +1352,7 @@ IT L1 が他 L1 より role 数で先行。次は FR/HR/RC 各 L1 の role 深�
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort stats --kind cohort\|fissioned` filter 追加 (空 = 両方) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort stats --kind cohort\|fissioned` filter 追加 (空 = 両方) |
 | `deps.toml` | +9 cohort (FR: treasurer/controller/fpa、HR: benefitsAdmin/learningDev/hrBP、RC: legalCounsel/privacyOfficer/riskAnalyst) |
 
 ## Cohort Total N=85
@@ -1370,10 +1370,10 @@ IT L1 が他 L1 より role 数で先行。次は FR/HR/RC 各 L1 の role 深�
 
 ```bash
 # fissioned のみ
-gftd cohort stats --kind fissioned --by pcfL1
+etzhayyim cohort stats --kind fissioned --by pcfL1
 
 # cohort (未分裂) のみ、role 別
-gftd cohort stats --kind cohort --by pcfL1,role
+etzhayyim cohort stats --kind cohort --by pcfL1,role
 ```
 
 kind filter で Phase 別の運用量を監視可能 → 運用初期は cohort=多 / fissioned=少、成熟期は fissioned 比率上昇の想定。
@@ -1388,7 +1388,7 @@ IT/FR/HR/RC の 4 L1 (全 13 中 30%) で role=4〜5 role を達成。残 9 L1 �
 2. write-outbox retry for lineage
 3. Murakumo tool registration
 4. L2/L4/L10 role 深堀 (product manager variants / supply chain variants / asset management variants)
-5. `gftd cohort test` — CLI internal logic の一括 test runner
+5. `etzhayyim cohort test` — CLI internal logic の一括 test runner
 
 # Iteration 26 — 2026-04-15
 
@@ -1397,7 +1397,7 @@ IT/FR/HR/RC の 4 L1 (全 13 中 30%) で role=4〜5 role を達成。残 9 L1 �
 | File | 変更 |
 |---|---|
 | `deps.toml` | +9 cohort (L2 product-service: productEngineer/qaLead/productResearcher、L4 supply-chain: warehouseOperator/procurementBuyer/demandPlanner、L10 asset-management: realEstate/fleet/itAsset) |
-| `70-tools/gftd/gftd/cohort_test.go` | +1 test: parseSegmentKV が malformed segment (no `=`) を silently skip する挙動を fix |
+| `70-tools/etzhayyim/etzhayyim/cohort_test.go` | +1 test: parseSegmentKV が malformed segment (no `=`) を silently skip する挙動を fix |
 
 ## Cohort Total N=94
 
@@ -1417,7 +1417,7 @@ IT/FR/HR/RC の 4 L1 (全 13 中 30%) で role=4〜5 role を達成。残 9 L1 �
 ## Process Mining
 
 ```bash
-gftd cohort stats --by pcfL1 --kind cohort | sort -k2 -n
+etzhayyim cohort stats --by pcfL1 --kind cohort | sort -k2 -n
 # role depth 低い L1 が末尾に並ぶ → 次の深堀対象が自動 identify
 ```
 
@@ -1431,7 +1431,7 @@ gftd cohort stats --by pcfL1 --kind cohort | sort -k2 -n
 1. L1 (vision-strategy) / L5 (production-ops) / L6 (customer-service) role 深堀
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. `gftd cohort test` smoke runner (cohort_test.go は unit test、integration smoke は CLI reachability 確認)
+4. `etzhayyim cohort test` smoke runner (cohort_test.go は unit test、integration smoke は CLI reachability 確認)
 5. write-outbox retry for lineage
 
 # Iteration 27 — 2026-04-15
@@ -1470,7 +1470,7 @@ role coverage の平準化がほぼ完了。次は L6/L12 に +2〜3 role 追加
 ## Process Mining
 
 ```bash
-gftd cohort stats --by pcfL1 --kind cohort --json | jq 'map({key,total}) | sort_by(.total)' 
+etzhayyim cohort stats --by pcfL1 --kind cohort --json | jq 'map({key,total}) | sort_by(.total)'
 # → role depth 最少の L1 を見つけて深堀 target を機械的に決定
 ```
 
@@ -1479,7 +1479,7 @@ gftd cohort stats --by pcfL1 --kind cohort --json | jq 'map({key,total}) | sort_
 1. L6 customer-service / L12 external-relations 最終 role 深堀 → 13 L1 全て role≥3 達成
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. `gftd cohort coverage --axes pcfL1,role` で cover matrix (存在 / 欠落 cell) 可視化
+4. `etzhayyim cohort coverage --axes pcfL1,role` で cover matrix (存在 / 欠落 cell) 可視化
 5. 本番 staging でバージョン tagging + 1 cohort 実 seed (smoke run)
 
 # Iteration 28 — 2026-04-15
@@ -1488,7 +1488,7 @@ gftd cohort stats --by pcfL1 --kind cohort --json | jq 'map({key,total}) | sort_
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort coverage --axes <row,col>` 実装 — 2D cover matrix (`.` = empty, 数字 = count)。空 cell 検出で coverage gap が一目でわかる |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort coverage --axes <row,col>` 実装 — 2D cover matrix (`.` = empty, 数字 = count)。空 cell 検出で coverage gap が一目でわかる |
 | `deps.toml` | +6 cohort (L6: fieldTech/supportOpsMgr/customerSuccess、L12: govAffairs/partnerships/csr) |
 
 ## Cohort Total N=109
@@ -1514,17 +1514,17 @@ gftd cohort stats --by pcfL1 --kind cohort --json | jq 'map({key,total}) | sort_
 
 ## Evaluation
 
-`gftd cohort coverage --axes pcfL1,role` で (L1 × role) matrix を render、空 cell ゼロ。2D matrix の rendering cost は listCohorts 1 call + client-side aggregate。
+`etzhayyim cohort coverage --axes pcfL1,role` で (L1 × role) matrix を render、空 cell ゼロ。2D matrix の rendering cost は listCohorts 1 call + client-side aggregate。
 
 ## Process Mining
 
 ```bash
 # pcfL1 × locale matrix
-gftd cohort coverage --axes pcfL1,locale
+etzhayyim cohort coverage --axes pcfL1,locale
 # → en locale coverage gap が即座にわかる (多くの L1 で .)
 
 # industry × seniority matrix
-gftd cohort coverage --axes industry,seniority
+etzhayyim cohort coverage --axes industry,seniority
 # → banking/healthcare/manufacturing × junior/mid/senior cells
 ```
 
@@ -1533,7 +1533,7 @@ gftd cohort coverage --axes industry,seniority
 1. pcfL1 × locale matrix を見て en 展開の次 target を決定
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. `gftd cohort gap --axes a,b --min N` — matrix で cell < N の空白を列挙 (gap 機械 identify)
+4. `etzhayyim cohort gap --axes a,b --min N` — matrix で cell < N の空白を列挙 (gap 機械 identify)
 5. 本番 staging smoke seed + CLI coverage の実動確認
 
 # Iteration 29 — 2026-04-15
@@ -1542,7 +1542,7 @@ gftd cohort coverage --axes industry,seniority
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort gap --axes row,col --min N` 実装 — 空 cell + 1..N-1 count cells を列挙 (gap 自動 identify) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort gap --axes row,col --min N` 実装 — 空 cell + 1..N-1 count cells を列挙 (gap 自動 identify) |
 | `deps.toml` | +5 cohort: L4/L5/L6/L10/L11 の en locale 追加 (各 1 role) |
 
 ## Cohort Total N=114
@@ -1560,10 +1560,10 @@ locale=en 13 L1 全てに少なくとも 1 cohort 到達。jp/en locale coverage
 ## Evaluation — Gap CLI
 
 ```bash
-gftd cohort gap --axes pcfL1,locale --min 1
+etzhayyim cohort gap --axes pcfL1,locale --min 1
 # → 空の (pcfL1, locale) cell を列挙。すべての 13×2 cell が埋まっていれば "gaps: 0 cells"
 
-gftd cohort gap --axes pcfL1,industry --min 1
+etzhayyim cohort gap --axes pcfL1,industry --min 1
 # → industry overlay が無い L1 を特定 (L1/L7/L8/L13 等が候補)
 ```
 
@@ -1573,14 +1573,14 @@ gap CLI は coverage CLI の補完:
 - `coverage` = 全 cell を 2D render (総覧)
 - `gap` = count<N な cell のみ列挙 (機械 identify)
 
-bash loop で gap を feed に `gftd cohort seed` を自動実行する agentic loop が可能。
+bash loop で gap を feed に `etzhayyim cohort seed` を自動実行する agentic loop が可能。
 
 ## 次 iteration TODO
 
 1. pcfL1 × industry gap をターゲットに industry overlay 拡大
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. `gftd cohort gen --pcfL1 --role --industry --locale -k 50` — one-shot seed builder (複数パラメータから JSON-LD を組立て seed)
+4. `etzhayyim cohort gen --pcfL1 --role --industry --locale -k 50` — one-shot seed builder (複数パラメータから JSON-LD を組立て seed)
 5. staging smoke seed + 実動テスト
 
 # Iteration 30 — 2026-04-15
@@ -1589,7 +1589,7 @@ bash loop で gap を feed に `gftd cohort seed` を自動実行する agentic 
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort gen` 実装 — typed flags (--pcfL1/--role/--industry/--seniority/--locale/--k) から JSON-LD を自動生成し seed。`--dry-run` で JSON 確認のみ可能 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort gen` 実装 — typed flags (--pcfL1/--role/--industry/--seniority/--locale/--k) から JSON-LD を自動生成し seed。`--dry-run` で JSON 確認のみ可能 |
 | `deps.toml` | +5 cohort (industry overlay 拡大: L1×banking、L7×healthcare、L8×pharma、L11×banking、L13×retail) |
 
 ## Cohort Total N=119
@@ -1607,11 +1607,11 @@ industry 分布更新:
 
 ```bash
 # Dry-run preview
-gftd cohort gen --pcfL1 9-financial-resources --role accountant --industry banking --locale jp --dry-run
+etzhayyim cohort gen --pcfL1 9-financial-resources --role accountant --industry banking --locale jp --dry-run
 # → {"industry":"banking","locale":"jp","pcfL1":"9-financial-resources","role":"accountant"}
 
 # Actual seed
-gftd cohort gen --pcfL1 9-financial-resources --role accountant --industry banking --locale jp -k 50
+etzhayyim cohort gen --pcfL1 9-financial-resources --role accountant --industry banking --locale jp -k 50
 # gen ok: did=did:plc:pending-<nano> handle=cohort-<nano>.etzhayyim.com
 ```
 
@@ -1621,8 +1621,8 @@ gap + gen CLI の組合せで agentic auto-seed pipeline が可能:
 
 ```bash
 # L4/L10/L12 で industry gap を埋める
-gftd cohort gap --axes pcfL1,industry --min 1 --json | jq -r '.[] | select(.col != "-") | "\(.row) \(.col)"' | while read l1 ind; do
-  gftd cohort gen --pcfL1 "$l1" --role "$(pickRole "$l1")" --industry "$ind" --locale jp -k 50
+etzhayyim cohort gap --axes pcfL1,industry --min 1 --json | jq -r '.[] | select(.col != "-") | "\(.row) \(.col)"' | while read l1 ind; do
+  etzhayyim cohort gen --pcfL1 "$l1" --role "$(pickRole "$l1")" --industry "$ind" --locale jp -k 50
 done
 ```
 
@@ -1631,7 +1631,7 @@ done
 1. L4 / L10 / L12 の industry overlay (logistics, facilities, governance industry variants)
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. `gftd cohort gen --seniority` も含めた 3-axis 複合 seed 大量生成
+4. `etzhayyim cohort gen --seniority` も含めた 3-axis 複合 seed 大量生成
 5. staging smoke seed + live coverage CLI 実動
 
 # Iteration 31 — 2026-04-15
@@ -1677,7 +1677,7 @@ done
 ## Process Mining
 
 ```bash
-gftd cohort stats --by pcfL1,industry | grep -v "^[^ ]*  *0 "
+etzhayyim cohort stats --by pcfL1,industry | grep -v "^[^ ]*  *0 "
 # → 13 L1 全てで industry 非ゼロ行が表示される
 ```
 
@@ -1686,7 +1686,7 @@ gftd cohort stats --by pcfL1,industry | grep -v "^[^ ]*  *0 "
 1. seniority axis の平準化 (各 L1 に junior/mid/senior のいずれか)
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. coverage matrix snapshot を `data/cohort-coverage/<date>.json` に保存する `gftd cohort snapshot` subcommand
+4. coverage matrix snapshot を `data/cohort-coverage/<date>.json` に保存する `etzhayyim cohort snapshot` subcommand
 5. staging smoke seed
 
 # Iteration 32 — 2026-04-15
@@ -1718,7 +1718,7 @@ seniority 分布更新:
 1. L2 / L6 に senior 追加で seniority 13/13 達成
 2. onCommit dispatcher insert
 3. Murakumo tool registration
-4. `gftd cohort snapshot` subcommand
+4. `etzhayyim cohort snapshot` subcommand
 5. staging smoke seed
 
 # Iteration 33 — 2026-04-15
@@ -1728,7 +1728,7 @@ seniority 分布更新:
 | File | 変更 |
 |---|---|
 | `deps.toml` | +2 cohort: L2 product-service senior、L6 customer-service senior。**4 axis 完全 coverage 達成 (13/13)** |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort snapshot` subcommand 実装 — 4 axis aggregate を `data/cohort-coverage/<timestamp>.json` に保存。drift 監視 baseline |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort snapshot` subcommand 実装 — 4 axis aggregate を `data/cohort-coverage/<timestamp>.json` に保存。drift 監視 baseline |
 
 ## Cohort Total N=129
 
@@ -1745,7 +1745,7 @@ ADR-0026 cohort 設計の axis 全てで 100% 覆盖達成。
 ## Snapshot Persistence
 
 ```bash
-gftd cohort snapshot
+etzhayyim cohort snapshot
 # snapshot written: data/cohort-coverage/20260415T143012Z.json (total=129, fissioned=0)
 
 # 1 週間後に diff:
@@ -1779,7 +1779,7 @@ snapshot を定期 (週次/月次) で取れば cohort fleet の長期推移が�
 
 1. onCommit dispatcher insert
 2. Murakumo tool registration
-3. `gftd cohort diff <a.json> <b.json>` で 2 snapshot の delta 表示
+3. `etzhayyim cohort diff <a.json> <b.json>` で 2 snapshot の delta 表示
 4. cohort total 200 突破に向けた role / industry の cross-product 拡張
 5. staging smoke seed (実 PDS 経由で cohort 1 件 mint)
 
@@ -1789,7 +1789,7 @@ snapshot を定期 (週次/月次) で取れば cohort fleet の長期推移が�
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort diff <a.json> <b.json>` 実装 — 2 snapshot 間の axis 別 delta を表示 (count 増減のみ列挙) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort diff <a.json> <b.json>` 実装 — 2 snapshot 間の axis 別 delta を表示 (count 増減のみ列挙) |
 | `deps.toml` | +4 cohort: 3-axis cross-product (role × industry × seniority) — L3 marketing×banking×junior、L7 talent×pharma×mid、L9 controller×banking×mid、L11 privacy×healthcare×senior |
 
 ## Cohort Total N=133
@@ -1806,8 +1806,8 @@ cross-product covered cells = 11 → 15。
 
 ```bash
 # 1 週間後
-gftd cohort snapshot                                            # → 20260422...json
-gftd cohort diff data/cohort-coverage/20260415*.json data/cohort-coverage/20260422*.json
+etzhayyim cohort snapshot                                            # → 20260422...json
+etzhayyim cohort diff data/cohort-coverage/20260415*.json data/cohort-coverage/20260422*.json
 # snapshot A: 2026-04-15T... total=133 fissioned=0
 # snapshot B: 2026-04-22T... total=148 fissioned=2
 # Δ total      = +15
@@ -1851,7 +1851,7 @@ en × senior 分布:
 ## Process Mining
 
 ```bash
-gftd cohort coverage --axes pcfL1,seniority | grep -- senior
+etzhayyim cohort coverage --axes pcfL1,seniority | grep -- senior
 # → 各 L1 の senior count を確認
 ```
 
@@ -1903,7 +1903,7 @@ milestone:
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort diff --json` flag 追加 — JSON delta report 出力 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort diff --json` flag 追加 — JSON delta report 出力 |
 | `deps.toml` | +5 cohort: en × industry (L1×banking、L7×healthcare、L8×pharma、L11×banking、L13×retail) |
 
 ## Cohort Total N=155
@@ -1916,7 +1916,7 @@ en × industry 分布:
 ## Diff JSON Example
 
 ```bash
-gftd cohort diff data/cohort-coverage/20260415*.json data/cohort-coverage/20260422*.json --json | jq '.axes.pcfL1[]'
+etzhayyim cohort diff data/cohort-coverage/20260415*.json data/cohort-coverage/20260422*.json --json | jq '.axes.pcfL1[]'
 # {"value":"8-info-technology","before":15,"after":20,"delta":5}
 # ...
 ```
@@ -1931,7 +1931,7 @@ JSON delta は CI/dashboard pipeline に直結可能。週次 cron で snapshot 
 2. onCommit dispatcher insert
 3. Murakumo tool registration
 4. cohort 175 突破
-5. `gftd cohort drift --window 7d` — snapshot history を直接読んで drift 計算
+5. `etzhayyim cohort drift --window 7d` — snapshot history を直接読んで drift 計算
 
 # Iteration 38 — 2026-04-15
 
@@ -1974,7 +1974,7 @@ JSON delta は CI/dashboard pipeline に直結可能。週次 cron で snapshot 
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort drift --dir <path> --window 7` 実装 — snapshot dir 内の最古/最新 (window 内) を自動 pick して diff 出力 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort drift --dir <path> --window 7` 実装 — snapshot dir 内の最古/最新 (window 内) を自動 pick して diff 出力 |
 | `deps.toml` | +14 cohort: mid tier 平準化 (10 L1 = L1/L2/L4/L5/L6/L9/L10/L11/L12 + 既存 L8) + en×senior×industry triple cells (4: L3/L7/L9/L11) |
 
 ## Cohort Total N=175 (節目突破)
@@ -1987,12 +1987,12 @@ milestone:
 ## Drift CLI
 
 ```bash
-gftd cohort drift --window 7
+etzhayyim cohort drift --window 7
 # drift window: data/cohort-coverage/20260408*.json ⇒ data/cohort-coverage/20260415*.json (3 snapshots)
 # Δ total      = +25
 # ...
 
-gftd cohort drift --window 30 --json | jq '.deltaTotal'
+etzhayyim cohort drift --window 30 --json | jq '.deltaTotal'
 ```
 
 ## Process Mining
@@ -2057,10 +2057,10 @@ cohort 200 = ADR-0026 reverse identity topology の運用 baseline 規模に到�
 
 | File | 変更 |
 |---|---|
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortList` に `cohortDid` / `derivedFrom` の exact-match filter 追加 (lineage 探索の page-scan を排除) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | dispatch で 2 新 query param を bridge |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortList` に `cohortDid` / `derivedFrom` の exact-match filter 追加 (lineage 探索の page-scan を排除) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | dispatch で 2 新 query param を bridge |
 | `00-contracts/lexicons/com/etzhayyim/cohort/listCohorts.json` | `cohortDid` / `derivedFrom` パラメータ宣言追加 |
-| `70-tools/gftd/gftd/cohort.go` | `fetchCohortByDid` を `?cohortDid=...&limit=1` 経由に変更 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `fetchCohortByDid` を `?cohortDid=...&limit=1` 経由に変更 |
 
 ## Quality Improvement
 
@@ -2076,7 +2076,7 @@ cohort 規模は維持し、access path を改善。
 
 ```bash
 # 親 cohort の直接の子だけを高速取得
-gftd cohort list --json | jq 'select(.cohorts[].derivedFrom == "did:plc:pending-xxx")'
+etzhayyim cohort list --json | jq 'select(.cohorts[].derivedFrom == "did:plc:pending-xxx")'
 # は server-side filter で高速化:
 curl ".../listCohorts?derivedFrom=did:plc:pending-xxx&limit=100"
 ```
@@ -2087,7 +2087,7 @@ curl ".../listCohorts?derivedFrom=did:plc:pending-xxx&limit=100"
 2. Murakumo tool registration
 3. fission シミュレーション
 4. cohort 250 突破は次々 iter 以降に延期 (現在 200 で十分な scale)
-5. `gftd cohort list --derived-from` flag 追加 + forest CLI を再帰展開 mode に拡張
+5. `etzhayyim cohort list --derived-from` flag 追加 + forest CLI を再帰展開 mode に拡張
 
 # Iteration 42 — 2026-04-15
 
@@ -2095,7 +2095,7 @@ curl ".../listCohorts?derivedFrom=did:plc:pending-xxx&limit=100"
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort list --derived-from <did>` / `--did <exact>` flag 追加 (server-side filter 利用); `gftd cohort forest --rooted <did>` で subtree-only render mode |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort list --derived-from <did>` / `--did <exact>` flag 追加 (server-side filter 利用); `etzhayyim cohort forest --rooted <did>` で subtree-only render mode |
 
 ## CLI Surface — 14 subcommand 維持
 
@@ -2103,10 +2103,10 @@ curl ".../listCohorts?derivedFrom=did:plc:pending-xxx&limit=100"
 
 ```bash
 # 親 cohort の子だけ取得
-gftd cohort list --derived-from did:plc:pending-xxx --json | jq '.cohorts | length'
+etzhayyim cohort list --derived-from did:plc:pending-xxx --json | jq '.cohorts | length'
 
 # subtree のみの forest
-gftd cohort forest --rooted did:plc:pending-xxx
+etzhayyim cohort forest --rooted did:plc:pending-xxx
 ```
 
 ## Process Mining
@@ -2118,7 +2118,7 @@ gftd cohort forest --rooted did:plc:pending-xxx
 1. onCommit dispatcher insert
 2. Murakumo tool registration
 3. fission シミュレーション
-4. `gftd cohort lineage --depth N` で deep traversal の最大 depth 制限
+4. `etzhayyim cohort lineage --depth N` で deep traversal の最大 depth 制限
 5. cohort_test.go に list/forest のオプション parsing test 追加
 
 # Iteration 43 — 2026-04-15
@@ -2127,8 +2127,8 @@ gftd cohort forest --rooted did:plc:pending-xxx
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort lineage --depth N` flag (overrides `--max`); 0 で無制限相当に |
-| `70-tools/gftd/gftd/cohort_test.go` | +1 test: 3-axis parseSegmentKV (pcfL1+role+seniority+industry+locale) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort lineage --depth N` flag (overrides `--max`); 0 で無制限相当に |
+| `70-tools/etzhayyim/etzhayyim/cohort_test.go` | +1 test: 3-axis parseSegmentKV (pcfL1+role+seniority+industry+locale) |
 
 ## Quality
 
@@ -2141,7 +2141,7 @@ gftd cohort forest --rooted did:plc:pending-xxx
 2. Murakumo tool registration
 3. fission シミュレーション
 4. cohort 250 突破は保留 (200 で十分。実運用 fission データが入る方が優先)
-5. CLI doc as `70-tools/gftd/CLAUDE.md` への `gftd cohort` セクション追加
+5. CLI doc as `70-tools/etzhayyim/CLAUDE.md` への `etzhayyim cohort` セクション追加
 
 # Iteration 44 — 2026-04-15
 
@@ -2149,16 +2149,16 @@ gftd cohort forest --rooted did:plc:pending-xxx
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/CLAUDE.md` | `#### gftd cohort` セクション新規追加。14 subcommand の table + auth path (`gftd agent-token`) + design doc 参照 |
+| `70-tools/etzhayyim/CLAUDE.md` | `#### etzhayyim cohort` セクション新規追加。14 subcommand の table + auth path (`etzhayyim agent-token`) + design doc 参照 |
 
 ## Documentation Coverage
 
-`gftd cohort` CLI が 70-tools/gftd/CLAUDE.md の正規ドキュメントに掲載され、他の subcommand (`gftd auth`, `gftd agent-token`, `gftd murakumo fleet` 等) と同等の発見性を獲得。
+`etzhayyim cohort` CLI が 70-tools/etzhayyim/CLAUDE.md の正規ドキュメントに掲載され、他の subcommand (`etzhayyim auth`, `etzhayyim agent-token`, `etzhayyim murakumo fleet` 等) と同等の発見性を獲得。
 
 ## 次 iteration TODO
 
 1. onCommit dispatcher insert
-2. Murakumo tool registration  
+2. Murakumo tool registration
 3. fission シミュレーション (実 evidence INSERT)
 4. ADR-0026 status `proposed` → `active` 昇格判定 (Phase A E2E + watchdog 稼働確認後)
 5. cohort 200 → 250 拡張は実運用データ (fission 1 件目) が入った後
@@ -2177,7 +2177,7 @@ Iter 40 で「cohort 200 突破」と書いたが、`grep -c '^\[\[cohort_actors
 | `30-graph/graph-schema/src/database.ts` | 4 Row interface + Database entry |
 | `30-graph/graph-schema/CLAUDE.md` | Migration History に 0056 追記 |
 | `50-infra/cloudflare/workers/atproto/src/insert-columns.ts` | `fission_at` / `pcf_l1` / `registered_at` を edge allowlist に追加 |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortSeed` で `edge_cohort_routes_to` INSERT、`handleCohortFission` で `edge_cohort_derived` INSERT |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortSeed` で `edge_cohort_routes_to` INSERT、`handleCohortFission` で `edge_cohort_derived` INSERT |
 
 ## Vertex / Edge / MV 配線図
 
@@ -2208,7 +2208,7 @@ fission (Phase C, posterior > 0.95 + judge=true)
 1. `handleCohortEvidence` (B) で `edge_cohort_evidence_about` INSERT 配線 (現 spec 止まり)
 2. cohort_test.go に edge insert 経路の dry-run test
 3. ADR-0026 status を `active` 化
-4. `gftd cohort lineage --edge` で edge_cohort_derived を直接 query する高速 path
+4. `etzhayyim cohort lineage --edge` で edge_cohort_derived を直接 query する高速 path
 5. fission シミュレーション (実 evidence INSERT → mv_cohort_identity_posterior 反映確認)
 
 # Iteration 46 — 2026-04-15
@@ -2218,14 +2218,14 @@ fission (Phase C, posterior > 0.95 + judge=true)
 | File | 変更 |
 |---|---|
 | `00-contracts/lexicons/com/etzhayyim/cohort/emitEvidence.json` | 新規 procedure lexicon: cohortDid + signalKind + evidencePayload + posterior + judgeAgreement |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortEmitEvidence(env, input)` 実装 — sha256 hash 算出 → vertex_repo_record + edge_cohort_evidence_about を直接 INSERT (commit pipeline 経由せず) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | dispatch case + PLATFORM_WRITE_METHODS 追加 |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort emit --cohort --payload --signal-kind --posterior --judge` CLI |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortEmitEvidence(env, input)` 実装 — sha256 hash 算出 → vertex_repo_record + edge_cohort_evidence_about を直接 INSERT (commit pipeline 経由せず) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | dispatch case + PLATFORM_WRITE_METHODS 追加 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort emit --cohort --payload --signal-kind --posterior --judge` CLI |
 
 ## Phase B Direct Path Active
 
 ```
-gftd cohort emit --cohort did:plc:pending-xxx \
+etzhayyim cohort emit --cohort did:plc:pending-xxx \
   --signal-kind "behavior.scrape.linkedin" \
   --payload "scraped:posts:42" \
   --posterior 0.78 --judge=false
@@ -2245,27 +2245,27 @@ gftd cohort emit --cohort did:plc:pending-xxx \
 
 ```bash
 # 1. cohort 1 件 seed
-gftd cohort seed --segment '{"pcfL1":"3-market-sell","role":"salesRep","locale":"jp"}' --k 50
+etzhayyim cohort seed --segment '{"pcfL1":"3-market-sell","role":"salesRep","locale":"jp"}' --k 50
 # → did:plc:pending-X1Y2Z3W4
 
 # 2. 50 件以上の evidence emit (k floor 維持) で 1 件だけ posterior > 0.95 + judge=true
 for i in $(seq 1 50); do
-  gftd cohort emit --cohort did:plc:pending-X1Y2Z3W4 \
+  etzhayyim cohort emit --cohort did:plc:pending-X1Y2Z3W4 \
     --signal-kind "behavior.observation" \
     --payload "obs-$i" \
     --posterior 0.5 --judge=false
 done
-gftd cohort emit --cohort did:plc:pending-X1Y2Z3W4 \
+etzhayyim cohort emit --cohort did:plc:pending-X1Y2Z3W4 \
   --signal-kind "behavior.identity-confirm" \
   --payload "confirmed-by-judge" \
   --posterior 0.97 --judge=true
 
 # 3. MV 確認
-gftd cohort evidence --cohort did:plc:pending-X1Y2Z3W4 --min-posterior 0.95 --judge true
+etzhayyim cohort evidence --cohort did:plc:pending-X1Y2Z3W4 --min-posterior 0.95 --judge true
 # → 1 row (fission ready)
 
 # 4. fission 発火
-gftd cohort fission --cohort did:plc:pending-X1Y2Z3W4 \
+etzhayyim cohort fission --cohort did:plc:pending-X1Y2Z3W4 \
   --posterior 0.97 --judge=true \
   --evidence at://...
 # → individual_did + edge_cohort_derived row 生成
@@ -2281,9 +2281,9 @@ stats coverage gap gen snapshot diff drift
 ## 次 iteration TODO
 
 1. cohort_test.go に sha256Hex utility test を追加
-2. `gftd cohort lineage --edge` (edge_cohort_derived 直接 query)
+2. `etzhayyim cohort lineage --edge` (edge_cohort_derived 直接 query)
 3. ADR-0026 status を `active` に昇格 (Phase A/B/C handler 全完成 + watchdog 稼働済 = 昇格条件達成)
-4. mv_cohort_lineage_depth read CLI (`gftd cohort lineage-stats`)
+4. mv_cohort_lineage_depth read CLI (`etzhayyim cohort lineage-stats`)
 5. cohort fleet 200 達成 (実 N=198 +2)
 
 # Iteration 47 — 2026-04-15
@@ -2320,7 +2320,7 @@ stats coverage gap gen snapshot diff drift
 
 ## 次 iteration TODO
 
-1. lineage-stats CLI (`gftd cohort lineage-stats` で mv_cohort_lineage_depth read)
+1. lineage-stats CLI (`etzhayyim cohort lineage-stats` で mv_cohort_lineage_depth read)
 2. cohort_test.go に sha256Hex / handleCohortEmitEvidence の dry-run test
 3. ADR-0026 active 化を root CLAUDE.md `[[critical_rules]]` か `[[conventions]]` に登録
 4. fission シミュレーション実行 (staging 環境で)
@@ -2333,9 +2333,9 @@ stats coverage gap gen snapshot diff drift
 | File | 変更 |
 |---|---|
 | `00-contracts/lexicons/com/etzhayyim/cohort/lineageStats.json` | 新規 query lexicon (pcfL1 / minChildren / limit) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortLineageStats(env, input)` 実装 — `mv_cohort_lineage_depth` 直接 read + optional `vertex_cohort_actor` join for pcfL1 filter |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | dispatch case + PLATFORM_READ_METHODS 追加 |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort lineage-stats --pcfL1 --min-children N` CLI |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortLineageStats(env, input)` 実装 — `mv_cohort_lineage_depth` 直接 read + optional `vertex_cohort_actor` join for pcfL1 filter |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | dispatch case + PLATFORM_READ_METHODS 追加 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort lineage-stats --pcfL1 --min-children N` CLI |
 
 ## CLI Surface — 16 subcommand
 
@@ -2348,10 +2348,10 @@ stats coverage gap gen snapshot diff drift lineage-stats
 
 ```bash
 # fission 多発した cohort top 10
-gftd cohort lineage-stats --min-children 5 --limit 10
+etzhayyim cohort lineage-stats --min-children 5 --limit 10
 
 # L8 IT で fission 履歴のある cohort のみ
-gftd cohort lineage-stats --pcfL1 8-info-technology --min-children 1
+etzhayyim cohort lineage-stats --pcfL1 8-info-technology --min-children 1
 ```
 
 mv_cohort_lineage_depth が 0056 migration 適用後に streaming で自動更新されるため、fission 発生即座に反映。
@@ -2362,7 +2362,7 @@ mv_cohort_lineage_depth が 0056 migration 適用後に streaming で自動更�
 2. ADR-0026 を `[[conventions]]` に追記 (root deps.toml)
 3. fission シミュレーション (staging 環境)
 4. ADR-0027 draft (1M+ scale sharding)
-5. CLI の `gftd cohort` セクションを 70-tools/gftd/CLAUDE.md に lineage-stats / emit を追記
+5. CLI の `etzhayyim cohort` セクションを 70-tools/etzhayyim/CLAUDE.md に lineage-stats / emit を追記
 
 # Iteration 49 — 2026-04-15
 
@@ -2370,7 +2370,7 @@ mv_cohort_lineage_depth が 0056 migration 適用後に streaming で自動更�
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/CLAUDE.md` | `gftd cohort` セクションに `emit` + `lineage-stats` 行を追加 (16 subcommand 表完成) |
+| `70-tools/etzhayyim/CLAUDE.md` | `etzhayyim cohort` セクションに `emit` + `lineage-stats` 行を追加 (16 subcommand 表完成) |
 | `deps.toml` | `[[conventions]]` に "com.etzhayyim.cohort.* lifecycle" entry 追加 (sources 14 file + adr link) |
 | `CLAUDE.md` (root) | Key Conventions table に **Agent-Only Reverse Identity Topology (ADR-0026, active)** 行を追加 |
 
@@ -2379,7 +2379,7 @@ mv_cohort_lineage_depth が 0056 migration 適用後に streaming で自動更�
 ADR-0026 は以下 3 つの discovery path で発見可能に:
 1. root `CLAUDE.md` の Key Conventions table → 1 行 summary + ADR link
 2. `deps.toml [[conventions]]` → priority/axis/sources 詳細
-3. `70-tools/gftd/CLAUDE.md` → CLI 全 16 subcommand table
+3. `70-tools/etzhayyim/CLAUDE.md` → CLI 全 16 subcommand table
 
 LLM が任意の cohort 関連作業に着手する時、上記いずれからも認識可能。
 
@@ -2388,7 +2388,7 @@ LLM が任意の cohort 関連作業に着手する時、上記いずれから�
 1. cohort_test.go に sha256Hex utility test
 2. fission シミュレーション (staging 環境)
 3. ADR-0027 draft (1M+ scale sharding)
-4. `gftd cohort` を Murakumo agent tool として登録 (LLM-driven seed)
+4. `etzhayyim cohort` を Murakumo agent tool として登録 (LLM-driven seed)
 5. 全 lineage path を vertex_cohort_actor.derived_from と edge_cohort_derived の dual-source で持つことの consistency check
 
 # Iteration 50 — 2026-04-15 (節目)
@@ -2413,7 +2413,7 @@ Iter 1 (ADR draft) → Iter 50 (active 化 + drift audit spec) までの累計�
 | **MV** | 3 (mv_cohort_identity_posterior / mv_cohort_k_drift / mv_cohort_lineage_depth) |
 | **PDS handler** | 5 (handleCohortSeed/EmitEvidence/Fission/List/ListEvidence/LineageStats) |
 | **agent module** | 1 (cohort-watchdog.ts + scheduled tick wiring) |
-| **CLI subcommand** | 16 (`gftd cohort *`) |
+| **CLI subcommand** | 16 (`etzhayyim cohort *`) |
 | **deps.toml cohort_actors** | 200 entries |
 | **how-to/spec docs** | 4 (baseline + identity-posterior-mv-draft + seed-procedure-spec + evidence-oncommit-spec + lineage-dual-source) |
 | **convention/discovery** | root CLAUDE.md + deps.toml [[conventions]] + 70-tools doc |
@@ -2470,7 +2470,7 @@ doubles: [edgeMissing, orphanEdge, parentMismatch]
 ## 次 iteration TODO
 
 1. cohort_test.go に sha256Hex test
-2. `gftd cohort repair-edge --did <individual>` 実装 (drift 修復)
+2. `etzhayyim cohort repair-edge --did <individual>` 実装 (drift 修復)
 3. ADR-0027 draft (1M+ scale sharding)
 4. Murakumo agent tool registration
 5. fission シミュレーション (staging)
@@ -2482,16 +2482,16 @@ doubles: [edgeMissing, orphanEdge, parentMismatch]
 | File | 変更 |
 |---|---|
 | `00-contracts/lexicons/com/etzhayyim/cohort/repairEdge.json` | 新規 procedure lexicon (individualDid / limit / dryRun) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/cohort.ts` | `handleCohortRepairEdge` 実装 — drift 行を SELECT → edge_cohort_derived INSERT (vertex 側は触らない) |
-| `50-infra/cloudflare/workers/atproto/src/handlers/gftd/index.ts` | dispatch + PLATFORM_WRITE entry |
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort repair-edge --did --limit --dry-run` CLI |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/cohort.ts` | `handleCohortRepairEdge` 実装 — drift 行を SELECT → edge_cohort_derived INSERT (vertex 側は触らない) |
+| `50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/index.ts` | dispatch + PLATFORM_WRITE entry |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort repair-edge --did --limit --dry-run` CLI |
 
 ## Drift Repair Loop
 
 ```
-gftd cohort repair-edge                           # dry-run by default → 修復候補を確認
-gftd cohort repair-edge --dry-run=false           # 100 件まで bulk repair
-gftd cohort repair-edge --did did:plc:pending-X --dry-run=false  # 単一指定
+etzhayyim cohort repair-edge                           # dry-run by default → 修復候補を確認
+etzhayyim cohort repair-edge --dry-run=false           # 100 件まで bulk repair
+etzhayyim cohort repair-edge --did did:plc:pending-X --dry-run=false  # 単一指定
 ```
 
 ## Watchdog → Repair Cycle
@@ -2501,7 +2501,7 @@ gftd cohort repair-edge --did did:plc:pending-X --dry-run=false  # 単一指定
   runCohortLineageAudit → drift{edgeMissing,orphanEdge,parentMismatch}
   if edgeMissing > 0:
     OCEL emit (lineageDrift)
-    [manual or auto] gftd cohort repair-edge --dry-run=false
+    [manual or auto] etzhayyim cohort repair-edge --dry-run=false
 ```
 
 orphanEdge / parentMismatch は自動修復対象外 (data corruption sign — manual review)。
@@ -2545,7 +2545,7 @@ ADR-0027 は別件 (recruit-talent-public-feed-first) で確保済みのため�
 
 ## Process Mining
 
-`gftd cohort snapshot` の `totalCohorts` を週次で監視し、Phase 移行閾値超過で migration plan PR 起票 (将来的に CI workflow 化)。
+`etzhayyim cohort snapshot` の `totalCohorts` を週次で監視し、Phase 移行閾値超過で migration plan PR 起票 (将来的に CI workflow 化)。
 
 ## 次 iteration TODO
 
@@ -2568,7 +2568,7 @@ ADR-0027 は別件 (recruit-talent-public-feed-first) で確保済みのため�
 
 | Audit signal | Severity | Action |
 |---|---|---|
-| `edgeMissing` | warning | 自動修復可 (`gftd cohort repair-edge`) |
+| `edgeMissing` | warning | 自動修復可 (`etzhayyim cohort repair-edge`) |
 | `orphanEdge` | **CRITICAL** | manual review (data corruption sign) |
 | `parentMismatch` | **CRITICAL** | manual review (parent reassignment 不可) |
 
@@ -2583,7 +2583,7 @@ OCEL 2 index に分離:
 | root CLAUDE.md Key Conventions | ✅ | ✅ (本 iter) |
 | deps.toml [[conventions]] | ✅ | (Phase 2 移行時に追加) |
 | 90-docs/_registry/docs.json | ✅ active | ✅ proposed |
-| 70-tools/gftd/CLAUDE.md | ✅ | (CLI 影響なし) |
+| 70-tools/etzhayyim/CLAUDE.md | ✅ | (CLI 影響なし) |
 
 ## 次 iteration TODO
 
@@ -2627,7 +2627,7 @@ OCEL 2 index に分離:
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort_test.go` | +2 test: `TestSha256HexEquivalence` (空文字列の well-known hash で fixture pin、64 char length 確認) + `TestSha256HexDeterminism` (同入力で同出力) |
+| `70-tools/etzhayyim/etzhayyim/cohort_test.go` | +2 test: `TestSha256HexEquivalence` (空文字列の well-known hash で fixture pin、64 char length 確認) + `TestSha256HexDeterminism` (同入力で同出力) |
 | `.github/workflows/cohort-coverage.yml` | go test pattern に `TestSha256Hex` を含める |
 
 ## Test Coverage 集計
@@ -2647,7 +2647,7 @@ OCEL 2 index に分離:
 2. fission シミュレーション (staging で seed→50 evidence→1 fission-ready→fission)
 3. Slack webhook for CRITICAL OCEL (lineageInvariantViolation)
 4. ADR-0028 sharding migration `0070_cohort_mv_shard_l1.ts` skeleton (current proposed → Phase 3 trigger 後 active)
-5. cohort runtime metrics dashboard — `gftd cohort dashboard` で stats+coverage+gap+drift を 1 view に集約
+5. cohort runtime metrics dashboard — `etzhayyim cohort dashboard` で stats+coverage+gap+drift を 1 view に集約
 
 # Iteration 57 — 2026-04-15
 
@@ -2655,7 +2655,7 @@ OCEL 2 index に分離:
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | `gftd cohort dashboard` subcommand 実装 — listCohorts 1 call で fanout: total / cohort / fissioned 数 + fissionEnabled rate + 4 axis cardinality + ADR-0028 Phase trigger 自動判定 |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | `etzhayyim cohort dashboard` subcommand 実装 — listCohorts 1 call で fanout: total / cohort / fissioned 数 + fissionEnabled rate + 4 axis cardinality + ADR-0028 Phase trigger 自動判定 |
 
 ## Dashboard Output Example
 
@@ -2689,7 +2689,7 @@ dashboard が ops 時の "1 行 health check" になる。Phase trigger 自動�
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
 4. ADR-0028 sharding migration `0070_*` skeleton
-5. cohort runtime monitoring を 70-tools/gftd/CLAUDE.md に追記 (dashboard / repair-edge / lineage-stats を 17→18 subcommand 表で更新)
+5. cohort runtime monitoring を 70-tools/etzhayyim/CLAUDE.md に追記 (dashboard / repair-edge / lineage-stats を 17→18 subcommand 表で更新)
 
 # Iteration 58 — 2026-04-15
 
@@ -2697,14 +2697,14 @@ dashboard が ops 時の "1 行 health check" になる。Phase trigger 自動�
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/CLAUDE.md` | `gftd cohort` subcommand 表に `repair-edge` + `dashboard` 追加 (18 subcommand 完成) |
+| `70-tools/etzhayyim/CLAUDE.md` | `etzhayyim cohort` subcommand 表に `repair-edge` + `dashboard` 追加 (18 subcommand 完成) |
 | `30-graph/graph-schema/migrations/0070_cohort_mv_shard_l1.ts.template` | 新規 skeleton — 13 sub-MV (`mv_cohort_identity_posterior_l1_<slug>` + `mv_cohort_k_drift_l1_<slug>`) を pcfL1 別に生成。`.template` suffix で migrator skip。Phase 3 trigger 後に rename で活性化 |
 
 ## Skeleton Activation Procedure
 
 ```bash
 # 1. dashboard で Phase 3 trigger 判定
-gftd cohort dashboard
+etzhayyim cohort dashboard
 # │ ADR-0028 phase  : Phase 3 (13 sub-MV per pcfL1)
 
 # 2. activate template
@@ -2725,7 +2725,7 @@ DATABASE_URL=... pnpm db:migrate
 | root CLAUDE.md Key Conventions | ✅ | ✅ |
 | deps.toml [[conventions]] | ✅ | (Phase 2 移行時) |
 | 90-docs/_registry/docs.json | ✅ | ✅ |
-| 70-tools/gftd/CLAUDE.md | ✅ | (Phase 3 trigger 後) |
+| 70-tools/etzhayyim/CLAUDE.md | ✅ | (Phase 3 trigger 後) |
 | migration skeleton | ✅ (0052/0053/0054/0056) | ✅ (0070 template) |
 
 ## 次 iteration TODO
@@ -2770,7 +2770,7 @@ DATABASE_URL=... pnpm db:migrate
 | deps.toml [[conventions]] | ✅ |
 | 90-docs/_registry/docs.json | ✅ active |
 | 90-docs/adr/0026-*.md | ✅ active |
-| 70-tools/gftd/CLAUDE.md | ✅ 18 subcommand |
+| 70-tools/etzhayyim/CLAUDE.md | ✅ 18 subcommand |
 | migration history (CLAUDE.md) | ✅ 0052-0056 |
 
 ADR-0026 が repo 内の正規 critical 経路全てで discovery 可能。
@@ -2781,7 +2781,7 @@ ADR-0026 が repo 内の正規 critical 経路全てで discovery 可能。
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
 4. cohort_test.go の test 数を 9 → 12 に拡張 (deriveCohortEventType 系の Go ↔ TS 同等性 check)
-5. ADR-0026 を `gftd dodaf tv1` registry に登録 (`gftd dodaf tv1 query --id root-agent-only-reverse-identity-topology` 経路)
+5. ADR-0026 を `etzhayyim dodaf tv1` registry に登録 (`etzhayyim dodaf tv1 query --id root-agent-only-reverse-identity-topology` 経路)
 
 # Iteration 60 — 2026-04-15 (節目)
 
@@ -2789,8 +2789,8 @@ ADR-0026 が repo 内の正規 critical 経路全てで discovery 可能。
 
 | File | 変更 |
 |---|---|
-| `70-tools/gftd/gftd/cohort.go` | Go mirror: `CohortOcelEventType` const + `CohortEventInput` struct + `DeriveCohortEventType()` 関数。TS host-sdk `cohort.ts deriveCohortEventType` と precedence 完全一致を Go 側でも再現 |
-| `70-tools/gftd/gftd/cohort_test.go` | `TestDeriveCohortEventType` 7 cases (didFission / kProxy / fissionReady gates / genesis / accrued の precedence chain 全分岐) |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | Go mirror: `CohortOcelEventType` const + `CohortEventInput` struct + `DeriveCohortEventType()` 関数。TS host-sdk `cohort.ts deriveCohortEventType` と precedence 完全一致を Go 側でも再現 |
+| `70-tools/etzhayyim/etzhayyim/cohort_test.go` | `TestDeriveCohortEventType` 7 cases (didFission / kProxy / fissionReady gates / genesis / accrued の precedence chain 全分岐) |
 | `.github/workflows/cohort-coverage.yml` | test pattern に `TestDeriveCohortEventType` 追加 |
 
 ## Test Coverage 集計 (全 14 case)
@@ -2826,7 +2826,7 @@ Iter 50→60 で「実装完成 → governance 化 + scaling 戦略 + critical r
 1. Murakumo agent tool registration
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
-4. ADR-0026 を `gftd dodaf tv1` registry に登録
+4. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 5. cohort fleet stabilization (200 cohort で 1 週間 idle observation → drift 計測)
 
 # Iteration 61 — 2026-04-15
@@ -2855,7 +2855,7 @@ list → gap → seed → evidence → fission → snapshot diff → repeat
 1. `20-actors/magatama/sdk/magatama-host-sdk/src/llm-tools-cohort.ts` 実装 (この spec を code 化)
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
-4. ADR-0026 を `gftd dodaf tv1` registry に登録
+4. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 5. cohort fleet 1 週間 idle observation → drift 計測
 
 # Iteration 62 — 2026-04-15
@@ -2912,7 +2912,7 @@ await llm.agentReact({
 1. `llm.ts` の `agentReact` に cohortToolDispatch を統合
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
-4. ADR-0026 を `gftd dodaf tv1` registry に登録
+4. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 5. cohort fleet 1 週間 idle observation → drift 計測
 
 # Iteration 63 — 2026-04-15
@@ -2948,7 +2948,7 @@ import {
 | root CLAUDE.md Key Conventions | ADR-0026/0028 行 |
 | deps.toml [[critical_rules]] | R1-R10 |
 | deps.toml [[conventions]] | sources 14 file |
-| 70-tools/gftd/CLAUDE.md | 18 CLI subcommand table |
+| 70-tools/etzhayyim/CLAUDE.md | 18 CLI subcommand table |
 | 90-docs/_registry/docs.json | 2 ADR (active + proposed) |
 | .github/workflows/cohort-coverage.yml | CI 3 job |
 
@@ -2959,7 +2959,7 @@ import {
 1. `llm.ts` agentReact 内で cohortToolDispatch を auto-bridge
 2. fission シミュレーション (staging)
 3. Slack webhook for CRITICAL OCEL
-4. ADR-0026 を `gftd dodaf tv1` registry に登録
+4. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 5. cohort fleet 1 週間 idle observation → drift 計測
 
 # Iteration 64 — 2026-04-15
@@ -3006,7 +3006,7 @@ LLM agent から ADR-0026 cohort lifecycle 操作を 5 行で wire-in 可能に�
 
 1. fission シミュレーション (staging end-to-end)
 2. Slack webhook for CRITICAL OCEL
-3. ADR-0026 を `gftd dodaf tv1` registry に登録
+3. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 4. cohort fleet 1 週間 idle observation → drift 計測
 5. Murakumo agent から実際に `cohortHandler` を invoke する e2e demo
 
@@ -3022,7 +3022,7 @@ LLM agent から ADR-0026 cohort lifecycle 操作を 5 行で wire-in 可能に�
 |---|---|
 | `90-docs/adr/0028-cohort-mv-sharding.md` | front matter `infra_baseline` 追記、Phase trigger 閾値を 24Gi 時代と 64Gi GPU 時代の 2 列で対比、GPU 活用候補 (Bayesian update offload) を明記 |
 | `.github/workflows/cohort-coverage.yml` | Phase 2 trigger 5K → 10K、Phase 3 trigger 500K → 1M に緩和 |
-| `70-tools/gftd/gftd/cohort.go` | dashboard CLI Phase 判定: Phase 2 = 10K, Phase 3 = 1M, Phase 4 = 5M |
+| `70-tools/etzhayyim/etzhayyim/cohort.go` | dashboard CLI Phase 判定: Phase 2 = 10K, Phase 3 = 1M, Phase 4 = 5M |
 | `CLAUDE.md` (root) | Key Conventions ADR-0028 行に GPU baseline + 2x 緩和を反映 |
 
 ## Updated Phase Trigger (両時代対比)
@@ -3045,7 +3045,7 @@ RTX 4000 Ada 20 GiB VRAM が空いているため、posterior の Bayesian updat
 
 1. fission シミュレーション (staging)
 2. Slack webhook for CRITICAL OCEL
-3. ADR-0026 を `gftd dodaf tv1` registry に登録
+3. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 4. cohort fleet 1 週間 idle observation
 5. GPU offload PoC: Murakumo で 1000 cohort × evidence batch を CUDA で processing
 
@@ -3079,7 +3079,7 @@ RTX 4000 Ada 20 GiB VRAM が空いているため、posterior の Bayesian updat
 ## 次 iteration TODO
 
 1. Slack webhook for CRITICAL OCEL
-2. ADR-0026 を `gftd dodaf tv1` registry に登録
+2. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 3. cohort fleet 1 週間 idle observation
 4. GPU offload PoC
 5. runbook を CI で実行できる form (e2e bash script `scripts/cohort-staging-e2e.sh`)
@@ -3090,14 +3090,14 @@ RTX 4000 Ada 20 GiB VRAM が空いているため、posterior の Bayesian updat
 
 | File | 変更 |
 |---|---|
-| `70-tools/scripts/cohort-staging-e2e.sh` | 新規 executable bash script — Iter 66 runbook を `gftd cohort` CLI 経由で 4 step (seed / emit ×N / fission / lineage verify) を自動実行。`set -euo pipefail` で fail-fast、各 step に check + colored log |
+| `70-tools/scripts/cohort-staging-e2e.sh` | 新規 executable bash script — Iter 66 runbook を `etzhayyim cohort` CLI 経由で 4 step (seed / emit ×N / fission / lineage verify) を自動実行。`set -euo pipefail` で fail-fast、各 step に check + colored log |
 
 ## Script Features
 
 | 機能 | 詳細 |
 |---|---|
 | env override | `PDS_URL`, `SEED_PCFL1`, `SEED_ROLE`, `SEED_LOCALE`, `EVIDENCE_COUNT` |
-| token mint | step 毎に `gftd agent-token --lxm <NSID>` で scoped JWT |
+| token mint | step 毎に `etzhayyim agent-token --lxm <NSID>` で scoped JWT |
 | MV freshness wait | 5s sleep 後に streaming MV の反映を verify |
 | jq 連携 | listEvidence / lineage / lineage-stats の JSON を parse して assert |
 | cleanup hint | 末尾に DELETE psql コマンドを print (実行はせず) |
@@ -3121,7 +3121,7 @@ PDS_URL=https://atproto.etzhayyim.com \
 
 1. nightly CI job として cohort-staging-e2e.sh を組込み (要 staging credential secret)
 2. Slack webhook for CRITICAL OCEL
-3. ADR-0026 を `gftd dodaf tv1` registry に登録
+3. ADR-0026 を `etzhayyim dodaf tv1` registry に登録
 4. cohort fleet 1 週間 idle observation
 5. GPU offload PoC
 
@@ -3130,4 +3130,4 @@ PDS_URL=https://atproto.etzhayyim.com \
 - `deps.toml` `[[cohort_actors]]` (Iteration 1 で 13 entry 投入)
 - `90-docs/adr/0026-agent-only-reverse-identity-topology.md`
 - `90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md`
-- `60-apps/ai-gftd-project-apqc/CLAUDE.md` (APQC L1 slug SSoT)
+- `60-apps/etzhayyim-project-apqc/CLAUDE.md` (APQC L1 slug SSoT)

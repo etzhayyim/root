@@ -31,11 +31,11 @@ Time: 2026-04-21 09:01:42 JST
 
 Evidence:
 
-- `60-apps/ai-gftd-project-common-crawl/scripts/ingest_chunked.py`
+- `60-apps/etzhayyim-project-common-crawl/scripts/ingest_chunked.py`
   - embeds Linode object-storage access and secret keys in `S3_CONF`
-- `60-apps/ai-gftd-project-common-crawl/scripts/s3_upload_and_ingest.py`
+- `60-apps/etzhayyim-project-common-crawl/scripts/s3_upload_and_ingest.py`
   - same keypair is used as executable default fallback
-- `70-tools/gftd/gftd/murakumo_fleet.go`
+- `70-tools/etzhayyim/etzhayyim/murakumo_fleet.go`
   - hardcodes fleet SSH password `fleetSSHPass`
 - `70-tools/scripts/bulk-stream-ingest.mjs`
   - hardcodes a RisingWave password-bearing DSN
@@ -55,11 +55,11 @@ Evidence:
 - `pnpm audit --prod` reported critical advisories for:
   - `@clerk/nextjs < 6.39.2`
   - `@clerk/shared < 4.8.1` and `< 3.47.4` on affected paths
-- `60-apps/ai-gftd-project-hrse/appview/external-hrse/package.json`
+- `60-apps/etzhayyim-project-hrse/appview/external-hrse/package.json`
   - pins `@clerk/nextjs` to `6.34.1`
-- `60-apps/ai-gftd-project-hrse/appview/external-hrse/src/middleware.ts`
+- `60-apps/etzhayyim-project-hrse/appview/external-hrse/src/middleware.ts`
   - relies directly on `clerkMiddleware(...)` and `auth.protect()`
-- `60-apps/ai-gftd-project-docs/appview/docs-performers-r5ycqp6x/svelte/package.json`
+- `60-apps/etzhayyim-project-docs/appview/docs-performers-r5ycqp6x/svelte/package.json`
   - uses `svelte-clerk`, which pulls the vulnerable `@clerk/shared` path in audit output
 
 Why it survives pruning:
@@ -72,11 +72,11 @@ Why it survives pruning:
 
 Evidence:
 
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/auth/passkey.ts`
   - `StoredSession` contains `accessJwt` and `refreshJwt`
   - session is stored in `sessionStorage`
   - both JWTs are synced into `@etzhayyim/wproto`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/app.html`
   - `#auth=` hash content is copied into `sessionStorage` before URL cleanup
 
 Why it survives pruning:
@@ -90,7 +90,7 @@ Evidence:
 
 - `50-infra/cloudflare/workers/atproto/src/auth.ts`
   - `withCors()` reflects request origin or falls back to `*`
-- `60-apps/ai-gftd-project-llm/appview/ai-gftd-wasm-llm-llm8cf4ai/src/app.ts`
+- `60-apps/etzhayyim-project-llm/appview/etzhayyim-wasm-llm-llm8cf4ai/src/app.ts`
   - OpenAI-compatible `/v1/*` responses and preflight return `Access-Control-Allow-Origin: *`
 - `50-infra/cloudflare/workers/bitwarden-mcp/src/index.ts`
   - global CORS policy is `*`
@@ -114,7 +114,7 @@ Highest-signal branches after pruning:
 
 1. Clerk middleware auth bypass in `hrse` and `docs`
 2. `protobufjs < 7.5.5` via `40-engine/llm/inference/ameno -> @huggingface/transformers -> onnxruntime-web`
-3. `undici < 7.24.0` in `60-apps/ai-gftd-project-scap` workflow chain
+3. `undici < 7.24.0` in `60-apps/etzhayyim-project-scap` workflow chain
 4. `hono < 4.12.14` in `20-actors/magatama/sdk/magatama-host-sdk`
 
 Pruning note:

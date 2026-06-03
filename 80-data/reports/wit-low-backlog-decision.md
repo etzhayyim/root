@@ -1,11 +1,11 @@
 # WIT Low Backlog Decision (Issue #761)
 
 Generated: 2026-02-24
-Scope: `ai-gftd-project-kami`
+Scope: `etzhayyim-project-kami`
 
 ## Decision
 
-- Project: `ai-gftd-project-kami`
+- Project: `etzhayyim-project-kami`
 - Component: `wasm/kami-actor-naming-component`
 - Decision: `definition cleanup (spec-only)`
 - Reason:

@@ -2,7 +2,7 @@
 
 **Date**: 2026-04-13
 **Status**: Implemented (Phase 1-4 complete, projector integrated)
-**Supersedes**: `60-apps/ai-gftd-project-os/docs/260303-openclaw-inspired-redesign.md` (K8s + Go runtime → TS Native + CF Workers)
+**Supersedes**: `60-apps/etzhayyim-project-os/docs/260303-openclaw-inspired-redesign.md` (K8s + Go runtime → TS Native + CF Workers)
 **Related**: `90-docs/260413-agent-loop-unification-path-analysis.md` (5 entry point 一本化分析)
 **Shannon**: η=97.1% (全パス middleware 統合後)
 
@@ -34,7 +34,7 @@ os-consent (App)        ──────→  agent/consent.ts (PDS 新規 modu
                      │         Input Layer                  │
                      │                                      │
   [Discord] ─┐      │  os-messaging Worker                │
-  [Telegram]─┤      │  (ai-gftd-os-messaging-0sm3sg01)    │
+  [Telegram]─┤      │  (etzhayyim-os-messaging-0sm3sg01)    │
   [Slack]   ─┤──────▶  platform adapter → UnifiedMessage   │
   [LINE]    ─┤      │  → XRPC com.etzhayyim.convo.send          │
   [WhatsApp]─┤      │  → reply webhook                     │
@@ -300,7 +300,7 @@ graphar.vertex_AgentSchedule (
 **唯一の新規 CF Worker。** 8 platform の webhook を受け、`com.etzhayyim.convo.send` XRPC で PDS に転送。
 
 ```
-Worker: ai-gftd-os-messaging-0sm3sg01
+Worker: etzhayyim-os-messaging-0sm3sg01
 DID:    did:web:os-messaging.etzhayyim.com
 Nanoid: 0sm3sg01
 
@@ -352,7 +352,7 @@ graphar.vertex_PlatformUserMapping (
   mapping_id   TEXT PRIMARY KEY,
   platform     TEXT NOT NULL,
   platform_uid TEXT NOT NULL,     -- discord user ID, telegram chat ID, etc.
-  gftd_did     TEXT NOT NULL,     -- did:web:gkgua2o1.etzhayyim.com
+  etzhayyim_did     TEXT NOT NULL,     -- did:web:gkgua2o1.etzhayyim.com
   connected_at TIMESTAMPTZ
 )
 ```
@@ -450,7 +450,7 @@ export async function agentInferV2(
 
 | Task | File | Lines |
 |---|---|---|
-| Scaffold `60-apps/ai-gftd-project-os-messaging/` | 3 files (magatama.jsonld, wrangler.jsonc, src/app.ts) | ~300 |
+| Scaffold `60-apps/etzhayyim-project-os-messaging/` | 3 files (magatama.jsonld, wrangler.jsonc, src/app.ts) | ~300 |
 | Discord adapter | `src/app.ts` | ~60 |
 | Telegram adapter | `src/app.ts` | ~60 |
 | LINE adapter | `src/app.ts` | ~60 |
@@ -518,7 +518,7 @@ Path A (現状 Projector+agentInfer) から Path F への移行は **backward co
 
 ## 10. Operational Deployment (2026-04-18)
 
-Path F が扱う PDS 内 middleware (memory/consent/audit/scheduler) に加え、外側の agent runner + chat surface として **openclaw CLI 2026.4.14** を Mac Mini fleet に展開した。Authoritative operational reference: `60-apps/ai-gftd-project-murakumo/CLAUDE.md` §OpenClaw Gateway。
+Path F が扱う PDS 内 middleware (memory/consent/audit/scheduler) に加え、外側の agent runner + chat surface として **openclaw CLI 2026.4.14** を Mac Mini fleet に展開した。Authoritative operational reference: `60-apps/etzhayyim-project-murakumo/CLAUDE.md` §OpenClaw Gateway。
 
 **Topology** (single-gateway):
 
@@ -536,13 +536,13 @@ Browser (Control UI) ─ ws://127.0.0.1:18789 ─→ judah gateway (launchd Keep
 - CLI fleet-wide: all 10 nodes have `openclaw` 2026.4.14 (fs-probed in `~/.local/bin` or `~/.openclaw/bin`)
 - yoro-profile isolated agent: `~/.openclaw/workspaces/yoro-profile`, bound to cron
 - Murakumo provider: `models.providers.murakumo` with gemma-4-e4b-it (128K) + qwen3.5-9b (32K), api=`openai-completions`
-- Secret: Keychain-first (`gftd.murakumo / MURAKUMO_API_KEY`) → file-mode JSON resolver
+- Secret: Keychain-first (`etzhayyim.murakumo / MURAKUMO_API_KEY`) → file-mode JSON resolver
 - E2E HTTP: openclaw → `https://murakumo.etzhayyim.com/api/openai/v1/chat/completions` → serve_plain.py, 9.4s round-trip with valid completion
 
 **Ansible (idempotent)**:
 
 ```bash
-cd 60-apps/ai-gftd-project-murakumo/ansible
+cd 60-apps/etzhayyim-project-murakumo/ansible
 ansible-playbook openclaw-play.yml                 # full: install + configure + service + agent + cron
 ansible-playbook openclaw-play.yml --tags openclaw-cron  # refresh cron only
 ansible-playbook openclaw-play.yml --tags openclaw-install  # CLI only (all 10 nodes)

@@ -203,14 +203,14 @@ PDS hot paths were patched to stop circuit-breaker cascades caused by non-P9v20 
   - stable `HTTP 200`, typically ~`2.24s`-`2.31s` after warmup
   - no 12-20s timeout behavior observed in the final verification batch
 
-## CLI: `gftd actors shinka`
+## CLI: `etzhayyim actors shinka`
 
-Local LLM (Ollama gemma3:4b) で Actor の domain knowledge を agentic に生成。詳細: `70-tools/gftd/CLAUDE.md` §gftd actors shinka
+Local LLM (Ollama gemma3:4b) で Actor の domain knowledge を agentic に生成。詳細: `70-tools/etzhayyim/CLAUDE.md` §etzhayyim actors shinka
 
 ```bash
-gftd actors shinka --limit 50 --concurrency 4    # 実行
-gftd actors shinka --dry-run --limit 3 --json     # dry-run
-gftd actors shinka --filter handotai --limit 1    # 特定 actor
+etzhayyim actors shinka --limit 50 --concurrency 4    # 実行
+etzhayyim actors shinka --dry-run --limit 3 --json     # dry-run
+etzhayyim actors shinka --filter handotai --limit 1    # 特定 actor
 ```
 
 ## Current State (2026-04-05)
@@ -235,7 +235,7 @@ gftd actors shinka --filter handotai --limit 1    # 特定 actor
 | `infra/.../pds-migrate-logical.ts` | Bulk migration (3 phases) |
 | `infra/.../pds-app.ts` | Heartbeat cron (Actor label batch + autoMigrate) |
 | `20-actors/magatama/sdk/magatama-host-sdk/src/index.ts` | `createCapabilityWorker()` |
-| `70-tools/gftd/actors_shinka.go` | `gftd actors shinka` — Ollama agentic domain knowledge |
+| `70-tools/etzhayyim/actors_shinka.go` | `etzhayyim actors shinka` — Ollama agentic domain knowledge |
 
 ## Deleted
 
