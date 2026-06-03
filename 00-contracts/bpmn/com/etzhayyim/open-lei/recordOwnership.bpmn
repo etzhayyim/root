@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_lei_record_ownership"
-    targetNamespace="https://gftd.ai/bpmn/open-lei"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_lei_record_ownership" name="LEI ownership 記録" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -38,8 +38,8 @@
           <zeebe:input source="=&quot;edge_open_lei_ownership_pair&quot;" target="table"/>
           <zeebe:input source="={
               edge_id: string(vertexId) + &quot;:pair&quot;,
-              src_vid: &quot;at://did:web:open-lei.gftd.ai/com.etzhayyim.apps.openLei.entity/&quot; + string(parentLei),
-              dst_vid: &quot;at://did:web:open-lei.gftd.ai/com.etzhayyim.apps.openLei.entity/&quot; + string(childLei),
+              src_vid: &quot;at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/&quot; + string(parentLei),
+              dst_vid: &quot;at://did:web:open-lei.etzhayyim.com/com.etzhayyim.apps.openLei.entity/&quot; + string(childLei),
               role: relationshipType,
               created_at: string(now()), owner_did: callerDid, sensitivity_ord: 1,
               org_id: callerDid, user_id: callerDid, actor_id: &quot;sys.bpmn.open-lei&quot;
@@ -55,7 +55,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-lei.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-lei.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLei.ownership.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, parentLei: parentLei, childLei: childLei, relationshipType: relationshipType}" target="payload"/>
         </zeebe:ioMapping>

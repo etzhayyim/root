@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_open_lei_query_org_subtree"
-    targetNamespace="https://gftd.ai/bpmn/open-lei"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-lei"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="open_lei_query_org_subtree" name="Org Subtree 検索" isExecutable="true">
 

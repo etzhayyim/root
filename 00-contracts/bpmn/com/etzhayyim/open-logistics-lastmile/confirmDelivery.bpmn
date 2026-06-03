@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_logistics_lastmile_confirm_delivery"
-    targetNamespace="https://gftd.ai/bpmn/open-logistics-lastmile"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-logistics-lastmile"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_logistics_lastmile_confirm_delivery" name="confirmDelivery" isExecutable="true">
@@ -125,7 +125,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLogistics_lastmile.delivery.claimOpened&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, claimVertexId: claimVertexId, legVid: legVid, slaTier: slaTier}" target="payload"/>
         </zeebe:ioMapping>
@@ -139,7 +139,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLogistics_lastmile.confirm.delivery&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:       vertexId,
@@ -160,7 +160,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLogistics_lastmile.delivery.invalidProof&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, proofId: proofId, legVid: legVid, findings: proofFindings}" target="payload"/>
         </zeebe:ioMapping>

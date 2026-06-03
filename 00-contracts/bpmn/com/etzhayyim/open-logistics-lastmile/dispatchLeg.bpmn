@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_logistics_lastmile_dispatch_leg"
-    targetNamespace="https://gftd.ai/bpmn/open-logistics-lastmile"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-logistics-lastmile"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="open_logistics_lastmile_dispatch_leg" name="dispatchLeg" isExecutable="true">
@@ -67,7 +67,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.customsPending&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, legId: legId, findings: dispatchFindings}" target="payload"/>
         </zeebe:ioMapping>
@@ -160,7 +160,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.leg&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:       vertexId,
@@ -181,7 +181,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-logistics-lastmile.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openLogistics_lastmile.dispatch.rejected&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:                vertexId,

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_malacca_incident_flag_piracy_escort"
-    targetNamespace="https://gftd.ai/bpmn/open-malacca-incident"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-malacca-incident"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_malacca_incident_flag_piracy_escort" name="マラッカ 海賊・護衛" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-malacca-incident.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-malacca-incident.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;maritime.piracyEscort&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: incidentVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>
