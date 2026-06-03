@@ -184,7 +184,7 @@ When("I query the job list", async function (this: ICustomWorld) {
 		throw new Error("Multiple email sync jobs do not exist");
 	}
 
-	this.context.queriedJobList = [...this.context.emailSyncJobs].sort((a, b) => 
+	this.context.queriedJobList = [...this.context.emailSyncJobs].sort((a, b) =>
 		new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
 	);
 	this.context.jobListQueried = true;
@@ -196,7 +196,7 @@ When("I query the latest job", async function (this: ICustomWorld) {
 	}
 
 	const jobs = this.context.emailSyncJobs;
-	this.context.latestJob = jobs.sort((a, b) => 
+	this.context.latestJob = jobs.sort((a, b) =>
 		new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
 	)[0];
 	this.context.latestJobQueried = true;
@@ -375,13 +375,13 @@ Then("each job should have status, progress, and statistics", async function (th
 Then("I should receive the most recently created job", async function (this: ICustomWorld) {
 	expect(this.context.latestJobQueried).toBe(true);
 	expect(this.context.latestJob).toBeDefined();
-	
+
 	const latestJob = this.context.latestJob;
 	const allJobs = this.context.emailSyncJobs;
-	const mostRecent = allJobs.sort((a, b) => 
+	const mostRecent = allJobs.sort((a, b) =>
 		new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
 	)[0];
-	
+
 	expect(latestJob.id).toBe(mostRecent.id);
 });
 

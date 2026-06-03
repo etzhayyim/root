@@ -8,7 +8,7 @@ setDefaultTimeout(60 * 1000);
 
 // 環境変数の設定（循環依存を避けるため、ここで直接設定）
 if (!process.env.DATABASE_URL) {
-	process.env.DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/cyberFreelance";
+	process.env.DATABASE_URL = "postgresql://placeholder:placeholder@localhost:5432/placeholder" /* placeholder */;
 }
 
 if (!process.env.CONNECT_API_URL) {

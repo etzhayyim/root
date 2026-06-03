@@ -237,7 +237,7 @@ Then("no unauthorized data should be accessed", async function (this: ICustomWor
 // Database steps
 Given("the database is unavailable", async function (this: ICustomWorld) {
 	this.context.databaseAvailable = false;
-	this.context.databaseUrl = "postgresql://invalid:invalid@localhost:9999/invalid";
+	this.context.databaseUrl = "postgresql://placeholder:placeholder@localhost:9999/placeholder" /* placeholder */;
 });
 
 When("a database operation is attempted", async function (this: ICustomWorld) {
