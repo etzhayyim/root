@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  adsk.gftd.ai — 3D blob manifest registration (ADR-2605080700 Phase 2).
+  adsk.etzhayyim.com — 3D blob manifest registration (ADR-2605080700 Phase 2).
 
   Timer-start: monthly. Drives `task_adsk_3d_blob_ingest` to register a
   caller-staged ABC-1M / Make-A-Shape / WaLa sample as a row in
@@ -20,7 +20,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_adsk_ingest_3d_blob"
-    targetNamespace="https://gftd.ai/bpmn/adsk"
+    targetNamespace="https://etzhayyim.ai/bpmn/adsk"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="adsk_ingest_3d_blob" name="adsk 3D blob register (monthly)" isExecutable="true">
@@ -36,7 +36,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:adsk.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:adsk.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;adsk.blob3d.ingest.tick&quot;" target="action"/>
           <zeebe:input source="=&quot;phase-a-noop&quot;" target="status"/>
         </zeebe:ioMapping>

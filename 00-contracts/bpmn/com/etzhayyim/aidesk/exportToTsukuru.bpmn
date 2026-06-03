@@ -3,7 +3,7 @@
   xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   id="Definitions_aidesk_export_to_tsukuru"
-  targetNamespace="https://gftd.ai/bpmn/aidesk"
+  targetNamespace="https://etzhayyim.ai/bpmn/aidesk"
   exporter="hand-written"
   exporterVersion="2.0">
 
@@ -52,7 +52,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:aidesk.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:aidesk.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;aideskArtifactExportedToTsukuru&quot;" target="action"/>
           <zeebe:input source="={ bpmnProcessId: &quot;aidesk_export_to_tsukuru&quot;, artifactId: artifactId, tsukuruPackageId: tsukuruPackageId, licenseTier: license_tier }" target="payload"/>
         </zeebe:ioMapping>

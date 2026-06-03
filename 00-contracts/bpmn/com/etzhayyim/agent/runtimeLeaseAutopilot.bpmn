@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_agent_runtime_lease_autopilot"
-    targetNamespace="https://gftd.ai/bpmn/agent"
+    targetNamespace="https://etzhayyim.ai/bpmn/agent"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process
@@ -71,7 +71,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="3"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:agent.gftd.ai:runtime&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:agent.etzhayyim.com:runtime&quot;" target="actor"/>
           <zeebe:input source="=&quot;agent.runtime.autopilot.tick&quot;" target="action"/>
           <zeebe:input source="={
             renewed: runtimeLeaseAutopilotRenewed,

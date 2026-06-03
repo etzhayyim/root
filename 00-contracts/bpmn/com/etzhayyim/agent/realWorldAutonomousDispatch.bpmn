@@ -11,7 +11,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_agent_realworld_autonomous_dispatch"
-    targetNamespace="https://gftd.ai/bpmn/agent"
+    targetNamespace="https://etzhayyim.ai/bpmn/agent"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="agent_realworld_autonomous_dispatch" name="Agent real-world autonomous dispatch" isExecutable="true">
