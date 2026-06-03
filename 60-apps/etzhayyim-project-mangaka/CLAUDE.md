@@ -1,4 +1,4 @@
-# ai-gftd-project-mangaka — mangaka.etzhayyim.com
+# etzhayyim-project-mangaka — mangaka.etzhayyim.com
 
 **Manga creation appview** — KAMI Engine canvas-based manga editor with AI-assisted drawing, panel layout, inking, and toning.
 
@@ -92,7 +92,7 @@ B2 storage removed 2026-04-11 → `_archive/60-apps/r2-mangaka-canvas-storage.ts
 ## File Structure
 
 ```
-60-apps/ai-gftd-project-mangaka/
+60-apps/etzhayyim-project-mangaka/
 ├── CLAUDE.md
 ├── wit/mangaka/package.wit           # Domain WIT capability
 ├── data/ghosthacker/                 # ghost hacker series source (imported 2026-05-12, see IMPORT.md)
@@ -102,7 +102,7 @@ B2 storage removed 2026-04-11 → `_archive/60-apps/r2-mangaka-canvas-storage.ts
 │   └── scripts/
 ├── lg-image-gen/                     # LangGraph TS panel-image pipeline (3-stage / m2ref / m3)
 │   └── src/{graph-m2,graph-m3,run,phase3-4-semantic-panels,lib/…}
-└── wasm/ai-gftd-wasm-mangaka-mng4k4x1/
+└── wasm/etzhayyim-wasm-mangaka-mng4k4x1/
     ├── src/app.ts                   # TS Native — Design E reactive pipeline
     ├── magatama.jsonld
     ├── wrangler.jsonc
@@ -112,7 +112,7 @@ B2 storage removed 2026-04-11 → `_archive/60-apps/r2-mangaka-canvas-storage.ts
 
 ## Cinematic Pipeline (kami-cine)
 
-mangaka uses a **subset** of the 8-stage kami-cine pipeline (`gftd:kami-cine@1.0.0`, `40-engine/kami-engine/wit/cine/package.wit`) for 3D-reference panels and motion-comic export. The full chain (worldModel → usdScene → neuralGeom → temporalField → neuralRender → diffusionPass → exrSeq → encode) is shared with animeka and dogaka; mangaka typically stops at stage 6 (diffusionPass) for inked still panels and runs all 8 only for animated chapter PVs.
+mangaka uses a **subset** of the 8-stage kami-cine pipeline (`etzhayyim:kami-cine@1.0.0`, `40-engine/kami-engine/wit/cine/package.wit`) for 3D-reference panels and motion-comic export. The full chain (worldModel → usdScene → neuralGeom → temporalField → neuralRender → diffusionPass → exrSeq → encode) is shared with animeka and dogaka; mangaka typically stops at stage 6 (diffusionPass) for inked still panels and runs all 8 only for animated chapter PVs.
 
 | Use case | Stages | Output binding |
 |---|---|---|
@@ -152,13 +152,13 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 | `studio.mintApiKey` | sk_live_* mint (RW INSERT) | `auth_mint_api_key` Pregel (`lg/lg_mangaka/graphs/auth_mint_api_key.py`) — pod は cluster 内なので RW_URL 到達可 |
 | `studio.restartStudio` | k8s rollout restart 案内 | manual `kubectl rollout restart` |
 
-**Auth**: CF Access JWT (`@etzhayyim.com` / Microsoft Entra) で gate。`Cf-Access-Authenticated-User-Email` → `owner_did` 自動派生 (`did:web:mangaka.etzhayyim.com:user:{email-safe}`)。passkey は **studio.etzhayyim.com への 24h SSO 1 回のみ** — `gftd authn signin` の chicken-and-egg は解消。
+**Auth**: CF Access JWT (`@etzhayyim.com` / Microsoft Entra) で gate。`Cf-Access-Authenticated-User-Email` → `owner_did` 自動派生 (`did:web:mangaka.etzhayyim.com:user:{email-safe}`)。passkey は **studio.etzhayyim.com への 24h SSO 1 回のみ** — `etzhayyim authn signin` の chicken-and-egg は解消。
 
-**Deploy state (2026-05-19)**: 
+**Deploy state (2026-05-19)**:
 - Image: `ghcr.io/etzhayyim/lg-mangaka-studio:0.1.1-amd64@sha256:eb6901c…` (slim, no torch/cuda — ~400MB vs 8GB)
 - Pod: `lg-mangaka-studio` in `mitama-udf` ns、helm release rev 10、`studio.enabled=true`、replicas=2 (`sessionAffinity: ClientIP` 3h)
 - Status: ✅ 21 graphs imported, mint API key INSERT 済 (`sk_live_comfyui_f931…` in `public.vertex_api_key`)
-- 残: Studio Worker (svelte + /mcp) deploy (`gftd authn signin` block 中)、CF Tunnel + CF Access apps (operator manual)、comfyui worker migration to yatabase-style pod-side authResolveApiKey (migration debt — ADR-2605111200 で Hyperdrive-Worker 検証が壊れた、未 migrate)
+- 残: Studio Worker (svelte + /mcp) deploy (`etzhayyim authn signin` block 中)、CF Tunnel + CF Access apps (operator manual)、comfyui worker migration to yatabase-style pod-side authResolveApiKey (migration debt — ADR-2605111200 で Hyperdrive-Worker 検証が壊れた、未 migrate)
 
 **Claude Code 統合**: `~/.claude/mcp.json` に:
 ```json
@@ -170,7 +170,7 @@ Shared helpers live in `lg/lg_mangaka/cine.py` (`STAGE_NAMES`, `new_run_id`, `re
 
 | Tier | Where | What |
 |---|---|---|
-| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@etzhayyim.com` domain). Code: `appview-studio/ai-gftd-wasm-studio-stdk2024/` |
+| UI + auth edge | CF Worker `magatama-stdk2024` at `studio.etzhayyim.com/*` | Svelte 5 SPA (graph list + Mermaid DAG + invoke form + SSE stream). Behind CF Access (Microsoft Entra IdP, `@etzhayyim.com` domain). Code: `appview-studio/etzhayyim-wasm-studio-stdk2024/` |
 | LangGraph backend | k8s pod `lg-mangaka-studio` × 2 (mitama-udf ns) at `studio-api.etzhayyim.com` | Stock `langgraph dev` (in-memory, ClientIP affinity). Image: `lg/Dockerfile.studio`. Chart: `50-infra/vultr/lg-mangaka-pool/templates/studio.yaml`, toggle `studio.enabled=true`. Tunnel: `50-infra/vultr/cloudflared/lg-mangaka-studio-tunnel.yaml`. Behind CF Access **service-token** policy — only the Worker's `CF-Access-Client-Id/-Secret` pair passes through. Audit disabled (`LG_AUDIT_DISABLED=1`). |
 
 Operator runbook (8 steps including the two CF Access apps) lives in the tunnel YAML header. End-user opens `https://studio.etzhayyim.com/` → SSO → pick `cine_generate_scene` / `cine_generate_panel` (or any of the 20) → run with `"dry_run": true` for cost-free inspection.

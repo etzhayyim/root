@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-wasm-mangaka-mng4k4x1",
+  "name": "etzhayyim-wasm-mangaka-mng4k4x1",
   "version": "1.0.0",
   "description": "mangaka.etzhayyim.com — Manga creation appview powered by KAMI Engine canvas",
   "main": "svelte/.svelte-kit/cloudflare/_worker.js",

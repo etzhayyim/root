@@ -1,5 +1,5 @@
 // GET /blob/:cid?did=anonymous — direct SigV4 fetch from B2.
-// PDS uploadBlob writes blobs at `blobs/{repo}/{cid}` in the ai-gftd-cdn bucket.
+// PDS uploadBlob writes blobs at `blobs/{repo}/{cid}` in the etzhayyim-cdn bucket.
 // PDS sync.getBlob is currently unavailable (522), so we read B2 directly.
 // 3x exponential-backoff retry + edge cache via tee() pass-through.
 
@@ -20,7 +20,7 @@ async function readSecret(binding: string | { get(): Promise<string> } | undefin
 
 async function fetchBlobFromB2(env: Env, did: string, cid: string): Promise<Response> {
   const endpoint = env.B2_ENDPOINT || "s3.us-west-004.backblazeb2.com";
-  const bucket = env.B2_BUCKET || "ai-gftd-cdn";
+  const bucket = env.B2_BUCKET || "etzhayyim-cdn";
   const region = env.B2_REGION || "us-west-004";
   const keyId = await readSecret(env.B2_KEY_ID);
   const appKey = await readSecret(env.B2_APP_KEY);

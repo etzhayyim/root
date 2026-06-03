@@ -52,7 +52,7 @@ NEI ちゃん、
 
 ああ。そうだったね。　ごめん。
 
-怠惰. 
+怠惰.
 
 マスターも働いてくださいよー！
 
@@ -102,7 +102,7 @@ NEI ちゃん、
 わかりました。でも、依頼料は高いですよ？
 
 
-オフィスにて. 
+オフィスにて.
 
 オフィスは建設関係の事業を代々営んでいまして、、。
 
@@ -343,10 +343,10 @@ page jsonld には `gh:pageLayoutV3` で `pageType` (single-page / **double-page
 
 ```bash
 # secret 準備 (一度だけ)
-security add-generic-password -s "gftd.openai" -a "OPENAI_API_KEY" -w "sk-..."
+security add-generic-password -s "etzhayyim.openai" -a "OPENAI_API_KEY" -w "sk-..."
 
 # 単一 page を Phase 3.4 で decompose
-export OPENAI_API_KEY=$(security find-generic-password -s "gftd.openai" -a "OPENAI_API_KEY" -w)
+export OPENAI_API_KEY=$(security find-generic-password -s "etzhayyim.openai" -a "OPENAI_API_KEY" -w)
 cd scripts/lg-image-gen
 npx tsx src/phase3-4-semantic-panels.ts --page 1
 

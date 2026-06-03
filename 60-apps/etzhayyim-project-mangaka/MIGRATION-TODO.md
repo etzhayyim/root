@@ -8,7 +8,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-mangaka`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/etzhayyim-project-mangaka`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 

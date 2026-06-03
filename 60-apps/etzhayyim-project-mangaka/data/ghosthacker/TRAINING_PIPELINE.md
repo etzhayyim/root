@@ -37,10 +37,10 @@ our anime-tuned weights.
    VRoidHub liberally-licensed avatars).
 2. Submit each mesh to Mixamo's `Auto-rigger` REST endpoint, collect the
    returned skeletons (~13 sec/mesh, OAuth-free public endpoint).
-3. Write each `(mesh, skeleton)` pair to `b2://gftd-training-data/rignet-anime-corpus-v<n>/`.
+3. Write each `(mesh, skeleton)` pair to `b2://etzhayyim-training-data/rignet-anime-corpus-v<n>/`.
 4. Fine-tune RigNet's GNN head on the corpus (~6 GPU hours on a 6000
    Ada, weights are ~80 MB).
-5. Upload the checkpoint to `b2://gftd-models/rignet-anime-v0.<n>/`.
+5. Upload the checkpoint to `b2://etzhayyim-models/rignet-anime-v0.<n>/`.
 
 **Cadence**: ~quarterly, or when the visual review surfaces ≥10%
 broken binds on the production runtime.
@@ -67,7 +67,7 @@ action clarity).
    alongside the deterministic fallback score).
 3. Fine-tune a Qwen2.5-VL-7B with LoRA on the rubric (~12 GPU hours on
    6000 Ada).
-4. Upload to `b2://gftd-models/mangaka-critic-v0.<n>/`.
+4. Upload to `b2://etzhayyim-models/mangaka-critic-v0.<n>/`.
 5. Production runtime points `pymagatama.llm._VISION_TIER_OVERRIDES['vision']`
    at the murakumo gateway hosting this checkpoint instead of OpenAI.
 
@@ -101,7 +101,7 @@ in the visual style we want.
 
 **Process**: standard LoRA training in diffusers, ~3 GPU hours per
 LoRA. Mounted into the `character-gen` pod image via env var
-`CHARACTER_GEN_LORA_PATH=b2://gftd-models/character-gen-lora-v0.<n>/`.
+`CHARACTER_GEN_LORA_PATH=b2://etzhayyim-models/character-gen-lora-v0.<n>/`.
 
 **Cadence**: once per arc that introduces new character archetypes.
 
@@ -118,7 +118,7 @@ to-be-authored) walks every `vertex_mcp_tool_def` row + every
   any python file under `lg_mangaka/tools.py` or pod entrypoints.
 
 The same hostnames ARE allowed under `70-tools/distill/` and
-`60-apps/ai-gftd-project-mangaka/lg/distill/` (offline-only paths).
+`60-apps/etzhayyim-project-mangaka/lg/distill/` (offline-only paths).
 
 ## Inventory: where each external API stands today
 
@@ -160,5 +160,5 @@ Three reasons:
 | `VRM_AUTHORING_STACK.md` | stack chosen because every node is self-hosted |
 | `TRAINING_PIPELINE.md` (this file) | distillation workflow that uses ext APIs |
 | `70-tools/distill/*` | offline distill scripts (planned) |
-| `b2://gftd-models/<student>-v0.<n>/` | versioned student checkpoint store |
-| `b2://gftd-training-data/<corpus>-v<n>/` | versioned training corpus |
+| `b2://etzhayyim-models/<student>-v0.<n>/` | versioned student checkpoint store |
+| `b2://etzhayyim-training-data/<corpus>-v<n>/` | versioned training corpus |
