@@ -43,6 +43,15 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-03 — ADM1 subnational tier geolocated (map-ready)
+
+`gov-units.adm1-coords.edn` adds **3,589 `:gov.address` :seat records** for the world's
+first-level administrative divisions (states/provinces/regions) — Wikidata P625
+coordinate + P36 capital/seat label via light REST. **3,587 carry precise lat/lon
+(99.9%)**, 3,036 carry a capital-city name. Total `:gov.address` now **5,502**, of which
+**4,330 carry coordinates** — both the national and subnational tiers of the atlas are
+now substantially map-ready (an end-to-end world-government GeoJSON is now derivable).
+
 ## 2026-06-03 — HQ locations extended to all national bodies (L3 depth, cont.)
 
 `gov-units.hq-locations-2.edn` extends HQ geolocation to the **remaining national
