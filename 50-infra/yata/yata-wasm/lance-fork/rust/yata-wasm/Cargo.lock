@@ -83,7 +83,7 @@ dependencies = [
  "arrow-json",
  "arrow-ord",
  "arrow-row",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "arrow-select",
  "arrow-string",
 ]
@@ -97,7 +97,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "chrono",
  "num",
 ]
@@ -111,7 +111,7 @@ dependencies = [
  "ahash",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "chrono",
  "chrono-tz",
  "half",
@@ -139,7 +139,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "arrow-select",
  "atoi",
  "base64",
@@ -159,7 +159,7 @@ checksum = "43d3cb0914486a3cae19a5cad2598e44e225d53157926d0ada03c20521191a65"
 dependencies = [
  "arrow-array",
  "arrow-cast",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "chrono",
  "csv",
  "csv-core",
@@ -174,7 +174,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61cfdd7d99b4ff618f167e548b2411e5dd2c98c0ddebedd7df433d34c20a4429"
 dependencies = [
  "arrow-buffer",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "half",
  "num",
 ]
@@ -188,7 +188,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "flatbuffers",
  "lz4_flex",
 ]
@@ -203,7 +203,7 @@ dependencies = [
  "arrow-buffer",
  "arrow-cast",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "chrono",
  "half",
  "indexmap",
@@ -222,7 +222,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "arrow-select",
 ]
 
@@ -235,7 +235,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "half",
 ]
 
@@ -249,6 +249,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "arrow-schema"
+version = "58.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f633dbfdf39c039ada1bf9e34c694816eb71fbb7dc78f613993b7245e078a1ed"
+
+[[package]]
 name = "arrow-select"
 version = "54.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -258,7 +264,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "num",
 ]
 
@@ -271,7 +277,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 54.3.1",
  "arrow-select",
  "memchr",
  "num",
@@ -1093,7 +1099,7 @@ dependencies = [
  "arrow-buffer",
  "arrow-cast",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "arrow-select",
  "bytes",
  "getrandom 0.2.17",
@@ -1108,7 +1114,7 @@ version = "0.27.1"
 dependencies = [
  "arrow-array",
  "arrow-buffer",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "async-trait",
  "byteorder",
  "bytes",
@@ -1122,7 +1128,7 @@ dependencies = [
  "mock_instant",
  "moka",
  "num_cpus",
- "object_store 0.11.2",
+ "object_store",
  "pin-project",
  "prost",
  "rand",
@@ -1147,7 +1153,7 @@ dependencies = [
  "arrow-buffer",
  "arrow-cast",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "arrow-select",
  "bytemuck",
  "byteorder",
@@ -1183,7 +1189,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "arrow-select",
  "async-recursion",
  "async-trait",
@@ -1198,7 +1204,7 @@ dependencies = [
  "lance-io",
  "log",
  "num-traits",
- "object_store 0.11.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
@@ -1219,7 +1225,7 @@ dependencies = [
  "arrow-buffer",
  "arrow-cast",
  "arrow-data",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "arrow-select",
  "async-priority-channel",
  "async-recursion",
@@ -1233,7 +1239,7 @@ dependencies = [
  "lance-core",
  "lazy_static",
  "log",
- "object_store 0.11.2",
+ "object_store",
  "path_abs",
  "pin-project",
  "prost",
@@ -1254,7 +1260,7 @@ dependencies = [
  "arrow-array",
  "arrow-buffer",
  "arrow-ipc",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "async-trait",
  "byteorder",
  "bytes",
@@ -1266,8 +1272,7 @@ dependencies = [
  "lance-file",
  "lance-io",
  "log",
- "object_store 0.11.2",
- "object_store 0.13.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
@@ -1560,27 +1565,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff76201f031d8863c38aa7f905eca4f53abbfa15f609db4277d44cd8938f33fe"
 dependencies = [
  "memchr",
-]
-
-[[package]]
-name = "object_store"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cfccb68961a56facde1163f9319e0d15743352344e7808a11795fb99698dcaf"
-dependencies = [
- "async-trait",
- "bytes",
- "chrono",
- "futures",
- "humantime",
- "itertools 0.13.0",
- "parking_lot",
- "percent-encoding",
- "snafu",
- "tokio",
- "tracing",
- "url",
- "walkdir",
 ]
 
 [[package]]
@@ -2826,7 +2810,7 @@ name = "yata-wasm"
 version = "0.1.0"
 dependencies = [
  "arrow-array",
- "arrow-schema",
+ "arrow-schema 58.3.0",
  "async-trait",
  "bytes",
  "futures",
@@ -2836,7 +2820,7 @@ dependencies = [
  "lance-file",
  "lance-io",
  "lance-table",
- "object_store 0.13.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
