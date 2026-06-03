@@ -1563,6 +1563,13 @@ status_note = "mitate-native new robotics class (8th by count, owned by mitate n
 path = "90-docs/adr/2605260230-hanami-robot-mechanical-design-mitate-r2-critical-path.md"
 
 [[adrs]]
+id = "2606032212"
+title = "Session close — gftd/yatachain app rename sweep paused after news batch 320"
+status = "active"
+status_note = "Progress ledger update for the app rename/deprecation sweep requested 2026-06-03. The sweep remains stopped on user request after pushing news through batch 320; last pushed rename commit = 7783c8c697. Completed app trees remain maps, hrse, mangaka, open-isic, yoro, cofog, yabai, and states. News is still the only non-empty legacy app tree; remaining legacy news files at pause = 6618; next rename batch = 321. Resume with <=48 moved files per batch, rewrite only just-moved destination files, keep status under 50, preserve kotoba Datomic/EDN, and bypass only the locally broken e7m verify hook after other hooks pass."
+path = "90-docs/adr/2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause.md"
+
+[[adrs]]
 id = "2606032045"
 title = "Session close — gftd/yatachain app rename sweep paused after news batch 47"
 status = "active"

@@ -12758,6 +12758,22 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause",
+      "type": "TechArticle",
+      "title": "ADR-2606032212: Session close — gftd/yatachain app rename sweep paused after news batch 320",
+      "status": "active",
+      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause",
+        "doc:adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+        "doc:adr-2605172000-etzhayyim-rw-free-substrate",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606032330-session-close-magatama-risingwave-to-kotoba-datomic-edn",
       "type": "TechArticle",
       "title": "ADR-2606032330: Session close — magatama RisingWave → kotoba Datomic API/EDN refactor (substrate clients + LangGraph savers + sqlmesh view registry)",
