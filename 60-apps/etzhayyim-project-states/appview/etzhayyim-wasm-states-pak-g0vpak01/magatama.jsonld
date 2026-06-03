@@ -37,7 +37,7 @@
     "ministryCount": 7,
     "contractCount": 1,
     "bpmnCount": 32,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/pak/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/pak/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -73,7 +73,7 @@
         "authority": "Defense Ministry Of Defence",
         "basis": "Defence Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/pak/bpmn/defense-ministry-of-defence.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/pak/bpmn/defense-ministry-of-defence.bpmn"
       },
       {
         "id": "pak.finance-ministry-of-finance",
@@ -82,7 +82,7 @@
         "authority": "Finance Ministry Of Finance",
         "basis": "Economic Affairs Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/pak/bpmn/finance-ministry-of-finance.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/pak/bpmn/finance-ministry-of-finance.bpmn"
       },
       {
         "id": "pak.foreign-ministry-of-foreign-affairs",
@@ -91,7 +91,7 @@
         "authority": "Foreign Ministry Of Foreign Affairs",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/pak/bpmn/foreign-ministry-of-foreign-affairs.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/pak/bpmn/foreign-ministry-of-foreign-affairs.bpmn"
       },
       {
         "id": "pak.interior-ministry-of-interior",
@@ -100,7 +100,7 @@
         "authority": "Interior Ministry Of Interior",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/pak/bpmn/interior-ministry-of-interior.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/pak/bpmn/interior-ministry-of-interior.bpmn"
       },
       {
         "id": "pak.justice-ministry-of-law-justice",
@@ -109,7 +109,7 @@
         "authority": "Justice Ministry Of Law Justice",
         "basis": "Public Order and Safety Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/pak/bpmn/justice-ministry-of-law-justice.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/pak/bpmn/justice-ministry-of-law-justice.bpmn"
       },
       {
         "id": "pak.executive-prime-ministers-office",
@@ -118,7 +118,7 @@
         "authority": "Executive Prime Ministers Office",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/pak/bpmn/executive-prime-ministers-office.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/pak/bpmn/executive-prime-ministers-office.bpmn"
       },
       {
         "id": "pak.access_info",

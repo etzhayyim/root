@@ -37,7 +37,7 @@
     "ministryCount": 6,
     "contractCount": 1,
     "bpmnCount": 32,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/nga/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/nga/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -71,7 +71,7 @@
         "authority": "Defense Ministry Of Defence",
         "basis": "Defence Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/nga/bpmn/defense-ministry-of-defence.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/nga/bpmn/defense-ministry-of-defence.bpmn"
       },
       {
         "id": "nga.finance-ministry-of-finance",
@@ -80,7 +80,7 @@
         "authority": "Finance Ministry Of Finance",
         "basis": "Economic Affairs Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/nga/bpmn/finance-ministry-of-finance.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/nga/bpmn/finance-ministry-of-finance.bpmn"
       },
       {
         "id": "nga.foreign-ministry-of-foreign-affairs",
@@ -89,7 +89,7 @@
         "authority": "Foreign Ministry Of Foreign Affairs",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/nga/bpmn/foreign-ministry-of-foreign-affairs.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/nga/bpmn/foreign-ministry-of-foreign-affairs.bpmn"
       },
       {
         "id": "nga.interior-ministry-of-interior",
@@ -98,7 +98,7 @@
         "authority": "Interior Ministry Of Interior",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/nga/bpmn/interior-ministry-of-interior.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/nga/bpmn/interior-ministry-of-interior.bpmn"
       },
       {
         "id": "nga.justice-ministry-of-justice",
@@ -107,7 +107,7 @@
         "authority": "Justice Ministry Of Justice",
         "basis": "Public Order and Safety Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/nga/bpmn/justice-ministry-of-justice.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/nga/bpmn/justice-ministry-of-justice.bpmn"
       },
       {
         "id": "nga.executive-state-house",
@@ -116,7 +116,7 @@
         "authority": "Executive State House",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/nga/bpmn/executive-state-house.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/nga/bpmn/executive-state-house.bpmn"
       }
     ],
     "documentTemplates": [

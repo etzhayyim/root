@@ -37,7 +37,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 86,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/mex/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/mex/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -72,7 +72,7 @@
         "authority": "Executive Presidencia",
         "basis": "General Public Services Act",
         "portalUri": "https://www.gob.mx/presidencia",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/mex/bpmn/executive-presidencia.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/mex/bpmn/executive-presidencia.bpmn"
       },
       {
         "id": "mex.transparencia",
