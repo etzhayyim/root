@@ -2,7 +2,7 @@
 	/**
 	 * Resource Flow tab — ADR-0035 reverse-topology actor money-flow visualization.
 	 *
-	 * For any actor DID, query edge_gftd_fiscal_flow + edge_gftd_ownership and
+	 * For any actor DID, query edge_etzhayyim_fiscal_flow + edge_etzhayyim_ownership and
 	 * render: incoming flows (受け取り) / outgoing flows (支払) / UBO chain (実質的支配者).
 	 *
 	 * Data path: graphSql → atproto.etzhayyim.com/xrpc/com.etzhayyim.kagami.graph.query
@@ -61,27 +61,27 @@
 			const flowCols = `from_did, to_did, stage, fiscal_year, amount_jpy, basis, program_code, source_record_uri, source_url, observed_at`;
 			const [inRows, outRows, uboParentRows, uboChildRows] = await Promise.all([
 				graphSql<FlowRow>(
-					`SELECT ${flowCols} FROM edge_gftd_fiscal_flow
+					`SELECT ${flowCols} FROM edge_etzhayyim_fiscal_flow
 					 WHERE to_did = ${didLit}
 					 ORDER BY fiscal_year DESC NULLS LAST, observed_at DESC NULLS LAST
 					 LIMIT 50`,
 				),
 				graphSql<FlowRow>(
-					`SELECT ${flowCols} FROM edge_gftd_fiscal_flow
+					`SELECT ${flowCols} FROM edge_etzhayyim_fiscal_flow
 					 WHERE from_did = ${didLit}
 					 ORDER BY fiscal_year DESC NULLS LAST, observed_at DESC NULLS LAST
 					 LIMIT 50`,
 				),
 				graphSql<OwnershipRow>(
 					`SELECT parent_did, child_did, ownership_pct, voting_pct, evidence_kind, evidence_url, observed_at
-					 FROM edge_gftd_ownership
+					 FROM edge_etzhayyim_ownership
 					 WHERE child_did = ${didLit}
 					 ORDER BY ownership_pct DESC NULLS LAST, observed_at DESC NULLS LAST
 					 LIMIT 30`,
 				),
 				graphSql<OwnershipRow>(
 					`SELECT parent_did, child_did, ownership_pct, voting_pct, evidence_kind, evidence_url, observed_at
-					 FROM edge_gftd_ownership
+					 FROM edge_etzhayyim_ownership
 					 WHERE parent_did = ${didLit}
 					 ORDER BY ownership_pct DESC NULLS LAST, observed_at DESC NULLS LAST
 					 LIMIT 30`,
@@ -248,7 +248,7 @@
 		{/if}
 
 		<p class="text-center text-[10px] text-gv2-text-muted">
-			出典: ADR-0035 reverse-topology / `edge_gftd_fiscal_flow` + `edge_gftd_ownership`
+			出典: ADR-0035 reverse-topology / `edge_etzhayyim_fiscal_flow` + `edge_etzhayyim_ownership`
 		</p>
 	{/if}
 </div>

@@ -5,7 +5,7 @@
  */
 import { browser } from '$app/environment';
 
-export const HITL_TOKEN_KEY = 'gftd:hitl-api-key';
+export const HITL_TOKEN_KEY = 'etzhayyim:hitl-api-key';
 const POLL_MS = 10_000;
 
 function createHitlStore() {

@@ -43,12 +43,12 @@
 				streak = { count: 1, lastDate: today, xp: (data.xp || 0) + 10 };
 				localStorage.setItem(STORAGE_KEY, JSON.stringify(streak));
 			}
-		} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/components/StreakBadge.svelte: suppressed error", error); }
+		} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/components/StreakBadge.svelte: suppressed error", error); }
 	});
 
 	function addXP(amount: number) {
 		streak = { ...streak, xp: streak.xp + amount };
-		try { localStorage.setItem(STORAGE_KEY, JSON.stringify(streak)); } catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/components/StreakBadge.svelte: suppressed error", error); }
+		try { localStorage.setItem(STORAGE_KEY, JSON.stringify(streak)); } catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/components/StreakBadge.svelte: suppressed error", error); }
 	}
 
 	// expose addXP for parent

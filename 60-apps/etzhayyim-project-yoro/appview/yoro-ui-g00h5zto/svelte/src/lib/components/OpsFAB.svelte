@@ -94,7 +94,7 @@
 		agentQuery = '';
 		agentResults = [];
 		// Load suggested agents
-		void fetchAgents('gftd');
+		void fetchAgents('etzhayyim');
 		requestAnimationFrame(() => agentInputRef?.focus());
 	}
 
@@ -118,7 +118,7 @@
 	function handleAgentSearch(q: string) {
 		agentQuery = q;
 		if (searchTimeout) clearTimeout(searchTimeout);
-		searchTimeout = setTimeout(() => void fetchAgents(q || 'gftd'), 300);
+		searchTimeout = setTimeout(() => void fetchAgents(q || 'etzhayyim'), 300);
 	}
 
 	async function selectAgent(actor: AuthorProfile) {
@@ -133,7 +133,7 @@
 		errorMessage = '';
 		playTap();
 		try {
-			await followUser(did).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/components/OpsFAB.svelte: suppressed async error", error); });
+			await followUser(did).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/components/OpsFAB.svelte: suppressed async error", error); });
 			const result = await createProjectConvo(did);
 			const convoId = result?.convo?.convoId;
 			if (convoId) {

@@ -30,7 +30,7 @@ function createStructService(
 }
 
 /**
- * ControlPlaneService is the central API for gftd CLI.
+ * ControlPlaneService is the central API for etzhayyim CLI.
  * All operations require Clerk JWT authentication.
  * Resources are scoped by org_id extracted from the JWT.
  */
