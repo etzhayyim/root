@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0850-r-d-recreation-culture-religion-s7znjejv",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0850-r-d-recreation-culture-religion-s7znjejv",
   "nanoid": "s7znjejv",
   "performerType": "system",
   "profile": {
@@ -32,7 +32,7 @@
     "description": "COFOG 0850 — R&D in Recreation, Culture and Religion. Government function classification agent for research and development policy in arts, heritage, sports, and interfaith studies.",
     "displayName": "COFOG 0850: R&D Recreation, Culture & Religion",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "cofog",
   "runtimeType": "worker",
