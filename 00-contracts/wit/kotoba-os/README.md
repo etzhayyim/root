@@ -69,6 +69,18 @@ neighbourhood"):
   invalid rejected at `identity/serverKey` + `safety/liveActuation`; unknown WIT
   interface rejected by capability scoping). Skips cleanly without `jsonschema`.
 
+## k8s OCI-CID artifact convention (ADR §D4)
+
+`../../schemas/kotoba-os-oci-artifact.schema.json` + example + 8 tests make the
+"OCI image reference = CID, pulled from IPFS" convention a **checkable invariant**:
+the OCI manifest sha2-256 `digest` and the `cid` are the same hash re-encoded
+(`cid = base32(0x01 0x55 0x12 0x20 || digest)`). The test **decodes the cid back to
+a digest** (stdlib b32decode) and asserts equality — "digest = CID" is verified,
+not asserted. The schema forbids commercial registries by construction (`imageRef`
+must be `ipfs://bafkre…`; a `ghcr.io` ref is rejected — negative test), `pull.type`
+is `ipfs` only, and placement is the Murakumo kubelet (`donated`/`operator` node
+class). Keeps the k8s edge inside the IPFS / donation-funded substrate.
+
 ## Unikernel-edge sizing budget (ADR §D6)
 
 `sizing-budget.json` replaces the ADR's "sizing budget is honestly TBD" gap with a
@@ -182,5 +194,6 @@ E2E OK
 - ✅ Honest unikernel-edge flash/RAM sizing budget (ADR §D6, 7 tests green).
 - ✅ End-to-end wasmtime host run of the real component (`plc-host-runner/`):
   scan-cycle Datom history + N3 fault-atomicity through actual WASM (3 tests green).
-- D4 k8s OCI-CID artifact convention (digest = CID, pulled from IPFS).
+- ✅ D4 k8s OCI-CID artifact convention (digest = CID, IPFS-pulled; 8 tests, incl.
+  the decode-cid-equals-digest invariant + registry-ref rejection).
 - R2: real blake3 CID verification in the `LowerEdge` boot path (kotoba-core).
