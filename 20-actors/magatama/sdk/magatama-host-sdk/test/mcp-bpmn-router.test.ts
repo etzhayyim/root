@@ -162,7 +162,7 @@ describe("dispatchToBpmn", () => {
 		expect(JSON.parse(new TextDecoder().decode(result!.body))).toEqual({ error: "InvalidInput" });
 	});
 
-	it("filters headers (only authorization, content-type, x-gftd-*, atproto-*)", async () => {
+	it("filters headers (only authorization, content-type, x-etzhayyim-*, atproto-*)", async () => {
 		fetchMock.mockResolvedValueOnce(new Response("{}", { status: 200 }));
 		await dispatchToBpmn({
 			bpmnUrl: "https://dispatcher.test",
@@ -170,15 +170,15 @@ describe("dispatchToBpmn", () => {
 			args: {},
 			headers: [
 				["authorization", "Bearer x"],
-				["x-gftd-org-id", "org1"],
+				["x-etzhayyim-org-id", "org1"],
 				["atproto-proxy", "did:web:appview"],
-				["cookie", "gftd_session=should-not-leak"],
+				["cookie", "etzhayyim_session=should-not-leak"],
 				["host", "lf1rm8k0.etzhayyim.com"],
 			],
 		});
 		const fwd = fetchMock.mock.calls[0][1].headers as Record<string, string>;
 		expect(fwd["authorization"]).toBe("Bearer x");
-		expect(fwd["x-gftd-org-id"]).toBe("org1");
+		expect(fwd["x-etzhayyim-org-id"]).toBe("org1");
 		expect(fwd["atproto-proxy"]).toBe("did:web:appview");
 		expect(fwd["cookie"]).toBeUndefined();
 		expect(fwd["host"]).toBeUndefined();

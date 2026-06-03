@@ -2,7 +2,7 @@
  * Derive rules registry — mirrors magatama.jsonld `derive.rules[]` for each app.
  *
  * MVP: hardcoded from each app's magatama.jsonld. A future migration will move
- * this to a graph cache (`vertex_magatama_config`) populated at `gftd deploy`
+ * this to a graph cache (`vertex_magatama_config`) populated at `etzhayyim deploy`
  * time, so the PDS Worker reloads rules without a redeploy.
  *
  * Keyed by AT collection NSID — a commit on that collection scans all rules
@@ -25,7 +25,7 @@ export interface DeriveRule {
 }
 
 export const DERIVE_RULES: DeriveRule[] = [
-  // mangaka — 60-apps/ai-gftd-project-mangaka/.../magatama.jsonld
+  // mangaka — 60-apps/etzhayyim-project-mangaka/.../magatama.jsonld
   {
     id: "chapter-published-social",
     app: "mangaka",

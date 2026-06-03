@@ -189,8 +189,8 @@ describe("SDK handleRequest", () => {
 
 describe("NSID utilities", () => {
   it("witToCollection converts WIT kebab to AT collection", () => {
-    expect(witToCollection("gftd:handotai", "article")).toBe("com.etzhayyim.apps.handotai.article");
-    expect(witToCollection("gftd:handotai", "semiconductor-company")).toBe(HANDOTAI_COMPANY);
+    expect(witToCollection("etzhayyim:handotai", "article")).toBe("com.etzhayyim.apps.handotai.article");
+    expect(witToCollection("etzhayyim:handotai", "semiconductor-company")).toBe(HANDOTAI_COMPANY);
   });
 
   it("collectionToLabel converts AT collection to SQL label", () => {

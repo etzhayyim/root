@@ -353,7 +353,7 @@ export function createHostImports(
     },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:invoke/invoke
+    // etzhayyim:invoke/invoke
     // ══════════════════════════════════════════════════════════════════
 
     invoke(did: string, method: string, params: Uint8Array): Uint8Array {
@@ -366,7 +366,7 @@ export function createHostImports(
     },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:wrpc/stream (messaging)
+    // etzhayyim:wrpc/stream (messaging)
     // ══════════════════════════════════════════════════════════════════
 
     createChannel(name: string, description: string, kind: string, inviteDids: string[]): string {
@@ -409,7 +409,7 @@ export function createHostImports(
     },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:convo/convo (conversation merged)
+    // etzhayyim:convo/convo (conversation merged)
     // ══════════════════════════════════════════════════════════════════
 
     conversationCreateSession(topic: string, participantsJson: string): string {
@@ -435,7 +435,7 @@ export function createHostImports(
     },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:signal/signal (crypto primitives)
+    // etzhayyim:signal/signal (crypto primitives)
     // ══════════════════════════════════════════════════════════════════
 
     signalGenerateIdentity(): Uint8Array { return EMPTY_BYTES; },
@@ -454,7 +454,7 @@ export function createHostImports(
     signalGroupDecrypt(_sessionJson: Uint8Array, msgJson: Uint8Array): Uint8Array { return msgJson; },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:signal/session (managed sessions)
+    // etzhayyim:signal/session (managed sessions)
     // ══════════════════════════════════════════════════════════════════
 
     signalSessionGroupGetOrCreate(_groupId: string, _memberDids: string[]): { session: Uint8Array; distribution: Uint8Array } {
@@ -466,7 +466,7 @@ export function createHostImports(
     signalSessionGroupAddMember(_groupId: string, _memberDid: string): Uint8Array { return EMPTY_BYTES; },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:yata/yata
+    // etzhayyim:yata/yata
     // ══════════════════════════════════════════════════════════════════
 
     queryG(label: string, matchJson: string, returnClause: string, limit: number): string {
@@ -614,7 +614,7 @@ export function createHostImports(
     },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:governance/governance
+    // etzhayyim:governance/governance
     // ══════════════════════════════════════════════════════════════════
 
     wGovernanceCheckAccess(did: string, lexicon: string, action: string): string {
@@ -692,7 +692,7 @@ export function createHostImports(
     },
 
     // ══════════════════════════════════════════════════════════════════
-    // ai-gftd:smtp/smtp
+    // etzhayyim:smtp/smtp
     // ══════════════════════════════════════════════════════════════════
 
     smtpConnect(provider: string, authCode: string, redirectUri: string, userId: string, orgId: string): SmtpConnectionInfo {

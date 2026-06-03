@@ -317,7 +317,7 @@
     "description": "Marine insurance management — Hull & Machinery (H&M), Protection & Indemnity (P&I Club entries), Cargo insurance, War Risk, Loss of Hire, General Average declarations. Claims lifecycle (notification→investigation→adjustment→settlement). Links to vessel.etzhayyim.com for insured vessels and legal-entity.etzhayyim.com for insurers/underwriters.",
     "displayName": "Marine Insurance & P&I Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

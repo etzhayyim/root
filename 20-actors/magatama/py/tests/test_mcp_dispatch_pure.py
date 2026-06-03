@@ -622,7 +622,7 @@ async def test_sql_insert_row_derives_vertex_id_from_template(monkeypatch):
     vid = out["vertexId"]
     # Shape: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.hr.event/<14digits>-<8hex>
     assert _re.match(
-        r"^at://did:web:bpmn\.gftd\.ai/ai\.gftd\.apps\.hr\.event/\d{14}-[0-9a-f]{8}$",
+        r"^at://did:web:bpmn\.etzhayyim\.ai/ai\.etzhayyim\.apps\.hr\.event/\d{14}-[0-9a-f]{8}$",
         vid,
     ), f"unexpected vid shape: {vid!r}"
     assert captured_bindings["vertex_id"] == vid

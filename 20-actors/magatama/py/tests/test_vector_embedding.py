@@ -58,7 +58,7 @@ def test_plan_actor_candidates(monkeypatch):
     cur = _Cursor(
         rows=[
             (
-                "did:erc725:gftd:260425:0xabc",
+                "did:erc725:etzhayyim:260425:0xabc",
                 "did:web:alice.example",
                 "alice.example",
                 "Alice",
@@ -80,12 +80,12 @@ def test_plan_actor_candidates(monkeypatch):
     candidates = V.plan_actor_candidates(limit=5, shard_id=3)
 
     assert len(candidates) == 1
-    assert candidates[0].source_uri == "actor:did:erc725:gftd:260425:0xabc"
+    assert candidates[0].source_uri == "actor:did:erc725:etzhayyim:260425:0xabc"
     assert candidates[0].repo == "did:web:alice.example"
     assert candidates[0].shard_id == 3
     assert "Alice" in candidates[0].text
     assert "view_actor_unified" in cur.sqls[0]
-    assert "did:erc725:gftd:260425:%%" in cur.sqls[0]
+    assert "did:erc725:etzhayyim:260425:%%" in cur.sqls[0]
 
 
 def test_backfill_batch_fake_embedding_writes(monkeypatch):

@@ -3,7 +3,7 @@
  *
  * Pipeline: photo → qwen3.5-4b VL → CharacterDef JSON → kami-character (Rust) → GLB → R2
  *
- * Maps 1:1 to WIT gftd:kami/character-maker and Rust kami-character crate.
+ * Maps 1:1 to WIT etzhayyim:kami/character-maker and Rust kami-character crate.
  *
  * @module
  */

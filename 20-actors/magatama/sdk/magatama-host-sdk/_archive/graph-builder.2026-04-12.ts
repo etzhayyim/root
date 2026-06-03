@@ -35,8 +35,8 @@ import type { GraphOp, WhereClause } from "./types.js";
 import { getKagamiRpc } from "./sql.js";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden — migrate to AT MST + IPFS + Base L2)
 import { createKyselyDb } from "./kysely.js";
-import { LABEL_TABLE_MAP } from "@gftd/graph-schema/schema";
-import type { GrapharDB } from "@gftd/graph-schema/db";
+import { LABEL_TABLE_MAP } from "@etzhayyim/graph-schema/schema";
+import type { GrapharDB } from "@etzhayyim/graph-schema/db";
 // schema.ts is now hand-edited Drizzle SSoT (for drizzle-kit migrations only).
 // Kysely queries use LABEL_TABLE_MAP to resolve label → table name.
 // SQLAlchemy models.py and Python generators archived under

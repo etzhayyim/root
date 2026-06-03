@@ -243,7 +243,7 @@ def test_oc_site_did_starts_with_did():
     assert result.startswith("did:")
 
 
-def test_oc_site_did_contains_onion_gftd_ai():
+def test_oc_site_did_contains_onion_etzhayyim_ai():
     result = OC._site_did("abc123.onion")
     assert "onion.etzhayyim.com" in result
 

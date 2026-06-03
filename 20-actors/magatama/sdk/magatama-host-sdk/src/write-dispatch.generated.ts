@@ -530,16 +530,16 @@ export async function dispatchWriteEntry(
     // magatama:consent/consent@1.0.0#assign-clearance
     case "consent-assign-clearance":
       return xrpc("com.etzhayyim.consent.assignClearance", entry.payload);
-    // ai-gftd:consent/consent@1.0.0#request-consent
+    // etzhayyim:consent/consent@1.0.0#request-consent
     case "consent-request-consent":
       return xrpc("com.etzhayyim.apps.consent.requestConsent", entry.payload);
-    // ai-gftd:consent/consent@1.0.0#resolve-consent
+    // etzhayyim:consent/consent@1.0.0#resolve-consent
     case "consent-resolve-consent":
       return xrpc("com.etzhayyim.apps.consent.resolveConsent", entry.payload);
     // magatama:consent/consent@1.0.0#revoke-clearance
     case "consent-revoke-clearance":
       return xrpc("com.etzhayyim.consent.revokeClearance", entry.payload);
-    // ai-gftd:consent/consent@1.0.0#revoke-consent
+    // etzhayyim:consent/consent@1.0.0#revoke-consent
     case "consent-revoke-consent":
       return xrpc("com.etzhayyim.apps.consent.revokeConsent", entry.payload);
 
@@ -570,118 +570,118 @@ export async function dispatchWriteEntry(
     // chat-bsky:convo/convo@1.0.0#add-reaction
     case "convo-add-reaction":
       return xrpc("com.etzhayyim.apps.convo.addReaction", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#archive-convo
+    // etzhayyim:convo/convo@1.0.0#archive-convo
     case "convo-archive-convo":
       return xrpc("com.etzhayyim.apps.convo.archiveConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#create-channel
+    // etzhayyim:convo/convo@1.0.0#create-channel
     case "convo-create-channel":
       return xrpc("com.etzhayyim.apps.convo.createChannel", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#create-convo
+    // etzhayyim:convo/convo@1.0.0#create-convo
     case "convo-create-convo":
       return xrpc("com.etzhayyim.apps.convo.createConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#create-dm
+    // etzhayyim:convo/convo@1.0.0#create-dm
     case "convo-create-dm":
       return xrpc("com.etzhayyim.apps.convo.createDm", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#create-session
+    // etzhayyim:convo/convo@1.0.0#create-session
     case "convo-create-session":
       return xrpc("com.etzhayyim.apps.convo.createSession", entry.payload);
     // chat-bsky:convo/convo@1.0.0#delete-message-for-self
     case "convo-delete-message-for-self":
       return xrpc("com.etzhayyim.apps.convo.deleteMessageForSelf", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#diff
+    // etzhayyim:convo/convo@1.0.0#diff
     case "convo-diff":
       return xrpc("com.etzhayyim.apps.convo.diff", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#edit-message
+    // etzhayyim:convo/convo@1.0.0#edit-message
     case "convo-edit-message":
       return xrpc("com.etzhayyim.apps.convo.editMessage", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#fetch-blocks
+    // etzhayyim:convo/convo@1.0.0#fetch-blocks
     case "convo-fetch-blocks":
       return xrpc("com.etzhayyim.apps.convo.fetchBlocks", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#invite-convo-member
+    // etzhayyim:convo/convo@1.0.0#invite-convo-member
     case "convo-invite-convo-member":
       return xrpc("com.etzhayyim.apps.convo.inviteConvoMember", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#join-convo
+    // etzhayyim:convo/convo@1.0.0#join-convo
     case "convo-join-convo":
       return xrpc("com.etzhayyim.apps.convo.joinConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#leave-convo
+    // etzhayyim:convo/convo@1.0.0#leave-convo
     case "convo-leave-convo":
       return xrpc("com.etzhayyim.apps.convo.leaveConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#mark-read
+    // etzhayyim:convo/convo@1.0.0#mark-read
     case "convo-mark-read":
       return xrpc("com.etzhayyim.apps.convo.markRead", entry.payload);
     // chat-bsky:convo/convo@1.0.0#mute-convo
     case "convo-mute-convo":
       return xrpc("com.etzhayyim.apps.convo.muteConvo", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#add-convo-member
+    // etzhayyim:projector/projector@1.0.0#add-convo-member
     case "projector-add-convo-member":
       return xrpc("com.etzhayyim.projector.addConvoMember", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#add-convo-task
+    // etzhayyim:projector/projector@1.0.0#add-convo-task
     case "projector-add-convo-task":
       return xrpc("com.etzhayyim.projector.addConvoTask", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#archive-project-convo
+    // etzhayyim:projector/projector@1.0.0#archive-project-convo
     case "projector-archive-project-convo":
       return xrpc("com.etzhayyim.projector.archiveProjectConvo", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#complete-convo-task
+    // etzhayyim:projector/projector@1.0.0#complete-convo-task
     case "projector-complete-convo-task":
       return xrpc("com.etzhayyim.projector.completeConvoTask", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#new-project-convo
+    // etzhayyim:projector/projector@1.0.0#new-project-convo
     case "projector-new-project-convo":
       return xrpc("com.etzhayyim.projector.newProjectConvo", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#send-project-message
+    // etzhayyim:projector/projector@1.0.0#send-project-message
     case "projector-send-project-message":
       return xrpc("com.etzhayyim.projector.sendProjectMessage", entry.payload);
-    // ai-gftd:projector/projector@1.0.0#update-project-convo
+    // etzhayyim:projector/projector@1.0.0#update-project-convo
     case "projector-update-project-convo":
       return xrpc("com.etzhayyim.projector.updateProjectConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#react
+    // etzhayyim:convo/convo@1.0.0#react
     case "convo-react":
       return xrpc("com.etzhayyim.apps.convo.react", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#redact-message
+    // etzhayyim:convo/convo@1.0.0#redact-message
     case "convo-redact-message":
       return xrpc("com.etzhayyim.apps.convo.redactMessage", entry.payload);
     // chat-bsky:convo/convo@1.0.0#remove-reaction
     case "convo-remove-reaction":
       return xrpc("com.etzhayyim.apps.convo.removeReaction", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#search
+    // etzhayyim:convo/convo@1.0.0#search
     case "convo-search":
       return xrpc("com.etzhayyim.apps.convo.search", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#send
+    // etzhayyim:convo/convo@1.0.0#send
     case "convo-send":
       return xrpc("com.etzhayyim.apps.convo.send", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#send-message
+    // etzhayyim:convo/convo@1.0.0#send-message
     case "convo-send-message":
       return xrpc("com.etzhayyim.apps.convo.sendMessage", entry.payload);
     // chat-bsky:convo/convo@1.0.0#send-message-batch
     case "convo-send-message-batch":
       return xrpc("com.etzhayyim.apps.convo.sendMessageBatch", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#send-session-message
+    // etzhayyim:convo/convo@1.0.0#send-session-message
     case "convo-send-session-message":
       return xrpc("com.etzhayyim.apps.convo.sendSessionMessage", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#send-typing
+    // etzhayyim:convo/convo@1.0.0#send-typing
     case "convo-send-typing":
       return xrpc("com.etzhayyim.apps.convo.sendTyping", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#set-convo-encryption
+    // etzhayyim:convo/convo@1.0.0#set-convo-encryption
     case "convo-set-convo-encryption":
       return xrpc("com.etzhayyim.apps.convo.setConvoEncryption", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#set-profile
+    // etzhayyim:convo/convo@1.0.0#set-profile
     case "convo-set-profile":
       return xrpc("com.etzhayyim.apps.convo.setProfile", entry.payload);
     // chat-bsky:convo/convo@1.0.0#unmute-convo
     case "convo-unmute-convo":
       return xrpc("com.etzhayyim.apps.convo.unmuteConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#unreact
+    // etzhayyim:convo/convo@1.0.0#unreact
     case "convo-unreact":
       return xrpc("com.etzhayyim.apps.convo.unreact", entry.payload);
     // chat-bsky:convo/convo@1.0.0#update-all-read
     case "convo-update-all-read":
       return xrpc("com.etzhayyim.apps.convo.updateAllRead", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#update-convo
+    // etzhayyim:convo/convo@1.0.0#update-convo
     case "convo-update-convo":
       return xrpc("com.etzhayyim.apps.convo.updateConvo", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#update-convo-member-role
+    // etzhayyim:convo/convo@1.0.0#update-convo-member-role
     case "convo-update-convo-member-role":
       return xrpc("com.etzhayyim.apps.convo.updateConvoMemberRole", entry.payload);
-    // ai-gftd:convo/convo@1.0.0#update-presence
+    // etzhayyim:convo/convo@1.0.0#update-presence
     case "convo-update-presence":
       return xrpc("com.etzhayyim.apps.convo.updatePresence", entry.payload);
     // chat-bsky:convo/convo@1.0.0#update-read
@@ -903,10 +903,10 @@ export async function dispatchWriteEntry(
     // magatama:governance/governance@1.0.0#register-manifest
     case "governance-register-manifest":
       return xrpc("com.etzhayyim.governance.registerManifest", entry.payload);
-    // ai-gftd:governance/governance@1.0.0#register-method-policy
+    // etzhayyim:governance/governance@1.0.0#register-method-policy
     case "governance-register-method-policy":
       return xrpc("com.etzhayyim.apps.governance.registerMethodPolicy", entry.payload);
-    // ai-gftd:governance/governance@1.0.0#register-policy
+    // etzhayyim:governance/governance@1.0.0#register-policy
     case "governance-register-policy":
       return xrpc("com.etzhayyim.apps.governance.registerPolicy", entry.payload);
     // magatama:governance/governance@1.0.0#remove
@@ -921,13 +921,13 @@ export async function dispatchWriteEntry(
     // magatama:governance/governance@1.0.0#remove-vendor
     case "governance-remove-vendor":
       return xrpc("com.etzhayyim.governance.removeVendor", entry.payload);
-    // ai-gftd:governance/governance@1.0.0#resolve-actor-visibility
+    // etzhayyim:governance/governance@1.0.0#resolve-actor-visibility
     case "governance-resolve-actor-visibility":
       return xrpc("com.etzhayyim.apps.governance.resolveActorVisibility", entry.payload);
     // magatama:governance/governance@1.0.0#revoke-role
     case "governance-revoke-role":
       return xrpc("com.etzhayyim.governance.revokeRole", entry.payload);
-    // ai-gftd:governance/governance@1.0.0#set-actor-sensitivity
+    // etzhayyim:governance/governance@1.0.0#set-actor-sensitivity
     case "governance-set-actor-sensitivity":
       return xrpc("com.etzhayyim.apps.governance.setActorSensitivity", entry.payload);
 
@@ -1045,16 +1045,16 @@ export async function dispatchWriteEntry(
     case "identity-update-record":
       return xrpc("com.etzhayyim.apps.identity.updateRecord", entry.payload);
 
-    // ── ai-gftd:invoke/invoke@1.0.0 ──
-    // ai-gftd:invoke/invoke@1.0.0#invoke
+    // ── etzhayyim:invoke/invoke@1.0.0 ──
+    // etzhayyim:invoke/invoke@1.0.0#invoke
     case "invoke-invoke":
       return xrpc("com.etzhayyim.apps.invoke.invoke", entry.payload);
-    // ai-gftd:invoke/invoke@1.0.0#invoke-stream
+    // etzhayyim:invoke/invoke@1.0.0#invoke-stream
     case "invoke-invoke-stream":
       return xrpc("com.etzhayyim.apps.invoke.invokeStream", entry.payload);
 
-    // ── gftd:ipfs/ipfs-gateway@1.0.0 ──
-    // gftd:ipfs/ipfs-gateway@1.0.0#resolve
+    // ── etzhayyim:ipfs/ipfs-gateway@1.0.0 ──
+    // etzhayyim:ipfs/ipfs-gateway@1.0.0#resolve
     case "ipfs-gateway-resolve":
       return xrpc("com.etzhayyim.apps.ipfs.resolve", entry.payload);
 
@@ -1153,11 +1153,11 @@ export async function dispatchWriteEntry(
     case "notification-update-seen":
       return xrpc("com.etzhayyim.apps.notification.updateSeen", entry.payload);
 
-    // ── gftd:states/organization-directory@0.1.0 ──
-    // gftd:states/organization-directory@0.1.0#receive-inter-org-message
+    // ── etzhayyim:states/organization-directory@0.1.0 ──
+    // etzhayyim:states/organization-directory@0.1.0#receive-inter-org-message
     case "organization-directory-receive-inter-org-message":
       return xrpc("com.etzhayyim.apps.states.receiveInterOrgMessage", entry.payload);
-    // gftd:states/organization-directory@0.1.0#send-inter-org-message
+    // etzhayyim:states/organization-directory@0.1.0#send-inter-org-message
     case "organization-directory-send-inter-org-message":
       return xrpc("com.etzhayyim.apps.states.sendInterOrgMessage", entry.payload);
     // magatama:dm2/organization@1.0.0#register
@@ -1250,23 +1250,23 @@ export async function dispatchWriteEntry(
     case "resilience-report-health":
       return xrpc("com.etzhayyim.rpc.reportHealth", entry.payload);
 
-    // ── ai-gftd:rtc/rtc@1.0.0 ──
-    // ai-gftd:rtc/rtc@1.0.0#hangup-call
+    // ── etzhayyim:rtc/rtc@1.0.0 ──
+    // etzhayyim:rtc/rtc@1.0.0#hangup-call
     case "rtc-hangup-call":
       return xrpc("com.etzhayyim.apps.rtc.hangupCall", entry.payload);
-    // ai-gftd:rtc/rtc@1.0.0#send-call-answer
+    // etzhayyim:rtc/rtc@1.0.0#send-call-answer
     case "rtc-send-call-answer":
       return xrpc("com.etzhayyim.apps.rtc.sendCallAnswer", entry.payload);
-    // ai-gftd:rtc/rtc@1.0.0#send-call-ice
+    // etzhayyim:rtc/rtc@1.0.0#send-call-ice
     case "rtc-send-call-ice":
       return xrpc("com.etzhayyim.apps.rtc.sendCallIce", entry.payload);
-    // ai-gftd:rtc/rtc@1.0.0#send-call-offer
+    // etzhayyim:rtc/rtc@1.0.0#send-call-offer
     case "rtc-send-call-offer":
       return xrpc("com.etzhayyim.apps.rtc.sendCallOffer", entry.payload);
-    // ai-gftd:rtc/rtc@1.0.0#subscribe-push
+    // etzhayyim:rtc/rtc@1.0.0#subscribe-push
     case "rtc-subscribe-push":
       return xrpc("com.etzhayyim.apps.rtc.subscribePush", entry.payload);
-    // ai-gftd:rtc/rtc@1.0.0#unsubscribe-push
+    // etzhayyim:rtc/rtc@1.0.0#unsubscribe-push
     case "rtc-unsubscribe-push":
       return xrpc("com.etzhayyim.apps.rtc.unsubscribePush", entry.payload);
 
@@ -1316,11 +1316,11 @@ export async function dispatchWriteEntry(
     case "secrets-set":
       return xrpc("com.etzhayyim.secrets.set", entry.payload);
 
-    // ── ai-gftd:serve/serve@1.0.0 ──
-    // ai-gftd:serve/serve@1.0.0#handle
+    // ── etzhayyim:serve/serve@1.0.0 ──
+    // etzhayyim:serve/serve@1.0.0#handle
     case "serve-handle":
       return xrpc("com.etzhayyim.apps.serve.handle", entry.payload);
-    // ai-gftd:serve/serve@1.0.0#handle-stream
+    // etzhayyim:serve/serve@1.0.0#handle-stream
     case "serve-handle-stream":
       return xrpc("com.etzhayyim.apps.serve.handleStream", entry.payload);
 
@@ -1417,61 +1417,61 @@ export async function dispatchWriteEntry(
     case "setting-ozone-setting-upsert-option":
       return xrpc("com.etzhayyim.apps.setting.ozoneSettingUpsertOption", entry.payload);
 
-    // ── ai-gftd:magatama/shinka@1.0.0 ──
-    // ai-gftd:magatama/shinka@1.0.0#on-follow-request
+    // ── etzhayyim:magatama/shinka@1.0.0 ──
+    // etzhayyim:magatama/shinka@1.0.0#on-follow-request
     case "shinka-on-follow-request":
       return xrpc("com.etzhayyim.apps.magatama.onFollowRequest", entry.payload);
-    // ai-gftd:magatama/shinka@1.0.0#on-heartbeat
+    // etzhayyim:magatama/shinka@1.0.0#on-heartbeat
     case "shinka-on-heartbeat":
       return xrpc("com.etzhayyim.apps.magatama.onHeartbeat", entry.payload);
-    // ai-gftd:magatama/shinka@1.0.0#on-new-follower
+    // etzhayyim:magatama/shinka@1.0.0#on-new-follower
     case "shinka-on-new-follower":
       return xrpc("com.etzhayyim.apps.magatama.onNewFollower", entry.payload);
-    // ai-gftd:magatama/shinka@1.0.0#on-reaction
+    // etzhayyim:magatama/shinka@1.0.0#on-reaction
     case "shinka-on-reaction":
       return xrpc("com.etzhayyim.apps.magatama.onReaction", entry.payload);
 
-    // ── ai-gftd:signal/signal@1.0.0 ──
-    // ai-gftd:signal/signal@1.0.0#build-pre-key-bundle
+    // ── etzhayyim:signal/signal@1.0.0 ──
+    // etzhayyim:signal/signal@1.0.0#build-pre-key-bundle
     case "signal-build-pre-key-bundle":
       return xrpc("com.etzhayyim.apps.signal.buildPreKeyBundle", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#generate-identity
+    // etzhayyim:signal/signal@1.0.0#generate-identity
     case "signal-generate-identity":
       return xrpc("com.etzhayyim.apps.signal.generateIdentity", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#generate-one-time-prekey
+    // etzhayyim:signal/signal@1.0.0#generate-one-time-prekey
     case "signal-generate-one-time-prekey":
       return xrpc("com.etzhayyim.apps.signal.generateOneTimePrekey", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#generate-signed-prekey
+    // etzhayyim:signal/signal@1.0.0#generate-signed-prekey
     case "signal-generate-signed-prekey":
       return xrpc("com.etzhayyim.apps.signal.generateSignedPrekey", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#group-decrypt
+    // etzhayyim:signal/signal@1.0.0#group-decrypt
     case "signal-group-decrypt":
       return xrpc("com.etzhayyim.apps.signal.groupDecrypt", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#group-encrypt
+    // etzhayyim:signal/signal@1.0.0#group-encrypt
     case "signal-group-encrypt":
       return xrpc("com.etzhayyim.apps.signal.groupEncrypt", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#group-init-sender
+    // etzhayyim:signal/signal@1.0.0#group-init-sender
     case "signal-group-init-sender":
       return xrpc("com.etzhayyim.apps.signal.groupInitSender", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#group-process-distribution
+    // etzhayyim:signal/signal@1.0.0#group-process-distribution
     case "signal-group-process-distribution":
       return xrpc("com.etzhayyim.apps.signal.groupProcessDistribution", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#ratchet-decrypt
+    // etzhayyim:signal/signal@1.0.0#ratchet-decrypt
     case "signal-ratchet-decrypt":
       return xrpc("com.etzhayyim.apps.signal.ratchetDecrypt", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#ratchet-encrypt
+    // etzhayyim:signal/signal@1.0.0#ratchet-encrypt
     case "signal-ratchet-encrypt":
       return xrpc("com.etzhayyim.apps.signal.ratchetEncrypt", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#ratchet-init-receiver
+    // etzhayyim:signal/signal@1.0.0#ratchet-init-receiver
     case "signal-ratchet-init-receiver":
       return xrpc("com.etzhayyim.apps.signal.ratchetInitReceiver", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#ratchet-init-sender
+    // etzhayyim:signal/signal@1.0.0#ratchet-init-sender
     case "signal-ratchet-init-sender":
       return xrpc("com.etzhayyim.apps.signal.ratchetInitSender", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#x3dh-initiate
+    // etzhayyim:signal/signal@1.0.0#x3dh-initiate
     case "signal-x3dh-initiate":
       return xrpc("com.etzhayyim.apps.signal.x3dhInitiate", entry.payload);
-    // ai-gftd:signal/signal@1.0.0#x3dh-respond
+    // etzhayyim:signal/signal@1.0.0#x3dh-respond
     case "signal-x3dh-respond":
       return xrpc("com.etzhayyim.apps.signal.x3dhRespond", entry.payload);
 
@@ -1503,8 +1503,8 @@ export async function dispatchWriteEntry(
     case "source-update":
       return xrpc("com.etzhayyim.identity.update", entry.payload);
 
-    // ── ai-gftd:wrpc/stream@1.0.0 ──
-    // ai-gftd:wrpc/stream@1.0.0#close
+    // ── etzhayyim:wrpc/stream@1.0.0 ──
+    // etzhayyim:wrpc/stream@1.0.0#close
     case "stream-close":
       return xrpc("com.etzhayyim.apps.wrpc.close", entry.payload);
 
@@ -1589,19 +1589,19 @@ export async function dispatchWriteEntry(
     case "wallet-verify-message":
       return xrpc("com.etzhayyim.web3.verifyMessage", entry.payload);
 
-    // ── ai-gftd:wrpc-stream/wrpc-stream@1.0.0 ──
-    // ai-gftd:wrpc-stream/wrpc-stream@1.0.0#close
+    // ── etzhayyim:wrpc-stream/wrpc-stream@1.0.0 ──
+    // etzhayyim:wrpc-stream/wrpc-stream@1.0.0#close
     case "wrpc-stream-close":
       return xrpc("com.etzhayyim.apps.wrpc-stream.close", entry.payload);
-    // ai-gftd:wrpc-stream/wrpc-stream@1.0.0#has-next
+    // etzhayyim:wrpc-stream/wrpc-stream@1.0.0#has-next
     case "wrpc-stream-has-next":
       return xrpc("com.etzhayyim.apps.wrpc-stream.hasNext", entry.payload);
-    // ai-gftd:wrpc-stream/wrpc-stream@1.0.0#read
+    // etzhayyim:wrpc-stream/wrpc-stream@1.0.0#read
     case "wrpc-stream-read":
       return xrpc("com.etzhayyim.apps.wrpc-stream.read", entry.payload);
 
-    // ── ai-gftd:yata/yata@1.0.0 ──
-    // ai-gftd:yata/yata@1.0.0#graph-exec
+    // ── etzhayyim:yata/yata@1.0.0 ──
+    // etzhayyim:yata/yata@1.0.0#graph-exec
     case "yata-graph-exec":
       return xrpc("com.etzhayyim.apps.yata.graphExec", entry.payload);
 

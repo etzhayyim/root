@@ -121,7 +121,7 @@ def test_pds_did_starts_with_did(mod_name: str):
 
 
 @pytest.mark.parametrize("mod_name", _PDS_MODULE_NAMES)
-def test_pds_did_contains_atproto_gftd_ai(mod_name: str):
+def test_pds_did_contains_atproto_etzhayyim_ai(mod_name: str):
     mod = _load(mod_name)
     assert "atproto.etzhayyim.com" in mod.PDS_DID
 
@@ -135,7 +135,7 @@ def test_pds_did_is_string(mod_name: str):
 # ─── Collection constant (module-specific name) ───────────────────────────────
 
 @pytest.mark.parametrize("mod_name", _PDS_MODULE_NAMES)
-def test_pds_collection_constant_starts_with_ai_gftd(mod_name: str):
+def test_pds_collection_constant_starts_with_ai_etzhayyim(mod_name: str):
     mod = _load(mod_name)
     # Each module has exactly one COLLECTION constant ending in _COLLECTION
     collection_attrs = [

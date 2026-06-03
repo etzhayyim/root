@@ -1,4 +1,4 @@
-# ai-gftd-project-maps
+# etzhayyim-project-maps
 
 Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
 
@@ -331,7 +331,7 @@ sentinelAnalyze.bpmn  (xrpc POST com.etzhayyim.apps.maps.sentinelAnalyze)
 
 **Persistence (Phase 1)**: `vertex_repo_record` only — no schema migration. Phase 2 (separate ADR) will promote to typed `vertex_satellite_scene` / `vertex_satellite_analysis` with bbox geom + COG URL columns. Held until live RW cluster footprint is back inside license caps.
 
-**RunPod endpoint**: `RUNPOD_ENDPOINT_ID_MAPS` is **distinct** from yoro's `RUNPOD_ENDPOINT_ID` (yoro = chat, maps = vision/SAR). Endpoint provisioning is captured in a follow-up under `60-apps/ai-gftd-project-maps/runpod-endpoint/` (not in this repo yet).
+**RunPod endpoint**: `RUNPOD_ENDPOINT_ID_MAPS` is **distinct** from yoro's `RUNPOD_ENDPOINT_ID` (yoro = chat, maps = vision/SAR). Endpoint provisioning is captured in a follow-up under `60-apps/etzhayyim-project-maps/runpod-endpoint/` (not in this repo yet).
 
 **AOI bootstrap**: 12 KAMI layer coordinator centroids — Tokyo / Osaka / Ise / Hakata / Sendai / Naha / Sapporo / Niigata / Hiroshima / Shiogama / Kagoshima / Niihama bays. Override via `MAPS_SENTINEL_AOIS` env (semicolon-separated bbox CSV).
 
@@ -341,12 +341,12 @@ sentinelAnalyze.bpmn  (xrpc POST com.etzhayyim.apps.maps.sentinelAnalyze)
 
 ```bash
 # maps-ui (TS native → account-level Worker)
-cd 60-apps/ai-gftd-project-maps/wasm/maps-ui-uqpel6i6
-gftd deploy
+cd 60-apps/etzhayyim-project-maps/wasm/maps-ui-uqpel6i6
+etzhayyim deploy
 
 # maps-collection-control-plane (TS native → account-level Worker)
-cd 60-apps/ai-gftd-project-maps/wasm/maps-collection-control-plane-v1m9k2q8
-gftd deploy
+cd 60-apps/etzhayyim-project-maps/wasm/maps-collection-control-plane-v1m9k2q8
+etzhayyim deploy
 ```
 
 ## Current Status (2026-04-13)

@@ -17,7 +17,7 @@
 // Pricing & cost registries are kept server-side in
 // `20-actors/magatama/py/src/pymagatama/primitives/billing.py` (the
 // authoritative SSoT). Worker-side this module ships only the list price
-// in JPY-micro because the unit cost is gftd-internal and not relevant
+// in JPY-micro because the unit cost is etzhayyim-internal and not relevant
 // to the row written from a customer Worker (the billing primitive
 // recomputes both at rollup time anyway).
 //

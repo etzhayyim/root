@@ -397,11 +397,11 @@ export interface HostImports {
   skillDiscover(tag: string, offset: number, limit: number): string;
   skillInvokeTool(skillId: string, toolName: string, inputJson: string): string;
 
-  // ── ai-gftd:invoke/invoke ──
+  // ── etzhayyim:invoke/invoke ──
   invoke(did: string, method: string, params: Uint8Array): Uint8Array;
   invokeStream(did: string, method: string, params: Uint8Array): unknown;
 
-  // ── ai-gftd:wrpc/stream (messaging) ──
+  // ── etzhayyim:wrpc/stream (messaging) ──
   createChannel(name: string, description: string, kind: string, inviteDids: string[]): string;
   createProjectConvo(peerDid: string, kind: string, payload: Uint8Array, contentType: string): string;
   sendProjectMessage(convoId: string, kind: string, payload: Uint8Array, contentType: string, replyTo: string | null, threadId: string | null): string;
@@ -412,14 +412,14 @@ export interface HostImports {
   markRead(convoId: string, lastRkey: string): void;
   updatePresence(status: string, statusText: string): void;
 
-  // ── ai-gftd:convo/convo (conversation merged) ──
+  // ── etzhayyim:convo/convo (conversation merged) ──
   conversationCreateSession(topic: string, participantsJson: string): string;
   conversationSendMessage(sessionId: string, content: string): string;
   conversationGetHistory(sessionId: string): string;
   conversationGetSession(sessionId: string): string;
   conversationListSessions(): string;
 
-  // ── ai-gftd:signal/signal (crypto primitives) ──
+  // ── etzhayyim:signal/signal (crypto primitives) ──
   signalGenerateIdentity(): Uint8Array;
   signalGenerateSignedPrekey(identityCbor: Uint8Array, keyId: number): Uint8Array;
   signalGenerateOneTimePrekey(keyId: number): Uint8Array;
@@ -435,13 +435,13 @@ export interface HostImports {
   signalGroupEncrypt(sessionJson: Uint8Array, plaintext: Uint8Array): Uint8Array;
   signalGroupDecrypt(sessionJson: Uint8Array, msgJson: Uint8Array): Uint8Array;
 
-  // ── ai-gftd:signal/session (managed sessions) ──
+  // ── etzhayyim:signal/session (managed sessions) ──
   signalSessionGroupGetOrCreate(groupId: string, memberDids: string[]): { session: Uint8Array; distribution: Uint8Array };
   signalSessionGroupEncrypt(groupId: string, plaintext: Uint8Array): Uint8Array;
   signalSessionGroupDecrypt(groupId: string, ciphertext: Uint8Array, senderDid: string): Uint8Array;
   signalSessionGroupAddMember(groupId: string, memberDid: string): Uint8Array;
 
-  // ── ai-gftd:yata/yata ──
+  // ── etzhayyim:yata/yata ──
   queryG(label: string, matchJson: string, returnClause: string, limit: number): string;
   queryGExec(query: string, paramsJson: string): bigint;
   graphExec(query: string, paramsJson: string): string;
@@ -477,7 +477,7 @@ export interface HostImports {
   followRejectFollowRequest(requestId: string): void;
   followApproveAllFollowRequests(): bigint;
 
-  // ── ai-gftd:governance/governance ──
+  // ── etzhayyim:governance/governance ──
   wGovernanceCheckAccess(did: string, lexicon: string, action: string): string;
   wGovernanceGetPolicy(did: string): string;
   wGovernanceRegisterPolicy(lexicon: string, policyJson: string): void;
@@ -498,7 +498,7 @@ export interface HostImports {
   contentLabelUnsubscribe(labelerDid: string): void;
   contentLabelListSubscribed(): string;
 
-  // ── ai-gftd:smtp/smtp ──
+  // ── etzhayyim:smtp/smtp ──
   smtpConnect(provider: string, authCode: string, redirectUri: string, userId: string, orgId: string): SmtpConnectionInfo;
   smtpDisconnect(provider: string, userId: string, orgId: string): void;
   smtpStatus(provider: string, userId: string, orgId: string): Uint8Array;

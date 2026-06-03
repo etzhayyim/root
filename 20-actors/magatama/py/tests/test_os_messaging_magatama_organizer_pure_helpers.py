@@ -261,5 +261,5 @@ def test_mo_organizer_run_collection_is_string():
     assert isinstance(MO.ORGANIZER_RUN_COLLECTION, str)
 
 
-def test_mo_organizer_run_collection_starts_with_ai_gftd():
+def test_mo_organizer_run_collection_starts_with_ai_etzhayyim():
     assert MO.ORGANIZER_RUN_COLLECTION.startswith("com.etzhayyim.apps.")

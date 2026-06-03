@@ -132,7 +132,7 @@ export interface BpmnDispatchResult {
 	headers: Record<string, string>;
 }
 
-const FORWARDED_HEADER_PREFIXES = ["x-gftd-", "atproto-"];
+const FORWARDED_HEADER_PREFIXES = ["x-etzhayyim-", "atproto-"];
 const FORWARDED_HEADERS = new Set(["authorization", "content-type"]);
 
 function buildForwardHeaders(

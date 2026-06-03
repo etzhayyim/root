@@ -108,7 +108,7 @@ def _make_initial_state(input_payload: dict):
     state = VoxelforgeState(
         input=gi,
         actor_did="did:web:voxelforge.etzhayyim.com",
-        org_did="did:erc725:gftd:260425:test",
+        org_did="did:erc725:etzhayyim:260425:test",
         design_vertex_id="at://did:web:voxelforge.etzhayyim.com/com.etzhayyim.apps.voxelforge.design/test",
         run_id="test-run-id",
         started_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

@@ -46,7 +46,7 @@ describe("checkBearerLxm", () => {
 	});
 
 	it("returns null when payload has no `lxm` claim (trust downstream verifier)", () => {
-		const jwt = makeUnsignedJwt({ iss: "did:gftd:abc", aud: "did:gftd:xyz" });
+		const jwt = makeUnsignedJwt({ iss: "did:etzhayyim:abc", aud: "did:etzhayyim:xyz" });
 		expect(checkBearerLxm(`Bearer ${jwt}`, NSID)).toBeNull();
 	});
 
