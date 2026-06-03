@@ -24,12 +24,18 @@ official URL** (本体の url), on 2026-06-03.
   (Czechoslovakia, USSR, East Germany, Byelorussian SSR, …) are filtered out. 162/192
   carry an official-portal URL; the rest cite Wikidata as provenance. Gate
   `scripts/world_coverage.py` (**192 ≥ 190 floor**).
+- `registry/gov-units.world-courts.edn` — **144 supreme/highest courts** (the
+  worldwide **judicial-branch** layer; Wikidata `P31` *supreme court* `Q190752`,
+  current, matched to atlas countries). `:level :court`, `:branch :judicial`. Honest
+  gap (G5): 144 of 192 countries have an apex court typed `Q190752`; the rest are
+  differently-typed/untyped — not fabricated. Multi-apex countries → one chosen
+  deterministically. Never a docket/case index — structural mirror only (G9/G10).
 - `registry/gov-units.world-legislatures.edn` — **186 national legislatures** (the
   worldwide **legislative-branch** layer; Wikidata `P194` legislative body, current,
   for every UN member). Adds a new `:level :legislature` (+ `:court`) to the ontology
   `:gov.unit/level` enum + `validate_atlas.py`. `:branch :legislative`. 150/186 carry
-  an official-site URL. The atlas now spans **executive + legislative + independent**
-  branches worldwide.
+  an official-site URL. With courts, the atlas now spans **executive + legislative +
+  judicial + independent** branches worldwide.
 - `registry/gov-units.world-finance.edn` — **117 non-G20 finance ministries** (the
   worldwide executive fiscal-authority layer). Wikidata pull of items typed `P31`
   *finance ministry* (`Q15711797`), current (no `P576`), country a current UN member.
