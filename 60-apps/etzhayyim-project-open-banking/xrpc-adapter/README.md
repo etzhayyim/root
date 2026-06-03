@@ -13,7 +13,7 @@ CF Worker that exposes the 5 rw-free commands as XRPC endpoints.
 ## Setup
 
 ```bash
-cd 60-apps/ai-gftd-project-open-banking/xrpc-adapter
+cd 60-apps/etzhayyim-project-open-banking/xrpc-adapter
 npm install
 ```
 

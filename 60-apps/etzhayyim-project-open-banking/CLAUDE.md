@@ -1,7 +1,7 @@
 # open-banking.etzhayyim.com — Core-Banking MVP (OSS)
 
 **Status**: MVP scaffold (2026-04-15). Published as OSS at
-`https://github.com/etzhayyim/ai-gftd-project-open-banking` (Apache-2.0).
+`https://github.com/etzhayyim/etzhayyim-project-open-banking` (Apache-2.0).
 
 ## Scope (MVP)
 
@@ -39,16 +39,16 @@
 ## Local Dev
 
 ```bash
-cd 60-apps/ai-gftd-project-open-banking/worker
+cd 60-apps/etzhayyim-project-open-banking/worker
 npm i -g wrangler
-wrangler d1 create ai-gftd-open-banking   # copy id into wrangler.jsonc
+wrangler d1 create etzhayyim-open-banking   # copy id into wrangler.jsonc
 wrangler dev --local
 ```
 
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-banking/worker
+cd 60-apps/etzhayyim-project-open-banking/worker
 # ensure AUTH_SERVICE + PDS service bindings exist, D1 id set
 e7m actor deploy .   # standard monorepo deploy
 # or: wrangler deploy (standalone OSS mode)
@@ -57,5 +57,5 @@ e7m actor deploy .   # standard monorepo deploy
 ## OSS Split
 
 Source of truth lives in the monorepo. A subtree-split copy is published to
-`etzhayyim/ai-gftd-project-open-banking` on GitHub (Apache-2.0). Keep the two
+`etzhayyim/etzhayyim-project-open-banking` on GitHub (Apache-2.0). Keep the two
 in sync via `git subtree push` or a CI mirror job (future work).

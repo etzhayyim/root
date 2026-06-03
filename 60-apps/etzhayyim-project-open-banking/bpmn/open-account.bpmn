@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-banking-open-account"
-                  targetNamespace="https://gftd.ai/bpmn/open-banking">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-banking">
   <bpmn:process id="openAccount" name="Open Account" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Request" name="Account request received"/>
 

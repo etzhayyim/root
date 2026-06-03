@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-banking — core banking MVP (CF Worker + D1)
+// etzhayyim-project-open-banking — core banking MVP (CF Worker + D1)
 //
 // 5 XRPC methods under com.etzhayyim.apps.openBanking.*:
 //   createAccount  (procedure)

@@ -9,13 +9,13 @@
       "key": "fromAccountDid",
       "label": "From account DID",
       "type": "textfield",
-      "validate": { "required": true, "pattern": "^did:web:open-banking\\.gftd\\.ai:account:.+" }
+      "validate": { "required": true, "pattern": "^did:web:open-banking\\.etzhayyim\\.ai:account:.+" }
     },
     {
       "key": "toAccountDid",
       "label": "To account DID",
       "type": "textfield",
-      "validate": { "required": true, "pattern": "^did:web:open-banking\\.gftd\\.ai:account:.+" }
+      "validate": { "required": true, "pattern": "^did:web:open-banking\\.etzhayyim\\.ai:account:.+" }
     },
     {
       "key": "amount",

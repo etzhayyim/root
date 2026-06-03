@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-banking-transfer"
-                  targetNamespace="https://gftd.ai/bpmn/open-banking">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-banking">
   <bpmn:process id="transfer" name="Transfer Funds" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Init" name="Transfer requested"/>
     <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectTransferForm"/>

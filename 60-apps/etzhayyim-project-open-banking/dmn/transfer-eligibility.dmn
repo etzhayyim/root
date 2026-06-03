@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-banking-transfer-eligibility"
              name="Transfer Eligibility"
-             namespace="https://gftd.ai/dmn/open-banking">
+             namespace="https://etzhayyim.com/dmn/open-banking">
   <decision id="openBanking.transferEligibility" name="Transfer Eligibility">
     <decisionTable id="dt_transferEligibility" hitPolicy="FIRST">
       <input id="i_fromStatus" label="fromStatus">

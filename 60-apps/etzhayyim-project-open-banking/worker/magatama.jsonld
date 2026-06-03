@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-banking",
-  "convoSystemPrompt": "You are the GFTD Open Banking agent. You manage bank accounts, double-entry ledger transactions, and transfers for holders whose identity is a DID. Follow PSD2-like open-banking safety rules: strong auth, idempotent transfers, atomic settlement, tamper-evident ledger.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Banking agent. You manage bank accounts, double-entry ledger transactions, and transfers for holders whose identity is a DID. Follow PSD2-like open-banking safety rules: strong auth, idempotent transfers, atomic settlement, tamper-evident ledger.",
   "governance": {
     "raci": "responsible",
     "classification": "pii-tier3",
-    "complianceFrameworks": ["psd2-like", "double-entry-ledger", "gftd-finops-policy"]
+    "complianceFrameworks": ["psd2-like", "double-entry-ledger", "etzhayyim-finops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Banking",
+    "displayName": "ETZHAYYIM Open Banking",
     "description": "Open-source core-banking reference implementation — double-entry ledger + DID-addressed accounts + PSD2-like XRPC API.",
     "avatar": "🏦",
     "category": "fintech",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "account-open",
@@ -39,7 +39,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Banking",
+    "name": "ETZHAYYIM Open Banking",
     "description": "Open-source core-banking reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",
