@@ -225,4 +225,23 @@
    :actor/created-at "2026-06-02"
    :actor/vm []
    :actor/service [{"id" "did:web:etzhayyim.com:actor:ooyake#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
-                   {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}]}
+                   {"id" "did:web:etzhayyim.com:actor:ooyake#xrpc-libp2p" "type" "AtprotoXrpc" "serviceEndpoint" "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc"}]}
+
+  ;; ── first-party browser-local app (no ADR; tool, not a Tier-B actor) ────
+  {:actor/handle "tsuzuri"
+   :actor/did "did:web:etzhayyim.com:actor:tsuzuri"
+   :actor/kind :infra
+   :actor/tier "app"
+   :actor/status :landed
+   :actor/glyph "綴"
+   :actor/display-name-ja "綴 — Adobe非依存・端末内完結 PDF editor"
+   :actor/display-name-en "Tsuzuri — Adobe-free, in-browser (WASM) PDF editor"
+   :actor/performer-type :system
+   :actor/ui-type :appview
+   :actor/description "Adobe非依存の PDF エディタ。結合/分割/回転/削除/並替/テキスト追記(日本語subset埋め込み)/OCR/メタ編集を全てブラウザ内 WASM/JS で実行。ファイルは端末外に出ない (no upload, no-server-key)。pdf-lib(MIT)+pdf.js(Apache-2.0)+tesseract.js(Apache-2.0)、AGPL系(MuPDF/Ghostscript)は不採用。ameno ブラウザローカル実行モデル下で動作 (ADR-2606014500)。"
+   :actor/primary-schema "60-apps/tsuzuri/ (static browser-local app; vendorable for full offline)"
+   :actor/adr []
+   :actor/created-at "2026-06-03"
+   :actor/vm []
+   :actor/service [{"id" "did:web:etzhayyim.com:actor:tsuzuri#atproto_pds" "type" "AtprotoPersonalDataServer" "serviceEndpoint" "https://pds.etzhayyim.com"}
+                   {"id" "did:web:etzhayyim.com:actor:tsuzuri#browser-local-app" "type" "EtzhayyimBrowserLocalApp" "serviceEndpoint" "https://etzhayyim.com/apps/tsuzuri/"}]}]}
