@@ -37,7 +37,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-shell-ncdo1fsp",
+  "name": "etzhayyim-wasm-kyber-shell-ncdo1fsp",
   "nanoid": "ncdo1fsp",
   "performerType": "service",
   "profile": {
@@ -49,7 +49,7 @@
     "description": "Kyber shell and operator workflow governance component",
     "displayName": "Kyber Shell",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

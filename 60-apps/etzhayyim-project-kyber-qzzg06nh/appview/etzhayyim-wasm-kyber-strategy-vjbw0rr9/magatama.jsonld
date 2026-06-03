@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-strategy-vjbw0rr9",
+  "name": "etzhayyim-wasm-kyber-strategy-vjbw0rr9",
   "nanoid": "vjbw0rr9",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Strategy — AI Agent",
     "displayName": "Kyber Strategy",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

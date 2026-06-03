@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-sales-t3x7n9p2",
+  "name": "etzhayyim-wasm-kyber-sales-t3x7n9p2",
   "nanoid": "t3x7n9p2",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Sales — AI Agent",
     "displayName": "Kyber Sales",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

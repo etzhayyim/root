@@ -37,7 +37,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-resources-a5lxwtko",
+  "name": "etzhayyim-wasm-kyber-resources-a5lxwtko",
   "nanoid": "a5lxwtko",
   "performerType": "service",
   "profile": {
@@ -49,7 +49,7 @@
     "description": "Kyber resource registry and allocation governance component",
     "displayName": "Kyber Resources",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

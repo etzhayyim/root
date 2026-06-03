@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-production-u2m4h7f5",
+  "name": "etzhayyim-wasm-kyber-production-u2m4h7f5",
   "nanoid": "u2m4h7f5",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Production — AI Agent",
     "displayName": "Kyber Production",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

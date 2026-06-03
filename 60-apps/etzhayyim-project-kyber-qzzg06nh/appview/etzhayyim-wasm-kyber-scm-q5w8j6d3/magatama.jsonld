@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-scm-q5w8j6d3",
+  "name": "etzhayyim-wasm-kyber-scm-q5w8j6d3",
   "nanoid": "q5w8j6d3",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Scm — AI Agent",
     "displayName": "Kyber Scm",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",
