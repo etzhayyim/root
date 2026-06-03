@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:jujutsu-kaisen-series-essay-23-2026",
+  "@id": "urn:etzhayyim:news:jujutsu-kaisen-series-essay-23-2026",
   "identifier": "jujutsu-kaisen-series-essay-23-2026",
   "headline": "Jujutsu Kaisen analysis: Essay #23",
   "description": "A thematic essay on Jujutsu Kaisen, organized around: Essay #23.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

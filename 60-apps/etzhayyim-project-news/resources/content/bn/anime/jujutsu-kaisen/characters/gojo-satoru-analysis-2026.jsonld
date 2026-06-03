@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:gojo-satoru-analysis-2026",
+  "@id": "urn:etzhayyim:news:gojo-satoru-analysis-2026",
   "identifier": "gojo-satoru-analysis-2026",
   "headline": "五条悟キャラクター分析：最強の呪術師が抱えた孤独と、教育者としての真の遺産",
   "description": "『呪術廻戦』の五条悟を多角的に分析。「最強」であるがゆえの孤独、親友・夏油傑との関係、そして次世代の呪術師たちに託した希望——五条悟というキャラクターの本質に迫る。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
