@@ -1,7 +1,8 @@
 # kotoba:os — kotoba-os device + control WIT surface
 
 **ADR**: [ADR-2606031600](../../../90-docs/adr/2606031600-kotoba-os-content-addressed-wasm-unikernel.md) — kotoba-os content-addressed WASM-first unikernel OS
-**Status**: R0 DRAFT (charter-level contract; no boot, no live device I/O)
+**Status**: **R1/R2 tested reference landed** (R0 charter ratification still pending Council Lv6+ >=3). Real: 2 validated WASM components (`plc-control` + `mesh-agent`), a wasmtime end-to-end run (scan-cycle Datom history + N3 fault-atomicity + fuel-bounded soft-RT + multi-actor one-log), real CIDv1(blake3) verification, genesis + OCI-CID schemas, cross-artifact drift/authorization guards -- **63 tests** via `run-all.sh`.  
+**Honest boundaries** (still TRUE): NO actual unikernel boot on hardware, NO live device I/O (host-process / simulation only); the **production crate** (real wasmtime host + kotoba-core) lands in the `40-engine/kotoba` subrepo via upstream coordination -- this tree is the contracts + tested reference, not the shipping kernel.
 **Validated**: `wasm-tools component wit kotoba-os.wit` → EXIT 0 (wasm-tools 1.225.0)
 
 ## Verify everything
@@ -20,8 +21,8 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 | ADR | Pillar | Artifact | Tests |
 |---|---|---|---|
 | D1 | boot manifest | `schemas/…-genesis-manifest.json` + Rust `GenesisManifest`/`validate()` | 3 py + (in 19 rust) |
-| D2 | userland | **real WASM component** `plc-control-guest/` (capability-minimized) | 3 py |
-| D3 | scan-cycle = Datom txn | `reference/scan_cycle_model.py` + **wasmtime e2e** `plc-host-runner/` | 6 + 3 py |
+| D2 | userland | **2 real WASM components** `plc-control-guest/` + `mesh-agent-guest/` (capability-minimized) | 3+3 py |
+| D3 | scan-cycle = Datom txn | `scan_cycle_model.py` + **wasmtime e2e** (control+fuel+N3+**multi-actor**) | 6 + 5 py |
 | D4 | k8s OCI-CID | `schemas/…-oci-artifact.json` (digest=CID decode invariant) | 8 py |
 | D5 | agent-centric mesh | `kotoba-os-types::mesh` (source chain + witness quorum + membrane) | 7 rust |
 | D6 | sizing budget | `sizing-budget.json` (estimates, honestly labeled) | 7 py |
@@ -101,6 +102,10 @@ neighbourhood"):
 - `reference/test_genesis_manifest_schema.py` — **3 tests** (valid passes;
   invalid rejected at `identity/serverKey` + `safety/liveActuation`; unknown WIT
   interface rejected by capability scoping). Skips cleanly without `jsonschema`.
+- `reference/test_manifest_authorizes_component.py` — **3 tests** wiring D1↔D2: a
+  manifest must grant every interface its actor's real component imports.
+  `genesis-plc-bangbang.json` authorizes the built plc-control component; the
+  modbus `hikari` manifest correctly FAILS to grant `io-digital` (the check has teeth).
 
 ## k8s OCI-CID artifact convention (ADR §D4)
 
@@ -154,7 +159,7 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
 - `kotoba-os-types` — the genesis manifest as typed Rust (serde,
   `deny_unknown_fields` mirroring the schema's `additionalProperties:false`),
   `GenesisManifest::validate()` enforcing the carve-outs (C3/N5 serverKey, N3
-  liveActuation, N1 civilianOnly), capability scoping (`grants()`), and the
+  liveActuation, N1 civilianOnly), capability scoping (`grants()` + `authorizes()`/`ungranted()` = a manifest must grant every interface its actor imports), and the
   **`LowerEdge` trait** abstracting L1 with an edge-independent `boot()` (validate
   → CID-verify kernel + each actor + its membrane rule). `HostedEdge` reference impl.
 - **`mesh` module** (ADR §D5 agent-centric mesh): `SourceChain` (append-only,
@@ -194,6 +199,11 @@ build, validates the component, prints its world + digest.
   wasm32 toolchain / wasm-tools are unavailable. The binary is reproducible from
   source (gitignored; `Cargo.lock` committed).
 
+**Second L5 world** (`mesh-agent-guest/`): the same artifact kind built for the
+non-control `mesh-agent` world (exports `step`). Proves an agent has **zero device
+authority** — its component imports only `kotoba:os/datom` (no `io-*`/`fieldbus-*`);
+3 toolchain-guarded tests.
+
 ## End-to-end host run (`reference/plc-host-runner/`)
 
 The capstone (ADR §D2/§D3): a native **wasmtime** host that instantiates the real
@@ -218,6 +228,12 @@ E2E OK
 - `reference/test_plc_host_e2e.py` — **3 tests** (e2e OK, control history through
   real WASM, N3 fault-atomicity through real WASM). Toolchain-guarded. `Cargo.lock`
   gitignored (1744-line wasmtime tree; the runner is a harness, not an artifact).
+- **Fuel metering** (N2 soft-RT): the runner enables wasmtime `consume_fuel`,
+  reports per-scan fuel (~1.4-1.8k units = a WCET-estimation input), and a
+- **Multi-actor, one log** (ADR §D2 core claim): the runner instantiates BOTH the
+  plc-control and mesh-agent components into ONE store (one HostState = one Datom
+  log) and interleaves control scans + agent steps — the combined log holds 2
+  control commands + 2 heartbeats. 5 e2e tests.
 
 ## Next maturity steps (tracked toward R1)
 

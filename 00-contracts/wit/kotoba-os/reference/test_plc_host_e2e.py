@@ -9,6 +9,7 @@ Run: `python3 -m unittest test_plc_host_e2e -v`
 """
 
 import pathlib
+import re
 import shutil
 import subprocess
 import unittest
@@ -37,10 +38,12 @@ class PlcHostEndToEnd(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        b = subprocess.run(["bash", str(_GUEST_BUILD)], capture_output=True,
-                           text=True, timeout=600)
-        if b.returncode != 0:
-            raise AssertionError(f"guest build failed:\n{b.stdout}\n{b.stderr}")
+        # the host now loads BOTH components (multi-actor demo) — build both guests.
+        for guest in (_GUEST_BUILD, _HERE / "mesh-agent-guest" / "build.sh"):
+            b = subprocess.run(["bash", str(guest)], capture_output=True,
+                               text=True, timeout=600)
+            if b.returncode != 0:
+                raise AssertionError(f"guest build failed ({guest}):\n{b.stdout}\n{b.stderr}")
         r = subprocess.run(["cargo", "run", "--release"], cwd=str(_HOST),
                            capture_output=True, text=True, timeout=900)
         cls.out = r.stdout
@@ -63,6 +66,22 @@ class PlcHostEndToEnd(unittest.TestCase):
         self.assertIn("no commit", self.out)
         # exactly 6 datoms (3 committed cycles x 2), faulted cycle added none
         self.assertIn("DATOMS=6", self.out)
+
+    def test_fuel_metering_soft_rt_bound(self):
+        # N2 soft-RT primitive: per-scan execution is MEASURABLE and BOUNDED.
+        self.assertIn("FUEL OK", self.out)
+        self.assertIn("FUEL wcet_observed=", self.out)
+        # a real scan consumes >0 fuel (exact value is toolchain-dependent)
+        consumed = [int(m) for m in re.findall(r"FUEL scan\d+ consumed=(\d+)", self.out)]
+        self.assertTrue(consumed and all(c > 0 for c in consumed))
+        # a starved budget traps the guest -> enforceable bound (not unbounded)
+        self.assertIn("FUEL starved trapped=yes", self.out)
+
+    def test_multi_actor_one_datom_log(self):
+        # ADR §D2 core claim: one OS node hosts BOTH the plc-control and the
+        # mesh-agent components over ONE shared Datom log.
+        self.assertIn("MULTI OK", self.out)
+        self.assertIn("MULTI control_facts=2 heartbeats=2", self.out)
 
 
 if __name__ == "__main__":

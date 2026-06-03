@@ -189,6 +189,22 @@ impl GenesisManifest {
     pub fn grants(&self, iface: WitInterface) -> bool {
         self.capabilities.interfaces.contains(&iface)
     }
+
+    /// Interfaces an actor's WASM component imports that this manifest does NOT
+    /// grant. Empty = the manifest authorizes the actor (ADR §D1 capability
+    /// scoping; the boot path must reject loading an actor it cannot satisfy).
+    pub fn ungranted(&self, imports: &[WitInterface]) -> Vec<WitInterface> {
+        imports
+            .iter()
+            .copied()
+            .filter(|i| !self.capabilities.interfaces.contains(i))
+            .collect()
+    }
+
+    /// True iff every interface the component imports is granted.
+    pub fn authorizes(&self, imports: &[WitInterface]) -> bool {
+        self.ungranted(imports).is_empty()
+    }
 }
 
 /// Abstracts the L1 lower edge (bare-metal/microVM, hosted, browser). The boot
@@ -309,6 +325,22 @@ mod tests {
         let mut m = hikari();
         m.identity.server_key = true;
         assert_eq!(HostedEdge.boot(&m), Err(vec![Violation::ServerKeyHeld]));
+    }
+
+    #[test]
+    fn manifest_authorizes_a_component_only_if_it_grants_every_import() {
+        use WitInterface::{Datom, IoAnalog, IoDigital};
+        // the real plc-control component imports io-analog + io-digital + datom
+        let imports = [IoAnalog, IoDigital, Datom];
+        // hikari grants io-analog + fieldbus-modbus + datom -> missing io-digital
+        let hikari = hikari();
+        assert!(!hikari.authorizes(&imports));
+        assert_eq!(hikari.ungranted(&imports), vec![IoDigital]);
+        // a manifest that grants all three authorizes (no ungranted)
+        let mut ok = hikari;
+        ok.capabilities.interfaces = vec![IoAnalog, IoDigital, Datom];
+        assert!(ok.authorizes(&imports));
+        assert!(ok.ungranted(&imports).is_empty());
     }
 
     #[test]
