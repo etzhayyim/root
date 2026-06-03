@@ -1,13 +1,13 @@
 ---
 id: adr-2604251220-record-log-not-mst
-title: "ADR: gftd PDS uses append-only record log, not AT Protocol MST CAR commit"
+title: "ADR: etzhayyim PDS uses append-only record log, not AT Protocol MST CAR commit"
 status: active
 doc_type: adr
 topic: pds-record-log
 authoritative: true
 last_verified: 2026-04-25
 authoritative_for:
-  - gftd PDS commit storage shape
+  - etzhayyim PDS commit storage shape
   - prohibited use of @atproto/repo MST path
   - ON CONFLICT / transaction restrictions on RisingWave writes
 related:
@@ -22,11 +22,11 @@ superseded_by: []
 # Context
 
 AT Protocol PDS reference implementation は MST (Merkle Search Tree) を用い、
-commit 単位で CAR file を生成し firehose で federation する。gftd PDS は
+commit 単位で CAR file を生成し firehose で federation する。etzhayyim PDS は
 RisingWave を primary storage に採用しており (ADR-0048)、RisingWave は OLTP
 契約を提供しない (`ON CONFLICT` / write transaction / read-your-writes /
 UNIQUE 列制約 / `START TRANSACTION` write すべて非対応または degraded)。
-加えて plc.etzhayyim.com は self-hosted (ADR-0014) で Bluesky Relay は gftd の
+加えて plc.etzhayyim.com は self-hosted (ADR-0014) で Bluesky Relay は etzhayyim の
 DID を discover しないため、外部 federation 需要が事実上 0。
 
 本 ADR は CLAUDE.md Root-Only Rule "Record-log semantics, not MST" を ADR
@@ -36,7 +36,7 @@ DID を discover しないため、外部 federation 需要が事実上 0。
 
 ## D1. Storage shape
 
-gftd PDS は以下 2 表のみで commit を表現する:
+etzhayyim PDS は以下 2 表のみで commit を表現する:
 - `vertex_repo_commit` — append-only commit log (PK = content-addressed,
   ADR-0041 §D)
 - `vertex_repo_record` — append-only record log
@@ -83,9 +83,9 @@ PDS Worker / app handler では引き続き禁止。
 
 # Consequences
 
-- gftd 内部の commit / record 書き込みは 1-RTT INSERT で完結 (MST hash chain
+- etzhayyim 内部の commit / record 書き込みは 1-RTT INSERT で完結 (MST hash chain
   計算なし)。
-- 外部 Relay に gftd DID は federate されない (ADR-0085 firehose gate と整合)。
+- 外部 Relay に etzhayyim DID は federate されない (ADR-0085 firehose gate と整合)。
 - LLM 生成コードで `.onConflict()` を見たら必ず削除 review 対象。
 
 # Alternatives Considered

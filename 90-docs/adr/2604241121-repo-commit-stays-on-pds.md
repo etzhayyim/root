@@ -13,7 +13,7 @@ authoritative_for:
   - Conditions under which this invariant could ever be revisited
 related:
   - adr-2604241038-yoro-pds-ideal-topology
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2604231811-atproto-extension-service-layers
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-0041-pds-commit-content-addressed-pk
@@ -117,7 +117,7 @@ to recombine — which is just "the PDS" under a different name.
 
 ## 3. Signing key custody
 
-The user's signing key (`vertex_gftd_key_signing`, envelope-encrypted
+The user's signing key (`vertex_etzhayyim_key_signing`, envelope-encrypted
 with `SS_REPO_SIGNING_KEK` per ADR-0010) is stored in the PDS's D1
 `SIGNING_KEYS_D1` binding. Moving write authority to chat or signal
 Workers means either:
@@ -159,7 +159,7 @@ don't quietly violate it.
   commit-producing NSIDs. PDS's routing-table `fallback: "local"`
   routes the request through `dispatchViaRoutingTable` and lands on
   the local handler chain (`handlers/pds/server.ts` XRPC_CHAT_METHODS
-  / `handlers/gftd/index.ts` XRPC_SIGNAL_WRITE_METHODS). The `501 →
+  / `handlers/etzhayyim/index.ts` XRPC_SIGNAL_WRITE_METHODS). The `501 →
   fallback` contract is the mechanism that keeps the invariant alive
   even when a downstream Worker is deployed with the write surface
   stubbed out.
@@ -182,7 +182,7 @@ don't quietly violate it.
   federation answer.
 
 - `ctx.comAtprotoRepoCreateRecord` stays the only entry point. Any
-  write-producing handler (including ones defined in `handlers/gftd/*`
+  write-producing handler (including ones defined in `handlers/etzhayyim/*`
   that don't live in the `com.atproto.*` namespace) calls it, so the
   MST + firehose invariants are maintained structurally rather than
   by convention.

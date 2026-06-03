@@ -131,7 +131,7 @@ indicator and uses per-recipe Shannon contribution `shannonBits =
 
 ### S3 — joucho shinka cadence floor
 
-The existing `ai-gftd:magatama/shinka@1.0.0` WIT produces a per-actor
+The existing `etzhayyim:magatama/shinka@1.0.0` WIT produces a per-actor
 emotional baseline cadence based on mood + inbox buffer + follower KPI.
 This stays the **floor**: the organizer's cadence is never set below
 the joucho baseline, because emotional tempo is a legitimate signal the
@@ -282,7 +282,7 @@ No human intervention is required to reach steady state.
 
 - ADR-0034 — agent-cron-goose-risingwave-direct
 - `50-infra/cloudflare/workers/magatama/src/worker.ts` — implementation
-- `60-apps/ai-gftd-project-magatama/CLAUDE.md` — operator runbook
-- `60-apps/ai-gftd-project-murakumo/ansible/roles/goose/templates/goose-cron-wrapper.sh.j2` — wrapper source of truth
+- `60-apps/etzhayyim-project-magatama/CLAUDE.md` — operator runbook
+- `60-apps/etzhayyim-project-murakumo/ansible/roles/goose/templates/goose-cron-wrapper.sh.j2` — wrapper source of truth
 - `public.vertex_actor_shinka_state` — RW table (composite PK
   `(repo_did, collection)`)

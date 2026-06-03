@@ -14,7 +14,7 @@ related:
 # Actor Stack-Generation Inventory (2026-06-02)
 
 棚卸しの目的: どの `20-actors/*` actor が **現行 canonical 設計**（kotoba-EAVT-native
-+ `manifest.edn` + cells/lex + Murakumo-only）に乗っていて、どれが **旧 gftd / RisingWave
++ `manifest.edn` + cells/lex + Murakumo-only）に乗っていて、どれが **旧 etzhayyim / RisingWave
 世代** に取り残されているかを構造マーカーで機械判定する。
 
 ## 判定基準（構造シグナル）
@@ -63,22 +63,22 @@ chigiri · iyashi · igata · junkan · kataribe · kawase-yui · kazaori · kiz
 kokoro · mitate · mizuho · musubi · ossekai · shidemori · suki · toritate ·
 tsumugi · tsutae · wakai · watatsuna … ほか各種 intel/oil/gov 系。
 
-## gftd 命名残渣サブセット（cutover 対象）
+## etzhayyim 命名残渣サブセット（cutover 対象）
 
-旧 `gftd:` 識別子がコードに残る actor。ADR-2605214000 §3 + ADR-2605215000 §4 の
+旧 `etzhayyim:` 識別子がコードに残る actor。ADR-2605214000 §3 + ADR-2605215000 §4 の
 **atomic rename wave（法人登記後の単一 PR）対象**で、個別に触ってはいけないもの（magatama 系）を含む。
 
-| Actor | gftd: ファイル数 | 備考 |
+| Actor | etzhayyim: ファイル数 | 備考 |
 |---|---|---|
 | **magatama** | 33 | フレームワーク本体。Step 8 cutover の中核、**partial rename 禁止**（CLAUDE.md §Do Not） |
-| abuse / intel / ipaddress / isco / isekai / joucho / kami-sabiotoshi / media-gamers / os / **tsukuru** / vin / yabai / yotei | 各 1 | manifest/CLAUDE 内の WIT パッケージ参照（`gftd:<name>@x.y.z`） |
+| abuse / intel / ipaddress / isco / isekai / joucho / kami-sabiotoshi / media-gamers / os / **tsukuru** / vin / yabai / yotei | 各 1 | manifest/CLAUDE 内の WIT パッケージ参照（`etzhayyim:<name>@x.y.z`） |
 
 ## ハイライト
 
 - **現行設計に「本当に乗っている」のは okaimono と haraedo の 2 actor のみ。** root CLAUDE.md
   Tier-B roster の 🟡 R0 表示の多くは Gen-1/Gen-2 のスキャフォルドであり、kotoba canonical
   state には未配線。
-- **tsukuru** は Gen-1（cells すら無い）かつ gftd 残渣ありで、二重に取り残されている。さらに
+- **tsukuru** は Gen-1（cells すら無い）かつ etzhayyim 残渣ありで、二重に取り残されている。さらに
   名前衝突あり（→ ADR-2606021139）。移行プランは `260602-tsukuru-kotoba-native-migration-plan.md`。
-- 大量移行の前提として **magatama の gftd→etzhayyim atomic cutover**（法人登記ゲート）が
+- 大量移行の前提として **magatama の etzhayyim→etzhayyim atomic cutover**（法人登記ゲート）が
   ボトルネック。個別 actor の Gen-3 化はこれと干渉しない範囲（manifest/cells/kotoba 追加）なら先行可能。

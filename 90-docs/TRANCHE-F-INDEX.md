@@ -15,7 +15,7 @@ authoritative_for:
 depends_on: []
 related:
   - adr-2605212100-magatama-worker-3-axis-tranche-f-closure
-  - adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com
+  - adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com
   - adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook
   - adr-2605211925-phase-6-archive-markers-runbook
   - doc-2605211800-vendor-importer-survey-gate-d
@@ -36,11 +36,11 @@ This page is the navigation hub for the 6 closure docs landed during the
 
 | What you want to do | Where to start |
 |---------------------|----------------|
-| Understand the org-split context first | gftd-side `ADR-2605152100` (root cutover ADR) |
-| See the 3-axis classification for the 70 workers | gftd-side `ADR-2605212100` §1 |
+| Understand the org-split context first | etzhayyim-side `ADR-2605152100` (root cutover ADR) |
+| See the 3-axis classification for the 70 workers | etzhayyim-side `ADR-2605212100` §1 |
 | Check current gate closure status at a glance | `90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md` |
 | Port a worker to RW-free SQLite (gate (a) execution) | `90-docs/2605211949-gate-a-execution-checklist.md` (42 rows) |
-| Run the DNS cutover (gate (b)) | `90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md` |
+| Run the DNS cutover (gate (b)) | `90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md` |
 | Understand the deployment surface (gate (c)) | inline in the DNS runbook §0 + §3.1 (no separate ADR) |
 | Find which vendor files need re-pointing (gate (d)) | `90-docs/2605211800-vendor-importer-survey-gate-d.md` |
 | Execute Phase 4-5 vendor refactor + `git rm` | `90-docs/adr/2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook.md` |
@@ -68,16 +68,16 @@ Snapshot of where each gate sits: 2605211900-tranche-f-all-gates-closure-confirm
 
 ## Cross-repo pointers
 
-- gftd-side ADR-2605212100 §2 STATUS blocks were updated 2026-05-21 to match
+- etzhayyim-side ADR-2605212100 §2 STATUS blocks were updated 2026-05-21 to match
   the honest framing here (🟡 PATTERN ESTABLISHED for gate (a), 🟡 INLINE for
   gate (c)).
-- gftd-side `deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17`
+- etzhayyim-side `deps.toml [[migrations]] etzhayyim-tranche-f-three-axis-split-2026-05-17`
   has 3 closure cross-reference fields pointing to this repo:
   ```toml
   gates_design_closed_at = "2026-05-21T17:57:00Z"
   closure_confirmed_by = "etzhayyim/root/90-docs/2605211900-tranche-f-all-gates-closure-confirmation.md"
   closure_evidence = [
-    "etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md",      # gate (b) + (c)
+    "etzhayyim/root/90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md",      # gate (b) + (c)
     "etzhayyim/root/90-docs/2605211800-vendor-importer-survey-gate-d.md",                          # gate (d)
     "etzhayyim/root/90-docs/adr/2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook.md",      # Phase 4-5
   ]
@@ -112,5 +112,5 @@ The runbooks live here; the executions live elsewhere:
 4. **Phase 6 archive-marker stubs + `gh repo archive`** — `etzhayyim-root`
    subtrees + etzhayyim-org repos.
 
-When each is done, fill the corresponding timestamp field in the gftd-side
+When each is done, fill the corresponding timestamp field in the etzhayyim-side
 `deps.toml [[migrations]]` entry (see Phase 4-5 runbook §F + Phase 6 runbook §4).

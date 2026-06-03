@@ -15,7 +15,7 @@ superseded_by: []
 
 - Status: active
 - Date: 2026-04-20
-- Scope: `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/`
+- Scope: `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/`
 - Supersedes: (prior ad-hoc `<AdSlot slot="AUTO" />` usage)
 
 ## Context
@@ -82,7 +82,7 @@ yoro は既に 3 つのアドネットワーク script を app.html に宣言し
 | search-results | 5905270 | 300x250 |
 | sidebar | 5905272 | 160x600 |
 
-- API token is stored in macOS Keychain: `security find-generic-password -s "gftd.exoclick" -a "API_KEY" -w`
+- API token is stored in macOS Keychain: `security find-generic-password -s "etzhayyim.exoclick" -a "API_KEY" -w`
 - AdSense approval が降りた後は `providers.adsense = true` に flip するだけで AdSense が primary になる (ExoClick と併用する場合は placement 単位で排他 — 同一 page に AdSense + ExoClick は content policy 抵触リスク)
 
 AdPushup は AdSense と header bidding で共存 (同じ `<ins class="adsbygoogle">` を wrap する)、Media.net は contextual で cookie 不要、Ezoic は AI optimization layer。どれも AdSense を置き換えるのでは無く重ねる構成。
@@ -204,17 +204,17 @@ score = 0.5 · (viewer follows advertiser)
 
 ### A — `post-sponsored.mjs` (CLI seeder) ✅
 
-`70-tools/scripts/ads/post-sponsored.mjs` — `gftd agent-token --lxm com.atproto.repo.createRecord` で 60s scoped JWT を mint し、任意 DID から `app.bsky.feed.post` を投稿 (self-label `!ad` + 任意 external embed)。pool に素の DID を seed して end-to-end 動作確認する用。
+`70-tools/scripts/ads/post-sponsored.mjs` — `etzhayyim agent-token --lxm com.atproto.repo.createRecord` で 60s scoped JWT を mint し、任意 DID から `app.bsky.feed.post` を投稿 (self-label `!ad` + 任意 external embed)。pool に素の DID を seed して end-to-end 動作確認する用。
 
-### B — `ai-gftd-project-ads` (clearing Worker) ✅
+### B — `etzhayyim-project-ads` (clearing Worker) ✅
 
-`60-apps/ai-gftd-project-ads/appview/ads-adsm4d5c/` に T3 TS Native Worker を scaffold:
+`60-apps/etzhayyim-project-ads/appview/ads-adsm4d5c/` に T3 TS Native Worker を scaffold:
 
 | Path | 役割 |
 |---|---|
 | `magatama.jsonld` | DID `did:web:ads.etzhayyim.com`, nanoid `adsm4d5c`, performerType `service`, profile, governance |
 | `src/app.ts` | 3 XRPC command (`createCampaign` / `postSponsored` / `listCampaigns`) |
-| `wrangler.jsonc` | Stub (`gftd deploy` で regenerate) |
+| `wrangler.jsonc` | Stub (`etzhayyim deploy` で regenerate) |
 | `CLAUDE.md` | project runbook + deploy flow |
 
 Lexicons at `00-contracts/lexicons/com/etzhayyim/apps/ads/`:
@@ -228,7 +228,7 @@ Lexicons at `00-contracts/lexicons/com/etzhayyim/apps/ads/`:
 
 ### C — `/ads/compose` (yoro UI) ✅
 
-`60-apps/ai-gftd-project-yoro/.../svelte/src/routes/ads/compose/+page.svelte` — 3-step composer:
+`60-apps/etzhayyim-project-yoro/.../svelte/src/routes/ads/compose/+page.svelte` — 3-step composer:
 
 1. Campaign 作成 (name / description / advertiser / budget)
 2. Campaign 選択 (既存 campaign の dropdown)
@@ -251,6 +251,6 @@ B の 3 XRPC を `atQuery` / `atProcedure` で叩く。Auth は yoro セッシ�
 
 ## References
 
-- `60-apps/ai-gftd-project-advectors/PROJECT.jsonld` — 将来の 1st-party ad platform
+- `60-apps/etzhayyim-project-advectors/PROJECT.jsonld` — 将来の 1st-party ad platform
 - ADR-0036 Repo Record Minimization — 広告 metadata は Repo に書かない根拠
 - `docs/260321-consent-gated-data-sharing-design.md` — cookie consent と personalized ads

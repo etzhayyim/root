@@ -99,7 +99,7 @@ JS surface (kami-engine-sdk / createVrmEngine)
 
 ## Topology constraints (CRITICAL)
 
-1. **`kami_vrm` is VRM domain logic only** — no wgpu / render / web-sys dependencies. It is a pure Rust crate consumed by both native tools (`gftd vrm ...`) and the wgpu path. Adding a gpu dep here violates the topology.
+1. **`kami_vrm` is VRM domain logic only** — no wgpu / render / web-sys dependencies. It is a pure Rust crate consumed by both native tools (`etzhayyim vrm ...`) and the wgpu path. Adding a gpu dep here violates the topology.
 2. **`kami_render::gltf_loader` is the single glTF loader** — additive expansion (JOINTS_0/WEIGHTS_0/invBind/hierarchy/mesh+material labels) is allowed; parallel loaders in app code are forbidden.
 3. **`kami_web::run_embed_vrm` is the single VRM entry** — per-feature new wasm-bindgen exports (`get_vrm_*` / `set_vrm_*`) are allowed when they map cleanly to a VRM spec surface. New renderer pipelines belong in `kami-render`.
 4. **The SDK is a thin facade** — controllers (`createMorph` / `createBone` / `createMotion` / `createPart`) dispatch to KAMI wasm exports. No parallel rendering implementation.

@@ -42,32 +42,32 @@ vendor-resident, per the Consensys pattern + 3-axis OR-test).
 > absent from both repos — now treated as resolved phantoms (see Bucket V note).
 > Treat the prose names as indicative, not a 1:1 roster.
 
-6ir, aima (data layer; AI-compute stays gftd), air-sched,
+6ir, aima (data layer; AI-compute stays etzhayyim), air-sched,
 analytics (mixed split — public catalog front), anime, bim, business-person, cad,
 editor, gov (mixed split — public gov reference front), itonami, jp-fiscal,
 kami (catalog: eng workbench + game worlds),
-kenkyusha (research-knowledge; LLM compute stays gftd), kyber-qzzg06nh,
+kenkyusha (research-knowledge; LLM compute stays etzhayyim), kyber-qzzg06nh,
 legal-entity (public corporate registry; PII in natural-person), open-patent,
 patent (public patent registry; PII in natural-person), pptx,
 public-kafun-bokumetsu (pollen-eradication research),
-saiban (mixed split — public court/judge reference; cases stay gftd),
-sanctions (mixed split — public consolidated sanctions-list reference; screening stays gftd),
-seibutsu (biodiversity taxonomy open-data; image→species identify stays gftd),
-shigotoba (business-establishment registry + job-board open-data; summarize LLM stays gftd),
-shinkansen (mixed split — public timetable/fare/operation reference; reservations stay gftd),
-toshi-kozan (mixed split — public depot/material/safety reference; recovery pipeline stays gftd),
+saiban (mixed split — public court/judge reference; cases stay etzhayyim),
+sanctions (mixed split — public consolidated sanctions-list reference; screening stays etzhayyim),
+seibutsu (biodiversity taxonomy open-data; image→species identify stays etzhayyim),
+shigotoba (business-establishment registry + job-board open-data; summarize LLM stays etzhayyim),
+shinkansen (mixed split — public timetable/fare/operation reference; reservations stay etzhayyim),
+toshi-kozan (mixed split — public depot/material/safety reference; recovery pipeline stays etzhayyim),
 xlsx (document-editor — workbook/sheet/cell tree; formula engine + OOXML stay client-side),
-hrse (Bucket D; mixed split — public cyber-sec job-board catalog; freelancer PII + matching + billing stay gftd),
-resource-flow (Bucket D; mixed split — public 2次ソース flow/emitter/anomaly data; detection + sankey compute stay gftd),
+hrse (Bucket D; mixed split — public cyber-sec job-board catalog; freelancer PII + matching + billing stay etzhayyim),
+resource-flow (Bucket D; mixed split — public 2次ソース flow/emitter/anomaly data; detection + sankey compute stay etzhayyim),
 webpage (Bucket D; content-editor — space/page authoring + public published-page directory; no hosting/domains),
 worlds (Bucket D; content-authoring — scene/asset/portal + public published-scene directory; no generation compute),
-github (Bucket D; mixed split — public GitHub-data catalog repo/profile/issue/org-graph; private-repo sync + commit-analysis stay gftd),
-live (Bucket D; mixed split — public live-room/schedule catalog; cheers/tipping + AI avatar generation stay gftd),
-media-gamers (Bucket D; mixed split — public game catalog publisher/developer/title/chart; guide-gen LLM stays gftd),
-news (Bucket D; mixed split — public news-aggregation source/article catalog; quality-eval + translation LLM stay gftd),
-newsletter (Bucket D; mixed split — public newsletter-issue archive; subscriber list + email delivery + LLM gen stay gftd),
-open-jpn-mynumber (Bucket D; public My Number reference-doc catalog — gov-published policy/spec/API docs; ingest compute stays gftd),
-repository (Bucket D; ADR-0039 Repository-in-Graph — git object model blob/tree/commit/ref over Actor DID = first-party source code; FaaS build dispatch + execution stay gftd),
+github (Bucket D; mixed split — public GitHub-data catalog repo/profile/issue/org-graph; private-repo sync + commit-analysis stay etzhayyim),
+live (Bucket D; mixed split — public live-room/schedule catalog; cheers/tipping + AI avatar generation stay etzhayyim),
+media-gamers (Bucket D; mixed split — public game catalog publisher/developer/title/chart; guide-gen LLM stays etzhayyim),
+news (Bucket D; mixed split — public news-aggregation source/article catalog; quality-eval + translation LLM stay etzhayyim),
+newsletter (Bucket D; mixed split — public newsletter-issue archive; subscriber list + email delivery + LLM gen stay etzhayyim),
+open-jpn-mynumber (Bucket D; public My Number reference-doc catalog — gov-published policy/spec/API docs; ingest compute stays etzhayyim),
+repository (Bucket D; ADR-0039 Repository-in-Graph — git object model blob/tree/commit/ref over Actor DID = first-party source code; FaaS build dispatch + execution stay etzhayyim),
 collector (mixed split — public OSINT front), completer,
 fleamarket (mixed split — public C2C catalog front), flight-offer, ge,
 animeka (mixed split — catalog front), blockchain, bpmn, bunken,
@@ -92,15 +92,15 @@ one-at-a-time loop; superset of the original audit's 43.)
 > (~260 tests). Aviation PNR/eTicket/roster/APIS PII sealed E2E + ops facts
 > plaintext; payments (harai/shiharai/wire/web4/credits/resource-provider) ledger
 > E2E; comms message metadata+content E2E; site page/domain/topic catalog plaintext
-> (100B archive stays gftd). Only irreducible regulated EXECUTION stays gftd:
+> (100B archive stays etzhayyim). Only irreducible regulated EXECUTION stays etzhayyim:
 > fiat-MoR settlement rail (ADR-2605172100 — etzhayyim never the fiat counterparty,
 > on-chain USDC only), GPU/LLM inference, credential custody.
 > **Remaining vendor (22) — CONFIRMED FINAL (founder 2026-06-03, option 1):**
-> these stay gftd for irreducible reasons E2E cannot resolve. No further migration
+> these stay etzhayyim for irreducible reasons E2E cannot resolve. No further migration
 > unless the underlying EXECUTION is itself redesigned (e.g. on-chain USDC rails).
 > (Entries below for migrated apps are superseded — now Bucket A.)
 >
-> - **Credential custody (2)** — raw key/passkey/session cannot leave gftd:
+> - **Credential custody (2)** — raw key/passkey/session cannot leave etzhayyim:
 >   `accounts`, `auth`.
 > - **Third-party-ToS social PII + send/receive execution (4)**: `facebook`, `x`,
 >   `gmail`, `outreach`.
@@ -124,7 +124,7 @@ one-at-a-time loop; superset of the original audit's 43.)
 > `intel/rw-free` reference (plaintext public-meta via `sdk.write` + sensitive
 > payload sealed via `sdk.encryptedWrite`, read-cap = owner DID) + `sdk-mock`
 > `encryptedWrite`/`encryptedRead`. Only regulated EXECUTION (fiat-MoR settlement,
-> GPU/LLM inference, enforcement/blocking actions, credential custody) stays gftd,
+> GPU/LLM inference, enforcement/blocking actions, credential custody) stays etzhayyim,
 > consumed via consent-capability. **Migrated (entries below superseded — now
 > Bucket A):** intel, air-cargo, yabai, deai, manimani, open-kyber, open-ossekai,
 > society6, tia, insatsu, hc, tenso, watashi, resource-planner, voxelforge, shinka,
@@ -133,21 +133,21 @@ one-at-a-time loop; superset of the original audit's 43.)
 > AVIATION-8 RESOLVED (founder 2026-06-03, option A): air-book/crew/dcs/ffp/mro/
 > ops/sms/yield accepted as **already-fronted** — the aviation consumer product
 > layer lives on etzhayyim via `flight-offer` (search/offer) + `air-sched`
-> (schedules); these 8 stay gftd as regulated settlement/safety EXECUTION backends
+> (schedules); these 8 stay etzhayyim as regulated settlement/safety EXECUTION backends
 > consumed via consent-capability. No new builds. The full 32-app founder
 > directive is now complete (24 migrated V→A; air-cargo migrated; 8 accepted
 > as already-fronted).
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
-correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
+correctly stays etzhayyim vendor under the Consensys boundary + 3-axis OR-test. These
 are NOT migrated; the etzhayyim front consumes them via consent-capability.
 
 > **Phantom non-apps removed from Bucket A roster (2026-06-03)**: `6ir`,
 > `air-sched`, `analytics`, `bim`, `business-person`, `legal-corpus` were listed
 > in the Bucket A prose roster as DONE but have **zero committed `rw-free/src`** —
 > only stray `node_modules/` leftovers — and **no source in either repo**
-> (etzhayyim/root nor the gftd.co.jp vendor repo). They are non-apps (the
-> `gftdcojp` precedent). **Resolved = do NOT build; future batch fires skip them.**
+> (etzhayyim/root nor the etzhayyim.co.jp vendor repo). They are non-apps (the
+> `etzhayyimcojp` precedent). **Resolved = do NOT build; future batch fires skip them.**
 > Count is git-authoritative: committed `rw-free/src/index.ts` = **105** (the
 > header was under-counting by 1). The prose roster is indicative, not exhaustive.
 
@@ -157,7 +157,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   issued sessions, `actor.score`, `/manage` UI. Custodies third-party IdP tokens +
   email bindings + session credentials = auth-credential + identity PII custody.
   No catalog-shaped product surface to front (auth session/credential management
-  does not map to a typed-record registry) ⇒ stays gftd. Sibling split-off of
+  does not map to a typed-record registry) ⇒ stays etzhayyim. Sibling split-off of
   **auth**; the `/manage` UX could front (c) but there is no registry layer to
   build, so disposition = Bucket V. did:web/did:plc/passkey issuance stays
   etzhayyim-exclusive (in `auth`, tracked separately), not here.
@@ -167,7 +167,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (`reprotectPassenger`), and BSP settlement (`settleBsp`). PNR = passenger PII
   custody; BSP/ticketing = IATA fiat settlement (merchant-of-record); ticketing +
   reprotection = fulfillment / 善管注意義務 liability. No public catalog to front
-  (flight *search* is the separate `flight-offer`, already migrated) ⇒ stays gftd.
+  (flight *search* is the separate `flight-offer`, already migrated) ⇒ stays etzhayyim.
 - **air-cargo** — axes: **Settlement + Liability + Custody**. Airline cargo
   operations: cargo bookings, air waybill issuance (`issueAirWaybill`), cargo
   acceptance (`acceptCargo`), ULD assignment, shipment tracking, claims
@@ -175,7 +175,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   security reporting (`reportCargoSecurity`). AWB = contract of carriage (freight
   charges + Montreal-Convention carriage liability); settleCargoAccount = fiat
   settlement; claims + acceptance = 善管注意義務 fulfillment liability; shipper/
-  consignee + security reporting = custody/regulatory ⇒ stays gftd. No public
+  consignee + security reporting = custody/regulatory ⇒ stays etzhayyim. No public
   open-data catalog to front.
 - **air-crew** — axes: **Custody + Liability**. Airline crew management &
   scheduling: roster publication (`publishRoster`), pairing construction
@@ -184,7 +184,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (`recordDutyTime`), notifications. Crew rosters / duty-time / fatigue (medical-
   adjacent) / qualifications = employee-labor PII custody; fatigue + duty-time +
   qualification = aviation safety / flight-time-limitation regulatory compliance =
-  善管注意義務 fitness-to-fly liability ⇒ stays gftd. No public catalog to front.
+  善管注意義務 fitness-to-fly liability ⇒ stays etzhayyim. No public catalog to front.
 - **air-dcs** — axes: **Custody + Liability**. Airline departure control system:
   check-in (`processCheckIn`), boarding-pass issuance (`processBoardingPass`),
   baggage acceptance/reconciliation (`acceptBaggage`/`reconcileBaggage`), load-
@@ -192,7 +192,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   turnaround tracking, departure control (`issueDepartureControl`). Passenger PII
   + APIS = passport/visa/border data sent to government authorities (custody +
   regulatory); load sheet = weight-&-balance flight-safety; baggage reconciliation
-  = security; all = 善管注意義務 safety/border liability ⇒ stays gftd. No public
+  = security; all = 善管注意義務 safety/border liability ⇒ stays etzhayyim. No public
   catalog to front.
 - **air-ffp** — axes: **Custody + Settlement + Liability**. Airline frequent-flyer
   program: member enrollment (`enrollMember`), points accrual (`accruePoints`),
@@ -200,9 +200,9 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (`transferMiles`), purchase processing (`processPurchase`), miles expiration
   (`expireMiles`), partner reconciliation (`reconcilePartner`). Member PII + miles
   balance = stored-value ledger custody; processPurchase = fiat MoR; reconcile-
-  Partner = partner settlement; miles = deferred-revenue liability ⇒ stays gftd.
+  Partner = partner settlement; miles = deferred-revenue liability ⇒ stays etzhayyim.
   No catalog method exists (no reward/partner inventory list) — the only member-
-  facing records are the PII + stored-value balance that stay gftd; fabricating a
+  facing records are the PII + stored-value balance that stay etzhayyim; fabricating a
   reward catalog would be the invent-a-catalog trap. No frontable surface.
 - **air-mro** — axes: **Liability + Custody**. Airline maintenance, repair &
   overhaul: work orders (`createWorkOrder`), component tracking (`trackComponent`),
@@ -212,7 +212,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   equipment. Airworthiness + maintenance + occurrence/reliability reporting =
   aviation safety-critical regulatory compliance (EASA/FAA Part-145) = 善管注意義務
   airworthiness liability; component traceability = safety-critical regulated
-  records custody (life-limited parts, certs of conformity) ⇒ stays gftd. Internal
+  records custody (life-limited parts, certs of conformity) ⇒ stays etzhayyim. Internal
   maintenance ops; no public catalog to front.
 - **air-ops** — axis: **Liability** (+ operational-records Custody). Airline flight
   operations & dispatch: flight plan filing (`fileFlightPlan`), dispatch briefs
@@ -220,7 +220,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   (`fetchWeatherBrief`), tech logs (`recordTechLog`), fuel orders (`orderFuel`),
   PIREPs (`submitPirep`), real-time flight monitoring (`monitorFlight`). Flight
   dispatch / ops control = safety-critical 善管注意義務 (dispatch shares legal
-  responsibility for flight safety & legality) ⇒ stays gftd. NOTAM/weather are
+  responsibility for flight safety & legality) ⇒ stays etzhayyim. NOTAM/weather are
   `fetch` of external-authority public feeds as dispatch inputs, not an owned
   catalog the app publishes — fabricating one would be the invent-a-catalog trap.
   No frontable surface.
@@ -232,7 +232,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   security alerts (`handleSecurityAlert`). Aviation safety & security regulatory
   compliance (IOSA / ICAO-IATA DG / occurrence reporting) = 善管注意義務 liability;
   confidential safety/occurrence/security records (just-culture protected) =
-  custody ⇒ stays gftd. Safety bulletins = internal crew distribution, not public
+  custody ⇒ stays etzhayyim. Safety bulletins = internal crew distribution, not public
   open-data. No frontable surface.
 - **air-yield** — axes: **Settlement + Liability**. Airline revenue management &
   pricing: fare class publication (`publishFareClass`), inventory control
@@ -241,29 +241,29 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   revenue reporting (`generateRevenueReport`), demand forecasting
   (`forecastDemand`). Proprietary revenue-optimization engine = fiat-revenue /
   MoR-adjacent (Settlement); overbooking → denied-boarding compensation regulatory
-  (EC261/DOT) = Liability ⇒ stays gftd. publishFareClass/fileFare are the
+  (EC261/DOT) = Liability ⇒ stays etzhayyim. publishFareClass/fileFare are the
   write/decision side of the engine, NOT an open-data catalog — the consumer-
   facing fare-display catalog is the already-migrated `flight-offer`, which
   consumes this engine's output. No frontable surface here.
 - **auth** — axis: **Custody** (+ identity-assurance liability). Primary function
-  is credential / private-key / session custody: `vertex_gftd_auth_*` (WebAuthn
-  passkey credentials, account secrets) in D1 AUTH_DB, `vertex_gftd_key_*`
+  is credential / private-key / session custody: `vertex_etzhayyim_auth_*` (WebAuthn
+  passkey credentials, account secrets) in D1 AUTH_DB, `vertex_etzhayyim_key_*`
   (private keys, revocation) in D1 KEYS_DB, session JWT issuance. Operator-
-  producible secrets ⇒ stays gftd. NOTE: the *decentralized-identity primitives*
-  it also touches — did:web / did:plc issuance + `vertex_gftd_identity` public
+  producible secrets ⇒ stays etzhayyim. NOTE: the *decentralized-identity primitives*
+  it also touches — did:web / did:plc issuance + `vertex_etzhayyim_identity` public
   governance — are etzhayyim-exclusive per ADR-2605211950 and tracked as separate
   relocate targets in `/CLAUDE.md` migrations, not as an rw-free registry here.
 - **business-edge** — axes: **Custody + Settlement + Liability** (all three). The
   developer-facing edge-compute PaaS control plane (multi-tenant KV/Graph/CDN/
   PubSub/Lock/Secrets/VirtualActor): tenant API-key + Secrets-primitive custody,
-  usage metering→billing, multi-tenant WASM runtime SLA. This IS the gftd
+  usage metering→billing, multi-tenant WASM runtime SLA. This IS the etzhayyim
   infra-vendor ("Infura") layer of the Consensys pattern — structurally cannot
-  move etzhayyim-front. Stays gftd.
+  move etzhayyim-front. Stays etzhayyim.
 - **coverage** — axis: **RisingWave**. "World coverage monitor backed by
   RisingWave live materialized views" — capabilities domain-query + analytics, an
   HTTP SPA with no record-authoring AT collections. The app IS a read-model over
   RW streaming aggregation across the whole data graph (internal operational
-  observability); there is no substrate record layer to migrate. Stays gftd.
+  observability); there is no substrate record layer to migrate. Stays etzhayyim.
   (Publishing periodic coverage snapshots as public records would be net-new, not
   a migration of this monitor.)
 - **briefing** — axis: **Custody** (PII Tier 3). WebRTC multi-actor meeting /
@@ -271,28 +271,28 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   audio; C2ISR situational awareness): briefingRoom / briefingParticipant /
   briefingPosition + transcript / summary / recording. Meeting recordings +
   transcripts + participant identity + private real-time comms are Tier-3 PII
-  (server-side Preferences, never public AT records). Stays gftd.
+  (server-side Preferences, never public AT records). Stays etzhayyim.
 - **cloudflare-browser-render** — axis: **Infra compute** (CF-Workers-bound). CF
   Browser Rendering backend — serverless Playwright via CF Workers `browser`
   binding + Durable Object session affinity; the execution substrate for the
   `playwright` actor. session/artifact collections are ephemeral execution state
   (DO routing, rendered-output CID). Proprietary CF-compute service, not a product
   or AT-registry — same infra-vendor class as business-edge. Already in the
-  "Substrate-boundary violation flagged" list. Stays gftd.
+  "Substrate-boundary violation flagged" list. Stays etzhayyim.
 - **crypto-asset-freeze** — axes: **Custody + Liability**. Blockchain freeze LE
   coordination (LE-only, classification=confidential): incident / freezeRequest /
   forensicTrace / exchangeNotification. requestFreeze gated on
   performer.role=law-enforcement + court-order CID + LE-agency signature.
   Confidential criminal-investigation / court-order data (never federable) +
   regulated asset-freeze enforcement liability (due-process, FATF Travel Rule).
-  Stays gftd.
+  Stays etzhayyim.
 - **cyber-drill** — axes: **Liability + Custody + Settlement** (all three; self-
   documented VENDOR-PRIVATE). OT-cybersecurity training (WebVR walkthroughs):
   NDA-signed customer training IP, customer-specific regulatory exposure (METI /
   消防法 / 高圧ガス保安法 / GHS) + proprietary OT topology, paid SaaS (Stripe/
   fiat). Explicitly NOT eligible for the etzhayyim/root open mirror (its own
   CLAUDE.md). The SDK it consumes (`@etzhayyim/kami-engine-sdk`) is separately
-  public-eligible. Stays gftd.
+  public-eligible. Stays etzhayyim.
 - **deai** — axes: **Custody + RisingWave**. Dating/matching app + research-data-
   collection frontend (Spirit-in-Physics): startAssessment / submitResponse /
   getProfile / listMatches / sendMessage / createCheckin. Every collection is
@@ -300,77 +300,77 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   matches (relationship data), private DMs, research-participation data — and
   matching is RW-backed. No non-PII public-catalog slice (any of it on public AT
   records would expose PII). etzhayyim brand-front consumes via consent-
-  capability; data custody stays gftd.
+  capability; data custody stays etzhayyim.
 - **manimani** — axes: **Custody + kotobase**. Personal knowledge router (随に):
   drop a fragment → LLM classifies into the user's projects (knowledge/task/memo).
   Non-federable by design + Signal E2E PII + Gmail/PC ingest, on the kotoba/
-  kotobase datomic backend (a gftd-function per the Consensys pattern). Personal
-  private knowledge/Gmail content can't be public AT records. Stays gftd.
+  kotobase datomic backend (a etzhayyim-function per the Consensys pattern). Personal
+  private knowledge/Gmail content can't be public AT records. Stays etzhayyim.
 - **open-kyber** — axes: **Custody + Settlement + Liability** (all three). Open
   Source ERP (Apache-2.0): accounting (GL/AP/AR), HR/payroll, procurement,
   inventory; multi-entity consolidation, IFRS/GAAP/JP-GAAP. Custody (payroll
   employee PII + private company financials) + Settlement (AP/AR money
   obligations + payroll + Stripe) + Liability (financial-reporting regulatory
   compliance + accounting fiduciary). The OSS *code* is separately public-eligible
-  (mirrored); the running ERP *data layer* stays gftd.
+  (mirrored); the running ERP *data layer* stays etzhayyim.
 - **open-ossekai** — axis: **Custody (PII Tier-3)**. L1/L2/L3 intelligence +
   Well-Becoming coaching (classification=pii-tier3): intelBrief / arbitrage /
   wellBecomingPlan. L3 jocho (情緒) emotional scoring of individuals across 5 axes
   + kyu/dan coaching, consent-gated per ADR-0018; L1 OSINT actor profiling.
   Sensitive personal psychometric PII — Tier-3 stays server-side (Preferences/
-  E2E), never public AT records. Stays gftd.
+  E2E), never public AT records. Stays etzhayyim.
 - **os-messaging** — axes: **Custody + RisingWave**. Multi-platform messaging
   bridge (9 platforms: Discord/Telegram/Slack/LINE/WhatsApp/Matrix/Teams/WeChat/
   Kakao → etzhayyim agents): private user DMs (com.etzhayyim.convo.message) +
   platform webhook credentials + messaging-user DID resolution; peripheral
   public-open-channel crawler is RW-backed. Messaging is E2E/signal per root rules,
   never public AT records. The public-open-channel crawl could later be an
-  etzhayyim-front feed, but the bridge + credentials stay gftd.
+  etzhayyim-front feed, but the bridge + credentials stay etzhayyim.
 - **dougaka** — axis: **RisingWave + render compute**. Video-rendering (動画化)
   LangGraph pipeline (render + health graphs; com.etzhayyim.apps.dougaka.render)
   with RW-backed job state (RW_URL / vertex_). Pure GPU/render compute infra — no
   consumer catalog layer in the project (cf. animeka, where the generation compute
-  stayed gftd and only the catalog migrated; dougaka is just the compute). Stays
-  gftd.
+  stayed etzhayyim and only the catalog migrated; dougaka is just the compute). Stays
+  etzhayyim.
 - **fax** — axes: **Custody + Liability** (classification=confidential). FAX
   transmission agent — dispatches PDFs to E.164 numbers via Phaxio/Dropbox Fax;
   faxTx / inboundFax (refs lawfirm.brief, eyubin.postalItem). Confidential legal/
   regulatory correspondence (内容証明 / 労基署 / 裁判所; inbound faxes) +
   legal-document-transmission duty of care. Cannot be public AT records;
-  integrates paid fax providers. Stays gftd.
+  integrates paid fax providers. Stays etzhayyim.
 - **hc** — axes: **Custody + Settlement + Liability** (all three). Human Computing
   Platform (gig work + micro-tasks + OEM provider registration): worker KYC
   identity + KYB factory verification + labor records (Custody), gig wage payment
   (Settlement), 労働基準法 labor-law compliance + employer/platform duty of care
-  (Liability). KYC/KYB + wages + labor compliance = regulated-infra. Stays gftd.
+  (Liability). KYC/KYB + wages + labor compliance = regulated-infra. Stays etzhayyim.
 - **intel** — axis: **Custody** (classification=CUI). Multi-INT fusion
   intelligence platform (30 INT disciplines): report / source / indicator /
   feedObservation / inferredCohort. CUI-classified intelligence + protected
   sources (HUMINT source identities) + inferred-cohort profiling/surveillance —
   controlled data, never public AT records. Same class as crypto-asset-freeze.
-  Stays gftd.
+  Stays etzhayyim.
 - **jukyu** — axis: **RisingWave + graph-compute**. Global supply-demand
   System-of-Systems: normalizes domain-actor outputs, runs global Pregel
   propagation (K8s pod-side LangGraph), ranks company exposure, emits signals.
   A DERIVED analytical compute engine — not a source-of-truth catalog (domain
   actors remain SoT, many already migrated). Same class as coverage (RW
-  read-model) / dougaka (compute). No standalone rw-free catalog. Stays gftd.
+  read-model) / dougaka (compute). No standalone rw-free catalog. Stays etzhayyim.
 - **llm** — axes: **RisingWave + Settlement + Custody**. LLM inference gateway
   (/v1/chat/completions, routes to CF Workers AI / Murakumo GPU): inferenceRequest
   / inferenceResult / modelConfig. RW-backed inference-event logging + credits-
   gated paid compute (x-credits-did) + inference requests/results carry arbitrary
-  user content. The platform's LLM inference SSoT is gftd-resident (ADR-2605211000,
-  Vultr A16 GPU primary). Canonical infra-vendor compute layer. Stays gftd.
+  user content. The platform's LLM inference SSoT is etzhayyim-resident (ADR-2605211000,
+  Vultr A16 GPU primary). Canonical infra-vendor compute layer. Stays etzhayyim.
 - **cowork** — axes: **Custody + RisingWave**. Internal "Claude Cowork" MCP bridge
   to Microsoft Graph (Mail/Teams/Files/Calendar/Users) + RW graph (read-only):
   mailDraft (email content), toolGrant (OAuth delegation credentials), syncJob.
-  Corporate M365 PII + credential custody; gftd internal IT tooling (M365 =
-  ingest-only per root CLAUDE.md). Stays gftd.
+  Corporate M365 PII + credential custody; etzhayyim internal IT tooling (M365 =
+  ingest-only per root CLAUDE.md). Stays etzhayyim.
 - **credits** — axes: **Settlement + Custody**. Credit ledger & public-fund
   routing (Earn→Purchase→Spend; 30% platform fee; 10% tithe to public-fund).
   Not an AT-registry target — a credit ledger is financial data (never public
   records) with authoritative state on-chain or fiat-MoR. Split: the fiat-
-  purchase + platform-fee MoR + balance ledger stays gftd (Settlement/Custody);
+  purchase + platform-fee MoR + balance ledger stays etzhayyim (Settlement/Custody);
   the on-chain GCC token + TitheRouter 10% tithe is an etzhayyim-EXCLUSIVE
   on-chain primitive (ADR-2605211950 relocate target — Base L2/Ethereum, NOT an
   AT-PDS rw-free registry). No rw-free built here.
@@ -383,7 +383,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   state. Its records (ShinkaTask queue, coverage stats, kyumei results, job
   queue) are **internal orchestration telemetry**, not a consumer catalog — there
   is no product/open-data layer to front. Pure backend orchestration-compute over
-  the platform actor graph. Stays gftd. (Social posts it emits land via the
+  the platform actor graph. Stays etzhayyim. (Social posts it emits land via the
   normal `app.bsky.feed.post` federation path, already on-substrate.)
 - **tenso** — axis: **Custody (zero-knowledge E2E)**. Signal-Protocol secure file
   transfer (`tenso.etzhayyim.com`): X3DH + Double Ratchet wraps per-transfer
@@ -393,7 +393,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   keys + access-control, never public AT records. Same signal/vault/messaging
   family the root invariant keeps server-side (`signal:v1:{ciphertext}` field-
   encrypt, PDS pipethrough). No public catalog to front — surfacing the wrapped
-  keys would violate the zero-knowledge invariant. Stays gftd.
+  keys would violate the zero-knowledge invariant. Stays etzhayyim.
 - **voxelforge** — axes: **RisingWave + GPU generation-compute (+ Settlement,
   metered `sk_live_*` API)**. 3D design pipeline (text/image/CAD → mesh+voxel):
   a stateless L3 dispatcher CF Worker forwarding `generate` to the
@@ -405,10 +405,10 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   external source — artifacts exist only because a GPU job ran, so `sourceUrl`
   would point at our own RunPod pod. Compute-output bookkeeping, not open-data
   (same family as `dougaka`, NOT a published-work catalog like animeka). Stays
-  gftd. (Carry-forward test: can each record cite an authority that isn't our own
+  etzhayyim. (Carry-forward test: can each record cite an authority that isn't our own
   pod/RW? No → (b).)
 - **mangaka** — axes: **RisingWave + GPU generation-compute**. Manga generation
-  studio pipeline (`mangaka.gftd.ai`): ComfyUI + USD cinematic page-atom pipeline
+  studio pipeline (`mangaka.etzhayyim.com`): ComfyUI + USD cinematic page-atom pipeline
   (11+ generation graphs, quality pack, MangakaUSDScene custom nodes) producing
   manga pages via diffusion/LLM compute, artifacts to B2 + RW. Records have NO
   authoritative external source — a page exists only because a generation job ran
@@ -416,7 +416,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   output bookkeeping, NOT a published-work catalog — the consumer-facing catalog
   front is the sibling `animeka` (in A); mangaka is the generation/studio side.
   Same generation-pipeline family as `voxelforge` / `dougaka` / `yukkuri`. Stays
-  gftd. (Corrects a stale prose assertion that wrongly grouped mangaka with
+  etzhayyim. (Corrects a stale prose assertion that wrongly grouped mangaka with
   animeka as "already in A" — caught by a git-authoritative C/D truth-pass.)
 - **watashi** — axis: **Custody (private device-session + transport relay)**.
   Cross-platform input sharing (渡し): macOS↔Windows cursor/keyboard/clipboard
@@ -427,7 +427,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   + transport coordination state** — peer pairing, session tokens, clipboard &
   file-transfer payloads — not open-data (no external authority; carry-forward
   test fails). Screen-layout is Tier-3 user config → Preferences, not public
-  records. Same encrypted-transport/relay family as `tenso`. Stays gftd.
+  records. Same encrypted-transport/relay family as `tenso`. Stays etzhayyim.
 - **webmk** — axes: **RisingWave + LLM generation-compute + Custody (client
   CRM/PII) + Settlement (ad-campaign)**. Web Marketing Proposal Agent: a
   LangGraph/Claude loop (research→competitors→strategy→copy→quality_gate→store)
@@ -438,7 +438,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   `edge_webmk_campaign_link` = → ad campaignId) are **generated deliverables +
   private CRM data**, not open-data — a proposal's `sourceUrl` would point at our
   own Claude run (carry-forward test fails). Same generation-agent family as
-  `voxelforge`. Stays gftd.
+  `voxelforge`. Stays etzhayyim.
 - **webya** — axes: **RisingWave + LLM generation-compute + Custody (hosted site
   content + custom-domain) + Liability/Settlement (website-hosting SaaS)**.
   Homepage-generation SaaS (ウェブ屋) for 士業 + 一般企業: a LangGraph loop
@@ -449,7 +449,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   content + client-domain hosting config** — webya HOSTS client production sites
   (availability/fulfillment liability + paid custom-domain provisioning). Not
   open-data — a site's authority is our own generation run (carry-forward test
-  fails). Same generation + hosting family as `webmk`. Stays gftd.
+  fails). Same generation + hosting family as `webmk`. Stays etzhayyim.
 - **yorishiro** — axes: **Custody (per-user/org credential vault + session) +
   Liability (browser-automation agency) + Settlement (card/ad/cashback
   providers)**. Apify-inspired web-service browser-automation platform (依り代):
@@ -463,7 +463,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   Records are credential references + authenticated session/automation-run state
   — no external authority (carry-forward test fails), and it acts *as* the user
   on external regulated/financial services. Same credential-custody family as
-  `auth`. Stays gftd.
+  `auth`. Stays etzhayyim.
 - **yukkuri** — axes: **RisingWave + generation-compute (murakumo LLM/image/audio
   + kami render + ffmpeg) + B2 storage Custody**. AI ゆっくり実況 video generation:
   a multi-actor pipeline (scriptwriter→voiceL/R→character→illustrator→sfx→composer
@@ -473,7 +473,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   `yukkuri.asset` intermediate outputs) are **compute-output bookkeeping** with
   final videos stored to B2 (SigV4-presigned). A video's authority is our own
   generation run, not external open-data (carry-forward test fails). Same
-  generation-pipeline family as `voxelforge` / `dougaka` / `mangaka`. Stays gftd.
+  generation-pipeline family as `voxelforge` / `dougaka` / `mangaka`. Stays etzhayyim.
 - **harai** (Bucket D → V) — axes: **Settlement + Custody (financial ledger)**.
   Payment & Settlement Clearing Platform (払い): 8 methods — createPayment /
   settlePayment / refundPayment / transferFunds / getBalance / listTransactions /
@@ -482,10 +482,10 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   financial family as `credits`: the on-chain settlement rail (USDC + ERC-4337,
   per its MIGRATION-TODO) is an **etzhayyim-EXCLUSIVE** primitive (ADR-2605211950
   relocate target), NOT an AT-PDS rw-free registry; the fiat/clearing/balance
-  custody stays gftd. No rw-free built.
+  custody stays etzhayyim. No rw-free built.
 - **hub** (Bucket D → V) — axes: **Infra (API-gateway request routing) + Custody
   (endpoint/webhook config + secrets)**. Integration Hub & API Gateway Platform
-  (`hub.gftd.ai`): 8 methods — registerEndpoint / listEndpoints / routeRequest /
+  (`hub.etzhayyim.com`): 8 methods — registerEndpoint / listEndpoints / routeRequest /
   getRouteStatus / createWebhook / listWebhooks / testConnection / getMetrics.
   Records are **per-user/org integration plumbing** — registered endpoint URLs,
   webhook callback secrets, routing rules + live routing state + metrics — not a
@@ -501,16 +501,16 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
 - **keiei** (Bucket D → V) — axes: **Infra (k8s-resident C-suite orchestration
   LSP + leader election) + Custody (internal CxO audit ledger)**. C-suite role
   LSP (経営): an AI CxO management daemon (`pymagatama.keiei` / `KeieiServer`,
-  `did:web:keiei.gftd.ai`, ADR-2605101200) — multi-replica k8s deployment with
+  `did:web:keiei.etzhayyim.com`, ADR-2605101200) — multi-replica k8s deployment with
   single-writer Lease leader-election, an append-only `CXO-LEDGER.md` decision
   audit, and JSON-RPC dispatch to C-suite roles. Internal management
   orchestration compute, not a consumer/catalog product (carry-forward test
   fails); records are internal governance audit. Root CLAUDE keeps the keiei
-  daemon a distinct gftd-tied entity. Same internal-orchestration family as
+  daemon a distinct etzhayyim-tied entity. Same internal-orchestration family as
   `shinka`. No rw-free built.
 - **ops** (Bucket D → V) — axes: **Infra (process-automation orchestration /
   workflow execution) + Custody (per-org automation configs + process-run
-  state)**. Operations Automation Platform (`ops.gftd.ai`): 8 methods —
+  state)**. Operations Automation Platform (`ops.etzhayyim.com`): 8 methods —
   createProcessRun / updateProcessRun / listProcessRuns / getProcessRun +
   createAutomation / updateAutomation / listAutomations / getAutomation. Records
   are **per-org internal operational orchestration state** — automation
@@ -525,7 +525,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   planning data** — resource inventory + generated allocation plans — not public
   open-data (carry-forward test fails). Contrast `resource-flow` (PUBLIC 2次ソース
   of externally-authored flows → fronted): resource-planner is per-org private
-  planning → stays gftd. No rw-free built.
+  planning → stays etzhayyim. No rw-free built.
 - **resource-provider** (Bucket D → V) — axes: **Settlement (rewards for
   contributed resources) + Custody (contributed documents/images + location PII +
   GPU compute provisioning)**. etzhayyim Resource Provider Network: a
@@ -535,12 +535,12 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   + Frontend pending). Reward-settling resource marketplace = regulated primary
   function (carry-forward test fails). Same family as `credits` / `harai`: any
   on-chain reward rail is an etzhayyim-exclusive relocate target (ADR-2605211950),
-  NOT an rw-free registry; reward-settlement + data/compute custody stays gftd.
+  NOT an rw-free registry; reward-settlement + data/compute custody stays etzhayyim.
   No rw-free built.
 - **robot** (Bucket D → V) — axes: **Liability (physical robot mission control +
   dropshipping fulfillment) + Custody (telemetry + shipping PII) + Settlement
   (dropshipping order processing)**. Robotics Control & Dropshipping Platform
-  (`robot.gftd.ai`): 8 methods — workflowStart / workflowPlan / missionPlan /
+  (`robot.etzhayyim.com`): 8 methods — workflowStart / workflowPlan / missionPlan /
   missionStatus / missionSimulate / telemetryIngest / processCatalog /
   fulfillmentClose. Two regulated halves: physical robot mission control + safety
   (telemetry custody) and dropshipping order fulfillment (MoR / shipping PII).
@@ -550,7 +550,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   registry. No clean public layer to front. No rw-free built.
 - **scheduler** (Bucket D → V) — axes: **Infra (job/cron scheduling + execution
   engine) + Custody (per-user job definitions + run status)**. Job Scheduling
-  Platform (`scheduler.gftd.ai`, "Codex Automations 風"): 8 methods — createJob /
+  Platform (`scheduler.etzhayyim.com`, "Codex Automations 風"): 8 methods — createJob /
   getJob / updateJob / deleteJob / listJobs / pauseJob / resumeJob / jobStatus,
   fired by a cron-tick MCP actor. Records are **per-user private scheduled-job
   definitions + run status** — internal scheduling config/state, not public
@@ -568,26 +568,26 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
 - **tia** (Bucket D → V) — axes: **Custody (account-protection PII + monitored
   profiles + threat findings) + Infra/compute (LLM threat-intel analytics) +
   Liability (auto-takedown agency)**. Threat Intelligence & Analytics Platform
-  (`tia.gftd.ai`): 8 methods — analyzeIntent / classifySignal / extractEntities /
+  (`tia.etzhayyim.com`): 8 methods — analyzeIntent / classifySignal / extractEntities /
   scoreRisk / generateSummary / lookupProfile / submitFeedback / getInsights;
   domain = Internet Account Protection (detect account-takeover/impersonation
   across social media via AI similarity, auto-contact platforms). Records are
   private surveillance/security analytics state + account-protection PII, not
-  open-data (carry-forward test fails). Stays gftd.
+  open-data (carry-forward test fails). Stays etzhayyim.
 - **web4** (Bucket D → V) — axes: **Settlement (GCC on-chain token + minter) +
   Infra/compute (distributed Web4 inference & expert network)**. Two regulated
   facets: (1) GCC Token & Minter — deployed Ethereum mainnet contracts (GCC
   FiatTokenV2_2, GCCMinter accepting ETH/USDC/USDT, Safe 2/3 multisig, Chainlink
-  oracle); (2) Decentralized Web4 Inference & Expert Network (`web4.gftd.ai`):
+  oracle); (2) Decentralized Web4 Inference & Expert Network (`web4.etzhayyim.com`):
   registerExpert / submitInference / getInferenceResult / getClusterStats — a
   distributed GPU-inference compute network. The GCC token/minter is an
   **etzhayyim-EXCLUSIVE on-chain primitive** (ADR-2605211950 relocate target; the
   same GCC `credits` references), NOT an AT-PDS rw-free registry; the
-  inference/expert compute stays gftd. Records are platform compute-network state
+  inference/expert compute stays etzhayyim. Records are platform compute-network state
   + on-chain contracts, not open-data (carry-forward test fails). No rw-free built.
 - **wire** (Bucket D → V) — axes: **Settlement (wire transfers + balance ledger)
   + Custody (balance + transfer records + messages) + Liability (money-transfer
-  善管注意義務)**. Wire Transfer & Messaging Platform (`wire.gftd.ai`): 8 methods —
+  善管注意義務)**. Wire Transfer & Messaging Platform (`wire.etzhayyim.com`): 8 methods —
   createTransfer / listTransfers / getTransfer / confirmTransfer / createMessage /
   listMessages / getBalance / getTransferHistory. Money-transfer infrastructure
   with a balance ledger + transfer confirmation/history (messaging = transfer-
@@ -614,7 +614,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   object storage + buckets + presigned URLs + **Stripe Customer Portal** billing
   + tenant auth/identity + recovery email; persistence on L4 RisingWave + L7
   LangServer. This is the **canonical "kotobase backend"** regulated-infra example
-  named in root CLAUDE.md ("kotobase P1, 旧 yatabase を統合") — the gftd commercial
+  named in root CLAUDE.md ("kotobase P1, 旧 yatabase を統合") — the etzhayyim commercial
   BaaS data backend that etzhayyim apps consume via consent-capability. Never a
   public registry (carry-forward test fails). No rw-free built.
 - **communicator** (Bucket D / ad-pixel → V) — axes: **Custody (Gmail/Outlook
@@ -671,7 +671,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   `performerType: system`): email-relay inbound gateway (CF Email Routing → MIME
   parse → PDS → convo), mailer-inbound (register/send/reply/forward), notify
   (multi-channel dispatcher), resend (Resend API backend). The canonical
-  email-service backend apps consume (root CLAUDE: primary `mailer.gftd.ai`
+  email-service backend apps consume (root CLAUDE: primary `mailer.etzhayyim.com`
   outbound/inbound). Email addresses/messages/bindings are private PII + infra
   state, not open-data (carry-forward test fails). No rw-free built.
 - **meet** (Bucket D / ad-pixel → V) — axes: **Custody (Google OAuth credentials +
@@ -693,7 +693,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   sensitive meeting content (same family as `tenso` / vault / signal), never a
   public registry (carry-forward test fails). No rw-free built.
 - **messenger** (Bucket D / ad-pixel → V) — axes: **Custody (private channel/DM/
-  thread messaging PII) + Liability (message delivery/retention)**. GFTD Messenger
+  thread messaging PII) + Liability (message delivery/retention)**. Etzhayyim Messenger
   (`messenger.etzhayyim.com`): real-time team-messaging platform (Slack/Discord
   style) — channels + direct messages + thread replies, message persistence via
   sql graph ORM. Messaging/conversation stays server-side per root CLAUDE
@@ -784,7 +784,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   partner actor (e.g. 日本郵便 for JPN). The printPartner registry is fulfillment-
   network config (our dispatch partners), not external-authority open-data
   (carry-forward test fails). Same commerce-fulfillment pattern as `okaimono`
-  (MoR/fulfillment stays gftd). No rw-free built.
+  (MoR/fulfillment stays etzhayyim). No rw-free built.
 - **playwright** (Bucket D / substrate-boundary → V) — axes: **Infra
   (browser-automation execution primitives) + Custody (session state + vault
   credential injection)**. Browser automation primitives actor
@@ -805,7 +805,7 @@ are NOT migrated; the etzhayyim front consumes them via consent-capability.
   the infrastructure (no separable layer; building one = invent-a-catalog /
   physically impossible at scale). Sole-fetch-gateway shared-infra dependency + RW +
   IPFS pinning (both regulated-infra axes) + screenshot/full-content storage
-  (DMCA/GDPR/robots liability) + embedding compute ⇒ stays gftd whole. Precedent =
+  (DMCA/GDPR/robots liability) + embedding compute ⇒ stays etzhayyim whole. Precedent =
   `common-crawl` (legacy codemod, never built rw-free), not `github`. No rw-free.
 
 ## Bucket C — NEEDS-CODEMOD (0) — active backlog CLEARED
@@ -836,14 +836,14 @@ These are mechanical import-removal chores on already-migrated/vendor apps, not
 
 ## Bucket D — TODO-PENDING (7, MIGRATION-TODO.md)
 
-> **Phantom removed (2026-06-02)**: `gftdcojp` was listed but is **not an app** —
-> no `60-apps/*-project-gftdcojp` dir exists. Throughout `deps.toml` it denotes
-> the **vendor org identity** (the gftd.co.jp side of the Consensys boundary,
-> repo `github.com/gftdcojp/ai-gftd-apps-gftdcojp`), not a migratable
+> **Phantom removed (2026-06-02)**: `etzhayyimcojp` was listed but is **not an app** —
+> no `60-apps/*-project-etzhayyimcojp` dir exists. Throughout `deps.toml` it denotes
+> the **vendor org identity** (the etzhayyim.co.jp side of the Consensys boundary,
+> repo `github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp`), not a migratable
 > `etzhayyim/root` project. Nothing to migrate to etzhayyim-front; by definition
-> gftdcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
+> etzhayyimcojp IS the vendor side. Dropped from the backlog (TRANSFORM 25→24, D 55→54).
 
-**TRANSFORM-pending (0)** — RESOLVED. All names (gftdcojp / harai / hrse / hub /
+**TRANSFORM-pending (0)** — RESOLVED. All names (etzhayyimcojp / harai / hrse / hub /
 kaikei / keiei / ops / resource-flow / resource-planner / resource-provider /
 robot / scheduler / shiharai / tia / web4 / webpage / wire / worlds / yabai /
 yatabase) have been migrated (A) or judged vendor-resident (V). Only the
@@ -859,7 +859,7 @@ microsoft-graph / ongakuka / outreach / phone / recap / ses / society6 / x
 compute]; briefing already in V; email-service-adapter/fax
 legacy codemod-only).
 
-**Substrate-boundary violation flagged** — ALL RESOLVED: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V), repository (A — Repository-in-Graph git object model = first-party source code → front; FaaS build dispatch + execution stay gftd), site (V — Internet Clone Gateway: sole web-fetch gateway + 100B-scale RW/IPFS archive + embedding compute; Infra+Custody+Liability, no separable frontable layer).
+**Substrate-boundary violation flagged** — ALL RESOLVED: cloudflare-browser-render (V), insatsu (V), open-jpn-mynumber (A), playwright (V), repository (A — Repository-in-Graph git object model = first-party source code → front; FaaS build dispatch + execution stay etzhayyim), site (V — Internet Clone Gateway: sole web-fetch gateway + 100B-scale RW/IPFS archive + embedding compute; Infra+Custody+Liability, no separable frontable layer).
 
 ## In-progress (2026-06-02)
 

@@ -24,7 +24,7 @@ amends:
 ## Context
 
 ADR-0048 cut RisingWave's primary state store over to Backblaze B2
-(`b2://ai-gftd-nats/linode/ai-gftd-iceberg/risingwave/state/`,
+(`b2://etzhayyim-nats/linode/etzhayyim-iceberg/risingwave/state/`,
 us-west-004) on Vultr VKE LAX. Single `vhf-8c-32gb` node pool, distributed
 RW chart, free egress via Bandwidth Ally.
 

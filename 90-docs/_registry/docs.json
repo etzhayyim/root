@@ -144,7 +144,7 @@
       "authoritative_for": [
         "source-level annotation system",
         "source graph extraction architecture",
-        "gftd source-graph CLI"
+        "etzhayyim source-graph CLI"
       ],
       "related": [
         "260319-magatama-wit-dodaf-nist-coverage",
@@ -378,7 +378,7 @@
       "topic": "hs-code-domain-coverage",
       "authoritative": true,
       "authoritative_for": [
-        "ai-gftd-project-code-hs",
+        "etzhayyim-project-code-hs",
         "hs-actor-path-did-model"
       ],
       "related": [
@@ -403,7 +403,7 @@
       "authoritative_for": [],
       "related": [
         "90-docs/adr/0032-gmail-direct-ingest-yabai-classifier.md",
-        "60-apps/ai-gftd-project-gmail/CLAUDE.md",
+        "60-apps/etzhayyim-project-gmail/CLAUDE.md",
         "30-graph/graph-schema/CLAUDE.md"
       ],
       "supersedes": [],
@@ -531,15 +531,15 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2604292100-1password-gftd-japan-vault-mirror.md",
-      "id": "2604292100-1password-gftd-japan-vault-mirror",
-      "title": "1Password \"etzhayyim Japan株式会社\" vault as the org-share mirror of gftd.* Keychain credentials",
+      "path": "90-docs/adr/2604292100-1password-etzhayyim-japan-vault-mirror.md",
+      "id": "2604292100-1password-etzhayyim-japan-vault-mirror",
+      "title": "1Password \"etzhayyim Japan株式会社\" vault as the org-share mirror of etzhayyim.* Keychain credentials",
       "status": "active",
       "doc_type": "adr",
       "topic": "credential-distribution",
       "authoritative": true,
       "authoritative_for": [
-        "1Password vault layout for gftd.* operator credentials",
+        "1Password vault layout for etzhayyim.* operator credentials",
         "keychain → 1Password mirror policy"
       ],
       "related": [
@@ -1308,7 +1308,7 @@
     {
       "path": "90-docs/adr/2605231630-langgraph-chain-server-canonical-goose-retirement.md",
       "id": "2605231630-langgraph-chain-server-canonical-goose-retirement",
-      "title": "ADR-2605231630: LangGraph + yatachain + langserver canonical agent runtime; Goose retired; K8s/k3s/GPU-pod reintroduction approved",
+      "title": "ADR-2605231630: LangGraph + kotoba-datomic + langserver canonical agent runtime; Goose retired; K8s/k3s/GPU-pod reintroduction approved",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "agent-runtime-canonical",
@@ -1320,14 +1320,14 @@
       ],
       "related": [],
       "supersedes": [
-        "60-apps/ai-gftd-project-murakumo/CLAUDE.md §Hard Constraints (2026-05-11): the K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 line is lifted for etzhayyim/* religious-corp cells; the RunPod LLM SSoT decision is left intact",
-        "ADR-0034 (Goose agent runtime — yoro-as-actor topology, 2026-04-20, murakumo-scoped): Goose role + recipes + crontab entries on judah are retired in favor of LangGraph cells served from langserver under yatachain substrate"
+        "60-apps/etzhayyim-project-murakumo/CLAUDE.md §Hard Constraints (2026-05-11): the K8s/WireGuard/Aeron/UCX/RDMA/Ray/Nomad 禁止 line is lifted for etzhayyim/* religious-corp cells; the RunPod LLM SSoT decision is left intact",
+        "ADR-0034 (Goose agent runtime — yoro-as-actor topology, 2026-04-20, murakumo-scoped): Goose role + recipes + crontab entries on judah are retired in favor of LangGraph cells served from langserver under kotoba-datomic substrate"
       ],
       "superseded_by": [],
       "depends_on": [
         "2605191346-etzhayyim-vultr-free-murakumo-control-plane",
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605232100-etzhayyim-organism-vertical-implementation"
       ],
       "last_verified": "2026-05-23",
@@ -1355,7 +1355,7 @@
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605231400-yatachain-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -1379,7 +1379,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605232100-etzhayyim-organism-vertical-implementation",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605211200-etzhayyim-active-inference-organism-on-murakumo",
         "2605231630-langgraph-chain-server-canonical-goose-retirement"
@@ -1501,17 +1501,17 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/0033-did-gftd-federation-via-did-web-shim.md",
-      "id": "adr-0033-did-gftd-federation-via-did-web-shim",
-      "title": "ADR-0033: did:gftd Federation via did:web Shim — plc.directory 依存を排し did.etzhayyim.com に集約",
+      "path": "90-docs/adr/0033-did-etzhayyim-federation-via-did-web-shim.md",
+      "id": "adr-0033-did-etzhayyim-federation-via-did-web-shim",
+      "title": "ADR-0033: did:etzhayyim Federation via did:web Shim — plc.directory 依存を排し did.etzhayyim.com に集約",
       "status": "active",
       "doc_type": "adr",
-      "topic": "did-gftd-federation",
+      "topic": "did-etzhayyim-federation",
       "authoritative": true,
       "authoritative_for": [
-        "did:gftd actor が Bluesky / 外部 atproto ecosystem に federate する canonical 経路",
+        "did:etzhayyim actor が Bluesky / 外部 atproto ecosystem に federate する canonical 経路",
         "did.etzhayyim.com resolver の did:web shim endpoint 仕様",
-        "federation-visible tier の境界条件 (vertex_gftd_identity.federated)",
+        "federation-visible tier の境界条件 (vertex_etzhayyim_identity.federated)",
         "plc.directory / plc.etzhayyim.com 依存の排除ルール"
       ],
       "related": [
@@ -1519,8 +1519,8 @@
         "90-docs/adr/0014-self-hosted-did-plc.md",
         "90-docs/adr/0019-atproto-native-identifier-topology.md",
         "90-docs/adr/0023-auth-shannon-optimal-4-layer.md",
-        "90-docs/adr/0029-did-gftd-recursive-hash-merkle.md",
-        "90-docs/adr/0030-did-gftd-recursive-adoption-rollout.md"
+        "90-docs/adr/0029-did-etzhayyim-recursive-hash-merkle.md",
+        "90-docs/adr/0030-did-etzhayyim-recursive-adoption-rollout.md"
       ],
       "supersedes": [
         "adr-0014-self-hosted-did-plc"
@@ -1794,7 +1794,7 @@
       "related": [
         "adr-0022-auth-topology-consolidation",
         "adr-0023-auth-shannon-optimal-4-layer",
-        "adr-0029-did-gftd-method-specification"
+        "adr-0029-did-etzhayyim-method-specification"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -1857,8 +1857,8 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2604231828-appview-domain-separation-bsky-gftd-ai.md",
-      "id": "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+      "path": "90-docs/adr/2604231828-appview-domain-separation-bsky-etzhayyim-ai.md",
+      "id": "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
       "title": "ADR: AppView を bsky.etzhayyim.com に分離 — PDS/AppView domain separation (self-hosting guide 準拠)",
       "status": "active",
       "doc_type": "adr",
@@ -1900,7 +1900,7 @@
         "adr-2604231811-atproto-extension-service-layers",
         "adr-0022-auth-topology-consolidation",
         "adr-0023-auth-shannon-optimal-4-layer",
-        "adr-0029-did-gftd-method-specification"
+        "adr-0029-did-etzhayyim-method-specification"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -1961,7 +1961,7 @@
         "adr-0092-every-vertex-as-actor",
         "adr-0026-agent-only-reverse-identity-topology",
         "adr-2604231811-atproto-extension-service-layers",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai"
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -1986,7 +1986,7 @@
       ],
       "related": [
         "adr-2604231811-atproto-extension-service-layers",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-2604231821-atproto-oauth-wire-format-snake-case",
         "adr-2604240914-oauth-rs-binding-revocation-introspection",
         "adr-0022-auth-topology-consolidation",
@@ -2016,7 +2016,7 @@
       ],
       "related": [
         "adr-2604241038-yoro-pds-ideal-topology",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-2604231811-atproto-extension-service-layers",
         "adr-0036-worker-direct-hyperdrive-persistence",
         "adr-0041-pds-commit-content-addressed-pk"
@@ -2087,7 +2087,7 @@
       ],
       "related": [
         "adr-2604241038-yoro-pds-ideal-topology",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-0056-bpmn-as-actor",
         "adr-0081-worker-direct-hyperdrive-persistence",
         "adr-0041",
@@ -2154,7 +2154,7 @@
         "adr-0046",
         "adr-0019-atproto-native-identifier-topology",
         "adr-0023-auth-shannon-optimal-4-layer",
-        "adr-0029-did-gftd-method-specification",
+        "adr-0029-did-etzhayyim-method-specification",
         "adr-2604241038-yoro-pds-ideal-topology",
         "adr-2604241500-cad-bim-per-game-wasm-topology",
         "adr-0031-kami-vrm-three-free-topology"
@@ -2266,7 +2266,7 @@
     {
       "path": "90-docs/adr/2604251210-credential-sharing-vault-bitwarden.md",
       "id": "adr-2604251210-credential-sharing-vault-bitwarden",
-      "title": "ADR: Credential sharing via gftd Vault (primary) + Bitwarden (auxiliary)",
+      "title": "ADR: Credential sharing via etzhayyim Vault (primary) + Bitwarden (auxiliary)",
       "status": "active",
       "doc_type": "adr",
       "topic": "credential-sharing",
@@ -2287,7 +2287,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2604251215-gftdcojp-agent-authority-bounds.md",
+      "path": "90-docs/adr/2604251215-etzhayyimcojp-agent-authority-bounds.md",
       "id": "adr-2604251215-etzhayyim-agent-authority-bounds",
       "title": "ADR: etzhayyim Agent authority bounds — internal direct, external draft-approve, payment forbidden",
       "status": "active",
@@ -2313,13 +2313,13 @@
     {
       "path": "90-docs/adr/2604251220-record-log-not-mst.md",
       "id": "adr-2604251220-record-log-not-mst",
-      "title": "ADR: gftd PDS uses append-only record log, not AT Protocol MST CAR commit",
+      "title": "ADR: etzhayyim PDS uses append-only record log, not AT Protocol MST CAR commit",
       "status": "active",
       "doc_type": "adr",
       "topic": "pds-record-log",
       "authoritative": true,
       "authoritative_for": [
-        "gftd PDS commit storage shape",
+        "etzhayyim PDS commit storage shape",
         "prohibited use of @atproto/repo MST path",
         "ON CONFLICT / transaction restrictions on RisingWave writes"
       ],
@@ -2612,7 +2612,7 @@
       "related": [
         "90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md",
         "adr-2604271200",
-        "60-apps/ai-gftd-project-ma/magatama.toml",
+        "60-apps/etzhayyim-project-ma/magatama.toml",
         "90-docs/adr/0094-risingwave-stable-three-node-topology.md",
         "30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts"
       ],
@@ -2644,7 +2644,7 @@
         "adr-2604251220-record-log-not-mst",
         "adr-0036-worker-direct-hyperdrive-persistence",
         "adr-0019-atproto-native-identifier-topology",
-        "adr-0029-did-gftd-method-specification"
+        "adr-0029-did-etzhayyim-method-specification"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -2721,7 +2721,7 @@
         "adr-0048-risingwave-vultr-b2-primary",
         "adr-2604251400-pds-uploadblob-r2-to-b2-migration",
         "adr-2604251935-blockchain-vke-head-ingest",
-        "adr-0029-did-gftd-method-specification",
+        "adr-0029-did-etzhayyim-method-specification",
         "adr-2604261717-staked-claim-truth-incentive"
       ],
       "supersedes": [],
@@ -2939,7 +2939,7 @@
         "lei-entity-resolution"
       ],
       "related": [
-        "60-apps/ai-gftd-project-ma/magatama.toml",
+        "60-apps/etzhayyim-project-ma/magatama.toml",
         "90-docs/260427-fund-ma-actor-activation-runbook.md",
         "adr-2604261200",
         "30-graph/graph-schema/migrations/20260427040000_seed_fund_ma_bpmn_actors.ts",
@@ -3040,8 +3040,8 @@
         "expired-patent-worker-boundary"
       ],
       "related": [
-        "60-apps/ai-gftd-project-patent/magatama.toml",
-        "60-apps/ai-gftd-project-patent/worker/python/patent_expiry_worker.py",
+        "60-apps/etzhayyim-project-patent/magatama.toml",
+        "60-apps/etzhayyim-project-patent/worker/python/patent_expiry_worker.py",
         "70-tools/config/bpmn-coverage-manifest.json",
         "30-graph/graph-schema/migrations/20260427075000_open_patent_expired_pharma_bpmn_worker.ts",
         "adr-2604251024-patent-bulk-ingest-and-blob-cid",
@@ -3444,7 +3444,7 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2604292130-llm-gftd-ai-runpod-pass.md",
+      "path": "90-docs/adr/2604292130-llm-etzhayyim-ai-runpod-pass.md",
       "id": "adr-2604292130",
       "title": "llm.etzhayyim.com を Murakumo から分離し RunPod pass-through gateway に固定",
       "status": "active",
@@ -3537,7 +3537,7 @@
       "related": [
         "adr-2604241038-yoro-pds-ideal-topology",
         "adr-2604282300",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai"
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -3571,7 +3571,7 @@
       "authoritative_for": [
         "RunPod compute backend topology for animeka / mangaka / shinshi ComfyUI / image generation pipelines",
         "ComfyUI gateway routing (50-infra/cloudflare/workers/comfyui/wrangler.jsonc UPSTREAM_URL)",
-        "shinshi photoreal upstream (60-apps/ai-gftd-project-shinshi/.../wrangler.jsonc COMFY_POD_URL)",
+        "shinshi photoreal upstream (60-apps/etzhayyim-project-shinshi/.../wrangler.jsonc COMFY_POD_URL)",
         "Custom RunPod image build pipeline (50-infra/runpod/vllm-gemma-image/, .github/workflows/runpod-vllm-gemma-image.yml)"
       ],
       "related": [
@@ -4006,7 +4006,7 @@
       "authoritative_for": [
         "open-* actors licensing and distribution model",
         "kyber ERP commercialization strategy",
-        "gftd Cloud pricing and metering architecture",
+        "etzhayyim Cloud pricing and metering architecture",
         "OSS go-to-market strategy"
       ],
       "related": [
@@ -4069,7 +4069,7 @@
     {
       "path": "90-docs/adr/2605080000-yatabase-yata-retail-cloud.md",
       "id": "adr-2605080000-yatabase-yata-retail-cloud",
-      "title": "gftd Retail Cloud — yatabase + obj + yata + billing v2 (codename io-yatabase D12+)",
+      "title": "etzhayyim Retail Cloud — yatabase + obj + yata + billing v2 (codename io-yatabase D12+)",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "retail-cloud-provider",
@@ -5011,7 +5011,7 @@
       "depends_on": [
         "adr-2605091300-bonsai-cultivar-layer-above-myco-yeast",
         "adr-0087-magatama-mcp-tool-facade",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-2605131600-malak-orchestration-langgraph-pregel-langserve"
       ],
       "last_verified": "2026-05-15",
@@ -5155,7 +5155,7 @@
         "AT Protocol post = spore release from fruit"
       ],
       "related": [
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-2605091500-mycorrhizal-watering-consent-gated-mutation"
       ],
       "supersedes": [],
@@ -5485,7 +5485,7 @@
       "authoritative_for": [
         "RisingWave capability storage target design",
         "DID-bound authority evaluation over RW writes and reads",
-        "Tahoe-like read/write/verify capability mapping for gftd storage",
+        "Tahoe-like read/write/verify capability mapping for etzhayyim storage",
         "auth.etzhayyim.com / DID / ERC725 alignment for capability checks"
       ],
       "related": [
@@ -5698,7 +5698,7 @@
       ],
       "related": [
         "adr-2605101200-ai-cxo-roles-lsp-resident",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-2605010000",
         "adr-0036-worker-direct-hyperdrive-persistence",
         "adr-2605141500-shinshi-review-generation-quality-loop"
@@ -5726,7 +5726,7 @@
       ],
       "related": [
         "wellbecoming-karma-lean-proofs",
-        "60-apps/ai-gftd-project-comfyui/ansible/"
+        "60-apps/etzhayyim-project-comfyui/ansible/"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -5815,8 +5815,8 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605111000-gftd-japan-family-office-conversion.md",
-      "id": "adr-2605111000-gftd-japan-family-office-conversion",
+      "path": "90-docs/adr/2605111000-etzhayyim-japan-family-office-conversion.md",
+      "id": "adr-2605111000-etzhayyim-japan-family-office-conversion",
       "title": "etzhayyim Japan株式会社 シングルファミリープライベートオフィス化",
       "status": "proposed",
       "doc_type": "adr",
@@ -5933,7 +5933,7 @@
         "Model alternatives: DeepSeek V4 Pro / Kimi K2.6 / MiniMax M2.5 / Gemma 4 26B",
         "Agentic coding CLI tools: OpenCode v1.14.48 + Aider v0.86.2",
         "OpenRouter API key storage (1Password etzhayyim vault)",
-        "terminal-agent agentic benchmark suite (gftd code bench --agentic --swe)",
+        "terminal-agent agentic benchmark suite (etzhayyim code bench --agentic --swe)",
         "Model selection by workload (interactive / batch / long-context / code-correctness)",
         "RisingWave bench result schema (vertex_bench_run / vertex_bench_result)"
       ],
@@ -6040,7 +6040,7 @@
         "Observability (LocalTraceCallback, AGENT_TRACE_DIR, LangSmith)",
         "CodeAct mode (AGENT_CODEACT=true, Python block execution)",
         "Context window management (AGENT_MSG_WINDOW, head+tail trim)",
-        "gftd CLI integration (code.go delegates to terminal-agent; code exec flags: --dir, --message, --model, --api-key, --uv-bin, --dry-run)",
+        "etzhayyim CLI integration (code.go delegates to terminal-agent; code exec flags: --dir, --message, --model, --api-key, --uv-bin, --dry-run)",
         "MCP server (uv run agent mcp, stdio + HTTP transport)",
         "Git tools (git_status, git_diff, git_log, git_commit)",
         "LSP tools (lsp_check, lsp_symbols)",
@@ -6273,7 +6273,7 @@
         "vertex_email_message / vertex_email_sender / edge_email_sent_by schema の pregel 拡張列",
         "mv_email_pending_action / mv_email_sales_queue MV 定義",
         "outlook_triage → pregel_triage bridge (_node_invoke_pregel)",
-        "60-apps/ai-gftd-project-pregel/ actor 定義",
+        "60-apps/etzhayyim-project-pregel/ actor 定義",
         "K8s Helm release lg-pregel (50-infra/k8s/pregel/)"
       ],
       "related": [
@@ -6446,7 +6446,7 @@
         "api-key-rotation-cadence",
         "webauthn-passkey-automation-limits",
         "chrome-mcp-cookie-guardrail-scope",
-        "gftd-cli-authn-endpoint-bug"
+        "etzhayyim-cli-authn-endpoint-bug"
       ],
       "related": [
         "0022-auth-topology-consolidation",
@@ -6461,12 +6461,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605141800-gftd-email-wire-protocol.md",
-      "id": "adr-2605141800-gftd-email-wire-protocol",
+      "path": "90-docs/adr/2605141800-etzhayyim-email-wire-protocol.md",
+      "id": "adr-2605141800-etzhayyim-email-wire-protocol",
       "title": "ADR-2605141800: etzhayyim Email Wire Protocol (GEWP) v1.0 — Open Standard",
       "status": "accepted",
       "doc_type": "adr",
-      "topic": "gftd-email-wire-protocol",
+      "topic": "etzhayyim-email-wire-protocol",
       "authoritative": true,
       "authoritative_for": [
         "GEWP v1.0 仕様 (Core + Extension)",
@@ -6513,7 +6513,7 @@
         "adr-0032-gmail-direct-ingest-yabai-classifier"
       ],
       "depends_on": [
-        "adr-2605141800-gftd-email-wire-protocol",
+        "adr-2605141800-etzhayyim-email-wire-protocol",
         "adr-2605131800-pregel-triage-langgraph-email-intent-routing",
         "adr-2605080000-distributed-cognitive-actor-system"
       ],
@@ -6641,7 +6641,7 @@
       "topic": "open-ot-wasm-plc-dlc",
       "authoritative": true,
       "authoritative_for": [
-        "ai-gftd-project-open-ot scope and boundary",
+        "etzhayyim-project-open-ot scope and boundary",
         "WASM runtime selection for industrial PLC / DLC",
         "logic-language tier policy for IEC 61131-3 migration",
         "distribution substrate selection (Zenoh / OPC UA FX / XRPC)",
@@ -6692,9 +6692,9 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605151500-gftd-cli-go-to-python-migration.md",
+      "path": "90-docs/adr/2605151500-etzhayyim-cli-go-to-python-migration.md",
       "id": "adr-2605151500",
-      "title": "gftd CLI Go → Python Migration",
+      "title": "etzhayyim CLI Go → Python Migration",
       "status": "active",
       "doc_type": "adr",
       "topic": "toolchain",
@@ -6842,7 +6842,7 @@
       "authoritative": true,
       "authoritative_for": [
         "GitHub org boundary between religious-corp principal (etzhayyim) and etzhayyim Japan vendor (etzhayyim)",
-        "License policy per org (Apache 2.0 for etzhayyim, proprietary for gftd)",
+        "License policy per org (Apache 2.0 for etzhayyim, proprietary for etzhayyim)",
         "Monorepo seed strategy (single etzhayyim/root, NOT multi-repo transfer)",
         "Monorepo directory layout convention (Shannon-Optimal 8-Layer mirrored)",
         "Identity binding (did:web:etzhayyim.com) for the open monorepo"
@@ -6956,7 +6956,7 @@
         "bsc_operator_walk vs address_label_pursuit role separation"
       ],
       "related": [
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai"
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7787,7 +7787,7 @@
       "related": [
         "ADR-2605172100 (substrate client imports — `@etzhayyim/sdk` only)",
         "ADR-2605182312 (murakumo-gemma4 local bring-up)",
-        "60-apps/ai-gftd-project-open-isco/rw-free/ (first reference impl)"
+        "60-apps/etzhayyim-project-open-isco/rw-free/ (first reference impl)"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -7858,12 +7858,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605191659-vultr-stays-for-gftd.md",
-      "id": "adr-2605191659-vultr-stays-for-gftd",
+      "path": "90-docs/adr/2605191659-vultr-stays-for-etzhayyim.md",
+      "id": "adr-2605191659-vultr-stays-for-etzhayyim",
       "title": "ADR-2605191659: Vultr stays for etzhayyim.com — supersede step 6 of ADR-2605191358",
       "status": "active",
       "doc_type": "adr",
-      "topic": "vultr-stays-for-gftd",
+      "topic": "vultr-stays-for-etzhayyim",
       "authoritative": true,
       "authoritative_for": [
         "50-infra/vultr/* retention policy in etzhayyim/root",
@@ -7989,7 +7989,7 @@
         "`PublicFundGovernance.sol` contract spec",
         "grant 評議 Pregel cell (`PublicFundGrantCell`) の入出力",
         "grant 配布 Lexicon (`com.etzhayyim.apps.public-fund.*`)",
-        "60-apps/ai-gftd-project-public-fund/ の architecture"
+        "60-apps/etzhayyim-project-public-fund/ の architecture"
       ],
       "related": [],
       "supersedes": [],
@@ -8471,7 +8471,7 @@
       "authoritative_for": [
         "defense EW / counter-UAS threat classification and escalation",
         "defEw lexicon NSID namespace",
-        "OPA Rego extension gftd.defense.ew.escalation",
+        "OPA Rego extension etzhayyim.defense.ew.escalation",
         "human-in-loop authorization for kinetic / HPM interventions",
         "vertex_defense_ew_event / edge_defense_track_ew schema"
       ],
@@ -8536,16 +8536,16 @@
         "Multi-jurisdiction 施工 governance (land sovereignty + Charter Rider gate)"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-denki/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-gas/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-water/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-network/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-power/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-rail/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-airplane/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-ports/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-ot/CLAUDE.md"
+        "60-apps/etzhayyim-project-open-denki/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-gas/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-water/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-network/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-power/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-rail/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-airplane/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-ports/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-ot/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8583,8 +8583,8 @@
         "S1 → S2 exit gate"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-ot/cad-spec/giemon-mimi/SPEC.md"
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-ot/cad-spec/giemon-mimi/SPEC.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8619,9 +8619,9 @@
         "S2 → S3 exit gate"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md",
-        "60-apps/ai-gftd-project-open-denki/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md"
+        "60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md",
+        "60-apps/etzhayyim-project-open-denki/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8660,10 +8660,10 @@
         "S3 → S4 exit gate"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-denki/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-water/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-network/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md"
+        "60-apps/etzhayyim-project-open-denki/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-water/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-network/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8701,7 +8701,7 @@
         "adr-2605152100-etzhayyim-github-org-boundary",
         "90-docs/adr/2605172000-etzhayyim-open-telecom-fabric.md",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
-        "60-apps/ai-gftd-project-bankruptcy/CLAUDE.md"
+        "60-apps/etzhayyim-project-bankruptcy/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -8729,7 +8729,7 @@
         "S4 → S5 exit gate"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md",
         "50-infra/murakumo/fleet.toml"
       ],
       "supersedes": [],
@@ -8769,7 +8769,7 @@
       ],
       "related": [
         "adr-2605201700-yobel-jubilee-shmita-debt-release-actor",
-        "vendor:60-apps/ai-gftd-project-bankruptcy/CLAUDE.md",
+        "vendor:60-apps/etzhayyim-project-bankruptcy/CLAUDE.md",
         "vendor:90-docs/adr/0016-legal-cluster-topology.md",
         "vendor:90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md"
       ],
@@ -8804,12 +8804,12 @@
         "kuni-umi roadmap closure (S5 PASS = roadmap complete)"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-water/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-network/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-power/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-airplane/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-ports/CLAUDE.md",
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md"
+        "60-apps/etzhayyim-project-open-water/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-network/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-power/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-airplane/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-ports/CLAUDE.md",
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9162,7 +9162,7 @@
         "vendor-side maps real-time read API surface"
       ],
       "related": [
-        "60-apps/ai-gftd-project-maps/CLAUDE.md"
+        "60-apps/etzhayyim-project-maps/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -9210,7 +9210,7 @@
         "tsukuru B2B factory-direct ordering on etzhayyim substrate",
         "Stripe Issuing → ERC-4337 + USDC payment migration plan",
         "RisingWave Hyperdrive → PDS XRPC + IPFS storage migration plan",
-        "460+ factory DID migration plan (gftd → etzhayyim)"
+        "460+ factory DID migration plan (etzhayyim → etzhayyim)"
       ],
       "related": [
         "adr-2605202300-maps-etzhayyim-consumer-migration",
@@ -9285,8 +9285,8 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605210000-search-gftd-ai-internal-only.md",
-      "id": "adr-2605210000-search-gftd-ai-internal-only",
+      "path": "90-docs/adr/2605210000-search-etzhayyim-ai-internal-only.md",
+      "id": "adr-2605210000-search-etzhayyim-ai-internal-only",
       "title": "search.etzhayyim.com = internal-only; 外部 DNS ルート削除",
       "status": "active",
       "doc_type": "adr",
@@ -9294,7 +9294,7 @@
       "authoritative": true,
       "authoritative_for": [
         "search-worker-public-access-prohibition",
-        "search-gftd-ai-internal-only"
+        "search-etzhayyim-ai-internal-only"
       ],
       "related": [
         "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
@@ -9476,7 +9476,7 @@
       "topic": "inference",
       "authoritative": true,
       "authoritative_for": [
-        "LLM inference backend for all gftd K8s workloads (defense actor, keiei daemon, zeebe-worker, LangGraph agents)",
+        "LLM inference backend for all etzhayyim K8s workloads (defense actor, keiei daemon, zeebe-worker, LangGraph agents)",
         "in-cluster LLM endpoint SSoT (LOCAL_LLM_ENDPOINT / LLM_CHAT_COMPLETIONS_URL / etzhayyim_LLM_URL)",
         "Gemma 4 model deployment topology (E2B + E4B on single GPU pod)"
       ],
@@ -9626,12 +9626,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com.md",
-      "id": "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+      "path": "90-docs/adr/2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com.md",
+      "id": "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
       "title": "ADR-2605211757: DNS cutover runbook for the 27 ported workers — *.etzhayyim.com → *.etzhayyim.com (Phase 3 gate (b))",
       "status": "proposed",
       "doc_type": "adr",
-      "topic": "dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+      "topic": "dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
       "authoritative": true,
       "authoritative_for": [
         "DNS cutover ordering for the 27 ported workers",
@@ -9710,12 +9710,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone.md",
-      "id": "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
-      "title": "ADR-2605211845: gftd org cleanup completion + kami-engine-sdk standalone publication",
+      "path": "90-docs/adr/2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone.md",
+      "id": "adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone",
+      "title": "ADR-2605211845: etzhayyim org cleanup completion + kami-engine-sdk standalone publication",
       "status": "accepted",
       "doc_type": "adr",
-      "topic": "gftd-org-cleanup-completion",
+      "topic": "etzhayyim-org-cleanup-completion",
       "authoritative": true,
       "authoritative_for": [
         "etzhayyim MOVED-tagged repo deletion completion (0 remaining)",
@@ -9786,7 +9786,7 @@
       "authoritative": true,
       "authoritative_for": [
         "vendor-side refactor + deletion procedure for the 27 worker + 4 ingest + 4 primitive files",
-        "gftd lg subtree deletion order (3 already-relocated subtrees + their pymagatama imports)",
+        "etzhayyim lg subtree deletion order (3 already-relocated subtrees + their pymagatama imports)",
         "rollback procedure for partial vendor refactor failures",
         "verification protocol post-deletion (vendor build + downstream importer survey)"
       ],
@@ -9801,7 +9801,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com"
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com"
       ],
       "last_verified": "2026-05-21",
       "amends": [],
@@ -9829,7 +9829,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
         "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook"
       ],
       "last_verified": "2026-05-21",
@@ -9860,7 +9860,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605203000-rw-free-write-target-options",
-        "adr-2605210000-search-gftd-ai-internal-only",
+        "adr-2605210000-search-etzhayyim-ai-internal-only",
         "adr-2605111200-cf-worker-edge-only-no-rw-connection",
         "adr-0019-atproto-native-identifier-topology"
       ],
@@ -9893,15 +9893,15 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605212100-gftd-to-etzhayyim-migration-batch.md",
-      "id": "adr-2605212100-gftd-to-etzhayyim-migration-batch",
-      "title": "ADR-2605212100: gftd→etzhayyim 60-apps migration batch (gov / law / legal scope)",
+      "path": "90-docs/adr/2605212100-etzhayyim-to-etzhayyim-migration-batch.md",
+      "id": "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
+      "title": "ADR-2605212100: etzhayyim→etzhayyim 60-apps migration batch (gov / law / legal scope)",
       "status": "active",
       "doc_type": "adr",
-      "topic": "gftd-to-etzhayyim-migration",
+      "topic": "etzhayyim-to-etzhayyim-migration",
       "authoritative": true,
       "authoritative_for": [
-        "gftd-to-etzhayyim-60apps-batch"
+        "etzhayyim-to-etzhayyim-60apps-batch"
       ],
       "related": [
         "adr-2605171900-yoro-migration-to-etzhayyim",
@@ -9930,7 +9930,7 @@
       "authoritative": true,
       "authoritative_for": [
         "サイバーセキュリティ特化 監査役紹介事業のビジネスモデル定義 (BMC + Lean Canvas)",
-        "gftd ネットワーク連携チャネル戦略 (lawfirm / kaisya / recruit 連携)",
+        "etzhayyim ネットワーク連携チャネル戦略 (lawfirm / kaisya / recruit 連携)",
         "成果報酬型フィー体系",
         "顧客セグメント (非上場スタートアップ + 上場企業)"
       ],
@@ -9963,7 +9963,7 @@
       "related": [
         "adr-2605181400-bpmn-extract-to-etzhayyim-root",
         "adr-2605152100-etzhayyim-github-org-boundary",
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
         "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
         "adr-2605211925-phase-6-archive-markers-runbook",
         "doc-2605211800-vendor-importer-survey-gate-d",
@@ -9998,7 +9998,7 @@
         "downstream commercial fork patch contract for billing"
       ],
       "related": [
-        "60-apps/ai-gftd-project-open-kyber/ai-gftd-wasm-kyber-erp-kyb3rerp/src/app.ts",
+        "60-apps/etzhayyim-project-open-kyber/etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts",
         "70-tools/scripts/yorishiro/survey.mjs"
       ],
       "supersedes": [],
@@ -10171,8 +10171,8 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605212340-gftd-ai-domain-cutover.md",
-      "id": "adr-2605212340-gftd-ai-domain-cutover",
+      "path": "90-docs/adr/2605212340-etzhayyim-ai-domain-cutover.md",
+      "id": "adr-2605212340-etzhayyim-ai-domain-cutover",
       "title": "ADR-2605212340: legacy domain → etzhayyim.com cutover",
       "status": "accepted",
       "doc_type": "adr",
@@ -10210,7 +10210,7 @@
         "adr-2605215100-etzhayyim-maps-sentinel-mlx-murakumo-fleet",
         "adr-2605215200-shinka-pregel-mst",
         "adr-2605215300-yoro-python-primitives",
-        "adr-2605212100-gftd-to-etzhayyim-migration-batch",
+        "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
         "adr-2605242330-gov-procedure-pregel-mcp-coverage"
       ],
       "supersedes": [],
@@ -10553,7 +10553,7 @@
       "authoritative_for": [
         "com.etzhayyim.esign.* lexicon namespace",
         "religious-corp native document signing protocol (DID + WebAuthn + MST + IPFS + Base L2 anchor)",
-        "separation between gftd lawfirm DocuSign passthrough and etzhayyim native esign"
+        "separation between etzhayyim lawfirm DocuSign passthrough and etzhayyim native esign"
       ],
       "related": [
         "adr-2605222330-etzhayyim-com-substrate-violation-transition-window"
@@ -10640,15 +10640,15 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md",
-      "id": "adr-2605231400-yatachain-holochain-iso-substrate",
-      "title": "ADR-2605231400: yatachain — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262130)",
+      "path": "90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md",
+      "id": "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+      "title": "ADR-2605231400: kotoba-datomic — Holochain-isomorphic substrate over LangGraph + IPFS + atproto (SUPERSEDED by 2605262130)",
       "status": "superseded",
       "doc_type": "adr",
-      "topic": "yatachain-substrate",
+      "topic": "kotoba-datomic-substrate",
       "authoritative": true,
       "authoritative_for": [
-        "yatachain protocol family (10-protocol/yatachain/)",
+        "kotoba-datomic protocol family (10-protocol/kotoba-datomic/)",
         "Holochain-iso reference architecture name",
         "validation membrane + witness quorum spec"
       ],
@@ -10690,7 +10690,7 @@
       "related": [
         "20-actors/joucho/CLAUDE.md",
         "20-actors/society6/CLAUDE.md",
-        "60-apps/ai-gftd-project-dojo/CLAUDE.md",
+        "60-apps/etzhayyim-project-dojo/CLAUDE.md",
         "MEMBERS.md"
       ],
       "supersedes": [],
@@ -10746,15 +10746,15 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605231500-yatachain-projection.md",
-      "id": "adr-2605231500-yatachain-projection",
-      "title": "ADR-2605231500: yatachain-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)",
+      "path": "90-docs/adr/2605231500-kotoba-datomic-projection.md",
+      "id": "adr-2605231500-kotoba-datomic-projection",
+      "title": "ADR-2605231500: kotoba-datomic-projection — regenerable cache layer for hot-path queries (SUPERSEDED by 2605262130)",
       "status": "superseded",
       "doc_type": "adr",
-      "topic": "yatachain-projection",
+      "topic": "kotoba-datomic-projection",
       "authoritative": true,
       "authoritative_for": [
-        "yatachain-projection definition and conformance levels",
+        "kotoba-datomic-projection definition and conformance levels",
         "ADR-2605172000 hot-path escape hatch (when RW / Lance / Iroh / index serving range queries is permitted)",
         "Bluesky AppView analog — PDS = state, projection = derivable cache"
       ],
@@ -10768,7 +10768,7 @@
       ],
       "depends_on": [
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605231400-yatachain-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -10800,8 +10800,8 @@
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -10984,14 +10984,14 @@
     {
       "path": "90-docs/adr/2605231902-feed-post-membrane-and-feed-discover-projection.md",
       "id": "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
-      "title": "ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end yatachain §4 + projection slice",
+      "title": "ADR-2605231902: app.bsky.feed.post membrane + feed-discover projection — first end-to-end kotoba-datomic §4 + projection slice",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "feed-post-membrane-and-feed-discover-projection",
       "authoritative": true,
       "authoritative_for": [
-        "First yatachain §4 (L1+L2+L3) membrane implementation contract — app.bsky.feed.post",
-        "First yatachain-projection L1 conformance instance — feed-discover",
+        "First kotoba-datomic §4 (L1+L2+L3) membrane implementation contract — app.bsky.feed.post",
+        "First kotoba-datomic-projection L1 conformance instance — feed-discover",
         "Membrane → projection wire (verdict sidecar drives projection)"
       ],
       "related": [
@@ -11012,8 +11012,8 @@
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605192400-etzhayyim-eros-gore-council-judging",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection"
       ],
       "last_verified": "2026-05-23",
       "amends": [],
@@ -11095,12 +11095,12 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605232300-yatachain-engine-options-exploration.md",
-      "id": "adr-2605232300-yatachain-engine-options-exploration",
-      "title": "ADR-2605232300: yatachain — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)",
+      "path": "90-docs/adr/2605232300-kotoba-datomic-engine-options-exploration.md",
+      "id": "adr-2605232300-kotoba-datomic-engine-options-exploration",
+      "title": "ADR-2605232300: kotoba-datomic — engine architecture options exploration (Hummock fork / RW fork / GraphAr+MV no-fork) (SUPERSEDED by 2605262130)",
       "status": "superseded",
       "doc_type": "adr",
-      "topic": "yatachain-engine",
+      "topic": "kotoba-datomic-engine",
       "authoritative": false,
       "authoritative_for": [],
       "related": [
@@ -11113,8 +11113,8 @@
       ],
       "depends_on": [
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
@@ -11139,7 +11139,7 @@
       ],
       "related": [
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
-        "adr-2605231400-yatachain-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11182,15 +11182,15 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2605232400-yatachain-tier-d-blob-substrate-closure.md",
-      "id": "adr-2605232400-yatachain-tier-d-blob-substrate-closure",
-      "title": "ADR-2605232400: yatachain Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)",
+      "path": "90-docs/adr/2605232400-kotoba-datomic-tier-d-blob-substrate-closure.md",
+      "id": "adr-2605232400-kotoba-datomic-tier-d-blob-substrate-closure",
+      "title": "ADR-2605232400: kotoba-datomic Tier D blob primitive + gsplat IPFS swap + yoro substrate-facade closure (SUPERSEDED by 2605262130 for substrate; SDK API surface preserved bit-identically)",
       "status": "superseded",
       "doc_type": "adr",
-      "topic": "yatachain-tier-d-blob",
+      "topic": "kotoba-datomic-tier-d-blob",
       "authoritative": true,
       "authoritative_for": [
-        "yatachain Tier D blob path (content-addressed IPFS pin primitive)",
+        "kotoba-datomic Tier D blob path (content-addressed IPFS pin primitive)",
         "gsplat trainer B2 → IPFS swap protocol",
         "yoro substrate-facade migration (@atproto/api → @etzhayyim/sdk/atproto)"
       ],
@@ -11204,8 +11204,8 @@
       ],
       "depends_on": [
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection",
         "adr-2605241500-etzhayyim-dataset-cid-substrate"
       ],
       "last_verified": "2026-05-23",
@@ -11430,7 +11430,7 @@
         "peer-resolvable agentURI service[] format (libp2p Multiaddr)",
         "DNS subdomain collapse policy (per-actor → root + IPFS-anchored agentURI)",
         "libp2p protocol id namespacing (/x/etzhayyim/xrpc/<version>)",
-        "4-phase migration (deploy ERC-8004 → dual-publish HTTPS+libp2p → retire HTTPS → yatachain witness)",
+        "4-phase migration (deploy ERC-8004 → dual-publish HTTPS+libp2p → retire HTTPS → kotoba-datomic witness)",
         "Transport layer choice (libp2p as primary; iroh as experimental sibling)"
       ],
       "related": [
@@ -11442,7 +11442,7 @@
       "depends_on": [
         "adr-2604262100-erc725-erc8004-k8s-ipfs-agent-runtime",
         "adr-2604262145-erc8004-protocol-root-atproto-profile",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605241500-etzhayyim-dataset-cid-substrate"
       ],
@@ -11692,7 +11692,7 @@
       ],
       "related": [
         "wellbecoming-karma-lean-proofs",
-        "60-apps/ai-gftd-project-open-robo/CLAUDE.md"
+        "60-apps/etzhayyim-project-open-robo/CLAUDE.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11727,7 +11727,7 @@
       ],
       "related": [
         "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
-        "adr-2605231400-yatachain-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -11735,7 +11735,7 @@
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605172100-etzhayyim-payments-on-chain-only",
         "adr-2605192100-etzhayyim-mission-charter",
-        "adr-2605212100-gftd-to-etzhayyim-migration-batch",
+        "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
         "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules"
       ],
       "last_verified": "2026-05-24",
@@ -11952,7 +11952,7 @@
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "2605191524-ameno-multi-tab-swarm-broadcast",
         "2605191603-ameno-swarm-leader-election",
         "2605191641-ameno-daemon-did-allowlist"
@@ -12009,7 +12009,7 @@
       "related": [
         "adr-2605192115-etzhayyim-non-profit-donation-only-no-ads",
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605212100-gftd-to-etzhayyim-migration-batch"
+        "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -12145,7 +12145,7 @@
         "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605231500-yatachain-projection",
+        "adr-2605231500-kotoba-datomic-projection",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter",
         "adr-2605242715-silicon-mask-supply-chain"
@@ -12408,8 +12408,8 @@
         "adr-2605101000-baien-mx-multimodal-expansion-from-rw",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605241900-baien-edge-target-invariant",
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection",
         "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
         "adr-2605242600-baien-federated-train-via-ameno-webgpu",
         "adr-2605250400-gemma-coder-distill-rocm"
@@ -12907,7 +12907,7 @@
         "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605231500-yatachain-projection",
+        "adr-2605231500-kotoba-datomic-projection",
         "adr-2605231525-no-server-key-religious-corp-architecture",
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605250500-yakushi-pharmaceutical-rd-charter"
@@ -13625,7 +13625,7 @@
         "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
         "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
         "adr-2605201400-etzhayyim-kuni-umi-planetary-infra-fleet",
-        "adr-2605231400-yatachain-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "last_verified": "2026-05-26T00:00:00Z",
       "authoritative_for": [],
@@ -13659,7 +13659,7 @@
         "adr-2605242000-roso-pattern-frontier-distill",
         "adr-2605252500-sarutahiko-heavy-truck-manufacturing-r0",
         "adr-2605261500-suki-farm-tractor-tier-b-actor-r0",
-        "adr-2605231400-yatachain-holochain-iso-substrate"
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -13750,14 +13750,14 @@
     {
       "path": "90-docs/adr/2605262130-kotoba-storage-substrate-unification.md",
       "id": "adr-2605262130-kotoba-storage-substrate-unification",
-      "title": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes yatachain composition + projection layers; no RisingWave",
+      "title": "ADR-2605262130: Kotoba as Canonical Storage Substrate — supersedes kotoba-datomic composition + projection layers; no RisingWave",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "storage-substrate",
       "authoritative": true,
       "authoritative_for": [
         "canonical storage substrate engine (kotoba)",
-        "removal of yatachain composition spec from authoritative design surface",
+        "removal of kotoba-datomic composition spec from authoritative design surface",
         "removal of RisingWave / Lance / Iroh as projection backends"
       ],
       "related": [
@@ -13772,9 +13772,9 @@
         "adr-2605242600-baien-federated-train-via-ameno-webgpu"
       ],
       "supersedes": [
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection",
-        "adr-2605232300-yatachain-engine-options-exploration",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection",
+        "adr-2605232300-kotoba-datomic-engine-options-exploration",
         "adr-2605232400-baien-core3-bench-strategy-revision",
         "adr-2605101000-baien-mx-multimodal-expansion-from-rw"
       ],
@@ -13802,7 +13802,7 @@
       "authoritative_for": [
         "Charter Rider §2(i) train carve-out scope: baien-server-* / baien-XL-* train only",
         "Inference invariant reaffirmation: Murakumo-only for ALL actors (baien edge / baien-server-* / baien-XL-* / yakushi / wadachi / silicon Wave 1+2 / e7m-sim / etc.)",
-        "Per-rental transparency requirements (yatachain attestation + cost log + Charter Rider §2(a)-(h) scan + run boundaries)",
+        "Per-rental transparency requirements (kotoba-datomic attestation + cost log + Charter Rider §2(a)-(h) scan + run boundaries)",
         "Procedural path: Council Lv6+ vote + 30-day public objection"
       ],
       "related": [
@@ -13838,7 +13838,7 @@
         "Precision ladder R2 BF16 → R3 FP8 (TransformerEngine) → R4 sparse FP4 (engineering work itemized per phase)",
         "Checkpoint pipeline: rented GPU → HuggingFace Hub draft OR direct upload → IPFS pin via mac-260317 → Murakumo fleet pull",
         "Inference architecture (Mac mini + EVO-X2 fleet) — UNCHANGED, references ADR-2605215000",
-        "Per-rental yatachain attestation Lexicons com.etzhayyim.train.rentalAttestation + rentalCostLog spec",
+        "Per-rental kotoba-datomic attestation Lexicons com.etzhayyim.train.rentalAttestation + rentalCostLog spec",
         "Cost / wall budget caps + runbook for rental orchestration"
       ],
       "related": [
@@ -15358,7 +15358,7 @@
       "topic": "kami-engine-sdk-duplicate-retirement",
       "authoritative": true,
       "authoritative_for": [
-        "@etzhayyim/kami-engine-sdk canonical source location = 40-engine/kami-engine/kami-engine-sdk (git subrepo of github.com/gftdcojp/kami-engine-sdk)",
+        "@etzhayyim/kami-engine-sdk canonical source location = 40-engine/kami-engine/kami-engine-sdk (git subrepo of github.com/etzhayyimcojp/kami-engine-sdk)",
         "20-actors/kami-engine-sdk deprecation + retirement schedule",
         "pnpm workspace registration for the canonical SDK so workspace:* references resolve"
       ],
@@ -15903,7 +15903,7 @@
       "supersedes": [],
       "superseded_by": [],
       "depends_on": [
-        "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605262400-public-data-organism-ipfs-ingestion",
         "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0",
@@ -16025,7 +16025,7 @@
       ],
       "related": [
         "adr-0031-kami-vrm-three-free-topology",
-        "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone"
+        "adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -17326,7 +17326,7 @@
         "ipfs-static-frontend-deploy-feasibility"
       ],
       "related": [
-        "60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
+        "60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/IPFS-DEPLOY.md"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -17633,7 +17633,7 @@
         "cross-robot fleet part graph (kabitori + giemon-otete) in kotoba",
         "legacy RisingWave SBOM → kotoba bridge (cyclonedx_to_kotoba.py) + column mapping",
         "purl-keyed SBOM↔CVE vuln-match materialization (VulnMatch entities)",
-        "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in ai-gftd-project-isekai"
+        "giemon Svelte surfaces (/giemon, /giemon.htm, /fleet) in etzhayyim-project-isekai"
       ],
       "related": [
         "adr-2605051430-drive-cad-jbeam-sbom-pipeline"
@@ -17663,8 +17663,8 @@
         "reframing of Base L2 as trust anchor over the Datom commit-DAG root"
       ],
       "related": [
-        "adr-2605231400-yatachain-holochain-iso-substrate",
-        "adr-2605231500-yatachain-projection",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
+        "adr-2605231500-kotoba-datomic-projection",
         "adr-2605231902-feed-post-membrane-and-feed-discover-projection",
         "adr-2605171800-langgraph-mst-ipfs-l2-anchor-pipeline",
         "adr-2605231525-no-server-key-religious-corp-architecture",
@@ -18046,7 +18046,7 @@
         "IPFS role demotion to CIDv1 cold/interop backstop"
       ],
       "related": [
-        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605231525-no-server-key-posture"
       ],
       "supersedes": [],
@@ -18075,7 +18075,7 @@
         "staged submodule-separation plan (kami-engine-sdk + reusable robotics engine)"
       ],
       "related": [
-        "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone",
         "adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
       ],
       "supersedes": [],
@@ -18163,7 +18163,7 @@
       "authoritative_for": [
         "hakken product-discovery ingest on the etzhayyim RW-free substrate",
         "com.etzhayyim.apps.hakken.* record namespace",
-        "the etzhayyim/gftd boundary for hakken (ingest front vs fulfillment tail)"
+        "the etzhayyim/etzhayyim boundary for hakken (ingest front vs fulfillment tail)"
       ],
       "depends_on": [
         "adr-2605172000-etzhayyim-rw-free-substrate",
@@ -18395,7 +18395,7 @@
       "authoritative_for": [
         "watatsuna actor (world submarine-cable network knowledge graph)",
         "submarine-cable-ontology kotoba schema",
-        "com.etzhayyim.cable.* kotoba-native lexicons (supersede legacy gftd telecom/telecomInfra/cableRepairFleet)",
+        "com.etzhayyim.cable.* kotoba-native lexicons (supersede legacy etzhayyim telecom/telecomInfra/cableRepairFleet)",
         "watatsumi cable-laying robotics fleet"
       ],
       "related": [
@@ -18514,7 +18514,7 @@
       ],
       "related": [
         "00-contracts/schemas/yoro-feed-ontology.kotoba.edn",
-        "60-apps/ai-gftd-project-yoro/rw-free/src/kotoba.ts"
+        "60-apps/etzhayyim-project-yoro/rw-free/src/kotoba.ts"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -18758,9 +18758,9 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606014500-ai-gftd-auth-zero-access-proton-alignment.md",
-      "id": "adr-2606014500-ai-gftd-auth-zero-access-proton-alignment",
-      "title": "ADR-2606014500: ai-gftd-project-auth → zero-access (Proton-aligned) custody",
+      "path": "90-docs/adr/2606014500-etzhayyim-auth-zero-access-proton-alignment.md",
+      "id": "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment",
+      "title": "ADR-2606014500: etzhayyim-project-auth → zero-access (Proton-aligned) custody",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "auth-zero-access-proton-alignment",
@@ -18916,7 +18916,7 @@
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state",
         "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
-        "adr-2606014500-ai-gftd-auth-zero-access-proton-alignment"
+        "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment"
       ],
       "last_verified": "2026-06-02",
       "amends": [],
@@ -18935,7 +18935,7 @@
         "post-separation fixes (native build, CI baseline reds, product-app/robotics split)"
       ],
       "related": [
-        "adr-2605211845-gftd-org-cleanup-completion-and-kami-engine-sdk-standalone",
+        "adr-2605211845-etzhayyim-org-cleanup-completion-and-kami-engine-sdk-standalone",
         "adr-2605312355-session-close-kotoba-datom-first-class-and-charter-rider-d1"
       ],
       "supersedes": [],
@@ -19365,7 +19365,7 @@
         "/90-docs/260430-natural-person-latent-entity-backend-design.md (superseded design)",
         "/00-contracts/schemas/latent-entity-ontology.kotoba.edn (new schema)",
         "/30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)",
-        "/60-apps/ai-gftd-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
+        "/60-apps/etzhayyim-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
       ],
       "supersedes": [
         "/90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)"
@@ -19686,7 +19686,7 @@
         "machine management-plane state modelled as Datoms (Datomic-for-the-OS)"
       ],
       "related": [
-        "adr-2605231400-yatachain-holochain-iso-substrate",
+        "adr-2605231400-kotoba-datomic-holochain-iso-substrate",
         "adr-2605192100-etzhayyim-mission-charter",
         "adr-2605192415-etzhayyim-religious-corp-daemon-architecture",
         "adr-2605214000-etzhayyim-murakumo-mesh-no-vke-and-lexicon-port-rules",
@@ -19744,16 +19744,16 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause.md",
-      "id": "adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
-      "title": "ADR-2606032031: Session close — gftd/yatachain app rename sweep pause (etzhayyim + kotoba Datomic/EDN)",
+      "path": "90-docs/adr/2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause.md",
+      "id": "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
+      "title": "ADR-2606032031: Session close — etzhayyim/kotoba-datomic app rename sweep pause (etzhayyim + kotoba Datomic/EDN)",
       "status": "active",
       "doc_type": "adr",
-      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "topic": "session-close-etzhayyim-to-etzhayyim-app-rename-sweep",
       "authoritative": false,
       "related": [
         "adr-2605172000-etzhayyim-rw-free-substrate",
-        "adr-2605212100-gftd-to-etzhayyim-migration-batch",
+        "adr-2605212100-etzhayyim-to-etzhayyim-migration-batch",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
       ],
@@ -19765,15 +19765,15 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause.md",
-      "id": "adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause",
-      "title": "ADR-2606032045: Session close — gftd/yatachain app rename sweep paused after news batch 47",
+      "path": "90-docs/adr/2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause.md",
+      "id": "adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
+      "title": "ADR-2606032045: Session close — etzhayyim/kotoba-datomic app rename sweep paused after news batch 47",
       "status": "active",
       "doc_type": "adr",
-      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "topic": "session-close-etzhayyim-to-etzhayyim-app-rename-sweep",
       "authoritative": false,
       "related": [
-        "adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+        "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
@@ -19857,16 +19857,16 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/adr/2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause.md",
-      "id": "adr-2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause",
-      "title": "ADR-2606032212: Session close — gftd/yatachain app rename sweep paused after news batch 320",
+      "path": "90-docs/adr/2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause.md",
+      "id": "adr-2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause",
+      "title": "ADR-2606032212: Session close — etzhayyim/kotoba-datomic app rename sweep paused after news batch 320",
       "status": "active",
       "doc_type": "adr",
-      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "topic": "session-close-etzhayyim-to-etzhayyim-app-rename-sweep",
       "authoritative": false,
       "related": [
-        "adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause",
-        "adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+        "adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
+        "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
@@ -19902,16 +19902,16 @@
     },
     {
       "path": "90-docs/adr/2606032335-session-close-etzhayyim-rename-sweep-contract-batch106-pause.md",
-      "id": "adr-2606032335-session-close-gftd-to-etzhayyim-contract-rename-sweep-batch106-pause",
-      "title": "ADR-2606032335: Session close - gftd/yatachain rename sweep paused after contract path batch 106",
+      "id": "adr-2606032335-session-close-etzhayyim-to-etzhayyim-contract-rename-sweep-batch106-pause",
+      "title": "ADR-2606032335: Session close - etzhayyim/kotoba-datomic rename sweep paused after contract path batch 106",
       "status": "active",
       "doc_type": "adr",
-      "topic": "session-close-gftd-to-etzhayyim-app-rename-sweep",
+      "topic": "session-close-etzhayyim-to-etzhayyim-app-rename-sweep",
       "authoritative": false,
       "related": [
-        "adr-2606032212-session-close-gftd-to-etzhayyim-app-rename-sweep-batch320-pause",
-        "adr-2606032045-session-close-gftd-to-etzhayyim-app-rename-sweep-batch47-pause",
-        "adr-2606032031-session-close-gftd-to-etzhayyim-app-rename-sweep-pause",
+        "adr-2606032212-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch320-pause",
+        "adr-2606032045-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-batch47-pause",
+        "adr-2606032031-session-close-etzhayyim-to-etzhayyim-app-rename-sweep-pause",
         "adr-2605172000-etzhayyim-rw-free-substrate",
         "adr-2605262130-kotoba-storage-substrate-unification",
         "adr-2605312345-kotoba-datom-first-class-canonical-state"
@@ -19932,7 +19932,7 @@
       "topic": "session-close-consensys-rw-free-migration-sweep",
       "authoritative": true,
       "related": [
-        "adr-2606011400-consensys-pattern-etzhayyim-product-gftd-infra-vendor",
+        "adr-2606011400-consensys-pattern-etzhayyim-product-etzhayyim-infra-vendor",
         "adr-2605172400-etzhayyim-vendor-three-axis-split-rule",
         "adr-2605152100-etzhayyim-github-org-boundary",
         "adr-2605172000-etzhayyim-rw-free-substrate",
@@ -20163,7 +20163,7 @@
       "authoritative_for": [],
       "related": [
         "adr-2606014000-kotoba-passkey-cacao-signal-secrecy",
-        "adr-2606014500-ai-gftd-auth-zero-access-proton-alignment",
+        "adr-2606014500-etzhayyim-auth-zero-access-proton-alignment",
         "adr-2606015000-pds-refactor-onto-kotoba-server",
         "adr-2605181100-mst-encrypted-records-signal-keywrap",
         "adr-2605231525-no-server-key-invariant",
@@ -20717,7 +20717,7 @@
     {
       "path": "90-docs/260416-coverage-infer-statistical-entity-resolution.md",
       "id": "coverage-infer-statistical-entity-resolution-260416",
-      "title": "gftd coverage infer — Statistical Entity Resolution via RisingWave Python UDF",
+      "title": "etzhayyim coverage infer — Statistical Entity Resolution via RisingWave Python UDF",
       "status": "active",
       "doc_type": "how-to",
       "topic": "cohort-evaluation",
@@ -20757,7 +20757,7 @@
     {
       "path": "90-docs/260416-did-schema-dodaf-org-agent-shannon-design.md",
       "id": "did-schema-dodaf-org-agent-shannon",
-      "title": "DID Schema Design: did:gftd — Unified Platform Identity (AuthN + AuthZ + Governance)",
+      "title": "DID Schema Design: did:etzhayyim — Unified Platform Identity (AuthN + AuthZ + Governance)",
       "status": "proposed",
       "doc_type": "adr",
       "topic": "identity-topology",
@@ -20765,8 +20765,8 @@
       "authoritative_for": [
         "did-schema-org-agent-comparison",
         "did-method-separation-analysis",
-        "did-gftd-method-spec",
-        "did-gftd-authn-authz-unification"
+        "did-etzhayyim-method-spec",
+        "did-etzhayyim-authn-authz-unification"
       ],
       "related": [
         "adr-0019-atproto-native-identifier-topology",
@@ -20775,8 +20775,8 @@
         "adr-0026-agent-only-reverse-identity-topology",
         "adr-0010-per-did-signing-key-custody",
         "adr-0018-pii-tier3-cohort-first",
-        "adr-0073-did-gftd-recursive-hash-merkle",
-        "adr-0033-did-gftd-federation-via-did-web-shim"
+        "adr-0073-did-etzhayyim-recursive-hash-merkle",
+        "adr-0033-did-etzhayyim-federation-via-did-web-shim"
       ],
       "supersedes": [],
       "superseded_by": [],
@@ -20890,7 +20890,7 @@
       ],
       "related": [
         "adr-2604231821-atproto-oauth-wire-format-snake-case",
-        "adr-2604231828-appview-domain-separation-bsky-gftd-ai",
+        "adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai",
         "adr-2604240914-oauth-rs-binding-revocation-introspection",
         "doc-260424-oauth-strict-mode-cutover"
       ],
@@ -21074,7 +21074,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com"
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com"
       ],
       "last_verified": "2026-05-21",
       "amends": [],
@@ -21093,7 +21093,7 @@
         "cross-references from gates to closure ADRs / surveys"
       ],
       "related": [
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
         "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
         "adr-2605211925-phase-6-archive-markers-runbook",
         "doc-2605211800-vendor-importer-survey-gate-d"
@@ -21127,7 +21127,7 @@
       "superseded_by": [],
       "depends_on": [
         "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
         "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook"
       ],
       "last_verified": "2026-05-21",
@@ -21485,7 +21485,7 @@
       "authoritative": false,
       "related": [
         "adr-2605092350-baien-1bit-multimodal-edge-browser-cpu-design",
-        "60-apps/ai-gftd-project-ameno/CLAUDE.md"
+        "60-apps/etzhayyim-project-ameno/CLAUDE.md"
       ],
       "last_verified": "2026-05-10",
       "authoritative_for": [],
@@ -21544,8 +21544,8 @@
       "topic": "lexicon-deep-dive",
       "authoritative": false,
       "authoritative_for": [
-        "cycle 73 lexicon violation breakdown by gftd-legacy vs etzhayyim-native scope",
-        "181 non-gftd violation inventory with auto-fix safety analysis",
+        "cycle 73 lexicon violation breakdown by etzhayyim-legacy vs etzhayyim-native scope",
+        "181 non-etzhayyim violation inventory with auto-fix safety analysis",
         "escalation path for owner sign-off on schema migrations"
       ],
       "related": [
@@ -21648,7 +21648,7 @@
       ],
       "related": [
         "adr-2605212100-magatama-worker-3-axis-tranche-f-closure",
-        "adr-2605211757-dns-cutover-runbook-gftd-ai-to-etzhayyim-com",
+        "adr-2605211757-dns-cutover-runbook-etzhayyim-ai-to-etzhayyim-com",
         "adr-2605211913-vendor-refactor-and-git-rm-phase-4-5-runbook",
         "adr-2605211925-phase-6-archive-markers-runbook",
         "doc-2605211800-vendor-importer-survey-gate-d",
@@ -21826,8 +21826,8 @@
       "amended_by": []
     },
     {
-      "path": "90-docs/260416-jun-gftd-group-data-ingest-risingwave-vertex-edge-design.md",
-      "id": "jun-gftd-group-data-ingest-risingwave-vertex-edge-design-260416",
+      "path": "90-docs/260416-jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design.md",
+      "id": "jun-etzhayyim-group-data-ingest-risingwave-vertex-edge-design-260416",
       "title": "jun@etzhayyim.com 全量取り込み設計 — RisingWave / Vertex / Edge",
       "status": "active",
       "doc_type": "explanation",

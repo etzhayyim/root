@@ -151,7 +151,7 @@ CF Worker は **edge / routing / dispatcher** の 3 sublayer のみ。
 - **Policy**: Rego (XRPC AuthZ) + DMN (BPMN gateway / classifier) — ADR-2604261100
 - **Monitoring**: triple-witness (PDS commit / RW MV / Zeebe Operate) — ADR-0046
 - **Storage**: B2 primary, R2 active write 廃止 (ADR-0048)
-- **Identity**: did:web (apps), did:plc (users via plc-private), did:gftd (legacy nanoid grandfather table)
+- **Identity**: did:web (apps), did:plc (users via plc-private), did:etzhayyim (legacy nanoid grandfather table)
 - **3-Tier Write** (ADR-0036, restated):
   - Tier 1 Social = L2 PDS dispatch (`app.bsky.*` / `com.atproto.*`)
   - Tier 2 Domain = L3 dispatcher → L4 Hyperdrive direct write (`com.etzhayyim.apps.*`)

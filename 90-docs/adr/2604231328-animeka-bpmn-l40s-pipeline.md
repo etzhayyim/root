@@ -33,7 +33,7 @@ Running animeka on a bespoke orchestrator while every other T1/T2 actor
 uses Zeebe means animeka pays the per-actor cost that ADR-0056 exists
 to eliminate: bespoke LLM plumbing, no uniform observability, no shared
 retry/timer primitives. Empirically, the ad-hoc path also went offline
-2026-04-22 when the Linode GPU was retired — `ai-gftd-project-llm`
+2026-04-22 when the Linode GPU was retired — `etzhayyim-project-llm`
 references were deleted but no fallback wiring was added, leaving the
 12-stage pipeline in ~15% completion (inbetweener interpolate only).
 
@@ -144,7 +144,7 @@ Vultr L40S on-demand ($1.671/hr) and 36mo prepaid ($0.848/hr = $611/mo) are both
 
 **Decision**: Primary = **RunPod Community L40S** via GraphQL API + Pattern 1 Lite up/down. 2026-05-09 update: Vultr ComfyUI fallback was removed because the Vultr estate no longer has GPU nodes; the former `50-infra/vultr/comfyui-l40s/` module and its detached 100 GB block volume were deleted.
 
-**Migration**: `50-infra/runpod/comfyui-l40s/scripts/{up,down,status}.sh` uses the RunPod GraphQL API directly (no official Terraform provider as of 2026-04). The Ansible playbook at `60-apps/ai-gftd-project-comfyui/ansible/` runs against the RunPod pod via `$ANSIBLE_HOST`.
+**Migration**: `50-infra/runpod/comfyui-l40s/scripts/{up,down,status}.sh` uses the RunPod GraphQL API directly (no official Terraform provider as of 2026-04). The Ansible playbook at `60-apps/etzhayyim-project-comfyui/ansible/` runs against the RunPod pod via `$ANSIBLE_HOST`.
 
 **Cost delta**: $67/mo (Vultr on-demand Pattern 1 Lite) → **$34/mo (RunPod Community + same Lite cycle)** = **49% reduction** while keeping full 48 GB VRAM and all of ADR-0050 §5 model catalog.
 
@@ -204,7 +204,7 @@ The pod-based Pattern 1 Lite proved workable ($34/mo for 40 h/mo RunPod Communit
 
 **Supporting scripts**:
 - `50-infra/runpod/comfyui-l40s/scripts/serverless.sh {create|info|test|destroy}` — full lifecycle via REST API.
-- State persisted to `~/.gftd/runpod-watchdog/serverless.env` (TEMPLATE_ID + ENDPOINT_ID).
+- State persisted to `~/.etzhayyim/runpod-watchdog/serverless.env` (TEMPLATE_ID + ENDPOINT_ID).
 
 ## 6d. Text-gen LLM colocation on RunPod (2026-04-24 addendum — Phase Δ4)
 
@@ -412,7 +412,7 @@ The animeka CF Worker retains:
 
 It sheds:
 - Ad-hoc `generateInbetween` / `autoTrace` / `renderComposite` stub handlers
-- In-Worker LLM calls to the retired `ai-gftd-project-llm` endpoint
+- In-Worker LLM calls to the retired `etzhayyim-project-llm` endpoint
 - `ensureActorDids`-based 12-actor orchestration (retained as a DID registry, but the agent work is owned by BPMN processes, not the actor DID Workers)
 
 # Consequences
@@ -462,4 +462,4 @@ It sheds:
 - Dispatcher: `20-actors/magatama/py/src/pymagatama/dispatcher_main.py`
 - Worker primitive host: `20-actors/magatama/py/src/pymagatama/zeebe_worker_main.py`
 - Reference BPMN patterns: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/{llm/chat,yabai/triagePoc,bot/reviewAndPost}.bpmn`
-- animeka app module: `60-apps/ai-gftd-project-animeka/appview/ai-gftd-wasm-animeka-an1m3k4x/`
+- animeka app module: `60-apps/etzhayyim-project-animeka/appview/etzhayyim-wasm-animeka-an1m3k4x/`

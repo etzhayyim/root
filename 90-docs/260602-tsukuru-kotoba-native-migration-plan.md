@@ -15,7 +15,7 @@ related:
 
 # tsukuru → Gen-3 (kotoba-native) Migration Plan (2026-06-02)
 
-目的: `tsukuru`（B2B factory-direct ordering actor）を旧 gftd / RisingWave / JSON-LD
+目的: `tsukuru`（B2B factory-direct ordering actor）を旧 etzhayyim / RisingWave / JSON-LD
 世代から、okaimono と同じ **Gen-3 canonical 設計**（`manifest.edn` + kotoba-EAVT +
 Murakumo-only + Charter Rider + no-server-key）へ移行する。
 
@@ -27,12 +27,12 @@ Murakumo-only + Charter Rider + no-server-key）へ移行する。
 | # | ゲート | 状態 | 担当 ADR |
 |---|---|---|---|
 | P0a | **命名衝突解消** — silicon-fab orchestration を tsukuru から分離 | 未 | 2606021139（本プラン前提） |
-| P0b | **magatama gftd→etzhayyim atomic rename** — 法人登記後の単一 PR | 未（登記待ち） | 2605214000 §3 / 2605215000 §4 |
+| P0b | **magatama etzhayyim→etzhayyim atomic rename** — 法人登記後の単一 PR | 未（登記待ち） | 2605214000 §3 / 2605215000 §4 |
 | P0c | okaimono ↔ tsukuru の発注フロー契約（`create-production-order`）凍結 | 既存 | okaimono CLAUDE.md |
 
-> P0b は tsukuru の `gftd:` WIT 5 パッケージ改名を含むため厳密には依存するが、**構造移行
+> P0b は tsukuru の `etzhayyim:` WIT 5 パッケージ改名を含むため厳密には依存するが、**構造移行
 > （manifest.edn / cells / kotoba 追加）は P0b と非干渉**なので先行可能。WIT 識別子の
-> `gftd:` → `etzhayyim:` 改名だけ P0b wave に同期させる。
+> `etzhayyim:` → `etzhayyim:` 改名だけ P0b wave に同期させる。
 
 ## 1. 現状（Gen-1 legacy）の棚卸し
 
@@ -42,11 +42,11 @@ Murakumo-only + Charter Rider + no-server-key）へ移行する。
 | State | RisingWave / Cypher `MATCH (o:ProductionOrder)…`、`G()` builder | **kotoba Datom EAVT**（`:production-order/*` schema） |
 | Inference | `agent.chat`（k8s-langserver T1） | **Murakumo-only** KotobaLLM 127.0.0.1:4000 |
 | Runtime/edge | `runtime: k8s-langserver` + `sveltekit-proxy` + `legacyExecutionTier: T1` | WASM cells（langgraph）+ kotoba :8077 |
-| Payment | gftd 期の Stripe Issuing 言及が legacy doc に残存（**etzhayyim では非存在**） | **USDC Base L2 + ERC-4337 + TitheRouter 10% + warifu**（最初から fiat 非前提） |
-| Identity | path-based multi-DID（`did:web:tsukuru…` + 460 factory DID, gftd） | did:web + factory DID（etzhayyim 改名後） |
-| Build/deploy | `gftd build` / `gftd deploy` | `kotoba/deploy.sh`（KOTOBA_URL/TOKEN） |
-| Naming | `gftd:tsukuru@*` WIT × 5、`ai-gftd-project-tsukuru` | `etzhayyim:tsukuru@*`、`etzhayyim-project-tsukuru` |
-| WIT/BPMN | gftd WIT 5 pkg + CNT BPMN 12 flow + CNT process catalog | lex/.edn（need/order/production/qc/settlement）+ cells |
+| Payment | etzhayyim 期の Stripe Issuing 言及が legacy doc に残存（**etzhayyim では非存在**） | **USDC Base L2 + ERC-4337 + TitheRouter 10% + warifu**（最初から fiat 非前提） |
+| Identity | path-based multi-DID（`did:web:tsukuru…` + 460 factory DID, etzhayyim） | did:web + factory DID（etzhayyim 改名後） |
+| Build/deploy | `etzhayyim build` / `etzhayyim deploy` | `kotoba/deploy.sh`（KOTOBA_URL/TOKEN） |
+| Naming | `etzhayyim:tsukuru@*` WIT × 5、`etzhayyim-project-tsukuru` | `etzhayyim:tsukuru@*`、`etzhayyim-project-tsukuru` |
+| WIT/BPMN | etzhayyim WIT 5 pkg + CNT BPMN 12 flow + CNT process catalog | lex/.edn（need/order/production/qc/settlement）+ cells |
 
 ## 2. 移行フェーズ
 
@@ -78,16 +78,16 @@ progress/quality/settlement 5 lex）を landed、全 12 EDN paren-balanced。残
 
 1. `kotoba/schema.edn` 定義: `:factory/*` `:production-order/{id,mode,status,factory,member}`
    `:progress/*` `:quality/*` を EAVT で。SHA/DID bridge は kotoba-git パターン参照。
-2. `kotoba/ingest_factories.py`: 460+ factory DID（gftd 旧 collection
+2. `kotoba/ingest_factories.py`: 460+ factory DID（etzhayyim 旧 collection
    `com.etzhayyim.apps.tsukuru-api.manufacturer` の read-compat 含む）→ kotoba Datom へ ingest。
 3. **Cypher `MATCH (o:ProductionOrder)…` → kotoba-kqe Datalog query へ全面置換**。`G()` builder 撤去。
-4. `kotoba/deploy.sh`（okaimono のコピー）。`gftd build/deploy` を廃止。
+4. `kotoba/deploy.sh`（okaimono のコピー）。`etzhayyim build/deploy` を廃止。
 
 **完了基準**: production-order の CRUD・進捗・QC が kotoba Datom 上で round-trip。RisingWave 参照ゼロ。
 → **達成 (2026-06-02)**: `kotoba/schema.edn`（`:factory/* :production-order/* :progress/* :quality/*
 :settlement/* :sbt/*`、40 attr）+ `seed.edn`（3 factory + BTO worked example、EDN balanced）+
 `ingest_mcp.py` / `ingest_factories.py`（460-DID live projection は G11/G15-gated stub）+ `deploy.sh`
-（`gftd build/deploy` 置換）。`tsukuru/` が `manifest.edn`+`kotoba/`+`cells/`+`lex/` 完備 = **Gen-3 構造完成**。
+（`etzhayyim build/deploy` 置換）。`tsukuru/` が `manifest.edn`+`kotoba/`+`cells/`+`lex/` 完備 = **Gen-3 構造完成**。
 
 ### Phase 4 — Murakumo + 支払い — ✅ LANDED 2026-06-02 (R0)
 
@@ -101,18 +101,18 @@ SBT eligibility/G16 compliance gate/G17 progress-datom/G15 member-sig）+ `test_
    `k8s-langserver` / `agent.chat` / T1 tier 撤去。
 2. **決済は最初から USDC Base L2 + ERC-4337 + TitheRouter のみ**。Stripe/fiat は etzhayyim
    では憲法的に非存在（Substrate boundary）— ADR-2605202800 に残る「Stripe Issuing → ERC-4337」
-   という *migration 前提の記述自体が gftd 期の名残*であり、移行ではなく **legacy 記述の削除**
+   という *migration 前提の記述自体が etzhayyim 期の名残*であり、移行ではなく **legacy 記述の削除**
    として扱う。発注決済は member passkey/smart-account 署名（no-server-key G15）+ 10% tithe auto-split。
 3. okaimono `create-production-order` 連携を Gen-3 契約（kotoba Datom + USDC settle）で再配線。
 
 ### Phase 5 — 命名 cutover（P0b wave に同期） — 📋 RUNBOOK 準備済 / 実行は登記ゲート
 
-> runbook: `20-actors/tsukuru/MIGRATION-NOTES.md`（gftd→etzhayyim WIT 5 本・app/contract paths・
+> runbook: `20-actors/tsukuru/MIGRATION-NOTES.md`（etzhayyim→etzhayyim WIT 5 本・app/contract paths・
 > build/deploy・AT collections・decommission・acceptance を列挙）。**実行は magatama atomic wave
 > の単一 PR**（法人登記後）。部分実行禁止（CLAUDE.md §Do Not）。下記は項目登録のみ。
 
-1. `gftd:tsukuru*@*` WIT 5 pkg → `etzhayyim:tsukuru*@*`。
-2. `60-apps/ai-gftd-project-tsukuru/` → `60-apps/etzhayyim-project-tsukuru/`、
+1. `etzhayyim:tsukuru*@*` WIT 5 pkg → `etzhayyim:tsukuru*@*`。
+2. `60-apps/etzhayyim-project-tsukuru/` → `60-apps/etzhayyim-project-tsukuru/`、
    `00-contracts/**/com/etzhayyim/tsukuru/` → `com/etzhayyim/tsukuru/`。
 3. nanoid `tsukr8u0` ホスト・`0ljdfw8u` deprecated 整理。root CLAUDE.md Tier-B roster に正式登録。
 

@@ -14,7 +14,7 @@ authoritative_for:
   - client facing endpoint の決定木
 related:
   - adr-2604231811-atproto-extension-service-layers
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2604231821-atproto-oauth-wire-format-snake-case
   - adr-2604240914-oauth-rs-binding-revocation-introspection
   - adr-0022-auth-topology-consolidation
@@ -74,13 +74,13 @@ install / wrangler deploy / DNS route まだ未実行**。現状:
 
 ### D. Internal trust plane が多重化
 
-`x-gftd-authenticated-did` が viewer DID の forwarding メディア。受け手の
+`x-etzhayyim-authenticated-did` が viewer DID の forwarding メディア。受け手の
 検証ロジックが Worker ごとに微妙に違う:
 
 | Worker | 検証方法 | 出典 |
 |---|---|---|
 | yoro (旧 AppView) | hostname が `yoro.etzhayyim.com` なら **drop** | `app.ts:172-183` (削除済) |
-| bsky (新 AppView) | `x-gftd-internal-trust` shared secret 一致時のみ受理 | `handlers/appview.ts:35-52` |
+| bsky (新 AppView) | `x-etzhayyim-internal-trust` shared secret 一致時のみ受理 | `handlers/appview.ts:35-52` |
 | PDS 内部 (service binding) | `x-magatama-verified=true` かつ binding 存在 | `auth/verify.ts:472-493` |
 | BPMN dispatcher | `x-internal-trust` (別 header!) | `dispatch.ts:408-411` |
 
@@ -114,8 +114,8 @@ yoro browser code:
 - `@etzhayyim/wproto` AtpAgent は `atproto.etzhayyim.com` に固定で話す
 - SSR load() は `PDS_SERVICE` binding 経由で PDS に話す (internal)
 - Bot snapshot renderer は `PDS_SERVICE` binding 経由で PDS に話す (internal)
-- gftd CLI は `atproto.etzhayyim.com` に public HTTP で話す
-- Claude Code chat agent は `atproto.etzhayyim.com` に public HTTP で話す (+ `gftd agent-token`)
+- etzhayyim CLI は `atproto.etzhayyim.com` に public HTTP で話す
+- Claude Code chat agent は `atproto.etzhayyim.com` に public HTTP で話す (+ `etzhayyim agent-token`)
 
 路線自体は統一できているが、**atproto.etzhayyim.com に全部押しつけ**ており、PDS
 過負荷 (C) + PDS ロジック肥大 (A) を加速する構造。
@@ -134,7 +134,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
 3. **NSID prefix routing は表駆動** — `dispatch.ts` の if 連鎖を `ROUTING_TABLE`
    配列に畳み、コードは table lookup のみ
 4. **Internal trust = 1 header + 1 verification** — 全 downstream Worker が
-   同じ `x-gftd-internal-trust` HMAC header を同じ方式で検証
+   同じ `x-etzhayyim-internal-trust` HMAC header を同じ方式で検証
 5. **DID normalization は graph 側で 1 回** — profile / stats MV は root に
    正規化、post / record は raw を保持。frontend + middle tier は 正規化
    しない
@@ -195,7 +195,7 @@ PDS + yoro + AppView の境界を **Worker = 1 layer = 1 namespace** の原則�
 | **signal.etzhayyim.com** | Key Directory | 11 | `com.etzhayyim.signal.*` | `vertex_signal_prekey` | 同左 |
 | **vault.etzhayyim.com** | Secret Vault | 12 | `com.etzhayyim.vault.*` | D1 ciphertext only | 同左 |
 | **plc.etzhayyim.com** | DID Directory (plc) | 14 | `com.atproto.identity.resolveDid` (plc) + `com.etzhayyim.plc.*` | D1 plc operation log | 同左 |
-| **did.etzhayyim.com** | DID Directory (gftd) | 14 | `com.etzhayyim.identity.*` (gftd method) | `vertex_gftd_identity` | 同左 |
+| **did.etzhayyim.com** | DID Directory (etzhayyim) | 14 | `com.etzhayyim.identity.*` (etzhayyim method) | `vertex_etzhayyim_identity` | 同左 |
 | **authn.etzhayyim.com** | Entryway AuthN | 4 | `/oauth/token` / `/sign-in` / `com.etzhayyim.auth.*` | session JWT / passkey / did doc | `AUTH_DB` D1 |
 | **authz.etzhayyim.com** | Entryway AuthZ | 4 | `/manage` / `com.etzhayyim.authz.*` | api_key / linked method / org | `AUTH_DB` D1 + graph org tables |
 | **murakumo.etzhayyim.com** | Inference Fleet | 13 | `com.etzhayyim.apps.murakumo.*` | inference log | cluster meta |
@@ -273,9 +273,9 @@ viewer DID の Worker 間 forwarding は **1 方式に統一**:
 PDS が downstream に出す 3 header:
 
 ```
-x-gftd-viewer-did:       did:web:alice.etzhayyim.com
-x-gftd-viewer-issued-at: 1745712345
-x-gftd-viewer-signature: <HMAC-SHA256(APPVIEW_INTERNAL_SECRET, "did|issued-at")>
+x-etzhayyim-viewer-did:       did:web:alice.etzhayyim.com
+x-etzhayyim-viewer-issued-at: 1745712345
+x-etzhayyim-viewer-signature: <HMAC-SHA256(APPVIEW_INTERNAL_SECRET, "did|issued-at")>
 ```
 
 downstream Worker:
@@ -372,7 +372,7 @@ entry 1 つ)。key rotation は Secrets Store の update + Worker 再 deploy で
 
 ### Phase α — Stop the bleeding (即時、operational) ✅ landed 2026-04-24/25
 
-- α1: **bsky.etzhayyim.com 実デプロイ** (`wrangler deploy` on `ai-gftd-appview`)
+- α1: **bsky.etzhayyim.com 実デプロイ** (`wrangler deploy` on `etzhayyim-appview`)
   ✅ live at version `d085c7bf`. smoke `sh1n5h1x.etzhayyim.com postsCount=1476`.
   Initial deploy `132f93d5` exposed the RW parameterized-LIMIT incompat
   → second-stage fix `4c059628` (β2 lesson, see below).
@@ -417,7 +417,7 @@ than a single `wrangler deploy` command.
 | Artifact | Path | Role |
 |---|---|---|
 | Runbook | `90-docs/260424-legacy-trust-headers-cutover-runbook.md` | Declares the flip (`LEGACY_TRUST_HEADERS: on → off`), the 3 gates, the rollback, and the 14-day post-flip window. Ephemeral — deleted at cleanup. |
-| Observation probe (script) | `70-tools/scripts/legacy-trust-tally-probe.sh` | 60s `wrangler tail` sample of `ai-gftd-appview` Worker, counts `[trust][legacy] hit ... matched=true\|false`, appends one row per day to `90-docs/260424-legacy-trust-tally.log`. |
+| Observation probe (script) | `70-tools/scripts/legacy-trust-tally-probe.sh` | 60s `wrangler tail` sample of `etzhayyim-appview` Worker, counts `[trust][legacy] hit ... matched=true\|false`, appends one row per day to `90-docs/260424-legacy-trust-tally.log`. |
 | Observation scheduler | `50-infra/launchd/com.etzhayyim.legacy-trust-tally.plist` | macOS LaunchAgent firing the probe daily at 09:17 local. Chosen over Claude's `/schedule` because the γ2 gate spans 14 days and Claude's runtime caps scheduled tasks at 7d. |
 | Preflight validator | (not needed for γ2; see γ siblings) | The γ2 flip has a single binary gate (0 hits for 14d). The sibling strict-mode cutover has one: `50-infra/cloudflare/workers/atproto/scripts/oauth-strict-mode-preflight.sh`. |
 | Pre-written cleanup script | `70-tools/scripts/cleanup-legacy-trust-headers.sh` | DRY_RUN-capable. On the T+14d cleanup day: drops `LEGACY_TRUST_HEADERS` env var from 4 wranglers, removes the `emitLegacy` branch from `dispatch.ts`, simplifies `trustedViewerDid()` in the AppView to HMAC-only. One invocation produces the commit-ready diff. |
@@ -447,7 +447,7 @@ RisingWave directly — the first deploy will almost always expose a
 PG-vs-RW parse-incompatibility that has to be fixed before the
 topology is actually live.
 
-The ai-gftd-appview rollout that covered this ADR's Phase 3 split
+The etzhayyim-appview rollout that covered this ADR's Phase 3 split
 shipped in two passes on 2026-04-24:
 
 1. **Initial deploy** (version `132f93d5`) — route claimed,
@@ -492,7 +492,7 @@ grep for this pattern before declaring the Phase green.
 
 ### Phase ζ — DID Doc service[] 完全同期
 
-- ζ1: `gftd dns-sync` の副作用として DID Doc publisher を追加
+- ζ1: `etzhayyim dns-sync` の副作用として DID Doc publisher を追加
 - ζ2: 全 user / actor DID Doc を一斉更新 (service 配列 3 entry)
 - ζ3: DID Doc validation test
 
@@ -532,7 +532,7 @@ grep for this pattern before declaring the Phase green.
 
 - Worker 数の最小化 (Shannon 最小 η を追求しない — responsibility 分離優先)
 - RisingWave graph schema 変更 (別 ADR、別 topology)
-- gftd CLI の `atproto.etzhayyim.com` 以外への直結化 (client simplification 優先)
+- etzhayyim CLI の `atproto.etzhayyim.com` 以外への直結化 (client simplification 優先)
 - DPoP nonce の RS 側以外への拡大 (ADR-2604240914 が locus)
 - Actor Worker の public route 化 (internal のまま、PDS pipethrough 維持)
 
@@ -590,5 +590,5 @@ grep for this pattern before declaring the Phase green.
 - `50-infra/cloudflare/workers/atproto/src/dispatch.ts` — A/B/C の根拠
 - `50-infra/cloudflare/workers/atproto/src/auth/verify.ts:472-493` — D の根拠
 - `30-graph/graph-schema/migrations/0015_actor_social_stats_mv.ts:36` — E の根拠 (raw repo GROUP BY)
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/routes/profile/[handle]/AgentProfile.svelte:460` — E の user-facing 表面
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/routes/profile/[handle]/AgentProfile.svelte:460` — E の user-facing 表面
 - 2026-04-24 観測 post: `at://did:web:sh1n5h1x.etzhayyim.com:shigeo-kageyama-mob-psycho-100/app.bsky.feed.post/3mk7ebsxqdg2x`

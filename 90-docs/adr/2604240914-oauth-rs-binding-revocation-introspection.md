@@ -68,7 +68,7 @@ ADR-2604231821 S2 で access_token TTL を 900s (15 min) に短縮したが、
 
 ### X3. 他 Worker から token 状態を確認できない
 
-内部 Worker (yoro Client App / AppView / gftd CLI 経由の Agent tool) が
+内部 Worker (yoro Client App / AppView / etzhayyim CLI 経由の Agent tool) が
 "この access_token は有効か / どの DID の / どの scope / expired か" を
 問い合わせる標準手段がない。現状は JWT を自力 decode して `exp` を見ている
 が、revocation status は取れない。
@@ -104,7 +104,7 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 1. atproto.etzhayyim.com に `POST /oauth/revoke` を追加
 2. form body: `token` (必須), `token_type_hint` (`access_token` / `refresh_token`, optional)
 3. authn Worker に委譲 — access_jwt / refresh_jwt を jti ベースの blacklist
-   (`vertex_gftd_key_revoked_session` D1 table, 既存) に追加
+   (`vertex_etzhayyim_key_revoked_session` D1 table, 既存) に追加
 4. revoked token の再利用: RS 側 verify で blacklist lookup → `401 invalid_token`
 5. spec 要件を満たす応答:
    - 成功: `200` (body なし)
@@ -116,7 +116,7 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 ## Y3. `/oauth/introspect` endpoint (RFC 7662)
 
 1. atproto.etzhayyim.com に `POST /oauth/introspect` を追加
-2. confidential client 専用: `Authorization: Bearer <sk_live_*>` で `gftd`
+2. confidential client 専用: `Authorization: Bearer <sk_live_*>` で `etzhayyim`
    internal API key 認証 (ADR-0022 L0)。public client は 403 で reject
 3. form body: `token` (必須), `token_type_hint` (optional)
 4. response (RFC 7662 §2.2):
@@ -143,7 +143,7 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 | 層 | 所在 | 呼出元 |
 |---|---|---|
 | DPoP verify (RS) | atproto Worker middleware (`src/auth.ts`) | 全 `/xrpc/*` |
-| revocation blacklist | authn Worker D1 (`vertex_gftd_key_revoked_session`) | atproto `/oauth/revoke`, atproto RS verify |
+| revocation blacklist | authn Worker D1 (`vertex_etzhayyim_key_revoked_session`) | atproto `/oauth/revoke`, atproto RS verify |
 | introspection | atproto Worker `/oauth/introspect` → authn service binding で token metadata 取得 | 内部 Worker, confidential 3rd party |
 | nonce cache | `50-infra/cloudflare/workers/atproto/src/auth/scope.ts:_dpopNonceCache` | atproto AS + RS 共通 |
 
@@ -202,7 +202,7 @@ access/refresh token の metadata (active / scope / sub / exp / jkt / iss) を
 - `POST /oauth/revoke` を atproto Worker に追加
   (`50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts`)
 - authn Worker に service binding で委譲:
-  - authn に `POST /rpc/revoke-token` を追加 → D1 `vertex_gftd_key_revoked_session`
+  - authn に `POST /rpc/revoke-token` を追加 → D1 `vertex_etzhayyim_key_revoked_session`
     に `(jti, revoked_at, token_type, subject_did)` を INSERT
 - auth spec 要件: 成功 + unknown token は同じ `200` レスポンス
 
@@ -331,7 +331,7 @@ RFC 8414 §2 準拠。ADR-2604231821 の AS metadata に加えて 4 field 追加
 - 内部 Worker-to-Worker auth (Service Auth JWT L1) の変更 — 対象外
 - AT Protocol federation ingress auth (did:plc 外部 PDS からの読み) の RS 側
   改変 — 対象外 (`/xrpc/com.atproto.sync.*` は本 ADR 外)
-- Session JWT (HS256) の廃止 — `gftd authn signin` flow は独立
+- Session JWT (HS256) の廃止 — `etzhayyim authn signin` flow は独立
 - DPoP nonce の persistence (KV / DO) — in-memory で十分、将来 scale out 時に follow-up
 - `authorization_details` (RFC 9396 Rich Authorization Requests) の採用
 - FAPI 2.0 profile 全面対応 — 選択的に DPoP binding + PKCE S256 + PAR のみ採用済
@@ -361,5 +361,5 @@ RFC 8414 §2 準拠。ADR-2604231821 の AS metadata に加えて 4 field 追加
 - `50-infra/cloudflare/workers/atproto/src/auth/dpop.ts` — DPoP verify (既存)
 - `50-infra/cloudflare/workers/atproto/src/auth/scope.ts` — `_dpopNonceCache` (AS/RS 共用)
 - `50-infra/cloudflare/workers/atproto/src/handlers/oauth.ts` — Y2 / Y3 endpoint 追加対象
-- `60-apps/ai-gftd-project-auth/worker/src-ts/session.ts` — `cnf` claim issue (Y1 A2)
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts` — `/rpc/revoke-token` 追加 (Y2 B1)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/session.ts` — `cnf` claim issue (Y1 A2)
+- `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts` — `/rpc/revoke-token` 追加 (Y2 B1)

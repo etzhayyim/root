@@ -1,6 +1,6 @@
 ---
 id: adr-2604251210-credential-sharing-vault-bitwarden
-title: "ADR: Credential sharing via gftd Vault (primary) + Bitwarden (auxiliary)"
+title: "ADR: Credential sharing via etzhayyim Vault (primary) + Bitwarden (auxiliary)"
 status: active
 doc_type: adr
 topic: credential-sharing
@@ -26,27 +26,27 @@ Connector の組織キーは、Slack/Teams 添付や Notion 平文化が常態�
 
 # Decision
 
-## D1. Primary = gftd Vault (`vault.etzhayyim.com`)
+## D1. Primary = etzhayyim Vault (`vault.etzhayyim.com`)
 
-メンバー間共有 credential は **gftd Vault** に保存する。Zero-knowledge
+メンバー間共有 credential は **etzhayyim Vault** に保存する。Zero-knowledge
 invariant (ADR-2604251200) により server breach 耐性を確保。
 
-- 個人 Claude Connector キーは `gftd-claude-connector` フォルダに保存
+- 個人 Claude Connector キーは `etzhayyim-claude-connector` フォルダに保存
 - Anthropic / OpenAI / SaaS API key は項目別に share 設定 (per-member ECIES)
-- CLI: `gftd vault add` / `gftd vault share` / `gftd vault run`
+- CLI: `etzhayyim vault add` / `etzhayyim vault share` / `etzhayyim vault run`
 
 ## D2. Auxiliary = Bitwarden
 
 外部 SaaS の login credential (browser password / 2FA seed 等) は Bitwarden
 Vault を補助利用。Claude Code MCP integration:
 - server: `bitwarden` (`@bitwarden/mcp-server`, stdio transport)
-- session: `BW_SESSION` を `gftd.bitwarden` Keychain entry から取得
+- session: `BW_SESSION` を `etzhayyim.bitwarden` Keychain entry から取得
 
 ## D3. Claude.ai org connector
 
 - URL: `https://mcp.etzhayyim.com/mcp`
 - 組織共有キー (`sk_live_org_*`) は org connector 設定済み
-- 個人キーは gftd Vault `gftd-claude-connector` フォルダ参照
+- 個人キーは etzhayyim Vault `etzhayyim-claude-connector` フォルダ参照
 
 ## D4. Forbidden channels
 
@@ -67,13 +67,13 @@ Vault を補助利用。Claude Code MCP integration:
 - **AWS Secrets Manager / GCP Secret Manager**: 管理者のみ復号可、zero-
   knowledge ではないため最終的に server breach で全件流出する。却下。
 - **Bitwarden を primary に昇格**: org plan は per-seat 課金 + audit log は
-  Enterprise tier 限定。zero-knowledge は満たすが gftd Vault の AT Protocol
+  Enterprise tier 限定。zero-knowledge は満たすが etzhayyim Vault の AT Protocol
   native integration (ECIES via `com.etzhayyim.signal.getPrekeyBundle`) を捨てる
   ことになるため、auxiliary に留める。
 
 # References
 
-- `60-apps/ai-gftd-project-vault/CLAUDE.md`
+- `60-apps/etzhayyim-project-vault/CLAUDE.md`
 - ADR-2604251200 (Vault Zero-Knowledge Invariant)
 - ADR-2604251205 (Local Secret Storage)
 - Bitwarden MCP: `@bitwarden/mcp-server`

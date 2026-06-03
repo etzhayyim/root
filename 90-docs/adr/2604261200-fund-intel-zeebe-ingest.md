@@ -12,7 +12,7 @@ authoritative_for:
 related:
   - 90-docs/260425-ingest-orchestration-zeebe-python-k8s-mcp-design.md
   - adr-2604271200
-  - 60-apps/ai-gftd-project-ma/magatama.toml
+  - 60-apps/etzhayyim-project-ma/magatama.toml
   - 90-docs/adr/0094-risingwave-stable-three-node-topology.md
   - 30-graph/graph-schema/migrations/20260416134500_fund_graph_spine_and_coverage.ts
 supersedes: []

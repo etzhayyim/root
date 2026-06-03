@@ -234,7 +234,7 @@ LangGraph の `@tool` は **既存の generic primitive を呼ぶシン**とし�
 | 1 | `generic.langgraph.run` の primitive 仕様確定 (input/output schema, state ref scheme) | ADR review pass |
 | 2 | pyzeebe worker に `langgraph_run` handler 追加。`zeebe-worker` image rebuild | integration test green (1 graph, 1 hop, audit emit) |
 | 3 | `langgraph-state-redis` Deployment + Service 追加 (1 replica, 256 Mi, TTL 24 h) | ping OK / state round-trip OK |
-| 4 | `vertex_langgraph_def` table migration (RisingWave schema 追加) | `gftd graph migrate` clean |
+| 4 | `vertex_langgraph_def` table migration (RisingWave schema 追加) | `etzhayyim graph migrate` clean |
 | 5 | PoC 1 actor: yoro autonomy loop (ADR-0046) を BPMN + LangGraph に移植 | 24 h soak + audit consistent |
 | 6 | η 実測 (tool call latency p50/p95, trace completeness, cost / 1k loops) | C の 0.89 検証 ± 0.05 以内 |
 | 7 | `[[migrations]] agentic-actor-to-bpmn-langgraph` 横展開 | candidate actor list 確定 |
