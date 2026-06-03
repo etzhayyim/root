@@ -3,7 +3,7 @@
 
   let { ctx }: { ctx: ActorContext } = $props();
 
-  const CMD = 'gftd.kami.v1.KamiRoyaleCommandService';
+  const CMD = 'etzhayyim.kami.v1.KamiRoyaleCommandService';
 
   // ── State ──
   let selectedChar = $state(0);

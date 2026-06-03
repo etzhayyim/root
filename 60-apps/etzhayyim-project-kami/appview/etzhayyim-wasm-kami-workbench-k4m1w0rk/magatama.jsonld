@@ -14,7 +14,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-kami-workbench agent. Kami — AI Agent for game-engine intelligence and analytics. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-kami-workbench agent. Kami — AI Agent for game-engine intelligence and analytics. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -28,7 +28,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kami-workbench",
+  "name": "etzhayyim-wasm-kami-workbench",
   "nanoid": "k4m1w0rk",
   "performerType": "service",
   "pool": {},
@@ -41,7 +41,7 @@
     "description": "Kami — AI Agent for game-engine intelligence and analytics",
     "displayName": "Kami",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kami",
   "routes": [

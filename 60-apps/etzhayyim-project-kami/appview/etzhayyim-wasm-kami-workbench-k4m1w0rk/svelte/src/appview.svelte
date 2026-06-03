@@ -3,8 +3,8 @@
 
   let { ctx }: { ctx: ActorContext } = $props();
 
-  const CMD = 'gftd.kami.v1.KamiCommandService';
-  const QRY = 'gftd.kami.v1.KamiQueryService';
+  const CMD = 'etzhayyim.kami.v1.KamiCommandService';
+  const QRY = 'etzhayyim.kami.v1.KamiQueryService';
 
   // ── Types ──
   interface Island {

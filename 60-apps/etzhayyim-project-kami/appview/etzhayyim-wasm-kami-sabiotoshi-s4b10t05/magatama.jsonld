@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.co.jp/ns/magatama",
+  "@context": "https://etzhayyim.co.jp/ns/magatama",
   "category": "game",
   "convoSystemPrompt": "You are kami-sabiotoshi agent. Sabi-Otoshi!! High-pressure wash game. Blast rust off vintage items to restore them! Pikapika ni shite ne! Respond helpfully in the users language.",
   "description": "Sabi-Otoshi!! — High-pressure wash rust off vintage tools, keys, gears and gadgets to restore them to gleaming glory",
@@ -44,7 +44,7 @@
     "description": "High-pressure rust blasting game! Spray away years of corrosion from vintage tools, keys, gears and gadgets. Combo sprays for max score! Pikapika ni shite ne!",
     "displayName": "Sabi-Otoshi!!",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "routes": [
     {

@@ -2,30 +2,30 @@
 
 ## 目的
 
-`ai-gftd-project-umu` で `ops.etzhayyim.com` 系 WIT（現行は `gftd:platform/gftd-mcp@0.1.0`）を基準に、
+`etzhayyim-project-umu` で `ops.etzhayyim.com` 系 WIT（現行は `etzhayyim:platform/etzhayyim-mcp@0.1.0`）を基準に、
 以下の一連フローを標準化する。
 
 1. UMU でプロジェクト作成
 2. ゲーム開発（Godot Web Export）
-3. `ai-gftd-project-games` へ配信
+3. `etzhayyim-project-games` へ配信
 
 ## スコープ
 
 - `umu.etzhayyim.com`: 企画/作成/開発のハブ
 - `ops.etzhayyim.com`: MCP/WIT 契約でのオーケストレーション境界
-- `games.etzhayyim.com` (`ai-gftd-project-games`): 公開配信面
+- `games.etzhayyim.com` (`etzhayyim-project-games`): 公開配信面
 
 ## 依存ルール
 
 - WADM `Application` namespace は `magatama-runtime`（`default` 禁止）
 - App system 資源は `magatama-system`
-- HTTPRoute は `ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`
+- HTTPRoute は `etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4`
 - 画像 push は `ghcr.io/etzhayyim/*`
 - deploy は `mage Deploy` を利用
 
 ## WIT 契約設計
 
-UMU 側 world は現行どおり `gftd:platform/gftd-mcp@0.1.0` を include し、
+UMU 側 world は現行どおり `etzhayyim:platform/etzhayyim-mcp@0.1.0` を include し、
 OPS 連携は次の logical contract として扱う（段階導入）。
 
 - `project-lifecycle`:
@@ -38,8 +38,8 @@ OPS 連携は次の logical contract として扱う（段階導入）。
   - `publish-to-games(project-id, target-channel) -> release-id`
   - `get-release-status(release-id) -> status`
 
-実体は当面 `gftd:platform/gftd-mcp@0.1.0` 経由で MCP ツール呼び出しにマップし、
-将来 `gftd:ops/*` パッケージへ切り出す。
+実体は当面 `etzhayyim:platform/etzhayyim-mcp@0.1.0` 経由で MCP ツール呼び出しにマップし、
+将来 `etzhayyim:ops/*` パッケージへ切り出す。
 
 ## E2E フロー設計
 
@@ -53,7 +53,7 @@ OPS 連携は次の logical contract として扱う（段階導入）。
   - `owner`
   - `visibility`
 - 永続化:
-  - `games/<slug>/gftd-discovery.yaml`（運用メタ）
+  - `games/<slug>/etzhayyim-discovery.yaml`（運用メタ）
   - `wasi:keyvalue/store`（編集中の状態、進行状態）
 - 状態遷移:
   - `draft` -> `in-development`
@@ -82,14 +82,14 @@ OPS 連携は次の logical contract として扱う（段階導入）。
   - `asset-checksums.txt`
   - `delivery-report.json`
 
-### 4) `ai-gftd-project-games` への配信
+### 4) `etzhayyim-project-games` への配信
 
 - 配信先（標準）:
-  - ゲーム資産: `60-apps/ai-gftd-project-games/games/ai-gftd-games/games/<slug>/`
-  - 静的配信資産: `60-apps/ai-gftd-project-games/wasm/games-7m8oocsn/static/games/<slug>/`
+  - ゲーム資産: `60-apps/etzhayyim-project-games/games/etzhayyim-games/games/<slug>/`
+  - 静的配信資産: `60-apps/etzhayyim-project-games/wasm/games-7m8oocsn/static/games/<slug>/`
   - カタログ登録: `PROJECT.jsonld`（または同等メタ管理）
 - 配信後:
-  - `WADM_MANIFEST=60-apps/ai-gftd-project-games/wasm/games-7m8oocsn/wadm/games-static.wadm.yaml mage Deploy`
+  - `WADM_MANIFEST=60-apps/etzhayyim-project-games/wasm/games-7m8oocsn/wadm/games-static.wadm.yaml mage Deploy`
   - `kubectl get mga -n magatama-runtime` と `/_app/version.json` の疎通確認
 - 状態遷移:
   - `ready-for-release` -> `published`
@@ -103,7 +103,7 @@ OPS 連携は次の logical contract として扱う（段階導入）。
 ## 最小実装ステップ
 
 1. UMU: project state モデル（`draft` から `published`）を keyvalue で確立
-2. UMU: `gftd-discovery.yaml` 生成を project 作成時に自動化
+2. UMU: `etzhayyim-discovery.yaml` 生成を project 作成時に自動化
 3. OPS 連携: `publish-to-games` 相当の MCP 呼び出しを追加
 4. GAMES: `<slug>` 配下の資産配置とカタログ更新を自動化
 5. Deploy: `mage Deploy` + ヘルスチェックを CI に固定

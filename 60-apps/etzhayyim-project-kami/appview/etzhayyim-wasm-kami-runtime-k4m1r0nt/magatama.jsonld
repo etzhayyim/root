@@ -4,7 +4,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-kami-runtime agent. . Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-kami-runtime agent. . Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
   ],
@@ -18,7 +18,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kami-runtime",
+  "name": "etzhayyim-wasm-kami-runtime",
   "nanoid": "k4m1r0nt",
   "performerType": "service",
   "pool": {},
@@ -31,7 +31,7 @@
     "description": "KAMI — AI Agent for game engine",
     "displayName": "AI Gftd Wasm Kami Runtime",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kami-rt",
   "routes": [

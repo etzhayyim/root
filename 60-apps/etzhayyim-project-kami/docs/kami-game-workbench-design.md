@@ -42,7 +42,7 @@ KAMI Workbench (kami.etzhayyim.com)
 
 ```
 Godot Node (client-side)
-  ↕ gftd_bridge addon (C1: Wasm↔JS)
+  ↕ etzhayyim_bridge addon (C1: Wasm↔JS)
     ↕ W Protocol (yata-wrpc, 583µs)
       ↕ App Actor (server-side)
         ↕ W Protocol Event Stream (operational state)
@@ -388,10 +388,10 @@ Player connects to Island
   → kami-world: matchmaking → assign Island instance
     → kami-runtime: spawn PlayerActor (virtual-actor)
       → Godot client: instantiate player scene
-        → gftd_bridge: bind to server actor
+        → etzhayyim_bridge: bind to server actor
 
 Game loop (16ms tick):
-  Client → input events → gftd_bridge
+  Client → input events → etzhayyim_bridge
     → W Protocol (yata-wrpc) → kami-runtime
       → PlayerActor.invoke("move", {x, y, z})
         → WUpdate: update position
@@ -418,18 +418,18 @@ kami-world (k4m1w0ld)
 
 | Addon | ID | 用途 | 出典 |
 |---|---|---|---|
-| `gftd_bridge` | C1 | Wasm↔JS 通信 | 既存 (games) |
-| `gftd_social` | C5 | チャット, プレゼンス | 既存 (games) |
-| `gftd_leaderboard` | C6 | スコア, ランキング | 既存 (games) |
-| `gftd_economy` | C7 | 通貨, 取引 | 既存 (games) |
-| `gftd_engagement` | C8 | ログインボーナス, ミッション | 既存 (games) |
-| `gftd_inventory` | C9 | アイテム, スキン | 既存 (games) |
-| `gftd_gacha` | C10 | ガチャ | 既存 (games) |
-| `gftd_energy` | C11 | スタミナ | 既存 (games) |
-| `gftd_telemetry` | C12 | テレメトリ | 既存 (games) |
-| **`gftd_world`** | **C13** | **Island 接続, Portal, マルチプレイ同期** | **KAMI 新規** |
-| **`gftd_actor`** | **C14** | **Actor binding (server-authoritative entities)** | **KAMI 新規** |
-| **`gftd_assethub`** | **C15** | **AssetHub runtime loader (CDN fetch + cache)** | **KAMI 新規** |
+| `etzhayyim_bridge` | C1 | Wasm↔JS 通信 | 既存 (games) |
+| `etzhayyim_social` | C5 | チャット, プレゼンス | 既存 (games) |
+| `etzhayyim_leaderboard` | C6 | スコア, ランキング | 既存 (games) |
+| `etzhayyim_economy` | C7 | 通貨, 取引 | 既存 (games) |
+| `etzhayyim_engagement` | C8 | ログインボーナス, ミッション | 既存 (games) |
+| `etzhayyim_inventory` | C9 | アイテム, スキン | 既存 (games) |
+| `etzhayyim_gacha` | C10 | ガチャ | 既存 (games) |
+| `etzhayyim_energy` | C11 | スタミナ | 既存 (games) |
+| `etzhayyim_telemetry` | C12 | テレメトリ | 既存 (games) |
+| **`etzhayyim_world`** | **C13** | **Island 接続, Portal, マルチプレイ同期** | **KAMI 新規** |
+| **`etzhayyim_actor`** | **C14** | **Actor binding (server-authoritative entities)** | **KAMI 新規** |
+| **`etzhayyim_assethub`** | **C15** | **AssetHub runtime loader (CDN fetch + cache)** | **KAMI 新規** |
 
 ## Publish Pipeline: KAMI → games.etzhayyim.com
 
@@ -459,10 +459,10 @@ kami-world (k4m1w0ld)
 
 ## WIT Extension (KAMI Domain)
 
-`60-apps/ai-gftd-project-kami/wit/` に配置:
+`60-apps/etzhayyim-project-kami/wit/` に配置:
 
 ```wit
-package gftd:kami@1.0.0;
+package etzhayyim:kami@1.0.0;
 
 /// Island management for KAMI World.
 interface island {
@@ -521,7 +521,7 @@ interface asset-bridge {
 
 ## Migration: umu → kami
 
-1. `ai-gftd-project-umu` の docs, games, wasm を `ai-gftd-project-kami` に統合
+1. `etzhayyim-project-umu` の docs, games, wasm を `etzhayyim-project-kami` に統合
 2. 既存 kami actor-naming は `kami-workbench` の内部機能として吸収 (Island/Actor 命名)
 3. ドメイン: `umu.etzhayyim.com` → `kami.etzhayyim.com`
 4. games.etzhayyim.com は公開配信面として維持 (変更なし)

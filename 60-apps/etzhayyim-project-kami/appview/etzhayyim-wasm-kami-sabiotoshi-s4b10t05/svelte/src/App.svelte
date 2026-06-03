@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-kami-sabiotoshi-s4b10t05</h1>
+  <h1>etzhayyim-wasm-kami-sabiotoshi-s4b10t05</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

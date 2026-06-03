@@ -14,7 +14,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-kami-world agent. KAMI World Hub — shared world portal, matchmaking, multiplayer. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-kami-world agent. KAMI World Hub — shared world portal, matchmaking, multiplayer. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -28,7 +28,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kami-world",
+  "name": "etzhayyim-wasm-kami-world",
   "nanoid": "k4m1w0ld",
   "performerType": "service",
   "pool": {},
@@ -41,7 +41,7 @@
     "description": "KAMI World Hub — shared world portal, matchmaking, multiplayer",
     "displayName": "KAMI Worlds",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "worlds",
   "routes": [

@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.co.jp/ns/magatama",
+  "@context": "https://etzhayyim.co.jp/ns/magatama",
   "convoSystemPrompt": "You are kami-royale agent. Battle Royale game mode for KAMI Engine — 100-player last-one-standing with storm circles, building, ranked seasons. Respond helpfully in the users language.",
   "description": "KAMI Battle Royale — Fortnite-style 100-player ranked mode with storm circles, building, and seasonal MMR",
   "duties": [
@@ -37,7 +37,7 @@
     "description": "Battle Royale game mode for KAMI Engine — 100-player last-one-standing with storm circles, building, ranked seasons",
     "displayName": "KAMI Royale",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "runtimeType": "worker",
   "triggers": {
