@@ -22,7 +22,22 @@ DATOM t=1 ctrl :ctrl/command=0     # pv=20 -> OFF
 DATOM t=2 ctrl :ctrl/command=1     # pv=8  -> ON
 SCAN: committed_cycles=3 faulted=1 faulted_datoms=0 total_datoms=6
 KOTOBA-OS SCAN OK
+
+-- wasmi: running scan.wasm (a real core-wasm module) in-kernel --
+WASM DATOM t=0 ctrl :ctrl/command=1
+WASM DATOM t=1 ctrl :ctrl/command=0
+WASM DATOM t=2 ctrl :ctrl/command=1
+WASM: cycles=3 datoms=3 (interpreter=wasmi, in-unikernel)
+KOTOBA-OS WASM OK
 ```
+
+It also runs a **real core-wasm module (`scan.wat` → `scan.wasm`) under the wasmi
+interpreter INSIDE the unikernel**: wasmi loads + instantiates the module, the module
+imports host functions (`kotoba.read_input` / `kotoba.commit_command`) implemented in
+the kernel, and `scan` executes to produce Datoms via those host calls. (`_start`
+enables FP/SIMD at EL1 — `CPACR_EL1.FPEN` — which wasmi needs; the integer-only native
+scan did not.) This is the closest monorepo-side approximation of the production edge,
+which runs the full WASM **Component Model** via `kotoba-runtime` (`../../PORTING.md`).
 
 After boot it brings up a bump-allocator heap and **runs the kotoba-os scan-cycle
 model inside the unikernel**: each committed cycle is a Datom transaction, and the

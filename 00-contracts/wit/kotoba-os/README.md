@@ -36,7 +36,7 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 | —  | content addressing | `kotoba-os-types::cid` (real CIDv1 blake3 verify) | 6 rust |
 | —  | drift guard | `test_artifact_consistency.py` (WIT==schema==Rust) | 5 py |
 | —  | browser edge (L1c) | `kotoba-os-types` compiles to wasm32 (baien target) | run-all gate |
-| L1/L2 | unikernel boot + MMIO I/O + scan model | `boot-poc/` boots no_std aarch64 on QEMU virt, real PL011 UART, **runs the scan-cycle=Datom-transaction model + N3 in-unikernel** | 1 py |
+| L1/L2 | unikernel boot + MMIO + scan model + **WASM in-kernel** | `boot-poc/` boots no_std aarch64 on QEMU virt (real PL011 UART), runs the scan/N3 model AND a **real core-wasm module under the wasmi interpreter in-unikernel** (host calls → Datoms) | 1 py |
 
 ## What this is
 

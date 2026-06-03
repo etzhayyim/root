@@ -44,6 +44,11 @@ class BootPoc(unittest.TestCase):
         self.assertIn("KOTOBA-OS SCAN OK", out, msg=out[-2000:])
         self.assertIn("faulted_datoms=0 total_datoms=6", out)
         self.assertIn("DATOM t=2 ctrl :ctrl/command=1", out)
+        # a REAL core-wasm module runs under the wasmi interpreter IN-KERNEL,
+        # calling host funcs to produce Datoms.
+        self.assertIn("KOTOBA-OS WASM OK", out, msg=out[-2000:])
+        self.assertIn("interpreter=wasmi, in-unikernel", out)
+        self.assertIn("WASM DATOM t=2 ctrl :ctrl/command=1", out)
 
 
 if __name__ == "__main__":
