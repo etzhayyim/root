@@ -24,7 +24,7 @@ depends_on:
 related:
   - ADR-2605172100 (substrate client imports — `@etzhayyim/sdk` only)
   - ADR-2605182312 (murakumo-gemma4 local bring-up)
-  - 60-apps/ai-gftd-project-open-isco/rw-free/ (first reference impl)
+  - 60-apps/etzhayyim-project-open-isco/rw-free/ (first reference impl)
 supersedes: []
 superseded_by: []
 ---
@@ -37,9 +37,9 @@ superseded_by: []
 
 # Context
 
-ADR-2605171900 (yoro migration) copied yoro code to `etzhayyim/root/60-apps/ai-gftd-project-yoro/` at stages 1–2 (code + DNS placeholder). Stages 3–5 (AppView deployment, legacy redirect, vendor cleanup) are blocked because the copied code still depends on RisingWave via `atproto.etzhayyim.com PDS + Hyperdrive → RisingWave`, violating ADR-2605172000.
+ADR-2605171900 (yoro migration) copied yoro code to `etzhayyim/root/60-apps/etzhayyim-project-yoro/` at stages 1–2 (code + DNS placeholder). Stages 3–5 (AppView deployment, legacy redirect, vendor cleanup) are blocked because the copied code still depends on RisingWave via `atproto.etzhayyim.com PDS + Hyperdrive → RisingWave`, violating ADR-2605172000.
 
-Grep evidence (`60-apps/ai-gftd-project-yoro/CLAUDE.md`, 2026-05-19) — 14 RW touchpoints retained verbatim from upstream:
+Grep evidence (`60-apps/etzhayyim-project-yoro/CLAUDE.md`, 2026-05-19) — 14 RW touchpoints retained verbatim from upstream:
 
 - `kagami-store.svelte.ts` (`query()` / `loadLabel()` / `federatedQuery()` / `listAvailableLabels()` — all backed by RW via Hyperdrive)
 - 12 RisingWave Async MVs feeding event-driven dashboards
@@ -49,7 +49,7 @@ Grep evidence (`60-apps/ai-gftd-project-yoro/CLAUDE.md`, 2026-05-19) — 14 RW t
 
 Murakumo has two distinct RW dependencies:
 
-1. **`60-apps/ai-gftd-project-murakumo/`** (vendor-only, not yet migrated) — goose recipes INSERT into RW via `/Users/judah/.gftd/rw-url`; LiteLLM `vertex_inference_job` row writes; ansible distributes PG URL.
+1. **`60-apps/etzhayyim-project-murakumo/`** (vendor-only, not yet migrated) — goose recipes INSERT into RW via `/Users/judah/.etzhayyim/rw-url`; LiteLLM `vertex_inference_job` row writes; ansible distributes PG URL.
 2. **`50-infra/cloudflare/workers/murakumo/`** (vendor-only, not yet migrated) — `createKyselyDb(HYPERDRIVE)` + direct `vertex_inference_job` SQL inside Worker handlers.
 
 Additional vendor-only assets:
@@ -65,7 +65,7 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 
 ## Path-level rewrite map
 
-### yoro UI (`60-apps/ai-gftd-project-yoro/`)
+### yoro UI (`60-apps/etzhayyim-project-yoro/`)
 
 | Old (RW-backed)                            | New (`@etzhayyim/sdk`)                                                  |
 |---|---|
@@ -80,14 +80,14 @@ The five RW-dependent paths above are rewritten against AT MST + IPFS + Base L2,
 | RW operator JWT                            | `did:web:etzhayyim.com` + WebAuthn passkey, DID-bound (ADR-2605172000 §SDK) |
 | Server-side plaintext RW query             | Private records → `com.etzhayyim.encrypted.*` envelope (ADR-2605181100); public records → plaintext MST |
 
-### murakumo cluster (`60-apps/ai-gftd-project-murakumo/` — pending migration)
+### murakumo cluster (`60-apps/etzhayyim-project-murakumo/` — pending migration)
 
 | Old (RW-backed)                                        | New (`@etzhayyim/sdk`)                                                |
 |---|---|
 | goose recipe INSERT into `com.etzhayyim.yoro.platformDigest` | `e.write({ collection: 'com.etzhayyim.yoro.platformDigest', record })`      |
 | LiteLLM `vertex_inference_job` row write               | `e.write({ collection: 'com.etzhayyim.murakumo.inferenceJob', record })`; status updates as new records (event-sourced; no UPDATE) |
 | `vertex_repo_commit` MV                                | `mst-projector` derives commit log → CID-pinned JSON; referenced by MST record |
-| RW PG URL `/Users/judah/.gftd/rw-url`                  | Removed. No PG URL in secrets store.                                  |
+| RW PG URL `/Users/judah/.etzhayyim/rw-url`                  | Removed. No PG URL in secrets store.                                  |
 | ansible PG URL distribution                            | ansible distributes `@etzhayyim/sdk` config (PDS URL + DID + paymaster address) only |
 | persona-cron RW direct INSERT                          | persona-cron → `e.write(…)` → PDS commit; L2 anchor on next batch     |
 
@@ -124,7 +124,7 @@ No yoro / murakumo PR merges into `etzhayyim/root/main` unless it passes the sub
 
 1. No direct import of `@atproto/api`, `viem`, `kysely`, `@etzhayyim/magatama-host-sdk`, `pg`, `postgres`, `@signalapp/libsignal-client`, `@noble/ciphers` from app code.
 2. Only `@etzhayyim/sdk` and `@etzhayyim/sdk/encrypted` may appear as substrate-client imports.
-3. CI grep gate (future `lefthook` hook, see §Consequences): `grep -rE 'risingwave|hyperdrive|kysely|createKyselyDb' 60-apps/ ai-gftd-project-yoro 60-apps/ ai-gftd-project-murakumo 50-infra/cloudflare/workers/murakumo` returns empty.
+3. CI grep gate (future `lefthook` hook, see §Consequences): `grep -rE 'risingwave|hyperdrive|kysely|createKyselyDb' 60-apps/ etzhayyim-project-yoro 60-apps/ etzhayyim-project-murakumo 50-infra/cloudflare/workers/murakumo` returns empty.
 
 ## Ordering
 
@@ -180,7 +180,7 @@ Rejected. MST is the AT Protocol canonical state and already integrates with PDS
 - ADR-2605181100 (etzhayyim encrypted records — `com.etzhayyim.encrypted.*`)
 - ADR-2605191346 (Vultr-free + Murakumo Mac-mini Tier-1 fleet)
 - ADR-2605171800 (LangGraph Pregel → MST → IPFS → L2 anchor pipeline)
-- `60-apps/ai-gftd-project-open-isco/rw-free/` (first RW-free reference impl)
+- `60-apps/etzhayyim-project-open-isco/rw-free/` (first RW-free reference impl)
 - `20-actors/etzhayyim-sdk/README.md` (SDK API surface + hard rules)
 - `50-infra/mst-projector/` (MST → CID-pinned snapshot projector)
 - `50-infra/anchor-cron/` (Base L2 batched anchor)

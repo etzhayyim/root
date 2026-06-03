@@ -34,7 +34,7 @@ depends_on:
   - adr-2605192345-etzhayyim-steward-succession
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
   - 50-infra/murakumo/fleet.toml
 supersedes: []
 superseded_by: []
@@ -303,7 +303,7 @@ ADR-2605201700 §11 Open Question 1 で deferred。S4 で正式投入:
 | Patrol monitoring | Per-site 24/7 ambient monitoring (witness cluster の continuous coverage) |
 | Carry-load (~30 kg) | 部品配送 (Otete fleet が同時 build 中の補給) |
 
-Spec: open-robo Giemon Quad v1 — `60-apps/ai-gftd-project-open-robo/cad-spec/giemon-quad/SPEC.md` を別 ADR で authorize。発注 = S4 開始前提条件。
+Spec: open-robo Giemon Quad v1 — `60-apps/etzhayyim-project-open-robo/cad-spec/giemon-quad/SPEC.md` を別 ADR で authorize。発注 = S4 開始前提条件。
 
 S4 fleet target: **Otete 20 + Hitogata 6 + Mimi 24 + Quad 4 = 54 robots**。
 
@@ -479,4 +479,4 @@ S3 site (university) に additional utility (e.g., transportation / 5G) を続�
 - ADR-2605192345 (Steward Succession) — multi-generational continuity at Site B
 - ADR-2605192415 (Religious-corp daemon architecture) — Tier A/B/C scaling
 - `50-infra/murakumo/fleet.toml` — Tier B leader + replica config (S4 で更新必要)
-- `60-apps/ai-gftd-project-open-robo/CLAUDE.md` — Quad v1 別 ADR 発注予定
+- `60-apps/etzhayyim-project-open-robo/CLAUDE.md` — Quad v1 別 ADR 発注予定

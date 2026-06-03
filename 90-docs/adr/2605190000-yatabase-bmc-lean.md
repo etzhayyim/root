@@ -26,7 +26,7 @@ superseded_by:
 
 ## Context
 
-yatabase.etzhayyim.com は gftd platform の余剰能力 (B2 Bandwidth Alliance 実質ゼロ egress、RisingWave 共有クラスター、Murakumo 自己ホスト LLM) を **retail cloud product** として外部開発者に再販するプロダクトである。
+yatabase.etzhayyim.com は etzhayyim platform の余剰能力 (B2 Bandwidth Alliance 実質ゼロ egress、RisingWave 共有クラスター、Murakumo 自己ホスト LLM) を **retail cloud product** として外部開発者に再販するプロダクトである。
 
 | 項目 | 状態 |
 |---|---|
@@ -156,7 +156,7 @@ yatabase は他 3 製品を **支えるインフラ** (RisingWave per-tenant DB�
 │ • Neo4j AuraDB Free→$65/月  │   (目標: HN cron 経由 5+) │   (競合は egress コストで値引き不可) │
 │ • Hasura Cloud $99+/月       │                          │ • Murakumo 自己ホスト LLM          │
 │ • PlanetScale $0→$39         │ Month 1:                 │   (AI agent 運営コストほぼ $0)      │
-│ • 自前 Docker Compose        │   MRR / paid tenant 数   │ • gftd platform 既存インフラ共用    │
+│ • 自前 Docker Compose        │   MRR / paid tenant 数   │ • etzhayyim platform 既存インフラ共用    │
 │   (ops 負担重)               │   free→paid 転換率       │   (RisingWave shared $241/月は      │
 │                              │                          │   他製品と按分)                     │
 │                              │ Month 3:                 │ • AT Protocol DID mesh:            │
@@ -289,7 +289,7 @@ projector.create_project {
 
 1. **MCP listing 登録** (手動 ~2h): Cursor marketplace + Claude Desktop `/integrations` に yatabase を登録
 2. **H1 仮説 activate**: Studio → BMC admin pane で H1-cursor-mcp-listing を `active` に変更
-3. **Resend 接続**: `RESEND_API_KEY` を macOS Keychain `gftd.resend/RESEND_API_KEY` に追加 + Wrangler secret set
+3. **Resend 接続**: `RESEND_API_KEY` を macOS Keychain `etzhayyim.resend/RESEND_API_KEY` に追加 + Wrangler secret set
 4. **projector.create_project**: 上記 §7 の初期プロジェクトと 3 ブロッカーを登録
 
 ### トレードオフ
@@ -321,6 +321,6 @@ projector.create_project {
 - `70-tools/scripts/yatabase-smoke.mjs` — デプロイ後スモークテスト
 - `deps.toml [platform.products.yatabase]` — 製品 SSoT (pricing display, plan-quota, invoice)
 - `deps.toml [etzhayyim_agent.product_portfolio.yatabase]` — ポートフォリオ位置付け
-- `60-apps/ai-gftd-project-yatabase/CLAUDE.md` — 実装詳細
+- `60-apps/etzhayyim-project-yatabase/CLAUDE.md` — 実装詳細
 - ADR-2605130000 — projector MCP tools
 - ADR-2605180000 — lawfirm 選択と集中 (ポートフォリオ親 ADR)

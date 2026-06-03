@@ -58,7 +58,7 @@ each exposing a compiled `graph = StateGraph(...).compile()` at module top
 level. Today these files exist as source only — there is no resident process
 serving them, no remote call surface, and no per-class agent fleet on the
 ISIC Rev. 4 side (only three section-level classifier graphs at
-`60-apps/ai-gftd-project-open-isic/lg/lg_open_isic/graphs/` plus 428 class
+`60-apps/etzhayyim-project-open-isic/lg/lg_open_isic/graphs/` plus 428 class
 JSONs at `data/classes/`).
 
 Three forces converge:
@@ -97,7 +97,7 @@ Caller ─────────┼─ MCP server (20-actors/magatama/mcp/)
                           │
                           ▼
        AppView dispatch
-       (60-apps/ai-gftd-project-open-{unispsc,isic}/)
+       (60-apps/etzhayyim-project-open-{unispsc,isic}/)
                           │
                           ▼
          LangServer pod
@@ -155,7 +155,7 @@ Lexicons are authored under `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,i
 | `com.etzhayyim.apps.isic.listAgents` | query | paged registry listing |
 | `com.etzhayyim.apps.isic.health` | query | langserver health probe |
 
-XRPC handler lives in the corresponding AppView under `60-apps/ai-gftd-project-open-{unispsc,isic}/`.
+XRPC handler lives in the corresponding AppView under `60-apps/etzhayyim-project-open-{unispsc,isic}/`.
 The handler validates the input against the Lexicon schema, then dispatches
 to the langserver via in-cluster HTTP.
 
@@ -310,6 +310,6 @@ $0.30 and 30 minutes wall-clock.
 - ADR-2605172000 — RW-free substrate (langservers must not depend on RW)
 - `20-actors/magatama/py/src/pymagatama/langgraph_graphs/unispsc_agents/`
 - `20-actors/magatama/py/src/pymagatama/langgraph_graphs/dynamic_runner.py`
-- `60-apps/ai-gftd-project-open-isic/data/classes/` (428 ISIC Rev. 4 class JSONs)
+- `60-apps/etzhayyim-project-open-isic/data/classes/` (428 ISIC Rev. 4 class JSONs)
 - `00-contracts/lexicons/com/etzhayyim/apps/{unispsc,isic}/*.json` (this PR)
 - `70-tools/scripts/gen-isic/gen_isic_agents.py` (this PR)

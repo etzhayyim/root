@@ -214,5 +214,5 @@ Use ERC-2612 permit() pre-authorization. Buyer signs a permit at order time, man
 - [ADR-2605172000](./2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
 - [ADR-2605172100](./2605172100-etzhayyim-payments-on-chain-only.md) — payments on-chain only
 - [@etzhayyim/sdk pay.ts](../../20-actors/etzhayyim-sdk/src/pay.ts) — SDK v0.1 working path + v0.2 stubs
-- [tsukuru rw-free](../../60-apps/ai-gftd-project-tsukuru/rw-free/) — reference impl this ADR documents
+- [tsukuru rw-free](../../60-apps/etzhayyim-project-tsukuru/rw-free/) — reference impl this ADR documents
 - [`payment.escrowOpened.json`](../../00-contracts/lexicons/com/etzhayyim/apps/payment/escrowOpened.json) — Phase 3 wave 4 lexicon (used as intent record schema)

@@ -16,7 +16,7 @@ related:
   - adr-2605152100-etzhayyim-github-org-boundary
   - 90-docs/adr/2605172000-etzhayyim-open-telecom-fabric.md
   - adr-2605172400-etzhayyim-vendor-three-axis-split-rule
-  - 60-apps/ai-gftd-project-bankruptcy/CLAUDE.md
+  - 60-apps/etzhayyim-project-bankruptcy/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -133,7 +133,7 @@ Vendor-side read-only consumer of etzhayyim/yobel rite state:
 | Solidity contracts (2) | etzhayyim/root | `50-infra/etzhayyim-yobel-contract/` |
 | Web3 ports + EIP-712 verify | etzhayyim/root | `20-actors/yobel/concrete_ports/` |
 | Vendor cross-actor lexicon | this repo | `00-contracts/lexicons/com/etzhayyim/apps/bankruptcy/recordYobelRiteReference.json` |
-| Vendor cross-actor doc | this repo | `60-apps/ai-gftd-project-bankruptcy/CLAUDE.md` §Cross-Actor |
+| Vendor cross-actor doc | this repo | `60-apps/etzhayyim-project-bankruptcy/CLAUDE.md` §Cross-Actor |
 
 # Consequences
 
@@ -181,4 +181,4 @@ Vendor-side read-only consumer of etzhayyim/yobel rite state:
 - ADR-2605152100 etzhayyim GitHub Org Boundary
 - ADR-2605172000 etzhayyim Open Telecom Fabric (substrate boundary)
 - ADR-2605172400 etzhayyim/vendor 3-axis Split Rule
-- `60-apps/ai-gftd-project-bankruptcy/CLAUDE.md`
+- `60-apps/etzhayyim-project-bankruptcy/CLAUDE.md`

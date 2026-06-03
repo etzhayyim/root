@@ -27,14 +27,14 @@ superseded_by: []
 Leaked credentials in git commits are one of the highest-signal security
 signals available. GitGuardian demonstrated that scanning all public GitHub
 repositories for secrets provides far broader coverage than installation-scoped
-webhook scanning. mamoru (守る) is the gftd implementation of this concept,
+webhook scanning. mamoru (守る) is the etzhayyim implementation of this concept,
 operating as an L3 Dispatcher CF Worker fronting a LangGraph pod.
 
 Two gaps existed in the initial design:
 
 1. **Coverage gap**: Only repositories with the GitHub App installed triggered
    scans. Repos made public, or repos belonging to other organisations that
-   commit gftd-issued keys, were invisible.
+   commit etzhayyim-issued keys, were invisible.
 
 2. **Notification gap**: `MAMORU_NOTIFY_WEBHOOK_URL` was an empty string in
    `values.yaml`; the pod's notify node never fired.
@@ -88,7 +88,7 @@ discarded.
 
 | Name | Pattern |
 |---|---|
-| `gftd_api_key` | `(?i)\bsk_live_[A-Za-z0-9]{32,}\b` |
+| `etzhayyim_api_key` | `(?i)\bsk_live_[A-Za-z0-9]{32,}\b` |
 
 **Application**: Sent to `secret-scanning@github.com` on 2026-05-18.
 Message-ID: `d8dbcf17-1548-4817-8af8-6a5ae32daae6`.
@@ -111,7 +111,7 @@ Token type mappings:
 
 | GitHub type | Detector |
 |---|---|
-| `gftd_api_key` | `gftd-api-key` |
+| `etzhayyim_api_key` | `etzhayyim-api-key` |
 | `github_personal_access_token` / `github_oauth_access_token` / `github_app_installation_token` | `github-token` |
 | `aws_access_key_id` | `aws-access-key-id` |
 | `amazon_aws_secret_access_key` | `aws-secret-access-key` |

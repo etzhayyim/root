@@ -9,7 +9,7 @@ last_verified: 2026-05-21
 priority: 7.0
 axis: economics
 weight: 0.70
-priority_note: "kafun-bokumetsu (60-apps/ai-gftd-project-public-kafun-bokumetsu) が現状定義している『GCC 取引手数料 10% → Public Fund → ユーザー均等分配』モデルは ADR-2605192115 §1.3 (donation-only / no-purchase) および ADR-2605192145 (Public Fund は religious-corp 単一) と非整合。本 ADR で kafun を Public Fund の project-scoped grantee として再定義し、3 lexicon + 3 LangGraph + appview の意味論を religious-corp 整合形に正規化する。"
+priority_note: "kafun-bokumetsu (60-apps/etzhayyim-project-public-kafun-bokumetsu) が現状定義している『GCC 取引手数料 10% → Public Fund → ユーザー均等分配』モデルは ADR-2605192115 §1.3 (donation-only / no-purchase) および ADR-2605192145 (Public Fund は religious-corp 単一) と非整合。本 ADR で kafun を Public Fund の project-scoped grantee として再定義し、3 lexicon + 3 LangGraph + appview の意味論を religious-corp 整合形に正規化する。"
 authoritative_for:
   - kafun-bokumetsu actor の religious-corp 内の経済 framing
   - kafun project の mission axis 帰属
@@ -38,7 +38,7 @@ superseded_by: []
 
 # Context
 
-`60-apps/ai-gftd-project-public-kafun-bokumetsu/` は AI agent (Murakumo/Qwen) が花粉症の根本的解決に向けて自律的に研究・提案・行動・自己進化する project として既に設計済み。構成要素:
+`60-apps/etzhayyim-project-public-kafun-bokumetsu/` は AI agent (Murakumo/Qwen) が花粉症の根本的解決に向けて自律的に研究・提案・行動・自己進化する project として既に設計済み。構成要素:
 
 - **Pregel (LangGraph)**: `20-actors/magatama/py/src/pymagatama/langgraph_graphs/kafun_{tick,think,research}.py` (3 graphs, 257 lines + 56 lines shared)
 - **Lexicon**: `00-contracts/lexicons/com/etzhayyim/apps/kafun/agent/{tick,think,research}.json` (3 procedures)
@@ -50,7 +50,7 @@ superseded_by: []
 
 ## 非整合 1 — 経済モデル
 
-`60-apps/ai-gftd-project-public-kafun-bokumetsu/CLAUDE.md` §"Public Fund 経済モデル":
+`60-apps/etzhayyim-project-public-kafun-bokumetsu/CLAUDE.md` §"Public Fund 経済モデル":
 
 > GCC 取引手数料 10% → Public Fund → ユーザーに均等分配 (Public Asset) → ファンドにのみ投入可 → エージェントが花粉撲滅アクションに使用
 
@@ -73,7 +73,7 @@ superseded_by: []
 
 ## 非整合 3 — namespace prefix
 
-3 lexicons + appview directory が `com.etzhayyim.*` / `ai-gftd-project-*` prefix を使用している。CLAUDE.md "Do Not" 節:
+3 lexicons + appview directory が `com.etzhayyim.*` / `etzhayyim-project-*` prefix を使用している。CLAUDE.md "Do Not" 節:
 
 > Do not introduce legacy organisation-specific prefixes in newly authored code. Use `etzhayyim-` or no prefix. Existing seeded files with legacy prefixes will be renamed in a follow-up cutover.
 
@@ -81,7 +81,7 @@ Status #8 (`220-file etzhayyim → etzhayyim cutover`) は登記変更後 deferr
 
 ## 非整合 4 — Charter Rider 適用状態
 
-`50-infra/etzhayyim-public-fund/` 等 39 first-party package には Charter Rider v2.0 が適用済み (Status #11, 78 NOTICE/symlink entries) だが、`60-apps/ai-gftd-project-public-kafun-bokumetsu/` には未適用。kafun の AI agent 出力 (insight / proposal / action) は first-party 知財として religious-corp の non-profit / no-eschatology / Wellbecoming 制約下にあるべき。
+`50-infra/etzhayyim-public-fund/` 等 39 first-party package には Charter Rider v2.0 が適用済み (Status #11, 78 NOTICE/symlink entries) だが、`60-apps/etzhayyim-project-public-kafun-bokumetsu/` には未適用。kafun の AI agent 出力 (insight / proposal / action) は first-party 知財として religious-corp の non-profit / no-eschatology / Wellbecoming 制約下にあるべき。
 
 ## 非整合 5 — mission axis 未指定
 
@@ -189,7 +189,7 @@ kafun の mission axis を **`mission.health_liberation`** とする。Mission C
 
 ## 4. Charter Rider 適用
 
-`60-apps/ai-gftd-project-public-kafun-bokumetsu/` を **Status #11 first-party Apache-2.0 package list に追加** する。具体的には:
+`60-apps/etzhayyim-project-public-kafun-bokumetsu/` を **Status #11 first-party Apache-2.0 package list に追加** する。具体的には:
 
 - `LICENSE` に Apache 2.0 を配置 (まだ未配置の場合)
 - `NOTICE` に Charter Rider v2.0 reference + symlink を `/CHARTER-RIDER.md` に作成
@@ -213,7 +213,7 @@ kafun の AI agent 出力 (research findings / proposals / actions) は **Charte
 
 ただし以下を本 ADR 承認後即時実施:
 
-- `60-apps/ai-gftd-project-public-kafun-bokumetsu/CLAUDE.md` の §"Public Fund 経済モデル" を §1.1 の正規化図に書き換え
+- `60-apps/etzhayyim-project-public-kafun-bokumetsu/CLAUDE.md` の §"Public Fund 経済モデル" を §1.1 の正規化図に書き換え
 - 同 CLAUDE.md に本 ADR への link 追加
 - 同 CLAUDE.md の XRPC methods 表を §2.1 / §2.2 / §2.3 に従って更新
 
@@ -311,7 +311,7 @@ religious-corp 公式 project から外し、外部 NPO として運営。
 2. **kafun の initial grant proposal の評議者**。Bootstrap Council Seat 2-5 RFP (2026-05-20 → 2026-06-19) 期間中は SBT 投票母数が少ない。初回 proposal を bootstrap 完了後に行うか、bootstrap 期間中の少数投票で承認するか。Decision pending: Council 立ち上げ進捗次第。
 3. **`kafun.actionSpend` budget check の agent 実装**。LangGraph node 内で残予算を check するか、PublicFundGovernance.sol 側で hard cap を enforce するか。本 ADR では両面 (agent self-check + on-chain cap) を推奨。
 4. **GCC の religious-corp 内での再定義**。元の「GCC 取引手数料」モデルが消えた場合、GCC 自体の役割 (Generic Capability Coupon としての機能) が宙に浮く。GCC を Kisha-Stream の per-action token として再定義する案あり (別 ADR)。
-5. **kafun 以外の `ai-gftd-project-public-*` (cofog / open-isco / states / open-isic 等) への波及**。これら project も同じ Public Fund grantee pattern に統合すべきか。Decision pending: 本 ADR の運用結果を 6 ヶ月観察後に判断。
+5. **kafun 以外の `etzhayyim-project-public-*` (cofog / open-isco / states / open-isic 等) への波及**。これら project も同じ Public Fund grantee pattern に統合すべきか。Decision pending: 本 ADR の運用結果を 6 ヶ月観察後に判断。
 
 # References
 
@@ -324,6 +324,6 @@ religious-corp 公式 project から外し、外部 NPO として運営。
 - ADR-2605171800: LangGraph → MST → IPFS → L2 pipeline (kafun LangGraph の checkpoint pipeline)
 - ADR-2605191559: ameno MST checkpointer Stage 2 (Tier D Pregel checkpoint)
 - ADR-2605192415: religious-corp daemon architecture (Tier B/C cells — kafun は対比として Tier D)
-- 60-apps/ai-gftd-project-public-kafun-bokumetsu/ (本 ADR 対象 project)
+- 60-apps/etzhayyim-project-public-kafun-bokumetsu/ (本 ADR 対象 project)
 - 20-actors/magatama/py/src/pymagatama/langgraph_graphs/kafun_*.py (本 ADR 対象 LangGraph)
 - 00-contracts/lexicons/com/etzhayyim/apps/kafun/agent/ (本 ADR 対象 lexicons)

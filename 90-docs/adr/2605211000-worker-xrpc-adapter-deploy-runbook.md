@@ -9,7 +9,7 @@
 [ADR-2605210000](/90-docs/adr/2605210000-phase-e-reference-impl-completion.md) completed the rw-free reference implementation scaffold for all 25 actors. This ADR documents the execution-layer deploy procedure: wiring each rw-free package to a Cloudflare Worker, exposing XRPC endpoints, and smoke-testing.
 
 Each actor has:
-- `60-apps/ai-gftd-project-<actor>/xrpc-adapter/wrangler.jsonc` with route `<actor>.etzhayyim.com/xrpc/*`
+- `60-apps/etzhayyim-project-<actor>/xrpc-adapter/wrangler.jsonc` with route `<actor>.etzhayyim.com/xrpc/*`
 - `src/index.ts` single-file XRPC dispatcher (imports rw-free functions)
 - `package.json` with `@etzhayyim/sdk` + `@etzhayyim/<actor>-rw-free` workspace deps
 
@@ -21,7 +21,7 @@ Operator deploys in strict order: Tier 1 → (wait 7 days) → Tier 2 → (wait 
 
 **Actors** (7, CI matrix: `.github/workflows/test.yml` + `wrangler-validate.yml`): `isbn` / `gtin` / `ndc` / `houbun` / `hanrei` / `ipaddress` / `ocel`
 
-> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/ai-gftd-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-rw-free` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `com.etzhayyim.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
+> **open-isco excluded from xrpc-adapter cohort** (2026-05-21 reconciliation): the standalone CF Worker runtime is retired for open-isco (see `60-apps/etzhayyim-project-open-isco/CLAUDE.md` §"Active Runtime"). open-isco runs as BPMN + LangServer + LangGraph + UDF (`openIsco.classifyWorker` / `openIsco.recordConcordance`). The `@etzhayyim/open-isco-rw-free` package exists as a read-only embed surface (`queryByPrefix` / `getByCode` against `com.etzhayyim.apps.openIsco.occupation`) for other apps; no xrpc-adapter is shipped. Earlier drafts of this ADR listed open-isco at Tier 1; that was inconsistent with the BPMN-only runtime decision and is corrected here.
 
 **Rationale**: No PII, no mutations from public callers, idempotent write path (rkey-gated, existing record check before write).
 
@@ -69,8 +69,8 @@ Requires **7-day Tier 1+2 stability + post-incident review** before deploy appro
 
 Before `wrangler deploy`:
 
-- [ ] rw-free package builds: `cd 60-apps/ai-gftd-project-<actor>/rw-free && npm ci && tsc` (exit 0)
-- [ ] xrpc-adapter builds: `cd 60-apps/ai-gftd-project-<actor>/xrpc-adapter && npm ci && npm run build` (exit 0)
+- [ ] rw-free package builds: `cd 60-apps/etzhayyim-project-<actor>/rw-free && npm ci && tsc` (exit 0)
+- [ ] xrpc-adapter builds: `cd 60-apps/etzhayyim-project-<actor>/xrpc-adapter && npm ci && npm run build` (exit 0)
 - [ ] `wrangler.jsonc` syntax: `npx wrangler publish --dry-run` (no errors)
 - [ ] CF DNS record exists: `dig <actor>.etzhayyim.com` (CNAME to CF edge)
 - [ ] PDS endpoint reachable: `curl https://pds.etzhayyim.com/xrpc/com.atproto.server.describeServer` (200)
@@ -79,7 +79,7 @@ Before `wrangler deploy`:
 ## Deploy command (per actor)
 
 ```bash
-cd 60-apps/ai-gftd-project-<actor>/xrpc-adapter
+cd 60-apps/etzhayyim-project-<actor>/xrpc-adapter
 wrangler deploy
 # Cloudflare logs:
 #   ✓ Uploaded <actor>-xrpc-adapter (256 KB)
@@ -89,7 +89,7 @@ wrangler deploy
 Example (Tier 1 first actor):
 
 ```bash
-cd 60-apps/ai-gftd-project-isbn/xrpc-adapter
+cd 60-apps/etzhayyim-project-isbn/xrpc-adapter
 wrangler deploy
 ```
 

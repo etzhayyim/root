@@ -37,7 +37,7 @@ ameno は Tier 2 として **「ブラウザで `.task` を直接焼ける」** 
 **MediaPipe LLM Inference Web を ameno の第 3 kernel `mediapipe-gpu` として導入する。**
 
 1. **Lexicon** — `com.etzhayyim.apps.ameno.listModels` の `kernel` 列挙を `webgpu / wasm-ternary / mediapipe-gpu` に拡張する(`description` の更新のみ。string で開いているので breaking ではない)。
-2. **Runtime module** — `60-apps/ai-gftd-project-ameno/appview/ai-gftd-wasm-ameno-d94d27cb/svelte/src/lib/mediapipe-runtime.ts` に独立実装。既存 `inference.ts` (= `@etzhayyim/ameno/inference` 再 export) と並列。共通 shape:
+2. **Runtime module** — `60-apps/etzhayyim-project-ameno/appview/etzhayyim-wasm-ameno-d94d27cb/svelte/src/lib/mediapipe-runtime.ts` に独立実装。既存 `inference.ts` (= `@etzhayyim/ameno/inference` 再 export) と並列。共通 shape:
    - `loadModel(onProgress, modelId, device): Promise<void>`
    - `generate(messages, onToken): Promise<GenerationStats>`
    - `MODELS: Record<string, ModelMeta>`

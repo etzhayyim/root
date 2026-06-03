@@ -78,7 +78,7 @@ All 25 actors comply with the RW-free substrate mandate:
 Every rw-free package follows the same shape:
 
 ```
-60-apps/ai-gftd-project-<actor>/rw-free/
+60-apps/etzhayyim-project-<actor>/rw-free/
 ├── package.json         — @etzhayyim/<actor>-rw-free, workspace dep on @etzhayyim/sdk
 ├── README.md            — coverage table + DID hierarchy + usage example
 └── src/

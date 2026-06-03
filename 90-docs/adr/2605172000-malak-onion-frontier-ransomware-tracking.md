@@ -119,4 +119,4 @@ Verified on 2026-05-17:
 - `20-actors/magatama/py/src/pymagatama/langgraph_graphs/ransomware_actor_activity.py`
 - `50-infra/vultr/mitama-langgraph-pool/templates/langgraph-server.yaml`
 - `50-infra/vultr/mitama-langgraph-pool/templates/onion-crawl-seeds-override-configmap.yaml`
-- `60-apps/ai-gftd-project-browser/provider/darkweb-proxy/wrangler.jsonc`
+- `60-apps/etzhayyim-project-browser/provider/darkweb-proxy/wrangler.jsonc`

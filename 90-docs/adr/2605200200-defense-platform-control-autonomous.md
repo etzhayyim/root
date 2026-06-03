@@ -66,7 +66,7 @@ AT Protocol Lexicon は float 未対応のため整数化:
 
 ### LangGraph グラフ
 
-`60-apps/ai-gftd-terminal-agent/graphs/defense/platform_control.py`:
+`60-apps/etzhayyim-terminal-agent/graphs/defense/platform_control.py`:
 - `route_platform_domain` ノードで UAV / UUV / Ground / Cyber に分岐
 - 各ドメインノードが状態遷移バリデーションを実行
 - テレメトリは `vertex_defense_platform` に INSERT (record-log)

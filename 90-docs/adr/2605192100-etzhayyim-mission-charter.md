@@ -91,7 +91,7 @@ Mission 整合的でない事業体 (兵器産業 / 投機金融 / 監視資本�
 
 具体実装は future ADR `etzhayyim-specialist-disintermediation` に委ねる。当面の関連実装:
 
-- `60-apps/ai-gftd-project-uhl-*` 系 (医療: ADR-2605181000 / 2605181040 / 2605181050 / 2605181060)
+- `60-apps/etzhayyim-project-uhl-*` 系 (医療: ADR-2605181000 / 2605181040 / 2605181050 / 2605181060)
 - `20-actors/magatama/unispsc_agents/` (専門業務の agent 化: ADR-2605171300)
 - `60-apps/open-isco`, `open-naics`, `open-hs` (公開分類体系による情報非対称の解消)
 

@@ -25,8 +25,8 @@ depends_on:
   - 2605191657-ameno-daemon-did-auth
   - adr-2605192245-etzhayyim-global-land-sovereignty
 related:
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-ot/cad-spec/giemon-mimi/SPEC.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-ot/cad-spec/giemon-mimi/SPEC.md
 supersedes: []
 superseded_by: []
 ---
@@ -229,13 +229,13 @@ if __name__ == "__main__":
 
 ## 5. Hardware / DID provisioning checklist
 
-- [ ] **Giemon Otete v1 assembled** per `60-apps/ai-gftd-project-open-robo/docs/assembly-manual-v1.md` (BoM-v1 mostly Japan-domestic supply chain)
-- [ ] **Giemon Mimi RTU + tripod kit assembled** (KiCad → 国内基板メーカー → 組立 per `60-apps/ai-gftd-project-open-ot/cad-spec/giemon-mimi/SPEC.md`)
+- [ ] **Giemon Otete v1 assembled** per `60-apps/etzhayyim-project-open-robo/docs/assembly-manual-v1.md` (BoM-v1 mostly Japan-domestic supply chain)
+- [ ] **Giemon Mimi RTU + tripod kit assembled** (KiCad → 国内基板メーカー → 組立 per `60-apps/etzhayyim-project-open-ot/cad-spec/giemon-mimi/SPEC.md`)
 - [ ] **Robot DID Ed25519 keypair generated** for both robots; public key registered as did:web at `etzhayyim.com/.well-known/did/kuniumi/robot/otete-001` and `mimi-base-001`. Private key stored in macOS Keychain (`service=etzhayyim, account=ROBOT_DID_KEY_OTETE_001` and `MIMI_BASE_001`) + 1Password mirror
 - [ ] **山中湖 plot LandRegistry registration** via `LandDonationProcessingCell` (judah node)
 - [ ] **simeonnomac-mini IPFS endpoint reachable** from on-site Otete (LTE backup if Wi-Fi marginal)
 - [ ] **naphtali → SiteSurveyCell deployed** with launchd plist
-- [ ] **pds.etzhayyim.com schema preloaded** with kuniUmi 6 lexicons (currently only authored in `00-contracts/`; needs `gftd lexicon publish` to PDS)
+- [ ] **pds.etzhayyim.com schema preloaded** with kuniUmi 6 lexicons (currently only authored in `00-contracts/`; needs `etzhayyim lexicon publish` to PDS)
 
 ## 6. S1 risks + mitigations
 
@@ -313,7 +313,7 @@ if __name__ == "__main__":
 2. **Cell key rotation timing during S1** — Quarterly rotation (ADR-2605192415 §9) と S1 タイムライン (May-Nov 2026) の重なり。Decision: S1 開始時に 1 度 rotate、終了時 (Nov) に再 rotate、S2 突入
 3. **山中湖 plot specific 法的 due diligence** — 土地境界 / 占有 / 入会権 等。Decision (本 ADR): LandDonationProcessingCell の Steward Lv5+ attestation で due diligence path を documented (`localLawAttestationCid` required)
 4. **Council escalation 経路の dry-run** — witness mismatch test (acceptance criterion #8) で実際に Council が wake する必要があるか、それとも cell-local simulation で十分か。Decision (本 ADR): Council Lv6+ 1 名 (founder = Jun Kawasaki) のみが S1 では wake、PASS 後 S2 で full 3-of-N へ拡張
-5. **PDS lexicon publish ergonomics** — `gftd lexicon publish` CLI が現在 etzhayyim 範囲で動作するか未確認。Decision: S1 precondition として CLI integration を verify、必要なら別 mini-ADR で fix
+5. **PDS lexicon publish ergonomics** — `etzhayyim lexicon publish` CLI が現在 etzhayyim 範囲で動作するか未確認。Decision: S1 precondition として CLI integration を verify、必要なら別 mini-ADR で fix
 
 # References
 
@@ -324,5 +324,5 @@ if __name__ == "__main__":
 - ADR-2605191559 (MstCheckpointSaver)
 - ADR-2605191657 (Ed25519 did:key challenge-response — same scheme reused for robot DID)
 - ADR-2605192245 (Global Land Sovereignty — 山中湖 plot LandRegistry pathway)
-- `60-apps/ai-gftd-project-open-robo/CLAUDE.md` (Giemon Otete BoM + 都市鉱山 baseline)
-- `60-apps/ai-gftd-project-open-ot/cad-spec/giemon-mimi/SPEC.md` (Mimi RTU hardware spec — reused as stationary witness)
+- `60-apps/etzhayyim-project-open-robo/CLAUDE.md` (Giemon Otete BoM + 都市鉱山 baseline)
+- `60-apps/etzhayyim-project-open-ot/cad-spec/giemon-mimi/SPEC.md` (Mimi RTU hardware spec — reused as stationary witness)

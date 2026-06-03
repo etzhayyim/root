@@ -48,7 +48,7 @@ AMENO_ALLOWED_DIDS=did:key:zA1B2…,did:key:zX9Y8…
 
 ### Path A (TS daemon)
 
-`60-apps/ai-gftd-project-ameno/daemon/src/did-auth.ts`:
+`60-apps/etzhayyim-project-ameno/daemon/src/did-auth.ts`:
 
 ```ts
 const ALLOWED_DIDS = new Set(

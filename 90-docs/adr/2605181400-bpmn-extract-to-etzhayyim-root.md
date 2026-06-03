@@ -42,19 +42,19 @@ etzhayyim-root は AT Protocol app surface 専念に絞る。
 1. **BPMN file ownership = etzhayyim-root** に集約。
 2. etzhayyim-root branch `iter144-bpmn-extract` で以下を `git rm`:
    - `00-contracts/bpmn/com/etzhayyim/*` (4,443 files; AT-Protocol-app process defs)
-   - `60-apps/ai-gftd-project-bpmn/` (28 files; BPMN appview)
+   - `60-apps/etzhayyim-project-bpmn/` (28 files; BPMN appview)
    - `60-apps/*/bpmn/` (53 per-project subdirs, 3,370 files)
    - `50-infra/k8s/bpmn-engine-host` (SpiffWorkflow engine, ADR-2605081200)
    - `50-infra/k8s/yata-zeebe-worker` (legacy Zeebe replacement target)
    - `50-infra/vultr/zeebe` (legacy Zeebe infra)
-3. etzhayyim-root branch `import-bpmn-from-ai-gftd` で同 file 群を copy:
+3. etzhayyim-root branch `import-bpmn-from-etzhayyim` で同 file 群を copy:
    - 1,322 files changed (+32,299 / -3,361)
    - 481 new file additions, 841 overwrites of pre-existing etzhayyim
-     versions (ai-gftd side = source-of-truth on conflict)
+     versions (etzhayyim side = source-of-truth on conflict)
 4. **References 873 件は本 ADR 範囲外** (file move only):
    - Worker handler / `magatama.jsonld` `derive` rule / lexicon registry /
      docs 内の `00-contracts/bpmn/` / `60-apps/*/bpmn/` パス参照は
-     ai-gftd 側で一時的に broken。
+     etzhayyim 側で一時的に broken。
    - 後続 iter (iter145+) で `@etzhayyim/bpmn-*` package 経由参照 / pnpm
      workspace `file:` リンク / submodule のいずれかに書き換える。
    - Build/deploy chain は当面 broken (lawfirm Stream A は HTML/SPA で
@@ -71,15 +71,15 @@ etzhayyim-root は AT Protocol app surface 専念に絞る。
   「選択と集中」原則 (iter143 Stream A) と整合。
 
 **Negative / リスク**
-- ai-gftd 側 build chain が 873 参照分 broken。CI fail 想定。
+- etzhayyim 側 build chain が 873 参照分 broken。CI fail 想定。
 - per-project `bpmn/` を import している magatama actor は path
   resolution 失敗。
 - ADR-2605082200 PyZeebe handler thin-dispatcher contract 内の
   BPMN path 参照が `etzhayyim-root` 側にしかなくなるため、
   bpmn-dispatcher 配置を再設計する必要がある。
-- 履歴分断: ai-gftd 側 git log では `00-contracts/bpmn` の commit 履歴
+- 履歴分断: etzhayyim 側 git log では `00-contracts/bpmn` の commit 履歴
   が 4,558 deletes で打ち切られる (filter-branch しないため source 履歴
-  は ai-gftd に残るが「past tense」扱い)。
+  は etzhayyim に残るが「past tense」扱い)。
 
 **Pending operator actions** (deps.toml `[[migrations]]
 bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
@@ -89,7 +89,7 @@ bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
 2. magatama actor の `magatama.jsonld` `derive` rule が参照する BPMN path
    を package import 経由に書き換え。
 3. bpmn-dispatcher 配置先決定: etzhayyim-root K8s cluster に移すか、
-   ai-gftd 側に残し etzhayyim BPMN を fetch する形にするか。
+   etzhayyim 側に残し etzhayyim BPMN を fetch する形にするか。
 4. CI lint (deps-score / lint-nsid-regression / bundle-lexicons)
    の cross-repo path resolution 対応。
 5. `90-docs/CLAUDE.md` Key Conventions の BPMN 関連 pointer を
@@ -118,7 +118,7 @@ bpmn-extract-to-etzhayyim-root-2026-05-18` で追跡):
   は本 ADR + iter144 row そのもので、移動の **過去状態** を記述するため
   prefix しない。
 
-## D2: bpmn-dispatcher 配置 = ai-gftd 側残置
+## D2: bpmn-dispatcher 配置 = etzhayyim 側残置
 
 bpmn-dispatcher の source は `20-actors/magatama/py/src/pymagatama/
 dispatcher_main.py` (74KB Python, pymagatama package の一部) で、
@@ -132,26 +132,26 @@ pymagatama は etzhayyim-root 側にある (etzhayyim-root に
   etzhayyim-root で OK。dispatcher は起動時に
   `${ETZHAYYIM_ROOT:-../etzhayyim-root}/00-contracts/bpmn/` を読み
   込む形 (env var で sibling path 解決)。
-- K8s 配置: `bpmn-dispatcher` Deployment は ai-gftd 側 cluster
+- K8s 配置: `bpmn-dispatcher` Deployment は etzhayyim 側 cluster
   (lax VKE) に残置。`replicas=0` (iter137 から、Vultr cap
   TUO-21FNS pending) のままで、再起動時は etzhayyim BPMN を
   fetch するように環境変数を設定する。
 - Cloudflared tunnel `50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml`
-  も ai-gftd 側残置 (dispatcher と同 cluster)。
+  も etzhayyim 側残置 (dispatcher と同 cluster)。
 
 ## D3: CI lint cross-repo path resolution
 
 `70-tools/scripts/contract/*` 配下の linter (`deps-score`,
 `lint-nsid-regression`, `bundle-lexicons`) は `00-contracts/bpmn/`
 を読まなくなった。`etzhayyim-root/...` prefix を含む path 参照は
-linter が file resolution に失敗するため、ai-gftd 側 lint hook は
+linter が file resolution に失敗するため、etzhayyim 側 lint hook は
 当面 BPMN path 検証を skip する。
 
 - 短期: `70-tools/scripts/lint/bpmn-coverage-manifest.mjs` 等の
   `00-contracts/bpmn/` walk を `etzhayyim-root/00-contracts/bpmn/`
   に変更 + `ETZHAYYIM_ROOT` env var fallback で sibling repo を
   resolve。
-- 中期: `etzhayyim-root` を ai-gftd の pnpm workspace か git
+- 中期: `etzhayyim-root` を etzhayyim の pnpm workspace か git
   submodule として取り込むか、`@etzhayyim/bpmn-contracts` npm
   package を publish して `node_modules` 経由で resolve する。
 
@@ -173,7 +173,7 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 
 - `[directory_index."00-contracts"]` の `pointer` から bpmn を削除
   (移管先 = etzhayyim-root)
-- `[directory_index."60-apps"]` の `ai-gftd-project-bpmn` 行を
+- `[directory_index."60-apps"]` の `etzhayyim-project-bpmn` 行を
   削除 (etzhayyim-root へ移管)
 - `[directory_index."50-infra"]` の `k8s/bpmn-engine-host`,
   `k8s/yata-zeebe-worker`, `vultr/zeebe` 行を削除
@@ -183,7 +183,7 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 
 # Alternatives Considered
 
-- **A. submodule で etzhayyim-root を ai-gftd に取り込む**: build chain
+- **A. submodule で etzhayyim-root を etzhayyim に取り込む**: build chain
   は壊さないが、religious-corp substrate の独立性が薄れ「だったら分け
   ない方が良い」議論に戻る。**却下**。
 - **B. file copy のまま両 repo に冗長保持**: drift リスク高、過去の
@@ -196,24 +196,24 @@ iter144 sed で path prefix は自動更新済 (`CLAUDE.md` は sed 対象)。
 
 # Amendment 2026-05-22: D2 superseded — bpmn-dispatcher extracted
 
-`§D2 (bpmn-dispatcher = ai-gftd 側残置)` の前提が崩壊したため、
+`§D2 (bpmn-dispatcher = etzhayyim 側残置)` の前提が崩壊したため、
 当該条項を以下で置換する。
 
 **実態の変化** (2026-05-18 以降):
 - pymagatama 全体が etzhayyim-root へ移管完了
   (`etzhayyim/20-actors/magatama/py/src/pymagatama/`)
-- ai-gftd-apps-gftdcojp 側 `20-actors/magatama/` は削除済
-- D2 の rationale (「pymagatama が gftd にあるので dispatcher も残置」)
+- etzhayyim-apps-etzhayyimcojp 側 `20-actors/magatama/` は削除済
+- D2 の rationale (「pymagatama が etzhayyim にあるので dispatcher も残置」)
   は無効化
 
 **新 D2 (active)**: bpmn-dispatcher infra も etzhayyim-root 側に集約。
 配置先 = `50-infra/k8s/bpmn-dispatcher/`:
 
-| ファイル | 出典 (ai-gftd-apps-gftdcojp, 削除済) |
+| ファイル | 出典 (etzhayyim-apps-etzhayyimcojp, 削除済) |
 |---|---|
 | `deployment-dispatcher.yaml` | `50-infra/vultr/mitama-udf-pool/templates/dispatcher.yaml` (Helm → plain manifest) |
 | `tunnel.yaml` | `50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml` |
-| `ingress-dispatcher.yaml` | `50-infra/vultr/mitama-udf-app-raw/manifests/ingress-networking-k8s-io-dispatcher-gftd-ai.json` |
+| `ingress-dispatcher.yaml` | `50-infra/vultr/mitama-udf-app-raw/manifests/ingress-networking-k8s-io-dispatcher-etzhayyim-ai.json` |
 | `configmap-pymagatama-cache-fix.yaml` | `…/configmap-pymagatama-dispatcher-main-cache-fix.json` |
 | `configmap-pymagatama-sse-fix.yaml` | `…/configmap-pymagatama-dispatcher-main-sse-fix.json` |
 | `configmap-mailer-direct-patch.yaml` | `…/configmap-bpmn-dispatcher-mailer-direct-patch.json` |
@@ -243,28 +243,28 @@ binding registry の AT MST 化を行う別 iter で対応。pymagatama 自体�
 4. Secret provision (`bpmn-dispatcher-auth` /
    `bpmn-dispatcher-rw` / `lawfirm-stripe` 等)、namespace `mitama-udf`。
 5. `kubectl apply -f 50-infra/k8s/bpmn-dispatcher/` (etzhayyim VKE)。
-6. ai-gftd-apps-gftdcojp CF account の旧 tunnel
+6. etzhayyim-apps-etzhayyimcojp CF account の旧 tunnel
    `be2cc0b0-ddee-4ca7-baf1-2bffbef18f31` 削除 + 同 VKE 側
    Deployment `cloudflared-bpmn-dispatcher` + `bpmn-dispatcher`
    削除 (cutover 検証後)。
 
 **触らない範囲** (本 iter 対象外、別 iter で sed):
-- ai-gftd-apps-gftdcojp 20+ files の `dispatcher.etzhayyim.com` 参照
+- etzhayyim-apps-etzhayyimcojp 20+ files の `dispatcher.etzhayyim.com` 参照
   (terraform / ingress RUNBOOK / K8s deployment.yaml / CF Worker
   routing-table.ts 等) — §D3 follow-up と同様 path-rewrite iter で処理。
 - `00-contracts/bpmn/` の lexicon binding 列挙はそのまま (ADR-2605091400
   MCP-as-cell-membrane の dual-wire SSoT 規約に従う)。
-- ai-gftd-apps-gftdcojp `50-infra/cloudflare/workers/wfp-dispatcher/`
+- etzhayyim-apps-etzhayyimcojp `50-infra/cloudflare/workers/wfp-dispatcher/`
   は別物 (Workers for Platforms dispatcher)、本 iter スコープ外。
 
 # References
 
 - CEO 河崎 directive 2026-05-18「bpmn は etzhayyim-root に移動」
 - CEO 河崎 directive 2026-05-22「dispatcher も取り出して」(本 amendment)
-- `_working/gftdcojp-revenue/DECISION-LOG.md` iter144 (本 iter)
-- ai-gftd-apps-gftdcojp commit `Import BPMN from ai-gftd-apps-gftdcojp`
-  (branch `import-bpmn-from-ai-gftd`)
-- ai-gftd-apps-gftdcojp branch `iter144-bpmn-extract`
+- `_working/etzhayyimcojp-revenue/DECISION-LOG.md` iter144 (本 iter)
+- etzhayyim-apps-etzhayyimcojp commit `Import BPMN from etzhayyim-apps-etzhayyimcojp`
+  (branch `import-bpmn-from-etzhayyim`)
+- etzhayyim-apps-etzhayyimcojp branch `iter144-bpmn-extract`
 - ADR-2605172000 (etzhayyim RW-free substrate SDK)
 - ADR-2605172100 (etzhayyim on-chain payment substrate — Stripe prohibition)
 - ADR-2605091400 (MCP-as-cell-membrane; XRPC demotion)

@@ -267,7 +267,7 @@ internal carve-out が abuse されないよう、以下の guardrail を設け�
 
 - internal-purchase の record (`com.etzhayyim.apps.payment.sent` with purpose=`internal-purchase`) は **必ず両者の SBT tokenId を含む**
 - SBT holder が internal-purchase record を作成した直後に SBT を revoke してそれを external に再販する pattern は、Council Lv6+ が retroactive non-compliant attestation する (ADR-2605192200 §5)
-- internal-promo は etzhayyim 配下の AppView (`ai-gftd-project-*`) からのみ発信可、外部 channel (Twitter / Meta / Google) からは禁止
+- internal-promo は etzhayyim 配下の AppView (`etzhayyim-project-*`) からのみ発信可、外部 channel (Twitter / Meta / Google) からは禁止
 
 ## 4. Upstream backend carve-out の再定義
 

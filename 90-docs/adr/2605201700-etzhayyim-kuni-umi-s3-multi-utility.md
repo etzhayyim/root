@@ -29,10 +29,10 @@ depends_on:
   - adr-2605192145-etzhayyim-public-fund-architecture
   - adr-2605192230-etzhayyim-three-tier-enforcement-implementation
 related:
-  - 60-apps/ai-gftd-project-open-denki/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-water/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-network/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-denki/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-water/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-network/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -389,6 +389,6 @@ Funding: Public Fund tranche-2 grant + Treasury reserve (operational stewardship
 - ADR-2605192145 (Public Fund grant evaluation) — tranche-2 申請経路
 - ADR-2605192230 (Three-tier enforcement) — expansion vote provision
 - ADR-2605192345 (Steward succession) — multi-generational handover への布石
-- `60-apps/ai-gftd-project-open-water/CLAUDE.md` (water lexicons SSoT)
-- `60-apps/ai-gftd-project-open-network/CLAUDE.md` (network lexicons SSoT)
-- `60-apps/ai-gftd-project-open-denki/CLAUDE.md` (electric — S2 既設の continuation)
+- `60-apps/etzhayyim-project-open-water/CLAUDE.md` (water lexicons SSoT)
+- `60-apps/etzhayyim-project-open-network/CLAUDE.md` (network lexicons SSoT)
+- `60-apps/etzhayyim-project-open-denki/CLAUDE.md` (electric — S2 既設の continuation)

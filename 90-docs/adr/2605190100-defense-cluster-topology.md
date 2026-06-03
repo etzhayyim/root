@@ -39,7 +39,7 @@ superseded_by: []
 ## Context
 
 防衛調達（日本の防衛省・ATLA および prime contractor 向け）AI プラットフォームの設計。
-Anduril 型の defense-tech ポジションを、gftd の既存 AT Protocol + LangGraph + MCP スタック上で実現する。
+Anduril 型の defense-tech ポジションを、etzhayyim の既存 AT Protocol + LangGraph + MCP スタック上で実現する。
 
 etzhayyim は現時点で ATLA 調達情報サービス未登録のため、
 **Phase 1 は prime contractor（防衛産業企業）向け SaaS** から開始する。
@@ -121,8 +121,8 @@ defense-langgraph-server (K8s pod, granian L3 runtime) に以下を配置:
 | kinetic_soft_kill / HPM → 常時 supervised | `node_assess_autonomy` がモード強制上書き |
 | cyber destroy / deny → 常時 supervised | `node_assess_cyber_autonomy` が強制上書き |
 | EW / Cyber ops → classification_level ≥ 3 必須 | `node_classify_threat / node_classify_target` |
-| ROC-A: ISR only, ROC-B: +EW, ROC-C: +kinetic | `ROC_PERMISSIONS` dict + Rego `gftd.defense.roe` |
-| T2-airgap 以外での kinetic / cyber-destroy → 拒否 | Rego `gftd.defense.escalation` |
+| ROC-A: ISR only, ROC-B: +EW, ROC-C: +kinetic | `ROC_PERMISSIONS` dict + Rego `etzhayyim.defense.roe` |
+| T2-airgap 以外での kinetic / cyber-destroy → 拒否 | Rego `etzhayyim.defense.escalation` |
 
 ### Pregel グラフ (30-graph 拡張)
 
@@ -233,13 +233,13 @@ Phase 10 追加: `QueryAlertQueueArgs`, `AcknowledgeAlertArgs`, `ValidateRoeArgs
 
 ### OPA Rego ポリシー (Phase 11A)
 
-`00-contracts/policies/gftd/defense/`:
+`00-contracts/policies/etzhayyim/defense/`:
 
 | パッケージ | ファイル | 役割 |
 |---|---|---|
-| `gftd.defense.clearance` | `clearance/policy.rego` | T1/T2 tier 強制、有効期限チェック |
-| `gftd.defense.escalation` | `escalation/policy.rego` | kinetic/HPM/cyber-destroy の T2 + level≥3 + token gate |
-| `gftd.defense.roe` | `roe/policy.rego` | ROC-A/B/C 権限マトリクス + violations リスト |
+| `etzhayyim.defense.clearance` | `clearance/policy.rego` | T1/T2 tier 強制、有効期限チェック |
+| `etzhayyim.defense.escalation` | `escalation/policy.rego` | kinetic/HPM/cyber-destroy の T2 + level≥3 + token gate |
+| `etzhayyim.defense.roe` | `roe/policy.rego` | ROC-A/B/C 権限マトリクス + violations リスト |
 
 ### ストリーミング MV (Phase 11B)
 

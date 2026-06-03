@@ -30,16 +30,16 @@ depends_on:
   - adr-2605192330-etzhayyim-extended-land-sovereignty-ocean-river-air-orbit
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
-  - 60-apps/ai-gftd-project-open-denki/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-gas/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-water/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-network/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-power/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-rail/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-airplane/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-ports/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-robo/CLAUDE.md
-  - 60-apps/ai-gftd-project-open-ot/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-denki/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-gas/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-water/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-network/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-power/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-rail/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-airplane/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-ports/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-robo/CLAUDE.md
+  - 60-apps/etzhayyim-project-open-ot/CLAUDE.md
 supersedes: []
 superseded_by: []
 ---
@@ -306,9 +306,9 @@ procurement agent fleet を拡張して施工そのものを担わせる。
 - ADR-2605192315 Transparent Religious Force R&D (drone-detection / detection-system 流用)
 - ADR-2605192330 Extended Land Sovereignty (ocean / river / atmosphere / orbit)
 - ADR-2605192415 Religious-corp daemon architecture (Tier A/B/C, Murakumo fleet placement)
-- `60-apps/ai-gftd-project-open-denki/CLAUDE.md` (CIM record SSoT)
-- `60-apps/ai-gftd-project-open-gas/CLAUDE.md`
-- `60-apps/ai-gftd-project-open-water/CLAUDE.md`
-- `60-apps/ai-gftd-project-open-network/CLAUDE.md`
-- `60-apps/ai-gftd-project-open-robo/CLAUDE.md` (Giemon hardware brand)
-- `60-apps/ai-gftd-project-open-ot/CLAUDE.md` (WASM PLC + IEC 61499 Pregel cells)
+- `60-apps/etzhayyim-project-open-denki/CLAUDE.md` (CIM record SSoT)
+- `60-apps/etzhayyim-project-open-gas/CLAUDE.md`
+- `60-apps/etzhayyim-project-open-water/CLAUDE.md`
+- `60-apps/etzhayyim-project-open-network/CLAUDE.md`
+- `60-apps/etzhayyim-project-open-robo/CLAUDE.md` (Giemon hardware brand)
+- `60-apps/etzhayyim-project-open-ot/CLAUDE.md` (WASM PLC + IEC 61499 Pregel cells)

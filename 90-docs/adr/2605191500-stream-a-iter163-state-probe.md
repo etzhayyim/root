@@ -113,7 +113,7 @@ Stream A 進行に必須でないため iter164+ に deferred。
   USD 175K revenue commitment 履行不可)
 
 **Followups (iter164+)**
-- B2 billing resolve 後、payment method 変更を `gftd Vault` に記録
+- B2 billing resolve 後、payment method 変更を `etzhayyim Vault` に記録
 - Stripe-in 状態を Nakamura から確証取れたら ADR-2605191500 を
   superseded_by で 後継 ADR にバトン渡し
 - sk_live getServiceAuth 401 root cause 調査 (iter161 から carry)

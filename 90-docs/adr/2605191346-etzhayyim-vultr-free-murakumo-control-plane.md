@@ -26,7 +26,7 @@ Two governance contexts share the monorepo today:
 
 | brand | governance | substrate | Vultr policy |
 |---|---|---|---|
-| **etzhayyim.com** (legacy commercial) | gftd Co., Ltd. | Vultr VKE + Cloudflare | **keep** (out of scope for this ADR — operator's choice) |
+| **etzhayyim.com** (legacy commercial) | etzhayyim Co., Ltd. | Vultr VKE + Cloudflare | **keep** (out of scope for this ADR — operator's choice) |
 | **etzhayyim** (open religious-corp, this repo) | 宗教法人 任意団体 (on-chain) | Murakumo Mac-mini fleet + Cloudflare edge | **fully exit** (this ADR) |
 
 ADR-2605172000 already declared "RW-free / no centralized DB" but did NOT explicitly state "no commercial K8s control plane". ADR-2605172800-geth ("geth-private migration") left the cluster question staged ("can stay on Vultr ... until natural infra-refresh time") with three migration Options A/B/C.
@@ -69,10 +69,10 @@ User mandate(2026-05-19):
 | `50-infra/vultr/*` | **etzhayyim.com legacy** | ✅(本 ADR 範囲外) |
 | `50-infra/k8s/*` | **etzhayyim Murakumo target** | ❌ Murakumo のみ |
 | `50-infra/etzhayyim-*` | etzhayyim 専用 | ❌ Murakumo / Cloudflare のみ |
-| `60-apps/ai-gftd-project-*` | etzhayyim app(legacy 名前は移行中) | ❌ |
+| `60-apps/etzhayyim-project-*` | etzhayyim app(legacy 名前は移行中) | ❌ |
 | `20-actors/*` | etzhayyim Python/TS package | ❌ |
 
-`50-infra/vultr/` ディレクトリは **将来別 repo(`gftd-co-jp/legacy-vultr-manifests` 等)に物理分離**することを follow-up タスクとして登録(本 ADR 内では rename しない、repo-root `CLAUDE.md` Step 8 cutover の一部として実施)。
+`50-infra/vultr/` ディレクトリは **将来別 repo(`etzhayyim-co-jp/legacy-vultr-manifests` 等)に物理分離**することを follow-up タスクとして登録(本 ADR 内では rename しない、repo-root `CLAUDE.md` Step 8 cutover の一部として実施)。
 
 ### 3. Control plane choice — primary / secondary
 
@@ -161,7 +161,7 @@ Cloudflare Workers / Pages / Tunnel / Registrar は **本 ADR では retain**(�
 | M4 — geth-private dry-run on Murakumo | 2026-08-01 | parallel run、original Vultr 維持 |
 | M5 — geth-private production switch | 2026-08-15 | Cloudflare Tunnel 切替、24h soak |
 | M6 — 旧 Vultr namespace decommission | 2026-09-01 | etzhayyim governance 下の Vultr namespace 全削除 |
-| M7 — `50-infra/vultr/*` 物理分離 | 2026-09-15 | 別 repo(gftd-co-jp 側)へ移動、本 repo から削除 |
+| M7 — `50-infra/vultr/*` 物理分離 | 2026-09-15 | 別 repo(etzhayyim-co-jp 側)へ移動、本 repo から削除 |
 
 deadline 不達時は対応 ADR 起草で説明責任。
 

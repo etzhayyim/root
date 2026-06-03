@@ -24,7 +24,7 @@ depends_on:
   - adr-2605192415-etzhayyim-religious-corp-daemon-architecture
 related:
   - adr-2605201700-yobel-jubilee-shmita-debt-release-actor
-  - vendor:60-apps/ai-gftd-project-bankruptcy/CLAUDE.md
+  - vendor:60-apps/etzhayyim-project-bankruptcy/CLAUDE.md
   - vendor:90-docs/adr/0016-legal-cluster-topology.md
   - vendor:90-docs/adr/0074-ethereum-identity-bridge-cacao-webauthn.md
 supersedes: []
@@ -181,7 +181,7 @@ vendor (etzhayyim Japan) は **意思決定権なし**。本 actor の出力 (re
 **Neutral**
 - deps.toml `[[projects]]` 追加 (登記後の cutover で vendor:deps.toml entry は archive)
 - 実装 scaffolding (`magatama.jsonld` / `src/app.ts`) は本 PR 後の follow-up
-- vendor 側 (`vendor:60-apps/ai-gftd-project-yobel/CLAUDE.md`) は marker stub として残置、cross-reference 用
+- vendor 側 (`vendor:60-apps/etzhayyim-project-yobel/CLAUDE.md`) は marker stub として残置、cross-reference 用
 
 # Alternatives Considered
 
@@ -221,5 +221,5 @@ vendor (etzhayyim Japan) は **意思決定権なし**。本 actor の出力 (re
 - vendor ADR-0074 ERC725 Identity Bridge (CACAO + WebAuthn)
 - vendor ADR-2605172000 etzhayyim Open Telecom Fabric (substrate boundary)
 - vendor ADR-2605172400 etzhayyim/vendor 3-axis Split Rule
-- vendor `60-apps/ai-gftd-project-bankruptcy/CLAUDE.md`
-- vendor `60-apps/ai-gftd-project-lawfirm/CLAUDE.md`
+- vendor `60-apps/etzhayyim-project-bankruptcy/CLAUDE.md`
+- vendor `60-apps/etzhayyim-project-lawfirm/CLAUDE.md`

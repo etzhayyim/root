@@ -9,13 +9,13 @@ last_verified: 2026-05-19
 priority: 7.5
 axis: architecture
 weight: 0.75
-priority_note: "ADR-2605192130 (10% Tithe) の受け皿としての Public Fund を on-chain で具体化する ADR。既存の `60-apps/ai-gftd-project-public-fund` ディレクトリを正式に ADR 化する。grant 評議 = Pregel cell + 1 SBT = 1 vote、disbursement = 0xSplits、すべての残高 / 出金は MST + Base L2 で完全公開。"
+priority_note: "ADR-2605192130 (10% Tithe) の受け皿としての Public Fund を on-chain で具体化する ADR。既存の `60-apps/etzhayyim-project-public-fund` ディレクトリを正式に ADR 化する。grant 評議 = Pregel cell + 1 SBT = 1 vote、disbursement = 0xSplits、すべての残高 / 出金は MST + Base L2 で完全公開。"
 authoritative_for:
   - Public Fund Safe address のガバナンス境界
   - `PublicFundGovernance.sol` contract spec
   - grant 評議 Pregel cell (`PublicFundGrantCell`) の入出力
   - grant 配布 Lexicon (`com.etzhayyim.apps.public-fund.*`)
-  - 60-apps/ai-gftd-project-public-fund/ の architecture
+  - 60-apps/etzhayyim-project-public-fund/ の architecture
 depends_on:
   - adr-2605192100-etzhayyim-mission-charter
   - adr-2605192115-etzhayyim-non-profit-donation-only-no-ads
@@ -35,7 +35,7 @@ superseded_by: []
 
 # Context
 
-ADR-2605192130 で確立した 10% Tithe は **Public Fund** に着金するが、その Public Fund 自体の構造は未定義であった。既存の `60-apps/ai-gftd-project-public-fund/` ディレクトリは scaffold のみで、grant 評議も配布機構も無い状態。
+ADR-2605192130 で確立した 10% Tithe は **Public Fund** に着金するが、その Public Fund 自体の構造は未定義であった。既存の `60-apps/etzhayyim-project-public-fund/` ディレクトリは scaffold のみで、grant 評議も配布機構も無い状態。
 
 Public Fund は etzhayyim の religious mission (ADR-2605192100 §1.5 知財無償公開 / §1.6 中間排除 / §1.7 専門性 gatekeeping 排除) を **個別 project レベルで具体化する助成金プール** として機能する。即ち、構成員 / 第三者が提案する「mission 整合的な project」に対して、Public Fund から grant を出す。
 
@@ -242,12 +242,12 @@ Public Fund に本財 tier を持たせない理由: Public Fund は **可動性
 
 Rebalance proposal も `propose()` 経由 (mission axis = `treasury.rebalance`)。
 
-## 7. 既存 `60-apps/ai-gftd-project-public-fund/` の re-architecture
+## 7. 既存 `60-apps/etzhayyim-project-public-fund/` の re-architecture
 
 既存ディレクトリは AppView として残し、本 ADR の Pregel cell / contract / Lexicon と接続する:
 
 ```
-60-apps/ai-gftd-project-public-fund/
+60-apps/etzhayyim-project-public-fund/
 ├── README.md                       # 本 ADR への link
 ├── appview/                        # AT Record indexer + UI
 │   ├── src/
@@ -367,6 +367,6 @@ immutable split を作らず、Safe から直接 USDC.transfer を N 回。
 - ADR-2605171800: LangGraph → MST → IPFS → L2 pipeline (cell 実行基盤)
 - ADR-2605171300: 18,345 agent fleet (cell code-gen pattern)
 - ADR-2605172600: membership ritual + 7-level ladder (Council = Lv6 上位)
-- 60-apps/ai-gftd-project-public-fund/ (既存 app — 本 ADR で再設計)
+- 60-apps/etzhayyim-project-public-fund/ (既存 app — 本 ADR で再設計)
 - 50-infra/etzhayyim-public-fund/ (新規 — 本 ADR 承認後 scaffold)
 - 0xSplits docs: https://docs.splits.org/

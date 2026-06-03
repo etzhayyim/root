@@ -9,7 +9,7 @@ last_verified: 2026-05-17
 priority: 8.0
 axis: architecture
 weight: 0.80
-priority_note: "Defines the hard architectural boundary that justifies the etzhayyim/gftd org split. Without this constraint, the split is just license labeling. With it, etzhayyim is genuinely decentralized and verifiable from outside any single operator."
+priority_note: "Defines the hard architectural boundary that justifies the etzhayyim/etzhayyim org split. Without this constraint, the split is just license labeling. With it, etzhayyim is genuinely decentralized and verifiable from outside any single operator."
 authoritative_for:
   - hard rule: open religious-corp apps MUST NOT depend on RisingWave or any centralized DB
   - primary substrate: AT Protocol MST + IPFS + Base L2
@@ -147,7 +147,7 @@ The open app remains operational without the upstream backend — paid features 
 - **L2 gas costs.** Even at Base's ~$0.001/tx, anchoring every record is too expensive. Batch anchoring (one root every N records or T minutes) is mandatory; the SDK schedules this.
 - **Real-time updates.** PDS firehose gives push, but high-volume apps need an event-streaming abstraction. The SDK provides a `subscribe()` over PDS subscribeRepos.
 - **SDK is a single point of design coupling.** Every app depends on the SDK API surface; changes need versioning + migration guidance.
-- **Refactor cost.** Every existing `60-apps/ai-gftd-project-*` currently uses RW. Each one needs a refactor to MST + IPFS. Estimate: small reference-data app = 1-2 days; AppView like yoro = 1-2 weeks; full open-banking = 1-2 months.
+- **Refactor cost.** Every existing `60-apps/etzhayyim-project-*` currently uses RW. Each one needs a refactor to MST + IPFS. Estimate: small reference-data app = 1-2 days; AppView like yoro = 1-2 weeks; full open-banking = 1-2 months.
 
 ## Migration rollout (incremental, low-risk)
 

@@ -65,7 +65,7 @@ data:
     # T2 環境での autonomous モード (electronic_jamming のみ) 許可
 ```
 
-既存 `gftd.defense.ew.escalation` パッケージへのパッチマージ。
+既存 `etzhayyim.defense.ew.escalation` パッケージへのパッチマージ。
 
 ### 3. Deployment パッチ — 新規グラフ追加
 
