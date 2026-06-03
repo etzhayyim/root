@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_network_define_link"
-    targetNamespace="https://gftd.ai/bpmn/open-network"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-network"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_network_define_link" name="リンク 登録" isExecutable="true">
@@ -91,7 +91,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-network.gftd.ai:core&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-network.etzhayyim.com:core&quot;" target="actor"/>
           <zeebe:input source="=&quot;openNetwork.link.define&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, operatorOrgId: operatorOrgId, capacityMbps: capacityMbps, media: media, fromVertexId: fromVertexId, toVertexId: toVertexId}" target="payload"/>
         </zeebe:ioMapping>

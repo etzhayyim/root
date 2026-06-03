@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_ocds_procurement_flag_defence_procurement"
-    targetNamespace="https://gftd.ai/bpmn/open-ocds-procurement"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-ocds-procurement"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_ocds_procurement_flag_defence_procurement" name="OCDS 防衛調達 フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-ocds-procurement.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-ocds-procurement.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;procurement.defence&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: tenderId, severity: &quot;info&quot;}" target="payload"/>
         </zeebe:ioMapping>

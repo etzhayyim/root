@@ -6,7 +6,7 @@
   Writes consent record to vertex_ossekai_wellbecoming_plan (status=consent_pending).
   NSID: com.etzhayyim.apps.openOssekai.requestOssekaiConsent
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_request_consent" targetNamespace="https://gftd.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_request_consent" targetNamespace="https://etzhayyim.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_ossekai_request_ossekai_consent" name="requestOssekaiConsent" isExecutable="true">
     <bpmn:documentation>
       { "nsid": "com.etzhayyim.apps.openOssekai.requestOssekaiConsent", "version": 1, "resultTimeoutMs": 30000 }

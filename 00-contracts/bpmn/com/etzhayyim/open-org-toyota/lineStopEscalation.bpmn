@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_org_toyota_line_stop_escalation"
-    targetNamespace="https://gftd.ai/bpmn/open-org-toyota"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-org-toyota"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_org_toyota_line_stop_escalation" name="Toyota line stop escalation" isExecutable="true">
@@ -117,7 +117,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-org-toyota.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-org-toyota.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOrg.toyota.lineStop.containment&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, containmentVertexId: containmentVertexId, plantId: plantId, lineId: lineId, severity: severity}" target="payload"/>
         </zeebe:ioMapping>
@@ -131,7 +131,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-org-toyota.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-org-toyota.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOrg.toyota.lineStop.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, plantId: plantId, lineId: lineId, severity: severity}" target="payload"/>
         </zeebe:ioMapping>

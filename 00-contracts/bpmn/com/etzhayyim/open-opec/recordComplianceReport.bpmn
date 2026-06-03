@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_opec_record_compliance_report"
-    targetNamespace="https://gftd.ai/bpmn/open-opec"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-opec"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_opec_record_compliance_report" name="OPEC+ compliance report" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -48,7 +48,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-opec.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-opec.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOpec.compliance.nonCompliant&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, memberCountry: memberCountry, periodMonth: periodMonth, compliancePct: compliancePct, reliabilityTier: reliabilityTier}" target="payload"/>
         </zeebe:ioMapping>
@@ -60,7 +60,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-opec.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-opec.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;openOpec.compliance.record&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, memberCountry: memberCountry, periodMonth: periodMonth, compliancePct: compliancePct, reliabilityTier: reliabilityTier}" target="payload"/>
         </zeebe:ioMapping>

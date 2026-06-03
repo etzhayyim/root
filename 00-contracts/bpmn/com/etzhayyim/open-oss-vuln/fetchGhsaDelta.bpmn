@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_oss_vuln_fetch_ghsa_delta" targetNamespace="https://gftd.ai/bpmn/open-oss-vuln" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_open_oss_vuln_fetch_ghsa_delta" targetNamespace="https://etzhayyim.ai/bpmn/open-oss-vuln" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_oss_vuln_fetch_ghsa_delta" name="fetchGhsaDelta" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 12h"><bpmn:outgoing>Flow_C</bpmn:outgoing>
       <bpmn:timerEventDefinition><bpmn:timeCycle xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">R/PT12H</bpmn:timeCycle></bpmn:timerEventDefinition>
@@ -34,7 +34,7 @@
     <bpmn:callActivity id="Task_Loop" name="register each advisory" calledElement="open_oss_vuln_register_advisory">
       <bpmn:extensionElements><zeebe:calledElement processId="open_oss_vuln_register_advisory"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;at://did:web:open-oss-vuln.gftd.ai/com.etzhayyim.apps.ossVuln.registerAdvisory/&quot; + item.ghsa_id" target="vertexId"/>
+          <zeebe:input source="=&quot;at://did:web:open-oss-vuln.etzhayyim.com/com.etzhayyim.apps.ossVuln.registerAdvisory/&quot; + item.ghsa_id" target="vertexId"/>
           <zeebe:input source="=item.ghsa_id" target="advisoryId"/>
           <zeebe:input source="=&quot;ghsa&quot;" target="scheme"/>
           <zeebe:input source="=if item.cvss != null then item.cvss.score else 0.0" target="cvss3Score"/>
@@ -46,7 +46,7 @@
           <zeebe:input source="=if item.vulnerabilities != null then item.vulnerabilities[1].vulnerable_version_range else &quot;&quot;" target="versionRanges"/>
           <zeebe:input source="=false" target="kevTagged"/>
           <zeebe:input source="=item.published_at" target="publishedAt"/>
-          <zeebe:input source="=&quot;did:web:open-oss-vuln.gftd.ai&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:open-oss-vuln.etzhayyim.com&quot;" target="callerDid"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_L</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>

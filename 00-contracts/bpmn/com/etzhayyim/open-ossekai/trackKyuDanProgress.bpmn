@@ -4,7 +4,7 @@
   Reads active wellbecoming plans past next_review_at, triggers rescore signal.
   NSID: com.etzhayyim.apps.openOssekai.trackKyuDanProgress (timer-start, no binding needed)
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_track_kyu_dan_progress" targetNamespace="https://gftd.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_open_ossekai_track_kyu_dan_progress" targetNamespace="https://etzhayyim.ai/bpmn/open-ossekai" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="open_ossekai_track_kyu_dan_progress" name="trackKyuDanProgress" isExecutable="true">
     <bpmn:startEvent id="Start" name="every 7 days">
       <bpmn:outgoing>Flow_ToSelect</bpmn:outgoing>
