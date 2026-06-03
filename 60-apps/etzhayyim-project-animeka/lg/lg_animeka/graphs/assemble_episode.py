@@ -231,7 +231,7 @@ async def _sa3_upload(state: EpisodeAssemblyState) -> dict[str, Any]:
                     headers={
                         "content-type": "video/mp4",
                         "x-magatama-verified": "true",
-                        "x-gftd-org-id": "anon",
+                        "x-etzhayyim-org-id": "anon",
                     },
                 )
                 r.raise_for_status()

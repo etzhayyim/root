@@ -355,7 +355,7 @@ async def _node_post(state: _State) -> dict[str, Any]:
                     json={"repo": _REPO, "collection": "app.bsky.feed.post", "record": record},
                     headers={"Content-Type": "application/json",
                              "x-magatama-verified": "true",
-                             "x-gftd-org-id": "anon"},
+                             "x-etzhayyim-org-id": "anon"},
                 )
             if r.status_code < 400:
                 return {"post_status": "posted", "ok": True}
