@@ -271,7 +271,7 @@
     "description": "Multi-tenant EC marketplace. Seller onboarding/catalog/fulfillment/finance, buyer cart/checkout/review, logistics, SAGA payment via kakin.etzhayyim.com.",
     "displayName": "Omise EC Marketplace",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

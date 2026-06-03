@@ -252,7 +252,7 @@
     "description": "Tracks crude tanker, product tanker, LNG and LPG maritime flows. Links cargo, vessel, terminal, port, route and sanctions-sensitive shipping exposure.",
     "displayName": "Oil Shipping & Tanker Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -1,6 +1,6 @@
 # nyusatsu — JP Public Procurement Aggregator
 
-Self-hosted, gftd-native alternative to NJSS (入札情報速報サービス).
+Self-hosted, etzhayyim-native alternative to NJSS (入札情報速報サービス).
 
 ## 責務
 

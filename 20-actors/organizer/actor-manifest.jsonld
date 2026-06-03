@@ -242,10 +242,10 @@
       "analyze-subscriptions",
       "get-recommendations"
     ],
-    "description": "Upload -> AI auto-organize. Murakumo vision/NLP classification, Blake3 dedup, vault/collection Multi-DID. Subscription discovery from mailer emails with kaiyaku auto-cancellation. Replaces ai-gftd-project-drive.",
+    "description": "Upload -> AI auto-organize. Murakumo vision/NLP classification, Blake3 dedup, vault/collection Multi-DID. Subscription discovery from mailer emails with kaiyaku auto-cancellation. Replaces etzhayyim-project-drive.",
     "displayName": "Organizer — AI Auto-Organize",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

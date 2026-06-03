@@ -1,4 +1,4 @@
-# ai-gftd-project-omise
+# etzhayyim-project-omise
 
 omise.etzhayyim.com — Shopify-like multi-tenant EC marketplace。Platform / Seller (出店者) / Buyer (購入者) の三者構造。出店→商品登録→販売→決済→出荷→精算の全フローを AI Actor が自律運営。
 
@@ -8,7 +8,7 @@ omise.etzhayyim.com — Shopify-like multi-tenant EC marketplace。Platform / Se
 Browser → omise.etzhayyim.com (Svelte CSR)
   → XRPC /xrpc/com.etzhayyim.apps.omise.*
     ↓
-  App: ai-gftd-wasm-omise-om1s3sh0p
+  App: etzhayyim-wasm-omise-om1s3sh0p
     ├─ Platform:  approveSeller / suspendSeller / listPendingSellers / resolveDispute / platformAnalytics
     ├─ Seller:    registerSeller / updateSellerProfile / getSellerProfile
     │   ├─ Catalog:     createProduct / updateProduct / archiveProduct / listSellerProducts / updateInventory
@@ -149,9 +149,9 @@ order completed + delivered confirmed
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-omise/wasm/ai-gftd-wasm-omise-om1s3sh0p/svelte
+cd 60-apps/etzhayyim-project-omise/wasm/etzhayyim-wasm-omise-om1s3sh0p/svelte
 pnpm install && pnpm build
 cd ..
-gftd build
-gftd deploy --smoke-url https://om1s3sh0p.etzhayyim.com/health
+etzhayyim build
+etzhayyim deploy --smoke-url https://om1s3sh0p.etzhayyim.com/health
 ```

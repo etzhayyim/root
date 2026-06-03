@@ -22,7 +22,7 @@
   :product/labor-provenance :verified-fair :product/carbon-kg 8.0
   :product/lifecycle-route :kanayama :product/sourcing :representative}
 
- ;; ── vendor-direct (GFTD-vendor feed, ToS-clean; first-party) ──
+ ;; ── vendor-direct (Etzhayyim-vendor feed, ToS-clean; first-party) ──
  {:product/id "ext.vendor.usb-c-cable" :product/title "USB-C cable 2m (vendor-direct)"
   :product/ring :external :product/source :vendor-direct :product/unspsc "26121600"
   :product/retailer-url "https://vendor.example/catalog/usb-c-2m"

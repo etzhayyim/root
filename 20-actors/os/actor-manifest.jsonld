@@ -12,9 +12,9 @@
     "90-docs/rules/compliance/per-did-kyumei-shinka-autonomy.md",
     "90-docs/platform/260403-live-data-kyumei-shinka-consolidated.md"
   ],
-  "convoSystemPrompt": "You are the GFTD OS agent — the platform service layer for agent lifecycle management. You manage agent spawning and termination, consent request/grant flows, the DID directory, budget allocation per actor, audit log entries, and sync coordination. Query the graph for OsAgent, OsConsentRequest, OsBudgetAllocation, OsDirectoryEntry, and OsAuditEntry nodes. The KAMI compositor layer (Rust WASM window-manager) is handled separately; you manage only the service orchestration layer.",
+  "convoSystemPrompt": "You are the Etzhayyim OS agent — the platform service layer for agent lifecycle management. You manage agent spawning and termination, consent request/grant flows, the DID directory, budget allocation per actor, audit log entries, and sync coordination. Query the graph for OsAgent, OsConsentRequest, OsBudgetAllocation, OsDirectoryEntry, and OsAuditEntry nodes. The KAMI compositor layer (Rust WASM window-manager) is handled separately; you manage only the service orchestration layer.",
   "description": "Agent lifecycle management, consent orchestration, directory resolution, budget allocation, audit trail, sync coordination, and window-manager service. The KAMI compositor (Rust WASM) remains T3; only the service layer migrates to T1 MCP-Compose.",
-  "displayName": "GFTD OS — Magatama Service Layer",
+  "displayName": "Etzhayyim OS — Magatama Service Layer",
   "domainKnowledgeRequired": true,
   "runtime": "k8s-langserver",
   "edge": "sveltekit-proxy",
@@ -25,7 +25,7 @@
   },
   "heartbeatRequired": true,
   "name": "os",
-  "nanoid": "os-gftd-01",
+  "nanoid": "os-etzhayyim-01",
   "performerType": "service",
   "pipelines": [
     {
@@ -143,7 +143,7 @@
         },
         {
           "args": {
-            "message": "GFTD OS health check.\n\nAgent status distribution:\n$agentStats.rows\n\nBudget utilization:\n$budgetStats.rows\n\nSummarize platform health and flag any agents exceeding budget or in error state."
+            "message": "Etzhayyim OS health check.\n\nAgent status distribution:\n$agentStats.rows\n\nBudget utilization:\n$budgetStats.rows\n\nSummarize platform health and flag any agents exceeding budget or in error state."
           },
           "depends_on": [
             "agentStats",
@@ -154,7 +154,7 @@
         },
         {
           "args": {
-            "template": "GFTD OS status: $summary.text"
+            "template": "Etzhayyim OS status: $summary.text"
           },
           "fn": "derive:social",
           "id": "announce"
@@ -190,7 +190,7 @@
               "bucket": "6h",
               "collection": "com.etzhayyim.apps.os.coverageSnapshot",
               "latestSeq": 0,
-              "nanoid": "os-gftd-01",
+              "nanoid": "os-etzhayyim-01",
               "nodeCount": "$coverageNodes.rows[0].nodeCount"
             },
             "template": "MERGE (c:ActorCoverageSnapshot {actorDid: $did, bucket: $bucket, actorName: $actorName, nanoid: $nanoid, nodeCount: $nodeCount, latestTs: $latestTs, repo: $did, collection: $collection, status: 'active'})"
@@ -204,7 +204,7 @@
         },
         {
           "args": {
-            "message": "You are GFTD OS — Magatama Service Layer. Based on the following new data, write a concise social post (1-2 sentences, informative and specific). Data: $coverageSnapshot.text"
+            "message": "You are Etzhayyim OS — Magatama Service Layer. Based on the following new data, write a concise social post (1-2 sentences, informative and specific). Data: $coverageSnapshot.text"
           },
           "depends_on": [
             "coverageSnapshot"
@@ -264,9 +264,9 @@
       "sync-coordinate"
     ],
     "description": "OS-level agent lifecycle, consent, directory, budget, audit, and sync services. Coordinates Magatama actor spawning, permission grants, and resource allocation across the platform.",
-    "displayName": "GFTD OS — Magatama Service Layer",
+    "displayName": "Etzhayyim OS — Magatama Service Layer",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -52,10 +52,10 @@ describe("Materializer", () => {
       materializedAt: "2026-05-21T00:00:00Z",
     });
 
-    expect(r.uri).toContain("agg-ai-gftd-kiyo-paper-status");
+    expect(r.uri).toContain("agg-etzhayyim-kiyo-paper-status");
     const records = e.dump("com.etzhayyim.projector.aggregate");
     expect(records.length).toBe(1);
-    expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");
+    expect(records[0][0]).toBe("agg-etzhayyim-kiyo-paper-status");
     expect(records[0][1].groupBy).toBe("status");
     expect(records[0][1].counts).toEqual({ published: 3, submitted: 1 });
   });
@@ -72,7 +72,7 @@ describe("Materializer", () => {
       materializedAt: "2026-05-21T00:00:00Z",
     });
 
-    expect(r.uri).toContain("txt-ai-gftd-kiyo-paper-");
+    expect(r.uri).toContain("txt-etzhayyim-kiyo-paper-");
     const records = e.dump("com.etzhayyim.projector.textSearch");
     expect(records.length).toBe(1);
     expect(records[0][1].resultRkeys).toEqual(["paper-1", "paper-2"]);
@@ -101,8 +101,8 @@ describe("Materializer", () => {
 
     const records = e.dump("com.etzhayyim.projector.aggregate");
     expect(records.length).toBe(2);
-    expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");
-    expect(records[1][0]).toBe("agg-ai-gftd-kiyo-paper-language");
+    expect(records[0][0]).toBe("agg-etzhayyim-kiyo-paper-status");
+    expect(records[1][0]).toBe("agg-etzhayyim-kiyo-paper-language");
   });
 
   it("aggregates from different collections are keyed separately", async () => {
@@ -128,7 +128,7 @@ describe("Materializer", () => {
     const records = e.dump("com.etzhayyim.projector.aggregate");
     expect(records.length).toBe(2);
     // Both have same groupBy "status", but different collection slugs
-    expect(records[0][0]).toBe("agg-ai-gftd-kiyo-paper-status");
-    expect(records[1][0]).toBe("agg-ai-gftd-kiyo-review-status");
+    expect(records[0][0]).toBe("agg-etzhayyim-kiyo-paper-status");
+    expect(records[1][0]).toBe("agg-etzhayyim-kiyo-review-status");
   });
 });

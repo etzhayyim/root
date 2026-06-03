@@ -132,6 +132,6 @@ affiliate denylist comprehensive but not exhaustive; no GDSN hierarchy resolutio
   okaimono routes returns/complaints to it (lifecycle), does not adjudicate them.
 - **vs toritsugi**: toritsugi is 行政手続き concierge; okaimono is goods-provisioning. Both
   are member-facing concierges and share the "guide + member self-submits" external pattern.
-- **vs gftd.ai vendor arm**: a pure commercial marketplace may live vendor-side under
+- **vs etzhayyim.ai vendor arm**: a pure commercial marketplace may live vendor-side under
   ADR-2605301036; Ring 2 R3 代理-purchase routes through it. The religious-corp surface
   here stays a provisioning commons.

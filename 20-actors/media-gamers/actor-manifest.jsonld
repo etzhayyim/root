@@ -233,7 +233,7 @@
     "description": "Game information intelligence with 70+ game path-based DIDs. Pattern C i18n (primary en + translation records). Joucho cadence guide generation, quality evaluation (5-axis x 20pt), auto-translation via qwen3.5-4b (Murakumo). Sources: Steam, RAWG, IGDB, OpenCritic, Giant Bomb.",
     "displayName": "Media Gamers — Game Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

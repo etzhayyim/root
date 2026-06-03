@@ -326,7 +326,7 @@ canonical honest record (G5).
 ## Update 2026-06-02 — JP local-government breadth ingest
 
 `deploy/ingest_jp_local.py` projected the bundled official-code dataset
-(`60-apps/ai-gftd-project-states/data/gov/jpn/{prefecture,municipality}.ndjson`;
+(`60-apps/etzhayyim-project-states/data/gov/jpn/{prefecture,municipality}.ndjson`;
 全国地方公共団体コード / 地方自治法) into `:gov.unit` and ingested it into the live
 `gov-atlas-v1` kotoba graph (operator-local):
 

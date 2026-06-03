@@ -251,7 +251,7 @@
     "description": "Tracks product terminals, wholesale hubs and refinery-to-market product movements.",
     "displayName": "Oil Distribution & Product Terminal Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

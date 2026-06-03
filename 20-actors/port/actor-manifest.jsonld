@@ -355,7 +355,7 @@
     "description": "World port infrastructure registry — 35+ major ports across 15+ countries, berth/terminal management, vessel call tracking from vessel.etzhayyim.com, port occupancy intelligence.",
     "displayName": "Port Infrastructure & Call Tracking",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -31,7 +31,7 @@
     "did:web:tsumugi.etzhayyim.com (BOUNDARY: tsumugi weaves 縁/取 karma over :organism nodes; ooyake maps structure. :gov.unit/organism reconciles the SAME unit across both graphs [atlas=structure, engi=karma]; ADR-2606011800 + 2606011000)",
     "did:web:himotoki.etzhayyim.com (himotoki resolves WHICH authority + 窓口 to file a 開示請求/FOIA against via the atlas; ADR-2605302130)",
     "kotoba QuadStore EAVT (gov-atlas-v1 graph: :gov.unit/:gov.address/:gov.window/:gov.form/:gov.procedure/:gov.bpmn datoms; ADR-2605262130 + 2605312345; no RisingWave / no projection layer)",
-    "00-contracts/bpmn/com/etzhayyim/gov*/ (LEGACY F-Plan country BPMN stubs + 90-docs/openapi/gov*.openapi.json: SUBSUMED by ooyake's :gov.* graph as kotoba-native owner; com.etzhayyim.gov* → com.etzhayyim.ooyake.* rename deferred to the gated Step-8 gftd-* cutover, NOT executed here)"
+    "00-contracts/bpmn/com/etzhayyim/gov*/ (LEGACY F-Plan country BPMN stubs + 90-docs/openapi/gov*.openapi.json: SUBSUMED by ooyake's :gov.* graph as kotoba-native owner; com.etzhayyim.gov* → com.etzhayyim.ooyake.* rename deferred to the gated Step-8 etzhayyim-* cutover, NOT executed here)"
   ],
   "form": "任意団体 internal civic-knowledge substrate (NOT a government, NOT an official 自治体/省庁 channel — observational mirror only, G3/§2(c); NOT a 行政書士/弁護士 firm; NOT a data-broker product — public good, G8). Preamble §0.4 Lv7+ unanimity lock applies.",
   "constitutionalDiscipline": {
