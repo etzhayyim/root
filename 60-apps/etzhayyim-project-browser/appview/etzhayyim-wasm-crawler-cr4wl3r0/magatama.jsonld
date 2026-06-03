@@ -19,10 +19,10 @@
     ]
   },
   "interfaces": {
-    "package": "gftd:crawler@1.0.0",
+    "package": "etzhayyim:crawler@1.0.0",
     "provides": [
-      "gftd:crawler/crawl-engine@1.0.0",
-      "gftd:crawler/darkweb-engine@1.0.0"
+      "etzhayyim:crawler/crawl-engine@1.0.0",
+      "etzhayyim:crawler/darkweb-engine@1.0.0"
     ]
   },
   "kpi": [

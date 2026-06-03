@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-extract-ex7a8b9c",
+  "name": "etzhayyim-wasm-extract-ex7a8b9c",
   "nanoid": "ex7a8b9c",
   "performerType": "service",
   "profile": {
@@ -33,7 +33,7 @@
     "description": "Extract — AI Agent",
     "displayName": "Extract",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "worker",

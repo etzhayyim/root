@@ -1,17 +1,17 @@
-# ai-gftd-project-browser — Browser Agent (L2)
+# etzhayyim-project-browser — Browser Agent (L2)
 
 **browser.etzhayyim.com** — L2 Browser Agent。JS rendering, stealth anti-bot bypass, darkweb Tor proxy, phishing detection, LLM entity extraction。browserless (Playwright headless Chromium) 統合済み。
 
 ## CRITICAL: L2 Browser Agent Role
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-browser-l2-browser-agent-role` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-browser-l2-browser-agent-role` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Components
 
 | Component | Path | 役割 |
 |---|---|---|
-| browser-agent (WASM) | `wasm/ai-gftd-wasm-browser-agent-br0ws3r0/` | Browser Agent main (JS rendering, crawl, darkweb) |
-| crawler (WASM) | `wasm/ai-gftd-wasm-crawler-cr4wl3r0/` | Crawl engine + darkweb engine |
+| browser-agent (WASM) | `wasm/etzhayyim-wasm-browser-agent-br0ws3r0/` | Browser Agent main (JS rendering, crawl, darkweb) |
+| crawler (WASM) | `wasm/etzhayyim-wasm-crawler-cr4wl3r0/` | Crawl engine + darkweb engine |
 | browserless (provider) | `provider/browserless/` | Headless Chromium proxy (Playwright, stealth anti-bot) |
 | crawl-engine (provider) | `provider/crawl-engine/` | HTTP fetcher + browserless renderer |
 | frontier (Rust) | `provider/crawler-frontier-rs/` | URL frontier queue |
@@ -21,11 +21,11 @@
 | Item | Value |
 |------|-------|
 | nanoid | `cr4wl3r0` |
-| Path | `60-apps/ai-gftd-project-browser/wasm/ai-gftd-wasm-crawler-cr4wl3r0/` |
+| Path | `60-apps/etzhayyim-project-browser/wasm/etzhayyim-wasm-crawler-cr4wl3r0/` |
 | Domain | `browser.etzhayyim.com` / `cr4wl3r0.etzhayyim.com` |
 | Runtime | Single Worker (canvas) |
 | UI mode | canvas |
-| Service path | `/xrpc/gftd.crawler.v1.CrawlerService/` |
+| Service path | `/xrpc/etzhayyim.crawler.v1.CrawlerService/` |
 
 ## Architecture
 
@@ -183,7 +183,7 @@ Evidence-weighted scoring (yabai pattern):
 ## WIT Capability
 
 ```wit
-package gftd:crawler@1.0.0;
+package etzhayyim:crawler@1.0.0;
 interface crawl-engine {
     start-crawl, fetch-page, llm-extract, get-entity-graph, add-seed
 }

@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-browser-agent-br0ws3r0",
+  "name": "etzhayyim-wasm-browser-agent-br0ws3r0",
   "nanoid": "br0ws3r0",
   "performerType": "service",
   "profile": {
@@ -33,7 +33,7 @@
     "description": "Browser Agent — AI Agent",
     "displayName": "Browser Agent",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "worker",

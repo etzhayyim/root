@@ -1,11 +1,11 @@
-# ai-gftd-project-www-crawler App migration
+# etzhayyim-project-www-crawler App migration
 
-このディレクトリは `ai-gftd-project-www-crawler` の App 実装です。
+このディレクトリは `etzhayyim-project-www-crawler` の App 実装です。
 
 ## 実行状況評価（2026-03）
 
 - App コンポーネント `crawler-mcp-component` で crawler API の運用に必要な Connect RPC/MCP を提供。
-- `REST API (/api/v1/*, /jobs, /results, /crawls)` は廃止し、`/xrpc/gftd.crawler.v1.*` に統一。
+- `REST API (/api/v1/*, /jobs, /results, /crawls)` は廃止し、`/xrpc/etzhayyim.crawler.v1.*` に統一。
 - App runtime 依存は不要となったため、このプロジェクトの移行は完了扱い。
 
 ## App 実装方針

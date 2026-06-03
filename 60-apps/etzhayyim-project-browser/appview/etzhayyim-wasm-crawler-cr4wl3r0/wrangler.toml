@@ -30,7 +30,7 @@ secret_name = "openrouter_api_key"
 
 [[r2_buckets]]
 binding = "CDN_R2"
-bucket_name = "ai-gftd-graph"
+bucket_name = "etzhayyim-graph"
 
 [durable_objects]
 bindings = [

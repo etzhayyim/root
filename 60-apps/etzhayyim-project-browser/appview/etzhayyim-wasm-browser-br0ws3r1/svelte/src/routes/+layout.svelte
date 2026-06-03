@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-  <title>AI Browser — browser.gftd.ai</title>
+  <title>AI Browser — browser.etzhayyim.ai</title>
 </svelte:head>
 
 {@render children()}

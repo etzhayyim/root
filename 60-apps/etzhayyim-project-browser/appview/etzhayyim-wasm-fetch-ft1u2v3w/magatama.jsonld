@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-fetch-ft1u2v3w",
+  "name": "etzhayyim-wasm-fetch-ft1u2v3w",
   "nanoid": "ft1u2v3w",
   "performerType": "service",
   "profile": {
@@ -33,7 +33,7 @@
     "description": "Fetch — AI Agent",
     "displayName": "Fetch",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "worker",

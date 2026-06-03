@@ -1,6 +1,6 @@
-# Migration TODO — ai-gftd-project-browser
+# Migration TODO — etzhayyim-project-browser
 
-**Status**: 🔄 TRANSFORM (partial-merge) — net-new files merged from gftdcojp archive 2026-06-02.
+**Status**: 🔄 TRANSFORM (partial-merge) — net-new files merged from etzhayyimcojp archive 2026-06-02.
 Existing etzhayyim files were NOT overwritten (additive merge).
 
 **Codemod pending** (substrate-boundary ADR-2605172000 / 2605172100):

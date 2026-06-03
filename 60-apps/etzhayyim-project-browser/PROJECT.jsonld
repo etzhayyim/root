@@ -1,9 +1,9 @@
 {
   "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
-  "name": "ai-gftd-project-www-crawler",
+  "name": "etzhayyim-project-www-crawler",
   "description": "Go + legacy runtime web crawler: scheduler/frontier, fetcher+extractor, indexer with scale-to-zero",
-  "category": "ai-gftd-project-workers",
+  "category": "etzhayyim-project-workers",
   "components": {
     "app": {
       "appId": "www-crawler",
@@ -44,24 +44,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "ai-gftd-project-www-crawler Scheduler",
-          "identifier": "ai-gftd-project-www-crawler/scheduler",
+          "name": "etzhayyim-project-www-crawler Scheduler",
+          "identifier": "etzhayyim-project-www-crawler/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],
