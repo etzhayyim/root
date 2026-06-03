@@ -54,7 +54,7 @@ function recordToFeedItem(rec: MstRecord): FeedViewPost {
 //
 // When the SDK is configured with `kotobaUrl`, feed/graph/actor reads project
 // from the kotoba canonical state (the `yoro-social` graph) instead of the
-// single-actor PDS MST / superseded yatachain-projection. Each helper returns
+// single-actor PDS MST / superseded kotoba-datomic-projection. Each helper returns
 // `null` when kotoba is unconfigured or unreachable, so callers degrade to the
 // legacy PDS path and a kotoba outage never 500s the feed.
 
@@ -299,7 +299,7 @@ export interface SearchActorsOutput {
   cursor?: string;
 }
 
-// yatachain-projection: feed-discover read.
+// kotoba-datomic-projection: feed-discover read.
 //
 // Per ADR-2605231500. When the caller configures a `FEED_DISCOVER_DID`
 // pointing to a mst-projector instance emitting

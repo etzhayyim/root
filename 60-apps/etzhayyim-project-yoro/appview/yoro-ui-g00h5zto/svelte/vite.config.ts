@@ -64,7 +64,7 @@ function scanStaticNsids(file: string): Array<{ line: number; nsid: string; sour
 
 function nsidLexiconExistsPlugin(): Plugin {
 	return {
-		name: 'gftd-nsid-lexicon-exists',
+		name: 'etzhayyim-nsid-lexicon-exists',
 		apply: 'build',
 		buildStart() {
 			const lexiconIds = loadLexiconIds();
@@ -106,7 +106,7 @@ type ExtendedUserConfig = ViteUserConfig & { test?: VitestTestConfig };
 // invariant. Reads are preserved (lint allows them).
 function stripWebLlmCookieWritesPlugin(): Plugin {
 	return {
-		name: 'gftd-strip-web-llm-cookie-writes',
+		name: 'etzhayyim-strip-web-llm-cookie-writes',
 		enforce: 'pre',
 		transform(code, id) {
 			if (!id.includes('@mlc-ai/web-llm')) return null;
@@ -129,7 +129,7 @@ function stripWebLlmCookieWritesPlugin(): Plugin {
 function bpmnStubPlugin(): Plugin {
 	const STUB_RE = /^(bpmn-js|dmn-js|@bpmn-io\/)/;
 	return {
-		name: 'gftd-bpmn-stub',
+		name: 'etzhayyim-bpmn-stub',
 		apply: 'serve',
 		resolveId(id) {
 			if (STUB_RE.test(id)) return '\0bpmn-stub:' + id;

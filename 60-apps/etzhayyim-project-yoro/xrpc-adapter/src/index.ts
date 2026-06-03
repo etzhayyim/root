@@ -36,7 +36,7 @@ interface Env {
   PDS_ACCESS_JWT?: string;
   PDS_REFRESH_JWT?: string;
   /**
-   * yatachain-projection: feed-discover (ADR-2605231500).
+   * kotoba-datomic-projection: feed-discover (ADR-2605231500).
    * `did:web:projector.etzhayyim.com` (or similar). When set, the rw-free
    * feed.ts getDiscoverFeed / getTimeline read the cross-DID projection
    * instead of the single ACTOR_DID MST.

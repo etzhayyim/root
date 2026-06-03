@@ -4,7 +4,7 @@
 // generic `datomic.datoms` XRPC (`com.etzhayyim.apps.kotoba.datomic.datoms`), then
 // shapes the `:yoro.post/* :yoro.profile/* :yoro.follow/*` Datoms into the rows
 // the feed/graph/actor functions project into bsky-style views. This replaces
-// the superseded yatachain-projection + single-actor PDS read leg
+// the superseded kotoba-datomic-projection + single-actor PDS read leg
 // (ADR-2605231500 → ADR-2605262130 / 2605312345). Schema SSoT:
 // `00-contracts/schemas/yoro-feed-ontology.kotoba.edn`.
 //

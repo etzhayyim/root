@@ -3,7 +3,7 @@
 Yoro domain coverage improvement loop using reverse-topological planning.
 
 Flow:
-1) Measure current `gftd apps coverage`.
+1) Measure current `etzhayyim apps coverage`.
 2) Build a reverse-topological plan from target goals to blockers.
 3) Execute blockers in forward dependency order.
 4) Re-measure and emit delta report.
@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-APP_TS = Path("60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts")
+APP_TS = Path("60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/src/app.ts")
 MARKER = "const YORO_GRAPH_QUERY_TEMPLATES = ["
 
 
@@ -36,7 +36,7 @@ def run(cmd: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
 
 
 def run_coverage(state: IterationState, store: str) -> None:
-    proc = run(["gftd", "apps", "coverage", "-dir", ".", "-nanoid", "yoro", "--json"], state.repo_root)
+    proc = run(["etzhayyim", "apps", "coverage", "-dir", ".", "-nanoid", "yoro", "--json"], state.repo_root)
     if proc.returncode != 0:
         raise RuntimeError(f"coverage failed: {proc.stderr.strip() or proc.stdout.strip()}")
     data = json.loads(proc.stdout)

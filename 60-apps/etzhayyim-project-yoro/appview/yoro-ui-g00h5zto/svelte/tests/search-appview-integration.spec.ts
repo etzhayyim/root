@@ -32,7 +32,7 @@ test.describe('search AppView integration', () => {
 
 		const actorsStartedAt = Date.now();
 		const actors = await request.get(`${ATPROTO_XRPC}/app.bsky.actor.searchActors`, {
-			params: { q: 'gftd', limit: '2' },
+			params: { q: 'etzhayyim', limit: '2' },
 			timeout: 10_000,
 		});
 		expect(actors.status()).toBe(200);
@@ -57,7 +57,7 @@ test.describe('search AppView integration', () => {
 			}
 		});
 
-		await page.goto(`${YORO_BASE}/search?q=gftd`, {
+		await page.goto(`${YORO_BASE}/search?q=etzhayyim`, {
 			waitUntil: 'domcontentloaded',
 			timeout: 30_000,
 		});
