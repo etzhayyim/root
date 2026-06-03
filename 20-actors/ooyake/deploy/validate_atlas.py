@@ -51,6 +51,15 @@ def main():
     ap.add_argument("--file", default=DEFAULT_FILE)
     args = ap.parse_args()
     src = args.url or args.file
+    # The generated public index (gov-units.json) is a build artifact, not committed
+    # (gitignored under 50-infra/.../out/). When it is absent and we are not validating
+    # a live --url, skip gracefully: the EDN registry is the SSoT and is covered by
+    # scripts/check_seed_integrity.py; this validator is a PRE-DEPLOY gate for the
+    # generated/published artifact only.
+    if not args.url and not os.path.exists(src):
+        print(f"validate_atlas: skip — generated index absent ({src}); "
+              f"EDN registry is validated by check_seed_integrity.py")
+        return 0
     d = load(src)
     units = d.get("units", [])
     ids = [u["id"] for u in units]

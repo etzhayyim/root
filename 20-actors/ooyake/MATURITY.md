@@ -43,6 +43,20 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — national libraries + validate_atlas skip-fix
+
+- **`gov-units.libraries.edn`**: **155 national libraries** (Wikidata P31 `Q22806`,
+  current; sub-national/former filtered) — public legal-deposit / documentary-heritage
+  institutions citizens access. `:level :agency` `:branch :executive`.
+- **`validate_atlas.py` fix (maturity)**: when the generated public index
+  (`gov-units.json`, a gitignored build artifact) is absent and no `--url` is given,
+  it now **skips gracefully** instead of crashing — so `run_tests.sh` is finally
+  **ALL GREEN in a fresh checkout** (the EDN registry SSoT is covered by
+  `check_seed_integrity.py`; this validator is a pre-deploy gate for the published
+  artifact only).
+- `COVERAGE.md` regenerated. Atlas now **7,025 units / 55 files, 7,023 QIDs all
+  unique, 7,021 :authoritative**.
+
 ## 2026-06-04 — national archives (civic records access)
 
 `gov-units.archives.edn` adds **144 national archives** (Wikidata P31 `Q2122214`) — the
