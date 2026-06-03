@@ -8,13 +8,13 @@ subtitle({
 })
 
 privacy_url({
-  "en-GB" => "https://yoro.gftd.ai/privacy"
+  "en-GB" => "https://yoro.etzhayyim.com/privacy"
 })
 support_url({
-  "en-GB" => "https://yoro.gftd.ai/support"
+  "en-GB" => "https://yoro.etzhayyim.com/support"
 })
 marketing_url({
-  "en-GB" => "https://yoro.gftd.ai"
+  "en-GB" => "https://yoro.etzhayyim.com"
 })
 
 copyright "2026 GIFTED AGENT LLC"

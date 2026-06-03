@@ -20,7 +20,7 @@
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: cd /Users/junkawasaki/github/ai-gftd-apps-gftdcojp/60-apps/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte &amp;&amp; pnpm build &amp;&amp; npx cap copy android" time="6.787036">
+      <testcase classname="fastlane.lanes" name="3: cd /Users/junkawasaki/github/etzhayyim-apps-etzhayyimcojp/60-apps/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte &amp;&amp; pnpm build &amp;&amp; npx cap copy android" time="6.787036">
         
       </testcase>
     
