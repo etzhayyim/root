@@ -19,12 +19,12 @@
  *     ledger entries (E2E), so the substrate never sees a user's balance or tx
  *     history in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) —
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) —
  *     the irreducible regulated EXECUTION: the FIAT settlement / merchant-of-
- *     record rail for credit PURCHASE (30%-fee fiat clearing via the gftd
+ *     record rail for credit PURCHASE (30%-fee fiat clearing via the etzhayyim
  *     payment processor). Per ADR-2605172100 etzhayyim can never be the fiat
  *     MoR/counterparty, so the purchase transaction DATA migrates here as an
- *     E2E ledgerEntry, but the fiat-rail settlement CALL stays gftd. Also gftd:
+ *     E2E ledgerEntry, but the fiat-rail settlement CALL stays etzhayyim. Also etzhayyim:
  *     GCC on-chain mint/treasury EXECUTION + key/credential custody.
  *
  * AT-Lexicon: no float — integers only; credit/money amounts as decimal
@@ -138,8 +138,8 @@ export interface LedgerEntryBody {
   /** Free-form source/action tag, e.g. "hc-translation", "post", "purchase". */
   source: string;
   /**
-   * For purchase entries: the gftd fiat-settlement reference returned by the
-   * regulated merchant-of-record rail (which STAYS gftd). Opaque pointer only;
+   * For purchase entries: the etzhayyim fiat-settlement reference returned by the
+   * regulated merchant-of-record rail (which STAYS etzhayyim). Opaque pointer only;
    * no card/PAN data ever lands here.
    */
   fiatSettlementRef?: string;

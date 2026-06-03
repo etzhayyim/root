@@ -2,7 +2,7 @@
  * credits rw-free — barrel. Plaintext public catalog (allocationDestination +
  * creditRate) + kotoba-E2E per-person ledger (ledgerEntry + allocationPreference,
  * ADR-2605181100). Balance derived by replaying owner's own E2E entries. The
- * fiat merchant-of-record settlement CALL stays gftd (consent-capability).
+ * fiat merchant-of-record settlement CALL stays etzhayyim (consent-capability).
  */
 export * from "./types.js";
 export {

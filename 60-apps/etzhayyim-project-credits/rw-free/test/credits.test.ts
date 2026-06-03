@@ -53,15 +53,15 @@ describe("credits rw-free", () => {
       const ok = await recordEntry(e, { entryId: "t1", userDid: u, type: "earn", amount: "100", balanceAfter: "100", source: "hc-translation" });
       expect(ok.status).toBe("recorded");
       expect(ok.keyId).toBeTruthy();
-      // purchase carries an opaque gftd fiat-settlement pointer (fiat rail stays gftd)
-      await recordEntry(e, { entryId: "t2", userDid: u, type: "purchase", amount: "70", balanceAfter: "170", source: "purchase", fiatSettlementRef: "gftd-mor:pi_abc123" });
+      // purchase carries an opaque etzhayyim fiat-settlement pointer (fiat rail stays etzhayyim)
+      await recordEntry(e, { entryId: "t2", userDid: u, type: "purchase", amount: "70", balanceAfter: "170", source: "purchase", fiatSettlementRef: "etzhayyim-mor:pi_abc123" });
       await recordEntry(e, { entryId: "t3", userDid: u, type: "spend", amount: "-1", balanceAfter: "169", source: "post" });
       expect((await recordEntry(e, { entryId: "tX", userDid: u, type: "earn", amount: "1.0.0", balanceAfter: "1", source: "x" })).status).toBe("rejected"); // bad amount
       expect((await recordEntry(e, { entryId: "tY", userDid: u, type: "earn", amount: "1", balanceAfter: "abc", source: "x" })).status).toBe("rejected"); // bad balanceAfter
 
       const got = await getEntry(e, { entryId: "t2" });
       expect(got.entry?.userDid).toBe(u);
-      expect(got.entry?.fiatSettlementRef).toBe("gftd-mor:pi_abc123");
+      expect(got.entry?.fiatSettlementRef).toBe("etzhayyim-mor:pi_abc123");
 
       expect((await listEntries(e)).total).toBe(3);
       expect((await listEntries(e, { userDid: u, type: "spend" })).total).toBe(1);

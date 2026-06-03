@@ -9,7 +9,7 @@
  * user's balance, transaction history, or chosen destination in plaintext.
  *
  * Balance is DERIVED by replaying the owner's own E2E ledger entries — no
- * server-side balance projection. The fiat-rail settlement CALL stays gftd
+ * server-side balance projection. The fiat-rail settlement CALL stays etzhayyim
  * (consumed via consent-capability); only an opaque fiatSettlementRef pointer
  * is recorded on a purchase entry.
  */
