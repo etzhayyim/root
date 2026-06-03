@@ -12,7 +12,7 @@ VRM character assets** to the mangaka 3D scene pipeline.
 #    ...
 
 # 2. Dry-run to confirm what gets pushed:
-cd 60-apps/ai-gftd-project-mangaka
+cd 60-apps/etzhayyim-project-mangaka
 deno run -A scripts/ingest-vrms.ts \
     data/ghosthacker/resources/characters --dry-run
 
@@ -136,7 +136,7 @@ Logs end with a `summary: N ok · N warn · N err · N dry/skip` so artist
 ## Related
 
 - `00-contracts/lexicons/com/etzhayyim/apps/mangaka/tools/attachCharacterVrm.json` — wire contract
-- `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/tools.py:tool_attach_character_vrm` — tool implementation
+- `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/tools.py:tool_attach_character_vrm` — tool implementation
 - `30-graph/graph-schema/sql_migrations/20260514180000_seed_mangaka_attach_character_vrm_mcp_tool.up.sql` — registry seed
 - `40-engine/kami-engine/kami-vrm/` — VRM parse / spring bone simulator
 - `40-engine/kami-engine/kami-mangaka-scene/` — headless render facade

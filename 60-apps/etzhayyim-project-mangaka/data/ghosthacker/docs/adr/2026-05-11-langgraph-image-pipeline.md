@@ -150,8 +150,8 @@ Visual style と tone に応じて provider を route:
 - **quality**: `low` (cost-efficient で十分な品質)
 - **vision critic**: `gpt-4o-mini` (response_format json_object)
 - **シークレット**: macOS Keychain — 1Password CLI session timeout 回避
-  - `gftd.openai` / `OPENAI_API_KEY`
-  - `gftd.openrouter` / `OPENROUTER_API_KEY`
+  - `etzhayyim.openai` / `OPENAI_API_KEY`
+  - `etzhayyim.openrouter` / `OPENROUTER_API_KEY`
 - **versioning**: 出力 PNG は `_v{N}.png` (N = 既存 generatedImages.length + 1)
 - **history**: episode.jsonld の `gh:generatedImages[]` に append、`gh:currentImageIndex` で最新参照
 
