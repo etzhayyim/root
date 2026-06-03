@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-base_dir="projects/ai-gftd-project-open-unispsc/wasm"
-donor="$base_dir/ai-gftd-wasm-unispsc-seg-43-it-s43t7k2m/main.go"
+base_dir="projects/etzhayyim-project-open-unispsc/wasm"
+donor="$base_dir/etzhayyim-wasm-unispsc-seg-43-it-s43t7k2m/main.go"
 marker_primary='var schemaReady bool'
 marker_fallback='func init()'
 
@@ -22,7 +22,7 @@ tail -n +"$donor_line" "$donor" > "$donor_tail"
 
 updated=0
 skipped=0
-for target in "$base_dir"/ai-gftd-wasm-unispsc-seg-*/main.go; do
+for target in "$base_dir"/etzhayyim-wasm-unispsc-seg-*/main.go; do
   [[ "$target" == "$donor" ]] && continue
 
   target_line=$(grep -n "^${marker_primary}" "$target" | head -n1 | cut -d: -f1 || true)

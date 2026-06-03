@@ -1,4 +1,4 @@
-# ai-gftd-project-open-unispsc — UNSPSC Product & Service Classification Platform
+# etzhayyim-project-open-unispsc — UNSPSC Product & Service Classification Platform
 
 Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) で UNSPSC (United Nations Standard Products and Services Code) 製品・サービス調達分類をモデル化。
 
@@ -36,7 +36,7 @@ canonical DID は alpha-start ルール準拠:
 
 ## UNSPSC-CPC Concordance
 
-UNSPSC commodity は CPC subclass の下位粒度。`gftd:unispsc-product-classification/concordance` で N:M mapping。
+UNSPSC commodity は CPC subclass の下位粒度。`etzhayyim:unispsc-product-classification/concordance` で N:M mapping。
 
 | UNSPSC Segment | CPC Section (primary) | 関係 |
 |---|---|---|
@@ -184,13 +184,13 @@ Existing BPMN reference set:
 
 | 層 | WIT namespace | 数 | 例 |
 |---|---|---|---|
-| **Shared core** | `gftd:unispsc-product-classification@1.0.0` | 1 | types, classification, concordance, procurement, quality-standards, entity-management |
-| **Segment APP** | `gftd:unispsc-seg-{NN}@1.0.0` | ~55 | `gftd:unispsc-seg-43/it-telecom@1.0.0` |
+| **Shared core** | `etzhayyim:unispsc-product-classification@1.0.0` | 1 | types, classification, concordance, procurement, quality-standards, entity-management |
+| **Segment APP** | `etzhayyim:unispsc-seg-{NN}@1.0.0` | ~55 | `etzhayyim:unispsc-seg-43/it-telecom@1.0.0` |
 
 ### world.wit 必須構造
 
 ```wit
-package gftd:unispsc-seg-{NN};
+package etzhayyim:unispsc-seg-{NN};
 
 world component {
     include magatama:runtime/magatama-component@1.0.0;
@@ -198,12 +198,12 @@ world component {
     import magatama:div/information@1.0.0;
     import magatama:div/documents@1.0.0;
     import magatama:div/materiel@1.0.0;
-    import gftd:isic-resource-flow/labor@1.0.0;
-    import gftd:isic-resource-flow/materials@1.0.0;
-    import gftd:isic-resource-flow/capital@1.0.0;
-    import gftd:isic-resource-flow/products@1.0.0;
-    import gftd:cpc-product-classification/classification@1.0.0;
-    export gftd:unispsc-seg-{NN}/{segment-slug}@1.0.0;
+    import etzhayyim:isic-resource-flow/labor@1.0.0;
+    import etzhayyim:isic-resource-flow/materials@1.0.0;
+    import etzhayyim:isic-resource-flow/capital@1.0.0;
+    import etzhayyim:isic-resource-flow/products@1.0.0;
+    import etzhayyim:cpc-product-classification/classification@1.0.0;
+    export etzhayyim:unispsc-seg-{NN}/{segment-slug}@1.0.0;
 }
 ```
 
@@ -211,8 +211,8 @@ world component {
 
 | Package | Path | 内容 |
 |---|---|---|
-| `gftd:unispsc-product-classification@1.0.0` | `wit/unispsc-product-classification/` | Shared core: types, classification, concordance, procurement, quality-standards, entity-management |
-| `gftd:unispsc-seg-{NN}@1.0.0` | `wasm/ai-gftd-wasm-unispsc-seg-{NN}-*/wit/` | Per-segment capability (~55) |
+| `etzhayyim:unispsc-product-classification@1.0.0` | `wit/unispsc-product-classification/` | Shared core: types, classification, concordance, procurement, quality-standards, entity-management |
+| `etzhayyim:unispsc-seg-{NN}@1.0.0` | `wasm/etzhayyim-wasm-unispsc-seg-{NN}-*/wit/` | Per-segment capability (~55) |
 
 ## SQL Graph Schema
 
@@ -260,7 +260,7 @@ magatama.Invoke("", "get-spec", `{"commodity_code":"43211501"}`)
 
 ## Chotatsu Integration
 
-`60-apps/ai-gftd-project-chotatsu/` (公共調達) が UNSPSC commodity code で品目分類。`Invoke("", "get-spec", ...)` で commodity entity の調達仕様を取得。
+`60-apps/etzhayyim-project-chotatsu/` (公共調達) が UNSPSC commodity code で品目分類。`Invoke("", "get-spec", ...)` で commodity entity の調達仕様を取得。
 
 ## okaimono.etzhayyim.com Integration (EC Marketplace)
 

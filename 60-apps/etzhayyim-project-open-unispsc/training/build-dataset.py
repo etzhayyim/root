@@ -42,8 +42,8 @@ def read_file(path):
 
 
 def extract_commodity_info(dirname):
-    """Extract code, name from directory name like ai-gftd-wasm-unispsc-43211501-mainframe-computers-mc51r8p3"""
-    parts = dirname.replace("ai-gftd-wasm-unispsc-", "").split("-")
+    """Extract code, name from directory name like etzhayyim-wasm-unispsc-43211501-mainframe-computers-mc51r8p3"""
+    parts = dirname.replace("etzhayyim-wasm-unispsc-", "").split("-")
     if len(parts) < 3:
         return None
     code = parts[0]
@@ -172,7 +172,7 @@ def main():
 
     # Load existing local examples
     for dirname in sorted(os.listdir(wasm_dir)):
-        if not dirname.startswith("ai-gftd-wasm-unispsc-"):
+        if not dirname.startswith("etzhayyim-wasm-unispsc-"):
             continue
         if "-seg-" in dirname:
             continue  # skip segment coordinators

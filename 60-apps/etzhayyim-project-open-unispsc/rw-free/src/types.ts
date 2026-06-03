@@ -45,7 +45,7 @@ export function isValidSlug(slug: string): boolean {
 
 /**
  * Primary CPC concordance for a UNSPSC segment code, per the segment-range
- * mapping documented in `60-apps/ai-gftd-project-open-unispsc/CLAUDE.md`:
+ * mapping documented in `60-apps/etzhayyim-project-open-unispsc/CLAUDE.md`:
  *
  *   10–15  → "0–1"  (Agriculture, Ores)
  *   20–27  → "3–4"  (Transportable goods, Machinery)

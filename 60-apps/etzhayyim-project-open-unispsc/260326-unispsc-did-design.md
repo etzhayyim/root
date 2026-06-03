@@ -1,11 +1,11 @@
 # UNISPSC DID Design (Canonical)
 
-Date: 2026-03-26  
-Scope: `ai-gftd-project-open-unispsc`, app namespace = `unispsc`
+Date: 2026-03-26
+Scope: `etzhayyim-project-open-unispsc`, app namespace = `unispsc`
 
 ## 1. Decision
 
-- Use repository directory `ai-gftd-project-open-unispsc`.
+- Use repository directory `etzhayyim-project-open-unispsc`.
 - Runtime identity/namespace is `unispsc`.
 - Adopt DID path model compatible with platform rule:
   - `did:web:{app}.etzhayyim.com:{path}`

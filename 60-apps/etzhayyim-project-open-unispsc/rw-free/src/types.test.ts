@@ -3,7 +3,7 @@
  *
  * Locks down: code format, slug format, CPC segment-range mapping per
  * the documented boundaries in
- * `60-apps/ai-gftd-project-open-unispsc/CLAUDE.md`.
+ * `60-apps/etzhayyim-project-open-unispsc/CLAUDE.md`.
  */
 
 import { describe, expect, it } from "vitest";

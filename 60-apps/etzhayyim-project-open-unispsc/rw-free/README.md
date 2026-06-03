@@ -2,7 +2,7 @@
 
 RW-free port of the UN UNSPSC (Standard Products and Services Code) taxonomy under the substrate rules of [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md): no RisingWave, no centralized DB, no fiat payment processor. Taxonomy state lives on AT Protocol MST + IPFS; the substrate pipeline (mst-projector → ipfs-pinner → anchor-cron) anchors the MST root to Base L2 so any third party can verify the taxonomy without trusting this operator.
 
-Third rw-free actor after [`open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) (occupations) and [`open-isic/rw-free/`](../../ai-gftd-project-open-isic/rw-free/) (industry classes). The classification runtime (active business logic for segments / families / classes / commodities) lives in this same project's sibling directories and uses different lexicons (the `*procedure*` lexicons under `com.etzhayyim.apps.openUnispsc.*`); this PR adds only the taxonomy publisher surface.
+Third rw-free actor after [`open-isco/rw-free/`](../../etzhayyim-project-open-isco/rw-free/) (occupations) and [`open-isic/rw-free/`](../../etzhayyim-project-open-isic/rw-free/) (industry classes). The classification runtime (active business logic for segments / families / classes / commodities) lives in this same project's sibling directories and uses different lexicons (the `*procedure*` lexicons under `com.etzhayyim.apps.openUnispsc.*`); this PR adds only the taxonomy publisher surface.
 
 ## Phase 1 scope: the 50 segments
 
@@ -109,8 +109,8 @@ pnpm test
 
 ## See also
 
-- [`60-apps/ai-gftd-project-open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) — first rw-free actor (525 ISCO-08 occupations)
-- [`60-apps/ai-gftd-project-open-isic/rw-free/`](../../ai-gftd-project-open-isic/rw-free/) — second rw-free actor (428 ISIC Rev.4 4-digit classes)
+- [`60-apps/etzhayyim-project-open-isco/rw-free/`](../../etzhayyim-project-open-isco/rw-free/) — first rw-free actor (525 ISCO-08 occupations)
+- [`60-apps/etzhayyim-project-open-isic/rw-free/`](../../etzhayyim-project-open-isic/rw-free/) — second rw-free actor (428 ISIC Rev.4 4-digit classes)
 - [`20-actors/etzhayyim-sdk/`](../../../20-actors/etzhayyim-sdk/) — the substrate-purity SDK
 - [`50-infra/mst-projector/`](../../../50-infra/mst-projector/) — Stage 3 of the trust-less verification chain
 - [`50-infra/OPERATIONAL-DEPLOY.md`](../../../50-infra/OPERATIONAL-DEPLOY.md) — production runbook

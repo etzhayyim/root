@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-TEMPLATE_DIR="appview/ai-gftd-wasm-unispsc-seg-43-it-s43t7k2m"
+TEMPLATE_DIR="appview/etzhayyim-wasm-unispsc-seg-43-it-s43t7k2m"
 CSV_FILE="segments.csv"
 
 if [[ ! -d "$TEMPLATE_DIR" ]]; then
@@ -75,7 +75,7 @@ rewrite_file_common() {
     -e "s/IT\\/Broadcasting\\/Telecommunications/${esc_short_name}/g" \
     -e "s/IT\\/telecom/${esc_short_name}/g" \
     -e "s/Information Technology Broadcasting and Telecommunications/${esc_name}/g" \
-    -e "s/gftd:unispsc-seg-43/gftd:unispsc-seg-${esc_code}/g" \
+    -e "s/etzhayyim:unispsc-seg-43/etzhayyim:unispsc-seg-${esc_code}/g" \
     -e "s/it-telecom/${esc_slug}/g" \
     -e "s/unispsc-it-telecom/unispsc-${esc_slug}/g" \
     -e "s/unispsc\\.seg43\\./unispsc.seg${esc_code}./g" \
@@ -103,7 +103,7 @@ while IFS=, read -r raw_code raw_slug raw_name; do
   nanoid="$(generate_nanoid "$code2")"
   short_name="$(short_name_from_full "$name")"
 
-  dir_name="ai-gftd-wasm-unispsc-seg-${code}-${slug}-${nanoid}"
+  dir_name="etzhayyim-wasm-unispsc-seg-${code}-${slug}-${nanoid}"
   target_dir="appview/${dir_name}"
 
   if [[ -e "$target_dir" ]]; then

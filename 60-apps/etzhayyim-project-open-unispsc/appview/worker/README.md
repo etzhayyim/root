@@ -22,7 +22,7 @@ GET  /                                         # service banner
 ## Build / deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-unispsc/appview/worker
+cd 60-apps/etzhayyim-project-open-unispsc/appview/worker
 pnpm install
 pnpm run deploy
 ```
