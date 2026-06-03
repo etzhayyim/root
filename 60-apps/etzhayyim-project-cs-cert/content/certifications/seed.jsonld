@@ -7,7 +7,7 @@
     }
   ],
   "@type": "ItemList",
-  "name": "GFTD CS Certified — Sample Certificates",
+  "name": "Etzhayyim CS Certified — Sample Certificates",
   "description": "セキュリティ診断済み認証のサンプルデータ。certs.etzhayyim.com で公開される認証バッジの参照実装。",
   "itemListElement": [
     {
@@ -18,7 +18,7 @@
         "@id": "https://certs.etzhayyim.com/cert/etzhayyim-cs-a1b2c3d4",
         "identifier": "etzhayyim-cs-a1b2c3d4",
         "etzhayyim:subjectDomain": "etzhayyim.com",
-        "etzhayyim:subjectOrgName": "GFTD Inc.",
+        "etzhayyim:subjectOrgName": "Etzhayyim Inc.",
         "etzhayyim:certLevel": "cs-advanced",
         "etzhayyim:certStatus": "active",
         "etzhayyim:issuedAt": "2026-02-01T00:00:00Z",

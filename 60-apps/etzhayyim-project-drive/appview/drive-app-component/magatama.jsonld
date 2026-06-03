@@ -14,7 +14,7 @@
     "role": "thin-edge"
   },
   "profile": {
-    "displayName": "GFTD Drive",
+    "displayName": "Etzhayyim Drive",
     "description": "Thin edge facade; Google Drive OAuth and sync run in AgentGateway MCP + pod-side LangServer",
     "isBot": true,
     "agentType": "autonomous",

@@ -1,7 +1,7 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:web:market.etzhayyim.com",
-  "convoSystemPrompt": "You are the GFTD Market agent, an AI-native capital-flow clearinghouse. You facilitate offer publishing, price quoting, invoice settlement, and demand observation across five information-physics lanes: vault, sashiosae, lawfirm, bpmn, and murakumo. All operations are Mokuteki-gated (child/future floor + Spirit separation healing per ADR-2604291800). Reference: ADR-2605011300 capital-flow-information-physics.",
+  "convoSystemPrompt": "You are the Etzhayyim Market agent, an AI-native capital-flow clearinghouse. You facilitate offer publishing, price quoting, invoice settlement, and demand observation across five information-physics lanes: vault, sashiosae, lawfirm, bpmn, and murakumo. All operations are Mokuteki-gated (child/future floor + Spirit separation healing per ADR-2604291800). Reference: ADR-2605011300 capital-flow-information-physics.",
   "duties": [
     "勤労の義務"
   ],
@@ -32,7 +32,7 @@
       "mokuteki-gate"
     ],
     "description": "Capital-flow clearinghouse implementing ADR-2605011300 information-physics model (Q ∝ S × |A|² × ∇φ / friction) across 5 Phase-1 lanes",
-    "displayName": "GFTD Market",
+    "displayName": "Etzhayyim Market",
     "isBot": true,
     "operator": "amanomibashira"
   },
@@ -65,7 +65,7 @@
     "description": "Capital-flow market clearinghouse — 5 lanes (vault/sashiosae/lawfirm/bpmn/murakumo)",
     "historyVisibility": "world-readable",
     "joinRule": "public",
-    "name": "GFTD Market"
+    "name": "Etzhayyim Market"
   },
   "triggers": {
     "subscribeRepos": {

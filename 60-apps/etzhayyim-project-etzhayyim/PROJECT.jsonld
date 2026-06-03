@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://etzhayyim.com",
   "name": "etzhayyim-project-etzhayyim",
-  "description": "GFTD corporate website (etzhayyim.com)",
+  "description": "Etzhayyim corporate website (etzhayyim.com)",
   "url": "https://etzhayyim.com",
   "applicationCategory": "Website",
   "operatingSystem": "Kubernetes",

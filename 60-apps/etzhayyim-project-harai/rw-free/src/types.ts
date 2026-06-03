@@ -6,7 +6,7 @@
  * the fiat merchant-of-record / counterparty — on-chain USDC only) + ADR-2605181100
  * (kotoba E2E encrypted-record envelope). Founder directive 2026-06-03: maximal
  * migration — front everything that can move; only the irreducible regulated
- * EXECUTION stays gftd.
+ * EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — settlement-rail catalog: reference metadata
@@ -18,12 +18,12 @@
  *   ledger entries (payer/payee DID, amount, status) and transaction-history
  *   entries (per-account movements) and account balances (per-person). Sealed via
  *   sdk.encryptedWrite (read-cap = owner DID + explicit recipients), so the
- *   financial ledger lives on-substrate encrypted, never gftd-resident plaintext.
+ *   financial ledger lives on-substrate encrypted, never etzhayyim-resident plaintext.
  *
- *   STAYS gftd (consumed via consent-capability — NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability — NOT a collection) — the
  *   irreducible regulated EXECUTION: the fiat merchant-of-record settlement /
  *   clearing rail CALL (the act of moving real-world money). The DATA migrates as
- *   E2E records; only the regulated settlement execution stays gftd, invoked under
+ *   E2E records; only the regulated settlement execution stays etzhayyim, invoked under
  *   consent-capability. etzhayyim is never the fiat counterparty.
  *
  * AT-Lexicon: no float. Money is a decimal STRING (`amount`) carried with an

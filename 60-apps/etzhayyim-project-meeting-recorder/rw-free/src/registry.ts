@@ -11,7 +11,7 @@
  * Three E2E inner-types share the default wrapper collection, so EVERY scan
  * passes its own innerType to keep counts/filters isolated.
  *
- * STAYS gftd (consent-capability): recorder-bot join/capture execution, GPU/MLX
+ * STAYS etzhayyim (consent-capability): recorder-bot join/capture execution, GPU/MLX
  * whisper inference, B2 media-blob custody, consentToken/credential custody.
  */
 

@@ -12,7 +12,7 @@
  *
  * git smart-HTTP raw-object archive custody, Clerk JWT verification + credential
  * custody (incl. webhook signing-secret), and the merge ENFORCEMENT action stay
- * gftd (consumed via consent-capability) — not modeled here as collections.
+ * etzhayyim (consumed via consent-capability) — not modeled here as collections.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

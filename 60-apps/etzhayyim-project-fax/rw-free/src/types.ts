@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys product-front / infra-back) + ADR-2605172400
  * (3-axis OR-test) + ADR-2605181100 (kotoba E2E encrypted-record envelope).
  * Founder directive 2026-06-03: MAXIMAL migration — front everything that can
- * move; only the irreducible regulated EXECUTION stays gftd.
+ * move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — renderedDocument: content-addressed PDF
@@ -21,11 +21,11 @@
  *     - inboundFax: received fax. Sender fax number (PII) + artifact pointer.
  *   Both share the default wrapper collection, partitioned by innerType.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION: the provider transmission CALL (Phaxio /
  *   Dropbox Fax UI handoff), provider-API credential custody, content-addressed
  *   blob-byte custody (CDN), and headless PDF render compute. The transmission
- *   DATA migrates as E2E records; the send/render/custody ACTS stay gftd.
+ *   DATA migrates as E2E records; the send/render/custody ACTS stay etzhayyim.
  *
  * AT-Lexicon: no float — pageCount / byteSize are integers. No money fields.
  */

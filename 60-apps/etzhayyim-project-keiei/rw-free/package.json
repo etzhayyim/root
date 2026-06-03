@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free impl of keiei (C-suite 経営 management daemon, Consensys c-split). Public CXO role registry plaintext + CUI decision-ledger body sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100/2605101200). Financial-action / external-mail / LLM deliberation EXECUTION stay gftd via consent-capability. Founder directive 2026-06-03: PII/CUI migrate when E2E-safe.",
+  "description": "RW-free impl of keiei (C-suite 経営 management daemon, Consensys c-split). Public CXO role registry plaintext + CUI decision-ledger body sealed via kotoba E2E (sdk.encryptedWrite/Read, ADR-2605181100/2605101200). Financial-action / external-mail / LLM deliberation EXECUTION stay etzhayyim via consent-capability. Founder directive 2026-06-03: PII/CUI migrate when E2E-safe.",
   "license": "Apache-2.0",
   "main": "src/index.ts",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },

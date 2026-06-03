@@ -8,7 +8,7 @@
  * (ADR-2605181100), read-cap = owner DID. The substrate never sees payer/payee
  * DIDs or amounts in plaintext.
  *
- * The fiat merchant-of-record settlement / clearing EXECUTION stays gftd and is
+ * The fiat merchant-of-record settlement / clearing EXECUTION stays etzhayyim and is
  * invoked under consent-capability; here we only front the ledger DATA. Money is
  * carried as a decimal string plus an exact integer minor-unit field, and every
  * rollup sums the integer minor units — no float arithmetic anywhere.

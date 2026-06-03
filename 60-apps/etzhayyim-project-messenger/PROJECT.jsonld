@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://messenger.etzhayyim.com",
   "name": "etzhayyim-project-messenger",
-  "description": "GFTD Messenger - real-time messaging platform for team communication with channels, direct messages, and thread replies",
+  "description": "Etzhayyim Messenger - real-time messaging platform for team communication with channels, direct messages, and thread replies",
   "url": "https://messenger.etzhayyim.com",
   "applicationCategory": "Communication",
   "operatingSystem": "Kubernetes",
