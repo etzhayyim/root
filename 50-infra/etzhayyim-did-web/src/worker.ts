@@ -681,8 +681,69 @@ async function resolveActorRecordTiered(
     return fromKotoba;
   }
 
-  // 3) compiled fallback — INFRA_ACTORS (null for non-registered handles).
+  // 3.5) UNSPSC commodity agents — synthesize a getProfile-able record for any
+  //      VALIDATED c-code handle (the 18,342-agent fleet; ADR-2605171300). Per-code
+  //      registry entries don't scale to 18K, so the profile is derived from the
+  //      code + a 36-segment title table. The commodity registry itself lives in
+  //      the kotoba Datom log (unspsc-ontology); this just makes the DID resolve a
+  //      profile so /actor/c<code>/profile.json + /profile/<did> render.
+  if (UNISPSC_HANDLE_SHAPE.test(handle) && UNISPSC_HANDLES.has(handle)) {
+    return unispscActorRecord(handle);
+  }
+
+  // 4) compiled fallback — INFRA_ACTORS (null for non-registered handles).
   return compiledActorRecord(handle);
+}
+
+// 36-segment (2-digit) UNSPSC title table — sector-derived representative labels
+// extracted from the generative-agent definitions (ADR-2605171300). Drives the
+// synthesized displayName for the whole c-code fleet from a tiny lookup.
+const UNISPSC_SEGMENTS: Record<string, string> = {
+  "10": "Live Animal", "11": "Raw Material", "12": "Chemical", "13": "Diamond Process",
+  "14": "Paper Procurement", "15": "Supply Chain", "20": "Housing", "21": "Agri",
+  "22": "Construction", "23": "Manufacturing", "24": "Material Handling", "25": "Transport",
+  "26": "Power", "27": "Tool", "30": "Structure", "31": "Component", "32": "Electronic",
+  "39": "Lighting", "40": "Distribution", "41": "Laboratory", "42": "Medical", "43": "IT",
+  "44": "Office", "45": "Printing", "46": "Defense Security", "47": "Cleaning",
+  "48": "Service Industry", "49": "Sports Recreation", "50": "Food Beverage",
+  "51": "Drug Pharmaceutical", "52": "Domestic Appliance", "53": "Apparel",
+  "54": "Timepiece", "55": "Published Product", "56": "Furnishing", "60": "Instrument",
+};
+
+/** Synthesize an ActorRecord for an Open-UNSPSC commodity agent (c<code>). */
+function unispscActorRecord(handle: string): ActorRecord {
+  const code = handle.slice(1);
+  const seg = code.slice(0, 2);
+  const segTitle = UNISPSC_SEGMENTS[seg] ?? "Commodity";
+  return {
+    handle,
+    did: `did:web:etzhayyim.com:actor:${handle}`,
+    kind: "agent",
+    status: "landed",
+    displayNameEn: `UNSPSC ${code} — ${segTitle}`,
+    description:
+      `Open-UNSPSC generative commodity agent for UNSPSC code ${code} (segment ${seg}: ${segTitle}). ` +
+      `One of ${UNISPSC_TOTAL_COUNT} commodity agents (ADR-2605171300); the commodity registry is ` +
+      `in the kotoba Datom log (unspsc-ontology). A taxonomy/observation entity, not a target-list.`,
+    performerType: "system",
+    uiType: "none",
+    adr: ["2605171300"],
+    service: [
+      {
+        id: `did:web:etzhayyim.com:actor:${handle}#atproto_pds`,
+        type: "AtprotoPersonalDataServer",
+        serviceEndpoint: "https://pds.etzhayyim.com",
+      },
+      {
+        id: `did:web:etzhayyim.com:actor:${handle}#xrpc-libp2p`,
+        type: "AtprotoXrpc",
+        serviceEndpoint:
+          "/dnsaddr/etzhayyim.com/p2p/12D3KooWGRnHP5hHAxSnPQE5gopDqAzWkZ2NAFi2ZZ6o85FnAiEc",
+      },
+    ],
+    vm: [],
+    source: "compiled",
+  };
 }
 
 // Content-addressed → immutable; cache hard. `x-etzhayyim-cid-verified` proves
