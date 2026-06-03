@@ -1,7 +1,7 @@
 import plugin from 'tailwindcss/plugin';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 const rootDir = fileURLToPath(new URL('.', import.meta.url));
 const designSystemDist = path.resolve(
@@ -14,7 +14,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        gftd: {
+        etzhayyim: {
           bg: 'var(--gv2-bg-primary)',
           text: 'var(--gv2-text-primary)',
           secondary: 'var(--gv2-text-secondary)',
@@ -27,7 +27,7 @@ export default {
     },
   },
   plugins: [
-    gftdUIKit,
+    etzhayyimUIKit,
     plugin(({ addBase }) => {
       addBase({
         ':root': {
