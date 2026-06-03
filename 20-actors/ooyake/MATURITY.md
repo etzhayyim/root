@@ -48,6 +48,13 @@ official URL** (本体の url), on 2026-06-03.
   `world-communications` **32** (`Q19983480`). All `:level :ministry` `:branch
   :executive`. Atlas now **2194 units / 24 files, 2192 QIDs all unique, 2190
   :authoritative**.
+- **3rd subagent batch — 6 more ministry layers (143 net-new units)**: `world-social`
+  **24** (`Q2305901`) · `world-housing` **22** (`Q2587942`) · `world-science` **18**
+  (`Q1313096`) · `world-tourism` **57** (`Q2446662`) · `world-industry` **14**
+  (`Q6867185`) · `world-water` **8** (`Q6867642`). Many candidate rows were combined
+  ministries already in earlier layers (culture/environment/education/…) and were
+  dropped by the atlas-existing-QID dedup — net-new only. Atlas now **2337 units / 30
+  files, 2335 QIDs all unique, 2333 :authoritative**.
 - `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
   worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
   `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
