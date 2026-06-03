@@ -58,7 +58,7 @@ _log = logging.getLogger(__name__)
 
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _RW_URL = os.environ.get("RW_URL", "")
-_B2_BUCKET = os.environ.get("B2_BUCKET", "gftd-pds-prod")
+_B2_BUCKET = os.environ.get("B2_BUCKET", "etzhayyim-pds-prod")
 _MAX_ITER_CAP = 5
 
 

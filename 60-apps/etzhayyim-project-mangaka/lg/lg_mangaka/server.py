@@ -369,7 +369,7 @@ async def _dispatch_mcp_tool(nsid: str, body: dict[str, Any]) -> dict[str, Any]:
 # `pymagatama.langgraph_node_resolvers.make_mcp_tool_node` POSTs a JSON-RPC
 # 2.0 `tools/call` envelope at `/xrpc/com.etzhayyim.mcp.message`. Inside the
 # Phase C topology this resolves to the pod itself when
-# `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000` is
+# `MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools=http://localhost:8000` is
 # set (see `50-infra/vultr/lg-mangaka-pool/values.yaml`). External MCP
 # clients reach the atproto.etzhayyim.com MCP adapter and end up here through
 # the same envelope, so both paths converge.

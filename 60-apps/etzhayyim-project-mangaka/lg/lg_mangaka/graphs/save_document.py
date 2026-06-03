@@ -12,7 +12,7 @@ post-2026-05-12 string-ID migration):
     document str              — JSON-encoded Genko canvas body
     convoId  str              — project convoId scope (optional)
     actorDid str              — caller DID (defaults to mangaka app DID)
-    orgDid   str              — RLS org_did (defaults to gftd-japan)
+    orgDid   str              — RLS org_did (defaults to etzhayyim-japan)
 
 Output:
     status   "saved" | "error"
@@ -42,7 +42,7 @@ _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _NSID = "com.etzhayyim.mangaka.document"
 _DEFAULT_ORG_DID = os.environ.get(
     "MANGAKA_DEFAULT_ORG_DID",
-    "did:erc725:gftd:260425:gftd-japan",
+    "did:erc725:etzhayyim:260425:etzhayyim-japan",
 )
 _RW_URL = os.environ.get("RW_URL", "")
 

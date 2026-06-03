@@ -49,7 +49,7 @@ _log = logging.getLogger(__name__)
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
 _DEFAULT_ORG_DID = os.environ.get(
     "MANGAKA_DEFAULT_ORG_DID",
-    "did:erc725:gftd:260425:gftd-japan",
+    "did:erc725:etzhayyim:260425:etzhayyim-japan",
 )
 _RW_URL = os.environ.get("RW_URL", "")
 

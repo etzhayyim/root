@@ -89,7 +89,7 @@
 #      short-circuits to localhost via the `MCP_NSID_OVERRIDE_<prefix>`
 #      env var pattern. Helm: `50-infra/vultr/lg-mangaka-pool/values.yaml`
 #      `mcpOverrides.aietzhayyimAppsMangakaTools: "http://localhost:8000"` →
-#      `MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools` env on the deployment
+#      `MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools` env on the deployment
 #      pod. The Pregel never leaves the container for tool dispatch.
 #      RESIDUAL — external MCP clients (Cursor / Claude / partner agents)
 #      still resolve `actor_host = mangaka.etzhayyim.com` from the registry and

@@ -1,6 +1,6 @@
 """mangaka `cine_generate_scene` — stages 1-4 of the kami-cine pipeline.
 
-WIT: `gftd:kami-cine@1.0.0` interfaces world-model / usd-scene / neural-geom
+WIT: `etzhayyim:kami-cine@1.0.0` interfaces world-model / usd-scene / neural-geom
 / temporal-field. Produces a reusable 4D scene asset that the sibling
 `cine_generate_panel` graph then renders + diffuses into individual panels.
 

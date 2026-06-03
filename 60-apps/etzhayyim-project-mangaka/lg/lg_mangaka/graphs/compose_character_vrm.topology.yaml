@@ -155,7 +155,7 @@ nodes:
     # External services (Adobe Mixamo etc.) are NEVER called from this
     # production path. They are used only offline to author training
     # data for the in-house RigNet distill, stored at
-    # `b2://gftd-models/rignet-anime-v0.<n>/`. See
+    # `b2://etzhayyim-models/rignet-anime-v0.<n>/`. See
     # `data/ghosthacker/TRAINING_PIPELINE.md` for the distill workflow.
     config:
       input_paths:
