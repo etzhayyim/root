@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:death-stranding-series-essay-20-2026",
+  "@id": "urn:etzhayyim:news:death-stranding-series-essay-20-2026",
   "identifier": "death-stranding-series-essay-20-2026",
   "headline": "Death Stranding analysis: Essay #20",
   "description": "A thematic essay on Death Stranding, organized around: Essay #20.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-death-stranding-director-s-cut-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-death-stranding-director-s-cut-series-primer-2026",
   "identifier": "games-death-stranding-director-s-cut-series-primer-2026",
   "headline": "DEATH STRANDING DIRECTOR'S CUT primer: the design ideas behind its world and characters",
   "description": "A starter guide to DEATH STRANDING DIRECTOR'S CUT, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

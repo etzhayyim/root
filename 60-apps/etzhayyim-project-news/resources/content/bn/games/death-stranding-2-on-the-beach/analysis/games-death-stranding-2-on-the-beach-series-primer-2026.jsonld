@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-death-stranding-2-on-the-beach-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-death-stranding-2-on-the-beach-series-primer-2026",
   "identifier": "games-death-stranding-2-on-the-beach-series-primer-2026",
   "headline": "DEATH STRANDING 2: ON THE BEACH primer: the design ideas behind its world and characters",
   "description": "A starter guide to DEATH STRANDING 2: ON THE BEACH, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
