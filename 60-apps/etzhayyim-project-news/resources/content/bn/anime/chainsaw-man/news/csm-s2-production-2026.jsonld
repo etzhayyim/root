@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:csm-s2-production-2026",
+  "@id": "urn:etzhayyim:news:csm-s2-production-2026",
   "identifier": "csm-s2-production-2026",
   "headline": "アニメ『チェンソーマン』第2期制作決定！レゼ編を軸に新章突入、MAPPAが新PVを公開",
   "description": "藤本タツキ原作『チェンソーマン』TVアニメ第2期の制作がMAPPAより正式発表。第1部「公安編」のレゼ編を中心に描かれ、新キャラクターのキャスト情報と共に新規PVが解禁された。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

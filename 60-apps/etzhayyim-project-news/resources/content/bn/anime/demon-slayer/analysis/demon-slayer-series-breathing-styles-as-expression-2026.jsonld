@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:demon-slayer-series-breathing-styles-as-expression-2026",
+  "@id": "urn:etzhayyim:news:demon-slayer-series-breathing-styles-as-expression-2026",
   "identifier": "demon-slayer-series-breathing-styles-as-expression-2026",
   "headline": "Demon Slayer: Kimetsu no Yaiba analysis: Breathing styles as expression",
   "description": "A thematic essay on Demon Slayer: Kimetsu no Yaiba, organized around: Breathing styles as expression.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
