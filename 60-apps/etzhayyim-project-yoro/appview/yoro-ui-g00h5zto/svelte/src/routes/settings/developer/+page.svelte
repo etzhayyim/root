@@ -236,7 +236,7 @@
 			<!-- Description -->
 			<div class="px-4 py-4">
 				<p class="text-[13px] leading-relaxed text-gv2-text-muted">
-					API keys authenticate CLI tools (<code class="text-[12px]">gftd</code>), SDKs, and LLM agents
+					API keys authenticate CLI tools (<code class="text-[12px]">etzhayyim</code>), SDKs, and LLM agents
 					for graph queries, record writes, seed operations, and shinka (domain knowledge generation).
 				</p>
 			</div>
@@ -384,7 +384,7 @@
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">MCP Tool Calling:</p>
 						<code class="block text-[12px]">POST mcp.etzhayyim.com/mcp</code>
 						<code class="block text-[12px]">Authorization: Bearer sk_live_...</code>
-						<code class="mt-1 block text-[12px]">{"{"}"method":"tools/call","params":{"{"}"name":"gftd.seed"{"}"}{"}"}}</code>
+						<code class="mt-1 block text-[12px]">{"{"}"method":"tools/call","params":{"{"}"name":"etzhayyim.seed"{"}"}{"}"}}</code>
 					</div>
 					<div class="rounded-xl bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">XRPC Direct:</p>
@@ -395,8 +395,8 @@
 					<div class="rounded-xl bg-gv2-bg-hover/40 p-3">
 						<p class="mb-1 text-[12px] font-medium text-gv2-text-primary">Claude Code / Anthropic SDK:</p>
 						<code class="block text-[12px]">export etzhayyim_TOKEN=sk_live_...</code>
-						<code class="block text-[12px]">gftd seed --app sovereign</code>
-						<code class="block text-[12px]">gftd actors shinka --model gemma4</code>
+						<code class="block text-[12px]">etzhayyim seed --app sovereign</code>
+						<code class="block text-[12px]">etzhayyim actors shinka --model gemma4</code>
 					</div>
 				</div>
 			</div>

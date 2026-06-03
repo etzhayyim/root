@@ -8,7 +8,7 @@
 	import { fade, fly, slide } from 'svelte/transition';
 	import { Skeleton } from '@etzhayyim/design-system';
 
-	const STORAGE_KEY = 'gftd:langgraph-server-url';
+	const STORAGE_KEY = 'etzhayyim:langgraph-server-url';
 	const DEFAULT_SERVER = 'http://127.0.0.1:2024';
 	const POLL_MS = 2500;
 
