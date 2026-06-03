@@ -94,18 +94,6 @@
    :gov.unit/provenance "http://www.edoeb.admin.ch" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.chn.dataprotection"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:chn:agency:data-protection-authority"
-   :gov.unit/parent "gov.chn"
-   :gov.unit/level :agency :gov.unit/branch :independent
-   :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Office of the Privacy Commissioner for Personal Data, Hong Kong"
-   :gov.unit/official-url "https://www.pcpd.org.hk/"
-   :gov.unit/wikidata "Q2354315"
-   :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.pcpd.org.hk/" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.cyp.dataprotection"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:cyp:agency:data-protection-authority"
    :gov.unit/parent "gov.cyp"
@@ -487,14 +475,4 @@
    :gov.unit/provenance "https://www.ip-rs.si/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.usa.dataprotection"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:agency:data-protection-authority"
-   :gov.unit/parent "gov.usa"
-   :gov.unit/level :agency :gov.unit/branch :independent
-   :gov.unit/jurisdiction "usa"
-   :gov.unit/name-en "Attorney General of California"
-   :gov.unit/official-url "https://oag.ca.gov"
-   :gov.unit/wikidata "Q3406489"
-   :gov.unit/cofog ["01.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://oag.ca.gov" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}]}
+]}

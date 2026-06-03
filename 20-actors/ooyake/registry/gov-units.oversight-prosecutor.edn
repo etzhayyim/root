@@ -375,14 +375,4 @@
    :gov.unit/provenance "http://www.fiscalia.gub.uy" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.usa.prosecutor"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:agency:public-prosecution"
-   :gov.unit/parent "gov.usa"
-   :gov.unit/level :agency :gov.unit/branch :judicial
-   :gov.unit/jurisdiction "usa"
-   :gov.unit/name-en "Santa Clara County District Attorney's Office"
-   :gov.unit/official-url "https://www.sccgov.org/sites/da/"
-   :gov.unit/wikidata "Q106991981"
-   :gov.unit/cofog ["03.3"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.sccgov.org/sites/da/" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}]}
+]}

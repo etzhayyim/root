@@ -1443,18 +1443,6 @@
    :gov.unit/provenance "http://www.bnv.gob.ve/" :gov.unit/last-verified "2026-06-04"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.chn.library"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:chn:agency:national-library"
-   :gov.unit/parent "gov.chn"
-   :gov.unit/level :agency :gov.unit/branch :executive
-   :gov.unit/jurisdiction "chn"
-   :gov.unit/name-en "Hong Kong Central Library"
-   :gov.unit/official-url "https://www.hkpl.gov.hk/tc/locations/central-library/hong-kong-central.html"
-   :gov.unit/wikidata "Q616184"
-   :gov.unit/cofog ["08.2"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.hkpl.gov.hk/tc/locations/central-library/hong-kong-central.html" :gov.unit/last-verified "2026-06-04"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.uga.library"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:uga:agency:national-library"
    :gov.unit/parent "gov.uga"

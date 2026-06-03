@@ -135,22 +135,6 @@
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.deu.housing"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:deu:ministry:housing"
-   :gov.unit/parent "gov.deu"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "deu"
-   :gov.unit/name-en "Hessian Ministry of Economics, Energy, Transport and Regional Development"
-   :gov.unit/official-url "https://wirtschaft.hessen.de/"
-   :gov.unit/wikidata "Q649814"
-   :gov.unit/cofog ["06.1"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://wirtschaft.hessen.de/"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.ecu.housing"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ecu:ministry:housing"
    :gov.unit/parent "gov.ecu"

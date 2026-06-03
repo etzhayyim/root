@@ -88,14 +88,6 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q4891205" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.gbr.revenue.hq"
-   :gov.address/unit "gov.gbr.revenue"
-   :gov.address/kind :headquarters
-   :gov.address/country "gbr"
-   :gov.address/line-en "Victoria Quay"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q18163474" :gov.address/last-verified "2026-06-03"}
-
   {:gov.address/id "addr.gov.ita.revenue.hq"
    :gov.address/unit "gov.ita.revenue"
    :gov.address/kind :headquarters
@@ -1662,14 +1654,6 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q98668917" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.usa.environment.hq"
-   :gov.address/unit "gov.usa.environment"
-   :gov.address/kind :headquarters
-   :gov.address/country "usa"
-   :gov.address/line-en "San Juan"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q3708665" :gov.address/last-verified "2026-06-03"}
-
   {:gov.address/id "addr.gov.ven.environment.hq"
    :gov.address/unit "gov.ven.environment"
    :gov.address/kind :headquarters
@@ -1717,14 +1701,6 @@
    :gov.address/line-en "La Paz"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q7205557" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.can.electoral.hq"
-   :gov.address/unit "gov.can.electoral"
-   :gov.address/kind :headquarters
-   :gov.address/country "can"
-   :gov.address/line-en "Quebec City"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q3029440" :gov.address/last-verified "2026-06-03"}
 
   {:gov.address/id "addr.gov.chn.electoral.hq"
    :gov.address/unit "gov.chn.electoral"
@@ -4736,14 +4712,6 @@
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q2842156" :gov.address/last-verified "2026-06-03"}
 
-  {:gov.address/id "addr.gov.deu.housing.hq"
-   :gov.address/unit "gov.deu.housing"
-   :gov.address/kind :headquarters
-   :gov.address/country "deu"
-   :gov.address/line-en "Wiesbaden"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q649814" :gov.address/last-verified "2026-06-03"}
-
   {:gov.address/id "addr.gov.ecu.housing.hq"
    :gov.address/unit "gov.ecu.housing"
    :gov.address/kind :headquarters
@@ -4884,15 +4852,6 @@
    :gov.address/line-en "Bern"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q1241631" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.chn.dataprotection.hq"
-   :gov.address/unit "gov.chn.dataprotection"
-   :gov.address/kind :headquarters
-   :gov.address/country "chn"
-   :gov.address/line-en "Hong Kong"
-   :gov.address/lat 22.27468 :gov.address/lon 114.17352
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q2354315" :gov.address/last-verified "2026-06-03"}
 
   {:gov.address/id "addr.gov.cyp.dataprotection.hq"
    :gov.address/unit "gov.cyp.dataprotection"
@@ -5128,14 +5087,6 @@
    :gov.address/line-en "Ljubljana"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q56058282" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.usa.dataprotection.hq"
-   :gov.address/unit "gov.usa.dataprotection"
-   :gov.address/kind :headquarters
-   :gov.address/country "usa"
-   :gov.address/line-en "Sacramento"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q3406489" :gov.address/last-verified "2026-06-03"}
 
   {:gov.address/id "addr.gov.afg.culture.hq"
    :gov.address/unit "gov.afg.culture"
@@ -5813,14 +5764,6 @@
    :gov.address/lat 40.17759 :gov.address/lon 44.50898
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q13053539" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.aus.justice.hq"
-   :gov.address/unit "gov.aus.justice"
-   :gov.address/kind :headquarters
-   :gov.address/country "aus"
-   :gov.address/lat -33.92499 :gov.address/lon 150.92533
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q116777048" :gov.address/last-verified "2026-06-03"}
 
   {:gov.address/id "addr.gov.aut.justice.hq"
    :gov.address/unit "gov.aut.justice"
@@ -6606,14 +6549,6 @@
    :gov.address/line-en "Hôtel de Villeroy"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q3315187" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.gbr.agriculture.hq"
-   :gov.address/unit "gov.gbr.agriculture"
-   :gov.address/kind :headquarters
-   :gov.address/country "gbr"
-   :gov.address/line-en "Dundonald House"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q1703625" :gov.address/last-verified "2026-06-03"}
 
   {:gov.address/id "addr.gov.gha.agriculture.hq"
    :gov.address/unit "gov.gha.agriculture"
@@ -9247,14 +9182,6 @@
    :gov.address/line-en "Kyiv"
    :gov.address/sourcing :authoritative
    :gov.address/provenance "https://www.wikidata.org/wiki/Q72282729" :gov.address/last-verified "2026-06-03"}
-
-  {:gov.address/id "addr.gov.usa.prosecutor.hq"
-   :gov.address/unit "gov.usa.prosecutor"
-   :gov.address/kind :headquarters
-   :gov.address/country "usa"
-   :gov.address/line-en "San Jose"
-   :gov.address/sourcing :authoritative
-   :gov.address/provenance "https://www.wikidata.org/wiki/Q106991981" :gov.address/last-verified "2026-06-03"}
 
   {:gov.address/id "addr.gov.aus.trade.hq"
    :gov.address/unit "gov.aus.trade"

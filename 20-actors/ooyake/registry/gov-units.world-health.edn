@@ -647,22 +647,6 @@
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.gbr.health"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:gbr:ministry:health"
-   :gov.unit/parent "gov.gbr"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "gbr"
-   :gov.unit/name-en "Department of Health (Northern Ireland)"
-   :gov.unit/official-url "https://www.health-ni.gov.uk/"
-   :gov.unit/wikidata "Q3044738"
-   :gov.unit/cofog ["07"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.health-ni.gov.uk/"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.geo.health"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:geo:ministry:health"
    :gov.unit/parent "gov.geo"
