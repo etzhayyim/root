@@ -117,6 +117,33 @@ Grouped by primary function (full per-app axis rationale in
   (zero-knowledge E2E), `watashi` (device-session relay), `resource-planner`
   (per-user resource custody).
 
+# Amendment 2026-06-03 — kotoba-E2E migration wave (founder-directed)
+
+The founder ruled that **PII / CUI / LE / yabai-risk are safe to migrate
+on-substrate via kotoba E2E** (ADR-2605181100 encrypted-record envelope) — so
+they front (E2E-sealed), they do NOT stay gftd for confidentiality reasons. This
+reframes the Consensys split: the regulated **DATA** migrates (plaintext if
+public, E2E if sensitive); only regulated **EXECUTION** (fiat-MoR settlement,
+GPU/LLM inference, enforcement/blocking actions, credential/secret custody) stays
+gftd, consumed via consent-capability.
+
+Pattern established + de-risked:
+- `@etzhayyim/sdk-mock` gained `encryptedWrite`/`encryptedRead` (faithful
+  in-memory Tahoe envelope: recipient read-cap access-control + innerType routing).
+- `intel/rw-free` = reference (plaintext `coverageProjection` + E2E
+  `inferredCohort`), tested incl. access-control isolation.
+
+**Wave 1 (24 apps V→A, all verified green — tsc + vitest + import-scan, ~140
+tests):** intel, air-cargo, yabai, deai, manimani, open-kyber, open-ossekai,
+society6, tia, insatsu, hc, tenso, watashi, resource-planner, voxelforge, shinka,
+business-edge, yorishiro, scheduler, robot, keiei, ops, jukyu, crypto-asset-freeze.
+Each splits public-meta (plaintext) from sensitive payload (E2E `encryptedWrite`).
+Counts after wave: **A 105→129, V 75→51.**
+
+**Pending:** aviation-8 (air-book/crew/dcs/ffp/mro/ops/sms/yield) — founder
+aviation decision unresolved; air-cargo migrated, the 8 are settlement/safety
+execution backends whose PNR-PII could E2E-front on a follow decision.
+
 # Consequences
 
 - The Consensys boundary is now per-function reconciled across the full app

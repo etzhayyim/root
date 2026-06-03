@@ -11,11 +11,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 105 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
+| **A — DONE** | 129 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (rw-free or V); remainder = legacy codemod-cleanup chores |
-| **V — VENDOR-RESIDENT** | 75 | judged correctly gftd-resident (regulated-infra axis) — no migration (git-authoritative: unique `^- **<app>**` entries; was 85 before deduping accounts + 9 air-* dupes) |
+| **V — VENDOR-RESIDENT** | 51 | judged gftd-resident (regulated EXECUTION) — no DATA migration (git-authoritative: unique V entries minus the 24 migrated by the 2026-06-03 kotoba-E2E wave) |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,23 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (75)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (51)
+
+> **kotoba-E2E migration wave (2026-06-03, founder-directed)**: 24 apps moved
+> V→A. Founder ruled PII/CUI/LE/yabai-risk safe to migrate on-substrate via
+> kotoba E2E (ADR-2605181100 encrypted-record envelope). Pattern established:
+> `intel/rw-free` reference (plaintext public-meta via `sdk.write` + sensitive
+> payload sealed via `sdk.encryptedWrite`, read-cap = owner DID) + `sdk-mock`
+> `encryptedWrite`/`encryptedRead`. Only regulated EXECUTION (fiat-MoR settlement,
+> GPU/LLM inference, enforcement/blocking actions, credential custody) stays gftd,
+> consumed via consent-capability. **Migrated (entries below superseded — now
+> Bucket A):** intel, air-cargo, yabai, deai, manimani, open-kyber, open-ossekai,
+> society6, tia, insatsu, hc, tenso, watashi, resource-planner, voxelforge, shinka,
+> business-edge, yorishiro, scheduler, robot, keiei, ops, jukyu, crypto-asset-freeze.
+> All 23 wave-1 packages verified green (tsc + vitest + import-scan; ~140 tests).
+> STILL PENDING: aviation-8 (air-book/crew/dcs/ffp/mro/ops/sms/yield) — founder
+> aviation decision unresolved (air-cargo migrated; the 8 are settlement/safety
+> execution backends, PNR-PII could E2E-front on a follow decision).
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
