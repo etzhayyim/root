@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kobo_budding" targetNamespace="https://gftd.ai/bpmn/kobo" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_kobo_budding" targetNamespace="https://etzhayyim.ai/bpmn/kobo" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="kobo_budding" name="budding" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_BudAgent"/>
@@ -21,7 +21,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:kobo.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:kobo.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;kobo.budAgent&quot;" target="action"/>
           <zeebe:input source="={parentDid: parentDid, childDid: childDid, buddingEdgeId: buddingEdgeId}" target="payload"/>
         </zeebe:ioMapping>

@@ -3,7 +3,7 @@
                   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="Definitions_lawfirm_pipeline_stage_transition"
-                  targetNamespace="https://gftd.ai/bpmn/lawfirm"
+                  targetNamespace="https://etzhayyim.ai/bpmn/lawfirm"
                   exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="lawfirm_pipeline_stage_transition"
@@ -39,7 +39,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:lawfirm.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:lawfirm.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;lawfirm.pipeline.transitioned&quot;" target="event_type"/>
           <zeebe:input source="={lead_id: lead_id, from_stage: from_stage, to_stage: result_to_stage, decided_by_did: decided_by_did}" target="attributes"/>
         </zeebe:ioMapping>

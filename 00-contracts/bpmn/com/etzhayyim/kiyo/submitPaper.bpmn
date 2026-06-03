@@ -2,16 +2,16 @@
 <!--
   XRPC-triggered: com.etzhayyim.apps.kiyo.submitPaper
   Flow: validateAuthor → pinToIpfs → insertPaper → announceSubmission
-  Storage: ipfs.gftd.ai (CIDv1, content-addressed)
+  Storage: ipfs.etzhayyim.com (CIDv1, content-addressed)
 
   NSID: com.etzhayyim.apps.kiyo.submitPaper
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/kiyo-submit-paper-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kiyo-submit-paper-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_kiyo_submit_paper"
-    targetNamespace="https://gftd.ai/bpmn/kiyo"
+    targetNamespace="https://etzhayyim.ai/bpmn/kiyo"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="kiyo_submit_paper" name="kiyo submit paper" isExecutable="true">
@@ -40,12 +40,12 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_AfterValidate" sourceRef="Task_ValidateAuthor" targetRef="Task_PinToIpfs"/>
 
-    <!-- 2. Pin PDF to ipfs.gftd.ai -->
-    <bpmn:serviceTask id="Task_PinToIpfs" name="pin PDF to ipfs.gftd.ai">
+    <!-- 2. Pin PDF to ipfs.etzhayyim.com -->
+    <bpmn:serviceTask id="Task_PinToIpfs" name="pin PDF to ipfs.etzhayyim.com">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://ip5s7b2x.gftd.ai/xrpc/gftd.ipfs.v1.IpfsCommandService/Publish&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://ip5s7b2x.etzhayyim.com/xrpc/etzhayyim.ipfs.v1.IpfsCommandService/Publish&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;"               target="method"/>
           <zeebe:input source="=&quot;application/json&quot;"   target="contentType"/>
           <zeebe:input source="={content_base64: fileBase64, content_type: fileContentType}" target="body"/>
@@ -87,7 +87,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;app.bsky.feed.post&quot;" target="type"/>
           <zeebe:input source="=ownerDid"                       target="did"/>
-          <zeebe:input source="=&quot;📄 New preprint: &quot; + title + &quot; — kiyo:&quot; + paperId + &quot; https://kiyo.gftd.ai/paper/&quot; + paperId" target="text"/>
+          <zeebe:input source="=&quot;📄 New preprint: &quot; + title + &quot; — kiyo:&quot; + paperId + &quot; https://kiyo.etzhayyim.com/paper/&quot; + paperId" target="text"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_End</bpmn:outgoing>

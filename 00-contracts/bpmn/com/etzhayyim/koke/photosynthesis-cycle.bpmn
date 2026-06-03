@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_koke_photosynthesis" targetNamespace="https://gftd.ai/bpmn/koke" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_koke_photosynthesis" targetNamespace="https://etzhayyim.ai/bpmn/koke" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="koke_photosynthesis_cycle" name="photosynthesis-cycle" isExecutable="true">
     <!-- Timer start: every 30 minutes, scan for unfixed raw signals -->
     <bpmn:startEvent id="Start">
@@ -131,7 +131,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:koke.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:koke.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;koke.photosynthesize&quot;" target="action"/>
           <zeebe:input source="={fixationId: fixationId, classification: classification, confidence: confidence, saikinSignalId: saikinSignalId}" target="payload"/>
         </zeebe:ioMapping>
