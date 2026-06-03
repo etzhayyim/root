@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#LLMIntegrationCapability
+# @etzhayyimcojp/cyber-freelance#LLMIntegrationCapability
 # Capability: LLM Integration Capability
 # Description: Integrates with OpenAI GPT-4 to analyze email content and extract structured data
 # Activity: ExtractEntityInfoActivity

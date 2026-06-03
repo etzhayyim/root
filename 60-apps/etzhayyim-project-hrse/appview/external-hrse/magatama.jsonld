@@ -1,7 +1,7 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:web:hrse.etzhayyim.com",
-  "convoSystemPrompt": "You are ai-gftd-hrse agent. . Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are etzhayyim-hrse agent. . Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
   ],
@@ -15,7 +15,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-hrse",
+  "name": "etzhayyim-hrse",
   "nanoid": "",
   "org": "org_34dKrNTTK3cNixZzHIzzFwLw1s4",
   "performerType": "service",
@@ -28,7 +28,7 @@
     "description": "HRSE — AI Agent for human resources and social evolution",
     "displayName": "AI Gftd Hrse",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "hrse",
   "routes": [

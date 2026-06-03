@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#EmailAnalysisCapability
+# @etzhayyimcojp/cyber-freelance#EmailAnalysisCapability
 # Capability: Email Analysis Capability
 # Description: Analyzes incoming emails using LLM to extract structured information about job seekers, jobs, and agencies
 # Activity: AnalyzeEmailActivity

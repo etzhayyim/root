@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#PerformanceCapability
+# @etzhayyimcojp/cyber-freelance#PerformanceCapability
 # Capability: Performance Capability
 # Description: Performance testing scenarios for large data processing and concurrent requests
 # Activity: PerformanceTestActivity

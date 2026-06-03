@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#ErrorHandlingCapability
+# @etzhayyimcojp/cyber-freelance#ErrorHandlingCapability
 # Capability: Error Handling Capability
 # Description: Comprehensive error handling scenarios for GraphQL API, network errors, and timeout scenarios
 # Activity: HandleErrorActivity

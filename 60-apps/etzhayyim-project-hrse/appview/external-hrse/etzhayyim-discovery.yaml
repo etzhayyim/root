@@ -1,8 +1,8 @@
-apiVersion: gftd.io/v1alpha1
+apiVersion: etzhayyim.io/v1alpha1
 kind: AppDiscovery
 metadata:
-  name: ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f
-  namespace: ai-gftd-apps-prod
+  name: etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f
+  namespace: etzhayyim-apps-prod
 spec:
   actorName: hrse-app
   framework: nextjs

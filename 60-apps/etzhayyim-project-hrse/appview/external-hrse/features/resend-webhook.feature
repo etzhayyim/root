@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#ResendWebhookCapability
+# @etzhayyimcojp/cyber-freelance#ResendWebhookCapability
 # Capability: Resend Webhook Capability
 # Description: Receives and processes email webhook events from Resend, including signature verification
 # Activity: AnalyzeEmailActivity

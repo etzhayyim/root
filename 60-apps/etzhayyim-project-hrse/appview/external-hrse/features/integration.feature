@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#IntegrationCapability
+# @etzhayyimcojp/cyber-freelance#IntegrationCapability
 # Capability: Integration Capability
 # Description: Integration testing scenarios for multiple feature interactions
 # Activity: IntegrationTestActivity
