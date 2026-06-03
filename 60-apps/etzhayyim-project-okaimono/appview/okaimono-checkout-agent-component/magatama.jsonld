@@ -31,7 +31,7 @@
     "description": "Okaimono D2C Checkout Agent — SAGA orchestrator for D2C OEM orders (stock + BTO/MTO/CTO manufacturing)",
     "displayName": "Okaimono D2C Checkout Agent",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "okaimono",
   "runtimeType": "worker",

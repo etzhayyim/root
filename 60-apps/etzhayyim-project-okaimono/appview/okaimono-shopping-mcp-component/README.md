@@ -85,7 +85,7 @@ procurement and fulfillment.
 Verification:
 
 ```bash
-python3 60-apps/ai-gftd-project-okaimono/scripts/verify_unispsc_contracts.py --pretty
+python3 60-apps/etzhayyim-project-okaimono/scripts/verify_unispsc_contracts.py --pretty
 ```
 
 ### Support

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package okaimono.shopping.v1;
 
-option go_package = "github.com/gftdcojp/ai-gftd-apps-gftdcojp/projects/ai-gftd-project-shopping/gen/proto/v1;okaimonov1";
+option go_package = "github.com/etzhayyim/etzhayyim-apps-etzhayyim/projects/etzhayyim-project-shopping/gen/proto/v1;okaimonov1";
 
 import "google/protobuf/timestamp.proto";
 

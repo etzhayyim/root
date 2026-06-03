@@ -22,8 +22,8 @@ D2C (Direct-to-Consumer) OEM 専用 EC。自社ブランド OEM 商品のみを 
 
 **権威ソース**:
 
-- `60-apps/ai-gftd-project-okaimono/proto/v1/shopping.proto`
-- `60-apps/ai-gftd-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
+- `60-apps/etzhayyim-project-okaimono/proto/v1/shopping.proto`
+- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
 
 AT Lexicon namespace: `com.etzhayyim.apps.okaimono.*`
 
@@ -80,7 +80,7 @@ Catalog record fields for UNSPSC-backed items:
 Verification gate:
 
 ```bash
-python3 60-apps/ai-gftd-project-okaimono/scripts/verify_unispsc_contracts.py --pretty
+python3 60-apps/etzhayyim-project-okaimono/scripts/verify_unispsc_contracts.py --pretty
 ```
 
 The verifier checks proto fields/RPCs, component manifest capabilities/subscriptions,
@@ -126,9 +126,9 @@ and docs for the UNSPSC import/search/purchase contract surface.
 
 | 軸 | tsukuru contract | okaimono enforcement |
 |---|---|---|
-| **Verification Tier** | `gftd:tsukuru-manufacturer-registry/verification@1.0.0` | catalog_upsert 時に manufacturer の tier ≥ `min_tier` を検証。BASIC は試作のみ、VERIFIED 以上で本番販売 |
-| **Trade Compliance** | `gftd:tsukuru-trade-compliance@1.0.0` | 注文確定前に HS 分類 + 輸出規制 + 関税率を自動チェック。restricted/prohibited 品は reject |
-| **Quality Inspection** | `gftd:tsukuru-production-order/quality-inspection@1.0.0` | 出荷前 QC 必須 (inline/final/third-party)。defect_rate_ppm > 閾値で出荷ブロック |
+| **Verification Tier** | `etzhayyim:tsukuru-manufacturer-registry/verification@1.0.0` | catalog_upsert 時に manufacturer の tier ≥ `min_tier` を検証。BASIC は試作のみ、VERIFIED 以上で本番販売 |
+| **Trade Compliance** | `etzhayyim:tsukuru-trade-compliance@1.0.0` | 注文確定前に HS 分類 + 輸出規制 + 関税率を自動チェック。restricted/prohibited 品は reject |
+| **Quality Inspection** | `etzhayyim:tsukuru-production-order/quality-inspection@1.0.0` | 出荷前 QC 必須 (inline/final/third-party)。defect_rate_ppm > 閾値で出荷ブロック |
 
 ### 各国製造拠点ポリシー
 

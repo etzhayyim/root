@@ -34,7 +34,7 @@
     "description": "Okaimono — D2C OEM-only AI-operated EC store. Self-branded OEM products manufactured via tsukuru.etzhayyim.com. Catalog, orders, inventory, dynamic pricing, reviews, recommendations, fulfillment, customer support, analytics, and BTO/MTO/CTO manufacturing.",
     "displayName": "Okaimono D2C Store",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "okaimono",
   "routes": [

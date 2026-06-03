@@ -1,4 +1,4 @@
-# ai-gftd-project-okaimono
+# etzhayyim-project-okaimono
 
 okaimono.etzhayyim.com — Amazon-grade AI-operated EC marketplace.
 
@@ -18,8 +18,8 @@ W Protocol Event Stream only:
 ## Deployment
 
 ```bash
-cd wasm/okaimono-shopping-mcp-component && gftd build && gftd deploy
-cd wasm/okaimono-checkout-agent-component && gftd build && gftd deploy
+cd wasm/okaimono-shopping-mcp-component && etzhayyim build && etzhayyim deploy
+cd wasm/okaimono-checkout-agent-component && etzhayyim build && etzhayyim deploy
 ```
 
 - `okaimono.etzhayyim.com` — marketplace UI + API

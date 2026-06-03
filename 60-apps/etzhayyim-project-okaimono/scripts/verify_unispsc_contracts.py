@@ -18,7 +18,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = ROOT.parents[1]
-SHOPPING_ROOT = REPO / "60-apps/ai-gftd-project-shopping"
+SHOPPING_ROOT = REPO / "60-apps/etzhayyim-project-shopping"
 
 
 REQUIRED_PROTO_PATTERNS = [
@@ -81,7 +81,7 @@ def verify() -> dict[str, Any]:
     manifest_path = ROOT / "appview/okaimono-shopping-mcp-component/magatama.jsonld"
     readme_path = ROOT / "appview/okaimono-shopping-mcp-component/README.md"
     claude_path = ROOT / "CLAUDE.md"
-    spec_path = ROOT / "okaimono-gftd-ai-ec-operating-spec.md"
+    spec_path = ROOT / "okaimono-etzhayyim-ai-ec-operating-spec.md"
 
     missing: list[str] = []
     checks: dict[str, bool] = {}

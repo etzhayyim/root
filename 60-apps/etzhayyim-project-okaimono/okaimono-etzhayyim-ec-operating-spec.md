@@ -1,7 +1,7 @@
 # okaimono.etzhayyim.com D2C OEM-Only AI自動運営EC 実装仕様（MVP）
 
 この仕様は「**自社ブランドOEM商品のD2C販売〜OEM製造〜発送〜CSをAIで閉じる**」運用を前提に、
-`okaimono.etzhayyim.com`（`60-apps/ai-gftd-project-okaimono`）で実装する。
+`okaimono.etzhayyim.com`（`60-apps/etzhayyim-project-okaimono`）で実装する。
 
 ## 1) コア前提
 

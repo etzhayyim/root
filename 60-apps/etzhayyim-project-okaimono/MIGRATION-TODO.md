@@ -7,7 +7,7 @@
 
 ## rw-free/ slice (landed 2026-06-01, per ADR-2606011400 on-chain-only)
 
-`60-apps/ai-gftd-project-okaimono/rw-free/` — Option B reference impl on the
+`60-apps/etzhayyim-project-okaimono/rw-free/` — Option B reference impl on the
 etzhayyim substrate, same pattern as hanrei rw-free. **14/14 vitest pass,
 `tsc --noEmit` clean.** Only `@etzhayyim/sdk` + local imports (no @atproto/api,
 viem, RW, Stripe).
@@ -28,7 +28,7 @@ domains; appview wiring; replace injected executor with the donate() adapter.
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-okaimono`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/etzhayyim-project-okaimono`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 

@@ -26,8 +26,8 @@ class VerifyUnispscContractsTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.repo = Path(self.tmp.name)
-        self.okaimono_root = self.repo / "60-apps/ai-gftd-project-okaimono"
-        self.shopping_root = self.repo / "60-apps/ai-gftd-project-shopping"
+        self.okaimono_root = self.repo / "60-apps/etzhayyim-project-okaimono"
+        self.shopping_root = self.repo / "60-apps/etzhayyim-project-shopping"
         self._write_contract_tree()
         self.verifier = load_verifier()
 
@@ -91,7 +91,7 @@ class VerifyUnispscContractsTest(unittest.TestCase):
         for relative in [
             "appview/okaimono-shopping-mcp-component/README.md",
             "CLAUDE.md",
-            "okaimono-gftd-ai-ec-operating-spec.md",
+            "okaimono-etzhayyim-ai-ec-operating-spec.md",
         ]:
             doc_path = self.okaimono_root / relative
             doc_path.parent.mkdir(parents=True, exist_ok=True)
