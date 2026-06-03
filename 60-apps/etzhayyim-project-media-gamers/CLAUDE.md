@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/media-gamers/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# ai-gftd-project-media-gamers — Project Runbook
+# etzhayyim-project-media-gamers — Project Runbook
 
 ## Project Overview
 
@@ -82,7 +82,7 @@ media_gamers.translation {
 
 ## W Protocol Lexicon (CRITICAL)
 
-**全 AT Record は `com.etzhayyim.apps.media_gamers.*` namespace。** WIT = `gftd:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
+**全 AT Record は `com.etzhayyim.apps.media_gamers.*` namespace。** WIT = `etzhayyim:media-gamers@1.0.0` (`wit/media-gamers/package.wit`)。
 
 | Kind | AT Collection NSID | 説明 |
 |---|---|---|
@@ -454,8 +454,8 @@ Write は PDS XRPC (`https://atproto.etzhayyim.com/xrpc/*`) が標準パス。wo
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-media-gamers/wasm/media-gamers-7m8oocsn
-gftd deploy       # account-level Worker
+cd 60-apps/etzhayyim-project-media-gamers/wasm/media-gamers-7m8oocsn
+etzhayyim deploy       # account-level Worker
 ```
 
 ## API Endpoints
@@ -466,39 +466,39 @@ gftd deploy       # account-level Worker
 - Health: `https://a7m8oocs.etzhayyim.com/health`
 - Heartbeat: `POST https://a7m8oocs.etzhayyim.com/_heartbeat`
 
-## Claude Code Agent — gftd xrpc
+## Claude Code Agent — etzhayyim xrpc
 
-Claude Code (this chat agent) can trigger commands via `gftd xrpc`:
+Claude Code (this chat agent) can trigger commands via `etzhayyim xrpc`:
 
 ```bash
 # Step-by-step seed (run each in order after previous completes)
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"platforms"}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"developers"}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"publishers"}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"franchises"}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"platforms"}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"developers"}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"publishers"}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedAll -d '{"step":"franchises"}' --app a7m8oocs
 
 # Seed games in batches (current seed: 53 total)
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":0,"limit":10}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":10,"limit":10}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":20,"limit":10}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":30,"limit":10}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":40,"limit":10}' --app a7m8oocs
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":50,"limit":10}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":0,"limit":10}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":10,"limit":10}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":20,"limit":10}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":30,"limit":10}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":40,"limit":10}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.seedGames -d '{"offset":50,"limit":10}' --app a7m8oocs
 
 # Register JP release candidates from in-app seed catalog into normalization records
-gftd xrpc com.etzhayyim.apps.media_gamers.normalization.registerJapanReleasedFromSeed -d '{}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.normalization.registerJapanReleasedFromSeed -d '{}' --app a7m8oocs
 
 # Generate guides for a single game
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.generateAll -d '{"slug":"elden-ring"}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.generateAll -d '{"slug":"elden-ring"}' --app a7m8oocs
 
 # Generate guides in batches of 5
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.generateAll -d '{"offset":0,"limit":5}' --app a7m8oocs
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.generateAll -d '{"offset":0,"limit":5}' --app a7m8oocs
 
 # Query — check game data
-gftd xrpc com.etzhayyim.apps.media_gamers.catalog.getGame --app a7m8oocs --json
+etzhayyim xrpc com.etzhayyim.apps.media_gamers.catalog.getGame --app a7m8oocs --json
 ```
 
-`gftd xrpc` source: `70-tools/gftd/gftd/xrpc.go`
+`etzhayyim xrpc` source: `70-tools/etzhayyim/etzhayyim/xrpc.go`
 
 ## RisingWave KG State (2026-04-19, iter #40)
 
@@ -509,14 +509,14 @@ Direct-INSERT expansion via `/loop ドメイン知識、カバレッジを向上
 | `vertex_game_title` | 13,337 | Wikidata JP releases + AAA 2023-2025 + DLC + remasters |
 | `vertex_game_character` | 1,217 | Konami/Nintendo/Pokemon/SE/From/Capcom/Atlus/Bethesda/MS/Sony/MH/Marvel rosters |
 | `vertex_game_item` | 945 | Weapons, abilities, personas, Eikons, Zonai devices, stratagems, archetypes, jokers |
-| `vertex_actor` (T0 logical) | 2,277+ | `did:gftd:gameactor/gamechar/gameitem:*` synthetic DIDs (DB-only, no jsonld) |
+| `vertex_actor` (T0 logical) | 2,277+ | `did:etzhayyim:gameactor/gamechar/gameitem:*` synthetic DIDs (DB-only, no jsonld) |
 
 **T0 sync pattern** (idempotent, run after each phase ingest):
 ```sql
 INSERT INTO public.vertex_actor (did, handle, display_name, created_at, classification, execution_tier)
-SELECT vertex_id, replace(vertex_id, 'did:gftd:gamechar:', '') || '.gamechar.etzhayyim.com', name, now(), 'tier-0-db-only', 'T0'
+SELECT vertex_id, replace(vertex_id, 'did:etzhayyim:gamechar:', '') || '.gamechar.etzhayyim.com', name, now(), 'tier-0-db-only', 'T0'
 FROM public.vertex_game_character
-WHERE vertex_id NOT IN (SELECT did FROM public.vertex_actor WHERE did LIKE 'did:gftd:gamechar:%');
+WHERE vertex_id NOT IN (SELECT did FROM public.vertex_actor WHERE did LIKE 'did:etzhayyim:gamechar:%');
 -- mirror for vertex_game_item via vertex_id (legacy items have NULL did, use vertex_id)
 ```
 

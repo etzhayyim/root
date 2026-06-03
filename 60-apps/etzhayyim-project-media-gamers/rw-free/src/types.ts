@@ -11,7 +11,7 @@
  *   developers are public entities), no settlement, no liability.
  *     → migrated to etzhayyim front (AT PDS records, replaces RW).
  *
- *   COMPUTE (STAYS gftd, NOT in this package) — `generateGuide` / `autopilot`
+ *   COMPUTE (STAYS etzhayyim, NOT in this package) — `generateGuide` / `autopilot`
  *   LLM guide generation (LangGraph) is compute; published guides federate as
  *   first-party AT records via the feed. Consumed via consent-capability.
  *

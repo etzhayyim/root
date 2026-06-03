@@ -31,7 +31,7 @@
     "description": "Media Gamers — AI Agent for gaming intelligence and analytics",
     "displayName": "Media Gamers",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "tools": [
       {
         "name": "media-gamers.health",

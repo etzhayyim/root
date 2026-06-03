@@ -124,7 +124,7 @@ async function handleCommitGuide(env: Env, body: Record<string, unknown>): Promi
       headers: {
         "content-type": "application/json",
         "x-magatama-verified": "true",
-        "x-gftd-org-id": "anon",
+        "x-etzhayyim-org-id": "anon",
       },
       body: JSON.stringify({ repo: REPO_DID, collection: "com.etzhayyim.apps.media_gamers.guide", rkey, record }),
     });
@@ -160,7 +160,7 @@ async function handleCommitKnowledgeGuide(env: Env, body: Record<string, unknown
       headers: {
         "content-type": "application/json",
         "x-magatama-verified": "true",
-        "x-gftd-org-id": "anon",
+        "x-etzhayyim-org-id": "anon",
       },
       body: JSON.stringify({ repo: REPO_DID, collection: "com.etzhayyim.apps.media_gamers.guide", rkey, record }),
     });
@@ -230,7 +230,7 @@ function embedHtml(): string {
 <body>
 <h1>Media Gamers</h1>
 <p>AI-powered gaming intelligence — LangGraph autopilot every 30 min.</p>
-<script>window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'a7m8oocs'},'*')</script>
+<script>window.parent?.postMessage({type:'etzhayyim:embed:ready',nanoid:'a7m8oocs'},'*')</script>
 </body></html>`;
 }
 

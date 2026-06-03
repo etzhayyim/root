@@ -11,7 +11,7 @@
  *   coverage
  *
  * (c) MIXED SPLIT: the public game-catalog open-data migrates. `generateGuide` /
- * `autopilot` LLM guide-generation (LangGraph) compute STAYS gftd; published
+ * `autopilot` LLM guide-generation (LangGraph) compute STAYS etzhayyim; published
  * guides federate as first-party AT records — NOT in this package.
  */
 

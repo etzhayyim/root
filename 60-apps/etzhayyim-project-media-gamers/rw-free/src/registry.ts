@@ -1,7 +1,7 @@
 /**
  * media-gamers rw-free — publisher + developer + gameTitle + chartEntry
  * registries + coverage. AT PDS records (no RW). gameTitle FK→publisher+developer;
- * chartEntry FK→gameTitle. Public game-catalog open-data; guide-gen stays gftd.
+ * chartEntry FK→gameTitle. Public game-catalog open-data; guide-gen stays etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
