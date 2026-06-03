@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-1030-survivors-ny9858qq",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-1030-survivors-ny9858qq",
   "version": "1.0.0",
   "description": "COFOG runtime component (TS-native migration)",
   "main": "src/app.ts",
