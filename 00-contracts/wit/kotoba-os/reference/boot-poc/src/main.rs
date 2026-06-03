@@ -25,6 +25,9 @@ use wasmi::{Caller, Engine, Linker, Module, Store};
 /// THIS inside the unikernel (the production crate runs the full Component Model
 /// via kotoba-runtime; this PoC uses the no_std wasmi interpreter on bare metal).
 const SCAN_WASM: &[u8] = include_bytes!("../scan.wasm");
+/// A control module that returns its command as a STRING in linear memory — the
+/// primitive real Component-Model components use to pass Fact strings.
+const SCANMEM_WASM: &[u8] = include_bytes!("../scanmem.wasm");
 
 // ---- real device I/O: QEMU virt PL011 UART0 (MMIO) -------------------------
 const UART_DR: *mut u8 = 0x0900_0000 as *mut u8;
@@ -156,6 +159,58 @@ fn run_wasm() {
     }
 }
 
+/// Read a command STRING out of the wasm guest's linear memory — the primitive
+/// real Component-Model components rely on (Fact strings / lists live in guest
+/// memory, not in i32 returns). `scan` returns a packed (offset<<8)|len; the host
+/// reads that slice from the instance's exported `mem`.
+fn run_wasm_mem() {
+    puts("\n-- wasmi: reading a command STRING from wasm linear memory --\n");
+    let engine = Engine::default();
+    let module = match Module::new(&engine, SCANMEM_WASM) {
+        Ok(m) => m,
+        Err(_) => { puts("WASMEM: module load FAIL\n"); return; }
+    };
+    let mut store = Store::new(&engine, WState { pv: 0, cycle: 0, log: Vec::new() });
+    let mut linker = <Linker<WState>>::new(&engine);
+    let _ = linker.func_wrap("kotoba", "read_input", |caller: Caller<'_, WState>| -> i32 {
+        caller.data().pv
+    });
+    let instance = match linker
+        .instantiate(&mut store, &module)
+        .and_then(|pre| pre.start(&mut store))
+    {
+        Ok(i) => i,
+        Err(_) => { puts("WASMEM: instantiate FAIL\n"); return; }
+    };
+    let scan = match instance.get_typed_func::<(), i32>(&store, "scan") {
+        Ok(f) => f,
+        Err(_) => { puts("WASMEM: no scan export\n"); return; }
+    };
+    let mem = match instance.get_memory(&store, "mem") {
+        Some(m) => m,
+        None => { puts("WASMEM: no mem export\n"); return; }
+    };
+
+    let mut ok = 0;
+    for (k, pv) in [(0u64, 3i32), (1, 20), (2, 8)] {
+        store.data_mut().pv = pv;
+        let r = scan.call(&mut store, ()).unwrap_or(0);
+        let off = (r >> 8) as usize;
+        let len = (r & 0xff) as usize;
+        let mut buf = [0u8; 8];
+        if len <= buf.len() && mem.read(&store, off, &mut buf[..len]).is_ok() {
+            let cmd = core::str::from_utf8(&buf[..len]).unwrap_or("?");
+            puts(&format!("WASMEM t={k} ctrl :ctrl/command=\"{cmd}\" (read from guest memory)\n"));
+            ok += 1;
+        }
+    }
+    if ok == 3 {
+        puts("KOTOBA-OS WASMEM OK\n");
+    } else {
+        puts("KOTOBA-OS WASMEM FAIL\n");
+    }
+}
+
 core::arch::global_asm!(
     ".section .text._start",
     ".global _start",
@@ -217,6 +272,7 @@ pub extern "C" fn rust_main() -> ! {
 
     // --- run a REAL wasm module via the wasmi interpreter, in-kernel ---
     run_wasm();
+    run_wasm_mem();
 
     loop {
         unsafe { core::arch::asm!("wfi") }

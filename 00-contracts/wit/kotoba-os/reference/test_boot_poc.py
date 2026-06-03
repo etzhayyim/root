@@ -49,6 +49,11 @@ class BootPoc(unittest.TestCase):
         self.assertIn("KOTOBA-OS WASM OK", out, msg=out[-2000:])
         self.assertIn("interpreter=wasmi, in-unikernel", out)
         self.assertIn("WASM DATOM t=2 ctrl :ctrl/command=1", out)
+        # host reads a command STRING from the wasm guest's linear memory
+        # (the primitive real Component-Model components need for Fact strings).
+        self.assertIn("KOTOBA-OS WASMEM OK", out, msg=out[-2000:])
+        self.assertIn('WASMEM t=0 ctrl :ctrl/command="ON" (read from guest memory)', out)
+        self.assertIn('WASMEM t=1 ctrl :ctrl/command="OFF"', out)
 
 
 if __name__ == "__main__":
