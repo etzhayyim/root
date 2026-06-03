@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-akatsuki-no-yona-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-akatsuki-no-yona-series-primer-2026",
   "identifier": "manga-akatsuki-no-yona-series-primer-2026",
   "headline": "Yona of the Dawn primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Yona of the Dawn, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

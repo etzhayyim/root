@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:japanese-food-market-trend-2026",
+  "@id": "urn:etzhayyim:news:japanese-food-market-trend-2026",
   "identifier": "japanese-food-market-trend-2026",
   "headline": "訪日需要で日本食市場が拡大、外食チェーンが多言語対応を加速",
   "description": "訪日観光客の回復と和食人気の高まりを受け、主要外食チェーンが多言語メニューや予約導線の強化を進めている。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-15T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "url": "https://news.etzhayyim.com/bn/articles/japanese-food-market-trend-2026"

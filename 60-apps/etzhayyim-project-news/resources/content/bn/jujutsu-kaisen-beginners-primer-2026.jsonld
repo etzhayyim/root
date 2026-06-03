@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:bn:jujutsu-kaisen-beginners-primer-2026",
+  "@id": "urn:etzhayyim:news:bn:jujutsu-kaisen-beginners-primer-2026",
   "identifier": "bn-jujutsu-kaisen-beginners-primer-2026",
   "headline": "জুজুৎসু কাইসেন - নতুনদের জন্য সম্পূর্ণ গাইড",
   "description": "জুজুৎসু কাইসেন একটি জনপ্রিয় আধুনিক অ্যানিমে যেখানে যুবক যোদ্ধারা অভিশপ্ত আত্মার বিরুদ্ধে লড়াই করে। প্রধান চরিত্র, গল্প এবং দেখার ক্রম সম্পর্কে জানুন।",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
