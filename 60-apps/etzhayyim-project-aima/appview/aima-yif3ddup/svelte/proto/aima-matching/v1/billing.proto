@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aima.billing.v1;
 
-option go_package = "github.com/gftdcojp/ai-gftd-apps-gftdcojp/performers/actors/aima-billing/gen/aima/billing/v1;billingv1";
+option go_package = "github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/performers/actors/aima-billing/gen/aima/billing/v1;billingv1";
 
 service BillingService {
   // Initiates a checkout session for a subscription or one-time service

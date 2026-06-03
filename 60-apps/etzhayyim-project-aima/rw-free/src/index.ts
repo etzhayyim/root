@@ -9,7 +9,7 @@
  *   report : submitReport (optional FK→entity) / publishReport / listReports
  *   coverage
  *
- * The embedding/inference/mesh AI-compute components stay gftd infra.
+ * The embedding/inference/mesh AI-compute components stay etzhayyim infra.
  */
 
 export * from "./types.js";

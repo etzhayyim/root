@@ -7,7 +7,7 @@
  * named in MIGRATION-TODO). ADR-2605172000 RW-free.
  *
  * SPLIT NOTE: the embedding / inference / mesh AI-compute components
- * (ai-gftd-wasm-laser / -inference / -mesh) stay gftd infra, invoked via
+ * (etzhayyim-wasm-laser / -inference / -mesh) stay etzhayyim infra, invoked via
  * consent-capability; only the entity/event/report graph is etzhayyim-front.
  *
  * AXIS NOTE (ADR-2605172400): axis-clean — AT records are public by design; no

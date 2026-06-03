@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aima.matching.v1;
 
-option go_package = "github.com/gftdcojp/ai-gftd-apps-gftdcojp/performers/actors/aima-matching/gen/aima/matching/v1;matchingv1";
+option go_package = "github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/performers/actors/aima-matching/gen/aima/matching/v1;matchingv1";
 
 service MatchingService {
   // Analyzes user personality and lifestyle to create a psychographic profile

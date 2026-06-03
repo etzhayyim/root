@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package aima.concierge.v1;
 
-option go_package = "github.com/gftdcojp/ai-gftd-apps-gftdcojp/performers/actors/aima-concierge/gen/aima/concierge/v1;conciergev1";
+option go_package = "github.com/etzhayyimcojp/etzhayyim-apps-etzhayyimcojp/performers/actors/aima-concierge/gen/aima/concierge/v1;conciergev1";
 
 service ConciergeService {
   // Provides conversational advice and ice-breakers
