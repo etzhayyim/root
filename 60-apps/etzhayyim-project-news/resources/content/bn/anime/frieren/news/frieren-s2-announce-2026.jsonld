@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:frieren-s2-announce-2026",
+  "@id": "urn:etzhayyim:news:frieren-s2-announce-2026",
   "identifier": "frieren-s2-announce-2026",
   "headline": "Frieren: Beyond Journey's End season 2 confirmed, Golden Land arc to air in winter 2026",
   "description": "Season 2 of the TV anime Frieren: Beyond Journey's End has been officially announced. The new season will adapt the Golden Land (Aureole) arc that follows the First-Class Mage Exam and explores Frieren's past and the fate of souls.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:frieren-ep38-notes-2026",
+  "@id": "urn:etzhayyim:news:frieren-ep38-notes-2026",
   "identifier": "frieren-ep38-notes-2026",
   "headline": "Frieren: Beyond Journey's End episode 38 notes: direction, structure, and highlights",
   "description": "A structure-first set of notes on Frieren: Beyond Journey's End episode 38, focused on direction and pacing.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

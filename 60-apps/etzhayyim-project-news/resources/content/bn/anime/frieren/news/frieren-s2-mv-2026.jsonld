@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:frieren-s2-mv-2026",
+  "@id": "urn:etzhayyim:news:frieren-s2-mv-2026",
   "identifier": "frieren-s2-mv-2026",
   "headline": "Frieren season 2 shares ending theme MV as broadcast details settle",
   "description": "Frieren: Beyond Journey's End season 2 began airing on January 16, 2026 on NTV's Friday Roadshow block, with a new key visual revealed. A special music video for ending theme \"The Story of Us\" by milet has also been released, with reports noting a 10-episode run and Crunchyroll streaming.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
