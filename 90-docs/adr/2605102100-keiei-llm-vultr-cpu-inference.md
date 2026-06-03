@@ -15,7 +15,7 @@ authoritative_for:
   - bearer secret + Keychain mirror flow for the keiei daemon
 related:
   - adr-2605101200-ai-cxo-roles-lsp-resident
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
   - adr-2605010000
   - adr-0036-worker-direct-hyperdrive-persistence
   - adr-2605141500-shinshi-review-generation-quality-loop
@@ -39,7 +39,7 @@ the ClusterIP `keiei-llm.keiei-llm.svc.cluster.local:8080`.
 
 The macOS launchd daemon (`com.etzhayyim.keiei`) is wired through a small
 shell wrapper that loads the bearer from macOS Keychain
-(`gftd.keiei / LLM_BEARER`) at process start; the secret never lives in
+(`etzhayyim.keiei / LLM_BEARER`) at process start; the secret never lives in
 the world-readable `~/Library/LaunchAgents/com.etzhayyim.keiei.plist`.
 
 ## 2. Why CPU, not GPU
@@ -65,7 +65,7 @@ Until then, CPU is the right tier.
 
 ## 3. Why a dedicated pod
 
-`60-apps/ai-gftd-project-murakumo/litellm/` (mac mini fleet at
+`60-apps/etzhayyim-project-murakumo/litellm/` (mac mini fleet at
 `https://llm.etzhayyim.com`) is the platform's general-purpose LLM gateway.
 Reasons it's not used here:
 
@@ -91,7 +91,7 @@ new operational shape — only a new instance of an established pattern.
 ```
 macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
   └─ /bin/zsh -c keiei-launchd-wrapper.sh
-       ├─ security find-generic-password -s gftd.keiei -a LLM_BEARER → etzhayyim_LLM_API_KEY
+       ├─ security find-generic-password -s etzhayyim.keiei -a LLM_BEARER → etzhayyim_LLM_API_KEY
        ├─ export etzhayyim_LLM_URL=https://gemma-e2b.etzhayyim.com/v1/chat/completions
        ├─ export KEIEI_LLM_MODEL=gemma-4-E2B-it
        └─ exec python3 -m pymagatama.keiei --socket ~/Library/Caches/keiei.sock
@@ -114,12 +114,12 @@ macOS launchd com.etzhayyim.keiei  (PID alive, KeepAlive=true)
 
 1. **Bearer never in plist.** The plist only references the wrapper
    script; the wrapper reads from Keychain and exports into the child
-   environment. Re-keying = `security add-generic-password -s gftd.keiei
+   environment. Re-keying = `security add-generic-password -s etzhayyim.keiei
    -a LLM_BEARER -w <new>` + `launchctl unload && load`. The kubectl
    Secret `keiei-llm-auth` and the Keychain entry MUST stay in sync.
 2. **HF token never in plist.** The model fetch initContainer reads
    `HF_TOKEN` from the kubectl Secret `keiei-llm-hf-token`, which is
-   seeded once from macOS Keychain (`gftd.huggingface / HF_TOKEN`). If
+   seeded once from macOS Keychain (`etzhayyim.huggingface / HF_TOKEN`). If
    HF rotates the token, rotate Keychain → recreate the Secret →
    restart the pod (or wait for a new pod cycle).
 3. **PVC retention.** The 10 GiB `keiei-llm-model` PVC persists across
@@ -192,7 +192,7 @@ Highlights:
 
 - `fetch-model` 401 → HF token rotated; re-seed `keiei-llm-hf-token`
 - `fallback-no-key` in ledger → Keychain bearer drift or wrapper not
-  loading it; `security find-generic-password -s gftd.keiei -a
+  loading it; `security find-generic-password -s etzhayyim.keiei -a
   LLM_BEARER -w` should print the bearer
 - `fallback-error:URLError` in ledger → tunnel/DNS not ready, or pod
   not yet reachable
@@ -206,7 +206,7 @@ Highlights:
 - `90-docs/adr/2605101200-ai-cxo-roles-lsp-resident.md` — keiei layer
 - `50-infra/vultr/keiei-llm-pool/RUNBOOK.md` — operator runbook
 - `50-infra/vultr/cloudflared/embedder-tunnel.yaml` — peer pattern
-- `60-apps/ai-gftd-project-murakumo/litellm/` — alternate gateway
+- `60-apps/etzhayyim-project-murakumo/litellm/` — alternate gateway
 - `90-docs/adr/2605010000-runpod-6000ada-unified-pod.md` — when GPU
   returns
 - `deps.toml [[migrations]] keiei-llm-vultr-cpu-cutover-2026-05-10` —

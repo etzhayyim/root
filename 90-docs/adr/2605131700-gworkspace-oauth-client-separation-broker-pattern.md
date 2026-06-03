@@ -20,12 +20,12 @@ superseded_by: []
 
 # Context
 
-The Google Workspace ingest pipeline (`90-docs/260417-google-workspace-ingest-runbook.md`) consents one OAuth grant per (Google account × service) and persists the resulting refresh_token in `vertex_g<svc>_oauth_token` for 9 services (gmail / calendar / drive / contacts / tasks / docs / sheets / slides / meet). 11 Google accounts span at least 5 separate Workspace tenants (etzhayyim.com / junkawasaki.com / jk.luxury / de.school / michael.ne.jp / edutek.company / gmail.com), which rules out Domain-Wide Delegation. Two OAuth Web Clients exist in GCP project `ai-gftd-ws-ingest`:
+The Google Workspace ingest pipeline (`90-docs/260417-google-workspace-ingest-runbook.md`) consents one OAuth grant per (Google account × service) and persists the resulting refresh_token in `vertex_g<svc>_oauth_token` for 9 services (gmail / calendar / drive / contacts / tasks / docs / sheets / slides / meet). 11 Google accounts span at least 5 separate Workspace tenants (etzhayyim.com / junkawasaki.com / jk.luxury / de.school / michael.ne.jp / edutek.company / gmail.com), which rules out Domain-Wide Delegation. Two OAuth Web Clients exist in GCP project `etzhayyim-ws-ingest`:
 
 | Client | Purpose | scopes | redirect_uris |
 |---|---|---|---|
 | `96227025012-nnvmf7l8rfmttdrag3tkqnl51eg2lnpq…` | Workspace **data ingest** (gworkspace_lite + gmail.py) | 12 unified scopes (gmail.modify + calendar + drive + contacts.readonly + tasks + documents.readonly + spreadsheets.readonly + presentations.readonly + meetings.space.readonly + directory.readonly + contacts.other.readonly + openid email profile) | `https://gmail.etzhayyim.com/oauth/callback` (live); 8 more per-service callbacks **pending registration** |
-| `812728035865-f8lejbdpkquqfovmdttj1r6796qc509v…` | auth.etzhayyim.com **identity sign-in** (account-link OAuth at `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1260`) | `openid email profile` only | javascript_origins: `https://auth.etzhayyim.com` |
+| `812728035865-f8lejbdpkquqfovmdttj1r6796qc509v…` | auth.etzhayyim.com **identity sign-in** (account-link OAuth at `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1260`) | `openid email profile` only | javascript_origins: `https://auth.etzhayyim.com` |
 
 During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was downloaded by mistake instead of the ingest client. This forced clarification of which client should be used for what, and whether "auth.etzhayyim.com 一本化" implies collapsing both into one client.
 
@@ -58,7 +58,7 @@ During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was 
 
 # Alternatives Considered
 
-**A. Single OAuth client for both identity and data ingest** — REJECTED. Violates principle-of-least-privilege at the OAuth client granularity. Identity flows would carry 12-scope consent screens. Anonymous sign-in users would be asked "Allow gftd to read your Google Drive?" which is a worse UX and harder for Google's OAuth verification team to approve.
+**A. Single OAuth client for both identity and data ingest** — REJECTED. Violates principle-of-least-privilege at the OAuth client granularity. Identity flows would carry 12-scope consent screens. Anonymous sign-in users would be asked "Allow etzhayyim to read your Google Drive?" which is a worse UX and harder for Google's OAuth verification team to approve.
 
 **B. Collapse all 9 per-service redirect_uris into a single `https://auth.etzhayyim.com/oauth/google/data-callback` on the existing `96227025012-…` client** — DEFERRED to Phase 1. Requires (a) implementing the broker handler at auth.etzhayyim.com, (b) modifying `gworkspace_lite.py` to read tokens from vault.etzhayyim.com instead of `vertex_g<svc>_oauth_token`, (c) data migration. Architecturally correct but not the right unit of work for unblocking Phase 0 ingest today.
 
@@ -71,7 +71,7 @@ During Phase 0 operator-action 2026-05-13, the identity sign-in client JSON was 
 - `90-docs/260417-google-workspace-ingest-runbook.md` — Phase 0 ingest design
 - `_working/keiei/GWORKSPACE-INGEST-OPERATOR-HANDOFF.md` — current Phase 0 unblock state
 - `20-actors/magatama/py/src/pymagatama/ingest/gworkspace_lite.py:21-36` — 12 unified scopes
-- `60-apps/ai-gftd-project-auth/worker/src-ts/index.ts:1242-1273` — auth.etzhayyim.com Google identity sign-in handler
+- `60-apps/etzhayyim-project-auth/worker/src-ts/index.ts:1242-1273` — auth.etzhayyim.com Google identity sign-in handler
 - `90-docs/adr/0022-auth-topology-consolidation.md` — Auth topology
 - `90-docs/adr/0023-auth-shannon-optimal-4-layer.md` — 4-layer auth
 - vault.etzhayyim.com zero-knowledge invariant — CLAUDE.md root §Vault Zero-Knowledge Invariant

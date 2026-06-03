@@ -27,7 +27,7 @@ Giemon ロボット（Otete / Hitogata / Caterpillar）は教育・研究向け�
 同時に、既存の介護プラットフォームは「欠損モデル」（できないことを評価して給付する受動型）に依存しており、
 当事者の能力・意欲・社会参加を育てる視点が欠如している。
 
-本 ADR は `kaigo.etzhayyim.com`（`ai-gftd-project-kaigo`）の応用プラットフォームとして Giemon ロボットを位置づけ、
+本 ADR は `kaigo.etzhayyim.com`（`etzhayyim-project-kaigo`）の応用プラットフォームとして Giemon ロボットを位置づけ、
 アーキテクチャを確定する。
 
 ---
@@ -89,7 +89,7 @@ kaigo.etzhayyim.com (SvelteKit 5 / CF Worker kg8r2m5n)
 | Growth | 新活動挑戦率・Hitogata リハビリ達成率 |
 | Resilience | Caterpillar バイタルデータ安定性・サポートバッファ |
 
-詳細: `60-apps/ai-gftd-project-kaigo/CLAUDE.md`
+詳細: `60-apps/etzhayyim-project-kaigo/CLAUDE.md`
 
 ### 料金プラン
 
@@ -134,8 +134,8 @@ kaigo.etzhayyim.com (SvelteKit 5 / CF Worker kg8r2m5n)
 ## References
 
 - ADR-2605142200 — Giemon オープンハードウェアブランド確立
-- `60-apps/ai-gftd-project-kaigo/CLAUDE.md`
-- `60-apps/ai-gftd-project-kaigo/appview/kaigo-hp/`
+- `60-apps/etzhayyim-project-kaigo/CLAUDE.md`
+- `60-apps/etzhayyim-project-kaigo/appview/kaigo-hp/`
 - `giemon.etzhayyim.com/viewer.htm` (WASM 3D ビューア共有元)
 - 厚生労働省 WAM NET: 介護サービス情報公表システム
 - 介護保険法第 7 条（住宅改修費給付）

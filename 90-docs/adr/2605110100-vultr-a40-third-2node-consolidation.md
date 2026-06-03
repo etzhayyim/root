@@ -236,7 +236,7 @@ volume-format conversion.
 | **2** | Helm upgrade keiei-llm-pool with `gpu.enabled=true`; deploy dual pod on Node B + LiteLLM on either node | yes (helm rollback) | 0 (additive — old CPU pods still serve until cutover) |
 | **3** | Build/push `ghcr.io/etzhayyim/comfyui:cu124`, deploy ComfyUI Helm chart on Node A, copy SDXL checkpoints from RunPod NV → local NVMe via rsync | yes (RunPod still alive) | 0 (additive) |
 | **4** | Cut `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` env from RunPod → Vultr; flip keiei daemon plist `etzhayyim_LLM_URL` to keiei-llm.etzhayyim.com (or keep port-forward until CF Worker exclusion) | yes (Worker var flip back) | <1 min |
-| **5** | Drain + delete `vhf-16c-58gb` pool, terminate RunPod `comfyui-gftd-unified`, archive RunPod ansible role | partially (cluster recreate from B2 + RunPod re-spin needed for full revert) | 0 if Phase 4 healthy |
+| **5** | Drain + delete `vhf-16c-58gb` pool, terminate RunPod `comfyui-etzhayyim-unified`, archive RunPod ansible role | partially (cluster recreate from B2 + RunPod re-spin needed for full revert) | 0 if Phase 4 healthy |
 
 Detailed step-by-step in
 `50-infra/vultr/keiei-llm-pool/MIGRATION-RUNBOOK-A40-2NODE.md`.
@@ -263,8 +263,8 @@ Detailed step-by-step in
 Each phase has its own rollback (RUNBOOK §Rollback). Aggregate worst
 case: re-create the 2 × `vhf-16c-58gb` pool, restore RW from the most
 recent `rw-meta-backup` CronJob snapshot
-(`b2://ai-gftd-nats/.../risingwave/state/backup/{id}.snapshot`),
-re-spin the RunPod `comfyui-gftd-unified` pod from the existing
+(`b2://etzhayyim-nats/.../risingwave/state/backup/{id}.snapshot`),
+re-spin the RunPod `comfyui-etzhayyim-unified` pod from the existing
 template, point `comfyui.etzhayyim.com` Worker `UPSTREAM_URL` back to
 RunPod. Recovery window: ~45 min if hourly meta snapshot is current,
 longer if Hummock SST replay is needed.

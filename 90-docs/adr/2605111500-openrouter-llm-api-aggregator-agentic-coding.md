@@ -12,7 +12,7 @@ authoritative_for:
   - Model alternatives: DeepSeek V4 Pro / Kimi K2.6 / MiniMax M2.5 / Gemma 4 26B
   - Agentic coding CLI tools: OpenCode v1.14.48 + Aider v0.86.2
   - OpenRouter API key storage (1Password etzhayyim vault)
-  - terminal-agent agentic benchmark suite (gftd code bench --agentic --swe)
+  - terminal-agent agentic benchmark suite (etzhayyim code bench --agentic --swe)
   - Model selection by workload (interactive / batch / long-context / code-correctness)
   - RisingWave bench result schema (vertex_bench_run / vertex_bench_result)
 related:
@@ -206,11 +206,11 @@ OpenRouter supplements Claude for cost-sensitive batch workloads only.
 Kimi K2.6 is a thinking model — minimum `max_tokens: 300` required or
 reasoning consumes all tokens before producing output.
 
-## 9. Agentic benchmark suite (`gftd code bench`)
+## 9. Agentic benchmark suite (`etzhayyim code bench`)
 
 ### 9.1 Bench architecture
 
-`60-apps/ai-gftd-terminal-agent/scripts/bench.py` — LangGraph in-process
+`60-apps/etzhayyim-terminal-agent/scripts/bench.py` — LangGraph in-process
 benchmark with four suites:
 
 | Flag | Suite | Benches |
@@ -220,9 +220,9 @@ benchmark with four suites:
 | `--swe` | SWE-bench style | code comprehension, bug hunt, write+run+verify, multi-file synthesis |
 | `--rw-export` | persistence | inserts `vertex_bench_run` / `vertex_bench_result` / `edge_bench_run_has_result` into RisingWave |
 
-CLI: `gftd code bench --model <openrouter-id> --agentic --swe --runs 2`
+CLI: `etzhayyim code bench --model <openrouter-id> --agentic --swe --runs 2`
 
-Schema DDL: `60-apps/ai-gftd-terminal-agent/scripts/schema_bench.sql`
+Schema DDL: `60-apps/etzhayyim-terminal-agent/scripts/schema_bench.sql`
 
 ### 9.2 SWE-bench tasks (added 2026-05-11)
 

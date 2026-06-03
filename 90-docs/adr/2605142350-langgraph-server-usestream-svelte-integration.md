@@ -21,7 +21,7 @@ superseded_by: []
 
 # Context
 
-`ai-gftd-chat-shell` (`etzhayyim.com`) and `yoro.etzhayyim.com` both stream AI responses
+`etzhayyim-chat-shell` (`etzhayyim.com`) and `yoro.etzhayyim.com` both stream AI responses
 to the browser.  Before this ADR the chat-shell used a hand-rolled
 `for await (const event of streamChat(...))` SSE loop in `ChatPanel.svelte`,
 and yoro's `ConvoHome.svelte` used `graphRAG.query()` (local WebLLM) with no
@@ -171,12 +171,12 @@ them at the TypeScript level.
 
 # References
 
-- `60-apps/ai-gftd-chat-shell/src/app.ts` — `/lg/*` proxy route
-- `60-apps/ai-gftd-chat-shell/svelte/src/lib/ChatPanel.svelte` — `useStream` call site
-- `60-apps/ai-gftd-chat-shell/svelte/src/lib/api.ts` — `createLangGraphClient()`
+- `60-apps/etzhayyim-chat-shell/src/app.ts` — `/lg/*` proxy route
+- `60-apps/etzhayyim-chat-shell/svelte/src/lib/ChatPanel.svelte` — `useStream` call site
+- `60-apps/etzhayyim-chat-shell/svelte/src/lib/api.ts` — `createLangGraphClient()`
 - `20-actors/magatama/py/src/pymagatama/chat_server.py` — LG Server protocol routes
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/api/pregel/[...path]/+server.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/lg-client.ts`
-- `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/routes/api/pregel/[...path]/+server.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/lg-client.ts`
+- `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/src/lib/w/ConvoHome.svelte`
 - ADR-2605080600 — LangGraph Server + Granian L3 Runtime
 - ADR-2605072000 — LangGraph Agent Loop Pattern

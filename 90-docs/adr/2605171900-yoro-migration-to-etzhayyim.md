@@ -6,7 +6,7 @@ doc_type: adr
 topic: yoro-migration-to-etzhayyim
 authoritative: true
 last_verified: 2026-05-18
-status_note: "Activated 2026-05-18 by vendor Phase 4c wave 4 (PR #1294) — full yoro NSID migration com.etzhayyim.apps.yoro.* → com.etzhayyim.yoro.* completed across 91 vendor consumer files. Stages 3-5 (DNS cutover yoro.etzhayyim.com → yoro.etzhayyim.com, redirect, vendor 60-apps/ai-gftd-project-yoro/ deletion) remain operator runbook items."
+status_note: "Activated 2026-05-18 by vendor Phase 4c wave 4 (PR #1294) — full yoro NSID migration com.etzhayyim.apps.yoro.* → com.etzhayyim.yoro.* completed across 91 vendor consumer files. Stages 3-5 (DNS cutover yoro.etzhayyim.com → yoro.etzhayyim.com, redirect, vendor 60-apps/etzhayyim-project-yoro/ deletion) remain operator runbook items."
 priority: 7.0
 axis: organization
 weight: 0.70
@@ -44,7 +44,7 @@ This ADR establishes the migration plan and records Stages 1-2 (already done in 
 
 | Layer | Was (legacy) | Becomes (etzhayyim) |
 |---|---|---|
-| Project code | upstream `60-apps/ai-gftd-project-yoro/` | `etzhayyim/root/60-apps/ai-gftd-project-yoro/` |
+| Project code | upstream `60-apps/etzhayyim-project-yoro/` | `etzhayyim/root/60-apps/etzhayyim-project-yoro/` |
 | Lexicon spec | upstream `00-contracts/lexicons/com/etzhayyim/apps/yoro/` (15 JSON) | `etzhayyim/root/00-contracts/lexicons/com/etzhayyim/apps/yoro/` |
 | BPMN spec | upstream `00-contracts/bpmn/com/etzhayyim/yoro/` (6 BPMN) | `etzhayyim/root/00-contracts/bpmn/com/etzhayyim/yoro/` |
 | Domain | legacy domain | `yoro.etzhayyim.com` (etzhayyim CF zone `etzhayyim.com`) |
@@ -57,7 +57,7 @@ This ADR establishes the migration plan and records Stages 1-2 (already done in 
 ### Stage 1 — Code + spec restoration (✅ this commit)
 
 `rsync -a` from upstream:
-- `60-apps/ai-gftd-project-yoro/` (293 MB working tree before build-artifact filtering; ~30-50 MB tracked after `.gitignore` excludes node_modules / .svelte-kit / dist)
+- `60-apps/etzhayyim-project-yoro/` (293 MB working tree before build-artifact filtering; ~30-50 MB tracked after `.gitignore` excludes node_modules / .svelte-kit / dist)
 - `00-contracts/lexicons/com/etzhayyim/apps/yoro/` (15 files: activity / activitySeen / health / ingestProductCategory / listApps / listPosts / listProductResearch / postAgencyUpdate / productResearch / projectEntity / ...)
 - `00-contracts/bpmn/com/etzhayyim/yoro/` (6 files: actorQualityEnrich / platformPulse / respondToFollow / respondToMention / translatePost / translatePostBatch)
 
@@ -79,7 +79,7 @@ comment:   "yoro AppView placeholder (ADR-2605091900) — Worker/Pages binding p
 
 The project is a SvelteKit AppView with CF-compatible adapter. Two viable targets:
 
-- **CF Pages**: connect `github.com/etzhayyim/root` as source, set build root to `60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte/`, output dir `.svelte-kit/cloudflare/`. Custom domain bind to `yoro.etzhayyim.com`.
+- **CF Pages**: connect `github.com/etzhayyim/root` as source, set build root to `60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte/`, output dir `.svelte-kit/cloudflare/`. Custom domain bind to `yoro.etzhayyim.com`.
 - **CF Worker**: `wrangler deploy` from the existing `wrangler.jsonc` in the project, with route updated to `yoro.etzhayyim.com/*` and account_id pointed at the etzhayyim-owned account.
 
 Before deploy, the project's hardcoded legacy-domain references must be replaced with `yoro.etzhayyim.com` (sed pass across `svelte/src/`, `static/`, build config).
@@ -100,7 +100,7 @@ Grace period: 12 months minimum (per the etz_hayim → etzhayyim → etzhayyim r
 
 After Stage 3-4 stabilize:
 
-- Remove `60-apps/ai-gftd-project-yoro/` from upstream
+- Remove `60-apps/etzhayyim-project-yoro/` from upstream
 - Remove `00-contracts/lexicons/com/etzhayyim/apps/yoro/` from upstream
 - Remove `00-contracts/bpmn/com/etzhayyim/yoro/` from upstream
 - Update upstream `deps.toml [platform.operating_entity].public_page` to `https://yoro.etzhayyim.com/support/operator`

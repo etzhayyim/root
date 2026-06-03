@@ -21,7 +21,7 @@ depends_on:
   - adr-2605131600-malak-orchestration-langgraph-pregel-langserve
   - adr-2605080600-langgraph-server-granian-l3-runtime
 related:
-  - adr-2604231828-appview-domain-separation-bsky-gftd-ai
+  - adr-2604231828-appview-domain-separation-bsky-etzhayyim-ai
 supersedes: []
 superseded_by: []
 notes: |

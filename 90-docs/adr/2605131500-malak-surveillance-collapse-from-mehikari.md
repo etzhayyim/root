@@ -39,9 +39,9 @@ Two days of design work (CXO-LEDGER #1-31) produced a JP-police-only
 surveillance vendor under the project name "mehikari" with:
 
 - 15 Lexicon NSIDs under `com.etzhayyim.apps.mehikari.*`
-- Project directory `60-apps/ai-gftd-project-mehikari/`
+- Project directory `60-apps/etzhayyim-project-mehikari/`
 - LangGraph chain `langgraph_sales_outreach.py`
-- 47-prefecture seed in `60-apps/ai-gftd-project-states/data/gov/jpn/`
+- 47-prefecture seed in `60-apps/etzhayyim-project-states/data/gov/jpn/`
 - Compliance memo addressed to Japanese law only
 
 A user directive on 2026-05-13 redirected this scope: the platform must
@@ -85,9 +85,9 @@ where the JP-only "mehikari" naming was generic:
 
 ## 2. International LEA scope expansion
 
-The JP-only `60-apps/ai-gftd-project-states/data/gov/jpn/` seed was
+The JP-only `60-apps/etzhayyim-project-states/data/gov/jpn/` seed was
 extended with **INTERPOL 196 member NCBs** in
-`60-apps/ai-gftd-project-states/data/gov/{cc}/lea.ndjson`:
+`60-apps/etzhayyim-project-states/data/gov/{cc}/lea.ndjson`:
 
 - Tier 1 (52 entries): INTERPOL HQ (IPSG Lyon + Cybercrime Directorate) +
   Europol + Eurojust + UNODC + FATF + G7 federal LEAs + Five Eyes
@@ -96,7 +96,7 @@ extended with **INTERPOL 196 member NCBs** in
   ARE/IDN/POL/ESP/NLD/ARG/CHN/RUS). Hand-curated.
 - Tier 3 (169 entries): remaining INTERPOL members as `status:"stub"`,
   `phase:3` (enriched during Phase 1 by external counsel).
-  Generator: `60-apps/ai-gftd-project-states/tools/gen-lea-stubs.py`.
+  Generator: `60-apps/etzhayyim-project-states/tools/gen-lea-stubs.py`.
 
 ## 3. cooperation_status filter (CRITICAL)
 

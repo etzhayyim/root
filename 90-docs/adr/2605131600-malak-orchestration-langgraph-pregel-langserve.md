@@ -132,7 +132,7 @@ Each surveillance/outreach gate is enforced at **three layers**:
 
 | Layer | File / location |
 |---|---|
-| Edge | CF Worker `60-apps/ai-gftd-project-malak/.../src/app.ts:preflightGate` |
+| Edge | CF Worker `60-apps/etzhayyim-project-malak/.../src/app.ts:preflightGate` |
 | pyzeebe (thin dispatch) | `pymagatama/primitives/malak.py:task_malak_*` |
 | LangGraph | Conditional edges in the three chains above |
 

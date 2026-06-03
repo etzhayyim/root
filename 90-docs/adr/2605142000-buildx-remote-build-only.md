@@ -25,7 +25,7 @@ the actual BuildKit/Kubernetes path that production deploys depend on.
 
 The repository already has a Kubernetes-driver `docker buildx` builder:
 
-- builder: `gftd-vke`
+- builder: `etzhayyim-vke`
 - driver: `kubernetes`
 - namespace: `buildkit`
 - platform: `linux/amd64`
@@ -35,7 +35,7 @@ The repository already has a Kubernetes-driver `docker buildx` builder:
 # Decision
 
 All future container image builds for VKE-targeted or production deploy
-workloads MUST use remote buildx BuildKit through `gftd-vke`.
+workloads MUST use remote buildx BuildKit through `etzhayyim-vke`.
 
 Canonical command:
 
@@ -51,7 +51,7 @@ same remote builder contract explicitly:
 
 ```sh
 docker buildx build \
-  --builder gftd-vke \
+  --builder etzhayyim-vke \
   --platform linux/amd64 \
   --cache-from type=registry,ref="${BUILDKIT_CACHE_REF}" \
   --cache-to type=registry,ref="${BUILDKIT_CACHE_REF}",mode=max \
@@ -60,7 +60,7 @@ docker buildx build \
 
 OrbStack, local Docker Desktop, and Mac-host local `docker build` / local
 `docker buildx` builders are not accepted fallback paths for deploy builds. If
-`gftd-vke` is unavailable, fix the remote builder or stop the deploy; do not
+`etzhayyim-vke` is unavailable, fix the remote builder or stop the deploy; do not
 switch to OrbStack/Rosetta as a workaround.
 
 # Consequences

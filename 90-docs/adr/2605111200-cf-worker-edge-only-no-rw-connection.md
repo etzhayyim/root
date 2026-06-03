@@ -74,7 +74,7 @@ binding 自体を `wrangler.jsonc` から削除する。
 
 // ✅ 正 (DB I/O が必要なら XRPC で server side に投げる)
 "services": [
-  { "binding": "PDS_SERVICE", "service": "ai-gftd-pds-2603241700" }
+  { "binding": "PDS_SERVICE", "service": "etzhayyim-pds-2603241700" }
   // bpmn-dispatcher / LangGraph endpoint も同様に service binding か fetch
 ]
 ```
@@ -159,11 +159,11 @@ Phase 1 後、未移行 Worker は handler 内 `createKyselyDb` 呼び出し時�
 - Worker → pod 1 hop 追加 (典型 +20-50ms in-region, dispatcher 内 cluster)
 - Phase 1 直後は未移行 Worker が runtime throw する → 該当 actor の domain write が一時的に止まる
 
-**移行優先順位 (Phase 2)**: traffic の多い順 = `60-apps/ai-gftd-project-{yoro,mangaka,maps,news,yatabase}/appview/*` から。
+**移行優先順位 (Phase 2)**: traffic の多い順 = `60-apps/etzhayyim-project-{yoro,mangaka,maps,news,yatabase}/appview/*` から。
 
 # Migration Plan (Phase 2 per-actor checklist)
 
-Per `60-apps/ai-gftd-project-<actor>/appview/.../src/app.ts`:
+Per `60-apps/etzhayyim-project-<actor>/appview/.../src/app.ts`:
 
 1. Identify `createKyselyDb(env.HYPERDRIVE)` callsites → list domain collections involved
 2. For each domain write:
@@ -173,7 +173,7 @@ Per `60-apps/ai-gftd-project-<actor>/appview/.../src/app.ts`:
 3. For each domain read:
    - 同様に server-side endpoint に問い合わせる query method 化
 4. `wrangler.jsonc` の `hyperdrive` binding は **Phase 1 で既に削除されている**ので追加作業なし
-5. Test: `pnpm exec vitest run` + smoke (XRPC live call) + `gftd deploy`
+5. Test: `pnpm exec vitest run` + smoke (XRPC live call) + `etzhayyim deploy`
 
 `deps.toml [[migrations]]` の `worker-direct-hyperdrive-per-actor` を `reverse-direction` でリネームし、status を `in-progress` に戻す。
 
@@ -189,7 +189,7 @@ Per `60-apps/ai-gftd-project-<actor>/appview/.../src/app.ts`:
 
 # Operational Prerequisites (2026-05-11 / yatabase BMC cut-over learnings)
 
-Phase 2 で migrate する actor 全部 に共通する infra gating 条件。yatabase BMC cycle (P55, `60-apps/ai-gftd-project-yatabase/deps.toml [product.lean_cycles.cycle_20260511_08]`) でハマった事象を将来の cut-over に伝えるための注記。
+Phase 2 で migrate する actor 全部 に共通する infra gating 条件。yatabase BMC cycle (P55, `60-apps/etzhayyim-project-yatabase/deps.toml [product.lean_cycles.cycle_20260511_08]`) でハマった事象を将来の cut-over に伝えるための注記。
 
 1. **NATS JetStream streams MUST exist before RisingWave compute restart.**
    RW catalog に `CREATE TABLE ... WITH (connector='nats', stream='X', ...)` が登録されていても、NATS server に該当 stream が存在しないと RW source reader が 1s retry を回し続け、foreground DDL queue 全体が permanent block する (Hummock barrier coordination が `stream NOT_FOUND` 例外で advance しない)。修復: nats-box pod 経由で空 stream を作成 (`nats stream add NAME --subjects 'subj.>' --storage memory|file ...`)。`max_file_store=0` の cluster は `--storage memory` 必須。
@@ -201,7 +201,7 @@ Phase 2 で migrate する actor 全部 に共通する infra gating 条件。ya
    Level 0 SST 数が 100+ / 数 GB に達すると compactor が OOM-restart を繰り返す。外部からは "DDL queue empty + SlowDown 無し + actors all RUNNING" に見えるが新規 CREATE TABLE が **無音で hang** する。`SHOW JOBS` の progress が 0% のまま no-error。修復: compactor の memory limit 拡張 + L0 → L1 compaction 完了待ち。`kubectl -n risingwave logs <meta-pod> | grep "Level 0 has"` で監視。
 
 4. **`asyncpg` から RW へ繋ぐ pool は `connection_class` で UNLISTEN を no-op に上書き必須.**
-   asyncpg の `Connection._reset()` が pool release 毎に `UNLISTEN *;` を発行する。RW は LISTEN/UNLISTEN 未対応で `sql parser error: expected statement, found: UNLISTEN` を返し connection が壊れる。実装例: `60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/bmc/db.py` の `_RwConnection(asyncpg.Connection)` で `async def reset(self, *, timeout=None) -> None: return None` を override。
+   asyncpg の `Connection._reset()` が pool release 毎に `UNLISTEN *;` を発行する。RW は LISTEN/UNLISTEN 未対応で `sql parser error: expected statement, found: UNLISTEN` を返し connection が壊れる。実装例: `60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/bmc/db.py` の `_RwConnection(asyncpg.Connection)` で `async def reset(self, *, timeout=None) -> None: return None` を override。
 
 5. **Dockerfile が uvicorn を CMD で呼ぶ場合、pyproject.toml に `uvicorn[standard]` + `fastapi` を declarative に追加.**
    transitive dep に依存すると image build は通るが起動時に `executable not found in $PATH` で crashloop する (langgraph はランタイム dep として uvicorn を強制しない)。
@@ -229,7 +229,7 @@ the repository already contained a real analytics dashboard implementation. The
 deployed Worker entrypoint is SvelteKit (`svelte/.svelte-kit/cloudflare/_worker.js`),
 so the placeholder `+page.svelte` was the effective production surface. The
 dashboard was moved into the SvelteKit route and deployed as
-`ai-gftd-analytics-dashboard` version
+`etzhayyim-analytics-dashboard` version
 `0fa2d98d-22b6-4572-82e0-debd72be2336`.
 
 This remains ADR-compliant as a **read-only edge observability exception**:

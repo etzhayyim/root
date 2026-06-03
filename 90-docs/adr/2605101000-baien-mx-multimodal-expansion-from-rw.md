@@ -134,7 +134,7 @@ weights, saved as a separate row in `vertex_training_checkpoint`:
 | (v1) `baien-mx-trunk-lora-{modality}` | rank ≤ 16 LoRA over first 4 trunk layers, per-modality | ~2 MB i2_s |
 
 All projector blobs share the same B2 prefix
-`b2://gftd-models/baien-mx/{ver}/`. Total Baien-MX cold-start
+`b2://etzhayyim-models/baien-mx/{ver}/`. Total Baien-MX cold-start
 artifact size = trunk i2_s (1.2 GiB) + ~25 MB of projector blobs.
 
 The serving side selects which projectors to load based on which

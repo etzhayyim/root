@@ -72,8 +72,8 @@ Per `30-graph/graph-schema/CLAUDE.md` + root `CLAUDE.md` Record-log semantics:
 - HubSpot Legacy Private App `etzhayyim-risingwave-ingest`, App ID `39124460`, portal `42189574`.
 - 18 read scopes: `crm.objects.{contacts,companies,deals,owners,line_items,products,quotes,subscriptions,feedback_submissions}.read` + `crm.schemas.{contacts,companies,deals,line_items,quotes,subscriptions}.read` + `tickets` + `e-commerce` + `sales-email-read`.
 - Token stored in 3 locations:
-  1. macOS Keychain (`gftd.hubspot/HUBSPOT_PRIVATE_APP_TOKEN`)
-  2. `~/.gftd/hubspot.env` (chmod 600)
+  1. macOS Keychain (`etzhayyim.hubspot/HUBSPOT_PRIVATE_APP_TOKEN`)
+  2. `~/.etzhayyim/hubspot.env` (chmod 600)
   3. CF Secrets Store secret `a327ccfaec7f4b859bda2bc1321ac8c8` in store `1824561668fe47cc9127d493961885af` as `hubspot_private_app_token`
 - Worker binds via `SS_HUBSPOT_PRIVATE_APP_TOKEN`.
 
@@ -102,7 +102,7 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 ## Pending
 
 - y-nishino: apply alembic head `r_20260510010000_vertex_hubspot` to RW (network-unreachable from claude host).
-- y-nishino: `gftd deploy` from `60-apps/ai-gftd-project-hubspot-hb5p0t1n/appview/ai-gftd-wasm-hubspot-hb5p0t1n/`.
+- y-nishino: `etzhayyim deploy` from `60-apps/etzhayyim-project-hubspot-hb5p0t1n/appview/etzhayyim-wasm-hubspot-hb5p0t1n/`.
 - y-nishino: trigger initial backfill via XRPC `syncAll`.
 - Future: derive rules from `vertex_hubspot_deal` → `vertex_keiei_decision` (CXO graph, ADR 2605101200) for capital-flow grounding.
 
@@ -111,5 +111,5 @@ Initial backfill: `syncAll {since: "1970-01-01T00:00:00Z", maxPagesPerType: 200}
 - `30-graph/graph-schema/sql_migrations/20260510010000_vertex_hubspot.{up,down}.sql`
 - `30-graph/graph-schema/alembic/current_versions/r_20260510010000_vertex_hubspot.py`
 - `00-contracts/lexicons/com/etzhayyim/apps/hubspot/{syncObjectType,syncAll,listObjects,getSyncStatus}.json`
-- `60-apps/ai-gftd-project-hubspot-hb5p0t1n/appview/ai-gftd-wasm-hubspot-hb5p0t1n/{magatama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
+- `60-apps/etzhayyim-project-hubspot-hb5p0t1n/appview/etzhayyim-wasm-hubspot-hb5p0t1n/{magatama.jsonld,wrangler.jsonc,package.json,tsconfig.json,src/app.ts}`
 - `_working/etzhayyim-revenue/DECISION-LOG.md` iter 123, 127

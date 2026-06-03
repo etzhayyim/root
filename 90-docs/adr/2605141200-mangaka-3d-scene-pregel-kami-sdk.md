@@ -46,7 +46,7 @@ mangaka.etzhayyim.com panel generation runs entirely on **2D diffusion**:
 
 | Stage | Location | Tech |
 |---|---|---|
-| Plan | `60-apps/ai-gftd-project-mangaka/lg-image-gen/src/phase3-4-semantic-panels.ts` | gpt-4o semantic decomposition |
+| Plan | `60-apps/etzhayyim-project-mangaka/lg-image-gen/src/phase3-4-semantic-panels.ts` | gpt-4o semantic decomposition |
 | Generate | `lg-image-gen/src/lib/openai.ts` | gpt-image-2 / Gemini 3 Pro Image, 832×1216 monochrome |
 | Critique | `lg-image-gen/src/graph-m2.ts` | gpt-4o-mini-vision 7-axis scoring |
 | Refine | conditional, max 3 iter when `Q_total < 0.75` | LLM reprompt |
@@ -98,7 +98,7 @@ appview Genko canvas through wasm-pack (browser preview).
 
 ## 1. Pregel graph (LangGraph StateGraph compiled to BSP)
 
-Module: `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/graphs/compose_scene_3d.py`
+Module: `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/graphs/compose_scene_3d.py`
 Registered in `lg/langgraph.json` as `compose_scene_3d`.
 
 9 super-steps (each a node; LangGraph applies an implicit barrier
@@ -194,17 +194,17 @@ impl MangakaScene {
 `ShotGrammar` enum is the manga vocabulary (FullShot / MediumShot /
 Closeup / OverShoulder / Dutch / BirdsEye / WormsEye); it is 1:1 with
 the semantic-panel schema in
-`60-apps/ai-gftd-project-mangaka/lg-image-gen/src/phase3-4-semantic-panels.ts`.
+`60-apps/etzhayyim-project-mangaka/lg-image-gen/src/phase3-4-semantic-panels.ts`.
 
 PyO3 bindings expose the same surface as `kami_mangaka_scene` Python
 module, built via `maturin` into the LangGraph pod image. wasm-pack
 target=web builds a browser bundle consumed by
-`appview/ai-gftd-wasm-mangaka-mng4k4x1/svelte/static/` for editor
+`appview/etzhayyim-wasm-mangaka-mng4k4x1/svelte/static/` for editor
 preview, per the per-game WASM pattern in `60-apps/CLAUDE.md`.
 
 ## 3. Persistence (ADR-2605111200 compliant)
 
-CF Worker (`60-apps/ai-gftd-project-mangaka/appview/ai-gftd-wasm-mangaka-mng4k4x1/src/app.ts`)
+CF Worker (`60-apps/etzhayyim-project-mangaka/appview/etzhayyim-wasm-mangaka-mng4k4x1/src/app.ts`)
 is **edge-only**. It accepts the XRPC procedure and forwards to
 bpmn-dispatcher → LangGraph Server. RisingWave writes happen in the
 LangGraph pod via asyncpg.
@@ -338,6 +338,6 @@ the editor loop; P6 brings the graph into ADR alignment.
 - ADR-2605082200 `pyzeebe-handler-thin-dispatcher-contract`
 - ADR-2605111200 `cf-worker-edge-only-no-rw-connection`
 - ADR-2605131600 `malak-orchestration-langgraph-pregel-langserve` — reference for Pregel `Send` reducer
-- `60-apps/ai-gftd-project-mangaka/CLAUDE.md` §KAMI Engine Integration
+- `60-apps/etzhayyim-project-mangaka/CLAUDE.md` §KAMI Engine Integration
 - `60-apps/CLAUDE.md` §Per-Game WASM Pattern (per-app crate convention)
 - `40-engine/kami-engine/CLAUDE.md` (crate inventory)

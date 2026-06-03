@@ -117,10 +117,10 @@ Calico mesh.
    hostnames. Pushed via CF API `PUT /accounts/{acc}/cfd_tunnel/{id}/configurations`:
 
    ```
-   ^/xrpc/ai\.gftd\.apps\.shinshi\..*$  → http://10.109.101.123:8000  (lg-shinshi)
-   ^/xrpc/ai\.gftd\.apps\.animeka\..*$  → http://10.109.85.144:8000   (lg-animeka)
-   ^/xrpc/ai\.gftd\.apps\.recap\..*$    → http://10.103.208.59:8000   (lg-recap)
-   ^/xrpc/ai\.gftd\.apps\.mangaka\..*$  → http://10.103.112.21:8000   (lg-mangaka NEW)
+   ^/xrpc/ai\.etzhayyim\.apps\.shinshi\..*$  → http://10.109.101.123:8000  (lg-shinshi)
+   ^/xrpc/ai\.etzhayyim\.apps\.animeka\..*$  → http://10.109.85.144:8000   (lg-animeka)
+   ^/xrpc/ai\.etzhayyim\.apps\.recap\..*$    → http://10.103.208.59:8000   (lg-recap)
+   ^/xrpc/ai\.etzhayyim\.apps\.mangaka\..*$  → http://10.103.112.21:8000   (lg-mangaka NEW)
    (default)                            → http://10.100.81.213:8080   (bpmn-dispatcher)
    404                                  → http_status:404
    ```

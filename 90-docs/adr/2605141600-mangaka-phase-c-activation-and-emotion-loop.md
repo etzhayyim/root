@@ -87,7 +87,7 @@ The in-cluster Pregel short-circuits the external trip through
 NSID prefix with dots replaced by underscores; segment-boundary match
 prevents substring collisions; longest-prefix wins on conflict.
 `lg-mangaka-pool` Helm values emit
-`MCP_NSID_OVERRIDE_ai_gftd_apps_mangaka_tools=http://localhost:8000`
+`MCP_NSID_OVERRIDE_ai_etzhayyim_apps_mangaka_tools=http://localhost:8000`
 so the topology Pregel never leaves the container for tool dispatch.
 
 **External MCP clients** still resolve `actor_host = mangaka.etzhayyim.com`
@@ -257,6 +257,6 @@ artefact — no graph changes required.
 - ADR-2604261100 — Rego + DMN as decision-table SSoT
 - ADR-2604300135 — Hume distillation artefact persistence
 - `00-contracts/dmn/com/etzhayyim/policies/mangaka/composeScene3dRefinement.dmn`
-- `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/graphs/{compose_scene_3d,score_emotion}.py`
-- `60-apps/ai-gftd-project-mangaka/lg/lg_mangaka/{hume_distill,hume_emotion}.py`
+- `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/graphs/{compose_scene_3d,score_emotion}.py`
+- `60-apps/etzhayyim-project-mangaka/lg/lg_mangaka/{hume_distill,hume_emotion}.py`
 - `50-infra/vultr/lg-mangaka-pool/values.yaml` (mcpOverrides)

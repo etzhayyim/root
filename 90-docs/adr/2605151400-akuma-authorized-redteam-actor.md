@@ -118,7 +118,7 @@ The actor is active and ADR-bound. The deployed baseline is:
   tables are present and were exercised by a smoke round-trip.
 - Lexicon/PDS surface: `com.etzhayyim.apps.akuma.*` contract files exist and are
   registered as the protocol surface.
-- Policy: `gftd.akuma.scope` is the authorization SSoT; unit coverage
+- Policy: `etzhayyim.akuma.scope` is the authorization SSoT; unit coverage
   passed 11/11 for allowed, denied, and tier-bound probe attempts.
 - Runtime isolation: probe execution is bound to the `akuma-probe`
   namespace, not `default`, with reconciled egress derived from active
@@ -153,7 +153,7 @@ NSID prefix `com.etzhayyim.apps.akuma.*`:
 
 ## Authorization gate
 
-A new Rego module `gftd.akuma.scope` evaluates `runProbe`. Inputs:
+A new Rego module `etzhayyim.akuma.scope` evaluates `runProbe`. Inputs:
 
 - `input.scope` — fetched scope contract row
 - `input.probe.tool` — `dns` | `whois` | `tls` | `http-head` | `nmap` |
@@ -162,7 +162,7 @@ A new Rego module `gftd.akuma.scope` evaluates `runProbe`. Inputs:
 - `input.probe.intrusiveness` — declared tier of this single probe call
 - `input.now` — request timestamp
 
-Decision rules (see `00-contracts/policies/gftd/akuma/scope/policy.rego`):
+Decision rules (see `00-contracts/policies/etzhayyim/akuma/scope/policy.rego`):
 
 1. `deny` if scope status != `active`
 2. `deny` if `now` outside `[valid_from, valid_until)`
@@ -252,14 +252,14 @@ records the concrete artifact state. It supersedes any earlier
 
 | Layer | Artifact | State |
 |---|---|---|
-| Authority key | Ed25519 keypair in macOS Keychain `gftd.akuma`; fingerprint `46a0a86b9a8fd180`; public hex `726c7daa...0915` | sign+verify roundtrip OK |
+| Authority key | Ed25519 keypair in macOS Keychain `etzhayyim.akuma`; fingerprint `46a0a86b9a8fd180`; public hex `726c7daa...0915` | sign+verify roundtrip OK |
 | RisingWave tables | `vertex_akuma_{scope,probe,finding,audit}` + 5 indexes on RW Vultr `45.32.79.245` | applied via psycopg2 phased per CLAUDE.md multi-head workaround; revision file `r_20260515150000_vertex_akuma_redteam_scope.py` in `alembic/current_versions/` |
 | K8s namespace | `akuma-probe` with default-deny + DNS + langserver-callback NetworkPolicies + RBAC + ServiceAccount `probe-runner` | `kubectl apply -k 50-infra/k8s/akuma-langserver/` succeeded |
 | K8s reconciler | `scope-egress-reconciler` CronJob (`* * * * *`) targeting `akuma-probe-scope-allow` NetworkPolicy | applied; **Errors with ModuleNotFoundError** because `pymagatama:latest` predates `pymagatama.akuma` module |
 | K8s langserver | `akuma-langserver` Deployment + Service in `mitama-udf` ns | Running 1/1 |
 | K8s secrets | `akuma-authority-key` (PUBLIC only) in `mitama-udf`; `akuma-rw-readonly` (KAISYA URL) in `akuma-probe` | created |
 | PDS lexicons | 8 NSIDs `com.etzhayyim.apps.akuma.*` live at `atproto.etzhayyim.com` (Worker version `fdfc4c61-ce87-40fd-adaf-7f9e85522359`) | wrangler deploy 2026-05-15; HTTP 401 (auth required), not 404 |
-| Rego policy | `gftd.akuma.scope` package | 11/11 unit tests PASS |
+| Rego policy | `etzhayyim.akuma.scope` package | 11/11 unit tests PASS |
 | Reconciler module | `pymagatama.akuma.scope_egress_reconciler` | source landed in repo, NOT yet baked into a published `pymagatama` image |
 | Smoke test | data plane round-trip (INSERT scope → sign+verify → reconciler SELECT → 5 policy decisions → INSERT audit + finding → count → hard delete) | all 9 steps PASS |
 
@@ -269,7 +269,7 @@ records the concrete artifact state. It supersedes any earlier
    `https://akuma.etzhayyim.com/.well-known/did.json` `verificationMethod`
    (`Ed25519VerificationKey2020`) so external owners can verify
    `authority_signature` on scope contracts.
-2. Mirror Keychain `gftd.akuma` entries to 1Password vault
+2. Mirror Keychain `etzhayyim.akuma` entries to 1Password vault
    `etzhayyim Japan株式会社` per the `op item create` command printed by
    `provision-authority-key.sh`.
 3. Rebuild `ghcr.io/etzhayyim/pymagatama` image with the new
@@ -295,8 +295,8 @@ before any external scope contract is approved.
 # References
 
 - `00-contracts/lexicons/com/etzhayyim/apps/akuma/*.json`
-- `00-contracts/policies/gftd/akuma/scope/policy.rego`
-- `00-contracts/policies/gftd/akuma/scope/test.rego`
+- `00-contracts/policies/etzhayyim/akuma/scope/policy.rego`
+- `00-contracts/policies/etzhayyim/akuma/scope/test.rego`
 - `20-actors/akuma/actor-manifest.jsonld`
 - `20-actors/akuma/CLAUDE.md`
 - `20-actors/magatama/py/src/pymagatama/akuma/scope_egress_reconciler.py`

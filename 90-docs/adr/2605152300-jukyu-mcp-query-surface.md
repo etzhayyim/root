@@ -91,6 +91,6 @@ POST jukyu.etzhayyim.com/xrpc/com.etzhayyim.apps.jukyu.queryBalance
 ## Files changed
 
 - `20-actors/magatama/py/src/pymagatama/jukyu/server.py` — 4 new XRPC endpoints
-- `60-apps/ai-gftd-project-jukyu/appview/jukyu-ui-jukyu001/src/app.ts` — UTIL_PATHS routing
+- `60-apps/etzhayyim-project-jukyu/appview/jukyu-ui-jukyu001/src/app.ts` — UTIL_PATHS routing
 - `20-actors/magatama/py/src/pymagatama/dispatcher_main.py` — lg-jukyu proxy constants + routing
 - `50-infra/k8s/lg-jukyu/deployment.yaml` — updated image tag

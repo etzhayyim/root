@@ -148,7 +148,7 @@ CF Worker の `sdk.router.get('/api/hume-ws', ...)` で WebSocket Upgrade を処
 ### D3. 実装詳細
 
 ```ts
-// 60-apps/ai-gftd-project-deai/appview/deai-cgxi8oem/src-ts/app.ts
+// 60-apps/etzhayyim-project-deai/appview/deai-cgxi8oem/src-ts/app.ts
 sdk.router.get('/api/hume-ws', (c) => {
   // WebSocketPair + server.accept() + 双方向 message/close/error relay
   // → new Response(null, { status: 101, webSocket: client })
@@ -187,5 +187,5 @@ const HUME_PROXY_WS = (import.meta.env.VITE_HUME_PROXY_WS as string | undefined)
 - Kawasaki et al. (2026) — Spirit in Physics (arxiv pre-print, CNS 2025 presented)
 - ADR-2604291800 — Well-Becoming Spirit Objective Function
 - ADR-0018 — PII Tier 3 Cohort-First
-- `60-apps/ai-gftd-project-deai/CLAUDE.md`
+- `60-apps/etzhayyim-project-deai/CLAUDE.md`
 - com-junkawasaki/spirit-in-physics (Capacitor pattern reference)

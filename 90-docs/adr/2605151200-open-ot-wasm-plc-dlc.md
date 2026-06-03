@@ -11,7 +11,7 @@ axis: architecture
 weight: 0.65
 priority_note: "Prototype in progress. Risk-1 cells and host harness exist; industrial deployment remains gated on Risk-1 acceptance."
 authoritative_for:
-  - ai-gftd-project-open-ot scope and boundary
+  - etzhayyim-project-open-ot scope and boundary
   - WASM runtime selection for industrial PLC / DLC
   - logic-language tier policy for IEC 61131-3 migration
   - distribution substrate selection (Zenoh / OPC UA FX / XRPC)
@@ -41,19 +41,19 @@ superseded_by: []
 
 ## Context
 
-The gftd platform already covers IT-side cognitive actors (LangGraph + RisingWave + atproto cohort). It does not yet have an Operational Technology (OT) story — the controllers, sensors, and actuators that physically run factories, grids, water plants, building HVAC, and process plants. The incumbent OT stacks are vertically integrated and proprietary: Yokogawa CENTUM VP, Honeywell Experion PKS, Siemens SIMATIC PCS 7, ABB Ability System 800xA, Emerson DeltaV. Open alternatives exist but are fragmented (OpenPLC, Beremiz, Eclipse 4diac), and none ship a production WASM runtime path.
+The etzhayyim platform already covers IT-side cognitive actors (LangGraph + RisingWave + atproto cohort). It does not yet have an Operational Technology (OT) story — the controllers, sensors, and actuators that physically run factories, grids, water plants, building HVAC, and process plants. The incumbent OT stacks are vertically integrated and proprietary: Yokogawa CENTUM VP, Honeywell Experion PKS, Siemens SIMATIC PCS 7, ABB Ability System 800xA, Emerson DeltaV. Open alternatives exist but are fragmented (OpenPLC, Beremiz, Eclipse 4diac), and none ship a production WASM runtime path.
 
 Three industry shifts make a WASM-native OT stack worth designing now:
 
 1. **WAMR AOT on RTOS** has reached 60–95 % of native C performance with 20–80 µs scan-cycle jitter on Cortex-M7-class hardware (Zephyr + WAMR, Bytecode Alliance / Intel / Renesas reports 2024–2025). Soft-RT (1–10 ms) is solved; hard-RT remains hosted on the RTOS layer.
 2. **OPC UA FX + IEEE 802.1Qbv TSN** is the standards-aligned replacement for proprietary fieldbuses (Profinet IRT, EtherCAT, Sercos III). Switch silicon shipped 2023–2024; multi-vendor interop demonstrated SPS 2024.
-3. **IEC 61499 distributed function blocks** (Eclipse 4diac / FORTE) provide a formal model for distributing control logic across cohorts of devices — the right abstraction for **DLC (Distributed Logic Controller)** rather than the centralized scan-loop semantics of IEC 61131-3. Crucially, **IEC 61499's event-driven FB network is semantically isomorphic to LangGraph's Pregel super-step model**: typed events ≡ Pregel messages, FB tick ≡ super-step, FB network barrier ≡ super-step barrier. This gives gftd a one-shot architectural alignment that no other OT model offers.
+3. **IEC 61499 distributed function blocks** (Eclipse 4diac / FORTE) provide a formal model for distributing control logic across cohorts of devices — the right abstraction for **DLC (Distributed Logic Controller)** rather than the centralized scan-loop semantics of IEC 61131-3. Crucially, **IEC 61499's event-driven FB network is semantically isomorphic to LangGraph's Pregel super-step model**: typed events ≡ Pregel messages, FB tick ≡ super-step, FB network barrier ≡ super-step barrier. This gives etzhayyim a one-shot architectural alignment that no other OT model offers.
 
-A WASM cell + atproto record model decomposes the legacy DCS into (a) per-control-loop WASM modules running on commodity edge nodes, (b) configuration / lineage / audit as immutable atproto records, (c) a low-latency distribution substrate replacing the proprietary I/O bus, (d) **a LangGraph graph as the orchestrator of multi-cell loops**, with the same checkpointer / single-task / row-driven runtime that already runs gftd's cognitive actors. This fits the existing gftd `bonsai cultivar` and `cohort` model: each control loop is a cell with declared upstream / downstream / neighbor links.
+A WASM cell + atproto record model decomposes the legacy DCS into (a) per-control-loop WASM modules running on commodity edge nodes, (b) configuration / lineage / audit as immutable atproto records, (c) a low-latency distribution substrate replacing the proprietary I/O bus, (d) **a LangGraph graph as the orchestrator of multi-cell loops**, with the same checkpointer / single-task / row-driven runtime that already runs etzhayyim's cognitive actors. This fits the existing etzhayyim `bonsai cultivar` and `cohort` model: each control loop is a cell with declared upstream / downstream / neighbor links.
 
 ## Decision
 
-Establish `ai-gftd-project-open-ot` as the open-source reference implementation for WASM-native PLC and DLC, scoped to **non-safety-rated industrial control** (process monitoring, energy management, building automation, water/wastewater non-SIL, lab and agricultural automation). Apache-2.0.
+Establish `etzhayyim-project-open-ot` as the open-source reference implementation for WASM-native PLC and DLC, scoped to **non-safety-rated industrial control** (process monitoring, energy management, building automation, water/wastewater non-SIL, lab and agricultural automation). Apache-2.0.
 
 ### Runtime stack
 
@@ -68,7 +68,7 @@ Three tiers, each with a fixed OS and runtime pick:
 Detail:
 
 - **Field device — WAMR AOT on Zephyr LTS**. ~85–150 KB code, AOT artefacts loaded by a small runtime, MISRA-C-aligned, vendor-supported by Intel / Sony / Renesas / Siemens. Scan-cycle target: 1 ms with ≤ 100 µs jitter, achieved by SCHED_FIFO Zephyr thread, pre-faulted linear memory, no GC, no `memory.grow` at runtime. Zenoh-Pico for substrate I/O.
-- **Edge controller — NixOS or Talos with PREEMPT_RT**. Hosts the LangGraph Pregel orchestrator (CPython 3.11+ / Granian per ADR-2605080600), the RisingWave-backed checkpointer (per ADR-2605082100), Wasmtime for tier-2 cells that fit on the gateway, and the OPC UA FX ↔ Zenoh bridge. Achieves ~30–150 µs cyclictest-class jitter at 1 kHz with isolcpus, irqaffinity, full_nohz, mlockall. **NixOS is preferred for greenfield** (declarative IaC, snapshot/rollback, gftd Nix culture); **Talos is preferred where the edge already runs as a K8s node** (LangServer pod portability). QNX, VxWorks, FreeRTOS hosts are rejected — they cannot run CPython, so LangGraph cannot live there.
+- **Edge controller — NixOS or Talos with PREEMPT_RT**. Hosts the LangGraph Pregel orchestrator (CPython 3.11+ / Granian per ADR-2605080600), the RisingWave-backed checkpointer (per ADR-2605082100), Wasmtime for tier-2 cells that fit on the gateway, and the OPC UA FX ↔ Zenoh bridge. Achieves ~30–150 µs cyclictest-class jitter at 1 kHz with isolcpus, irqaffinity, full_nohz, mlockall. **NixOS is preferred for greenfield** (declarative IaC, snapshot/rollback, etzhayyim Nix culture); **Talos is preferred where the edge already runs as a K8s node** (LangServer pod portability). QNX, VxWorks, FreeRTOS hosts are rejected — they cannot run CPython, so LangGraph cannot live there.
 - **Hard-RT escape hatch** — for sub-10 µs servo / motion loops, control logic remains in qualified host C / RT-Linux; WASM is **not** placed in the hard-RT path. Xenomai / EVL co-kernel optional for vendors who need it. LangGraph never runs in the hard-RT path.
 
 GC proposal modules and Component-Model dynamic linking are **disallowed in the control-data path** until WCET tooling matures (~2027 estimated). They are allowed in the configuration / engineering / HMI tier.
@@ -77,11 +77,11 @@ GC proposal modules and Component-Model dynamic linking are **disallowed in the 
 
 Dual-track at MVP, both **IEC 61499-compatible**:
 
-- **Tier 1 (greenfield, gftd-native)** — **Rust function-block API, IEC 61499 FBType-compatible**. Typed events, typed data inputs/outputs, ECC (Execution Control Chart) state machine, explicit cohort declaration in a `magatama.jsonld`-equivalent manifest. Compiled to `wasm32-wasi` linear-memory only, no `gc` feature. Recommended path for new projects. The FB type signature is wire-compatible with 4diac's FBType XML so engineering can move between Rust source and 4diac IDE without re-modeling.
-- **Tier 1b (graphical engineering)** — **Eclipse 4diac IDE → FBType XML → Rust FB API codegen**. 4diac IDE used as the graphical surface; gftd-owned codegen emits Rust source against the Tier 1 API. Avoids depending on the immature fortiss FORTE→WASM prototype while preserving IEC 61499 semantics end to end.
-- **Tier 2 (migration)** — **matiec fork → ST → WASM**. Allows existing IEC 61131-3 codebases (Structured Text, Ladder Diagram, Function Block Diagram) to migrate. Owned end-to-end by gftd (no upstream open ST→WASM compiler exists as of early 2026 — Bosch and Siemens have published PoCs but no open code). Budget: 12–18 months to a usable port. ST procedures wrapped as a single 61499 BFB at the boundary so the Pregel binding is uniform.
+- **Tier 1 (greenfield, etzhayyim-native)** — **Rust function-block API, IEC 61499 FBType-compatible**. Typed events, typed data inputs/outputs, ECC (Execution Control Chart) state machine, explicit cohort declaration in a `magatama.jsonld`-equivalent manifest. Compiled to `wasm32-wasi` linear-memory only, no `gc` feature. Recommended path for new projects. The FB type signature is wire-compatible with 4diac's FBType XML so engineering can move between Rust source and 4diac IDE without re-modeling.
+- **Tier 1b (graphical engineering)** — **Eclipse 4diac IDE → FBType XML → Rust FB API codegen**. 4diac IDE used as the graphical surface; etzhayyim-owned codegen emits Rust source against the Tier 1 API. Avoids depending on the immature fortiss FORTE→WASM prototype while preserving IEC 61499 semantics end to end.
+- **Tier 2 (migration)** — **matiec fork → ST → WASM**. Allows existing IEC 61131-3 codebases (Structured Text, Ladder Diagram, Function Block Diagram) to migrate. Owned end-to-end by etzhayyim (no upstream open ST→WASM compiler exists as of early 2026 — Bosch and Siemens have published PoCs but no open code). Budget: 12–18 months to a usable port. ST procedures wrapped as a single 61499 BFB at the boundary so the Pregel binding is uniform.
 
-Promotion rationale: IEC 61499's typed event + ECC tick model is **isomorphic to a Pregel super-step**, giving open-ot a single execution model from cell up to multi-loop LangGraph orchestration. Skipping 61499 would force gftd to reinvent the binding, and would lose the formal distribution semantics that the standard already provides.
+Promotion rationale: IEC 61499's typed event + ECC tick model is **isomorphic to a Pregel super-step**, giving open-ot a single execution model from cell up to multi-loop LangGraph orchestration. Skipping 61499 would force etzhayyim to reinvent the binding, and would lose the formal distribution semantics that the standard already provides.
 
 ### Distribution substrate
 
@@ -91,7 +91,7 @@ Three layers, each with the right tool:
 |---|---|---|---|
 | Data (cohort-internal control / I/O) | **Eclipse Zenoh** (default) — UDP / shared memory | 100 µs–1 ms | Lowest overhead, multi-transport, query model DDS lacks. |
 | Industrial interop (cross-vendor) | **OPC UA FX over TSN** bridge | 1–10 ms | Standards-aligned; bridge from Zenoh via a sidecar so wire format is not baked into FB API. |
-| Control plane (config / lineage / audit / SSoT) | **gftd XRPC + MCP** → atproto records | seconds (eventual) | Deployment, version pinning, capability grants, audit. **Not** on the data plane — XRPC ms-floor is wrong for control. |
+| Control plane (config / lineage / audit / SSoT) | **etzhayyim XRPC + MCP** → atproto records | seconds (eventual) | Deployment, version pinning, capability grants, audit. **Not** on the data plane — XRPC ms-floor is wrong for control. |
 
 Southbound legacy protocol drivers (S7, EtherNet/IP, Modbus, BACnet, DNP3) via **Apache PLC4X**.
 
@@ -131,7 +131,7 @@ Aligns with platform invariants:
 
 ## Scope at MVP
 
-Initial NSIDs to be defined in `60-apps/ai-gftd-project-open-ot/SPEC.md`:
+Initial NSIDs to be defined in `60-apps/etzhayyim-project-open-ot/SPEC.md`:
 
 - `defineDevice` — physical controller / RTU / gateway
 - `defineCell` — control loop or function block instance
@@ -151,12 +151,12 @@ Initial NSIDs to be defined in `60-apps/ai-gftd-project-open-ot/SPEC.md`:
 - First open WASM-native OT reference implementation; aligned to the ecosystem-as-model and bonsai-cultivar metaphors without contorting either.
 - Sandboxed control logic gives a real IEC 62443 cybersecurity story that legacy PLCs cannot match without retrofit.
 - Cohort distribution semantics map cleanly onto `cell membrane` (MCP) / `cytoplasm` (XRPC) / `mycorrhiza` (Zenoh) layering.
-- Reuses gftd persistence, identity, audit, and agent loop without inventing parallel infra.
+- Reuses etzhayyim persistence, identity, audit, and agent loop without inventing parallel infra.
 
 ### Negative
 
 - Toolchain qualification debt — LLVM + WAMR + the Rust FB framework is unqualified for any safety standard. Any move toward industrial buyers (even non-SIL) will surface this.
-- No upstream open ST → WASM compiler — gftd owns the matiec port end-to-end if IEC 61131-3 portability is demanded.
+- No upstream open ST → WASM compiler — etzhayyim owns the matiec port end-to-end if IEC 61131-3 portability is demanded.
 - OPC UA FX adoption is real but slow; if it stalls and the market re-entrenches on Profinet / EtherCAT, the Zenoh-first DLC story becomes a niche edge play.
 - Hard-RT control still lives outside WASM; the project does not replace dedicated motion controllers.
 
@@ -170,14 +170,14 @@ Initial NSIDs to be defined in `60-apps/ai-gftd-project-open-ot/SPEC.md`:
 
 - **Container-based OT (ABB Ability Edgenuity, Schneider EcoStruxure direction).** Rejected as primary: containers do not give the WCET, footprint, or sandbox properties needed on Cortex-M-class controllers. Containers remain valid for the edge-gateway tier and may share the host with Wasmtime.
 - **wasm3 interpreter as the canonical embedded runtime.** Rejected: 5–15× slower than WAMR AOT, project maintenance has slowed since 2023. Retained as a fallback for <100 KB flash MCUs.
-- **IEC 61499 / 4diac FORTE as the primary FB framework, replacing Rust FB API.** Rejected: FORTE → WASM is prototype-stage and unmaintained outside fortiss. Compromise: adopt **IEC 61499 semantics** (FBType, ECC, event+data) via a gftd-owned Rust FB API, with 4diac IDE as the graphical engineering surface. This captures the standard's distribution model without taking on FORTE's runtime debt.
+- **IEC 61499 / 4diac FORTE as the primary FB framework, replacing Rust FB API.** Rejected: FORTE → WASM is prototype-stage and unmaintained outside fortiss. Compromise: adopt **IEC 61499 semantics** (FBType, ECC, event+data) via a etzhayyim-owned Rust FB API, with 4diac IDE as the graphical engineering surface. This captures the standard's distribution model without taking on FORTE's runtime debt.
 - **Holochain-style per-device source chain for telemetry.** Rejected by ADR-2605092600 outcome; LangGraph + RisingWave is the production memory plane.
 
 ## Resolved decisions (2026-05-15 follow-up)
 
 ### R1 — Hardware reference design: Giemon Mimi / Te / Atama
 
-Adopt the Giemon brand (per ADR-2605142200) with body-part naming consistent with `ai-gftd-project-open-robo` (Giemon Otete). Three reference boards:
+Adopt the Giemon brand (per ADR-2605142200) with body-part naming consistent with `etzhayyim-project-open-robo` (Giemon Otete). Three reference boards:
 
 | Product | Role | SoC / form | Runtime | Distinguishing I/O |
 |---|---|---|---|---|
@@ -185,17 +185,17 @@ Adopt the Giemon brand (per ADR-2605142200) with body-part naming consistent wit
 | **Giemon Te (手)** | actuator RTU | i.MX RT1170 dual-core (Cortex-M7+M4) | Zephyr LTS + WAMR AOT + Zenoh-Pico; M4 reserved for hard-RT motion if needed | 8ch 24V DO (sourcing), 4ch 0–10 V AO, 2× CAN-FD, 1× 100BASE-T1 |
 | **Giemon Atama (頭)** | edge controller | Rockchip RK3588 8-core ARMv8.2 (4×A76+4×A55), 16 GB LPDDR5, 128 GB eMMC | NixOS + linuxPackages_rt + CPython/Granian/LangGraph + Wasmtime + RW checkpointer | 4-port TSN switch (802.1Qbv), 1× 2.5 GbE WAN, OPC UA FX bridge, 24 V UPS input |
 
-Brand mapping: Mimi = listen (sensors), Te = act (actuators), Atama = think (Pregel orchestrator + LangGraph). Sourcing follows the open-robo precedent (JP-domestic structure / passives / power, imported SoC soldered on JP-fab). KiCad sources tracked under `60-apps/ai-gftd-project-open-ot/cad-spec/`.
+Brand mapping: Mimi = listen (sensors), Te = act (actuators), Atama = think (Pregel orchestrator + LangGraph). Sourcing follows the open-robo precedent (JP-domestic structure / passives / power, imported SoC soldered on JP-fab). KiCad sources tracked under `60-apps/etzhayyim-project-open-ot/cad-spec/`.
 
 ### R2 — Loop-level Svelte editor: deferred to post-Risk-1, spec'd now
 
-Per-cell FB editing is owned by Eclipse 4diac IDE (per logic-language section). Loop-level (multi-cell LangGraph graph) composition + operator HMI lives in a future `60-apps/ai-gftd-project-open-ot/svelte/` SvelteKit app. Initial scope when work begins: (a) read-only loop visualization (cells as nodes, Pregel messages as edges, super-step replay timeline reading `vertex_open_ot_loop_checkpoint`), (b) operator HMI (signal trends, setpoint write via `setpointChange` XRPC, mode change via `modeChange` XRPC). Engineering-write (graph composition, capability grants) deferred to MVP+1. **Implementation start gated on Risk-1 PASS** (see R4).
+Per-cell FB editing is owned by Eclipse 4diac IDE (per logic-language section). Loop-level (multi-cell LangGraph graph) composition + operator HMI lives in a future `60-apps/etzhayyim-project-open-ot/svelte/` SvelteKit app. Initial scope when work begins: (a) read-only loop visualization (cells as nodes, Pregel messages as edges, super-step replay timeline reading `vertex_open_ot_loop_checkpoint`), (b) operator HMI (signal trends, setpoint write via `setpointChange` XRPC, mode change via `modeChange` XRPC). Engineering-write (graph composition, capability grants) deferred to MVP+1. **Implementation start gated on Risk-1 PASS** (see R4).
 
 ### R3 — First prototype vertical: Microgrid
 
 Pick **microgrid (community-scale, 100 kW–10 MW class)** as the first prototype. Rationale:
 
-- `ai-gftd-project-open-denki` (CIM-aligned smart-grid stack, MVP 2026-05-07) already provides the entity vocabulary: `defineGenerationNode`, `defineSubstation`, `defineFeeder`, `registerSmartMeter`, `recordRenewableOutput`, `recordDemandResponse`. open-ot consumes this as configuration SSoT and extends with control verbs.
+- `etzhayyim-project-open-denki` (CIM-aligned smart-grid stack, MVP 2026-05-07) already provides the entity vocabulary: `defineGenerationNode`, `defineSubstation`, `defineFeeder`, `registerSmartMeter`, `recordRenewableOutput`, `recordDemandResponse`. open-ot consumes this as configuration SSoT and extends with control verbs.
 - Multi-loop coordination (PV inverter setpoint, BESS charge/discharge, generator dispatch, islanding decision, frequency / voltage support) showcases the LangGraph + Pregel binding without contrived demos.
 - Non-safety (no SIF) but economically meaningful (peak shaving, DR participation, islanding ride-through) — real customer pull without IEC 61508 blocker.
 - Building HVAC (BACnet / PLC4X) and water utility remain on the roadmap as MVP+1 / MVP+2.
@@ -236,7 +236,7 @@ Risk-1 (toolchain qualification cost) prototype runs Q3 2026.
 
 The ADR moved from spec-only to prototype-in-progress:
 
-- `60-apps/ai-gftd-project-open-ot/cells/openot-bfb-rs` defines the shared
+- `60-apps/etzhayyim-project-open-ot/cells/openot-bfb-rs` defines the shared
   Rust BFB trait surface for IEC 61499-style typed events, typed data, ECC
   state, and bounded `TickResult` event emission.
 - `cells/pid-limited` implements the representative PID loop used by Risk-1

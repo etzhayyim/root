@@ -51,7 +51,7 @@ CF Tunnel (`murakumo-fleet ae341542`) / LiteLLM (`judah:4000`) / k3s (`lima-mura
   3. 各 mini で `service order = Ethernet > WiFi`、`pmset -c sleep 0`、`networksetup -setdnsservers ... 192.168.1.37 192.168.1.1` をansible で適用
   4. dnsmasq roster を Ethernet IP (`.11`-`.20`) に書き換え
   5. broadcom (Sony NCP) を bridge mode 化 (admin 物理アクセス必要)、Ethernet 側 NTT HGW に DHCP/router 機能を統一
-- `60-apps/ai-gftd-project-murakumo/cmd/murakumo-netd` の WireGuard mesh 案は **不採用継続** (LAN 物理を綺麗にすれば overlay 不要)。Tailscale は SaaS 依存・ライセンス・privacy で同様に **不採用継続** (path-b roll-back 維持)。
+- `60-apps/etzhayyim-project-murakumo/cmd/murakumo-netd` の WireGuard mesh 案は **不採用継続** (LAN 物理を綺麗にすれば overlay 不要)。Tailscale は SaaS 依存・ライセンス・privacy で同様に **不採用継続** (path-b roll-back 維持)。
 
 # Decision
 
@@ -129,7 +129,7 @@ References:
 - `judah.murakumo.lan` 等の安定 FQDN で全 fleet 参照可能、ansible inventory / scripts / runbook の安定化
 - WiFi 起因の jitter / 切断 / 8-of-11 unresolved 問題が物理 Ethernet 化で消滅予定
 - broadcom bridge 化後、DHCP / ARP / L2 が単一化、fleet topology が直感どおりに動く
-- `60-apps/ai-gftd-project-murakumo/cmd/murakumo-netd` (WireGuard overlay) や Tailscale を導入しなくて済む。コード surface 縮小
+- `60-apps/etzhayyim-project-murakumo/cmd/murakumo-netd` (WireGuard overlay) や Tailscale を導入しなくて済む。コード surface 縮小
 
 ### Negative / Risk
 - Phase 1-3 完了まで「物理は cascaded だが dnsmasq 上は統一」という乖離状態が続く。fleet 内通信は Ethernet 側に集約され、jacob 経由 LiteLLM / CF Tunnel は WiFi 経由のまま (移行期間)
@@ -165,9 +165,9 @@ References:
 - `/opt/homebrew/etc/dnsmasq.d/murakumo-fleet.conf` (jacob, 2026-05-11)
 - `/etc/resolver/murakumo.lan` (jacob, 2026-05-11) — macOS Stub Resolver
 - `/etc/hosts.bak-20260511-murakumo` (jacob, 2026-05-11) — pre-purge backup
-- `60-apps/ai-gftd-project-murakumo/CLAUDE.md` — fleet architecture overview
-- `60-apps/ai-gftd-project-murakumo/cmd/murakumo-netd/README.md` — WireGuard overlay (不採用継続)
-- `60-apps/ai-gftd-project-murakumo/ansible/inventory/hosts.yml` — ansible fleet inventory
+- `60-apps/etzhayyim-project-murakumo/CLAUDE.md` — fleet architecture overview
+- `60-apps/etzhayyim-project-murakumo/cmd/murakumo-netd/README.md` — WireGuard overlay (不採用継続)
+- `60-apps/etzhayyim-project-murakumo/ansible/inventory/hosts.yml` — ansible fleet inventory
 - `50-infra/multicluster/murakumo-vke/README.md` — Karmada multi-cluster topology
 - ADR-2604251758 (yoro-actor-worker-fleet)
 - ADR-2604251821 (vke-murakumo-multicluster-control)

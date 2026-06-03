@@ -31,9 +31,9 @@ amended_by: []
 
 # Context
 
-ADR-2605111200 が「CF Worker → RisingWave 接続を全面禁止」を定めたが、現在 `atproto.etzhayyim.com` を serve している **PDS Worker (`ai-gftd-pds-2603241700`, 38 ファイル / ~30k LOC) 自体が CF Worker** であり、commit log / record CRUD / DID document mirror / MCP registry など、Hyperdrive 経由で RisingWave に大量の write/read を発行している。
+ADR-2605111200 が「CF Worker → RisingWave 接続を全面禁止」を定めたが、現在 `atproto.etzhayyim.com` を serve している **PDS Worker (`etzhayyim-pds-2603241700`, 38 ファイル / ~30k LOC) 自体が CF Worker** であり、commit log / record CRUD / DID document mirror / MCP registry など、Hyperdrive 経由で RisingWave に大量の write/read を発行している。
 
-このため Phase 1 で `wrangler.jsonc` から hyperdrive binding を削除すると次回 `gftd deploy` で本番が壊れる。一時 revert で凌いでいるが、ADR-2605111200 の不変条件を満たすには PDS 自体を K8s pod に移す必要がある。
+このため Phase 1 で `wrangler.jsonc` から hyperdrive binding を削除すると次回 `etzhayyim deploy` で本番が壊れる。一時 revert で凌いでいるが、ADR-2605111200 の不変条件を満たすには PDS 自体を K8s pod に移す必要がある。
 
 設計選択肢:
 
@@ -109,7 +109,7 @@ Ingress 選択肢:
 ## Cloudflared tunnel
 
 - 既存 `geth-rpc-proxy` で使用しているのと同じ pattern。
-- CF dashboard で `atproto-gftd-pds-tunnel` を作成、token を取得。
+- CF dashboard で `atproto-etzhayyim-pds-tunnel` を作成、token を取得。
 - k8s Secret `atproto-pds-tunnel-token` に格納。
 - Sidecar コンテナが `cloudflared tunnel --no-autoupdate run --token $TUNNEL_TOKEN` で起動。
 - `atproto.etzhayyim.com` を tunnel target `http://localhost:8787` に向ける public hostname rule を CF dashboard で設定。
@@ -122,7 +122,7 @@ Ingress 選択肢:
 | **P1** | Bun-build pipeline 完成、`atproto-pds:bun-canary` image push、staging namespace で起動。`atproto-canary.etzhayyim.com` (別 hostname) に CF Tunnel。2026-05-14 時点では public canary が 522 のため未完了扱い。 | image delete / cloudflared rollback |
 | **P2** | Sanity: AT Protocol federation handshake / repo CRUD / firehose subscribe / MCP discovery を canary で smoke-test。RW load 同等性を観測。P1 canary 200 が前提。 | wrangler は触っていない → prod 影響なし |
 | **P3** | CF dashboard で `atproto.etzhayyim.com` の traffic を 1% → 10% → 50% → 100% に段階移行 (CF tunnel weighted target or Page Rule)。observability: latency / error / commit log replication lag | 重み戻し |
-| **P4** | 100% pod 後、CF Worker `ai-gftd-pds-2603241700` を deploy 停止 (`wrangler delete` は最終段階) | CF Worker 再 deploy |
+| **P4** | 100% pod 後、CF Worker `etzhayyim-pds-2603241700` を deploy 停止 (`wrangler delete` は最終段階) | CF Worker 再 deploy |
 | **P5** | CF Worker 削除、 `50-infra/cloudflare/workers/atproto/` を `_archive/` に移動、ADR-2605111200 の "T3 infra carve-out" 例外を閉じる | (irreversible without rebuild) |
 
 ## Out of scope (deferred to later ADRs)
@@ -234,10 +234,10 @@ helper in `auth/verify.ts` handles both `{get()}` (CF Secrets Store) and
 
 ## Build note
 
-Remote BuildKit (`gftd-vke-local` driver, pod `gftd-vke0-*` in namespace
+Remote BuildKit (`etzhayyim-vke-local` driver, pod `etzhayyim-vke0-*` in namespace
 `buildkit`, port-forwarded to `localhost:1234`) rebuilt `bun-canary` after
 updating the pnpm lockfile for `50-infra/cloudflare/workers/atproto/svelte/`.
-The `gftd-vke` Kubernetes driver is not installed; use the `gftd-vke-local`
+The `etzhayyim-vke` Kubernetes driver is not installed; use the `etzhayyim-vke-local`
 remote driver with port-forward instead.
 
 ## Verification

@@ -88,7 +88,7 @@ Every adapter is one of:
 | ingest_mode | projection pattern |
 |---|---|
 | `self_ingest` | BQ → narrow projection rows INSERTed directly into `vertex_<domain>_*` via Kysely (`createKyselyDb(env.HYPERDRIVE).insertInto(...)`). |
-| `bigquery_stage` | BQ → `EXPORT DATA OPTIONS(format='PARQUET', uri='gs://gftd-bq-stage/<run_id>/<dataset>/<table>/*.parquet')` → object-store → RW `CREATE EXTERNAL SOURCE` Hummock load → narrow vertex rows. |
+| `bigquery_stage` | BQ → `EXPORT DATA OPTIONS(format='PARQUET', uri='gs://etzhayyim-bq-stage/<run_id>/<dataset>/<table>/*.parquet')` → object-store → RW `CREATE EXTERNAL SOURCE` Hummock load → narrow vertex rows. |
 | `hybrid` | catalog + delta only. BQ join against an existing etzhayyim vertex (e.g. `vertex_legal_entity` for GLEIF reconciliation, `vertex_patent` for USPTO crosswalk) and write only the missing fields plus a provenance edge. |
 | `reject` | adapter does not exist; no P2 projection. |
 | `catalog_only` | adapter does not exist; the dataset stays metadata-only. |
@@ -337,13 +337,13 @@ polled until 0). Long-running production adapters should call
 `rw-health-gate.sh` (per `30-graph/graph-schema/CLAUDE.md`) before
 starting; the in-tree helper has not yet been added but is tracked.
 
-# gftd Coverage Impact
+# etzhayyim Coverage Impact
 
 The 45 approved datasets feed ~17 `dim_world_domain` app_hosts (per ADR
-2605092700 §"gftd World-Coverage Mapping"). Realistic coverage delta when all
+2605092700 §"etzhayyim World-Coverage Mapping"). Realistic coverage delta when all
 P2 adapters land:
 
-| gftd app_host | current % | post-P2 estimate | dominant feeder |
+| etzhayyim app_host | current % | post-P2 estimate | dominant feeder |
 |---|---:|---:|---|
 | `patent` | 0.002 | ~100 | `patents`, `uspto_oce_*` (14 ds) |
 | `blockchain` | 0.001 | overflow | 32 `crypto_*` / `goog_blockchain_*` |

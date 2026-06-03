@@ -278,7 +278,7 @@ this is a CRITICAL guardrail. Scaled BIGINT (`price_minor`,
 - `30-graph/graph-schema/alembic/current_versions/r_20260510160000_vertex_hatsubai_console_publishing.py`
 - `00-contracts/lexicons/com/etzhayyim/apps/hatsubai/` (13 lexicons)
 - `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/hatsubai/submitToCert.bpmn` (P1 skeleton)
-- `60-apps/ai-gftd-project-hatsubai/CLAUDE.md`
+- `60-apps/etzhayyim-project-hatsubai/CLAUDE.md`
 - `90-docs/adr/2604250900-gameka-bpmn-langgraph-game-studio.md` — peer
   BPMN-as-actor for browser games, owns `vertex_games_title`
 - `90-docs/adr/0036-worker-direct-hyperdrive-persistence.md` — domain

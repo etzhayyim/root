@@ -12,7 +12,7 @@ date: 2026-05-17
 Accepted
 
 ## Context
-The `ai-gftd-project-open-unispsc` project requires specialized procurement and validation logic for over 150,000 distinct commodities (e.g., CAD validation for robotics, safety compliance for chemicals). Hardcoding this logic was unscalable. We needed an architecture to dynamically generate and execute these 150k specific LangGraph agents while maintaining high quality, safety (sandboxing), and reasonable infrastructure cost.
+The `etzhayyim-project-open-unispsc` project requires specialized procurement and validation logic for over 150,000 distinct commodities (e.g., CAD validation for robotics, safety compliance for chemicals). Hardcoding this logic was unscalable. We needed an architecture to dynamically generate and execute these 150k specific LangGraph agents while maintaining high quality, safety (sandboxing), and reasonable infrastructure cost.
 
 ## Decision
 1. **Physical Code Generation (AOT)**: We opted to use LLMs to generate physical Python files (e.g., `c23153100.py`) containing the LangGraph logic, saving them into the local repository under `unispsc_agents/`. This approach was favored over runtime string evaluation from the database because it allows for static type checking, code review, and leverages standard Python module loading.

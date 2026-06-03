@@ -35,20 +35,20 @@ source and conflict with the repository-wide WIT retirement policy.
 
 Okaimono UNSPSC integration is governed by these active sources:
 
-- `60-apps/ai-gftd-project-okaimono/proto/v1/shopping.proto`
-- `60-apps/ai-gftd-project-shopping/proto/v1/shopping.proto`
-- `60-apps/ai-gftd-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
-- `60-apps/ai-gftd-project-okaimono/CLAUDE.md`
-- `60-apps/ai-gftd-project-okaimono/appview/okaimono-shopping-mcp-component/README.md`
-- `60-apps/ai-gftd-project-okaimono/okaimono-gftd-ai-ec-operating-spec.md`
+- `60-apps/etzhayyim-project-okaimono/proto/v1/shopping.proto`
+- `60-apps/etzhayyim-project-shopping/proto/v1/shopping.proto`
+- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/magatama.jsonld`
+- `60-apps/etzhayyim-project-okaimono/CLAUDE.md`
+- `60-apps/etzhayyim-project-okaimono/appview/okaimono-shopping-mcp-component/README.md`
+- `60-apps/etzhayyim-project-okaimono/okaimono-etzhayyim-ai-ec-operating-spec.md`
 
 The Okaimono WIT path is legacy and pruned. It must not be reintroduced as the
 active contract source for this integration.
 
 The contract gate is:
 
-- `python3 -m unittest 60-apps/ai-gftd-project-okaimono/tests/test_verify_unispsc_contracts.py`
-- `python3 60-apps/ai-gftd-project-okaimono/scripts/verify_unispsc_contracts.py --pretty`
+- `python3 -m unittest 60-apps/etzhayyim-project-okaimono/tests/test_verify_unispsc_contracts.py`
+- `python3 60-apps/etzhayyim-project-okaimono/scripts/verify_unispsc_contracts.py --pretty`
 - `.github/workflows/okaimono-unispsc-contracts.yml`
 
 # Consequences
@@ -79,7 +79,7 @@ The contract gate is:
 # References
 
 - `60-apps/deps.toml`
-- `60-apps/ai-gftd-project-okaimono/scripts/verify_unispsc_contracts.py`
-- `60-apps/ai-gftd-project-okaimono/tests/test_verify_unispsc_contracts.py`
+- `60-apps/etzhayyim-project-okaimono/scripts/verify_unispsc_contracts.py`
+- `60-apps/etzhayyim-project-okaimono/tests/test_verify_unispsc_contracts.py`
 - `.github/workflows/okaimono-unispsc-contracts.yml`
 - `90-docs/adr/2604251700-wproto-wit-dead-path.md`
