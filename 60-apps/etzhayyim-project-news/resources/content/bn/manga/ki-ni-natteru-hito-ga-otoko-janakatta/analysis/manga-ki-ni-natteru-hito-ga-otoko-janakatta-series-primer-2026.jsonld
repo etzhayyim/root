@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-ki-ni-natteru-hito-ga-otoko-janakatta-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-ki-ni-natteru-hito-ga-otoko-janakatta-series-primer-2026",
   "identifier": "manga-ki-ni-natteru-hito-ga-otoko-janakatta-series-primer-2026",
   "headline": "The Guy She Was Interested In Wasn't a Guy at All primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to The Guy She Was Interested In Wasn't a Guy at All, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

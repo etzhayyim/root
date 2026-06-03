@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:manga-na-honjaman-level-up-series-primer-2026",
+  "@id": "urn:etzhayyim:news:manga-na-honjaman-level-up-series-primer-2026",
   "identifier": "manga-na-honjaman-level-up-series-primer-2026",
   "headline": "Solo Leveling primer: the quickest way to grasp its story and characters",
   "description": "A starter guide to Solo Leveling, organized around themes, structure, and character relationships.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
