@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-kyber-government-dx9wolvi</h1>
+  <h1>etzhayyim-wasm-kyber-government-dx9wolvi</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

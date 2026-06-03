@@ -11,7 +11,7 @@
     "complianceFrameworks": ["kyber-qzzg06nh-policy", "pii-tier-3"]
   },
   "kpi": ["signal_ratio", "dept_routing_accuracy"],
-  "name": "ai-gftd-wasm-kyber-inbox-inb0x4k2",
+  "name": "etzhayyim-wasm-kyber-inbox-inb0x4k2",
   "nanoid": "inb0x4k2",
   "performerType": "service",
   "profile": {
@@ -20,7 +20,7 @@
     "description": "Kyber Inbox — aggregates Outlook/OneDrive/Gmail signals, routes to ERP departments",
     "displayName": "Kyber Inbox",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

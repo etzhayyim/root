@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-legal-w9p5r2t6",
+  "name": "etzhayyim-wasm-kyber-legal-w9p5r2t6",
   "nanoid": "w9p5r2t6",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Legal — AI Agent",
     "displayName": "Kyber Legal",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

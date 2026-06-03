@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-finance-5i2tmo8x",
+  "name": "etzhayyim-wasm-kyber-finance-5i2tmo8x",
   "nanoid": "a5i2tmo8",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Finance — AI Agent",
     "displayName": "Kyber Finance",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

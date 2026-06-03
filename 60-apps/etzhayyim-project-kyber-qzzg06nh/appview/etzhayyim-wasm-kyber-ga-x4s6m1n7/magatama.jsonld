@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-ga-x4s6m1n7",
+  "name": "etzhayyim-wasm-kyber-ga-x4s6m1n7",
   "nanoid": "x4s6m1n7",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Ga — AI Agent",
     "displayName": "Kyber Ga",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

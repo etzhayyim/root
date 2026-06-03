@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-governance-ppfjh9jy",
+  "name": "etzhayyim-wasm-kyber-governance-ppfjh9jy",
   "nanoid": "ppfjh9jy",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Governance — AI Agent",
     "displayName": "Kyber Governance",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-government-dx9wolvi",
+  "name": "etzhayyim-wasm-kyber-government-dx9wolvi",
   "nanoid": "dx9wolvi",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Government — AI Agent",
     "displayName": "Kyber Government",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

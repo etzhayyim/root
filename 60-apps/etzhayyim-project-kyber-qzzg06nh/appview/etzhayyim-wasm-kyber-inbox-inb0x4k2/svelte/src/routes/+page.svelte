@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Kyber Inbox Inb0x4k2",
-  "project": "ai-gftd-project-kyber-qzzg06nh",
-  "name": "ai-gftd-wasm-kyber-inbox-inb0x4k2",
+  "project": "etzhayyim-project-kyber-qzzg06nh",
+  "name": "etzhayyim-wasm-kyber-inbox-inb0x4k2",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-kyber-qzzg06nh/appview/ai-gftd-wasm-kyber-inbox-inb0x4k2/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-kyber-qzzg06nh/appview/etzhayyim-wasm-kyber-inbox-inb0x4k2/svelte/src/routes/+page.svelte"
 };
 </script>
 

@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-hr-mdtpqjc8",
+  "name": "etzhayyim-wasm-kyber-hr-mdtpqjc8",
   "nanoid": "mdtpqjc8",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Hr — AI Agent",
     "displayName": "Kyber Hr",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",
