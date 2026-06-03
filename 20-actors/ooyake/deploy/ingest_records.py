@@ -31,6 +31,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import os
 import sys
@@ -142,11 +143,10 @@ GOV_GRAPH = "gov-atlas-v1"
 ACTOR_GRAPH = "actors-v1"
 NSID_INGEST = "com.etzhayyim.apps.kotobase.kg.ingest_batch"
 
-GOV_SEEDS = [
-    os.path.join(_ACTOR, "registry", "gov-units.seed.edn"),
-    os.path.join(_ACTOR, "registry", "gov-units.jp-central.seed.edn"),
-    os.path.join(_ACTOR, "registry", "gov-units.toritsugi-procedures.seed.edn"),
-]
+# The FULL committed atlas — every gov-units*.edn (the 3 seeds + g20 / world-* /
+# oversight-* / adm1-* / intergov / capitals / hq-locations / …), so an operator
+# ingest projects the whole ~7,100-unit atlas into kotoba, not just the seed core.
+GOV_SEEDS = sorted(glob.glob(os.path.join(_ACTOR, "registry", "gov-units*.edn")))
 ACTOR_SEED = os.path.join(_REPO, "00-contracts", "schemas", "actor-profile-seed.kotoba.edn")
 
 # ref-typed predicates (schema :db.type/ref) — emitted as kg relations (dstId).
