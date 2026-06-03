@@ -15,11 +15,16 @@ official URL** (本体の url), on 2026-06-03.
 - `registry/gov-units.g20.edn` — the 14 G20 nations not previously seeded
   (FR/IT/CA/CN/BR/RU/MX/ID/TR/ZA/AR/SA/IN/AU) + DE/KR finance ministries + the
   **G7 finance-ministry HQ addresses** (UK/FR/IT/CA/DE + KR; JP/US already seeded).
+- `registry/gov-units.g20-centralbanks.edn` — the **20 G20 central banks**
+  (BoJ/Fed/BoE/Banque de France/Bundesbank/Banca d'Italia/BoC/PBoC/BCB/CBR/Banxico/
+  BI/TCMB/SARB/BCRA/SAMA/BoK/RBI/RBA + ECB), `:level :agency` `:branch :independent`,
+  every QID web-verified — the monetary-authority dimension beside the ministries.
 - The already-seeded national rows (JP full central gov + US/UK/DE/KR/EU) were
   **QID-corrected and promoted** to `:authoritative` / `:maintainer-verified`.
-- Gates: `scripts/g20_coverage.py` (**G20 20/20**) + `scripts/check_seed_integrity.py`
-  (**58 units, 56 QIDs all unique + well-formed, 54 :authoritative, addresses resolve,
-  G5 present**), both wired into `deploy/run_tests.sh` (**ALL GREEN, 11 suites**).
+- Gates: `scripts/g20_coverage.py` (**G20 20/20 — country + finance + central bank**) +
+  `scripts/check_seed_integrity.py` (**78 units, 76 QIDs all unique + well-formed,
+  74 :authoritative, addresses resolve, G5 present**), both wired into
+  `deploy/run_tests.sh` (**ALL GREEN, 11 suites**).
 
 **QID integrity**: a prior demo wave fabricated a contiguous fake Wikidata block
 (`Q1023xxx`) — MOF "Q1023766" actually resolves to *CIUTI*, a Brussels translators'
