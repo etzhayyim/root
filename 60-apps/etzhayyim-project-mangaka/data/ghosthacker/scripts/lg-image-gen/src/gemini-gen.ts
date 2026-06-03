@@ -1,7 +1,7 @@
 /**
  * Gemini image generation via OpenRouter.
  *
- * Pattern derived from 60-apps/ai-gftd-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts.
+ * Pattern derived from 60-apps/etzhayyim-project-narou/ghosthacker/apps/web/src/lib/ai/openrouter-image.ts.
  * Uses /v1/chat/completions with `modalities: ["text", "image"]` + `image_config`.
  *
  * Usage:
