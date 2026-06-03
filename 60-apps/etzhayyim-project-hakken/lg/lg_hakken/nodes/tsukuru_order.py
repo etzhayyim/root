@@ -1,4 +1,4 @@
-"""tsukuru_order — Ph3: tsukuru.gftd.ai 経由でOEM製造発注 (stub)。"""
+"""tsukuru_order — Ph3: tsukuru.etzhayyim.com 経由でOEM製造発注 (stub)。"""
 
 from __future__ import annotations
 

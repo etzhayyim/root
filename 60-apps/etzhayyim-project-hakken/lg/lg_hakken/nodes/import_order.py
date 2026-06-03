@@ -8,7 +8,7 @@ from lg_hakken.state import HakkenState
 async def import_order(state: HakkenState) -> dict:
     """Ph2: 小ロット輸入発注。現在はオペレーターへの通知のみ (manual approval required)。
 
-    TODO: tsukuru.gftd.ai に輸入調達 XRPC を実装後に自動化。
+    TODO: tsukuru.etzhayyim.com に輸入調達 XRPC を実装後に自動化。
     """
     approved = [s for s in state.get("approved_skus", []) if s["phase"] == "import"]
     notifications = []

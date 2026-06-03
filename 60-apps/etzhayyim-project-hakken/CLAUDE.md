@@ -1,4 +1,4 @@
-# ai-gftd-project-hakken — OEM Product Discovery Ingest (etzhayyim)
+# etzhayyim-project-hakken — OEM Product Discovery Ingest (etzhayyim)
 
 **hakken.etzhayyim.com** (発見) — AI-First OEM product-discovery ingest surface. Compares
 branded-product prices against OEM/supplier candidate listings and ingests both into the
@@ -29,16 +29,16 @@ status:   Phase 1 scaffold + ingest-core rw-free (2026-06-01)
 |---|---|---|
 | Liability | resale/import operator duty | **ingest only** at etzhayyim — no order placement / fulfillment at this surface |
 | Custody | supplier master, marketplace order data | public kotoba KG (product/supplier facts are public OSINT-grade) |
-| Settlement | Stripe product creation, marketplace payment | **deferred to gftd function** via consent capability (Phase 3) — etzhayyim takes no payment |
+| Settlement | Stripe product creation, marketplace payment | **deferred to etzhayyim function** via consent capability (Phase 3) — etzhayyim takes no payment |
 
 Per ADR-2606011400 (Consensys pattern) the **product-discovery / supplier-search functions
 move to the etzhayyim product front**; the **regulated fulfillment + payment tail
-(okaimono_register dropship, import_order, tsukuru_order, Stripe) stays a gftd function**
+(okaimono_register dropship, import_order, tsukuru_order, Stripe) stays a etzhayyim function**
 consumed through consent capability. This app ports the ingest front only.
 
 ## NSID namespace (com.etzhayyim.*, user-directed 2026-06-01)
 
-hakken is etzhayyim-native (no legacy gftd lexicon existed — vendor wrote kotoba datoms
+hakken is etzhayyim-native (no legacy etzhayyim lexicon existed — vendor wrote kotoba datoms
 directly), so both lexicon ids and record write-path collections use `com.etzhayyim.apps.hakken.*`.
 
 > Note: the established record-NSID authority elsewhere in etzhayyim/root is `com.etzhayyim.*`
@@ -63,7 +63,7 @@ trend_scan → gap_analysis (kotoba Datalog) → supplier_search (aliexpress/168
 ```
 
 Phase fulfillment (`[dropship | import | oem]` + okaimono register + social announce) is NOT
-part of the etzhayyim ingest surface — see Phase 3 (gftd consent capability).
+part of the etzhayyim ingest surface — see Phase 3 (etzhayyim consent capability).
 
 ## rw-free reference
 
@@ -81,7 +81,7 @@ Persistence pattern (mirrors tsukuru rw-free Phase 2):
 |---|---|---|
 | kotoba.etzhayyim.com | product KG storage (EAVT, IPFS) | etzhayyim |
 | kaimono-review | 5-axis quality scoring (quality_eval) | etzhayyim/vendor TBD |
-| okaimono | D2C sales channel (fulfillment) | **gftd function** (Settlement) |
+| okaimono | D2C sales channel (fulfillment) | **etzhayyim function** (Settlement) |
 | tsukuru | Ph3 OEM manufacturing | etzhayyim (tsukuru already migrated) |
 
 ## ADR

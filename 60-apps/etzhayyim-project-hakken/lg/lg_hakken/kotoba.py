@@ -11,7 +11,7 @@ sled WAL.  The `kotobase-kg-v1` graph is registered with `Authenticated`
 visibility (kotoba server.rs), so reads accept Bearer JWT; CACAO is only
 required for graphs whose visibility is `Private{owner_did}`.
 
-See 60-apps/ai-gftd-project-kotoba/crates/kotoba-server/src/kg.rs.
+See 60-apps/etzhayyim-project-kotoba/crates/kotoba-server/src/kg.rs.
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from typing import Any
 
 import httpx
 
-KOTOBA_XRPC = os.environ.get("KOTOBA_XRPC_URL", "https://kotoba.gftd.ai")
+KOTOBA_XRPC = os.environ.get("KOTOBA_XRPC_URL", "https://kotoba.etzhayyim.com")
 
 # Bearer JWT issued to hakken DID — required for kg.ingest_batch / kg.ingest /
 # kg.delete (write) AND for kg.entity / kg.catalog / graph.sparql (read on the

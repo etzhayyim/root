@@ -8,7 +8,7 @@ import httpx
 
 from lg_hakken.state import HakkenState
 
-OKAIMONO_XRPC = os.environ.get("OKAIMONO_XRPC_URL", "https://okaimono.gftd.ai")
+OKAIMONO_XRPC = os.environ.get("OKAIMONO_XRPC_URL", "https://okaimono.etzhayyim.com")
 
 
 async def okaimono_register(state: HakkenState) -> dict:

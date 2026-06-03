@@ -6,10 +6,10 @@ graph.  Runs entirely inside the kotoba pod via `kotoba_wasm_run`; replaces
 the previous K8s LangServer pod plan for `phase_promotion_graph`.
 
 Build:
-    cd 60-apps/ai-gftd-project-kotoba
+    cd 60-apps/etzhayyim-project-kotoba
     ./scripts/build-pywasm.sh \
-        ../ai-gftd-project-hakken/lg/wasm/agent.py \
-        -o ../ai-gftd-project-hakken/lg/wasm/hakken-phase-promotion.wasm
+        ../etzhayyim-project-hakken/lg/wasm/agent.py \
+        -o ../etzhayyim-project-hakken/lg/wasm/hakken-phase-promotion.wasm
 
 Load + run via MCP:
     kotoba_wasm_run wasm=<base64 hakken-phase-promotion.wasm>

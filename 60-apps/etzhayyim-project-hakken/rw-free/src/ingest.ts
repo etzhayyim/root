@@ -13,7 +13,7 @@
  *
  * Ingest CORE only. Phase fulfillment (dropship / import / OEM order,
  * okaimono register, Stripe product creation) HITS the Settlement axis and
- * stays a gftd function (ADR-2606011400); it is intentionally absent here.
+ * stays a etzhayyim function (ADR-2606011400); it is intentionally absent here.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

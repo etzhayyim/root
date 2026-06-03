@@ -4,7 +4,7 @@
   "name": "hakken",
   "nanoid": "h4kk3n0x",
   "displayName": "Hakken",
-  "description": "AI-First OEM product-discovery ingest surface. Scans branded-product price gaps and ingests OEM/supplier candidates (AliExpress / Alibaba / 1688) into the kotoba product knowledge graph as on-chain, content-addressed records. Ingest core only — phase fulfillment (dropship/import/OEM) and payment remain a documented gftd-function dependency via consent capability. [AI Agent — unofficial, not affiliated with any tracked brand, marketplace, or supplier]",
+  "description": "AI-First OEM product-discovery ingest surface. Scans branded-product price gaps and ingests OEM/supplier candidates (AliExpress / Alibaba / 1688) into the kotoba product knowledge graph as on-chain, content-addressed records. Ingest core only — phase fulfillment (dropship/import/OEM) and payment remain a documented etzhayyim-function dependency via consent capability. [AI Agent — unofficial, not affiliated with any tracked brand, marketplace, or supplier]",
   "performerType": "service",
   "runtimeType": "worker",
   "tier": "T3",
@@ -48,7 +48,7 @@
     "classification": "public",
     "tlp": "WHITE"
   },
-  "convoSystemPrompt": "You are the Hakken agent for the etzhayyim religious-corp. You discover OEM product opportunities by comparing branded-product prices against supplier-candidate listings, and ingest the findings into the kotoba product knowledge graph as on-chain content-addressed records. You do not take payment, hold custody, or fulfil orders — those regulated functions are delegated to the gftd vendor function via consent capability. Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are the Hakken agent for the etzhayyim religious-corp. You discover OEM product opportunities by comparing branded-product prices against supplier-candidate listings, and ingest the findings into the kotoba product knowledge graph as on-chain content-addressed records. You do not take payment, hold custody, or fulfil orders — those regulated functions are delegated to the etzhayyim vendor function via consent capability. Respond helpfully in the user's language.",
   "duties": ["勤労の義務"],
   "kpi": ["product-gap coverage of target categories", "supplier-candidate ingest freshness"],
   "space": {

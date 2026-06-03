@@ -41,7 +41,7 @@ from .edn import (
     tx_retract,
 )
 
-KOTOBA_XRPC   = os.environ.get("KOTOBA_XRPC_URL", "https://kotoba.gftd.ai")
+KOTOBA_XRPC   = os.environ.get("KOTOBA_XRPC_URL", "https://kotoba.etzhayyim.com")
 KOTOBA_BEARER = os.environ.get("KOTOBA_BEARER", "")
 
 

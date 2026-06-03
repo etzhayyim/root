@@ -18,7 +18,7 @@ import httpx
 from lg_hakken.kotoba_datomic import dm_q, dm_transact, encode_tx_data, tx_add
 from lg_hakken.state import HakkenState
 
-OKAIMONO_XRPC = os.environ.get("OKAIMONO_XRPC_URL", "https://okaimono.gftd.ai")
+OKAIMONO_XRPC = os.environ.get("OKAIMONO_XRPC_URL", "https://okaimono.etzhayyim.com")
 
 # Ph1→Ph2: 累積注文≥30件 AND 返品率<5%
 # Datalog: phase=":phase/dropship" の SKU と関連 claim を一括取得。

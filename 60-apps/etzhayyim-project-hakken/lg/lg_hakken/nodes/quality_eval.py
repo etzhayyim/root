@@ -9,7 +9,7 @@ import httpx
 from lg_hakken.state import HakkenState, OemCandidate, ReviewScore
 
 KAIMONO_REVIEW_XRPC = os.environ.get(
-    "KAIMONO_REVIEW_XRPC_URL", "https://kaimono-review.gftd.ai"
+    "KAIMONO_REVIEW_XRPC_URL", "https://kaimono-review.etzhayyim.com"
 )
 
 # 最低合格グレード (B = 60点以上)

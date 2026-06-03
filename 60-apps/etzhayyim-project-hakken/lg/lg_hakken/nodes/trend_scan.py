@@ -8,7 +8,7 @@ import httpx
 
 from lg_hakken.state import BrandedProduct, HakkenState
 
-KAKAKU_XRPC = os.environ.get("KAKAKU_XRPC_URL", "https://kakaku.gftd.ai")
+KAKAKU_XRPC = os.environ.get("KAKAKU_XRPC_URL", "https://kakaku.etzhayyim.com")
 
 
 async def trend_scan(state: HakkenState) -> dict:

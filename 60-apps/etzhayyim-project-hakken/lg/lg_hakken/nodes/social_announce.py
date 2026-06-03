@@ -9,7 +9,7 @@ import httpx
 from lg_hakken.state import HakkenState
 
 KAIMONO_REVIEW_XRPC = os.environ.get(
-    "KAIMONO_REVIEW_XRPC_URL", "https://kaimono-review.gftd.ai"
+    "KAIMONO_REVIEW_XRPC_URL", "https://kaimono-review.etzhayyim.com"
 )
 
 _PHASE_LABEL = {
@@ -32,7 +32,7 @@ async def social_announce(state: HakkenState) -> dict:
                 f"【新着 {label}】{candidate['name']}\n"
                 f"ブランド品比 {sku['margin']:.0%}オフ · "
                 f"評価 {sku['review_score']['grade']}({sku['review_score']['score']}点)\n"
-                f"okaimono.gftd.ai で販売中"
+                f"okaimono.etzhayyim.com で販売中"
             )
             try:
                 await client.post(

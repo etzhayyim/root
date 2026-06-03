@@ -7,7 +7,7 @@ hakken's product-discovery **ingest front** migrates from vendor's kotoba-datom 
 `vertex_hakken_*` writes to the etzhayyim RW-free + on-chain substrate
 ([ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md)), overriding
 the same-day vendor-keep verdict of
-[ADR-2606011400](../../../90-docs/adr/2606011400-consensys-pattern-etzhayyim-product-gftd-infra-vendor.md)
+[ADR-2606011400](../../../90-docs/adr/2606011400-consensys-pattern-etzhayyim-product-etzhayyim-infra-vendor.md)
 per explicit user direction 2026-06-01.
 
 ## Scope
@@ -20,9 +20,9 @@ This package implements the **ingest core** as reference — the part that is on
 | ingest | `ingestProduct`, `ingestSupplierCandidate` |
 | read | `listProducts`, `listSupplierCandidates` |
 
-## Out of scope (gftd function, Settlement axis)
+## Out of scope (etzhayyim function, Settlement axis)
 
-Phase fulfillment is **deliberately NOT here** and remains a gftd vendor function consumed via
+Phase fulfillment is **deliberately NOT here** and remains a etzhayyim vendor function consumed via
 consent capability (ADR-2606011400):
 
 - `okaimono_register` (Ph1 dropship) + Stripe product creation
@@ -31,7 +31,7 @@ consent capability (ADR-2606011400):
 
 ## Pattern translation
 
-| Vendor (`hakken.gftd.ai`) | etzhayyim (`hakken.etzhayyim.com`) |
+| Vendor (`hakken.etzhayyim.com`) | etzhayyim (`hakken.etzhayyim.com`) |
 |---|---|
 | `createKyselyDb().insertInto("vertex_hakken_*").values({...})` | `e.write({ collection, record, rkey })` |
 | kotoba `kg.ingest` datom (id = upsert key) | `e.write({ rkey: slug \| itemId })` (idempotent upsert) |
@@ -42,6 +42,6 @@ consent capability (ADR-2606011400):
 ## NSID namespace
 
 `com.etzhayyim.apps.hakken.*` (operator-directed reverse-DNS of etzhayyim.com, 2026-06-01).
-hakken had no legacy gftd lexicon (vendor wrote kotoba datoms directly), so the namespace is
+hakken had no legacy etzhayyim lexicon (vendor wrote kotoba datoms directly), so the namespace is
 native here. See the app `CLAUDE.md` note on `com.etzhayyim.*` vs the `com.etzhayyim.*`
 record-NSID convention used elsewhere in the repo.
