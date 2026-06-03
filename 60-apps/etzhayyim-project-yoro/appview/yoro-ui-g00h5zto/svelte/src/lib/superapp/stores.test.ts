@@ -96,11 +96,11 @@ describe('threadAppContext', () => {
 		expect(ctx!.defaultConvos![0].id).toBe('ch1');
 	});
 
-	it('openSupportRoom sets gftd support context', () => {
+	it('openSupportRoom sets etzhayyim support context', () => {
 		openSupportRoom();
 		expect(get(currentTab)).toBe('talk');
 		const ctx = get(threadAppContext);
-		expect(ctx!.nanoid).toBe('gftd');
+		expect(ctx!.nanoid).toBe('etzhayyim');
 		expect(ctx!.name).toBe('Support');
 		expect(ctx!.defaultConvos).toEqual([{ id: 'support', name: 'support' }]);
 	});

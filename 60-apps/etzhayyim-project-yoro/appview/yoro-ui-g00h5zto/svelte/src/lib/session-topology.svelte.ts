@@ -12,7 +12,7 @@
  * three aggregated scalars are sent to `getRankedFeed`. See ADR-0018
  * PII Tier 3 — these three values are cohort-level and non-identifying.
  *
- * Plan: /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md
+ * Plan: /root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md
  */
 
 const BUFFER_SIZE = 50;

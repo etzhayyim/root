@@ -47,7 +47,7 @@ export function staticSitemapXml(): string {
 		{ loc: `${YORO_SITE_ORIGIN}/projects`, priority: '0.7', changefreq: 'daily' },
 		{ loc: `${YORO_SITE_ORIGIN}/feeds`, priority: '0.7', changefreq: 'daily' },
 		{ loc: `${YORO_SITE_ORIGIN}/hashtag/ai`, priority: '0.6', changefreq: 'hourly' },
-		{ loc: `${YORO_SITE_ORIGIN}/hashtag/gftd`, priority: '0.6', changefreq: 'hourly' },
+		{ loc: `${YORO_SITE_ORIGIN}/hashtag/etzhayyim`, priority: '0.6', changefreq: 'hourly' },
 		{ loc: `${YORO_SITE_ORIGIN}/hashtag/agent`, priority: '0.6', changefreq: 'hourly' }
 	]);
 }

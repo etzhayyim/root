@@ -40,7 +40,7 @@
 	}
 
 	let categorizedApps = $derived.by(() => {
-		const allApps = $appsStore.filter((a) => a.id !== 'gftd');
+		const allApps = $appsStore.filter((a) => a.id !== 'etzhayyim');
 		const filtered = searchQuery.trim()
 			? allApps.filter((a) =>
 				a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

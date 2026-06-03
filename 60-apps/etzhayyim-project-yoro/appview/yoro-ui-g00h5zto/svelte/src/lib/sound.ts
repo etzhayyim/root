@@ -48,7 +48,7 @@ export function playSuccess() {
 		tone(523, 0, 0.15, 0.25, ctx);      // C5
 		tone(659, 0.12, 0.15, 0.25, ctx);   // E5
 		tone(784, 0.24, 0.3, 0.3, ctx);     // G5
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
 }
 
 /** Short click pop */
@@ -56,7 +56,7 @@ export function playClick() {
 	try {
 		const ctx = getCtx();
 		tone(880, 0, 0.08, 0.18, ctx);
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
 }
 
 /** Notification chime */
@@ -65,7 +65,7 @@ export function playNotif() {
 		const ctx = getCtx();
 		tone(1046, 0, 0.12, 0.2, ctx);       // C6
 		tone(1318, 0.1, 0.2, 0.2, ctx);      // E6
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
 }
 
 /** Sad trombone / fail */
@@ -75,7 +75,7 @@ export function playFail() {
 		tone(392, 0, 0.12, 0.2, ctx, 'sawtooth');   // G4
 		tone(349, 0.1, 0.12, 0.2, ctx, 'sawtooth');  // F4
 		tone(311, 0.2, 0.2, 0.2, ctx, 'sawtooth');   // Eb4
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
 }
 
 /** Streak level-up fanfare */
@@ -86,11 +86,11 @@ export function playLevelUp() {
 		tone(659, 0.1, 0.1, 0.2, ctx);
 		tone(784, 0.2, 0.1, 0.2, ctx);
 		tone(1046, 0.3, 0.4, 0.3, ctx);
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
 }
 
 // ── Nintendo-style feed UX kit (Shannon/Bayes/Graph/TDA/Joucho plan) ──
-// Plan: /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md
+// Plan: /root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md
 
 /** Soft "pop" for taps — 40ms, ~-14 LUFS perceived. */
 export function playTapSoft() {
@@ -141,5 +141,5 @@ export function playSkibidi() {
 		g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
 		osc.start(ctx.currentTime);
 		osc.stop(ctx.currentTime + 0.5);
-	} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
+	} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/sound.ts: suppressed error", error); }
 }

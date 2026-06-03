@@ -2,7 +2,7 @@
 //
 // MIRROR OF: 50-infra/cloudflare/workers/routing-gateway/src/legacy-nanoid-map.ts
 // Both files are auto-generated from deps.toml [[legacy_nanoids]] by
-// `gftd dns-sync --emit-routing-map`. Keep in sync until Phase 4 cutover
+// `etzhayyim dns-sync --emit-routing-map`. Keep in sync until Phase 4 cutover
 // (2026-10-01, ADR-0021).
 //
 // Used by: routes/profile/[handle]/+page.server.ts to 301 redirect
@@ -87,7 +87,7 @@ export const LEGACY_NANOID_MAP: Record<string, string> = {
   "ok4imn1o": "okaimono.etzhayyim.com",
   "om1s3sh0p": "omise.etzhayyim.com",
   "org4n1z3": "organizer.etzhayyim.com",
-  "os-gftd-01": "os.etzhayyim.com",
+  "os-etzhayyim-01": "os.etzhayyim.com",
   "outlook": "outlook.etzhayyim.com",
   "p0rt7890": "port.etzhayyim.com",
   "pb1ml4k0": "public-malak.etzhayyim.com",
@@ -132,7 +132,7 @@ export const LEGACY_NANOID_MAP: Record<string, string> = {
  * Used by /profile/[handle] SSR redirect.
  */
 export function resolveLegacyHandle(handle: string): string | null {
-  const match = handle.match(/^([a-z0-9-]+)\.gftd\.ai$/i);
+  const match = handle.match(/^([a-z0-9-]+)\.etzhayyim\.ai$/i);
   if (!match) return null;
   const nanoid = match[1].toLowerCase();
   return LEGACY_NANOID_MAP[nanoid] ?? null;

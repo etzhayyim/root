@@ -81,17 +81,17 @@ describe('formatDID', () => {
 		expect(formatDID('did:web:etzhayyim.com')).toBe('did:web:etzhayyim.com');
 	});
 
-	it('compacts did:gftd CIDv1 path-form', () => {
-		const did = 'did:gftd:bafkreidibmnd32gvhguhjqxtauz3cca3fzehf6sxhlkdobuacow5jdat4a:bafkreigdmlrvrq47toz3jkh4etig6em3zg2gemg7a42a5ervlq5y3o27cq';
+	it('compacts did:etzhayyim CIDv1 path-form', () => {
+		const did = 'did:etzhayyim:bafkreidibmnd32gvhguhjqxtauz3cca3fzehf6sxhlkdobuacow5jdat4a:bafkreigdmlrvrq47toz3jkh4etig6em3zg2gemg7a42a5ervlq5y3o27cq';
 		const formatted = formatDID(did);
-		expect(formatted).toMatch(/^did:gftd:.+\/…\/.+$/);
+		expect(formatted).toMatch(/^did:etzhayyim:.+\/…\/.+$/);
 		expect(formatted.length).toBeLessThan(did.length);
 	});
 
-	it('compacts long did:gftd root', () => {
-		const did = 'did:gftd:bafkreidibmnd32gvhguhjqxtauz3cca3fzehf6sxhlkdobuacow5jdat4a';
+	it('compacts long did:etzhayyim root', () => {
+		const did = 'did:etzhayyim:bafkreidibmnd32gvhguhjqxtauz3cca3fzehf6sxhlkdobuacow5jdat4a';
 		const formatted = formatDID(did);
-		expect(formatted).toMatch(/^did:gftd:.+…$/);
+		expect(formatted).toMatch(/^did:etzhayyim:.+…$/);
 		expect(formatted.length).toBeLessThan(did.length);
 	});
 });

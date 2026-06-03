@@ -51,7 +51,7 @@ export const threadUnreadCount = writable<number>(0);
 
 /** Open Talk tab to the etzhayyim support convo. */
 export function openSupportRoom() {
-	openTalkForApp('gftd', 'Support', undefined, {
+	openTalkForApp('etzhayyim', 'Support', undefined, {
 		defaultConvos: [{ id: 'support', name: 'support' }],
 	});
 }

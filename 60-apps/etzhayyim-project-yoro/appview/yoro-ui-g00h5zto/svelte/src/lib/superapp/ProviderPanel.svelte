@@ -73,7 +73,7 @@
 
 <div class="flex flex-col gap-3 p-3">
 	<!-- Wallet Section -->
-	<Card aspect="auto" class="!bg-gftd-card !rounded-2xl !border !border-etzhayyim-border">
+	<Card aspect="auto" class="!bg-etzhayyim-card !rounded-2xl !border !border-etzhayyim-border">
 		{#snippet children()}
 			<div class="flex flex-col gap-3 p-4">
 				<div class="flex items-center justify-between gap-2">
@@ -86,7 +86,7 @@
 				</div>
 
 				{#if $walletState.connected && $walletState.address}
-					<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-gftd-input p-3 text-[13px]">
+					<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-etzhayyim-input p-3 text-[13px]">
 						<div class="flex justify-between"><span class="text-etzhayyim-muted">Address</span><code class="text-etzhayyim-accent text-[12px]">{shortenAddress($walletState.address)}</code></div>
 						<div class="flex justify-between"><span class="text-etzhayyim-muted">ETH</span><span class="font-semibold text-etzhayyim-text">{$ethBalanceFormatted}</span></div>
 						{#each $tokenBalances as token}
@@ -119,7 +119,7 @@
 	</Card>
 
 	<!-- Browser Inference Section (murakumo.etzhayyim.com) -->
-	<Card aspect="auto" class="!bg-gftd-card !rounded-2xl !border !border-etzhayyim-border">
+	<Card aspect="auto" class="!bg-etzhayyim-card !rounded-2xl !border !border-etzhayyim-border">
 		{#snippet children()}
 			<div class="flex flex-col gap-3 p-4">
 				<div class="flex items-center justify-between gap-2">
@@ -130,7 +130,7 @@
 
 				{#if !inference.isJoined}
 					<div class="flex flex-col gap-3">
-						<div class="rounded-xl border border-etzhayyim-border bg-gftd-input p-3">
+						<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-input p-3">
 							<p class="text-[12px] text-etzhayyim-secondary leading-relaxed">Your browser's GPU and CPU will be probed for capabilities. Tasks are pushed from the gateway and executed off the main thread.</p>
 						</div>
 						<Button variant="solid-fill" size="sm" disabled={joiningInference} onclick={async () => { joiningInference = true; await inference.join(); joiningInference = false; }}>
@@ -140,7 +140,7 @@
 				{:else}
 					<div class="flex flex-col gap-3">
 						<!-- Capability Info -->
-						<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-gftd-input p-3 text-[13px]">
+						<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-etzhayyim-input p-3 text-[13px]">
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">Session</span><code class="text-etzhayyim-accent text-[12px]">{inference.stats.sessionId ?? '...'}</code></div>
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">GPU Tier</span><span class="font-semibold text-etzhayyim-text">{gpuTierLabel}</span></div>
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">GPU</span><span class="text-etzhayyim-text">{inference.stats.gpuAdapter}</span></div>
@@ -151,7 +151,7 @@
 						</div>
 
 						<!-- Task Stats -->
-						<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-gftd-input p-3 text-[13px]">
+						<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-etzhayyim-input p-3 text-[13px]">
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">Jobs Done</span><span class="font-semibold text-emerald-600">{inference.stats.jobsDone}</span></div>
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">Failed</span><span class="font-semibold text-red-500">{inference.stats.jobsFailed}</span></div>
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">GPU Time</span><span>{(inference.stats.totalGpuTimeMs / 1000).toFixed(1)}s</span></div>
@@ -194,7 +194,7 @@
 	</Card>
 
 	<!-- Provider Section -->
-	<Card aspect="auto" class="!bg-gftd-card !rounded-2xl !border !border-etzhayyim-border">
+	<Card aspect="auto" class="!bg-etzhayyim-card !rounded-2xl !border !border-etzhayyim-border">
 		{#snippet children()}
 			<div class="flex flex-col gap-3 p-4">
 				<div class="flex items-center justify-between gap-2">
@@ -205,7 +205,7 @@
 
 				{#if !worker.isJoined}
 					<div class="flex flex-col gap-3">
-						<div class="rounded-xl border border-etzhayyim-border bg-gftd-input p-3">
+						<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-input p-3">
 							<p class="text-[12px] text-etzhayyim-secondary leading-relaxed">The scheduler will automatically assign the optimal expert set based on current network demand.</p>
 						</div>
 						<Button variant="solid-fill" size="sm" disabled={joining} onclick={async () => { joining = true; worker.manualExpert = false; await worker.joinNetwork(); joining = false; }}>
@@ -220,7 +220,7 @@
 							<div class="flex flex-col gap-3 border-t border-etzhayyim-border pt-3">
 								<div class="flex flex-col gap-1">
 									<label class="text-[11px] font-semibold uppercase text-etzhayyim-muted" for="prov-mode">Provider Type</label>
-									<select id="prov-mode" class="min-h-[44px] w-full rounded-lg border border-etzhayyim-border bg-gftd-input px-3 py-2 text-[14px] text-etzhayyim-text" value={worker.providerMode} onchange={(e) => (worker.providerMode = e.currentTarget.value)}>
+									<select id="prov-mode" class="min-h-[44px] w-full rounded-lg border border-etzhayyim-border bg-etzhayyim-input px-3 py-2 text-[14px] text-etzhayyim-text" value={worker.providerMode} onchange={(e) => (worker.providerMode = e.currentTarget.value)}>
 										<option value="expert_ffn">expert_ffn</option>
 										<option value="full_mlc">full_mlc</option>
 										<option value="lima">lima</option>
@@ -228,7 +228,7 @@
 								</div>
 								<div class="flex flex-col gap-1">
 									<label class="text-[11px] font-semibold uppercase text-etzhayyim-muted" for="prov-model">Model</label>
-									<select id="prov-model" class="min-h-[44px] w-full rounded-lg border border-etzhayyim-border bg-gftd-input px-3 py-2 text-[14px] text-etzhayyim-text" value={worker.modelId} onchange={(e) => (worker.modelId = e.currentTarget.value)}>
+									<select id="prov-model" class="min-h-[44px] w-full rounded-lg border border-etzhayyim-border bg-etzhayyim-input px-3 py-2 text-[14px] text-etzhayyim-text" value={worker.modelId} onchange={(e) => (worker.modelId = e.currentTarget.value)}>
 										{#each worker.providerModels as mid}
 											<option value={mid}>{mid}</option>
 										{/each}
@@ -269,7 +269,7 @@
 					</div>
 				{:else}
 					<div class="flex flex-col gap-3">
-						<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-gftd-input p-3 text-[13px]">
+						<div class="flex flex-col gap-2 rounded-xl border border-etzhayyim-border bg-etzhayyim-input p-3 text-[13px]">
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">Worker ID</span><code class="text-etzhayyim-accent text-[12px]">{worker.workerStats.workerId ?? '...'}</code></div>
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">Type</span><code class="text-etzhayyim-accent text-[12px]">{worker.providerMode}</code></div>
 							<div class="flex justify-between"><span class="text-etzhayyim-muted">Model</span><code class="text-etzhayyim-accent text-[12px]">{worker.modelId.split('/').pop()}</code></div>
@@ -292,7 +292,7 @@
 	<!-- Market Stats -->
 	<div class="grid grid-cols-2 gap-2">
 		{#each stats as item}
-			<Card aspect="auto" class="!bg-gftd-card !rounded-2xl !border !border-etzhayyim-border">
+			<Card aspect="auto" class="!bg-etzhayyim-card !rounded-2xl !border !border-etzhayyim-border">
 				{#snippet children()}
 					<div class="flex flex-col gap-1 p-3">
 						<p class="text-[11px] uppercase text-etzhayyim-muted">{item.label}</p>
@@ -304,19 +304,19 @@
 	</div>
 
 	<!-- Quick Links -->
-	<Card aspect="auto" class="!bg-gftd-card !rounded-2xl !border !border-etzhayyim-border">
+	<Card aspect="auto" class="!bg-etzhayyim-card !rounded-2xl !border !border-etzhayyim-border">
 		{#snippet children()}
 			<div class="flex flex-col gap-2 p-4">
 				<h3 class="text-[13px] font-bold uppercase text-etzhayyim-muted">Quick Links</h3>
 				<a href="https://web4.etzhayyim.com/provider" class="flex items-center gap-3 rounded-xl p-3 active:opacity-80" target="_blank" rel="noopener noreferrer">
-					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gftd-hover text-[13px] font-semibold text-etzhayyim-accent">W4</div>
+					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-etzhayyim-hover text-[13px] font-semibold text-etzhayyim-accent">W4</div>
 					<div class="min-w-0">
 						<p class="text-[13px] font-semibold text-etzhayyim-text">Web4 Provider Dashboard</p>
 						<p class="text-[12px] text-etzhayyim-secondary">Full provider workspace on web4.etzhayyim.com</p>
 					</div>
 				</a>
 				<a href="https://murakumo.etzhayyim.com" class="flex items-center gap-3 rounded-xl p-3 active:opacity-80" target="_blank" rel="noopener noreferrer">
-					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gftd-hover text-[13px] font-semibold text-etzhayyim-accent">MK</div>
+					<div class="flex h-9 w-9 items-center justify-center rounded-xl bg-etzhayyim-hover text-[13px] font-semibold text-etzhayyim-accent">MK</div>
 					<div class="min-w-0">
 						<p class="text-[13px] font-semibold text-etzhayyim-text">Murakumo Compute Network</p>
 						<p class="text-[12px] text-etzhayyim-secondary">Distributed inference marketplace</p>

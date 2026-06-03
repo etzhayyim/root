@@ -129,7 +129,7 @@
 			}).catch((e) => console.warn('getAuthorProfile failed', e));
 			loadProfileFeed('posts_with_replies');
 			fetchEsimProfile(did);
-		}).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/superapp/ProfilePanel.svelte: suppressed async error", error); });
+		}).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/superapp/ProfilePanel.svelte: suppressed async error", error); });
 	});
 
 	async function countPaginated<T>(
@@ -316,7 +316,7 @@
 	}
 
 	async function handleSignIn() {
-		await initClerk({ publishableKey: '', accountsBaseUrl: 'https://auth.etzhayyim.com' }).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/superapp/ProfilePanel.svelte: suppressed async error", error); });
+		await initClerk({ publishableKey: '', accountsBaseUrl: 'https://auth.etzhayyim.com' }).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/superapp/ProfilePanel.svelte: suppressed async error", error); });
 		await signIn();
 	}
 
@@ -1106,7 +1106,7 @@
 		{:else}
 			<!-- Default guest sign-in CTA -->
 			<div class="flex flex-col items-center gap-4 px-6 py-12">
-				<div class="flex h-16 w-16 items-center justify-center rounded-full bg-gftd-hover">
+				<div class="flex h-16 w-16 items-center justify-center rounded-full bg-etzhayyim-hover">
 					<svg class="h-8 w-8 text-etzhayyim-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 						<circle cx="12" cy="8" r="4" />
 						<path d="M20 21a8 8 0 1 0-16 0" />

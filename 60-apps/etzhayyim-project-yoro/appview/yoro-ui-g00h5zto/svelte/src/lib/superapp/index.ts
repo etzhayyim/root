@@ -55,4 +55,4 @@ export {
 	MessagingQueryService,
 	MessagingCompatService,
 	MessagingService,
-} from '../gen/gftd/actor/v1/messaging_pb.js';
+} from '../gen/etzhayyim/actor/v1/messaging_pb.js';

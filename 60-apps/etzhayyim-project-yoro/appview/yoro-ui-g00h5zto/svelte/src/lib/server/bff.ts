@@ -73,7 +73,7 @@ export async function proxyJsonRpcToMcpRouter(event: RequestEvent): Promise<Resp
 	const headers = new Headers(event.request.headers);
 	headers.delete('host');
 	headers.set('content-type', headers.get('content-type') ?? 'application/json');
-	headers.set('x-gftd-bff', 'yoro-sveltekit');
+	headers.set('x-etzhayyim-bff', 'yoro-sveltekit');
 
 	const resp = await fetch(targetUrl, {
 		method: event.request.method,
@@ -84,7 +84,7 @@ export async function proxyJsonRpcToMcpRouter(event: RequestEvent): Promise<Resp
 	});
 	const outHeaders = new Headers(resp.headers);
 	outHeaders.set('cache-control', 'no-store');
-	outHeaders.set('x-gftd-upstream', targetUrl);
+	outHeaders.set('x-etzhayyim-upstream', targetUrl);
 	return new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers: outHeaders });
 }
 
