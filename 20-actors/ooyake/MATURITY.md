@@ -24,6 +24,12 @@ official URL** (本体の url), on 2026-06-03.
   (Czechoslovakia, USSR, East Germany, Byelorussian SSR, …) are filtered out. 162/192
   carry an official-portal URL; the rest cite Wikidata as provenance. Gate
   `scripts/world_coverage.py` (**192 ≥ 190 floor**).
+- `registry/gov-units.world-legislatures.edn` — **186 national legislatures** (the
+  worldwide **legislative-branch** layer; Wikidata `P194` legislative body, current,
+  for every UN member). Adds a new `:level :legislature` (+ `:court`) to the ontology
+  `:gov.unit/level` enum + `validate_atlas.py`. `:branch :legislative`. 150/186 carry
+  an official-site URL. The atlas now spans **executive + legislative + independent**
+  branches worldwide.
 - `registry/gov-units.world-finance.edn` — **117 non-G20 finance ministries** (the
   worldwide executive fiscal-authority layer). Wikidata pull of items typed `P31`
   *finance ministry* (`Q15711797`), current (no `P576`), country a current UN member.
