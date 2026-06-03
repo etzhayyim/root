@@ -7,7 +7,7 @@ Purpose: matches SPEC §14.1 Gate A workload spec — **100 DataIn / 100 DataOut
 ## Build
 
 ```bash
-cd 60-apps/ai-gftd-project-open-ot/cells
+cd 60-apps/etzhayyim-project-open-ot/cells
 cargo test -p pid-stack-100                                      # 5 unit tests
 cargo build --release --no-default-features --target wasm32-unknown-unknown -p pid-stack-100
 ```

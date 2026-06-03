@@ -1,6 +1,6 @@
 # cells — IEC 61499 BFB cells (Rust → wasm32-wasi → WAMR AOT)
 
-This directory holds gftd-native open-ot **Basic Function Block (BFB) cells** in Rust. Each cell is a Cargo crate that compiles to `wasm32-wasi` and is AOT-compiled by `wamrc` into a `.aot` artefact, pinned by content hash via `com.etzhayyim.apps.openOt.pinModule`.
+This directory holds etzhayyim-native open-ot **Basic Function Block (BFB) cells** in Rust. Each cell is a Cargo crate that compiles to `wasm32-wasi` and is AOT-compiled by `wamrc` into a `.aot` artefact, pinned by content hash via `com.etzhayyim.apps.openOt.pinModule`.
 
 ## Layout
 
@@ -37,7 +37,7 @@ Per ADR-2605151200 §LangGraph + Pregel binding determinism contract and SPEC §
 
 ```bash
 # 1. Compile to wasm32-wasi (no_std — embedded path, opts out of std feature)
-cd 60-apps/ai-gftd-project-open-ot/cells/pid-limited
+cd 60-apps/etzhayyim-project-open-ot/cells/pid-limited
 cargo build --release --no-default-features --target wasm32-wasi
 # Host-side `cargo check` / `cargo test` use the default-on `std` feature.
 
@@ -53,7 +53,7 @@ wamrc \
 
 # 3. Sign + upload + pin via XRPC
 cid=$(b3sum pid_limited.aot | awk '{print $1}')
-sig=$(./scripts/builder-sign.sh pid_limited.aot)  # was `gftd builder sign` before 2026-05-20 CLI removal
+sig=$(./scripts/builder-sign.sh pid_limited.aot)  # was `etzhayyim builder sign` before 2026-05-20 CLI removal
 curl -X POST https://open-ot.etzhayyim.com/xrpc/com.etzhayyim.apps.openOt.pinModule \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \

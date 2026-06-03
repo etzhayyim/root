@@ -4,7 +4,7 @@
 
 100 kW–10 MW class community microgrid. Demonstrates the full open-ot stack: WAMR-AOT cells on Giemon Mimi/Te (field), LangGraph Pregel orchestrator on Giemon Atama (edge), atproto record SSoT on VKE LangServer pods.
 
-Cross-link with `ai-gftd-project-open-denki` — open-denki owns the CIM topology vocabulary; open-ot adds the **control verbs** that act on it.
+Cross-link with `etzhayyim-project-open-denki` — open-denki owns the CIM topology vocabulary; open-ot adds the **control verbs** that act on it.
 
 ## 1. Asset inventory (target pilot site)
 
@@ -32,7 +32,7 @@ A representative 1 MW class community microgrid:
 | Loop kind | `pid` |
 | Super-step rate | n/a (field-only inner loop, 100 Hz on Mimi) |
 | Cells | 1 per inverter — `did:web:open-ot.etzhayyim.com:cell:pv-mppt-{id}` |
-| 4diac FBType | `MPPT_PERTURB_OBSERVE` (gftd-owned, future) |
+| 4diac FBType | `MPPT_PERTURB_OBSERVE` (etzhayyim-owned, future) |
 | Sourced from | open-denki `pv-roof-a`, `pv-carport-b` `recordRenewableOutput` polling |
 | LangGraph involvement | observation only — telemetry into checkpointer at 1 Hz |
 
@@ -113,14 +113,14 @@ A representative 1 MW class community microgrid:
 
 | FBType | Origin | Status |
 |---|---|---|
-| `PID_LIMITED` | gftd-owned, in `cells/pid-limited/` | implemented (2026-05-15) — 5 tests PASS incl. replay determinism |
-| `DROOP_P_F` | gftd-owned, in `cells/droop-p-f/` | implemented (2026-05-15) — 10 tests PASS incl. droop proportionality + replay determinism |
-| `ANTI_ISLANDING_ROCOF` | gftd-owned, in `cells/anti-islanding-rocof/` | implemented (2026-05-15) — 14 tests PASS incl. all 5 trip reasons + RESET handling + replay determinism |
-| `MPPT_PERTURB_OBSERVE` | gftd-owned | future |
-| `SOC_KALMAN` | gftd-owned | future |
-| `VV_CURVE` | gftd-owned | future |
-| `LTC_TAP_FSM` | gftd-owned | future |
-| `BLACK_START_SEQ` | gftd-owned | future |
+| `PID_LIMITED` | etzhayyim-owned, in `cells/pid-limited/` | implemented (2026-05-15) — 5 tests PASS incl. replay determinism |
+| `DROOP_P_F` | etzhayyim-owned, in `cells/droop-p-f/` | implemented (2026-05-15) — 10 tests PASS incl. droop proportionality + replay determinism |
+| `ANTI_ISLANDING_ROCOF` | etzhayyim-owned, in `cells/anti-islanding-rocof/` | implemented (2026-05-15) — 14 tests PASS incl. all 5 trip reasons + RESET handling + replay determinism |
+| `MPPT_PERTURB_OBSERVE` | etzhayyim-owned | future |
+| `SOC_KALMAN` | etzhayyim-owned | future |
+| `VV_CURVE` | etzhayyim-owned | future |
+| `LTC_TAP_FSM` | etzhayyim-owned | future |
+| `BLACK_START_SEQ` | etzhayyim-owned | future |
 
 `PID_LIMITED` is the only cell required for Risk-1 Gate A. The other two implemented cells validate the `openot-bfb-rs` trait against progressively more elaborate shapes — `DROOP_P_F` adds a 5th ECC state + i128 intermediate, `ANTI_ISLANDING_ROCOF` adds multi-event-input (REQ + RESET), multi-event-output (CNF + TRIP + ALM), latched state, time-derivative, and N-sample debounce. The trait absorbs all three without modification. Remaining FBTypes are scaffolded for the 90-day pilot; their implementation begins after Gate A PASS.
 

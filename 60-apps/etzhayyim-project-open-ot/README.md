@@ -11,10 +11,10 @@ Reference implementation for **WASM-based industrial PLC and Distributed Logic C
 - Each control loop is one **LangGraph graph**; each cell is one **Pregel node**; one **super-step** is one **IEC 61499 event tick**.
 - Cells compile to **WASM (`wasm32-wasi`)** and run inside **WAMR AOT** on **Zephyr** (field tier) or **Wasmtime** on **PREEMPT_RT Linux** / **NixOS** (edge tier).
 - Logic semantics follow **IEC 61499** (event-driven function blocks). Optional 4diac IDE round-trip via FBType XML.
-- Substrate: **Eclipse Zenoh** (data plane), **OPC UA FX over TSN** (cross-vendor interop), **gftd XRPC + MCP** (control-plane / config / audit).
+- Substrate: **Eclipse Zenoh** (data plane), **OPC UA FX over TSN** (cross-vendor interop), **etzhayyim XRPC + MCP** (control-plane / config / audit).
 - Configuration / lineage / audit are **atproto records** under `com.etzhayyim.apps.openOt.*` (17 NSIDs).
 - Hardware reference: **Giemon Mimi (耳)** sensor RTU / **Te (手)** actuator RTU / **Atama (頭)** edge controller.
-- First prototype vertical: **community microgrid (100 kW–10 MW)** in collaboration with [`open-denki`](../ai-gftd-project-open-denki).
+- First prototype vertical: **community microgrid (100 kW–10 MW)** in collaboration with [`open-denki`](../etzhayyim-project-open-denki).
 
 ## Authoritative source
 
@@ -31,7 +31,7 @@ Reference implementation for **WASM-based industrial PLC and Distributed Logic C
 ## Layout
 
 ```
-60-apps/ai-gftd-project-open-ot/
+60-apps/etzhayyim-project-open-ot/
 ├── README.md                    ← you are here
 ├── CONTRIBUTING.md              monorepo / repo-split contribution policy
 ├── LICENSE                      Apache-2.0 + dependency attribution
@@ -52,7 +52,7 @@ Reference implementation for **WASM-based industrial PLC and Distributed Logic C
 All cells compile to `wasm32-wasi` for embedded deployment, with default-on `std` for host development:
 
 ```bash
-cd 60-apps/ai-gftd-project-open-ot/cells
+cd 60-apps/etzhayyim-project-open-ot/cells
 
 # Host-side test — all 15 unit tests across both cells
 cargo test --workspace

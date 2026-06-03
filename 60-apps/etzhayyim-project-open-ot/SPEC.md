@@ -131,7 +131,7 @@ Manifest (per-cell, analogue of `magatama.jsonld`):
 }
 ```
 
-Round-trip with **Eclipse 4diac IDE**: `4diac FBType XML ↔ open-ot manifest + Rust BFB skeleton`. gftd-owned codegen lives in `70-tools/scripts/open-ot/fbtype-codegen/`; engineers can model graphically in 4diac, export FBType XML, and the codegen emits a Rust project ready to compile to `wasm32-wasi`.
+Round-trip with **Eclipse 4diac IDE**: `4diac FBType XML ↔ open-ot manifest + Rust BFB skeleton`. etzhayyim-owned codegen lives in `70-tools/scripts/open-ot/fbtype-codegen/`; engineers can model graphically in 4diac, export FBType XML, and the codegen emits a Rust project ready to compile to `wasm32-wasi`.
 
 ## 4. LangGraph + Pregel binding
 
@@ -155,7 +155,7 @@ A control **loop** is a LangGraph graph; each **cell** in the loop is a Pregel n
 
 A cell's `tick(event_in, data_in, ecc_state, internal, params, super_step)` is **a pure function** modulo `internal` mutation. All wall-clock side effects (timers, RNG, external I/O, sensor reads beyond `data_in`, neighbor reads beyond inbound messages) must enter as explicit data inputs supplied by the orchestrator.
 
-Replay test: given a checkpoint stream `(super_step_n)_n`, replaying `tick` on each `(event_in, data_in, ecc_state, internal_pre, params)` MUST reproduce the same `(next_state, emitted, neighbor_msgs, internal_post)`. CI gate enforces this for all cells in `60-apps/ai-gftd-project-open-ot/cells/`.
+Replay test: given a checkpoint stream `(super_step_n)_n`, replaying `tick` on each `(event_in, data_in, ecc_state, internal_pre, params)` MUST reproduce the same `(next_state, emitted, neighbor_msgs, internal_post)`. CI gate enforces this for all cells in `60-apps/etzhayyim-project-open-ot/cells/`.
 
 ### 4.3 Cycle-rate split
 
@@ -246,7 +246,7 @@ No file system, no network beyond explicit `peer:` and `io:`, no clock other tha
 
 - Time-source contract for cells (PTP / NTP / TSN gPTP?). Likely defer to per-deployment TSN profile. Required for §4.1 super-step barrier when no TSN gate is available.
 - Cell-to-cell cross-device messaging schema — typed Zenoh keys vs. component-model resources. Bias: typed Zenoh keys at MVP; revisit when WASI-P2 components stabilize on embedded.
-- Engineering surface — Beremiz fork? Svelte editor under `60-apps/ai-gftd-project-open-ot/svelte/`? **Resolved: 4diac IDE as primary** (per §3); Svelte editor for loop-level (LangGraph graph) composition and HMI is still open.
+- Engineering surface — Beremiz fork? Svelte editor under `60-apps/etzhayyim-project-open-ot/svelte/`? **Resolved: 4diac IDE as primary** (per §3); Svelte editor for loop-level (LangGraph graph) composition and HMI is still open.
 - Telemetry schema versioning — Lexicon revision strategy when EU range or quality codes evolve. Need ADR.
 - Checkpoint compaction — how often to compact `vertex_open_ot_loop_checkpoint` history; balance audit retention vs. RW storage cost.
 - Single-task scheduler tuning — whether one row in `vertex_open_ot_signal_change` triggers exactly one super-step, or coalesces signal changes within a debounce window. Bias: per-loop debounce config in `defineLoop`.
@@ -261,7 +261,7 @@ No file system, no network beyond explicit `peer:` and `io:`, no clock other tha
 
 ## 12. Hardware reference: Giemon Mimi / Te / Atama
 
-Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), body-part naming (mimi=ear / te=hand / atama=head) consistent with `ai-gftd-project-open-robo` (Giemon Otete).
+Per ADR §R1. Three reference boards under the Giemon brand (ADR-2605142200), body-part naming (mimi=ear / te=hand / atama=head) consistent with `etzhayyim-project-open-robo` (Giemon Otete).
 
 ### 12.1 Giemon Mimi (耳) — sensor RTU
 
@@ -320,7 +320,7 @@ JP-domestic per the open-robo precedent: Misumi / Meviy structure, IDEC / Bosch 
 ### 12.5 Repo layout (post-Risk-1 hardware spin)
 
 ```
-60-apps/ai-gftd-project-open-ot/
+60-apps/etzhayyim-project-open-ot/
 ├── cad-spec/
 │   ├── giemon-mimi/{schematic.kicad_sch, pcb.kicad_pcb, BOM.md}
 │   ├── giemon-te/{...}
@@ -338,7 +338,7 @@ Created only after Risk-1 PASS.
 
 Per ADR §R3. First production-class deployment — 100 kW–10 MW class community microgrid.
 
-### 13.1 Cross-link with `ai-gftd-project-open-denki`
+### 13.1 Cross-link with `etzhayyim-project-open-denki`
 
 Configuration SSoT lives in open-denki. open-ot adds **control verbs** on top:
 
@@ -351,7 +351,7 @@ Configuration SSoT lives in open-denki. open-ot adds **control verbs** on top:
 | `recordDemandResponse` | `setpointChange` writes to inverter / BESS setpoints in response |
 | `reportFault` (CIM) | `reportFault` (control-side, links to open-denki fault by `cim_fault_did`) |
 
-Implementation mode: `60-apps/ai-gftd-project-open-ot/PROTOTYPE-MICROGRID.md` written at Risk-1 PASS captures the per-asset cell DIDs, loop DIDs, and 4diac FBType library used.
+Implementation mode: `60-apps/etzhayyim-project-open-ot/PROTOTYPE-MICROGRID.md` written at Risk-1 PASS captures the per-asset cell DIDs, loop DIDs, and 4diac FBType library used.
 
 ### 13.2 Loop catalogue (target)
 
@@ -395,7 +395,7 @@ Per ADR §R4. Reference test rigs and pass/fail thresholds, restated for enginee
 | Instrumentation | DWT cycle counter at tick entry / exit; histogram bucketed at 1 µs |
 | **PASS** | p99.9 tick latency ≤ 200 µs, zero deadline misses, observed heap delta = 0 bytes after `init` |
 | **FAIL** | any deadline miss, p99.9 > 500 µs, or any heap growth after `init` |
-| Artefact | `60-apps/ai-gftd-project-open-ot/risk1/gate-a-report.md` |
+| Artefact | `60-apps/etzhayyim-project-open-ot/risk1/gate-a-report.md` |
 
 ### 14.2 Gate B — Pregel super-step latency end-to-end
 
@@ -409,7 +409,7 @@ Per ADR §R4. Reference test rigs and pass/fail thresholds, restated for enginee
 | Fault injection | 1 controller crash (kill -9 LangGraph at random t), 3 device crashes (power-cycle Mimi/Te at random t) |
 | **PASS** | super-step duration p99 ≤ 50 ms; checkpoint write p99 ≤ 100 ms; zero in-flight message loss across crashes; resume-from-checkpoint within 5 s of controller restart |
 | **FAIL** | any in-flight message loss, p99 super-step > 200 ms, or resume > 30 s |
-| Artefact | `60-apps/ai-gftd-project-open-ot/risk1/gate-b-report.md` |
+| Artefact | `60-apps/etzhayyim-project-open-ot/risk1/gate-b-report.md` |
 
 ### 14.3 Gate C — Toolchain qualification cost estimate
 
@@ -419,7 +419,7 @@ Per ADR §R4. Reference test rigs and pass/fail thresholds, restated for enginee
 | Reviewers | external industrial-cyber consultant + internal review |
 | **PASS** | estimated effort ≤ 6 person-months and no LLVM-side blocker identified |
 | **FAIL** | structural blocker (e.g., LLVM versioning policy incompatible with cyber-cert requirements) or estimate > 12 person-months |
-| Artefact | `60-apps/ai-gftd-project-open-ot/risk1/gate-c-report.md` |
+| Artefact | `60-apps/etzhayyim-project-open-ot/risk1/gate-c-report.md` |
 
 ### 14.4 Gate-failure decision matrix
 

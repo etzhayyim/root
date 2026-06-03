@@ -81,7 +81,7 @@ Edge controller. Hosts the LangGraph Pregel orchestrator (CPython 3.11+ / Grania
 
 | Layer | Component | Notes |
 |---|---|---|
-| OS | NixOS 25.05 + linuxPackages_rt (PREEMPT_RT 6.6 LTS) | Declarative config under `60-apps/ai-gftd-project-open-ot/nixos/atama/` post-Risk-1 |
+| OS | NixOS 25.05 + linuxPackages_rt (PREEMPT_RT 6.6 LTS) | Declarative config under `60-apps/etzhayyim-project-open-ot/nixos/atama/` post-Risk-1 |
 | Runtime | CPython 3.11+ / Granian / LangGraph + Wasmtime | Pregel orchestrator + tier-2 cells |
 | Persistence | RisingWave checkpointer client (asyncpg, SQLAlchemy Core per ADR-2605080300) | Writes `vertex_open_ot_loop_checkpoint` |
 | Substrate | Zenoh router (zenohd) | Aggregates field Zenoh-Pico publishers; exposes OPC UA FX bridge |

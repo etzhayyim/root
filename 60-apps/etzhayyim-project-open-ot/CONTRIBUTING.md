@@ -2,7 +2,7 @@
 
 ## Where this code lives
 
-`open-ot` currently develops inside the `etzhayyim/etzhayyim-root` monorepo at `60-apps/ai-gftd-project-open-ot/`. A standalone OSS repo (`etzhayyim/ai-gftd-project-open-ot`) is planned for split after **Risk-1 PASS** (per ADR-2605151200 §R4, target Q3 2026).
+`open-ot` currently develops inside the `etzhayyim/etzhayyim-root` monorepo at `60-apps/etzhayyim-project-open-ot/`. A standalone OSS repo (`etzhayyim/etzhayyim-project-open-ot`) is planned for split after **Risk-1 PASS** (per ADR-2605151200 §R4, target Q3 2026).
 
 Until split, all contributions go through the monorepo: open issues against `etzhayyim/etzhayyim-root` with the label `area/open-ot`. The same Apache-2.0 license applies.
 
@@ -12,18 +12,18 @@ When the standalone repo is created, it will export the following subset:
 
 | In monorepo | In split repo |
 |---|---|
-| `60-apps/ai-gftd-project-open-ot/{README,CLAUDE,SPEC,PROTOTYPE-MICROGRID,LICENSE,OWNERS}.md` | root |
-| `60-apps/ai-gftd-project-open-ot/cad-spec/` | `cad-spec/` |
-| `60-apps/ai-gftd-project-open-ot/cells/` | `cells/` |
+| `60-apps/etzhayyim-project-open-ot/{README,CLAUDE,SPEC,PROTOTYPE-MICROGRID,LICENSE,OWNERS}.md` | root |
+| `60-apps/etzhayyim-project-open-ot/cad-spec/` | `cad-spec/` |
+| `60-apps/etzhayyim-project-open-ot/cells/` | `cells/` |
 | `00-contracts/lexicons/com/etzhayyim/apps/openOt/` | `lexicons/openOt/` |
 | `90-docs/adr/2605151200-open-ot-wasm-plc-dlc.md` | `docs/adr/0001-open-ot.md` |
 
-Internal-only files (gftd platform conventions, `deps.toml`, registry sidecars) will **not** be exported. The split is one-way (monorepo → standalone); upstream changes flow back through PR.
+Internal-only files (etzhayyim platform conventions, `deps.toml`, registry sidecars) will **not** be exported. The split is one-way (monorepo → standalone); upstream changes flow back through PR.
 
 ## Build & test
 
 ```bash
-cd 60-apps/ai-gftd-project-open-ot/cells
+cd 60-apps/etzhayyim-project-open-ot/cells
 cargo test --workspace                                          # 15 unit tests, host
 cargo build --release --no-default-features --target wasm32-wasi # embedded
 ```
@@ -56,14 +56,14 @@ repos:
         name: open-ot Lexicon × manifest validator
         entry: python3 70-tools/scripts/open-ot/validate-cell-abi.py
         language: system
-        files: ^(60-apps/ai-gftd-project-open-ot/cells/.*/manifest\.json|00-contracts/lexicons/com/etzhayyim/apps/openOt/.*\.json)$
+        files: ^(60-apps/etzhayyim-project-open-ot/cells/.*/manifest\.json|00-contracts/lexicons/com/etzhayyim/apps/openOt/.*\.json)$
         pass_filenames: false
 
       - id: open-ot-codegen-check
         name: open-ot generated packers up to date
         entry: python3 70-tools/scripts/open-ot/codegen-cell-types.py --check
         language: system
-        files: ^60-apps/ai-gftd-project-open-ot/cells/.*/manifest\.json$
+        files: ^60-apps/etzhayyim-project-open-ot/cells/.*/manifest\.json$
         pass_filenames: false
 ```
 
