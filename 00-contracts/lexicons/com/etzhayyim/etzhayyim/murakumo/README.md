@@ -2,7 +2,7 @@
 
 Vendor-authored (etzhayyim.com) lexicons that the religious-corp (etzhayyim) substrate borrows for its murakumo distributed cluster (per the `com.etzhayyim.*` shared-namespace pattern in `etzhayyim/root`).
 
-## Migration verdicts (2026-05-21, gftd murakumo → etzhayyim)
+## Migration verdicts (2026-05-21, etzhayyim murakumo → etzhayyim)
 
 | Lexicon | Verdict | Adaptation |
 |---|---|---|

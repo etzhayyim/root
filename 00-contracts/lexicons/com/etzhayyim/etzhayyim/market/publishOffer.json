@@ -17,7 +17,7 @@
             },
             "issuerDid": {
               "type": "string",
-              "description": "did:erc725:gftd:260425:{lane} — must match lane's registered issuer"
+              "description": "did:erc725:etzhayyim:260425:{lane} — must match lane's registered issuer"
             },
             "title": { "type": "string", "maxLength": 240 },
             "description": { "type": "string", "maxLength": 4000 },
