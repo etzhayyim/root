@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_organizer_remove_tag" targetNamespace="https://gftd.ai/bpmn/organizer">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_organizer_remove_tag" targetNamespace="https://etzhayyim.ai/bpmn/organizer">
   <bpmn:process id="organizer_remove_tag" name="organizer.removeTag" isExecutable="true">
     <bpmn:startEvent id="Start">
       <bpmn:outgoing>Flow_Start_Task</bpmn:outgoing>
