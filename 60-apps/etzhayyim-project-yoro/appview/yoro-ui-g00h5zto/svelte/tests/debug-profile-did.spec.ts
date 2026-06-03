@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Debug: profile page error for did:web:atproto.etzhayyim.com:user:m9r4k8m0-gftd-ai
+ * Debug: profile page error for did:web:atproto.etzhayyim.com:user:m9r4k8m0-etzhayyim-ai
  */
 
-const TARGET_URL = '/profile/did%3Aweb%3Aatproto.etzhayyim.com%3Auser%3Am9r4k8m0-gftd-ai';
-const DECODED_DID = 'did:web:atproto.etzhayyim.com:user:m9r4k8m0-gftd-ai';
+const TARGET_URL = '/profile/did%3Aweb%3Aatproto.etzhayyim.com%3Auser%3Am9r4k8m0-etzhayyim-ai';
+const DECODED_DID = 'did:web:atproto.etzhayyim.com:user:m9r4k8m0-etzhayyim-ai';
 
 test.describe('Debug: profile did:web:atproto.etzhayyim.com:user:*', () => {
 	test('capture page errors and network failures', async ({ page }) => {

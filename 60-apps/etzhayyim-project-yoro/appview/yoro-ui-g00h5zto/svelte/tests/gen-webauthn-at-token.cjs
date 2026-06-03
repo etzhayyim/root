@@ -63,17 +63,17 @@ function log(...args) {
     await startFreeBtn.waitFor({ timeout: 15_000 });
     await startFreeBtn.click();
 
-    await page.waitForURL(/yoro\.gftd\.ai/i, { timeout: 30_000 });
+    await page.waitForURL(/yoro\.etzhayyim\.ai/i, { timeout: 30_000 });
     await page.waitForTimeout(3000);
 
     const session = await page.evaluate(() => {
-      const raw = localStorage.getItem('gftd-auth-session');
+      const raw = localStorage.getItem('etzhayyim-auth-session');
       return raw ? JSON.parse(raw) : null;
     });
 
     const accessJwt = session && session.accessJwt ? String(session.accessJwt) : '';
     if (!accessJwt) {
-      throw new Error('WebAuthn completed but accessJwt was not found in gftd-auth-session');
+      throw new Error('WebAuthn completed but accessJwt was not found in etzhayyim-auth-session');
     }
 
     const payload = {

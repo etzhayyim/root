@@ -9,7 +9,7 @@
  */
 import { test, expect } from "@playwright/test";
 
-const KAGAMI_URL = "https://ai-gftd-kagami-2604021830.04-feasts-minded.workers.dev";
+const KAGAMI_URL = "https://etzhayyim-kagami-2604021830.04-feasts-minded.workers.dev";
 const YORO_URL = "https://yoro.etzhayyim.com";
 
 test.describe("Feed E2E Debug", () => {
