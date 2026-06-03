@@ -85,12 +85,12 @@
   }
 
   async function handleSignIn() {
-    await initClerk({ publishableKey: '', accountsBaseUrl: accountsBaseUrl() }).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/Header.svelte: suppressed async error", error); });
+    await initClerk({ publishableKey: '', accountsBaseUrl: accountsBaseUrl() }).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/Header.svelte: suppressed async error", error); });
     await signIn();
   }
 
   async function handleClerkSignUp() {
-    await initClerk({ publishableKey: '', accountsBaseUrl: accountsBaseUrl() }).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/Header.svelte: suppressed async error", error); });
+    await initClerk({ publishableKey: '', accountsBaseUrl: accountsBaseUrl() }).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/Header.svelte: suppressed async error", error); });
     await signUp();
   }
 

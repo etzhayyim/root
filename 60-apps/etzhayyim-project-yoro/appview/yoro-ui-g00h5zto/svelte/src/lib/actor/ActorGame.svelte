@@ -3,7 +3,7 @@
 	 * ActorGame — game mode renderer.
 	 *
 	 * Loads Godot or HTML games via assets served from /_game/assets/*,
-	 * sets up the JS bridge (window.gftdBridgeSend → /api/game/{convo}),
+	 * sets up the JS bridge (window.etzhayyimBridgeSend → /api/game/{convo}),
 	 * and renders a floating leaderboard overlay during gameplay.
 	 */
 	import { onMount, onDestroy } from 'svelte';
@@ -45,7 +45,7 @@
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ action: 'submit', score }),
-		}).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorGame.svelte: suppressed async error", error); });
+		}).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorGame.svelte: suppressed async error", error); });
 	}
 
 	onMount(async () => {
@@ -57,15 +57,15 @@
 
 		cleanupBridge = setupGameBridge(appBaseUrl);
 
-		const origReceive = window.gftdBridgeReceive;
-		window.gftdBridgeReceive = (json: string) => {
+		const origReceive = window.etzhayyimBridgeReceive;
+		window.etzhayyimBridgeReceive = (json: string) => {
 			origReceive?.(json);
 			try {
 				const msg = JSON.parse(json);
 				if (msg.convo === 'score' && typeof msg.payload?.value === 'number') {
 					updateScore(msg.payload.value);
 				}
-			} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorGame.svelte: suppressed error", error); }
+			} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorGame.svelte: suppressed error", error); }
 		};
 
 		(window as any).onGameScore = (score: number) => updateScore(score);
@@ -85,7 +85,7 @@
 					].sort((a, b) => b.score - a.score);
 				}
 			}
-		} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorGame.svelte: suppressed error", error); }
+		} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorGame.svelte: suppressed error", error); }
 
 		if (runtime === 'html') {
 			loading = false;

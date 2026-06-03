@@ -63,7 +63,7 @@
 				}
 				// Track view impressions
 				if (items.length > 0) {
-					void sendInteractions(items.map(fi => ({ uri: fi.post.uri, event: 'view' as const }))).catch((error) => { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorFeedList.svelte: suppressed async error", error); });
+					void sendInteractions(items.map(fi => ({ uri: fi.post.uri, event: 'view' as const }))).catch((error) => { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorFeedList.svelte: suppressed async error", error); });
 				}
 			}
 			cursor = res.cursor;
