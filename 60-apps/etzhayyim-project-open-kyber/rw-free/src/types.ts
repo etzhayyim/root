@@ -7,7 +7,7 @@
  * CUI / LE may migrate to etzhayyim when made safe via kotoba E2E.
  *
  * SPLIT (designed from the real ERP surface in
- * ai-gftd-wasm-kyber-erp-kyb3rerp/src/app.ts):
+ * etzhayyim-wasm-kyber-erp-kyb3rerp/src/app.ts):
  *
  *   PUBLIC (plaintext AT records)
  *     - account            chart-of-accounts reference data (code/name/type).
@@ -23,12 +23,12 @@
  *                          recipients, e.g. the HR department DID). The substrate
  *                          never sees salary / personal contact in plaintext.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection)
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection)
  *     - usage metering toward the fiat merchant-of-record settlement EXECUTION.
  *     - warehouse / edge persistence + APQC OCEL projector streaming-view
  *       EXECUTION (the regulated act of running the substrate, not the records).
  *     The resulting DATA records migrate (plaintext above / E2E above); only the
- *     EXECUTION stays gftd.
+ *     EXECUTION stays etzhayyim.
  *
  * AT-Lexicon: no float. Money (account balances, salary) carried as decimal
  * STRINGS; counts are integers.

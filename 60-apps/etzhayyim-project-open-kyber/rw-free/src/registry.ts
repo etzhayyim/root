@@ -9,7 +9,7 @@
  * never sees salary or personal contact in plaintext.
  *
  * Fiat merchant-of-record usage metering + warehouse/edge persistence EXECUTION
- * stay gftd, consumed via consent-capability (not collections here).
+ * stay etzhayyim, consumed via consent-capability (not collections here).
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";
