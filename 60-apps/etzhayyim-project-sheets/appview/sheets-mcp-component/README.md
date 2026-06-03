@@ -14,7 +14,7 @@ This component exposes Sheets MCP endpoints on `/api/mcp` and `/{nanoid}/api/mcp
 ## Required Environment
 
 - `CLERK_JWKS_URL`
-- `REGISTRY_GET_PERFORMER_URL` (default: `http://r3g1stry.ai-gftd-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4.svc.cluster.local:8080/get-performer`)
+- `REGISTRY_GET_PERFORMER_URL` (default: `http://r3g1stry.etzhayyim-performers-org-org_34dKrNTTK3cNixZzHIzzFwLw1s4.svc.cluster.local:8080/get-performer`)
 
 ## Optional Environment
 
@@ -30,7 +30,7 @@ This component exposes Sheets MCP endpoints on `/api/mcp` and `/{nanoid}/api/mcp
 ## Build
 
 ```bash
-gftd build
+etzhayyim build
 ```
 
 ## Deploy

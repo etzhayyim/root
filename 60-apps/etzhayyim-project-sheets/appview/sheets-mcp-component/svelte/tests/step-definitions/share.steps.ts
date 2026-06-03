@@ -27,7 +27,7 @@ When('権限を {string} に設定する', async function (this: CustomWorld, pe
     '編集可能': 'edit',
     '管理者': 'admin',
   };
-  
+
   const permissionValue = permissionMap[permission] || permission;
   await this.page.selectOption('select[name="permission"]', permissionValue);
 });
@@ -35,10 +35,10 @@ When('権限を {string} に設定する', async function (this: CustomWorld, pe
 When('ユーザーA がセル {word} に {string} と入力する', async function (this: CustomWorld, cellRef: string, value: string) {
   const match = cellRef.match(/^([A-Z]+)(\d+)$/);
   if (!match) throw new Error(`Invalid cell reference: ${cellRef}`);
-  
+
   const col = match[1].charCodeAt(0) - 'A'.charCodeAt(0);
   const row = parseInt(match[2], 10) - 1;
-  
+
   const cellSelector = `[data-row="${row}"][data-col="${col}"]`;
   await this.page.click(cellSelector);
   await this.page.keyboard.type(value);
@@ -48,10 +48,10 @@ When('ユーザーA がセル {word} に {string} と入力する', async functi
 When('ユーザーA がセル {word} をクリックする', async function (this: CustomWorld, cellRef: string) {
   const match = cellRef.match(/^([A-Z]+)(\d+)$/);
   if (!match) throw new Error(`Invalid cell reference: ${cellRef}`);
-  
+
   const col = match[1].charCodeAt(0) - 'A'.charCodeAt(0);
   const row = parseInt(match[2], 10) - 1;
-  
+
   const cellSelector = `[data-row="${row}"][data-col="${col}"]`;
   await this.page.click(cellSelector);
 });
@@ -61,9 +61,9 @@ Then('共有成功メッセージが表示される', async function (this: Cust
 });
 
 Then('{int}秒以内にユーザーB の画面でセル {word} に {string} が表示される', async function (
-  this: CustomWorld, 
-  seconds: number, 
-  cellRef: string, 
+  this: CustomWorld,
+  seconds: number,
+  cellRef: string,
   expectedValue: string
 ) {
   // In a real test, this would check a second browser context
@@ -74,18 +74,3 @@ Then('ユーザーB の画面でユーザーA のカーソルがセル {word} �
   // In a real test, this would check cursor presence in a second browser context
   this.attach(`Cursor verification: User A cursor should be visible at ${cellRef}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

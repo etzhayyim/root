@@ -10,9 +10,9 @@ When('インポートボタンをクリックする', async function (this: Cust
 When('{string} ファイルを選択する', async function (this: CustomWorld, filename: string) {
   // Set up file chooser listener before clicking
   const fileChooserPromise = this.page.waitForEvent('filechooser');
-  
+
   await this.page.getByRole('button', { name: /ファイルを選択|Choose file/i }).click();
-  
+
   const fileChooser = await fileChooserPromise;
   const testFilePath = path.join(__dirname, '..', 'fixtures', filename);
   await fileChooser.setFiles(testFilePath);
@@ -28,7 +28,7 @@ When('メニューから {string} を選択する', async function (this: Custom
   if (await menuButton.isVisible()) {
     await menuButton.click();
   }
-  
+
   await this.page.getByRole('menuitem', { name: menuItem }).click();
 });
 
@@ -73,18 +73,3 @@ Then('PDF ファイルがダウンロードされる', async function (this: Cus
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/\.pdf$/);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

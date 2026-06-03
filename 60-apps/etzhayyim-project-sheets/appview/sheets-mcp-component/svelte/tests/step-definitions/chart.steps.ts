@@ -3,18 +3,18 @@ import { expect } from '@playwright/test';
 import { CustomWorld } from '../support/world';
 
 Given('セル {word}:{word} に以下のデータが入力されている:', async function (
-  this: CustomWorld, 
-  startCell: string, 
-  endCell: string, 
+  this: CustomWorld,
+  startCell: string,
+  endCell: string,
   dataTable: DataTable
 ) {
   const rows = dataTable.raw();
   const startMatch = startCell.match(/^([A-Z]+)(\d+)$/);
   if (!startMatch) throw new Error(`Invalid cell reference: ${startCell}`);
-  
+
   const startCol = startMatch[1].charCodeAt(0) - 'A'.charCodeAt(0);
   const startRow = parseInt(startMatch[2], 10) - 1;
-  
+
   for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
     for (let colIdx = 0; colIdx < rows[rowIdx].length; colIdx++) {
       const cellSelector = `[data-row="${startRow + rowIdx}"][data-col="${startCol + colIdx}"]`;
@@ -49,7 +49,7 @@ When('グラフタイプ {string} を選択する', async function (this: Custom
     '散布図': 'scatter',
     '面グラフ': 'area',
   };
-  
+
   const typeValue = chartTypeMap[chartType] || chartType;
   await this.page.getByRole('option', { name: chartType }).click()
     .catch((_err: unknown) => this.page.click(`[data-chart-type="${typeValue}"]`));
@@ -66,10 +66,10 @@ When('タイトルを {string} に変更する', async function (this: CustomWor
 When('{string} の値を {string} に変更する', async function (this: CustomWorld, cellRef: string, value: string) {
   const match = cellRef.match(/^([A-Z]+)(\d+)$/);
   if (!match) throw new Error(`Invalid cell reference: ${cellRef}`);
-  
+
   const col = match[1].charCodeAt(0) - 'A'.charCodeAt(0);
   const row = parseInt(match[2], 10) - 1;
-  
+
   const cellSelector = `[data-row="${row}"][data-col="${col}"]`;
   await this.page.dblclick(cellSelector);
   await this.page.keyboard.press('Control+A');
@@ -98,18 +98,3 @@ Then('グラフの {string} の棒が更新される', async function (this: Cus
   // We'll check that the chart still exists and has the label
   this.attach(`Chart update verification for label: ${label}`);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

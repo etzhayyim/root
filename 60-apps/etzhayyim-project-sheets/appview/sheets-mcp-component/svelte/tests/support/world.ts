@@ -20,7 +20,7 @@ export class CustomWorld extends World {
       viewport: { width: 1280, height: 720 },
     });
     this.page = await this.context.newPage();
-    
+
     // Log browser messages
     this.page.on('console', (msg) => {
       if (msg.type() === 'error') console.log(`[BROWSER ERROR] ${msg.text()}`);

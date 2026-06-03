@@ -1,11 +1,11 @@
-package gftd
+package etzhayyim
 
 project: #Project & {
 	nanoid: "7ratoixl"
 	name:   "sheets-app-\(nanoid)"
 	type:   "app"
 	app: {
-		domain:     "sheets.apps.gftd.ai"
+		domain:     "sheets.apps.etzhayyim.com"
 		framework:  "svelte"
 		output_dir: "build"
 	}
