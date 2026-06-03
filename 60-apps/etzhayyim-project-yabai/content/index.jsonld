@@ -3,7 +3,7 @@
   "@type": "Dataset",
   "@id": "https://yabai.etzhayyim.com/content/index",
   "generatedAt": "2026-03-16T12:15:44Z",
-  "resourceRoot": "/Users/junkawasaki/etzhayyim/etzhayyim-root/projects/ai-gftd-project-resources/content",
+  "resourceRoot": "/Users/junkawasaki/etzhayyim/etzhayyim-root/projects/etzhayyim-project-resources/content",
   "entityCount": 469,
   "evidenceCount": 464,
   "riskCount": 469,

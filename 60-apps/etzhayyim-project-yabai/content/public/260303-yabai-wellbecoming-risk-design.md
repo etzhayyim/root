@@ -1,4 +1,4 @@
-# ai-gftd-project-yabai 設計
+# etzhayyim-project-yabai 設計
 
 Date: 2026-03-03
 Scope: 反社会性勢力、AML、メールアドレス、法人、ウェブサイト、個人名の分析と公開を行う基盤設計。
