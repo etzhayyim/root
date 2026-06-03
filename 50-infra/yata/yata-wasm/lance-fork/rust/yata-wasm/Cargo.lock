@@ -1122,7 +1122,7 @@ dependencies = [
  "mock_instant",
  "moka",
  "num_cpus",
- "object_store 0.11.2",
+ "object_store",
  "pin-project",
  "prost",
  "rand",
@@ -1198,7 +1198,7 @@ dependencies = [
  "lance-io",
  "log",
  "num-traits",
- "object_store 0.11.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
@@ -1233,7 +1233,7 @@ dependencies = [
  "lance-core",
  "lazy_static",
  "log",
- "object_store 0.11.2",
+ "object_store",
  "path_abs",
  "pin-project",
  "prost",
@@ -1266,8 +1266,7 @@ dependencies = [
  "lance-file",
  "lance-io",
  "log",
- "object_store 0.11.2",
- "object_store 0.13.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
@@ -1560,27 +1559,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff76201f031d8863c38aa7f905eca4f53abbfa15f609db4277d44cd8938f33fe"
 dependencies = [
  "memchr",
-]
-
-[[package]]
-name = "object_store"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cfccb68961a56facde1163f9319e0d15743352344e7808a11795fb99698dcaf"
-dependencies = [
- "async-trait",
- "bytes",
- "chrono",
- "futures",
- "humantime",
- "itertools 0.13.0",
- "parking_lot",
- "percent-encoding",
- "snafu",
- "tokio",
- "tracing",
- "url",
- "walkdir",
 ]
 
 [[package]]
@@ -2403,9 +2381,9 @@ checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
 name = "uuid"
-version = "1.23.0"
+version = "1.23.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5ac8b6f42ead25368cf5b098aeb3dc8a1a2c05a3eee8a9a1a68c640edbfc79d9"
+checksum = "d258b83ceec21034727ecee8c382cfa6c3e133699b0742c64571814fb420c9f7"
 dependencies = [
  "getrandom 0.4.2",
  "js-sys",
@@ -2836,7 +2814,7 @@ dependencies = [
  "lance-file",
  "lance-io",
  "lance-table",
- "object_store 0.13.2",
+ "object_store",
  "prost",
  "prost-build",
  "prost-types",
