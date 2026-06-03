@@ -43,6 +43,23 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — public index generator loads the FULL atlas (publish path E2E-validated)
+
+Third and final wiring fix (after the read client #1057 + ingest #1058): the public
+index generator `50-infra/etzhayyim-did-web/scripts/gen-gov-atlas-index.mjs` (which
+builds `/.well-known/gov-units.json`) hardcoded the 2 seed files for ooyake units →
+the published index would carry ~28 ooyake units. Changed to glob **all
+`gov-units*.edn`**, and — respecting the constitutional publish gate — emit every unit
+`:representative` in the published index, promoting ONLY the Council bootstrap-attested
+`gov.jpn.(pref|city).*` backbone to `:authoritative`.
+
+Result, validated **end-to-end for the first time** (generator → `validate_atlas.py`):
+a **7,684-unit / 203-jurisdiction** public index (1.6 MiB); parent-refs 7,684/7,684
+resolve; **authoritative scope = 118 units, all in the JP pref/city backbone (check #5
+✓)**; 7,566 `:representative`. The read (client), write (kotoba ingest), and publish
+(/.well-known index) paths now ALL project the full atlas — the build artifact stays
+gitignored and the KV deploy remains operator-gated.
+
 ## 2026-06-04 — ingest pipeline loads the FULL atlas (operator write path)
 
 Same class of fix as the read client: `deploy/ingest_records.py` (the operator write
