@@ -1279,22 +1279,6 @@
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.usa.environment"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:ministry:environment"
-   :gov.unit/parent "gov.usa"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "usa"
-   :gov.unit/name-en "Puerto Rico Department of Natural and Environmental Resources"
-   :gov.unit/official-url "http://www.drna.gobierno.pr/"
-   :gov.unit/wikidata "Q3708665"
-   :gov.unit/cofog ["05"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.drna.gobierno.pr/"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.ven.environment"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ven:ministry:environment"
    :gov.unit/parent "gov.ven"

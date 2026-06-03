@@ -93,29 +93,6 @@
    :gov.unit/provenance "http://www.oep.org.bo/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.bra.electoral"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:bra:agency:electoral-commission"
-   :gov.unit/parent "gov.bra"
-   :gov.unit/level :agency :gov.unit/branch :independent
-   :gov.unit/jurisdiction "bra"
-   :gov.unit/name-en "Regional Electoral Courts"
-   :gov.unit/wikidata "Q7309051"
-   :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q7309051" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
-  {:gov.unit/id "gov.can.electoral"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:can:agency:electoral-commission"
-   :gov.unit/parent "gov.can"
-   :gov.unit/level :agency :gov.unit/branch :independent
-   :gov.unit/jurisdiction "can"
-   :gov.unit/name-en "Chief Electoral Officer of Quebec"
-   :gov.unit/official-url "http://www.electionsquebec.qc.ca/"
-   :gov.unit/wikidata "Q3029440"
-   :gov.unit/cofog ["01.1"] :gov.unit/status :active :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "http://www.electionsquebec.qc.ca/" :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.chl.electoral"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:chl:agency:electoral-commission"
    :gov.unit/parent "gov.chl"

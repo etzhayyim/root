@@ -43,6 +43,19 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — data-quality audit + correction (sub-national de-noising)
+
+New `scripts/quality_audit.py` (wired into `run_tests.sh`) scans national-level bodies
+for high-precision sub-national/historical signals in their names — the noise the bulk
+Wikidata class-pulls occasionally introduced. The first pass flagged 13 genuine
+mis-typings (a county DA tagged as USA's prosecutor, NSW justice as Australia's,
+Quebec/Hong-Kong/Northern-Ireland/Scotland/California/Puerto-Rico/Hesse/Faisalabad
+bodies as their nations', Brazil's *regional* electoral courts). All 13 were **removed**
+(a country lacking that body type is more honest than a wrong national claim), plus
+their 9 orphaned HQ addresses. Audit is now **clean (0 flagged)**. GeoJSON + COVERAGE.md
+regenerated. Atlas **7,012 units / 55 files, 7,010 QIDs all unique, 7,008
+:authoritative**.
+
 ## 2026-06-04 — national libraries + validate_atlas skip-fix
 
 - **`gov-units.libraries.edn`**: **155 national libraries** (Wikidata P31 `Q22806`,

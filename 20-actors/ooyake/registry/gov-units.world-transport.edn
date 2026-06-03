@@ -1051,21 +1051,6 @@
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.pak.transport"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:pak:ministry:transport"
-   :gov.unit/parent "gov.pak"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "pak"
-   :gov.unit/name-en "Regional Transport Authority Faisalabad"
-   :gov.unit/wikidata "Q111809659"
-   :gov.unit/cofog ["04.5"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://www.wikidata.org/wiki/Q111809659"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.per.transport"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:per:ministry:transport"
    :gov.unit/parent "gov.per"

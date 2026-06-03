@@ -119,22 +119,6 @@
    :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :maintainer-verified}
 
-  {:gov.unit/id "gov.aus.justice"
-   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aus:ministry:justice"
-   :gov.unit/parent "gov.aus"
-   :gov.unit/level :ministry
-   :gov.unit/branch :executive
-   :gov.unit/jurisdiction "aus"
-   :gov.unit/name-en "New South Wales Department of Communities & Justice"
-   :gov.unit/official-url "https://dcj.nsw.gov.au/"
-   :gov.unit/wikidata "Q116777048"
-   :gov.unit/cofog ["03.3"]
-   :gov.unit/status :active
-   :gov.unit/sourcing :authoritative
-   :gov.unit/provenance "https://dcj.nsw.gov.au/"
-   :gov.unit/last-verified "2026-06-03"
-   :gov.unit/verification-status :maintainer-verified}
-
   {:gov.unit/id "gov.aut.justice"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aut:ministry:justice"
    :gov.unit/parent "gov.aut"
