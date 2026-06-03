@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Ai etzhayyim Project Vehicle",
-  "project": "ai-gftd-project-vehicle",
-  "name": "ai-gftd-project-vehicle",
+  "project": "etzhayyim-project-vehicle",
+  "name": "etzhayyim-project-vehicle",
   "kind": "cloudflare surface",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-vehicle/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-vehicle/svelte/src/routes/+page.svelte"
 };
 </script>
 

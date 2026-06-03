@@ -1,4 +1,4 @@
-# ai-gftd-project-vehicle
+# etzhayyim-project-vehicle
 
 Vehicle ownership registry for vehicle.etzhayyim.com — vehicle registration, ownership transfer, inspection records. SQL graph: `(:VehicleOwner)-[:OWNS]->(:Vehicle)`, `(:InspectionRecord)-[:INSPECTS]->(:Vehicle)`.
 
@@ -6,9 +6,9 @@ Vehicle ownership registry for vehicle.etzhayyim.com — vehicle registration, o
 
 ```
 Browser → vehicle.etzhayyim.com (appview mode)
-       → API → /gftd.vehicle.v1.VehicleCommandService/... + /gftd.vehicle.v1.VehicleQueryService/...
+       → API → /etzhayyim.vehicle.v1.VehicleCommandService/... + /etzhayyim.vehicle.v1.VehicleQueryService/...
                   ↓
-           App: ai-gftd-wasm-vehicle-vh1cl3rk
+           App: etzhayyim-wasm-vehicle-vh1cl3rk
              ├─ register_vehicle / update_vehicle / change_status
              ├─ register_owner / transfer_ownership
              ├─ record_inspection / check_inspection_status
@@ -19,7 +19,7 @@ Browser → vehicle.etzhayyim.com (appview mode)
 
 | Component | Folder | Role |
 |---|---|---|
-| vehicle-api | `wasm/ai-gftd-wasm-vehicle-vh1cl3rk/` | XRPC API (appview, zero frontend) |
+| vehicle-api | `wasm/etzhayyim-wasm-vehicle-vh1cl3rk/` | XRPC API (appview, zero frontend) |
 
 ## SQL Graph
 
@@ -48,7 +48,7 @@ Browser → vehicle.etzhayyim.com (appview mode)
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-vehicle/wasm/ai-gftd-wasm-vehicle-vh1cl3rk
-gftd build
-gftd deploy --smoke-url https://vh1cl3rk.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-vehicle/wasm/etzhayyim-wasm-vehicle-vh1cl3rk
+etzhayyim build
+etzhayyim deploy --smoke-url https://vh1cl3rk.etzhayyim.com/health
 ```

@@ -15,7 +15,7 @@
     "APP_FRAMEWORK": "sveltekit-edge-bff",
     "APP_NANOID": "v3h1cl01",
     "APP_PERFORMER_TYPE": "service",
-    "APP_SOURCE": "60-apps/ai-gftd-project-vehicle",
+    "APP_SOURCE": "60-apps/etzhayyim-project-vehicle",
     "APP_TEMPLATE": "ts-thin-edge-yoro",
     "APP_UI_TYPE": "yoro",
     "APP_VERSION": "0.1.0",

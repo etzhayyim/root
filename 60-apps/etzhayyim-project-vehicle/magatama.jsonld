@@ -12,7 +12,7 @@
     "description": "Automotive manufacturing package, supply process, responsibility, LEI entity, person, and patent graph agent [AI Agent — unofficial, not affiliated with the real organization]",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "category": "manufacturing",
     "capabilities": [
       "bpmn-dispatch",
@@ -53,7 +53,7 @@
     "roles": [
       {
         "role": "responsible",
-        "did": "did:web:gftd.co.jp",
+        "did": "did:web:etzhayyim.com",
         "description": "Maintains the vehicle manufacturing graph app metadata and public seed contracts."
       }
     ]
@@ -79,9 +79,9 @@
   "template": "ts-thin-edge-yoro",
   "build": {
     "framework": "ts-thin-edge",
-    "edge": "60-apps/ai-gftd-project-vehicle/src/app.ts",
+    "edge": "60-apps/etzhayyim-project-vehicle/src/app.ts",
     "businessLogic": "20-actors/magatama/py/src/pymagatama/ingest/vehicle.py",
     "bpmn": "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/vehicle"
   },
-  "source": "60-apps/ai-gftd-project-vehicle"
+  "source": "60-apps/etzhayyim-project-vehicle"
 }
