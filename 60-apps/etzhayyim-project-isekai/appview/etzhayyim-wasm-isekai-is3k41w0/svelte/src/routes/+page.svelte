@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Isekai Is3k41w0",
-  "project": "ai-gftd-project-isekai",
-  "name": "ai-gftd-wasm-isekai-is3k41w0",
+  "project": "etzhayyim-project-isekai",
+  "name": "etzhayyim-wasm-isekai-is3k41w0",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-isekai/appview/ai-gftd-wasm-isekai-is3k41w0/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-isekai/appview/etzhayyim-wasm-isekai-is3k41w0/svelte/src/routes/+page.svelte"
 };
 </script>
 
