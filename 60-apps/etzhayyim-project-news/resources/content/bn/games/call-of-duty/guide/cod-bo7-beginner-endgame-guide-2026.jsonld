@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:cod-bo7-beginner-endgame-guide-2026",
+  "@id": "urn:etzhayyim:news:cod-bo7-beginner-endgame-guide-2026",
   "identifier": "cod-bo7-beginner-endgame-guide-2026",
   "headline": "『CoD: Black Ops 7』初心者攻略｜終盤戦（エンドゲーム）で勝ち切る判断と動き方",
   "description": "『Call of Duty: Black Ops 7』の終盤戦で勝率を上げるために、人数有利の作り方、キルストリーク管理、残り時間別の判断を解説。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-15T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

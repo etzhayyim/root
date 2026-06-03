@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:cod-bo7-beginner-weapons-guide-2026",
+  "@id": "urn:etzhayyim:news:cod-bo7-beginner-weapons-guide-2026",
   "identifier": "cod-bo7-beginner-weapons-guide-2026",
   "headline": "『CoD: Black Ops 7』初心者攻略｜武器別おすすめクラスと立ち回り入門",
   "description": "『Call of Duty: Black Ops 7』を始めたばかりの方向けに、AR・SMG・SR・LMG・SGの使い分けとおすすめ構成をわかりやすく解説。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-15T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

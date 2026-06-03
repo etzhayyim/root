@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:call-of-duty-character-gaz-symbolism-2026",
+  "@id": "urn:etzhayyim:news:call-of-duty-character-gaz-symbolism-2026",
   "identifier": "call-of-duty-character-gaz-symbolism-2026",
   "headline": "Gaz symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Gaz and how they map onto Call of Duty’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

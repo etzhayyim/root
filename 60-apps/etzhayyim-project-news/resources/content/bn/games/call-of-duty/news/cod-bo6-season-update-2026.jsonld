@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:cod-bo6-season-update-2026",
+  "@id": "urn:etzhayyim:news:cod-bo6-season-update-2026",
   "identifier": "cod-bo6-season-update-2026",
   "headline": "『CoD: ブラックオプス6』シーズン4開幕 ― 新マップ3種とオムニムーブメント強化が実装",
   "description": "Treyarchは『Call of Duty: Black Ops 6』シーズン4を開始。新マルチプレイヤーマップ3種、武器バランス調整、ゾンビモードの大型アップデートが含まれる。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

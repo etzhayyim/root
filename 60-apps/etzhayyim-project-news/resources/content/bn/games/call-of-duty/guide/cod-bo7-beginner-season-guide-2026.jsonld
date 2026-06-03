@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:cod-bo7-beginner-season-guide-2026",
+  "@id": "urn:etzhayyim:news:cod-bo7-beginner-season-guide-2026",
   "identifier": "cod-bo7-beginner-season-guide-2026",
   "headline": "『CoD: Black Ops 7』初心者攻略｜シーズン別にやるべきこと完全ガイド",
   "description": "『Call of Duty: Black Ops 7』のシーズン序盤・中盤・終盤で優先すべき育成、装備更新、イベント消化の進め方を初心者向けに解説。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-15T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

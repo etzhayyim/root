@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:cod-bo6-weapons-tier-2026",
+  "@id": "urn:etzhayyim:news:cod-bo6-weapons-tier-2026",
   "identifier": "cod-bo6-weapons-tier-2026",
   "headline": "『CoD: ブラックオプス6』シーズン4武器ティアリスト ― 最強武器ランキングとおすすめカスタム構成",
   "description": "『Call of Duty: Black Ops 6』シーズン4の武器バランス調整後の最新ティアリスト。全カテゴリの最強武器とカスタムクラス構成を解説。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
