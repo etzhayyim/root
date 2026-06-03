@@ -26,18 +26,29 @@ from cell import parse_edn  # noqa: E402
 
 _REG = os.path.normpath(os.path.join(_HERE, "..", "registry"))
 
-# G20: 19 sovereign members + the EU (no single finance ministry → fid None).
+# G20: 19 sovereign members + the EU.
+#   (name, country id, finance ministry id|None for EU, central bank id)
 G20 = [
-    ("Japan", "gov.jpn", "gov.jpn.mof"), ("United States", "gov.usa", "gov.usa.treasury"),
-    ("United Kingdom", "gov.gbr", "gov.gbr.hmrc"), ("France", "gov.fra", "gov.fra.minefi"),
-    ("Germany", "gov.deu", "gov.deu.bmf"), ("Italy", "gov.ita", "gov.ita.mef"),
-    ("Canada", "gov.can", "gov.can.fin"), ("China", "gov.chn", "gov.chn.mof"),
-    ("Brazil", "gov.bra", "gov.bra.fazenda"), ("Russia", "gov.rus", "gov.rus.minfin"),
-    ("Mexico", "gov.mex", "gov.mex.shcp"), ("Indonesia", "gov.idn", "gov.idn.kemenkeu"),
-    ("Türkiye", "gov.tur", "gov.tur.hmb"), ("South Africa", "gov.zaf", "gov.zaf.treasury"),
-    ("Argentina", "gov.arg", "gov.arg.economia"), ("Saudi Arabia", "gov.sau", "gov.sau.mof"),
-    ("South Korea", "gov.kor", "gov.kor.moef"), ("India", "gov.ind", "gov.ind.mof"),
-    ("Australia", "gov.aus", "gov.aus.treasury"), ("European Union", "gov.eu", None),
+    ("Japan", "gov.jpn", "gov.jpn.mof", "gov.jpn.boj"),
+    ("United States", "gov.usa", "gov.usa.treasury", "gov.usa.fed"),
+    ("United Kingdom", "gov.gbr", "gov.gbr.hmrc", "gov.gbr.boe"),
+    ("France", "gov.fra", "gov.fra.minefi", "gov.fra.banque"),
+    ("Germany", "gov.deu", "gov.deu.bmf", "gov.deu.bundesbank"),
+    ("Italy", "gov.ita", "gov.ita.mef", "gov.ita.bancaditalia"),
+    ("Canada", "gov.can", "gov.can.fin", "gov.can.boc"),
+    ("China", "gov.chn", "gov.chn.mof", "gov.chn.pbc"),
+    ("Brazil", "gov.bra", "gov.bra.fazenda", "gov.bra.bcb"),
+    ("Russia", "gov.rus", "gov.rus.minfin", "gov.rus.cbr"),
+    ("Mexico", "gov.mex", "gov.mex.shcp", "gov.mex.banxico"),
+    ("Indonesia", "gov.idn", "gov.idn.kemenkeu", "gov.idn.bi"),
+    ("Türkiye", "gov.tur", "gov.tur.hmb", "gov.tur.tcmb"),
+    ("South Africa", "gov.zaf", "gov.zaf.treasury", "gov.zaf.sarb"),
+    ("Argentina", "gov.arg", "gov.arg.economia", "gov.arg.bcra"),
+    ("Saudi Arabia", "gov.sau", "gov.sau.mof", "gov.sau.sama"),
+    ("South Korea", "gov.kor", "gov.kor.moef", "gov.kor.bok"),
+    ("India", "gov.ind", "gov.ind.mof", "gov.ind.rbi"),
+    ("Australia", "gov.aus", "gov.aus.treasury", "gov.aus.rba"),
+    ("European Union", "gov.eu", None, "gov.eu.ecb"),
 ]
 
 
@@ -62,22 +73,26 @@ def main() -> int:
     errors: list[str] = []
     full = 0
     print("ooyake REAL-DATA G20 coverage (committed registry; not the reconcile demo)")
-    for name, cid, fid in G20:
-        c, f = units.get(cid), (units.get(fid) if fid else None)
+    for name, cid, fid, bid in G20:
+        c = units.get(cid)
+        f = units.get(fid) if fid else None
+        b = units.get(bid)
         c_ok = _real(c)
         f_ok = _real(f) if fid else True
-        cqid = c.get(":gov.unit/wikidata") if c else "—"
-        fqid = (f.get(":gov.unit/wikidata") if f else ("n/a" if not fid else "—"))
-        if c_ok and f_ok:
+        b_ok = _real(b)
+        if c_ok and f_ok and b_ok:
             full += 1
-        mark = "✓" if (c_ok and f_ok) else "✗"
+        mark = "✓" if (c_ok and f_ok and b_ok) else "✗"
         print(f"  {mark} {name:14} country={'OK' if c_ok else 'MISSING':7} "
-              f"finance={('OK' if f_ok else ('n/a' if not fid else 'MISSING')):7} {cqid}/{fqid}")
+              f"finance={('OK' if f_ok else ('n/a' if not fid else 'MISSING')):7} "
+              f"central-bank={'OK' if b_ok else 'MISSING'}")
         if not c_ok:
             errors.append(f"{name}: country {cid} not real-data")
         if fid and not f_ok:
             errors.append(f"{name}: finance {fid} not real-data")
-    print(f"\n  G20 members fully covered (country + finance, real-data): {full}/{len(G20)}")
+        if not b_ok:
+            errors.append(f"{name}: central bank {bid} not real-data")
+    print(f"\n  G20 members fully covered (country + finance + central bank, real-data): {full}/{len(G20)}")
     if errors:
         print("  INCOMPLETE:")
         for e in errors:
