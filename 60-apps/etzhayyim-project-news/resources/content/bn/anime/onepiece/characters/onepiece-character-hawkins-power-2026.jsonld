@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-hawkins-power-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-hawkins-power-2026",
   "identifier": "onepiece-character-hawkins-power-2026",
   "headline": "Basil Hawkins powers and combat philosophy: how strength is framed in ONE PIECE",
   "description": "How Basil Hawkins’s abilities express character and shape the series’ action grammar.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
