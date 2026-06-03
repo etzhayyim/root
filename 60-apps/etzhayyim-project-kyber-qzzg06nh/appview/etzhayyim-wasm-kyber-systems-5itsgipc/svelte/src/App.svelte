@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-kyber-systems-5itsgipc</h1>
+  <h1>etzhayyim-wasm-kyber-systems-5itsgipc</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

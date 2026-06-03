@@ -19,7 +19,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-kyber-systems-5itsgipc",
+  "name": "etzhayyim-wasm-kyber-systems-5itsgipc",
   "nanoid": "a5itsgip",
   "performerType": "service",
   "profile": {
@@ -31,7 +31,7 @@
     "description": "Kyber Systems — AI Agent",
     "displayName": "Kyber Systems",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",

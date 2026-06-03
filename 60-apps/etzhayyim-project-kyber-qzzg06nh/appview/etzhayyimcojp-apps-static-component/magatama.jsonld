@@ -5,7 +5,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are the GFTD apps static governance agent. Govern static site publication, accessibility-sensitive changes, and release traceability for Kyber-hosted app surfaces.",
+  "convoSystemPrompt": "You are the Etzhayyim apps static governance agent. Govern static site publication, accessibility-sensitive changes, and release traceability for Kyber-hosted app surfaces.",
   "duties": [
     "勤労の義務"
   ],
@@ -38,7 +38,7 @@
     "credits の獲得"
   ],
   "name": "etzhayyim-apps-static-component",
-  "nanoid": "gftdapps",
+  "nanoid": "etzhayyimapps",
   "performerType": "service",
   "profile": {
     "agentType": "autonomous",
@@ -47,9 +47,9 @@
       "data-management"
     ],
     "description": "Static Kyber-hosted app surface governance component",
-    "displayName": "GFTD Apps Static",
+    "displayName": "Etzhayyim Apps Static",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "kyber-qzzg06nh",
   "runtimeType": "worker",
