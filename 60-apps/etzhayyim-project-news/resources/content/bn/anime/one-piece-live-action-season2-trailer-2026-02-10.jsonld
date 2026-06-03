@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:one-piece-live-action-season2-trailer-2026-02-10:ja",
+  "@id": "urn:etzhayyim:news:one-piece-live-action-season2-trailer-2026-02-10:ja",
   "identifier": "one-piece-live-action-season2-trailer-2026-02-10",
   "headline": "「ONE PIECE」実写版シーズン2の新トレーラー公開、登場キャラクター情報を追加",
   "description": "Anime News Networkが2026-02-10に、実写版「ONE PIECE」シーズン2の新トレーラー公開を報道。新キャラクターと新ロケーションの情報が示された。",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

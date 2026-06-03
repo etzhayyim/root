@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-tsunade-core-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-tsunade-core-2026",
   "identifier": "naruto-character-tsunade-core-2026",
   "headline": "Tsunade character analysis: their role as the story’s engine in Naruto",
   "description": "A focused look at Tsunade in Naruto, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

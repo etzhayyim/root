@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-sakura-core-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-sakura-core-2026",
   "identifier": "naruto-character-sakura-core-2026",
   "headline": "Sakura Haruno character analysis: their role as the story’s engine in Naruto",
   "description": "A focused look at Sakura Haruno in Naruto, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

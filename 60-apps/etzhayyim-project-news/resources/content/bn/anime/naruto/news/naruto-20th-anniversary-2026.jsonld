@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:naruto-20th-anniversary-2026",
+  "@id": "urn:etzhayyim:news:naruto-20th-anniversary-2026",
   "identifier": "naruto-20th-anniversary-2026",
   "headline": "NARUTO-ナルト- アニメ放送20周年記念イベント開催決定！歴代キャストが集結する特別ステージも",
   "description": "2002年のアニメ放送開始から20年以上を経て、NARUTOシリーズの大規模記念イベントが2026年夏に開催決定。歴代声優陣による特別ステージやオーケストラコンサートなど、ファン必見の内容が明らかに。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

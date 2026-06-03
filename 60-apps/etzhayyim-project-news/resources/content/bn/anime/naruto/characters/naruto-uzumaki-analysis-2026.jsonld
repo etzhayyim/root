@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-uzumaki-analysis-2026",
+  "@id": "urn:etzhayyim:news:naruto-uzumaki-analysis-2026",
   "identifier": "naruto-uzumaki-analysis-2026",
   "headline": "うずまきナルト徹底分析：落ちこぼれ忍者が火影になるまでの成長と精神的変遷",
   "description": "『NARUTO』の主人公うずまきナルトの人物像を多角的に分析。孤独な幼少期から七代目火影に至るまでの精神的成長、仲間との絆、そして忍として掲げた「忍道」の意味を考察する。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

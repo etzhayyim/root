@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-sasuke-symbolism-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-sasuke-symbolism-2026",
   "identifier": "naruto-character-sasuke-symbolism-2026",
   "headline": "Sasuke Uchiha symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Sasuke Uchiha and how they map onto Naruto’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

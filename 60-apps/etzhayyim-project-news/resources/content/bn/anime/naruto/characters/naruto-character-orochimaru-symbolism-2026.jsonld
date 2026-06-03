@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-orochimaru-symbolism-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-orochimaru-symbolism-2026",
   "identifier": "naruto-character-orochimaru-symbolism-2026",
   "headline": "Orochimaru symbolism: motifs and how they connect to the series themes",
   "description": "Motifs around Orochimaru and how they map onto Naruto’s themes.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

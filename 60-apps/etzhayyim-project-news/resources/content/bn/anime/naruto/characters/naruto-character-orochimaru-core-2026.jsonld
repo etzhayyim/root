@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:naruto-character-orochimaru-core-2026",
+  "@id": "urn:etzhayyim:news:naruto-character-orochimaru-core-2026",
   "identifier": "naruto-character-orochimaru-core-2026",
   "headline": "Orochimaru character analysis: their role as the story’s engine in Naruto",
   "description": "A focused look at Orochimaru in Naruto, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
