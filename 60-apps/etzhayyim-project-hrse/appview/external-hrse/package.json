@@ -59,12 +59,12 @@
   "license": "ISC",
   "packageManager": "pnpm@10.17.1",
   "dependencies": {
-    "@atproto/api": "^0.13.35",
     "@bufbuild/protobuf": "^2.11.0",
     "@clerk/nextjs": "6.39.2",
     "@clerk/themes": "^2.4.57",
     "@connectrpc/connect": "^2.1.1",
     "@connectrpc/connect-web": "^2.1.1",
+    "@etzhayyim/sdk": "workspace:*",
     "lucide-react": "^0.563.0",
     "openai": "^6.34.0",
     "postgres": "^3.4.9",
