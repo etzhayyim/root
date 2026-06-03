@@ -1,6 +1,6 @@
 {
   "@context": "https://yabai.etzhayyim.com/ontology/context.jsonld",
-  "@type": "gftd:YabaiEvidence",
+  "@type": "etzhayyim:YabaiEvidence",
   "@id": "https://yabai.etzhayyim.com/content/evidence/evidence-3732670bb7656c8f",
   "evidenceId": "evidence-3732670bb7656c8f",
   "entityId": "ent-7294b0a04e7d",
