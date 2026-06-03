@@ -8,7 +8,7 @@ slots into compose_scene_3d's `_VISION_AXES` as `emotionAlignment`.
 
 This stays local-only: no Hume API call. The hume_image_head primitive is the
 distilled student model trained from Hume Expression Measurement signals (see
-`60-apps/ai-gftd-project-hume/`), so adding it here gives the critique an
+`60-apps/etzhayyim-project-hume/`), so adding it here gives the critique an
 image-feature-grounded emotion signal independent of the LLM's self-report.
 """
 

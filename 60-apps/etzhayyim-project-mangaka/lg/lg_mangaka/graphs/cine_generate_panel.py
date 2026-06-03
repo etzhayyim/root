@@ -5,7 +5,7 @@ via pipeline_run_id) and emits one rendered + diffusion-refined image per
 panel. Designed to be invoked once per page with the full list of panels
 on that page; the per-panel work fan-outs in parallel via Pregel Send.
 
-WIT: `gftd:kami-cine@1.0.0` interfaces neural-render / diffusion-pass.
+WIT: `etzhayyim:kami-cine@1.0.0` interfaces neural-render / diffusion-pass.
 
 Pregel super-steps:
 

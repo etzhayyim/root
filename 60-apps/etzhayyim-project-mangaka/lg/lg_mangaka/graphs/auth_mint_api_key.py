@@ -2,7 +2,7 @@
 
 Backs the `studio.mintApiKey` MCP tool. Because lg-mangaka-studio runs in
 the mitama-udf namespace with `RW_URL` reachable, it can INSERT to
-public.vertex_api_key directly — no chicken-and-egg with `gftd authn signin`.
+public.vertex_api_key directly — no chicken-and-egg with `etzhayyim authn signin`.
 
 Authorization: caller identity comes from the CF Access JWT email the
 Studio Worker forwards as `user_email` in the input. The mint is scoped
@@ -67,7 +67,7 @@ class _State(TypedDict, total=False):
 
 
 def _email_to_did(email: str) -> str:
-    """Map `user@etzhayyim.com` → `did:web:mangaka.etzhayyim.com:user:user_at_gftd_co_jp`.
+    """Map `user@etzhayyim.com` → `did:web:mangaka.etzhayyim.com:user:user_at_etzhayyim_co_jp`.
 
     DID path segments must be ASCII without `:`/`@`/`.`, so we substitute.
     """

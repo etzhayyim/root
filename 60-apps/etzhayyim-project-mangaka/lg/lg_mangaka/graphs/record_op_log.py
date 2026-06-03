@@ -41,7 +41,7 @@ from langgraph.types import RetryPolicy
 _log = logging.getLogger(__name__)
 _RW_URL = os.environ.get("RW_URL", "")
 _APP_DID = os.environ.get("MANGAKA_APP_DID", "did:web:mangaka.etzhayyim.com")
-_DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:gftd:260425:gftd-japan")
+_DEFAULT_ORG_DID = os.environ.get("MANGAKA_DEFAULT_ORG_DID", "did:erc725:etzhayyim:260425:etzhayyim-japan")
 
 
 class _State(TypedDict, total=False):

@@ -312,7 +312,7 @@ async def _step_persist(state: _State) -> dict[str, Any]:
                     doc_id, _APP_DID, _APP_DID, _NSID,
                     name, name, name,
                     now_iso, document_json,
-                    _APP_DID, "did:erc725:gftd:260425:gftd-japan",
+                    _APP_DID, "did:erc725:etzhayyim:260425:etzhayyim-japan",
                 ),
             )
         finally:
