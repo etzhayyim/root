@@ -1,6 +1,6 @@
 """ELV provenance binder state machine — ADR-2605261215 terminal (hodoki).
 
-Full chain DID anchoring on yatachain: input VIN → parts catalog + material
+Full chain DID anchoring on kotoba-datomic: input VIN → parts catalog + material
 lots + emissions + ASR mass. G2 mass-balance audit ≥98% closure attestation.
 """
 
@@ -15,7 +15,7 @@ class ProvenanceBinderPhase(Enum):
     INIT = "init"
     RECORDS_GATHERED = "records_gathered"
     MASS_BALANCE_COMPUTED = "mass_balance_computed"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
     BINDER_COMPLETE = "binder_complete"
 
 
@@ -27,7 +27,7 @@ class ProvenanceBinderState:
     completionPct: int
     recordsGathered: dict[str, Any] | None = None
     massBalance: dict[str, Any] | None = None
-    yatachainAnchor: dict[str, Any] | None = None
+    kotoba-datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_gathered(state: dict[str, Any]) -> dict[str, Any]:
@@ -79,16 +79,16 @@ def transition_to_mass_balance_computed(state: dict[str, Any]) -> dict[str, Any]
     return {"provenance_binder_state": pb.__dict__, "next_node": "anchor"}
 
 
-def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     pb = ProvenanceBinderState(**state.get("provenance_binder_state", {}))
     mock = {
-        "yatachainBindCid": "bafkreiyatachainbind001...",
+        "kotoba-datomicBindCid": "bafkreikotoba-datomicbind001...",
         "anchorTxHash": "0xELV-PROVENANCE-BIND-001",
         "anchoredAt": "2026-05-26T19:00:00Z",
-        "auditLogLink": f"ipfs://bafkreiyatachainbind001/{pb.vin}",
+        "auditLogLink": f"ipfs://bafkreikotoba-datomicbind001/{pb.vin}",
     }
     pb.phase = ProvenanceBinderPhase.YATACHAIN_ANCHORED
-    pb.yatachainAnchor = mock
+    pb.kotoba-datomicAnchor = mock
     pb.completionPct = 90
     return {"provenance_binder_state": pb.__dict__, "next_node": "complete"}
 
@@ -103,7 +103,7 @@ def transition_to_binder_complete(state: dict[str, Any]) -> dict[str, Any]:
         "vin": pb.vin,
         "records": pb.recordsGathered,
         "massBalance": pb.massBalance,
-        "yatachainAnchor": pb.yatachainAnchor,
+        "kotoba-datomicAnchor": pb.kotoba-datomicAnchor,
         "g2Compliant": (pb.massBalance or {}).get("g2Compliant", False),
         "recordedAt": "2026-05-26T19:00:10Z",
     }

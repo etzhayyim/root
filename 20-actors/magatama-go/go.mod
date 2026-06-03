@@ -1,11 +1,11 @@
 // Package magatama-go provides WIT Component Model bindings for magatama:runtime@0.1.0.
 //
-// Replaces github.com/gftdcojp/spincompat.
+// Replaces github.com/etzhayyimcojp/spincompat.
 //
 // Migration from spincompat:
 //
 //	// Before:
-//	import spincompat "github.com/gftdcojp/spincompat"
+//	import spincompat "github.com/etzhayyimcojp/spincompat"
 //	func init() { spincompat.Handle(myHandler) }
 //
 //	// After (one line change):
@@ -30,7 +30,7 @@ module github.com/etzhayyim/root/20-actors/magatama-go
 
 go 1.23.0
 
-require github.com/gftdcojp/performer v0.0.0-00010101000000-000000000000
+require github.com/etzhayyimcojp/performer v0.0.0-00010101000000-000000000000
 
 require (
 	github.com/apache/arrow/go/v17 v17.0.0 // indirect
@@ -57,4 +57,4 @@ require (
 	google.golang.org/protobuf v1.34.2 // indirect
 )
 
-replace github.com/gftdcojp/performer => ../../../go/performer
+replace github.com/etzhayyimcojp/performer => ../../../go/performer

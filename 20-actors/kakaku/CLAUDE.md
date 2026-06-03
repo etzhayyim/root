@@ -1,4 +1,4 @@
-# ai-gftd-project-kakaku
+# etzhayyim-project-kakaku
 
 kakaku.etzhayyim.com — 商品 x ECサイト x 価格更新の比較サイト actor。canonical product と merchant-specific offer を分離し、価格・送料・在庫・配送条件を時系列で管理する。
 

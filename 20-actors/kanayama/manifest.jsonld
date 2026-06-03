@@ -65,7 +65,7 @@
     {"name": "hot_rolling", "module": "kanayama.cells.hot_rolling", "murakumoNode": "dan", "phase": "L5a — hot rolling reduction"},
     {"name": "cold_rolling_finishing", "module": "kanayama.cells.cold_rolling_finishing", "murakumoNode": "dan", "phase": "L5b — cold rolling + temper + coil QA"},
     {"name": "air_emissions_audit", "module": "kanayama.cells.air_emissions_audit", "murakumoNode": "levi", "phase": "cross-cutting — continuous stack monitoring (G8)"},
-    {"name": "mass_balance_binder", "module": "kanayama.cells.mass_balance_binder", "murakumoNode": "judah", "phase": "terminal — input/output mass-balance ≥98% closure on yatachain (G2 + G14)"}
+    {"name": "mass_balance_binder", "module": "kanayama.cells.mass_balance_binder", "murakumoNode": "judah", "phase": "terminal — input/output mass-balance ≥98% closure on kotoba-datomic (G2 + G14)"}
   ],
   "lexiconNamespaces": [
     "com.etzhayyim.kanayama.intakeRecord",
@@ -81,7 +81,7 @@
     "description": "14 immutable gates per ADR-2605252400. Changes require Council Lv6+ supermajority + new ADR.",
     "gates": {
       "G1": "Furnace + casting + rolling firmware open-source (Apache 2.0 + Charter Rider)",
-      "G2": "Mass-balance audit on yatachain: input_mass = output_metal + dross + emission ≥98% closure",
+      "G2": "Mass-balance audit on kotoba-datomic: input_mass = output_metal + dross + emission ≥98% closure",
       "G3": "Per-batch + per-coil IPFS-pinned photo + video",
       "G4": "Every pour signed by witness quorum ≥2 distinct robots (Ed25519, DID-bound)",
       "G5": "All permits + emissions reports JP + EN bilingual minimum + public disclosure",

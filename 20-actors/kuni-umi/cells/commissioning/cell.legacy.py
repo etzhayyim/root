@@ -90,7 +90,7 @@ def commission_test(state: CommissioningState, deps: CellDeps) -> CommissioningS
     """
     raise NotImplementedError(
         "Requires open-ot acceptance test harness — see "
-        "60-apps/ai-gftd-project-open-ot/risk1/gate-a-rig/ for pattern."
+        "60-apps/etzhayyim-project-open-ot/risk1/gate-a-rig/ for pattern."
     )
 
 

@@ -30,12 +30,12 @@ Closed-loop material recovery / circular metallurgy orchestrator. Adopts modern 
 | `hot_rolling` | L5a | dan | Hot rolling ~500°C |
 | `cold_rolling_finishing` | L5b | dan | Cold rolling + temper + 0.27 mm coil + surface QA |
 | `air_emissions_audit` | cross-cutting | levi | Continuous PFC / NOx / SO₂ / particulate / dioxin stack monitor |
-| `mass_balance_binder` | terminal | judah | input/output mass balance ≥98% closure on yatachain (G2 + G14) |
+| `mass_balance_binder` | terminal | judah | input/output mass balance ≥98% closure on kotoba-datomic (G2 + G14) |
 
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: Furnace + casting + rolling firmware open-source (Apache 2.0 + Charter Rider)
-- **G2**: Mass-balance audit on yatachain — `input_mass = output_metal + dross + emission` ≥98% closure
+- **G2**: Mass-balance audit on kotoba-datomic — `input_mass = output_metal + dross + emission` ≥98% closure
 - **G3**: Per-batch + per-coil IPFS-pinned photo + video
 - **G4**: Every pour signed by witness quorum ≥2 robots (Ed25519, DID-bound)
 - **G5**: All permits + emissions reports JP + EN bilingual minimum + public disclosure

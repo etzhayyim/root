@@ -169,11 +169,11 @@ terminology code system URIs:
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-karute/appview/ai-gftd-wasm-karute-karu7t3e/svelte
+cd 60-apps/etzhayyim-project-karute/appview/etzhayyim-wasm-karute-karu7t3e/svelte
 pnpm install && pnpm build
 cd ..
-gftd build
-gftd deploy --smoke-url https://karu7t3e.etzhayyim.com/health
+etzhayyim build
+etzhayyim deploy --smoke-url https://karu7t3e.etzhayyim.com/health
 ```
 
 ## References

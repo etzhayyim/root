@@ -325,7 +325,7 @@
     "description": "建設現場向け仮設足場のレンタル・サブスクリプション管理。カタログ、契約、配送、安全点検を AI Agent が自律運営。",
     "displayName": "JP Ashiba — 足場レンタル・サブスクリプション AI Agent",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

@@ -2,7 +2,7 @@
 ;; ADR-2605252400 · migration plan Phase 3
 ;; Circular metallurgy (UBC recycling) over kotoba Datoms: intake QA, decoating,
 ;; melting, casting, rolling, final QC, emissions audit, and mass-balance settlement.
-;; All state is kotoba Datoms — replaces the legacy yatachain + RisingWave path (G6).
+;; All state is kotoba Datoms — replaces the legacy kotoba-datomic + RisingWave path (G6).
 
 [;; ───────────────────────────── :intake/* — L1 UBC bale QA ─────────────────────────────
  {:db/ident :intake/id

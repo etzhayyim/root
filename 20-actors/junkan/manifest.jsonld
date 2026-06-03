@@ -37,7 +37,7 @@
   },
   "constitutionalDiscipline": {
     "charterRiderScanIO": "G1 — Charter Rider §2(a)-(h) scan on every input AND output",
-    "kotobaAttestationLineage": "G2 — kotoba/yatachain attestation lineage per tick",
+    "kotobaAttestationLineage": "G2 — kotoba/kotoba-datomic attestation lineage per tick",
     "passiveOnlyCollection": "G3 — PASSIVE-ONLY per ADR-2605262400; no live DNS / port-probe / traceroute / WHOIS / RDAP / DoH / handle-enumeration; pre-published public archives only",
     "analysisOnlyNoActuation": "G4 — DEFINING GATE: no outward channel; output is read-only findings; actuationTaken const false; enforced by absence of any dispatch cell",
     "noCausalOverclaim": "G5 — every edge / loop labelled hypothesis with confidence; correlation / lagged-sign only, never proven causation; causalLoopFinding.hypothesisOnly const true",

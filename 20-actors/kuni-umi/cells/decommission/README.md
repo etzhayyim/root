@@ -8,7 +8,7 @@ Murakumo leader: `dan`.
 - explicit governance vote (1 SBT = 1 vote 過半数 + Steward Lv5+ sign per ADR §8) to decommission early
 
 ## Steps
-1. `decommissionPlan` — generate teardown BoM (reverse of construction BoM); identify recyclable / re-usable materials → route to `open-robo` urban-mining cell (`60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md`)
+1. `decommissionPlan` — generate teardown BoM (reverse of construction BoM); identify recyclable / re-usable materials → route to `open-robo` urban-mining cell (`60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md`)
 2. `disconnectFromUtility` — coordinate with open-ot to retire all `defineLoop` and disable telemetry streams; mark utility lexicon assets `retired`
 3. `physicalTeardown` — re-dispatch Giemon fleet for disassembly (reverse construction Pregel super-steps); witness audit applies
 4. `landReturn` — restore site to baseline ecology per `submitSiteSurvey` snapshot (re-vegetate, soil restoration, etc.); emit `recordPhysicalAuditEvent` class=`community-event` subtype=`land-return`
@@ -25,4 +25,4 @@ Decommission is treated as a religious act per ADR-2605192100 §mission.land_as_
 
 ## See also
 - ADR-2605192345 (steward succession — for multi-generational stewardship continuity)
-- `60-apps/ai-gftd-project-open-robo/docs/urban-mining-automation-v1.md` (recycling cell)
+- `60-apps/etzhayyim-project-open-robo/docs/urban-mining-automation-v1.md` (recycling cell)

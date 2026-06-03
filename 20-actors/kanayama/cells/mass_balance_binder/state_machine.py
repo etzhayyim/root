@@ -5,7 +5,7 @@ record:
 
     input_mass = output_metal + dross + emission_mass
 
-≥98% closure required (G12 KPI). Anchored on yatachain (G2 audit log).
+≥98% closure required (G12 KPI). Anchored on kotoba-datomic (G2 audit log).
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ class BalancePhase(Enum):
     INIT = "init"
     RECORDS_COLLECTED = "records_collected"
     MASS_BALANCE_COMPUTED = "mass_balance_computed"
-    YATACHAIN_ANCHORED = "yatachain_anchored"
+    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -35,7 +35,7 @@ class BalanceState:
     emissionMassKg: float | None = None
     closurePct: float | None = None
     accept: bool | None = None
-    yatachainAnchor: dict[str, Any] | None = None
+    kotoba-datomicAnchor: dict[str, Any] | None = None
 
 
 def transition_to_records_collected(state: dict[str, Any]) -> dict[str, Any]:
@@ -69,9 +69,9 @@ def transition_to_mass_balance_computed(state: dict[str, Any]) -> dict[str, Any]
     return {"balance_state": s.__dict__, "next_node": "anchor"}
 
 
-def transition_to_yatachain_anchored(state: dict[str, Any]) -> dict[str, Any]:
+def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, Any]:
     s = BalanceState(**state.get("balance_state", {}))
-    s.yatachainAnchor = {
+    s.kotoba-datomicAnchor = {
         "membraneNamespace": "com.etzhayyim.kanayama",
         "anchorTxHash": "0xKANAYAMABALANCE...",
         "l2Chain": "Base Sepolia (R0 dry-run)",
@@ -98,7 +98,7 @@ def transition_to_record_emitted(state: dict[str, Any]) -> dict[str, Any]:
         "closurePct": s.closurePct,
         "g2Limit": 98.0,
         "accept": s.accept,
-        "yatachainAnchor": s.yatachainAnchor,
+        "kotoba-datomicAnchor": s.kotoba-datomicAnchor,
         "recordedAt": "2026-05-26T18:00:00Z",
     }
     return {

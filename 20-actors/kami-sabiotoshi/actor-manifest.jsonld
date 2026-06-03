@@ -290,7 +290,7 @@
     "description": "Sabi-Otoshi game data actor. High-pressure wash game -- blast rust off vintage items! RustyItem catalog, RustZone scoring, leaderboard, item unlock progression. Pikapika ni shite ne!",
     "displayName": "Sabi-Otoshi!! -- KAMI Game Item Catalog & Rust Zone Scoring",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

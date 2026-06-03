@@ -119,7 +119,7 @@
     "description": "13 immutable gates per ADR-2605263600. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan",
-      "G2": "yatachain attestation lineage",
+      "G2": "kotoba-datomic attestation lineage",
       "G3": "NO ad-supported revenue (Charter §1.13 anti-addictive + §1.15 non-eschatological)",
       "G4": "NO clickbait / apocalyptic / engagement-optimized framing (toneAttestation enum excludes; nonEschatologicalAttested const true)",
       "G5": "NO commercial publishing platform (Substack/Medium/News Corp/The Atlantic/NYTimes/WordPress-Pro/Ghost-Pro/Mailchimp/ConvertKit/Beehiiv PROHIBITED)",

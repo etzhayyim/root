@@ -21,7 +21,7 @@ intake_qa → decoating_separation → melting_furnace → dc_casting → hot_ro
                                           ↓
    air_emissions_audit (cross, levi) ←──────┘
                                           ↓
-   mass_balance_binder (terminal, judah) — yatachain anchor
+   mass_balance_binder (terminal, judah) — kotoba-datomic anchor
 ```
 
 ## Robotics Fleet (R0 reservation only)
@@ -44,7 +44,7 @@ intake_qa → decoating_separation → melting_furnace → dc_casting → hot_ro
 See `ADR-2605252400` §4 for definitions. Key enforcement:
 
 - **G1 + G7**: All firmware (furnace, casting, rolling, robotics) open-source
-- **G2**: **Mass-balance audit** — `input_mass = output_metal + dross + emission` ≥98% closure, yatachain anchor
+- **G2**: **Mass-balance audit** — `input_mass = output_metal + dross + emission` ≥98% closure, kotoba-datomic anchor
 - **G3**: Per-batch + per-coil IPFS-pinned photo + video
 - **G4**: Every pour signed by witness quorum ≥2 distinct robots
 - **G8**: Air emissions ≤ EU IED 2010/75/EU + 日本大気汚染防止法 + EN 12457 leachate
@@ -134,7 +134,7 @@ See `ADR-2605252400` §4 for definitions. Key enforcement:
 ### mass_balance_binder (terminal)
 - **Murakumo node**: judah
 - **Input**: all prior records
-- **Output**: mass-balance yatachain anchor (G2 + G14, ≥98% closure)
+- **Output**: mass-balance kotoba-datomic anchor (G2 + G14, ≥98% closure)
 
 ## Build & Deploy (R0 → R1)
 
