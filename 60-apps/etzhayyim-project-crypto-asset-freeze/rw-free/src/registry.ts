@@ -8,7 +8,7 @@
  * (ADR-2605181100), read-cap = owner DID (+ explicit LE-agency recipients).
  * The substrate never sees wallet addresses or case ids in plaintext.
  *
- * Freeze/unfreeze EXECUTION + recursive wallet-trace INFERENCE stay gftd
+ * Freeze/unfreeze EXECUTION + recursive wallet-trace INFERENCE stay etzhayyim
  * (consent-capability) — only the resulting data records live here.
  */
 

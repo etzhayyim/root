@@ -9,7 +9,7 @@
  * owner DID. The substrate never sees key_hash / per-tenant metering in plaintext.
  *
  * WASM execution, secret/env custody, raw_key + verificationToken issuance, CDN
- * upload, fiat plan settlement, and quota enforcement stay gftd (consent-cap).
+ * upload, fiat plan settlement, and quota enforcement stay etzhayyim (consent-cap).
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

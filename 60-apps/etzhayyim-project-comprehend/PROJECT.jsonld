@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "GFTD Comprehend Project (etzhayyim-project-comprehend)",
+  "name": "Etzhayyim Comprehend Project (etzhayyim-project-comprehend)",
   "status": "In Progress",
   "identifier": "etzhayyim-project-comprehend",
   "description": "Scheduler-driven collection and normalization of global corporate/org/person/legal/land/building/telecom/contract and network intelligence into JSON-LD (RDF) with SHACL shapes, persisted to etzhayyim-project-resources.",

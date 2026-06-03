@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://cowork.etzhayyim.com",
   "name": "etzhayyim-project-cowork",
-  "description": "GFTD Cowork - AI collaborative workspace with git-backed conversation persistence",
+  "description": "Etzhayyim Cowork - AI collaborative workspace with git-backed conversation persistence",
   "url": "https://cowork.etzhayyim.com",
   "applicationCategory": "Productivity",
   "operatingSystem": "Kubernetes",

@@ -1,4 +1,4 @@
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        gftd: {
+        etzhayyim: {
           bg: 'var(--gv2-bg-primary)',
           sidebar: 'var(--gv2-bg-sidebar)',
           hover: 'var(--gv2-bg-hover)',
@@ -30,5 +30,5 @@ export default {
       },
     }
   },
-  plugins: [gftdUIKit],
+  plugins: [etzhayyimUIKit],
 };

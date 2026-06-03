@@ -9,7 +9,7 @@
  * + explicit recipients. The substrate never sees member PII, mail/Teams
  * content, calendar attendees, file names, or task assignments in plaintext.
  *
- * STAYS gftd (consent-capability): M365 Graph OAuth/credential custody +
+ * STAYS etzhayyim (consent-capability): M365 Graph OAuth/credential custody +
  * outbound send execution (sendTeamsMessage / mail send) + Claude Cowork LLM
  * inference. No fiat rail in cowork.
  */

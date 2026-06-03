@@ -3,5 +3,5 @@
   "runtimeMode": "desktop-wasm",
   "guestRelativePath": "disk-cleaner.wasm",
   "startupRelativePath": "web/index.html",
-  "bundleId": "jp.co.gftd.disk-cleaner"
+  "bundleId": "jp.co.etzhayyim.disk-cleaner"
 }

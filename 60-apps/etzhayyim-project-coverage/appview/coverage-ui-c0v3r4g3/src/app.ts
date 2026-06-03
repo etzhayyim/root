@@ -4,7 +4,7 @@ import type { Database } from "@etzhayyim/graph-schema";
 import { queryLatentEntities, queryEntityEvidence, getViewpointStats, createKotobaClientAdapter } from "./kotoba-client-wrapper";
 // CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
 // Kept for backward-compat queries like mv_world_coverage_live (non-latent-entity); deprecated for latent-entity paths.
-import { Kysely } from "kysely"; // yatachain-projection: ADR-2605231500 mv_world_coverage_live derived read
+import { Kysely } from "kysely"; // kotoba-datomic-projection: ADR-2605231500 mv_world_coverage_live derived read
 
 type CoverageRow = {
   domain: string;

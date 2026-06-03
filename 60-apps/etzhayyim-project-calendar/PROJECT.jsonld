@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://calendar.etzhayyim.com",
   "name": "etzhayyim-project-calendar",
-  "description": "GFTD Calendar - Google Calendar API compatible calendar application with Rust GraphQL microservice and Next.js UI",
+  "description": "Etzhayyim Calendar - Google Calendar API compatible calendar application with Rust GraphQL microservice and Next.js UI",
   "url": "https://calendar.etzhayyim.com",
   "applicationCategory": "Productivity",
   "operatingSystem": "Kubernetes",
@@ -67,7 +67,7 @@
           },
           "id": "https://github.com/etzhayyim/etzhayyim-calendar/goal",
           "type": "cpm:Goal",
-          "name": "AI GFTD Calendar Project Goal",
+          "name": "AI Etzhayyim Calendar Project Goal",
           "description": "Google Calendar API完全互換のカレンダーアプリケーションを、RDF/OWLベースのセマンティックデータベース（TerminusDB）とGraphQL APIを用いて実現する",
           "desiredEffect": "https://github.com/etzhayyim/etzhayyim-calendar/goal#effect-calendar-management",
           "realizedBy": [

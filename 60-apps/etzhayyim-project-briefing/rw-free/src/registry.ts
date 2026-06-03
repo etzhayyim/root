@@ -9,7 +9,7 @@
  * explicit recipients. The substrate never sees spoken words / ballots /
  * assignee identities in plaintext.
  *
- * STAYS gftd via consent-capability: the raw R2/B2 recording-blob archive and
+ * STAYS etzhayyim via consent-capability: the raw R2/B2 recording-blob archive and
  * the GPU/LLM inference acts (STT / translate / summarize / extract).
  */
 

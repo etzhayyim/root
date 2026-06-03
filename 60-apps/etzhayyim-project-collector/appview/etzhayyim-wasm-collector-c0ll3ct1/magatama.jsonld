@@ -16,7 +16,7 @@
     "path": "src/app.ts"
   },
   "profile": {
-    "displayName": "GFTD Collector",
+    "displayName": "Etzhayyim Collector",
     "description": "Thin Cloudflare edge facade for the Collector. Network intelligence business logic runs in AgentGateway MCP + pod-side LangServer workers.",
     "isBot": true,
     "agentType": "autonomous",
@@ -44,7 +44,7 @@
     "classification": "internal",
     "complianceFrameworks": []
   },
-  "convoSystemPrompt": "You are the GFTD Collector agent. You perform unified network intelligence collection: RDAP/DNS lookups, blockchain monitoring (BTC/ETH via self-hosted full nodes), Common Crawl and Internet Archive CDX queries, port scan ingestion, abuse report processing, and leaked database tracking. Respond helpfully in the user's language.",
+  "convoSystemPrompt": "You are the Etzhayyim Collector agent. You perform unified network intelligence collection: RDAP/DNS lookups, blockchain monitoring (BTC/ETH via self-hosted full nodes), Common Crawl and Internet Archive CDX queries, port scan ingestion, abuse report processing, and leaked database tracking. Respond helpfully in the user's language.",
   "duties": [
     "勤労の義務"
   ],
@@ -65,7 +65,7 @@
     }
   ],
   "space": {
-    "name": "GFTD Collector — Network Intelligence",
+    "name": "Etzhayyim Collector — Network Intelligence",
     "joinRule": "public",
     "historyVisibility": "shared",
     "channels": [

@@ -4,7 +4,7 @@
  * Per ADR-2606011400 (Consensys product-front) + ADR-2605172400 (3-axis) +
  * ADR-2605181100 (kotoba E2E encrypted-record envelope) + ADR-0014 (PII Tier 3).
  * Founder directive 2026-06-03: maximal migration — front everything that can
- * move; only the irreducible regulated EXECUTION stays gftd.
+ * move; only the irreducible regulated EXECUTION stays etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records via sdk.write/sdk.read) — non-sensitive meeting
@@ -17,14 +17,14 @@
  *   pointer to a PII recording), action items (assignee PII + private text), and
  *   formal decisions (confidential governance + per-voter ballots). Read-cap =
  *   owner DID + explicit recipients, so meeting content lives on-substrate
- *   encrypted, never gftd-resident plaintext.
+ *   encrypted, never etzhayyim-resident plaintext.
  *
- *   STAYS gftd (consumed via consent-capability) — the irreducible regulated
+ *   STAYS etzhayyim (consumed via consent-capability) — the irreducible regulated
  *   EXECUTION only, NOT a collection: the R2/B2 recording-blob ARCHIVE (raw
  *   audio/video media that physically cannot fit AT PDS) plus the GPU/LLM
  *   INFERENCE acts (Whisper STT, translation, summarization, action-item
  *   extraction). We FRONT the resulting records E2E; the heavy media custody +
- *   inference CALLS stay gftd.
+ *   inference CALLS stay etzhayyim.
  *
  * AT-Lexicon: no float (durations/seconds/counts are integers; talkRatio and
  * consent are integer 0-100; r2Key/durations carried as integers or strings).
@@ -190,13 +190,13 @@ export interface GetTranscriptOutput {
 }
 
 // ─── Recording asset (E2E-ENCRYPTED, consent + PII media pointer) ───
-// NOTE: the raw audio/video BLOB stays in the gftd R2/B2 archive (irreducible
+// NOTE: the raw audio/video BLOB stays in the etzhayyim R2/B2 archive (irreducible
 // large-media custody). Only the consent-bearing pointer record fronts E2E.
 
 export interface RecordingAssetBody {
   recordingId: string;
   roomId: string;
-  /** opaque pointer into the gftd-resident R2/B2 media archive. */
+  /** opaque pointer into the etzhayyim-resident R2/B2 media archive. */
   r2Key: string;
   mimeType: string;
   /** whole milliseconds (integer). */

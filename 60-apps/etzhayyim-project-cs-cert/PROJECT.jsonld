@@ -27,8 +27,8 @@
   "@type": "Project",
   "@id": "urn:etzhayyim:project:etzhayyim-project-cs-cert",
   "identifier": "etzhayyim-project-cs-cert",
-  "name": "GFTD CS Certified",
-  "description": "サイバーセキュリティ診断済みサイトに認証ロゴ (GFTD CS Certified バッジ) を発行・表示するサービス。SSL trust seal のように、セキュリティ診断を完了したサイトが信頼性を証明するバッジを埋め込める。certs.etzhayyim.com で公開。",
+  "name": "Etzhayyim CS Certified",
+  "description": "サイバーセキュリティ診断済みサイトに認証ロゴ (Etzhayyim CS Certified バッジ) を発行・表示するサービス。SSL trust seal のように、セキュリティ診断を完了したサイトが信頼性を証明するバッジを埋め込める。certs.etzhayyim.com で公開。",
   "url": "https://certs.etzhayyim.com",
   "version": "0.1.0",
   "codeRepository": "https://github.com/etzhayyim/etzhayyim-root",
@@ -62,7 +62,7 @@
   "etzhayyim:certificationLevels": [
     {
       "@type": "DefinedTerm",
-      "name": "GFTD CS Basic",
+      "name": "Etzhayyim CS Basic",
       "identifier": "cs-basic",
       "description": "基本セキュリティ診断完了。OWASP Top 10 チェック、SSL/TLS 設定検証、基本ヘッダー検査。",
       "etzhayyim:validityDays": 90,
@@ -77,7 +77,7 @@
     },
     {
       "@type": "DefinedTerm",
-      "name": "GFTD CS Standard",
+      "name": "Etzhayyim CS Standard",
       "identifier": "cs-standard",
       "description": "標準セキュリティ診断完了。Basic に加え、脆弱性スキャン、API セキュリティ検証、認証フロー検査。",
       "etzhayyim:validityDays": 180,
@@ -93,7 +93,7 @@
     },
     {
       "@type": "DefinedTerm",
-      "name": "GFTD CS Advanced",
+      "name": "Etzhayyim CS Advanced",
       "identifier": "cs-advanced",
       "description": "高度セキュリティ診断完了。Standard に加え、手動ペネトレーションテスト、ソースコードレビュー、インフラ診断。",
       "etzhayyim:validityDays": 365,
@@ -114,7 +114,7 @@
   },
   "etzhayyim:scheduler": {
     "@type": "CreativeWork",
-    "name": "GFTD CS Certified Scheduler",
+    "name": "Etzhayyim CS Certified Scheduler",
     "identifier": "etzhayyim-project-cs-cert/scheduler",
     "milestones": [
       {

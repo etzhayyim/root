@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "RW-free product-front of cowork (Consensys c-split). M365 collaboration graph: plaintext Teams-channel org catalog + kotoba-E2E PII/private-content domains (directoryMember/mailMessage/teamsMessage/calendarEvent/fileEntry/formTask via sdk.encryptedWrite/Read, ADR-2605181100). M365 Graph credential custody + outbound send execution + Claude Cowork LLM inference stay gftd via consent-capability. No fiat rail in cowork.",
+  "description": "RW-free product-front of cowork (Consensys c-split). M365 collaboration graph: plaintext Teams-channel org catalog + kotoba-E2E PII/private-content domains (directoryMember/mailMessage/teamsMessage/calendarEvent/fileEntry/formTask via sdk.encryptedWrite/Read, ADR-2605181100). M365 Graph credential custody + outbound send execution + Claude Cowork LLM inference stay etzhayyim via consent-capability. No fiat rail in cowork.",
   "license": "Apache-2.0",
   "main": "src/index.ts",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },

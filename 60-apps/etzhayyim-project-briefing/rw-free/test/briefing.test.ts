@@ -85,7 +85,7 @@ describe("briefing rw-free (kotoba-E2E split)", () => {
   });
 
   describe("recordingAsset (E2E-ENCRYPTED consent + media pointer)", () => {
-    it("seals, validates consent 0-100, points at gftd-resident r2Key", async () => {
+    it("seals, validates consent 0-100, points at etzhayyim-resident r2Key", async () => {
       const ok = await recordRecording(e, { recordingId: "rec1", roomId: "r1", r2Key: "b2://briefing/rec1.webm", durationMs: 600000, consentPct: 100 });
       expect(ok.status).toBe("recorded");
       expect((await recordRecording(e, { recordingId: "recX", roomId: "r1", r2Key: "k", durationMs: 1, consentPct: 200 })).status).toBe("rejected");

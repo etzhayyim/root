@@ -2,15 +2,15 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "capabilities": "gftd:capabilities"
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "capabilities": "etzhayyim:capabilities"
     }
   ],
   "@type": "Project",
   "identifier": "etzhayyim-project-apps",
-  "name": "GFTD Apps Directory (apps.etzhayyim.com)",
+  "name": "Etzhayyim Apps Directory (apps.etzhayyim.com)",
   "status": "In Progress",
-  "description": "Apple App Store style listing page for all etzhayyim.com apps. Showcases the full GFTD ecosystem with categories, search, and featured apps at apps.etzhayyim.com.",
+  "description": "Apple App Store style listing page for all etzhayyim.com apps. Showcases the full Etzhayyim ecosystem with categories, search, and featured apps at apps.etzhayyim.com.",
   "capabilities": {
     "@type": "DefinedTermSet",
     "name": "Capabilities",
@@ -18,7 +18,7 @@
       {
         "@type": "DefinedTerm",
         "name": "App Directory",
-        "description": "Browsable directory of all GFTD apps with category filtering and search."
+        "description": "Browsable directory of all Etzhayyim apps with category filtering and search."
       },
       {
         "@type": "DefinedTerm",

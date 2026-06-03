@@ -15,7 +15,7 @@
   "identifier": "etzhayyim-project-arxiv",
   "name": "arXiv Paper Submission Management",
   "status": "Active",
-  "description": "arXiv 論文投稿の管理・パッケージング・検証を行うプロジェクト。GFTD Research の研究成果を arXiv に公開するためのスクリプトと論文ソースを管理する。",
+  "description": "arXiv 論文投稿の管理・パッケージング・検証を行うプロジェクト。Etzhayyim Research の研究成果を arXiv に公開するためのスクリプトと論文ソースを管理する。",
   "capabilities": {
     "@type": "DefinedTermSet",
     "name": "Capabilities",

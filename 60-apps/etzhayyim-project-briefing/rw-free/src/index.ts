@@ -3,7 +3,7 @@
  * structure (room / agendaItem) plaintext via sdk.write/read; meeting content +
  * per-person data (transcript / recordingAsset / actionItem / decision) sealed
  * E2E via sdk.encryptedWrite/Read. Raw recording-blob archive + GPU/LLM
- * inference stay gftd via consent-capability.
+ * inference stay etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {
