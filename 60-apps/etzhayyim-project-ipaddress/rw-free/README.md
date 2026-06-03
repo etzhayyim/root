@@ -107,6 +107,6 @@ Option C (IPFS) was rejected — records are small structured data, not blobs. N
 
 - [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options (this PR)
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate
-- [open-isco rw-free](../../ai-gftd-project-open-isco/rw-free/) — Option B seeder + query CLI reference
-- [tsukuru rw-free](../../ai-gftd-project-tsukuru/rw-free/) — Option B full app (13/46 commands, escrow pattern)
-- vendor `60-apps/ai-gftd-project-ipaddress/appview/.../src/app.ts:331` — original cmdRegisterAsn replaced by this slice
+- [open-isco rw-free](../../etzhayyim-project-open-isco/rw-free/) — Option B seeder + query CLI reference
+- [tsukuru rw-free](../../etzhayyim-project-tsukuru/rw-free/) — Option B full app (13/46 commands, escrow pattern)
+- vendor `60-apps/etzhayyim-project-ipaddress/appview/.../src/app.ts:331` — original cmdRegisterAsn replaced by this slice

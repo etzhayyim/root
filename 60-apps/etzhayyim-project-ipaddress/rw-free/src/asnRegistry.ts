@@ -7,8 +7,8 @@
  * with:
  *   await e.write({ collection, record, rkey });
  *
- * Vendor reference: `60-apps/ai-gftd-project-ipaddress/appview/
- *   ai-gftd-wasm-ipaddress-n7w1p4d0/src/app.ts:331` (cmdRegisterAsn).
+ * Vendor reference: `60-apps/etzhayyim-project-ipaddress/appview/
+ *   etzhayyim-wasm-ipaddress-n7w1p4d0/src/app.ts:331` (cmdRegisterAsn).
  *
  * Scope: 2 reference commands of 37 total in vendor.
  *   - registerAsn  — write pattern (idempotent via rkey=asn-{number})

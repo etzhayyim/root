@@ -4,7 +4,7 @@
   "component": {
     "path": "/wasm/component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-ipaddress agent. IP/ASN/WHOIS/GeoIP authoritative data collection — Role-based DID governance (ITU/ICANN/RIR/NIR/ASN/IP). Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-ipaddress agent. IP/ASN/WHOIS/GeoIP authoritative data collection — Role-based DID governance (ITU/ICANN/RIR/NIR/ASN/IP). Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -17,16 +17,16 @@
   },
   "interfaces": {
     "provides": [
-      "gftd:ipaddress/ip-registry@1.0.0",
-      "gftd:ipaddress/network-topology@1.0.0",
-      "gftd:ipaddress/delegation-chain@1.0.0"
+      "etzhayyim:ipaddress/ip-registry@1.0.0",
+      "etzhayyim:ipaddress/network-topology@1.0.0",
+      "etzhayyim:ipaddress/delegation-chain@1.0.0"
     ],
     "requires": []
   },
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-ipaddress",
+  "name": "etzhayyim-wasm-ipaddress",
   "nanoid": "n7w1p4d0",
   "performerType": "system",
   "profile": {

@@ -13,7 +13,7 @@
 | **UI** | appview (Protocol Canvas card UI) |
 | **Data** | SQL graph (yata Workers RPC) — Role-based DID hierarchy (C 案: Shannon 最適) |
 | **W Protocol Event Stream** | Design E 3-Tier Write。Social: `AppBskyFeedPost`、Domain: `ComAtprotoRepoCreateRecord`、State: `Preferences`、Read: `G()` |
-| **WIT export** | `gftd:ipaddress/ip-registry@1.0.0`, `network-topology@1.0.0`, `delegation-chain@1.0.0` |
+| **WIT export** | `etzhayyim:ipaddress/ip-registry@1.0.0`, `network-topology@1.0.0`, `delegation-chain@1.0.0` |
 | **Domain** | `ipaddress.etzhayyim.com` |
 | **Source type** | **1次ソース** (RIR API, WHOIS, GeoIP DB 直接取得) |
 
@@ -161,7 +161,7 @@ com.etzhayyim.apps.ipaddress.scan_result        # port/service scan result (soft
 
 ## CRITICAL: DID Social Posting (ComAtprotoSyncSubscribeRepos → AppBskyFeedPost)
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-ipaddress-did-social-posting-comatprotosyncs` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-ipaddress-did-social-posting-comatprotosyncs` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Commands
 

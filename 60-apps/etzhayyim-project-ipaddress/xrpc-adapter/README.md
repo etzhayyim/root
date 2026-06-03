@@ -9,7 +9,7 @@ Total: 37 commands across multiple tiers (see lexicons for full list).
 ## Setup
 
 ```bash
-cd 60-apps/ai-gftd-project-ipaddress/xrpc-adapter && npm install && npm run dev
+cd 60-apps/etzhayyim-project-ipaddress/xrpc-adapter && npm install && npm run dev
 ```
 
 ## Deploy
