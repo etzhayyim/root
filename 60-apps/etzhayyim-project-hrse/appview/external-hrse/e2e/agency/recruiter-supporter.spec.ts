@@ -1,4 +1,4 @@
-// @etzhayyim/ai-gftd-hrse#RecruiterSupporterE2E
+// @etzhayyim/etzhayyim-hrse#RecruiterSupporterE2E
 // Agency Recruiter Supporter AI Agent Page E2E Test
 
 import { test, expect } from "@playwright/test";

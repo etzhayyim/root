@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#MatchingNotificationCapability
+# @etzhayyimcojp/cyber-freelance#MatchingNotificationCapability
 # Capability: Matching Notification Capability
 # Description: Sends email and in-app notifications when matching results are found
 # Activity: SendMatchingNotificationActivity

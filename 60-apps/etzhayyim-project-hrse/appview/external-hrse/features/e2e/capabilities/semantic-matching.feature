@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#SemanticMatchingCapability
+# @etzhayyimcojp/cyber-freelance#SemanticMatchingCapability
 # Capability: Semantic Matching Capability
 # Description: Uses LLM to evaluate semantic similarity of skills and experiences between job seekers and jobs
 # Activity: EvaluateSemanticMatchingActivity

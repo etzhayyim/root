@@ -1,4 +1,4 @@
-# ai-gftd-project-hrse App migration
+# etzhayyim-project-hrse App migration
 
 このディレクトリは `legacy-runtime` 実装を残したまま、App 版を段階移行するための配置先です。
 
@@ -17,7 +17,7 @@
 
 - `hrse-components-app-component`: `hrse-components-ijwzfzfn` 向け UI components metadata companion (`/api/mcp`, `/{nanoid}/api/mcp`, `/healthz`)
 - `hrse-mcp-component`: App 単体で動作する MCP facade (`/api/mcp`, `/{nanoid}/api/mcp`, `/health`)
-- `hrse-ui-w7h3x9nq`: `hrse.etzhayyim.com` 向け static site component (`70-tools/gftd-static-site` + embedded `static/`)
+- `hrse-ui-w7h3x9nq`: `hrse.etzhayyim.com` 向け static site component (`70-tools/etzhayyim-static-site` + embedded `static/`)
 
 ## 移行ステータス
 

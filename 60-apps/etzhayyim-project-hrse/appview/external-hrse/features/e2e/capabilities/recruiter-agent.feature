@@ -1,4 +1,4 @@
-# @gftdcojp/ai-gftd-hrse#RecruiterAgentCapability
+# @etzhayyimcojp/etzhayyim-hrse#RecruiterAgentCapability
 # Capability: Recruiter AI Agent Capability
 # Description: Hume AIを使用してリクルーターの業務を支援するAIエージェント機能。今日のタスク生成、推奨アクション提案、チャット形式での対話を提供
 # Activity: GenerateDailyTasksActivity, ProvideSuggestionsActivity, ChatWithAgentActivity

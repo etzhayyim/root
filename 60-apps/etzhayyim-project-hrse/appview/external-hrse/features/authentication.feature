@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#AuthenticationCapability
+# @etzhayyimcojp/cyber-freelance#AuthenticationCapability
 # Capability: Authentication Capability
 # Description: Provides authentication and authorization using Clerk, including token verification, user authentication, and route protection in both Rust backend and Next.js frontend
 # Activity: AuthenticateUserActivity, VerifyTokenActivity, ProtectRouteActivity

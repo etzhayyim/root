@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#EventTriggerCapability
+# @etzhayyimcojp/cyber-freelance#EventTriggerCapability
 # Capability: Event Trigger Capability
 # Description: Detects job and job seeker registration/update events and triggers matching processing
 # Activity: TriggerMatchingOnJobUpdateActivity, TriggerMatchingOnJobSeekerUpdateActivity

@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#MasterDataE2EBDD
+# @etzhayyimcojp/cyber-freelance#MasterDataE2EBDD
 # E2E BDD: マスターデータ管理機能
 
 @e2e @admin @master-data

@@ -23,12 +23,12 @@
       "status": "completed",
       "dependencies": [],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/middleware.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/auth/signin/[[...signin]]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/auth/signup/[[...signup]]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/clerk/route.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/middleware.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/auth/signin/[[...signin]]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/auth/signup/[[...signup]]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/clerk/route.ts"
       ]
     },
     {
@@ -60,8 +60,8 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
       ],
       "note": "oRPCからGraphQLに移行済み"
     },
@@ -76,8 +76,8 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
       ],
       "note": "oRPCからGraphQLに移行済み"
     },
@@ -92,8 +92,8 @@
         "node:job-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/matching_result.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/matching_result.rs"
       ],
       "note": "oRPCからGraphQLに移行済み"
     },
@@ -107,8 +107,8 @@
         "node:job-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
       ],
       "note": "oRPCからGraphQLに移行済み"
     },
@@ -122,8 +122,8 @@
         "node:proposal-contract-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/clerk/route.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/clerk/route.ts"
       ]
     },
     {
@@ -136,7 +136,7 @@
         "node:subscription-flow"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts"
       ]
     },
     {
@@ -149,7 +149,7 @@
         "node:subscription-flow"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/clerk/route.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/clerk/route.ts"
       ]
     },
     {
@@ -162,11 +162,11 @@
         "node:database-schema"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/main.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types_async/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/auth/clerk.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/main.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types_async/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/auth/clerk.rs"
       ],
       "prov:startedAtTime": "2024-01-01T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -182,14 +182,14 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/schema.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/generated.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/context.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/relations.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types/*.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/Cargo.toml"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/schema.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/generated.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/context.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/relations.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types/*.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/Cargo.toml"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -205,9 +205,9 @@
         "node:graphql-juniper-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/error.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/error.rs"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -223,10 +223,10 @@
         "node:graphql-juniper-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/context.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/main.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/auth/clerk.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/context.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/main.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/auth/clerk.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -242,10 +242,10 @@
         "node:graphql-authentication"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/auth/clerk_subscription.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/contract.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/payment.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/auth/clerk_subscription.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/contract.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/payment.rs"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -261,10 +261,10 @@
         "node:graphql-juniper-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/relations.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types/freelancer.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types/job.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types/proposal.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/relations.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types/freelancer.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types/job.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types/proposal.rs"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -280,14 +280,14 @@
         "node:graphql-juniper-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/Cargo.toml",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/main.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/lib.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types_async/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/inputs_async/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/context_async.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/Cargo.toml",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/main.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/lib.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types_async/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/inputs_async/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/context_async.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -303,15 +303,15 @@
         "node:graphql-async-graphql-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types_async/",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/relations.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/contract.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/freelancer.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/hire_manager.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/agency.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/email_analysis.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/mod.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types_async/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/relations.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/contract.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/freelancer.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/hire_manager.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/agency.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/email_analysis.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/mod.rs"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -327,11 +327,11 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types/recruiter.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/inputs/recruiter.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/recruiter.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types/recruiter.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/inputs/recruiter.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/recruiter.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
       ]
     },
     {
@@ -344,11 +344,11 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/apollo-client.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/ApolloProvider.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/layout.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/queries/",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/mutations/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/apollo-client.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/ApolloProvider.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/layout.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/queries/",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/mutations/",
         "codegen.yaml",
         "package.json"
       ],
@@ -386,16 +386,16 @@
         "node:apollo-client-setup"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx"
       ],
       "prov:startedAtTime": "2025-01-27T00:00:00Z",
       "prov:endedAtTime": "2025-01-27T00:00:00Z",
@@ -412,14 +412,14 @@
         "node:apollo-client-setup"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/queries/hireManager.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/mutations/hireManager.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/queries/proposal.graphql"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/queries/hireManager.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/mutations/hireManager.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/queries/proposal.graphql"
       ]
     },
     {
@@ -432,7 +432,7 @@
         "node:subscription-api-implementation"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
       ],
       "note": "oRPCからGraphQLに移行済み"
     },
@@ -446,7 +446,7 @@
         "node:proposal-contract-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs"
       ],
       "note": "oRPCからGraphQLに移行済み"
     },
@@ -460,8 +460,8 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/queries/masterData.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/queries/masterData.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/query/mod.rs"
       ]
     },
     {
@@ -474,8 +474,8 @@
         "node:master-data-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/middleware.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/middleware.ts"
       ]
     },
     {
@@ -488,7 +488,7 @@
         "node:master-data-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/scripts/seed-master-data.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/scripts/seed-master-data.ts"
       ]
     },
     {
@@ -502,16 +502,16 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251206213506_create_skills.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251206213507_create_trainings.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251206213508_update_courses_as_master.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/scripts/create-full-schema.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/schema.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types_async/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/queries/master_data_test.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251206213506_create_skills.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251206213507_create_trainings.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251206213508_update_courses_as_master.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/scripts/create-full-schema.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/schema.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types_async/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/queries/master_data_test.rs"
       ],
       "prov:startedAtTime": "2025-12-06T12:35:06Z",
       "prov:endedAtTime": "2025-12-06T12:38:01Z",
@@ -527,16 +527,16 @@
         "node:master-data-extension"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251206220003_create_resources.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251206220004_create_performers.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251206220005_create_resource_performer_relations.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/scripts/create-full-schema.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/schema.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/schema/types_async/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/queries/master_data_test.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251206220003_create_resources.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251206220004_create_performers.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251206220005_create_resource_performer_relations.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/scripts/create-full-schema.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/schema.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/schema/types_async/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/queries/master_data_test.rs"
       ],
       "prov:startedAtTime": "2025-12-06T22:00:03Z",
       "prov:endedAtTime": "2025-12-06T13:03:29Z",
@@ -553,12 +553,12 @@
         "node:master-data-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard/BasicInfoStep.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard/NeedTypeStep.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard/RequirementsStep.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard/ConditionsStep.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard/ReviewStep.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard/BasicInfoStep.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard/NeedTypeStep.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard/RequirementsStep.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard/ConditionsStep.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard/ReviewStep.tsx"
       ]
     },
     {
@@ -571,8 +571,8 @@
         "node:graphql-service"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/schema.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/queries/masterData.graphql"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/schema.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/queries/masterData.graphql"
       ]
     },
     {
@@ -586,8 +586,8 @@
         "node:recruiter-ui"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/MultiSelect.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/MultiSelect.tsx"
       ]
     },
     {
@@ -602,11 +602,11 @@
         "node:master-data-procedures"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/MultiSelect.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/MultiSelect.tsx"
       ]
     },
     {
@@ -619,10 +619,10 @@
         "node:hire-manager-graphql-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx"
       ]
     },
     {
@@ -636,9 +636,9 @@
         "node:recruiter-ui"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/globals.css",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/globals.css",
         "tailwind.config.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/TouchOptimizedButton.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/TouchOptimizedButton.tsx"
       ]
     },
     {
@@ -652,11 +652,11 @@
       ],
       "implementation": [
         "tailwind.config.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/TouchOptimizedButton.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/ThemeToggle.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/globals.css",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/Sidebar.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/page.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/TouchOptimizedButton.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/ThemeToggle.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/globals.css",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/Sidebar.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/page.tsx"
       ],
       "prov:startedAtTime": "2025-01-28T00:00:00Z",
       "prov:endedAtTime": "2025-01-28T00:30:00Z",
@@ -687,9 +687,9 @@
         "node:testing"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/email-analyzer.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/services/email-analyzer.test.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/email-analyzer.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/services/email-analyzer.test.ts"
       ],
       "prov:startedAtTime": "2025-01-27T22:00:00Z",
       "prov:endedAtTime": "2025-01-27T22:17:00Z",
@@ -705,8 +705,8 @@
         "node:tdd-email-analysis"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/services/record-router.test.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/services/record-router.test.ts"
       ],
       "prov:startedAtTime": "2025-01-27T22:00:00Z",
       "prov:endedAtTime": "2025-01-27T22:17:00Z",
@@ -722,8 +722,8 @@
         "node:tdd-record-routing"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/api/webhooks/resend.test.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/api/webhooks/resend.test.ts"
       ],
       "prov:startedAtTime": "2025-01-27T22:00:00Z",
       "prov:endedAtTime": "2025-01-27T22:17:00Z",
@@ -739,10 +739,10 @@
         "node:testing"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/mod.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/email_analyzer_test.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/record_router_test.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/semantic_matching_test.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/mod.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/email_analyzer_test.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/record_router_test.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/semantic_matching_test.rs"
       ],
       "prov:startedAtTime": "2025-01-27T22:17:00Z",
       "prov:endedAtTime": "2025-01-27T22:21:00Z",
@@ -758,10 +758,10 @@
         "node:tdd-rust-services"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/sample_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/services/record-router.test.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/bin/seed_data/sample_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/services/record-router.test.ts"
       ],
       "prov:startedAtTime": "2025-01-27T22:21:00Z",
       "prov:endedAtTime": "2025-01-27T22:25:00Z",
@@ -777,9 +777,9 @@
         "node:tdd-test-fixes"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/helpers/test_database.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/lcov.info",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/coverage/html/index.html"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/helpers/test_database.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/lcov.info",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/coverage/html/index.html"
       ],
       "prov:startedAtTime": "2025-01-27T22:25:00Z",
       "prov:endedAtTime": "2025-12-06T22:56:00Z",
@@ -795,10 +795,10 @@
         "node:tdd-rust-coverage-report"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/matching_notification_test.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/event_trigger_test.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/semantic_matching_test.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/services/mod.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/matching_notification_test.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/event_trigger_test.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/semantic_matching_test.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/services/mod.rs"
       ],
       "prov:startedAtTime": "2025-12-06T23:00:00Z",
       "prov:endedAtTime": "2025-12-06T23:30:00Z",
@@ -814,8 +814,8 @@
         "node:tdd-capability-tests"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/lib/llm/openai.test.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/api/webhooks/resend.test.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/lib/llm/openai.test.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/api/webhooks/resend.test.ts"
       ],
       "prov:startedAtTime": "2025-12-07T11:30:00Z",
       "prov:endedAtTime": "2025-12-07T11:50:00Z",
@@ -831,16 +831,16 @@
         "node:tdd-test-fixes"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/mocks/handlers.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/mocks/server.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/mocks/browser.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/mocks/graphql-handlers.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/utils/msw-helpers.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/services/record-router.test.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/services/email-analyzer.test.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/mocks/handlers.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/mocks/server.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/mocks/browser.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/mocks/graphql-handlers.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/utils/msw-helpers.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/services/record-router.test.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/services/email-analyzer.test.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts",
         "docker-compose.test.yaml",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/tests/helpers/test_database_setup.sh"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/tests/helpers/test_database_setup.sh"
       ],
       "prov:startedAtTime": "2025-01-27T22:25:00Z",
       "prov:endedAtTime": "2025-01-27T22:35:00Z",
@@ -856,10 +856,10 @@
         "node:msw-setup"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/services/email-analyzer.test.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/pages/job-seeker/profile.test.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/__tests__/mocks/graphql-handlers.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/services/email-analyzer.test.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/pages/job-seeker/profile.test.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/__tests__/mocks/graphql-handlers.ts"
       ],
       "prov:startedAtTime": "2025-01-27T22:35:00Z",
       "prov:endedAtTime": "2025-12-06T13:30:00Z",
@@ -875,10 +875,10 @@
         "node:test-coverage-improvement"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/scripts/generate-bdd-from-capabilities.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/support/world.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/support/hooks.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/step_definitions/common.steps.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/scripts/generate-bdd-from-capabilities.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/support/world.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/support/hooks.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/step_definitions/common.steps.ts",
         "cucumber.config.ts",
         ".nycrc.json",
         "package.json"
@@ -911,11 +911,11 @@
         "node:tdd-resend-webhook-integration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/email_sender_resolver.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/record_router.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/agency.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/migrations/20251208000002_add_resend_email_id_to_email_analyses.sql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/email-analysis/page.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/email_sender_resolver.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/record_router.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/agency.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/migrations/20251208000002_add_resend_email_id_to_email_analyses.sql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/email-analysis/page.tsx"
       ],
       "prov:startedAtTime": "2025-12-08T00:00:00Z",
       "prov:endedAtTime": "2025-12-08T00:30:00Z",
@@ -936,7 +936,7 @@
         "vercel.json",
         ".vercel/project.json"
       ],
-      "note": "1. Project linked to ai-gftd-hrse (prj_NZBO2dx4MrpnGb6VDnWGxV2eiUaT). 2. Production deployment successful (dpl_5Rk3WbxeNK1n6rg7Q4RMMBSPc6sk). 3. Status: Ready. 4. URLs: https://ai-gftd-hrse-etzhayyim.vercel.app, https://hrse.etzhayyim.com, https://ai-gftd-agent.vercel.app. 5. vercel.json updated with Next.js framework configuration."
+      "note": "1. Project linked to etzhayyim-hrse (prj_NZBO2dx4MrpnGb6VDnWGxV2eiUaT). 2. Production deployment successful (dpl_5Rk3WbxeNK1n6rg7Q4RMMBSPc6sk). 3. Status: Ready. 4. URLs: https://etzhayyim-hrse-etzhayyim.vercel.app, https://hrse.etzhayyim.com, https://etzhayyim-agent.vercel.app. 5. vercel.json updated with Next.js framework configuration."
     },
     {
       "@id": "node:freelancer-dark-mode-fix",
@@ -948,11 +948,11 @@
         "node:ui-ux-dark-mode-implementation"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/MultiSelect.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/MultiSelect.tsx"
       ],
       "prov:startedAtTime": "2025-12-09T00:00:00Z",
       "prov:endedAtTime": "2025-12-09T00:30:00Z",
@@ -969,11 +969,11 @@
       ],
       "implementation": [
         "capabilities.jsonld",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/master-data-management.feature",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/step_definitions/master-data-management.steps.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/bin/seed_main.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/master_data.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/master-data-management.feature",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/step_definitions/master-data-management.steps.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/bin/seed_main.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/master_data.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
       ],
       "prov:startedAtTime": "2025-12-09T05:00:00Z",
       "prov:endedAtTime": "2025-12-09T05:30:00Z",
@@ -991,13 +991,13 @@
       ],
       "implementation": [
         "playwright.config.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/job-seeker/profile.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/admin/master-data.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/semantic-matching.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/job-seeker/profile.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/job-seeker/jobs.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/recruiter/jobs.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/matching.spec.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/job-seeker/profile.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/admin/master-data.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/semantic-matching.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/job-seeker/profile.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/job-seeker/jobs.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/recruiter/jobs.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/matching.spec.ts"
       ],
       "prov:startedAtTime": "2025-01-28T00:00:00Z",
       "prov:endedAtTime": "2025-01-28T01:00:00Z",
@@ -1014,7 +1014,7 @@
         "node:ui-ux-dark-mode-implementation"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/Sidebar.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/Sidebar.tsx"
       ],
       "prov:startedAtTime": "2025-01-28T12:00:00Z",
       "prov:endedAtTime": "2025-01-28T12:30:00Z",
@@ -1031,11 +1031,11 @@
         "node:sidebar-authentication-menu-restriction"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk-user-type.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/auth/signup/select-type/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/auth/signup/[[...signup]]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/auth/signup/complete/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/middleware.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk-user-type.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/auth/signup/select-type/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/auth/signup/[[...signup]]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/auth/signup/complete/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/middleware.ts"
       ],
       "prov:startedAtTime": "2025-01-28T13:00:00Z",
       "prov:endedAtTime": "2025-01-28T13:30:00Z",
@@ -1052,13 +1052,13 @@
         "node:ui-ux-dark-mode-implementation"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/companies/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/agencies/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/job-seekers/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/job-seekers/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/recruiters/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/Sidebar.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/companies/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/agencies/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/job-seekers/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/job-seekers/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/recruiters/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/Sidebar.tsx"
       ],
       "prov:startedAtTime": "2025-01-28T14:00:00Z",
       "prov:endedAtTime": "2025-01-28T14:45:00Z",
@@ -1133,9 +1133,9 @@
         "node:tdd-resend-webhook-integration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-sys-gftd-app-etzhayyim-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/service/entity_client.go"
+        "performers/etzhayyim-performer-sys-etzhayyim-app-etzhayyim-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/service/entity_client.go"
       ],
       "prov:startedAtTime": "2026-01-19T00:00:00Z",
       "note": "1. SESメールボックスUIを実装し、Resendで受信したメールのAI解析結果を確認可能にした。2. AdminService.SyncResendEmailsを介した手動同期機能を実装。3. LLM分析プロンプトをSES特有のフィールド（商流、経験年数、単価など）を抽出するように最適化。4. サイドバーにSES Mailboxを追加。5. Person/Party Entity Serviceへの自動同期機能をRecordRouterに実装し、SESで獲得した情報をプラットフォーム全体で共有可能にした。"
@@ -1160,10 +1160,10 @@
         "node:client-schema-first-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/apollo-client.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/ApolloProvider.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/layout.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/schema.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/apollo-client.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/ApolloProvider.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/layout.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/schema.graphql",
         "codegen.yaml"
       ],
       "prov:startedAtTime": "2024-01-01T00:00:00Z",
@@ -1180,11 +1180,11 @@
         "node:hire-manager-graphql-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx"
       ],
       "note": "以下のファイルは削除済み: src/lib/orpc-client.ts, src/app/api/orpc/route.ts, src/internal/orpc/*。package.jsonから@orpc/clientと@orpc/serverを削除。すべてのページをGraphQLに移行完了。"
     },
@@ -1198,10 +1198,10 @@
         "node:apollo-client-setup"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/freelancer/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/freelancer/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/freelancer/jobs/[id]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/freelancer/proposals/page.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/freelancer/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/freelancer/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/freelancer/jobs/[id]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/freelancer/proposals/page.tsx"
       ]
     },
     {
@@ -1216,16 +1216,16 @@
         "node:job-seeker-graphql-migration"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/jobs/[id]/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/job-seeker/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/[id]/proposals/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/jobs/new/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/hire-manager/profile/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/JobWizard.tsx"
       ]
     },
     {
@@ -1238,7 +1238,7 @@
         "node:user-type-selection-signup"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/middleware.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/middleware.ts"
       ],
       "prov:startedAtTime": "2025-12-09T15:30:00Z",
       "prov:endedAtTime": "2025-12-09T15:40:00Z",
@@ -1254,7 +1254,7 @@
         "node:admin-pages-implementation"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/graphql/route.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/graphql/route.ts",
         "docs/VERCEL_LOGS.md"
       ],
       "prov:startedAtTime": "2025-12-09T16:00:00Z",
@@ -1271,7 +1271,7 @@
         "node:middleware-regex-fix"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx"
       ],
       "prov:startedAtTime": "2025-12-09T16:00:00Z",
       "prov:endedAtTime": "2025-12-09T16:10:00Z",
@@ -1287,11 +1287,11 @@
         "node:graphql-authentication"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/db/queries/agency.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/schema.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/graphql/queries/agency.graphql",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/hooks/use-agency-profile.ts"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/db/queries/agency.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/query.rs",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/schema.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/graphql/queries/agency.graphql",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/hooks/use-agency-profile.ts"
       ],
       "prov:startedAtTime": "2025-12-10T00:00:00Z",
       "prov:endedAtTime": "2025-12-10T00:30:00Z",
@@ -1310,9 +1310,9 @@
       "prov:endedAtTime": "2026-01-26T13:00:00Z",
       "implementation": [
         "infra/k8s/deployment.yaml",
-        "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/k8s/deployment.yaml"
+        "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/k8s/deployment.yaml"
       ],
-      "note": "1. アプリイメージビルド・プッシュ: ghcr.io/etzhayyim/ai-gftd-hrse@sha256:c8889a83e3d4e3e9864c20db2eefe88230d94d508adfd29e2d792a8d37247dab。2. バックエンドイメージビルド・プッシュ: ghcr.io/etzhayyim/hrse-svc@sha256:ee0a2cea6c06577e3fcb761fd4e454872adffe83e6ef123b4da283664766f196。3. K8sマニフェストのイメージ指定をタグからダイジェストに変更（不変性の確保）。"
+      "note": "1. アプリイメージビルド・プッシュ: ghcr.io/etzhayyim/etzhayyim-hrse@sha256:c8889a83e3d4e3e9864c20db2eefe88230d94d508adfd29e2d792a8d37247dab。2. バックエンドイメージビルド・プッシュ: ghcr.io/etzhayyim/hrse-svc@sha256:ee0a2cea6c06577e3fcb761fd4e454872adffe83e6ef123b4da283664766f196。3. K8sマニフェストのイメージ指定をタグからダイジェストに変更（不変性の確保）。"
     },
     {
       "@id": "node:e2e-bdd-tdd-implementation",
@@ -1325,15 +1325,15 @@
         "node:e2e-tdd-implementation"
       ],
       "implementation": [
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/support/e2e-world.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/support/e2e-hooks.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/step_definitions/e2e-common.steps.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/e2e/job-seeker-profile.feature",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/e2e/matching.feature",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/e2e/master-data.feature",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/features/e2e/capabilities/*.feature",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/e2e/capabilities/*.spec.ts",
-        "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/scripts/generate-e2e-from-capabilities.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/support/e2e-world.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/support/e2e-hooks.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/step_definitions/e2e-common.steps.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/e2e/job-seeker-profile.feature",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/e2e/matching.feature",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/e2e/master-data.feature",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/features/e2e/capabilities/*.feature",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/e2e/capabilities/*.spec.ts",
+        "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/scripts/generate-e2e-from-capabilities.ts",
         "cucumber-e2e.config.ts",
         "package.json"
       ],
@@ -4360,7 +4360,7 @@
                 "ExtractedEntityInfo"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/email-analyzer.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/email-analyzer.ts"
               ]
             },
             {
@@ -4393,8 +4393,8 @@
                 "ExtractedEntityInfo"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/prompts.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/prompts.ts"
               ]
             },
             {
@@ -4430,7 +4430,7 @@
                 "AgencyRecord"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts"
               ]
             },
             {
@@ -4466,7 +4466,7 @@
                 "UpdatedAgencyRecord"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts"
               ]
             },
             {
@@ -4500,7 +4500,7 @@
                 "MatchingCandidateList"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
               ]
             },
             {
@@ -4534,7 +4534,7 @@
                 "MatchingCandidateList"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
               ]
             },
             {
@@ -4571,7 +4571,7 @@
                 "SemanticMatchingExplanation"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/semantic_matching.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/semantic_matching.rs"
               ]
             },
             {
@@ -4605,7 +4605,7 @@
                 "NotificationRecord"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/matching_notification.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/matching_notification.rs"
               ]
             },
             {
@@ -4639,7 +4639,7 @@
                 "MatchingResultList"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/batch_matching.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/batch_matching.rs"
               ]
             },
             {
@@ -4674,8 +4674,8 @@
                 "DailyTaskList"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go"
               ]
             },
             {
@@ -4709,8 +4709,8 @@
                 "SuggestionList"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go"
               ]
             },
             {
@@ -4745,8 +4745,8 @@
                 "SuggestedActions"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go"
               ]
             },
             {
@@ -4781,7 +4781,7 @@
                 "GatewayConfig"
               ],
               "implementation": [
-                "sub_projects/ai-gftd-hrse/infra/k8s/"
+                "sub_projects/etzhayyim-hrse/infra/k8s/"
               ]
             },
             {
@@ -4967,8 +4967,8 @@
                 "BPPartnerRecord"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/temporal/workflows/email_sync.go",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/temporal/workflows/email_sync.go",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts"
               ]
             }
           ]
@@ -5011,8 +5011,8 @@
               ],
               "prov:wasGeneratedBy": "AnalyzeEmailActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/email-analyzer.ts",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/email-analyzer.ts",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts"
               ]
             },
             {
@@ -5040,7 +5040,7 @@
               ],
               "prov:wasGeneratedBy": "RouteRecordActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/services/record-router.ts"
               ]
             },
             {
@@ -5068,8 +5068,8 @@
               ],
               "prov:wasGeneratedBy": "ExtractEntityInfoActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/llm/prompts.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/openai.ts",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/llm/prompts.ts"
               ]
             },
             {
@@ -5097,7 +5097,7 @@
               ],
               "prov:wasGeneratedBy": "AnalyzeEmailActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts"
               ]
             },
             {
@@ -5125,8 +5125,8 @@
               ],
               "prov:wasGeneratedBy": "EvaluateSemanticMatchingActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/semantic_matching.rs",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/llm/mod.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/semantic_matching.rs",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/llm/mod.rs"
               ]
             },
             {
@@ -5154,7 +5154,7 @@
               ],
               "prov:wasGeneratedBy": "SendMatchingNotificationActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/services/matching_notification.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/services/matching_notification.rs"
               ]
             },
             {
@@ -5185,7 +5185,7 @@
                 "TriggerMatchingOnJobSeekerUpdateActivity"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers/mutation/mod.rs"
               ]
             },
             {
@@ -5218,8 +5218,8 @@
                 "CancelSubscriptionActivity"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/clerk.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk-subscription.ts",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/clerk.ts"
               ]
             },
             {
@@ -5247,8 +5247,8 @@
               ],
               "prov:wasGeneratedBy": "ManageMasterDataActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/admin/master-data/page.tsx",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs"
               ]
             },
             {
@@ -5280,11 +5280,11 @@
                 "ProtectRouteActivity"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/auth/clerk.rs",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/auth/require_auth.rs",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/main.rs",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/middleware.ts",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/apollo-client.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/auth/clerk.rs",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/auth/require_auth.rs",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/main.rs",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/middleware.ts",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/apollo-client.ts"
               ]
             },
             {
@@ -5315,11 +5315,11 @@
                 "UpdateAgencyProfileActivity"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/agency/profile/actions.ts",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/agency/profile/page.tsx",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/[orgId]/agency/profile/page.tsx",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/lib/hooks/use-agency-profile.ts"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/src/resolvers_async/mutation.rs",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/agency/profile/actions.ts",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/agency/profile/page.tsx",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/[orgId]/agency/profile/page.tsx",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/lib/hooks/use-agency-profile.ts"
               ]
             },
             {
@@ -5351,13 +5351,13 @@
                 "ChatWithAgentActivity"
               ],
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go",
-                "performers/ai-gftd-performer-org-gftd-sys-svc-hrse-6c3f9e2d/proto/hrse/v1/recruiter_agent.proto",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/agency/recruiter-supporter/page.tsx",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/recruiter-agent/ChatInterface.tsx",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/recruiter-agent/TaskDashboard.tsx",
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/components/recruiter-agent/SuggestionPanel.tsx"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/service/recruiter_agent.go",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/pkg/hume/client.go",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-svc-hrse-6c3f9e2d/proto/hrse/v1/recruiter_agent.proto",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/agency/recruiter-supporter/page.tsx",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/recruiter-agent/ChatInterface.tsx",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/recruiter-agent/TaskDashboard.tsx",
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/components/recruiter-agent/SuggestionPanel.tsx"
               ]
             },
             {
@@ -5489,8 +5489,8 @@
               ],
               "prov:wasGeneratedBy": "AutomateSESEmailProcessingActivity",
               "implementation": [
-                "performers/ai-gftd-performer-org-gftd-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
-                "performers/ai-gftd-performer-sys-gftd-app-etzhayyim-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte"
+                "performers/etzhayyim-performer-org-etzhayyim-sys-app-hrse-pba7d22f/src/app/api/webhooks/resend/route.ts",
+                "performers/etzhayyim-performer-sys-etzhayyim-app-etzhayyim-qzzg06nh/src/lib/features/ses-hrse/components/MailboxManager.svelte"
               ]
             }
           ]
@@ -5502,24 +5502,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "ai gftd project hrse Scheduler",
-          "identifier": "ai-gftd-project-hrse/scheduler",
+          "name": "ai etzhayyim project hrse Scheduler",
+          "identifier": "etzhayyim-project-hrse/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],

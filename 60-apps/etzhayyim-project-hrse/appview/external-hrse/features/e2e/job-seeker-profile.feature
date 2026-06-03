@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#JobSeekerProfileE2EBDD
+# @etzhayyimcojp/cyber-freelance#JobSeekerProfileE2EBDD
 # E2E BDD: 求職者プロファイル管理機能
 
 @e2e @job-seeker

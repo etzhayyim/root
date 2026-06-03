@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#EdgeCasesCapability
+# @etzhayyimcojp/cyber-freelance#EdgeCasesCapability
 # Capability: Edge Cases Capability
 # Description: Comprehensive edge case scenarios including empty data, boundary values, and special characters
 # Activity: HandleEdgeCaseActivity

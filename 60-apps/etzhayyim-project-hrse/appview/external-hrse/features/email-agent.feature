@@ -1,4 +1,4 @@
-# @gftdcojp/ai-gftd-hrse#EmailAgentCapability
+# @etzhayyimcojp/etzhayyim-hrse#EmailAgentCapability
 # Capability: Email Agent Capability
 # Description: LLM-powered email generation and management for matching notifications
 # Activity: GenerateMatchingEmailActivity, AnalyzeEmailReplyActivity

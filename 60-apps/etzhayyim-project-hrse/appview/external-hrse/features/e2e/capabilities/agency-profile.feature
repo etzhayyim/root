@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#AgencyProfileCapability
+# @etzhayyimcojp/cyber-freelance#AgencyProfileCapability
 # Capability: Agency Profile Management Capability
 # Description: Manages agency profile creation and updates, preventing duplicate key violations and integrating with Clerk organizations
 # Activity: CreateAgencyProfileActivity, UpdateAgencyProfileActivity

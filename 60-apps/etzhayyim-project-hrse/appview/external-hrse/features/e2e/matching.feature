@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#MatchingE2EBDD
+# @etzhayyimcojp/cyber-freelance#MatchingE2EBDD
 # E2E BDD: マッチング機能
 
 @e2e @matching

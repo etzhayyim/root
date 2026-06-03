@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#MasterDataManagementCapability
+# @etzhayyimcojp/cyber-freelance#MasterDataManagementCapability
 # Capability: Master Data Management Capability
 # Description: Manages master data (certifications, specializations, languages, etc.) including creation, update, and deletion
 # Activity: ManageMasterDataActivity

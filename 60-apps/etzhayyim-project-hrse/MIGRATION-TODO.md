@@ -6,7 +6,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-hrse`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/etzhayyim-project-hrse`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -44,7 +44,7 @@ equivalents listed at the top of this file.
 Detected violations:
 
 ```
-  @atproto/api: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-hrse/appview/external-hrse/src/lib/connect/server-client.ts:9
+  @atproto/api: /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-hrse/appview/external-hrse/src/lib/connect/server-client.ts:9
 ```
 
 ---

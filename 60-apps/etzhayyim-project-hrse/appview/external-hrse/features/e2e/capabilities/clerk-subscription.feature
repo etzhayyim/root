@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#ClerkSubscriptionCapability
+# @etzhayyimcojp/cyber-freelance#ClerkSubscriptionCapability
 # Capability: Clerk Subscription Management Capability
 # Description: Manages user subscriptions using Clerk's metadata feature, including creation, update, retrieval, and cancellation of subscriptions
 # Activity: CreateSubscriptionActivity, UpdateSubscriptionActivity, GetSubscriptionActivity, CancelSubscriptionActivity

@@ -1,4 +1,4 @@
-# @gftdcojp/cyber-freelance#AgencyProfileCapabilityFrontend
+# @etzhayyimcojp/cyber-freelance#AgencyProfileCapabilityFrontend
 # Capability: Agency Profile Management Capability (Frontend)
 # Description: Manages agency profile creation and updates through the frontend UI
 # Activity: CreateAgencyProfileActivity, UpdateAgencyProfileActivity
