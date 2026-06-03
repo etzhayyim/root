@@ -60,7 +60,7 @@ _BILLING_ACTOR = "did:web:billing.etzhayyim.com"
 # arithmetic. Display layer divides by 1e6 to get yen.
 _JPY_MICRO = 1_000_000
 
-# List prices (ADR D1). unit_cost is gftd-side cost; billed = list × qty.
+# List prices (ADR D1). unit_cost is etzhayyim-side cost; billed = list × qty.
 _LIST_PRICE_JPY_MICRO: dict[str, int] = {
     # storage = ¥10/GB-month, charged hourly = ¥10 / (30*24) ≈ ¥0.0139/GB-h
     # Stored as integer JPY-micro per metric unit.

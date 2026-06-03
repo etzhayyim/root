@@ -65,7 +65,7 @@ def _http_get_text(url: str, *, timeout: float = 120.0) -> tuple[int, str]:
     """Buffered fetch — used by NGC (~3 MB) where holding the body in RAM
     is fine. HYG (~30 MB) uses _http_iter_lines below to avoid OOM in the
     pod (peak RSS for `read().decode()` of 30 MB ~ 90 MB after copies)."""
-    req = Request(url, headers={"user-agent": "gftd-maps-tentai/1.0"}, method="GET")
+    req = Request(url, headers={"user-agent": "etzhayyim-maps-tentai/1.0"}, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             return getattr(resp, "status", 200), resp.read().decode("utf-8", errors="replace")
@@ -78,7 +78,7 @@ def _http_get_text(url: str, *, timeout: float = 120.0) -> tuple[int, str]:
 def _http_iter_lines(url: str, *, timeout: float = 180.0):
     """Stream a remote CSV line-by-line (yields decoded str). Caller wraps
     the iterator in csv.DictReader to avoid materializing the whole body."""
-    req = Request(url, headers={"user-agent": "gftd-maps-tentai/1.0"}, method="GET")
+    req = Request(url, headers={"user-agent": "etzhayyim-maps-tentai/1.0"}, method="GET")
     resp = urllib.request.urlopen(req, timeout=timeout)
     try:
         for raw in resp:  # urlopen returns an iterable of byte chunks (lines).
