@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:kimetsu-infinity-castle-2026",
+  "@id": "urn:etzhayyim:news:kimetsu-infinity-castle-2026",
   "identifier": "kimetsu-infinity-castle-2026",
   "headline": "劇場版『鬼滅の刃 無限城編』三部作の第二部公開日決定！新規キービジュアルと予告映像も解禁",
   "description": "『鬼滅の刃 無限城編』三部作の第二部が2026年秋に公開決定。鬼殺隊と上弦の鬼との最終決戦を描く本作の新規キービジュアルと特報映像が公開され、ufotableの圧倒的映像美への期待が高まる。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

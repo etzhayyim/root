@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:demon-slayer-ep19-notes-2026",
+  "@id": "urn:etzhayyim:news:demon-slayer-ep19-notes-2026",
   "identifier": "demon-slayer-ep19-notes-2026",
   "headline": "Demon Slayer: Kimetsu no Yaiba episode 19 notes: direction, structure, and highlights",
   "description": "A structure-first set of notes on Demon Slayer: Kimetsu no Yaiba episode 19, focused on direction and pacing.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
