@@ -142,7 +142,7 @@
 	{/if}
 
 	{#if donateOpen}
-		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+		<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-6">
 			<div class="flex items-start justify-between">
 				<div>
 					<h2 class="text-lg font-medium text-etzhayyim-text">USDC donation (Base L2)</h2>
@@ -213,7 +213,7 @@
 	{/if}
 
 	<!-- Plan card -->
-	<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+	<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-6">
 		<div class="flex items-start justify-between">
 			<div>
 				<p class="text-sm uppercase tracking-wider text-etzhayyim-muted">Current plan</p>
@@ -232,7 +232,7 @@
 	</div>
 
 	<!-- Usage 24h -->
-	<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+	<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-6">
 		<h2 class="text-lg font-medium text-etzhayyim-text">Usage (24h)</h2>
 		{#if loading}
 			<div class="mt-4 space-y-3">
@@ -286,7 +286,7 @@
 
 	<!-- Usage 30d -->
 	{#if usage30 && Object.keys(usage30).length > 0}
-		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+		<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-6">
 			<h2 class="text-lg font-medium text-etzhayyim-text">Usage (30d total)</h2>
 			<dl class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
 				{#each METRIC_ORDER as m}

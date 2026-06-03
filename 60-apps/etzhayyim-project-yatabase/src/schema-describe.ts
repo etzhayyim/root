@@ -59,7 +59,7 @@ export async function describeTenantSchema(
   if (!db) return null;
 
   // Use Kysely raw SQL via the underlying driver. Kysely's selectFrom is
-  // typed against the gftd graph schema, but `information_schema.columns`
+  // typed against the etzhayyim graph schema, but `information_schema.columns`
   // is a system view — we go through the raw `sql` template tag.
 // CHARTER-VIOLATION §substrate (centralized DB forbidden): migrate to AT MST + IPFS + Base L2 anchor
   // Worker host SDK exposes `sql` from kysely.

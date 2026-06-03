@@ -9,7 +9,7 @@ CF Worker's Workers Assets binding (`wrangler.jsonc → assets.directory =
 
 - **Svelte 5** runes (`$state` / `$derived` / `$props`)
 - **SvelteKit** (`adapter-static` + `single-page-application` fallback)
-- **Tailwind 3** + `@etzhayyim/design-system/plugin` (gftdUIKit) + the
+- **Tailwind 3** + `@etzhayyim/design-system/plugin` (etzhayyimUIKit) + the
   AppShell v2 token set (`--gv2-*` CSS custom properties)
 - **`@etzhayyim/design-system`** components only — no custom UI primitives
   (per `40-engine/svelte/CLAUDE.md` §"UIKit (design-system) 必須")
@@ -37,7 +37,7 @@ user is a developer who already has an API key from `/auth/v1/signup`.
 ## Develop
 
 ```bash
-cd 60-apps/ai-gftd-project-yatabase/svelte
+cd 60-apps/etzhayyim-project-yatabase/svelte
 pnpm install
 # Option 1: dev against the live yatabase.etzhayyim.com (fastest):
 VITE_YATABASE_ORIGIN=https://yatabase.etzhayyim.com pnpm dev
@@ -52,14 +52,14 @@ server can talk to production without CORS gymnastics.
 ## Build & deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-yatabase
-pnpm deploy                     # vite build → gftd deploy
+cd 60-apps/etzhayyim-project-yatabase
+pnpm deploy                     # vite build → etzhayyim deploy
 # or fast (skip svelte rebuild):
 pnpm deploy:fast
 ```
 
 `pnpm deploy` runs `cd svelte && pnpm build` → writes to
-`svelte/build/` → `gftd deploy --no-svelte` uploads the parent
+`svelte/build/` → `etzhayyim deploy --no-svelte` uploads the parent
 Worker (the Worker's `assets.directory` is already pointed at
 `./svelte/build`).
 

@@ -76,7 +76,7 @@
 	<div class="grid gap-4 lg:grid-cols-[1fr_280px]">
 		<!-- Editor + result -->
 		<div class="space-y-4">
-			<div class="rounded-xl border border-etzhayyim-border bg-gftd-card">
+			<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card">
 				<Textarea
 					blockSize="lg"
 					rows={10}
@@ -99,7 +99,7 @@
 			{/if}
 
 			{#if resp}
-				<div class="rounded-xl border border-etzhayyim-border bg-gftd-card">
+				<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card">
 					<div
 						class="flex items-center justify-between border-b border-etzhayyim-border px-4 py-2 text-xs text-etzhayyim-muted"
 					>
@@ -152,7 +152,7 @@
 
 		<!-- Sidebar: samples + history -->
 		<aside class="space-y-4 lg:sticky lg:top-6">
-			<div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+			<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
 				<h2 class="text-sm font-medium text-etzhayyim-secondary">Samples</h2>
 				<ul class="mt-3 space-y-1 text-xs">
 					{#each SAMPLES as s, i}
@@ -169,7 +169,7 @@
 				</ul>
 			</div>
 
-			<div class="rounded-xl border border-etzhayyim-border bg-gftd-card p-4">
+			<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card p-4">
 				<div class="flex items-center justify-between">
 					<h2 class="text-sm font-medium text-etzhayyim-secondary">History</h2>
 					{#if history.length > 0}

@@ -19,7 +19,7 @@
 
 	<div class="grid gap-4 md:grid-cols-3">
 		<!-- Plan card -->
-		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-5">
+		<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-5">
 			<div class="flex items-center justify-between">
 				<h2 class="text-sm font-medium text-etzhayyim-secondary">Current plan</h2>
 				<Badge type={$plan?.plan === 'free' ? 'tertiary' : 'primary'}>
@@ -41,7 +41,7 @@
 		</div>
 
 		<!-- Identity card -->
-		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-5">
+		<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-5">
 			<h2 class="text-sm font-medium text-etzhayyim-secondary">Identity</h2>
 			<dl class="mt-3 space-y-2 text-sm">
 				<div>
@@ -60,7 +60,7 @@
 		</div>
 
 		<!-- API key card -->
-		<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-5">
+		<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-5">
 			<h2 class="text-sm font-medium text-etzhayyim-secondary">API key</h2>
 			<p class="mt-3 font-mono text-xs text-etzhayyim-text">
 				{$apiKey ? `${$apiKey.slice(0, 18)}…${$apiKey.slice(-4)}` : '—'}
@@ -71,7 +71,7 @@
 	</div>
 
 	<!-- Quickstart -->
-	<div class="rounded-2xl border border-etzhayyim-border bg-gftd-card p-6">
+	<div class="rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-6">
 		<h2 class="text-lg font-semibold text-etzhayyim-text">Quick wins (60 seconds each)</h2>
 		<ol class="mt-4 space-y-3 text-sm text-etzhayyim-secondary">
 			<li class="flex items-start gap-3">

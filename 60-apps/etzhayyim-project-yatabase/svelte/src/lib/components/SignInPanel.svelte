@@ -11,7 +11,7 @@
 </script>
 
 <div
-	class="mx-auto max-w-xl rounded-2xl border border-etzhayyim-border bg-gftd-card p-8 shadow-xl"
+	class="mx-auto max-w-xl rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-8 shadow-xl"
 >
 	<h1 class="text-2xl font-semibold text-etzhayyim-text">Welcome to yatabase Studio</h1>
 	<p class="mt-2 text-sm text-etzhayyim-secondary">

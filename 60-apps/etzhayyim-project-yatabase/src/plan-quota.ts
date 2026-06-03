@@ -2,7 +2,7 @@
 //
 // Each tenant is assigned a plan tier based on the orgDid pattern. The
 // `yata-tenant.etzhayyim.com` namespace produced by /auth/v1/signup defaults
-// to the Free tier; non-tenant DIDs (gftd internal CLI keys, enterprise
+// to the Free tier; non-tenant DIDs (etzhayyim internal CLI keys, enterprise
 // onboarded customers) get Enterprise unlimited.
 //
 // Quota check sums today's `vertex_billing_event` rows per orgDid and
@@ -87,12 +87,12 @@ export interface PlanQuotaEnv {
 /**
  * Pick a plan tier from the orgDid alone. The signup flow always mints
  * `yata-tenant.etzhayyim.com` DIDs so freshly-signed-up tenants start on Free.
- * Non-tenant DIDs (e.g. gftd CLI internal keys, enterprise customers
+ * Non-tenant DIDs (e.g. etzhayyim CLI internal keys, enterprise customers
  * onboarded out-of-band) bypass the quota.
  */
 export function inferPlan(orgDid: string): PlanTier {
   if (!orgDid) return "free";
-  if (/yata-tenant\.gftd\.ai$/.test(orgDid)) return "free";
+  if (/yata-tenant\.etzhayyim\.ai$/.test(orgDid)) return "free";
   return "enterprise";
 }
 

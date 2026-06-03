@@ -1,7 +1,7 @@
 // query-forward.ts — deploy-first query XRPC shim from yatabase CF Worker
 // to lg-yatabase Granian pod (ADR-2605210000).
 //
-// Mirrors bmc-forward.ts. Adds x-gftd-mv-limit header so the pod knows
+// Mirrors bmc-forward.ts. Adds x-etzhayyim-mv-limit header so the pod knows
 // the plan's MV slot cap without a separate DB lookup.
 
 export interface QueryForwardEnv {
@@ -69,11 +69,11 @@ export async function forwardQuery(
   const url = new URL(`/xrpc/${nsid}`, base.endsWith("/") ? base : `${base}/`);
 
   const headers: Record<string, string> = {
-    "x-gftd-actor-did": identity.activeDid ?? identity.did,
-    "x-gftd-org-did": identity.orgDid,
-    "x-gftd-mv-limit": String(opts.mvLimit),
+    "x-etzhayyim-actor-did": identity.activeDid ?? identity.did,
+    "x-etzhayyim-org-did": identity.orgDid,
+    "x-etzhayyim-mv-limit": String(opts.mvLimit),
   };
-  if (identity.traceId) headers["x-gftd-trace-id"] = identity.traceId;
+  if (identity.traceId) headers["x-etzhayyim-trace-id"] = identity.traceId;
 
   let body: string | undefined;
   if (method === "GET") {

@@ -2,7 +2,7 @@
  * yatabase Studio API client.
  *
  * Thin typed wrappers over the same surfaces documented in
- * `60-apps/ai-gftd-project-yatabase/CLAUDE.md` §Surfaces. All requests
+ * `60-apps/etzhayyim-project-yatabase/CLAUDE.md` §Surfaces. All requests
  * carry the user's `sk_live_yata_*` API key as a Bearer token. The
  * Studio never talks to RisingWave / B2 / Stripe directly — every
  * call goes through the same edge Worker the rest of the customer

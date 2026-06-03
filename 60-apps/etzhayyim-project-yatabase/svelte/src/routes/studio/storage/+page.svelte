@@ -173,7 +173,7 @@
 		<section class="space-y-4">
 			{#if selected}
 				<div
-					class={`rounded-xl border-2 border-dashed bg-gftd-card/40 p-4 transition
+					class={`rounded-xl border-2 border-dashed bg-etzhayyim-card/40 p-4 transition
 						${dragging ? 'border-etzhayyim-accent bg-etzhayyim-accent/10' : 'border-etzhayyim-border'}`}
 					ondragover={(e) => {
 						e.preventDefault();
@@ -194,7 +194,7 @@
 							/>
 						</div>
 						<label
-							class="cursor-pointer rounded-md border border-etzhayyim-border bg-gftd-card px-4 py-2 text-sm text-etzhayyim-text hover:bg-white/5"
+							class="cursor-pointer rounded-md border border-etzhayyim-border bg-etzhayyim-card px-4 py-2 text-sm text-etzhayyim-text hover:bg-white/5"
 						>
 							Choose file
 							<input type="file" class="hidden" onchange={onFilePicked} />
@@ -213,7 +213,7 @@
 					</NotificationBanner>
 				{/if}
 
-				<div class="rounded-xl border border-etzhayyim-border bg-gftd-card">
+				<div class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card">
 					<div
 						class="flex items-center justify-between border-b border-etzhayyim-border px-4 py-2 text-sm text-etzhayyim-secondary"
 					>

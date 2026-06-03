@@ -150,7 +150,7 @@ forbidden: DETACH DELETE / FOREACH / CALL { ...write... }
   <section id="paneStorage" class="pane" hidden>
     <h2>Storage</h2>
     <p class="meta">Supabase-compatible <code>/storage/v1/*</code> + S3 SigV4 <code>/s3/*</code> are live.
-    Use <code>aws-sdk-js</code> / <code>boto3</code> with access key prefix <code>gftd_*</code>
+    Use <code>aws-sdk-js</code> / <code>boto3</code> with access key prefix <code>etzhayyim_*</code>
     or the API key as Bearer.</p>
     <div class="toolbar">
       <button onclick="listBuckets()">List buckets</button>

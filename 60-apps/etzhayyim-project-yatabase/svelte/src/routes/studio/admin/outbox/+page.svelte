@@ -167,7 +167,7 @@
 			<label class="flex items-center gap-2 text-xs text-etzhayyim-secondary">
 				status
 				<select
-					class="rounded-md border border-etzhayyim-border bg-gftd-card px-2 py-1 text-sm text-etzhayyim-text"
+					class="rounded-md border border-etzhayyim-border bg-etzhayyim-card px-2 py-1 text-sm text-etzhayyim-text"
 					bind:value={statusFilter}
 					onchange={() => load()}
 				>
@@ -182,7 +182,7 @@
 			<label class="flex items-center gap-2 text-xs text-etzhayyim-secondary">
 				kind
 				<select
-					class="rounded-md border border-etzhayyim-border bg-gftd-card px-2 py-1 text-sm text-etzhayyim-text"
+					class="rounded-md border border-etzhayyim-border bg-etzhayyim-card px-2 py-1 text-sm text-etzhayyim-text"
 					bind:value={kindFilter}
 					onchange={() => load()}
 				>
@@ -225,7 +225,7 @@
 					{@const isOpen = expanded === row.vertex_id}
 					{@const draft = recipientByRow[row.vertex_id] ?? { email: '', name: '' }}
 					{@const placeholder = detectsPlaceholder(row.body_text)}
-					<li class="rounded-xl border border-etzhayyim-border bg-gftd-card">
+					<li class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card">
 						<div class="flex items-start gap-3 px-4 py-3">
 							<button
 								class="flex-1 text-left"

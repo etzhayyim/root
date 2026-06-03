@@ -251,7 +251,7 @@
 	<div class="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-etzhayyim-accent/5 blur-3xl"></div>
 
 	<div class="relative z-10 max-w-3xl">
-		<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-etzhayyim-border bg-gftd-card px-4 py-1.5 text-sm text-etzhayyim-secondary">
+		<div class="mb-6 inline-flex items-center gap-2 rounded-full border border-etzhayyim-border bg-etzhayyim-card px-4 py-1.5 text-sm text-etzhayyim-secondary">
 			<span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
 			Graph DB BaaS · Cypher · SPARQL · SQL · MCP · OWL
 		</div>
@@ -272,13 +272,13 @@
 				class="rounded-xl bg-etzhayyim-accent px-8 py-3 text-base font-semibold text-white shadow-lg shadow-etzhayyim-accent/20 transition-opacity hover:opacity-90"
 			>Get started free</a>
 			<a href="#compare"
-				class="rounded-xl border border-etzhayyim-border bg-gftd-card px-8 py-3 text-base font-medium text-etzhayyim-text transition-colors hover:border-etzhayyim-accent/40"
+				class="rounded-xl border border-etzhayyim-border bg-etzhayyim-card px-8 py-3 text-base font-medium text-etzhayyim-text transition-colors hover:border-etzhayyim-accent/40"
 			>Compare pricing →</a>
 		</div>
 
 		<div class="mt-12 flex flex-wrap justify-center gap-2">
 			{#each ['Cypher / GQL', 'SPARQL 1.1', 'PostgreSQL wire', 'MCP JSON-RPC', 'OWL EL/RL/QL/DL', 'BWA $0 egress', 'AT Protocol auth'] as p}
-				<span class="rounded-md border border-etzhayyim-border bg-gftd-card px-3 py-1 text-xs text-etzhayyim-muted">{p}</span>
+				<span class="rounded-md border border-etzhayyim-border bg-etzhayyim-card px-3 py-1 text-xs text-etzhayyim-muted">{p}</span>
 			{/each}
 		</div>
 	</div>
@@ -293,7 +293,7 @@
 		</div>
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{#each features as f}
-				<div class="group relative rounded-2xl border border-etzhayyim-border bg-gftd-card p-6 transition-colors hover:border-etzhayyim-accent/30">
+				<div class="group relative rounded-2xl border border-etzhayyim-border bg-etzhayyim-card p-6 transition-colors hover:border-etzhayyim-accent/30">
 					{#if f.badge === 'Moat'}
 						<span class="absolute top-4 right-4 rounded-md bg-etzhayyim-accent/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-etzhayyim-accent">Moat</span>
 					{:else if f.badge === 'Unique'}
@@ -311,7 +311,7 @@
 </section>
 
 <!-- Protocol strip -->
-<section class="border-y border-etzhayyim-border bg-gftd-card px-6 py-20">
+<section class="border-y border-etzhayyim-border bg-etzhayyim-card px-6 py-20">
 	<div class="mx-auto max-w-6xl">
 		<div class="grid gap-12 lg:grid-cols-2 lg:items-center">
 			<div>
@@ -372,7 +372,7 @@
 				</thead>
 				<tbody>
 					{#each competitors as row, i}
-						<tr class="border-b border-etzhayyim-border/50 {i % 2 === 0 ? '' : 'bg-gftd-card/30'}">
+						<tr class="border-b border-etzhayyim-border/50 {i % 2 === 0 ? '' : 'bg-etzhayyim-card/30'}">
 							<td class="py-3.5 pr-4 font-medium text-etzhayyim-secondary">{row.feature}</td>
 							{#each [row.yatabase, row.neo4j, row.neptune, row.tigergraph] as cell, ci}
 								<td class="py-3.5 text-center">
@@ -392,7 +392,7 @@
 </section>
 
 <!-- Pricing -->
-<section id="pricing" class="border-t border-etzhayyim-border bg-gftd-card px-6 py-24">
+<section id="pricing" class="border-t border-etzhayyim-border bg-etzhayyim-card px-6 py-24">
 	<div class="mx-auto max-w-6xl">
 		<div class="mb-16 text-center">
 			<h2 class="text-3xl font-bold tracking-tight text-etzhayyim-text">Simple, predictable pricing</h2>

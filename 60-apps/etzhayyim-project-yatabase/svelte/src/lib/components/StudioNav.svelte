@@ -24,7 +24,7 @@
 </script>
 
 <aside
-	class="hidden w-60 shrink-0 flex-col border-r border-etzhayyim-border bg-gftd-card/40 md:flex"
+	class="hidden w-60 shrink-0 flex-col border-r border-etzhayyim-border bg-etzhayyim-card/40 md:flex"
 >
 	<div class="flex items-center gap-2 px-5 py-5">
 		<span class="text-2xl">🟦</span>
