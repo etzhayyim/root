@@ -94,7 +94,7 @@
         "authority": "内閣府",
         "basis": "内閣府設置法",
         "portalUri": "https://www.cao.go.jp/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/cao.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/cao.bpmn"
       },
       {
         "id": "jpn.cao-digital",
@@ -103,7 +103,7 @@
         "authority": "デジタル庁",
         "basis": "デジタル庁設置法",
         "portalUri": "https://www.digital.go.jp/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/cao-digital.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/cao-digital.bpmn"
       },
       {
         "id": "jpn.cao-ai-strategy-council",
@@ -112,7 +112,7 @@
         "authority": "AI戦略会議",
         "basis": "内閣府設置法",
         "portalUri": "https://www.cao.go.jp/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/cao-ai-strategy-council.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/cao-ai-strategy-council.bpmn"
       },
       {
         "id": "jpn.cao-cybersecurity-strategy-hq",
@@ -121,7 +121,7 @@
         "authority": "サイバーセキュリティ戦略本部",
         "basis": "サイバーセキュリティ基本法",
         "portalUri": "https://www.nisc.go.jp/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/cao-cybersecurity-strategy-hq.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/cao-cybersecurity-strategy-hq.bpmn"
       },
       {
         "id": "jpn.cao-aisi",
@@ -130,7 +130,7 @@
         "authority": "AI安全研究所",
         "basis": "内閣府設置法",
         "portalUri": "https://aisi.go.jp/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/cao-aisi.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/cao-aisi.bpmn"
       },
       {
         "id": "jpn.cao-digital-next-mynumber-card-taskforce",
@@ -139,20 +139,20 @@
         "authority": "次世代マイナンバーカードタスクフォース",
         "basis": "デジタル庁設置法",
         "portalUri": "https://www.digital.go.jp/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/jpn/bpmn/cao-digital-next-mynumber-card-taskforce.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/jpn/bpmn/cao-digital-next-mynumber-card-taskforce.bpmn"
       },
       {
         "id": "openJpnGov.resolveMinistry",
         "title": "省庁 DID 解決",
-        "bpmn": "etzhayyim-root/60-apps/ai-gftd-project-open-jpn-gov/bpmn/resolve-ministry.bpmn",
-        "form": "60-apps/ai-gftd-project-open-jpn-gov/forms/resolveMinistry.form.json",
+        "bpmn": "etzhayyim-root/60-apps/etzhayyim-project-open-jpn-gov/bpmn/resolve-ministry.bpmn",
+        "form": "60-apps/etzhayyim-project-open-jpn-gov/forms/resolveMinistry.form.json",
         "xrpcRef": "com.etzhayyim.apps.openJpnGov.getMinistry"
       },
       {
         "id": "openJpnGov.searchLaw",
         "title": "法令検索 (e-Gov 法令API v2 proxy)",
-        "bpmn": "etzhayyim-root/60-apps/ai-gftd-project-open-jpn-gov/bpmn/search-law.bpmn",
-        "form": "60-apps/ai-gftd-project-open-jpn-gov/forms/searchLaw.form.json",
+        "bpmn": "etzhayyim-root/60-apps/etzhayyim-project-open-jpn-gov/bpmn/search-law.bpmn",
+        "form": "60-apps/etzhayyim-project-open-jpn-gov/forms/searchLaw.form.json",
         "xrpcRef": "com.etzhayyim.apps.openJpnGov.searchLaws"
       }
     ],
@@ -187,7 +187,7 @@
     "ministryCount": 23,
     "contractCount": 1,
     "bpmnCount": 141,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/jpn/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/jpn/",
     "complianceFrameworks": [
       "日本国憲法 (Constitution of Japan, 1947)",
       "行政機関情報公開法 (1999)",

@@ -30,7 +30,7 @@
     "ministryCount": 1,
     "contractCount": 1,
     "bpmnCount": 8,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/isr/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/isr/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -69,7 +69,7 @@
         "authority": "Prime Ministers",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/isr/bpmn/prime-ministers.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/isr/bpmn/prime-ministers.bpmn"
       }
     ],
     "documentTemplates": [

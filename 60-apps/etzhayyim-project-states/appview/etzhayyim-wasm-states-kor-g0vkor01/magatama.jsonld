@@ -37,7 +37,7 @@
     "ministryCount": 2,
     "contractCount": 1,
     "bpmnCount": 44,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/kor/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/kor/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -79,7 +79,7 @@
         "authority": "Executive Blue House",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/kor/bpmn/executive-blue-house.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/kor/bpmn/executive-blue-house.bpmn"
       },
       {
         "id": "kor.military-ministry-of-national",
@@ -88,7 +88,7 @@
         "authority": "Military Ministry Of National",
         "basis": "Defence Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/kor/bpmn/military-ministry-of-national.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/kor/bpmn/military-ministry-of-national.bpmn"
       },
       {
         "id": "kor.info_request",

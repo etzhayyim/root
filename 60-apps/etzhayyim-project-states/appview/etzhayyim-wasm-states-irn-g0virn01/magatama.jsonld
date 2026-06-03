@@ -37,7 +37,7 @@
     "ministryCount": 6,
     "contractCount": 1,
     "bpmnCount": 27,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/irn/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/irn/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -73,7 +73,7 @@
         "authority": "Executive",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/irn/bpmn/executive.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/irn/bpmn/executive.bpmn"
       },
       {
         "id": "irn.executive-presidents",
@@ -82,7 +82,7 @@
         "authority": "Executive Presidents",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/irn/bpmn/executive-presidents.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/irn/bpmn/executive-presidents.bpmn"
       },
       {
         "id": "irn.legis-islamic-consult-assem",
@@ -91,7 +91,7 @@
         "authority": "Legis Islamic Consult Assem",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/irn/bpmn/legis-islamic-consult-assem.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/irn/bpmn/legis-islamic-consult-assem.bpmn"
       },
       {
         "id": "irn.legislative-islamic-consultative-ass",
@@ -100,7 +100,7 @@
         "authority": "Legislative Islamic Consultative Ass",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/irn/bpmn/legislative-islamic-consultative-ass.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/irn/bpmn/legislative-islamic-consultative-ass.bpmn"
       },
       {
         "id": "irn.mil-islamic-rgc",
@@ -109,7 +109,7 @@
         "authority": "Mil Islamic Rgc",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/irn/bpmn/mil-islamic-rgc.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/irn/bpmn/mil-islamic-rgc.bpmn"
       },
       {
         "id": "irn.military-islamic-revolutionary-guar",
@@ -118,7 +118,7 @@
         "authority": "Military Islamic Revolutionary Guar ",
         "basis": "Defence Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/irn/bpmn/military-islamic-revolutionary-guar.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/irn/bpmn/military-islamic-revolutionary-guar.bpmn"
       },
       {
         "id": "irn.access_info",
