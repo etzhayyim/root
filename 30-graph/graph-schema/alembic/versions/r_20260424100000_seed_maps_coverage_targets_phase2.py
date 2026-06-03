@@ -225,7 +225,7 @@ UP = [{'sql': '\n'
          "        $6, 'anon', 'anon', $7, $8\n"
          '      )\n'
          '    ',
-  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/did-web-site-gftd-ai:WebCrawlGeoEntity',
+  'parameters': ['at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/did-web-site-etzhayyim-ai:WebCrawlGeoEntity',
                  'did:web:site.etzhayyim.com',
                  'WebCrawlGeoEntity',
                  1000000,

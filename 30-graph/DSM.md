@@ -5,7 +5,7 @@ SSOT:
 - `30-graph/graph-schema/src/database.ts` — generated TS reflection of live RisingWave `information_schema`.
 - `30-graph/graph-schema/alembic/current_versions/` — active Alembic revisions for future DDL.
 - `30-graph/deps.toml` — per-component metadata and vertex DID tier policy.
-- `/deps.toml` — root index, layer rules (`[app_layer.*]`), enforcement input for `gftd deps graph`.
+- `/deps.toml` — root index, layer rules (`[app_layer.*]`), enforcement input for `etzhayyim deps graph`.
 
 ## Layer Order
 

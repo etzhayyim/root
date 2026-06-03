@@ -247,7 +247,7 @@
     "description": "AI Agent for calendar scheduling, availability coordination, and slot booking. DID-addressed booking links, timezone-aware availability, automated reminders.",
     "displayName": "Yotei — Calendar Scheduling & Availability",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

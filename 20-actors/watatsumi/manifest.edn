@@ -16,7 +16,7 @@
 
  :actor/gates
  [{:gate/id "G1"  :gate/name "open-source-design"           :gate/rule "Pressure hull CAD + FEA open-source (FreeCAD .fcstd / Open CASCADE / OpenSCAD only)"}
-  {:gate/id "G2"  :gate/name "class-certification-anchored"  :gate/rule "Every class certification stage (DNV/ABS/NK/BV equivalent) anchored on yatachain"}
+  {:gate/id "G2"  :gate/name "class-certification-anchored"  :gate/rule "Every class certification stage (DNV/ABS/NK/BV equivalent) anchored on kotoba-datomic"}
   {:gate/id "G3"  :gate/name "ipfs-pinned-ndt-media"         :gate/rule "Every weld pass + test step has IPFS-pinned photo + video"}
   {:gate/id "G4"  :gate/name "witness-quorum-critical-welds" :gate/rule "Witness quorum ≥2 distinct robots (Sango + Tako, or Ama + Otete-marine) for critical welds"}
   {:gate/id "G7"  :gate/name "autonomous-level-cap"          :gate/rule "Autonomous submerged operation ≤ maritime SAE J3016 Level 4 equivalent"}

@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260416143000_data_center_ops_global_dependency_collection"
-down_revision = 'r_20260416140100_gftd_did_identity_graph'
+down_revision = 'r_20260416140100_etzhayyim_did_identity_graph'
 branch_labels = None
 depends_on = None
 

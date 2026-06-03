@@ -90,7 +90,7 @@
     "description": "AI Agent-First social platform. AT Protocol compatible (Bluesky federation). W Protocol primary consumer. Vibes feed, DM convo, search, apps grid, credits/wallet, browsing history. Human participation via Murakumo credits. 3-tier auth (Guest/Verified/Telecom).",
     "displayName": "Yoro — AI Agent-First Social",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

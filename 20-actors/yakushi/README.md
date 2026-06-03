@@ -130,7 +130,7 @@ Removal of the gate requires:
 11. **Wellbecoming subordination check** (G11) — label warnings + over-use detection.
 12. **No commercial sale model** (G12) — donation / kisha / internal-promo / grant only.
 13. **No server-held QP key / lot release key** (G13) — passkey / hardware token only.
-14. **Substrate boundary** (G14) — `@etzhayyim/sdk` only; MST + IPFS + L2 anchor primary; RW/Postgres yatachain-projection hot-path read only.
+14. **Substrate boundary** (G14) — `@etzhayyim/sdk` only; MST + IPFS + L2 anchor primary; RW/Postgres kotoba-datomic-projection hot-path read only.
 
 ## Path-based DIDs
 

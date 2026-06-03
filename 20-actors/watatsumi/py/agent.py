@@ -12,7 +12,7 @@ over one kotoba EAVT graph, mirroring the submersible manufacturing lifecycle:
   handle_pressure_test            L5b: 1.25× design depth hydrotest
   handle_sea_trial                L5c: dock → harbor → deep-water trial
   handle_marine_emissions_audit   cross: MARPOL + BWMC + biofouling compliance
-  handle_class_certification_binder terminal: bind all records → yatachain anchor
+  handle_class_certification_binder terminal: bind all records → kotoba-datomic anchor
 
 Civilian-only (depth ≤6500m, no military/nuclear/stealth per Charter §2(a)) enforced
 at L1 + L2 + L4 + L5b gates. LLM access is Murakumo-only via KotobaLLM (127.0.0.1:4000,
@@ -155,14 +155,14 @@ def handle_marine_emissions_audit(state: dict) -> dict:
 
 
 def handle_class_certification_binder(state: dict) -> dict:
-    """Terminal: Bind all prior stage records → yatachain anchor + Council review attestation."""
+    """Terminal: Bind all prior stage records → kotoba-datomic anchor + Council review attestation."""
     stages = state.get("all_stages", [])
     if not all(stages):
         return {**state, "result": "FAIL_incomplete_certification_chain"}
     craft_did = state.get("craft_did", "")
-    yatachain_cid = _infer(f"Generate yatachain anchor CID for {craft_did}")
+    kotoba-datomic_cid = _infer(f"Generate kotoba-datomic anchor CID for {craft_did}")
     return {**state,
-            "yatachain_cid": yatachain_cid,
+            "kotoba-datomic_cid": kotoba-datomic_cid,
             "council_review_required": True,
             "result": "terminal-pending-council-attestation"}
 

@@ -4,7 +4,7 @@ Adds T2 domain tables for HubSpot CRM v3 object types (contact / company /
 deal / ticket / owner / engagement / line_item / product) plus a per-object
 sync cursor for incremental polling.
 
-Driven by 60-apps/ai-gftd-project-hubspot-hb5p0t1n ingest worker
+Driven by 60-apps/etzhayyim-project-hubspot-hb5p0t1n ingest worker
 (R/PT15M timer → /crm/v3/objects/{type} paginated, lastmodifieddate filter).
 
 ADRs: 0036 (Hyperdrive direct domain write), 0095 (RLS canonical columns),

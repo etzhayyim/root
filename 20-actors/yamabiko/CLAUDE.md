@@ -49,7 +49,7 @@ traction_electrical ──┘
 **IMMUTABLE R0–R3.** Key enforcement:
 
 - **G1 + N5**: ATP/ATO/traction firmware Apache 2.0 + Charter Rider, no proprietary signalling NDA
-- **G2**: Per-trainset yatachain anchor + open trainset registry
+- **G2**: Per-trainset kotoba-datomic anchor + open trainset registry
 - **G4**: ≥2 robot witness per FSW + bogie marriage
 - **G7**: R0/R1 BEMU + H₂ acceptable; **R2+ full electrification + H₂/NH₃ only (diesel phased out)**
 - **G8**: ISO 3095 wayside noise + 騒音規制法 + IEC 62236 EMC
@@ -78,7 +78,7 @@ traction_electrical ──┘
 
 9 records: `carbodyAttestation`, `bogieAttestation`, `interiorAttestation`, `tractionElectricalAttestation`, `finalAssemblyAttestation`, `dynamicTestRecord`, `acousticEmissionsAuditRecord`, `homologationRecord`, `silenRailReview`.
 
-Terminal `trainsetManufactureRecord` (yatachain-anchored aggregate) emitted by `homologation_binder` cell.
+Terminal `trainsetManufactureRecord` (kotoba-datomic-anchored aggregate) emitted by `homologation_binder` cell.
 
 ## Testing (R0)
 

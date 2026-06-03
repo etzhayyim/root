@@ -1,7 +1,7 @@
 /**
  * Graph Schema Documentation
  *
- * The GFTD graph database contains 188 tables:
+ * The Etzhayyim graph database contains 188 tables:
  * - 130 vertex (entity) tables: vertex_actor, vertex_post, vertex_profile, etc.
  * - 57 edge (relationship) tables: edge_follows, edge_has_author, edge_contains, etc.
  *
@@ -33,8 +33,8 @@
  *
  * Querying Data
  * =============
- * import { createKyselyDb } from "@gftd/magatama-host-sdk";
- * import type { Database } from "@gftd/graph-schema";
+ * import { createKyselyDb } from "@etzhayyim/magatama-host-sdk";
+ * import type { Database } from "@etzhayyim/graph-schema";
  *
  * const db = createKyselyDb(sql, env.HYPERDRIVE);
  * const actors = await db.selectFrom('vertex_actor')
@@ -43,7 +43,7 @@
  *
  * Type-Safe Rows
  * ==============
- * import type { VertexActorRow, VertexPostRow } from "@gftd/graph-schema";
+ * import type { VertexActorRow, VertexPostRow } from "@etzhayyim/graph-schema";
  *
  * function processRow<T extends Record<string, any>>(row: T): void {
  *   // Full type safety on row properties

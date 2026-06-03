@@ -114,10 +114,10 @@ capture_converter = "30-graph/graph-schema/graph_schema/capture_kysely_to_alembi
 capture_driver = "30-graph/graph-schema/scripts/capture-kysely-migration.mjs"
 verified = [
   "uv run alembic heads --verbose",
-  "DATABASE_URL=<1password:gftd.rw/ROOT_URL> uv run python -m graph_schema.generate_database_ts",
-  "DATABASE_URL=<1password:gftd.rw/ROOT_URL> uv run python -m graph_schema.drift",
-  "DATABASE_URL=<macOS-keychain:gftd.rw/ROOT_URL> pnpm db:gen",
-  "DATABASE_URL=<macOS-keychain:gftd.rw/ROOT_URL> pnpm db:drift",
+  "DATABASE_URL=<1password:etzhayyim.rw/ROOT_URL> uv run python -m graph_schema.generate_database_ts",
+  "DATABASE_URL=<1password:etzhayyim.rw/ROOT_URL> uv run python -m graph_schema.drift",
+  "DATABASE_URL=<macOS-keychain:etzhayyim.rw/ROOT_URL> pnpm db:gen",
+  "DATABASE_URL=<macOS-keychain:etzhayyim.rw/ROOT_URL> pnpm db:drift",
   "uv run python -m compileall graph_schema alembic",
 ]
 manual_remaining_files = []
@@ -227,7 +227,7 @@ Every BigQuery-backed ingest must use dry-run/query validation,
 available, TTL'd staging tables, and `allowed_for_train=false` until license and
 PII policy gates pass.
 
-world-coverage mapping (formerly driven by `gftd world-coverage`, CLI removed 2026-05-20; 2026-05-10 review):
+world-coverage mapping (formerly driven by `etzhayyim world-coverage`, CLI removed 2026-05-20; 2026-05-10 review):
 
 - BigQuery public-data covers ~17 `dim_world_domain` app_hosts: `patent`,
   `blockchain`, `weather`, `iryo` (subset), `iryo-genomics`, `maps`, `gov` (US
@@ -372,7 +372,7 @@ LoRA SFT completed 100 steps with `train_loss=1.297047061920166`; inference
 eval measured base 5.0904 tok/s vs adapter 4.9798 tok/s; the public HF adapter
 repo is `com-junkawasaki/oka-gemma3-27b-hf-quality-lora` at commit
 `8ef48c441d0342ec3d6f04c2f955be95b0866dbb`; and the temporary RunPod H100 NVL
-pod `gftd-h100nvl-train-260509` was terminated after artifact preservation.
+pod `etzhayyim-h100nvl-train-260509` was terminated after artifact preservation.
 """
 impact = "agent decision memory, process routing, training precision policy, MCP context retrieval"
 references = [
@@ -431,7 +431,7 @@ ADR-2605092700 accepts RW capability storage and authority boundary:
   plaintext for migrated object classes.
 - auth.etzhayyim.com remains the OAuth/DPoP proof-of-possession session boundary.
 - Capability evaluation normalizes did:web / did:plc facade DIDs to canonical
-  `did:erc725:gftd:260425:<identity>` root DIDs before grant matching.
+  `did:erc725:etzhayyim:260425:<identity>` root DIDs before grant matching.
 - ERC725 / ERC-8004 remain the trust/discovery anchors; RW is the operational
   projection and verification index, not a replacement for the onchain root
   identity registry.
@@ -537,7 +537,7 @@ references = [
   "30-graph/graph-schema/migrations/20260429161000_pd_color_process_mining_views.ts",
   "30-graph/graph-schema/src/database.ts",
   "20-actors/magatama/py/src/pymagatama/pd_color_process_mining.py",
-  "60-apps/ai-gftd-project-public-domain-colorization/process-mining/README.md",
+  "60-apps/etzhayyim-project-public-domain-colorization/process-mining/README.md",
 ]
 
 [knowledge."canonical-process-mining-rw-udf-20260429"]
@@ -563,7 +563,7 @@ impact = "RisingWave analytics, XRPC UDF routing, process mining defaults"
 references = [
   "30-graph/graph-schema/migrations/20260429193000_udf_bpmn_analyze_process.ts",
   "00-contracts/lexicons/com/etzhayyim/apps/bpmn/analyzeProcess.json",
-  "50-infra/cloudflare/workers/atproto/src/handlers/gftd/udf-pool.ts",
+  "50-infra/cloudflare/workers/atproto/src/handlers/etzhayyim/udf-pool.ts",
   "90-docs/adr/0056-bpmn-as-actor.md",
 ]
 
@@ -677,7 +677,7 @@ details = """
 ADR-0035 is implemented through Kysely migrations under
 30-graph/graph-schema/migrations/*jp_fiscal*.ts, with generated types in
 30-graph/graph-schema/src/database.ts. Source manifests live in
-60-apps/ai-gftd-project-states/data/jp_fiscal/sources.json, but they are not
+60-apps/etzhayyim-project-states/data/jp_fiscal/sources.json, but they are not
 the persistence SSoT.
 
 Live pipeline implemented 2026-04-27:
@@ -689,7 +689,7 @@ Live pipeline implemented 2026-04-27:
   and procurement bid→contract gaps.
 
 Operational invariant:
-- DATABASE_URL is read from Apple Keychain service gftd.rw account ROOT_URL.
+- DATABASE_URL is read from Apple Keychain service etzhayyim.rw account ROOT_URL.
 - Do not print the URL.
 - Do not use ON CONFLICT against RisingWave; use DELETE+INSERT or explicit
   SELECT-then-INSERT.
@@ -713,17 +713,17 @@ severity = "info"
 status = "active"
 summary = "Actor vector embeddings use ERC725 root DID; AT DIDs are facade/display keys"
 details = """
-ADR-0074 and ADR-2604262100 make `did:erc725:gftd:260425:<identity>` the
+ADR-0074 and ADR-2604262100 make `did:erc725:etzhayyim:260425:<identity>` the
 canonical actor root. Actor semantic search and vector backfill therefore key
 `vertex_vector_embedding_source.source_uri` as
-`actor:did:erc725:gftd:260425:<identity>`.
+`actor:did:erc725:etzhayyim:260425:<identity>`.
 
 `did:web` and `did:plc` are AT Protocol facade/profile keys only. They may be
 stored in `repo` for display/profile enrichment, but production actor HNSW
 search excludes legacy facade-keyed rows.
 
 Yoro live root/facade pair:
-- root: `did:erc725:gftd:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`
+- root: `did:erc725:etzhayyim:260425:0xe506d815690ab0b81bf2f34b5057d7b8b96fe643`
 - facade: `did:web:yoro.etzhayyim.com`
 """
 impact = "view_actor_unified root_did projection, vector embedding source keys, AppView actor HNSW search"
@@ -749,12 +749,12 @@ verified_counts = { view_root_erc725 = 1, edge_actual_yoro = 1, embedding_erc725
 
 [vector_search_768]
 status = "active"
-space_id = "gftd-mm-768"
+space_id = "etzhayyim-mm-768"
 default_text_model_id = "bge-m3"
-default_projection_id = "bge-m3-to-gftd-mm-768"
+default_projection_id = "bge-m3-to-etzhayyim-mm-768"
 source_table = "vertex_vector_embedding_source"
 embedding_table = "vertex_vector_embedding_768"
-actor_source_uri_prefix = "actor:did:erc725:gftd:260425:"
+actor_source_uri_prefix = "actor:did:erc725:etzhayyim:260425:"
 legacy_actor_source_uri_prefixes_excluded = ["actor:did:web:", "actor:did:plc:"]
 worker_image = "ghcr.io/etzhayyim/pymagatama:yoro-vector-embedding-20260427-search768d-amd64"
 appview_version = "3f5dd746-87e0-4da1-9a88-e5f91ec2a009"
@@ -805,7 +805,7 @@ flags = ["editable"]
 #
 # 428 vertex_* table (live SSoT: graph-schema/src/database.ts) を 3 tier に分類:
 #   Tier A = first-class actor DID (DNS handle, O(10^5) 上限)
-#   Tier B = sub-path did:gftd (parent authority 継承, handle 無し, O(10^6) 上限)
+#   Tier B = sub-path did:etzhayyim (parent authority 継承, handle 無し, O(10^6) 上限)
 #   Tier C = DID 発行なし (参照 / 分類 / crawl / 分析 / infra, at:// URI で充分)
 #
 # ADR-0040 分類ルール:
@@ -852,9 +852,9 @@ tables = [
   "vertex_profile",
   "vertex_domain",
   "vertex_handle",
-  "vertex_gftd_identity",
-  "vertex_gftd_org",
-  "vertex_gftd_team",
+  "vertex_etzhayyim_identity",
+  "vertex_etzhayyim_org",
+  "vertex_etzhayyim_team",
   "vertex_cohort_actor",
   "vertex_did",
   "vertex_did_alias",
@@ -871,7 +871,7 @@ tables = [
 ]
 
 [vertex_tier.tier_b]
-# Sub-path did:gftd — parent actor 継承 authority、project-scoped
+# Sub-path did:etzhayyim — parent actor 継承 authority、project-scoped
 # Each row = structured entity owned by a parent Tier A actor
 tables = [
   # Actor extensions (parent = actor DID)
@@ -1716,8 +1716,8 @@ tables = [
   # Transactions (high-volume ledger)
   "vertex_transaction",
 
-  # gftd op log (infra)
-  "vertex_gftd_op_log",
+  # etzhayyim op log (infra)
+  "vertex_etzhayyim_op_log",
 
   # Phase 3 declared-pending additions (migrations present, not live 2026-04-25)
   "vertex_bluesky_post_embedding",
@@ -1760,7 +1760,7 @@ tables = [
   "vertex_apqc_event",
   "vertex_crypto_asset_freeze_forensic_trace",
   "vertex_generation_trial",
-  "vertex_gftd_beneficial_owner",
+  "vertex_etzhayyim_beneficial_owner",
   "vertex_houbun_amendmentevent",
   "vertex_houbun_article",
   "vertex_houbun_statute",

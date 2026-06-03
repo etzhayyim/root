@@ -124,10 +124,10 @@ ranked chokepoint-load panel; **click a station → kotoba object data**. A **re
 renderer with kanae/shibuya, ADR-2605302300) remains the deferred integration —
 `cable-resilience.json` is the data contract it would consume.
 
-## Lexicons (kotoba-native, supersede legacy `gftd`)
+## Lexicons (kotoba-native, supersede legacy `etzhayyim`)
 
 `com.etzhayyim.cable.*` — `registerCableSystem` / `registerLandingStation` /
-`registerSegment` / `flagCableFault`. These replace the legacy `gftd` telecom / telecomInfra /
+`registerSegment` / `flagCableFault`. These replace the legacy `etzhayyim` telecom / telecomInfra /
 cableRepairFleet lexicons; see the inventory + mapping in
 [`00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md`](../../00-contracts/lexicons/com/etzhayyim/cable/MIGRATION-NOTES.md).
 

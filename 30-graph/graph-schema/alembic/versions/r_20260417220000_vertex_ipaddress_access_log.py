@@ -10,7 +10,7 @@ from graph_schema.db import execute_sql_text
 
 
 revision = "r_20260417220000_vertex_ipaddress_access_log"
-down_revision = 'r_20260417210000_did_gftd_cidv1_path'
+down_revision = 'r_20260417210000_did_etzhayyim_cidv1_path'
 branch_labels = None
 depends_on = None
 

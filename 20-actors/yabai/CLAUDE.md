@@ -51,7 +51,7 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 | **Data** | **kotoba Datom log** (`kotoba-kqe` EAVT; ADR-2605301400 §T3) — NOT RisingWave / yata SQL. Legacy SQL roster (retired, mapping in ADR §T3): `WhoisRecord/DnsRecord→:domain/*+:pdns/*`, `AsnInfo/GeoipEnrichment/IpHostingHistory/IpLocationHistory→:iphist/*`, `TlsCertificate/TlsAnomaly→:tlscert/*`, `IocIndicator/PhishingUrl→:indicator/*`, `IntelAccessLog/IntelSession/IntelDevice→:access/* (encrypted)`. Risk/alert/enforcement scoring tables (`YabaiRisk/YabaiAlert/YabaiEnforcement`) remain scoring-layer, fed FROM the kotoba CTI graph |
 | **W Protocol Event Stream** | WRecord kinds: `yabai.entity`, `yabai.evidence`, `yabai.risk`, `yabai.alert`, `yabai.enforcement`, `yabai.ip_risk`, `yabai.whois_record`, `yabai.dns_record`, `yabai.asn_info`, `yabai.geoip_enrichment`, `yabai.cve_entry`, `yabai.mitre_technique`, `yabai.exploit_observation`, `yabai.tls_certificate`, `yabai.tls_anomaly`, `yabai.malware_sample`, `yabai.ioc_indicator`, `yabai.phishing_url`, `yabai.stix_bundle`, `yabai.bgp_event`, `yabai.abuse_report`。Write: `WRecord(kind, payload)`、Read: `G("Label").Match(Eq{...}).Query()` |
 | **W Protocol** | 4 channels: `yabai-feed`, `yabai-alerts`, `yabai-audit`, `yabai-evolution` + stream method `stream-alerts` |
-| **WIT export** | `gftd:yabai-risk/risk-assessment@1.0.0`, `network-intel@1.0.0`, `vuln-intel@1.0.0`, `threat-intel@1.0.0`, `exchange-intel@1.0.0`, `infra-intel@1.0.0`, `access-audit@1.0.0`, `cf-metrics-ingest@1.0.0` |
+| **WIT export** | `etzhayyim:yabai-risk/risk-assessment@1.0.0`, `network-intel@1.0.0`, `vuln-intel@1.0.0`, `threat-intel@1.0.0`, `exchange-intel@1.0.0`, `infra-intel@1.0.0`, `access-audit@1.0.0`, `cf-metrics-ingest@1.0.0` |
 | **Agent tools** | `get-risk`, `evaluate-entity`, `explain-score`, `get-entity`, `analyze-entity`, `get-summary`, `list-entities`, `get-entity-graph`, `ingest-ip`, `get-ip-risk`, `report-rate-abuse`, `sync-waf-lists`, `ingest-whois`, `get-whois`, `ingest-dns`, `get-dns`, `ingest-asn`, `get-asn`, `ingest-geoip`, `get-geoip`, `detect-whois-anomalies`, `detect-dns-anomalies`, `ingest-cve`, `get-cve`, `search-cves`, `ingest-mitre-technique`, `get-mitre-technique`, `map-actor-techniques`, `record-exploit-observation`, `list-exploit-observations`, `ingest-tls-certificate`, `get-tls-certificate`, `record-tls-anomaly`, `ingest-malware-sample`, `get-malware-sample`, `ingest-ioc`, `search-iocs`, `ingest-phishing-url`, `list-phishing-urls`, `ingest-stix-bundle`, `get-stix-bundle`, `export-stix-bundle`, `record-bgp-event`, `list-bgp-events`, `submit-abuse-report`, `get-abuse-report`, `list-abuse-reports` |
 | **Domain** | `yabai.etzhayyim.com` / `y8b41k0x.etzhayyim.com` |
 
@@ -75,7 +75,7 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 
 ## CRITICAL: IP Risk Scoring + CF WAF Integration
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-yabai-ip-risk-scoring-+-cf-waf-integration` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-yabai-ip-risk-scoring-+-cf-waf-integration` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Cyber Threat Intelligence (CTI) Layers
 
@@ -197,7 +197,7 @@ IntelSession -[:FROM_IP]-> YabaiEntity (IPAddress)
 
 ## CRITICAL: CF Traffic Analysis — Logpush (全アクセス) + GraphQL (aggregate)
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-yabai-cf-traffic-analysis-logpush-全アク�` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-yabai-cf-traffic-analysis-logpush-全アク�` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## W Protocol Events
 
@@ -216,9 +216,9 @@ IntelSession -[:FROM_IP]-> YabaiEntity (IPAddress)
 
 | File | Purpose |
 |---|---|
-| `wasm/ai-gftd-wasm-yabai-y8b41k0x/src/app.ts` | Single-file business logic |
-| `wasm/ai-gftd-wasm-yabai-y8b41k0x/magatama.jsonld` | Runtime config, space, triggers |
-| `wasm/ai-gftd-wasm-yabai-y8b41k0x/wit/world.wit` | WIT capability export |
+| `wasm/etzhayyim-wasm-yabai-y8b41k0x/src/app.ts` | Single-file business logic |
+| `wasm/etzhayyim-wasm-yabai-y8b41k0x/magatama.jsonld` | Runtime config, space, triggers |
+| `wasm/etzhayyim-wasm-yabai-y8b41k0x/wit/world.wit` | WIT capability export |
 | `wit/yabai-risk/package.wit` | Domain WIT interfaces (risk-assessment, network-intel, vuln-intel, threat-intel, exchange-intel) |
 | `content/` | Entity/evidence/risk JSON-LD archive (461 entities) |
 

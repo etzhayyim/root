@@ -24,8 +24,8 @@ UP = [{'sql': 'ALTER TABLE "vertex_app" ADD COLUMN IF NOT EXISTS "icon" VARCHAR'
          '          $11, $12, $13, $14, $15\n'
          '        )\n'
          '      ',
-  'parameters': ['at://did:web:yoro.etzhayyim.com/com.etzhayyim.apps.yoro.appRegistry/gftd',
-                 'gftd',
+  'parameters': ['at://did:web:yoro.etzhayyim.com/com.etzhayyim.apps.yoro.appRegistry/etzhayyim',
+                 'etzhayyim',
                  'etzhayyim',
                  'etzhayyim portal',
                  '🌐',
