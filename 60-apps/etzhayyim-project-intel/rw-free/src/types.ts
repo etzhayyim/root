@@ -12,9 +12,9 @@
  *   SENSITIVE / CUI (kotoba E2E, com.etzhayyim.encrypted.record) — inferred
  *   cohorts (subjectDid + estimate): written via sdk.encryptedWrite (read-cap =
  *   owner DID), so confidential intelligence lives on-substrate encrypted, not
- *   gftd-resident. Public discovery metadata stays plaintext.
+ *   etzhayyim-resident. Public discovery metadata stays plaintext.
  *
- *   STAYS gftd (consumed via consent-capability) — HUMINT/SIGINT collection
+ *   STAYS etzhayyim (consumed via consent-capability) — HUMINT/SIGINT collection
  *   pipelines + analysis EXECUTION + source feeds (the regulated *acts*, not the
  *   resulting data records).
  *

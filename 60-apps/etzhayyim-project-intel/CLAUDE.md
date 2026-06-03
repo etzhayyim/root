@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/intel/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# ai-gftd-project-intel — Multi-INT Fusion Intelligence Platform
+# etzhayyim-project-intel — Multi-INT Fusion Intelligence Platform
 
 **intel.etzhayyim.com** — 30 INT discipline を統合した LLM 駆動 intelligence analysis platform
 
@@ -13,7 +13,7 @@
 | Runtime | Worker WASM (default) |
 | UI mode | appview |
 | Sensitivity | **cui** (default classification) |
-| Service path | `/xrpc/gftd.intel.v1.IntelService` |
+| Service path | `/xrpc/etzhayyim.intel.v1.IntelService` |
 | LLM | Murakumo `qwen3-vl-8b` |
 | Version | `0.2.0` |
 
@@ -169,7 +169,7 @@ handleHeartbeat(feedJSON, engagementJSON)
 
 ## Inference Coverage Engine
 
-**統計推論 → 交差検証 → 実データ安定化** の 3-Phase で `gftd coverage` domain に推定 entity 数を供給する。natural-person の cohort パターンを経済/産業 intelligence に適用。
+**統計推論 → 交差検証 → 実データ安定化** の 3-Phase で `etzhayyim coverage` domain に推定 entity 数を供給する。natural-person の cohort パターンを経済/産業 intelligence に適用。
 
 ### Graph Schema (Inference)
 
@@ -224,7 +224,7 @@ L1=0.95 (直接導出), L2=0.80 (統計), L3=0.60 (波及), L4=0.40 (LLM), L5=0.
 
 ## Known Limitations
 
-- `magatama.jsonld` の `interfaces.package` が `gftd:intel@0.1.0` (古い) — WIT は `gftd:intel-i7n73l0x` に移行済み
+- `magatama.jsonld` の `interfaces.package` が `etzhayyim:intel@0.1.0` (古い) — WIT は `etzhayyim:intel-i7n73l0x` に移行済み
 - HTTP routing (`magatama.Handle(handleHTTP)`) と `app.Command` が二重 init — 要統一
 
 ## Dependency Graph Inference (2026-04-25)

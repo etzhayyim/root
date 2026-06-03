@@ -6,7 +6,7 @@
 
 ## Problem
 
-`gftd coverage` は 403 world domains × real-world total で coverage gap を可視化する。現状は各 app が 1次ソース ingest した DID/Record のみをカウントするため、coverage は実データ依存で gap が大きい。
+`etzhayyim coverage` は 403 world domains × real-world total で coverage gap を可視化する。現状は各 app が 1次ソース ingest した DID/Record のみをカウントするため、coverage は実データ依存で gap が大きい。
 
 Intel は 30 INT disciplines + Murakumo LLM + follow source 6 app のデータを持つ。これを使い **推論による coverage 生成** を行い、natural-person の cohort パターンと同様に「統計推論 → 実データで安定化」の 2 phase で coverage を埋める。
 
@@ -42,7 +42,7 @@ Intel は 30 INT disciplines + Murakumo LLM + follow source 6 app のデータ�
 
 ### Coverage Domain への mapping
 
-| 推論結果 | gftd coverage domain | WorldTotal への寄与 | DID path |
+| 推論結果 | etzhayyim coverage domain | WorldTotal への寄与 | DID path |
 |---|---|---|---|
 | 販売契約 10.5M | `koyo_keiyaku` (契約) | 10,500,000 contracts | `intel:infer:toyota:sales_contract:{cohort_hash}` |
 | 法人 717 | `legal_entity` | 717 entities | `intel:infer:toyota:entity:{slug}` |
@@ -76,7 +76,7 @@ natural-person の cohort パターンを経済/産業 intelligence に適用す
     layer: 1,                          // 推論の深さ
     source_type: "ir_report",          // 1次ソース種別
     source_url: "https://...",         // evidence link
-    target_domain: "koyo_keiyaku",     // gftd coverage domain
+    target_domain: "koyo_keiyaku",     // etzhayyim coverage domain
     entity_type: "contract",
     estimated_count: 10500000,
     confidence: 0.95,                  // Layer 1 = high confidence
@@ -139,7 +139,7 @@ InferenceStep {
   input_fact: string,            // "Toyota 2025 global sales: 10.5M vehicles"
   inference_rule: string,         // "1 vehicle sale = 1 sales contract"
   output_entity_type: string,     // "contract"
-  output_domain: string,          // gftd coverage domain name
+  output_domain: string,          // etzhayyim coverage domain name
   estimated_count: number,
   confidence: 0.0..1.0,
   methodology: "direct_derivation" | "statistical_model" | "industry_ratio" | "llm_estimation",
@@ -173,11 +173,11 @@ InferenceStep {
 | `SUPERSEDED_BY` | InferredCohort → (実 DID/Record) |
 | `CORROBORATES` | InferenceChain → InferenceChain (交差検証) |
 
-## Coverage Integration: `gftd coverage` への反映
+## Coverage Integration: `etzhayyim coverage` への反映
 
 ### 3-Tier Coverage Count
 
-`gftd coverage` の domain DID count に Intel inference を段階的に反映する。
+`etzhayyim coverage` の domain DID count に Intel inference を段階的に反映する。
 
 | Tier | Source | Weight | 表示 |
 |---|---|---|---|
@@ -186,7 +186,7 @@ InferenceStep {
 | **Inferred** | Intel 推論 (single source, confidence ≥ 0.5) | 0.3 | `INFERRED (I)` |
 
 ```
-gftd coverage 出力例:
+etzhayyim coverage 出力例:
 
 DOMAIN          ACTUAL     INFERRED(C)  INFERRED(I)  EFFECTIVE   WORLD TOTAL   COVERAGE
 koyo_keiyaku    12,000     8,500,000    15,200,000   5,972,000   33,000,000,000  0.018%
@@ -199,7 +199,7 @@ EFFECTIVE = ACTUAL×1.0 + INFERRED(C)×0.7 + INFERRED(I)×0.3
 
 ### PDS Query Extension
 
-Intel inference cohort は `intel.etzhayyim.com` の path-based DID として登録されるため、既存の `gftd coverage` Cypher query で自然にカウントされる。ただし inference tier 区別のため、`InferredCohort` node に `status` property を付与。
+Intel inference cohort は `intel.etzhayyim.com` の path-based DID として登録されるため、既存の `etzhayyim coverage` Cypher query で自然にカウントされる。ただし inference tier 区別のため、`InferredCohort` node に `status` property を付与。
 
 ```cypher
 // Actual count (現行)
@@ -320,7 +320,7 @@ handleHeartbeat
 
 ```
                                      ┌─────────────────┐
-                                     │  gftd coverage   │
+                                     │  etzhayyim coverage   │
                                      │  (world_coverage │
                                      │   .go)           │
                                      └────────┬────────┘
@@ -349,7 +349,7 @@ handleHeartbeat
                            │  :InferredCohort nodes            │
                            │  :InferenceChain nodes            │
                            │  :InferenceEvidence nodes         │
-                           │  → gftd coverage が query         │
+                           │  → etzhayyim coverage が query         │
                            └──────────────────────────────────┘
 ```
 
@@ -431,7 +431,7 @@ function effectiveWeight(status: string, confidence: number): number {
 | **P2** | Follow source reactive inference (L1-L2) | handotai/kuruma commit → 自動推論 |
 | **P3** | Inference template library (automotive, semiconductor, finance) | 業界比率による高精度推論 |
 | **P4** | Cross-INT corroboration | 複数ソース交差検証で confidence 向上 |
-| **P5** | `gftd coverage` integration (world_coverage.go 拡張) | 推論 coverage の可視化 |
+| **P5** | `etzhayyim coverage` integration (world_coverage.go 拡張) | 推論 coverage の可視化 |
 | **P6** | Stabilization pipeline (実データ到着 → cohort 安定化) | 推論 → 実データの自動遷移 |
 | **P7** | Confidence decay + heartbeat refresh | 古い推論の自動劣化 + 更新 |
 

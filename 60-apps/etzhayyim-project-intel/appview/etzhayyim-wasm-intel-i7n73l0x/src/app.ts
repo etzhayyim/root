@@ -286,7 +286,7 @@ async function onPeerIntelCommit(sdk: HostSDK, commit: ComAtprotoSyncSubscribeRe
   const content = str(row.description ?? row.content ?? row.summary ?? "");
   const analysisId = genID("peer");
   const graphLabel = INTEL_LABELS[domain] ?? "IntelAnalysis";
-  const sourceDid = SOURCE_DIDS[sourceName] ?? `@${sourceName.replace(/\.gftd\.ai$/, "")}.etzhayyim.com`;
+  const sourceDid = SOURCE_DIDS[sourceName] ?? `@${sourceName.replace(/\.etzhayyim\.ai$/, "")}.etzhayyim.com`;
 
   write(sdk, "report", {
     'analysisId': analysisId, title: truncateText(title, 200),

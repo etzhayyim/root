@@ -1,4 +1,4 @@
-# ai-gftd-wasm-intel-i7n73l0x
+# etzhayyim-wasm-intel-i7n73l0x
 
 Murakumo-backed INT analysis App.
 
@@ -12,18 +12,18 @@ Murakumo-backed INT analysis App.
 
 ## Endpoints
 
-- `POST /xrpc/gftd.intel.v1.IntelService/SubmitAnalysis`
-- `POST /xrpc/gftd.intel.v1.IntelService/GetAnalysis`
-- `POST /xrpc/gftd.intel.v1.IntelService/ListAnalyses`
-- `POST /xrpc/gftd.intel.v1.IntelService/GetPublicExport`
-- `POST /xrpc/gftd.intel.v1.IntelService/GetCapabilities`
+- `POST /xrpc/etzhayyim.intel.v1.IntelService/SubmitAnalysis`
+- `POST /xrpc/etzhayyim.intel.v1.IntelService/GetAnalysis`
+- `POST /xrpc/etzhayyim.intel.v1.IntelService/ListAnalyses`
+- `POST /xrpc/etzhayyim.intel.v1.IntelService/GetPublicExport`
+- `POST /xrpc/etzhayyim.intel.v1.IntelService/GetCapabilities`
 - `GET /health`
 - `GET /api/info`
 
 ## Example
 
 ```bash
-curl -sS http://127.0.0.1:3000/xrpc/gftd.intel.v1.IntelService/SubmitAnalysis \
+curl -sS http://127.0.0.1:3000/xrpc/etzhayyim.intel.v1.IntelService/SubmitAnalysis \
   -H 'content-type: application/json' \
   -d '{
     "title":"Open source reporting on logistics hub activity",

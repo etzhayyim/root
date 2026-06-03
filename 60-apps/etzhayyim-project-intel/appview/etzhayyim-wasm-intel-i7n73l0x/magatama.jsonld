@@ -16,7 +16,7 @@
     ]
   },
   "interfaces": {
-    "package": "gftd:intel@0.1.0"
+    "package": "etzhayyim:intel@0.1.0"
   },
   "kpi": [
     "credits の獲得"
@@ -34,7 +34,7 @@
     "description": "Intel — AI Agent for multi-INT fusion intelligence analysis (30 INT disciplines)",
     "displayName": "Intel",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "intel",
   "runtimeType": "worker",
@@ -53,7 +53,7 @@
     "http": {
       "listen": "0.0.0.0:8080",
       "routes": [
-        "/api/grpc/gftd.intel.v1.IntelService/...",
+        "/api/grpc/etzhayyim.intel.v1.IntelService/...",
         "/health",
         "/healthz",
         "/readyz",

@@ -1,6 +1,6 @@
-# ai-gftd-project-intel
+# etzhayyim-project-intel
 
-`ai-gftd-project-intel` は、複数の INT discipline を単独の分類表としてではなく、
+`etzhayyim-project-intel` は、複数の INT discipline を単独の分類表としてではなく、
 共通 ingestion・evidence graph・fusion pipeline に載せて扱うための App
 プロジェクトです。
 
@@ -31,10 +31,10 @@
 
 ## Implemented MVP
 
-- App component: [ai-gftd-wasm-intel-i7n73l0x](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-intel/wasm/ai-gftd-wasm-intel-i7n73l0x)
+- App component: [etzhayyim-wasm-intel-i7n73l0x](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-intel/wasm/etzhayyim-wasm-intel-i7n73l0x)
 - Murakumo integration: `https://murakumo.etzhayyim.com/api/openai/v1/chat/completions` with default model `qwen3-vl-8b`
 - Private storage: intel analyses are readable only when `_org_id == "default"`
-- Public export: safe summaries are emitted as JSON-LD candidates targeting `60-apps/ai-gftd-project-resources/content/intel/public/`
-- Local pipeline tool: [analyze_and_export.go](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-intel/tools/analyze_and_export.go)
+- Public export: safe summaries are emitted as JSON-LD candidates targeting `60-apps/etzhayyim-project-resources/content/intel/public/`
+- Local pipeline tool: [analyze_and_export.go](/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-intel/tools/analyze_and_export.go)
 
 詳細設計は project 内の 2026-03-12 設計書を参照。

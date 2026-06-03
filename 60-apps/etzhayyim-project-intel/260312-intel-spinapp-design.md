@@ -4,7 +4,7 @@ Date: 2026-03-12
 
 ## Goal
 
-`ai-gftd-project-intel` は、約 30 系統の INT discipline を個別の縦割り
+`etzhayyim-project-intel` は、約 30 系統の INT discipline を個別の縦割り
 サービスに分解するのではなく、単一の App 境界の中で
 `collection -> normalization -> fusion -> query -> briefing`
 へ流す設計を採用する。
@@ -63,7 +63,7 @@ INT は固定標準ではないため、プロダクト内部では次の 3 軸�
 | `intel-gateway` | Matrix command ingress, authz, workflow dispatch | Matrix routes, `/health` |
 | `intel-collector` | connector orchestration, evidence ingest, dedupe | internal only |
 | `intel-fusion` | correlation, scoring, event probability, projection update | internal only |
-| `intel-query` | XRPC query service | `/xrpc/gftd.intel.v1.IntelQueryService/*` |
+| `intel-query` | XRPC query service | `/xrpc/etzhayyim.intel.v1.IntelQueryService/*` |
 | `intel-ui` | Matrix widget static assets via static delivery | `/` |
 
 ### Why one app
@@ -232,7 +232,7 @@ miniapp UI は Matrix widget として埋め込む。
 追加候補:
 
 - `packages/wasm/wit/intel/intel.wit`
-- `packages/wasm/world/gftd-business.wit` に `gftd-intel-provider`
+- `packages/wasm/world/etzhayyim-business.wit` に `etzhayyim-intel-provider`
 
 WIT では少なくとも次を定義する。
 
@@ -244,15 +244,15 @@ WIT では少なくとも次を定義する。
 
 ### Proto
 
-`proto/gftd/intel/v1/intel.proto` を追加し、public query contract を定義する。
+`proto/etzhayyim/intel/v1/intel.proto` を追加し、public query contract を定義する。
 command service は public には作らない。
 
 ## Deployment Shape
 
 標準 path:
 
-- project: `60-apps/ai-gftd-project-intel`
-- app dir: `60-apps/ai-gftd-project-intel/wasm/ai-gftd-wasm-intel-<nanoid>`
+- project: `60-apps/etzhayyim-project-intel`
+- app dir: `60-apps/etzhayyim-project-intel/wasm/etzhayyim-wasm-intel-<nanoid>`
 - namespace: `magatama-runtime`
 - image: `ghcr.io/etzhayyim/*`
 
@@ -261,7 +261,7 @@ command service は public には作らない。
 - `/`
 - `/health`
 - `/_matrix/*`
-- `/xrpc/gftd.intel.v1.IntelQueryService/*`
+- `/xrpc/etzhayyim.intel.v1.IntelQueryService/*`
 
 ## Milestones
 
