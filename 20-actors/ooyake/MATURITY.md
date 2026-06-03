@@ -43,6 +43,16 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — national archives (civic records access)
+
+`gov-units.archives.edn` adds **144 national archives** (Wikidata P31 `Q2122214`) — the
+body through which citizens access public records, on-mission for ooyake wayfinding +
+himotoki disclosure. `:level :agency` `:branch :executive`. Because Q2122214 also tags
+sub-national/historical archives, the integrator drops labels flagged
+former/provincial/regional/state/named-region (11 dropped) — a quality filter, honest
+about the class's noise. Atlas now **6,870 units / 54 files, 6,868 QIDs all unique,
+6,866 :authoritative**.
+
 ## 2026-06-04 — constitutional courts (judicial depth)
 
 `gov-units.constitutional-courts.edn` adds **62 constitutional courts** (Wikidata P31
