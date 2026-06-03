@@ -43,6 +43,16 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — ingest pipeline loads the FULL atlas (operator write path)
+
+Same class of fix as the read client: `deploy/ingest_records.py` (the operator write
+path into the live kotoba `gov-atlas-v1` graph) had `GOV_SEEDS = [seed, jp-central,
+toritsugi-procedures]` — so an operator ingest would push only **62 entities**, not the
+real atlas. Changed to glob **all `gov-units*.edn`** → the dry-run now projects
+**12,805 entities (7,106 units + 5,682 addresses + procedures/windows/forms/bpmn,
+~162k datoms)**. When the operator enables ingest (KOTOBA_TOKEN), the whole atlas now
+flows into kotoba instead of the seed core. Dry-run gate green.
+
 ## 2026-06-04 — read-client loads the FULL atlas (major consumer fix) + new queries
 
 **Bug fixed**: `deploy/gov_atlas_client.py` (the read API danjo / kanae / tsumugi /
