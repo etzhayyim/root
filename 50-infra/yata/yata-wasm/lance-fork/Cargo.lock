@@ -3990,7 +3990,7 @@ dependencies = [
  "pprof",
  "pretty_assertions",
  "prost 0.12.6",
- "prost 0.13.5",
+ "prost 0.14.3",
  "prost-types 0.13.5",
  "rand 0.9.4",
  "random_word",
@@ -4054,7 +4054,7 @@ dependencies = [
  "object_store 0.13.2",
  "pin-project",
  "proptest",
- "prost 0.13.5",
+ "prost 0.14.3",
  "rand 0.9.4",
  "roaring",
  "serde_json",
@@ -4090,7 +4090,7 @@ dependencies = [
  "lazy_static",
  "log",
  "pin-project",
- "prost 0.13.5",
+ "prost 0.14.3",
  "snafu",
  "substrait-expr",
  "tempfile",
@@ -4147,8 +4147,8 @@ dependencies = [
  "num-traits",
  "paste",
  "pprof",
- "prost 0.13.5",
- "prost-build 0.13.5",
+ "prost 0.14.3",
+ "prost-build 0.14.3",
  "prost-types 0.13.5",
  "protobuf-src",
  "rand 0.9.4",
@@ -4186,8 +4186,8 @@ dependencies = [
  "lance-io",
  "log",
  "pprof",
- "prost 0.13.5",
- "prost-build 0.13.5",
+ "prost 0.14.3",
+ "prost-build 0.14.3",
  "prost-types 0.13.5",
  "protobuf-src",
  "rand 0.9.4",
@@ -4226,8 +4226,8 @@ dependencies = [
  "pprof",
  "pretty_assertions",
  "proptest",
- "prost 0.13.5",
- "prost-build 0.13.5",
+ "prost 0.14.3",
+ "prost-build 0.14.3",
  "prost-types 0.13.5",
  "protobuf-src",
  "rand 0.9.4",
@@ -4287,8 +4287,8 @@ dependencies = [
  "num-traits",
  "object_store 0.13.2",
  "pprof",
- "prost 0.13.5",
- "prost-build 0.13.5",
+ "prost 0.14.3",
+ "prost-build 0.14.3",
  "protobuf-src",
  "rand 0.9.4",
  "random_word",
@@ -4338,7 +4338,7 @@ dependencies = [
  "path_abs",
  "pin-project",
  "pprof",
- "prost 0.13.5",
+ "prost 0.14.3",
  "rand 0.9.4",
  "rstest",
  "serde",
@@ -4433,8 +4433,8 @@ dependencies = [
  "pprof",
  "pretty_assertions",
  "proptest",
- "prost 0.13.5",
- "prost-build 0.13.5",
+ "prost 0.14.3",
+ "prost-build 0.14.3",
  "prost-types 0.13.5",
  "protobuf-src",
  "rand 0.9.4",
@@ -5462,6 +5462,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "petgraph"
+version = "0.8.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8701b58ea97060d5e5b155d383a69952a60943f0e6dfe30b04c287beb0b27455"
+dependencies = [
+ "fixedbitset 0.5.7",
+ "hashbrown 0.15.2",
+ "indexmap",
+]
+
+[[package]]
 name = "phf"
 version = "0.11.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5820,6 +5831,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost"
+version = "0.14.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d2ea70524a2f82d518bce41317d0fae74151505651af45faf1ffbd6fd33f0568"
+dependencies = [
+ "bytes",
+ "prost-derive 0.14.3",
+]
+
+[[package]]
 name = "prost-build"
 version = "0.12.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5861,6 +5882,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost-build"
+version = "0.14.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "343d3bd7056eda839b03204e68deff7d1b13aba7af2b2fd16890697274262ee7"
+dependencies = [
+ "heck",
+ "itertools 0.14.0",
+ "log",
+ "multimap",
+ "petgraph 0.8.3",
+ "prettyplease",
+ "prost 0.14.3",
+ "prost-types 0.14.3",
+ "regex",
+ "syn 2.0.117",
+ "tempfile",
+]
+
+[[package]]
 name = "prost-derive"
 version = "0.12.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5887,6 +5927,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost-derive"
+version = "0.14.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "27c6023962132f4b30eb4c172c91ce92d933da334c59c23cddee82358ddafb0b"
+dependencies = [
+ "anyhow",
+ "itertools 0.14.0",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.117",
+]
+
+[[package]]
 name = "prost-types"
 version = "0.12.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5902,6 +5955,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52c2c1bf36ddb1a1c396b3601a3cec27c2462e45f07c386894ec3ccf5332bd16"
 dependencies = [
  "prost 0.13.5",
+]
+
+[[package]]
+name = "prost-types"
+version = "0.14.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8991c4cbdb8bc5b11f0b074ffe286c30e523de90fee5ba8132f1399f23cb3dd7"
+dependencies = [
+ "prost 0.14.3",
 ]
 
 [[package]]
