@@ -12907,6 +12907,20 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606038000-session-close-kotoba-os-loop-end",
+      "type": "TechArticle",
+      "title": "ADR-2606038000: Session close (loop end) — kotoba-os reference complete; PORTING handoff; /loop stopped",
+      "status": "active",
+      "topic": "storage-substrate",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606031600-kotoba-os-content-addressed-wasm-unikernel",
+        "doc:adr-2606036000-session-close-kotoba-os-r0-r2-reference",
+        "doc:adr-2606037000-session-close-kotoba-os-r2-broadening"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
