@@ -33,7 +33,7 @@
     "@playwright/test": "^1.59.1",
     "@sveltejs/adapter-cloudflare": "^7.2.8",
     "@sveltejs/kit": "^2.60.1",
-    "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@vitest/coverage-v8": "^4.1.4",
     "autoprefixer": "^10.4.27",
     "bpmn-js": "^18.16.1",
