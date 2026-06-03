@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "procedure",
-      "description": "P16 step 6 of com.etzhayyim.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/etzhayyim/blender-rigify-rignet:0.1`: (a) Blender Rigify template-fit (anime-tuned meta-rig auto-scaled to the mesh AABB + head landmark) — production primary; (b) in-house RigNet distill checkpoint (MIT base architecture, our weights at `b2://gftd-models/rignet-anime-v0.<n>/`) — production fallback when Rigify produces a broken bind. Self-hosted invariant: no external rigging service (Mixamo / AccuRIG etc.) is called from this path. External APIs are train-only teacher signals — see `data/ghosthacker/TRAINING_PIPELINE.md`. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_auto_rig_humanoid.",
+      "description": "P16 step 6 of com.etzhayyim.apps.mangaka.composeCharacterVrm. Auto-rigs the reconstructed mesh on the VKE CPU pool, two tracks inside one pod image `ghcr.io/etzhayyim/blender-rigify-rignet:0.1`: (a) Blender Rigify template-fit (anime-tuned meta-rig auto-scaled to the mesh AABB + head landmark) — production primary; (b) in-house RigNet distill checkpoint (MIT base architecture, our weights at `b2://etzhayyim-models/rignet-anime-v0.<n>/`) — production fallback when Rigify produces a broken bind. Self-hosted invariant: no external rigging service (Mixamo / AccuRIG etc.) is called from this path. External APIs are train-only teacher signals — see `data/ghosthacker/TRAINING_PIPELINE.md`. ADR-2605082000 §2 — kind='mcp_tool'. SSoT: lg_mangaka.tools:tool_auto_rig_humanoid.",
       "input": {
         "encoding": "application/json",
         "schema": {
