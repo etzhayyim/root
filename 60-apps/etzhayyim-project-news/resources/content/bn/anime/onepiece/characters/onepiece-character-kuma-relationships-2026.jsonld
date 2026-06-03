@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-kuma-relationships-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-kuma-relationships-2026",
   "identifier": "onepiece-character-kuma-relationships-2026",
   "headline": "Bartholomew Kuma relationship analysis: bonds, conflicts, and character growth",
   "description": "Reading Bartholomew Kuma through key relationships to surface growth and thematic tension.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
