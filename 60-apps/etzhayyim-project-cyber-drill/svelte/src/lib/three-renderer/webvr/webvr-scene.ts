@@ -678,7 +678,7 @@ export function mountIncidentScene(canvas: HTMLCanvasElement, opts: MountOpts): 
 // ─────────────────────────────────────────────────────────────────────────
 // Stage 5 lite — toon material + reverse-backface outline.
 // Approximates the "neural-render" stage (outline + toon) of the
-// `gftd:kami-cine@1.0.0` pipeline using stock WebGL. Each toon mesh gets
+// `etzhayyim:kami-cine@1.0.0` pipeline using stock WebGL. Each toon mesh gets
 // a slightly-inflated black sibling rendered with `BackSide`, which
 // shows up as a 1-2 px silhouette around the surface.
 

@@ -25,7 +25,7 @@ The Worker runs first on every request. Three paths matter:
 ## One-time setup
 
 ```sh
-cd 60-apps/ai-gftd-project-cyber-drill/worker
+cd 60-apps/etzhayyim-project-cyber-drill/worker
 
 # 1. Install Worker deps (wrangler etc.)
 pnpm install
@@ -101,8 +101,8 @@ worker/
 cyber-drill is vendor-only per **ADR-2605172400** (3-axis split:
 liability / custody / settlement all vendor). This worker MUST NOT be
 mirrored to `etzhayyim/root`. It's also explicitly excluded from
-`gftd deploy` style account-level worker conventions because it isn't
+`etzhayyim deploy` style account-level worker conventions because it isn't
 hosted at `*.etzhayyim.com`; the workers.dev URL keeps customer-facing
-infrastructure cleanly separated from the gftdcojp public footprint.
+infrastructure cleanly separated from the etzhayyim public footprint.
 
 Authoritative: `90-docs/adr/2605211800-cyber-drill-webvr-spark-effects.md`.

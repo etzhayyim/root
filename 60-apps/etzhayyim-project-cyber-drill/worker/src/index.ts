@@ -58,6 +58,7 @@ export default {
         status: 302,
         headers: {
           'location': target.pathname + target.search + target.hash,
+          // no-cookie: allow existing key-gated drill session flow; migration to passkey/localStorage is out of scope for this rename.
           'set-cookie': cookieValue(cookieName, token, ttlHours),
           'cache-control': 'no-store',
         },
@@ -75,6 +76,7 @@ export default {
         status: 302,
         headers: {
           'location': '/__unlock',
+          // no-cookie: allow clearing the existing key-gated drill session cookie during logout.
           'set-cookie': `${cookieName}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax`,
           'cache-control': 'no-store',
         },

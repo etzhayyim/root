@@ -48,8 +48,8 @@ export function unlockPageHtml(opts: { error?: string } = {}): string {
            spellcheck="false" placeholder="sk_drill_…" required />
     <button type="submit">解錠</button>
   </form>
-  <p class="hint">キーが手元にない場合は発行元 (gftdcojp) にお問い合わせください。キーは 24 時間 cookie に保存され、以降はキーなしで再訪できます。</p>
-  <footer>gftd cyber-drill · 半導体・電子材料プラント サイバー攻撃 初動演習</footer>
+  <p class="hint">キーが手元にない場合は発行元 (etzhayyim) にお問い合わせください。キーは 24 時間 cookie に保存され、以降はキーなしで再訪できます。</p>
+  <footer>etzhayyim cyber-drill · 半導体・電子材料プラント サイバー攻撃 初動演習</footer>
 </main>
 </body>
 </html>`;

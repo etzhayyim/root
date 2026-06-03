@@ -1,4 +1,4 @@
-# ai-gftd-project-cyber-drill — VENDOR-PRIVATE
+# etzhayyim-project-cyber-drill — VENDOR-PRIVATE
 
 OT cybersecurity training experiences delivered as smartphone WebVR walkthroughs. Built on `@etzhayyim/kami-engine-sdk/webvr` (public SDK) + proprietary branching-playbook scenarios (this project).
 
@@ -23,7 +23,7 @@ OT cybersecurity training experiences delivered as smartphone WebVR walkthroughs
 ## Layout
 
 ```
-60-apps/ai-gftd-project-cyber-drill/
+60-apps/etzhayyim-project-cyber-drill/
 ├── CLAUDE.md                              # this file
 ├── scenarios/                             # vendor-private scenario data
 │   └── semiconductor-chem-plant.ts        # 半導体・電子材料プラント インシデント
