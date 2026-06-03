@@ -23,7 +23,7 @@ let scoreSubmitted=false,leaderboardData=null,leaderboardLoading=false;
 async function submitScore(data){
   if(scoreSubmitted)return;scoreSubmitted=true;
   try{
-    const h=location.hostname||'k3t5g0r1.gftd.ai';
+    const h=location.hostname||'k3t5g0r1.etzhayyim.ai';
     const r=await fetch('https://'+h+'/submit-score',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify(data),signal:AbortSignal.timeout(5000)
@@ -35,7 +35,7 @@ async function submitScore(data){
 async function fetchLeaderboard(){
   if(leaderboardLoading)return;leaderboardLoading=true;
   try{
-    const h=location.hostname||'k3t5g0r1.gftd.ai';
+    const h=location.hostname||'k3t5g0r1.etzhayyim.ai';
     const r=await fetch('https://'+h+'/get-leaderboard',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}',signal:AbortSignal.timeout(5000)});
     if(r.ok){leaderboardData=await r.json()}
   }catch(e){console.warn('Leaderboard:',e)}
@@ -151,7 +151,7 @@ function stopMusic(){if(music){music.pause();music.currentTime=0;music=null}}
 let bootTime=0,bootReady=false,bootCursor=true,bootCursorT=0;
 const BOOT_SEQ=[
   {t:0,text:'KAMI ENGINE v4.6.1'},
-  {t:200,text:'Copyright (c) 2026 GFTD Inc. All rights reserved.'},
+  {t:200,text:'Copyright (c) 2026 Etzhayyim Inc. All rights reserved.'},
   {t:500,text:''},
   {t:600,text:'[BOOT] Initializing wgpu render pipeline...'},
   {t:900,text:'[BOOT] WebGPU adapter: detected'},

@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Kami Eng K4m13ng1",
-  "project": "ai-gftd-project-kami",
-  "name": "ai-gftd-wasm-kami-eng-k4m13ng1",
+  "project": "etzhayyim-project-kami",
+  "name": "etzhayyim-wasm-kami-eng-k4m13ng1",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-kami/appview/ai-gftd-wasm-kami-eng-k4m13ng1/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-kami/appview/etzhayyim-wasm-kami-eng-k4m13ng1/svelte/src/routes/+page.svelte"
 };
 </script>
 

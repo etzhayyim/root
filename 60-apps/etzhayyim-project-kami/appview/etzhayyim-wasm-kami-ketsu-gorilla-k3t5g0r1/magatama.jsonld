@@ -1,5 +1,5 @@
 {
-  "@context": "https://gftd.co.jp/ns/magatama",
+  "@context": "https://etzhayyim.co.jp/ns/magatama",
   "category": "game",
   "convoSystemPrompt": "You are kami-ketsu-gorilla agent. Zettai Zetsumei!! Neteru gorilla no ketsu wo hikktatake! Banana atsumete nigero! goriririri Goriririri gorigori ketsu dasshu!. Respond helpfully in the users language.",
   "description": "Zettai Zetsumei!! Goriketsu Dash!! — Slap a sleeping gorilla's butt, grab bananas, and RUN",
@@ -53,7 +53,7 @@
     "description": "Zettai Zetsumei!! Neteru gorilla no ketsu wo hikktatake! Banana atsumete nigero! goriririri Goriririri gorigori ketsu dasshu!",
     "displayName": "Goriketsu Dash!!",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "routes": [
     {

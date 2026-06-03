@@ -3,7 +3,7 @@
 
   let { ctx }: { ctx: ActorContext } = $props();
 
-  const CMD = 'gftd.kami.v1.KamiColoringCommandService';
+  const CMD = 'etzhayyim.kami.v1.KamiColoringCommandService';
 
   // ── State ──
   let view = $state<'browse' | 'canvas' | 'create'>('browse');

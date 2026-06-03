@@ -1,7 +1,7 @@
 {
   "@context": "https://etzhayyim.com/ns/magatama/v1",
   "@id": "did:web:eng-kami.etzhayyim.com",
-  "name": "ai-gftd-wasm-kami-eng",
+  "name": "etzhayyim-wasm-kami-eng",
   "nanoid": "k4m13ng1",
   "performerType": "service",
   "project": "kami",
@@ -19,7 +19,7 @@
     "description": "KAMI Engineering Workbench — EDA, CAD, CAM, RTL, CAE in browser (wgpu WebGPU)",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "capabilities": ["bpmn-dispatch","eda-schematic","eda-pcb-layout","cad-brep-modeling","cad-parametric-design","cad-assembly","cam-toolpath-generation","cam-gcode-export","rtl-hdl-simulation","rtl-synthesis","cae-fea-analysis","cae-mesh-generation","mine-pds-registry","mine-pds-extraction-ledger","mine-ai-risk-assessment","mine-ai-extraction-planning"]
   },
   "routes": [
