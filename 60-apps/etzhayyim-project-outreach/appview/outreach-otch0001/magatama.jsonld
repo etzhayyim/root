@@ -3,7 +3,7 @@
   "@type": "MagatamaApp",
   "nanoid": "otch0001",
   "name": "outreach",
-  "displayName": "GFTD Sales Outreach",
+  "displayName": "Etzhayyim Sales Outreach",
   "description": "Sales Outreach Automation — LangGraph research→draft loop + DNC gate + Resend multi-step sequence + reply detection via gmail/m365Ingest.",
   "did": "did:web:outreach.etzhayyim.com",
   "domain": "outreach.etzhayyim.com",

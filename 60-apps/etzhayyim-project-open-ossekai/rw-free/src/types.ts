@@ -21,12 +21,12 @@
  *   (read-cap = subject/owner DID auto + explicit consented recipients), read
  *   via sdk.encryptedRead. The substrate never sees a person's jocho scores.
  *
- *   STAYS gftd (consumed via consent-capability) — L1 LLM intel-brief
+ *   STAYS etzhayyim (consumed via consent-capability) — L1 LLM intel-brief
  *   generation (Murakumo inference), jocho-scoring INFERENCE execution,
  *   framing-audit inference, and fiat sales-lead propagation
  *   (vertex_open_sales_lead). These are regulated *acts* (GPU/LLM inference +
  *   downstream commercial settlement), not the resulting data records. The
- *   jocho DATA migrates E2E; only the scoring/inference EXECUTION stays gftd.
+ *   jocho DATA migrates E2E; only the scoring/inference EXECUTION stays etzhayyim.
  *
  * AT-Lexicon: no float — affected-population + axis scores + confidence are
  * integers; scores/confidence are 0-100.

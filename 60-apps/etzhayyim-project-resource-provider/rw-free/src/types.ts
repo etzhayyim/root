@@ -6,7 +6,7 @@
  * (3-axis Liability/Custody/Settlement) + ADR-2605181100 (kotoba E2E
  * encrypted-record envelope). Founder directive 2026-06-03: MAXIMAL migration —
  * front everything that can move; only the irreducible regulated EXECUTION stays
- * gftd.
+ * etzhayyim.
  *
  * SPLIT:
  *   PUBLIC (plaintext AT records) — marketplace catalog + aggregate stats with
@@ -26,11 +26,11 @@
  *     rewardBalance      — per-provider running balance (decimal STRING), a
  *                          derived rollup of the E2E ledger.
  *
- *   STAYS gftd (consumed via consent-capability, NOT a collection) — the
+ *   STAYS etzhayyim (consumed via consent-capability, NOT a collection) — the
  *   irreducible regulated EXECUTION: GPU/LLM inference run, data quality-
  *   validation compute, raw-credential / secret custody, and the fiat
  *   merchant-of-record / payout settlement rail. We front the ledger + balances +
- *   tx-history as E2E records, but the fiat-rail settlement CALL stays gftd
+ *   tx-history as E2E records, but the fiat-rail settlement CALL stays etzhayyim
  *   (per Operating Entity Boundary: etzhayyim never becomes the fiat MoR /
  *   counterparty).
  *

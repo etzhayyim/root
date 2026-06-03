@@ -11,7 +11,7 @@
  * refs, or reward amounts in plaintext.
  *
  * The regulated EXECUTION (GPU/LLM inference, quality-validation compute, raw-
- * credential custody, and the fiat MoR / payout settlement rail) stays gftd via
+ * credential custody, and the fiat MoR / payout settlement rail) stays etzhayyim via
  * consent-capability — not modeled here as a collection.
  */
 

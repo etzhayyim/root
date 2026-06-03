@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://oshiete.etzhayyim.com",
   "name": "etzhayyim-project-oshiete",
-  "description": "GFTD Oshiete - AI-powered Q&A platform",
+  "description": "Etzhayyim Oshiete - AI-powered Q&A platform",
   "url": "https://oshiete.etzhayyim.com",
   "applicationCategory": "WebApplication",
   "operatingSystem": "Kubernetes",

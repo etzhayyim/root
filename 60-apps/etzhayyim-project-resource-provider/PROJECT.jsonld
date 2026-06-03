@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "GFTD Resource Provider Project (etzhayyim-project-resource-provider)",
+  "name": "Etzhayyim Resource Provider Project (etzhayyim-project-resource-provider)",
   "status": "In Progress",
   "identifier": "etzhayyim-project-resource-provider",
   "description": "A decentralized platform where users provide data (documents, images, location) and computing power (GPU) to receive rewards, powering next-gen AI training and inference.",
@@ -140,7 +140,7 @@
           "@context": "https://schema.org/",
           "@type": "CreativeWork",
           "name": "Strategy - Resource Provider Network",
-          "description": "Strategic roadmap for the GFTD Resource Provider Network.",
+          "description": "Strategic roadmap for the Etzhayyim Resource Provider Network.",
           "mainEntityOfPage": {
             "@type": "WebPage",
             "breadcrumb": "Strategy"
@@ -274,7 +274,7 @@
             }
           ],
           "@type": "CreativeWork",
-          "name": "GFTD Resource Provider Project (etzhayyim-project-resource-provider) Scheduler",
+          "name": "Etzhayyim Resource Provider Project (etzhayyim-project-resource-provider) Scheduler",
           "identifier": "etzhayyim-project-resource-provider/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",

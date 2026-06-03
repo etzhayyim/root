@@ -8,7 +8,7 @@
  * the kotoba envelope (ADR-2605181100), read-cap = owner DID. The substrate
  * never sees cost estimates or plan content in plaintext.
  *
- * STAYS gftd (not modeled here): LLM allocation INFERENCE + Inngest workflow
+ * STAYS etzhayyim (not modeled here): LLM allocation INFERENCE + Inngest workflow
  * ORCHESTRATION execution — consumed via consent-capability.
  */
 

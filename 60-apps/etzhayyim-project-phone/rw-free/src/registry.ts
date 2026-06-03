@@ -11,7 +11,7 @@
  *
  * The regulated telephony EXECUTION (AWS Connect StartOutboundVoiceContact /
  * StartWebRTCContact media, Amazon Chime SDK voice, CCP + SAML token custody,
- * S3 recording custody) stays gftd and is consumed via consent-capability —
+ * S3 recording custody) stays etzhayyim and is consumed via consent-capability —
  * never implemented here.
  */
 

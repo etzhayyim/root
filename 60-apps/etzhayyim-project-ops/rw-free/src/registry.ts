@@ -9,7 +9,7 @@
  * sees the automation definition in plaintext.
  *
  * Scheduler firing, LLM inference, fiat/credits settlement, and secret custody
- * stay gftd (consent-capability) — only the data records migrate here.
+ * stay etzhayyim (consent-capability) — only the data records migrate here.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

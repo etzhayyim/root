@@ -3,7 +3,7 @@
   "@type": "SoftwareApplication",
   "@id": "https://os.etzhayyim.com",
   "name": "etzhayyim-project-os",
-  "description": "GFTD OS - Web4 Local Interface. Desktop operating environment that serves as the human's gateway to the agent-populated internet. Manages local AI agents (WASM sandbox), provides human-in-the-loop governance, economic budget enforcement via GCC tokens, and local-cloud state synchronization.",
+  "description": "Etzhayyim OS - Web4 Local Interface. Desktop operating environment that serves as the human's gateway to the agent-populated internet. Manages local AI agents (WASM sandbox), provides human-in-the-loop governance, economic budget enforcement via GCC tokens, and local-cloud state synchronization.",
   "url": "https://os.etzhayyim.com",
   "applicationCategory": "DesktopApplication",
   "operatingSystem": "macOS, Linux, Windows",
@@ -213,8 +213,8 @@
           "@context": "https://schema.org",
           "@type": "DefinedTermSet",
           "@id": "https://os.etzhayyim.com/capabilities",
-          "name": "GFTD OS Capabilities (DoDAF CV-1)",
-          "description": "Capability definitions for GFTD OS — Web4 Local Interface",
+          "name": "Etzhayyim OS Capabilities (DoDAF CV-1)",
+          "description": "Capability definitions for Etzhayyim OS — Web4 Local Interface",
           "hasDefinedTerm": [
             {
               "@type": "DefinedTerm",

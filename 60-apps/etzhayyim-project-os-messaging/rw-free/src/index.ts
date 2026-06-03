@@ -5,7 +5,7 @@
  *   PLAINTEXT public crawl catalog (openChannel, scraperRun) +
  *   kotoba-E2E private control-plane / content (bridge, openMessage,
  *   ADR-2605181100). Platform credential custody + webhook relay + crawl
- *   compute EXECUTION stay gftd via consent-capability.
+ *   compute EXECUTION stay etzhayyim via consent-capability.
  */
 export * from "./types.js";
 export {

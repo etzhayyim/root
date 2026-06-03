@@ -2,7 +2,7 @@
   "@context": "https://1.etzhayyim.com/project",
   "@type": "Project",
   "name": "etzhayyim-project-search",
-  "description": "GFTD Search — RisingWave IVF/IVF+PQ web and multimodal search for humans and AI agents/LLMs",
+  "description": "Etzhayyim Search — RisingWave IVF/IVF+PQ web and multimodal search for humans and AI agents/LLMs",
   "category": "etzhayyim-project-platform",
   "components": {
     "app": {
