@@ -158,7 +158,7 @@ production crate lands in the kotoba subrepo via upstream coordination, N6):
 - `kotoba-os-types` — the genesis manifest as typed Rust (serde,
   `deny_unknown_fields` mirroring the schema's `additionalProperties:false`),
   `GenesisManifest::validate()` enforcing the carve-outs (C3/N5 serverKey, N3
-  liveActuation, N1 civilianOnly), capability scoping (`grants()`), and the
+  liveActuation, N1 civilianOnly), capability scoping (`grants()` + `authorizes()`/`ungranted()` = a manifest must grant every interface its actor imports), and the
   **`LowerEdge` trait** abstracting L1 with an edge-independent `boot()` (validate
   → CID-verify kernel + each actor + its membrane rule). `HostedEdge` reference impl.
 - **`mesh` module** (ADR §D5 agent-centric mesh): `SourceChain` (append-only,
