@@ -5,13 +5,13 @@
 # fit during a full rebuild.
 #
 # Build:
-#   cd 60-apps/ai-gftd-project-mangaka/lg
+#   cd 60-apps/etzhayyim-project-mangaka/lg
 #   docker buildx build --platform linux/amd64 \
 #     -f Dockerfile.overlay \
-#     -t ghcr.io/gftdcojp/lg-mangaka:<new-tag> \
+#     -t ghcr.io/etzhayyimcojp/lg-mangaka:<new-tag> \
 #     --push .
 
-FROM ghcr.io/gftdcojp/lg-mangaka:0.1.0-amd64@sha256:d6089680a7f6c6bf9a6c921b01cfb558bc028000838833da3a3dc64bde9b4977
+FROM ghcr.io/etzhayyimcojp/lg-mangaka:0.1.0-amd64@sha256:d6089680a7f6c6bf9a6c921b01cfb558bc028000838833da3a3dc64bde9b4977
 
 WORKDIR /app
 
