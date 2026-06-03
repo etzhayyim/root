@@ -33,7 +33,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_fuyou_declare_initial"
-    targetNamespace="https://gftd.ai/bpmn/fuyou"
+    targetNamespace="https://etzhayyim.ai/bpmn/fuyou"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="fuyou_declare_initial" name="扶養控除等申告書 — 新規提出" isExecutable="true">
@@ -200,7 +200,7 @@
               triggerVertexId:    vertexId,
               triggerSource:      &quot;com.etzhayyim.apps.fuyou.finalize&quot;
           }" target="payload"/>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="callerDid"/>
           <zeebe:output source="=ok"     target="kaikeiPropagated"/>
           <zeebe:output source="=status" target="kaikeiHttpStatus"/>
         </zeebe:ioMapping>
@@ -215,7 +215,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
           <zeebe:input source="=&quot;fuyou.declareInitial.approve&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:         vertexId,
@@ -268,7 +268,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
           <zeebe:input source="=&quot;fuyou.declareInitial.reject&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:      vertexId,

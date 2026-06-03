@@ -13,14 +13,14 @@
   This is the script that runs today (1-shot) to drive ∇φ.
 
   NSID:      com.etzhayyim.market.internetDemandPoll
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-internetDemandPoll-v1
   binding allowlist: vertex_market_demand_signal
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_market_internet_demand_poll"
-    targetNamespace="https://gftd.ai/bpmn/market"
+    targetNamespace="https://etzhayyim.ai/bpmn/market"
     exporter="hand-written"
     exporterVersion="1.1">
   <bpmn:process id="market_internet_demand_poll" name="market internet demand poll" isExecutable="true">

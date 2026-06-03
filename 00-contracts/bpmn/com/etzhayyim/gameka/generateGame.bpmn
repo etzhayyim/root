@@ -32,14 +32,14 @@
     - Task_DerivePlaytest      generic.pds.dispatch com.etzhayyim.apps.gameka.playtestGame
 
   NSID: com.etzhayyim.apps.gameka.generateGame (XRPC procedure)
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/gameka-generate-game-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/gameka-generate-game-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_gameka_generate_game"
-    targetNamespace="https://gftd.ai/bpmn/gameka"
+    targetNamespace="https://etzhayyim.ai/bpmn/gameka"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gameka_generate_game" name="gameka generateGame" isExecutable="true">
@@ -139,7 +139,7 @@
     <bpmn:scriptTask id="Task_BuildVertexId" name="at:// vertex_id (sources)">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["at://did:web:gameka.gftd.ai/com.etzhayyim.apps.gameka.buildArtifact/", artRkey, "-sources"], "")'
+            expression='=string join(["at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.buildArtifact/", artRkey, "-sources"], "")'
             resultVariable="artVertexId"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToVid</bpmn:incoming>
@@ -157,9 +157,9 @@
           <zeebe:input source="=&quot;vertex_gameka_artifact&quot;" target="table"/>
           <zeebe:input source="={
               vertex_id: artVertexId,
-              owner_did: &quot;did:web:gameka.gftd.ai&quot;,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
               rkey: artRkey,
-              repo: &quot;did:web:gameka.gftd.ai&quot;,
+              repo: &quot;did:web:gameka.etzhayyim.com&quot;,
               artifact_id: artRkey,
               spec_id: specId,
               wasm_cid: wasmCid,
@@ -182,7 +182,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;gameka.artifact.sourcesReady&quot;" target="action"/>
           <zeebe:input source="={
               specId: specId,
@@ -205,7 +205,7 @@
          sources from specId (deterministic, same gameka_codegen module
          vendored into its image), runs wasm-pack on the kami-engine
          workspace baked into the image, uploads pkg/*.wasm + pkg/*.js
-         to B2 (`ai-gftd-gameka/builds/{wasmCid}.wasm`), and returns the
+         to B2 (`etzhayyim-gameka/builds/{wasmCid}.wasm`), and returns the
          binary cid + size + presigned URL. Failure paths return
          buildStatus="failed" with empty wasmUrl + non-empty buildLogUrl;
          the BPMN persists the failure as a regular -built/-failed row
@@ -239,7 +239,7 @@
     <bpmn:scriptTask id="Task_BuildBuiltVertexId" name="at:// vertex_id (built)">
       <bpmn:extensionElements>
         <zeebe:script
-            expression='=string join(["at://did:web:gameka.gftd.ai/com.etzhayyim.apps.gameka.buildArtifact/", artRkey, "-", binaryBuildStatus], "")'
+            expression='=string join(["at://did:web:gameka.etzhayyim.com/com.etzhayyim.apps.gameka.buildArtifact/", artRkey, "-", binaryBuildStatus], "")'
             resultVariable="artBuiltVertexId"/>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_ToBuiltVid</bpmn:incoming>
@@ -270,9 +270,9 @@
           <zeebe:input source="=&quot;vertex_gameka_artifact&quot;" target="table"/>
           <zeebe:input source="={
               vertex_id: artBuiltVertexId,
-              owner_did: &quot;did:web:gameka.gftd.ai&quot;,
+              owner_did: &quot;did:web:gameka.etzhayyim.com&quot;,
               rkey: artRkey,
-              repo: &quot;did:web:gameka.gftd.ai&quot;,
+              repo: &quot;did:web:gameka.etzhayyim.com&quot;,
               artifact_id: artRkey,
               spec_id: specId,
               wasm_cid: binaryWasmCid,
@@ -296,7 +296,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gameka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:gameka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;gameka.artifact.binaryBuilt&quot;" target="action"/>
           <zeebe:input source="={
               specId: specId,

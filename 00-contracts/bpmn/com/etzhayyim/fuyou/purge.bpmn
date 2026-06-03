@@ -28,7 +28,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_fuyou_purge"
-    targetNamespace="https://gftd.ai/bpmn/fuyou"
+    targetNamespace="https://etzhayyim.ai/bpmn/fuyou"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="fuyou_purge" name="扶養控除等申告書 — 7年保管期限 purge" isExecutable="true">
@@ -111,7 +111,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
           <zeebe:input source="=&quot;fuyou.purge&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  purgedCount,
@@ -130,7 +130,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:jpn.payroll.gftd.ai:fuyou&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:jpn.payroll.etzhayyim.com:fuyou&quot;" target="actor"/>
           <zeebe:input source="=&quot;fuyou.purge.noop&quot;" target="action"/>
           <zeebe:input source="={
               purgedCount:  0,

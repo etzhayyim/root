@@ -8,14 +8,14 @@
     python3 70-tools/scripts/cron/market-chain-demand-poll.py
 
   NSID:      com.etzhayyim.market.chainDemandPoll
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/market-chainDemandPoll-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-chainDemandPoll-v1
   binding allowlist: vertex_market_demand_signal
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_market_chain_demand_poll"
-    targetNamespace="https://gftd.ai/bpmn/market"
+    targetNamespace="https://etzhayyim.ai/bpmn/market"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="market_chain_demand_poll" name="market chain demand poll" isExecutable="true">

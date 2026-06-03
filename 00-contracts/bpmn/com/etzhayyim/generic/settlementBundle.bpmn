@@ -15,14 +15,14 @@
   produces a userOpHash and submits to a public bundler endpoint.
 
   NSID:      com.etzhayyim.market.settlementBundle
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/market-settlementBundle-v1
   binding allowlist: vertex_market_settlement
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_market_settlement_bundle"
-    targetNamespace="https://gftd.ai/bpmn/market"
+    targetNamespace="https://etzhayyim.ai/bpmn/market"
     exporter="hand-written"
     exporterVersion="1.2">
   <bpmn:process id="market_settlement_bundle" name="market settlement bundle" isExecutable="true">
