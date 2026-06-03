@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:wvme.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:wvme.etzhayyim.com",
   "name": "wvme",
   "nanoid": "vyie6ivw",
   "project": "wvme",

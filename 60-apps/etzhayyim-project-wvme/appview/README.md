@@ -1,4 +1,4 @@
-# ai-gftd-project-wvme App migration
+# etzhayyim-project-wvme App migration
 
 このディレクトリは `legacy-runtime` 実装を残したまま、App 版を段階移行するための配置先です。
 

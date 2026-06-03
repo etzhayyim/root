@@ -4,11 +4,11 @@
 
 ## スコープ
 - Next.js (`cdn/wvme-web-g6zynpsf`) から SvelteKit SSG+CSR (`cdn/wvme-svelte-web-g6zynpsf`) への移行
-- `https://gftd.ai/` 経由の Connect-gRPC 接続への移行
+- `https://etzhayyim.com/` 経由の Connect-gRPC 接続への移行
 
 ## 現在の評価 (Baseline)
 - フロントエンド基盤移行 (Next.js → SvelteKit): **60-70%**
-- Connect-gRPC 接続切替 (`gftd.ai`): **40-55%**
+- Connect-gRPC 接続切替 (`etzhayyim.ai`): **40-55%**
 - 全体: **50-60%**
 
 ## フェーズ計画
@@ -17,7 +17,7 @@
 - [x] SvelteKit static adapter / fallback 設定
 - [x] ルーティング雛形（stub）生成
 - [x] Connect client をSvelte向け env 参照 (`import.meta.env.PUBLIC_*`) に正規化
-- [ ] 接続先のデフォルトを `gftd.ai` 系に統一
+- [ ] 接続先のデフォルトを `etzhayyim.ai` 系に統一
 - [ ] README / Runbook の Svelte化（旧Next.js記述の更新）
 
 ### Phase 2: 機能移植（未着手〜進行中）
@@ -40,7 +40,7 @@
 - [ ] 旧Next.js API依存部分の置換（client-side + backend endpoint方針確定）
 
 ### Phase 3: 接続統合（未着手）
-- [ ] `gftd.ai` の Connect endpoint パス確定
+- [ ] `etzhayyim.ai` の Connect endpoint パス確定
 - [ ] 環境変数命名統一（Next: `NEXT_PUBLIC_*` / Svelte: `PUBLIC_*`）
 - [ ] pre-prod で CORS / auth / timeout / retry を検証
 
@@ -52,7 +52,7 @@
 
 ## 次の一手（優先度順）
 1. Svelte全ページの「stub」判定を収集し、実装移植対象を確定
-2. Connect endpoint (`gftd.ai`) の運用パスを確定
+2. Connect endpoint (`etzhayyim.ai`) の運用パスを確定
 3. 重要ユースケース3本（scan preview / target list / report view）を先行移植
 
 
@@ -61,7 +61,7 @@
 - **Week 1 (即日〜5営業日):**
   - Svelte runtime の Supabase import 参照を全廃（`lib/api.ts` 依存ページを MCP client に置換）
   - `check-env.js` / `.env.example` を MCP 変数へ更新
-  - `/account/*` 主要導線の API 呼び出し先を `[nanoid].gftd.ai/api/mcp` に統一
+  - `/account/*` 主要導線の API 呼び出し先を `[nanoid].etzhayyim.com/api/mcp` に統一
 - **Week 2:**
   - Supabase CLI scripts と `supabase/` ディレクトリ依存を開発フローから除去
   - テスト（vitest/playwright）の Supabase 前提モックを MCP モックへ置換

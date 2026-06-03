@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Wvme Mcp Component",
-  "project": "ai-gftd-project-wvme",
+  "project": "etzhayyim-project-wvme",
   "name": "wvme-mcp-component",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-wvme/appview/wvme-mcp-component/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-wvme/appview/wvme-mcp-component/svelte/src/routes/+page.svelte"
 };
 </script>
 
