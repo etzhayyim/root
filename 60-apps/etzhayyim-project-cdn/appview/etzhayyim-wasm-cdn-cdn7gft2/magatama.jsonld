@@ -37,7 +37,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-cdn-cdn7gft2",
+  "name": "etzhayyim-wasm-cdn-cdn7gft2",
   "nanoid": "cdn7gft2",
   "performerType": "service",
   "profile": {
@@ -49,7 +49,7 @@
     "description": "Cdn — AI Agent",
     "displayName": "Cdn",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "cdn",
   "runtimeType": "worker",

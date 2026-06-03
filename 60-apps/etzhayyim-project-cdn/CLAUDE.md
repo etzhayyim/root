@@ -1,4 +1,4 @@
-# ai-gftd-project-cdn
+# etzhayyim-project-cdn
 
 CDN ブロブストレージゲートウェイ (`cdn.etzhayyim.com`)。
 キーでデータを公開し、実データは Backblaze B2 に保存、Cloudflare CDN で配信する。
@@ -7,7 +7,7 @@ CDN ブロブストレージゲートウェイ (`cdn.etzhayyim.com`)。
 
 | Component | nanoid | 役割 |
 |---|---|---|
-| `ai-gftd-wasm-cdn-cdn7gft2` | `cdn7gft2` | CDN blob gateway + upload API |
+| `etzhayyim-wasm-cdn-cdn7gft2` | `cdn7gft2` | CDN blob gateway + upload API |
 
 ## Architecture
 
@@ -18,7 +18,7 @@ cdn.etzhayyim.com (Cloudflare proxied)
   ↓ Cache-Control: public, max-age=86400
 App (cdn7gft2)
   ↓ S3 SigV4
-Cloudflare R2 (bucket: ai-gftd-graph, key: cdn/{key})
+Cloudflare R2 (bucket: etzhayyim-graph, key: cdn/{key})
 ```
 
 ## API Endpoints
@@ -40,7 +40,7 @@ RLS: `org_id`, `user_id`, `actor_id` 必須。
 | Variable | 説明 |
 |---|---|
 | `cdn_s3_endpoint` | S3 endpoint (B2) |
-| `cdn_s3_bucket` | Bucket 名 (default: `ai-gftd-graph`) |
+| `cdn_s3_bucket` | Bucket 名 (default: `etzhayyim-graph`) |
 | `cdn_s3_region` | Region (default: `auto`) |
 | `cdn_s3_access_key_id` | B2 Access Key ID |
 | `cdn_s3_secret_access_key` | B2 Secret Access Key |
@@ -48,6 +48,6 @@ RLS: `org_id`, `user_id`, `actor_id` 必須。
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-cdn/wasm/ai-gftd-wasm-cdn-cdn7gft2
-gftd build && gftd deploy
+cd 60-apps/etzhayyim-project-cdn/wasm/etzhayyim-wasm-cdn-cdn7gft2
+etzhayyim build && etzhayyim deploy
 ```
