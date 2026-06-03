@@ -40,7 +40,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_mangaka_generate_episode"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_generate_episode" name="mangaka generate episode (autopilot)" isExecutable="true">
 
@@ -80,7 +80,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.scriptGenerationFailed&quot;" target="action"/>
           <zeebe:input source="={charSlug: string(charSlug), genre: string(genre), setting: string(setting), status: &quot;script-missing&quot;}" target="payload"/>
         </zeebe:ioMapping>
@@ -94,7 +94,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.scriptGenerated&quot;" target="action"/>
           <zeebe:input source="={
               case_id: string(charSlug) + &quot;-&quot; + string(now()),
@@ -102,7 +102,7 @@
               genre: string(genre),
               setting: string(setting),
               pageCount: 20,
-              objectRefs: { Episode: &quot;pending&quot;, Character: &quot;did:web:sh1n5h1x.gftd.ai:&quot; + string(charSlug), Setting: string(setting) }
+              objectRefs: { Episode: &quot;pending&quot;, Character: &quot;did:web:sh1n5h1x.etzhayyim.com:&quot; + string(charSlug), Setting: string(setting) }
           }" target="payload"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
@@ -130,7 +130,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.panelsRendered&quot;" target="action"/>
           <zeebe:input source="={
               case_id: string(charSlug) + &quot;-&quot; + string(now()),
@@ -161,7 +161,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.balloonsOverlaid&quot;" target="action"/>
           <zeebe:input source="={case_id: string(charSlug) + &quot;-&quot; + string(now()), panelCount: panelCount}" target="payload"/>
         </zeebe:ioMapping>
@@ -190,7 +190,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.pagesComposed&quot;" target="action"/>
           <zeebe:input source="={case_id: string(charSlug) + &quot;-&quot; + string(now()), pageCount: 20, coverCid: string(coverCid)}" target="payload"/>
         </zeebe:ioMapping>
@@ -206,10 +206,10 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:      &quot;at://did:web:mangaka.gftd.ai/com.etzhayyim.apps.mangaka.work/&quot; + string(charSlug) + &quot;-&quot; + string(now()),
-              owner_did:      &quot;did:web:mangaka.gftd.ai&quot;,
-              repo:           &quot;did:web:mangaka.gftd.ai&quot;,
-              did:            &quot;did:web:mangaka.gftd.ai:work:&quot; + string(charSlug),
+              vertex_id:      &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.work/&quot; + string(charSlug) + &quot;-&quot; + string(now()),
+              owner_did:      &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:           &quot;did:web:mangaka.etzhayyim.com&quot;,
+              did:            &quot;did:web:mangaka.etzhayyim.com:work:&quot; + string(charSlug),
               collection:     &quot;com.etzhayyim.apps.mangaka.work&quot;,
               rkey:           string(charSlug) + &quot;-&quot; + string(now()),
               kind:           &quot;work&quot;,
@@ -246,7 +246,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.domainRecordsCreated&quot;" target="action"/>
           <zeebe:input source="={
               case_id: string(charSlug) + &quot;-&quot; + string(now()),
@@ -284,7 +284,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;mangaka.episodePublished&quot;" target="action"/>
           <zeebe:input source="={
               case_id: string(charSlug) + &quot;-&quot; + string(now()),

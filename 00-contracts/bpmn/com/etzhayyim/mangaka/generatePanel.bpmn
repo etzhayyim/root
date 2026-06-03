@@ -10,7 +10,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_generate_panel"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_generate_panel" name="mangaka generate panel" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -59,9 +59,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:  &quot;at://did:web:mangaka.gftd.ai/com.etzhayyim.apps.mangaka.panel/&quot; + string(pageId) + &quot;-p&quot; + string(panelNum) + &quot;-c&quot; + string(candidateNum),
-              owner_did:  &quot;did:web:mangaka.gftd.ai&quot;,
-              repo:       &quot;did:web:mangaka.gftd.ai&quot;,
+              vertex_id:  &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.panel/&quot; + string(pageId) + &quot;-p&quot; + string(panelNum) + &quot;-c&quot; + string(candidateNum),
+              owner_did:  &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:mangaka.etzhayyim.com&quot;,
               collection: &quot;com.etzhayyim.apps.mangaka.panel&quot;,
               rkey:       string(pageId) + &quot;-p&quot; + string(panelNum) + &quot;-c&quot; + string(candidateNum),
               kind:       &quot;panel&quot;,
@@ -84,7 +84,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;generatePanel&quot;" target="action"/>
           <zeebe:input source="={pageId: string(pageId), panelNum: panelNum, candidateNum: candidateNum, blobCid: string(blobCid), renderMs: renderMs}" target="payload"/>
         </zeebe:ioMapping>

@@ -10,7 +10,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_auto_layout_standalone"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_auto_layout_standalone" name="mangaka standalone auto layout" isExecutable="true">
     <bpmn:startEvent id="Start" name="layout requested">
@@ -39,7 +39,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;autoLayout&quot;" target="action"/>
           <zeebe:input source="={pageId: string(pageId), panelCount: (if panelCount = null then 5 else panelCount), style: (if style = null then &quot;standard&quot; else string(style)), model: string(model), latencyMs: latencyMs}" target="payload"/>
         </zeebe:ioMapping>

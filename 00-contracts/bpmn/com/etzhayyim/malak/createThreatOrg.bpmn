@@ -9,13 +9,13 @@
       → End
 
   NSID: com.etzhayyim.apps.malak.createThreatOrg
-  vid:  at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/malak-create-threat-org-v1
+  vid:  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-create-threat-org-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_malak_create_threat_org"
-    targetNamespace="https://gftd.ai/bpmn/malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="malak_create_threat_org" name="malak createThreatOrg" isExecutable="true">
 
@@ -35,10 +35,10 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_threat&quot;" target="table"/>
           <zeebe:input source='={
-              vertex_id:       string join(["at://did:web:malak.gftd.ai/com.etzhayyim.apps.malak.threatOrg/", string(slug)], ""),
+              vertex_id:       string join(["at://did:web:malak.etzhayyim.com/com.etzhayyim.apps.malak.threatOrg/", string(slug)], ""),
               rkey:            string(slug),
-              repo:            "did:web:malak.gftd.ai",
-              did:             "did:web:malak.gftd.ai",
+              repo:            "did:web:malak.etzhayyim.com",
+              did:             "did:web:malak.etzhayyim.com",
               code:            string join(["org-", string(slug)], ""),
               label:           "ThreatOrg",
               name:            string(name),
@@ -48,7 +48,7 @@
               url:             if country = null then "" else string join(["country:", string(country)], ""),
               source:          "malak.bpmn.create-org",
               sensitivity_ord: 100,
-              owner_did:       "did:web:malak.gftd.ai",
+              owner_did:       "did:web:malak.etzhayyim.com",
               created_date:    substring(string(now()), 1, 10)
           }' target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
@@ -64,7 +64,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:malak.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:malak.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;malak.org.created&quot;"     target="action"/>
           <zeebe:input source="={ slug: string(slug), name: string(name), orgInserted: orgInserted }" target="payload"/>
           <zeebe:output source="=emitted" target="auditEmitted"/>

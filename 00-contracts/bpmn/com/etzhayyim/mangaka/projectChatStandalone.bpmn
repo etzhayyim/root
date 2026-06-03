@@ -9,7 +9,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_project_chat_standalone"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_project_chat_standalone" name="mangaka standalone project chat" isExecutable="true">
     <bpmn:startEvent id="Start" name="chat requested">
@@ -38,7 +38,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;projectChat&quot;" target="action"/>
           <zeebe:input source="={projectId: (if projectId = null then &quot;&quot; else string(projectId)), model: string(model), latencyMs: latencyMs}" target="payload"/>
         </zeebe:ioMapping>

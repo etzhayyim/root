@@ -11,7 +11,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_publish_chapter_pipeline"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_publish_chapter_pipeline" name="mangaka publish chapter pipeline" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -39,9 +39,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:   &quot;at://did:web:mangaka.gftd.ai/com.etzhayyim.apps.mangaka.chapterMaster/&quot; + string(chapterId),
-              owner_did:   &quot;did:web:mangaka.gftd.ai&quot;,
-              repo:        &quot;did:web:mangaka.gftd.ai&quot;,
+              vertex_id:   &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.chapterMaster/&quot; + string(chapterId),
+              owner_did:   &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:        &quot;did:web:mangaka.etzhayyim.com&quot;,
               collection:  &quot;com.etzhayyim.apps.mangaka.chapterMaster&quot;,
               rkey:        string(chapterId),
               kind:        &quot;chapterMaster&quot;,
@@ -64,12 +64,12 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;com.atproto.repo.createRecord&quot;" target="type"/>
           <zeebe:input source="={
-              repo:       if workDid = null then &quot;did:web:mangaka.gftd.ai&quot; else string(workDid),
+              repo:       if workDid = null then &quot;did:web:mangaka.etzhayyim.com&quot; else string(workDid),
               collection: &quot;app.bsky.feed.post&quot;,
               record: {
                 &quot;$type&quot;: &quot;app.bsky.feed.post&quot;,
                 text: if announcementText = null
-                      then (&quot;📖 新章『&quot; + string(chapterTitle) + &quot;』(第&quot; + string(chapterNum) + &quot;話, &quot; + string(pageCount) + &quot;P) 公開\n→ https://mangaka.gftd.ai/at/mng4k4x1.gftd.ai/com.etzhayyim.apps.mangaka.chapter/&quot; + string(chapterId))
+                      then (&quot;📖 新章『&quot; + string(chapterTitle) + &quot;』(第&quot; + string(chapterNum) + &quot;話, &quot; + string(pageCount) + &quot;P) 公開\n→ https://mangaka.etzhayyim.com/at/mng4k4x1.etzhayyim.com/com.etzhayyim.apps.mangaka.chapter/&quot; + string(chapterId))
                       else string(announcementText),
                 createdAt: today() + &quot;T00:00:00Z&quot;,
                 langs:     [&quot;ja&quot;]
@@ -86,7 +86,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;publishChapterPipeline&quot;" target="action"/>
           <zeebe:input source="={chapterId: string(chapterId), pageCount: pageCount, announceStatus: announceStatus}" target="payload"/>
         </zeebe:ioMapping>

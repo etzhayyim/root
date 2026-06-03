@@ -10,7 +10,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_mangaka_compose_page"
-    targetNamespace="https://gftd.ai/bpmn/mangaka"
+    targetNamespace="https://etzhayyim.ai/bpmn/mangaka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="mangaka_compose_page" name="mangaka compose page" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -75,9 +75,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_mangaka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:  &quot;at://did:web:mangaka.gftd.ai/com.etzhayyim.apps.mangaka.composedPage/&quot; + string(pageId),
-              owner_did:  &quot;did:web:mangaka.gftd.ai&quot;,
-              repo:       &quot;did:web:mangaka.gftd.ai&quot;,
+              vertex_id:  &quot;at://did:web:mangaka.etzhayyim.com/com.etzhayyim.apps.mangaka.composedPage/&quot; + string(pageId),
+              owner_did:  &quot;did:web:mangaka.etzhayyim.com&quot;,
+              repo:       &quot;did:web:mangaka.etzhayyim.com&quot;,
               collection: &quot;com.etzhayyim.apps.mangaka.composedPage&quot;,
               rkey:       string(pageId),
               kind:       &quot;composedPage&quot;,
@@ -99,7 +99,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:mangaka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:mangaka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;composePage&quot;" target="action"/>
           <zeebe:input source="={pageId: string(pageId), panelCount: panelCount, blobCid: string(blobCid), renderMs: renderMs}" target="payload"/>
         </zeebe:ioMapping>

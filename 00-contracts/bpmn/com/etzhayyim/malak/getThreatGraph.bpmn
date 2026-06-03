@@ -15,13 +15,13 @@
   Output variables: { actorRows, riskRows }
 
   NSID: com.etzhayyim.apps.malak.getThreatGraph
-  vid:  at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/malak-get-threat-graph-v1
+  vid:  at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/malak-get-threat-graph-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_malak_get_threat_graph"
-    targetNamespace="https://gftd.ai/bpmn/malak"
+    targetNamespace="https://etzhayyim.ai/bpmn/malak"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="malak_get_threat_graph" name="malak getThreatGraph" isExecutable="true">
 
@@ -41,7 +41,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_threat&quot;"               target="table"/>
           <zeebe:input source="=&quot;repo = %s AND code = %s&quot;"     target="whereExpr"/>
-          <zeebe:input source='=["did:web:malak.gftd.ai", string(actorId)]' target="whereParams"/>
+          <zeebe:input source='=["did:web:malak.etzhayyim.com", string(actorId)]' target="whereParams"/>
           <zeebe:input source="=1"                                        target="limit"/>
           <zeebe:output source="=rows"     target="actorRows"/>
           <zeebe:output source="=rowCount" target="actorCount"/>

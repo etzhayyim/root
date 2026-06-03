@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_malak_list_agency_referral_exports" targetNamespace="https://gftd.ai/bpmn/malak" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_malak_list_agency_referral_exports" targetNamespace="https://etzhayyim.ai/bpmn/malak" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="malak_list_agency_referral_exports" name="malak listAgencyReferralExports" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_Run"/>
