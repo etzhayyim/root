@@ -21,7 +21,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "内閣府" :gov.unit/name-en "Cabinet Office"
    :gov.unit/name-romanized "Naikaku-fu" :gov.unit/official-url "https://www.cao.go.jp/"
-   :gov.unit/wikidata "Q1023920" :gov.unit/external-code ["jp-soshiki:内閣府"] :gov.unit/cofog ["01.1"]
+   :gov.unit/wikidata "Q6005" :gov.unit/external-code ["jp-soshiki:内閣府"] :gov.unit/cofog ["01.1"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.cao.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -30,7 +30,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "総務省" :gov.unit/name-en "Ministry of Internal Affairs and Communications"
    :gov.unit/name-romanized "Sōmu-shō" :gov.unit/official-url "https://www.soumu.go.jp/"
-   :gov.unit/wikidata "Q1023776" :gov.unit/external-code ["jp-soshiki:総務省"] :gov.unit/cofog ["01.1"]
+   :gov.unit/wikidata "Q1322293" :gov.unit/external-code ["jp-soshiki:総務省"] :gov.unit/cofog ["01.1"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.soumu.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -39,7 +39,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "法務省" :gov.unit/name-en "Ministry of Justice"
    :gov.unit/name-romanized "Hōmu-shō" :gov.unit/official-url "https://www.moj.go.jp/"
-   :gov.unit/wikidata "Q1023732" :gov.unit/external-code ["jp-soshiki:法務省"] :gov.unit/cofog ["03.3"]
+   :gov.unit/wikidata "Q1031145" :gov.unit/external-code ["jp-soshiki:法務省"] :gov.unit/cofog ["03.3"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.moj.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -48,7 +48,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "外務省" :gov.unit/name-en "Ministry of Foreign Affairs"
    :gov.unit/name-romanized "Gaimu-shō" :gov.unit/official-url "https://www.mofa.go.jp/"
-   :gov.unit/wikidata "Q1023718" :gov.unit/external-code ["jp-soshiki:外務省"] :gov.unit/cofog ["01.1"]
+   :gov.unit/wikidata "Q222241" :gov.unit/external-code ["jp-soshiki:外務省"] :gov.unit/cofog ["01.1"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.mofa.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -57,7 +57,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "文部科学省" :gov.unit/name-en "Ministry of Education, Culture, Sports, Science and Technology"
    :gov.unit/name-romanized "Monbu-kagaku-shō" :gov.unit/official-url "https://www.mext.go.jp/"
-   :gov.unit/wikidata "Q1023766" :gov.unit/external-code ["jp-soshiki:文部科学省"] :gov.unit/cofog ["09"]
+   :gov.unit/wikidata "Q1054379" :gov.unit/external-code ["jp-soshiki:文部科学省"] :gov.unit/cofog ["09"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.mext.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -66,7 +66,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "厚生労働省" :gov.unit/name-en "Ministry of Health, Labour and Welfare"
    :gov.unit/name-romanized "Kōsei-rōdō-shō" :gov.unit/official-url "https://www.mhlw.go.jp/"
-   :gov.unit/wikidata "Q1023759" :gov.unit/external-code ["jp-soshiki:厚生労働省"] :gov.unit/cofog ["07" "10"]
+   :gov.unit/wikidata "Q1191238" :gov.unit/external-code ["jp-soshiki:厚生労働省"] :gov.unit/cofog ["07" "10"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.mhlw.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -75,7 +75,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "農林水産省" :gov.unit/name-en "Ministry of Agriculture, Forestry and Fisheries"
    :gov.unit/name-romanized "Nōrin-suisan-shō" :gov.unit/official-url "https://www.maff.go.jp/"
-   :gov.unit/wikidata "Q1023745" :gov.unit/external-code ["jp-soshiki:農林水産省"] :gov.unit/cofog ["04.2"]
+   :gov.unit/wikidata "Q1376786" :gov.unit/external-code ["jp-soshiki:農林水産省"] :gov.unit/cofog ["04.2"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.maff.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -84,7 +84,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "経済産業省" :gov.unit/name-en "Ministry of Economy, Trade and Industry"
    :gov.unit/name-romanized "Keizai-sangyō-shō" :gov.unit/official-url "https://www.meti.go.jp/"
-   :gov.unit/wikidata "Q1023775" :gov.unit/external-code ["jp-soshiki:経済産業省"] :gov.unit/cofog ["04"]
+   :gov.unit/wikidata "Q1197264" :gov.unit/external-code ["jp-soshiki:経済産業省"] :gov.unit/cofog ["04"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.meti.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -93,7 +93,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "国土交通省" :gov.unit/name-en "Ministry of Land, Infrastructure, Transport and Tourism"
    :gov.unit/name-romanized "Kokudo-kōtsū-shō" :gov.unit/official-url "https://www.mlit.go.jp/"
-   :gov.unit/wikidata "Q1023784" :gov.unit/external-code ["jp-soshiki:国土交通省"] :gov.unit/cofog ["04.5"]
+   :gov.unit/wikidata "Q1376196" :gov.unit/external-code ["jp-soshiki:国土交通省"] :gov.unit/cofog ["04.5"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.mlit.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -102,7 +102,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "環境省" :gov.unit/name-en "Ministry of the Environment"
    :gov.unit/name-romanized "Kankyō-shō" :gov.unit/official-url "https://www.env.go.jp/"
-   :gov.unit/wikidata "Q1023795" :gov.unit/external-code ["jp-soshiki:環境省"] :gov.unit/cofog ["05"]
+   :gov.unit/wikidata "Q1125558" :gov.unit/external-code ["jp-soshiki:環境省"] :gov.unit/cofog ["05"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.env.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -111,7 +111,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "防衛省" :gov.unit/name-en "Ministry of Defense"
    :gov.unit/name-romanized "Bōei-shō" :gov.unit/official-url "https://www.mod.go.jp/"
-   :gov.unit/wikidata "Q1023804" :gov.unit/external-code ["jp-soshiki:防衛省"] :gov.unit/cofog ["02"]
+   :gov.unit/wikidata "Q1062689" :gov.unit/external-code ["jp-soshiki:防衛省"] :gov.unit/cofog ["02"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.mod.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -120,7 +120,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "デジタル庁" :gov.unit/name-en "Digital Agency"
    :gov.unit/name-romanized "Dejitaru-chō" :gov.unit/official-url "https://www.digital.go.jp/"
-   :gov.unit/wikidata "Q108458515" :gov.unit/external-code ["jp-soshiki:デジタル庁"] :gov.unit/cofog ["01.3"]
+   :gov.unit/wikidata "Q107291492" :gov.unit/external-code ["jp-soshiki:デジタル庁"] :gov.unit/cofog ["01.3"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.digital.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -129,7 +129,7 @@
    :gov.unit/parent "gov.jpn" :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "jpn" :gov.unit/name-local "復興庁" :gov.unit/name-en "Reconstruction Agency"
    :gov.unit/name-romanized "Fukkō-chō" :gov.unit/official-url "https://www.reconstruction.go.jp/"
-   :gov.unit/wikidata "Q11405853" :gov.unit/external-code ["jp-soshiki:復興庁"] :gov.unit/cofog ["01.1"]
+   :gov.unit/wikidata "Q1056221" :gov.unit/external-code ["jp-soshiki:復興庁"] :gov.unit/cofog ["01.1"]
    :gov.unit/status :active :gov.unit/sourcing :representative :gov.unit/provenance "https://www.reconstruction.go.jp/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}]
 

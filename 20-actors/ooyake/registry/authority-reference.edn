@@ -1,22 +1,116 @@
 ;; ooyake 公 — authority-reference.edn
 ;;
-;; A SMALL, BUNDLED, curated set of AUTHORITATIVE facts about government units —
-;; the kind of record the R1 `reconcile` cell would otherwise FETCH from external
-;; authorities (Wikidata / 行政機関コード / GeoNames). Bundled here so the
-;; reconcile DEMO (reconcile.py) is runnable OFFLINE and deterministic; live
-;; network fetch is G4 + Council + operator gated and is NOT what this file is.
+;; A curated set of AUTHORITATIVE facts about government units — the kind of record
+;; the R1 `reconcile` cell would otherwise FETCH from external authorities. Bundled
+;; here so the reconcile DEMO (reconcile.py / ReconcileCell mode="bundled") is
+;; runnable OFFLINE and deterministic; live network fetch is G4 + Council + operator
+;; gated and is NOT what this file is.
 ;;
 ;; The reconcile cell promotes a seed unit :representative → :authoritative ONLY
-;; when the unit's :gov.unit/wikidata AND :gov.unit/official-url both AGREE with
-;; the authoritative record here (G5: agreement = verification, disagreement =
-;; stays unverified + flagged). Each record cites its own provenance.
+;; when the unit's :gov.unit/wikidata AND :gov.unit/official-url both AGREE with the
+;; authoritative record here (G5: agreement = verification, disagreement = stays
+;; unverified + flagged).
+;;
+;; SOURCING POLICY (per founder 2026-06-03): :provenance cites EACH BODY'S OWN
+;; official URL / document URL as the primary source of truth for the unit's
+;; existence + identity (本体の url / 文書の url を一次ソースに). The Wikidata QID is
+;; a cross-reference identifier only; its own entity page is recorded separately in
+;; :wikidata-ref for traceability — it is NOT the primary provenance.
+;;
+;; QID INTEGRITY (2026-06-03): every Wikidata QID below was INDEPENDENTLY
+;; re-verified against wikidata.org on 2026-06-03. A prior fabrication wave had
+;; assigned a contiguous fake block (Q1023xxx) to the JP ministries (e.g. MOF was
+;; "Q1023766" which actually resolves to CIUTI, a Brussels translators' association)
+;; plus wrong QIDs for NTA/IRS/Treasury/HMRC/Shinjuku/Digital/Reconstruction. All
+;; corrected here AND in the seeds. See MATURITY.md § "2026-06-03 QID integrity fix".
 
 {:authority-records
- [{:unit "gov.jpn"            :wikidata "Q17"        :official-url "https://www.japan.go.jp/"  :provenance "https://www.wikidata.org/wiki/Q17"}
-  {:unit "gov.jpn.mof"        :wikidata "Q1023766"   :official-url "https://www.mof.go.jp/"     :provenance "https://www.wikidata.org/wiki/Q1023766"}
-  {:unit "gov.jpn.mofa"       :wikidata "Q1023718"   :official-url "https://www.mofa.go.jp/"    :provenance "https://www.wikidata.org/wiki/Q1023718"}
-  {:unit "gov.jpn.meti"       :wikidata "Q1023775"   :official-url "https://www.meti.go.jp/"    :provenance "https://www.wikidata.org/wiki/Q1023775"}
-  {:unit "gov.jpn.cao"        :wikidata "Q1023920"   :official-url "https://www.cao.go.jp/"     :provenance "https://www.wikidata.org/wiki/Q1023920"}
-  {:unit "gov.jpn.pref.13"    :wikidata "Q1490"      :official-url "https://www.metro.tokyo.lg.jp/" :provenance "https://www.wikidata.org/wiki/Q1490"}
-  {:unit "gov.usa.treasury"   :wikidata "Q633534"    :official-url "https://home.treasury.gov/" :provenance "https://www.wikidata.org/wiki/Q633534"}
-  {:unit "gov.gbr.hmrc"       :wikidata "Q1377862"   :official-url "https://www.gov.uk/government/organisations/hm-revenue-customs" :provenance "https://www.wikidata.org/wiki/Q1377862"}]}
+ [;; ── Japan: nation + cabinet office + 11 ministries + 2 agencies + NTA + 都/区 ──
+  {:unit "gov.jpn"               :wikidata "Q17"        :official-url "https://www.japan.go.jp/"
+   :provenance "https://www.japan.go.jp/"                       :wikidata-ref "https://www.wikidata.org/wiki/Q17"      :last-verified "2026-06-03"}
+  {:unit "gov.jpn.cao"           :wikidata "Q6005"      :official-url "https://www.cao.go.jp/"
+   :provenance "https://www.cao.go.jp/en/about.html"            :wikidata-ref "https://www.wikidata.org/wiki/Q6005"    :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mic"           :wikidata "Q1322293"   :official-url "https://www.soumu.go.jp/"
+   :provenance "https://www.soumu.go.jp/english/"               :wikidata-ref "https://www.wikidata.org/wiki/Q1322293" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.moj"           :wikidata "Q1031145"   :official-url "https://www.moj.go.jp/"
+   :provenance "https://www.moj.go.jp/ENGLISH/"                 :wikidata-ref "https://www.wikidata.org/wiki/Q1031145" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mofa"          :wikidata "Q222241"    :official-url "https://www.mofa.go.jp/"
+   :provenance "https://www.mofa.go.jp/about/"                  :wikidata-ref "https://www.wikidata.org/wiki/Q222241"  :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mof"           :wikidata "Q1322605"   :official-url "https://www.mof.go.jp/"
+   :provenance "https://www.mof.go.jp/english/"                 :wikidata-ref "https://www.wikidata.org/wiki/Q1322605" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mof.nta"       :wikidata "Q11421205"  :official-url "https://www.nta.go.jp/"
+   :provenance "https://www.nta.go.jp/english/"                 :wikidata-ref "https://www.wikidata.org/wiki/Q11421205" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mext"          :wikidata "Q1054379"   :official-url "https://www.mext.go.jp/"
+   :provenance "https://www.mext.go.jp/en/"                     :wikidata-ref "https://www.wikidata.org/wiki/Q1054379" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mhlw"          :wikidata "Q1191238"   :official-url "https://www.mhlw.go.jp/"
+   :provenance "https://www.mhlw.go.jp/english/"                :wikidata-ref "https://www.wikidata.org/wiki/Q1191238" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.maff"          :wikidata "Q1376786"   :official-url "https://www.maff.go.jp/"
+   :provenance "https://www.maff.go.jp/e/"                      :wikidata-ref "https://www.wikidata.org/wiki/Q1376786" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.meti"          :wikidata "Q1197264"   :official-url "https://www.meti.go.jp/"
+   :provenance "https://www.meti.go.jp/english/"                :wikidata-ref "https://www.wikidata.org/wiki/Q1197264" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mlit"          :wikidata "Q1376196"   :official-url "https://www.mlit.go.jp/"
+   :provenance "https://www.mlit.go.jp/en/"                     :wikidata-ref "https://www.wikidata.org/wiki/Q1376196" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.moe"           :wikidata "Q1125558"   :official-url "https://www.env.go.jp/"
+   :provenance "https://www.env.go.jp/en/"                      :wikidata-ref "https://www.wikidata.org/wiki/Q1125558" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.mod"           :wikidata "Q1062689"   :official-url "https://www.mod.go.jp/"
+   :provenance "https://www.mod.go.jp/en/"                      :wikidata-ref "https://www.wikidata.org/wiki/Q1062689" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.digital"       :wikidata "Q107291492" :official-url "https://www.digital.go.jp/"
+   :provenance "https://www.digital.go.jp/en/about"             :wikidata-ref "https://www.wikidata.org/wiki/Q107291492" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.reconstruction" :wikidata "Q1056221"  :official-url "https://www.reconstruction.go.jp/"
+   :provenance "https://www.reconstruction.go.jp/english/"      :wikidata-ref "https://www.wikidata.org/wiki/Q1056221" :last-verified "2026-06-03"}
+  {:unit "gov.jpn.pref.13"       :wikidata "Q1490"      :official-url "https://www.metro.tokyo.lg.jp/"
+   :provenance "https://www.metro.tokyo.lg.jp/"                 :wikidata-ref "https://www.wikidata.org/wiki/Q1490"    :last-verified "2026-06-03"}
+  {:unit "gov.jpn.city.13104"    :wikidata "Q179645"    :official-url "https://www.city.shinjuku.lg.jp/"
+   :provenance "https://www.city.shinjuku.lg.jp/"              :wikidata-ref "https://www.wikidata.org/wiki/Q179645"  :last-verified "2026-06-03"}
+
+  ;; ── United States ──
+  {:unit "gov.usa"               :wikidata "Q30"        :official-url "https://www.usa.gov/"
+   :provenance "https://www.usa.gov/"                           :wikidata-ref "https://www.wikidata.org/wiki/Q30"      :last-verified "2026-06-03"}
+  {:unit "gov.usa.treasury"      :wikidata "Q648666"    :official-url "https://home.treasury.gov/"
+   :provenance "https://home.treasury.gov/about"                :wikidata-ref "https://www.wikidata.org/wiki/Q648666"  :last-verified "2026-06-03"}
+  {:unit "gov.usa.treasury.irs"  :wikidata "Q973587"    :official-url "https://www.irs.gov/"
+   :provenance "https://www.irs.gov/about-irs"                  :wikidata-ref "https://www.wikidata.org/wiki/Q973587"  :last-verified "2026-06-03"}
+
+  ;; ── United Kingdom ──
+  {:unit "gov.gbr"               :wikidata "Q145"       :official-url "https://www.gov.uk/"
+   :provenance "https://www.gov.uk/"                            :wikidata-ref "https://www.wikidata.org/wiki/Q145"     :last-verified "2026-06-03"}
+  {:unit "gov.gbr.hmrc"          :wikidata "Q166559"    :official-url "https://www.gov.uk/government/organisations/hm-revenue-customs"
+   :provenance "https://www.gov.uk/government/organisations/hm-revenue-customs" :wikidata-ref "https://www.wikidata.org/wiki/Q166559" :last-verified "2026-06-03"}
+
+  ;; ── France ──
+  {:unit "gov.fra"               :wikidata "Q142"       :official-url "https://www.gouvernement.fr/"
+   :provenance "https://www.gouvernement.fr/"                   :wikidata-ref "https://www.wikidata.org/wiki/Q142"     :last-verified "2026-06-03"}
+  {:unit "gov.fra.minefi"        :wikidata "Q1416512"   :official-url "https://www.economie.gouv.fr/"
+   :provenance "https://www.economie.gouv.fr/"                  :wikidata-ref "https://www.wikidata.org/wiki/Q1416512" :last-verified "2026-06-03"}
+
+  ;; ── Canada ──
+  {:unit "gov.can"               :wikidata "Q16"        :official-url "https://www.canada.ca/"
+   :provenance "https://www.canada.ca/"                         :wikidata-ref "https://www.wikidata.org/wiki/Q16"      :last-verified "2026-06-03"}
+  {:unit "gov.can.fin"           :wikidata "Q1191438"   :official-url "https://www.canada.ca/en/department-finance.html"
+   :provenance "https://www.canada.ca/en/department-finance.html" :wikidata-ref "https://www.wikidata.org/wiki/Q1191438" :last-verified "2026-06-03"}
+
+  ;; ── Italy ──
+  {:unit "gov.ita"               :wikidata "Q38"        :official-url "https://www.governo.it/"
+   :provenance "https://www.governo.it/"                        :wikidata-ref "https://www.wikidata.org/wiki/Q38"      :last-verified "2026-06-03"}
+  {:unit "gov.ita.mef"           :wikidata "Q1116000"   :official-url "https://www.mef.gov.it/"
+   :provenance "https://www.mef.gov.it/en/index.html"           :wikidata-ref "https://www.wikidata.org/wiki/Q1116000" :last-verified "2026-06-03"}
+
+  ;; ── Australia ──
+  {:unit "gov.aus"               :wikidata "Q408"       :official-url "https://www.australia.gov.au/"
+   :provenance "https://www.australia.gov.au/"                  :wikidata-ref "https://www.wikidata.org/wiki/Q408"     :last-verified "2026-06-03"}
+  {:unit "gov.aus.treasury"      :wikidata "Q3277092"   :official-url "https://treasury.gov.au/"
+   :provenance "https://treasury.gov.au/"                       :wikidata-ref "https://www.wikidata.org/wiki/Q3277092" :last-verified "2026-06-03"}
+
+  ;; ── India ──
+  {:unit "gov.ind"               :wikidata "Q668"       :official-url "https://www.india.gov.in/"
+   :provenance "https://www.india.gov.in/"                      :wikidata-ref "https://www.wikidata.org/wiki/Q668"     :last-verified "2026-06-03"}
+  {:unit "gov.ind.mof"           :wikidata "Q2641068"   :official-url "https://finmin.nic.in/"
+   :provenance "https://finmin.nic.in/"                         :wikidata-ref "https://www.wikidata.org/wiki/Q2641068" :last-verified "2026-06-03"}
+
+  ;; ── Germany / South Korea / European Union (country-level) ──
+  {:unit "gov.deu"               :wikidata "Q183"       :official-url "https://www.bund.de/"
+   :provenance "https://www.bund.de/"                           :wikidata-ref "https://www.wikidata.org/wiki/Q183"     :last-verified "2026-06-03"}
+  {:unit "gov.kor"               :wikidata "Q884"       :official-url "https://www.korea.kr/"
+   :provenance "https://www.korea.kr/"                          :wikidata-ref "https://www.wikidata.org/wiki/Q884"     :last-verified "2026-06-03"}
+  {:unit "gov.eu"                :wikidata "Q458"       :official-url "https://european-union.europa.eu/"
+   :provenance "https://european-union.europa.eu/"              :wikidata-ref "https://www.wikidata.org/wiki/Q458"     :last-verified "2026-06-03"}]}

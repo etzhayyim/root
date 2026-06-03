@@ -30,18 +30,26 @@ from kabuto_edn import load_edn, classify, edn_str  # noqa: E402
 
 
 # ISO-3166 alpha-2 → macro region bloc (for regional supply concentration).
+# Kept in sync with the seed's country coverage so cross-bloc / regional metrics
+# don't silently bucket new countries into "Other".
 _BLOC = {
     'JP': 'East Asia', 'KR': 'East Asia', 'CN': 'East Asia', 'TW': 'East Asia', 'HK': 'East Asia',
+    'MO': 'East Asia',
     'US': 'North America', 'CA': 'North America', 'MX': 'North America',
     'NL': 'Europe', 'DE': 'Europe', 'FR': 'Europe', 'CH': 'Europe', 'GB': 'Europe', 'IE': 'Europe',
     'ES': 'Europe', 'IT': 'Europe', 'SE': 'Europe', 'FI': 'Europe', 'DK': 'Europe', 'NO': 'Europe',
-    'LU': 'Europe', 'PL': 'Europe',
-    'IN': 'South Asia',
+    'LU': 'Europe', 'PL': 'Europe', 'AT': 'Europe', 'PT': 'Europe', 'SI': 'Europe', 'HR': 'Europe',
+    'LT': 'Europe', 'IS': 'Europe', 'GR': 'Europe', 'CZ': 'Europe', 'HU': 'Europe', 'RO': 'Europe',
+    'IN': 'South Asia', 'BD': 'South Asia', 'PK': 'South Asia', 'LK': 'South Asia',
     'SG': 'SE Asia', 'ID': 'SE Asia', 'TH': 'SE Asia', 'MY': 'SE Asia', 'VN': 'SE Asia', 'PH': 'SE Asia',
-    'SA': 'Middle East', 'AE': 'Middle East', 'QA': 'Middle East',
+    'SA': 'Middle East', 'AE': 'Middle East', 'QA': 'Middle East', 'KW': 'Middle East',
+    'BH': 'Middle East', 'OM': 'Middle East', 'JO': 'Middle East', 'IL': 'Middle East', 'TR': 'Middle East',
     'BR': 'Latin America', 'CL': 'Latin America', 'CO': 'Latin America', 'AR': 'Latin America',
-    'ZA': 'Africa', 'NG': 'Africa', 'EG': 'Africa', 'KE': 'Africa',
-    'AU': 'Oceania',
+    'PE': 'Latin America', 'PA': 'Latin America',
+    'ZA': 'Africa', 'NG': 'Africa', 'EG': 'Africa', 'KE': 'Africa', 'MA': 'Africa',
+    'CI': 'Africa', 'GH': 'Africa',
+    'AU': 'Oceania', 'NZ': 'Oceania',
+    'GE': 'Eurasia', 'KZ': 'Eurasia',
 }
 
 
@@ -214,6 +222,29 @@ def analyze(companies, edges):
                            round(load, 2), round(cross_frac, 2)))
     resilience.sort(key=lambda r: r[1])  # most fragile (lowest score) first
 
+    # MATURITY — market-cap concentration (leverages :company/market-cap-busd where
+    # publicly known). Σ cap by sector + cap-HHI (Σ sector-share²) across the COVERED
+    # caps only, plus the cap-coverage ratio. Honesty (G5): caps are public approx
+    # figures `:representative`; only companies carrying a public cap are counted, and
+    # cap_coverage states exactly how much of the seed that is. An economic-weight
+    # concentration signal (which sectors hold the listed market value), aggregate-first.
+    sector_cap = defaultdict(float)
+    capped = []
+    for cid, co in companies.items():
+        mc = co.get(':company/market-cap-busd')
+        try:
+            mc = float(mc)
+        except (TypeError, ValueError):
+            continue
+        if mc <= 0:
+            continue
+        capped.append((cid, mc))
+        sector_cap[co.get(':company/sector', ':unknown')] += mc
+    total_cap = sum(mc for _, mc in capped)
+    sector_cap_rank = sorted(sector_cap.items(), key=lambda kv: -kv[1])
+    cap_hhi = round(sum((v / total_cap) ** 2 for v in sector_cap.values()), 3) if total_cap else 0.0
+    top_caps = sorted(capped, key=lambda r: -r[1])[:12]
+
     return dict(
         in_deg={k: len(v) for k, v in in_deg.items()},
         out_deg={k: len(v) for k, v in out_deg.items()},
@@ -229,6 +260,12 @@ def analyze(companies, edges):
         cross_corridors=cross_corridors,
         cross_share=cross_share,
         resilience=resilience,
+        sector_cap_rank=sector_cap_rank,
+        cap_hhi=cap_hhi,
+        total_cap=round(total_cap, 1),
+        cap_count=len(capped),
+        cap_coverage=round(100 * len(capped) / len(companies), 1) if companies else 0.0,
+        top_caps=top_caps,
     )
 
 
@@ -246,7 +283,14 @@ def render_report(companies, addresses, contacts, edges, processes, a):
       "All sourcing `:representative` — bounded illustrative seed of public companies + "
       "disclosed supplier relationships, NOT an exhaustive bill of materials.")
     P("")
-    P(f"- listed companies: **{len(companies)}**  ·  HQ addresses: **{len(addresses)}**  "
+    status_counts = defaultdict(int)
+    for c in companies.values():
+        status_counts[c.get(':company/status', ':listed')] += 1
+    n_listed = status_counts.get(':listed', 0)
+    n_hist = len(companies) - n_listed
+    hist_note = (f" (incl. **{n_hist}** delisted/acquired retained as history — Datomic as-of, "
+                 "非終末論: facts are superseded, never deleted)") if n_hist else ""
+    P(f"- companies: **{len(companies)}**{hist_note}  ·  HQ addresses: **{len(addresses)}**  "
       f"·  public contacts: **{len(contacts)}**  ·  supply edges: **{len(edges)}**  "
       f"·  BPMN process templates: **{len(processes)}**")
     sectors = defaultdict(int)
@@ -267,6 +311,11 @@ def render_report(companies, addresses, contacts, edges, processes, a):
     with_edge = len(in_edges & set(companies))
     with_cap = sum(1 for c in companies.values() if c.get(':company/market-cap-busd'))
     countries = len({c.get(':company/country') for c in companies.values()})
+    exch_count = defaultdict(int)
+    for c in companies.values():
+        exch_count[c.get(':company/exchange', ':?')] += 1
+    n_exch = len(exch_count)
+    top_exch = sorted(exch_count.items(), key=lambda kv: -kv[1])[:8]
     P("## Data coverage — G5 honesty self-audit")
     P("")
     P("What the seed ACTUALLY carries (absence = \"not yet ingested\", never \"does not exist\"). "
@@ -279,7 +328,22 @@ def render_report(companies, addresses, contacts, edges, processes, a):
     P(f"| ≥1 disclosed supply edge | {with_edge} | {round(100*with_edge/n,1)}% |")
     P(f"| market-cap snapshot | {with_cap} | {round(100*with_cap/n,1)}% |")
     P(f"| distinct countries | {countries} | — |")
+    P(f"| distinct listing exchanges | {n_exch} | — |")
     P(f"| sector balance (min..max per sector) | {min(sectors.values())}..{max(sectors.values())} | — |")
+    P("")
+    P("Exchange coverage (top listing venues by company count) — where the seed is "
+      "thick vs. where the R1 GLEIF/EDGAR/exchange ingest should still reach:")
+    P("")
+    P("| exchange | companies |  | exchange | companies |")
+    P("|---|---:|---|---|---:|")
+    half = (len(top_exch) + 1) // 2
+    for i in range(half):
+        le, lc = top_exch[i]
+        if i + half < len(top_exch):
+            re, rc = top_exch[i + half]
+            P(f"| `{str(le).lstrip(':')}` | {lc} |  | `{str(re).lstrip(':')}` | {rc} |")
+        else:
+            P(f"| `{str(le).lstrip(':')}` | {lc} |  | | |")
     P("")
 
     # ── single-source dependencies (the headline resilience signal) ──
@@ -422,6 +486,31 @@ def render_report(companies, addresses, contacts, edges, processes, a):
         P("| (none in seed) | |")
     P("")
 
+    # ── market-cap concentration (maturity) ──
+    if a.get('cap_count'):
+        P("## Market-cap concentration — listed economic weight by sector")
+        P("")
+        P(f"Across the **{a['cap_count']}** seed companies carrying a publicly-known market cap "
+          f"(**{a['cap_coverage']}%** of the seed; Σ ≈ **${a['total_cap']:,.0f}B** `:representative`), "
+          f"the sector **cap-HHI = {a['cap_hhi']}** (Σ sector-share²; higher = listed value piled into "
+          "fewer sectors). An economic-weight concentration signal complementing the criticality view — "
+          "which sectors hold the market value, aggregate-first, never a target-list (G2). Honesty (G5): "
+          "covers only companies with a public cap; absence ≠ zero value.")
+        P("")
+        P("| sector | Σ market cap (USD B) | share of covered cap |")
+        P("|---|---:|---:|")
+        for sec, cap in a['sector_cap_rank'][:12]:
+            sh = round(100 * cap / a['total_cap'], 1) if a['total_cap'] else 0.0
+            P(f"| {str(sec).lstrip(':')} | {cap:,.0f} | {sh}% |")
+        P("")
+        P("Largest covered caps (orientation only, not a ranking of importance):")
+        P("")
+        P("| company | market cap (USD B) |")
+        P("|---|---:|")
+        for cid, cap in a['top_caps']:
+            P(f"| {cname(companies, cid)} | {cap:,.0f} |")
+        P("")
+
     # ── composite resilience score (maturity capstone) ──
     P("## Composite supply-resilience score — most-fragile customers")
     P("")
@@ -482,6 +571,13 @@ def render_datoms(companies, a):
     for c, score, ss, secs, load, cross in a['resilience']:
         P(f' {{:supply/resilience-customer {edn_str(c)} :supply/resilience-score {score} '
           f':supply/single-source-count {ss} :supply/derived true}}')
+    for sec, cap in a.get('sector_cap_rank', []):
+        P(f' {{:supply/cap-sector "{str(sec).lstrip(":")}" :supply/cap-sector-busd {round(cap, 1)} '
+          f':supply/derived true}}')
+    if a.get('cap_count'):
+        P(f' {{:supply/cap-hhi {a["cap_hhi"]} :supply/cap-total-busd {a["total_cap"]} '
+          f':supply/cap-covered {a["cap_count"]} :supply/cap-coverage-pct {a["cap_coverage"]} '
+          f':supply/derived true}}')
     P("]")
     return "\n".join(L) + "\n"
 

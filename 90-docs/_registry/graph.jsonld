@@ -12831,6 +12831,22 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606030915",
+      "type": "TechArticle",
+      "title": "ADR-2606030915: Session close — merge all open PRs (#779/#784/#789/#792/#793/#807/#798) + recorded CI debt",
+      "status": "active",
+      "topic": "session-close-open-pr-merge-and-ci-debt",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606023200-session-close-ooyake-world-government-atlas",
+        "doc:adr-2606021600-ooyake-world-government-atlas-tier-b-actor-r0",
+        "doc:adr-2606021730-latent-entity-kotoba-datomic-refactor",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",

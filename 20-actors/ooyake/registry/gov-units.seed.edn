@@ -63,7 +63,7 @@
    :gov.unit/name-en "Ministry of Finance"
    :gov.unit/name-romanized "Zaimu-shō"
    :gov.unit/official-url "https://www.mof.go.jp/"
-   :gov.unit/wikidata "Q1023766"
+   :gov.unit/wikidata "Q1322605"
    :gov.unit/external-code ["jp-soshiki:財務省"]
    :gov.unit/cofog ["01.1"]
    :gov.unit/status :active
@@ -82,7 +82,7 @@
    :gov.unit/name-en "National Tax Agency"
    :gov.unit/name-romanized "Kokuzei-chō"
    :gov.unit/official-url "https://www.nta.go.jp/"
-   :gov.unit/wikidata "Q2425817"
+   :gov.unit/wikidata "Q11421205"
    :gov.unit/cofog ["01.1"]
    :gov.unit/status :active
    :gov.unit/sourcing :representative
@@ -154,7 +154,7 @@
    :gov.unit/name-en "Shinjuku City"
    :gov.unit/name-romanized "Shinjuku-ku"
    :gov.unit/official-url "https://www.city.shinjuku.lg.jp/"
-   :gov.unit/wikidata "Q170461"
+   :gov.unit/wikidata "Q179645"
    :gov.unit/external-code ["jp-jichitai:131041"]
    :gov.unit/cofog ["01"]
    :gov.unit/status :active
@@ -177,7 +177,7 @@
    :gov.unit/parent "gov.usa" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "usa" :gov.unit/name-local "Department of the Treasury"
    :gov.unit/name-en "Department of the Treasury" :gov.unit/official-url "https://home.treasury.gov/"
-   :gov.unit/wikidata "Q633534" :gov.unit/cofog ["01.1"] :gov.unit/status :active
+   :gov.unit/wikidata "Q648666" :gov.unit/cofog ["01.1"] :gov.unit/status :active
    :gov.unit/sourcing :representative :gov.unit/provenance "https://home.treasury.gov/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
   {:gov.unit/id "gov.usa.treasury.irs"
@@ -185,7 +185,7 @@
    :gov.unit/parent "gov.usa.treasury" :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "usa" :gov.unit/name-local "Internal Revenue Service"
    :gov.unit/name-en "Internal Revenue Service" :gov.unit/official-url "https://www.irs.gov/"
-   :gov.unit/wikidata "Q254375" :gov.unit/cofog ["01.1"] :gov.unit/status :active
+   :gov.unit/wikidata "Q973587" :gov.unit/cofog ["01.1"] :gov.unit/status :active
    :gov.unit/sourcing :representative :gov.unit/provenance "https://www.irs.gov/"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -202,7 +202,7 @@
    :gov.unit/parent "gov.gbr" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "gbr" :gov.unit/name-local "HM Revenue & Customs"
    :gov.unit/name-en "His Majesty's Revenue and Customs" :gov.unit/official-url "https://www.gov.uk/government/organisations/hm-revenue-customs"
-   :gov.unit/wikidata "Q1377862" :gov.unit/cofog ["01.1"] :gov.unit/status :active
+   :gov.unit/wikidata "Q166559" :gov.unit/cofog ["01.1"] :gov.unit/status :active
    :gov.unit/sourcing :representative :gov.unit/provenance "https://www.gov.uk/government/organisations/hm-revenue-customs"
    :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
 
@@ -221,6 +221,101 @@
    :gov.unit/official-url "https://www.korea.kr/" :gov.unit/wikidata "Q884" :gov.unit/cofog ["01"]
    :gov.unit/status :active :gov.unit/sourcing :representative
    :gov.unit/provenance "https://www.korea.kr/" :gov.unit/last-verified "2026-06-02"
+   :gov.unit/verification-status :unverified-seed}
+
+  ;; ── France: country + finance ministry (QIDs web-verified 2026-06-03) ──────
+  {:gov.unit/id "gov.fra"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:fra"
+   :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "fra"
+   :gov.unit/name-local "République française" :gov.unit/name-en "French Republic"
+   :gov.unit/official-url "https://www.gouvernement.fr/" :gov.unit/wikidata "Q142" :gov.unit/cofog ["01"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.gouvernement.fr/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+  {:gov.unit/id "gov.fra.minefi"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:fra:ministry:economy-finance"
+   :gov.unit/parent "gov.fra"
+   :gov.unit/level :ministry :gov.unit/branch :executive :gov.unit/jurisdiction "fra"
+   :gov.unit/name-local "Ministère de l'Économie et des Finances" :gov.unit/name-en "Ministry of the Economy and Finance"
+   :gov.unit/official-url "https://www.economie.gouv.fr/" :gov.unit/wikidata "Q1416512" :gov.unit/cofog ["01.1"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.economie.gouv.fr/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+
+  ;; ── Canada: country + finance department (QIDs web-verified 2026-06-03) ────
+  {:gov.unit/id "gov.can"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:can"
+   :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "can"
+   :gov.unit/name-local "Canada" :gov.unit/name-en "Canada"
+   :gov.unit/official-url "https://www.canada.ca/" :gov.unit/wikidata "Q16" :gov.unit/cofog ["01"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.canada.ca/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+  {:gov.unit/id "gov.can.fin"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:can:department:finance"
+   :gov.unit/parent "gov.can"
+   :gov.unit/level :ministry :gov.unit/branch :executive :gov.unit/jurisdiction "can"
+   :gov.unit/name-local "Department of Finance Canada" :gov.unit/name-en "Department of Finance Canada"
+   :gov.unit/official-url "https://www.canada.ca/en/department-finance.html" :gov.unit/wikidata "Q1191438" :gov.unit/cofog ["01.1"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.canada.ca/en/department-finance.html" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+
+  ;; ── Italy: country + finance ministry (QIDs web-verified 2026-06-03) ───────
+  {:gov.unit/id "gov.ita"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ita"
+   :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "ita"
+   :gov.unit/name-local "Repubblica Italiana" :gov.unit/name-en "Italian Republic"
+   :gov.unit/official-url "https://www.governo.it/" :gov.unit/wikidata "Q38" :gov.unit/cofog ["01"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.governo.it/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+  {:gov.unit/id "gov.ita.mef"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ita:ministry:economy-finance"
+   :gov.unit/parent "gov.ita"
+   :gov.unit/level :ministry :gov.unit/branch :executive :gov.unit/jurisdiction "ita"
+   :gov.unit/name-local "Ministero dell'Economia e delle Finanze" :gov.unit/name-en "Ministry of Economy and Finance"
+   :gov.unit/official-url "https://www.mef.gov.it/" :gov.unit/wikidata "Q1116000" :gov.unit/cofog ["01.1"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.mef.gov.it/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+
+  ;; ── Australia: country + treasury (QIDs web-verified 2026-06-03) ───────────
+  {:gov.unit/id "gov.aus"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aus"
+   :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "aus"
+   :gov.unit/name-local "Commonwealth of Australia" :gov.unit/name-en "Commonwealth of Australia"
+   :gov.unit/official-url "https://www.australia.gov.au/" :gov.unit/wikidata "Q408" :gov.unit/cofog ["01"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.australia.gov.au/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+  {:gov.unit/id "gov.aus.treasury"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:aus:department:treasury"
+   :gov.unit/parent "gov.aus"
+   :gov.unit/level :ministry :gov.unit/branch :executive :gov.unit/jurisdiction "aus"
+   :gov.unit/name-local "The Treasury" :gov.unit/name-en "Department of the Treasury"
+   :gov.unit/official-url "https://treasury.gov.au/" :gov.unit/wikidata "Q3277092" :gov.unit/cofog ["01.1"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://treasury.gov.au/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+
+  ;; ── India: country + finance ministry (QIDs web-verified 2026-06-03) ───────
+  {:gov.unit/id "gov.ind"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ind"
+   :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "ind"
+   :gov.unit/name-local "भारत गणराज्य" :gov.unit/name-en "Republic of India"
+   :gov.unit/official-url "https://www.india.gov.in/" :gov.unit/wikidata "Q668" :gov.unit/cofog ["01"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://www.india.gov.in/" :gov.unit/last-verified "2026-06-03"
+   :gov.unit/verification-status :unverified-seed}
+  {:gov.unit/id "gov.ind.mof"
+   :gov.unit/atlas-did "did:web:etzhayyim.com:gov:ind:ministry:finance"
+   :gov.unit/parent "gov.ind"
+   :gov.unit/level :ministry :gov.unit/branch :executive :gov.unit/jurisdiction "ind"
+   :gov.unit/name-local "वित्त मंत्रालय" :gov.unit/name-en "Ministry of Finance"
+   :gov.unit/official-url "https://finmin.nic.in/" :gov.unit/wikidata "Q2641068" :gov.unit/cofog ["01.1"]
+   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/provenance "https://finmin.nic.in/" :gov.unit/last-verified "2026-06-03"
    :gov.unit/verification-status :unverified-seed}
 
   ;; ── Supranational (level :supranational, branch :intergovernmental) ────────

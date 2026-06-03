@@ -3,8 +3,11 @@
 Honest R0 status per the gov-coverage maturity model (ADR-2605250680). **This is a
 proof-of-model, not coverage.** Coverage is gated by `:sourcing` (G5): only
 `:authoritative` rows count. The seed ships **zero** `:authoritative` rows; the
-offline `reconcile.py` demo can promote **8 of 28** against the bundled authority
-reference (see below) — still a demo, not live ingest.
+offline `reconcile.py` demo can promote **36 of 38** against the bundled authority
+reference (see below) — still a demo, not live ingest. (Was 8/28 before the
+2026-06-03 QID-integrity fix; see § "2026-06-03 QID integrity fix".) A registry
+integrity guard (`scripts/check_seed_integrity.py`) now fails on the structural
+tells of that fabrication class — see § "2026-06-03 integrity guard + breadth".
 
 ## Seed contents (R0, 2026-06-02)
 
@@ -32,12 +35,14 @@ rows for US/UK/DE/KR + EU supranational.
 `registry/authority-reference.edn`). Latest run:
 
 ```
-units in seed: 28 · authority records: 8
-→ PROMOTED authoritative: 8  (gov.jpn, gov.jpn.cao, gov.jpn.mof, gov.jpn.mofa,
-                              gov.jpn.meti, gov.jpn.pref.13, gov.usa.treasury, gov.gbr.hmrc)
+units in seed: 28 · authority records: 26
+→ PROMOTED authoritative: 26  (all of JP central [内閣府+11省+デジタル庁+復興庁]
+                               + 国税庁 + 東京都 + 新宿区 + US [Treasury/IRS] +
+                               UK/HMRC + DE + KR + EU)
 → conflicts (kept unverified): 0
-→ no authority record (stays representative): 20
-coverage: 28.6% authoritative (8/28) — rest honestly :representative
+→ no authority record (stays representative): 2  (NTA Tokyo regional + 麹町税務署,
+                               no Wikidata QID → cannot confirm, stays representative)
+coverage: 92.9% authoritative (26/28) — rest honestly :representative
 ```
 
 This is a deterministic OFFLINE demo against a bundled reference; **live fetch of
@@ -48,6 +53,107 @@ with `mode="bundled"` (runnable, the above) and `mode="live"` (raises, G4-gated)
 `scripts/reconcile.py` is the thin CLI over it. Unit tests:
 `cells/reconcile/test_reconcile_cell.py` — **5 passed** (promotion set, no-conflict
 remainder, bundled-ok, live-gated, unknown-mode-rejected).
+
+## Update 2026-06-03 — QID integrity fix (correctness, not just coverage)
+
+While expanding the bundled authority reference, **every hand-entered Wikidata QID
+for a sub-national / agency unit was found to be fabricated** — a contiguous fake
+block (`Q1023718…Q1023920`) had been assigned to the JP cabinet office + ministries,
+plus wrong QIDs for NTA, IRS, US Treasury, UK HMRC, Shinjuku, Digital Agency, and
+the Reconstruction Agency. The most glaring: **MOF's "Q1023766" actually resolves to
+*CIUTI*, a Brussels translators' association** — so the prior `reconcile` demo had
+"verified" the Ministry of Finance against an unrelated NGO (circular agreement
+between two copies of the same fake number).
+
+Only the genuinely canonical QIDs were correct: country-level `Q17`/`Q30`/`Q145`/
+`Q183`/`Q884`/`Q458` and Tokyo `Q1490`.
+
+**Fix** (all QIDs independently re-verified against wikidata.org on 2026-06-03):
+
+| unit | fabricated | corrected | resolves to |
+|---|---|---|---|
+| gov.jpn.cao 内閣府 | Q1023920 | **Q6005** | Cabinet Office |
+| gov.jpn.mof 財務省 | Q1023766 (=CIUTI!) | **Q1322605** | Ministry of Finance |
+| gov.jpn.mof.nta 国税庁 | Q2425817 | **Q11421205** | National Tax Agency |
+| gov.jpn.mofa 外務省 | Q1023718 | **Q222241** | MOFA |
+| gov.jpn.meti 経産省 | Q1023775 | **Q1197264** | METI |
+| gov.jpn.mic 総務省 | Q1023776 | **Q1322293** | MIC |
+| gov.jpn.moj 法務省 | Q1023732 | **Q1031145** | Ministry of Justice |
+| gov.jpn.mext 文科省 | Q1023766 (dup) | **Q1054379** | MEXT |
+| gov.jpn.mhlw 厚労省 | Q1023759 | **Q1191238** | MHLW |
+| gov.jpn.maff 農水省 | Q1023745 | **Q1376786** | MAFF |
+| gov.jpn.mlit 国交省 | Q1023784 | **Q1376196** | MLIT |
+| gov.jpn.moe 環境省 | Q1023795 | **Q1125558** | Ministry of the Environment |
+| gov.jpn.mod 防衛省 | Q1023804 | **Q1062689** | Ministry of Defense |
+| gov.jpn.digital デジタル庁 | Q108458515 | **Q107291492** | Digital Agency |
+| gov.jpn.reconstruction 復興庁 | Q11405853 | **Q1056221** | Reconstruction Agency |
+| gov.jpn.city.13104 新宿区 | Q170461 | **Q179645** | Shinjuku |
+| gov.usa.treasury | Q633534 | **Q648666** | US Dept. of the Treasury |
+| gov.usa.treasury.irs | Q254375 | **Q973587** | Internal Revenue Service |
+| gov.gbr.hmrc | Q1377862 | **Q166559** | HM Revenue & Customs |
+
+Corrected in BOTH seeds (`gov-units.seed.edn`, `gov-units.jp-central.seed.edn`)
+**and** `authority-reference.edn`. The authority reference grew **8 → 26 records**;
+because the QIDs are now real (not circular fakes), the bundled reconcile honestly
+promotes **26/28 (92.9%)** with **0 conflicts** (the 2 remainder have no QID).
+Tests updated; **5 passed**.
+
+**Sourcing policy change (founder directive 2026-06-03):** `authority-reference.edn`
+`:provenance` now cites **each body's own official URL / document URL** (本体の url /
+文書の url) as the primary source — e.g. `https://www.mof.go.jp/english/`,
+`https://www.cao.go.jp/en/about.html`. The Wikidata entity page is recorded only in
+a secondary `:wikidata-ref` field for QID traceability, never as the primary source.
+
+> NOTE: rows remain `:representative` / `:unverified-seed` in the committed seeds.
+> The reconcile demo *can* promote them, but committing `:authoritative` state is a
+> separate operator-gated step (G5); the seeds are not silently upgraded. The
+> fabrication finding also means: **do not trust any remaining un-reverified QID** in
+> the JP-local 144-unit ingest (below) — those `iso3166-2`/`jp-jichitai` official
+> codes are real, but their Wikidata cross-refs, where present, need the same pass.
+> (Checked 2026-06-03: `deploy/ingest_jp_local.py` sets **no** Wikidata QID at all —
+> it carries only official admin codes + official URLs — so the JP-local ingest is
+> clean of this bug by construction.)
+
+## Update 2026-06-03 — integrity guard + verified country breadth
+
+**(A) Integrity guard (durable — prevents recurrence).**
+`scripts/check_seed_integrity.py` is a read-only (G9) checker, run over both seeds +
+`authority-reference.edn`, that hard-fails on the structural tells of the
+fabrication class above:
+  1. duplicate `:gov.unit/wikidata` across distinct units (the MOF/MEXT tell);
+  2. malformed QID (must match `^Q[1-9][0-9]*$`);
+  3. G5: every unit carries `:sourcing` + `:provenance` + `:last-verified`;
+  4. authority-reference `:wikidata`/`:official-url` must AGREE with the seed unit
+     (a mismatch = circular/stale "verification");
+  5. authority record pointing at a non-existent unit (dangling).
+Tests `cells/reconcile/test_seed_integrity.py` prove it both passes on the committed
+registry AND actually fires on synthetic duplicate/malformed/missing/mismatch
+inputs. Suite now **9 passed** (5 reconcile + 4 integrity).
+
+**(B) Verified country breadth.**
+Added 4 units — **France** (country `Q142` + `Ministère de l'Économie et des
+Finances` `Q1416512`) and **Canada** (country `Q16` + `Department of Finance Canada`
+`Q1191438`) — every QID web-verified against wikidata.org on 2026-06-03, every
+`:provenance` citing the body's own official URL (`gouvernement.fr`,
+`economie.gouv.fr`, `canada.ca`, `canada.ca/en/department-finance.html`).
+
+National "executive" coverage spans JP (full central gov) + US + UK + DE + KR + EU
++ FR + CA, each with a verified finance-ministry child where added.
+
+### 2026-06-03 (cont.) — G7 completion + India/Australia
+
+Added 6 more units, all QIDs web-verified against wikidata.org + `:provenance` =
+body's own official URL:
+- **Italy** (country `Q38` + `Ministero dell'Economia e delle Finanze` `Q1116000`)
+  — completes the **G7** national set (US/UK/FR/DE/JP/IT/CA all present);
+- **Australia** (country `Q408` + `The Treasury` `Q3277092`);
+- **India** (country `Q668` + `Ministry of Finance` `Q2641068`).
+
+Registry now: **38 units / 36 authority records**; bundled reconcile promotes
+**36/38 (94.7%)**, **0 conflicts** (the 2 remainder = NTA Tokyo regional + 麹町税務署,
+no QID). The integrity guard + 9-test suite stay green. Every national row carries a
+verified finance-ministry/treasury child. Still `:representative` in committed state
+(promotion is operator-gated, G5).
 
 ## What is NOT done (by design at R0)
 

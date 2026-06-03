@@ -44,7 +44,7 @@ never a target-list.**
 ├── README.md                             # this file
 ├── CLAUDE.md                             # agent reference
 ├── data/
-│   ├── seed-public-companies.kotoba.edn  # 742 companies · 234 supply edges · 99 HQ · 53 contacts · 2 BPMN seeds (:representative; grows each /loop)
+│   ├── seed-public-companies.kotoba.edn  # 1,586 companies · 341 supply edges · 229 HQ · 127 contacts · 205 market caps · 2 BPMN seeds (:representative; grows each /loop)
 │   └── companies.merged.kotoba.edn       # GENERATED: seed + ingest bridge (dedup)
 ├── methods/
 │   ├── kabuto_edn.py                     # shared minimal EDN reader + classifier (stdlib)
@@ -79,8 +79,8 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ### Result (seed)
 
-- **742** public companies · **234** disclosed supply edges · **15** sectors · **52** countries · **99** HQ addresses
-  (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 52 countries
+- **1,586** public companies · **341** disclosed supply edges · **15** sectors · **100** countries · **229** HQ addresses · **205** market caps
+  (growing each `/loop` iteration toward full global coverage — all 15 sectors balanced; 100 countries
   across every macro-region; incl. Japanese sōgō shōsha, commodity traders/agribusiness, and deep
   fab-input suppliers — wafers, OSAT assembly/test, specialty gases, photoresist, mask-blanks,
   substrates, carbon fiber).
@@ -88,6 +88,8 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 - Commodity HHI: **mask-blank / substrate / composite 1.0** (single disclosed supplier — HOYA / Ibiden /
   Toray), gas 0.41, lithography 0.44 — the deep redundancy priorities.
 - **Composite resilience score** (capstone of 7 metrics): most-fragile customer is **Qualcomm**.
+- **Market-cap concentration** (8th metric): across the **205** caps publicly known (~$47T `:representative`),
+  sector cap-HHI ≈ **0.15** — listed value concentrates in **software ~29% / semiconductors ~14% / consumer ~12%**.
 - **Data-coverage self-audit** (G5 honesty): the report states exactly what the seed carries (HQ /
   contact / edge / market-cap coverage %) — absence = "not yet ingested", never "does not exist".
 - **14** single-source dependencies (≥0.7 criticality) — the redundancy gaps. The headline:
