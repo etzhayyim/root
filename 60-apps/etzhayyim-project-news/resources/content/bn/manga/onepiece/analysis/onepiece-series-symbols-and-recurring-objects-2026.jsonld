@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-series-symbols-and-recurring-objects-2026",
+  "@id": "urn:etzhayyim:news:onepiece-series-symbols-and-recurring-objects-2026",
   "identifier": "onepiece-series-symbols-and-recurring-objects-2026",
   "headline": "ONE PIECE analysis: Symbols and recurring objects",
   "description": "A thematic essay on ONE PIECE, organized around: Symbols and recurring objects.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

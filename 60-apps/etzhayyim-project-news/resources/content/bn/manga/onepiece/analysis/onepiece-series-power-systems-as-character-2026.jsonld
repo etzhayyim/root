@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-series-power-systems-as-character-2026",
+  "@id": "urn:etzhayyim:news:onepiece-series-power-systems-as-character-2026",
   "identifier": "onepiece-series-power-systems-as-character-2026",
   "headline": "ONE PIECE analysis: Power systems as character",
   "description": "A thematic essay on ONE PIECE, organized around: Power systems as character.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
