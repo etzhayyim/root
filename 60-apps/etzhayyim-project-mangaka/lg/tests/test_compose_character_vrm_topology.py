@@ -152,7 +152,7 @@ def test_stack_doc_exists_alongside_topology() -> None:
     stack_doc = (
         repo_root
         / "60-apps"
-        / "ai-gftd-project-mangaka"
+        / "etzhayyim-project-mangaka"
         / "data"
         / "ghosthacker"
         / "VRM_AUTHORING_STACK.md"
@@ -164,7 +164,7 @@ def test_no_external_api_hostnames_in_topology() -> None:
     """Production-runtime invariant from `TRAINING_PIPELINE.md`: external
     commercial APIs (Mixamo, OpenAI, Anthropic, Hume, Adobe, …) must
     NOT appear anywhere in this topology YAML — they belong only in
-    `b2://gftd-models/*` student-checkpoint or offline-distill paths.
+    `b2://etzhayyim-models/*` student-checkpoint or offline-distill paths.
 
     If a future edit accidentally drops an `api.openai.com` into a
     pod_image hint, an env-var ref, or a config string, this test
@@ -193,7 +193,7 @@ def test_training_pipeline_doc_exists() -> None:
     train_doc = (
         repo_root
         / "60-apps"
-        / "ai-gftd-project-mangaka"
+        / "etzhayyim-project-mangaka"
         / "data"
         / "ghosthacker"
         / "TRAINING_PIPELINE.md"
@@ -215,7 +215,7 @@ def test_pending_lexicon_jsons_exist(spec: dict) -> None:
         / "00-contracts"
         / "lexicons"
         / "ai"
-        / "gftd"
+        / "etzhayyim"
         / "apps"
         / "mangaka"
         / "tools"
@@ -252,7 +252,7 @@ def test_vrm_bind_retry_dmn_ssot_exists(spec: dict) -> None:
         / "00-contracts"
         / "dmn"
         / "ai"
-        / "gftd"
+        / "etzhayyim"
         / "policies"
         / "mangaka"
         / "vrmBindRetry.dmn"
@@ -306,7 +306,7 @@ def test_batch_driver_targets_topology_nsid(spec: dict) -> None:
     driver = (
         repo_root
         / "60-apps"
-        / "ai-gftd-project-mangaka"
+        / "etzhayyim-project-mangaka"
         / "scripts"
         / "author-ghosthacker-vrms.ts"
     )
@@ -617,7 +617,7 @@ def test_character_roster_directory_present() -> None:
     roster = (
         repo_root
         / "60-apps"
-        / "ai-gftd-project-mangaka"
+        / "etzhayyim-project-mangaka"
         / "data"
         / "ghosthacker"
         / "resources"

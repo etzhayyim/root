@@ -19,7 +19,7 @@ import json, os, sys, time, urllib.parse, urllib.request
 from pathlib import Path
 from typing import Any
 
-ROOT = Path("/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/ai-gftd-project-mangaka/data/ghosthacker")
+ROOT = Path("/Users/junkawasaki/etzhayyim/etzhayyim-root/60-apps/etzhayyim-project-mangaka/data/ghosthacker")
 COMFY = "http://192.168.1.70:8188"
 EPISODE = ROOT / "resources/episodes/arc0-1-origin"
 CHARS = ROOT / "resources/characters"

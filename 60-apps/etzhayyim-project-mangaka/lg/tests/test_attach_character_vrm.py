@@ -180,7 +180,7 @@ def test_lexicon_file_exists():
         / "00-contracts"
         / "lexicons"
         / "ai"
-        / "gftd"
+        / "etzhayyim"
         / "apps"
         / "mangaka"
         / "tools"

@@ -33,7 +33,7 @@ import yaml
 _LG_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_LG_DIR))
 
-# `_LG_DIR = <repo>/60-apps/ai-gftd-project-mangaka/lg`, so repo is 3 up.
+# `_LG_DIR = <repo>/60-apps/etzhayyim-project-mangaka/lg`, so repo is 3 up.
 _REPO_ROOT = _LG_DIR.parents[2]
 _DMN_PATH = (
     _REPO_ROOT
