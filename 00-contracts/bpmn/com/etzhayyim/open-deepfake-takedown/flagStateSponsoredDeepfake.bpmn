@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_deepfake_takedown_flag_state_sponsored_deepfake"
-    targetNamespace="https://gftd.ai/bpmn/open-deepfake-takedown"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-deepfake-takedown"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_deepfake_takedown_flag_state_sponsored_deepfake" name="国家関与 deepfake フラグ" isExecutable="true">
@@ -43,7 +43,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-deepfake-takedown.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-deepfake-takedown.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;info.stateDeepfake&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: contentVid, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>

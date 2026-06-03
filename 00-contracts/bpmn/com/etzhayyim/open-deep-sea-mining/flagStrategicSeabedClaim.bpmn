@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_open_deep_sea_mining_flag_strategic_seabed_claim"
-    targetNamespace="https://gftd.ai/bpmn/open-deep-sea-mining"
+    targetNamespace="https://etzhayyim.ai/bpmn/open-deep-sea-mining"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="open_deep_sea_mining_flag_strategic_seabed_claim" name="海底鉱物 戦略主張" isExecutable="true">
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:open-deep-sea-mining.gftd.ai:ops&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:open-deep-sea-mining.etzhayyim.com:ops&quot;" target="actor"/>
           <zeebe:input source="=&quot;maritime.seabedClaim&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, subjectVid: claimId, severity: &quot;high&quot;}" target="payload"/>
         </zeebe:ioMapping>
