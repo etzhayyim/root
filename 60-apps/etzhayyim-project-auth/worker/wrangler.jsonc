@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-auth",
+  "name": "etzhayyim-auth",
   "main": "src-ts/index.ts",
   "compatibility_date": "2025-03-17",
   "assets": {
@@ -19,18 +19,18 @@
   "services": [
     {
       "binding": "PDS_SERVICE",
-      "service": "ai-gftd-pds-2603241700"
+      "service": "etzhayyim-pds-2603241700"
     }
   ],
   "d1_databases": [
     {
       "binding": "AUTH_DB",
-      "database_name": "ai-gftd-auth-passkey",
+      "database_name": "etzhayyim-auth-passkey",
       "database_id": "d70191cf-9799-48c8-8208-289bcb14593f"
     },
     {
       "binding": "KEYS_DB",
-      "database_name": "ai-gftd-keys",
+      "database_name": "etzhayyim-keys",
       "database_id": "3b3c7e8a-ad90-4065-a18c-18cfc8e77223"
     }
   ],

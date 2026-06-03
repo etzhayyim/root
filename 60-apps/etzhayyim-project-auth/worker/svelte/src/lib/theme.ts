@@ -5,7 +5,7 @@ type Theme = 'dark' | 'light';
 
 function getInitialTheme(): Theme {
 	if (!browser) return 'dark';
-	const stored = localStorage.getItem('gftd-auth-theme');
+	const stored = localStorage.getItem('etzhayyim-auth-theme');
 	if (stored === 'light' || stored === 'dark') return stored;
 	if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
 	return 'dark';
@@ -17,7 +17,7 @@ export const theme = writable<Theme>(getInitialTheme());
 export function applyTheme(t: Theme): void {
 	if (!browser) return;
 	document.documentElement.setAttribute('data-theme', t);
-	localStorage.setItem('gftd-auth-theme', t);
+	localStorage.setItem('etzhayyim-auth-theme', t);
 }
 
 /** Toggle between dark and light. */

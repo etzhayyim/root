@@ -15,7 +15,7 @@ export interface SessionIdentity {
 const ISS = "https://auth.etzhayyim.com";
 const ACCESS_TOKEN_EXPIRY_SECS = 7 * 24 * 3600;
 const REFRESH_TOKEN_EXPIRY_SECS = 90 * 24 * 3600;
-const COOKIE_NAME = "gftd_session";
+const COOKIE_NAME = "etzhayyim_session";
 
 function nowSecs(): number {
   return Math.floor(Date.now() / 1000);

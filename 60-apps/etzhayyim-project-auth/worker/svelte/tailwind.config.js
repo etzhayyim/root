@@ -1,6 +1,6 @@
 import plugin from 'tailwindcss/plugin';
 
-const gftdUIKit = plugin(
+const etzhayyimUIKit = plugin(
 	({ addUtilities }) => {
 		addUtilities({
 			'.safe-area-top': { 'padding-top': 'env(safe-area-inset-top, 0px)' },
@@ -163,7 +163,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				gftd: {
+				etzhayyim: {
 					bg: 'var(--gv2-bg-primary)',
 					text: 'var(--gv2-text-primary)',
 					secondary: 'var(--gv2-text-secondary)',
@@ -176,7 +176,7 @@ export default {
 		}
 	},
 	plugins: [
-		gftdUIKit,
+		etzhayyimUIKit,
 		plugin(({ addBase }) => {
 			addBase({
 				':root': {

@@ -7,6 +7,7 @@ export const POST: RequestHandler = async () => {
     headers: {
       "content-type": "application/json",
       "cache-control": "no-store",
+      // no-cookie: allow clearing legacy auth cookie during passkey migration
       "set-cookie": clearSessionCookie(),
     },
   });
@@ -17,6 +18,7 @@ export const GET: RequestHandler = async () => {
     status: 302,
     headers: {
       "location": "/sign-in",
+      // no-cookie: allow clearing legacy auth cookie during passkey migration
       "set-cookie": clearSessionCookie(),
     },
   });

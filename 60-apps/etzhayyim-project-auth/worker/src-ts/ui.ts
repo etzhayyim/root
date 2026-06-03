@@ -198,8 +198,8 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
         handle: session.handle || handle,
         expiresAt: Date.now() + 2 * 3600 * 1000 - 60000,
       };
-      localStorage.setItem("gftd-auth-session", JSON.stringify(s));
-      localStorage.setItem("gftd-auth-did", s.did);
+      localStorage.setItem("etzhayyim-auth-session", JSON.stringify(s));
+      localStorage.setItem("etzhayyim-auth-did", s.did);
       const target = new URLSearchParams(location.search).get("redirectUrl") || "/";
       const dest = target.startsWith("http") ? target : ("https://yoro.etzhayyim.com" + target);
       location.href = dest + "#auth=" + encodeURIComponent(JSON.stringify(s));
@@ -243,7 +243,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
         }),
       }).then(r => r.json());
       if (verify.error) throw new Error(verify.message || verify.error);
-      localStorage.setItem("gftd-auth-credential", b64e(cred.rawId));
+      localStorage.setItem("etzhayyim-auth-credential", b64e(cred.rawId));
       await completeAuth(verify.did, verify.handle, { 'accessJwt': verify.accessJwt, 'refreshJwt': verify.refreshJwt, did: verify.did, handle: verify.handle });
     }
 
@@ -254,7 +254,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
         body: "{}",
       }).then(r => r.json());
       if (begin.error) throw new Error(begin.message || begin.error);
-      const storedCred = localStorage.getItem("gftd-auth-credential");
+      const storedCred = localStorage.getItem("etzhayyim-auth-credential");
       const basePublicKey = {
         challenge: b64d(begin.challenge),
         rpId: begin.rpId || begin.rp_id,
@@ -291,7 +291,7 @@ export function renderAuthPage(mode: "sign-in" | "sign-up", request: Request): s
         err._code = verified.error;
         throw err;
       }
-      localStorage.setItem("gftd-auth-credential", b64e(assertion.rawId));
+      localStorage.setItem("etzhayyim-auth-credential", b64e(assertion.rawId));
       await completeAuth(verified.did, verified.sessionTokens.handle || verified.did, verified.sessionTokens);
     }
 
