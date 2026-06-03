@@ -34,7 +34,7 @@ repro-build [OPTIONS]
 ## Build & run
 
 ```bash
-cd 60-apps/ai-gftd-project-open-ot/repro-build-rs
+cd 60-apps/etzhayyim-project-open-ot/repro-build-rs
 cargo build --release
 ./target/release/repro-build
 ```

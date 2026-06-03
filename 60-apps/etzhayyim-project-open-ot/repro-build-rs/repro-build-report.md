@@ -1,6 +1,6 @@
 # open-ot reproducibility harness report
 
-**Cells dir**: `/private/tmp/etzhayyim-gate-c-wt/60-apps/ai-gftd-project-open-ot/cells`
+**Cells dir**: `/private/tmp/etzhayyim-gate-c-wt/60-apps/etzhayyim-project-open-ot/cells`
 
 **Cells**: ["pid-limited", "droop-p-f", "anti-islanding-rocof", "pid-stack-100"]
 

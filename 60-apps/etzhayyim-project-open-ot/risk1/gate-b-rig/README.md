@@ -18,7 +18,7 @@ Host approximation of the SPEC §14.2 fleet test (3 × Atama + 12 × Mimi/Te + T
 ```bash
 # 1. Build droop_p_f.wasm (Gate B uses one cell type across all 12 field
 #    instances per `:loop:freq-droop` in PROTOTYPE-MICROGRID §2.3).
-cd 60-apps/ai-gftd-project-open-ot/cells
+cd 60-apps/etzhayyim-project-open-ot/cells
 cargo build --release --no-default-features --target wasm32-unknown-unknown -p droop-p-f
 
 # 2. Build + run the rig.

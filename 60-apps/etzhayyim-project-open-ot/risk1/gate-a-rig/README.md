@@ -15,7 +15,7 @@ Host-side harness for Risk-1 Gate A (per SPEC §14.1). Loads a BFB cell as `wasm
 
 ```bash
 # 1. Build all four cells as wasm32-unknown-unknown (no WASI imports).
-cd 60-apps/ai-gftd-project-open-ot/cells
+cd 60-apps/etzhayyim-project-open-ot/cells
 cargo build --release --no-default-features --target wasm32-unknown-unknown \
   -p pid-limited -p droop-p-f -p anti-islanding-rocof -p pid-stack-100
 

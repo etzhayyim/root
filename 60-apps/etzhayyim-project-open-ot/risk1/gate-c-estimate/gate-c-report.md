@@ -10,7 +10,7 @@ Per ADR-2605151200 §R4 + SPEC §14.3.
 
 ## 0. Software evidence today (Tier 1 follow-up landed)
 
-Paper → code follow-up under `risk1/gate-c-estimate/` and `60-apps/ai-gftd-project-open-ot/`:
+Paper → code follow-up under `risk1/gate-c-estimate/` and `60-apps/etzhayyim-project-open-ot/`:
 
 | Sub-item | Code / doc artefact | Evidence |
 |---|---|---|
@@ -189,10 +189,10 @@ If all three gates retain PASS after embedded measurement + reviewer sign-off, t
 ## 7. References
 
 - ADR-2605151200 — open-ot WASM PLC + DLC architecture decision (R4 Risk-1 gates)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §14 — Risk-1 acceptance test plan (gate-by-gate criteria)
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §8 — IEC 62443-aligned security controls
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §9 — Build / sign / pin pipeline
-- `60-apps/ai-gftd-project-open-ot/SPEC.md` §11 — Explicit out-of-scope (SIL)
-- `60-apps/ai-gftd-project-open-ot/cells/CLAUDE.md` — `#[no_mangle] extern "C"` ABI rules + no-alloc-after-init invariant
-- `60-apps/ai-gftd-project-open-ot/risk1/gate-a-report.md` (+ droop / anti-islanding / stack100 siblings) — Gate A host run
-- `60-apps/ai-gftd-project-open-ot/risk1/gate-b-report.md` — Gate B host run
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §14 — Risk-1 acceptance test plan (gate-by-gate criteria)
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §8 — IEC 62443-aligned security controls
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §9 — Build / sign / pin pipeline
+- `60-apps/etzhayyim-project-open-ot/SPEC.md` §11 — Explicit out-of-scope (SIL)
+- `60-apps/etzhayyim-project-open-ot/cells/CLAUDE.md` — `#[no_mangle] extern "C"` ABI rules + no-alloc-after-init invariant
+- `60-apps/etzhayyim-project-open-ot/risk1/gate-a-report.md` (+ droop / anti-islanding / stack100 siblings) — Gate A host run
+- `60-apps/etzhayyim-project-open-ot/risk1/gate-b-report.md` — Gate B host run
