@@ -12648,6 +12648,23 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
+      "type": "TechArticle",
+      "title": "ADR-2606033600: tsuzuri 綴 — Adobe-independent, in-browser (WASM) PDF editor",
+      "status": "accepted",
+      "topic": "tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "60-apps/tsuzuri"
+      ],
+      "related": [
+        "doc:2605262130",
+        "doc:2605231525",
+        "doc:2605215000"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
