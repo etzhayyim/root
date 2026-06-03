@@ -7,25 +7,25 @@
 # `murakumo-fleet` tunnel config (managed locally on this machine).
 #
 # Prereqs:
-#   - macOS 14+ (sudo required for /opt/gftd, /var/log writes)
+#   - macOS 14+ (sudo required for /opt/etzhayyim, /var/log writes)
 #   - python3.11+ (or uv)
 #   - serve_plain.py already running on port 8000 (same host for loopback)
 #
 # Master key:
-#   We reuse the same per-machine Keychain pattern as other gftd services.
+#   We reuse the same per-machine Keychain pattern as other etzhayyim services.
 #   Before running this script:
 #     KEY="sk-litellm-$(openssl rand -hex 32)"
-#     security add-generic-password -s "gftd.litellm" -a "MASTER_KEY" -w "$KEY" -U
+#     security add-generic-password -s "etzhayyim.litellm" -a "MASTER_KEY" -w "$KEY" -U
 #   Then in each CF Worker that calls https://llm.etzhayyim.com:
 #     wrangler secret put LITELLM_MASTER_KEY  # paste the same $KEY
 
 set -euo pipefail
 
-INSTALL_DIR="${INSTALL_DIR:-/opt/gftd/litellm}"
+INSTALL_DIR="${INSTALL_DIR:-/opt/etzhayyim/litellm}"
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
-PLIST_SRC="$REPO_DIR/com.gftd.litellm.plist"
+PLIST_SRC="$REPO_DIR/com.etzhayyim.litellm.plist"
 CONFIG_SRC="$REPO_DIR/config.yaml"
-SERVICE_LABEL="com.gftd.litellm"
+SERVICE_LABEL="com.etzhayyim.litellm"
 USER_PLIST="$HOME/Library/LaunchAgents/$SERVICE_LABEL.plist"
 
 need_sudo() { sudo -n true 2>/dev/null || { echo "sudo required for $1"; sudo -v; }; }
@@ -49,11 +49,11 @@ step "copy config.yaml"
 install -m 0644 "$CONFIG_SRC" "$INSTALL_DIR/config.yaml"
 
 step "fetch MASTER_KEY from Keychain"
-MASTER_KEY="$(security find-generic-password -s gftd.litellm -a MASTER_KEY -w 2>/dev/null || true)"
+MASTER_KEY="$(security find-generic-password -s etzhayyim.litellm -a MASTER_KEY -w 2>/dev/null || true)"
 if [ -z "$MASTER_KEY" ]; then
-  echo "  ERR: Keychain entry gftd.litellm/MASTER_KEY missing." >&2
+  echo "  ERR: Keychain entry etzhayyim.litellm/MASTER_KEY missing." >&2
   echo "  Register it first:" >&2
-  echo "    security add-generic-password -s gftd.litellm -a MASTER_KEY -w \"sk-litellm-\$(openssl rand -hex 32)\" -U" >&2
+  echo "    security add-generic-password -s etzhayyim.litellm -a MASTER_KEY -w \"sk-litellm-\$(openssl rand -hex 32)\" -U" >&2
   exit 1
 fi
 
@@ -64,8 +64,8 @@ chmod 0600 "$USER_PLIST"   # plist contains the key — keep owner-only
 
 step "ensure log dirs writable"
 sudo install -d -m 0755 /var/log
-sudo touch /var/log/gftd-litellm.out.log /var/log/gftd-litellm.err.log
-sudo chown "$USER":staff /var/log/gftd-litellm.*.log
+sudo touch /var/log/etzhayyim-litellm.out.log /var/log/etzhayyim-litellm.err.log
+sudo chown "$USER":staff /var/log/etzhayyim-litellm.*.log
 
 step "load launch agent"
 launchctl unload "$USER_PLIST" 2>/dev/null || true
@@ -90,5 +90,5 @@ for i in $(seq 1 30); do
   sleep 2
 done
 echo "\033[31m✗\033[0m LiteLLM did not respond in 60s. Check logs:"
-echo "    tail -40 /var/log/gftd-litellm.err.log"
+echo "    tail -40 /var/log/etzhayyim-litellm.err.log"
 exit 1
