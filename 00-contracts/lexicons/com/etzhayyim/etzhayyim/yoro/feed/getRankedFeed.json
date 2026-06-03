@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "5-theory ranked feed (Shannon + Bayes + Graph PPR + TDA + Joucho emotion). Well-becoming guardrails (PII Tier 3, cohort k>=50, stress/doom-scroll) are enforced on the hot path. Falls back to com.etzhayyim.yoro.feed.getDiscoverFeed on MV unavailability. See /root/.claude/plans/yoro-gftd-ai-facebook-zazzy-teapot.md.",
+      "description": "5-theory ranked feed (Shannon + Bayes + Graph PPR + TDA + Joucho emotion). Well-becoming guardrails (PII Tier 3, cohort k>=50, stress/doom-scroll) are enforced on the hot path. Falls back to com.etzhayyim.yoro.feed.getDiscoverFeed on MV unavailability. See /root/.claude/plans/yoro-etzhayyim-ai-facebook-zazzy-teapot.md.",
       "parameters": {
         "type": "params",
         "properties": {
