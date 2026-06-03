@@ -23,7 +23,13 @@
 > python3 methods/ingest.py --source file --in data/ingest/apnic-sample.txt --rir apnic
 > python3 methods/ingest.py --source rir --rir apnic --live    # G7: live RIR pull (operator gate)
 > python3 methods/analyze.py                                    # → out/
+> python3 methods/transact.py                                   # SAVE → kotoba Datom log (dry-run;
+> #   live needs a running node on :8077 + KOTOBA_SESSION_POP/KOTOBA_TOKEN, ADR-2605231525)
 > ```
+>
+> **Validated live (2026-06-03)**: an operator-gated AFRINIC `delegated-stats` pull parsed
+> **2,734 real ASNs + 1,266 real CIDR ranges** as `:authoritative` end-to-end; `transact.py`
+> dry-run frames a 60-attr schema tx + the entity graph for `datomic.transact`.
 >
 > **Honest R0/T2**: bounded `:representative` seed; live full-universe RIR/RDAP ingest is
 > G7 Council+operator gated; aggregate-first RESILIENCE map, never a target-list; no host is

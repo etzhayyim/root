@@ -26,7 +26,13 @@ AML/sanctions/anti-social forces risk scoring + IP access filtering。
 > python3 methods/ingest.py --source pdns --in data/ingest/pdns-sample.json
 > python3 methods/ingest.py --source ct --domain example.com --live   # G7: live crt.sh pull
 > python3 methods/analyze.py                                    # → out/ (encryption audit = PASS)
+> python3 methods/transact.py                                   # SAVE → kotoba Datom log (dry-run;
+> #   REFUSES if any :access/* is plaintext — G6/G10 enforced at write; live needs KOTOBA_SESSION_POP)
 > ```
+>
+> **Validated live (2026-06-03)**: an operator-gated crt.sh CT-log pull parsed **27 real
+> certificates** as `:authoritative` end-to-end; `transact.py` dry-run passes the G6/G10
+> encryption invariant and frames a 52-attr schema tx + the entity graph for `datomic.transact`.
 >
 > **Separation of duties unchanged**: yabai SCORES risk; the Council authorizes enforcement;
 > tadori holds case-anchored evidence. Defensive CTI only — no adherent de-anon, no mass

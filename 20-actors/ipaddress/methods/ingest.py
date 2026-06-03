@@ -158,6 +158,46 @@ def main(argv):
     live = "--live" in argv
     limit = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 20000
 
+    # ── full-universe: loop ALL 5 RIRs (live, G7) → gitignored data/live/ (G8: bulk → IPFS) ──
+    if source == "rir-all":
+        if not (live and OPERATOR_GATE):
+            sys.exit("REFUSED: --source rir-all is a live full-universe pull (all 5 RIRs); "
+                     "needs --live + IPADDRESS_OPERATOR_GATE. Bulk output is written to the "
+                     "gitignored data/live/ (Charter G8: large datasets → DataLad/IPFS, not git).")
+        live_dir = ACTOR / "data" / "live"
+        live_dir.mkdir(parents=True, exist_ok=True)
+        all_recs, per_rir = [], {}
+        for reg in RIR_STATS:
+            print(f"ipaddress.ingest: LIVE pull {RIR_STATS[reg]} (limit {limit}/RIR) …")
+            try:
+                a, r = parse_delegated_stats(fetch(RIR_STATS[reg]), reg, "authoritative", limit)
+            except Exception as exc:  # noqa: BLE001 — one RIR down must not abort the sweep
+                print(f"  !! {reg} pull failed: {exc} — skipped (logged, not silently dropped)")
+                per_rir[reg] = (0, 0)
+                continue
+            per_rir[reg] = (len(a), len(r))
+            all_recs += a + r
+            print(f"  {reg}: {len(a)} ASNs + {len(r)} ranges")
+        seed_rows = load_edn(seed_path)
+        merged, seen = [], set()
+        for rec in seed_rows + all_recs:
+            if not isinstance(rec, dict):
+                continue
+            k = _key(rec)
+            if k and k not in seen:
+                seen.add(k)
+                merged.append(rec)
+        auth_out = live_dir / "ip-network.authoritative.kotoba.edn"
+        auth_out.write_text(to_edn(merged, [
+            ";; ipaddress — GENERATED full-universe :authoritative graph (live RIR sweep).",
+            f";; per-RIR limit {limit}. GITIGNORED (Charter G8). Canonical bulk home = DataLad/IPFS 80-data.",
+        ]), encoding="utf-8")
+        b = classify(merged)
+        print(f"= AUTHORITATIVE graph: {len(b['asns'])} ASNs · {len(b['ranges'])} ranges · "
+              f"{len(merged)} records → {auth_out.relative_to(ACTOR)} (gitignored)")
+        print("  per-RIR:", ", ".join(f"{k}={v[0]}+{v[1]}" for k, v in per_rir.items()))
+        return
+
     bridged = []
     if source == "file" and infile:
         # offline bridge of a local delegated-stats-shaped file (:representative).
