@@ -64,7 +64,7 @@ pnpm check:bdd-coverage
    ```bash
    # セットアップスクリプトを実行（推奨）
    pnpm test:bdd:integration:setup
-   
+
    # または手動で起動
    docker-compose up -d postgres connect-go
    ```
@@ -73,7 +73,7 @@ pnpm check:bdd-coverage
    ```bash
    # 統合テストを実行（セットアップ + テスト）
    pnpm test:bdd:integration
-   
+
    # または、カバレッジ付きで実行
    pnpm test:bdd:coverage
    ```
@@ -94,7 +94,7 @@ pnpm check:bdd-coverage
    ```bash
    # 通常のBDDテスト
    pnpm test:bdd:coverage
-   
+
    # E2E BDDテスト
    pnpm test:e2e:bdd:coverage
    ```
@@ -134,7 +134,7 @@ pnpm check:bdd-coverage
 
 1. **Feature**: Capabilityのラベル
 2. **Description**: Capabilityの説明
-3. **Scenarios**: 
+3. **Scenarios**:
    - Capabilityが利用可能であること
    - エラーハンドリング
    - 入力検証

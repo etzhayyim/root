@@ -42,7 +42,7 @@ open coverage/index.html
 
 `features/support/integration-setup.ts`が自動的に以下の環境変数を設定します：
 
-- `DATABASE_URL`: `postgresql://postgres:postgres@localhost:5432/cyber_freelance`
+- `DATABASE_URL`: `postgresql://placeholder:placeholder@localhost:5432/placeholder` (placeholder)
 - `CONNECT_API_URL`: `http://localhost:8083`
 - `GRAPHQL_API_URL`: `http://localhost:8082/graphql`
 - `OPENAI_API_KEY`: `test-api-key-for-coverage` (テスト用)

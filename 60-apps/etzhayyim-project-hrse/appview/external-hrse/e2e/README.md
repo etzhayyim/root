@@ -14,30 +14,30 @@ E2EテストでClerk認証を使用するには、以下の手順を実行して
 
 2. **環境変数の設定**
    - `.envrc`ファイルを作成し、以下のいずれかの認証方法を設定します：
-   
+
    **方法1: パスワード認証**
    ```bash
    export E2E_CLERK_USER_USERNAME="your_test_username"
    export E2E_CLERK_USER_PASSWORD="your_test_password"
    ```
-   
+
    **方法2: メールコード認証（推奨 - テスト用メールアドレス）**
    ```bash
    # +clerk_testサブアドレスを使用（実際のメールは送信されません）
    export E2E_CLERK_TEST_EMAIL="test+clerk_test@example.com"
    # 検証コードは自動的に424242が使用されます
    ```
-   
+
    **方法3: 電話番号認証（テスト用電話番号）**
    ```bash
    # +1 (XXX) 555-0100 から +1 (XXX) 555-0199 の範囲
    export E2E_CLERK_TEST_PHONE="+12015550100"
    # 検証コードは自動的に424242が使用されます
    ```
-   
+
    - `direnv`がインストールされている場合は、`direnv allow`を実行して環境変数を有効化します
    - `direnv`がインストールされていない場合は、`.envrc.example`を参考に`.envrc`を作成し、手動で`source .envrc`を実行するか、シェルの起動時に自動的に読み込まれるように設定してください
-   
+
    **テスト用メールと電話番号について:**
    - Clerkのテストモードでは、`+clerk_test`サブアドレスを含むメールアドレスや、`+1 (XXX) 555-0100`から`+1 (XXX) 555-0199`の範囲の電話番号を使用すると、実際のメールやSMSが送信されません
    - 検証コードは常に`424242`です

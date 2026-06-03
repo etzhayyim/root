@@ -87,7 +87,7 @@ docker-compose down
 docker-compose up postgres -d
 
 # または、ローカルのPostgreSQLを使用
-export DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+export DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" # placeholder
 ```
 
 #### 2. Connect-Go サービスのセットアップ
@@ -204,7 +204,7 @@ go run ./cmd/server    # 実行
 
 ```bash
 # Database
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
+DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/placeholder # placeholder
 
 # Next.js
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -300,13 +300,13 @@ import { ListJobsRequestSchema } from "@/gen/proto/hrse/v1/job_pb";
 
 export default async function JobsPage() {
   const jobClient = await getJobServiceClient();
-  
+
   const request = create(ListJobsRequestSchema, {
     status: "open",
     limit: 10,
     offset: 0,
   });
-  
+
   const response = await jobClient.listJobs(request);
 
   return (

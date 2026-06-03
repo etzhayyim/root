@@ -27,7 +27,7 @@ docker-compose up -d postgres connect-go
 
 ```bash
 # Database
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/cyber_freelance
+DATABASE_URL=postgresql://placeholder:placeholder@localhost:5432/placeholder # placeholder
 
 # Connect API
 CONNECT_API_URL=http://localhost:8083
