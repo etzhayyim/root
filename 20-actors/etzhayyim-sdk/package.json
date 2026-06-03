@@ -88,7 +88,7 @@
     "@ipld/dag-cbor": "^10.0.1",
     "@msgpack/msgpack": "^3.1.3",
     "@noble/ciphers": "^1.0.0",
-    "@noble/curves": "^1.6.0",
+    "@noble/curves": "^2.2.0",
     "@noble/hashes": "^1.5.0",
     "multiformats": "^14.0.0",
     "viem": "^2.21.0"
