@@ -8,7 +8,7 @@
 
 ## Substrate-boundary checks (per CLAUDE.md)
 
-This seed was copied verbatim from `etzhayyim-root/60-apps/ai-gftd-project-mailer`.
+This seed was copied verbatim from `etzhayyim-root/60-apps/etzhayyim-project-mailer`.
 The following constitutional invariants are likely violated and MUST be
 remediated before this app can be considered etzhayyim-aligned:
 
@@ -46,9 +46,9 @@ equivalents listed at the top of this file.
 Detected violations:
 
 ```
-  Stripe: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js:889
-  RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js:793
-  GA4/gtag: /Users/junkawasaki/github/etzhayyim-root/60-apps/ai-gftd-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js:1
+  Stripe: /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js:889
+  RW/Kysely/Prisma: /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js:793
+  GA4/gtag: /Users/junkawasaki/github/etzhayyim-root/60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js:1
 ```
 
 ---
@@ -58,7 +58,7 @@ Detected violations:
 Additional violations detected in re-scan:
 
 ```
-  - 60-apps/ai-gftd-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js
+  - 60-apps/etzhayyim-project-mailer/appview/mailer-mcp-component/static-ui/_app/immutable/chunks/0lHEbmrk.js
 ```
 
 Lines annotated with `CHARTER-VIOLATION §substrate` comments.

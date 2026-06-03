@@ -1,4 +1,4 @@
-# ai-gftd-project-mailer
+# etzhayyim-project-mailer
 
 mailer.etzhayyim.com — DID-based email platform。`performerType: system`。
 
@@ -16,7 +16,7 @@ mailer.etzhayyim.com — DID-based email platform。`performerType: system`。
 ```
 External SMTP sender
   → CF Email Routing (MX: route{1,2,3}.mx.cloudflare.net, catch-all *@etzhayyim.com)
-  → ai-gftd-email-relay Worker (account-level, email() handler)
+  → etzhayyim-email-relay Worker (account-level, email() handler)
   → worker.ts:
     1. Read raw MIME stream, parse headers/body
     2. PDS createRecord("inboundEmail", {from, to_local, subject, body_text, ...})
@@ -61,7 +61,7 @@ W Protocol `com.etzhayyim.convo` で配信:
 | **DNS** | MX (`route{1,2,3}.mx.cloudflare.net`), SPF, DMARC, Resend DKIM | `50-infra/pulumi/cloudflare/dns.ts` |
 | **Email Routing** | Zone enable + catch-all → email-relay Worker | `50-infra/pulumi/cloudflare/email-routing.ts` |
 | **email-relay** | Account-level Worker: email handler + PDS service binding + KV | `50-infra/cloudflare/workers/email-relay/` |
-| **mailer-inbound** | Dispatch namespace WASM: commands + commit handler | `60-apps/ai-gftd-project-mailer/wasm/ai-gftd-wasm-mailer-inbound-ml1nb0nd/` |
+| **mailer-inbound** | Dispatch namespace WASM: commands + commit handler | `60-apps/etzhayyim-project-mailer/wasm/etzhayyim-wasm-mailer-inbound-ml1nb0nd/` |
 
 ## Cost & Provider Selection
 
@@ -71,12 +71,12 @@ W Protocol `com.etzhayyim.convo` で配信:
 
 ## Internal PDS Write Auth
 
-`ai-gftd-email-relay` writes inbound mail through the PDS service binding. The
+`etzhayyim-email-relay` writes inbound mail through the PDS service binding. The
 PDS worker currently requires the legacy internal trust header plus an HMAC:
 
 ```text
 x-magatama-verified: true
-x-gftd-internal-hmac: HMAC-SHA256("POST:/xrpc/{nsid}:{minute_epoch}", claim_settler_hmac)
+x-etzhayyim-internal-hmac: HMAC-SHA256("POST:/xrpc/{nsid}:{minute_epoch}", claim_settler_hmac)
 ```
 
 The Worker binds Secrets Store `claim_settler_hmac` as

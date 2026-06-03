@@ -21,7 +21,7 @@ This component exposes mailer MCP endpoints on `/api/mcp` and `/{nanoid}/api/mcp
 ## Build
 
 ```bash
-gftd build
+etzhayyim build
 ```
 
 ## Deploy

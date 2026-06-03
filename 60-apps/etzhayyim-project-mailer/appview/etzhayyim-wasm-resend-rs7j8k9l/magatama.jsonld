@@ -5,7 +5,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are notify agent. Notify — AI Agent. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are resend agent. Resend — AI Agent. Respond helpfully in the users language.",
   "duties": [
     "勤労の義務"
   ],
@@ -20,8 +20,8 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-notify-nt4g5h6i",
-  "nanoid": "nt4g5h6i",
+  "name": "etzhayyim-wasm-resend-rs7j8k9l",
+  "nanoid": "rs7j8k9l",
   "performerType": "service",
   "profile": {
     "agentType": "autonomous",
@@ -29,10 +29,10 @@
       "email-management",
       "did-messaging"
     ],
-    "description": "Notify — AI Agent",
-    "displayName": "Notify",
+    "description": "Resend — AI Agent",
+    "displayName": "Resend",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "mailer",
   "runtimeType": "worker",
@@ -41,11 +41,11 @@
       {
         "default": true,
         "kind": "public",
-        "name": "nt4g5h6i-feed"
+        "name": "rs7j8k9l-feed"
       }
     ],
     "joinRule": "public",
-    "name": "Notify"
+    "name": "Resend"
   },
   "triggers": {
     "subscribeRepos": {

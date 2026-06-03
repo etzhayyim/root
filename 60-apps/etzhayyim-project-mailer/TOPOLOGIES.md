@@ -3,10 +3,10 @@
 ## 1) Current Runtime Topology (2026-04-14)
 
 ### Public Entry Points
-- `mailer.etzhayyim.com` / `ai-gftd-project-mailer.etzhayyim.com` / `a8wwtz73.etzhayyim.com`
+- `mailer.etzhayyim.com` / `etzhayyim-project-mailer.etzhayyim.com` / `a8wwtz73.etzhayyim.com`
   - UI + XRPC proxy (`mailer-mcp-component` Worker)
 - `*@etzhayyim.com` inbound SMTP
-  - Cloudflare Email Routing -> `ai-gftd-email-relay` Worker `email()` handler
+  - Cloudflare Email Routing -> `etzhayyim-email-relay` Worker `email()` handler
 
 ### Service/Data Topology
 - `email-relay` (account-level Worker)

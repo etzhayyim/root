@@ -21,7 +21,7 @@
   ],
   "name": "mailer-mcp-component",
   "nanoid": "a8wwtz73",
-  "org": "gftd",
+  "org": "etzhayyim",
   "performerType": "service",
   "profile": {
     "agentType": "autonomous",
@@ -33,15 +33,15 @@
     "description": "Mailer — AI Agent for email intelligence and analytics",
     "displayName": "Mailer",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
-  "project": "ai-gftd-project-mailer",
+  "project": "etzhayyim-project-mailer",
   "routes": [
     {
       "host": "mailer.etzhayyim.com"
     },
     {
-      "host": "ai-gftd-project-mailer.etzhayyim.com"
+      "host": "etzhayyim-project-mailer.etzhayyim.com"
     },
     {
       "host": "8wwtz73p.etzhayyim.com"
