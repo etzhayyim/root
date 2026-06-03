@@ -5,6 +5,13 @@
 **Honest boundaries** (still TRUE): NO actual unikernel boot on hardware, NO live device I/O (host-process / simulation only); the **production crate** (real wasmtime host + kotoba-core) lands in the `40-engine/kotoba` subrepo via upstream coordination -- this tree is the contracts + tested reference, not the shipping kernel.
 **Validated**: `wasm-tools component wit kotoba-os.wit` → EXIT 0 (wasm-tools 1.225.0)
 
+## Porting to production
+
+`PORTING.md` is the reference→production handoff: it maps every artifact here to its
+target kotoba crate in the `40-engine/kotoba` subrepo, lists the stub→real deltas, and
+names the reference tests as the acceptance spec. `reference/test_porting_doc.py` keeps
+it honest (every named reference artifact must exist; real port-target crates).
+
 ## Verify everything
 
 ```bash
