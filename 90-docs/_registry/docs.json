@@ -19710,6 +19710,77 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606032100-labor-liberation-robotics-actor-wave-isic-isco-unspsc-ranking.md",
+      "id": "adr-2606032100",
+      "title": "Labor-Liberation Robotics-Actor Wave — ISIC/ISCO/UNSPSC ranking of the un-automated toil + sanae/hataori/kiyome R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "labor-liberation-robotics-actor-wave",
+      "authoritative": true,
+      "authoritative_for": [
+        "ISIC/ISCO/UNSPSC ranking of OSS+robotics labor-liberation gaps",
+        "sanae (早苗) field-agriculture robotics actor charter (R0)",
+        "hataori (機織) garment/apparel robotics actor charter (R0)",
+        "kiyome (清め) domestic/janitorial cleaning robotics actor charter (R0)",
+        "labor-liberation robotics-actor roadmap (kamado/kuramori/soma/ama/extensions)"
+      ],
+      "related": [
+        "adr-2605261000",
+        "adr-2605301020",
+        "adr-2605301036",
+        "adr-2605302357",
+        "adr-2606032130",
+        "adr-2605192100",
+        "adr-2606013400"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192100 (Mission Charter — 構造的労働解放 final objective)",
+        "ADR-2605261000 (Labor Liberation Ladder — L0..L6 stage gates)",
+        "ADR-2605301020 (Basic High Income — in-kind, cash≡0)",
+        "ADR-2606032130 (Displacement Dividend — the funding/redistribution coupling)"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606032130-displacement-dividend-tenure-weighted-basic-high-income.md",
+      "id": "adr-2606032130",
+      "title": "Displacement Dividend — tenure-weighted in-kind Basic High Income for workers freed by etzhayyim OSS-robotics",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "displacement-dividend",
+      "authoritative": true,
+      "authoritative_for": [
+        "Displacement Dividend mechanism (tenure-weighted, in-kind, cash≡0)",
+        "DisplacementDividend.sol Public-Fund module (R0 scaffold)",
+        "com.etzhayyim.give.displacementTenureAttestation lexicon",
+        "tenure-weight allocation formula (勤続年数連動)"
+      ],
+      "related": [
+        "adr-2606032100",
+        "adr-2605261000",
+        "adr-2605301020",
+        "adr-2605301036",
+        "adr-2605302357",
+        "adr-2605192130",
+        "adr-2605192145"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2605192145 (Public Fund Architecture — the disbursement governance)",
+        "ADR-2605261000 (Liberation Ladder — the stage gates the dividend feeds into)",
+        "ADR-2605301020 (Basic High Income — the in-kind, cash≡0 medium)",
+        "ADR-2605302357 (Social Security for Humanity — the conversion gate)"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606033400-session-close-consensys-rw-free-migration-sweep.md",
       "id": "adr-2606033400-session-close-consensys-rw-free-migration-sweep",
       "title": "ADR-2606033400: Session close — Consensys rw-free migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",
@@ -19729,6 +19800,33 @@
       "superseded_by": [],
       "last_verified": "2026-06-03",
       "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor.md",
+      "id": "adr-2606033600-tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
+      "title": "ADR-2606033600: tsuzuri 綴 — Adobe-independent, in-browser (WASM) PDF editor",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "tsuzuri-adobe-free-inbrowser-wasm-pdf-editor",
+      "authoritative": true,
+      "authoritative_for": [
+        "60-apps/tsuzuri"
+      ],
+      "related": [
+        "2605262130",
+        "2605231525",
+        "2605215000"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2606014500",
+        "2606013800",
+        "2605192200"
+      ],
+      "last_verified": "2026-06-03",
       "amends": [],
       "amended_by": []
     },

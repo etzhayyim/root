@@ -15,6 +15,44 @@ official URL** (本体の url), on 2026-06-03.
 - `registry/gov-units.g20.edn` — the 14 G20 nations not previously seeded
   (FR/IT/CA/CN/BR/RU/MX/ID/TR/ZA/AR/SA/IN/AU) + DE/KR finance ministries + the
   **G7 finance-ministry HQ addresses** (UK/FR/IT/CA/DE + KR; JP/US already seeded).
+- `registry/gov-units.world-countries.edn` — **all 192 current UN-member
+  sovereign-state COUNTRY units** as real data (全世界政府 breadth; G20 excluded).
+  One-time maintainer pull of the Wikidata SPARQL endpoint — **current** UN members
+  (`p:P463 ps:P463 Q1065` with no end-qualifier `P582`) that are **not dissolved**
+  (`P576`) + ISO 3166-1 alpha-3 (`P298`) + official site (`P856`); parsed
+  deterministically (no summarizing model) → exact QIDs. Dissolved/historical states
+  (Czechoslovakia, USSR, East Germany, Byelorussian SSR, …) are filtered out. 162/192
+  carry an official-portal URL; the rest cite Wikidata as provenance. Gate
+  `scripts/world_coverage.py` (**192 ≥ 190 floor**).
+- `registry/gov-units.world-foreign.edn` — **158 foreign-affairs ministries** (the
+  worldwide diplomatic executive layer; Wikidata `P31` *foreign affairs ministry*
+  `Q20901295`, current). `:level :ministry`, `:branch :executive`. Japan's 外務省
+  (already `gov.jpn.mofa`) is skipped to avoid a duplicate QID; 152/158 carry an
+  official-site URL.
+- `registry/gov-units.world-courts.edn` — **144 supreme/highest courts** (the
+  worldwide **judicial-branch** layer; Wikidata `P31` *supreme court* `Q190752`,
+  current, matched to atlas countries). `:level :court`, `:branch :judicial`. Honest
+  gap (G5): 144 of 192 countries have an apex court typed `Q190752`; the rest are
+  differently-typed/untyped — not fabricated. Multi-apex countries → one chosen
+  deterministically. Never a docket/case index — structural mirror only (G9/G10).
+- `registry/gov-units.world-legislatures.edn` — **186 national legislatures** (the
+  worldwide **legislative-branch** layer; Wikidata `P194` legislative body, current,
+  for every UN member). Adds a new `:level :legislature` (+ `:court`) to the ontology
+  `:gov.unit/level` enum + `validate_atlas.py`. `:branch :legislative`. 150/186 carry
+  an official-site URL. With courts, the atlas now spans **executive + legislative +
+  judicial + independent** branches worldwide.
+- `registry/gov-units.world-finance.edn` — **117 non-G20 finance ministries** (the
+  worldwide executive fiscal-authority layer). Wikidata pull of items typed `P31`
+  *finance ministry* (`Q15711797`), current (no `P576`), country a current UN member.
+  Honest gap: only 117 of the 173 non-G20 countries have a finance ministry typed
+  under that class on Wikidata; the rest use a differently-typed body or are untyped
+  — **not fabricated** (G5). With the 20 G20 ministries → **137 finance ministries**.
+- `registry/gov-units.world-centralbanks.edn` — **138 non-G20 central banks** (the
+  worldwide monetary-authority layer; same Wikidata pull via country `P1304`).
+  Monetary-union banks are emitted ONCE as `:supranational` units with their member
+  ISO3s in `:external-code` — **ECCB** (Eastern Caribbean) · **BCEAO** (WAEMU) ·
+  **BEAC** (CEMAC); SNB is modelled under CHE. With the 20 G20 central banks that is
+  **158 central banks** total — real data, every QID verified.
 - `registry/gov-units.g20-centralbanks.edn` — the **20 G20 central banks**
   (BoJ/Fed/BoE/Banque de France/Bundesbank/Banca d'Italia/BoC/PBoC/BCB/CBR/Banxico/
   BI/TCMB/SARB/BCRA/SAMA/BoK/RBI/RBA + ECB), `:level :agency` `:branch :independent`,

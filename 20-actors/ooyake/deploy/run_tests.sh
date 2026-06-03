@@ -25,6 +25,7 @@ echo "ooyake gov-atlas offline test suite"
 run "registry integrity"    "$ACTOR/scripts/check_seed_integrity.py" --quiet
 run "integrity guard tests" "$ACTOR/cells/reconcile/test_seed_integrity.py"
 run "G20 real-data coverage" "$ACTOR/scripts/g20_coverage.py"
+run "world country coverage" "$ACTOR/scripts/world_coverage.py"
 run "reconcile cell"        "$ACTOR/cells/reconcile/test_reconcile_cell.py"
 run "gov_atlas_client"      "$ACTOR/deploy/test_gov_atlas_client.py"
 run "resolve_for_toritsugi" "$ACTOR/deploy/resolve_for_toritsugi.py"

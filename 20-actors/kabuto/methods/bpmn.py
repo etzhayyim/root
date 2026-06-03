@@ -44,28 +44,65 @@ def _xml_escape(s: str) -> str:
 
 
 def build_bpmn(process_id: str, name: str, company_name: str, tasks: list[str]) -> str:
-    """Return well-formed BPMN 2.0 XML: start → tasks (sequence) → end."""
-    nodes = []
-    flows = []
-    # element ids
+    """Return well-formed BPMN 2.0 XML: start → tasks (sequence) → end.
+
+    Emits a full BPMNDI (diagram-interchange) section with a deterministic
+    left-to-right layout, so the file renders directly in any BPMN viewer
+    (bpmn-js needs DI coordinates — it does NOT auto-layout). The chain is
+    strictly linear, so the layout is a single horizontal lane.
+    """
     start = f"{process_id}_start"
     end = f"{process_id}_end"
     task_ids = [f"{process_id}_t{i}" for i in range(len(tasks))]
+    seq = [start] + task_ids + [end]
+    kinds = ["event"] + ["task"] * len(tasks) + ["event"]
 
-    nodes.append(f'      <startEvent id="{start}" name="Start"/>')
+    # ── geometry: lay the chain out left → right on one horizontal lane ──
+    CY, GAP = 120, 60            # vertical centre-line, horizontal gap between nodes
+    geom = {}                    # id -> (x, y, w, h)
+    x = 160
+    for nid, kind in zip(seq, kinds):
+        w, h = (100, 80) if kind == "task" else (36, 36)
+        geom[nid] = (x, CY - h // 2, w, h)
+        x += w + GAP
+
+    # ── semantic model ──
+    nodes = [f'      <startEvent id="{start}" name="Start"/>']
     for tid, label in zip(task_ids, tasks):
         nodes.append(f'      <task id="{tid}" name="{_xml_escape(label)}"/>')
     nodes.append(f'      <endEvent id="{end}" name="Done"/>')
 
-    seq = [start] + task_ids + [end]
+    flows, flow_pairs = [], []
     for i in range(len(seq) - 1):
         fid = f"{process_id}_f{i}"
         flows.append(
             f'      <sequenceFlow id="{fid}" sourceRef="{seq[i]}" targetRef="{seq[i+1]}"/>')
+        flow_pairs.append((fid, seq[i], seq[i + 1]))
+
+    # ── diagram interchange (BPMNDI) ──
+    di = [f'    <bpmndi:BPMNPlane id="plane_{process_id}" bpmnElement="{process_id}">']
+    for nid in seq:
+        gx, gy, gw, gh = geom[nid]
+        di.append(
+            f'      <bpmndi:BPMNShape id="{nid}_di" bpmnElement="{nid}">'
+            f'<omgdc:Bounds x="{gx}" y="{gy}" width="{gw}" height="{gh}"/>'
+            f'</bpmndi:BPMNShape>')
+    for fid, s, t in flow_pairs:
+        sx, sy, sw, sh = geom[s]
+        tx, ty, tw, th = geom[t]
+        di.append(
+            f'      <bpmndi:BPMNEdge id="{fid}_di" bpmnElement="{fid}">'
+            f'<omgdi:waypoint x="{sx + sw}" y="{sy + sh // 2}"/>'
+            f'<omgdi:waypoint x="{tx}" y="{ty + th // 2}"/>'
+            f'</bpmndi:BPMNEdge>')
+    di.append('    </bpmndi:BPMNPlane>')
 
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         f'<definitions xmlns="{BPMN_NS}" '
+        'xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" '
+        'xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" '
+        'xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" '
         f'targetNamespace="https://etzhayyim.com/ns/kabuto/bpmn" '
         f'id="def_{process_id}">\n'
         f'  <!-- kabuto 兜 generic :synthesized template for {_xml_escape(company_name)} '
@@ -75,6 +112,9 @@ def build_bpmn(process_id: str, name: str, company_name: str, tasks: list[str]) 
         + "\n".join(nodes) + "\n"
         + "\n".join(flows) + "\n"
         '  </process>\n'
+        f'  <bpmndi:BPMNDiagram id="di_{process_id}">\n'
+        + "\n".join(di) + "\n"
+        '  </bpmndi:BPMNDiagram>\n'
         '</definitions>\n'
     )
 

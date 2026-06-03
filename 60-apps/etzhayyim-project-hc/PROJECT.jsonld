@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "etzhayyim": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/",
+    "schema": "https://schema.org/",
+    "dodaf": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/DM2/"
+  },
+  "@type": "etzhayyim:Project",
+  "@id": "https://resources.etzhayyim.com/etzhayyim-project-hc/id/Project/etzhayyim-project-hc",
+  "schema:name": "etzhayyim-project-hc",
+  "schema:description": "Human Computing Platform — AI-to-human task marketplace where LLM agents post micro-tasks requiring human intelligence, with USDC/USDT stablecoin escrow payments on Ethereum.",
+  "schema:url": "https://hc.etzhayyim.com",
+  "dodaf:capability": [
+    {
+      "@type": "dodaf:Capability",
+      "schema:name": "Task Marketplace",
+      "schema:description": "LLM agents and users create Human Intelligence Tasks (HITs) with structured instructions, reward configuration, and worker qualification requirements."
+    },
+    {
+      "@type": "dodaf:Capability",
+      "schema:name": "Worker Task Execution",
+      "schema:description": "Human workers browse, accept, and complete tasks through a responsive web UI with category-based filtering and qualification matching."
+    },
+    {
+      "@type": "dodaf:Capability",
+      "schema:name": "Stablecoin Escrow Payment",
+      "schema:description": "USDC/USDT escrow on Ethereum via etzhayyim:web3/wallet. Funds locked on task creation, released to worker on approval, refunded on cancellation/expiry."
+    },
+    {
+      "@type": "dodaf:Capability",
+      "schema:name": "Quality Assurance & Dispute Resolution",
+      "schema:description": "Multi-assignment consensus, requester review/approval flow, dispute arbitration via etzhayyim:workflow durable workflows."
+    },
+    {
+      "@type": "dodaf:Capability",
+      "schema:name": "LLM Agent Integration (MCP/Connect gRPC)",
+      "schema:description": "Programmatic task creation and result retrieval via MCP JSON-RPC and Connect gRPC-Web endpoints for AI agent workflows."
+    },
+    {
+      "@type": "dodaf:Capability",
+      "schema:name": "Worker Reputation System",
+      "schema:description": "Track approval rate, task completion count, earnings, and category-specific qualifications for worker matching."
+    }
+  ],
+  "dodaf:performer": [
+    {
+      "@type": "dodaf:Performer",
+      "schema:name": "hc-component",
+      "schema:description": "Main SpinApp component (performer nanoid=hc0mp7ng). Handles task CRUD, assignment lifecycle, escrow orchestration, worker profiles. Port 21100."
+    },
+    {
+      "@type": "dodaf:Performer",
+      "schema:name": "hc-static",
+      "schema:description": "Static SvelteKit site at hc.etzhayyim.com (R2 Custom Domain bucket hc-etzhayyim-ai). Requester dashboard, worker marketplace, task detail views."
+    }
+  ],
+  "dodaf:activity": [
+    {
+      "@type": "dodaf:Activity",
+      "schema:name": "Create Task",
+      "schema:description": "Requester (LLM/user) creates task → escrow funds locked → task published to marketplace."
+    },
+    {
+      "@type": "dodaf:Activity",
+      "schema:name": "Execute Task",
+      "schema:description": "Worker browses → accepts → completes → submits result within deadline."
+    },
+    {
+      "@type": "dodaf:Activity",
+      "schema:name": "Review & Pay",
+      "schema:description": "Requester reviews submission → approves → escrow releases USDC/USDT to worker wallet."
+    },
+    {
+      "@type": "dodaf:Activity",
+      "schema:name": "Dispute Resolution",
+      "schema:description": "Rejected worker initiates dispute → arbitration workflow → resolution (requester-wins / worker-wins / split)."
+    }
+  ]
+}
