@@ -41,7 +41,7 @@ container manifest / incident. Apache-2.0.
 ## Local Dev / Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-ports/worker
-wrangler d1 create ai-gftd-open-ports
+cd 60-apps/etzhayyim-project-open-ports/worker
+wrangler d1 create etzhayyim-open-ports
 e7m actor deploy .
 ```

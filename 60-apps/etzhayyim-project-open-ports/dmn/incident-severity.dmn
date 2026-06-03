@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-ports-incident-severity"
              name="Port Incident Severity"
-             namespace="https://gftd.ai/dmn/open-ports">
+             namespace="https://etzhayyim.com/dmn/open-ports">
   <decision id="openPorts.incidentSeverity" name="Port Incident Severity">
     <decisionTable id="dt_port_severity" hitPolicy="FIRST">
       <input id="i_pollution" label="pollutionTonnes">

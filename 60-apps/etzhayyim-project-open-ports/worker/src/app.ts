@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-ports — maritime port operations + network design
+// etzhayyim-project-open-ports — maritime port operations + network design
 //
 // 10 XRPC under com.etzhayyim.apps.openPorts.*:
 //   definePort                  (proc)  port (UN/LOCODE + berths)

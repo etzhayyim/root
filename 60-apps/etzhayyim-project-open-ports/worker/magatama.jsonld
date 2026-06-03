@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-ports",
-  "convoSystemPrompt": "You are the GFTD Open Ports agent. You manage maritime port operations: port + berth directory, vessel registry, vessel-call lifecycle, container manifests, and incident reporting. Apply UN/LOCODE + IMO + ISO 6346 + IMDG conventions, enforce call-event ordering, and emit coast-guard audit posts on major+ incidents.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Ports agent. You manage maritime port operations: port + berth directory, vessel registry, vessel-call lifecycle, container manifests, and incident reporting. Apply UN/LOCODE + IMO + ISO 6346 + IMDG conventions, enforce call-event ordering, and emit coast-guard audit posts on major+ incidents.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["un-locode", "imo-ship-id", "iso-6346", "imo-imdg", "gftd-ops-policy"]
+    "complianceFrameworks": ["un-locode", "imo-ship-id", "iso-6346", "imo-imdg", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Ports",
+    "displayName": "ETZHAYYIM Open Ports",
     "description": "Open-source maritime port operations reference implementation — port + vessel + call + container + incident with severity DMN.",
     "avatar": "🚢",
     "category": "transport",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "port-directory",
@@ -44,7 +44,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Ports",
+    "name": "ETZHAYYIM Open Ports",
     "description": "Open-source maritime port operations reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",

@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-ports-schedule-call"
-                  targetNamespace="https://gftd.ai/bpmn/open-ports">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-ports">
   <bpmn:process id="scheduleVesselCall" name="Schedule Vessel Call" isExecutable="true">
     <bpmn:startEvent id="StartEvent_Init" name="Vessel call request"/>
     <bpmn:sequenceFlow id="f1" sourceRef="StartEvent_Init" targetRef="Task_CollectForm"/>
