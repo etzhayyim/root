@@ -3,13 +3,13 @@
   Bluesky ingestActor — manual one-shot ingest via Zeebe/Python.
 
   NSID: com.etzhayyim.apps.bluesky.ingestActor
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/bluesky-ingest-actor-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/bluesky-ingest-actor-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_bluesky_ingest_actor"
-    targetNamespace="https://gftd.ai/bpmn/bluesky"
+    targetNamespace="https://etzhayyim.ai/bpmn/bluesky"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="bluesky_ingest_actor" name="bluesky ingest actor" isExecutable="true">

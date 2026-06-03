@@ -3,7 +3,7 @@
   LLM-driven career enrichment pipeline (RunPod Serverless).
 
   NSID:       com.etzhayyim.apps.businessPerson.enrichCareerLLM
-  Owner DID:  did:web:business-person.gftd.ai
+  Owner DID:  did:web:business-person.etzhayyim.com
   Process ID: business_person_enrich_career_llm
 
   Fires every 7 days (R/PT7D).
@@ -19,7 +19,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_business_person_enrich_career_llm"
-    targetNamespace="https://gftd.ai/bpmn/business-person"
+    targetNamespace="https://etzhayyim.ai/bpmn/business-person"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="business_person_enrich_career_llm" name="business person enrich career LLM" isExecutable="true">
@@ -102,7 +102,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:business-person.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:business-person.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;businessPerson.enrichCareerLLM.completed&quot;" target="action"/>
           <zeebe:input source="={personsCount: personsCount, extractionsCount: extractionsCount, recordsWritten: recordsWritten}" target="payload"/>
         </zeebe:ioMapping>
@@ -116,7 +116,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:business-person.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:business-person.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;businessPerson.enrichCareerLLM.abort&quot;" target="action"/>
           <zeebe:input source="={reason: &quot;no_stale_persons&quot;, personsCount: personsCount}" target="payload"/>
         </zeebe:ioMapping>
