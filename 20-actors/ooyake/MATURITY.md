@@ -43,6 +43,16 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — executive apex (governments/cabinets)
+
+`gov-units.executive.edn` adds **129 national executive bodies** — each country's
+government/cabinet (Wikidata country `P208` executive body, the executive analog of
+`P194` legislature / `P209` court), e.g. "Government of Denmark". Fills the structural
+gap between the country unit and its ministries. New `:level :cabinet` added to the
+ontology `:gov.unit/level` enum + the integrity guard + `validate_atlas.py`.
+`:branch :executive`, parent `gov.<iso>`. Atlas now **6,664 units / 52 files, 6,662
+QIDs all unique, 6,660 :authoritative**.
+
 ## 2026-06-04 — national capitals (geolocation hierarchy complete)
 
 `gov-units.capitals.edn` adds **191 `:gov.address :capital` records** — each country

@@ -46,7 +46,7 @@ _VSTATUS_OK = {":unverified-seed", ":maintainer-verified", ":stale", None}
 # must mirror gov-atlas-ontology.kotoba.edn :gov.unit/level and :gov.unit/branch enums
 _LEVEL_OK = {":supranational", ":country", ":region", ":subdivision", ":prefecture",
              ":municipality", ":ward", ":ministry", ":agency", ":bureau", ":division",
-             ":section", ":madoguchi", ":legislature", ":court"}
+             ":section", ":madoguchi", ":legislature", ":court", ":cabinet"}
 _BRANCH_OK = {":executive", ":legislative", ":judicial", ":independent", ":local",
               ":intergovernmental", None}
 

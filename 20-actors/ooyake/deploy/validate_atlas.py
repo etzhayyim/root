@@ -27,7 +27,7 @@ import urllib.request
 
 LEVELS = {"supranational", "country", "region", "subdivision", "prefecture",
           "municipality", "ward", "ministry", "agency", "bureau", "division",
-          "section", "madoguchi", "legislature", "court"}
+          "section", "madoguchi", "legislature", "court", "cabinet"}
 SOURCING = {"authoritative", "representative"}
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
