@@ -104,7 +104,7 @@ def _get_json(url: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
         url,
         headers={
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
+            "User-Agent": "etzhayyim-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
@@ -315,7 +315,7 @@ def _fetch_ecfr_title_xml(title_num: int, date_str: str) -> str:
         url,
         headers={
             "Accept": "application/xml",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
+            "User-Agent": "etzhayyim-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=180) as resp:
@@ -417,7 +417,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
                 "article_count": len(articles),
                 "last_verified": current,
                 "created_at": current,
-                "org_id": "gftd",
+                "org_id": "etzhayyim",
                 "user_id": "system",
                 "actor_id": "sys.houbun",
             },
@@ -460,7 +460,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
                     "amended_at": payload.get("effective_date"),
                     "source_url": source_url,
                     "created_at": current,
-                    "org_id": "gftd",
+                    "org_id": "etzhayyim",
                     "user_id": "system",
                     "actor_id": "sys.houbun",
                 },
@@ -480,7 +480,7 @@ def _write_payload_usa(payload: dict[str, Any]) -> dict[str, int]:
                     "article_no": article_no,
                     "order_key": idx,
                     "created_at": current,
-                    "org_id": "gftd",
+                    "org_id": "etzhayyim",
                     "user_id": "system",
                     "actor_id": "sys.houbun",
                 },
@@ -530,7 +530,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
                 "article_count": len(articles),
                 "last_verified": current,
                 "created_at": current,
-                "org_id": "gftd",
+                "org_id": "etzhayyim",
                 "user_id": "system",
                 "actor_id": "sys.houbun",
             },
@@ -573,7 +573,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
                     "amended_at": payload.get("effective_date"),
                     "source_url": source_url,
                     "created_at": current,
-                    "org_id": "gftd",
+                    "org_id": "etzhayyim",
                     "user_id": "system",
                     "actor_id": "sys.houbun",
                 },
@@ -593,7 +593,7 @@ def _write_payload(payload: dict[str, Any]) -> dict[str, int]:
                     "article_no": article_no,
                     "order_key": idx,
                     "created_at": current,
-                    "org_id": "gftd",
+                    "org_id": "etzhayyim",
                     "user_id": "system",
                     "actor_id": "sys.houbun",
                 },
@@ -950,7 +950,7 @@ def _npc_fdb_search(page: int = 1, size: int = 10, law_type: str = "") -> dict[s
         headers={
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
+            "User-Agent": "etzhayyim-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
@@ -964,7 +964,7 @@ def _npc_fdb_detail(law_id: str) -> dict[str, Any]:
         url,
         headers={
             "Accept": "application/json",
-            "User-Agent": "gftd-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
+            "User-Agent": "etzhayyim-houbun-zeebe/0.1 (+https://houbun.etzhayyim.com)",
         },
     )
     with urllib.request.urlopen(req, timeout=60) as resp:
@@ -1090,7 +1090,7 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
                 "article_count": len(articles),
                 "last_verified": current,
                 "created_at": current,
-                "org_id": "gftd",
+                "org_id": "etzhayyim",
                 "user_id": "system",
                 "actor_id": "sys.houbun",
             },
@@ -1133,7 +1133,7 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
                     "amended_at": payload.get("effective_date"),
                     "source_url": source_url,
                     "created_at": current,
-                    "org_id": "gftd",
+                    "org_id": "etzhayyim",
                     "user_id": "system",
                     "actor_id": "sys.houbun",
                 },
@@ -1153,7 +1153,7 @@ def _write_payload_chn(payload: dict[str, Any]) -> dict[str, int]:
                     "article_no": article_no,
                     "order_key": idx,
                     "created_at": current,
-                    "org_id": "gftd",
+                    "org_id": "etzhayyim",
                     "user_id": "system",
                     "actor_id": "sys.houbun",
                 },

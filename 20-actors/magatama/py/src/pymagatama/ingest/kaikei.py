@@ -11,9 +11,9 @@ NS = "com.etzhayyim.apps.kaikei"
 ACTOR = "did:web:kaikei.etzhayyim.com"
 
 OWNER_MAP = {
-    "works": "did:plc:gftd-works",
-    "japan": "did:plc:gftd-japan",
-    "labo": "did:plc:gftd-labo",
+    "works": "did:plc:etzhayyim-works",
+    "japan": "did:plc:etzhayyim-japan",
+    "labo": "did:plc:etzhayyim-labo",
 }
 
 SENTINEL = {

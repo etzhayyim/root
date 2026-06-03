@@ -78,8 +78,8 @@ def _repo_root() -> Path | None:
     return None
 
 
-def _gftd_binary() -> str:
-    return os.environ.get("etzhayyim_BIN") or shutil.which("gftd") or "gftd"
+def _etzhayyim_binary() -> str:
+    return os.environ.get("etzhayyim_BIN") or shutil.which("etzhayyim") or "etzhayyim"
 
 
 def _run_command(args: list[str], *, timeout_sec: int, env: dict[str, str]) -> dict[str, Any]:
@@ -289,7 +289,7 @@ async def task_site_cc_run_phase(
 
     crawl = str(plan.get("crawl") or "CC-MAIN-2026-12")
     domain = str(plan.get("domainFilter") or "")
-    args = [_gftd_binary()]
+    args = [_etzhayyim_binary()]
     if phase == "download":
         args += ["common-crawler", "download", "--crawl", crawl, "--format", "wat", "--workers", "4"]
     elif phase == "graph":

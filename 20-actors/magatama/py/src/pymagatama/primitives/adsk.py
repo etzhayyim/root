@@ -2,7 +2,7 @@
 
 Pulls text/code datasets from HuggingFace Hub into RisingWave so the
 existing training-export pipeline (`v_training_text` UNION ALL +
-`trainingExport.bpmn` → B2 → `etzhayyim/gftd-corpus`) automatically
+`trainingExport.bpmn` → B2 → `etzhayyim/etzhayyim-corpus`) automatically
 picks them up.
 
 Phase 1 scope (text/code only):

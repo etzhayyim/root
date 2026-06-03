@@ -13,7 +13,7 @@ triage mode (常駐化):
   1. listInbox XRPC → up to --top messages since cursor
   2. triage_app (heuristic → optional LLM → RW ingest) per message
   3. Batch-move DELETE → deleteditems, ARCHIVE → archive (20/call)
-  4. Persist cursor to ~/.gftd/triage-live-cursor.txt
+  4. Persist cursor to ~/.etzhayyim/triage-live-cursor.txt
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ from pathlib import Path
 from .graph import app, triage_app, TriageState, _is_internal_addr, _is_recent_days
 
 # ── Cursor persistence ────────────────────────────────────────────────────────
-_CURSOR_FILE = Path(os.getenv("PREGEL_CURSOR_FILE", Path.home() / ".gftd" / "pregel-inbox-cursor.txt"))
+_CURSOR_FILE = Path(os.getenv("PREGEL_CURSOR_FILE", Path.home() / ".etzhayyim" / "pregel-inbox-cursor.txt"))
 _MICROSOFT_XRPC = os.getenv("MICROSOFT_XRPC_BASE", "https://microsoft.etzhayyim.com/xrpc")
 _FROM_UPN       = os.getenv("PREGEL_FROM_UPN", "j.kawasaki@etzhayyim.com")
 _POLL_INTERVAL  = int(os.getenv("PREGEL_POLL_INTERVAL", "60"))
@@ -41,13 +41,13 @@ _TOKEN_TTL     = 300  # seconds; refresh before expiry
 
 
 def _mint_token(lxm: str) -> str:
-    """Mint a short-lived AT Protocol service auth token via gftd CLI."""
+    """Mint a short-lived AT Protocol service auth token via etzhayyim CLI."""
     result = subprocess.run(
-        ["gftd", "agent-token", "--lxm", lxm, "--aud", _MICROSOFT_AUD, "--ttl", str(_TOKEN_TTL)],
+        ["etzhayyim", "agent-token", "--lxm", lxm, "--aud", _MICROSOFT_AUD, "--ttl", str(_TOKEN_TTL)],
         capture_output=True, text=True, timeout=30,
     )
     if result.returncode != 0:
-        raise RuntimeError(f"gftd agent-token failed: {result.stderr.strip()}")
+        raise RuntimeError(f"etzhayyim agent-token failed: {result.stderr.strip()}")
     return result.stdout.strip()
 
 
@@ -163,11 +163,11 @@ async def run_poll(args: argparse.Namespace) -> None:
 
 _TRIAGE_CURSOR_FILE = Path(os.getenv(
     "TRIAGE_CURSOR_FILE",
-    str(Path.home() / ".gftd" / "triage-live-cursor.txt"),
+    str(Path.home() / ".etzhayyim" / "triage-live-cursor.txt"),
 ))
 _TRIAGE_MOVED_FILE = Path(os.getenv(
     "TRIAGE_MOVED_FILE",
-    str(Path.home() / ".gftd" / "triage-moved.txt"),
+    str(Path.home() / ".etzhayyim" / "triage-moved.txt"),
 ))
 _TRIAGE_MOVE_URL = f"{_MICROSOFT_XRPC}/com.etzhayyim.apps.microsoft.batchMoveMessages"
 _TRIAGE_CATEGORY_TO_FOLDER = {

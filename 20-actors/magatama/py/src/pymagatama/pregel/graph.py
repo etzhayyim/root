@@ -1086,8 +1086,8 @@ _TRIAGE_ORG_DID   = os.getenv("PREGEL_ORG_DID",   "did:web:etzhayyim.com")
 
 # Internal sender domains — always KEEP regardless of any signals
 _INTERNAL_DOMAINS: frozenset[str] = frozenset({
-    "etzhayyim.com", "etzhayyim.com", "gftd.works", "etzhayyim.com",
-    "gftd.onmicrosoft.com",
+    "etzhayyim.com", "etzhayyim.com", "etzhayyim.works", "etzhayyim.com",
+    "etzhayyim.onmicrosoft.com",
 })
 
 # Confidence threshold below which LLM re-classification is triggered (permille)

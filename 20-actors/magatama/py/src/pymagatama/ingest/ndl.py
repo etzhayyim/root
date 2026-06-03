@@ -2,7 +2,7 @@
 
 Open-data harvester for the NDL OAI-PMH metadata feed (``ndlsearch.ndl.go.jp``).
 Ported from the vendor yatabase KG adapter
-(``gftdcojp:60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/ndl_ingest.py``);
+(``etzhayyimcojp:60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/ndl_ingest.py``);
 the substrate-independent fetch + parse logic is kept verbatim in spirit, the
 RisingWave persistence is dropped (etzhayyim is RW-free per ADR-2605172000).
 

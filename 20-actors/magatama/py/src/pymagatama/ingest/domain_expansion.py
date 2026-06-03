@@ -39,13 +39,13 @@ LOG = logging.getLogger("domain_expansion")
 
 ATPROTO_BASE = os.environ.get("ATPROTO_BASE_URL", "https://atproto.etzhayyim.com")
 # PDS_INTERNAL_TOKEN is the HMAC secret (from pds-service-auth-mint k8s secret)
-# used to sign x-gftd-internal-hmac alongside x-magatama-verified: true.
+# used to sign x-etzhayyim-internal-hmac alongside x-magatama-verified: true.
 # ADR-0022 Amendment A2: HMAC-SHA256(METHOD:pathname:minute_epoch, secret).
 _PDS_HMAC_SECRET = os.environ.get("PDS_INTERNAL_TOKEN", "")
 
 
 def _pds_internal_headers(method: str, pathname: str) -> dict[str, str]:
-    """Build x-magatama-verified + x-gftd-internal-hmac headers for PDS auth."""
+    """Build x-magatama-verified + x-etzhayyim-internal-hmac headers for PDS auth."""
     headers: dict[str, str] = {
         "Content-Type": "application/json",
         "x-magatama-verified": "true",
@@ -59,7 +59,7 @@ def _pds_internal_headers(method: str, pathname: str) -> dict[str, str]:
             hashlib.sha256,
         ).digest()
         mac_b64url = base64.urlsafe_b64encode(mac).rstrip(b"=").decode()
-        headers["x-gftd-internal-hmac"] = mac_b64url
+        headers["x-etzhayyim-internal-hmac"] = mac_b64url
     return headers
 
 _STATIC_CANDIDATES = [

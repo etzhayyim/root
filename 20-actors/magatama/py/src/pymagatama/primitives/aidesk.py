@@ -22,7 +22,7 @@ ZERO_TO_CAD_MODEL_ID = "ADSKAILab/Zero-To-CAD-Qwen3-VL-2B"
 ZERO_TO_CAD_MODEL_CACHE = os.environ.get("AIDESK_MODEL_CACHE", "/model-cache/zero-to-cad")
 COMMERCIAL_LICENSE_TIERS: frozenset[str] = frozenset({"apache2"})
 
-B2_BUCKET = os.environ.get("B2_BUCKET_NAME", "ai-gftd-nats")
+B2_BUCKET = os.environ.get("B2_BUCKET_NAME", "etzhayyim-nats")
 B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "")
 B2_APP_KEY = os.environ.get("B2_APPLICATION_KEY", "")
 B2_ENDPOINT = os.environ.get("B2_ENDPOINT", "https://s3.us-west-004.backblazeb2.com")

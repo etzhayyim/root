@@ -86,7 +86,7 @@ def _http_get_json(
     headers: dict[str, str] | None = None,
     timeout: float = 15.0,
 ) -> tuple[int, Any | None]:
-    h = {"accept": "application/json", "user-agent": "gftd-maps-flightradar/1.0"}
+    h = {"accept": "application/json", "user-agent": "etzhayyim-maps-flightradar/1.0"}
     if headers:
         h.update(headers)
     req = Request(url, headers=h, method="GET")
@@ -547,7 +547,7 @@ def task_flight_registry_refresh(csv_url: Any = None, max_rows: int = 200_000) -
     url = (csv_url if isinstance(csv_url, str) and csv_url else OPENSKY_AIRCRAFT_DB_URL)
 
     # Stream CSV; OpenSky DB is ~30 MB plain-text.
-    req = Request(url, headers={"user-agent": "gftd-maps-flightradar/1.0"}, method="GET")
+    req = Request(url, headers={"user-agent": "etzhayyim-maps-flightradar/1.0"}, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=120.0) as resp:
             raw = resp.read().decode("utf-8", errors="replace")

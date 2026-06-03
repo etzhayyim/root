@@ -494,7 +494,7 @@ async def run_worker() -> None:
 def main() -> None:
     load_env_file()
     if not os.environ.get("RW_URL"):
-        rw_url = load_keychain_secret(service="gftd.rw", account="ROOT_URL")
+        rw_url = load_keychain_secret(service="etzhayyim.rw", account="ROOT_URL")
         if rw_url:
             os.environ["RW_URL"] = rw_url
     os.environ.setdefault("PYTHONUNBUFFERED", "1")

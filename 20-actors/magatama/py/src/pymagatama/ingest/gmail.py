@@ -78,7 +78,7 @@ def _decode_jwt_payload(jwt: str) -> dict[str, Any]:
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
-    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "gftd-gmail-zeebe/1", **(headers or {})})
+    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "etzhayyim-gmail-zeebe/1", **(headers or {})})
     with urllib.request.urlopen(req, timeout=45) as resp:
         raw = resp.read().decode("utf-8")
         return json.loads(raw) if raw else {}
@@ -174,7 +174,7 @@ def _base_row(collection: str, rkey: str) -> dict[str, Any]:
         "rkey": rkey,
         "repo": ACTOR,
         "created_at": now,
-        "org_id": "gftd",
+        "org_id": "etzhayyim",
         "user_id": "system",
         "actor_id": "sys.gmail",
     }

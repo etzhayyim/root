@@ -94,13 +94,13 @@ def _fetch_all(sql: str, params: tuple[Any, ...] = ()) -> list[tuple[Any, ...]]:
 
 
 def _http_json(url: str, headers: dict[str, str] | None = None, timeout: int = 20) -> Any:
-    req = urllib.request.Request(url, headers={"accept": "application/json", "user-agent": "gftd-collector-zeebe/1", **(headers or {})})
+    req = urllib.request.Request(url, headers={"accept": "application/json", "user-agent": "etzhayyim-collector-zeebe/1", **(headers or {})})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
 def _http_text(url: str, headers: dict[str, str] | None = None, timeout: int = 20) -> str:
-    req = urllib.request.Request(url, headers={"accept": "*/*", "user-agent": "gftd-collector-zeebe/1", **(headers or {})})
+    req = urllib.request.Request(url, headers={"accept": "*/*", "user-agent": "etzhayyim-collector-zeebe/1", **(headers or {})})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read().decode("utf-8")
 

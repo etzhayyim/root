@@ -91,13 +91,13 @@ def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> tuple[Any, ...] | None
 
 
 def _http_json(url: str, timeout: int = 10) -> Any:
-    req = urllib.request.Request(url, headers={"accept": "application/json", "user-agent": "gftd-arb-zeebe/1"})
+    req = urllib.request.Request(url, headers={"accept": "application/json", "user-agent": "etzhayyim-arb-zeebe/1"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
 def _http_text(url: str, timeout: int = 10) -> str:
-    req = urllib.request.Request(url, headers={"accept": "text/csv,*/*", "user-agent": "gftd-arb-zeebe/1"})
+    req = urllib.request.Request(url, headers={"accept": "text/csv,*/*", "user-agent": "etzhayyim-arb-zeebe/1"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read().decode("utf-8")
 

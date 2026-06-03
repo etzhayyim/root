@@ -617,8 +617,8 @@ async def task_create_sponsor_slot(
 async def main() -> None:
     load_env_file()
     for key, service, env_key in [
-        ("ANTHROPIC_API_KEY", "gftd.anthropic", "ANTHROPIC_API_KEY"),
-        ("RESEND_API_KEY", "gftd.resend", "RESEND_API_KEY"),
+        ("ANTHROPIC_API_KEY", "etzhayyim.anthropic", "ANTHROPIC_API_KEY"),
+        ("RESEND_API_KEY", "etzhayyim.resend", "RESEND_API_KEY"),
     ]:
         val = load_keychain_secret(key, service, env_key)
         if val:

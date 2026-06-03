@@ -15,9 +15,9 @@ from typing import Any
 from pymagatama.db_sync import sync_cursor
 
 OWNER_MAP = {
-    "works": "did:plc:gftd-works",
-    "japan": "did:plc:gftd-japan",
-    "labo": "did:plc:gftd-labo",
+    "works": "did:plc:etzhayyim-works",
+    "japan": "did:plc:etzhayyim-japan",
+    "labo": "did:plc:etzhayyim-labo",
 }
 
 

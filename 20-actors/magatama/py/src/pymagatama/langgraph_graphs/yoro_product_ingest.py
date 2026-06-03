@@ -179,7 +179,7 @@ def write_research(state: YoroProductIngestState) -> dict:
     row = {
         "vertex_id": vertex_id,
         "actor_did": actor_did,
-        "org_did": os.environ.get("YORO_ORG_DID", "did:erc725:gftd:260425:etzhayyim"),
+        "org_did": os.environ.get("YORO_ORG_DID", "did:erc725:etzhayyim:260425:etzhayyim"),
         "at_did": actor_did,
         "created_at": now_iso,
         "query": state["query"],

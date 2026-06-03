@@ -11,7 +11,7 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 from pymagatama.db_sync import sync_cursor
 
 OWNER_DID = "did:web:baminiku.etzhayyim.com"
-KAMI_SDK = "gftd:kami@1.0.0"
+KAMI_SDK = "etzhayyim:kami@1.0.0"
 COLLECTION_TABLES = {
     "com.etzhayyim.apps.baminiku.agent": "vertex_baminiku_agent_profile",
     "com.etzhayyim.apps.baminiku.stream": "vertex_baminiku_stream",

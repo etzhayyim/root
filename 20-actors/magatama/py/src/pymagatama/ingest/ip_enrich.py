@@ -40,7 +40,7 @@ def _ipinfo(ip: str, token: str) -> dict[str, Any]:
     if token:
         url += f"?token={token}"
     req = urllib.request.Request(url, headers={"Accept": "application/json",
-                                               "User-Agent": "gftd-ingest/1.0"})
+                                               "User-Agent": "etzhayyim-ingest/1.0"})
     try:
         with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:
             data = json.loads(resp.read().decode())

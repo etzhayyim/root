@@ -1,7 +1,7 @@
 """kenkyusha — AI research-frontier explorer LangGraph package.
 
 Graph id: ``kenkyusha-research-loop``
-Server : ``60-apps/ai-gftd-project-kenkyusha/lg/`` (uvicorn lg_kenkyusha.server:app)
+Server : ``60-apps/etzhayyim-project-kenkyusha/lg/`` (uvicorn lg_kenkyusha.server:app)
 Schema : Alembic 20260514_0001 (vertex_kenkyusha_{discipline,frontier,hypothesis,evidence})
 
 The Pregel super-step loop implements Google co-scientist's 6 roles

@@ -43,7 +43,7 @@ def _fetch_one(sql: str, params: tuple[Any, ...] = ()) -> dict[str, Any] | None:
 
 
 def _http_json(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict[str, str] | None = None) -> dict[str, Any]:
-    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "gftd-drive-zeebe/1", **(headers or {})})
+    req = urllib.request.Request(url, method=method, data=body, headers={"accept": "application/json", "user-agent": "etzhayyim-drive-zeebe/1", **(headers or {})})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
