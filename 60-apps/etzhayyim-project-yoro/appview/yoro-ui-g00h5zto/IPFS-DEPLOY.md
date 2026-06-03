@@ -96,7 +96,7 @@ Public retrievability = content must live on an always-on, network-dialable peer
 ## 6. Release procedure (hybrid IPFS frontend)
 
 ```bash
-cd 60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto
+cd 60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto
 ( cd svelte && pnpm build )                       # emits ./static (SPA)
 printf '/*  /index.html  200\n' > static/_redirects
 CID=$(ipfs add -r -Q --cid-version=1 static)

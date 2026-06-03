@@ -9,4 +9,4 @@ Disallow: /moderation/
 Disallow: /testing/
 Disallow: /embed/
 
-Sitemap: https://yoro.gftd.ai/sitemap.xml
+Sitemap: https://yoro.etzhayyim.com/sitemap.xml

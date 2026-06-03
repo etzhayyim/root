@@ -1,7 +1,7 @@
 # yoro feed → kotoba read-path — deploy runbook (ADR-2606013200)
 
 The yoro AppView feed (`etzhayyim.com` posts / profiles / follows) reads from the
-**kotoba canonical Datom log** instead of the superseded yatachain-projection.
+**kotoba canonical Datom log** instead of the superseded kotoba-datomic-projection.
 Data flow:
 
 ```
@@ -36,7 +36,7 @@ ingest (operator-local, write): etzhayyim PDS repos / seed
 ## REMAINING — one operator step (needs the etzhayyim.com CF credential)
 
 Create the CNAME in the **etzhayyim.com** zone (the `cloudflared` cert here is
-gftd.ai-scoped, and the assistant's wrangler token is `zone:read` only):
+etzhayyim.ai-scoped, and the assistant's wrangler token is `zone:read` only):
 
 - **Dashboard**: etzhayyim.com → DNS → Add record
   - Type `CNAME`, Name `kotoba`,
@@ -63,7 +63,7 @@ Member repos are currently empty; the feed shows seeded etzhayyim announcements.
 To pull etzhayyim member repos (when they have posts) or re-seed:
 
 ```
-cd 60-apps/ai-gftd-project-yoro/rw-free
+cd 60-apps/etzhayyim-project-yoro/rw-free
 KOTOBA_OPERATOR_DID=did:key:ze2e169933f9bcc6cb218e083b3d2a80c5a5a2b92fbf3cb41b4d5283ce3f6939f \
   npx tsx scripts/ingest-to-kotoba.ts did:web:etzhayyim.com [more dids...]
 ```
@@ -111,5 +111,5 @@ curl -X POST http://127.0.0.1:8077/xrpc/com.etzhayyim.apps.kotoba.econ.credit \
   auth) but not curl-proven: a transact CACAO needs both `datom:transact` +
   `tx:create` capabilities, which `kotoba cacao-sign` (single `--capability`)
   doesn't cleanly emit. Better CACAO tooling (multi-capability) would close this.
-- **kotoba.gftd.ai** ingress (full API, operator bridge) is left as-is but is not
+- **kotoba.etzhayyim.com** ingress (full API, operator bridge) is left as-is but is not
   cleanly serving (404/timeout); lock down or remove separately if unused.
