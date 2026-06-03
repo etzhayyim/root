@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-leveling-xp-plan-2026",
+  "@id": "urn:etzhayyim:news:fo76-leveling-xp-plan-2026",
   "identifier": "fo76-leveling-xp-plan-2026",
   "headline": "『Fallout 76』レベル上げの設計：初心者が伸びる経験値の稼ぎ方と日課/イベントの選び方",
   "description": "経験値は“効率”より“続く導線”が重要。序盤のクエスト進行と探索を止めずに、自然にレベルが上がる行動(イベント参加、チーム、バフ)を組み立てる。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

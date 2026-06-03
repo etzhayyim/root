@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-gear-progression-legendary-2026",
+  "@id": "urn:etzhayyim:news:fo76-gear-progression-legendary-2026",
   "identifier": "fo76-gear-progression-legendary-2026",
   "headline": "『Fallout 76』装備更新の攻略：レジェンダリー/改造/通貨の優先順位で“強さの伸び”を安定させる",
   "description": "初心者が停滞する原因は「良い装備の定義が曖昧」なこと。拾う・分解する・売る・回す・作るを分け、レジェンダリーや改造に振り回されない更新手順を作る。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

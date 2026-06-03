@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-first-2-hours-guide-2026",
+  "@id": "urn:etzhayyim:news:fo76-first-2-hours-guide-2026",
   "identifier": "fo76-first-2-hours-guide-2026",
   "headline": "『Fallout 76』初心者の最初の2時間ガイド：クエスト導線/スクラップ/ファストトラベルで詰まらない",
   "description": "最初に迷いやすい「何を拾うべきか」「重量と保管」「移動コスト」「死んだらどうなる」を、最小手順で整理する。数値や最適ルートより、判断基準を覚えて以降の自由度を上げる。",
@@ -25,7 +25,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

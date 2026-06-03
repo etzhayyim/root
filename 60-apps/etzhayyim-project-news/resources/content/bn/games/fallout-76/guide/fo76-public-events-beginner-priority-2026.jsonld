@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-public-events-beginner-priority-2026",
+  "@id": "urn:etzhayyim:news:fo76-public-events-beginner-priority-2026",
   "identifier": "fo76-public-events-beginner-priority-2026",
   "headline": "『Fallout 76』初心者向けイベントの選び方：優先順位と「何をすれば貢献か」",
   "description": "イベントは怖くない。初心者が得をするイベントの見分け方、参加前の準備、最低限の役割(倒す以外の貢献)をまとめる。",
@@ -22,7 +22,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

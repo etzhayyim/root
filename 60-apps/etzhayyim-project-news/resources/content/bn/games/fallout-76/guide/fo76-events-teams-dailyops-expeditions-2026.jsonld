@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-events-teams-dailyops-expeditions-2026",
+  "@id": "urn:etzhayyim:news:fo76-events-teams-dailyops-expeditions-2026",
   "identifier": "fo76-events-teams-dailyops-expeditions-2026",
   "headline": "『Fallout 76』イベントとチームプレイ入門：パブリックチーム/デイリーオプス/遠征を“怖がらずに得する”初心者攻略",
   "description": "マルチ要素は上級者向けに見えるが、実際は初心者ほど恩恵が大きい。参加の心理的ハードルを下げ、最低限の作法と「何をすれば貢献になるか」を整理する。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

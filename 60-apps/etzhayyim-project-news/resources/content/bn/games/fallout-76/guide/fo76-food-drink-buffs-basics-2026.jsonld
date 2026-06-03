@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-food-drink-buffs-basics-2026",
+  "@id": "urn:etzhayyim:news:fo76-food-drink-buffs-basics-2026",
   "identifier": "fo76-food-drink-buffs-basics-2026",
   "headline": "『Fallout 76』食事/飲み物/薬品の使い方：初心者でも戦闘が楽になるバフ運用",
   "description": "バフは上級者向けではなく、初心者が事故を減らすための道具。常時管理を要求しない運用(イベント前だけ/苦手な場面だけ)で、効果を体感しやすい使い方を整理する。",
@@ -23,7 +23,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

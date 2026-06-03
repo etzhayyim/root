@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-combat-survival-basics-2026",
+  "@id": "urn:etzhayyim:news:fo76-combat-survival-basics-2026",
   "identifier": "fo76-combat-survival-basics-2026",
   "headline": "『Fallout 76』戦闘の基本：V.A.T.S./部位狙い/回復とバフで“事故死”を減らす初心者攻略",
   "description": "Fallout 76の戦闘は撃ち合いだけでなく、位置取り、回復、部位破壊、そして準備(食事/薬品)で難易度が変わる。初心者が負けパターンを潰すための基礎を整理する。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

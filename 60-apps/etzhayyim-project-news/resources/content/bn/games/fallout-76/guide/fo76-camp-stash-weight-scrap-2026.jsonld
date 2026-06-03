@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-camp-stash-weight-scrap-2026",
+  "@id": "urn:etzhayyim:news:fo76-camp-stash-weight-scrap-2026",
   "identifier": "fo76-camp-stash-weight-scrap-2026",
   "headline": "『Fallout 76』C.A.M.P.と所持重量の攻略：スクラップ/保管/クラフトで“遊びが回る生活インフラ”を作る",
   "description": "初心者が伸びるか止まるかは、戦闘より「整理と補給」で決まる。C.A.M.P.の最小構成、スクラップの流れ、保管と重量の考え方、クラフト台の並べ方をテンプレ化する。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

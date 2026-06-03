@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-mutations-serums-basics-2026",
+  "@id": "urn:etzhayyim:news:fo76-mutations-serums-basics-2026",
   "identifier": "fo76-mutations-serums-basics-2026",
   "headline": "『Fallout 76』変異(ミューテーション)入門：初心者が触る前に知るべき判断基準",
   "description": "変異は強力だが、理解せずに触ると混乱しがち。ここでは名称や最適構成より、「いつ触るか」「何を基準に選ぶか」「デメリット管理」の考え方だけを整理する。",
@@ -23,7 +23,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

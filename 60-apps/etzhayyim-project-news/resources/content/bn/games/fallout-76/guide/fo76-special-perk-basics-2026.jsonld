@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-special-perk-basics-2026",
+  "@id": "urn:etzhayyim:news:fo76-special-perk-basics-2026",
   "identifier": "fo76-special-perk-basics-2026",
   "headline": "『Fallout 76』SPECIALとPerkの基礎：初心者が失敗しないビルドの作り方(テンプレ付き)",
   "description": "SPECIALは“強さの配分”、Perkは“何で勝つかの宣言”。よくある失敗(全部を少しずつ/重さ対策不足/武器が定まらない)を避け、序盤から中盤まで通るビルドの考え方を整理する。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-quest-roadmap-early-2026",
+  "@id": "urn:etzhayyim:news:fo76-quest-roadmap-early-2026",
   "identifier": "fo76-quest-roadmap-early-2026",
   "headline": "『Fallout 76』序盤クエストの進め方：迷わないロードマップ(解放優先度で決める)",
   "description": "初心者が迷う「どれを進めれば楽になるか」を、機能解放(移動/作業/ベンダー/チーム)の観点で整理。寄り道のし過ぎで詰まらないための分岐ルールを提示する。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

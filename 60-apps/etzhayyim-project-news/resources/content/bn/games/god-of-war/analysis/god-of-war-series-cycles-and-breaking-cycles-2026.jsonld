@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:god-of-war-series-cycles-and-breaking-cycles-2026",
+  "@id": "urn:etzhayyim:news:god-of-war-series-cycles-and-breaking-cycles-2026",
   "identifier": "god-of-war-series-cycles-and-breaking-cycles-2026",
   "headline": "God of War analysis: Cycles and breaking cycles",
   "description": "A thematic essay on God of War, organized around: Cycles and breaking cycles.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

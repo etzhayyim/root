@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "CollectionPage",
-  "@id": "urn:gftd:news:fo76-beginner-guide-hub-2026",
+  "@id": "urn:etzhayyim:news:fo76-beginner-guide-hub-2026",
   "identifier": "fo76-beginner-guide-hub-2026",
   "headline": "『Fallout 76』初心者向け攻略まとめ：最初の導線/Perkビルド/C.A.M.P./装備更新/イベントの総合ハブ",
   "description": "攻略の入口ページ。始めた直後に迷いやすい導線(クエスト/所持重量/クラフト)から、SPECIAL/Perkの考え方、C.A.M.P.運用、装備更新(レジェンダリー/通貨)、イベント参加までを相互リンクで整理する。アップデートで細部は変わるため、原理と判断基準を重視する。",
@@ -28,7 +28,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

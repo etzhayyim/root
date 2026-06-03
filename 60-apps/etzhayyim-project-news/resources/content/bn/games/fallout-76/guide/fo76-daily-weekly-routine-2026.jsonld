@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-daily-weekly-routine-2026",
+  "@id": "urn:etzhayyim:news:fo76-daily-weekly-routine-2026",
   "identifier": "fo76-daily-weekly-routine-2026",
   "headline": "『Fallout 76』初心者のための日課設計：デイリー/ウィークリーを“疲れずに伸びる形”にする",
   "description": "毎日やることが多く見えて疲れる問題を解消。優先すべき日課の考え方、短時間で終えるテンプレ、やらない勇気(切り捨て基準)をまとめる。",
@@ -23,7 +23,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

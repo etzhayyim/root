@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-workbench-mods-repairs-2026",
+  "@id": "urn:etzhayyim:news:fo76-workbench-mods-repairs-2026",
   "identifier": "fo76-workbench-mods-repairs-2026",
   "headline": "『Fallout 76』クラフト台と補修の基本：改造/解体/修理で“戦闘力の底上げ”をする",
   "description": "初心者が見落としがちな改造と補修を、最小の目的で整理。火力を上げる前に「扱いやすさ」「弾持ち」「壊れにくさ」を整える手順をまとめる。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

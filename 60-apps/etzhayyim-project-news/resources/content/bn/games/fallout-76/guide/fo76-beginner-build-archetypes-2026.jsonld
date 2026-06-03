@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-beginner-build-archetypes-2026",
+  "@id": "urn:etzhayyim:news:fo76-beginner-build-archetypes-2026",
   "identifier": "fo76-beginner-build-archetypes-2026",
   "headline": "『Fallout 76』初心者向けビルド例：武器種別に「勝ち筋」を作るテンプレ集",
   "description": "武器名や最適解の固定ではなく、ライフル/オート/ヘビー/近接などの“勝ち筋”をテンプレ化。Perkの方向性、立ち回り、初心者がやりがちな失敗をまとめる。",
@@ -23,7 +23,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-economy-caps-gold-reputation-2026",
+  "@id": "urn:etzhayyim:news:fo76-economy-caps-gold-reputation-2026",
   "identifier": "fo76-economy-caps-gold-reputation-2026",
   "headline": "『Fallout 76』通貨と解放要素の整理：キャップ/金塊/評判/ベンダーで詰まらない初心者攻略",
   "description": "Fallout 76は通貨と解放が複数あり、初心者は「何に使うべきか」で迷って停滞する。キャップ、金塊、評判などの役割を分け、無駄遣いを減らす判断基準を作る。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:fo76-common-mistakes-troubleshooting-2026",
+  "@id": "urn:etzhayyim:news:fo76-common-mistakes-troubleshooting-2026",
   "identifier": "fo76-common-mistakes-troubleshooting-2026",
   "headline": "『Fallout 76』初心者のよくある詰まり解決：重量/弾/回復/装備更新が止まる原因と対策",
   "description": "詰まる原因は「火力不足」より生活面の崩壊が多い。症状から原因を逆引きできるように、よくある失敗パターンを対策付きで整理する。",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
