@@ -143,6 +143,31 @@ build, validates the component, prints its world + digest.
   wasm32 toolchain / wasm-tools are unavailable. The binary is reproducible from
   source (gitignored; `Cargo.lock` committed).
 
+## End-to-end host run (`reference/plc-host-runner/`)
+
+The capstone (ADR §D2/§D3): a native **wasmtime** host that instantiates the real
+`plc-control` component, provides the host imports (io-analog read / io-digital
+write / datom assert) over an immutable Datom log, and drives a sequence of scan
+cycles — proving the design's two central claims through **actual WASM execution**:
+
+```
+CYCLE 0 pv=3  cmd=ON  out10=Some(true)
+CYCLE 1 pv=20 cmd=OFF out10=Some(false)
+CYCLE 2 pv=8  cmd=ON  out10=Some(true)
+CYCLE 3 FAULTED -> Err(sensor fault), no commit    # N3 atomicity through real WASM
+DATOMS=6
+E2E OK
+```
+
+- `src/main.rs` uses `wasmtime::component::bindgen!` against a trimmed host world
+  (`wit/host.wit`, only the 3 interfaces the component imports). It self-asserts:
+  scan cycle = Datom transaction (T = cycle, `as-of` reconstructs the command), and
+  N3 fault-atomicity (a faulted sensor read → guest returns `Err` → zero datoms
+  committed; the log stays at 6).
+- `reference/test_plc_host_e2e.py` — **3 tests** (e2e OK, control history through
+  real WASM, N3 fault-atomicity through real WASM). Toolchain-guarded. `Cargo.lock`
+  gitignored (1744-line wasmtime tree; the runner is a harness, not an artifact).
+
 ## Next maturity steps (tracked toward R1)
 
 - ✅ Host stub over a simulated bus + Datom surface, with replay-from-Datom test
@@ -155,6 +180,7 @@ build, validates the component, prints its world + digest.
 - ✅ Real `plc-control` WASM Component guest (`plc-control-guest/`, wit-bindgen →
   wasm32 → component; validates; capability-minimized imports; 3 tests green).
 - ✅ Honest unikernel-edge flash/RAM sizing budget (ADR §D6, 7 tests green).
-- A host-side run of the component (wasmtime) driving multiple scan cycles against
-  the Rust `ScanHost`, asserting per-cycle Datom history end-to-end.
+- ✅ End-to-end wasmtime host run of the real component (`plc-host-runner/`):
+  scan-cycle Datom history + N3 fault-atomicity through actual WASM (3 tests green).
 - D4 k8s OCI-CID artifact convention (digest = CID, pulled from IPFS).
+- R2: real blake3 CID verification in the `LowerEdge` boot path (kotoba-core).
