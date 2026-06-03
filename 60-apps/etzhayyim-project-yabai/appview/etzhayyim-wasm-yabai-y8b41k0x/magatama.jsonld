@@ -20,22 +20,22 @@
   },
   "interfaces": {
     "provides": [
-      "gftd:yabai-risk/risk-assessment@1.0.0",
-      "gftd:yabai-risk/network-intel@1.0.0",
-      "gftd:yabai-risk/vuln-intel@1.0.0",
-      "gftd:yabai-risk/threat-intel@1.0.0",
-      "gftd:yabai-risk/exchange-intel@1.0.0",
-      "gftd:yabai-risk/infra-intel@1.0.0",
-      "gftd:yabai-risk/access-audit@1.0.0",
-      "gftd:yabai-risk/cf-logpush-consumer@1.0.0",
-      "gftd:yabai-risk/cf-metrics-ingest@1.0.0"
+      "etzhayyim:yabai-risk/risk-assessment@1.0.0",
+      "etzhayyim:yabai-risk/network-intel@1.0.0",
+      "etzhayyim:yabai-risk/vuln-intel@1.0.0",
+      "etzhayyim:yabai-risk/threat-intel@1.0.0",
+      "etzhayyim:yabai-risk/exchange-intel@1.0.0",
+      "etzhayyim:yabai-risk/infra-intel@1.0.0",
+      "etzhayyim:yabai-risk/access-audit@1.0.0",
+      "etzhayyim:yabai-risk/cf-logpush-consumer@1.0.0",
+      "etzhayyim:yabai-risk/cf-metrics-ingest@1.0.0"
     ],
     "requires": []
   },
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-yabai",
+  "name": "etzhayyim-wasm-yabai",
   "nanoid": "y8b41k0x",
   "performerType": "service",
   "profile": {
@@ -57,7 +57,7 @@
     "description": "AML/sanctions/anti-social forces risk scoring, IP access filtering, KYC evidence integration, cyber threat intelligence",
     "displayName": "YABAI Risk Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "yabai",
   "routes": [

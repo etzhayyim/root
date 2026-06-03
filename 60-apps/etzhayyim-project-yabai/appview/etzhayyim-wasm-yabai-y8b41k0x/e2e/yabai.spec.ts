@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const BASE = 'https://yabai.etzhayyim.com';
-const SVC = `${BASE}/xrpc/gftd.yabai.v1.YabaiService`;
+const SVC = `${BASE}/xrpc/etzhayyim.yabai.v1.YabaiService`;
 
 test.describe('yabai.etzhayyim.com — Health', () => {
   test('worker health', async ({ request }) => {
