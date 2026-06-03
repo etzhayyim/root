@@ -1,4 +1,4 @@
-# ai-gftd-project-comfyui — Image Generation Gateway (ComfyUI)
+# etzhayyim-project-comfyui — Image Generation Gateway (ComfyUI)
 
 ## Overview
 
@@ -17,7 +17,7 @@ Client (OpenAI SDK / curl / CLI)
     - POST /v1/images/edits          → requireAuth → UPSTREAM_URL
     - POST /xrpc/com.etzhayyim.apps.comfyui.* → XRPC dispatch
     - GET  /v1/models, /_app/meta, /health
-  → CF Tunnel comfyui-gftd (cloudflared) [Phase 3]
+  → CF Tunnel comfyui-etzhayyim (cloudflared) [Phase 3]
     ingress catch-all → http://127.0.0.1:8001
   → adapter (~/.local/animagine/server.py, Starlette)
     translates OpenAI /v1/images/* → ComfyUI workflow graph
@@ -64,7 +64,7 @@ LiteLLM proxy does not forward `/v1/images/edits` (v1.52 pass-through gap). img2
 ## Phase roadmap
 
 ### Phase 1 — Scaffold ✅ (2026-04-22)
-- `60-apps/ai-gftd-project-comfyui/` dir with CLAUDE.md, PROJECT.jsonld, magatama.jsonld, deps.toml
+- `60-apps/etzhayyim-project-comfyui/` dir with CLAUDE.md, PROJECT.jsonld, magatama.jsonld, deps.toml
 - Root `deps.toml` `[[projects]]` + `[[legacy_nanoids]]` entries
 - No Worker, no DNS, no tunnel. Identity fixed: `did:web:comfyui.etzhayyim.com` / `c0mfyu1x`.
 
@@ -77,11 +77,11 @@ LiteLLM proxy does not forward `/v1/images/edits` (v1.52 pass-through gap). img2
 - Lexicon JSONs in `00-contracts/lexicons/com/etzhayyim/apps/comfyui/`
 
 ### Phase 3 — Tunnel + DNS + Deploy (requires shared-infra approval)
-- cloudflared tunnel `comfyui-gftd` on MacBook Air
+- cloudflared tunnel `comfyui-etzhayyim` on MacBook Air
   - ingress catch-all → `http://127.0.0.1:8001` (adapter)
   - connector runs as launchd service for persistence
 - CF DNS: `comfyui.etzhayyim.com` CNAME → `<tunnel-id>.cfargotunnel.com`
-- `gftd deploy comfyui` publishes Worker
+- `etzhayyim deploy comfyui` publishes Worker
 - Post-deploy smoke: `curl https://comfyui.etzhayyim.com/v1/models` → 200 OK
 
 ## NSID namespace (planned)
@@ -105,9 +105,9 @@ Lexicon JSONs go in `00-contracts/lexicons/com/etzhayyim/apps/comfyui/<method>.j
 
 ## Relationship to other projects
 
-- **Murakumo** (`projects/ai-gftd-project-murakumo/`) — server-side text inference (Mac Mini fleet + LiteLLM + Ollama). ComfyUI reuses Murakumo's auth/proxy pattern but is image-specialized, MacBook Air for now.
+- **Murakumo** (`projects/etzhayyim-project-murakumo/`) — server-side text inference (Mac Mini fleet + LiteLLM + Ollama). ComfyUI reuses Murakumo's auth/proxy pattern but is image-specialized, MacBook Air for now.
 - **Animeka** / **Mangaka** — future consumers (image gen for character sheets, storyboard panels). They call `comfyui.etzhayyim.com/xrpc/com.etzhayyim.apps.comfyui.generateImage` once Phase 2 lands.
-- **Ameno** (`projects/ai-gftd-project-ameno/`) — browser WebGPU image gen (per-actor LoRA merge). Complementary: Ameno = browser-local, ComfyUI = server-side with ControlNet/IPAdapter.
+- **Ameno** (`projects/etzhayyim-project-ameno/`) — browser WebGPU image gen (per-actor LoRA merge). Complementary: Ameno = browser-local, ComfyUI = server-side with ControlNet/IPAdapter.
 
 ## Non-goals (for now)
 

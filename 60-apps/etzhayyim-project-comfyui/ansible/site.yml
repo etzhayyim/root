@@ -3,8 +3,8 @@
 #
 # Usage:
 #   ansible-playbook site.yml \
-#     -e hf_token=$(security find-generic-password -s gftd.hf -a HF_TOKEN -w) \
-#     -e cloudflared_tunnel_token=$(security find-generic-password -s gftd.cf -a COMFYUI_TUNNEL_TOKEN -w)
+#     -e hf_token=$(security find-generic-password -s etzhayyim.hf -a HF_TOKEN -w) \
+#     -e cloudflared_tunnel_token=$(security find-generic-password -s etzhayyim.cf -a COMFYUI_TUNNEL_TOKEN -w)
 #
 # Idempotent — safe to re-run. First run provisions everything (~1-2 h model DL);
 # subsequent runs converge only drifted state.

@@ -1,5 +1,5 @@
 ---
-# cloudflared — tunnel connector to Cloudflare (comfyui-gftd).
+# cloudflared — tunnel connector to Cloudflare (comfyui-etzhayyim).
 # Token is provided via --extra-vars cloudflared_tunnel_token=<value>.
 
 - name: Fail when cloudflared_tunnel_token missing

@@ -47,7 +47,7 @@ deep_tier_provider = "anthropic-claude"  # narrative + critique
 
 [upstream]
 # 2026-04-28: live RunPod pod (comfyui-native shape). Phase B Vultr deferred.
-tunnel_service = "comfyui-gftd"           # cloudflared tunnel (Phase B, deferred)
+tunnel_service = "comfyui-etzhayyim"           # cloudflared tunnel (Phase B, deferred)
 upstream_url = "https://r127r1ab2arjg8-8188.proxy.runpod.net"  # active pod
 upstream_shape = "comfyui-native"         # Worker submits raw workflow via /prompt
 comfyui_port = 8188
@@ -110,8 +110,8 @@ commits = [
   "67a33b8dea3",  # A5 Terraform (vultr + cloudflare)
 ]
 artifacts = [
-  "60-apps/ai-gftd-project-comfyui/adapter/",
-  "60-apps/ai-gftd-project-comfyui/ansible/",
+  "60-apps/etzhayyim-project-comfyui/adapter/",
+  "60-apps/etzhayyim-project-comfyui/ansible/",
   "50-infra/cloudflare/workers/comfyui/",
   "50-infra/vultr/comfyui-l40s/",
   "90-docs/adr/0050-animeka-comfyui-pattern1-vultr-l40s.md",
@@ -122,10 +122,10 @@ artifacts = [
 status = "not_started"
 blockers = [
   "shared-infra approval",
-  "macOS Keychain: gftd.vultr / VULTR_API_KEY",
-  "macOS Keychain: gftd.cloudflare / API_TOKEN (zone edit on etzhayyim.com)",
-  "macOS Keychain: gftd.hf / HF_TOKEN (gated checkpoints)",
-  "cloudflared tunnel create comfyui-gftd (out-of-band)",
+  "macOS Keychain: etzhayyim.vultr / VULTR_API_KEY",
+  "macOS Keychain: etzhayyim.cloudflare / API_TOKEN (zone edit on etzhayyim.com)",
+  "macOS Keychain: etzhayyim.hf / HF_TOKEN (gated checkpoints)",
+  "cloudflared tunnel create comfyui-etzhayyim (out-of-band)",
 ]
 stages = [
   "B-Lite: terraform apply -target=vultr_block_storage.data  (~$10/mo)",
@@ -150,11 +150,11 @@ status = "superseded_by_phase_B_provision"
 
 [local_dev]
 # 2026-04-22: local stack is ephemeral dev env; canonical source lives in repo.
-adapter_canonical = "60-apps/ai-gftd-project-comfyui/adapter/"
+adapter_canonical = "60-apps/etzhayyim-project-comfyui/adapter/"
 adapter_local_copy = "~/.local/animagine/"   # pre-repo-promotion, kept running until Phase B cutover
 comfyui_dir = "~/.local/comfyui/ComfyUI/"
 checkpoint_path = "~/.local/comfyui/ComfyUI/models/checkpoints/animagine-xl-4.0.safetensors"
-start_script_repo = "60-apps/ai-gftd-project-comfyui/adapter/start.sh"
+start_script_repo = "60-apps/etzhayyim-project-comfyui/adapter/start.sh"
 
 [benchmarks]
 # MacBook Air M4, 32GB unified memory, MPS backend (2026-04-22 verified).

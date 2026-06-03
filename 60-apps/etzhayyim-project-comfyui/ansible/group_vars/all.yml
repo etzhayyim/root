@@ -17,7 +17,7 @@ cloudflared_dir: /etc/cloudflared
 repo_url: https://github.com/etzhayyim/root.git
 repo_ref: main
 repo_sparse_paths:
-  - 60-apps/ai-gftd-project-comfyui/adapter
+  - 60-apps/etzhayyim-project-comfyui/adapter
 
 # Ports (all bound to 127.0.0.1 — external = via cloudflared tunnel only).
 comfyui_port: 8188
@@ -28,10 +28,10 @@ llm_backend_port: 8010
 # Set via `--extra-vars hf_token=hf_xxx` or Vultr secret env.
 hf_token: ""
 
-# cloudflared tunnel credentials — issued by `cloudflared tunnel create comfyui-gftd`.
+# cloudflared tunnel credentials — issued by `cloudflared tunnel create comfyui-etzhayyim`.
 # Pass as `--extra-vars cloudflared_tunnel_token=<token>` (sensitive).
 cloudflared_tunnel_token: ""
-cloudflared_tunnel_name: comfyui-gftd
+cloudflared_tunnel_name: comfyui-etzhayyim
 
 # Python toolchain (via uv).
 python_version: "3.12"

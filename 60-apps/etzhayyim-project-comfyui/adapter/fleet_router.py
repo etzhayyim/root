@@ -10,8 +10,8 @@ Topology (CF Worker = edge thin proxy only; control plane = jacob):
         → CF Tunnel → jacob:8200 (this router)
             → <eligible-mini>.murakumo.lan:8188 (vanilla ComfyUI worker)
 
-Declaration SSoT: 60-apps/ai-gftd-project-murakumo/fleet-models.json
-Managed by: `gftd murakumo models {declare,list,apply}`.
+Declaration SSoT: 60-apps/etzhayyim-project-murakumo/fleet-models.json
+Managed by: `etzhayyim murakumo models {declare,list,apply}`.
 """
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ from starlette.routing import Route
 
 DEFAULT_FLEET_MODELS = (
     Path(__file__).resolve().parents[2]
-    / "ai-gftd-project-murakumo"
+    / "etzhayyim-project-murakumo"
     / "fleet-models.json"
 )
 FLEET_MODELS_PATH = Path(os.environ.get("FLEET_MODELS_PATH", str(DEFAULT_FLEET_MODELS)))

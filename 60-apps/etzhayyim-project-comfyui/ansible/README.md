@@ -9,13 +9,13 @@ Idempotent provision of a single Vultr L40S 48GB Ubuntu 22.04 instance into the
 - SSH access as `ubuntu` (or any sudo-capable user).
 - Ansible 2.15+ on the operator machine (`uv tool install ansible`).
 - Secrets in macOS Keychain (per root CLAUDE.md local-secret-storage rule):
-  - `gftd.hf / HF_TOKEN` — gated checkpoint downloads
-  - `gftd.cf / COMFYUI_TUNNEL_TOKEN` — `cloudflared tunnel token comfyui-gftd` output
+  - `etzhayyim.hf / HF_TOKEN` — gated checkpoint downloads
+  - `etzhayyim.cf / COMFYUI_TUNNEL_TOKEN` — `cloudflared tunnel token comfyui-etzhayyim` output
 
 ## Usage
 
 ```bash
-cd 60-apps/ai-gftd-project-comfyui/ansible
+cd 60-apps/etzhayyim-project-comfyui/ansible
 
 # 1. set host (Terraform output or manual)
 export COMFYUI_HOST=<instance ip>
@@ -23,8 +23,8 @@ export COMFYUI_SSH_KEY=~/.ssh/id_ed25519
 
 # 2. run
 ansible-playbook site.yml \
-  -e hf_token="$(security find-generic-password -s gftd.hf -a HF_TOKEN -w)" \
-  -e cloudflared_tunnel_token="$(security find-generic-password -s gftd.cf -a COMFYUI_TUNNEL_TOKEN -w)"
+  -e hf_token="$(security find-generic-password -s etzhayyim.hf -a HF_TOKEN -w)" \
+  -e cloudflared_tunnel_token="$(security find-generic-password -s etzhayyim.cf -a COMFYUI_TUNNEL_TOKEN -w)"
 ```
 
 First run takes ~1-2 hours (driver install → reboot → CUDA → ComfyUI → model DL
@@ -77,5 +77,5 @@ curl -sf https://comfyui.etzhayyim.com/health | jq
 
 - ADR-0050 (decision rationale, model catalog, VRAM budget)
 - `50-infra/cloudflare/workers/comfyui/` (CF Worker gateway, Phase 2/A2)
-- `60-apps/ai-gftd-project-comfyui/adapter/` (canonical Starlette source)
+- `60-apps/etzhayyim-project-comfyui/adapter/` (canonical Starlette source)
 - `50-infra/terraform/comfyui-l40s/` (infra provision — A5, planned)

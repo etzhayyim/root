@@ -16,7 +16,7 @@
       git clone --depth 1 --filter=blob:none --sparse \
         --branch {{ repo_ref }} {{ repo_url }} {{ adapter_dir }}
       cd {{ adapter_dir }}
-      git sparse-checkout set 60-apps/ai-gftd-project-comfyui/adapter
+      git sparse-checkout set 60-apps/etzhayyim-project-comfyui/adapter
     else
       cd {{ adapter_dir }}
       git fetch origin {{ repo_ref }}
@@ -31,15 +31,15 @@
 - name: Create adapter venv (uv)
   ansible.builtin.command: >
     uv venv --python {{ python_version }}
-    {{ adapter_dir }}/60-apps/ai-gftd-project-comfyui/adapter/.venv
+    {{ adapter_dir }}/60-apps/etzhayyim-project-comfyui/adapter/.venv
   args:
-    creates: "{{ adapter_dir }}/60-apps/ai-gftd-project-comfyui/adapter/.venv/bin/python"
+    creates: "{{ adapter_dir }}/60-apps/etzhayyim-project-comfyui/adapter/.venv/bin/python"
   become_user: "{{ comfy_user }}"
 
 - name: Sync adapter dependencies
   ansible.builtin.command: uv sync --python .venv/bin/python
   args:
-    chdir: "{{ adapter_dir }}/60-apps/ai-gftd-project-comfyui/adapter"
+    chdir: "{{ adapter_dir }}/60-apps/etzhayyim-project-comfyui/adapter"
   become_user: "{{ comfy_user }}"
   changed_when: repo_sync.changed
 
