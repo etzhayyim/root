@@ -41,7 +41,7 @@
       "zone_name": "etzhayyim.com"
     },
     {
-      "pattern": "ai-gftd-project-mailer.etzhayyim.com/*",
+      "pattern": "etzhayyim-project-mailer.etzhayyim.com/*",
       "zone_name": "etzhayyim.com"
     },
     {
