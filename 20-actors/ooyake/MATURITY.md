@@ -43,6 +43,31 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-04 — cabinet/executive official sites: 47 governments web-verified (80 → 127/129)
+
+Coverage-depth pass on the cabinet/executive tier (same method as the country + legislature
+passes). 49 of 129 executive bodies had no `:gov.unit/official-url`. Fanned out 4
+web-research subagents (~12 each) to find + **confirm each executive's own official site by
+fetching it** — the cabinet / council of ministers / PM or president's office / national
+government portal, whichever is the canonical executive entry point. 47 confirmed and added
+(provenance → the body's own official URL; `:last-verified` → 2026-06-04).
+
+- 80 → **127/129** cabinet/executive units now carry an official site.
+- 2 HONESTLY left null (G5 over coverage-count):
+  - **Nicaragua** — presidencia.gob.ni refused connection on both HTTPS/HTTP; could not
+    confirm a live site by fetching (no fabrication from secondary corroboration alone).
+  - **Yemen** — divided wartime government; the Aden-based Council of Ministers has no
+    confirmable live portal (only MoFA + the PLC chairman's personal site are active).
+- Honest entry-point choices recorded where the cabinet has no standalone site: Presidency
+  (Burundi, Burkina Faso, Colombia, Honduras, El Salvador, Kenya, Nigeria State House),
+  PM/Primature (Cameroon, DRC, Haiti, Mauritania, Mauritius, Chad), or national gov portal
+  (Chile, Ecuador, Malta, Namibia, Peru, Oman). Anti-bot 403/418 + TLS-chain caveats noted
+  (Bahamas/Chile/Colombia/Guatemala/Honduras/Morocco/Malta/Namibia/Peru/Saudi/Zambia) — all
+  genuine official government TLDs, multi-source corroborated.
+
+run_tests.sh ALL GREEN. Sourcing/verification tiers unchanged; published-index
+authoritative-scope gate (check #5, JP backbone only) untouched.
+
 ## 2026-06-04 — legislature official sites: 32 parliaments web-verified (150 → 182/186)
 
 Coverage-depth pass on the legislature tier (same method as the country pass). 36 of
