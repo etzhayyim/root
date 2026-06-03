@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-series-freedom-as-a-narrative-engine-2026",
+  "@id": "urn:etzhayyim:news:onepiece-series-freedom-as-a-narrative-engine-2026",
   "identifier": "onepiece-series-freedom-as-a-narrative-engine-2026",
   "headline": "ONE PIECE analysis: Freedom as a narrative engine",
   "description": "A thematic essay on ONE PIECE, organized around: Freedom as a narrative engine.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

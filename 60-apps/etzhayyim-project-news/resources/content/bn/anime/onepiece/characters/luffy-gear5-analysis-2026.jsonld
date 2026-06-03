@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:luffy-gear5-analysis-2026",
+  "@id": "urn:etzhayyim:news:luffy-gear5-analysis-2026",
   "identifier": "luffy-gear5-analysis-2026",
   "headline": "モンキー・D・ルフィ ギア5分析：ニカの覚醒がもたらした自由の象徴と戦闘哲学の変容",
   "description": "ONE PIECEの主人公ルフィがギア5（ニカ）を覚醒させたことによるキャラクター像の変化を分析。自由の戦士としての本質、戦闘スタイルの変容、そして物語全体における意味を考察。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

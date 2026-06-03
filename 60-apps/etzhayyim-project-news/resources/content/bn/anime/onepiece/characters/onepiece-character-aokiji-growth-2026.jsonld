@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-character-aokiji-growth-2026",
+  "@id": "urn:etzhayyim:news:onepiece-character-aokiji-growth-2026",
   "identifier": "onepiece-character-aokiji-growth-2026",
   "headline": "Kuzan growth curve: decisions, consequences, and transformation",
   "description": "Tracking Kuzan’s decisions and costs to understand transformation over time.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

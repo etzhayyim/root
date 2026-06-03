@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-series-the-straw-hat-crew-as-a-micro-society-2026",
+  "@id": "urn:etzhayyim:news:onepiece-series-the-straw-hat-crew-as-a-micro-society-2026",
   "identifier": "onepiece-series-the-straw-hat-crew-as-a-micro-society-2026",
   "headline": "ONE PIECE analysis: The Straw Hat crew as a micro-society",
   "description": "A thematic essay on ONE PIECE, organized around: The Straw Hat crew as a micro-society.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

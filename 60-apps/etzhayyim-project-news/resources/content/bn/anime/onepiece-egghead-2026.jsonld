@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:onepiece-egghead-2026",
+  "@id": "urn:etzhayyim:news:onepiece-egghead-2026",
   "identifier": "onepiece-egghead-2026",
   "headline": "「ワンピース」エッグヘッド編アニメ化決定！2026年4月放送開始",
   "description": "25年以上続く超ロングランアニメの最新章。エッグヘッド編では、未来の島での冒険と新たな敵との対決が描かれる。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-11T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com/ja/articles/onepiece-egghead-2026"
   },
   "url": "https://news.etzhayyim.com/bn/articles/onepiece-egghead-2026"
