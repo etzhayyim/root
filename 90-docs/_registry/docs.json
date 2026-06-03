@@ -19899,6 +19899,33 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606034800-manako-browser-local-yolo26-object-detection.md",
+      "id": "adr-2606034800-manako-browser-local-yolo26-object-detection",
+      "title": "ADR-2606034800: manako 眼 — browser-local YOLO26 object detection (WebGPU/wasm)",
+      "status": "accepted",
+      "doc_type": "adr",
+      "topic": "manako-browser-local-yolo26",
+      "authoritative": true,
+      "authoritative_for": [
+        "manako-browser-local-yolo26",
+        "yolo26-onnx-dual-mode-postprocessing"
+      ],
+      "related": [
+        "adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2606012100-donation-funded-operation-and-compute-node-donation",
+        "adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "adr-2605241900-baien-edge-target-invariant",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/2606035000-session-close-pr-865-review-ipaddress-yabai-extract-merge.md",
       "id": "adr-2606035000-session-close-pr-865-review-ipaddress-yabai-extract-merge",
       "title": "ADR-2606035000: Session close — PR",

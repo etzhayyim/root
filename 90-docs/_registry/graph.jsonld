@@ -12786,6 +12786,20 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606034800-manako-browser-local-yolo26-object-detection",
+      "type": "TechArticle",
+      "title": "ADR-2606034800: manako 眼 — browser-local YOLO26 object detection (WebGPU/wasm)",
+      "status": "accepted",
+      "topic": "manako-browser-local-yolo26",
+      "authoritative": true,
+      "authoritativeFor": [
+        "manako-browser-local-yolo26",
+        "yolo26-onnx-dual-mode-postprocessing"
+      ],
+      "related": "doc:adr-2605262500-robotics-world-data-ingestion-and-usd-pipeline",
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606035000-session-close-pr-865-review-ipaddress-yabai-extract-merge",
       "type": "TechArticle",
       "title": "ADR-2606035000: Session close — PR",

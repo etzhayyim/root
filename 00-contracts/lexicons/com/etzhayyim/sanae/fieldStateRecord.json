@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.sanae.fieldStateRecord",
+  "description": "Field-state observation record for the sanae R0 field-agriculture robotics actor. Records crop, soil, moisture, and hazard observations without activating live field work.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["fieldDid", "observedAt", "rPhase", "operatorDid"],
+        "properties": {
+          "fieldDid": {"type": "string", "format": "did", "description": "DID for the field or plot being observed."},
+          "cropKind": {"type": "string", "maxLength": 128},
+          "soilMoisturePct": {"type": "integer", "minimum": 0, "maximum": 100},
+          "weedPressure": {"type": "string", "knownValues": ["unknown", "low", "medium", "high"]},
+          "hazardNotes": {"type": "string", "maxLength": 1024},
+          "observedAt": {"type": "string", "format": "datetime"},
+          "rPhase": {"type": "string", "knownValues": ["R0", "R1", "R2", "R3"]},
+          "operatorDid": {"type": "string", "format": "did"}
+        }
+      }
+    }
+  }
+}
