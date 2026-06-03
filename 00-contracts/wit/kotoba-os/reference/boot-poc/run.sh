@@ -9,4 +9,4 @@ BIN="$HOME/.rustup/toolchains/$TC/bin"
 IMG="target/aarch64-unknown-none/release/kotoba-os-boot"
 echo "=== booting $IMG on qemu-system-aarch64 (virt) ==="
 # the image wfi-loops after printing, so cap it with a timeout
-timeout 6 qemu-system-aarch64 -machine virt -cpu cortex-a72 -m 128 -nographic -kernel "$IMG" || true
+timeout 12 qemu-system-aarch64 -machine virt -cpu cortex-a72 -m 128 -nographic -kernel "$IMG" || true

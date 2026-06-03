@@ -19,6 +19,12 @@ use core::alloc::{GlobalAlloc, Layout};
 use core::panic::PanicInfo;
 use core::ptr::addr_of_mut;
 use core::sync::atomic::{AtomicUsize, Ordering};
+use wasmi::{Caller, Engine, Linker, Module, Store};
+
+/// The real core-wasm control program, assembled from `scan.wat`. wasmi runs
+/// THIS inside the unikernel (the production crate runs the full Component Model
+/// via kotoba-runtime; this PoC uses the no_std wasmi interpreter on bare metal).
+const SCAN_WASM: &[u8] = include_bytes!("../scan.wasm");
 
 // ---- real device I/O: QEMU virt PL011 UART0 (MMIO) -------------------------
 const UART_DR: *mut u8 = 0x0900_0000 as *mut u8;
@@ -26,7 +32,9 @@ unsafe fn putc(b: u8) { core::ptr::write_volatile(UART_DR, b); }
 fn puts(s: &str) { for b in s.bytes() { unsafe { putc(b) } } }
 
 // ---- a minimal bump allocator over a static heap (.bss, zeroed by QEMU) ----
-const HEAP_SIZE: usize = 256 * 1024;
+// 16 MiB: the wasmi interpreter + module/store/instance need real heap. The heap
+// lives in .bss (NOBITS, so the image stays small); the stack is moved above it.
+const HEAP_SIZE: usize = 16 * 1024 * 1024;
 static mut HEAP: [u8; HEAP_SIZE] = [0; HEAP_SIZE];
 static OFFSET: AtomicUsize = AtomicUsize::new(0);
 
@@ -93,12 +101,71 @@ impl Host {
     }
 }
 
+/// Host state the wasm module calls into (the kotoba-os device/datom surface).
+struct WState {
+    pv: i32,
+    cycle: u64,
+    log: Vec<(u64, i32)>, // (cycle, command) — Datoms produced via host calls
+}
+
+/// Run the real `scan.wasm` core module under the wasmi interpreter, IN-KERNEL.
+/// The wasm imports `kotoba.read_input` / `kotoba.commit_command` (host funcs
+/// implemented here); `scan` reads the input, bang-bangs, and commits a command.
+fn run_wasm() {
+    puts("\n-- wasmi: running scan.wasm (a real core-wasm module) in-kernel --\n");
+    let engine = Engine::default();
+    let module = match Module::new(&engine, SCAN_WASM) {
+        Ok(m) => m,
+        Err(_) => { puts("WASM: module load FAIL\n"); return; }
+    };
+    let mut store = Store::new(&engine, WState { pv: 0, cycle: 0, log: Vec::new() });
+    let mut linker = <Linker<WState>>::new(&engine);
+    let _ = linker.func_wrap("kotoba", "read_input", |caller: Caller<'_, WState>| -> i32 {
+        caller.data().pv
+    });
+    let _ = linker.func_wrap("kotoba", "commit_command", |mut caller: Caller<'_, WState>, on: i32| {
+        let c = caller.data().cycle;
+        caller.data_mut().log.push((c, on));
+    });
+    let instance = match linker
+        .instantiate(&mut store, &module)
+        .and_then(|pre| pre.start(&mut store))
+    {
+        Ok(i) => i,
+        Err(_) => { puts("WASM: instantiate FAIL\n"); return; }
+    };
+    let scan = match instance.get_typed_func::<(), i32>(&store, "scan") {
+        Ok(f) => f,
+        Err(_) => { puts("WASM: no scan export\n"); return; }
+    };
+
+    for (k, pv) in [(0u64, 3i32), (1, 20), (2, 8)] {
+        store.data_mut().pv = pv;
+        store.data_mut().cycle = k;
+        let _cmd = scan.call(&mut store, ()).unwrap_or(-1); // returns the command
+    }
+    for (c, on) in &store.data().log {
+        puts(&format!("WASM DATOM t={c} ctrl :ctrl/command={on}\n"));
+    }
+    let n = store.data().log.len();
+    puts(&format!("WASM: cycles=3 datoms={n} (interpreter=wasmi, in-unikernel)\n"));
+    if n == 3 {
+        puts("KOTOBA-OS WASM OK\n");
+    } else {
+        puts("KOTOBA-OS WASM FAIL\n");
+    }
+}
+
 core::arch::global_asm!(
     ".section .text._start",
     ".global _start",
     "_start:",
-    "  ldr x30, =0x40200000", // stack pointer in RAM
+    "  ldr x30, =0x44000000", // stack pointer in RAM, above the 16 MiB .bss heap
     "  mov sp, x30",
+    "  mrs x0, cpacr_el1",     // enable FP/SIMD at EL1 (FPEN=0b11) — wasmi needs it;
+    "  orr x0, x0, #(3 << 20)",// without this, an FP/NEON insn traps and the CPU
+    "  msr cpacr_el1, x0",     // hangs (no exception vectors). The integer-only
+    "  isb",                   // native scan worked without it.
     "  bl rust_main",
     "1: wfi",
     "  b 1b",
@@ -110,7 +177,7 @@ pub extern "C" fn rust_main() -> ! {
     puts("L2 kernel: single address space, MMIO UART up (real device I/O)\n");
     puts("boot: kernel image entered at _start, SP set, .text running\n");
     puts("boot: PL011 UART @ 0x09000000 written via volatile MMIO\n");
-    puts("boot: bump heap (256 KiB) online\n");
+    puts("boot: bump heap (16 MiB) online\n");
     puts("KOTOBA-OS BOOT OK\n");
 
     // --- run the kotoba-os scan-cycle model inside the unikernel ---
@@ -147,6 +214,9 @@ pub extern "C" fn rust_main() -> ! {
     } else {
         puts("KOTOBA-OS SCAN FAIL\n");
     }
+
+    // --- run a REAL wasm module via the wasmi interpreter, in-kernel ---
+    run_wasm();
 
     loop {
         unsafe { core::arch::asm!("wfi") }

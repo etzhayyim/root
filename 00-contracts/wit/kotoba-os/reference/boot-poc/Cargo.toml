@@ -1,20 +1,22 @@
-# Minimal kotoba-os unikernel boot PoC (ADR-2606031600 L1/L2).
-# A no_std, single-address-space aarch64 image that boots on the QEMU `virt`
-# hypervisor machine and writes to the real PL011 UART via MMIO — a genuine
-# (if minimal) "unikernel boot + real memory-mapped device I/O". Standalone
-# ([workspace]) so the parent Rust workspaces never adopt it.
+# kotoba-os unikernel boot PoC (ADR-2606031600 L1/L2). no_std aarch64, boots on
+# QEMU virt, real PL011 MMIO UART, runs the kotoba-os scan model — AND runs a real
+# core-wasm module via the wasmi interpreter, all inside the unikernel. Standalone
+# ([workspace]). Production target = Hermit + kotoba-runtime (PORTING.md).
 [package]
 name = "kotoba-os-boot"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
-description = "Minimal no_std aarch64 unikernel boot PoC for kotoba-os (QEMU virt + PL011 MMIO)"
+description = "no_std aarch64 kotoba-os unikernel PoC (QEMU virt, PL011 MMIO, native scan + wasmi-in-kernel)"
 
 [workspace]
 
 [[bin]]
 name = "kotoba-os-boot"
 path = "src/main.rs"
+
+[dependencies]
+wasmi = { version = "0.31", default-features = false }
 
 [profile.release]
 panic = "abort"
