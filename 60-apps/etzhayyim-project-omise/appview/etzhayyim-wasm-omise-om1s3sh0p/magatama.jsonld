@@ -32,7 +32,7 @@
     "description": "Omise — AI Agent for e-commerce intelligence and analytics",
     "displayName": "Omise",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "omise",
   "routes": [

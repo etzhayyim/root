@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-omise-om1s3sh0p</h1>
+  <h1>etzhayyim-wasm-omise-om1s3sh0p</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

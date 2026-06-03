@@ -1,4 +1,4 @@
-# ai-gftd-project-omise
+# etzhayyim-project-omise
 
 `omise.etzhayyim.com` 向けの出店者オペレーション UI プロジェクトです。
 
@@ -19,7 +19,7 @@
 ## DID Flow Smoke
 
 ```bash
-cd 60-apps/ai-gftd-project-omise
+cd 60-apps/etzhayyim-project-omise
 BASE_URL="https://omise.etzhayyim.com" ORDER_ID="order-..." ./70-tools/70-tools/70-tools/scripts/omise-did-flow.sh
 ```
 
@@ -27,8 +27,8 @@ BASE_URL="https://omise.etzhayyim.com" ORDER_ID="order-..." ./70-tools/70-tools/
 
 ## Domain Contracts (WIT)
 
-- Export: `gftd:apqc/business-capabilities@0.1.0`
-- Export: `gftd:apqc/external-relationships@0.1.0`
-- Import: `gftd:isic-m/legal-activities@0.1.0`
-- Import: `gftd:isic-m/advertising@0.1.0`
-- Import: `gftd:isco/legal-social-cultural-professionals@0.1.0`
+- Export: `etzhayyim:apqc/business-capabilities@0.1.0`
+- Export: `etzhayyim:apqc/external-relationships@0.1.0`
+- Import: `etzhayyim:isic-m/legal-activities@0.1.0`
+- Import: `etzhayyim:isic-m/advertising@0.1.0`
+- Import: `etzhayyim:isco/legal-social-cultural-professionals@0.1.0`

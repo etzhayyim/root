@@ -43,7 +43,7 @@ post_json() {
 register_actor() {
   local role="$1"
   local did="$2"
-  post_json "/xrpc/gftd.omise.v1.OmiseCommandService/actor_register_did" "$(jq -nc \
+  post_json "/xrpc/etzhayyim.omise.v1.OmiseCommandService/actor_register_did" "$(jq -nc \
     --arg role "${role}" \
     --arg did "${did}" \
     '{role:$role, actor_did:$did, display_name:($role + " actor"), capabilities_json:"[\"shipment.update\"]", vc_json:"{\"type\":\"VerifiableCredential\"}"}'
@@ -57,7 +57,7 @@ register_actor inventory "${INVENTORY_DID}"
 register_actor distribution "${DISTRIBUTION_DID}"
 
 echo "[2/6] Create Shipment"
-SHIPMENT_JSON="$(post_json "/xrpc/gftd.omise.v1.OmiseCommandService/shipment_create" "$(jq -nc \
+SHIPMENT_JSON="$(post_json "/xrpc/etzhayyim.omise.v1.OmiseCommandService/shipment_create" "$(jq -nc \
   --arg order_id "${ORDER_ID}" \
   --arg warehouse_did "${WAREHOUSE_DID}" \
   --arg logistics_did "${LOGISTICS_DID}" \
@@ -75,20 +75,20 @@ if [[ -z "${SHIPMENT_ID}" || "${SHIPMENT_ID}" == "null" ]]; then
 fi
 
 echo "[3/6] Update Shipment -> in_transit"
-post_json "/xrpc/gftd.omise.v1.OmiseCommandService/shipment_update_status" "$(jq -nc \
+post_json "/xrpc/etzhayyim.omise.v1.OmiseCommandService/shipment_update_status" "$(jq -nc \
   --arg shipment_id "${SHIPMENT_ID}" \
   --arg actor_did "${LOGISTICS_DID}" \
   '{shipment_id:$shipment_id, status:"in_transit", location:"Tokyo DC", note:"departed", actor_role:"logistics", actor_did:$actor_did, signature:"sig:in-transit"}'
 )" | jq -c .
 
 echo "[4/6] Update Shipment -> delivered"
-post_json "/xrpc/gftd.omise.v1.OmiseCommandService/shipment_update_status" "$(jq -nc \
+post_json "/xrpc/etzhayyim.omise.v1.OmiseCommandService/shipment_update_status" "$(jq -nc \
   --arg shipment_id "${SHIPMENT_ID}" \
   --arg actor_did "${LOGISTICS_DID}" \
   '{shipment_id:$shipment_id, status:"delivered", location:"Customer", note:"handover completed", actor_role:"logistics", actor_did:$actor_did, signature:"sig:delivered"}'
 )" | jq -c .
 
 echo "[5/6] Fetch Order Event Trace"
-post_json "/xrpc/gftd.omise.v1.OmiseQueryService/order_event_list" "$(jq -nc --arg order_id "${ORDER_ID}" '{order_id:$order_id, limit:50}')" | jq .
+post_json "/xrpc/etzhayyim.omise.v1.OmiseQueryService/order_event_list" "$(jq -nc --arg order_id "${ORDER_ID}" '{order_id:$order_id, limit:50}')" | jq .
 
 echo "[6/6] Done (shipment_id=${SHIPMENT_ID})"
