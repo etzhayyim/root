@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0650-r-d-housing-community-amenities-ebkbv5ep",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0650-r-d-housing-community-amenities-ebkbv5ep",
   "version": "1.0.0",
   "description": "COFOG runtime component (TS-native migration)",
   "main": "src/app.ts",
