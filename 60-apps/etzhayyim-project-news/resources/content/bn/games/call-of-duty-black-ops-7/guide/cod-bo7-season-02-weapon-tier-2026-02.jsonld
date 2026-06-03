@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:cod-bo7-season-02-weapon-tier-2026-02",
+  "@id": "urn:etzhayyim:news:cod-bo7-season-02-weapon-tier-2026-02",
   "identifier": "cod-bo7-season-02-weapon-tier-2026-02",
   "headline": "কোড অফ ডিউটি: ব্ল্যাক অপস 7 সিজন 2 অস্ত্র টিয়ার গাইড (6v6 মাল্টিপ্লেয়ার)",
   "description": "2026-02-13 এর প্যাচ নোটের ভিত্তিতে AR, SMG, LMG, মার্কসম্যান, শটগান, স্নাইপার, হ্যান্ডগান, স্পেশাল ও লঞ্চারের টিয়ার তালিকা।",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

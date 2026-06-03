@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:cod-bo7-season-02-optimal-composition-2026-02",
+  "@id": "urn:etzhayyim:news:cod-bo7-season-02-optimal-composition-2026-02",
   "identifier": "cod-bo7-season-02-optimal-composition-2026-02",
   "headline": "Call of Duty: Black Ops 7 সিজন ২ ৬v6 শ্রেষ্ঠ কম্পোজিশন গাইড",
   "description": "২০২6-০২-১৩ আপডেটের Black Ops 7 সিজন ২ (6v6) মেটা ধরে AR, SMG, LMG, Marksman কম্বিনেশনের সর্বোচ্চ সাফল্যপ্রদর্শনকারী কম্পোজিশন।",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

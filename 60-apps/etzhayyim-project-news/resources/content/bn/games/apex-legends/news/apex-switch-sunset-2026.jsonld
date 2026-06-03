@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:apex-switch-sunset-2026",
+  "@id": "urn:etzhayyim:news:apex-switch-sunset-2026",
   "identifier": "apex-switch-sunset-2026",
   "headline": "Apex Legends ends Nintendo Switch support on August 4, 2026",
   "description": "Respawn will sunset Apex Legends on Nintendo Switch on August 4, 2026. Season 29 is the final update for the original Switch, while Season 30 and ongoing support continue on other platforms including Switch 2.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

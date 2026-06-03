@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:games-borderlands-4-series-primer-2026",
+  "@id": "urn:etzhayyim:news:games-borderlands-4-series-primer-2026",
   "identifier": "games-borderlands-4-series-primer-2026",
   "headline": "Borderlands 4 primer: the design ideas behind its world and characters",
   "description": "A starter guide to Borderlands 4, organized around worldbuilding, player experience, and character motivations.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
