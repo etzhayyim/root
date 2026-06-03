@@ -7,7 +7,7 @@ export default function RansomwarePage() {
       <p className="text-gray-600 mb-8">
         ランサムウェア攻撃発生時の、各対応フェーズにおけるコミュニケーション文例です。
       </p>
-      
+
       <TemplateViewer
         title="文例1：初期通知（社内向け）"
         description="インシデント覚知直後、全従業員に状況を共有し、初動対応を指示するための通知です。"

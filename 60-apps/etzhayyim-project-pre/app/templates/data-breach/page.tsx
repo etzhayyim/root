@@ -7,7 +7,7 @@ export default function DataBreachPage() {
       <p className="text-gray-600 mb-8">
         不正アクセス等による情報漏洩発生時の、規制当局、顧客、メディアへの報告文例です。
       </p>
-      
+
       <TemplateViewer
         title="文例1：初期報告（個人情報保護委員会向け）"
         description="情報漏洩の事態を覚知した後、法令に基づき規制当局へ行う速報用の文面です。"

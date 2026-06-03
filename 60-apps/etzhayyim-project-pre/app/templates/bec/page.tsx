@@ -7,7 +7,7 @@ export default function BecPage() {
       <p className="text-gray-600 mb-8">
         ビジネスメール詐欺（BEC）に関連する、社内外への注意喚起や事後対応の文例です。
       </p>
-      
+
       <TemplateViewer
         title="文例1：注意喚起（全取引先向け）"
         description="BECの発生を認知し、取引先に注意を促し、被害を未然に防ぐための通知です。"
