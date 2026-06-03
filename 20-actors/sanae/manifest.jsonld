@@ -1,0 +1,62 @@
+{
+  "@context": ["https://www.w3.org/ns/did/v1", "https://schema.org"],
+  "@type": "ActorManifest",
+  "id": "did:web:etzhayyim.com:actor:sanae",
+  "name": "sanae",
+  "displayName": "早苗 — Field-Agriculture Robotics",
+  "tier": "Tier-B",
+  "status": "R0",
+  "adr": { "master": "etzhayyim:adr:2606032100", "dividend": "etzhayyim:adr:2606032130" },
+  "labor": {
+    "isic": "A01",
+    "isco": ["6111", "6112", "6113", "9211"],
+    "unspsc": ["70", "10", "11"],
+    "lpsRank": 1
+  },
+  "purpose": "Robotics body of mitsuho's L2-Sustenance mandate; automates field agriculture (sow/weed/harvest) — the largest pool of human toil on Earth. Herbicide-free, seed-sovereign, regenerative.",
+  "fleet": [
+    { "id": "saotome", "glyph": "早乙女", "role": "transplant + precision-seeding arm" },
+    { "id": "kusanagi", "glyph": "草薙", "role": "autonomous weeding crawler (mechanical + laser, no herbicide)" },
+    { "id": "hasa", "glyph": "稲架", "role": "harvest + in-field threshing" },
+    { "id": "kakashi", "glyph": "案山子", "role": "survey + spot-treat drone" },
+    { "id": "tanishi", "glyph": "田螺", "role": "soil-microbiome + moisture probe" }
+  ],
+  "cells": [
+    { "name": "field_preparation", "module": "sanae.cells.field_preparation", "murakumoNode": "naphtali" },
+    { "name": "precision_seeding", "module": "sanae.cells.precision_seeding", "murakumoNode": "joseph" },
+    { "name": "autonomous_weeding", "module": "sanae.cells.autonomous_weeding", "murakumoNode": "judah" },
+    { "name": "harvest_coordination", "module": "sanae.cells.harvest_coordination", "murakumoNode": "simeon" },
+    { "name": "soil_regeneration_audit", "module": "sanae.cells.soil_regeneration_audit", "murakumoNode": "levi" }
+  ],
+  "lexiconNamespaces": [
+    "com.etzhayyim.sanae.fieldStateRecord",
+    "com.etzhayyim.sanae.seedingAttestation",
+    "com.etzhayyim.sanae.weedingPassRecord",
+    "com.etzhayyim.sanae.harvestAttestation",
+    "com.etzhayyim.sanae.soilRegenerationReport"
+  ],
+  "constitutionalGates": {
+    "G1": "open-source firmware/recipes (Apache 2.0 WASM/Rust)",
+    "G2": "displacement-dividend coupling — no live displacement without funded tenure-weighted cohort (ADR-2606032130)",
+    "G3": "witness quorum >=2 robot + >=1 agronomist",
+    "G4": "Murakumo-only inference",
+    "G5": "no payroll; cash to adherents ≡0",
+    "G6": "Wellbecoming — remove toil, never intensify",
+    "G7": "outward-gated — live field deployment Council Lv6+ + operator",
+    "G8": "sourcing-honesty — :representative",
+    "G9": "regenerative-only — no synthetic pesticide/herbicide; net soil-carbon >=0; seed sovereignty"
+  },
+  "nonGoals": {
+    "N1": "no military/weaponized/dual-use-for-harm",
+    "N2": "no surveillance product",
+    "N3": "no labour intensification for external commercial throughput",
+    "N4": "no industrial monoculture (>50 ha single-crop)",
+    "N5": "no patented seeds / IP-restricted varietals"
+  },
+  "roadmap": [
+    { "phase": "R0", "date": "2026-06-03", "scope": "charter + manifests + cells (RuntimeError) + lexicons + :representative seed + LPS method", "gate": "ADR-2606032100 (proposed)" },
+    { "phase": "R1", "scope": "benchtop weeding PoC (kusanagi single row) + first cell solver + kami-engine sim", "gate": "future ADR + Council" },
+    { "phase": "R2", "scope": "pilot plot + displacement cohort pool sized & Public-Fund-voted", "gate": "future ADR + 30-day comment" },
+    { "phase": "R3", "scope": "community-scale field + live displacement WITH dividend active (G2)", "gate": "future ADR + 60-day review" }
+  ]
+}

@@ -12631,6 +12631,55 @@
       "lastVerified": "2026-06-03"
     },
     {
+      "id": "doc:adr-2606032100",
+      "type": "TechArticle",
+      "title": "Labor-Liberation Robotics-Actor Wave — ISIC/ISCO/UNSPSC ranking of the un-automated toil + sanae/hataori/kiyome R0",
+      "status": "proposed",
+      "topic": "labor-liberation-robotics-actor-wave",
+      "authoritative": true,
+      "authoritativeFor": [
+        "ISIC/ISCO/UNSPSC ranking of OSS+robotics labor-liberation gaps",
+        "sanae (早苗) field-agriculture robotics actor charter (R0)",
+        "hataori (機織) garment/apparel robotics actor charter (R0)",
+        "kiyome (清め) domestic/janitorial cleaning robotics actor charter (R0)",
+        "labor-liberation robotics-actor roadmap (kamado/kuramori/soma/ama/extensions)"
+      ],
+      "related": [
+        "doc:adr-2605261000",
+        "doc:adr-2605301020",
+        "doc:adr-2605301036",
+        "doc:adr-2605302357",
+        "doc:adr-2606032130",
+        "doc:adr-2605192100",
+        "doc:adr-2606013400"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
+      "id": "doc:adr-2606032130",
+      "type": "TechArticle",
+      "title": "Displacement Dividend — tenure-weighted in-kind Basic High Income for workers freed by etzhayyim OSS-robotics",
+      "status": "proposed",
+      "topic": "displacement-dividend",
+      "authoritative": true,
+      "authoritativeFor": [
+        "Displacement Dividend mechanism (tenure-weighted, in-kind, cash≡0)",
+        "DisplacementDividend.sol Public-Fund module (R0 scaffold)",
+        "com.etzhayyim.give.displacementTenureAttestation lexicon",
+        "tenure-weight allocation formula (勤続年数連動)"
+      ],
+      "related": [
+        "doc:adr-2606032100",
+        "doc:adr-2605261000",
+        "doc:adr-2605301020",
+        "doc:adr-2605301036",
+        "doc:adr-2605302357",
+        "doc:adr-2605192130",
+        "doc:adr-2605192145"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-2606033400-session-close-consensys-rw-free-migration-sweep",
       "type": "TechArticle",
       "title": "ADR-2606033400: Session close — Consensys rw-free migration COMPLETE: sweep + truth-pass + kotoba-E2E waves 1+2 (53 apps V→A) — final A=158 / V=22",
@@ -12644,6 +12693,30 @@
         "doc:adr-2605172000-etzhayyim-rw-free-substrate",
         "doc:adr-2605181100-mst-encrypted-records-signal-keywrap",
         "doc:adr-2605172100-etzhayyim-payments-on-chain-only"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
+      "id": "doc:adr-2606033600-sumitsubo-cleanroom-cad-interop-and-kotoba-langgraph-generative-modeling",
+      "type": "TechArticle",
+      "title": "ADR-2606033600: sumitsubo 墨壺 — cleanroom CAD interop (Vectorworks / Autodesk / AutoCAD) for modeling + export, and kotoba Pregel-LangGraph generative / modeling assistance",
+      "status": "proposed",
+      "topic": "sumitsubo-cleanroom-cad-interop",
+      "authoritative": true,
+      "authoritativeFor": [
+        "the cleanroom CAD-interop SDK module (geometry kernel + open-format import/export + published-API-shape command adapters) shipped for kami-engine-sdk re-export",
+        "the cleanroom invariant for CAD vendor interop (no vendor SDK headers / no decompilation / no trademarked code / public specs only)",
+        "the kotoba Pregel-LangGraph generative + modeling-assistance cells (NL → modeling-op plan → kotoba Datoms)",
+        "the open-format export fidelity + DWG-proprietary honesty boundary"
+      ],
+      "related": [
+        "doc:adr-2605192100-etzhayyim-mission-charter",
+        "doc:adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "doc:adr-2605215000-etzhayyim-inference-murakumo-only-no-runpod",
+        "doc:adr-2605262130-kotoba-storage-substrate-unification",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2605231525-etzhayyim-no-server-side-signing-key",
+        "doc:adr-2606011500-spirit-in-physics-kotoba-datafication"
       ],
       "lastVerified": "2026-06-03"
     },
