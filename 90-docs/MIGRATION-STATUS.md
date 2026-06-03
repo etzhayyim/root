@@ -11,11 +11,11 @@ has a `MIGRATION-TODO.md`? still imports prohibited substrate
 
 | Bucket | Count | Meaning |
 |--------|------:|---------|
-| **A — DONE** | 129 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
+| **A — DONE** | 158 | has a `rw-free/` on-chain reference impl (git-authoritative: committed `rw-free/src/index.ts` count) |
 | **B — CLEAN** | 209 | no `rw-free`, no TODO, no prohibited imports — compliant or thin stub |
 | **C — NEEDS-CODEMOD** | 0 | CLEARED — all build-targets resolved (rw-free or Bucket V); only legacy codemod-cleanup remains |
 | **D — TODO-PENDING** | 7 | has `MIGRATION-TODO.md` (seed copied, codemod pending) — all build-targets resolved (rw-free or V); remainder = legacy codemod-cleanup chores |
-| **V — VENDOR-RESIDENT** | 51 | judged gftd-resident (regulated EXECUTION) — no DATA migration (git-authoritative: unique V entries minus the 24 migrated by the 2026-06-03 kotoba-E2E wave) |
+| **V — VENDOR-RESIDENT** | 22 | regulated EXECUTION only (fiat-MoR rail / inference / credential custody) — DATA migrated via kotoba-E2E (git-authoritative: unique V entries minus 53 migrated across E2E waves 1+2) |
 
 **Real remaining scope ≈ 8 apps** (C + D = 0 + 8; Bucket C build-targets CLEARED — the 8 Tier-2 commerce apps
 celler/eigyo/minpaku/omise/real-estate/shopping/supplychain/yadoya already had
@@ -85,7 +85,20 @@ threat-intelligence, tsukuru, yadoya, yoro
 — open-airplane/cofog/gas/network/ports/power/rail/swift — migrated through the
 one-at-a-time loop; superset of the original audit's 43.)
 
-## Bucket V — CONFIRMED VENDOR-RESIDENT (51)
+## Bucket V — CONFIRMED VENDOR-RESIDENT (22)
+
+> **kotoba-E2E wave 2 (2026-06-03, founder-directed)**: 29 more apps moved V→A
+> (aviation-8 FULL migration + 21 payments/comms/infra). All verified green
+> (~260 tests). Aviation PNR/eTicket/roster/APIS PII sealed E2E + ops facts
+> plaintext; payments (harai/shiharai/wire/web4/credits/resource-provider) ledger
+> E2E; comms message metadata+content E2E; site page/domain/topic catalog plaintext
+> (100B archive stays gftd). Only irreducible regulated EXECUTION stays gftd:
+> fiat-MoR settlement rail (ADR-2605172100 — etzhayyim never the fiat counterparty,
+> on-chain USDC only), GPU/LLM inference, credential custody.
+> **Remaining vendor (22):** accounts, auth, cloudflare-browser-render, cyber-drill,
+> dougaka, facebook, game-play-uploader, gmail, kaikei, llm, mailer, mangaka,
+> microsoft, microsoft-graph, ongakuka, outreach, playwright, recap, ses, x,
+> yatabase, yukkuri. (Entries below for migrated apps are superseded — now Bucket A.)
 
 > **kotoba-E2E migration wave (2026-06-03, founder-directed)**: 24 apps moved
 > V→A. Founder ruled PII/CUI/LE/yabai-risk safe to migrate on-substrate via
