@@ -140,9 +140,12 @@ business-edge, yorishiro, scheduler, robot, keiei, ops, jukyu, crypto-asset-free
 Each splits public-meta (plaintext) from sensitive payload (E2E `encryptedWrite`).
 Counts after wave: **A 105→129, V 75→51.**
 
-**Pending:** aviation-8 (air-book/crew/dcs/ffp/mro/ops/sms/yield) — founder
-aviation decision unresolved; air-cargo migrated, the 8 are settlement/safety
-execution backends whose PNR-PII could E2E-front on a follow decision.
+**Aviation-8 resolved (founder, option A):** air-book/crew/dcs/ffp/mro/ops/sms/
+yield accepted as already-fronted — the aviation consumer product layer is on
+etzhayyim via `flight-offer` + `air-sched`; the 8 stay gftd as settlement/safety
+EXECUTION backends consumed via consent-capability. The full 32-app founder
+directive is complete: 24 migrated V→A (incl. air-cargo), 8 accepted as
+already-fronted.
 
 # Consequences
 

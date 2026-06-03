@@ -99,9 +99,13 @@ one-at-a-time loop; superset of the original audit's 43.)
 > society6, tia, insatsu, hc, tenso, watashi, resource-planner, voxelforge, shinka,
 > business-edge, yorishiro, scheduler, robot, keiei, ops, jukyu, crypto-asset-freeze.
 > All 23 wave-1 packages verified green (tsc + vitest + import-scan; ~140 tests).
-> STILL PENDING: aviation-8 (air-book/crew/dcs/ffp/mro/ops/sms/yield) — founder
-> aviation decision unresolved (air-cargo migrated; the 8 are settlement/safety
-> execution backends, PNR-PII could E2E-front on a follow decision).
+> AVIATION-8 RESOLVED (founder 2026-06-03, option A): air-book/crew/dcs/ffp/mro/
+> ops/sms/yield accepted as **already-fronted** — the aviation consumer product
+> layer lives on etzhayyim via `flight-offer` (search/offer) + `air-sched`
+> (schedules); these 8 stay gftd as regulated settlement/safety EXECUTION backends
+> consumed via consent-capability. No new builds. The full 32-app founder
+> directive is now complete (24 migrated V→A; air-cargo migrated; 8 accepted
+> as already-fronted).
 
 Apps judged (per-app gate) to have a **regulated-infra primary function** that
 correctly stays gftd vendor under the Consensys boundary + 3-axis OR-test. These
