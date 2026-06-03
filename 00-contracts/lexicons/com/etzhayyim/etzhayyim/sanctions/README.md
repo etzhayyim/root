@@ -19,7 +19,7 @@ Tranche F scaffolding (Phase 2) per ADR-2605172400.
 
 ## See also
 
-- `60-apps/ai-gftd-project-open-sanctions/` (this repo, scaffolding)
+- `60-apps/etzhayyim-project-open-sanctions/` (this repo, scaffolding)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - OFAC SDN: https://www.treasury.gov/ofac/downloads/
 - UN Consolidated: https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list
