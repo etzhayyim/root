@@ -30,7 +30,7 @@
     "ministryCount": 0,
     "contractCount": 1,
     "bpmnCount": 4,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/bdi/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/bdi/",
     "addresses": [
       {
         "kind": "headquarters",

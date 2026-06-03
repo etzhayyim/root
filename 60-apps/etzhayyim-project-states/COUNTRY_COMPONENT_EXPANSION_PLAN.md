@@ -1,8 +1,8 @@
-# ai-gftd-project-states: Global Government Components Master Plan (Population-First, JPN-Granularity)
+# etzhayyim-project-states: Global Government Components Master Plan (Population-First, JPN-Granularity)
 
 ## 0. 目的
 
-本計画は、`ai-gftd-project-states` を **「全世界の政府機関を `jpn` と同粒度で実装する」** ための実行計画として更新する。
+本計画は、`etzhayyim-project-states` を **「全世界の政府機関を `jpn` と同粒度で実装する」** ための実行計画として更新する。
 優先順位は **人口順** を基本とし、既存 coverage・地政学的重要性・実装負荷を加味して段階展開する。
 
 ---

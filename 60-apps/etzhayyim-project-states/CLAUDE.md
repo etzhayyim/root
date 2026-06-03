@@ -1,14 +1,14 @@
-# ai-gftd-project-states — Government Organization Platform
+# etzhayyim-project-states — Government Organization Platform
 
 Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) で世界の行政組織をモデル化。
 
 ## CRITICAL: Multi-DID Consolidation (設計: `90-docs/260323-states-multi-did-consolidation-design.md`)
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-states-multi-did-consolidation-設計-90-90` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-states-multi-did-consolidation-設計-90-90` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## CRITICAL: Resource Flow Lexicon (設計: `90-docs/260323-states-resource-flow-lexicon-design.md`)
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-states-resource-flow-lexicon-設計-90-90-90` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-states-resource-flow-lexicon-設計-90-90-90` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## MOJ-Depth Standard (全世界必須)
 
@@ -38,7 +38,7 @@ Contract-Bounded Component Architecture (DM2 Agreement + WIT Component Model) �
 - 政令指定都市: 20 (`did:web:gov-jpn.etzhayyim.com:prefecture:{pref}:{city}`)
 - 特別区: 23 (`did:web:gov-jpn.etzhayyim.com:prefecture:tokyo:{ward}`)
 - 市: 765, 町: 716, 村: 156
-- evidence: `wasm/ai-gftd-wasm-gov-jpn-g0vjpn01/src/app.ts` (OrgDef seed data + `ActorRegistry` graph-native management)
+- evidence: `wasm/etzhayyim-wasm-gov-jpn-g0vjpn01/src/app.ts` (OrgDef seed data + `ActorRegistry` graph-native management)
 
 ### CRITICAL: ActorRegistry Graph-Native Pattern (2026-04-02)
 
@@ -88,7 +88,7 @@ JPN MOJ = canonical sample:
 
 ## CRITICAL: Script-Based Bulk Generation 禁止
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-states-script-based-bulk-generation-禁止` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-states-script-based-bulk-generation-禁止` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Architecture: Contract → APP → Entity DO
 
@@ -118,7 +118,7 @@ JPN MOJ = canonical sample:
 | 地方自治法 (都道府県) | `prefecture:{pref}` | 47 |
 | 地方自治法 (市区町村) | `prefecture:{pref}:{city/town/village}` | 1,680 |
 | 検察庁法 | `moj:prosecution:{high_court}` | 8 高検 |
-| evidence: `wasm/ai-gftd-wasm-gov-jpn-g0vjpn01/src/app.ts` (orgDef recursive + registerOrgTree) |
+| evidence: `wasm/etzhayyim-wasm-gov-jpn-g0vjpn01/src/app.ts` (orgDef recursive + registerOrgTree) |
 
 ### Organization Tree
 
@@ -793,7 +793,7 @@ Finland (fin)
 
 ## Resource Flow (ヒトモノカネ)
 
-`gftd:gov-resource-flow@1.0.0` (`wit/gov-resource-flow/package.wit`) で全エンティティ間の資源フローを時系列追跡:
+`etzhayyim:gov-resource-flow@1.0.0` (`wit/gov-resource-flow/package.wit`) で全エンティティ間の資源フローを時系列追跡:
 
 | Interface | Resource Class | 用途 |
 |---|---|---|
@@ -835,11 +835,11 @@ W Protocol Event Stream (write: WRecord → PDS → yata SQL direct (SHA-256 con
 | `:GovPersonnelFlow` | 人事 flow event (headcount, grade, person_ids) |
 | `:GovAssetFlow` | 資産 flow event (asset_class, asset_ref, value_jpy) |
 
-**MOF exports**: `gftd:gov-resource-flow/budget@1.0.0` + `resource-flow@1.0.0` (authoritative source)。他省庁は import。
+**MOF exports**: `etzhayyim:gov-resource-flow/budget@1.0.0` + `resource-flow@1.0.0` (authoritative source)。他省庁は import。
 
 ## Capability WIT
 
-各省庁の capability は `60-apps/ai-gftd-project-states/wit/` に配置:
+各省庁の capability は `60-apps/etzhayyim-project-states/wit/` に配置:
 
 ```
 wit/
@@ -960,13 +960,13 @@ wit/
 ## world.wit 必須構造
 
 ```wit
-package gftd:{app-domain};
+package etzhayyim:{app-domain};
 
 world component {
     include magatama:runtime/magatama-component@1.0.0;
     import magatama:contract/agreement@1.0.0;   // 必須
     import magatama:contract/registry@1.0.0;     // 必須
-    export gftd:{domain}/{capability}@1.0.0;     // 必須
+    export etzhayyim:{domain}/{capability}@1.0.0;     // 必須
 }
 ```
 
@@ -996,11 +996,11 @@ await db.selectFrom("vertex_gov_division")
 
 ```bash
 # Single app
-cd 60-apps/ai-gftd-project-states/wasm/<app-dir>
-gftd build --no-check && gftd deploy --no-smoke
+cd 60-apps/etzhayyim-project-states/wasm/<app-dir>
+etzhayyim build --no-check && etzhayyim deploy --no-smoke
 
 # Multi-app (run per app directory)
-gftd deploy
+etzhayyim deploy
 ```
 
 ## deps.etzhayyim.com Score
@@ -1010,5 +1010,5 @@ gftd deploy
 | contract_score | 5% | magatama:contract/agreement import |
 | capability_export_score | 5% | domain capability export |
 | deps_link_score | 10% | parent/dependency import resolution |
-| resource_flow_score | 5% | gftd:gov-resource-flow WIT import/export coverage |
+| resource_flow_score | 5% | etzhayyim:gov-resource-flow WIT import/export coverage |
 | div_score | 5% | magatama:div WIT coverage (DIV-3 information/documents/materiel) |

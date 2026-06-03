@@ -37,7 +37,7 @@
     "ministryCount": 3,
     "contractCount": 1,
     "bpmnCount": 110,
-    "dataSourceRef": "60-apps/ai-gftd-project-states/data/gov/bra/",
+    "dataSourceRef": "60-apps/etzhayyim-project-states/data/gov/bra/",
     "addresses": [
       {
         "kind": "headquarters",
@@ -74,7 +74,7 @@
         "authority": "Defense Ministerio Da Defesa",
         "basis": "Defence Act",
         "portalUri": "https://www.gov.br/defesa/",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/bra/bpmn/defense-ministerio-da-defesa.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/bra/bpmn/defense-ministerio-da-defesa.bpmn"
       },
       {
         "id": "bra.justice-ministerio-justica",
@@ -83,7 +83,7 @@
         "authority": "Justice Ministerio Justica",
         "basis": "Public Order and Safety Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/bra/bpmn/justice-ministerio-justica.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/bra/bpmn/justice-ministerio-justica.bpmn"
       },
       {
         "id": "bra.executive-palacio-planalto",
@@ -92,7 +92,7 @@
         "authority": "Executive Palacio Planalto",
         "basis": "General Public Services Act",
         "portalUri": "",
-        "bpmnRef": "60-apps/ai-gftd-project-states/data/gov/bra/bpmn/executive-palacio-planalto.bpmn"
+        "bpmnRef": "60-apps/etzhayyim-project-states/data/gov/bra/bpmn/executive-palacio-planalto.bpmn"
       },
       {
         "id": "bra.lai",
