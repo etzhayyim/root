@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Newsletter Nwsl0001",
-  "project": "ai-gftd-project-newsletter",
+  "project": "etzhayyim-project-newsletter",
   "name": "newsletter-nwsl0001",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-newsletter/appview/newsletter-nwsl0001/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-newsletter/appview/newsletter-nwsl0001/svelte/src/routes/+page.svelte"
 };
 </script>
 

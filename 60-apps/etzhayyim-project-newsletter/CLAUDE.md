@@ -1,8 +1,8 @@
-# ai-gftd-project-newsletter — Newsletter Factory
+# etzhayyim-project-newsletter — Newsletter Factory
 
-**URL**: `https://newsletter.etzhayyim.com` / `https://nwsl0001.etzhayyim.com`  
-**DID**: `did:web:newsletter.etzhayyim.com`  
-**nanoid**: `nwsl0001`  
+**URL**: `https://newsletter.etzhayyim.com` / `https://nwsl0001.etzhayyim.com`
+**DID**: `did:web:newsletter.etzhayyim.com`
+**nanoid**: `nwsl0001`
 **ADR**: `90-docs/adr/2605072000-langgraph-agent-loop-pattern.md`
 
 ## Architecture
@@ -80,8 +80,8 @@ NEWS_XRPC_URL        — news.etzhayyim.com base (default https://news.etzhayyim
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-newsletter/appview/newsletter-nwsl0001
-gftd deploy
+cd 60-apps/etzhayyim-project-newsletter/appview/newsletter-nwsl0001
+etzhayyim deploy
 
 python -m pymagatama.newsletter_worker_main
 

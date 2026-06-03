@@ -10,7 +10,7 @@
  *
  * (c) MIXED SPLIT: the public newsletter-issue archive migrates. The subscriber
  * list (email PII), Resend batch delivery, LangGraph LLM issue generation, and
- * the sponsor/ad slot STAY gftd via consent-capability — NOT in this package.
+ * the sponsor/ad slot STAY etzhayyim via consent-capability — NOT in this package.
  */
 
 export * from "./types.js";

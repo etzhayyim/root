@@ -9,7 +9,7 @@
  *   Substack public web archive). No PII, no settlement, no liability on the
  *   published issue itself. → migrated to etzhayyim front (AT PDS records).
  *
- *   REGULATED (STAYS gftd, NOT in this package) — the subscriber list (email
+ *   REGULATED (STAYS etzhayyim, NOT in this package) — the subscriber list (email
  *   addresses + personalization = Custody), Resend batch delivery (email-send
  *   Liability / unsubscribe compliance), LangGraph LLM issue generation (compute),
  *   and the optional sponsor/ad slot (Settlement). Consumed via consent-capability.

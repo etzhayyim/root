@@ -1,7 +1,7 @@
 /**
  * newsletter rw-free — issue + section registries + coverage.
  * AT PDS records (no RW). Sections FK→issue. Public newsletter-issue archive;
- * subscriber list + email delivery + LLM generation stay gftd.
+ * subscriber list + email delivery + LLM generation stay etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

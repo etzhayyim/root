@@ -1,4 +1,4 @@
-# ai-gftd-project-open-patent — Open Patent IP Factory
+# etzhayyim-project-open-patent — Open Patent IP Factory
 
 > **T1 Logical Actor** `open-patent.etzhayyim.com` (nanoid: `op3np4t1`).
 > 特許コーパスを基盤に新しい IP を継続生成し、人間のクレーム起草・出願判断を支援する。
@@ -81,4 +81,4 @@ gather_tech_trends
 
 | Component | nanoid |
 |---|---|
-| `ai-gftd-wasm-open-patent-op3np4t1` | `op3np4t1` |
+| `etzhayyim-wasm-open-patent-op3np4t1` | `op3np4t1` |

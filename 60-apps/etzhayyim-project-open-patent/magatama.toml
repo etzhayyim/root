@@ -1,5 +1,5 @@
 [component]
-id = "ai-gftd-project-open-patent"
+id = "etzhayyim-project-open-patent"
 name = "Open Patent IP Factory"
 domain = "open-patent.etzhayyim.com"
 did = "did:web:open-patent.etzhayyim.com"
