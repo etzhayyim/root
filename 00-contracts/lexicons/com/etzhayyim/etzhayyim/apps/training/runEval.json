@@ -12,7 +12,7 @@
           "required": ["checkpointId", "benches"],
           "properties": {
             "checkpointId": {"type": "string"},
-            "benches": {"type": "array", "minLength": 1, "items": {"type": "string"}, "description": "e.g. ['mmlu', 'arc_challenge', 'gftd-internal-shanno-bench']."},
+            "benches": {"type": "array", "minLength": 1, "items": {"type": "string"}, "description": "e.g. ['mmlu', 'arc_challenge', 'etzhayyim-internal-shanno-bench']."},
             "evalDatasetName": {"type": "string", "description": "Optional eval split name; resolved to vertex_training_dataset_snapshot."},
             "evalDatasetRevision": {"type": "string"},
             "sampleLimit": {"type": "integer", "description": "Cap samples per bench for fast smoke evals."},

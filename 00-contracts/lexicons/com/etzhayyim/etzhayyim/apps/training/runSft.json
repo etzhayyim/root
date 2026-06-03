@@ -14,7 +14,7 @@
             "runId": {"type": "string", "description": "Optional client-supplied run ID; auto-generated if omitted."},
             "baseModel": {"type": "string", "description": "HF model ID (e.g. google/gemma-2-2b-it) or internal alias resolved via llm-model-registry."},
             "baseModelRevision": {"type": "string", "description": "HF revision pin. Defaults to the registry default."},
-            "datasetName": {"type": "string", "description": "Logical corpus name (e.g. gftd-corpus). Resolved against v_training_text labels and HF dataset records."},
+            "datasetName": {"type": "string", "description": "Logical corpus name (e.g. etzhayyim-corpus). Resolved against v_training_text labels and HF dataset records."},
             "datasetLabel": {"type": "string", "description": "Optional v_training_text.label filter (e.g. 'wet_chunk')."},
             "datasetRevision": {"type": "string", "description": "Optional content_hash or HF revision to pin a prior snapshot. Omit to take a fresh snapshot."},
             "hyperparams": {
