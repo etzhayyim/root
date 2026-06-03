@@ -1,13 +1,13 @@
 # bulk-ingest pymagatama.substrate port notes
 
-Migration recipe for the maps bulk-ingest Python pods per yatachain
+Migration recipe for the maps bulk-ingest Python pods per kotoba-datomic
 Phase 1 Tier A (see [`../MIGRATION-TODO.md`](../MIGRATION-TODO.md) +
-[ADR-2605231400](../../../90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md)).
+[ADR-2605231400](../../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md)).
 
 The pattern preserves the existing legacy psycopg2 → RisingWave INSERT
 code path and adds a parallel pymagatama.substrate write path gated by
 `USE_PYMAGATAMA_SUBSTRATE=1`. When the new path is enabled and proven, the
-legacy path can be deleted and the pod is yatachain L0-nominal.
+legacy path can be deleted and the pod is kotoba-datomic L0-nominal.
 
 ## Pattern recipe (5 steps)
 
@@ -88,11 +88,11 @@ legacy path can be deleted and the pod is yatachain L0-nominal.
 | Check | Command | Status |
 |---|---|---|
 | Substrate primitive tests | `pytest 20-actors/magatama/py/tests/test_substrate.py` | ✅ 18/18 |
-| Yatachain Python primitives | `pytest 20-actors/magatama/py/tests/test_yatachain.py` | ✅ 17/17 |
-| Cell-runner /yatachain/attest endpoint | `pytest 20-actors/magatama/py/tests/test_cell_runner_attest.py` | ✅ 7/7 |
-| Geonames port converter tests | `pytest 60-apps/ai-gftd-project-maps/bulk-ingest/tests/test_geonames_port.py` | ✅ 8/8 |
+| Yatachain Python primitives | `pytest 20-actors/magatama/py/tests/test_kotoba-datomic.py` | ✅ 17/17 |
+| Cell-runner /kotoba-datomic/attest endpoint | `pytest 20-actors/magatama/py/tests/test_cell_runner_attest.py` | ✅ 7/7 |
+| Geonames port converter tests | `pytest 60-apps/etzhayyim-project-maps/bulk-ingest/tests/test_geonames_port.py` | ✅ 8/8 |
 | Live PDS smoke (manual) | `USE_PYMAGATAMA_SUBSTRATE=1 ETZ_SESSION_JWT=... python workers/geonames_dumper.py` against a test PDS | ⏳ pending operator wiring |
-| Murakumo cell witness smoke (manual) | TS orchestrator → `createPdsPollingWitnessTransport({requestEndpoint: (c) => "http://{c.node}:13000/yatachain/attest"})` against a launchd-managed cell-runner | ⏳ pending operator wiring |
+| Murakumo cell witness smoke (manual) | TS orchestrator → `createPdsPollingWitnessTransport({requestEndpoint: (c) => "http://{c.node}:13000/kotoba-datomic/attest"})` against a launchd-managed cell-runner | ⏳ pending operator wiring |
 
 ## What this is NOT
 
@@ -106,5 +106,5 @@ legacy path can be deleted and the pod is yatachain L0-nominal.
 - Witness validation. Geonames writes to `com.etzhayyim.maps.feature`
   which is Tier B in MIGRATION-TODO (witnessed). The pod port establishes
   the SDK write path; witness wiring happens at the `@etzhayyim/sdk` /
-  `pymagatama.substrate` layer once `com.etzhayyim.yatachain.attestation`
+  `pymagatama.substrate` layer once `com.etzhayyim.kotoba-datomic.attestation`
   consumers are live in Murakumo cells (per ADR-2605231400 §5).

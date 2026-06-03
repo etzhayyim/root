@@ -40,11 +40,11 @@ flips the *operator* — the data path is unchanged.
 
 For each pod, the cutover follows the same checklist:
 
-1. **Fork the source code** from `60-apps/ai-gftd-project-maps/bulk-ingest/workers/<pod>.py` (+ `k8s/deployment-<pod>.yaml`) into the new community repo. Preserve the substrate seam (`_etzhayyim_substrate.py`) verbatim — it is the contract.
+1. **Fork the source code** from `60-apps/etzhayyim-project-maps/bulk-ingest/workers/<pod>.py` (+ `k8s/deployment-<pod>.yaml`) into the new community repo. Preserve the substrate seam (`_etzhayyim_substrate.py`) verbatim — it is the contract.
 2. **The community operator generates a fresh did:plc / did:web** for the pod itself (not a person). The pod's DID becomes the `sender` of every emitted `com.etzhayyim.apps.maps.*` record. Suggested handle: `<dataset>.ingest.community.etzhayyim.com`.
 3. **`ETZHAYYIM_SUBSTRATE_MODE=mst`** is set on the community pod. `ETZHAYYIM_PDS_HANDLE` / `ETZHAYYIM_PDS_APP_PASSWORD` point at the operator's own PDS (or a community PDS that the operator controls).
 4. **etzhayyim removes** the k8s deployment from its cluster (`kubectl -n maps-bulk-ingest delete deploy/bulk-ingest-<pod>`). The accompanying Secret containing the upstream-API credential is deleted.
-5. **The etzhayyim relay subscribes** to the new community PDS via `com.atproto.sync.subscribeRepos`. The existing yatachain-projection rebuild path (`60-apps/ai-gftd-project-maps/bulk-ingest/workers/yatachain-projection.toml`) sees the new records and projects them into the read cache exactly as if the etzhayyim-operated pod were still emitting them.
+5. **The etzhayyim relay subscribes** to the new community PDS via `com.atproto.sync.subscribeRepos`. The existing kotoba-datomic-projection rebuild path (`60-apps/etzhayyim-project-maps/bulk-ingest/workers/kotoba-datomic-projection.toml`) sees the new records and projects them into the read cache exactly as if the etzhayyim-operated pod were still emitting them.
 6. **BPMN process updates**: the `bulkRefresh<Source>` BPMN message-start used to fire the etzhayyim-operated pod. After cutover the BPMN process either (a) becomes a community-PDS firehose subscription, or (b) is deactivated entirely (community operator's own scheduler drives the cadence). The `Cadence` row stays in this document as a recommendation, not as an etzhayyim-enforced contract.
 
 ## Charter compliance gate
@@ -85,4 +85,4 @@ is deleted in the same PR.
 
 - `_etzhayyim_substrate.py` — substrate seam (already supports mst mode)
 - `workers/MIGRATION-TODO.md` — per-worker Stage 2 refactor checklist
-- `yatachain-projection.toml` — declares the RW projection as L0-rebuildable from MST
+- `kotoba-datomic-projection.toml` — declares the RW projection as L0-rebuildable from MST

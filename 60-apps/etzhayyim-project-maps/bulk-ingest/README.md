@@ -95,7 +95,7 @@ incremental crawl; bulk fills the long tail in single passes.
 | `openflights_dumper.py` | OpenFlights routes.dat + airports.dat | ~75K | <5 min |
 | `ferry_routes_dumper.py` | OSM Overpass relation[route=ferry] worldwide | ~5K | 5-15 min |
 
-All three write Parquet to `b2://ai-gftd-nats/maps-bulk-ingest/{date}/{source}/`,
+All three write Parquet to `b2://etzhayyim-nats/maps-bulk-ingest/{date}/{source}/`,
 then `COPY` into `vertex_spatial` via psql. Parquet stays for replay
 (GDPR-Art-17 erasure of specific entities is via SQL DELETE, not parquet
 delete — keep an audit trail).
@@ -104,14 +104,14 @@ delete — keep an audit trail).
 
 ```bash
 # Build image (one-time)
-docker build -t ghcr.io/etzhayyim/maps-bulk-ingest:1.0.0 60-apps/ai-gftd-project-maps/bulk-ingest/
+docker build -t ghcr.io/etzhayyim/maps-bulk-ingest:1.0.0 60-apps/etzhayyim-project-maps/bulk-ingest/
 docker push ghcr.io/etzhayyim/maps-bulk-ingest:1.0.0
 
 # Deploy resident worker
-kubectl apply -f 60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment.yaml
+kubectl apply -f 60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment.yaml
 
 # Trigger via MCP tool (or BPMN timer)
-gftd mcp call maps.bulk.refresh_wikidata
+etzhayyim mcp call maps.bulk.refresh_wikidata
 ```
 
 ## Cost

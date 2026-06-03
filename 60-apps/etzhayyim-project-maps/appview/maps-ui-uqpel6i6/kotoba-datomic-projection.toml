@@ -1,4 +1,4 @@
-# yatachain-projection manifest for maps-ui-uqpel6i6
+# kotoba-datomic-projection manifest for maps-ui-uqpel6i6
 #
 # Per ADR-2605231500 — this directory's Kysely / RW reads are a derived
 # read-path cache, not canonical state. Canonical state lives on:
@@ -15,8 +15,8 @@ name = "maps-spatial-rw"
 level = "L0-projection"   # bumps to L1-projection after tools/rebuild-spatial-projection.ts lands + CI smoke
 rebuild_runbook = "../../tools/rebuild-spatial-projection.md"
 adr = "2605231500"
-yatachain_companion_adr = "2605231400"
-related_migration = "60-apps/ai-gftd-project-maps/MIGRATION-TODO.md"
+kotoba-datomic_companion_adr = "2605231400"
+related_migration = "60-apps/etzhayyim-project-maps/MIGRATION-TODO.md"
 owner = "maps-ui maintainers"
 last_reviewed = "2026-05-23"
 

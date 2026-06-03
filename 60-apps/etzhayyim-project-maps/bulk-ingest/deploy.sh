@@ -17,7 +17,7 @@
 #   ./deploy.sh teardown        # kubectl delete (keep PVC)
 #
 # Prereqs:
-#   - macOS Keychain holds gftd.r2 / gftd.rw credentials (per CLAUDE.md)
+#   - macOS Keychain holds etzhayyim.r2 / etzhayyim.rw credentials (per CLAUDE.md)
 #   - GHCR_TOKEN exported (or `gh auth token`) for image push
 #   - kubectl context = vke-a61d513b-... (Vultr VKE)
 set -euo pipefail
@@ -39,7 +39,7 @@ case "$cmd" in
     : "${GHCR_TOKEN:=$(gh auth token 2>/dev/null || echo "")}"
     [ -z "$GHCR_TOKEN" ] && { echo "GHCR_TOKEN not set; gh auth login first"; exit 1; }
     echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
-    docker buildx build --builder "${BUILDKIT_BUILDER:-gftd-vke}" --platform=linux/amd64 \
+    docker buildx build --builder "${BUILDKIT_BUILDER:-etzhayyim-vke}" --platform=linux/amd64 \
       --cache-from "type=registry,ref=${CACHE_REF}" \
       --cache-to "type=registry,ref=${CACHE_REF},mode=max" \
       --push -t "$IMAGE" .
@@ -47,11 +47,11 @@ case "$cmd" in
     ;;
 
   secrets)
-    DATABASE_URL="$(security find-generic-password -s gftd.rw -a ROOT_URL -w)"
-    B2_ACCESS_KEY_ID="$(security find-generic-password -s gftd.r2 -a ACCESS_KEY_ID -w)"
-    B2_SECRET_ACCESS_KEY="$(security find-generic-password -s gftd.r2 -a SECRET_ACCESS_KEY -w)"
-    [ -z "$DATABASE_URL" ] && { echo "DATABASE_URL not in gftd.rw keychain"; exit 1; }
-    [ -z "$B2_ACCESS_KEY_ID" ] && { echo "B2 creds not in gftd.r2 keychain"; exit 1; }
+    DATABASE_URL="$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w)"
+    B2_ACCESS_KEY_ID="$(security find-generic-password -s etzhayyim.r2 -a ACCESS_KEY_ID -w)"
+    B2_SECRET_ACCESS_KEY="$(security find-generic-password -s etzhayyim.r2 -a SECRET_ACCESS_KEY -w)"
+    [ -z "$DATABASE_URL" ] && { echo "DATABASE_URL not in etzhayyim.rw keychain"; exit 1; }
+    [ -z "$B2_ACCESS_KEY_ID" ] && { echo "B2 creds not in etzhayyim.r2 keychain"; exit 1; }
     kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
     kubectl -n "$NAMESPACE" create secret generic maps-bulk-ingest-credentials \
       --from-literal=DATABASE_URL="$DATABASE_URL" \

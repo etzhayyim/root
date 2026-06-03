@@ -29,11 +29,11 @@ and need ODPT (no public direct download).
 ```bash
 # Host the index in B2 (publishable, no secrets):
 aws --endpoint-url https://s3.us-west-004.backblazeb2.com s3 cp \
-  index.json s3://ai-gftd-nats/maps-bulk-ingest/gtfs-jp/index.json --acl public-read
+  index.json s3://etzhayyim-nats/maps-bulk-ingest/gtfs-jp/index.json --acl public-read
 
 # Then point the dumper at it:
 kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-jp \
-  GTFS_JP_FEED_INDEX_URL=https://ai-gftd-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-jp/index.json
+  GTFS_JP_FEED_INDEX_URL=https://etzhayyim-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-jp/index.json
 ```
 
 ## (2) ODPT registration runbook (Phase 3, ~5 min)
@@ -53,16 +53,16 @@ publish their own RT URLs and live on `GTFS_RT_FEED_INDEX_URL` instead.
 4. **Store in macOS Keychain** (per root CLAUDE.md "Local Secret Storage"):
    ```bash
    security add-generic-password \
-     -s gftd.transit -a ODPT_API_KEY \
+     -s etzhayyim.transit -a ODPT_API_KEY \
      -w '<paste-the-32-hex-key>' -U
    # Verify:
-   security find-generic-password -s gftd.transit -a ODPT_API_KEY -w | wc -c
+   security find-generic-password -s etzhayyim.transit -a ODPT_API_KEY -w | wc -c
    # → 33 (32 chars + newline)
    ```
 5. **Push to k8s Secret + scale up**:
    ```bash
    kubectl -n maps-bulk-ingest patch secret maps-bulk-ingest-credentials \
-     --type=json -p='[{"op":"add","path":"/stringData/ODPT_API_KEY","value":"'$(security find-generic-password -s gftd.transit -a ODPT_API_KEY -w)'"}]'
+     --type=json -p='[{"op":"add","path":"/stringData/ODPT_API_KEY","value":"'$(security find-generic-password -s etzhayyim.transit -a ODPT_API_KEY -w)'"}]'
    kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gtfs-rt --replicas=1
    kubectl -n maps-bulk-ingest logs -f deploy/bulk-ingest-gtfs-rt
    # Expect: "RT dumper booting feeds=3 (vp=30s tu=60s alerts=300s)"
@@ -87,9 +87,9 @@ EOF
 # (verify each URL with `curl -sLI` first; this list is illustrative —
 # operator publication moves around)
 aws --endpoint-url https://s3.us-west-004.backblazeb2.com s3 cp \
-  /tmp/rt-index.json s3://ai-gftd-nats/maps-bulk-ingest/gtfs-rt/index.json --acl public-read
+  /tmp/rt-index.json s3://etzhayyim-nats/maps-bulk-ingest/gtfs-rt/index.json --acl public-read
 kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
-  GTFS_RT_FEED_INDEX_URL=https://ai-gftd-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-rt/index.json
+  GTFS_RT_FEED_INDEX_URL=https://etzhayyim-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-rt/index.json
 kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gtfs-rt --replicas=1
 ```
 
@@ -144,7 +144,7 @@ psql "$DATABASE_URL" -c "\dm mv_maps_*"
 | 3 | Build + push `ghcr.io/etzhayyim/maps-bulk-ingest:1.2.0` (`./deploy.sh build`) | 5 min | both dumpers |
 | 4 | `./deploy.sh apply` + scale gtfs-jp `--replicas=1` | 2 min | Phase 2 live |
 | 5 | ODPT account (or "no, skip") | 5 min | Phase 3 live |
-| 6 | `gftd deploy` for `maps-ui-uqpel6i6` (XRPC handlers) | 5 min | XRPC reachable |
+| 6 | `etzhayyim deploy` for `maps-ui-uqpel6i6` (XRPC handlers) | 5 min | XRPC reachable |
 
 After (1)+(2)+(3)+(4)+(6): `nextDeparturesAtStop` is live for the 4
 verified bus operators above. After (5): `realtimeDelaysAtStop` returns
