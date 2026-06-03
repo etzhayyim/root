@@ -8,7 +8,7 @@
  *   GET /health               → liveness
  *
  * Storage:
- *   R2 binding TILES       → gftd-maps-tiles bucket
+ *   R2 binding TILES       → etzhayyim-maps-tiles bucket
  *     v1/planet-{VERSION}.pmtiles  — built by 50-infra/k8s/maps-tilemaker-build
  *     v1/manifest.json             — { version, pmtilesKey, builtAt, bytes, ... }
  *   KV binding TILE_MANIFEST
@@ -228,7 +228,7 @@ async function loadManifest(env: Env): Promise<TileManifest | null> {
 function buildStyleJson(origin: string, attribution: string): Record<string, unknown> {
   return {
     version: 8,
-    name: 'gftd-openmaptiles',
+    name: 'etzhayyim-openmaptiles',
     glyphs: `${origin}/fonts/{fontstack}/{range}.pbf`, // not served — placeholder
     sources: {
       openmaptiles: {

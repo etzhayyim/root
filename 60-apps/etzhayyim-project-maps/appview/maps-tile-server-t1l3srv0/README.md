@@ -18,13 +18,13 @@ Cloudflare R2. Serves standard Mapbox Vector Tiles over
 
 | Binding | Kind | Resource |
 |---|---|---|
-| `TILES`          | R2  | `gftd-maps-tiles` |
+| `TILES`          | R2  | `etzhayyim-maps-tiles` |
 | `TILE_MANIFEST`  | KV  | `maps-tile-manifest` (60 s TTL cache of `manifest.json`) |
 
 ## R2 layout
 
 ```
-gftd-maps-tiles/
+etzhayyim-maps-tiles/
   v1/
     manifest.json              # { version, pmtilesKey, builtAt, bytes, ... }
     planet-{VERSION}.pmtiles   # tilemaker output
@@ -55,16 +55,16 @@ gzip, so this is normally a non-issue.
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-maps/appview/maps-tile-server-t1l3srv0
+cd 60-apps/etzhayyim-project-maps/appview/maps-tile-server-t1l3srv0
 
 # one-time: create KV namespace and paste the id into wrangler.jsonc
 wrangler kv:namespace create TILE_MANIFEST
 
 # one-time: create R2 bucket
-wrangler r2 bucket create gftd-maps-tiles
+wrangler r2 bucket create etzhayyim-maps-tiles
 
 # deploy
-gftd deploy
+etzhayyim deploy
 ```
 
 ## Post-deploy smoke test

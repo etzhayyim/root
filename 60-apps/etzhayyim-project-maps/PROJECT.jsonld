@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org/",
   "@type": "Project",
-  "name": "Spatial Intelligence Platform (ai-gftd-project-maps)",
+  "name": "Spatial Intelligence Platform (etzhayyim-project-maps)",
   "status": "In Progress",
-  "identifier": "ai-gftd-project-maps",
+  "identifier": "etzhayyim-project-maps",
   "description": "A spatial intelligence platform for AI agents (cross-actor) to perceive, plan, and act in physical and digital spaces using S2, H3, and MGRS standards.",
   "hasPart": [
     {
@@ -62,19 +62,19 @@
     {
       "@type": "Service",
       "name": "Spatial Logic Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-spatial-logic",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-spatial-logic",
       "description": "Handles S2 logic, geofencing, and hierarchical spatial management."
     },
     {
       "@type": "Service",
       "name": "Tactical Movement Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-tactical-movement",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-tactical-movement",
       "description": "Handles H3-based pathfinding and movement cost calculations."
     },
     {
       "@type": "Service",
       "name": "Military Interop Actor",
-      "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-military-interop",
+      "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-military-interop",
       "description": "Handles MGRS conversion and NATO standards compatibility."
     },
     {
@@ -233,24 +233,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "Spatial Intelligence Platform (ai-gftd-project-maps) Scheduler",
-          "identifier": "ai-gftd-project-maps/scheduler",
+          "name": "Spatial Intelligence Platform (etzhayyim-project-maps) Scheduler",
+          "identifier": "etzhayyim-project-maps/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [

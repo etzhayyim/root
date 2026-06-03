@@ -272,8 +272,8 @@ async function callMapsLangserverRead(nsidValue: string, payload: Uint8Array): P
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-gftd-actor-did": "did:web:maps.etzhayyim.com",
-        "x-gftd-trace-id": `maps-edge-${Date.now()}`,
+        "x-etzhayyim-actor-did": "did:web:maps.etzhayyim.com",
+        "x-etzhayyim-trace-id": `maps-edge-${Date.now()}`,
       },
       body,
       signal: AbortSignal.timeout(50_000),
@@ -797,7 +797,7 @@ async function buildKamiRuntimePackage(tileUrl: string, source: string, styleUrl
   const terrainSource = terrainSources.find((entry) => entry.isDefault) ?? terrainSources[0] ?? null;
   const preset = budgetForChunkSizeMeters(chunkSizeMeters);
   return {
-    schemaVersion: "gftd.kami.street-chunk.v1",
+    schemaVersion: "etzhayyim.kami.street-chunk.v1",
     packageKind: "streetChunkRuntimePackage",
     tileUrl,
     tile_url: tileUrl,
@@ -3867,7 +3867,7 @@ function gsplatPublicUrl(b2Key: string): string {
   // path inherits the same access policy without per-request signing).
   const base =
     str((_mapsEnv as any).B2_PUBLIC_BASE_URL) ||
-    "https://ai-gftd-nats.s3.us-west-004.backblazeb2.com";
+    "https://etzhayyim-nats.s3.us-west-004.backblazeb2.com";
   return `${base.replace(/\/$/, "")}/${b2Key.replace(/^\//, "")}`;
 }
 

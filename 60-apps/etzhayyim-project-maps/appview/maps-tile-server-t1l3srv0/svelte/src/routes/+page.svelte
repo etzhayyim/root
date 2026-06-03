@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Maps Tile Server T1l3srv0",
-  "project": "ai-gftd-project-maps",
+  "project": "etzhayyim-project-maps",
   "name": "maps-tile-server-t1l3srv0",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-maps/appview/maps-tile-server-t1l3srv0/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-maps/appview/maps-tile-server-t1l3srv0/svelte/src/routes/+page.svelte"
 };
 </script>
 

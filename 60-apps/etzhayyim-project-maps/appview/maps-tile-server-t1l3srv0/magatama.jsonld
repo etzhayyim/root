@@ -31,7 +31,7 @@
     "description": "Self-hosted MVT tile server reading OpenMapTiles PMTiles from R2.",
     "displayName": "Maps Tile Server",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "maps",
   "runtime": {

@@ -1,10 +1,10 @@
-# maps — yatachain migration TODO
+# maps — kotoba-datomic migration TODO
 
-Authoritative target: **yatachain L1 witnessed** for low-write entity registrations, **yatachain L0 nominal** for blob registries, **yatachain-projection** (ADR TBD) for hot-path spatial / GTFS-RT queries. See:
+Authoritative target: **kotoba-datomic L1 witnessed** for low-write entity registrations, **kotoba-datomic L0 nominal** for blob registries, **kotoba-datomic-projection** (ADR TBD) for hot-path spatial / GTFS-RT queries. See:
 
-- [ADR-2605231400](../../90-docs/adr/2605231400-yatachain-holochain-iso-substrate.md) — yatachain naming + 7-layer mapping
+- [ADR-2605231400](../../90-docs/adr/2605231400-kotoba-datomic-holochain-iso-substrate.md) — kotoba-datomic naming + 7-layer mapping
 - [ADR-2605172000](../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — RW-free substrate hard rules
-- [`10-protocol/yatachain/SPEC.md`](../../10-protocol/yatachain/SPEC.md) — conformance levels L0 / L1 / L2
+- [`10-protocol/kotoba-datomic/SPEC.md`](../../10-protocol/kotoba-datomic/SPEC.md) — conformance levels L0 / L1 / L2
 
 ## Current state (2026-05-23)
 
@@ -20,9 +20,9 @@ Authoritative target: **yatachain L1 witnessed** for low-write entity registrati
 
 ## Tier classification
 
-Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformance levels](../../10-protocol/yatachain/SPEC.md):
+Every maps write/read maps to one of four tiers per [kotoba-datomic SPEC §Conformance levels](../../10-protocol/kotoba-datomic/SPEC.md):
 
-### Tier A — yatachain L0 ready (pure MST migration, low write rate)
+### Tier A — kotoba-datomic L0 ready (pure MST migration, low write rate)
 
 | Surface | Commands | Lex/policy work |
 |---|---|---|
@@ -32,9 +32,9 @@ Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformanc
 | Collection plumbing (4) | `createCollectionJob`, `advanceJob`, `listJobs`, `getJobStatus` | event log, rkey: `tid` |
 | Registry & Legal Entity (22 register/list commands per ADR-0013) | LegalEntity, LandRegistry, PropertyRegistry, BusinessRegistry, ConstructionPermit, OperatingLicense, ZoningRecord + ownership/registry-link commands | rkey: `literal:{registry_type}:{registry_number}` |
 
-**Tier A is ~46 of 172 commands. Migration is mechanical: swap `createKyselyDb(env.HYPERDRIVE).insertInto(...)` → `sdk.write({collection, record})`; reads via `sdk.read({collection, prefix})`. Pattern reference: [`60-apps/ai-gftd-project-open-isic/rw-free/`](../ai-gftd-project-open-isic/rw-free/).**
+**Tier A is ~46 of 172 commands. Migration is mechanical: swap `createKyselyDb(env.HYPERDRIVE).insertInto(...)` → `sdk.write({collection, record})`; reads via `sdk.read({collection, prefix})`. Pattern reference: [`60-apps/etzhayyim-project-open-isic/rw-free/`](../etzhayyim-project-open-isic/rw-free/).**
 
-### Tier B — yatachain L1 witnessed (one-shot heritage data, low write rate, append-only)
+### Tier B — kotoba-datomic L1 witnessed (one-shot heritage data, low write rate, append-only)
 
 | Surface | Commands | Notes |
 |---|---|---|
@@ -45,9 +45,9 @@ Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformanc
 | Vision / Satellite metadata | `vision_import_entities`, `satellite_import_scene`, `list_vision_results`, `list_satellite_scenes` | metadata-only; blob in Tier D |
 | Mapraly POI batch | `mapraly_import_poi`, `mapraly_list_pois` | append-only; per-source provenance via `source_did` |
 
-**Tier B is ~50 commands. Requires `witness-selector.ts` + `quorum.ts` (yatachain-witnesses, follow-up #2-#3 from ADR-2605231400 implementation plan) before migration starts.**
+**Tier B is ~50 commands. Requires `witness-selector.ts` + `quorum.ts` (kotoba-datomic-witnesses, follow-up #2-#3 from ADR-2605231400 implementation plan) before migration starts.**
 
-### Tier C — yatachain-projection required (hot path, sub-100ms reads, cannot go pure MST)
+### Tier C — kotoba-datomic-projection required (hot path, sub-100ms reads, cannot go pure MST)
 
 | Surface | Commands | Why |
 |---|---|---|
@@ -61,7 +61,7 @@ Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformanc
 | Sensor | `sensor_query` (range), `sensor_latest`, `list_sensor_alerts` | append-write Tier B, but reads need indexed time series |
 | Search | `spot_search` (area+category+query), `spot_recommend` (rating-based nearby), `search_places` | full-text + spatial + ranking |
 
-**Tier C is ~60 commands. Blocked on yatachain-projection ADR (follow-up #6 from ADR-2605231400 implementation plan). Until that ADR lands, Tier C continues to run on RW as a Charter Rider §carve-out transition state — see [ADR-2605222330](../../90-docs/adr/2605222330-etzhayyim-com-substrate-violation-transition-window.md) for the analogous etzhayyim.com transition-window precedent.**
+**Tier C is ~60 commands. Blocked on kotoba-datomic-projection ADR (follow-up #6 from ADR-2605231400 implementation plan). Until that ADR lands, Tier C continues to run on RW as a Charter Rider §carve-out transition state — see [ADR-2605222330](../../90-docs/adr/2605222330-etzhayyim-com-substrate-violation-transition-window.md) for the analogous etzhayyim.com transition-window precedent.**
 
 ### Tier D — IPFS blob (content-addressed, swap B2/R2 → IPFS direct)
 
@@ -71,7 +71,7 @@ Every maps write/read maps to one of four tiers per [yatachain SPEC §Conformanc
 | gsplat baked GLB (TSDF fusion mesh) | B2 `maps-bulk-ingest/gsplat/{ab}/{sha256}.glb` | same scheme | ✅ same as above |
 | Satellite COGs (Sentinel-2 / Landsat / HLS / NAIP) | external STAC URLs (no maps-owned blob) | n/a | ✅ no migration needed; STAC URL stored in record |
 | Mapillary street view | external URL | n/a | ✅ no migration |
-| User post images (with EXIF) | atproto PDS blob (`@atproto/api` upload) | atproto-native | ✅ already yatachain-aligned (PDS blob ≈ IPFS CID) |
+| User post images (with EXIF) | atproto PDS blob (`@atproto/api` upload) | atproto-native | ✅ already kotoba-datomic-aligned (PDS blob ≈ IPFS CID) |
 | Web crawl WET/WAT records | via `site.etzhayyim.com` cross-actor | external | ✅ delegated, no maps-side action |
 | OSM raster tile fallback (zoom ≥ 7) | external (`tile.openstreetmap.org`) | n/a | ✅ no maps-owned blob; tracked as `[[migrations]] maps-shader-view-precision` for elimination |
 
@@ -101,19 +101,19 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 
 ### Phase 0 — Audit & prerequisite (this commit + 1 week)
 
-- [x] Adopt `yatachain` as architecture name (ADR-2605231400)
+- [x] Adopt `kotoba-datomic` as architecture name (ADR-2605231400)
 - [x] This `MIGRATION-TODO.md` published
-- [x] Implement `20-actors/etzhayyim-sdk/src/yatachain/{witness-selector,quorum}.ts` (ADR-2605231400 implementation plan #1-#2, shipped 2026-05-23)
-- [x] Lexicon `com.etzhayyim.yatachain.{attestation,membraneRule}` published (ADR-2605231400 #3, shipped 2026-05-23)
-- [x] yatachain-projection ADR drafted ([ADR-2605231500](../../90-docs/adr/2605231500-yatachain-projection.md), shipped 2026-05-23) — unblocks Tier C
+- [x] Implement `20-actors/etzhayyim-sdk/src/kotoba-datomic/{witness-selector,quorum}.ts` (ADR-2605231400 implementation plan #1-#2, shipped 2026-05-23)
+- [x] Lexicon `com.etzhayyim.kotoba-datomic.{attestation,membraneRule}` published (ADR-2605231400 #3, shipped 2026-05-23)
+- [x] kotoba-datomic-projection ADR drafted ([ADR-2605231500](../../90-docs/adr/2605231500-kotoba-datomic-projection.md), shipped 2026-05-23) — unblocks Tier C
 
 ### Phase 1 — Tier A migration (2 weeks after Phase 0)
 
 - [x] **Source DID registry** (`registerSource` / `listSources`) — ported 2026-05-23. Package: [`rw-free/src/source/`](rw-free/src/source/). Lexicon: [`source.json`](../../00-contracts/lexicons/com/etzhayyim/maps/source.json). 24-record seed in [`rw-free/data/sources.json`](rw-free/data/sources.json). 53 vitest. Pending: live PDS seed run after `ETZ_SEEDER_DID` + auth wired
-- [x] **Geo DID Management** (8 commands) — ported 2026-05-23. Package: [`rw-free/src/geo/`](rw-free/src/geo/). 5 lexicons: [`region.json`](../../00-contracts/lexicons/com/etzhayyim/maps/region.json), [`geoAlias.json`](../../00-contracts/lexicons/com/etzhayyim/maps/geoAlias.json), [`verticalZone.json`](../../00-contracts/lexicons/com/etzhayyim/maps/verticalZone.json), [`naturalZone.json`](../../00-contracts/lexicons/com/etzhayyim/maps/naturalZone.json), [`layerCoordinator.json`](../../00-contracts/lexicons/com/etzhayyim/maps/layerCoordinator.json). 59-record seed (14 vertical + 34 natural + 11 layer) + 29-scheme manifest. 41 vitest. **Note**: `resolveZones3d` returns vertical zone only; natural-zone polygon intersection is a yatachain-projection (Tier C). Region/Alias seeds are pipeline-driven (Wikidata SPARQL → bulk-ingest), not in this constant-fixture seeder
+- [x] **Geo DID Management** (8 commands) — ported 2026-05-23. Package: [`rw-free/src/geo/`](rw-free/src/geo/). 5 lexicons: [`region.json`](../../00-contracts/lexicons/com/etzhayyim/maps/region.json), [`geoAlias.json`](../../00-contracts/lexicons/com/etzhayyim/maps/geoAlias.json), [`verticalZone.json`](../../00-contracts/lexicons/com/etzhayyim/maps/verticalZone.json), [`naturalZone.json`](../../00-contracts/lexicons/com/etzhayyim/maps/naturalZone.json), [`layerCoordinator.json`](../../00-contracts/lexicons/com/etzhayyim/maps/layerCoordinator.json). 59-record seed (14 vertical + 34 natural + 11 layer) + 29-scheme manifest. 41 vitest. **Note**: `resolveZones3d` returns vertical zone only; natural-zone polygon intersection is a kotoba-datomic-projection (Tier C). Region/Alias seeds are pipeline-driven (Wikidata SPARQL → bulk-ingest), not in this constant-fixture seeder
 - [x] **Display layer** (`display_layer_define` / `list_display_layers`) — ported 2026-05-23. Package: [`rw-free/src/display-layer/`](rw-free/src/display-layer/). Lexicon: [`displayLayer.json`](../../00-contracts/lexicons/com/etzhayyim/maps/displayLayer.json) (8 render kinds: fill/line/circle/symbol/extrude/heatmap/raster/gsplat). 24 vitest. No constant seed — operator-defined
 - [x] **Registry & Legal Entity register/list** (22 commands) — ported 2026-05-23. Package: [`rw-free/src/registry/`](rw-free/src/registry/). 3 discriminated lexicons: [`legalEntity.json`](../../00-contracts/lexicons/com/etzhayyim/maps/legalEntity.json) (6 entity types), [`registry.json`](../../00-contracts/lexicons/com/etzhayyim/maps/registry.json) (8 registry types), [`ownership.json`](../../00-contracts/lexicons/com/etzhayyim/maps/ownership.json) (5 relations + sharePctBps as bps integer to avoid float drift). 34 vitest. `ownershipChain` + `entityHistory` are TID-keyed event log scans (sort by `effectiveDate`). No constant seed — pipeline-driven (GLEIF / NTA / OpenCorporates etc.)
-- [x] **Collection plumbing** (`createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`) — ported 2026-05-23. Package: [`rw-free/src/collection/`](rw-free/src/collection/). 2 lexicons: [`collectionJob.json`](../../00-contracts/lexicons/com/etzhayyim/maps/collectionJob.json) (immutable descriptor, `literal:{jobId}` rkey) + [`jobEvent.json`](../../00-contracts/lexicons/com/etzhayyim/maps/jobEvent.json) (append-only TID-keyed event log; 6 states, 4 terminal). `summariseEvents()` reducer derives latest state by sorting events ascending and cascading optional fields. 45 vitest. Fan-out: `advanceJob` writes a new event, never mutates the descriptor (matches yatachain append-only invariant)
+- [x] **Collection plumbing** (`createCollectionJob` / `advanceJob` / `listJobs` / `getJobStatus`) — ported 2026-05-23. Package: [`rw-free/src/collection/`](rw-free/src/collection/). 2 lexicons: [`collectionJob.json`](../../00-contracts/lexicons/com/etzhayyim/maps/collectionJob.json) (immutable descriptor, `literal:{jobId}` rkey) + [`jobEvent.json`](../../00-contracts/lexicons/com/etzhayyim/maps/jobEvent.json) (append-only TID-keyed event log; 6 states, 4 terminal). `summariseEvents()` reducer derives latest state by sorting events ascending and cascading optional fields. 45 vitest. Fan-out: `advanceJob` writes a new event, never mutates the descriptor (matches kotoba-datomic append-only invariant)
 - [x] **`pymagatama.substrate` Python SDK primitive** — shipped 2026-05-23. Module at `20-actors/magatama/py/src/pymagatama/substrate/` with `Etzhayyim` class (`write` / `read` / `verify`) mirroring the TS `@etzhayyim/sdk` shape. httpx + mock-transport; 18/18 tests pass. Auth: `session_jwt` (user) or `internal_token` (service-to-service via `x-magatama-verified`). `verify()` is scaffold (parity with TS 0.1.0-alpha)
 - [x] **`geonames_dumper.py` pod** — ported 2026-05-23. `USE_PYMAGATAMA_SUBSTRATE=1` env flag enables `pymagatama.substrate` write path to `com.etzhayyim.maps.feature`; legacy psycopg2 path retained as fallback. `_geonames_row_to_feature()` pure converter (h3-py via lazy import; bbox in microdegrees per lexicon). 8 converter tests in `bulk-ingest/tests/test_geonames_port.py`
 - [ ] `aismarine_wikidata_lei.py` pod — recipe documented in [`bulk-ingest/PORT-NOTES.md`](bulk-ingest/PORT-NOTES.md) (2 INSERT sites → 2 `com.etzhayyim.maps.ownership` records each). Pod file annotated with migration target. Apply the same 5-step pattern as geonames port
@@ -130,7 +130,7 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 
 ### Phase 3 — Tier B L1 witnessed migration (3 weeks after Phase 0)
 
-- [x] **Pre-req: witness-selector + quorum + Murakumo fleet capacity check** — shipped 2026-05-23. `@etzhayyim/sdk/yatachain` exports `selectWitnesses` + `collectQuorum` + `produceAttestation` + `writeWithWitnesses` + `createInMemoryWitnessTransport` + `createPdsPollingWitnessTransport`. Fleet capacity sized in ADR-2605231400 (10 nodes × 15 cells, fanout 5 → ~6.7 cells/quorum-task)
+- [x] **Pre-req: witness-selector + quorum + Murakumo fleet capacity check** — shipped 2026-05-23. `@etzhayyim/sdk/kotoba-datomic` exports `selectWitnesses` + `collectQuorum` + `produceAttestation` + `writeWithWitnesses` + `createInMemoryWitnessTransport` + `createPdsPollingWitnessTransport`. Fleet capacity sized in ADR-2605231400 (10 nodes × 15 cells, fanout 5 → ~6.7 cells/quorum-task)
 - [x] **Tier B production demo: `register_mountain` (+ `register_feature` + `register_building`)** — shipped 2026-05-23. Package: [`rw-free/src/feature/`](rw-free/src/feature/). Lexicon: existing [`feature.json`](../../00-contracts/lexicons/com/etzhayyim/maps/feature.json) (label-discriminated). `featureSchemaValidator` checks 4 required fields + bbox quad invariant. `DEFAULT_FEATURE_MEMBRANE_RULE` 3-of-5/council fixture. 9 vitest including end-to-end Mount Fuji registration with mock 30-cell fleet → witnessed/accept verdict + 4 rejection paths (missing h3Cell, malformed geometry, h3Resolution out of range, partial bbox)
 - [ ] Remaining Geography Intelligence (17 commands) — port + witness following the `register_mountain` pattern (same lexicon, label-discriminated)
 - [ ] Building / Floor / Asset registration — `register_building` shipped as part of demo; remaining 11 commands (Floor / Asset / Sensor / TwinState) port + witness
@@ -141,16 +141,16 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 - [ ] Mapraly batch (3) — port + witness
 - [ ] Validation: ≥3-of-5 attestation persisted alongside CID for every Tier B record
 
-### Phase 4 — yatachain-projection ADR + Tier C design (blocked on follow-up #5)
+### Phase 4 — kotoba-datomic-projection ADR + Tier C design (blocked on follow-up #5)
 
-- [ ] ADR draft: defines `yatachain-projection` (regenerable cache layer reading from yatachain-chain + yatachain-dht, replayed deterministically)
-- [ ] Reframe `vertex_spatial` and `vertex_maps_*` RW tables as yatachain-projection outputs (NOT canonical state)
+- [ ] ADR draft: defines `kotoba-datomic-projection` (regenerable cache layer reading from kotoba-datomic-chain + kotoba-datomic-dht, replayed deterministically)
+- [ ] Reframe `vertex_spatial` and `vertex_maps_*` RW tables as kotoba-datomic-projection outputs (NOT canonical state)
 - [ ] Snapshot-and-replay tool: rebuild any projection table from MST + IPFS without operator intervention
 - [ ] Test: drop projection DB, replay from MST, byte-identical to pre-drop state for fixed slice
 
 ### Phase 5 — Tier C reframing (4-8 weeks after Phase 4 ADR lands)
 
-- [ ] `tileGeoJson` XRPC: backend swap (still RW under the hood, but reads marked "yatachain-projection L1-projection conformance")
+- [ ] `tileGeoJson` XRPC: backend swap (still RW under the hood, but reads marked "kotoba-datomic-projection L1-projection conformance")
 - [ ] `getChunk`, `realtimeDelaysAtStop`, `nextDeparturesAtStop`, `graph_traverse`, `graph_neighbors`, `search_resources`, `infra_query`, `infra_cross_section`, `spatial_event_query` + 8 other Tier C reads — projection-conformance label
 - [ ] GTFS-RT MV writes: dumper writes to MST first, projection MV consumes MST commits as input (streaming projection rebuild)
 - [ ] Operator playbook: how to drop & replay projection DB (drift detection, repair)
@@ -163,9 +163,9 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 
 ## Open questions
 
-- **OQ-M-1** (Lexicon NSID cutover): when does `com.etzhayyim.apps.maps.*` migrate to `com.etzhayyim.maps.*`? This is independent of yatachain conformance but needed for Charter §1 doctrinal-position consistency (operating entity = etzhayyim, not gftd). Suggest: bundle into Phase 1.
-- **OQ-M-2** (Witness on encrypted user-post EXIF): per [ADR-2605181100](../../90-docs/adr/2605181100-app-etzhayyim-encrypted-records.md) `com.etzhayyim.encrypted.*` envelope, can a witness validate envelope structure + signature without decrypting EXIF payload? Tracked as yatachain SPEC OQ-1; resolution blocks user post path.
-- **OQ-M-3** (Search index witness): vector IVF backfill (`maps_search_ivf_backfill.py`) produces a derived structure (embedding index), not a primary record. Treat as yatachain-projection (Tier C) or as a derived Tier B record kind with witness over the embedding model hash? Suggest projection unless audit trail is needed.
+- **OQ-M-1** (Lexicon NSID cutover): when does `com.etzhayyim.apps.maps.*` migrate to `com.etzhayyim.maps.*`? This is independent of kotoba-datomic conformance but needed for Charter §1 doctrinal-position consistency (operating entity = etzhayyim, not etzhayyim). Suggest: bundle into Phase 1.
+- **OQ-M-2** (Witness on encrypted user-post EXIF): per [ADR-2605181100](../../90-docs/adr/2605181100-app-etzhayyim-encrypted-records.md) `com.etzhayyim.encrypted.*` envelope, can a witness validate envelope structure + signature without decrypting EXIF payload? Tracked as kotoba-datomic SPEC OQ-1; resolution blocks user post path.
+- **OQ-M-3** (Search index witness): vector IVF backfill (`maps_search_ivf_backfill.py`) produces a derived structure (embedding index), not a primary record. Treat as kotoba-datomic-projection (Tier C) or as a derived Tier B record kind with witness over the embedding model hash? Suggest projection unless audit trail is needed.
 - **OQ-M-4** (Cross-actor invoke during witness): commands that `sdk.pds.dispatch({type:"invoke", payload:{did:"site.etzhayyim.com", ...}})` (e.g., `seed_geo_domains`) — does the witness wait for the cross-actor reply, or attest only on the dispatch envelope? Suggest envelope-only attestation; downstream actor produces its own witnessed records.
 - **OQ-M-5** (gsplat job state log): `vertex_maps_gsplat_job` is high-frequency append (per-phase events). Treat as Tier B (witness every event) or Tier C (projection from MST job log)? Suggest C — witness overhead per heartbeat would balloon validation load.
 
@@ -173,16 +173,16 @@ All 13 pods currently use `asyncpg → RisingWave`. Per-pod migration target:
 
 - NSID cutover ritual (OQ-M-1) — needs its own short ADR if not bundled with Phase 1
 - Charter Rider implications for any commercial / paid maps surface — none currently, but if `tileGeoJson` gets metered, ADR-2605192115 §4 carve-out review required
-- KAMI 3D rendering / WASM bindings / shader precision migrations — separate `deps.toml [[migrations]] maps-shader-view-precision` track, not yatachain-blocking
+- KAMI 3D rendering / WASM bindings / shader precision migrations — separate `deps.toml [[migrations]] maps-shader-view-precision` track, not kotoba-datomic-blocking
 - `maps-tile-server-t1l3srv0` standalone tile server — independent migration, audit in follow-up PR
 
 ## Success criteria
 
-The maps app is **yatachain L1-witnessed conformant** when:
+The maps app is **kotoba-datomic L1-witnessed conformant** when:
 
-1. zero `createKyselyDb(env.HYPERDRIVE)` call sites remain in `appview/maps-ui-uqpel6i6/src/app.ts` except those explicitly marked `// yatachain-projection` and covered by Phase 4 ADR
+1. zero `createKyselyDb(env.HYPERDRIVE)` call sites remain in `appview/maps-ui-uqpel6i6/src/app.ts` except those explicitly marked `// kotoba-datomic-projection` and covered by Phase 4 ADR
 2. zero `asyncpg.connect(RW_DSN)` call sites remain in `bulk-ingest/workers/` except Tier C (GTFS-RT / NOAA AIS / aismarine / search-IVF)
-3. every Tier B record carries ≥3-of-5 attestation in its companion `com.etzhayyim.yatachain.attestation` record
+3. every Tier B record carries ≥3-of-5 attestation in its companion `com.etzhayyim.kotoba-datomic.attestation` record
 4. CI lint (`70-tools/scripts/lint/substrate-boundary.mjs`) passes without `maps-` exemption
 5. PDS MST root for `maps.etzhayyim.com` anchors to Base L2 within 6 h SLA
 

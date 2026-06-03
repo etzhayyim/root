@@ -27,7 +27,7 @@
 		}
 	}
 
-	const SVC = 'gftd.maps.v1.MapsUIService';
+	const SVC = 'etzhayyim.maps.v1.MapsUIService';
 
 	interface SearchResult {
 		id: string;
@@ -90,7 +90,7 @@
 			try {
 				const config = await ctx.backend.call<{ style_url?: string }>(SVC, 'RuntimeConfig', {});
 				if (config.style_url) styleUrl = config.style_url;
-			} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-maps/wasm/maps-ui-uqpel6i6/svelte/src/appview.svelte: suppressed error", error); }
+			} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-maps/wasm/maps-ui-uqpel6i6/svelte/src/appview.svelte: suppressed error", error); }
 
 			mapInstance = new maplibregl.Map({
 				container: mapContainer,
@@ -127,7 +127,7 @@
 							lng: String(clickLng),
 						});
 					}
-				} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-maps/wasm/maps-ui-uqpel6i6/svelte/src/appview.svelte: suppressed error", error); }
+				} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-maps/wasm/maps-ui-uqpel6i6/svelte/src/appview.svelte: suppressed error", error); }
 			});
 		} catch (e) {
 			mapError = e instanceof Error ? e.message : 'Failed to initialize map';
@@ -182,7 +182,7 @@
 			if (result.features?.length) {
 				weather = result.features[0].properties;
 			}
-		} catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-maps/wasm/maps-ui-uqpel6i6/svelte/src/appview.svelte: suppressed error", error); }
+		} catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-maps/wasm/maps-ui-uqpel6i6/svelte/src/appview.svelte: suppressed error", error); }
 	}
 
 	function formatDistance(meters: number): string {

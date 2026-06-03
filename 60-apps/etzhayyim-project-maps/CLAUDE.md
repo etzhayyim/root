@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/maps/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# ai-gftd-project-maps
+# etzhayyim-project-maps
 
 Spatial Intelligence + Digital Twin Platform (maps.etzhayyim.com). Graph-first architecture — 自前グラフを育て、データがない時だけ外部ソースから取得・永続化。全外部ソースは path-based DID で identity 管理。
 
@@ -96,14 +96,14 @@ landmark / 局所再構成の preview / QC 用途のみ。
 Runtime delivery は引き続き `mesh_tile` GLB (`maps3d.simplifyAndExport` BPMN)。
 splat→mesh の bake pipeline (PLY → `gsplat` mesh extract → Open3D
 quadric_decimation → KTX2 texture → `vertex_spatial.Building` upsert) は
-`60-apps/ai-gftd-project-maps/bulk-ingest/workers/gsplat_bake_dumper.py` (TODO)
+`60-apps/etzhayyim-project-maps/bulk-ingest/workers/gsplat_bake_dumper.py` (TODO)
 として別 PR で実装する。`edge_maps_gsplat_baked_to` で lineage を残す。
 
 #### Mapillary trainer bring-up
 
 ゲート解除 (operator):
 
-1. `kubectl -n maps-bulk-ingest apply -f 60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-gsplat-train.yaml` (replicas=0 で適用)
+1. `kubectl -n maps-bulk-ingest apply -f 60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-gsplat-train.yaml` (replicas=0 で適用)
 2. RunPod template + Serverless endpoint を `runpod-endpoint-gsplat/README.md` 手順で作成、endpoint id を控える
 3. `kubectl -n maps-bulk-ingest patch secret maps-bulk-ingest-credentials --type merge -p '{"stringData":{"RUNPOD_API_KEY":"…","RUNPOD_ENDPOINT_ID_GSPLAT":"…","MAPILLARY_ACCESS_TOKEN":"…"}}'`
 4. `kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gsplat-train --replicas=1`
@@ -112,7 +112,7 @@ quadric_decimation → KTX2 texture → `vertex_spatial.Building` upsert) は
 Phase 2 (real COLMAP + gsplat) への昇格 (2026-05-09 shipped):
 
 ```bash
-cd 60-apps/ai-gftd-project-maps/runpod-endpoint-gsplat
+cd 60-apps/etzhayyim-project-maps/runpod-endpoint-gsplat
 IMAGE=ghcr.io/etzhayyim/maps-runpod-gsplat:phase2-$(date -u +%Y%m%d%H%M%S)
 docker build --platform linux/amd64 -f Dockerfile.phase2 -t "$IMAGE" .
 docker push "$IMAGE"
@@ -212,7 +212,7 @@ Client Request
 
 Lexicon: `00-contracts/lexicons/com/etzhayyim/apps/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.json`。
 BPMN: `etzhayyim-root/00-contracts/bpmn/com/etzhayyim/maps/bulkRefresh{GtfsJp,Openflights,FerryRoutes}.bpmn`。
-K8s manifest: `60-apps/ai-gftd-project-maps/bulk-ingest/k8s/deployment-{gtfs-jp,openflights,ferry-routes}.yaml`。
+K8s manifest: `60-apps/etzhayyim-project-maps/bulk-ingest/k8s/deployment-{gtfs-jp,openflights,ferry-routes}.yaml`。
 Image: `ghcr.io/etzhayyim/maps-bulk-ingest:1.1.0` (1 image / N command, CMD で worker を切替)。
 
 **運行予定の粒度** (2026-04-27 update, Phase 2 shipped):
@@ -234,9 +234,9 @@ psql $DATABASE_URL -c "\d+ vertex_maps_stop_time"
 psql $DATABASE_URL -c "\di idx_maps_*"
 ```
 
-**Phase 2 row-count sizing** (advisor #2): `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py` で 1 feed の vertex_maps_stop_time 投影行数を DB 書き込みなしで測定する。Phase 3 (RT) サイジングはこの数字で決まる。実行例:
+**Phase 2 row-count sizing** (advisor #2): `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py` で 1 feed の vertex_maps_stop_time 投影行数を DB 書き込みなしで測定する。Phase 3 (RT) サイジングはこの数字で決まる。実行例:
 ```
-python3 60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py \
+python3 60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py \
   https://example.tld/path/to/feed.zip --feed-id tokyo-metro
 # stdout JSON projected_rows.vertex_maps_stop_time が単一 feed の見積行数。
 # 5M 超えたら Phase 3 RT 設計の table partitioning を見直す。
@@ -247,7 +247,7 @@ python3 60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py \
 | 部品 | 場所 | 状態 |
 |---|---|---|
 | Schema | `30-graph/graph-schema/migrations/20260428160000_vertex_maps_realtime.ts` | shipped (3 tables + 3 streaming MV; ADR-2604241342 4 失敗パターンに該当しない: 生 `CREATE TABLE/INDEX/MATERIALIZED VIEW` のみ、`ON CONFLICT` なし、`vitest` import なし) |
-| Dumper pod | `60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py` | shipped — internal scheduler, 30s VP / 60s TU / 300s alerts; `gtfs-realtime-bindings` protobuf parser; **`_resolve_feeds()` raises if neither `GTFS_RT_FEED_INDEX_URL` nor `ODPT_API_KEY` is set** (CrashLoopBackOff is the gate) |
+| Dumper pod | `60-apps/etzhayyim-project-maps/bulk-ingest/workers/gtfs_rt_dumper.py` | shipped — internal scheduler, 30s VP / 60s TU / 300s alerts; `gtfs-realtime-bindings` protobuf parser; **`_resolve_feeds()` raises if neither `GTFS_RT_FEED_INDEX_URL` nor `ODPT_API_KEY` is set** (CrashLoopBackOff is the gate) |
 | K8s deploy | `bulk-ingest/k8s/deployment-gtfs-rt.yaml` | shipped, `replicas: 0` (manual scale up after auth config) |
 | XRPC lexicon | `00-contracts/lexicons/com/etzhayyim/apps/maps/realtimeDelaysAtStop.json` | shipped |
 | Worker handler | `cmdRealtimeDelaysAtStop` in `appview/maps-ui-uqpel6i6/src/app.ts` | shipped — 3 parallel queries (departures + rtAvailable probe + alerts), `LEFT JOIN mv_maps_recent_trip_update` so RT-offline degrades to static |
@@ -262,16 +262,16 @@ python3 60-apps/ai-gftd-project-maps/bulk-ingest/workers/gtfs_jp_dryrun.py \
 # 1. Apply schema
 cd 30-graph/graph-schema && pnpm db:migrate latest
 # 2. Build + push image (gtfs-realtime-bindings)
-cd 60-apps/ai-gftd-project-maps/bulk-ingest && ./deploy.sh build
+cd 60-apps/etzhayyim-project-maps/bulk-ingest && ./deploy.sh build
 # 3. Apply k8s manifest (still replicas=0)
 ./deploy.sh apply
 # 4a. ODPT path:
-security add-generic-password -s gftd.transit -a ODPT_API_KEY -w 'XXX' -U
+security add-generic-password -s etzhayyim.transit -a ODPT_API_KEY -w 'XXX' -U
 kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
-  ODPT_API_KEY=$(security find-generic-password -s gftd.transit -a ODPT_API_KEY -w)
+  ODPT_API_KEY=$(security find-generic-password -s etzhayyim.transit -a ODPT_API_KEY -w)
 # 4b. or no-auth path:
 kubectl -n maps-bulk-ingest set env deploy/bulk-ingest-gtfs-rt \
-  GTFS_RT_FEED_INDEX_URL=https://ai-gftd-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-rt/index.json
+  GTFS_RT_FEED_INDEX_URL=https://etzhayyim-nats.s3.us-west-004.backblazeb2.com/maps-bulk-ingest/gtfs-rt/index.json
 # 5. Scale up
 kubectl -n maps-bulk-ingest scale deploy/bulk-ingest-gtfs-rt --replicas=1
 # 6. Verify cycle
@@ -571,8 +571,8 @@ Nominatim (OSM), Open-Meteo, ip-api, OSM Overpass, MLIT (国土数値情報), GT
 
 ```bash
 # maps-ui (TS native → account-level Worker, single consolidated Worker since 2026-04-22)
-cd 60-apps/ai-gftd-project-maps/appview/maps-ui-uqpel6i6
-gftd deploy
+cd 60-apps/etzhayyim-project-maps/appview/maps-ui-uqpel6i6
+etzhayyim deploy
 ```
 
 ## Current Status (2026-04-13)

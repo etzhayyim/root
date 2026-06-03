@@ -41,7 +41,7 @@
     "description": "Spatial intelligence + Digital Twin + Bayesian latent world model — places, routes, weather, infrastructure, buildings, sensors, simulation",
     "displayName": "Maps",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "maps",
   "routes": [
