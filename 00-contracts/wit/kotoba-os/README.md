@@ -21,7 +21,7 @@ toolchain is present) = **54 tests + 1 validated component + 1 e2e run**.
 |---|---|---|---|
 | D1 | boot manifest | `schemas/…-genesis-manifest.json` + Rust `GenesisManifest`/`validate()` | 3 py + (in 19 rust) |
 | D2 | userland | **2 real WASM components** `plc-control-guest/` + `mesh-agent-guest/` (capability-minimized) | 3+3 py |
-| D3 | scan-cycle = Datom txn | `reference/scan_cycle_model.py` + **wasmtime e2e** `plc-host-runner/` | 6 + 3 py |
+| D3 | scan-cycle = Datom txn | `scan_cycle_model.py` + **wasmtime e2e** (control+fuel+N3+**multi-actor**) | 6 + 5 py |
 | D4 | k8s OCI-CID | `schemas/…-oci-artifact.json` (digest=CID decode invariant) | 8 py |
 | D5 | agent-centric mesh | `kotoba-os-types::mesh` (source chain + witness quorum + membrane) | 7 rust |
 | D6 | sizing budget | `sizing-budget.json` (estimates, honestly labeled) | 7 py |
@@ -225,7 +225,10 @@ E2E OK
   gitignored (1744-line wasmtime tree; the runner is a harness, not an artifact).
 - **Fuel metering** (N2 soft-RT): the runner enables wasmtime `consume_fuel`,
   reports per-scan fuel (~1.4-1.8k units = a WCET-estimation input), and a
-  starved budget **traps** the guest (bounded execution). 4 e2e tests.
+- **Multi-actor, one log** (ADR §D2 core claim): the runner instantiates BOTH the
+  plc-control and mesh-agent components into ONE store (one HostState = one Datom
+  log) and interleaves control scans + agent steps — the combined log holds 2
+  control commands + 2 heartbeats. 5 e2e tests.
 
 ## Next maturity steps (tracked toward R1)
 

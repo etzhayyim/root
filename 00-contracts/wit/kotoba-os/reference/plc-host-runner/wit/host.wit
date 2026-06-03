@@ -39,3 +39,9 @@ world plc-host {
   import datom;
   export scan: func(cycle: u64) -> result<scan-report, string>;
 }
+
+// Host side for the mesh-agent component (datom-only, no device authority).
+world mesh-host {
+  import datom;
+  export step: func() -> result<u32, string>;
+}

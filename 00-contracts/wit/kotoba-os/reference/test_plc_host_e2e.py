@@ -38,10 +38,12 @@ class PlcHostEndToEnd(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        b = subprocess.run(["bash", str(_GUEST_BUILD)], capture_output=True,
-                           text=True, timeout=600)
-        if b.returncode != 0:
-            raise AssertionError(f"guest build failed:\n{b.stdout}\n{b.stderr}")
+        # the host now loads BOTH components (multi-actor demo) — build both guests.
+        for guest in (_GUEST_BUILD, _HERE / "mesh-agent-guest" / "build.sh"):
+            b = subprocess.run(["bash", str(guest)], capture_output=True,
+                               text=True, timeout=600)
+            if b.returncode != 0:
+                raise AssertionError(f"guest build failed ({guest}):\n{b.stdout}\n{b.stderr}")
         r = subprocess.run(["cargo", "run", "--release"], cwd=str(_HOST),
                            capture_output=True, text=True, timeout=900)
         cls.out = r.stdout
@@ -74,6 +76,12 @@ class PlcHostEndToEnd(unittest.TestCase):
         self.assertTrue(consumed and all(c > 0 for c in consumed))
         # a starved budget traps the guest -> enforceable bound (not unbounded)
         self.assertIn("FUEL starved trapped=yes", self.out)
+
+    def test_multi_actor_one_datom_log(self):
+        # ADR §D2 core claim: one OS node hosts BOTH the plc-control and the
+        # mesh-agent components over ONE shared Datom log.
+        self.assertIn("MULTI OK", self.out)
+        self.assertIn("MULTI control_facts=2 heartbeats=2", self.out)
 
 
 if __name__ == "__main__":
