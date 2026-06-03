@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-network-incident-severity"
              name="Incident Severity"
-             namespace="https://gftd.ai/dmn/open-network">
+             namespace="https://etzhayyim.com/dmn/open-network">
   <decision id="openNetwork.incidentSeverity" name="Incident Severity">
     <decisionTable id="dt_incidentSeverity" hitPolicy="FIRST">
       <input id="i_customers" label="customersImpacted">

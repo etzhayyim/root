@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-network — telecom NMS operations + topology design
+// etzhayyim-project-open-network — telecom NMS operations + topology design
 //
 // 10 XRPC under com.etzhayyim.apps.openNetwork.*:
 //   defineSite           (proc)   PoP / DC / cell tower / customer edge

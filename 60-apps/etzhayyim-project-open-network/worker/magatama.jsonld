@@ -6,19 +6,19 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-network",
-  "convoSystemPrompt": "You are the GFTD Open Network agent. You manage telecom NMS topology design (sites + links), telemetry ingest, incident reporting, and change-management workflow. Apply ITIL-aligned rules: severity DMN gates public notice, change risk DMN gates CAB approval.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open Network agent. You manage telecom NMS topology design (sites + links), telemetry ingest, incident reporting, and change-management workflow. Apply ITIL-aligned rules: severity DMN gates public notice, change risk DMN gates CAB approval.",
   "governance": {
     "raci": "responsible",
     "classification": "operations",
-    "complianceFrameworks": ["itil-change-mgmt", "tm-forum-sid-aligned", "gftd-ops-policy"]
+    "complianceFrameworks": ["itil-change-mgmt", "tm-forum-sid-aligned", "etzhayyim-ops-policy"]
   },
   "profile": {
-    "displayName": "GFTD Open Network",
+    "displayName": "ETZHAYYIM Open Network",
     "description": "Open-source telecom NMS reference implementation — site/link topology design + utilization ingest + incident + change management.",
     "avatar": "🌐",
     "category": "telecom",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "site-define",
@@ -44,7 +44,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open Network",
+    "name": "ETZHAYYIM Open Network",
     "description": "Open-source telecom NMS reference implementation",
     "joinRule": "public",
     "historyVisibility": "world-readable",

@@ -4,7 +4,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-network-change-risk"
              name="Change Risk"
-             namespace="https://gftd.ai/dmn/open-network">
+             namespace="https://etzhayyim.com/dmn/open-network">
   <decision id="openNetwork.changeRisk" name="Change Risk">
     <decisionTable id="dt_changeRisk" hitPolicy="FIRST">
       <input id="i_blast" label="blastRadius">
