@@ -2,12 +2,12 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "platformScope": "gftd:platformScope",
-      "snapshotAt": "gftd:snapshotAt",
-      "rankIos": "gftd:rankIos",
-      "rankAndroid": "gftd:rankAndroid",
-      "rankDelta7d": "gftd:rankDelta7d"
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "platformScope": "etzhayyim:platformScope",
+      "snapshotAt": "etzhayyim:snapshotAt",
+      "rankIos": "etzhayyim:rankIos",
+      "rankAndroid": "etzhayyim:rankAndroid",
+      "rankDelta7d": "etzhayyim:rankDelta7d"
     }
   ],
   "@type": "ItemList",

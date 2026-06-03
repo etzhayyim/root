@@ -2,9 +2,9 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "categoryId": "gftd:categoryId",
-      "authorityType": "gftd:authorityType"
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "categoryId": "etzhayyim:categoryId",
+      "authorityType": "etzhayyim:authorityType"
     }
   ],
   "@type": "ItemList",

@@ -9,7 +9,7 @@
  *   the RSS publisher / source URL). No PII (public news), no settlement, no
  *   liability. → migrated to etzhayyim front (AT PDS records, replaces RW).
  *
- *   COMPUTE (STAYS gftd, NOT in this package) — the wRPC reactive pipeline's
+ *   COMPUTE (STAYS etzhayyim, NOT in this package) — the wRPC reactive pipeline's
  *   quality-evaluation + translation (LLM) is compute; the resulting article
  *   records (with quality score + translation) are public catalog data,
  *   published ATPosts federate. Consumed via consent-capability.

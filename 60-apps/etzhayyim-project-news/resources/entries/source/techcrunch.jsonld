@@ -2,14 +2,14 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "categories": "gftd:categories",
-      "authorityType": "gftd:authorityType",
-      "sourcePosition": "gftd:sourcePosition"
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "categories": "etzhayyim:categories",
+      "authorityType": "etzhayyim:authorityType",
+      "sourcePosition": "etzhayyim:sourcePosition"
     }
   ],
   "@type": "WebSite",
-  "@id": "urn:gftd:news:source:techcrunch",
+  "@id": "urn:etzhayyim:news:source:techcrunch",
   "identifier": "techcrunch",
   "name": "TechCrunch",
   "url": "https://techcrunch.com/",
@@ -21,7 +21,7 @@
   "sourcePosition": 19,
   "isPartOf": {
     "@type": "ItemList",
-    "name": "GFTD News Source Registry",
+    "name": "Etzhayyim News Source Registry",
     "url": "https://news.etzhayyim.com/"
   },
   "potentialAction": {

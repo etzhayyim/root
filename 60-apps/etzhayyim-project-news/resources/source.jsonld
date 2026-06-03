@@ -2,13 +2,13 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "feedUrl": "gftd:feedUrl",
-      "categories": "gftd:categories"
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "feedUrl": "etzhayyim:feedUrl",
+      "categories": "etzhayyim:categories"
     }
   ],
   "@type": "ItemList",
-  "name": "GFTD News Source Registry",
+  "name": "Etzhayyim News Source Registry",
   "description": "Primary upstream sources for crawling and citation. Prefer feeds (RSS/Atom) for freshness; keep non-feed official sites for citation fallback.",
   "numberOfItems": 28,
   "itemListOrder": "https://schema.org/ItemListOrderAscending",

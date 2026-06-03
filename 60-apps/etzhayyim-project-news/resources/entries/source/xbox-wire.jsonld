@@ -2,14 +2,14 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "categories": "gftd:categories",
-      "authorityType": "gftd:authorityType",
-      "sourcePosition": "gftd:sourcePosition"
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "categories": "etzhayyim:categories",
+      "authorityType": "etzhayyim:authorityType",
+      "sourcePosition": "etzhayyim:sourcePosition"
     }
   ],
   "@type": "WebSite",
-  "@id": "urn:gftd:news:source:xbox-wire",
+  "@id": "urn:etzhayyim:news:source:xbox-wire",
   "identifier": "xbox-wire",
   "name": "Xbox Wire",
   "url": "https://news.xbox.com/",
@@ -23,7 +23,7 @@
   "sourcePosition": 2,
   "isPartOf": {
     "@type": "ItemList",
-    "name": "GFTD News Source Registry",
+    "name": "Etzhayyim News Source Registry",
     "url": "https://news.etzhayyim.com/"
   },
   "potentialAction": {

@@ -10,7 +10,7 @@
  *
  * (c) MIXED SPLIT: the public news catalog (sources + articles, external
  * authority = RSS publisher / source URL) migrates. The wRPC pipeline's
- * quality-evaluation + translation (LLM) compute STAYS gftd; published ATPosts
+ * quality-evaluation + translation (LLM) compute STAYS etzhayyim; published ATPosts
  * federate — NOT in this package.
  */
 

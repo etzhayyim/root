@@ -1,7 +1,7 @@
 /**
  * news rw-free — source + article registries + coverage.
  * AT PDS records (no RW). Articles FK→source. Public news-aggregation open-data;
- * quality-eval + translation LLM compute stays gftd.
+ * quality-eval + translation LLM compute stays etzhayyim.
  */
 
 import type { Etzhayyim } from "@etzhayyim/sdk";

@@ -27,12 +27,12 @@ function json(path) {
   return JSON.parse(read(path));
 }
 
-const appTs = read("60-apps/ai-gftd-project-news/appview/news-core-component/src/app.ts");
+const appTs = read("60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts");
 const workerPy = read("50-infra/k8s/news-social-arbitrage-actor/worker.py");
 const manifest = json("70-tools/config/bpmn-coverage-manifest.json");
 const deploymentYaml = read("50-infra/k8s/news-social-arbitrage-actor/deployment.yaml");
 const articleJson = json(
-  "60-apps/ai-gftd-project-news/resources/content/ja/intel/social-arbitrage/news-social-arbitrage-actor-2026.jsonld",
+  "60-apps/etzhayyim-project-news/resources/content/ja/intel/social-arbitrage/news-social-arbitrage-actor-2026.jsonld",
 );
 const rssBpmn = read("etzhayyim-root/00-contracts/bpmn/com/etzhayyim/news/rssIngest.bpmn");
 const socialBpmn = read("etzhayyim-root/00-contracts/bpmn/com/etzhayyim/news/socialArbitrageIntel.bpmn");
