@@ -48,7 +48,7 @@ metrics-exporter-prometheus = "0.16"
 arrow = "58"
 arrow-array = "58"
 arrow-schema = "57"
-arrow-cast = "57"
+arrow-cast = "58"
 
 # Async runtime
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "io-util", "fs", "sync", "time"] }
