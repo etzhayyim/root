@@ -88,8 +88,8 @@ python3 methods/social.py --dry-run               # compose atproto posts (dry-r
 
 ## Honesty (R0)
 
-Bounded illustrative seed of **1,674 real public companies** (incl. delisted retained as history) + **361 disclosed supplier edges** across
-**15 sectors** and **110 countries** (growing each `/loop` iteration toward full global coverage) — **not** exhaustive coverage. HQ coordinates rounded to the campus/city. Supplier edges
+Bounded illustrative seed of **1,718 real public companies** (incl. delisted retained as history) + **361 disclosed supplier edges** across
+**15 sectors** and **115 countries** (growing each `/loop` iteration toward full global coverage) — **not** exhaustive coverage. HQ coordinates rounded to the campus/city. Supplier edges
 are public/disclosed `:representative` estimates, not an exhaustive BOM; criticality is a bounded
 estimate, never a contract figure. BPMN templates are `:synthesized` generic models, not a company's
 actual internal process. "Register ALL public companies" is the **R1** goal — full GLEIF/EDGAR/

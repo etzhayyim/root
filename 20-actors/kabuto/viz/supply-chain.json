@@ -18498,6 +18498,446 @@
    "out": 0,
    "address": null,
    "contact": null
+  },
+  {
+   "id": "org.corp.cn.industrial-securities",
+   "name": "Industrial Securities",
+   "ticker": "601377.SS",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.gf-securities",
+   "name": "GF Securities",
+   "ticker": "000776.SZ",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.everbright-securities",
+   "name": "Everbright Securities",
+   "ticker": "601788.SS",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.bank-of-nanjing",
+   "name": "Bank of Nanjing",
+   "ticker": "601009.SS",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.bank-of-ningbo",
+   "name": "Bank of Ningbo",
+   "ticker": "002142.SZ",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.china-cinda",
+   "name": "China Cinda Asset Management",
+   "ticker": "1359.HK",
+   "sector": ":financials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.gd-power",
+   "name": "GD Power Development",
+   "ticker": "600795.SS",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.huaneng-power",
+   "name": "Huaneng Power International",
+   "ticker": "600011.SS",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.huadian-power",
+   "name": "Huadian Power International",
+   "ticker": "600027.SS",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.cr-power",
+   "name": "China Resources Power",
+   "ticker": "0836.HK",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.sdic-power",
+   "name": "SDIC Power Holdings",
+   "ticker": "600886.SS",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.beijing-enterprises-water",
+   "name": "Beijing Enterprises Water Group",
+   "ticker": "0371.HK",
+   "sector": ":utilities",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.foshan-electrical",
+   "name": "Foshan Electrical and Lighting",
+   "ticker": "000541.SZ",
+   "sector": ":industrials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.mengniu-dairy",
+   "name": "China Mengniu Dairy",
+   "ticker": "2319.HK",
+   "sector": ":consumer",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.shuanghui",
+   "name": "Henan Shuanghui Investment & Development",
+   "ticker": "000895.SZ",
+   "sector": ":consumer",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.tsingtao-brewery",
+   "name": "Tsingtao Brewery",
+   "ticker": "600600.SS",
+   "sector": ":consumer",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.chongqing-zhifei",
+   "name": "Chongqing Zhifei Biological Products",
+   "ticker": "300122.SZ",
+   "sector": ":pharma",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.yunnan-baiyao",
+   "name": "Yunnan Baiyao Group",
+   "ticker": "000538.SZ",
+   "sector": ":pharma",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.shanghai-pharma",
+   "name": "Shanghai Pharmaceuticals Holding",
+   "ticker": "601607.SS",
+   "sector": ":pharma",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.tasly",
+   "name": "Tasly Pharmaceutical Group",
+   "ticker": "600535.SS",
+   "sector": ":pharma",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.nanshan-aluminium",
+   "name": "Shandong Nanshan Aluminium",
+   "ticker": "600219.SS",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.tongling-nonferrous",
+   "name": "Tongling Nonferrous Metals Group",
+   "ticker": "000630.SZ",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.jiangxi-copper",
+   "name": "Jiangxi Copper",
+   "ticker": "600362.SS",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.huaxin-cement",
+   "name": "Huaxin Cement",
+   "ticker": "600801.SS",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.hualu-hengsheng",
+   "name": "Hualu-Hengsheng Chemical",
+   "ticker": "600426.SS",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.satellite-chemical",
+   "name": "Satellite Chemical",
+   "ticker": "002648.SZ",
+   "sector": ":materials",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.gemdale",
+   "name": "Gemdale Corporation",
+   "ticker": "600383.SS",
+   "sector": ":real-estate",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.seazen",
+   "name": "Seazen Holdings",
+   "ticker": "601155.SS",
+   "sector": ":real-estate",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.china-resources-mixc",
+   "name": "China Resources Mixc Lifestyle",
+   "ticker": "1209.HK",
+   "sector": ":real-estate",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.cn.orient-overseas",
+   "name": "Orient Overseas International",
+   "ticker": "0316.HK",
+   "sector": ":shipping",
+   "country": "CN",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mk.alkaloid",
+   "name": "Alkaloid AD Skopje",
+   "ticker": "ALK.MK",
+   "sector": ":pharma",
+   "country": "MK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.mk.komercijalna",
+   "name": "Komercijalna Banka AD Skopje",
+   "ticker": "KMB.MK",
+   "sector": ":financials",
+   "country": "MK",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.ba.bh-telecom",
+   "name": "BH Telecom d.d. Sarajevo",
+   "ticker": "BHTSR.BA",
+   "sector": ":telecom",
+   "country": "BA",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.me.epcg",
+   "name": "Elektroprivreda Crne Gore AD",
+   "ticker": "EPCG.ME",
+   "sector": ":utilities",
+   "country": "ME",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.md.moldindconbank",
+   "name": "Moldindconbank SA",
+   "ticker": "MICB.MD",
+   "sector": ":financials",
+   "country": "MD",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.sc.seychelles-breweries",
+   "name": "Seychelles Breweries Limited",
+   "ticker": "SEYB.SC",
+   "sector": ":consumer",
+   "country": "SC",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.bytes-technology",
+   "name": "Bytes Technology Group plc",
+   "ticker": "BYIT.L",
+   "sector": ":software",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.grainger",
+   "name": "Grainger plc",
+   "ticker": "GRI.L",
+   "sector": ":real-estate",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.gb.telecom-plus",
+   "name": "Telecom Plus plc",
+   "ticker": "TEP.L",
+   "sector": ":telecom",
+   "country": "GB",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.aurubis",
+   "name": "Aurubis AG",
+   "ticker": "NDA.DE",
+   "sector": ":materials",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.lanxess",
+   "name": "Lanxess AG",
+   "ticker": "LXS.DE",
+   "sector": ":materials",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.de.evotec",
+   "name": "Evotec SE",
+   "ticker": "EVT.DE",
+   "sector": ":pharma",
+   "country": "DE",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.it.italgas",
+   "name": "Italgas S.p.A.",
+   "ticker": "IG.MI",
+   "sector": ":utilities",
+   "country": "IT",
+   "out": 0,
+   "address": null,
+   "contact": null
+  },
+  {
+   "id": "org.corp.au.apa-group",
+   "name": "APA Group",
+   "ticker": "APA.AX",
+   "sector": ":utilities",
+   "country": "AU",
+   "out": 0,
+   "address": null,
+   "contact": null
   }
  ],
  "edges": [
