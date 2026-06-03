@@ -1,10 +1,41 @@
 # ooyake 公 — Maturity Scorecard
 
-Honest R0 status per the gov-coverage maturity model (ADR-2605250680). **This is a
-proof-of-model, not coverage.** Coverage is gated by `:sourcing` (G5): only
-`:authoritative` rows count. The seed ships **zero** `:authoritative` rows; the
-offline `reconcile.py` demo can promote **8 of 28** against the bundled authority
-reference (see below) — still a demo, not live ingest.
+Honest status per the gov-coverage maturity model (ADR-2605250680). Coverage gated
+by `:sourcing` (G5): only `:authoritative` rows count.
+
+## 2026-06-03 — REAL DATA: the full G20 (founder directive "demo じゃなくて実データ, G20")
+
+The atlas carries the **entire G20 as real committed data**, not a proof-of-model
+demo: **20/20 members** (19 sovereign states + the EU), each with a **country unit +
+finance ministry/treasury**, every row `:sourcing :authoritative` +
+`:verification-status :maintainer-verified` — each Wikidata QID **independently
+verified against wikidata.org** and each `:provenance` citing **the body's own
+official URL** (本体の url), on 2026-06-03.
+
+- `registry/gov-units.g20.edn` — the 14 G20 nations not previously seeded
+  (FR/IT/CA/CN/BR/RU/MX/ID/TR/ZA/AR/SA/IN/AU) + DE/KR finance ministries + the
+  **G7 finance-ministry HQ addresses** (UK/FR/IT/CA/DE + KR; JP/US already seeded).
+- The already-seeded national rows (JP full central gov + US/UK/DE/KR/EU) were
+  **QID-corrected and promoted** to `:authoritative` / `:maintainer-verified`.
+- Gates: `scripts/g20_coverage.py` (**G20 20/20**) + `scripts/check_seed_integrity.py`
+  (**58 units, 56 QIDs all unique + well-formed, 54 :authoritative, addresses resolve,
+  G5 present**), both wired into `deploy/run_tests.sh` (**ALL GREEN, 11 suites**).
+
+**QID integrity**: a prior demo wave fabricated a contiguous fake Wikidata block
+(`Q1023xxx`) — MOF "Q1023766" actually resolves to *CIUTI*, a Brussels translators'
+association. Every QID re-verified and corrected in the seeds + `authority-reference.edn`.
+
+**Still gated (separate operator/Council steps, not done here):** live kotoba
+ingest (`KOTOBA_TOKEN` + node) and publishing national `:authoritative` rows to
+`/.well-known/gov-units.json` (Council-Lv6+ / bootstrap-attestation, `validate_atlas.py`
+check #5). This change is the **committed registry record** of real verified data.
+
+### Legacy reconcile DEMO (mechanism proof, unchanged)
+
+The offline `reconcile.py` still demonstrates the `:representative → :authoritative`
+promotion **mechanism** on its bundled 28-unit fixture (8 promoted vs the 8-record
+`authority-reference.edn`). That remains a demo of the *mechanism*; the *real data*
+is the G20 set above.
 
 ## Seed contents (R0, 2026-06-02)
 

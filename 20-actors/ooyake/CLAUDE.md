@@ -85,11 +85,23 @@ here**.
 
 ## Coverage honesty
 
-R0 ships a **proof-of-model seed only** (the JP MOF→NTA→税務署 + 都→区→窓口
-chain + a handful of country/ministry rows), **all `:unverified-seed` /
-`:representative`**. This is **not** coverage. Report maturity per
-ADR-2605250680 (49.18/100 baseline). Coverage is gated by `:sourcing` (G5) and
-grows only via the `reconcile` / `address_ingest` cells once Council ratifies.
+As of **2026-06-03** the atlas carries the **full G20 as real committed data**
+(`registry/gov-units.g20.edn` + promoted national rows): 20/20 members, each with a
+country unit + finance ministry, all `:sourcing :authoritative` +
+`:verification-status :maintainer-verified` (Wikidata QID web-verified, provenance =
+the body's own official URL); G7 finance ministries also carry HQ addresses (L3).
+Gates: `scripts/g20_coverage.py` (20/20) + `scripts/check_seed_integrity.py`.
+
+Still gated (NOT done in the registry): **live kotoba ingest** (`KOTOBA_TOKEN` +
+node) and **publishing national `:authoritative` rows** to
+`/.well-known/gov-units.json` (Council-Lv6+ / bootstrap-attestation gate,
+`validate_atlas.py` check #5). The committed registry is the real verified record;
+ingest + publish are separate operator/Council steps.
+
+Beyond the G20 the rest is still illustrative (`:representative` /
+`:unverified-seed`, e.g. the JP-local ingest, subnational rows) — never counted as
+coverage (G5). The offline `reconcile.py` remains a **mechanism demo**, distinct
+from the real G20 data.
 
 ## Inference
 
