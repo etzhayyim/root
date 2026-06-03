@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_saikin_horizontal_transfer" targetNamespace="https://gftd.ai/bpmn/saikin" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_saikin_horizontal_transfer" targetNamespace="https://etzhayyim.ai/bpmn/saikin" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="saikin_horizontal_transfer_cycle" name="horizontal-transfer-cycle" isExecutable="true">
     <bpmn:startEvent id="Start">
       <bpmn:outgoing>Flow_S</bpmn:outgoing>
@@ -120,7 +120,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:saikin.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:saikin.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;saikin.horizontal_transfer&quot;" target="action"/>
           <zeebe:input source="={transferId: transferId, colonyId: colonyId, signalId: signalId, kiAbsorbId: kiAbsorbId, lysed: lysed}" target="payload"/>
         </zeebe:ioMapping>

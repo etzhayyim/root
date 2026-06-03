@@ -21,7 +21,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_sekkei_review_drawing"
-  targetNamespace="https://gftd.ai/bpmn/sekkei"
+  targetNamespace="https://etzhayyim.ai/bpmn/sekkei"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="sekkei_review_drawing" name="sekkei Review Drawing" isExecutable="true">
@@ -108,7 +108,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;drawingApproved&quot;" target="action"/>
           <zeebe:input source="={ drawingId: drawingId, revNo: revNo, approverDid: approval.approverDid, decision: approval.decision }" target="payload"/>
         </zeebe:ioMapping>
@@ -148,7 +148,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;drawingRejected&quot;" target="action"/>
           <zeebe:input source="={ drawingId: drawingId, revNo: revNo, approverDid: approval.approverDid, reason: approval.rejectionReason }" target="payload"/>
         </zeebe:ioMapping>

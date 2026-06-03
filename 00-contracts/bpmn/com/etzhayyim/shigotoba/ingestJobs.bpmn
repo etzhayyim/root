@@ -10,7 +10,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_shigotoba_ingest_jobs"
-    targetNamespace="https://gftd.ai/bpmn/shigotoba"
+    targetNamespace="https://etzhayyim.ai/bpmn/shigotoba"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="shigotoba_ingest_jobs" name="shigotoba ingest jobs" isExecutable="true">
     <bpmn:startEvent id="Start" name="ingest requested">
@@ -34,7 +34,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:shigotoba.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:shigotoba.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;ingestJobs&quot;" target="action"/>
           <zeebe:input source="=result" target="payload"/>
         </zeebe:ioMapping>

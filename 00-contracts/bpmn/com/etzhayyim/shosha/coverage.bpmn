@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  shosha.gftd.ai — coverage snapshot (XRPC com.etzhayyim.apps.shosha.coverage).
+  shosha.etzhayyim.com — coverage snapshot (XRPC com.etzhayyim.apps.shosha.coverage).
 
   Phase 3 step 1: wire the Phase 1 schema-only coverage lexicon to a real
   BPMN + primitive. Returns aggregated metrics over all shosha tables for
@@ -22,7 +22,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shosha_coverage"
-    targetNamespace="https://gftd.ai/bpmn/shosha"
+    targetNamespace="https://etzhayyim.ai/bpmn/shosha"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="shosha_coverage" name="shosha coverage snapshot" isExecutable="true">

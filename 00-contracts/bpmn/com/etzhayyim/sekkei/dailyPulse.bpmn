@@ -8,7 +8,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_sekkei_daily_pulse"
-  targetNamespace="https://gftd.ai/bpmn/sekkei"
+  targetNamespace="https://etzhayyim.ai/bpmn/sekkei"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="sekkei_daily_pulse" name="sekkei Daily Pulse" isExecutable="true">
@@ -61,7 +61,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;dailyPulse&quot;" target="action"/>
           <zeebe:input source="={ statusRows: statusRows, staleReviewCount: staleCount, bpmnProcessId: &quot;sekkei_daily_pulse&quot; }" target="payload"/>
         </zeebe:ioMapping>
@@ -85,7 +85,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:sekkei.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:sekkei.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;staleReviewAlert&quot;" target="action"/>
           <zeebe:input source="={ staleCount: staleCount, staleRows: staleRows }" target="payload"/>
         </zeebe:ioMapping>

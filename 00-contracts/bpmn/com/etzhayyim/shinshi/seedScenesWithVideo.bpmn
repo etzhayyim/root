@@ -11,7 +11,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shinshi_seed_scenes_with_video"
-    targetNamespace="https://gftd.ai/bpmn/shinshi"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="shinshi_seed_scenes_with_video"
@@ -33,7 +33,7 @@
         <zeebe:taskDefinition type="shinshi.video.render"/>
         <zeebe:ioMapping>
           <zeebe:input source="=slug" target="slug"/>
-          <zeebe:input source='=string join(["did:web:sh1n5h1x.gftd.ai:", slug], "")' target="actorDid"/>
+          <zeebe:input source='=string join(["did:web:sh1n5h1x.etzhayyim.com:", slug], "")' target="actorDid"/>
           <zeebe:input source="=&quot;cinematic motion, smooth camera&quot;" target="motionPrompt"/>
           <zeebe:input source="=25" target="length"/>
           <zeebe:input source="=768" target="width"/>

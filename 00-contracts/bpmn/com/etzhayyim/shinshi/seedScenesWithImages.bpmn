@@ -21,7 +21,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shinshi_seed_scenes_with_images"
-    targetNamespace="https://gftd.ai/bpmn/shinshi"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="shinshi_seed_scenes_with_images"

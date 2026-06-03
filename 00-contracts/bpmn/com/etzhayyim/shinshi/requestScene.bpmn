@@ -2,7 +2,7 @@
 <!--
   shinshi.requestScene — single SDXL scene render for a model DID.
 
-  Entry: shinshi CF Worker (`requestScene`) → dispatcher.gftd.ai
+  Entry: shinshi CF Worker (`requestScene`) → dispatcher.etzhayyim.com
          → bpmn-dispatcher → Zeebe → this process.
 
   Pipeline (single Zeebe service task):
@@ -26,7 +26,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_shinshi_request_scene"
-    targetNamespace="https://gftd.ai/bpmn/shinshi"
+    targetNamespace="https://etzhayyim.ai/bpmn/shinshi"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="shinshi_request_scene"

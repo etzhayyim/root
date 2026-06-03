@@ -21,7 +21,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_robotics_observe_mission"
-    targetNamespace="https://gftd.ai/bpmn/robotics"
+    targetNamespace="https://etzhayyim.ai/bpmn/robotics"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="robotics_observe_mission" name="Robotics mission observation" isExecutable="true">
@@ -76,7 +76,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:robotics.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:robotics.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;robotics.mission.observed&quot;" target="action"/>
           <zeebe:input source="={ requestId: requestId, telemetry: roboticsTelemetryFrame, status: roboticsMissionStatus, close: roboticsFulfillmentClose }" target="payload"/>
         </zeebe:ioMapping>
