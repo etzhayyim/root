@@ -7,14 +7,14 @@
   insert, and FLUSH.
 
   NSID: com.etzhayyim.apps.yoro.platformPulse
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/yoro-platform-pulse-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yoro-platform-pulse-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yoro_platform_pulse"
-    targetNamespace="https://gftd.ai/bpmn/yoro"
+    targetNamespace="https://etzhayyim.ai/bpmn/yoro"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yoro_platform_pulse" name="yoro platformPulse" isExecutable="true">
@@ -34,7 +34,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="yoro.social.platformPulseGraphFallback"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:yoro.gftd.ai&quot;" target="postRepo"/>
+          <zeebe:input source="=&quot;did:web:yoro.etzhayyim.com&quot;" target="postRepo"/>
           <zeebe:input source="=true" target="flush"/>
           <zeebe:output source="=uri" target="postUri"/>
           <zeebe:output source="=text" target="postText"/>

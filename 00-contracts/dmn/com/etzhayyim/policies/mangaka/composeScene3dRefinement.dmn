@@ -32,7 +32,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              id="Definitions_compose_scene_3d_refinement"
              name="composeScene3dRefinement"
-             namespace="https://gftd.ai/dmn/mangaka">
+             namespace="https://etzhayyim.ai/dmn/mangaka">
   <decision id="com.etzhayyim.policies.mangaka.composeScene3dRefinement"
             name="composeScene3dRefinement">
     <decisionTable id="DecisionTable_composeScene3dRefinement" hitPolicy="FIRST">

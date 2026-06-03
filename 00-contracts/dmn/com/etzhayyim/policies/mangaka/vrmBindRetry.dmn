@@ -34,7 +34,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
              id="Definitions_vrm_bind_retry"
              name="vrmBindRetry"
-             namespace="https://gftd.ai/dmn/mangaka">
+             namespace="https://etzhayyim.ai/dmn/mangaka">
   <decision id="com.etzhayyim.policies.mangaka.vrmBindRetry"
             name="vrmBindRetry">
     <decisionTable id="DecisionTable_vrmBindRetry" hitPolicy="FIRST">

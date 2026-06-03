@@ -2,7 +2,7 @@
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
   id="Definitions_lawfirm_conflict_severity"
   name="lawfirm_conflict_severity"
-  namespace="https://gftd.ai/dmn/lawfirm">
+  namespace="https://etzhayyim.ai/dmn/lawfirm">
   <!--
     Conflict-of-interest severity classifier for lawfirm.runConflictCheck.
 

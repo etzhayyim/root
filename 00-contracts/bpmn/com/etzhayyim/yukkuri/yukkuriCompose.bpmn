@@ -19,21 +19,21 @@
                                    Sets status to "published" or "rejected".
     6. generic.audit.emit       — OCEL event with pipeline stats.
     7. yukkuri.social.post      — Emit app.bsky.feed.post to vertex_repo_record.
-                                   Visible on yoro.gftd.ai.
+                                   Visible on yoro.etzhayyim.com.
 
   XRPC entry: POST /xrpc/com.etzhayyim.apps.yukkuri.composeVideo
   Process timeout: 10 min.
 
   ADR-0056 BPMN-as-actor.
   NSID: com.etzhayyim.apps.yukkuri.composeVideo
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/yukkuri-compose-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_yukkuri_compose"
-    targetNamespace="https://gftd.ai/bpmn/yukkuri"
+    targetNamespace="https://etzhayyim.ai/bpmn/yukkuri"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="yukkuri_compose" name="yukkuri compose" isExecutable="true">
@@ -167,8 +167,8 @@
     <bpmn:sequenceFlow id="Flow_AuditToSocial" sourceRef="Task_Audit" targetRef="Task_SocialPost"/>
 
     <!-- Step 7: Social post — emit app.bsky.feed.post to vertex_repo_record.
-         Visible on yoro.gftd.ai once the record propagates through the MV. -->
-    <bpmn:serviceTask id="Task_SocialPost" name="social post (yukkuri.gftd.ai)">
+         Visible on yoro.etzhayyim.com once the record propagates through the MV. -->
+    <bpmn:serviceTask id="Task_SocialPost" name="social post (yukkuri.etzhayyim.com)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="yukkuri.social.post"/>
         <zeebe:ioMapping>
