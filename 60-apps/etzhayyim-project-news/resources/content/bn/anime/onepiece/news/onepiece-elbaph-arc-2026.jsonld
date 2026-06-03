@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:onepiece-elbaph-arc-2026",
+  "@id": "urn:etzhayyim:news:onepiece-elbaph-arc-2026",
   "identifier": "onepiece-elbaph-arc-2026",
   "headline": "One Piece anime begins the Elbaph Arc on April 5, 2026 with new teaser",
   "description": "Toei Animation announced the One Piece anime returns April 5, 2026 with the Elbaph Arc after a three-month break. Oricon reports the series remains on Fuji TV and affiliates, revealing a new key visual and teaser while confirming the shift to roughly 26 new episodes per year without recap installments.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

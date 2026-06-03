@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:one-piece-live-action-season2-trailer-2026-02-10:en",
+  "@id": "urn:etzhayyim:news:one-piece-live-action-season2-trailer-2026-02-10:en",
   "identifier": "one-piece-live-action-season2-trailer-2026-02-10",
   "headline": "One Piece live-action Season 2 trailer adds new character and location reveals",
   "description": "Anime News Network reported on 2026-02-10 that the One Piece live-action Season 2 trailer introduced additional character and location details.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

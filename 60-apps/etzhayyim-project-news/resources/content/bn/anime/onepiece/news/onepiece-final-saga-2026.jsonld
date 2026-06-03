@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "NewsArticle",
-  "@id": "urn:gftd:news:onepiece-final-saga-2026",
+  "@id": "urn:etzhayyim:news:onepiece-final-saga-2026",
   "identifier": "onepiece-final-saga-2026",
   "headline": "ONE PIECE最終章、エルバフ編がアニメ化決定！2026年秋より新シリーズとして放送開始",
   "description": "尾田栄一郎原作の『ONE PIECE』最終章のアニメ化が正式発表。エルバフ編を皮切りに、物語の核心に迫る壮大なストーリーが2026年秋より展開される。制作体制の刷新も明らかに。",
@@ -12,11 +12,11 @@
   "dateCreated": "2026-02-13T00:00:00Z",
   "author": {
     "@type": "Organization",
-    "name": "GFTD News"
+    "name": "Etzhayyim News"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
