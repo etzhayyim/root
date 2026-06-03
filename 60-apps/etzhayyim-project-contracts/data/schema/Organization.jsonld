@@ -1,7 +1,7 @@
 {
   "@context": "./context.jsonld",
   "@type": "rdfs:Class",
-  "@id": "gftd:Organization",
+  "@id": "etzhayyim:Organization",
   "rdfs:label": "Organization",
   "rdfs:comment": "法人、政府機関、非営利団体などの組織エンティティ",
   "rdfs:subClassOf": "schema:Organization",
@@ -38,7 +38,7 @@
       "schema:rangeIncludes": "xsd:string"
     },
     {
-      "@id": "gftd:jurisdiction",
+      "@id": "etzhayyim:jurisdiction",
       "rdfs:label": "Jurisdiction",
       "rdfs:comment": "登録管轄区域（ISO 3166-1 alpha-2）",
       "schema:rangeIncludes": "xsd:string"

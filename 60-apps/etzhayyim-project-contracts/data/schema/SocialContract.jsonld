@@ -1,7 +1,7 @@
 {
   "@context": "./context.jsonld",
   "@type": "rdfs:Class",
-  "@id": "gftd:SocialContract",
+  "@id": "etzhayyim:SocialContract",
   "rdfs:label": "Social Contract",
   "rdfs:comment": "社会契約エンティティ（憲法、国際条約、社会規範など）",
   "rdfs:subClassOf": "schema:CreativeWork",
@@ -20,42 +20,42 @@
       "schema:rangeIncludes": "xsd:string"
     },
     {
-      "@id": "gftd:constitutionalType",
+      "@id": "etzhayyim:constitutionalType",
       "rdfs:label": "Constitutional Type",
       "rdfs:comment": "社会契約の種別（constitution, treaty, convention, covenant, declaration など）",
       "schema:rangeIncludes": "xsd:string",
       "required": true
     },
     {
-      "@id": "gftd:jurisdiction",
+      "@id": "etzhayyim:jurisdiction",
       "rdfs:label": "Jurisdiction",
       "rdfs:comment": "適用管轄区域（国コード、'international' など）",
       "schema:rangeIncludes": "xsd:string"
     },
     {
-      "@id": "gftd:adoptedDate",
+      "@id": "etzhayyim:adoptedDate",
       "rdfs:label": "Adopted Date",
       "rdfs:comment": "採択日",
       "schema:rangeIncludes": "xsd:date"
     },
     {
-      "@id": "gftd:effectiveDate",
+      "@id": "etzhayyim:effectiveDate",
       "rdfs:label": "Effective Date",
       "rdfs:comment": "効力発生日",
       "schema:rangeIncludes": "xsd:date"
     },
     {
-      "@id": "gftd:signatories",
+      "@id": "etzhayyim:signatories",
       "rdfs:label": "Signatories",
       "rdfs:comment": "署名国・署名者",
       "schema:rangeIncludes": [
-        "gftd:Organization",
-        "gftd:Person"
+        "etzhayyim:Organization",
+        "etzhayyim:Person"
       ],
       "container": "@set"
     },
     {
-      "@id": "gftd:scope",
+      "@id": "etzhayyim:scope",
       "rdfs:label": "Scope",
       "rdfs:comment": "適用範囲の説明",
       "schema:rangeIncludes": "xsd:string"
@@ -67,7 +67,7 @@
       "schema:rangeIncludes": "xsd:anyURI"
     },
     {
-      "@id": "gftd:documentUrl",
+      "@id": "etzhayyim:documentUrl",
       "rdfs:label": "Document URL",
       "rdfs:comment": "契約書類へのリンク",
       "schema:rangeIncludes": "xsd:anyURI"

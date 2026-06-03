@@ -27,7 +27,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-game-play-uploader",
+  "name": "etzhayyim-wasm-game-play-uploader",
   "nanoid": "gm3pup1d",
   "performerType": "service",
   "pool": {},
@@ -42,7 +42,7 @@
     "description": "Game Play Uploader — recruits players to upload gameplay videos (domain coverage dataset) in exchange for Amazon gift cards at ¥100/hour, via hc.etzhayyim.com",
     "displayName": "Game Play Uploader",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "game-play-uploader",
   "routes": [

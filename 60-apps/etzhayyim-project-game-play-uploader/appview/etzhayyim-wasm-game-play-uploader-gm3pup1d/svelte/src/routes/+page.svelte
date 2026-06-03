@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Game Play Uploader Gm3pup1d",
-  "project": "ai-gftd-project-game-play-uploader",
-  "name": "ai-gftd-wasm-game-play-uploader-gm3pup1d",
+  "project": "etzhayyim-project-game-play-uploader",
+  "name": "etzhayyim-wasm-game-play-uploader-gm3pup1d",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-game-play-uploader/appview/ai-gftd-wasm-game-play-uploader-gm3pup1d/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-game-play-uploader/appview/etzhayyim-wasm-game-play-uploader-gm3pup1d/svelte/src/routes/+page.svelte"
 };
 </script>
 

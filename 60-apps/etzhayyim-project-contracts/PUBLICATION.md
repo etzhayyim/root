@@ -2,7 +2,7 @@
 
 ## Overview
 
-ai-gftd-project-contracts のデータは以下の方法で公開されます：
+etzhayyim-project-contracts のデータは以下の方法で公開されます：
 
 ## 1. JSON-LD Files (Direct Access)
 
@@ -22,7 +22,7 @@ Examples:
 静的ファイルとして CDN 配信：
 
 ```
-60-apps/ai-gftd-project-contracts/wasm/contracts-ui-{nanoid}/svelte/
+60-apps/etzhayyim-project-contracts/wasm/contracts-ui-{nanoid}/svelte/
 ```
 
 Features:
@@ -31,7 +31,7 @@ Features:
 - Timeline view for social contracts
 - Export to RDF/Turtle/N-Triples
 
-## 3. API Endpoint (via ai-gftd-project-public-global)
+## 3. API Endpoint (via etzhayyim-project-public-global)
 
 REST API for programmatic access:
 
@@ -49,7 +49,7 @@ RDF triple store with SPARQL endpoint:
 POST https://public.etzhayyim.com/sparql
 Content-Type: application/sparql-query
 
-PREFIX gftd: <https://etzhayyim.com/schema/>
+PREFIX etzhayyim: <https://etzhayyim.com/schema/>
 PREFIX schema: <https://schema.org/>
 
 SELECT ?org ?name ?lei
@@ -145,12 +145,12 @@ We will remove personal data upon request.
 
 ## Contact
 
-- Issues: https://github.com/gftd-ai/etzhayyim-root/issues
+- Issues: https://github.com/etzhayyim-ai/etzhayyim-root/issues
 - Email: contracts@etzhayyim.com
 - MCP Endpoint: https://q2whl5cx.etzhayyim.com/api/mcp
 
 ## Related Projects
 
-- **ai-gftd-project-crawler**: Web scraping and data collection
-- **ai-gftd-project-public-global**: Public API and data distribution
-- **ai-gftd-project-performers-platform**: Platform management
+- **etzhayyim-project-crawler**: Web scraping and data collection
+- **etzhayyim-project-public-global**: Public API and data distribution
+- **etzhayyim-project-performers-platform**: Platform management

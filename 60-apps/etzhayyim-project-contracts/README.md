@@ -1,4 +1,4 @@
-# ai-gftd-project-contracts
+# etzhayyim-project-contracts
 
 全世界の契約情報を JSON-LD として構造化・管理するプロジェクト。
 
@@ -14,7 +14,7 @@
 ## Architecture
 
 ```
-ai-gftd-project-contracts
+etzhayyim-project-contracts
 │
 ├── data/
 │   ├── schema/                 # JSON-LD スキーマ定義
@@ -84,9 +84,9 @@ ai-gftd-project-contracts
 
 ## Data Collection
 
-### ai-gftd-project-crawler 連携
+### etzhayyim-project-crawler 連携
 
-ai-gftd-project-crawler を使用して以下のソースから収集：
+etzhayyim-project-crawler を使用して以下のソースから収集：
 
 1. **OpenCorporates** (https://opencorporates.com)
    - 企業情報、法人登録データ
@@ -120,9 +120,9 @@ Tools:
 
 ## Publication
 
-### ai-gftd-project-public-global への公開
+### etzhayyim-project-public-global への公開
 
-収集されたデータは ai-gftd-project-public-global を通じて公開されます。
+収集されたデータは etzhayyim-project-public-global を通じて公開されます。
 
 - 公開 API endpoint: `https://public.etzhayyim.com/contracts/`
 - SPARQL endpoint: `https://public.etzhayyim.com/sparql`
@@ -160,7 +160,7 @@ curl https://etzhayyim.com/data/social-contracts/japan-constitution.jsonld
 ### SPARQL Query (planned)
 
 ```sparql
-PREFIX gftd: <https://etzhayyim.com/schema/>
+PREFIX etzhayyim: <https://etzhayyim.com/schema/>
 PREFIX schema: <https://schema.org/>
 
 SELECT ?org ?name ?lei
@@ -185,7 +185,7 @@ WHERE {
 
 ```bash
 # JSON-LD validation (planned)
-bazel test //60-apps/ai-gftd-project-contracts/...
+bazel test //60-apps/etzhayyim-project-contracts/...
 ```
 
 ## Roadmap

@@ -1,7 +1,7 @@
 {
   "@context": "./context.jsonld",
   "@type": "rdfs:Class",
-  "@id": "gftd:Contract",
+  "@id": "etzhayyim:Contract",
   "rdfs:label": "Contract",
   "rdfs:comment": "組織・個人間の契約エンティティ（商業契約、雇用契約、政府調達など）",
   "rdfs:subClassOf": "schema:Thing",
@@ -20,36 +20,36 @@
       "schema:rangeIncludes": "xsd:string"
     },
     {
-      "@id": "gftd:contractType",
+      "@id": "etzhayyim:contractType",
       "rdfs:label": "Contract Type",
       "rdfs:comment": "契約種別（procurement, employment, service, license など）",
       "schema:rangeIncludes": "xsd:string",
       "required": true
     },
     {
-      "@id": "gftd:parties",
+      "@id": "etzhayyim:parties",
       "rdfs:label": "Parties",
       "rdfs:comment": "契約当事者（Organization または Person）",
       "schema:rangeIncludes": [
-        "gftd:Organization",
-        "gftd:Person"
+        "etzhayyim:Organization",
+        "etzhayyim:Person"
       ],
       "required": true
     },
     {
-      "@id": "gftd:effectiveDate",
+      "@id": "etzhayyim:effectiveDate",
       "rdfs:label": "Effective Date",
       "rdfs:comment": "効力発生日",
       "schema:rangeIncludes": "xsd:date"
     },
     {
-      "@id": "gftd:expirationDate",
+      "@id": "etzhayyim:expirationDate",
       "rdfs:label": "Expiration Date",
       "rdfs:comment": "満了日",
       "schema:rangeIncludes": "xsd:date"
     },
     {
-      "@id": "gftd:terminationDate",
+      "@id": "etzhayyim:terminationDate",
       "rdfs:label": "Termination Date",
       "rdfs:comment": "解約日",
       "schema:rangeIncludes": "xsd:date"
@@ -67,13 +67,13 @@
       "schema:rangeIncludes": "xsd:string"
     },
     {
-      "@id": "gftd:status",
+      "@id": "etzhayyim:status",
       "rdfs:label": "Status",
       "rdfs:comment": "契約状態（active, expired, terminated, draft）",
       "schema:rangeIncludes": "xsd:string"
     },
     {
-      "@id": "gftd:documentUrl",
+      "@id": "etzhayyim:documentUrl",
       "rdfs:label": "Document URL",
       "rdfs:comment": "契約書類へのリンク",
       "schema:rangeIncludes": "xsd:anyURI"

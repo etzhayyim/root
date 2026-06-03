@@ -1,9 +1,0 @@
-# OWNERS
-# ai-gftd-project-contracts ownership
-
-approvers:
-  - gftd-platform-team
-
-reviewers:
-  - gftd-platform-team
-  - gftd-data-team

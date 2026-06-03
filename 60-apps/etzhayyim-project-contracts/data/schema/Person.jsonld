@@ -1,7 +1,7 @@
 {
   "@context": "./context.jsonld",
   "@type": "rdfs:Class",
-  "@id": "gftd:Person",
+  "@id": "etzhayyim:Person",
   "rdfs:label": "Person",
   "rdfs:comment": "自然人エンティティ",
   "rdfs:subClassOf": "schema:Person",
