@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:apex-legends-character-caustic-growth-2026",
+  "@id": "urn:etzhayyim:news:apex-legends-character-caustic-growth-2026",
   "identifier": "apex-legends-character-caustic-growth-2026",
   "headline": "Caustic growth curve: decisions, consequences, and transformation",
   "description": "Tracking Caustic’s decisions and costs to understand transformation over time.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

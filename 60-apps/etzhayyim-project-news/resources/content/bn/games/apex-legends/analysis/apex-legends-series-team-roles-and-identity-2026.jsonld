@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:apex-legends-series-team-roles-and-identity-2026",
+  "@id": "urn:etzhayyim:news:apex-legends-series-team-roles-and-identity-2026",
   "identifier": "apex-legends-series-team-roles-and-identity-2026",
   "headline": "Apex Legends analysis: Team roles and identity",
   "description": "A thematic essay on Apex Legends, organized around: Team roles and identity.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
