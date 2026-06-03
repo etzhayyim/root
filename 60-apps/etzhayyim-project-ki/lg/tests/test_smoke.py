@@ -2,7 +2,7 @@
 
 Covers the 23-graph organism actor dispatcher (hakkou/kabi/ki/kinoko/kobo/koke/saikin).
 
-Run from `60-apps/ai-gftd-project-ki/lg/`:
+Run from `60-apps/etzhayyim-project-ki/lg/`:
     uv venv --python 3.11 .venv
     uv pip install --python .venv/bin/python \
         'fastapi>=0.115' 'httpx>=0.27' 'pytest>=8' \
@@ -10,7 +10,7 @@ Run from `60-apps/ai-gftd-project-ki/lg/`:
     .venv/bin/pytest tests/ -v
 
 CI gate: wire into existing pytest config so it runs on every PR
-touching `60-apps/ai-gftd-project-ki/lg/**`.
+touching `60-apps/etzhayyim-project-ki/lg/**`.
 """
 
 from __future__ import annotations

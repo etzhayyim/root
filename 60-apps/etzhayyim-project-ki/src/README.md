@@ -1,11 +1,11 @@
 # ki src — Phase E rewrite pending
 
-Vendor `60-apps/ai-gftd-project-ki/src/app.ts` is the production source that uses `createKyselyDb()` (RW direct write, forbidden on etzhayyim per [ADR-2605172000](../../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md)).
+Vendor `60-apps/etzhayyim-project-ki/src/app.ts` is the production source that uses `createKyselyDb()` (RW direct write, forbidden on etzhayyim per [ADR-2605172000](../../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md)).
 
 Per [ADR-2605203000](../../../../90-docs/adr/2605203000-rw-free-write-target-options.md) Phase E, **Option B** (PDS XRPC) was picked for ki. Rewrite follows the pattern established by:
-- [ipaddress/rw-free](../../../ai-gftd-project-ipaddress/rw-free/)
-- [hanrei/rw-free](../../../ai-gftd-project-hanrei/rw-free/)
-- [tsukuru/rw-free](../../../ai-gftd-project-tsukuru/rw-free/)
+- [ipaddress/rw-free](../../../etzhayyim-project-ipaddress/rw-free/)
+- [hanrei/rw-free](../../../etzhayyim-project-hanrei/rw-free/)
+- [tsukuru/rw-free](../../../etzhayyim-project-tsukuru/rw-free/)
 
 Vendor source NOT carried over — wave-3 follow-up sub-PRs will port each command using `@etzhayyim/sdk` `e.write()` / `e.read()` replacements.
 
