@@ -4,7 +4,7 @@
  * Replaces the RW seed path (registerSource → vertex_maps_source) with
  * a straight-line PDS write loop. Idempotent: rkey derives from `slug`
  * so re-running is a no-op past the first run. The 24 source entries
- * live in `60-apps/ai-gftd-project-maps/rw-free/data/sources.json`;
+ * live in `60-apps/etzhayyim-project-maps/rw-free/data/sources.json`;
  * this seeder reads them, derives the DID via slug→DID mapping, and
  * writes to PDS.
  *

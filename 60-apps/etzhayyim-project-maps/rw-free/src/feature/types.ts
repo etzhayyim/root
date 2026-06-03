@@ -8,7 +8,7 @@
  * registrations. Discriminated by `label` (Mountain / Building / Road / …).
  *
  * Per kotoba-datomic Phase 3 (Tier B, witnessed writes) — see
- * 60-apps/ai-gftd-project-maps/MIGRATION-TODO.md and ADR-2605231400.
+ * 60-apps/etzhayyim-project-maps/MIGRATION-TODO.md and ADR-2605231400.
  */
 
 /** A subset of the labels enumerated by the lexicon's `label` description.
