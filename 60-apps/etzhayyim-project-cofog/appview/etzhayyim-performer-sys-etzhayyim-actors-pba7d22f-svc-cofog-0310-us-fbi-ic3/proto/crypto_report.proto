@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package crypto_report.v1;
 
-option go_package = "github.com/gftdcojp/ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0310-us-fbi-ic3/proto;cryptoreportpb";
+option go_package = "github.com/etzhayyimcojp/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0310-us-fbi-ic3/proto;cryptoreportpb";
 
 service CryptoReportService {
   rpc ReportIncident(ReportIncidentRequest) returns (ReportIncidentResponse);

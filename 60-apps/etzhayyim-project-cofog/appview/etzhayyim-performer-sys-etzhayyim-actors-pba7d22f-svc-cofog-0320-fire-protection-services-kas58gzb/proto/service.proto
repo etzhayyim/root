@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package cofog.0320;
 
-option go_package = "github.com/gftdcojp/ai-gftd-kyber/performers/ai-gftd-services-cofog-0320-fire-protection-services/proto;cofogproto";
+option go_package = "github.com/etzhayyimcojp/etzhayyim-kyber/performers/etzhayyim-services-cofog-0320-fire-protection-services/proto;cofogproto";
 
 service COFOGService {
   rpc ExecuteFunction(ExecuteFunctionRequest) returns (ExecuteFunctionResponse);

@@ -1,8 +1,8 @@
 apiVersion: metadata.etzhayyim.com/v1
 kind: AppDiscovery
 metadata:
-  name: ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0310-us-fbi-ic3
-  namespace: ai-gftd-infra-k8s-actors
+  name: etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0310-us-fbi-ic3
+  namespace: etzhayyim-infra-k8s-actors
 spec:
   type: actor
   frameworkVersion: "0.1.0"
