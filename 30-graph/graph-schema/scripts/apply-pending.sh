@@ -46,14 +46,14 @@ fi
 # Resolve DATABASE_URL from Keychain if not already set.
 if [[ -z "${DATABASE_URL:-}" ]]; then
   if command -v security >/dev/null 2>&1; then
-    DATABASE_URL="$(security find-generic-password -s gftd.rw -a ROOT_URL -w 2>/dev/null || true)"
+    DATABASE_URL="$(security find-generic-password -s etzhayyim.rw -a ROOT_URL -w 2>/dev/null || true)"
     export DATABASE_URL
   fi
 fi
 if [[ -z "${DATABASE_URL:-}" ]]; then
-  printf 'DATABASE_URL unset and not in Keychain (service=gftd.rw account=ROOT_URL).\n'
+  printf 'DATABASE_URL unset and not in Keychain (service=etzhayyim.rw account=ROOT_URL).\n'
   printf 'Export it manually or run:\n'
-  printf '  security add-generic-password -s gftd.rw -a ROOT_URL -w "postgresql://...:4566/dev" -U\n'
+  printf '  security add-generic-password -s etzhayyim.rw -a ROOT_URL -w "postgresql://...:4566/dev" -U\n'
   exit 3
 fi
 

@@ -31,7 +31,7 @@ import { Kysely, sql } from 'kysely';
  * Heavy geometry (IFC STEP originals, tessellation caches, BCF zips,
  * export artefacts) lives in B2 (Backblaze B2 S3-compatible, ADR-0048)
  * content-addressed under `bim/blobs/{sha256}` / `bim/meshes/{sha256}`
- * / `bim/exports/{sha256}` in bucket `ai-gftd-bim`. Only `blob_key` +
+ * / `bim/exports/{sha256}` in bucket `etzhayyim-bim`. Only `blob_key` +
  * metadata is stored here (ADR-0036 invariant: no large binaries in
  * Hyperdrive).
  */

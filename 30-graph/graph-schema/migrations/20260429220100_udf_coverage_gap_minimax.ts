@@ -37,7 +37,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // BPMN scan task runs: SELECT * FROM mv_coverage_gap_minimax
   //   WHERE recipe_kind != 'defer' ORDER BY regret DESC LIMIT 1
   //
-  // NOTE: world coverage stats (coverage_rate, collected) come from gftd CLI
+  // NOTE: world coverage stats (coverage_rate, collected) come from etzhayyim CLI
   // which reads from the PDS graph. We approximate here using recipe world_total
   // and a fallback of 0 for collected (worst-case regret = world_total).
   // A future phase will join vertex_coverage_recipe with a live stats MV.

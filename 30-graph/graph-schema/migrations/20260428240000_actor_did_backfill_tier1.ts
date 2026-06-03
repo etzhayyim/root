@@ -320,8 +320,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`ALTER TABLE vertex_gdrive_watch_channel ADD COLUMN IF NOT EXISTS actor_did VARCHAR`.execute(db);
   await sql`ALTER TABLE vertex_gdrive_watch_channel ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon'`.execute(db);
 
-  await sql`ALTER TABLE vertex_gftd_identity ADD COLUMN IF NOT EXISTS actor_did VARCHAR`.execute(db);
-  await sql`ALTER TABLE vertex_gftd_identity ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon'`.execute(db);
+  await sql`ALTER TABLE vertex_etzhayyim_identity ADD COLUMN IF NOT EXISTS actor_did VARCHAR`.execute(db);
+  await sql`ALTER TABLE vertex_etzhayyim_identity ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon'`.execute(db);
 
   await sql`ALTER TABLE vertex_gitrepo ADD COLUMN IF NOT EXISTS actor_did VARCHAR`.execute(db);
   await sql`ALTER TABLE vertex_gitrepo ADD COLUMN IF NOT EXISTS org_did VARCHAR DEFAULT 'anon'`.execute(db);

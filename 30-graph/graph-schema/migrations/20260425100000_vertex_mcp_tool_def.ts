@@ -8,7 +8,7 @@
 // One row per MCP-exposed tool. Source of truth is the lexicon JSON
 // in `00-contracts/lexicons/com/etzhayyim/apps/**/*.json`; the
 // `sync-mcp-registry.py` script upserts rows from disk on each
-// `gftd contract sync` run.
+// `etzhayyim contract sync` run.
 //
 // host-sdk `/mcp` reads this table via Kysely + 60s in-memory cache
 // to answer `tools/list`. `tools/call` validates `arguments` against
@@ -20,7 +20,7 @@
 //
 // Vertex naming: `at://did:web:<actor-host>/com.etzhayyim.mcp.toolDef/<slug>`
 // where slug = NSID with dots replaced by `-` (e.g.
-// `ai-gftd-apps-yoro-listPosts`). Stable, content-addressable,
+// `etzhayyim-apps-yoro-listPosts`). Stable, content-addressable,
 // queryable by actor_did via the secondary index.
 //
 // See: 90-docs/adr/2604261000-mcp-registry-via-kysely-schema.md,

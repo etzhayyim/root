@@ -2,7 +2,7 @@
 // tier: C (custody_event, auth_session — transaction log)
 // tier: 3 (firearm_pii, permit_pii — serial/permit number plaintext, ADR-0018)
 //
-// ai-gftd-project-arms Phase 1 — Firearm ID authentication + chain-of-custody.
+// etzhayyim-project-arms Phase 1 — Firearm ID authentication + chain-of-custody.
 //
 // 6 vertex tables + 2 edge tables:
 //   vertex_arms_firearm         — public registry (serial number hashed)

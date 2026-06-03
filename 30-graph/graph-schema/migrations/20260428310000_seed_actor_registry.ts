@@ -13,7 +13,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     INSERT INTO actor_registry
       (did, handle, tier, backend_kind, backend_url, mcp_endpoint, capability_tags, governance_class, created_at, deactivated_at)
     VALUES
-  ('did:gftd:bafkreihodwk42rq4qrdrat6vv57cr2rwv5azsyt3w5saqxrddgrgetkq6e', 'junkawasaki.com', 'T1', 'identity', NULL, NULL, NULL, 'T1', '2026-04-28T00:00:00Z', NULL),
+  ('did:etzhayyim:bafkreihodwk42rq4qrdrat6vv57cr2rwv5azsyt3w5saqxrddgrgetkq6e', 'junkawasaki.com', 'T1', 'identity', NULL, NULL, NULL, 'T1', '2026-04-28T00:00:00Z', NULL),
   ('did:web:kenkyusha.etzhayyim.com', 'kenkyusha.etzhayyim.com', 'T3', 'cf-worker', 'https://kenkyusha.etzhayyim.com/', 'https://kenkyusha.etzhayyim.com/mcp', NULL, 'T3', '2026-04-28T00:00:00Z', NULL),
   ('did:web:nist.etzhayyim.com', 'nist.etzhayyim.com', 'T2', 'bpmn-process', 'https://dispatcher.etzhayyim.com/xrpc/', 'https://nist.etzhayyim.com/mcp', NULL, 'T2', '2026-04-28T00:00:00Z', NULL),
   ('did:web:jp-ashiba.etzhayyim.com', 'jp-ashiba.etzhayyim.com', 'T3', 'cf-worker', 'https://jp-ashiba.etzhayyim.com/', 'https://jp-ashiba.etzhayyim.com/mcp', NULL, 'T3', '2026-04-28T00:00:00Z', NULL),

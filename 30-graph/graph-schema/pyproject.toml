@@ -1,5 +1,5 @@
 [project]
-name = "gftd-graph-schema"
+name = "etzhayyim-graph-schema"
 version = "0.1.0"
 description = "RisingWave graph schema tooling using SQLAlchemy, Alembic, and SQLMesh."
 requires-python = ">=3.11"

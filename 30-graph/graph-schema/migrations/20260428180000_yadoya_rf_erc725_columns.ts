@@ -5,12 +5,12 @@ import { sql } from "kysely";
 // tier: B (yadoya); A (resource-flow cluster projection)
 //
 // ADR-0074 (active 2026-04-26, 2026-04-27 operational correction) makes
-// `did:erc725:gftd:260425:<contract>` the canonical actor vector key for
+// `did:erc725:etzhayyim:260425:<contract>` the canonical actor vector key for
 // RisingWave projections. `did:web:*.etzhayyim.com` may stay as facade lookup
 // input + profile/display key, but it must NOT be the only key on
 // canonical actor projections. This migration adds the same column set
 // that `20260426233000_erc725_root_identity_projection.ts` added to
-// vertex_gftd_identity / vertex_claim_stake / vertex_claim_challenge
+// vertex_etzhayyim_identity / vertex_claim_stake / vertex_claim_challenge
 // to the yadoya + resource-flow tables shipped during the 2026-04-28
 // hospitality bootstrap.
 //

@@ -5,7 +5,7 @@ import { sql } from "kysely";
  * ADR-2604261717 Phase 1 — claim-level stake vertex / edge / MV.
  *
  * Domain tables for "正しいと得・嘘で損" — staked claim attestations. The
- * canonical authority lives on chain in `ClaimStakeEscrow` (gftd private
+ * canonical authority lives on chain in `ClaimStakeEscrow` (etzhayyim private
  * chain, chainId 260425). These rows are the graph projection a downstream
  * Phase 1.5 consumer fills in by tailing `ClaimPosted` /  `ClaimChallenged`
  * / `ClaimUpheld` / `ClaimSlashed` / `ClaimRefunded` events from the same

@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
-// ai-gftd-project-vector-embedding
+// etzhayyim-project-vector-embedding
 // tier: B for model/space registry, C for append-only embedding read models.
 //
 // Phase 1 stores only vector(768). Native model dimensions remain in the model
@@ -253,7 +253,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         8192,
         'allowed',
         'active',
-        'Primary text retrieval model; stored as 768d in gftd-mm-768 via projection/truncation.',
+        'Primary text retrieval model; stored as 768d in etzhayyim-mm-768 via projection/truncation.',
         '2026-04-26'
       ),
       (
@@ -275,7 +275,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         77,
         'check-model-license',
         'candidate',
-        'Initial image/text candidate; projected into gftd-mm-768 before storage.',
+        'Initial image/text candidate; projected into etzhayyim-mm-768 before storage.',
         '2026-04-26'
       ),
       (
@@ -319,7 +319,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         77,
         'non-commercial-only',
         'experimental',
-        'Sensor-inclusive research baseline; projected into gftd-mm-768 for experiments only.',
+        'Sensor-inclusive research baseline; projected into etzhayyim-mm-768 for experiments only.',
         '2026-04-26'
       )
   `.execute(db);
@@ -331,8 +331,8 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       status, created_at
     ) VALUES
       (
-        'space:gftd-mm-768',
-        'gftd-mm-768',
+        'space:etzhayyim-mm-768',
+        'etzhayyim-mm-768',
         'unified-projection',
         'Phase 1 production 768d multimodal search space. Text/image/video are active first; audio/depth/thermal/IMU arrive through later adapters.',
         'qwen3-vl-embedding-2b',
@@ -353,14 +353,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       training_dataset_ref, loss_name, eval_json, status, created_at
     ) VALUES
       (
-        'projection:bge-m3-to-gftd-mm-768',
-        'bge-m3-to-gftd-mm-768',
+        'projection:bge-m3-to-etzhayyim-mm-768',
+        'bge-m3-to-etzhayyim-mm-768',
         'bge-m3',
-        'gftd-mm-768',
+        'etzhayyim-mm-768',
         'truncate-mrl-or-pca',
         1024,
         768,
-        'ai-gftd-project-vector-embedding/projections/bge-m3-to-gftd-mm-768',
+        'etzhayyim-project-vector-embedding/projections/bge-m3-to-etzhayyim-mm-768',
         NULL,
         'cosine',
         NULL,
@@ -368,14 +368,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         '2026-04-26'
       ),
       (
-        'projection:openclip-to-gftd-mm-768',
-        'openclip-to-gftd-mm-768',
+        'projection:openclip-to-etzhayyim-mm-768',
+        'openclip-to-etzhayyim-mm-768',
         'openclip-vit-b-32',
-        'gftd-mm-768',
+        'etzhayyim-mm-768',
         'linear-adapter',
         512,
         768,
-        'ai-gftd-project-vector-embedding/projections/openclip-to-gftd-mm-768',
+        'etzhayyim-project-vector-embedding/projections/openclip-to-etzhayyim-mm-768',
         NULL,
         'infonce',
         NULL,
@@ -383,14 +383,14 @@ export async function up(db: Kysely<unknown>): Promise<void> {
         '2026-04-26'
       ),
       (
-        'projection:qwen3-vl-to-gftd-mm-768',
-        'qwen3-vl-to-gftd-mm-768',
+        'projection:qwen3-vl-to-etzhayyim-mm-768',
+        'qwen3-vl-to-etzhayyim-mm-768',
         'qwen3-vl-embedding-2b',
-        'gftd-mm-768',
+        'etzhayyim-mm-768',
         'mrl-or-linear-adapter',
         2048,
         768,
-        'ai-gftd-project-vector-embedding/projections/qwen3-vl-to-gftd-mm-768',
+        'etzhayyim-project-vector-embedding/projections/qwen3-vl-to-etzhayyim-mm-768',
         NULL,
         'cosine',
         NULL,

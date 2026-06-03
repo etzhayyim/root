@@ -140,7 +140,7 @@ INSERT INTO vertex_mcp_tool_def
    description, input_schema, output_schema, visibility, version, enabled,
    source_path, org_id, user_id, actor_id, created_at)
 VALUES
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-cadProject-create',
    0, 0, 'com.etzhayyim.apps.tsukuru.cadProject.create',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new CAD design project on tsukuru, linked to a hardware product.',
@@ -149,7 +149,7 @@ VALUES
    'internal', 1, TRUE,
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cadProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-cadPart-upsert',
    0, 0, 'com.etzhayyim.apps.tsukuru.cadPart.upsert',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Upsert a CAD part record within a project (create or update status/step_file_ref).',
@@ -158,7 +158,7 @@ VALUES
    'internal', 1, TRUE,
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/cadPart/upsert.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-meviy-requestQuote',
    0, 0, 'com.etzhayyim.apps.tsukuru.meviy.requestQuote',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit STEP files to Misumi Meviy for automatic machining quote.',
@@ -167,7 +167,7 @@ VALUES
    'internal', 1, TRUE,
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/meviy/requestQuote.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-pcbProject-create',
    0, 0, 'com.etzhayyim.apps.tsukuru.pcbProject.create',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Create a new PCB design project on tsukuru.',
@@ -176,7 +176,7 @@ VALUES
    'internal', 1, TRUE,
    '00-contracts/lexicons/com/etzhayyim/apps/tsukuru/pcbProject/create.json',
    'anon', 'anon', '', '2026-05-14T15:00:00Z'),
-  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote',
+  ('at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-pban-requestQuote',
    0, 0, 'com.etzhayyim.apps.tsukuru.pban.requestQuote',
    'did:web:tsukuru.etzhayyim.com', 'tsukuru.etzhayyim.com', 'procedure',
    'Submit Gerber ZIP to P-Ban.com for PCB fabrication + assembly quote.',
@@ -189,11 +189,11 @@ VALUES
 
 PHASE3_INSERTS_DELETE = """
 DELETE FROM vertex_mcp_tool_def WHERE vertex_id IN (
-  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadProject-create',
-  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-cadPart-upsert',
-  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-meviy-requestQuote',
-  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pcbProject-create',
-  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/ai-gftd-apps-tsukuru-pban-requestQuote'
+  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-cadProject-create',
+  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-cadPart-upsert',
+  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-meviy-requestQuote',
+  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-pcbProject-create',
+  'at://did:web:tsukuru.etzhayyim.com/com.etzhayyim.mcp.toolDef/etzhayyim-apps-tsukuru-pban-requestQuote'
 )
 """
 

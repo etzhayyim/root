@@ -32,7 +32,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'mcp',
       'gov-org-coverage',
       'government organization coverage runtime pilot',
-      'gftd',
+      'etzhayyim',
       'governance',
       r.tool_nsids,
       r.mcp_endpoint,

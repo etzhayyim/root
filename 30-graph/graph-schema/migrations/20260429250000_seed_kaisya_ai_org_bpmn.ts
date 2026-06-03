@@ -74,28 +74,28 @@ const XRPC_ENTRIES = [
     bpmnProcessId: "kaisya_approve_task",
     sourcePath: "",  // inline-only, no BPMN file (direct DB update via pymagatama primitive)
     nsid: "com.etzhayyim.apps.kaisya.approveTask",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-approveTask-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-approveTask-v1",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-reject-task-v1",
     bpmnProcessId: "kaisya_reject_task",
     sourcePath: "",
     nsid: "com.etzhayyim.apps.kaisya.rejectTask",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-rejectTask-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-rejectTask-v1",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-list-tasks-v1",
     bpmnProcessId: "kaisya_list_tasks",
     sourcePath: "",
     nsid: "com.etzhayyim.apps.kaisya.listTasks",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-listTasks-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-listTasks-v1",
   },
   {
     vertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/kaisya-get-agent-log-v1",
     bpmnProcessId: "kaisya_get_agent_log",
     sourcePath: "",
     nsid: "com.etzhayyim.apps.kaisya.getAgentLog",
-    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/ai-gftd-apps-kaisya-getAgentLog-v1",
+    bindingVertexId: "at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.binding/etzhayyim-apps-kaisya-getAgentLog-v1",
   },
 ];
 

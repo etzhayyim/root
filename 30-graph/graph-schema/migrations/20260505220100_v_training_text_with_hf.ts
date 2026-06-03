@@ -7,7 +7,7 @@ import { sql } from "kysely";
  * training-export pipeline (BPMN trainingExport.bpmn → pyzeebe
  * task_training_export_text → B2 → HF Hub push) reads from this
  * VIEW; once HF rows are visible here, they automatically flow into
- * the gftd-corpus dataset on every R/PT* tick.
+ * the etzhayyim-corpus dataset on every R/PT* tick.
  *
  * RisingWave does not allow CREATE OR REPLACE VIEW with column-list
  * changes, so we DROP + CREATE.

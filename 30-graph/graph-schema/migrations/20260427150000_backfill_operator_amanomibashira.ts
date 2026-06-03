@@ -1,5 +1,5 @@
 // tier: C
-// Backfill: vertex_actor.operator legacy "etzhayyim.com" / "gftd" → "etzhayyim".
+// Backfill: vertex_actor.operator legacy "etzhayyim.com" / "etzhayyim" → "etzhayyim".
 //
 // Companion to the CLI-default rebrand (build.go / coverage_actors.go /
 // coverage_infer.go shipped 2026-04-27). After this migration, the live
@@ -9,7 +9,7 @@
 // Audit (2026-04-27, live RisingWave):
 //   vertex_actor.operator distribution before backfill:
 //     <empty>      784,956 rows  ← left unchanged; healing populates per-actor
-//     'gftd'        20,820 rows  ← rewritten
+//     'etzhayyim'        20,820 rows  ← rewritten
 //     'etzhayyim.com'   2,307 rows  ← rewritten
 //   Total rewritten: 23,127 rows.
 //
@@ -17,9 +17,9 @@
 //   No other table in information_schema has an `operator` column.
 //
 // Empty `operator` rows are intentionally left alone: those were never
-// explicitly attributed to gftd, and rewriting 784K unrelated rows to
+// explicitly attributed to etzhayyim, and rewriting 784K unrelated rows to
 // `etzhayyim` would be a much larger blast radius than the rebrand
-// requires. `gftd coverage actors heal` will fill them in over time
+// requires. `etzhayyim coverage actors heal` will fill them in over time
 // using the new default.
 //
 // Operating entity = etzhayyim (עץ חיים), a religious voluntary
@@ -38,16 +38,16 @@
 //
 // Verify:
 //   psql ... -c "SELECT operator, COUNT(*) FROM vertex_actor GROUP BY operator ORDER BY 2 DESC;"
-//   Expect: 'etzhayyim' ≥ 23,127 ; 'gftd' and 'etzhayyim.com' rows absent.
+//   Expect: 'etzhayyim' ≥ 23,127 ; 'etzhayyim' and 'etzhayyim.com' rows absent.
 import { Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<unknown>): Promise<void> {
-  await sql`UPDATE vertex_actor SET operator = 'etzhayyim' WHERE operator IN ('etzhayyim.com', 'gftd')`.execute(db);
+  await sql`UPDATE vertex_actor SET operator = 'etzhayyim' WHERE operator IN ('etzhayyim.com', 'etzhayyim')`.execute(db);
   await sql`FLUSH`.execute(db);
 }
 
 export async function down(_db: Kysely<unknown>): Promise<void> {
   // Forward-only. The reverse mapping is ambiguous — etzhayyim rows after
   // this migration include rows that were already etzhayyim before it
-  // and rows that were 'gftd' or 'etzhayyim.com' before it.
+  // and rows that were 'etzhayyim' or 'etzhayyim.com' before it.
 }

@@ -108,21 +108,21 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   await sql`DROP VIEW IF EXISTS v_rdf_triple`.execute(db);
   await sql`
     CREATE VIEW v_rdf_triple AS
-    -- actors typed as gftd:Actor
+    -- actors typed as etzhayyim:Actor
     SELECT actor_did           AS subject,
            'rdf:type'          AS predicate,
-           'gftd:Actor'        AS object
+           'etzhayyim:Actor'        AS object
     FROM   vertex_bpmn_process_def
     UNION ALL
-    -- follows graph to gftd:follows
+    -- follows graph to etzhayyim:follows
     SELECT src_vid             AS subject,
-           'gftd:follows'      AS predicate,
+           'etzhayyim:follows'      AS predicate,
            dst_vid             AS object
     FROM   edge_follows
     UNION ALL
     -- DID to handle (via vertex_profile which has both did and handle)
     SELECT did                 AS subject,
-           'gftd:handle'       AS predicate,
+           'etzhayyim:handle'       AS predicate,
            handle              AS object
     FROM   vertex_profile
     WHERE  handle IS NOT NULL

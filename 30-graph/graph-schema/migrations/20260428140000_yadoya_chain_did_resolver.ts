@@ -3,14 +3,14 @@ import { sql } from "kysely";
 
 // yadoya Phase 8a — resolve chain_did on vertex_yadoya_hotel by matching the
 // hotel name against the canonical chain roster from ADR-0028
-// (60-apps/ai-gftd-project-hospitality/CLAUDE.md §Chain).
+// (60-apps/etzhayyim-project-hospitality/CLAUDE.md §Chain).
 //
 // We use case-insensitive substring match against the chain slug spelled out
 // in the brand name. Properties without a recognizable brand keep
 // chain_did = NULL — this is intentional (independent / boutique hotels).
 //
 // RisingWave note: single-statement UPDATE is supported (see
-// 20260417150000_gftd_did_recursive_tree.ts for prior art). FLUSH afterward
+// 20260417150000_etzhayyim_did_recursive_tree.ts for prior art). FLUSH afterward
 // so downstream MVs (e.g. mv_yadoya_catalog_coverage) observe the change.
 
 type ChainMatch = { slug: string; pattern: string };

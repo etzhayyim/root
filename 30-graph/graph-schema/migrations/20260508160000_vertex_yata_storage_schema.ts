@@ -2,7 +2,7 @@ import type { Kysely } from "kysely";
 import { sql } from "kysely";
 
 // ADR-0040 vertex tier declarations for tables created in this migration.
-// tier: B  (yatabase customer-owned data — not gftd-internal Tier-3 PII,
+// tier: B  (yatabase customer-owned data — not etzhayyim-internal Tier-3 PII,
 //          but per-tenant business-confidential.)
 
 /**
@@ -16,7 +16,7 @@ import { sql } from "kysely";
  * via SigV4.
  *
  * Tenant model:
- *   The control-plane tables below live in the gftd platform RW
+ *   The control-plane tables below live in the etzhayyim platform RW
  *   database (`postgres` / `dev`). Per-tenant data lives in
  *   `yata_<sha256(did)[:16]>` databases provisioned by
  *   task_yata_database_provision (P3 primitive). The MVs over the

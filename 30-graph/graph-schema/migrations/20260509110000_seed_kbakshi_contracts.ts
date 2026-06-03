@@ -23,7 +23,7 @@ import { sql } from "kysely";
 const NOW = "2026-05-08T00:00:00Z";
 const OWNER = "did:web:etz-hayim.etzhayyim.com";
 const COUNTERPARTY = "did:web:k-bakshi.etzhayyim.com";
-const PRINCIPAL_etzhayyim_JAPAN = "did:web:gftd-japan.etzhayyim.com";
+const PRINCIPAL_etzhayyim_JAPAN = "did:web:etzhayyim-japan.etzhayyim.com";
 
 const CONTRACTS = [
   {

@@ -30,7 +30,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       _seq             BIGINT,
       created_date     DATE,
 
-      repo_id          VARCHAR NOT NULL,      -- e.g. "squad", "etzhayyim/gftd-corpus"
+      repo_id          VARCHAR NOT NULL,      -- e.g. "squad", "etzhayyim/etzhayyim-corpus"
       author           VARCHAR,               -- org or user handle
       sha              VARCHAR,               -- latest commit sha
 
