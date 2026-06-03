@@ -1,4 +1,4 @@
--- Gftdcojp minimax top assignments: assignments passing spirit floor with regret/loss/value.
+-- Etzhayyimcojp minimax top assignments: assignments passing spirit floor with regret/loss/value.
 MODEL (
   name dev.mv_etzhayyimcojp_minimax_top_assignments,
   kind FULL,

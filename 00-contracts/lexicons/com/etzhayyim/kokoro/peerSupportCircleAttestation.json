@@ -81,7 +81,7 @@
           },
           "acuteCrisisEscalationLogCid": {"type": "string"},
           "charterRiderScanRunCid": {"type": "string"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

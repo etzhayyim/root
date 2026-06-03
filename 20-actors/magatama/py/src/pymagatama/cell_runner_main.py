@@ -451,7 +451,7 @@ async def _cell_runner_kotoba-datomic_attest(request: Any) -> Any:
         try:
             from .substrate import Etzhayyim, WriteOpts
 
-            substrate_did = os.environ.get("YATACHAIN_ATTESTATION_DID", node_name)
+            substrate_did = os.environ.get("KOTOBA_DATOMIC_ATTESTATION_DID", node_name)
             async with Etzhayyim(did=substrate_did) as e:
                 await e.write(
                     WriteOpts(

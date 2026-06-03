@@ -14,7 +14,7 @@
           "covenantPartyDids",
           "attestingDid",
           "charterRiderScanPass",
-          "yataChainAttestationCid"
+          "kotobaDatomicAttestationCid"
         ],
         "properties": {
           "createdAt": {
@@ -80,7 +80,7 @@
             "type": "string",
             "description": "IPFS CID of the Charter Rider scan report."
           },
-          "yataChainAttestationCid": {
+          "kotobaDatomicAttestationCid": {
             "type": "string",
             "description": "Kotoba block CID of the on-chain attestation entry (ADR-2605262130)."
           },

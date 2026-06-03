@@ -237,7 +237,7 @@
  {:db/ident :class-cert/kotoba-datomic-cid
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/doc "Yatachain anchor CID (G2)"}
+  :db/doc "KotobaDatomic anchor CID (G2)"}
  {:db/ident :class-cert/all-stages-complete
   :db/valueType :db.type/boolean
   :db/cardinality :db.cardinality/one}

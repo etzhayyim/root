@@ -32,7 +32,7 @@
     {
       "path": "tenant:etzhayyim",
       "displayName": "Etzhayyim Tenant Ingest",
-      "description": "Single tenant app binding (e9b32269-81a5-4d3a-bf94-048ba6770c99, Gftd Japan)"
+      "description": "Single tenant app binding (e9b32269-81a5-4d3a-bf94-048ba6770c99, Etzhayyim Japan)"
     }
   ],
   "capabilities": [

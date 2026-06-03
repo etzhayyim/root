@@ -609,7 +609,7 @@ R0 deliverables landed (this commit):
 Build status: `forge build src/LandRegistry.sol src/PublicLandRegistry.sol
 src/StewardTenureRegistry.sol src/LandClassRegistry.sol src/interfaces/*.sol
 --skip test` → Compiler run successful (Solc 0.8.27, 6 files). Pre-existing
-unrelated GftdAgentRegistry.t.sol import remains broken (out of scope).
+unrelated EtzhayyimAgentRegistry.t.sol import remains broken (out of scope).
 
 Non-goals R0: no testnet deploy / no mainnet deploy / no first donation /
 no on-chain bidirectional sync / no full RMRK / no fractional ownership /

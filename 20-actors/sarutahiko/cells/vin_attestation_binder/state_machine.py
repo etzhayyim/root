@@ -17,7 +17,7 @@ class BinderPhase(Enum):
     RECORDS_COLLECTED = "records_collected"
     VIN_ASSIGNED = "vin_assigned"
     VEHICLE_DID_ISSUED = "vehicle_did_issued"
-    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -75,7 +75,7 @@ def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, An
         "g2Compliant": True,
         "openVinRegistry": True,
     }
-    s.phase = BinderPhase.YATACHAIN_ANCHORED
+    s.phase = BinderPhase.KOTOBA_DATOMIC_ANCHORED
     s.completionPct = 90
     return {"binder_state": s.__dict__, "next_node": "record"}
 

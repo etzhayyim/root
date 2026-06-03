@@ -75,7 +75,7 @@
             "description": "If mitate G5 emergency keyword matched, the escalation record CID (G10)"
           },
           "charterRiderScanPass": {"type": "boolean"},
-          "yataChainAttestationCid": {"type": "string"}
+          "kotobaDatomicAttestationCid": {"type": "string"}
         }
       }
     }

@@ -7,7 +7,7 @@
   Process ID:          kaisya_start_legal_case
 
   Inputs (from dispatcher):
-    caseTitle        (str)  e.g. "LingLing v. Gftd"
+    caseTitle        (str)  e.g. "LingLing v. Etzhayyim"
     caseKind         (str)  litigation | prelitigation | contract-review
     counterparty     (str)
     responsibleDid   (str)  e.g. did:web:k.bakshi.etzhayyim.com

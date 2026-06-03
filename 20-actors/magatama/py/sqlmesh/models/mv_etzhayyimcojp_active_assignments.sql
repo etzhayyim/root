@@ -1,4 +1,4 @@
--- Gftdcojp active assignments: active person-role-project assignments with display metadata.
+-- Etzhayyimcojp active assignments: active person-role-project assignments with display metadata.
 MODEL (
   name dev.mv_etzhayyimcojp_active_assignments,
   kind FULL,

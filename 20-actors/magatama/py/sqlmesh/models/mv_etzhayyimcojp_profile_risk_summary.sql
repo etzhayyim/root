@@ -1,4 +1,4 @@
--- Gftdcojp profile risk summary: aggregate Big5 + risk metrics across all person profiles.
+-- Etzhayyimcojp profile risk summary: aggregate Big5 + risk metrics across all person profiles.
 MODEL (
   name dev.mv_etzhayyimcojp_profile_risk_summary,
   kind FULL,

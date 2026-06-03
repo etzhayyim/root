@@ -17,7 +17,7 @@ class HomologationPhase(Enum):
     SERIAL_ASSIGNED = "serial_assigned"
     TRAINSET_DID_ISSUED = "trainset_did_issued"
     HOMOLOGATION_AUTHORITY_REVIEW = "homologation_authority_review"
-    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -90,7 +90,7 @@ def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, An
         "g2Compliant": True,
         "openTrainsetRegistry": True,
     }
-    s.phase = HomologationPhase.YATACHAIN_ANCHORED
+    s.phase = HomologationPhase.KOTOBA_DATOMIC_ANCHORED
     s.completionPct = 90
     return {"homologation_state": s.__dict__, "next_node": "record"}
 

@@ -53,7 +53,7 @@
             "description": "When labor-equivalent contribution, cross-link to chigiri.stewardLaborAttestation"
           },
           "charterRiderScanPass": {"type": "boolean"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

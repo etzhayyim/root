@@ -1,4 +1,4 @@
--- Gftdcojp RACI by task: active RACI assignments grouped by task and role.
+-- Etzhayyimcojp RACI by task: active RACI assignments grouped by task and role.
 MODEL (
   name dev.mv_etzhayyimcojp_raci_by_task,
   kind FULL,

@@ -1,6 +1,6 @@
 # moto_provenance_binder — futawa terminal (R0 scaffold)
 
-Yatachain anchoring (input material lots → output VIN + parts catalog + tests + hodoki pre-reg).
+KotobaDatomic anchoring (input material lots → output VIN + parts catalog + tests + hodoki pre-reg).
 Per ADR-2605261330 §6 terminal. R0 scaffold — `.solve()` raises until R1.
 
 - **Murakumo node**: judah

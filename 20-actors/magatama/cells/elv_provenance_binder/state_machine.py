@@ -15,7 +15,7 @@ class ProvenanceBinderPhase(Enum):
     INIT = "init"
     RECORDS_GATHERED = "records_gathered"
     MASS_BALANCE_COMPUTED = "mass_balance_computed"
-    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     BINDER_COMPLETE = "binder_complete"
 
 
@@ -87,7 +87,7 @@ def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, An
         "anchoredAt": "2026-05-26T19:00:00Z",
         "auditLogLink": f"ipfs://bafkreikotoba-datomicbind001/{pb.vin}",
     }
-    pb.phase = ProvenanceBinderPhase.YATACHAIN_ANCHORED
+    pb.phase = ProvenanceBinderPhase.KOTOBA_DATOMIC_ANCHORED
     pb.kotoba-datomicAnchor = mock
     pb.completionPct = 90
     return {"provenance_binder_state": pb.__dict__, "next_node": "complete"}

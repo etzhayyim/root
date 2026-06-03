@@ -1,4 +1,4 @@
--- Gftdcojp active contracts: active contracts with clause counts.
+-- Etzhayyimcojp active contracts: active contracts with clause counts.
 MODEL (
   name dev.mv_etzhayyimcojp_active_contracts,
   kind FULL,

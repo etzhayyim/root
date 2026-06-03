@@ -43,7 +43,7 @@
             "description": "Pod operator (L5 vocation-flow steward, G13); present from R3 (staffed pod)"
           },
           "charterRiderScanPass": {"type": "boolean"},
-          "yataChainAttestationCid": {"type": "string"}
+          "kotobaDatomicAttestationCid": {"type": "string"}
         }
       }
     }

@@ -68,7 +68,7 @@
           },
           "lastQualityTestUtc": {"type": "string", "format": "datetime"},
           "nextTestDueAtUtc": {"type": "string", "format": "datetime"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

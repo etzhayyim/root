@@ -1,4 +1,4 @@
--- Gftdcojp skill coverage: per-skill headcount, proficiency, and verification metrics.
+-- Etzhayyimcojp skill coverage: per-skill headcount, proficiency, and verification metrics.
 MODEL (
   name dev.mv_etzhayyimcojp_skill_coverage,
   kind FULL,

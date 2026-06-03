@@ -76,7 +76,7 @@
             "description": "Cross-link to translationAttestation CIDs for multilingual versions"
           },
           "charterRiderScanRunCid": {"type": "string"},
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

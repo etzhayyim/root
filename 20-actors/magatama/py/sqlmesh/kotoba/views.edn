@@ -1680,7 +1680,7 @@
    :view/sources ["vertex.etzhayyimcojp-assignment" "vertex.etzhayyimcojp-person" "vertex.etzhayyimcojp-role"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp active assignments: active person-role-project assignments with display metadata.   SELECT   a.person_did,   a.role_id,   a.project_id,   a.project_name,   a.allocation_pct,   a.start_date,   a.end_date,   p.display_name,   p.display_name_ja,   p.department,   p.title,   p.title_ja,   r.role_name,   r.role_name_ja,   r.is_leadership FROM vertex_etzhayyimcojp_assignment a LEFT JOIN vertex_etzhayyimcojp_person p ON p.person_did = a.person_did LEFT JOIN vertex_etzhayyimcojp_role r ON r.role_id = a.role_id WHERE a.status = 'active'"
+   :view/sql-source "-- Etzhayyimcojp active assignments: active person-role-project assignments with display metadata.   SELECT   a.person_did,   a.role_id,   a.project_id,   a.project_name,   a.allocation_pct,   a.start_date,   a.end_date,   p.display_name,   p.display_name_ja,   p.department,   p.title,   p.title_ja,   r.role_name,   r.role_name_ja,   r.is_leadership FROM vertex_etzhayyimcojp_assignment a LEFT JOIN vertex_etzhayyimcojp_person p ON p.person_did = a.person_did LEFT JOIN vertex_etzhayyimcojp_role r ON r.role_id = a.role_id WHERE a.status = 'active'"
   }
 
   {
@@ -1692,7 +1692,7 @@
    :view/sources ["vertex.etzhayyimcojp-contract" "vertex.etzhayyimcojp-contract-clause"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp active contracts: active contracts with clause counts.   SELECT   c.contract_id,   c.contract_kind,   c.counterparty_did,   c.principal_did,   c.vendor_did,   c.title,   c.start_date,   c.end_date,   c.monthly_rate_jpy,   c.status,   COUNT(DISTINCT cc.clause_kind) AS clause_count FROM vertex_etzhayyimcojp_contract c LEFT JOIN vertex_etzhayyimcojp_contract_clause cc ON cc.contract_id = c.contract_id WHERE c.status = 'active' GROUP BY c.contract_id, c.contract_kind, c.counterparty_did,          c.principal_did, c.vendor_did, c.title, c.start_date,          c.end_date, c.monthly_rate_jpy, c.status"
+   :view/sql-source "-- Etzhayyimcojp active contracts: active contracts with clause counts.   SELECT   c.contract_id,   c.contract_kind,   c.counterparty_did,   c.principal_did,   c.vendor_did,   c.title,   c.start_date,   c.end_date,   c.monthly_rate_jpy,   c.status,   COUNT(DISTINCT cc.clause_kind) AS clause_count FROM vertex_etzhayyimcojp_contract c LEFT JOIN vertex_etzhayyimcojp_contract_clause cc ON cc.contract_id = c.contract_id WHERE c.status = 'active' GROUP BY c.contract_id, c.contract_kind, c.counterparty_did,          c.principal_did, c.vendor_did, c.title, c.start_date,          c.end_date, c.monthly_rate_jpy, c.status"
   }
 
   {
@@ -1715,7 +1715,7 @@
    :view/sources ["ent.governance" "vertex.etzhayyimcojp-governance-event"]
    :view/translation :manual
    :view/manual-reason "single-source aggregate with computed/distinct/where expr — kqe rule"
-   :view/sql-source "-- Gftdcojp omega daily: daily omega score aggregates from governance events.   SELECT   DATE(created_at::TIMESTAMP) AS day,   AVG(omega_score) AS avg_omega,   MIN(omega_score) AS min_omega,   MAX(omega_score) AS max_omega,   COUNT(*) AS check_count,   BOOL_OR(floor_violated) AS any_floor_violated FROM vertex_etzhayyimcojp_governance_event WHERE omega_score IS NOT NULL GROUP BY DATE(created_at::TIMESTAMP)"
+   :view/sql-source "-- Etzhayyimcojp omega daily: daily omega score aggregates from governance events.   SELECT   DATE(created_at::TIMESTAMP) AS day,   AVG(omega_score) AS avg_omega,   MIN(omega_score) AS min_omega,   MAX(omega_score) AS max_omega,   COUNT(*) AS check_count,   BOOL_OR(floor_violated) AS any_floor_violated FROM vertex_etzhayyimcojp_governance_event WHERE omega_score IS NOT NULL GROUP BY DATE(created_at::TIMESTAMP)"
   }
 
   {
@@ -1737,7 +1737,7 @@
    :view/sources ["vertex.etzhayyimcojp-raci" "vertex.etzhayyimcojp-person"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp RACI by task: active RACI assignments grouped by task and role.   SELECT   r.task_nsid,   r.task_name,   r.domain,   r.raci_role,   COUNT(*) AS person_count,   STRING_AGG(p.display_name, ', ') AS persons FROM vertex_etzhayyimcojp_raci r LEFT JOIN vertex_etzhayyimcojp_person p ON p.person_did = r.person_did WHERE r.status = 'active' GROUP BY r.task_nsid, r.task_name, r.domain, r.raci_role"
+   :view/sql-source "-- Etzhayyimcojp RACI by task: active RACI assignments grouped by task and role.   SELECT   r.task_nsid,   r.task_name,   r.domain,   r.raci_role,   COUNT(*) AS person_count,   STRING_AGG(p.display_name, ', ') AS persons FROM vertex_etzhayyimcojp_raci r LEFT JOIN vertex_etzhayyimcojp_person p ON p.person_did = r.person_did WHERE r.status = 'active' GROUP BY r.task_nsid, r.task_name, r.domain, r.raci_role"
   }
 
   {
@@ -1749,7 +1749,7 @@
    :view/sources ["vertex.etzhayyimcojp-person-skill" "vertex.etzhayyimcojp-skill"]
    :view/translation :manual
    :view/manual-reason "multi-source JOIN — needs kqe rule / explicit join clause"
-   :view/sql-source "-- Gftdcojp skill coverage: per-skill headcount, proficiency, and verification metrics.   SELECT   ps.skill_id,   s.name,   s.category,   COUNT(DISTINCT ps.person_did) AS headcount,   AVG(ps.proficiency) AS avg_proficiency,   MAX(ps.proficiency) AS max_proficiency,   SUM(CASE WHEN ps.peer_verified THEN 1 ELSE 0 END) AS verified_count FROM vertex_etzhayyimcojp_person_skill ps LEFT JOIN vertex_etzhayyimcojp_skill s ON s.skill_id = ps.skill_id GROUP BY ps.skill_id, s.name, s.category"
+   :view/sql-source "-- Etzhayyimcojp skill coverage: per-skill headcount, proficiency, and verification metrics.   SELECT   ps.skill_id,   s.name,   s.category,   COUNT(DISTINCT ps.person_did) AS headcount,   AVG(ps.proficiency) AS avg_proficiency,   MAX(ps.proficiency) AS max_proficiency,   SUM(CASE WHEN ps.peer_verified THEN 1 ELSE 0 END) AS verified_count FROM vertex_etzhayyimcojp_person_skill ps LEFT JOIN vertex_etzhayyimcojp_skill s ON s.skill_id = ps.skill_id GROUP BY ps.skill_id, s.name, s.category"
   }
 
   {

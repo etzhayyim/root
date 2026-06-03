@@ -59,7 +59,7 @@
             "const": false,
             "description": "G4 STRUCTURAL: const false"
           },
-          "yataChainAttestationCid": {"type": "string"},
+          "kotobaDatomicAttestationCid": {"type": "string"},
           "attestingCellDid": {"type": "string"}
         }
       }

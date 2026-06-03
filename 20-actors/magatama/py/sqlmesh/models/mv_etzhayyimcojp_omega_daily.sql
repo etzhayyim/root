@@ -1,4 +1,4 @@
--- Gftdcojp omega daily: daily omega score aggregates from governance events.
+-- Etzhayyimcojp omega daily: daily omega score aggregates from governance events.
 MODEL (
   name dev.mv_etzhayyimcojp_omega_daily,
   kind FULL,

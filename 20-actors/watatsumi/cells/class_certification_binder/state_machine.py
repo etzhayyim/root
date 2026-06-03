@@ -16,7 +16,7 @@ class CertificationPhase(Enum):
     INIT = "init"
     RECORDS_COLLECTED = "records_collected"
     SURVEYOR_REVIEW = "surveyor_review"
-    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -73,7 +73,7 @@ def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, An
         "anchorBlockNumber": 0,
         "g2Compliant": True,
     }
-    cs.phase = CertificationPhase.YATACHAIN_ANCHORED
+    cs.phase = CertificationPhase.KOTOBA_DATOMIC_ANCHORED
     cs.completionPct = 90
     return {"certification_state": cs.__dict__, "next_node": "record"}
 

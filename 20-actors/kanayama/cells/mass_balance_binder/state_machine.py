@@ -19,7 +19,7 @@ class BalancePhase(Enum):
     INIT = "init"
     RECORDS_COLLECTED = "records_collected"
     MASS_BALANCE_COMPUTED = "mass_balance_computed"
-    YATACHAIN_ANCHORED = "kotoba-datomic_anchored"
+    KOTOBA_DATOMIC_ANCHORED = "kotoba-datomic_anchored"
     RECORD_EMITTED = "record_emitted"
 
 
@@ -78,7 +78,7 @@ def transition_to_kotoba-datomic_anchored(state: dict[str, Any]) -> dict[str, An
         "anchorBlockNumber": 0,
         "g2Compliant": True,
     }
-    s.phase = BalancePhase.YATACHAIN_ANCHORED
+    s.phase = BalancePhase.KOTOBA_DATOMIC_ANCHORED
     s.completionPct = 90
     return {"balance_state": s.__dict__, "next_node": "record"}
 
