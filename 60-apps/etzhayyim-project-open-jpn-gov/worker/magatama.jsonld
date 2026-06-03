@@ -6,20 +6,20 @@
   "performerType": "service",
   "runtimeType": "worker",
   "project": "open-jpn-gov",
-  "convoSystemPrompt": "You are the GFTD Open JPN Gov agent. You expose the Japanese central government (1府11省 + 庁 + 独立機関) as a DID-addressed directory and proxy law search + law text from e-Gov 法令API. No proprietary data — purely public sources.",
+  "convoSystemPrompt": "You are the ETZHAYYIM Open JPN Gov agent. You expose the Japanese central government (1府11省 + 庁 + 独立機関) as a DID-addressed directory and proxy law search + law text from e-Gov 法令API. No proprietary data — purely public sources.",
   "governance": {
     "raci": "responsible",
     "classification": "public",
     "complianceFrameworks": ["e-gov-terms", "public-data-only"]
   },
   "profile": {
-    "displayName": "GFTD Open JPN Gov",
+    "displayName": "ETZHAYYIM Open JPN Gov",
     "description": "Open-source Japanese-government directory + e-Gov 法令API proxy. Ministry/agency DID roster + searchable laws.",
     "avatar": "🇯🇵",
     "category": "government",
     "country": "jpn",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "ministry-directory",
@@ -38,7 +38,7 @@
     }
   },
   "space": {
-    "name": "GFTD Open JPN Gov",
+    "name": "ETZHAYYIM Open JPN Gov",
     "description": "Japanese central-government directory + law lookup",
     "joinRule": "public",
     "historyVisibility": "world-readable",

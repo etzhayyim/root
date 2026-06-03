@@ -3,7 +3,7 @@
              xmlns:camunda="http://camunda.org/schema/1.0/dmn"
              id="open-jpn-gov-law-type-classification"
              name="Law Type Classification"
-             namespace="https://gftd.ai/dmn/open-jpn-gov">
+             namespace="https://etzhayyim.com/dmn/open-jpn-gov">
   <decision id="openJpnGov.lawTypeClassification" name="Classify Law Type">
     <decisionTable id="dt_lawTypeClassification" hitPolicy="FIRST">
       <input id="i_query" label="query">

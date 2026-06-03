@@ -1,6 +1,6 @@
 # open-jpn-gov.etzhayyim.com — Japanese Gov Directory + e-Gov Law Proxy (OSS)
 
-**Status**: MVP scaffold (2026-04-15). OSS mirror: `github.com/etzhayyim/ai-gftd-project-open-jpn-gov` (Apache-2.0).
+**Status**: MVP scaffold (2026-04-15). OSS mirror: `github.com/etzhayyim/etzhayyim-project-open-jpn-gov` (Apache-2.0).
 
 ## Scope
 
@@ -38,7 +38,7 @@ This app is a **public directory + law proxy**, not a sovereign actor. Existing 
 ## Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-open-jpn-gov/worker
+cd 60-apps/etzhayyim-project-open-jpn-gov/worker
 e7m actor deploy .   # or: wrangler deploy
 ```
 

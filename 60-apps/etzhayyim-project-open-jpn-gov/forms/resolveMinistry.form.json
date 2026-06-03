@@ -17,7 +17,7 @@
       "defaultValue": "code"
     },
     { "key": "code", "label": "省庁コード", "type": "textfield", "conditional": { "equals": { "inputKind": "code" } } },
-    { "key": "did",  "label": "DID",       "type": "textfield", "conditional": { "equals": { "inputKind": "did"  } }, "validate": { "pattern": "^did:web:open-jpn-gov\\.gftd\\.ai:.+" } }
+    { "key": "did",  "label": "DID",       "type": "textfield", "conditional": { "equals": { "inputKind": "did"  } }, "validate": { "pattern": "^did:web:open-jpn-gov\\.etzhayyim\\.ai:.+" } }
   ],
   "variableMappings": { "inputKind": "inputKind", "code": "code", "did": "did" }
 }

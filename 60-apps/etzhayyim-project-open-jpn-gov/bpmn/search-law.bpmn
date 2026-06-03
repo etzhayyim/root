@@ -3,7 +3,7 @@
                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   id="open-jpn-gov-search-law"
-                  targetNamespace="https://gftd.ai/bpmn/open-jpn-gov">
+                  targetNamespace="https://etzhayyim.com/bpmn/open-jpn-gov">
   <bpmn:process id="searchLaw" name="Search Law (e-Gov)" isExecutable="true">
     <bpmn:startEvent id="Start_Query" name="Search query received"/>
     <bpmn:sequenceFlow id="f1" sourceRef="Start_Query" targetRef="Task_Form"/>

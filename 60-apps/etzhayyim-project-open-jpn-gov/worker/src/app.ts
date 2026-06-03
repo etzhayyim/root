@@ -2,7 +2,7 @@
 // Copyright 2026 etzhayyim Japan株式会社 / etzhayyim. All rights reserved.
 // Licensed under the Apache License, Version 2.0 — see LICENSE at repo root.
 
-// ai-gftd-project-open-jpn-gov — Japanese central-government open directory + e-Gov law proxy
+// etzhayyim-project-open-jpn-gov — Japanese central-government open directory + e-Gov law proxy
 //
 // 5 XRPC methods under com.etzhayyim.apps.openJpnGov.*:
 //   listMinistries   (query)  — roster of 1府11省 + 庁 + 独立機関 + 外局
