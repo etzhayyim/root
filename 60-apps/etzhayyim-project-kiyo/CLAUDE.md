@@ -14,8 +14,8 @@
 ## Component Map
 
 ```
-60-apps/ai-gftd-project-kiyo/
-└── wasm/ai-gftd-wasm-kiyo-k1y04rc4/
+60-apps/etzhayyim-project-kiyo/
+└── wasm/etzhayyim-wasm-kiyo-k1y04rc4/
     ├── src/app.ts           ← thin CF Worker (L3): XRPC facade only
     ├── magatama.jsonld
     └── wrangler.jsonc
@@ -109,7 +109,7 @@ cd 30-graph/graph-schema && pnpm db:migrate latest && pnpm db:gen && pnpm db:dri
 psql $RW_DSN -f sql/register_kiyo_udfs.sql
 
 # 3. deploy CF Worker
-cd 60-apps/ai-gftd-project-kiyo/wasm/ai-gftd-wasm-kiyo-k1y04rc4 && gftd deploy
+cd 60-apps/etzhayyim-project-kiyo/wasm/etzhayyim-wasm-kiyo-k1y04rc4 && etzhayyim deploy
 
 # 4. build + deploy kiyo-worker (amd64 必須)
 cd 50-infra/k8s/kiyo-worker
@@ -124,7 +124,7 @@ kubectl logs -n mitama-udf deploy/bpmn-dispatcher | grep 'deployed kind=bpmn.*ki
 
 ```bash
 # submit a paper
-gftd agent-token --lxm com.etzhayyim.kiyo.submitPaper | xargs -I{} \
+etzhayyim agent-token --lxm com.etzhayyim.kiyo.submitPaper | xargs -I{} \
   curl -s -X POST https://kiyo.etzhayyim.com/xrpc/com.etzhayyim.kiyo.submitPaper \
     -H "Authorization: Bearer {}" \
     -H "Content-Type: application/json" \

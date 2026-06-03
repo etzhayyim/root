@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Kiyo K1y04rc4",
-  "project": "ai-gftd-project-kiyo",
-  "name": "ai-gftd-wasm-kiyo-k1y04rc4",
+  "project": "etzhayyim-project-kiyo",
+  "name": "etzhayyim-wasm-kiyo-k1y04rc4",
   "kind": "wasm appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-kiyo/wasm/ai-gftd-wasm-kiyo-k1y04rc4/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-kiyo/wasm/etzhayyim-wasm-kiyo-k1y04rc4/svelte/src/routes/+page.svelte"
 };
 </script>
 

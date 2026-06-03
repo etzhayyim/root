@@ -97,6 +97,6 @@ Option C (IPFS-only) hybrid: blob → IPFS, metadata → PDS (this PR).
 
 - [kiyo design spec](../CLAUDE.md) — actor architecture (XRPC + LangServer + RisingWave UDF + LangGraph)
 - [ADR-2605203000](../../../90-docs/adr/2605203000-rw-free-write-target-options.md) — Phase E write-target options
-- [sbom rw-free](../../ai-gftd-project-sbom/rw-free/) — sibling Option B reference (17/N)
-- [hanrei rw-free](../../ai-gftd-project-hanrei/rw-free/) — Option B reference (31/31 ✓)
-- [ipaddress rw-free](../../ai-gftd-project-ipaddress/rw-free/) — Option B reference (37/37 ✓)
+- [sbom rw-free](../../etzhayyim-project-sbom/rw-free/) — sibling Option B reference (17/N)
+- [hanrei rw-free](../../etzhayyim-project-hanrei/rw-free/) — Option B reference (31/31 ✓)
+- [ipaddress rw-free](../../etzhayyim-project-ipaddress/rw-free/) — Option B reference (37/37 ✓)
