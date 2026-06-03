@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updated_at": "2026-06-02",
+  "updated_at": "2026-06-03",
   "entries": [
     {
       "path": "90-docs/magatama/260319-magatama-wit-dodaf-nist-coverage.md",
@@ -19518,7 +19518,7 @@
       "path": "90-docs/adr/2606021730-latent-entity-kotoba-datomic-refactor.md",
       "id": "adr-2606021730-latent-entity-kotoba-datomic-refactor",
       "title": "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor",
-      "status": "proposed",
+      "status": "active",
       "doc_type": "adr",
       "topic": "latent-entity-kotoba-refactor",
       "authoritative": true,
@@ -19578,6 +19578,32 @@
         "ADR-2606013600 (kotoba-wasm browser node — the render target)",
         "ADR-2606013800 (actor-profile SSoT + dynamic did.json — the registration path)",
         "ADR-2605215000 (Murakumo-only inference)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic.md",
+      "id": "adr-2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic",
+      "title": "ADR-2606022150: kotoba unified substrate — true DAG-CBOR / Prolly / Datomic with the hot index as a derived projection",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "kotoba-unified-ipld-substrate",
+      "authoritative": true,
+      "authoritative_for": [
+        "kotoba-canonical-block-encoding",
+        "kotoba-hot-index-derivation"
+      ],
+      "related": [
+        "adr-2605240001-kotoba-cleanroom-architecture"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2606013600-kotoba-wasm-browser-node"
       ],
       "last_verified": "2026-06-02",
       "amends": [],
@@ -19780,6 +19806,140 @@
       "amended_by": []
     },
     {
+      "path": "90-docs/adr/2606023200-session-close-ooyake-world-government-atlas.md",
+      "id": "adr-2606023200-session-close-ooyake-world-government-atlas",
+      "title": "ADR-2606023200: Session close — ooyake (公) world government atlas R0/R1 build + self-paced /loop maturation",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-ooyake-world-government-atlas",
+      "authoritative": false,
+      "related": [
+        "adr-2606021600-ooyake-world-government-atlas",
+        "adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "last_verified": "2026-06-02",
+      "authoritative_for": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606023600-tsutae-handheld-cleanroom-factory-and-device-bom-supply-chain.md",
+      "id": "adr-2606023600-tsutae-handheld-cleanroom-factory-and-device-bom-supply-chain",
+      "title": "ADR-2606023600: tsutae (伝え) — handheld cleanroom factory + device-BOM supply chain + 8-cell substrate (sarutahiko-parity uplift)",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "tsutae/factory/supply-chain",
+      "authoritative": true,
+      "authoritative_for": [
+        "20-actors/tsutae/cells",
+        "70-tools/e7m-sim/scenes/tsutae-factory-r0"
+      ],
+      "related": [
+        "adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0",
+        "adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
+        "adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "2605261300-tsutae-handheld-communication-tier-b-actor-r0",
+        "2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "2605262130-kotoba-storage-substrate-unification",
+        "2605215000-etzhayyim-inference-murakumo-only-no-runpod"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606023800-session-close-tsutae-sarutahiko-parity-uplift.md",
+      "id": "adr-2606023800",
+      "title": "ADR-2606023800: Session close — tsutae raised to sarutahiko-class substrate (cells + factory + device BOM + toolchain + viewer)",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-tsutae-sarutahiko-parity-uplift",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606023600-tsutae-handheld-cleanroom-factory-and-device-bom-supply-chain",
+        "adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0",
+        "adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606023600 (tsutae factory + device BOM — the design authored this session)",
+        "ADR-2605261300 (tsutae R0 master — the actor matured this session)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606024000-session-close-kotoba-wasm-browser-node-shipped-cf-assets-ipfs.md",
+      "id": "adr-2606024000",
+      "title": "ADR-2606024000: Session close — kotoba-wasm browser node SHIPPED (kabuto viz datomicQ + CF /kotoba/* + content-addressed IPFS) + read-consistency analysis",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-kotoba-wasm-browser-node-shipped-cf-assets-ipfs",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606013600-kotoba-wasm-browser-node",
+        "adr-2606020100-session-close-kotoba-browser-node",
+        "adr-2606022000-kabuto-public-company-intel-supply-chain-tier-b-actor-r0",
+        "adr-2606014600-wasm-actor-runtime-gateway-and-componentize",
+        "adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "adr-2606011330-kotoba-dht-holochain-validating-dht-durability-substrate",
+        "adr-2605231525-no-server-key"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606013600 (kotoba-wasm browser node — the P0 design this session implemented + deployed)",
+        "ADR-2606022000 (kabuto — the first consumer; G6 browser-native render)",
+        "ADR-2606014600 (apex trustless /ipfs/<cid> gateway + ameno loader — the serving substrate reused)"
+      ],
+      "last_verified": "2026-06-02",
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606030600-session-close-worldwide-civic-knowledge-directories.md",
+      "id": "adr-2606030600",
+      "title": "ADR-2606030600: Session close — worldwide civic-knowledge directory build-out (danjo/kokoro/manabi/kazaori/shidemori/hagukumi/kataribe) + long-tail deepening",
+      "status": "active",
+      "doc_type": "adr",
+      "topic": "session-close-worldwide-civic-knowledge-directories",
+      "authoritative": false,
+      "authoritative_for": [],
+      "related": [
+        "adr-2606023000-session-close-civic-concierge-worldwide-coverage-and-r1-cores",
+        "adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "adr-2605302245-danjo-global-fiscal-flow-extension",
+        "adr-2605263700-kokoro-mental-health-support-tier-b-actor-r0",
+        "adr-2605261045-manabi-education-tier-b-actor-r0",
+        "adr-2605263200-kazaori-civilian-disaster-response-tier-b-actor-r0",
+        "adr-2605263800-shidemori-memorial-cemetery-tier-b-actor-r0",
+        "adr-2605261030-hagukumi-care-childcare-eldercare-tier-b-actor-r0",
+        "adr-2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "ADR-2606023000 (prior session-close — civic-concierge worldwide coverage; this continues the worldwide build-out)"
+      ],
+      "last_verified": "2026-06-03",
+      "amends": [],
+      "amended_by": []
+    },
+    {
       "path": "90-docs/adr/template.md",
       "id": "adr-YYMMDDhhmm-topic-slug",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -19932,6 +20092,42 @@
       "authoritative_for": [],
       "supersedes": [],
       "superseded_by": [],
+      "amends": [],
+      "amended_by": []
+    },
+    {
+      "path": "90-docs/adr/2606024000-aratame-source-vulnerability-inspection-tier-b-actor-r0.md",
+      "id": "aratame-source-vulnerability-inspection-tier-b-actor-r0",
+      "title": "ADR-2606024000: aratame (改め) — authorized GitHub-repo source-code vulnerability-inspection actor (akuma's static-source diagnosis sibling; tsukuroi's upstream finding source) R0",
+      "status": "proposed",
+      "doc_type": "adr",
+      "topic": "authorized-source-inspection",
+      "authoritative": true,
+      "authoritative_for": [
+        "authorized-source-inspection",
+        "inspection-mandate-contract",
+        "static-source-vulnerability-finding",
+        "source-inspection-audit"
+      ],
+      "related": [
+        "adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+        "adr-2605091800-pruning-protocol",
+        "adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "depends_on": [
+        "adr-2605151400-akuma-authorized-redteam-actor",
+        "adr-2605291500-tsukuroi-authorized-remediation-tier-b-actor-r0",
+        "adr-2605192100-etzhayyim-mission-charter",
+        "adr-2605192200-etzhayyim-ip-free-release-charter-rider",
+        "adr-2605215000-etzhayyim-inference-murakumo-only",
+        "adr-2605231525-server-side-signing-capability",
+        "adr-2605262130-kotoba-storage-substrate-unification",
+        "adr-2605181100-encrypted-records"
+      ],
+      "last_verified": "2026-06-02",
       "amends": [],
       "amended_by": []
     },

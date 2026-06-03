@@ -25,7 +25,7 @@ Invariants under test:
      (accessUrl/provenance allow http(s) rather than masking real URLs; the
      lastVerified stamp is ISO-8601 Zulu).
   5. every entry has a `jurisdiction`, and the registry spans MULTIPLE
-     jurisdictions (>= 12 distinct) — proves worldwide coverage / guards against
+     jurisdictions (>= 50 distinct) — proves worldwide coverage / guards against
      regression to a single-jurisdiction seed.
   6. every entry's `channelKind` is in the closed publication-channel enum.
   7. every entry's `notes` is non-empty AND references kataribe's
@@ -137,7 +137,7 @@ def test_every_entry_has_access_provenance_and_last_verified():
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# 5. worldwide coverage — >= 12 distinct jurisdictions
+# 5. worldwide coverage — >= 50 distinct jurisdictions
 # ─────────────────────────────────────────────────────────────────────────
 
 
@@ -148,8 +148,8 @@ def test_registry_spans_multiple_jurisdictions():
             f"{c.get('channelId')}: MUST declare a jurisdiction"
         )
     jurisdictions = {c["jurisdiction"] for c in chans}
-    assert len(jurisdictions) >= 12, (
-        "WORLDWIDE coverage invariant: registry MUST span >= 12 distinct "
+    assert len(jurisdictions) >= 50, (
+        "WORLDWIDE coverage invariant: registry MUST span >= 50 distinct "
         "jurisdictions (guards against regression to a single-jurisdiction "
         f"seed); got {sorted(jurisdictions)}"
     )

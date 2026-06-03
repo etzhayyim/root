@@ -12563,6 +12563,25 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606021730-latent-entity-kotoba-datomic-refactor",
+      "type": "TechArticle",
+      "title": "ADR-2606021730: Latent Entity Statistical Resolution — RisingWave to kotoba-EAVT Refactor",
+      "status": "active",
+      "topic": "latent-entity-kotoba-refactor",
+      "authoritative": true,
+      "authoritativeFor": [
+        "latent-entity statistical resolution design — kotoba-EAVT canonical form"
+      ],
+      "related": [
+        "doc:/90-docs/260430-natural-person-latent-entity-backend-design.md (superseded design)",
+        "doc:/00-contracts/schemas/latent-entity-ontology.kotoba.edn (new schema)",
+        "doc:/30-graph/graph-schema/migrations/20260428360000_vertex_lda_inference.ts (legacy RW stack)",
+        "doc:/60-apps/ai-gftd-project-coverage/MIGRATION-TODO.md (charter-violation evidence)"
+      ],
+      "supersedes": "doc:/90-docs/260430-natural-person-latent-entity-backend-design.md (RisingWave design, 2026-04-30)",
+      "lastVerified": "2026-06-02"
+    },
+    {
       "id": "doc:adr-2606022000",
       "type": "TechArticle",
       "title": "ADR-2606022000: kabuto (兜) — World Public-Company Supply-Chain Knowledge Graph + atproto social + browser-native kotoba-wasm render Tier-B Actor R0",
@@ -12583,6 +12602,20 @@
         "doc:adr-2606013800-actor-profile-ssot-dynamic-did-json",
         "doc:adr-2606021200-himawari-solar-pv-manufacturing-r0"
       ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606022150-kotoba-unified-ipld-dagcbor-prolly-datomic",
+      "type": "TechArticle",
+      "title": "ADR-2606022150: kotoba unified substrate — true DAG-CBOR / Prolly / Datomic with the hot index as a derived projection",
+      "status": "active",
+      "topic": "kotoba-unified-ipld-substrate",
+      "authoritative": true,
+      "authoritativeFor": [
+        "kotoba-canonical-block-encoding",
+        "kotoba-hot-index-derivation"
+      ],
+      "related": "doc:adr-2605240001-kotoba-cleanroom-architecture",
       "lastVerified": "2026-06-02"
     },
     {
@@ -12711,6 +12744,93 @@
       "lastVerified": "2026-06-02"
     },
     {
+      "id": "doc:adr-2606023200-session-close-ooyake-world-government-atlas",
+      "type": "TechArticle",
+      "title": "ADR-2606023200: Session close — ooyake (公) world government atlas R0/R1 build + self-paced /loop maturation",
+      "status": "active",
+      "topic": "session-close-ooyake-world-government-atlas",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606021600-ooyake-world-government-atlas",
+        "doc:adr-2605242330-gov-procedure-pregel-mcp-coverage",
+        "doc:adr-2605312030-toritsugi-government-procedure-concierge-tier-b-actor-r0",
+        "doc:adr-2605192300-etzhayyim-bootstrap-council-five"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606023600-tsutae-handheld-cleanroom-factory-and-device-bom-supply-chain",
+      "type": "TechArticle",
+      "title": "ADR-2606023600: tsutae (伝え) — handheld cleanroom factory + device-BOM supply chain + 8-cell substrate (sarutahiko-parity uplift)",
+      "status": "proposed",
+      "topic": "tsutae/factory/supply-chain",
+      "authoritative": true,
+      "authoritativeFor": [
+        "20-actors/tsutae/cells",
+        "70-tools/e7m-sim/scenes/tsutae-factory-r0"
+      ],
+      "related": [
+        "doc:adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0",
+        "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader",
+        "doc:adr-2606010030-giemon-factory-r0-kami-engine-kotoba-4d-bim",
+        "doc:adr-2606011500-kami-engine-reusable-vs-repo-specific-separation-plan",
+        "doc:adr-2605242500-baien-ternary-silicon-and-tsukuru-fab-charter"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606023800",
+      "type": "TechArticle",
+      "title": "ADR-2606023800: Session close — tsutae raised to sarutahiko-class substrate (cells + factory + device BOM + toolchain + viewer)",
+      "status": "active",
+      "topic": "session-close-tsutae-sarutahiko-parity-uplift",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606023600-tsutae-handheld-cleanroom-factory-and-device-bom-supply-chain",
+        "doc:adr-2605261300-tsutae-handheld-communication-tier-b-actor-r0",
+        "doc:adr-2606013100-sarutahiko-truck-factory-full-robotics-and-loader"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606024000",
+      "type": "TechArticle",
+      "title": "ADR-2606024000: Session close — kotoba-wasm browser node SHIPPED (kabuto viz datomicQ + CF /kotoba/* + content-addressed IPFS) + read-consistency analysis",
+      "status": "active",
+      "topic": "session-close-kotoba-wasm-browser-node-shipped-cf-assets-ipfs",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606013600-kotoba-wasm-browser-node",
+        "doc:adr-2606020100-session-close-kotoba-browser-node",
+        "doc:adr-2606022000-kabuto-public-company-intel-supply-chain-tier-b-actor-r0",
+        "doc:adr-2606014600-wasm-actor-runtime-gateway-and-componentize",
+        "doc:adr-2605312345-kotoba-datom-first-class-canonical-state",
+        "doc:adr-2606011330-kotoba-dht-holochain-validating-dht-durability-substrate",
+        "doc:adr-2605231525-no-server-key"
+      ],
+      "lastVerified": "2026-06-02"
+    },
+    {
+      "id": "doc:adr-2606030600",
+      "type": "TechArticle",
+      "title": "ADR-2606030600: Session close — worldwide civic-knowledge directory build-out (danjo/kokoro/manabi/kazaori/shidemori/hagukumi/kataribe) + long-tail deepening",
+      "status": "active",
+      "topic": "session-close-worldwide-civic-knowledge-directories",
+      "authoritative": false,
+      "related": [
+        "doc:adr-2606023000-session-close-civic-concierge-worldwide-coverage-and-r1-cores",
+        "doc:adr-2605301600-danjo-public-accountability-oversight-tier-b-actor-r0",
+        "doc:adr-2605302245-danjo-global-fiscal-flow-extension",
+        "doc:adr-2605263700-kokoro-mental-health-support-tier-b-actor-r0",
+        "doc:adr-2605261045-manabi-education-tier-b-actor-r0",
+        "doc:adr-2605263200-kazaori-civilian-disaster-response-tier-b-actor-r0",
+        "doc:adr-2605263800-shidemori-memorial-cemetery-tier-b-actor-r0",
+        "doc:adr-2605261030-hagukumi-care-childcare-eldercare-tier-b-actor-r0",
+        "doc:adr-2605263600-kataribe-press-publishing-translation-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-03"
+    },
+    {
       "id": "doc:adr-YYMMDDhhmm-topic-slug",
       "type": "TechArticle",
       "title": "ADR-YYMMDDhhmm: ADR Title",
@@ -12821,6 +12941,27 @@
       "authoritative": false,
       "related": "doc:ameno-end-to-end-runbook",
       "lastVerified": "2026-05-19"
+    },
+    {
+      "id": "doc:aratame-source-vulnerability-inspection-tier-b-actor-r0",
+      "type": "TechArticle",
+      "title": "ADR-2606024000: aratame (改め) — authorized GitHub-repo source-code vulnerability-inspection actor (akuma's static-source diagnosis sibling; tsukuroi's upstream finding source) R0",
+      "status": "proposed",
+      "topic": "authorized-source-inspection",
+      "authoritative": true,
+      "authoritativeFor": [
+        "authorized-source-inspection",
+        "inspection-mandate-contract",
+        "static-source-vulnerability-finding",
+        "source-inspection-audit"
+      ],
+      "related": [
+        "doc:adr-2605312330-giemon-part-graph-sbom-kotoba-fleet-cve-svelte",
+        "doc:adr-2605091800-pruning-protocol",
+        "doc:adr-2605091400-mcp-as-cell-membrane-lexicon-xrpc-demotion",
+        "doc:adr-2605262700-chigiri-legal-procedure-tier-b-actor-r0"
+      ],
+      "lastVerified": "2026-06-02"
     },
     {
       "id": "doc:atproto-layer-separation",

@@ -22,3 +22,5 @@ channels / unique channelId / 全件 G14 unverified-seed / accessUrl+provenance+
 non-commercial・observational 境界明記 / top-level int freshnessWindowDays。三層 G14 人手検証
 ワークフロー `registry/VERIFICATION.md`(per-field checklist + per-jurisdiction official-source
 provenance fail-closed + 非商用/観測専用境界 re-check; honest: **0 verified**)を追加。
+
+**registry mid-tier deepening。** `registry/channels.seed.json` を mid-tier 管轄拡充で 226件・61 distinct jurisdictions に拡大し、テスト `70-tools/scripts/audit/test_kataribe_registry_seed.py` の distinct-jurisdiction floor を `>=12` → `>=50`(実数61に安全マージン)へ引き上げ(他 invariants は不変、8 invariants green)。

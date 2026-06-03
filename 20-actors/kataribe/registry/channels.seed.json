@@ -1,6 +1,6 @@
 {
   "$schema": "com.etzhayyim.kataribe.publicationChannel",
-  "_comment": "R0 SEED per ADR-2605263600; every entry verificationStatus=unverified-seed (G14); kataribe is a community press / publishing / translation substrate (ADR-2605263600) - NOT commercial journalism, NOT a paid press class, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications) + recognized press-freedom bodies, for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing.",
+  "_comment": "R0 SEED per ADR-2605263600; every entry verificationStatus=unverified-seed (G14); kataribe is a community press / publishing / translation substrate (ADR-2605263600) - NOT commercial journalism, NOT a paid press class, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications) + recognized press-freedom bodies, for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing. | MID-TIER DEEPENING (2026-06-02): appended national gazettes + legal-publication channels for 28 additional jurisdictions (South/Southeast/East Asia, MENA, Sub-Saharan Africa, Andean Latin America, Central/Eastern Europe, Türkiye, Israel, Kazakhstan); all verificationStatus=unverified-seed.",
   "freshnessWindowDays": 180,
   "channels": [
     {
@@ -2813,6 +2813,1407 @@
       "verificationStatus": "unverified-seed",
       "confidence": "high",
       "notes": "UNESCO is the UN agency mandated to defend freedom of expression and press freedom; it leads the UN Plan of Action on the Safety of Journalists and publishes the Director-General's biennial Report on the Safety of Journalists and monitors journalist killings. URL verified via UNESCO official search. Recognized intergovernmental press-freedom body, NOT a national gazette. Available in the six UN official languages. BOUNDARY: kataribe is a community press / publishing / translation substrate (ADR-2605263600) - NOT commercial journalism, NOT a paid press class, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications) + recognized press-freedom bodies, for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing. UNVERIFIED SEED scaffold."
+    },
+    {
+      "channelId": "pk-gazette-of-pakistan-pcp",
+      "title": "The Gazette of Pakistan (گزٹ آف پاکستان)",
+      "jurisdiction": "pak",
+      "channelKind": "official-gazette",
+      "publisher": "Printing Corporation of Pakistan (PCP), Government of Pakistan",
+      "accessUrl": "http://www.pcp.gov.pk/",
+      "contentType": "official-notices",
+      "access": "free",
+      "language": [
+        "en",
+        "ur"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/The_Gazette_of_Pakistan",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "National official gazette of Pakistan, the authoritative venue for publishing Acts, Ordinances, S.R.Os, statutory notifications, regulations and government appointments. Issued in Ordinary (weekly) and Extraordinary editions, divided into multiple Parts. Produced and distributed by the state-owned Printing Corporation of Pakistan (PCP), established 1969, operating presses in Islamabad, Lahore and Karachi. Honest caveat: as of 2025 there is no single comprehensive full-text searchable online gazette database; the corpus relies on static PDFs distributed via PCP and individual ministry sites (e.g. Ministry of Interior, Establishment Division), so PDFs may be fragmented across government domains. The PCP site (pcp.gov.pk) is the primary official production/distribution channel; confidence high on the publisher and gazette identity. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "pk-pakistan-code-mlj",
+      "title": "The Pakistan Code (پاکستان کوڈ)",
+      "jurisdiction": "pak",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of Law and Justice (Laws of Pakistan Cell), Government of Pakistan",
+      "accessUrl": "https://pakistancode.gov.pk/",
+      "contentType": "laws",
+      "access": "open",
+      "language": [
+        "en",
+        "ur"
+      ],
+      "provenance": "https://www.ecoi.net/en/countries/pakistan/law-guide/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official consolidated statute portal operated by Pakistan's Ministry of Law and Justice (via its Laws of Pakistan Cell), publishing official versions of federal legislation, ordinances, and subordinate legislation indexed since 1834. Provides full-text search plus chronological, alphabetical and category browsing in English and Urdu. Free public access. The Gazette is the primary publication venue of record, while the Pakistan Code is the consolidated/codified statute database. The pakistancode.gov.pk site timed out on direct fetch during verification but is a well-established official .gov.pk portal cross-confirmed by ecoi.net and the Supreme Court of Pakistan; confidence high. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "bgd-bangladesh-gazette-bgpress",
+      "title": "The Bangladesh Gazette (বাংলাদেশ গেজেট) — BG Press Gazette Archive",
+      "jurisdiction": "bgd",
+      "channelKind": "official-gazette",
+      "publisher": "Bangladesh Government Press (BG Press), Department of Printing and Publications (DPP), Government of the People's Republic of Bangladesh",
+      "accessUrl": "https://www.dpp.gov.bd/bgpress/index.php/document/gazettes/140",
+      "contentType": "official-notices",
+      "access": "free",
+      "language": [
+        "bn",
+        "en"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/The_Bangladesh_Gazette",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "National official gazette of Bangladesh — the reliable anchor where laws, statutory notifications (SROs), service rules, and government orders are officially published. Issued in Weekly and Extraordinary editions in multiple Parts. The BG Press / DPP online archive showed 51,021 gazette records and a keyword/date/type search interface when verified (June 2026). Gazette formed 7 Dec 1973 (origin in the Dacca Gazette, 15 Aug 1947). UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "bgd-laws-of-bangladesh-minlaw",
+      "title": "Laws of Bangladesh — Bangladesh Code (বাংলাদেশ কোড)",
+      "jurisdiction": "bgd",
+      "channelKind": "legal-publication",
+      "publisher": "Legislative and Parliamentary Affairs Division, Ministry of Law, Justice and Parliamentary Affairs, Government of the People's Republic of Bangladesh",
+      "accessUrl": "http://bdlaws.minlaw.gov.bd/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "en",
+        "bn"
+      ],
+      "provenance": "https://minlaw.gov.bd",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official consolidated statute portal — the Bangladesh Code, codifying all existing Acts of Parliament, Ordinances, and President's Orders in force (except regulations and purely amending laws), with chronological and alphabetical indexes and the Constitution. Maintained by the Legislative and Parliamentary Affairs Division of the Ministry of Law. Served over HTTP; a direct fetch refused the connection on verification (June 2026) — well-documented official statute portal but may be intermittently unavailable. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "lka-gazette-dept-govt-printing",
+      "title": "The Sri Lanka Government Gazette (Department of Government Printing)",
+      "jurisdiction": "lka",
+      "channelKind": "official-gazette",
+      "publisher": "Department of Government Printing (Government Press), Government of Sri Lanka",
+      "accessUrl": "https://documents.gov.lk/",
+      "contentType": "official-notices",
+      "access": "free",
+      "language": [
+        "si",
+        "ta",
+        "en"
+      ],
+      "provenance": "https://documents.gov.lk/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "National official gazette of the Democratic Socialist Republic of Sri Lanka, published weekly by the Department of Government Printing. Publishes promulgated bills, presidential proclamations, ordinances, major legal acts, plus official notices. Gazette archive (2005-present) at https://documents.gov.lk/view/gazettes/find_gazette.html. The President's Office mirror at https://www.presidentsoffice.gov.lk/gazettes/ also publishes gazettes. UNVERIFIED SEED scaffold: site was under maintenance at fetch time; archive URL and language coverage confirmed via search. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "lka-lawnet-moj",
+      "title": "LawNet — Sri Lanka Legal Information System",
+      "jurisdiction": "lka",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of Justice, Government of Sri Lanka",
+      "accessUrl": "https://www.lawnet.gov.lk/",
+      "contentType": "laws/case-law",
+      "access": "free",
+      "language": [
+        "en",
+        "si",
+        "ta"
+      ],
+      "provenance": "https://www.lawnet.gov.lk/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official government legal-information portal run by the Ministry of Justice. Full-text acts, amendments, legislative enactments, statutes, plus Supreme Court and Court of Appeal judgments and law reports; coverage broadly 1956-present. Free access. UNVERIFIED SEED scaffold: direct fetch returned a TLS hostname-mismatch error but the official Ministry-of-Justice status, www.lawnet.gov.lk URL, and free-access nature are confirmed across multiple independent sources. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "lka-parliament-acts-bills",
+      "title": "Parliament of Sri Lanka — Acts and Bills",
+      "jurisdiction": "lka",
+      "channelKind": "legal-publication",
+      "publisher": "Parliament of Sri Lanka",
+      "accessUrl": "https://www.parliament.lk/en/business-of-parliament/acts-bills",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "en",
+        "si",
+        "ta"
+      ],
+      "provenance": "https://www.parliament.lk/en/business-of-parliament/acts-bills",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Official site of the Parliament of Sri Lanka, the country's supreme law-making authority; publishes acts and bills as enacted/introduced. Complements the gazette (promulgation channel) and LawNet (consolidated statute/case-law repository). UNVERIFIED SEED scaffold: official parliament.lk domain and the acts/bills section confirmed via search; exact path not re-fetched (confidence medium pending direct fetch). kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "th-royal-thai-government-gazette",
+      "title": "Royal Thai Government Gazette (ราชกิจจานุเบกษา / Ratchakitchanubeksa)",
+      "jurisdiction": "tha",
+      "channelKind": "official-gazette",
+      "publisher": "Royal Gazette Publishing House, The Secretariat of the Cabinet, Royal Thai Government",
+      "accessUrl": "https://ratchakitcha.soc.go.th/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "th"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Royal_Gazette_(Thailand)",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Thailand's national official gazette and the definitive anchor channel. Laws (Acts, royal decrees, ministerial regulations) must be published here to take legal effect; also carries official notifications and appointments. Operated by the Royal Gazette Publishing House under The Secretariat of the Cabinet (soc.go.th domain). As of 2023 published online. URL confirmed via Wikipedia and NUS/LoC ASEAN law guides; direct fetch returned HTTP 403 (anti-bot). UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "th-ocs-legal-database-krisdika",
+      "title": "Office of the Council of State — Legal Database (Krisdika)",
+      "jurisdiction": "tha",
+      "channelKind": "legal-publication",
+      "publisher": "Office of the Council of State, Office of the Prime Minister, Royal Thai Government",
+      "accessUrl": "https://www.ocs.go.th/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "th",
+        "en"
+      ],
+      "provenance": "https://www.loc.gov/item/lcwaN0006089/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Thailand's official legislative-drafting and legal-advisory body. Maintains the consolidated/codified legal database of Acts and regulations, legal opinions, and selected law translations — complements the gazette as the statute-portal layer. Legacy domain krisdika.go.th now 301-redirects to ocs.go.th (verified). A dedicated statute-search portal also exists at searchlaw.ocs.go.th. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "vnm-cong-bao-electronic-gazette",
+      "title": "Official Gazette of the Socialist Republic of Vietnam (Công báo điện tử)",
+      "jurisdiction": "vnm",
+      "channelKind": "official-gazette",
+      "publisher": "Government of the Socialist Republic of Vietnam / Office of the Government (Văn phòng Chính phủ)",
+      "accessUrl": "https://congbao.chinhphu.vn/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "vi"
+      ],
+      "provenance": "https://congbao.chinhphu.vn/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Vietnam's national official gazette (Công báo), the compulsory publication channel for legal normative documents. Since early 2003, publication in the Công báo is a precondition for legal texts to take effect. Operated by the Office of the Government (contact: congbao@chinhphu.vn). Publication frequency moved from twice-monthly (1995) to daily (2004). kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "vnm-vbpl-national-legal-database",
+      "title": "National Database on Legal Documents (Cơ sở dữ liệu quốc gia về văn bản quy phạm pháp luật)",
+      "jurisdiction": "vnm",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of Justice of Vietnam (Bộ Tư pháp)",
+      "accessUrl": "https://vbpl.vn/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "vi",
+        "en"
+      ],
+      "provenance": "https://vbpl.vn/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official national legal-document database operated by the Ministry of Justice — single nationwide platform for legal normative documents (corpus from 1992 onward, structured to article/clause/point level). An upgraded version became operational at vbpl.vn from 23 April 2026 with AI-assisted quality control. An English-language interface exists at vbpl.vn/TW/Pages/vbpqen.aspx. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "vnm-government-portal-chinhphu",
+      "title": "Government e-Portal of Vietnam (Cổng Thông tin điện tử Chính phủ)",
+      "jurisdiction": "vnm",
+      "channelKind": "legal-publication",
+      "publisher": "Office of the Government of Vietnam (Văn phòng Chính phủ)",
+      "accessUrl": "https://chinhphu.vn/",
+      "contentType": "official-notices/laws",
+      "access": "free",
+      "language": [
+        "vi",
+        "en"
+      ],
+      "provenance": "https://chinhphu.vn/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Official national government portal of Vietnam, publishing government documents, decisions, and official notices; it hosts/links the electronic Công báo (congbao.chinhphu.vn). Listed as a secondary official channel rather than the gazette of record itself — the Công báo is the authoritative publication-of-effect channel. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "mys-federal-legislation-portal-agc",
+      "title": "Federal Legislation Portal of Malaysia / Laws of Malaysia",
+      "jurisdiction": "mys",
+      "channelKind": "legal-publication",
+      "publisher": "Attorney General's Chambers of Malaysia (Jabatan Peguam Negara)",
+      "accessUrl": "https://lom.agc.gov.my/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "ms",
+        "en"
+      ],
+      "provenance": "https://lom.agc.gov.my/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "The Laws of Malaysia (LOM) series is the only official and authentic publication of Malaysian statutes, published pursuant to s.14A of the Revision of Laws Act 1968. The AGC Federal Legislation Portal provides free full-text PDF access to the Federal Constitution, Acts, Ordinances, and Subsidiary Legislation, browsable by date and searchable by keyword; bilingual (BM/ENG) toggle confirmed on the live site. URL and AGC publisher attribution verified via WebSearch + WebFetch (2026-06-02). UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "mys-federal-government-gazette-warta",
+      "title": "Federal Government Gazette of Malaysia (Warta Kerajaan Persekutuan)",
+      "jurisdiction": "mys",
+      "channelKind": "official-gazette",
+      "publisher": "Attorney General's Chambers of Malaysia (Jabatan Peguam Negara); printed by Percetakan Nasional Malaysia Berhad (PNMB)",
+      "accessUrl": "https://lom.agc.gov.my/index.php",
+      "contentType": "official-notices",
+      "access": "free",
+      "language": [
+        "ms",
+        "en"
+      ],
+      "provenance": "https://lom.agc.gov.my/index.php",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "The Warta Kerajaan Persekutuan is Malaysia's official federal gazette where federal government notices and subsidiary legislation are published. The Attorney General's Chambers maintains the gazette under its Federal Legislation Portal; PNMB is the government-appointed official printer. A former dedicated subdomain (federalgazette.agc.gov.my) did not resolve on check (2026-06-02) and appears consolidated into lom.agc.gov.my — accessUrl points to the live AGC portal as the stable anchor. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "mys-pnmb-lawnet-e-warta",
+      "title": "PNMB LawNet / e-Warta (e-Gazette electronic gazette subscription)",
+      "jurisdiction": "mys",
+      "channelKind": "legal-publication",
+      "publisher": "Percetakan Nasional Malaysia Berhad (PNMB) — Government-appointed official printer",
+      "accessUrl": "https://www.lawnet.com.my/",
+      "contentType": "official-notices",
+      "access": "subscription-with-free-tier",
+      "language": [
+        "ms",
+        "en"
+      ],
+      "provenance": "https://www.e-warta.com.my/Home/About",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "PNMB is the official printer appointed by the Government of Malaysia; e-Warta / e-Gazette is the electronic version of the Malaysia Gazette printed by PNMB, and LawNet (lawnet.com.my) is PNMB's portal consolidating legislation, government gazettes, and legal cases. This is a paid/subscription channel rather than the free AGC portal — included as a secondary official-printer route. Confidence medium because exact free-tier scope was not independently confirmed. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ph-official-gazette",
+      "title": "Official Gazette of the Republic of the Philippines",
+      "jurisdiction": "phl",
+      "channelKind": "official-gazette",
+      "publisher": "Presidential Communications Office (editorial, Office of the President) / National Printing Office (printing); established under Commonwealth Act No. 638",
+      "accessUrl": "https://www.officialgazette.gov.ph/",
+      "contentType": "laws/official-notices/case-law",
+      "access": "free",
+      "language": [
+        "en",
+        "fil"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Official_Gazette_(Philippines)",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Canonical national gazette anchor. The official journal of the Republic of the Philippines, edited at the Office of the President under Commonwealth Act No. 638; online version launched 2010-07-26, printed by the National Printing Office and managed by the Presidential Communications Office. Publishes legislative acts/resolutions of Congress, executive/administrative orders and proclamations, and decisions/abstracts of Supreme Court and Court of Appeals. officialgazette.gov.ph returns HTTP 403 to automated fetchers; URL verified via search index. UNVERIFIED SEED scaffold pending operator review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ph-sc-elibrary",
+      "title": "Supreme Court E-Library (Korte Suprema E-Library)",
+      "jurisdiction": "phl",
+      "channelKind": "legal-publication",
+      "publisher": "Supreme Court of the Philippines",
+      "accessUrl": "https://elibrary.judiciary.gov.ph/",
+      "contentType": "laws/case-law",
+      "access": "free",
+      "language": [
+        "en",
+        "fil"
+      ],
+      "provenance": "https://sc.judiciary.gov.ph/online-philippine-reports-now-available-on-the-supreme-court-e-library/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official judiciary legal-publication portal, compiled and maintained by the Supreme Court of the Philippines. Database of primary legislation, Supreme Court cases (decisions and signed resolutions back to 1996; searchable to 1901), laws, executive issuances, references and treaties; now also hosts the online Philippine Reports. Official-judiciary publisher confirmed via sc.judiciary.gov.ph. UNVERIFIED SEED scaffold pending operator review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ph-lawphil",
+      "title": "The LawPhil Project (Philippine Laws and Jurisprudence Databank)",
+      "jurisdiction": "phl",
+      "channelKind": "open-access-archive",
+      "publisher": "Arellano Law Foundation, Inc. (in partnership with the Supreme Court of the Philippines)",
+      "accessUrl": "https://www.lawphil.net/",
+      "contentType": "laws/case-law",
+      "access": "free",
+      "language": [
+        "en",
+        "fil"
+      ],
+      "provenance": "https://nyulaw.libguides.com/c.php?g=773850&p=5552129",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Comprehensive free open-access legal archive of Philippine laws, statutes, codes, presidential decrees, and Supreme Court jurisprudence (full texts of SC decisions 1901 to present, including Philippine Reports and SCRA; 100,000+ documents). Maintained by the Arellano Law Foundation in partnership with the Supreme Court. NOT an official government publisher — included as channelKind open-access-archive, distinct from the official gazette and the SC E-Library. UNVERIFIED SEED scaffold pending operator review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "twn-executive-yuan-gazette",
+      "title": "Executive Yuan Gazette (行政院公報)",
+      "jurisdiction": "twn",
+      "channelKind": "official-gazette",
+      "publisher": "National Development Council, Executive Yuan, Republic of China (Taiwan)",
+      "accessUrl": "https://gazette.nat.gov.tw/egFront/indexEng.do",
+      "contentType": "official-notices,laws,regulations",
+      "access": "free",
+      "language": [
+        "zh",
+        "en"
+      ],
+      "provenance": "https://gazette.nat.gov.tw/egFront/e_about02.do",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Taiwan's integrated national government gazette: a unified online system consolidating ~20 previously separate agency gazettes into one platform, publishing regulations, administrative rules, announcements/notifications, sanctions, treaties, laws and emergency orders across 8 categories. The most reliable national-gazette anchor for routine laws/regulations and administrative notices. UNVERIFIED SEED scaffold — operator should re-confirm the live English entry URL before relying on it. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "twn-laws-regulations-database-moj",
+      "title": "Laws & Regulations Database of the Republic of China (Taiwan) (全國法規資料庫)",
+      "jurisdiction": "twn",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of Justice, Republic of China (Taiwan) (法務部)",
+      "accessUrl": "https://law.moj.gov.tw/Eng/",
+      "contentType": "laws,regulations,case-law",
+      "access": "open",
+      "language": [
+        "zh",
+        "en"
+      ],
+      "provenance": "https://law.moj.gov.tw/ENG/Index.aspx",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official consolidated statute and regulation portal maintained by the Ministry of Justice; provides current acts, regulations and directions, plus judicial interpretations and selected case-law, including the Constitution and major codes. English-translation coverage is partial and the Chinese text is authoritative. The gazette carries promulgation/notices, this database carries consolidated in-force statute text. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "twn-presidential-office-gazette",
+      "title": "Gazette of the Office of the President (總統府公報)",
+      "jurisdiction": "twn",
+      "channelKind": "official-gazette",
+      "publisher": "Office of the President, Republic of China (Taiwan) (中華民國總統府)",
+      "accessUrl": "https://www.president.gov.tw/Page/129",
+      "contentType": "laws,official-notices",
+      "access": "free",
+      "language": [
+        "zh"
+      ],
+      "provenance": "https://www.president.gov.tw/Page/128",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Official gazette of the Presidential Office, published 1948–present. Under ROC (Taiwan) procedure, laws passed by the Legislative Yuan are promulgated by the President; presidential promulgation orders appear here, making it the authoritative record of the final promulgation step. Searchable online since 1 July 1997; Chinese only — no English version. Confidence medium because the linked URL is the in-site query page rather than a stable per-issue permalink. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "cn-state-council-gazette",
+      "title": "Gazette of the State Council of the People's Republic of China (中华人民共和国国务院公报)",
+      "jurisdiction": "chn",
+      "channelKind": "official-gazette",
+      "publisher": "General Office of the State Council of the People's Republic of China (国务院办公厅)",
+      "accessUrl": "https://www.gov.cn/gongbao/",
+      "contentType": "laws,official-notices",
+      "access": "free",
+      "language": [
+        "zh",
+        "en"
+      ],
+      "provenance": "https://english.www.gov.cn/archive/statecouncilgazette/aboutus/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "National official gazette of China; the primary public-record channel for administrative regulations, State Council decisions/orders, departmental rules, personnel changes, and other official documents. Established 1955, edited and published by the General Office of the State Council; issued every 10 days. Free to browse and download under the Policy > Gazette section of gov.cn. An English archive of selected issues is at english.www.gov.cn. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "cn-national-database-laws-regulations",
+      "title": "National Database of Laws and Regulations (国家法律法规数据库)",
+      "jurisdiction": "chn",
+      "channelKind": "legal-publication",
+      "publisher": "General Office of the Standing Committee of the National People's Congress (全国人大常委会办公厅)",
+      "accessUrl": "https://flk.npc.gov.cn/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "zh"
+      ],
+      "provenance": "https://www.loc.gov/item/global-legal-monitor/2021-04-26/china-national-database-of-laws-and-regulations-launched/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official statute portal launched 2021-02-24 by the NPC Standing Committee; the authoritative consolidated database of the Constitution, laws, administrative regulations, local regulations, and judicial interpretations currently in effect. Provides original gazette PDF/Word versions of NPC/NPCSC-passed laws, free to access. Chinese-language only; reference English translations of selected laws are separately posted by the NPC at en.npc.gov.cn. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "cn-supreme-peoples-court-gazette",
+      "title": "Gazette of the Supreme People's Court of the People's Republic of China (中华人民共和国最高人民法院公报)",
+      "jurisdiction": "chn",
+      "channelKind": "legal-publication",
+      "publisher": "Supreme People's Court of the People's Republic of China (最高人民法院)",
+      "accessUrl": "https://gongbao.court.gov.cn/",
+      "contentType": "case-law,official-notices",
+      "access": "free",
+      "language": [
+        "zh",
+        "en"
+      ],
+      "provenance": "https://english.court.gov.cn/gazettes.html",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Official gazette of the Supreme People's Court (published since 1985; quarterly until 1998, monthly from 1999). Publishes selected SPC court documents, model/guiding cases, judicial interpretations, and notices. Chinese gazette at gongbao.court.gov.cn; English-language selected cases at english.court.gov.cn. China Judgments Online (wenshu.court.gov.cn) is a related SPC channel. Confidence medium because the precise path/host should be re-verified at ingestion time. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "eg-official-gazette-amiri-press",
+      "title": "Official Gazette of Egypt — Al-Jarida al-Rasmiyya (الجريدة الرسمية)",
+      "jurisdiction": "egy",
+      "channelKind": "official-gazette",
+      "publisher": "General Authority for Amiri Printing Houses (الهيئة العامة لشئون المطابع الأميرية / Amiri Press)",
+      "accessUrl": "http://www.alamiria.com/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ar"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Al-Waqa'i'_al-Misriyya",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Egypt's national official gazette of record; laws and decrees enter into force on publication here. Published by the General Authority for Amiri Printing Houses, the constitutionally-recognized state printer (est. 1820 under Muhammad Ali). The Official Gazette carries laws/decrees; the companion bulletin Al-Waqa'i al-Misriyya carries administrative notices — both published by the same body. Verified publisher identity via Library of Congress Foreign Legal Gazette collection and Wikipedia. alamiria.com presented an unverified TLS certificate on fetch and Arabic-only content, so URL flagged for re-verification. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "eg-state-council-legislation",
+      "title": "Egyptian State Council — Legislation & Fatwa Departments (مجلس الدولة)",
+      "jurisdiction": "egy",
+      "channelKind": "legal-publication",
+      "publisher": "Egyptian State Council / Majlis al-Dawla (مجلس الدولة المصري)",
+      "accessUrl": "https://esc.gov.eg/en/legislation/",
+      "contentType": "laws/case-law",
+      "access": "free",
+      "language": [
+        "ar",
+        "en",
+        "fr"
+      ],
+      "provenance": "https://esc.gov.eg/en/homepage/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official portal of the Egyptian Council of State (Majlis al-Dawla), an independent pillar of the judiciary established 1946 (governed by Law No. 47 of 1972), which houses the constitutionally-mandated Legislation Department that drafts/reviews legislation, plus the Fatwa Department and judicial-research center. Free e-services in Arabic/English/French. Verified as official government site (esc.gov.eg) via fetch; the page is a navigation hub rather than a comprehensive statute full-text database. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "mar-bulletin-officiel-sgg",
+      "title": "Official Gazette of the Kingdom of Morocco (Bulletin Officiel du Royaume du Maroc)",
+      "jurisdiction": "mar",
+      "channelKind": "official-gazette",
+      "publisher": "Secrétariat Général du Gouvernement (SGG), Royaume du Maroc",
+      "accessUrl": "https://www.sgg.gov.ma/BulletinOfficiel.aspx",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ar",
+        "fr"
+      ],
+      "provenance": "https://www.sgg.gov.ma/BulletinOfficiel.aspx",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Morocco's national official gazette and the legal anchor: a law, dahir, decree or order acquires binding force only upon publication here. Published under the authority of the Secrétariat Général du Gouvernement (SGG). Comprises 6 editions (general Arabic edition; international-conventions Arabic+French; legal/judicial/administrative notices; land-registration notices; official-translation French edition). Recent issues available free as PDF on the SGG site. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "mar-sgg-legislation-portal",
+      "title": "SGG Legislation Portal / Consultation des textes juridiques",
+      "jurisdiction": "mar",
+      "channelKind": "legal-publication",
+      "publisher": "Secrétariat Général du Gouvernement (SGG), Royaume du Maroc",
+      "accessUrl": "https://www.sgg.gov.ma/Legislation.aspx",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "fr",
+        "ar",
+        "en"
+      ],
+      "provenance": "https://www.sgg.gov.ma/Legislation.aspx",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official SGG legislation/legal-texts platform covering the parcours of legal-text drafts (projets de loi, avant-projets de décrets, arrêtés) including public-consultation periods. Companion to the gazette rather than a fully consolidated/codified statute database. Includes a separate BO summaries search at sgg.gov.ma/Legislation/rechercheSommairesBO.aspx. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "mar-imprimerie-officielle-sgg",
+      "title": "Official Printing Office (Imprimerie Officielle)",
+      "jurisdiction": "mar",
+      "channelKind": "official-gazette",
+      "publisher": "Imprimerie Officielle, Secrétariat Général du Gouvernement (SGG), Royaume du Maroc",
+      "accessUrl": "https://www.sgg.gov.ma/imprimerieofficielle.aspx",
+      "contentType": "official-notices",
+      "access": "free",
+      "language": [
+        "ar",
+        "fr"
+      ],
+      "provenance": "https://www.sgg.gov.ma/imprimerieofficielle.aspx",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "The Imprimerie Officielle, a body under the SGG, is the entity responsible for printing the Bulletin Officiel of the Kingdom and for executing official printing work for public administrations. Included as the official print-edition channel complementing the online gazette. Confidence medium because this is a production/distribution arm rather than a distinct online publication portal. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "sau-umm-al-qura-official-gazette",
+      "title": "Umm al-Qura (Official Gazette of the Kingdom of Saudi Arabia) — جريدة أم القرى",
+      "jurisdiction": "sau",
+      "channelKind": "official-gazette",
+      "publisher": "Government of Saudi Arabia (Ministry of Media / Umm al-Qura); headquartered in Makkah al-Mukarramah",
+      "accessUrl": "https://uqn.gov.sa/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ar"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Umm_Al-Qura_(newspaper)",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "National official gazette of Saudi Arabia, first issued 1924; the gazette of record where royal orders/decrees, Council of Ministers resolutions and official notices are promulgated, published weekly (Fridays). Official site uqn.gov.sa hosts electronic copies of issues. Direct WebFetch of the .gov.sa site timed out; URL and role corroborated by multiple independent sources. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "sau-boe-laws-portal",
+      "title": "Bureau of Experts at the Council of Ministers — Laws & Regulations Portal",
+      "jurisdiction": "sau",
+      "channelKind": "legal-publication",
+      "publisher": "Bureau of Experts at the Council of Ministers (هيئة الخبراء بمجلس الوزراء), Government of Saudi Arabia",
+      "accessUrl": "https://laws.boe.gov.sa/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "ar",
+        "en"
+      ],
+      "provenance": "https://www.boe.gov.sa/en/Pages/default.aspx",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official statute portal of the Bureau of Experts at the Council of Ministers — the primary government source for browsing/searching Saudi laws, regulations, amendments, royal decrees and Council of Ministers resolutions, organized into thematic volumes. Provides official English translations via its Official Translation Department (Arabic text governs). laws.boe.gov.sa is the laws sub-portal. Direct WebFetch timed out; confirmed via multiple sources. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "sau-ncar-laws-archive",
+      "title": "National Center for Archives and Records (NCAR) — Laws & Regulations Access",
+      "jurisdiction": "sau",
+      "channelKind": "open-access-archive",
+      "publisher": "National Center for Archives and Records (المركز الوطني للوثائق والمحفوظات), Government of Saudi Arabia (linked to the Royal Court)",
+      "accessUrl": "https://ncar.gov.sa/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ar"
+      ],
+      "provenance": "https://saudipedia.com/en/article/573/government-and-politics/centers/national-center-for-archives-and-records",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "National archive (established by royal order 1989, administratively linked to the chief of the Royal Court) responsible for preserving government documents and records; its website provides continuous access to laws and regulations issued in the Kingdom. Listed as a supplementary archival access point (the gazette and BOE portal are the primary channels). Confidence medium: the exact ncar.gov.sa laws-access path was not directly fetch-verified. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "are-official-gazette",
+      "title": "UAE Official Gazette (الجريدة الرسمية لدولة الإمارات العربية المتحدة)",
+      "jurisdiction": "are",
+      "channelKind": "official-gazette",
+      "publisher": "Government of the United Arab Emirates (Ministry of Justice)",
+      "accessUrl": "https://u.ae/en/information-and-services/justice-safety-and-the-law/how-are-uae-laws-issued-and-how-to-find-them/where-to-find-uae-federal-laws/find-uae-laws-in-the-uae-official-gazette",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ar",
+        "en"
+      ],
+      "provenance": "https://u.ae/en/information-and-services/justice-safety-and-the-law/how-are-uae-laws-issued-and-how-to-find-them/where-to-find-uae-federal-laws",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "The UAE Official Gazette is the federal periodic publication where federal laws and decrees are officially promulgated; federal laws must be published within a maximum of two weeks of being signed by the President. The accessUrl is the official UAE Government portal (u.ae) landing page that routes to the Gazette; the standalone Gazette site is gatekept/varies, so the durable official-government landing page is cited. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "are-uae-legislation-platform",
+      "title": "UAE Legislation Platform (التشريعات الإماراتية)",
+      "jurisdiction": "are",
+      "channelKind": "legal-publication",
+      "publisher": "General Secretariat of the UAE Cabinet (in collaboration with competent authorities)",
+      "accessUrl": "https://uaelegislation.gov.ae/en",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "ar",
+        "en"
+      ],
+      "provenance": "https://u.ae/en/information-and-services/justice-safety-and-the-law/how-are-uae-laws-issued-and-how-to-find-them/where-to-find-uae-federal-laws",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Unified official platform operated by the General Secretariat of the UAE Cabinet, gathering all federal legislation in force (1,000+ laws and regulations) with regulatory decisions and executive regulations, in both Arabic and English, covering legislation since the formation of the UAE. URL confirmed via the official UAE Government portal (u.ae); a direct WebFetch returned HTTP 403 (bot-block, not absence). UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "are-moj-legal-portal",
+      "title": "UAE Ministry of Justice Legal Portal / Laws & Legislation",
+      "jurisdiction": "are",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of Justice, United Arab Emirates",
+      "accessUrl": "https://www.moj.gov.ae/en/laws-and-legislation.aspx",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "ar",
+        "en"
+      ],
+      "provenance": "https://www.moj.gov.ae/en/laws-and-legislation.aspx",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official Ministry of Justice legal portal providing federal laws and legislation; the broader UAE Legal Portal indexes thousands of legal texts including 300+ federal laws, in Arabic and English. Cited as the statute/legislation publication portal complementing the Official Gazette. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ng-official-gazette-fgp",
+      "title": "Federal Republic of Nigeria Official Gazette (The Nigeria Gazette)",
+      "jurisdiction": "nga",
+      "channelKind": "official-gazette",
+      "publisher": "Federal Government Press (Federal Ministry of Information and National Orientation), Federal Republic of Nigeria",
+      "accessUrl": "https://fmino.gov.ng/departments/federal-government-press/",
+      "contentType": "laws/official-notices",
+      "access": "subscription-with-free-tier",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://fmino.gov.ng/departments/federal-government-press/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Nigeria's authoritative official gazette anchor. The Federal Government Press, a department under the Federal Ministry of Information and National Orientation, prints/publishes the Federal Republic of Nigeria Official Gazette plus Laws of the Federation, Hansards, Constitutions, and National Assembly bills. Verified via the ministry's own department page (fetched 2026-06). Gazette published since 1963; publication is irregular. Print subscriptions are paid; no confirmed first-party free online full-archive portal at the printer — individual gazette PDFs surface via issuing agency sites and the National Library repository. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ng-national-library-repository",
+      "title": "National Repository of Nigeria — Constitutions, Laws and Acts collection (Open Access)",
+      "jurisdiction": "nga",
+      "channelKind": "open-access-archive",
+      "publisher": "National Library of Nigeria (Federal Government of Nigeria)",
+      "accessUrl": "https://nigeriareposit.nln.gov.ng/collections/0a592dbc-859c-45b3-8c28-35e47ecc2140",
+      "contentType": "laws/official-notices",
+      "access": "open",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://nigeriareposit.nln.gov.ng/collections/0a592dbc-859c-45b3-8c28-35e47ecc2140",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official open-access digital repository operated by the National Library of Nigeria (Abuja). Hosts constitutions, laws and acts, and digitized back-issues of the Federal Official Gazette. Items are marked Open Access under the library's stated Open Access Policy; freely viewable without payment. Verified by fetching the collection page (2026-06). The most reliable FREE first-party government channel for Nigerian gazette/statute full text. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ng-placng-laws-compendium",
+      "title": "Laws of Nigeria — searchable compendium of the Laws of the Federation of Nigeria (2004 revised edition)",
+      "jurisdiction": "nga",
+      "channelKind": "legal-publication",
+      "publisher": "Policy and Legal Advocacy Centre (PLAC), Nigeria",
+      "accessUrl": "https://placng.org/lawsofnigeria/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://placng.org/lawsofnigeria/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Free, searchable online compendium of the Laws of the Federation of Nigeria (2004 revised edition) and amending acts, maintained by the Policy and Legal Advocacy Centre (PLAC), a Nigerian civil-society/parliamentary-support NGO. Verified by fetching the homepage (2026-06). Useful as a consolidated-statute reference, but NOT an official government publisher — authoritative text should be cross-checked against the gazette / National Library repository. Confidence medium reflects its non-official status. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "eth-federal-negarit-gazeta-hopr",
+      "title": "Federal Negarit Gazeta (ፌደራል ነጋሪት ጋዜጣ) — House of Peoples' Representatives",
+      "jurisdiction": "eth",
+      "channelKind": "official-gazette",
+      "publisher": "Federal Democratic Republic of Ethiopia, House of Peoples' Representatives",
+      "accessUrl": "https://www.hopr.gov.et/laws1",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "am",
+        "en"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Federal_Negarit_Gazeta",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Anchor entry. Federal Negarit Gazeta is Ethiopia's constitutional official gazette (1995 Constitution Art. 71.2), established by Federal Negarit Gazeta Establishment Proclamation No. 3/1995, published under the House of Peoples' Representatives. The HoPR (hopr.gov.et) is the verified official parliamentary site hosting proclamations/regulations/Constitution in Amharic + English. UNVERIFIED SEED scaffold pending direct fetch of the live laws page (WebFetch timed out on hopr.gov.et). kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "eth-moj-legal-database",
+      "title": "Ministry of Justice Federal Laws Database (የፍትህ ሚኒስቴር)",
+      "jurisdiction": "eth",
+      "channelKind": "legal-publication",
+      "publisher": "Federal Democratic Republic of Ethiopia, Ministry of Justice",
+      "accessUrl": "https://justice.gov.et/en/law",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "am",
+        "en"
+      ],
+      "provenance": "https://justice.gov.et/en/law/federal-democratic-republic-of-ethiopia-house-of-peoples-representatives-working-procedure-and-members-code-of-conduct-amendment-proclamation/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Official Ethiopian Ministry of Justice legal portal carrying proclamations (Negarit Gazeta items) bilingually with Proclamation-number references. Verified live (returns a bot-verification interstitial, indicating an active government site); full content not directly read, so contentType/languages inferred from indexed pages. Complements the gazette as an official searchable statute publication. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "eth-lawethiopia-proclamation-archive",
+      "title": "Ethiopian Federal Proclamations Archive — lawethiopia.com",
+      "jurisdiction": "eth",
+      "channelKind": "open-access-archive",
+      "publisher": "lawethiopia.com (non-governmental Ethiopian legal-resource portal)",
+      "accessUrl": "https://www.lawethiopia.com/index.php?view=article&id=2447:proclamation-no-3&catid=155",
+      "contentType": "laws",
+      "access": "open",
+      "language": [
+        "en",
+        "am"
+      ],
+      "provenance": "https://www.lawethiopia.com/images/federal_proclamation/proclamations_by_number/313.pdf",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Open-access aggregator hosting Federal Negarit Gazeta proclamations as bilingual PDFs organized by proclamation number. NON-OFFICIAL: this is a third-party legal-resource portal, NOT a government publisher — included only as a practical open-access mirror/routing aid to the official gazette text; official authority remains the Federal Negarit Gazeta (HoPR). UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "gha-ghana-gazette-gpcl",
+      "title": "The Ghana Gazette (published by Ghana Publishing Company Limited / Assembly Press)",
+      "jurisdiction": "gha",
+      "channelKind": "official-gazette",
+      "publisher": "Ghana Publishing Company Limited (GPCL) — formerly Assembly Press, a State-owned entity under SIGA",
+      "accessUrl": "https://ghanapublishing.gov.gh/gazettes/",
+      "contentType": "official-notices",
+      "access": "subscription-with-free-tier",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://ghanapublishing.gov.gh/about-us-1/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Ghana's official national gazette. By statute GPCL is the sole printer and distributor of the Gazette in Ghana; it carries legal notices, public appointments, company registrations, parliamentary enactments, change-of-name notices, marriage-officer appointments. An e-Gazette / GPCL Online portal (gpclonline.com) supports online application/access; paid processing tiers exist for filings, so access is best described as subscription-with-free-tier. UNVERIFIED SEED scaffold — confirm current e-Gazette public URL before relying on it as a stable deep link. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "gha-ghalii-legal-information-institute",
+      "title": "GhaLII — Ghana Legal Information Institute (legislation, judgments, gazette archive)",
+      "jurisdiction": "gha",
+      "channelKind": "legal-publication",
+      "publisher": "Ghana Legal Information Institute (GhaLII), non-profit; in partnership with the Judicial Service of Ghana, Ghana Publishing Company, AfricanLII and Laws.Africa",
+      "accessUrl": "https://ghalii.org/",
+      "contentType": "laws/case-law",
+      "access": "free",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://ghalii.org/about/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Free-access online collection of Ghanaian primary and secondary legislation (1960 onwards, with amendment/repeal tracking), judgments (10,000+), and a Ghana Gazette archive (ghalii.org/gazettes/). Member of the Free Access to Law Movement / LII network; partners with the official Ghana Publishing Company. Authoritative for digitised legal text but is a publishing aggregator, not the constitutive official channel (the Gazette itself remains the legal record). UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "uga-uppc-uganda-gazette",
+      "title": "The Uganda Gazette (official national gazette)",
+      "jurisdiction": "uga",
+      "channelKind": "official-gazette",
+      "publisher": "Uganda Printing and Publishing Corporation (UPPC), Government of Uganda",
+      "accessUrl": "https://uppc.go.ug/uganda-gazette",
+      "contentType": "official-notices",
+      "access": "free",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://uppc.go.ug/uganda-gazette",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Uganda's official government newspaper of record, published weekly (typically Fridays) by UPPC under the Uganda Printing and Publishing Corporation Act; constitutional/legal publication-of-record (Acts of Parliament, statutory instruments, electoral and legal notices must appear here). UPPC has digitized it as the E-Gazette. URL and publisher verified via UPPC official site (uppc.go.ug) June 2026. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "uga-ulii-legal-information-institute",
+      "title": "Uganda Legal Information Institute (ULII)",
+      "jurisdiction": "uga",
+      "channelKind": "legal-publication",
+      "publisher": "Law Reporting Unit, Judiciary of Uganda (member, Free Access to Law Movement; consolidated legislation in partnership with Laws.Africa)",
+      "accessUrl": "https://ulii.org/",
+      "contentType": "laws/case-law",
+      "access": "open",
+      "language": [
+        "en"
+      ],
+      "provenance": "https://ulii.org/en/about/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Free public legal-information service operated by the Uganda Judiciary's Law Reporting Unit; member of the global Free Access to Law community (LII network). Publishes court decisions of all courts of record plus consolidated Laws of Uganda (Acts + statutory instruments digitized in partnership with Laws.Africa). Confirmed via web search of ulii.org official pages June 2026 (the /en/about/ page returned HTTP 403 to automated fetch but ULII is a long-established LII-network institute). Complements the Gazette. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "tza-official-gazette-oag",
+      "title": "Government Gazette of the United Republic of Tanzania (Gazeti la Serikali)",
+      "jurisdiction": "tza",
+      "channelKind": "official-gazette",
+      "publisher": "Office of the Attorney General (Ofisi ya Mwanasheria Mkuu wa Serikali), United Republic of Tanzania",
+      "accessUrl": "https://www.oag.go.tz/documents/government-gazzete",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "en",
+        "sw"
+      ],
+      "provenance": "https://www.oag.go.tz/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Tanzania's official national gazette, published by authority. Publishes bills, principal and subsidiary legislation (Government Notices / GN), official notices, and effective dates. The Office of the Attorney General operates two domains for the same body: oag.go.tz and agctz.go.tz (alternate gazette page: agctz.go.tz/publications/government-gazette). Historically printed by the Government Printer, Dar es Salaam. UNVERIFIED SEED — URLs surfaced via web search but not fully fetched (WebFetch returned ECONNREFUSED/403). kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "tza-tanzlii-legal-publication",
+      "title": "TanzLII — Tanzania Legal Information Institute (Free Access to Law)",
+      "jurisdiction": "tza",
+      "channelKind": "legal-publication",
+      "publisher": "Judiciary of Tanzania & Office of the Attorney General (Chief Parliamentary Draftsman), with technical support from AfricanLII and Laws.Africa",
+      "accessUrl": "https://tanzlii.org/en/",
+      "contentType": "laws/case-law/official-notices",
+      "access": "open",
+      "language": [
+        "en",
+        "sw"
+      ],
+      "provenance": "https://tanzlii.org/en/gazettes/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official free-access legal information institute operated by the Judiciary of Tanzania and the Office of the Attorney General. Hosts consolidated legislation, court judgments / case law from Tanzanian courts, and a digitized gazette archive (tanzlii.org/en/gazettes/ — Tanzania Government Gazette back to 1964). Part of the free-access-to-law movement via AfricanLII/Laws.Africa. UNVERIFIED SEED — site returned HTTP 403 to WebFetch; identity and operators corroborated across multiple search result sets. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "tza-osg-elibrary",
+      "title": "OSG e-Library — Government Gazette & Subsidiary Legislation Collection",
+      "jurisdiction": "tza",
+      "channelKind": "open-access-archive",
+      "publisher": "Office of the Solicitor General (Ofisi ya Wakili Mkuu wa Serikali), United Republic of Tanzania",
+      "accessUrl": "https://elibrary.osg.go.tz/handle/123456789/10",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "en",
+        "sw"
+      ],
+      "provenance": "https://elibrary.osg.go.tz/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Official government digital repository (DSpace-based) maintained by the Office of the Solicitor General; hosts a Government Gazette collection plus Subsidiary Legislation Supplements and other legal documents. Complements the OAG gazette and TanzLII as an additional official archive. UNVERIFIED SEED — handle URL surfaced via web search but not fetched; confidence medium because exact handle/landing path may shift within the DSpace instance. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "per-gazette-el-peruano",
+      "title": "Official Gazette El Peruano (Diario Oficial El Peruano)",
+      "jurisdiction": "per",
+      "channelKind": "official-gazette",
+      "publisher": "Empresa Peruana de Servicios Editoriales S.A. - Editora Perú (state enterprise under private law)",
+      "accessUrl": "https://diariooficial.elperuano.pe/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "es"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/El_Peruano",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Peru's national official gazette; the 'Normas Legales' section is the constitutionally required place of publication for all laws, supreme decrees, and official notices (founded 1825 by Simon Bolivar, oldest Spanish-language daily still in circulation). Anchor channel. Main site at elperuano.pe; gazette/normas-legales subdomain at diariooficial.elperuano.pe. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "per-legal-spij-minjus",
+      "title": "Peruvian Legal Information System (Sistema Peruano de Informacion Juridica - SPIJ)",
+      "jurisdiction": "per",
+      "channelKind": "legal-publication",
+      "publisher": "Ministerio de Justicia y Derechos Humanos (MINJUSDH), Direccion de Sistematizacion Juridica y Difusion",
+      "accessUrl": "https://spijweb.minjus.gob.pe/",
+      "contentType": "laws/case-law",
+      "access": "subscription-with-free-tier",
+      "language": [
+        "es"
+      ],
+      "provenance": "https://www.gob.pe/748-acceder-al-sistema-peruano-de-informacion-juridica-spij",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official consolidated/systematized legal database run by the Justice Ministry: Constitution (1979 & 1993), 12 Codes, laws from 1904, regulatory norms from 1978, TUPA, and jurisprudence. Free public access to a significant portion of systematized documents; full corpus requires a paid subscription/license — hence subscription-with-free-tier. Free public portal also at spijlibre.minjus.gob.pe/normativa_libre/. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "per-legal-congreso-adlp",
+      "title": "Digital Archive of Peruvian Legislation (Archivo Digital de la Legislacion del Peru - ADLP)",
+      "jurisdiction": "per",
+      "channelKind": "legal-publication",
+      "publisher": "Congreso de la Republica del Peru (Departamento de Investigacion y Documentacion Parlamentaria)",
+      "accessUrl": "https://www.leyes.congreso.gob.pe/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "es"
+      ],
+      "provenance": "https://www.gob.pe/institucion/congreso-de-la-republica/normas-legales/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Free official archive maintained by the Congress of Peru of norms with the rank or force of law from 1904 to present (laws, legislative resolutions, decree laws, regional laws, legislative decrees, emergency decrees) plus historical Laws of the Indies. Complements the gazette with the legislative-branch consolidated text record. Visor at wb2server.congreso.gob.pe/adlp-visor/. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ecu-registro-oficial",
+      "title": "Official Register of Ecuador (Registro Oficial del Ecuador)",
+      "jurisdiction": "ecu",
+      "channelKind": "official-gazette",
+      "publisher": "Registro Oficial del Ecuador (administered by the Corte Constitucional del Ecuador)",
+      "accessUrl": "https://www.registroficial.gob.ec/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "es"
+      ],
+      "provenance": "https://guides.loc.gov/law-ecuador/legal-guides",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Ecuador's national official gazette and sole authoritative organ of legal publication since its creation on 1 July 1895 by President Eloy Alfaro; laws, decrees, resolutions and other state normative acts enter into force upon publication here. Editions include Registro Oficial, Suplementos, Ediciones Especiales (GAD), and constitutional/court rulings. Printed/subscription until 2019; online-only since 1 Jan 2020. NOTE: canonical domain is registroficial.gob.ec (single 'o' between 'regist' and 'ficial'), not 'registrooficial'. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ecu-asamblea-nacional-leyes",
+      "title": "National Assembly of Ecuador — Approved Laws & Legislation Portal",
+      "jurisdiction": "ecu",
+      "channelKind": "legal-publication",
+      "publisher": "Asamblea Nacional del Ecuador (National Assembly of Ecuador, Legislative Function)",
+      "accessUrl": "https://www.asambleanacional.gob.ec/es/leyes-aprobadas",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "es"
+      ],
+      "provenance": "https://www.nyulawglobal.org/globalex/ecuador1.html",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official portal of Ecuador's unicameral legislature (151 members) listing recently approved laws plus bills under analysis; the companion bill-tracking system at leyes.asambleanacional.gob.ec tracks bills through procedural stages to publication or archival. Authoritative legislative source but the Registro Oficial remains the official organ for entry-into-force. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ecu-corte-constitucional-jurisprudencia",
+      "title": "Constitutional Court of Ecuador — Rulings & Jurisprudence",
+      "jurisdiction": "ecu",
+      "channelKind": "legal-publication",
+      "publisher": "Corte Constitucional del Ecuador (Constitutional Court of Ecuador)",
+      "accessUrl": "https://www.corteconstitucional.gob.ec/",
+      "contentType": "case-law",
+      "access": "free",
+      "language": [
+        "es"
+      ],
+      "provenance": "https://guides.loc.gov/law-ecuador/legal-guides",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Ecuador's apex constitutional tribunal; its decisions are an official public-record source of constitutional case-law and are also disseminated via the Registro Oficial (which the Court administers). Confidence set to medium because the access URL was inferred from the standard .gob.ec convention and the Court's role as gazette administrator rather than directly fetched; verify the live jurisprudence-search endpoint before promotion. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "rou-monitorul-oficial-gazette",
+      "title": "Official Gazette of Romania (Monitorul Oficial al Romaniei)",
+      "jurisdiction": "rou",
+      "channelKind": "official-gazette",
+      "publisher": "Monitorul Oficial R.A. (autonomous public agency under the Romanian Parliament / Chamber of Deputies)",
+      "accessUrl": "https://monitoruloficial.ro/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ro",
+        "hu"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Monitorul_Oficial",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "National official gazette of Romania; the reliable anchor where promulgated laws, presidential decrees, government ordinances/decisions, and Constitutional Court acts are published. Part I carries laws and primary normative acts. The free 'e-Monitor' service provides watermark-free PDF access to Part I from 2000 onward, available same-day as print publication. Direct HTTPS fetch returned a certificate-chain warning at audit time, but the site/publisher are well-established and verified via Wikipedia, the EU Forum of Official Gazettes, and Library of Congress holdings. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "rou-portal-legislativ-just",
+      "title": "Romanian Legislative Portal (Portal Legislativ)",
+      "jurisdiction": "rou",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of Justice of Romania (Ministerul Justitiei); part of the EU N-Lex network",
+      "accessUrl": "https://legislatie.just.ro/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "ro"
+      ],
+      "provenance": "https://e-justice.europa.eu/topics/legislation-and-case-law/national-legislation/ro_en",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official free legislative database operated by the Romanian Ministry of Justice, providing quick, free, unrestricted access to national legislation (reported 150,000+ acts from 1989 to present, plus key earlier laws). Hosts consolidated codes (Criminal, Civil, and procedural) and is the Romanian node of the EU N-Lex network. Confirmed live via direct fetch; publisher confirmed as Ministerul Justitiei. Distinct from the Monitorul Oficial gazette. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ua-holos-ukrainy",
+      "title": "Voice of Ukraine (Holos Ukrainy / Голос України)",
+      "jurisdiction": "ukr",
+      "channelKind": "official-gazette",
+      "publisher": "Verkhovna Rada of Ukraine (Ukrainian Parliament)",
+      "accessUrl": "https://www.golos.com.ua/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "uk"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Holos_Ukrayiny",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official printed publication of the Verkhovna Rada (parliament); laws adopted by parliament are officially promulgated here and enter into force the day after publication. Per the 2023 Law on Media it transitioned to a dedicated official-acts publication. This is the parliamentary half of Ukraine's gazette system. If site moved, fall back to zakon.rada.gov.ua promulgation references. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ua-uryadovyi-kurier",
+      "title": "Government Courier (Uryadovyi Kurier / Урядовий кур'єр)",
+      "jurisdiction": "ukr",
+      "channelKind": "official-gazette",
+      "publisher": "Cabinet of Ministers of Ukraine (executive branch official newspaper)",
+      "accessUrl": "https://ukurier.gov.ua/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "uk"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Uryadovy_Kuryer",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official daily of Ukraine's executive branch (Cabinet of Ministers); promulgates presidential decrees, government resolutions, and key laws. The executive-branch counterpart to Holos Ukrainy in Ukraine's two-track official-publication system. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "ua-zakon-rada-legislation",
+      "title": "Legislation of Ukraine portal (Законодавство України)",
+      "jurisdiction": "ukr",
+      "channelKind": "legal-publication",
+      "publisher": "Verkhovna Rada of Ukraine",
+      "accessUrl": "https://zakon.rada.gov.ua/laws/main/en/index",
+      "contentType": "laws",
+      "access": "open",
+      "language": [
+        "uk",
+        "en"
+      ],
+      "provenance": "https://zakon.rada.gov.ua/laws/main/en/index",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official consolidated legislation database of the Verkhovna Rada — full statute texts, codes, terminology, and English-language abstracts; the authoritative online statute portal complementing the printed gazettes. An open-data sibling is at data.rada.gov.ua. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "cze-sbirka-zakonu-collection-of-laws",
+      "title": "Collection of Laws and International Treaties (Sbirka zakonu a mezinarodnich smluv)",
+      "jurisdiction": "cze",
+      "channelKind": "official-gazette",
+      "publisher": "Ministry of the Interior of the Czech Republic (Ministerstvo vnitra Ceske republiky)",
+      "accessUrl": "https://e-sbirka.gov.cz/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "cs",
+        "en"
+      ],
+      "provenance": "https://op.europa.eu/en/web/forum_official_gazettes/czechia-oj",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Czechia's national official gazette: the Sbirka zakonu a mezinarodnich smluv is the constitutionally authoritative channel where Czech acts of parliament, decrees, and international treaties are promulgated; legal regulations enter into force on the day of promulgation here. Since 1 Jan 2024 promulgation is electronic-native via the e-Sbirka system, free of charge, with consolidated texts back to 4 May 1945. The system migrated to the state cloud under the gov.cz domain around Easter 2025; the prior www.e-sbirka.cz address still resolves/redirects. URL verified via EU Publications Office European Forum of Official Gazettes, N-Lex, and the EU e-Justice Portal. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "cze-esbirka-zakony-gov-cz-portal",
+      "title": "e-Sbirka / zakony.gov.cz — official electronic legal-regulations portal",
+      "jurisdiction": "cze",
+      "channelKind": "legal-publication",
+      "publisher": "Ministry of the Interior of the Czech Republic (Ministerstvo vnitra Ceske republiky)",
+      "accessUrl": "https://zakony.gov.cz/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "cs"
+      ],
+      "provenance": "https://n-lex.europa.eu/n-lex/info/info-cz/index",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official statute portal exposing the consolidated, legally-binding electronic texts of Czech legal regulations from the e-Sbirka system (fully operational since 1 Jan 2024). Provides free full-text search, current and historical versions of acts, daily updates, and connection to EU systems EUR-Lex and N-Lex. As of 1 Nov 2025 it flags texts that may be affected by an unprocessed amendment. zakony.gov.cz and e-sbirka.gov.cz are sibling official entry points to the same Ministry-of-Interior-run e-Sbirka infrastructure. UNVERIFIED SEED scaffold pending Council review; URLs corroborated by N-Lex and the EU e-Justice Portal. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "hu-magyar-kozlony",
+      "title": "Hungarian Gazette (Magyar Kozlony)",
+      "jurisdiction": "hun",
+      "channelKind": "official-gazette",
+      "publisher": "Igazsagugyi Miniszterium (Ministry of Justice of Hungary) / Magyar Kozlony Lap- es Konyvkiado",
+      "accessUrl": "https://magyarkozlony.hu",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "hu"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Magyar_K%C3%B6zl%C3%B6ny",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Hungary's national official gazette and the constitutionally-required publication venue for the Fundamental Law, Acts of Parliament, Government decrees, and decrees of the Prime Minister, ministers, and central bank governor. The electronic edition (timestamped + editor's e-signature) is the authentic version. A companion Hivatalos Ertesito (Official Notice) is published on the same site. Online archive covers issues from 1998 to present; verified live June 2026. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "hu-nemzeti-jogszabalytar",
+      "title": "National Legislation Database (Nemzeti Jogszabalytar)",
+      "jurisdiction": "hun",
+      "channelKind": "legal-publication",
+      "publisher": "MKIFK Magyar Kozlonykiado es Igazsagugyi Forditokozpont Zrt.",
+      "accessUrl": "https://njt.hu",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "hu",
+        "en"
+      ],
+      "provenance": "https://n-lex.europa.eu/n-lex/info/info-hu/index",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Hungary's official, authentic, freely-accessible consolidated database of statutes in force (njt.hu; 301-redirects to njt.jog.gov.hu, verified live June 2026). Provides current consolidated text plus historical versions back to 2010-01-01 and future-dated states, and hosts official English translations of selected legislation. The gazette is the authentic promulgation venue, NJT is the consolidated in-force collection. UNVERIFIED SEED scaffold pending Council review. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "grc-government-gazette-et-fek",
+      "title": "Government Gazette of the Hellenic Republic (Ефимерида тис Кивернисеос / ФЕК)",
+      "jurisdiction": "grc",
+      "channelKind": "official-gazette",
+      "publisher": "National Printing House of Greece (Ethniko Typografeio), Ministry of the Interior",
+      "accessUrl": "https://www.et.gr",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "el"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Government_Gazette_(Greece)",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Verified anchor. The Government Gazette (FEK), first issued 1833, is Greece's official journal: no law is valid until published here. Published and distributed by the National Printing House (Ethniko Typografeio), email grammateia@et.gr. The et.gr site provides free public access to all 13 series of the Official Journal plus a FEK search and an updated codified legislation database. URL https://www.et.gr confirmed live via WebFetch (2026-06). kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "grc-hellenic-parliament-enacted-legislation",
+      "title": "Hellenic Parliament — Enacted Legislation (Nomothetiko Ergo)",
+      "jurisdiction": "grc",
+      "channelKind": "legal-publication",
+      "publisher": "Hellenic Parliament (Vouli ton Ellinon)",
+      "accessUrl": "https://www.hellenicparliament.gr/en/Nomothetiko-Ergo/Psifisthenta-Nomoschedia",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "el",
+        "en"
+      ],
+      "provenance": "https://e-justice.europa.eu/topics/legislation-and-case-law/national-legislation/el_en",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Verified via WebSearch (2026-06). The Hellenic Parliament's 'Nomothetiko Ergo' (Legislative Work) section provides free access to bills and enacted laws; the digital database covers legislation adopted since 22 October 1993 (8th Parliamentary Period onward). Complements the National Printing House gazette as the legislature-side statute portal. English-language navigation available at the /en path. UNVERIFIED SEED for downstream consumers — confirm the deep-link path before relying on it programmatically. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "tr-resmi-gazete",
+      "title": "Official Gazette of the Republic of Turkiye (Turkiye Cumhuriyeti Resmi Gazete)",
+      "jurisdiction": "tur",
+      "channelKind": "official-gazette",
+      "publisher": "Cumhurbaskanligi Hukuk ve Mevzuat Genel Mudurlugu (General Directorate for Law and Legislation of the Presidency)",
+      "accessUrl": "https://www.resmigazete.gov.tr/",
+      "contentType": "laws/official-notices/case-law",
+      "access": "free",
+      "language": [
+        "tr"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Official_Gazette_of_the_Republic_of_Turkey",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Turkey's sole national official journal, published since 1921; the legal vehicle of record for laws, presidential decrees, regulations, communiques, certain case-law and official notices. Online-only since 2018, free access. Publisher confirmed via Wikipedia, EU Forum of Official Gazettes, and Library of Congress. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "tr-mevzuat-bilgi-sistemi",
+      "title": "Legislation Information System (Mevzuat Bilgi Sistemi)",
+      "jurisdiction": "tur",
+      "channelKind": "legal-publication",
+      "publisher": "Cumhurbaskanligi Hukuk ve Mevzuat Genel Mudurlugu (General Directorate for Law and Legislation of the Presidency)",
+      "accessUrl": "https://www.mevzuat.gov.tr/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "tr"
+      ],
+      "provenance": "https://op.europa.eu/en/web/forum/turkiye-cumhuriyeti-republic-of-turkey",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "State-run consolidated statute portal: laws, presidential decrees, decrees-having-force-of-law, regulations, by-laws, circulars, repealed laws and international agreements, with amendments consolidated daily into single republished texts. Free, search-based, Turkish-only. Corroborated by EU Forum of Official Gazettes, ecoi.net law guide, and Koc University Turkish Legal Resources guide. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "tr-anayasa-mahkemesi-kararlar",
+      "title": "Constitutional Court of Turkiye — Case-Law (Anayasa Mahkemesi Kararlari)",
+      "jurisdiction": "tur",
+      "channelKind": "legal-publication",
+      "publisher": "Anayasa Mahkemesi (Constitutional Court of the Republic of Turkiye)",
+      "accessUrl": "https://www.anayasa.gov.tr/",
+      "contentType": "case-law",
+      "access": "free",
+      "language": [
+        "tr",
+        "en"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Constitutional_Court_of_Turkey",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official site of Turkey's highest constitutional-review body, publishing constitutional-review and individual-application decisions, case-law summaries by year, and the governing legislation; Turkish primary with an English section for selected case-law. Free access. Confirmed via the court's own .gov.tr domain and Wikipedia. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "isr-reshumot-official-gazette",
+      "title": "Reshumot — Official Gazette of the State of Israel (רשומות)",
+      "jurisdiction": "isr",
+      "channelKind": "official-gazette",
+      "publisher": "Government Printer / Ministry of Justice, Official Publications Department",
+      "accessUrl": "https://www.justice.gov.il/En/Units/OfficialPublications/Pages/default.aspx",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "he",
+        "en"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Reshumot",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Reshumot is the official law gazette of record for Israel; a law comes into force upon publication here. Its sub-series include Sefer Ha-Chukkim (Book of Laws, enacted statutes) and Hatza'ot Chok (Bills). Edited/printed by the Ministry of Justice Official Publications Department; PDFs in Hebrew from Sept 2012 to present are hosted on the Ministry of Justice site. UNVERIFIED SEED scaffold — the .aspx landing path is stable but the deep PDF-archive subpath was not byte-verified in this pass. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "isr-knesset-legislation-db",
+      "title": "Knesset National Legislation Database",
+      "jurisdiction": "isr",
+      "channelKind": "legal-publication",
+      "publisher": "The Knesset (Parliament of Israel)",
+      "accessUrl": "https://main.knesset.gov.il/",
+      "contentType": "laws",
+      "access": "free",
+      "language": [
+        "he",
+        "en"
+      ],
+      "provenance": "https://www.opengovpartnership.org/members/israel/commitments/il0027/",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official free legislation database hosted on the Knesset website; went live in 2014 (National Legislation Database, OGP commitment IL0027). Contains all laws of the State of Israel as legislated plus the parliamentary process for each, and (since 2016) draft bills under consideration. Knesset also publishes the English-language Basic Laws at main.knesset.gov.il/en/activity/pages/basiclaws.aspx. UNVERIFIED SEED scaffold — root domain verified; the exact Hebrew legislation-search deep path was not byte-confirmed. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "isr-nli-reshumot-archive",
+      "title": "National Library of Israel — Reshumot / Sefer Ha-Chukim historical archive",
+      "jurisdiction": "isr",
+      "channelKind": "open-access-archive",
+      "publisher": "The National Library of Israel",
+      "accessUrl": "https://www.nli.org.il/en/newspapers/seferhukim",
+      "contentType": "laws/official-notices",
+      "access": "open",
+      "language": [
+        "he"
+      ],
+      "provenance": "https://www.nli.org.il/en/newspapers/seferhukim/2016/11",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Open-access digitized historical archive of Reshumot / Sefer Ha-Chukim issues via the National Library of Israel's digitized-newspapers collection — useful for pre-2012 historical official-record access that complements the Ministry of Justice site. Confidence medium: collection URL pattern derived from a verified NLI item URL; the exact collection-landing path was not byte-confirmed. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "isr-nevo-legal-database",
+      "title": "Nevo Legal Database — official court-decisions distributor",
+      "jurisdiction": "isr",
+      "channelKind": "legal-publication",
+      "publisher": "Nevo Press Ltd.",
+      "accessUrl": "https://www.nevo.co.il/",
+      "contentType": "case-law/laws",
+      "access": "subscription-with-free-tier",
+      "language": [
+        "he"
+      ],
+      "provenance": "https://www.nyulawglobal.org/globalex/israel1.html",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "medium",
+      "notes": "Comprehensive Israeli legal database; Nevo Press holds exclusive distribution rights to publish the official text of court decisions, and the database carries up-to-date primary + subsidiary legislation with amendment histories. Subscription-based with a registration free trial. Included as the de-facto official channel for the published text of case-law (Israel has no free national case-law gazette equivalent). NOTE: Nevo is a commercial publisher, listed here only as the recognized official-text distributor of court decisions — NOT endorsed as a kataribe peer. UNVERIFIED SEED scaffold — root domain cited; access-tier details from a secondary legal-research guide. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "kz-egemen-qazaqstan",
+      "title": "Egemen Qazaqstan (Егемен Қазақстан / Sovereign Kazakhstan)",
+      "jurisdiction": "kaz",
+      "channelKind": "official-gazette",
+      "publisher": "Government of the Republic of Kazakhstan (state-owned)",
+      "accessUrl": "https://egemen.kz/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Egemen_Qazaqstan",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Kazakhstan's primary Kazakh-language official state newspaper of record; founded 1919, publishes regulatory legal acts and official notices of state authorities. One of the two designated official publication organs (the other being Kazakhstanskaya Pravda). English portal at en.egemen.kz. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "kz-kazakhstanskaya-pravda",
+      "title": "Kazakhstanskaya Pravda (Казахстанская правда / Kazakhstan Truth)",
+      "jurisdiction": "kaz",
+      "channelKind": "official-gazette",
+      "publisher": "Government of the Republic of Kazakhstan (state-owned; historically the official organ of the Council of Ministers)",
+      "accessUrl": "https://kazpravda.kz/",
+      "contentType": "laws/official-notices",
+      "access": "free",
+      "language": [
+        "ru"
+      ],
+      "provenance": "https://en.wikipedia.org/wiki/Kazakhstanskaya_Pravda",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Kazakhstan's primary Russian-language official state newspaper of record; founded 1920, publishes normative legal acts and official state-body information. The second of the two designated official publication organs alongside Egemen Qazaqstan. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
+    },
+    {
+      "channelId": "kz-adilet-lis",
+      "title": "Adilet Legal Information System (Adilet)",
+      "jurisdiction": "kaz",
+      "channelKind": "legal-publication",
+      "publisher": "Institute of Legislation and Legal Information under the Ministry of Justice of the Republic of Kazakhstan",
+      "accessUrl": "https://adilet.zan.kz/eng",
+      "contentType": "laws/case-law",
+      "access": "free",
+      "language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "provenance": "https://guides.loc.gov/law-kazakhstan/legal-guides",
+      "lastVerified": "2026-06-02T00:00:00Z",
+      "verificationStatus": "unverified-seed",
+      "confidence": "high",
+      "notes": "Official consolidated electronic database of the regulatory legal acts of the Republic of Kazakhstan, operated by the Ministry of Justice's Institute of Legislation; free, full-text searchable, integrated into the Unified System of Legal Information. Confirmed by the U.S. Library of Congress and NYU GlobaLex country guides. UNVERIFIED SEED scaffold. kataribe is a community press / publishing / translation substrate (ADR-2605263600) — NOT commercial journalism, NOT an official publisher. This is an OBSERVATIONAL directory of OFFICIAL public-record publication channels (national gazettes / legal publications), for public-knowledge access + routing to official sources only. It publishes nothing official itself and editorializes nothing."
     }
   ]
 }
