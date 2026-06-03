@@ -17,9 +17,9 @@ _REPO_ROOT = Path(__file__).resolve().parents[4]
 _APP = (
     _REPO_ROOT
     / "60-apps"
-    / "ai-gftd-project-mangaka"
+    / "etzhayyim-project-mangaka"
     / "appview"
-    / "ai-gftd-wasm-mangaka-mng4k4x1"
+    / "etzhayyim-wasm-mangaka-mng4k4x1"
 )
 _SVELTE_COMPONENT = _APP / "svelte" / "src" / "lib" / "Scene3DPreview.svelte"
 _STATIC_HTM = _APP / "svelte" / "static" / "scene-3d-preview.htm"

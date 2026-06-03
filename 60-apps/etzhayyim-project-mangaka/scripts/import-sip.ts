@@ -21,7 +21,7 @@
  *   MANGAKA_BASE     default: https://mangaka.etzhayyim.com/xrpc
  *   PDS_BASE         default: https://atproto.etzhayyim.com/xrpc
  *   etzhayyim_TOKEN       Service Auth JWT or sk_live_* API key (ADR-0022).
- *                    Mint via: gftd agent-token --lxm com.etzhayyim.mangaka.addChapter
+ *                    Mint via: etzhayyim agent-token --lxm com.etzhayyim.mangaka.addChapter
  *
  * Flags:
  *   --stage=<name>   characters|work|chapters|pages|all (default: all)
