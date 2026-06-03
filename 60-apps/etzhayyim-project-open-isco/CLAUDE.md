@@ -1,4 +1,4 @@
-# ai-gftd-project-open-isco
+# etzhayyim-project-open-isco
 
 ISCO-08 occupation classification runtime.
 
@@ -9,7 +9,7 @@ ISCO-08 occupation classification runtime.
 - SQL helpers: `20-actors/magatama/py/src/pymagatama/handlers/open_isco.py`
 - Runtime pattern: LangServer + LangGraph + UDF
 
-Standalone component execution is retired for open-isco. The legacy appview package has been archived under `_archive/retired-cf-workers/adr-2604282300/60-apps/ai-gftd-project-open-isco/appview/ai-gftd-legacy-isco-workforce-coordinator-wfc8k3n1`; new writes go through the LangServer/UDF runtime.
+Standalone component execution is retired for open-isco. The legacy appview package has been archived under `_archive/retired-cf-workers/adr-2604282300/60-apps/etzhayyim-project-open-isco/appview/etzhayyim-legacy-isco-workforce-coordinator-wfc8k3n1`; new writes go through the LangServer/UDF runtime.
 
 ## Coverage
 

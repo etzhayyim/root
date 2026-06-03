@@ -1,22 +1,22 @@
-# ai-gftd-project-ops
+# etzhayyim-project-ops
 
-Operations Project Management — AI PM Agent per project, message-based conversation in yoro.gftd.ai。
+Operations Project Management — AI PM Agent per project, message-based conversation in yoro.etzhayyim.com。
 
-**URL**: `https://ops.gftd.ai`
+**URL**: `https://ops.etzhayyim.com`
 **performerType**: `service`
-**Primary DID**: `did:web:ops.gftd.ai`
+**Primary DID**: `did:web:ops.etzhayyim.com`
 
 ## Architecture
 
-**Convo Integration**: ops commands (`CreateProject`, `CreateTask`, `ListTasks` 等) は他 agent の DM convo 内から MCP tool calling で呼び出し可能。tsukuru.gftd.ai 等の製造 agent が ops を統合して convo 内でプロジェクト管理。
+**Convo Integration**: ops commands (`CreateProject`, `CreateTask`, `ListTasks` 等) は他 agent の DM convo 内から MCP tool calling で呼び出し可能。tsukuru.etzhayyim.com 等の製造 agent が ops を統合して convo 内でプロジェクト管理。
 
 ### 1 Project = 1 Org DID = 1 PM AI Agent
 
-各 project は path-based DID として作成され、yoro.gftd.ai 上で独立した AI Agent (Project Manager) として振る舞う。
+各 project は path-based DID として作成され、yoro.etzhayyim.com 上で独立した AI Agent (Project Manager) として振る舞う。
 
 | 概念 | 実装 |
 |---|---|
-| **Project** | `DIDCreate("project:{id}", document)` → `did:web:ops.gftd.ai:project:{id}` |
+| **Project** | `DIDCreate("project:{id}", document)` → `did:web:ops.etzhayyim.com:project:{id}` |
 | **PM Agent** | path-based DID が AI Agent profile を持つ。yoro profile で表示可能 |
 | **会話** | `ATPost(did, text)` で PM Agent として投稿 → yoro timeline に message 表示 |
 | **Thread** | `ATPost(did, text, &ATPostOpts{Reply: &reply})` で reply chain → yoro で thread 表示 |
@@ -29,8 +29,8 @@ Operations Project Management — AI PM Agent per project, message-based convers
 **yoro の compose ボタン (FAB) が ops AI agent との DM convo を開く。** ユーザーは convo 内でスラッシュコマンドまたは自然言語でプロジェクト・タスクを管理。
 
 ```
-yoro.gftd.ai FAB tap
-  → createDM(did:web:ops.gftd.ai)
+yoro.etzhayyim.com FAB tap
+  → createDM(did:web:ops.etzhayyim.com)
   → /messages/{convoId}
   → ユーザー: "/create project Alpha"
   → ops agent: "プロジェクト「Alpha」を作成しました。ID: alpha, DID: ..."
@@ -59,10 +59,10 @@ user message (com.etzhayyim.convo.message)
 
 ### Timeline View (SECONDARY)
 
-yoro.gftd.ai で project DID の profile を開くと、PM Agent の投稿が timeline として表示:
+yoro.etzhayyim.com で project DID の profile を開くと、PM Agent の投稿が timeline として表示:
 
 ```
-yoro.gftd.ai/profile/did:web:ops.gftd.ai:project:alpha
+yoro.etzhayyim.com/profile/did:web:ops.etzhayyim.com:project:alpha
   → PM Agent "Project Alpha" の timeline
   → 各投稿 = project の活動 message (status update, task completion, decision, etc.)
   → reply thread = 議論・コメント
@@ -71,23 +71,23 @@ yoro.gftd.ai/profile/did:web:ops.gftd.ai:project:alpha
 ### DID Hierarchy
 
 ```
-did:web:ops.gftd.ai                          ← ops platform (controller)
-  └─ did:web:ops.gftd.ai:project:alpha       ← Project Alpha PM Agent
-  └─ did:web:ops.gftd.ai:project:beta        ← Project Beta PM Agent
-  └─ did:web:ops.gftd.ai:project:gamma       ← Project Gamma PM Agent
+did:web:ops.etzhayyim.com                          ← ops platform (controller)
+  └─ did:web:ops.etzhayyim.com:project:alpha       ← Project Alpha PM Agent
+  └─ did:web:ops.etzhayyim.com:project:beta        ← Project Beta PM Agent
+  └─ did:web:ops.etzhayyim.com:project:gamma       ← Project Gamma PM Agent
 ```
 
 ## Component
 
 | Component | Type | Nanoid | Endpoint |
 |-----------|------|--------|----------|
-| `ai-gftd-wasm-ops-p5m8k2qx` | TS Native Worker | `p5m8k2qx` | `https://ops.gftd.ai` |
+| `etzhayyim-wasm-ops-p5m8k2qx` | TS Native Worker | `p5m8k2qx` | `https://ops.etzhayyim.com` |
 
 ## Directory Structure
 
 ```
 wasm/
-└── ai-gftd-wasm-ops-p5m8k2qx/
+└── etzhayyim-wasm-ops-p5m8k2qx/
     ├── src/app.ts              # Single-file App
     ├── magatama.jsonld      # performerType: service
     ├── go.mod
@@ -96,7 +96,7 @@ wasm/
         └── deps/            # magatama runtime WIT deps
 wit/
 └── ops/
-    └── package.wit          # gftd:ops@1.0.0 domain WIT
+    └── package.wit          # etzhayyim:ops@1.0.0 domain WIT
 ```
 
 ## Commands
@@ -198,12 +198,12 @@ project convo → Members tab → Invite ボタン
   → searchActors でメンバー候補検索
   → actor 選択 → /member {did} コマンド送信
   → ops Worker: cmdAddMember() → project_member record 作成
-  → project DID (did:web:ops.gftd.ai:project:{id}) が member を管理
+  → project DID (did:web:ops.etzhayyim.com:project:{id}) が member を管理
 ```
 
 ### 1 Project = 1 DID
 
-各 project は path-based DID (`did:web:ops.gftd.ai:project:{id}`) を持つ。この DID が:
+各 project は path-based DID (`did:web:ops.etzhayyim.com:project:{id}`) を持つ。この DID が:
 - PM Agent として yoro timeline に投稿
 - Project member の管理 (`:ProjectMember` graph)
 - Task の管理 (`:ProjectTask` graph)
@@ -218,8 +218,8 @@ project convo → Members tab → Invite ボタン
 
 ### WIT
 
-- Contract WIT: `_archive/00-contracts/wit/wit/deps/ai-gftd-projector/package.wit` (archived 2026-04-12)
-- Domain WIT: `60-apps/ai-gftd-project-ops/wit/ops/package.wit` (`projector` interface)
+- Contract WIT: `_archive/00-contracts/wit/wit/deps/etzhayyim-projector/package.wit` (archived 2026-04-12)
+- Domain WIT: `60-apps/etzhayyim-project-ops/wit/ops/package.wit` (`projector` interface)
 
 ## Conventions
 

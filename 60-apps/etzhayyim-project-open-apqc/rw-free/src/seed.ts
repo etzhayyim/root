@@ -5,7 +5,7 @@
  * a public well-known list, not vendor data). Idempotent: rkey derives
  * from `code` so re-running is a no-op past the first run. Future PRs
  * for L2–L5 will load from a CSV / JSON source under
- * `60-apps/ai-gftd-project-open-apqc/data/` once that catalog is
+ * `60-apps/etzhayyim-project-open-apqc/data/` once that catalog is
  * checked in; Phase 1 stays inline because the cardinality is trivial
  * and locks down the structure.
  *

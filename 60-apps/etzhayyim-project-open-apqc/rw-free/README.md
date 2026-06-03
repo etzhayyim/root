@@ -2,7 +2,7 @@
 
 RW-free port of the APQC PCF (Process Classification Framework) under the substrate rules of [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md). Promotes the project from the Phase 2 scaffold (README + CLAUDE.md only) to Phase 3 with a working taxonomy publisher.
 
-Fourth rw-free actor after [`open-isco`](../../ai-gftd-project-open-isco/rw-free/) (occupations), [`open-isic`](../../ai-gftd-project-open-isic/rw-free/) (industry classes), and [`open-unispsc`](../../ai-gftd-project-open-unispsc/rw-free/) (procurement segments). The Phase 2 vendor-port plan (PCF catalog + BPMN task catalog + projector spec from `etzhayyim/etzhayyim-root`) is deferred — this PR delivers the substrate-publication surface using the public v7.4 cross-industry framework data directly.
+Fourth rw-free actor after [`open-isco`](../../etzhayyim-project-open-isco/rw-free/) (occupations), [`open-isic`](../../etzhayyim-project-open-isic/rw-free/) (industry classes), and [`open-unispsc`](../../etzhayyim-project-open-unispsc/rw-free/) (procurement segments). The Phase 2 vendor-port plan (PCF catalog + BPMN task catalog + projector spec from `etzhayyim/etzhayyim-root`) is deferred — this PR delivers the substrate-publication surface using the public v7.4 cross-industry framework data directly.
 
 ## Phase 1 scope: the 13 L1 process categories
 
@@ -115,9 +115,9 @@ pnpm test
 
 ## See also
 
-- [`60-apps/ai-gftd-project-open-isco/rw-free/`](../../ai-gftd-project-open-isco/rw-free/) — 1st rw-free actor (525 ISCO-08 occupations)
-- [`60-apps/ai-gftd-project-open-isic/rw-free/`](../../ai-gftd-project-open-isic/rw-free/) — 2nd rw-free actor (428 ISIC Rev.4 classes)
-- [`60-apps/ai-gftd-project-open-unispsc/rw-free/`](../../ai-gftd-project-open-unispsc/rw-free/) — 3rd rw-free actor (50 UNSPSC segments)
+- [`60-apps/etzhayyim-project-open-isco/rw-free/`](../../etzhayyim-project-open-isco/rw-free/) — 1st rw-free actor (525 ISCO-08 occupations)
+- [`60-apps/etzhayyim-project-open-isic/rw-free/`](../../etzhayyim-project-open-isic/rw-free/) — 2nd rw-free actor (428 ISIC Rev.4 classes)
+- [`60-apps/etzhayyim-project-open-unispsc/rw-free/`](../../etzhayyim-project-open-unispsc/rw-free/) — 3rd rw-free actor (50 UNSPSC segments)
 - [`20-actors/etzhayyim-sdk/`](../../../20-actors/etzhayyim-sdk/) — substrate-purity SDK
 - [`50-infra/OPERATIONAL-DEPLOY.md`](../../../50-infra/OPERATIONAL-DEPLOY.md) — production runbook
 - [ADR-2605172000](../../../90-docs/adr/2605172000-etzhayyim-rw-free-substrate.md) — substrate rules

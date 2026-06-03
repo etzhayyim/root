@@ -2,22 +2,22 @@
   "@context": {
     "@version": 1.1,
     "schema": "https://schema.org/",
-    "gftd": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/",
-    "dodaf": "https://resources.etzhayyim.com/ai-gftd-project-resources/id/DM2/",
+    "etzhayyim": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/",
+    "dodaf": "https://resources.etzhayyim.com/etzhayyim-project-resources/id/DM2/",
     "isco": "https://www.ilo.org/public/english/bureau/stat/isco/",
     "id": "@id",
     "type": "@type"
   },
-  "@type": "gftd:Project",
-  "@id": "https://resources.etzhayyim.com/ai-gftd-project-open-isco/id/Project/ai-gftd-project-open-isco",
-  "schema:name": "ai-gftd-project-open-isco",
+  "@type": "etzhayyim:Project",
+  "@id": "https://resources.etzhayyim.com/etzhayyim-project-open-isco/id/Project/etzhayyim-project-open-isco",
+  "schema:name": "etzhayyim-project-open-isco",
   "schema:description": "ISCO-08 occupation classification migrated to LangServer + LangGraph + UDF runtime",
   "schema:dateModified": "2026-04-30T00:00:00Z",
-  "gftd:totalComponents": 41,
-  "gftd:classificationFramework": "isco",
-  "gftd:architecture": "contract-bounded",
-  "gftd:contractRoot": "ILO ISCO-08 International Standard Classification of Occupations (Resolution 2008)",
-  "gftd:progress": {
+  "etzhayyim:totalComponents": 41,
+  "etzhayyim:classificationFramework": "isco",
+  "etzhayyim:architecture": "contract-bounded",
+  "etzhayyim:contractRoot": "ILO ISCO-08 International Standard Classification of Occupations (Resolution 2008)",
+  "etzhayyim:progress": {
     "bpmnProcesses": {
       "covered": 2,
       "total": 2
@@ -34,7 +34,7 @@
       "status": "retired"
     }
   },
-  "gftd:runtimeEvidence": {
+  "etzhayyim:runtimeEvidence": {
     "checkedAt": "2026-04-30T05:18:18Z",
     "pattern": "LangServer-langgraph-udf",
     "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
@@ -45,9 +45,9 @@
       "conflictHandling": "SELECT-before-INSERT"
     }
   },
-  "gftd:subMajorGroups": [
+  "etzhayyim:subMajorGroups": [
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "00",
       "name": "Armed Forces Occupations",
       "nanoid": "i5c000af",
@@ -56,7 +56,7 @@
       "majorGroupName": "Armed Forces"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "11",
       "name": "Chief executives, senior officials and legislators",
       "nanoid": "i5c011ex",
@@ -65,7 +65,7 @@
       "majorGroupName": "Managers"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "12",
       "name": "Administrative and commercial managers",
       "nanoid": "i5c012am",
@@ -74,7 +74,7 @@
       "majorGroupName": "Managers"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "13",
       "name": "Production and specialized services managers",
       "nanoid": "i5c013pm",
@@ -83,7 +83,7 @@
       "majorGroupName": "Managers"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "14",
       "name": "Hospitality, retail and other services managers",
       "nanoid": "i5c014hm",
@@ -92,7 +92,7 @@
       "majorGroupName": "Managers"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "21",
       "name": "Science and engineering professionals",
       "nanoid": "i5c021sp",
@@ -101,7 +101,7 @@
       "majorGroupName": "Professionals"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "22",
       "name": "Health professionals",
       "nanoid": "i5c022hp",
@@ -110,7 +110,7 @@
       "majorGroupName": "Professionals"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "23",
       "name": "Teaching professionals",
       "nanoid": "i5c023tp",
@@ -119,7 +119,7 @@
       "majorGroupName": "Professionals"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "24",
       "name": "Business and administration professionals",
       "nanoid": "i5c024bp",
@@ -128,7 +128,7 @@
       "majorGroupName": "Professionals"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "25",
       "name": "ICT professionals",
       "nanoid": "i5c025ip",
@@ -137,7 +137,7 @@
       "majorGroupName": "Professionals"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "26",
       "name": "Legal, social and cultural professionals",
       "nanoid": "i5c026lp",
@@ -146,7 +146,7 @@
       "majorGroupName": "Professionals"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "31",
       "name": "Science and engineering associate professionals",
       "nanoid": "i5c031st",
@@ -155,7 +155,7 @@
       "majorGroupName": "Technicians"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "32",
       "name": "Health associate professionals",
       "nanoid": "i5c032ha",
@@ -164,7 +164,7 @@
       "majorGroupName": "Technicians"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "33",
       "name": "Business and administration associate professionals",
       "nanoid": "i5c033ba",
@@ -173,7 +173,7 @@
       "majorGroupName": "Technicians"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "34",
       "name": "Legal, social, cultural and related associate professionals",
       "nanoid": "i5c034la",
@@ -182,7 +182,7 @@
       "majorGroupName": "Technicians"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "35",
       "name": "Information and communications technicians",
       "nanoid": "i5c035it",
@@ -191,7 +191,7 @@
       "majorGroupName": "Technicians"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "41",
       "name": "General and keyboard clerks",
       "nanoid": "i5c041gc",
@@ -200,7 +200,7 @@
       "majorGroupName": "Clerical Support"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "42",
       "name": "Customer services clerks",
       "nanoid": "i5c042cs",
@@ -209,7 +209,7 @@
       "majorGroupName": "Clerical Support"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "43",
       "name": "Numerical and material recording clerks",
       "nanoid": "i5c043rc",
@@ -218,7 +218,7 @@
       "majorGroupName": "Clerical Support"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "44",
       "name": "Other clerical support workers",
       "nanoid": "i5c044oc",
@@ -227,7 +227,7 @@
       "majorGroupName": "Clerical Support"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "51",
       "name": "Personal service workers",
       "nanoid": "i5c051ps",
@@ -236,7 +236,7 @@
       "majorGroupName": "Service and Sales"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "52",
       "name": "Sales workers",
       "nanoid": "i5c052sw",
@@ -245,7 +245,7 @@
       "majorGroupName": "Service and Sales"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "53",
       "name": "Personal care workers",
       "nanoid": "i5c053pc",
@@ -254,7 +254,7 @@
       "majorGroupName": "Service and Sales"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "54",
       "name": "Protective services workers",
       "nanoid": "i5c054pw",
@@ -263,7 +263,7 @@
       "majorGroupName": "Service and Sales"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "61",
       "name": "Market-oriented skilled agricultural workers",
       "nanoid": "i5c061ag",
@@ -272,7 +272,7 @@
       "majorGroupName": "Skilled Agriculture"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "62",
       "name": "Market-oriented skilled forestry, fishery and hunting workers",
       "nanoid": "i5c062ff",
@@ -281,7 +281,7 @@
       "majorGroupName": "Skilled Agriculture"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "63",
       "name": "Subsistence farmers, fishers, hunters and gatherers",
       "nanoid": "i5c063sa",
@@ -290,7 +290,7 @@
       "majorGroupName": "Skilled Agriculture"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "71",
       "name": "Building and related trades workers",
       "nanoid": "i5c071bt",
@@ -299,7 +299,7 @@
       "majorGroupName": "Craft and Trades"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "72",
       "name": "Metal, machinery and related trades workers",
       "nanoid": "i5c072mm",
@@ -308,7 +308,7 @@
       "majorGroupName": "Craft and Trades"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "73",
       "name": "Handicraft and printing workers",
       "nanoid": "i5c073hp",
@@ -317,7 +317,7 @@
       "majorGroupName": "Craft and Trades"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "74",
       "name": "Electrical and electronic trades workers",
       "nanoid": "i5c074ee",
@@ -326,7 +326,7 @@
       "majorGroupName": "Craft and Trades"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "75",
       "name": "Food processing, wood working, garment and other craft workers",
       "nanoid": "i5c075fw",
@@ -335,7 +335,7 @@
       "majorGroupName": "Craft and Trades"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "81",
       "name": "Stationary plant and machine operators",
       "nanoid": "i5c081sp",
@@ -344,7 +344,7 @@
       "majorGroupName": "Plant and Machine Operators"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "82",
       "name": "Assemblers",
       "nanoid": "i5c082as",
@@ -353,7 +353,7 @@
       "majorGroupName": "Plant and Machine Operators"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "83",
       "name": "Drivers and mobile plant operators",
       "nanoid": "i5c083dm",
@@ -362,7 +362,7 @@
       "majorGroupName": "Plant and Machine Operators"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "91",
       "name": "Cleaners and helpers",
       "nanoid": "i5c091ch",
@@ -371,7 +371,7 @@
       "majorGroupName": "Elementary Occupations"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "92",
       "name": "Agricultural, forestry and fishery labourers",
       "nanoid": "i5c092al",
@@ -380,7 +380,7 @@
       "majorGroupName": "Elementary Occupations"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "93",
       "name": "Labourers in mining, construction, manufacturing and transport",
       "nanoid": "i5c093ml",
@@ -389,7 +389,7 @@
       "majorGroupName": "Elementary Occupations"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "94",
       "name": "Food preparation assistants",
       "nanoid": "i5c094fa",
@@ -398,7 +398,7 @@
       "majorGroupName": "Elementary Occupations"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "95",
       "name": "Street and related sales and service workers",
       "nanoid": "i5c095ss",
@@ -407,7 +407,7 @@
       "majorGroupName": "Elementary Occupations"
     },
     {
-      "@type": "gftd:SubMajorGroupApp",
+      "@type": "etzhayyim:SubMajorGroupApp",
       "code": "96",
       "name": "Refuse workers and other elementary workers",
       "nanoid": "i5c096rw",
@@ -416,8 +416,8 @@
       "majorGroupName": "Elementary Occupations"
     }
   ],
-  "gftd:runtimePattern": "LangServer-langgraph-udf",
-  "gftd:migration": {
+  "etzhayyim:runtimePattern": "LangServer-langgraph-udf",
+  "etzhayyim:migration": {
     "status": "implemented",
     "runtimeTarget": "20-actors/magatama/py/src/pymagatama/primitives/open_isco.py",
     "pattern": "LangServer-langgraph-udf",
@@ -439,8 +439,8 @@
       }
     }
   },
-  "gftd:legacyInterfaces": [
-    "gftd:isco@1.0.0",
-    "gftd:isco-workforce-flow@1.0.0"
+  "etzhayyim:legacyInterfaces": [
+    "etzhayyim:isco@1.0.0",
+    "etzhayyim:isco-workforce-flow@1.0.0"
   ]
 }

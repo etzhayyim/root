@@ -1,4 +1,4 @@
-// ops.gftd.ai — Operations Automation Platform
+// ops.etzhayyim.com — Operations Automation Platform
 // Thin-edge dispatcher: business logic in AgentGateway MCP + pod-side LangServer.
 // 8 methods: createProcessRun / updateProcessRun / listProcessRuns / getProcessRun /
 //            createAutomation / updateAutomation / listAutomations / getAutomation
@@ -12,7 +12,7 @@ interface Env {
 interface ExportedHandler<E> { fetch(req: Request, env: E): Promise<Response>; }
 
 const NSID_PREFIX = "com.etzhayyim.apps.ops.";
-const ACTOR_DID = "did:web:ops.gftd.ai";
+const ACTOR_DID = "did:web:ops.etzhayyim.com";
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
@@ -23,7 +23,7 @@ export default {
         actor: ACTOR_DID,
         nanoid: env.APP_NANOID ?? "jxepq85j",
         execution: "edge-proxy+agentgateway-mcp+langserver",
-        bpmn: "60-apps/ai-gftd-project-ops/bpmn",
+        bpmn: "60-apps/etzhayyim-project-ops/bpmn",
         methods: [
           "createProcessRun", "updateProcessRun", "listProcessRuns", "getProcessRun",
           "createAutomation", "updateAutomation", "listAutomations", "getAutomation",
@@ -56,7 +56,7 @@ async function bodyWithQuery(req: Request, url: URL): Promise<Record<string, unk
 }
 
 async function proxyToDispatcher(env: Env, nsid: string, body: Record<string, unknown>): Promise<Response> {
-  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai";
+  const dispatcherUrl = env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com";
   const secret = typeof env.DISPATCHER_INTERNAL_SECRET === "object"
     ? await env.DISPATCHER_INTERNAL_SECRET.get()
     : (env.DISPATCHER_INTERNAL_SECRET ?? "");
