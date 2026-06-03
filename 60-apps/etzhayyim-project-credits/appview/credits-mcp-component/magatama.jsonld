@@ -32,7 +32,7 @@
     "description": "Credits Mcp — AI Agent",
     "displayName": "Credits Mcp",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "credits",
   "runtimeType": "worker",

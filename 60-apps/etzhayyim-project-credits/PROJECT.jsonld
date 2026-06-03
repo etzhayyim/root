@@ -1,9 +1,9 @@
 {
   "@context": "https://schema.org",
   "@type": "Project",
-  "name": "GFTD Computing Credits (GCC)",
-  "identifier": "ai-gftd-project-credits",
-  "description": "ATP-like computing resource currency for the GFTD Organism. Manages credit balances, purchase fee settlement, and public-fund routing for credit spend.",
+  "name": "Etzhayyim Computing Credits (GCC)",
+  "identifier": "etzhayyim-project-credits",
+  "description": "ATP-like computing resource currency for the Etzhayyim Organism. Manages credit balances, purchase fee settlement, and public-fund routing for credit spend.",
   "hasPart": [
     {
       "@type": "WebApplication",
@@ -28,24 +28,24 @@
           "@context": [
             "https://schema.org/",
             {
-              "gftd": "https://etzhayyim.com/schemas/",
-              "capabilities": "gftd:capabilities",
-              "survivalIndicators": "gftd:survivalIndicators",
-              "scheduler": "gftd:scheduler",
-              "milestones": "gftd:milestones",
-              "blockers": "gftd:blockers",
+              "etzhayyim": "https://etzhayyim.com/schemas/",
+              "capabilities": "etzhayyim:capabilities",
+              "survivalIndicators": "etzhayyim:survivalIndicators",
+              "scheduler": "etzhayyim:scheduler",
+              "milestones": "etzhayyim:milestones",
+              "blockers": "etzhayyim:blockers",
               "dependsOn": {
-                "@id": "gftd:dependsOn",
+                "@id": "etzhayyim:dependsOn",
                 "@type": "@id"
               },
-              "ingestKey": "gftd:ingestKey",
-              "window": "gftd:window",
-              "valueUpdatedAt": "gftd:valueUpdatedAt"
+              "ingestKey": "etzhayyim:ingestKey",
+              "window": "etzhayyim:window",
+              "valueUpdatedAt": "etzhayyim:valueUpdatedAt"
             }
           ],
           "@type": "CreativeWork",
-          "name": "GFTD Computing Credits (GCC) Scheduler",
-          "identifier": "ai-gftd-project-credits/scheduler",
+          "name": "Etzhayyim Computing Credits (GCC) Scheduler",
+          "identifier": "etzhayyim-project-credits/scheduler",
           "description": "Project schedule (milestones) and blockers.",
           "dateCreated": "2026-02-15T04:25:26+00:00",
           "milestones": [],

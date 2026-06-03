@@ -1,8 +1,8 @@
-# Ethereumトークン設計（ai-gftd-project-credits / ai-gftd-project-web3-llm）
+# Ethereumトークン設計（etzhayyim-project-credits / etzhayyim-project-web3-llm）
 
 ## 1. 目的
 
-`ai-gftd-project-credits` と `ai-gftd-project-web3-llm` で利用する計算クレジットを、Ethereum上で**購入可能**かつ**DEXでswap可能**にする。
+`etzhayyim-project-credits` と `etzhayyim-project-web3-llm` で利用する計算クレジットを、Ethereum上で**購入可能**かつ**DEXでswap可能**にする。
 
 - 対象チェーン: Ethereum Mainnet
 - 主要トレジャリー: Safe
@@ -18,8 +18,8 @@
 - シンボル: `GCC`
 - 小数: 18
 - 主用途:
-  - `ai-gftd-project-credits` の計算リソース購入
-  - `ai-gftd-project-web3-llm` の推論実行料支払い
+  - `etzhayyim-project-credits` の計算リソース購入
+  - `etzhayyim-project-web3-llm` の推論実行料支払い
   - Browser workerへの報酬配布
 
 ### 2.2 決済ペア（初期）
@@ -120,7 +120,7 @@ USDCの実運用で重視される「発行統制・凍結対応・監査性」�
 
 ### 4.2 アプリ内導線
 
-`ai-gftd-project-web3-llm` UI には以下を実装。
+`etzhayyim-project-web3-llm` UI には以下を実装。
 
 - Wallet接続（EOA/Safe App）
 - `Buy GCC` ボタン（USDC→GCC swap）
@@ -138,7 +138,7 @@ USDCの実運用で重視される「発行統制・凍結対応・監査性」�
 
 ## 5. プロトコル連携設計
 
-### 5.1 ai-gftd-project-credits
+### 5.1 etzhayyim-project-credits
 
 - 役割:
   - 残高台帳
@@ -148,7 +148,7 @@ USDCの実運用で重視される「発行統制・凍結対応・監査性」�
   - `Deposit`: ユーザーがGCC入金 → クレジット残高反映
   - `Withdraw`: クレジット引出し要求 → GCC送金
 
-### 5.2 ai-gftd-project-web3-llm
+### 5.2 etzhayyim-project-web3-llm
 
 - 役割:
   - 推論ジョブ実行

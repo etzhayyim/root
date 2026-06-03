@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Wallet Wt1e2f3g",
-  "project": "ai-gftd-project-credits",
-  "name": "ai-gftd-wasm-wallet-wt1e2f3g",
+  "project": "etzhayyim-project-credits",
+  "name": "etzhayyim-wasm-wallet-wt1e2f3g",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-credits/appview/ai-gftd-wasm-wallet-wt1e2f3g/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-credits/appview/etzhayyim-wasm-wallet-wt1e2f3g/svelte/src/routes/+page.svelte"
 };
 </script>
 

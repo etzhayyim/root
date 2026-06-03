@@ -1,11 +1,11 @@
 # credits-mcp-component
 
-`60-apps/ai-gftd-project-credits/legacy-runtime/gftd-credits-z8l65qxz` の App 版コンポーネントです。
+`60-apps/etzhayyim-project-credits/legacy-runtime/etzhayyim-credits-z8l65qxz` の App 版コンポーネントです。
 
 ## Core Policy
 
 - Credits 購入時は 30% を platform fee として控除し、70% を GCC として wallet に計上
-- Credits 消費時は 10% を `ai-gftd-project-public-fund` に自動分配
+- Credits 消費時は 10% を `etzhayyim-project-public-fund` に自動分配
 - 10% の分配先は user が `credits` UI で選択可能
 - 分配先未指定時は `public-fund:common` を使用
 

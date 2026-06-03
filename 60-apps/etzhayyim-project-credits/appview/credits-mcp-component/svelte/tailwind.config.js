@@ -1,4 +1,4 @@
-import { gftdUIKit } from '@etzhayyim/design-system/plugin';
+import { etzhayyimUIKit } from '@etzhayyim/design-system/plugin';
 
 export default {
   content: [
@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        gftd: {
+        etzhayyim: {
           bg: 'var(--gv2-bg-primary)',
           card: 'var(--gv2-bg-card)',
           text: 'var(--gv2-text-primary)',
@@ -22,5 +22,5 @@ export default {
       }
     }
   },
-  plugins: [gftdUIKit]
+  plugins: [etzhayyimUIKit]
 };
