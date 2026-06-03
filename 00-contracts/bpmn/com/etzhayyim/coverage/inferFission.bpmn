@@ -20,7 +20,7 @@
   Trigger:
     timer-start R/P7D (weekly, after inferLdaEntities) AND XRPC (`com.etzhayyim.apps.coverage.inferFission`).
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-fission-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-fission-v1
   NSID:      com.etzhayyim.apps.coverage.inferFission
 -->
 <bpmn:definitions
@@ -28,7 +28,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_coverage_infer_fission"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="coverage_infer_fission_v1" name="coverage infer fission" isExecutable="true">
 
@@ -154,8 +154,8 @@
           <zeebe:input source="=if (count(candidates) > 0 and individualDid != null) then {
             &quot;vertex_id&quot;:      candidates[1].vertex_id,
             &quot;status&quot;:         &quot;fissioned&quot;,
-            &quot;actor_did&quot;:      &quot;did:web:coverage.gftd.ai&quot;,
-            &quot;org_did&quot;:        &quot;did:web:coverage.gftd.ai&quot;,
+            &quot;actor_did&quot;:      &quot;did:web:coverage.etzhayyim.com&quot;,
+            &quot;org_did&quot;:        &quot;did:web:coverage.etzhayyim.com&quot;,
             &quot;created_at&quot;:     now()
           } else null" target="row"/>
         </zeebe:ioMapping>
@@ -170,7 +170,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferFission.promote&quot;" target="action"/>
           <zeebe:input source="={
             &quot;candidates_found&quot;: candidateCount,
@@ -191,7 +191,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferFission.abort&quot;" target="action"/>
           <zeebe:input source="={&quot;reason&quot;: &quot;no_fission_candidate&quot;, &quot;candidates_found&quot;: candidateCount}" target="payload"/>
         </zeebe:ioMapping>

@@ -2,9 +2,9 @@
 <!--
   coverage.inferMaterialize — promote clusters to actor DIDs (ADR-0056).
 
-  Mirrors `gftd coverage infer materialize`. Reads active clusters from
+  Mirrors `etzhayyim coverage infer materialize`. Reads active clusters from
   `vertex_infer_cluster` for a batch and inserts one `vertex_actor` row
-  per cluster (DID = `did:web:infer.gftd.ai:cluster:{batch}:{id}`).
+  per cluster (DID = `did:web:infer.etzhayyim.com:cluster:{batch}:{id}`).
 
   Trigger: XRPC only (caller decides when a batch is ready to promote).
 
@@ -13,14 +13,14 @@
     2. multi-instance     — generic.db.insert vertex_actor (per cluster)
     3. generic.audit.emit — OCEL summary
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-materialize-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-materialize-v1
   NSID:      com.etzhayyim.apps.coverage.inferMaterialize
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_coverage_infer_materialize"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="coverage_infer_materialize" name="coverage infer materialize" isExecutable="true">
 
@@ -90,12 +90,12 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_actor&quot;" target="table"/>
           <zeebe:input source="={
-            &quot;vertex_id&quot;:    &quot;did:web:infer.gftd.ai:cluster:&quot; + batchRows[1].batch_id + &quot;:&quot; + string(cluster.cluster_id),
-            &quot;did&quot;:          &quot;did:web:infer.gftd.ai:cluster:&quot; + batchRows[1].batch_id + &quot;:&quot; + string(cluster.cluster_id),
+            &quot;vertex_id&quot;:    &quot;did:web:infer.etzhayyim.com:cluster:&quot; + batchRows[1].batch_id + &quot;:&quot; + string(cluster.cluster_id),
+            &quot;did&quot;:          &quot;did:web:infer.etzhayyim.com:cluster:&quot; + batchRows[1].batch_id + &quot;:&quot; + string(cluster.cluster_id),
             &quot;name&quot;:         &quot;infer-cluster-&quot; + string(cluster.cluster_id),
             &quot;display_name&quot;: &quot;Statistical Cluster &quot; + string(cluster.cluster_id),
             &quot;performer_type&quot;: &quot;service&quot;,
-            &quot;operator&quot;:     &quot;gftd.co.jp&quot;
+            &quot;operator&quot;:     &quot;etzhayyim.co.jp&quot;
           }" target="values"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
@@ -113,7 +113,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferMaterialize.batch&quot;" target="action"/>
           <zeebe:input source="={ &quot;batchId&quot;: batchRows[1].batch_id, &quot;materialized&quot;: clusterCount }" target="payload"/>
         </zeebe:ioMapping>

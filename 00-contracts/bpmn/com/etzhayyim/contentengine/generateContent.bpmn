@@ -35,7 +35,7 @@
       <bpmn:outgoing>toEnd</bpmn:outgoing>
     </bpmn:exclusiveGateway>
 
-    <bpmn:serviceTask id="CreateSponsorSlot" name="Create Sponsor Slot (ads.gftd.ai)">
+    <bpmn:serviceTask id="CreateSponsorSlot" name="Create Sponsor Slot (ads.etzhayyim.com)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="contentengine.create_sponsor_slot" retries="2" />
         <zeebe:taskHeaders>

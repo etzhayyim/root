@@ -20,14 +20,14 @@
     3c. coverage.gap.generate   : LangGraph graph (business_person_synth_v1 etc.) → INSERT rows
     4. generic.audit.emit        : OCEL event (domain, kind, rows_written)
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-gap-bridge-v1
   NSID:      com.etzhayyim.apps.coverage.coverageGapBridge
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_coverage_gap_bridge"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
 
   <bpmn:process id="coverage_gap_bridge" name="coverage gap bridge" isExecutable="true">

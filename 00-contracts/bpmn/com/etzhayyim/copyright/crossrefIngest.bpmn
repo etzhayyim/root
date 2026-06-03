@@ -6,14 +6,14 @@
   Single-page fetch: 100 most-recent works sorted by indexed desc.
   vertex_id dedup: RisingWave PK overwrite — safe to re-ingest same DOI.
   NSID: com.etzhayyim.apps.copyright.ingestCrossref
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v2
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/copyright-crossref-ingest-v2
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_copyright_crossref_ingest"
-    targetNamespace="https://gftd.ai/bpmn/copyright"
+    targetNamespace="https://etzhayyim.ai/bpmn/copyright"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="copyright_crossref_ingest" name="copyright crossref ingest" isExecutable="true">
@@ -39,9 +39,9 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://api.crossref.org/works?rows=100&amp;sort=indexed&amp;order=desc&amp;filter=from-pub-date%3A2020&amp;mailto=jun%40gftd.group&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://api.crossref.org/works?rows=100&amp;sort=indexed&amp;order=desc&amp;filter=from-pub-date%3A2020&amp;mailto=jun%40etzhayyim.group&quot;" target="url"/>
           <zeebe:input source="=&quot;GET&quot;" target="method"/>
-          <zeebe:input source="={ &quot;User-Agent&quot;: &quot;gftd-copyright/2.0 (mailto:jun@gftd.group)&quot;, &quot;Accept&quot;: &quot;application/json&quot; }" target="headers"/>
+          <zeebe:input source="={ &quot;User-Agent&quot;: &quot;etzhayyim-copyright/2.0 (mailto:jun@etzhayyim.group)&quot;, &quot;Accept&quot;: &quot;application/json&quot; }" target="headers"/>
           <zeebe:input source="=60" target="timeoutSec"/>
           <zeebe:output source="=bodyJson" target="crossrefBody"/>
           <zeebe:output source="=status"   target="fetchStatus"/>
@@ -59,7 +59,7 @@
         <zeebe:taskDefinition type="generic.db.bulkInsert"/>
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_work&quot;" target="table"/>
-          <zeebe:input source="= if crossrefBody != null and crossrefBody.message != null and crossrefBody.message.items != null then for item in crossrefBody.message.items[item.DOI != null] return { &quot;vertex_id&quot;: &quot;at://did:web:copyright.gftd.ai:crossref/com.etzhayyim.apps.copyright.work/doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;owner_did&quot;: &quot;did:web:copyright.gftd.ai:crossref&quot;, &quot;rkey&quot;: &quot;doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;repo&quot;: &quot;did:web:copyright.gftd.ai:crossref&quot;, &quot;did&quot;: &quot;did:web:copyright.gftd.ai:crossref&quot;, &quot;status&quot;: &quot;active&quot;, &quot;kind&quot;: if item.type = &quot;dataset&quot; or item.type = &quot;component&quot; then &quot;dataset&quot; else &quot;literary&quot;, &quot;title&quot;: if item.title != null and count(item.title) &gt; 0 then item.title[1] else &quot;(no title)&quot;, &quot;doi&quot;: item.DOI, &quot;registry&quot;: &quot;crossref&quot;, &quot;berne_automatic&quot;: true, &quot;source_url&quot;: &quot;https://doi.org/&quot; + item.DOI, &quot;collected_at&quot;: string(now()), &quot;sensitivity_ord&quot;: 100 } else []" target="rows"/>
+          <zeebe:input source="= if crossrefBody != null and crossrefBody.message != null and crossrefBody.message.items != null then for item in crossrefBody.message.items[item.DOI != null] return { &quot;vertex_id&quot;: &quot;at://did:web:copyright.etzhayyim.com:crossref/com.etzhayyim.apps.copyright.work/doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;owner_did&quot;: &quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;rkey&quot;: &quot;doi-&quot; + replace(item.DOI, &quot;/&quot;, &quot;-&quot;), &quot;repo&quot;: &quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;did&quot;: &quot;did:web:copyright.etzhayyim.com:crossref&quot;, &quot;status&quot;: &quot;active&quot;, &quot;kind&quot;: if item.type = &quot;dataset&quot; or item.type = &quot;component&quot; then &quot;dataset&quot; else &quot;literary&quot;, &quot;title&quot;: if item.title != null and count(item.title) &gt; 0 then item.title[1] else &quot;(no title)&quot;, &quot;doi&quot;: item.DOI, &quot;registry&quot;: &quot;crossref&quot;, &quot;berne_automatic&quot;: true, &quot;source_url&quot;: &quot;https://doi.org/&quot; + item.DOI, &quot;collected_at&quot;: string(now()), &quot;sensitivity_ord&quot;: 100 } else []" target="rows"/>
           <zeebe:output source="=inserted" target="rowsInserted"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>

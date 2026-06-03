@@ -2,7 +2,7 @@
 <!--
   coverage.inferKdrift — k-anonymity drift watch (pilot per ADR-0056).
 
-  Mirrors `gftd coverage infer kdrift`. Pure SQL against the streaming MV
+  Mirrors `etzhayyim coverage infer kdrift`. Pure SQL against the streaming MV
   `mv_cohort_k_drift` (RisingWave). Surfaces low-k cohorts that risk
   re-identification.
 
@@ -13,14 +13,14 @@
     1. generic.db.select  — top-N cohorts ordered by k_proxy ASC
     2. generic.audit.emit — OCEL summary (cohort count + min k_proxy)
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-kdrift-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-kdrift-v1
   NSID:      com.etzhayyim.apps.coverage.inferKdrift
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_coverage_infer_kdrift"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="coverage_infer_kdrift" name="coverage infer kdrift" isExecutable="true">
 
@@ -58,7 +58,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferKdrift.tick&quot;" target="action"/>
           <zeebe:input source="={ &quot;cohorts&quot;: rowCount }" target="payload"/>
         </zeebe:ioMapping>

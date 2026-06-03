@@ -7,13 +7,13 @@
   (triple-witness mismatch, ADR-2604261717 Phase 4 / ADR-0046 simplified).
 
   NSID: com.etzhayyim.apps.claim.unchallengedSweep
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/claim-auto-challenge-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/claim-auto-challenge-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_claim_auto_challenge"
-    targetNamespace="https://gftd.ai/bpmn/claim"
+    targetNamespace="https://etzhayyim.ai/bpmn/claim"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="claim_auto_challenge" name="claim unchallenged sweep (R/PT1H)" isExecutable="true">

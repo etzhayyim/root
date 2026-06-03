@@ -23,7 +23,7 @@
   Trigger:
     timer-start R/P1D (daily) AND XRPC (`com.etzhayyim.apps.coverage.inferLdaIncremental`).
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-incremental-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-lda-incremental-v1
   NSID:      com.etzhayyim.apps.coverage.inferLdaIncremental
 -->
 <bpmn:definitions
@@ -31,7 +31,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_coverage_infer_lda_incremental"
-    targetNamespace="https://gftd.ai/bpmn/coverage"
+    targetNamespace="https://etzhayyim.ai/bpmn/coverage"
     exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="coverage_infer_lda_incremental_v1" name="coverage infer LDA incremental" isExecutable="true">
 
@@ -157,11 +157,11 @@
     &quot;dst_vid&quot;:             a.topic_vid,
     &quot;_seq&quot;:                1,
     &quot;sensitivity_ord&quot;:     0,
-    &quot;owner_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;owner_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;weight&quot;:              a.weight,
     &quot;source_collection&quot;:   a.collection,
-    &quot;actor_did&quot;:           &quot;did:web:coverage.gftd.ai&quot;,
-    &quot;org_did&quot;:             &quot;did:web:coverage.gftd.ai&quot;,
+    &quot;actor_did&quot;:           &quot;did:web:coverage.etzhayyim.com&quot;,
+    &quot;org_did&quot;:             &quot;did:web:coverage.etzhayyim.com&quot;,
     &quot;created_at&quot;:          now()
   }" target="rows"/>
           <zeebe:output source="=inserted" target="thetaWritten"/>
@@ -177,7 +177,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferLdaIncremental.update&quot;" target="action"/>
           <zeebe:input source="={
             &quot;model_slug&quot;:         if (count(models) > 0) then models[1].model_slug else null,
@@ -198,7 +198,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:coverage.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:coverage.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;coverage.inferLdaIncremental.abort&quot;" target="action"/>
           <zeebe:input source="={&quot;reason&quot;: &quot;no_new_records&quot;, &quot;model_count&quot;: modelCount, &quot;new_records_read&quot;: newRecordCount}" target="payload"/>
         </zeebe:ioMapping>

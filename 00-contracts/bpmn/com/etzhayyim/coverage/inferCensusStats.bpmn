@@ -15,7 +15,7 @@
     5. generic.db.insert  — upsert vertex_natural_person_demographic_stat rows
     6. generic.audit.emit — OCEL event (statsRefreshed, countries, sources)
 
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/coverage-infer-census-stats-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/coverage-infer-census-stats-v1
   NSID:      com.etzhayyim.apps.coverage.inferCensusStats
 -->
 <bpmn:definitions
@@ -129,7 +129,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="={
             &quot;eventType&quot;: &quot;coverage.censusStats.refresh&quot;,
-            &quot;actorDid&quot;: &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;actorDid&quot;: &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;attributes&quot;: {
               &quot;statsInserted&quot;: statsInserted,
               &quot;sourcesRead&quot;: count(censusSources),
@@ -149,7 +149,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="={
             &quot;eventType&quot;: &quot;coverage.censusStats.abort&quot;,
-            &quot;actorDid&quot;: &quot;did:web:natural-person.gftd.ai&quot;,
+            &quot;actorDid&quot;: &quot;did:web:natural-person.etzhayyim.com&quot;,
             &quot;attributes&quot;: {
               &quot;reason&quot;: &quot;no_registered_census_sources&quot;,
               &quot;sourcesRead&quot;: sourceCount

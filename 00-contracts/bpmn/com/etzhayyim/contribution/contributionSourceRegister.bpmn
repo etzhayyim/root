@@ -8,9 +8,9 @@
   separately; until then credits accumulate in pendingEarned.
 
   NSID:      com.etzhayyim.authz.registerContributionSource
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/contribution-source-register-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/contribution-source-register-v1
 -->
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_contribution_source_register" targetNamespace="https://gftd.ai/bpmn/contribution" exporter="hand-written" exporterVersion="2.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_contribution_source_register" targetNamespace="https://etzhayyim.ai/bpmn/contribution" exporter="hand-written" exporterVersion="2.0">
   <bpmn:process id="contribution_source_register" name="registerContributionSource" isExecutable="true">
     <bpmn:documentation>
       { "nsid": "com.etzhayyim.authz.registerContributionSource", "version": 1, "resultTimeoutMs": 30000 }
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:bpmn.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:bpmn.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;contribution.source.register&quot;" target="action"/>
           <zeebe:input source="={ok: ok, sourceHash: sourceHash, vertexId: vertexId, pendingOnChain: pendingOnChain}" target="payload"/>
         </zeebe:ioMapping>

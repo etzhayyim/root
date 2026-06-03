@@ -4,13 +4,13 @@
   Replaces CF cron trigger per ADR-2604251801 §4-A and ADR-0056.
 
   NSID: com.etzhayyim.apps.claim.cronTick
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/claim-cron-tick-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/claim-cron-tick-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_claim_cron_tick"
-    targetNamespace="https://gftd.ai/bpmn/claim"
+    targetNamespace="https://etzhayyim.ai/bpmn/claim"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="claim_cron_tick" name="claim cron tick (R/PT1M)" isExecutable="true">
@@ -32,7 +32,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.http.fetch"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;https://claim-consumer.gftd.ai/xrpc/com.etzhayyim.apps.claim.cronTick&quot;" target="url"/>
+          <zeebe:input source="=&quot;https://claim-consumer.etzhayyim.com/xrpc/com.etzhayyim.apps.claim.cronTick&quot;" target="url"/>
           <zeebe:input source="=&quot;POST&quot;"             target="method"/>
           <zeebe:input source="=&quot;application/json&quot;" target="contentType"/>
           <zeebe:input source="={}"                           target="body"/>

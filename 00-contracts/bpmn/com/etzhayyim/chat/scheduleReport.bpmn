@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  gftd.ai chat — scheduleReport (XRPC com.etzhayyim.apps.chat.scheduleReport).
+  etzhayyim.ai chat — scheduleReport (XRPC com.etzhayyim.apps.chat.scheduleReport).
 
   Side-effect tool example: LangGraph agent calls this when the user asks
   for a deferred report. The BPMN runs Murakumo deep research, persists
@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_chat_schedule_report"
-    targetNamespace="https://gftd.ai/bpmn/chat"
+    targetNamespace="https://etzhayyim.ai/bpmn/chat"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="chat_schedule_report" name="chat schedule report" isExecutable="true">
@@ -51,7 +51,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:etzhayyim.ai&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.chat.scheduleReport&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;convId&quot;: convId, &quot;runId&quot;: runId, &quot;artifactId&quot;: artifactId, &quot;deliverChannel&quot;: deliveryChannel }" target="attributes"/>
         </zeebe:ioMapping>
