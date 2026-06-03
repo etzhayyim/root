@@ -110,8 +110,8 @@ jp_corporate_tax_law_126 = "vertex_billing_event 7y retention"
 [product.endpoints_internal]
 hyperdrive_id = "e84c0a2bf3724d5d9b6ad5cc91c45f01"
 bpmn_dispatcher = "https://dispatcher.etzhayyim.com"
-pds_service = "ai-gftd-pds-2603241700"
-auth_service = "ai-gftd-auth"
+pds_service = "etzhayyim-pds-2603241700"
+auth_service = "etzhayyim-auth"
 
 [product.integration_tests]
 # End-to-end conversion path proof. Runs against live yatabase.etzhayyim.com.
@@ -131,7 +131,7 @@ routes = [
   "yatabase.etzhayyim.com/*",
   "y4t4b4se.etzhayyim.com/*",
 ]
-deploy_cmd = "70-tools/scripts/yatabase-deploy.sh (gftd deploy + cron-preserving wrangler reattach; bare gftd deploy strips triggers.crons)"
+deploy_cmd = "70-tools/scripts/yatabase-deploy.sh (etzhayyim deploy + cron-preserving wrangler reattach; bare etzhayyim deploy strips triggers.crons)"
 smoke_cmd = "YATA_API_KEY=sk_live_yata_* node 70-tools/scripts/yatabase-smoke.mjs"
 
 [product.deployment.k8s]
@@ -236,7 +236,7 @@ source_file = "src/lead-sources/github.ts"
 
 [product.lead_sources.hn]
 endpoint_manual = "POST /api/leads/sources/hn (admin-keyed)"
-scheduled_handler = "scheduled() in src/app.ts — wired via direct npx wrangler deploy of wrangler.jsonc.cron variant since gftd deploy strips triggers"
+scheduled_handler = "scheduled() in src/app.ts — wired via direct npx wrangler deploy of wrangler.jsonc.cron variant since etzhayyim deploy strips triggers"
 cron_schedule = "0 */6 * * *"
 queries = ["graph database", "neo4j", "supabase", "hasura", "dgraph", "arangodb", "firebase migrate"]
 host_skip_list = "news.ycombinator.com / reddit.com / github.com / medium.com / x.com / wikipedia.org / openai.com / anthropic.com / huggingface.co / arxiv.org / dev.to / substack.com / etc."
@@ -288,10 +288,10 @@ outputs = ["vertex_email_outbox kind=support-followup"]
 
 [product.langgraph]
 # LangGraph Server deployable for marketing + sales graphs (ADR-2605080600 L3 runtime).
-# Lives at 60-apps/ai-gftd-project-yatabase/lg/ — runs on Granian/uvicorn,
+# Lives at 60-apps/etzhayyim-project-yatabase/lg/ — runs on Granian/uvicorn,
 # checkpointer = RW PG :4566 schema lg_yatabase_checkpoint.
-package_root = "60-apps/ai-gftd-project-yatabase/lg"
-config = "60-apps/ai-gftd-project-yatabase/lg/langgraph.json"
+package_root = "60-apps/etzhayyim-project-yatabase/lg"
+config = "60-apps/etzhayyim-project-yatabase/lg/langgraph.json"
 graphs = ["health", "marketing", "sales"]
 image_pattern = "ghcr.io/etzhayyim/lg-yatabase:0.1.0-amd64"
 deploy_target = "k8s Deployment lg-yatabase (mitama-udf namespace, 1/1 replica, edge-pool node)"
@@ -323,7 +323,7 @@ P24 = "Resend domain warm-up + RESEND_API_KEY rotation. Send-pipeline code shipp
 P25 = "GitHub stargazers scraper (shipped 2026-05-11). Five repos rotating 2/fire on `45 */6 * * *` cron. Authed mode via GITHUB_TOKEN secret pushes budget 60 → 5000/h. Parallel user-detail fetches via Promise.all (was sequential, blew Worker timeout). Verified live: 9 leads ingested from neo4j + supabase first scrape."
 P26 = "Studio → Leads pane: list / approve / dismiss / set contact_email (shipped 2026-05-11; admin-key gated; localStorage 'yatabase.adminKey')"
 P27 = "Lead enrichment: shipped 2026-05-11 — GET https://{domain}/ + regex mailto: + role-prefix emails + tech-stack hints. Verified live on supabase.com / hackaday.com / val.town."
-P28 = "Persist cron in gftd deploy flow: extend gftd to read 'crons' from magatama.jsonld (workaround shipped 2026-05-11 as 70-tools/scripts/yatabase-deploy.sh; full gftd patch deferred)"
+P28 = "Persist cron in etzhayyim deploy flow: extend etzhayyim to read 'crons' from magatama.jsonld (workaround shipped 2026-05-11 as 70-tools/scripts/yatabase-deploy.sh; full etzhayyim patch deferred)"
 P29 = "RW propagation backpressure investigation: 2026-05-11 saw fresh INSERTs/UPDATEs taking >5min to land + intermittent bpmn-dispatcher 500 on storage PUT. Check rw-health-gate.sh + scaling-contract.yaml + yata-zeebe-worker pod logs"
 P30 = "Autonomous enrichment cron (shipped 2026-05-11): scheduled() dispatches by event.cron — :00 = HN scrape, :30 = enrich-batch(8). Two-cron config preserved by yatabase-deploy.sh."
 P31 = "GET /api/leads/sendable (shipped 2026-05-11): operator's one-shot ready-to-fire list. Hooks the Studio Leads pane status-filter dropdown."
@@ -419,7 +419,7 @@ parallel_work_in_flight = "src/bmc-forward.ts + lg/lg_yatabase/bmc/{db.py,handle
 # Cutover of the auth surface (signup / invite / revoke) from
 # CF Worker direct-RW to lg-yatabase Granian pod. Mirrors the BMC
 # migration the parallel agent already shipped. Status: Worker side
-# + pod Python files committed 2026-05-11; pod container rebuild + 
+# + pod Python files committed 2026-05-11; pod container rebuild +
 # LG_YATABASE_URL wrangler secret push are operator steps.
 status = "code-ready; pod-deploy-and-secret-push pending"
 
@@ -446,7 +446,7 @@ files_changed = [
 container_rebuild_required = true
 operator_runbook = """
 1. Build new lg-yatabase container with the auth/ module:
-     cd 60-apps/ai-gftd-project-yatabase/lg
+     cd 60-apps/etzhayyim-project-yatabase/lg
      docker build --platform linux/amd64 -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 .
      docker push ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
 2. Rollout the pod (k8s):
@@ -508,7 +508,7 @@ behavior_today = "Worker forwards to pod (LG_YATABASE_URL is set); pod responds 
 # The full path from `curl /auth/v1/signup` to `Stripe charges customer` is
 # code-complete. These three operator steps activate it:
 step_1_pod_container_rebuild = """
-cd 60-apps/ai-gftd-project-yatabase/lg
+cd 60-apps/etzhayyim-project-yatabase/lg
 docker build --platform linux/amd64 -t ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 .
 docker push ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64
 kubectl -n mitama-yata-pool set image deployment/lg-yatabase \\
@@ -540,7 +540,7 @@ result = "lg-yatabase pod is live + routed, but cloudflared cluster-network bug 
 done = [
   "ghcr.io/etzhayyim/lg-yatabase:0.0.2-amd64 build + push (auth + leads + bmc XRPC routes)",
   "k8s/lg-yatabase.yaml — added imagePullSecrets: [ghcr-pull], rollout succeeded",
-  "CF tunnel be2cc0b0 ingress regex extended to ^/xrpc/ai\\.gftd\\.apps\\.yata\\.(bmc|signup|invite|revoke|lead).*$ (cfd_tunnel/configurations PUT v15, persisted via dashboard)",
+  "CF tunnel be2cc0b0 ingress regex extended to ^/xrpc/ai\\.etzhayyim\\.apps\\.yata\\.(bmc|signup|invite|revoke|lead).*$ (cfd_tunnel/configurations PUT v15, persisted via dashboard)",
   "50-infra/vultr/cloudflared/bpmn-dispatcher-tunnel.yaml mirrored to match (was already committed 9ab34d2438d by parallel agent)",
   "Verified pod ROUTES (/graphs lists health/marketing/sales/bmc_iteration; auth/leads/bmc XRPC routes all mounted)",
   "Restored cloudflared-bpmn-dispatcher-credentials Secret after server-side apply clobbered it with placeholder",
@@ -769,8 +769,8 @@ done = [
   "Installed ingress-nginx via Helm pinned to edge-pool: helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace --set controller.service.type=LoadBalancer --set controller.nodeSelector.\"vke\\.vultr\\.com/node-pool\"=edge-pool.",
   "Vultr provisioned LoadBalancer with public IP 108.61.207.153.",
   "Provisioned CF Origin Certificate via API for dispatcher.etzhayyim.com + *.etzhayyim.com (15-year cert).",
-  "Installed TLS secret dispatcher-gftd-ai-tls in mitama-udf + ingress-nginx namespaces.",
-  "Created Ingress dispatcher-gftd-ai in mitama-udf forwarding HTTPS to bpmn-dispatcher:8080. Manifest committed to 50-infra/k8s/nginx-ingress-yatabase.yaml.",
+  "Installed TLS secret dispatcher-etzhayyim-ai-tls in mitama-udf + ingress-nginx namespaces.",
+  "Created Ingress dispatcher-etzhayyim-ai in mitama-udf forwarding HTTPS to bpmn-dispatcher:8080. Manifest committed to 50-infra/k8s/nginx-ingress-yatabase.yaml.",
   "Updated dispatcher.etzhayyim.com DNS: CNAME be2cc0b0.cfargotunnel.com → A 108.61.207.153 (proxied=true).",
   "Verified signup returns 200 with full body: apiKey, orgDid, tenantName, AWS creds.",
 ]
@@ -810,9 +810,9 @@ DDL queue hangs indefinitely (no error, just no acknowledgement).
 done = [
   "Deleted runpod-vk Virtual Kubelet node (4h30m old, caused DaemonSet propagation cascade: calico-node Pending + kube-proxy DESIRED=1; killed `keiei-llm/gemma4-e2b-runpod` GPU pod as collateral — needs separate redeploy).",
   "Created 3 NATS JetStream streams (`MITAMA` subj=mitama.shinshi.audit.>, `GRADIENT_FLOW` subj=gradient.flow.>, `PDS_REPO` subj=pds.repo.commit.>) memory-backed 32MB / 10m retention. RW source readers `tbl_mitama_shinshi_audit` / `tbl_gradient_flow` / `tbl_pds_repo_commit` (declared in RW catalog but had no upstream streams) stopped the 1s retry loop that had been blocking foreground DDL queue since the prior cycles. nats.conf has `max_file_store=0` so streams must use memory storage until PVC is wired.",
-  "Built + pushed lg-yatabase images 0.0.2 → 0.0.6-amd64 on the orbstack buildx builder (BuildKit k8s driver `gftd-vke` is in error state on this host; orbstack with Rosetta amd64 emulation was the fallback). 0.0.4 added `uvicorn[standard]>=0.32` and `fastapi>=0.115` to pyproject.toml (Dockerfile CMD invoked uvicorn but it was not in deps and image had no uvicorn binary). 0.0.6 added `_RwConnection(asyncpg.Connection)` override so `reset()` is a no-op — asyncpg's default emits `UNLISTEN *;` on every pool release which RisingWave rejects with `sql parser error: expected statement, found: UNLISTEN`.",
+  "Built + pushed lg-yatabase images 0.0.2 → 0.0.6-amd64 on the orbstack buildx builder (BuildKit k8s driver `etzhayyim-vke` is in error state on this host; orbstack with Rosetta amd64 emulation was the fallback). 0.0.4 added `uvicorn[standard]>=0.32` and `fastapi>=0.115` to pyproject.toml (Dockerfile CMD invoked uvicorn but it was not in deps and image had no uvicorn binary). 0.0.6 added `_RwConnection(asyncpg.Connection)` override so `reset()` is a no-op — asyncpg's default emits `UNLISTEN *;` on every pool release which RisingWave rejects with `sql parser error: expected statement, found: UNLISTEN`.",
   "Deployed lg-yatabase Deployment + Service + ServiceAccount via 50-infra/k8s/lg-yatabase/{deployment.yaml,kustomization.yaml,secret.yaml.example,RUNBOOK.md} (newly created — pod had never been deployed before; was P19/P20 backlog).",
-  "Created k8s Secret `lg-yatabase-secrets` in mitama-udf with RW_URL=ROOT_URL (Keychain `gftd.rw / ROOT_URL`), LG_YATABASE_API_KEY (fresh uuidgen `B7DF0D6F-0168-4C5D-B347-1D528943A222`, persisted to /tmp/lg-yatabase-api-key.txt), DISPATCHER_INTERNAL_SECRET (rotated from placeholder to canonical k8s `bpmn-dispatcher-auth.internal-secret` value).",
+  "Created k8s Secret `lg-yatabase-secrets` in mitama-udf with RW_URL=ROOT_URL (Keychain `etzhayyim.rw / ROOT_URL`), LG_YATABASE_API_KEY (fresh uuidgen `B7DF0D6F-0168-4C5D-B347-1D528943A222`, persisted to /tmp/lg-yatabase-api-key.txt), DISPATCHER_INTERNAL_SECRET (rotated from placeholder to canonical k8s `bpmn-dispatcher-auth.internal-secret` value).",
   "Created k8s Secret `ghcr-pull` in mitama-udf with gh auth token (was missing — first lg-yatabase deploy in this namespace).",
   "Rotated DISPATCHER_INTERNAL_SECRET via `wrangler secret put DISPATCHER_INTERNAL_SECRET` on magatama-y4t4b4se Worker so HMAC matches the bpmn-dispatcher / lg-yatabase side. Also set LG_YATABASE_URL=https://dispatcher.etzhayyim.com (CF tunnel egress now superseded by nginx-ingress from cycle_07).",
   "Updated CF Tunnel `bpmn-dispatcher` config via API (v5..v21) — initially added direct lg-yatabase route, then reverted to Option A (cycle_07 nginx-ingress + dispatcher proxy `_proxy_to_lg_yatabase`) per the project's chosen topology. Final tunnel rules: shinshi → lg-shinshi, default → bpmn-dispatcher, 404 catch-all.",
@@ -842,10 +842,10 @@ is additive and the pod re-imports tables.py lazily).
 artifacts = [
   "30-graph/graph-schema/alembic/current_versions/r_20260512000000_bmc_lean_iteration.py — alembic SSoT",
   "30-graph/graph-schema/sql_migrations/20260512000000_bmc_lean_iteration.{up,down}.sql — 6 vertex / 5 edge / 4 MV + grants",
-  "00-contracts/lexicons/com/etzhayyim/apps/yata/bmc{GetState,AppendState,ListHypotheses,AddHypothesis,SetHypothesisStatus,Iterate,ListIterations,ListDecisions,BlockHealth}.json — 9 Lexicon JSON, bundled into lex registry, atproto Worker redeployed (ai-gftd-pds-2603241700 v21fc6e20).",
-  "60-apps/ai-gftd-project-yatabase/src/bmc-forward.ts — HMAC-signing thin proxy, replaces deleted bmc.ts + bmc-iterate.ts in the Worker.",
-  "60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/bmc/{db,models,repository,handlers}.py — pod-side BMC module (~1k lines), single writer for vertex_bmc_*.",
-  "60-apps/ai-gftd-project-yatabase/lg/lg_yatabase/graphs/bmc_iteration.py — STUB nodes replaced with repository-backed async implementations.",
+  "00-contracts/lexicons/com/etzhayyim/apps/yata/bmc{GetState,AppendState,ListHypotheses,AddHypothesis,SetHypothesisStatus,Iterate,ListIterations,ListDecisions,BlockHealth}.json — 9 Lexicon JSON, bundled into lex registry, atproto Worker redeployed (etzhayyim-pds-2603241700 v21fc6e20).",
+  "60-apps/etzhayyim-project-yatabase/src/bmc-forward.ts — HMAC-signing thin proxy, replaces deleted bmc.ts + bmc-iterate.ts in the Worker.",
+  "60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/bmc/{db,models,repository,handlers}.py — pod-side BMC module (~1k lines), single writer for vertex_bmc_*.",
+  "60-apps/etzhayyim-project-yatabase/lg/lg_yatabase/graphs/bmc_iteration.py — STUB nodes replaced with repository-backed async implementations.",
   "50-infra/k8s/lg-yatabase/{deployment.yaml,kustomization.yaml,secret.yaml.example,RUNBOOK.md} — k8s deployment scaffolding (new directory).",
   "ghcr.io/etzhayyim/lg-yatabase:0.0.6-amd64 — image with uvicorn + asyncpg UNLISTEN override + bmc module.",
   "NATS JetStream: 3 memory streams (MITAMA, GRADIENT_FLOW, PDS_REPO) created via nats-box pod in nats namespace.",
@@ -1364,7 +1364,7 @@ New module: src/storage-r2.ts
   - listR2Buckets (per-org enumeration with pagination, max 5 pages)
   - Per-org keyspace: `yata/{orgDid}/{bucket}/{key}` so multi-tenant
     isolation holds even though all orgs share the YATA_R2 binding
-    (ai-gftd-cache).
+    (etzhayyim-cache).
 
 src/storage-rest.ts changes:
   - handleObject PUT/GET/HEAD/DELETE — R2 tier checked FIRST when the
@@ -1647,7 +1647,7 @@ type=ratelimit, namespace_id=1001, simple: limit=100 period=10s) as a
 defense-in-depth layer ahead of the KV daily meter.
 
   - wrangler.jsonc + yatabase-deploy.sh both patch the binding at
-    deploy time (gftd's wrangler.jsonc regenerator strips it, so the
+    deploy time (etzhayyim's wrangler.jsonc regenerator strips it, so the
     deploy script's python patch re-applies before npx wrangler deploy)
   - auth middleware calls `env.YATA_BURST_LIMITER.limit({key: orgDid})`
     on every authenticated non-observability request; 429 with
