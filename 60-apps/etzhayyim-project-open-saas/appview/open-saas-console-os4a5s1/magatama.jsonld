@@ -11,7 +11,7 @@
     "description": "Open-source-first SaaS blueprint and operator console.",
     "agentType": "autonomous",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "capabilities": [
       "tenant-control-plane",
       "billing-metering",

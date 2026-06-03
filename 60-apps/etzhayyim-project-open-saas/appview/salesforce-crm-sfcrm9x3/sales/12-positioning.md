@@ -36,7 +36,7 @@ Positioning without honest trade-offs is brochure copy. We give up:
 
 In exchange:
 
-- Tenant DID you can custody (`gftd plc-migrate` migrates the plc:did to your own controller).
+- Tenant DID you can custody (`etzhayyim plc-migrate` migrates the plc:did to your own controller).
 - Residency attestation on a command line.
 - Per-seat LLM with provenance.
 - Flat price, no egress fee.

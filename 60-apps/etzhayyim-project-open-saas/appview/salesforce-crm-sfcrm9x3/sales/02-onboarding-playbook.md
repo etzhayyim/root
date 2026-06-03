@@ -4,7 +4,7 @@
 
 ## Entry criteria (Friday 18:00 local)
 - Customer signed SOW (node 03).
-- Tenant DID provisioned: `did:web:<slug>.opensaas.etzhayyim.com` (created by `gftd deploy` on the tenant's CF account).
+- Tenant DID provisioned: `did:web:<slug>.opensaas.etzhayyim.com` (created by `etzhayyim deploy` on the tenant's CF account).
 - `sfdc_export.zip` from Salesforce Data Loader in hand (Accounts, Contacts, Leads, Opportunities, Cases, Activities, Users).
 - Customer's identity team has chosen the seat DID naming rule (recommended: `did:web:<slug>.opensaas.etzhayyim.com:seat:<role>-<nn>`).
 
@@ -17,10 +17,10 @@
 ## Timeline
 
 ### Friday 18:00–20:00 — provisioning
-1. `gftd deploy --project open-saas --appview salesforce-crm-sfcrm9x3 --tenant-did did:web:acme.opensaas.etzhayyim.com`
-2. DNS: CNAME `acme.opensaas.etzhayyim.com` → CF route; `_atproto` TXT auto-provisioned by `gftd dns-sync`.
+1. `etzhayyim deploy --project open-saas --appview salesforce-crm-sfcrm9x3 --tenant-did did:web:acme.opensaas.etzhayyim.com`
+2. DNS: CNAME `acme.opensaas.etzhayyim.com` → CF route; `_atproto` TXT auto-provisioned by `etzhayyim dns-sync`.
 3. Seed plan: `POST /api/open-saas/tenants` on open-saas-console with `{ name: "Acme Robotics K.K.", planId: "enterprise-flat" }`.
-4. `gftd vault create --tenant acme --policy appi-gdpr` for Tier-3 Preferences vault.
+4. `etzhayyim vault create --tenant acme --policy appi-gdpr` for Tier-3 Preferences vault.
 
 ### Friday 20:00–23:00 — schema map
 Apply the canonical Salesforce → W Protocol mapping (deliver as `migration/map.jsonl`):
@@ -43,7 +43,7 @@ Apply the canonical Salesforce → W Protocol mapping (deliver as `migration/map
 Rule: any field not in the map table is dropped, not guessed. Customer reviews the dropped-field list before proceeding (target: ≤ 3% drop).
 
 ### Saturday 00:00–12:00 — ingest
-- Run `gftd opensaas migrate sfdc --in sfdc_export.zip --map migration/map.jsonl --tenant did:web:acme.opensaas.etzhayyim.com --parallel 8`.
+- Run `etzhayyim opensaas migrate sfdc --in sfdc_export.zip --map migration/map.jsonl --tenant did:web:acme.opensaas.etzhayyim.com --parallel 8`.
 - Ingest order (matters — foreign keys resolve in-order):
   1. Users → seat DIDs (WebAuthn enrollment email queued, passkeys set Monday).
   2. Accounts (`createRecord` → `com.etzhayyim.apps.opensaas.salesforce.account`).
@@ -59,7 +59,7 @@ Rule: any field not in the map table is dropped, not guessed. Customer reviews t
 - Start RisingWave MV `mv_opensaas_salesforce_pipeline_by_stage` and wait for steady-state (<100ms freshness, usually <5min).
 
 ### Saturday 18:00–Sunday 12:00 — reconciliation
-- `gftd opensaas reconcile --against sfdc_export.zip`:
+- `etzhayyim opensaas reconcile --against sfdc_export.zip`:
   - Account count match: ±0 (hard fail if mismatch).
   - Contact count match: ±0.
   - Opportunity pipeline JPY sum: ±¥10,000 (rounding in band conversion).

@@ -2,18 +2,18 @@
   "@context": [
     "https://schema.org/",
     {
-      "gftd": "https://etzhayyim.com/schemas/",
-      "milestones": "gftd:milestones",
-      "blockers": "gftd:blockers",
+      "etzhayyim": "https://etzhayyim.com/schemas/",
+      "milestones": "etzhayyim:milestones",
+      "blockers": "etzhayyim:blockers",
       "dependsOn": {
-        "@id": "gftd:dependsOn",
+        "@id": "etzhayyim:dependsOn",
         "@type": "@id"
       }
     }
   ],
   "@type": "CreativeWork",
-  "name": "ai gftd open saas Scheduler",
-  "identifier": "ai-gftd-open-saas/scheduler",
+  "name": "ai etzhayyim open saas Scheduler",
+  "identifier": "etzhayyim-open-saas/scheduler",
   "description": "Project schedule and blockers for the OSS SaaS baseline.",
   "dateCreated": "2026-04-16T00:00:00+09:00",
   "milestones": [

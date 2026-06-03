@@ -38,7 +38,7 @@
 **Contents**:
 - Tier-1 vs Tier-3 PII topology diagram — which fields are which, with lexicon file links.
 - Art-17 / APPI §30 cascade purge flow: input → `POST /api/vault/purge` → Tier-3 delete + Tier-1 `emailHash` rotation → `activity(kind=note)` attestation. Signed JSON sample.
-- Data-residency attestation format: `gftd opensaas attest --tenant <did> --region <JPN|EUR>` output with colo IDs + RisingWave replica regions.
+- Data-residency attestation format: `etzhayyim opensaas attest --tenant <did> --region <JPN|EUR>` output with colo IDs + RisingWave replica regions.
 - Processor / Controller matrix aligning MSA §5 with APPI § and GDPR Art.
 - Sub-processor list: Cloudflare (Worker + B2), RisingWave Cloud (PG + Hummock), Linode LKE (region-pinned), Cloudflare Vectorize. Named colos per region.
 - Incident response timeline (72h notification).
@@ -51,7 +51,7 @@
 - Full map table (extends Schedule C-1 from node 03): 200+ SF fields → lexicon paths.
 - Per-row: Tier classification, default drop/port choice, rationale, example value transformation (e.g. `Account.AnnualRevenue=8200000000` → `annualRevenueJpyBand=u10b` + Tier-3 raw).
 - "Paste your object-field list, get back a dry-run map" mini tool — runs entirely client-side, no upload, no PII leakage.
-- Downloadable `map.jsonl` ready for `gftd opensaas migrate --map`.
+- Downloadable `map.jsonl` ready for `etzhayyim opensaas migrate --map`.
 
 ## Pillar 5 — Flat-price calculator (single-page web app)
 

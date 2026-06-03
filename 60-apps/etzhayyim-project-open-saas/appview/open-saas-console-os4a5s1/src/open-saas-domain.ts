@@ -288,7 +288,7 @@ function pushAudit(event: Omit<AuditEvent, "auditId" | "createdAt">): AuditEvent
 
 export function getBlueprint() {
   return {
-    name: "ai-gftd-project-open-saas",
+    name: "etzhayyim-project-open-saas",
     posture: "open-source-first",
     thesis:
       "Ship an auditable SaaS baseline where tenancy, billing, auditability, and extension APIs are first-class from day one.",

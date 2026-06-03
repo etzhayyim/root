@@ -30,7 +30,7 @@
 
 ## Proof points the customer cited publicly
 - "We moved 148k contacts, 6.2k opportunities, 23k cases across one weekend. Content-addressed blob store meant migration was resumable."
-- "The CRM is a tenant DID, not a hostname. When our EU sub spun up, it was a 4-line `gftd deploy`, not a new org negotiation."
+- "The CRM is a tenant DID, not a hostname. When our EU sub spun up, it was a 4-line `etzhayyim deploy`, not a new org negotiation."
 - "Einstein replacement cost ¥0 — our own Murakumo fleet already had capacity."
 
 ## What this case study forces earlier artifacts to do

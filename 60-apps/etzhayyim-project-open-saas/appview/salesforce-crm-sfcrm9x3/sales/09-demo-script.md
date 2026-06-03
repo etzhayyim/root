@@ -48,7 +48,7 @@ Gate: "3 records atomically, 1 activity auto-derived, 1 URI that's verifiable ou
 Goal: prove the APPI / GDPR posture is runnable, not paperwork.
 
 Steps:
-1. Terminal: `gftd opensaas attest --tenant did:web:democo.opensaas.etzhayyim.com --region JPN` → signed JSON lists: CF colo IDs, RisingWave replica region, vault KMS region. All JPN.
+1. Terminal: `etzhayyim opensaas attest --tenant did:web:democo.opensaas.etzhayyim.com --region JPN` → signed JSON lists: CF colo IDs, RisingWave replica region, vault KMS region. All JPN.
 2. In the UI, pick a seeded contact "Akiko Tanaka". Show the record: Tier-1 has `emailHash: sha256:...`, `phoneHash: sha256:...`, `displayLabel: "CTO, Niigata Seiki"`. No raw email.
 3. Open the Tier-3 vault panel (operator-only). Show the wrapped `rawEmail` blob linked to the contact's DID. Explain: wrapped with the seat's device key (WebAuthn PRF), server can't decrypt.
 4. Fire the purge: `POST /api/vault/purge { subjectHash: "sha256:..." }`. Watch: Tier-3 vault row deleted, Tier-1 `emailHash` rotated to `sha256:deleted-<uuid>`, an `activity(kind=note, source=manual-ui)` drops into the contact's history with the purge attestation.
@@ -74,7 +74,7 @@ Gate: "If your own LLM plan is `<named vendor>`, swapping Murakumo for it is a `
 Goal: justify the hyper-care line item; prove operability under stress.
 
 Steps:
-1. Simulate a stale passkey: revoke seat `ae-01`'s passkey via `gftd vault revoke-credential`. SE reloads the CRM → access denied, with a human-readable error pointing to the re-issue flow.
+1. Simulate a stale passkey: revoke seat `ae-01`'s passkey via `etzhayyim vault revoke-credential`. SE reloads the CRM → access denied, with a human-readable error pointing to the re-issue flow.
 2. Operator re-issues: `POST /api/seats/ae-01/passkey/re-issue` from a second operator seat (demonstrates RBAC). New enrollment link emitted. SE walks through the re-enrollment (skip actual re-auth for time — show the email content).
 3. Show the audit trail in the operator console: the revoke + re-issue are two `com.etzhayyim.audit.*` events, cross-referenceable to the seat DID's `activity` history.
 4. Mention the 30-day / 90-day hyper-care SKU (pricing node 08); this is the kind of operational sequence covered.

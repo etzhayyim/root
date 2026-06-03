@@ -29,5 +29,5 @@ API:
 ローカル:
 
 ```sh
-pnpm exec wrangler dev --config 60-apps/ai-gftd-project-open-saas/appview/salesforce-crm-sfcrm9x3/wrangler.jsonc
+pnpm exec wrangler dev --config 60-apps/etzhayyim-project-open-saas/appview/salesforce-crm-sfcrm9x3/wrangler.jsonc
 ```

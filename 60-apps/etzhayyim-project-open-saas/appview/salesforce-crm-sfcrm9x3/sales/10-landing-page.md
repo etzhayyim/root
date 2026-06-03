@@ -24,7 +24,7 @@ One click writes `account` + `contact` + `opportunity` + updated `lead` + derive
 - **Micro-copy**: "Paste that URI into any AT Protocol client. The CRM isn't the only thing that can read it."
 
 ### Claim B: Your CRM data is where you say it is, and you can prove it
-Run `gftd opensaas attest --tenant <your-did> --region JPN` (or EUR) → signed JSON lists every CF colo, RisingWave replica, vault KMS region that touched your data in the last 7 days. Built for APPI §22-28, GDPR Art 44, and your next ISMAP / SOC2 audit.
+Run `etzhayyim opensaas attest --tenant <your-did> --region JPN` (or EUR) → signed JSON lists every CF colo, RisingWave replica, vault KMS region that touched your data in the last 7 days. Built for APPI §22-28, GDPR Art 44, and your next ISMAP / SOC2 audit.
 
 - **Proof link**: example attestation `/docs/examples/attest-democo.json`
 - **Micro-copy**: "If the attestation ever shows a region outside your Order Form, we owe you a credit."
@@ -72,7 +72,7 @@ Tight, honest inventory. No "we're better at everything" bravado.
 
 ## Section 5 — FAQ (written in the voice of the buyer, not the vendor)
 
-- **"Can I host this myself?"** Yes. `gftd deploy` to your Cloudflare account; point your own RisingWave cluster; keep your DID on your own DNS. We can still operate it for you if the Order Form says so.
+- **"Can I host this myself?"** Yes. `etzhayyim deploy` to your Cloudflare account; point your own RisingWave cluster; keep your DID on your own DNS. We can still operate it for you if the Order Form says so.
 - **"What happens if etzhayyim the company disappears?"** Your tenant DID, your records, your Worker, your vault keys are all yours. The Community SKU is the permanent fallback; the lexicons are CC-BY-4.0, the code is AGPL-3.0 with a permissive commercial grant for operators.
 - **"Can we move back to Salesforce if it doesn't work?"** Yes. Export every record in AT Protocol JSON + Iceberg Parquet on 30 days' notice. No egress fee.
 - **"Do you support our SSO?"** SAML + OIDC on the tenant's Auth Worker; WebAuthn passkey is the seat-level primary. No password fallback.

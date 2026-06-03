@@ -6,7 +6,7 @@
 
 **Canonical sentence**: open-salesforce splits PII into a federation-ready Tier-1 record and a residency-pinned Tier-3 vault, so APPI §22-28 and GDPR Art 44 reviews close in weeks, not quarters.
 
-**Proof anchor**: posture packet PDF + `gftd opensaas attest` signed JSON. Landing CTA link: **Download posture packet**.
+**Proof anchor**: posture packet PDF + `etzhayyim opensaas attest` signed JSON. Landing CTA link: **Download posture packet**.
 
 **Disallowed phrasings**:
 - ❌ "Enterprise-grade security" (say what the grade *is*).

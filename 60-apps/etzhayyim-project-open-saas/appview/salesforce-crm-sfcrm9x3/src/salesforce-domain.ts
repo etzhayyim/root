@@ -251,7 +251,7 @@ let state: State = seed();
 
 export function getBlueprint() {
   return {
-    project: "ai-gftd-project-open-saas",
+    project: "etzhayyim-project-open-saas",
     app: "salesforce-crm-sfcrm9x3",
     tenancy: {
       model: "actor-did-per-tenant",

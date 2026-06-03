@@ -61,7 +61,7 @@ Subject: Field map: your Salesforce objects → open-salesforce lexicons
 
 > `<FirstName>`,
 >
-> This one's for you, not your VP. Our interactive field map — paste your Salesforce object-field list client-side, get back a dry-run `map.jsonl` ready for `gftd opensaas migrate`: `<pillar-4 URL>`.
+> This one's for you, not your VP. Our interactive field map — paste your Salesforce object-field list client-side, get back a dry-run `map.jsonl` ready for `etzhayyim opensaas migrate`: `<pillar-4 URL>`.
 >
 > Two things it'll surface in under 5 minutes:
 > - which custom objects port cleanly (extend `com.etzhayyim.apps.opensaas.salesforce.*`),

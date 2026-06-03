@@ -27,7 +27,7 @@ Template is splittable into three instruments so procurement / legal can route i
 
 **6. Security.**
 - Seat authentication: WebAuthn passkey only. No password fallback.
-- Secrets (Salesforce import credentials, SAP webhook tokens, Murakumo API keys): `gftd vault` zero-knowledge store, never in env vars.
+- Secrets (Salesforce import credentials, SAP webhook tokens, Murakumo API keys): `etzhayyim vault` zero-knowledge store, never in env vars.
 - Audit log: every XRPC call hits the append-only `com.etzhayyim.audit.*` stream, retention 7y, exportable as OCEL 2.0.
 
 **7. Uptime.** 99.5% monthly for `https://salesforce.opensaas.etzhayyim.com/`. Service credit: 5% of monthly fee per 1% miss, capped at 50%. Scheduled maintenance windows (Sun 02:00–04:00 local) excluded.

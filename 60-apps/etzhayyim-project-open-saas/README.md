@@ -1,6 +1,6 @@
-# ai-gftd-project-open-saas
+# etzhayyim-project-open-saas
 
-`ai-gftd-project-open-saas` は、etzhayyim 系プロジェクト向けに「公開できる設計」「自己ホストできる実装」「課金と監査まで含めた SaaS 運用面」を同時に扱うための OSS SaaS スターターです。
+`etzhayyim-project-open-saas` は、etzhayyim 系プロジェクト向けに「公開できる設計」「自己ホストできる実装」「課金と監査まで含めた SaaS 運用面」を同時に扱うための OSS SaaS スターターです。
 
 このディレクトリには以下を含みます。
 
@@ -25,7 +25,7 @@
 ルートで次を実行します。
 
 ```sh
-pnpm exec wrangler dev --config 60-apps/ai-gftd-project-open-saas/appview/open-saas-console-os4a5s1/wrangler.jsonc
+pnpm exec wrangler dev --config 60-apps/etzhayyim-project-open-saas/appview/open-saas-console-os4a5s1/wrangler.jsonc
 ```
 
 ## 補足
