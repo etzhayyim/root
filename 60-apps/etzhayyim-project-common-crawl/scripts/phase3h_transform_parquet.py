@@ -6,7 +6,7 @@ per-page `rkey` (URL-path slug) + `owner_did` (page DID) from the `url`
 column, and writes a new parquet with the updated columns preserved.
 
 Mirrors the Rust `page_did_from_url` helper in
-`60-apps/ai-gftd-project-common-crawl/rust/cc-phase3/src/main.rs`.
+`60-apps/etzhayyim-project-common-crawl/rust/cc-phase3/src/main.rs`.
 
 Skips WAT decompression entirely — this runs ~100x faster than
 re-executing cc-phase3 on the full 14.8 TB WAT corpus.

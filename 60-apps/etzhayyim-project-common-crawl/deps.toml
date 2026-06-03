@@ -217,7 +217,7 @@ archived_reason = "Superseded by phase3g/path-j-hummock. Streaming staging path 
 
 # ── WASM app ──────────────────────────────────────────────
 
-[files."wasm/ai-gftd-wasm-common-crawl-cc26m4x1"]
+[files."wasm/etzhayyim-wasm-common-crawl-cc26m4x1"]
 role = "magatama-app"
 kind = "package"
 toolchain = "pnpm"
@@ -227,7 +227,7 @@ execution_profiles = ["build", "test"]
 flags = ["editable"]
 description = "Common Crawl appview (Magatama TS native + WIT contract)"
 
-[files."wasm/ai-gftd-wasm-common-crawl-cc26m4x1/package.json"]
+[files."wasm/etzhayyim-wasm-common-crawl-cc26m4x1/package.json"]
 role = "package-config"
 kind = "package"
 toolchain = "pnpm"

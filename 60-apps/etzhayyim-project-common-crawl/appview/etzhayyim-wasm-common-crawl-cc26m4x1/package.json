@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-wasm-common-crawl-cc26m4x1",
+  "name": "etzhayyim-wasm-common-crawl-cc26m4x1",
   "version": "1.0.0",
   "description": "Common Crawl pipeline — download, DID property graph, Murakumo intelligence extraction, knowledge graph injection",
   "main": "src/app.ts",

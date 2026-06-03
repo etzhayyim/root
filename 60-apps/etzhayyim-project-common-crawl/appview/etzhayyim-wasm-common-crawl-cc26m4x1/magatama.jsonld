@@ -13,7 +13,7 @@
     "raci": "responsible",
     "classification": "internal",
     "complianceFrameworks": [
-      "gftd-platform-policy"
+      "etzhayyim-platform-policy"
     ]
   },
   "profile": {
@@ -22,7 +22,7 @@
     "avatar": "CC",
     "category": "data",
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "capabilities": [
       "common-crawl-download",
       "did-property-graph",

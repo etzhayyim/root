@@ -1,0 +1,49 @@
+# yatachain-projection manifest for etzhayyim-project-common-crawl/scripts
+#
+# Per ADR-2605231500, these operator scripts seed and refresh the derived
+# RisingWave read-path projection for Common Crawl domain/page intelligence.
+# They are not canonical state; every row is rebuildable from public Common
+# Crawl WARC/WAT/WET inputs plus the app migration runbook.
+
+[projection]
+name = "common-crawl-ingest-rw"
+level = "L0-projection"
+rebuild_runbook = "../MIGRATION-TODO.md"
+adr = "2605231500"
+yatachain_companion_adr = "2605231400"
+owner = "common-crawl maintainers"
+last_reviewed = "2026-06-03"
+
+source_collections = [
+  "org.commoncrawl.warc",
+  "org.commoncrawl.wat",
+  "org.commoncrawl.wet",
+]
+
+projection_tables = [
+  "vertex_common_crawl_domain",
+  "vertex_common_crawl_page",
+  "edge_common_crawl_link",
+]
+
+storage_substrates = [
+  { kind = "risingwave", binding = "DATABASE_URL", note = "derived Common Crawl projection populated by operator ingest scripts" },
+]
+
+rebuild_estimated_minutes = 480
+rebuild_estimated_minutes_note = "dominated by Common Crawl segment download and parse time"
+
+[[non_determinism]]
+field = "vertex_*.row_id"
+reason = "sequence-allocated on INSERT; replay preserves logical keys but not physical row ids"
+
+[[non_determinism]]
+field = "vertex_*.created_at_db"
+reason = "RisingWave server timestamp at INSERT time, not in source crawl data"
+
+[promotion_to_l1]
+required = [
+  "Rebuild runbook replayed against a bounded Common Crawl sample in CI",
+  "Drift detector compares sampled projection rows against source WARC/WAT/WET records",
+]
+target_quarter = "Q3 2026"

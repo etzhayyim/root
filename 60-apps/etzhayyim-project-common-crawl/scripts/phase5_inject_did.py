@@ -42,8 +42,8 @@ STATE_FILE = _state_dir / ".phase5_state.json"
 PDS_URL = os.environ.get("PDS_URL", "https://atproto.etzhayyim.com")
 SITE_APP_DID = "did:web:site.etzhayyim.com"
 
-# Auth token from gftd auth
-AUTH_TOKEN_FILE = Path.home() / ".gftd" / "auth.json"
+# Auth token from etzhayyim auth
+AUTH_TOKEN_FILE = Path.home() / ".etzhayyim" / "auth.json"
 
 _log_handlers = [logging.StreamHandler()]
 _phase5_log = BASE_DIR / "scripts" / "phase5.log"
@@ -71,7 +71,7 @@ signal.signal(signal.SIGTERM, handle_signal)
 
 
 def get_auth_token() -> str:
-    """Resolve auth token from etzhayyim_TOKEN env or ~/.gftd/auth.json."""
+    """Resolve auth token from etzhayyim_TOKEN env or ~/.etzhayyim/auth.json."""
     token = os.environ.get("etzhayyim_TOKEN", "")
     if token:
         return token
@@ -174,7 +174,7 @@ def inject_domains(domains: list[dict], dry_run: bool, batch_size: int):
     """Create DID actors + site.domain records in PDS for each domain."""
     token = get_auth_token()
     if not token and not dry_run:
-        log.error("No auth token. Run 'gftd auth login' first or set etzhayyim_TOKEN.")
+        log.error("No auth token. Run 'etzhayyim auth login' first or set etzhayyim_TOKEN.")
         sys.exit(1)
 
     state = load_state()

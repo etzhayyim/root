@@ -1,4 +1,4 @@
-# ai-gftd-project-common-crawl — Common Crawl Intelligence Pipeline
+# etzhayyim-project-common-crawl — Common Crawl Intelligence Pipeline
 
 **Shannon-optimal pipeline: WAT (gz) → Rust cc-phase3 (rayon) → Parquet (ZSTD) → S3 (cc-parquet-v2/) → RisingWave s3 connector → ALTER TABLE SWAP。**
 
@@ -40,7 +40,7 @@ WAT files (49,591 × ~1GB gz)
   → RisingWave: INSERT INTO vertex_page SELECT * FROM file_scan('parquet', 's3', ...)
   → vertex_domain: MV derived from vertex_page.domain (no explicit INSERT)
 
-gftd common-crawler (Go CLI)
+etzhayyim common-crawler (Go CLI)
   ├─ download  → Python download_all.py (WAT/WET/WARC, resumable)
   ├─ parquet   → Rust cc-phase3 --format parquet (primary pipeline)
   ├─ intel     → Python phase4_intel_extract.py (Murakumo LLM)
@@ -113,48 +113,48 @@ WAT → Parquet 直接で変換 1 回 + S3 native bulk load。
 
 ```bash
 # Download CC-MAIN-2026-12 WAT (all)
-gftd common-crawler download --crawl CC-MAIN-2026-12 --format wat --workers 8
+etzhayyim common-crawler download --crawl CC-MAIN-2026-12 --format wat --workers 8
 
 # Download filtered by government domains
-gftd common-crawler download --domains gov-domains.txt --format wat,wet
+etzhayyim common-crawler download --domains gov-domains.txt --format wat,wet
 
 # Download specific shard range (for parallel machines)
-gftd common-crawler download --range-start 0 --range-end 25000 --workers 4
+etzhayyim common-crawler download --range-start 0 --range-end 25000 --workers 4
 
 # Generate DID property graph from downloaded WAT
-gftd common-crawler graph --source full --output sql
+etzhayyim common-crawler graph --source full --output sql
 
 # Graph for Japanese government domains only
-gftd common-crawler graph --domain "*.go.jp" --output jsonl
+etzhayyim common-crawler graph --domain "*.go.jp" --output jsonl
 
 # Intelligence extraction (top 5000 domains by page count)
-gftd common-crawler intel --limit 5000 --min-pages 100
+etzhayyim common-crawler intel --limit 5000 --min-pages 100
 
 # Intel for specific domain pattern
-gftd common-crawler intel --domain "*.gov" --model qwen3.5-9b
+etzhayyim common-crawler intel --domain "*.gov" --model qwen3.5-9b
 
 # Inject to PDS (dry-run first)
-gftd common-crawler inject --dry-run
-gftd common-crawler inject --source intel --batch-size 500
+etzhayyim common-crawler inject --dry-run
+etzhayyim common-crawler inject --source intel --batch-size 500
 
 # Status
-gftd common-crawler monitor
+etzhayyim common-crawler monitor
 
 # List available crawls
-gftd common-crawler list-crawls --year 2026
+etzhayyim common-crawler list-crawls --year 2026
 ```
 
-## Scripts (monorepo, `60-apps/ai-gftd-project-common-crawl/scripts/`)
+## Scripts (monorepo, `60-apps/etzhayyim-project-common-crawl/scripts/`)
 
 | Script | Phase | 機能 |
 |---|---|---|
 | `archive/phase3_wat_to_cypher.py` | graph | ARCHIVED: WAT → SQL DID property graph。resume checkpoint + 14 topic auto-classification + domain prefilter via Common Crawl Index (CDX) |
 
-`gftd common-crawler graph` は monorepo `60-apps/ai-gftd-project-common-crawl/scripts/` を優先する。旧 SQL 実装は `scripts/archive/` 配下に退避済み。
+`etzhayyim common-crawler graph` は monorepo `60-apps/etzhayyim-project-common-crawl/scripts/` を優先する。旧 SQL 実装は `scripts/archive/` 配下に退避済み。
 
 ### Graph Query Optimization (domain 指定時)
 
-`gftd common-crawler graph --domain ...` は以下の順で処理する:
+`etzhayyim common-crawler graph --domain ...` は以下の順で処理する:
 
 1. Common Crawl Index (CDX) で対象ドメインの `filename` を問い合わせ
 2. ローカルの `*.warc.wat.gz` 候補へ変換し、WAT ファイル集合を事前に絞り込み
@@ -227,7 +227,7 @@ cd 50-infra/linode/risingwave-iceberg
 PATH_MODE=path-j-hummock ./deploy.sh
 
 # Ingest (3 parallel processes, 4 workers each — best throughput)
-cd 60-apps/ai-gftd-project-common-crawl/scripts
+cd 60-apps/etzhayyim-project-common-crawl/scripts
 python3 phase3g_copy_ingest.py --table pages  --workers 4 &
 python3 phase3g_copy_ingest.py --table links  --workers 4 &
 python3 phase3g_copy_ingest.py --table dlinks --workers 4 &
@@ -334,7 +334,7 @@ Recommended phase order:
 2. `actors` — vertex_actor CC actors (fast, ~873 rows)
 3. `pages` — vertex_page + edge_* (slow, ~22M+ rows, parallel workers)
 
-**Coverage CLI**: `gftd actors common-crawler-coverage` — RisingWave の CC DID coverage を graph Worker 経由で分析。
+**Coverage CLI**: `etzhayyim actors common-crawler-coverage` — RisingWave の CC DID coverage を graph Worker 経由で分析。
 
 ### Legacy Ingestion (REMOVED)
 

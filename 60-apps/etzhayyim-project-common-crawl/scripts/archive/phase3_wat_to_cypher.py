@@ -18,7 +18,7 @@ Resume: checkpoint per WAT file in .phase3_state.json.
 
 Usage:
   python3 scripts/archive/phase3_wat_to_cypher.py --source full [--batch-size 10000] [--resume]
-  gftd common-crawler graph --source full --batch-size 10000
+  etzhayyim common-crawler graph --source full --batch-size 10000
 
 Env:
   CC_DOMAIN_FILTER         Domain csv filter (e.g. *.go.jp,nlftp.mlit.go.jp)
@@ -198,7 +198,7 @@ def _fetch_cdx_filenames_with_retry(query_pattern: str, timeout_sec: int, retrie
 
     for attempt in range(1, max(1, retries) + 1):
         try:
-            req = Request(url, headers={"User-Agent": "gftd-cc-phase3/1.1"})
+            req = Request(url, headers={"User-Agent": "etzhayyim-cc-phase3/1.1"})
             with urlopen(req, timeout=timeout_sec) as resp:
                 for raw in resp:
                     try:

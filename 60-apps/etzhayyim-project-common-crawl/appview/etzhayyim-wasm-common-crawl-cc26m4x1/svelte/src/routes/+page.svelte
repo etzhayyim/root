@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Common Crawl Cc26m4x1",
-  "project": "ai-gftd-project-common-crawl",
-  "name": "ai-gftd-wasm-common-crawl-cc26m4x1",
+  "project": "etzhayyim-project-common-crawl",
+  "name": "etzhayyim-wasm-common-crawl-cc26m4x1",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-common-crawl/appview/ai-gftd-wasm-common-crawl-cc26m4x1/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-common-crawl/appview/etzhayyim-wasm-common-crawl-cc26m4x1/svelte/src/routes/+page.svelte"
 };
 </script>
 
