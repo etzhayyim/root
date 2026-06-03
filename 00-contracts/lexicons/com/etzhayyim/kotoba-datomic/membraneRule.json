@@ -1,0 +1,116 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kotoba-datomic.membraneRule",
+  "description": "DNA-equivalent (L1, L2, L3) triple manifest for a kotoba-datomic-mountable record kind. A record is kotoba-datomic-valid only if all three membrane layers (Lexicon schema + Rego policy + LangGraph deterministic cell) accept it. Per kotoba-datomic SPEC §4 + ADR-2605231400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{nsid}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "nsid",
+          "schemaRef",
+          "policyRef",
+          "cellRef",
+          "quorumSize",
+          "quorumThreshold",
+          "registeredAt"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "description": "Membrane rule format version. Current: 1.",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "nsid": {
+            "type": "string",
+            "format": "nsid",
+            "description": "The record kind this membrane rule applies to (e.g., 'com.etzhayyim.maps.building')."
+          },
+          "schemaRef": {
+            "type": "ref",
+            "ref": "#layerRef",
+            "description": "L1 — Lexicon schema reference. Path to a Lexicon JSON file under 00-contracts/lexicons/ with content hash."
+          },
+          "policyRef": {
+            "type": "ref",
+            "ref": "#layerRef",
+            "description": "L2 — Rego policy reference. Path to a Rego module under 00-contracts/policies/ with content hash. Evaluates Charter Rider §2, doctrinal positions, and capability scope."
+          },
+          "cellRef": {
+            "type": "ref",
+            "ref": "#layerRef",
+            "description": "L3 — LangGraph cell reference. Path to a Pregel cell directory under 20-actors/magatama/cells/ with content hash of the deterministic step function source. Must be replica-deterministic per kotoba-datomic SPEC §7."
+          },
+          "quorumSize": {
+            "type": "integer",
+            "description": "Number of witness cells to select for each write (Holochain-iso default: 5). Larger = stronger guarantee, more fleet load.",
+            "minimum": 1,
+            "maximum": 21,
+            "default": 5
+          },
+          "quorumThreshold": {
+            "type": "integer",
+            "description": "Minimum number of matching 'accept' attestations required to mark the record kotoba-datomic-witnessed (default: 3). Must be ≤ quorumSize and > quorumSize/2 for Byzantine-fault tolerance.",
+            "minimum": 1,
+            "maximum": 21,
+            "default": 3
+          },
+          "escalationPolicy": {
+            "type": "string",
+            "description": "What to do when quorum is not reached. 'reject' = drop write, surface error to caller. 'council' = escalate to Council Lv6+ ≥3 multisig (ADR-2605192300). 'pending' = retain record as unwitnessed, retry witness selection on a clock.",
+            "knownValues": [
+              "reject",
+              "council",
+              "pending"
+            ],
+            "default": "council"
+          },
+          "ciphertextOnly": {
+            "type": "boolean",
+            "description": "When true, the membrane evaluates the record's envelope (signature, format) only and never decrypts the payload — used for com.etzhayyim.encrypted.* records per ADR-2605181100. The Rego policy and LangGraph cell receive a ciphertext-bytes input rather than the deserialized record.",
+            "default": false
+          },
+          "registeredAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "supersedesNsid": {
+            "type": "string",
+            "format": "nsid",
+            "description": "If this membrane rule replaces an earlier rule for the same record kind (e.g., schema migration), name the prior rule's NSID. Old attestations remain valid against the prior rule; new writes are evaluated against this rule."
+          }
+        }
+      }
+    },
+    "layerRef": {
+      "type": "object",
+      "description": "Reference to a single membrane layer artifact (schema, policy, or cell) by repo-relative path + content hash. Content hash is sha256 of the canonicalized file contents — enables re-attestation reproducibility and membrane version pinning.",
+      "required": [
+        "path",
+        "contentHash"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Repo-relative path to the layer artifact.",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "contentHash": {
+          "type": "string",
+          "description": "sha256 hex digest of the canonicalized layer source. For Lexicon JSON: sorted-keys + LF newlines. For Rego: source as-is. For cell directory: sha256 over the sorted tar of the cell's tracked files.",
+          "minLength": 64,
+          "maxLength": 64
+        },
+        "version": {
+          "type": "string",
+          "description": "Human-readable version label. Semver for schema / policy; git-sha-7 for cell."
+        }
+      }
+    }
+  }
+}

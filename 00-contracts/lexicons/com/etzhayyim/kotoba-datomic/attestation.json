@@ -1,0 +1,93 @@
+{
+  "lexicon": 1,
+  "id": "com.etzhayyim.kotoba-datomic.attestation",
+  "description": "A single witness verdict on a kotoba-datomic record's membrane conformance. Produced by a Pregel cell selected via hash(record_cid) % len(fleet.cells) per kotoba-datomic SPEC §5. ≥3-of-5 matching attestations (default quorum) make the target record kotoba-datomic-L1-witnessed. Per ADR-2605231400.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:{recordCid}:{cellId}",
+      "record": {
+        "type": "object",
+        "required": [
+          "v",
+          "recordUri",
+          "recordCid",
+          "cellId",
+          "verdict",
+          "membraneVersion",
+          "attestedAt",
+          "signature"
+        ],
+        "properties": {
+          "v": {
+            "type": "integer",
+            "description": "Attestation format version. Current: 1.",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "recordUri": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT URI of the record being attested. Format: at://{did}/{collection}/{rkey}."
+          },
+          "recordCid": {
+            "type": "string",
+            "description": "Content identifier of the record being attested. Used for membrane evaluation reproducibility and as the input to hash(record_cid) % N_cells witness selection.",
+            "minLength": 8,
+            "maxLength": 128
+          },
+          "cellId": {
+            "type": "string",
+            "description": "Murakumo Pregel cell ID that produced this attestation. Must match an entry in 50-infra/murakumo/fleet.toml cells. Format: PascalCase (e.g., 'TitheRoutingCell', 'CharterAttestationRequestCell').",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "verdict": {
+            "type": "string",
+            "description": "The cell's verdict on whether the record passes its kotoba-datomic-membrane (Lexicon schema + Rego policy + LangGraph determinism check).",
+            "knownValues": [
+              "accept",
+              "reject",
+              "escalate"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "description": "Free-form reason. Required when verdict is 'reject' or 'escalate'. Audit-grade — surfaced in Council deliberation when escalation fires.",
+            "maxLength": 2048
+          },
+          "membraneVersion": {
+            "type": "string",
+            "description": "Composite version string for the (Lexicon schema, Rego policy, LangGraph cell code) triple this attestation was computed against. Format: 'lex:{semver}/rego:{semver}/cell:{git-sha-7}'. Enables re-attestation when the membrane evolves.",
+            "minLength": 8,
+            "maxLength": 256
+          },
+          "attestedAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "signature": {
+            "type": "bytes",
+            "description": "Cell-key signature over canonicalized (recordCid + cellId + verdict + reason + membraneVersion + attestedAt). Verified against the cell's published verification key in fleet.toml. Key rotation cadence: 90 days (fleet.cell_key_rotation_period_days).",
+            "maxLength": 256
+          },
+          "quorumGroup": {
+            "type": "string",
+            "description": "The 5-cell selection group this attestation belongs to. Computed as sha256(recordCid)[:16]. All 5 attestations for the same record share the same quorumGroup, enabling quorum collection by primary-key lookup.",
+            "minLength": 16,
+            "maxLength": 16
+          },
+          "escalationTarget": {
+            "type": "string",
+            "description": "Required when verdict is 'escalate'. Names the escalation path: 'council' (Council Lv6+ ≥3 multisig per ADR-2605192300), 'membrane-amendment' (proposed Lexicon / Rego / cell-code change), or 'human-review' (operator intervention).",
+            "knownValues": [
+              "council",
+              "membrane-amendment",
+              "human-review"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
