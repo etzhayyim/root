@@ -1,33 +1,18 @@
-From: abuse-liaison@gftd.ai
-To: abuse@gname.com
-Reply-To: jun@gftd.group
-Subject: [Abuse][Registrar] 17 phishing domains registered via Gname.com Pte. Ltd.
+From: abuse-liaison@etzhayyim.ai
+To: abuse@metaregistrar.com
+Reply-To: jun@etzhayyim.group
+Subject: [Abuse][Registrar] 2 phishing domains registered via Metaregistrar BV
 Date: Sun, 19 Apr 2026 11:22:51 GMT
 Content-Type: text/plain; charset=utf-8
 
-Hello Gname.com Pte. Ltd. abuse team,
+Hello Metaregistrar BV abuse team,
 
-We are reporting 17 domains registered through Gname.com Pte. Ltd.
+We are reporting 2 domains registered through Metaregistrar BV
 that resolve to active phishing / typosquat infrastructure.
 
 Domains:
-help-whatssopp.com
-servecenter.one
-supportpulse.one
-uurl.one
-whaaatspp.cc
-whaaatspp.vip
-whaatupp.com
-whatsapp-jp1.com
-whatsapp-jp2.com
-whattsspp.com
-whotsapp.one
-whtaspp.vip
-whtsap.vip
-whtzappp.vip
-wnatsap.vip
-wnatspp.vip
-wnatzapp.vip
+whtaspp.com
+wnatspp.com
 
 We identified the following domains as active phishing / typosquat
 infrastructure impersonating WhatsApp, LINE, Mastercard, Apple, and SMBC.
@@ -40,6 +25,6 @@ null-route / revoke registration) in accordance with your AUP and
 applicable ICANN / local law obligations.
 
 We can provide additional evidence (original phishing SMS/email payload,
-victim reports, timeline) on request. Please reply to jun@gftd.group.
+victim reports, timeline) on request. Please reply to jun@etzhayyim.group.
 
 — Gftd Security Intel, https://yabcom.etzhayyim.ai
