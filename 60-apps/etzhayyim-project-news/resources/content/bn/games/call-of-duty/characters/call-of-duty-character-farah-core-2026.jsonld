@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:call-of-duty-character-farah-core-2026",
+  "@id": "urn:etzhayyim:news:call-of-duty-character-farah-core-2026",
   "identifier": "call-of-duty-character-farah-core-2026",
   "headline": "Farah character analysis: their role as the story’s engine in Call of Duty",
   "description": "A focused look at Farah in Call of Duty, mapping motivations to narrative function.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:call-of-duty-series-operators-as-identity-skins-2026",
+  "@id": "urn:etzhayyim:news:call-of-duty-series-operators-as-identity-skins-2026",
   "identifier": "call-of-duty-series-operators-as-identity-skins-2026",
   "headline": "Call of Duty analysis: Operators as identity skins",
   "description": "A thematic essay on Call of Duty, organized around: Operators as identity skins.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {

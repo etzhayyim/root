@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org/",
   "@type": "Article",
-  "@id": "urn:gftd:news:call-of-duty-series-essay-18-2026",
+  "@id": "urn:etzhayyim:news:call-of-duty-series-essay-18-2026",
   "identifier": "call-of-duty-series-essay-18-2026",
   "headline": "Call of Duty analysis: Essay #18",
   "description": "A thematic essay on Call of Duty, organized around: Essay #18.",
@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "GFTD",
+    "name": "Etzhayyim",
     "url": "https://news.etzhayyim.com"
   },
   "about": {
