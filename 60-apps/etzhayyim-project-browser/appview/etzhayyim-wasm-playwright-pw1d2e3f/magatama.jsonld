@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-playwright-pw1d2e3f",
+  "name": "etzhayyim-wasm-playwright-pw1d2e3f",
   "nanoid": "pw1d2e3f",
   "performerType": "service",
   "profile": {
@@ -33,7 +33,7 @@
     "description": "Playwright — AI Agent",
     "displayName": "Playwright",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "worker",

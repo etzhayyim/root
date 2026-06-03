@@ -4,8 +4,8 @@
 
 | Item | Value |
 |------|-------|
-| K8s Service | `gftd-browserless.magatama-runtime.svc.cluster.local:8080` |
-| Manifest | `60-apps/ai-gftd-project-browserless/k8s/browserless.yaml` |
+| K8s Service | `etzhayyim-browserless.magatama-runtime.svc.cluster.local:8080` |
+| Manifest | `60-apps/etzhayyim-project-browserless/k8s/browserless.yaml` |
 | Image | `mcr.microsoft.com/playwright:v1.50.0-noble` |
 | Namespace | `magatama-runtime` |
 
@@ -61,7 +61,7 @@ Response: `{ status, url, final_url, title, content }`
 ## Deploy
 
 ```bash
-kubectl apply -f 60-apps/ai-gftd-project-browserless/k8s/browserless.yaml
+kubectl apply -f 60-apps/etzhayyim-project-browserless/k8s/browserless.yaml
 ```
 
 ## Source Files

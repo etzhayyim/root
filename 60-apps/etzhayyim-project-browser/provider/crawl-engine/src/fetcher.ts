@@ -1,4 +1,4 @@
-const DEFAULT_USER_AGENT = "gftd-crawler/1.0";
+const DEFAULT_USER_AGENT = "etzhayyim-crawler/1.0";
 
 /** Performs a standard HTTP GET with body limit. */
 export async function fetchStatic(

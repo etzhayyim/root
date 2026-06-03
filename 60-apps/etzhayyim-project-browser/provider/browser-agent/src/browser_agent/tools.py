@@ -33,7 +33,7 @@ async def _searxng_search(query: str, max_results: int) -> list[dict]:
                     'categories': 'general',
                     'engines': 'bing,duckduckgo,brave',
                 },
-                headers={'User-Agent': 'gftd-browser-agent/1.0'},
+                headers={'User-Agent': 'etzhayyim-browser-agent/1.0'},
             )
             if r.status_code != 200:
                 return []
@@ -70,7 +70,7 @@ async def fetch_page(url: str) -> str:
     # direct fallback
     try:
         async with httpx.AsyncClient(timeout=15, follow_redirects=True) as client:
-            r = await client.get(url, headers={'User-Agent': 'gftd-browser-agent/1.0'})
+            r = await client.get(url, headers={'User-Agent': 'etzhayyim-browser-agent/1.0'})
             soup = BeautifulSoup(r.text, 'html.parser')
             for tag in soup(['script', 'style', 'nav', 'footer', 'aside']):
                 tag.decompose()

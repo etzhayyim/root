@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-parse-ps4x5y6z",
+  "name": "etzhayyim-wasm-parse-ps4x5y6z",
   "nanoid": "ps4x5y6z",
   "performerType": "service",
   "profile": {
@@ -33,7 +33,7 @@
     "description": "Parse — AI Agent",
     "displayName": "Parse",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "worker",

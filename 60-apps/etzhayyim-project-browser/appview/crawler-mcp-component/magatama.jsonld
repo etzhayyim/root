@@ -33,7 +33,7 @@
     "description": "Crawler Mcp — AI Agent",
     "displayName": "Crawler Mcp",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "project": "www-crawler",
   "runtimeType": "worker",

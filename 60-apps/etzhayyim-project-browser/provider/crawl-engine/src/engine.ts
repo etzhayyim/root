@@ -16,7 +16,7 @@ import { fetchImageBinary } from "./images.js";
 import { fetchRobotsPolicy } from "./robots.js";
 import { classifyWithLaser } from "./laser.js";
 
-const DEFAULT_USER_AGENT = "gftd-crawler/1.0";
+const DEFAULT_USER_AGENT = "etzhayyim-crawler/1.0";
 const DEFAULT_TIMEOUT_MS = 15_000;
 const DEFAULT_MAX_BODY_BYTES = 2 * 1024 * 1024; // 2MB
 const DEFAULT_MAX_IMAGES = 12;
@@ -27,7 +27,7 @@ export class Engine {
 
   constructor() {
     this.browserlessURL =
-      "http://gftd-browserless.spinkube.svc.cluster.local:8080";
+      "http://etzhayyim-browserless.spinkube.svc.cluster.local:8080";
     this.laserBaseURL =
       "http://laser.ml-inference.svc.cluster.local:8080";
   }

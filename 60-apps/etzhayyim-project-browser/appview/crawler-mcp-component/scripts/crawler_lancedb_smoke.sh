@@ -33,7 +33,7 @@ trap cleanup EXIT
 sleep 2
 
 echo "[smoke] startCrawl url=$TEST_URL"
-START_RAW=$(curl -fsS -m 120 -X POST "http://127.0.0.1:$CRAWLER_LOCAL_PORT/api/grpc/gftd.crawler.v1.CrawlerService/Crawler.startCrawl" \
+START_RAW=$(curl -fsS -m 120 -X POST "http://127.0.0.1:$CRAWLER_LOCAL_PORT/api/grpc/etzhayyim.crawler.v1.CrawlerService/Crawler.startCrawl" \
   -H 'Content-Type: application/json' -H 'Connect-Protocol-Version: 1' \
   -d "{\"url\":\"$TEST_URL\",\"depth\":1,\"max_pages\":1,\"max_domains\":1,\"follow_external_links\":false,\"render\":false}")
 
@@ -46,7 +46,7 @@ if [[ -z "$JOB_ID" ]]; then
 fi
 
 echo "[smoke] listResults job_id=$JOB_ID"
-RESULTS_RAW=$(curl -fsS -m 120 -X POST "http://127.0.0.1:$CRAWLER_LOCAL_PORT/api/grpc/gftd.crawler.v1.CrawlerQueryService/ListResults" \
+RESULTS_RAW=$(curl -fsS -m 120 -X POST "http://127.0.0.1:$CRAWLER_LOCAL_PORT/api/grpc/etzhayyim.crawler.v1.CrawlerQueryService/ListResults" \
   -H 'Content-Type: application/json' -H 'Connect-Protocol-Version: 1' \
   -d "{\"job_id\":\"$JOB_ID\",\"offset\":0,\"limit\":1}")
 

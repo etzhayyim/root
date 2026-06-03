@@ -2,7 +2,7 @@ import { createServer, type IncomingMessage, type ServerResponse } from "node:ht
 import { Engine } from "./engine.js";
 import type { CrawlPageRequest, RobotsRequest } from "./types.js";
 
-const GRPC_PREFIX = "/xrpc/gftd.crawlEngine.v1.CrawlEngineService/";
+const GRPC_PREFIX = "/xrpc/etzhayyim.crawlEngine.v1.CrawlEngineService/";
 
 function loadConfigFromEnv(): Record<string, string> {
   const cfg: Record<string, string> = {};

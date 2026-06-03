@@ -1,4 +1,4 @@
-# ai-gftd-project-browserless
+# etzhayyim-project-browserless
 
 Headless browser rendering service (browserless-style) for fetching rendered HTML from modern web pages (SPA/AJAX).
 

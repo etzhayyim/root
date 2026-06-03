@@ -11,7 +11,7 @@ Crawler worker replicas (N) が wRPC 経由で URL を pull → fetch → ack �
 
 ```
                     ┌──────────────────────────────────────┐
-                    │  Scheduler (gftd:scheduler tick)     │
+                    │  Scheduler (etzhayyim:scheduler tick)     │
                     │  cron: "*/1 * * * * *" (毎秒)         │
                     └──────────────┬───────────────────────┘
                                    │ HTTP (fan-out to replicas)
@@ -27,7 +27,7 @@ Crawler worker replicas (N) が wRPC 経由で URL を pull → fetch → ack �
 │    5. store result (KV + LanceDB)          │             │
 │                                            │             │
 │  Imports:                                  │             │
-│    - gftd:frontier/frontier (wRPC)         │             │
+│    - etzhayyim:frontier/frontier (wRPC)         │             │
 │    - wasi:http/outgoing-handler            │             │
 │    - wasi:keyvalue/store                   │             │
 │    - wasi:blobstore (images)               │             │
@@ -39,9 +39,9 @@ Crawler worker replicas (N) が wRPC 経由で URL を pull → fetch → ack �
 │  Single-writer for frontier state consistency            │
 │                                                          │
 │  Exports:                                                │
-│    - gftd:frontier/frontier (wRPC)                       │
+│    - etzhayyim:frontier/frontier (wRPC)                       │
 │    - wasi:http/incoming-handler (MCP admin API)          │
-│    - gftd:actor-handler (tool dispatch)                  │
+│    - etzhayyim:actor-handler (tool dispatch)                  │
 │                                                          │
 │  Core responsibilities:                                  │
 │    - URL queue management (priority + host bucketing)    │
@@ -65,7 +65,7 @@ Crawler worker replicas (N) が wRPC 経由で URL を pull → fetch → ack �
 定義: `packages/wasm/wit/frontier/frontier.wit`
 
 ```
-gftd:frontier@0.1.0
+etzhayyim:frontier@0.1.0
   ├── interface types
   │   ├── url-priority: critical|high|normal|low|bulk
   │   ├── url-source: seed|sitemap|sitemap-news|rss|link-extract|manual
@@ -296,9 +296,9 @@ spec:
               KV_ENABLE: "true"
               KV_BUCKET: crawler-mcp-state
               CRAWLER_BLOBSTORE_ENABLE: "true"
-              CRAWLER_BLOB_CONTAINER: ai-gftd-cdn
+              CRAWLER_BLOB_CONTAINER: etzhayyim-cdn
               CRAWLER_BLOB_PREFIX: crawler/images
-              CRAWLER_BLOB_CDN_BASE: https://f004.backblazeb2.com/file/ai-gftd-cdn/
+              CRAWLER_BLOB_CDN_BASE: https://f004.backblazeb2.com/file/etzhayyim-cdn/
               # Frontier mode: disable local scheduler/seed, use wRPC frontier
               FRONTIER_MODE: "true"
               WORKER_ID_PREFIX: "crawler"
@@ -310,7 +310,7 @@ spec:
         - type: link
           properties:
             target: frontier-component
-            namespace: gftd
+            namespace: etzhayyim
             package: frontier
             interfaces: [frontier]
         - type: link
@@ -342,7 +342,7 @@ spec:
                 properties:
                   endpoint: "https://s3.us-west-004.backblazeb2.com"
                   region: "us-west-004"
-                  bucket: "ai-gftd-cdn"
+                  bucket: "etzhayyim-cdn"
 
     # ── Shared capabilities ──
     - name: http-server
@@ -411,7 +411,7 @@ Crawler workers は WASM (シングルスレッド、background goroutine 不可
 ### Option A: Scheduler-driven (推奨)
 
 ```
-gftd:scheduler tick (1s cron)
+etzhayyim:scheduler tick (1s cron)
   → actor-handler.call-tool("crawler.poll_and_crawl") on crawler worker
   → App distributes across N replicas (round-robin)
   → Each replica: poll-url → fetch → ack-url
@@ -434,7 +434,7 @@ K8s CronJob (every 1s, parallelism=50)
   → Each request handled by different replica
 ```
 
-**推奨: Option A** — 既存の `gftd:scheduler` を利用。新規インフラ不要。
+**推奨: Option A** — 既存の `etzhayyim:scheduler` を利用。新規インフラ不要。
 
 ## Scaling Table
 
@@ -521,7 +521,7 @@ func extractTag(s, tag string) string {
 - Scale `replicas: 1 → 10` (initial test)
 
 ### Phase 2: Scale up
-- Enable `gftd:scheduler` with 1s tick targeting crawler workers
+- Enable `etzhayyim:scheduler` with 1s tick targeting crawler workers
 - Scale `replicas: 10 → 50`
 - Monitor frontier stats, adjust crawl-delay and rate limits
 - Run sitemap discovery for top 10K domains
