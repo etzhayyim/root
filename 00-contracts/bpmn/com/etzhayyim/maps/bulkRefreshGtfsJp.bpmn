@@ -7,13 +7,13 @@
   Railway / BusRoute / Station / BusStop with timetable summary in props.
 
   NSID: com.etzhayyim.apps.maps.bulkRefreshGtfsJp
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/maps-bulk-refresh-gtfs-jp-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_maps_bulk_refresh_gtfs_jp"
-    targetNamespace="https://gftd.ai/bpmn/maps"
+    targetNamespace="https://etzhayyim.ai/bpmn/maps"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="maps_bulk_refresh_gtfs_jp" name="maps bulk refresh gtfs jp" isExecutable="true">
