@@ -37,7 +37,7 @@
       priceNote: 'USD (early bird)',
       desc: '海外向け。英語ドキュメント付き。グローバルシッピング対応。',
       cta: 'Kickstarter で支援する',
-      ctaHref: 'https://kickstarter.com/projects/gftd/otete',
+      ctaHref: 'https://kickstarter.com/projects/etzhayyim/otete',
       ctaStyle: 'bg-[#05ce78] hover:bg-[#04b86c] text-black',
       available: false,
       availableNote: 'キャンペーン準備中',

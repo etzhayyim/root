@@ -1,9 +1,9 @@
 # Otete HAT — KiCad 回路図仕様書 v1
 
-Revision: 2026-05-14  
-基板名: Otete HAT  
-形状: Raspberry Pi HAT (65 × 56.5 mm)  
-製造: P-Ban.com 2層FR4 1.6mm HASL  
+Revision: 2026-05-14
+基板名: Otete HAT
+形状: Raspberry Pi HAT (65 × 56.5 mm)
+製造: P-Ban.com 2層FR4 1.6mm HASL
 KiCad バージョン: 8.x
 
 ---
@@ -88,7 +88,7 @@ KiCad バージョン: 8.x
 
 ### 3.1 ICS3.5 半二重 UART インターフェース
 
-**目的**: KONDO KRS-3204 ICS バスサーボへの半二重 UART 通信  
+**目的**: KONDO KRS-3204 ICS バスサーボへの半二重 UART 通信
 **プロトコル**: 115200 bps, 8N1, 半二重 (送受共用 1線)
 
 **回路構成**:
@@ -124,7 +124,7 @@ CN1 ピン配置 (JST PH 4P):
 
 ### 3.2 RS485 デュアルチャンネル (代替サーボバス)
 
-**目的**: Futaba RS485 対応サーボの代替インターフェース (ICS 使用時は未使用)  
+**目的**: Futaba RS485 対応サーボの代替インターフェース (ICS 使用時は未使用)
 **IC**: ROHM BA8481A-ME2 または Maxim MAX3485EESA+ (3.3V 動作, 半二重)
 
 **回路構成**:
@@ -135,7 +135,7 @@ U3.RO            → GPIO15 (RXD_A)  [UART0]
 U3.A ──── R5 120Ω ──── CN2.RS485+
 U3.B              ──── CN2.RS485-
 
-GPIO23 (DE/~RE_B) → U4.DE, ~U4.RE  
+GPIO23 (DE/~RE_B) → U4.DE, ~U4.RE
 GPIO0  (TXD_B)   → U4.DI  [UART2, alt function]
 U4.RO            → GPIO1  (RXD_B)
 U4.A ──── R6 120Ω ──── CN3.RS485+
@@ -162,7 +162,7 @@ U4.B              ──── CN3.RS485-
 
 ### 3.3 モータードライバー (TB6612FNG × 2)
 
-**目的**: 左右クローラー DC モーター独立 H ブリッジ制御  
+**目的**: 左右クローラー DC モーター独立 H ブリッジ制御
 **IC**: 東芝 TB6612FNG (SSOP-24, VM最大15V, 1.2A連続/3.2Aピーク/ch)
 
 **U1 (左クローラー) 回路**:
@@ -215,8 +215,8 @@ U2.BO2 → CN5.Motor_B-
 
 ### 3.4 IMU (ICM-42688-P)
 
-**目的**: 6軸慣性計測 (3軸ジャイロ + 3軸加速度), 走行制御・姿勢推定  
-**IC**: TDK InvenSense ICM-42688-P (LGA-14, SPI/I2C)  
+**目的**: 6軸慣性計測 (3軸ジャイロ + 3軸加速度), 走行制御・姿勢推定
+**IC**: TDK InvenSense ICM-42688-P (LGA-14, SPI/I2C)
 **インターフェース**: SPI0 (モード3: CPOL=1 CPHA=1), 最大24MHz
 
 **回路**:
@@ -250,9 +250,9 @@ GPIO27             ← U5.INT1 (データレディ割り込み)
 
 ### 3.5 ToF 距離センサー (VL53L4CX)
 
-**目的**: 前方障害物検知 / グリッパー対象物距離計測  
-**IC**: ST Microelectronics VL53L4CX (SATEL-VL53L4 breakout, またはベアダイ 2.8V)  
-**インターフェース**: I2C-1 (SDA: GPIO2, SCL: GPIO3), アドレス 0x29  
+**目的**: 前方障害物検知 / グリッパー対象物距離計測
+**IC**: ST Microelectronics VL53L4CX (SATEL-VL53L4 breakout, またはベアダイ 2.8V)
+**インターフェース**: I2C-1 (SDA: GPIO2, SCL: GPIO3), アドレス 0x29
 **電源**: 3.3V (VCSEL VCC 共用)
 
 **回路**:
@@ -263,7 +263,7 @@ GPIO4 (XSHUT)   ─────────────────────�
 +3.3V ──────────────────────────────────────── U6.VDD, U6.AVDD
 ```
 
-**注意**: I2C バスに他デバイスを追加する場合、XSHUT で排他アドレス割当てが必要。  
+**注意**: I2C バスに他デバイスを追加する場合、XSHUT で排他アドレス割当てが必要。
 VL53L4CX の AVDD (VCSEL 電源) は 2.8V 推奨。3.3V 動作も許容 (VL53L4CX DS §2.3)。
 
 **部品**:

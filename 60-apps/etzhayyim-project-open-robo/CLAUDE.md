@@ -1,4 +1,4 @@
-# ai-gftd-project-open-robo
+# etzhayyim-project-open-robo
 
 **Giemon** — 日本製オープンハードウェアロボットキットブランド。からくり儀右衛門 (田中久重) に由来。
 初代製品: Giemon Otete (6軸アーム + クローラー)。将来: Hitogata, Quad 等に拡張予定。

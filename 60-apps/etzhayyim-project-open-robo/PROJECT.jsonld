@@ -1,7 +1,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Project",
-  "name": "ai-gftd-project-open-robo",
+  "name": "etzhayyim-project-open-robo",
   "description": "Open-hardware Japanese-made 6-DOF arm + crawler robot kit. Raspberry Pi 5 base, all structural/electronic components sourced and manufactured in Japan. Crowdfunding via Makuake + Kickstarter.",
   "category": "open-hardware robotics",
   "capabilities": [
@@ -44,7 +44,7 @@
   ],
   "isPartOf": {
     "@type": "Project",
-    "name": "ai-gftd-project-tsukuru",
+    "name": "etzhayyim-project-tsukuru",
     "url": "https://tsukuru.etzhayyim.com",
     "description": "Manufacturing orders, Meviy/P-Ban.com quotes, production tracking managed via tsukuru"
   },
@@ -55,7 +55,7 @@
       "description": "LangGraph topology: Fusion360 STEP → Meviy quote → order → delivery → fit check",
       "url": "https://tsukuru.etzhayyim.com",
       "linkRelationship": "tsukuru_cad_design_flow.v1",
-      "additionalType": "productRef=ai-gftd-project-open-robo"
+      "additionalType": "productRef=etzhayyim-project-open-robo"
     },
     {
       "@type": "LinkRole",
@@ -63,7 +63,7 @@
       "description": "LangGraph topology: KiCad Gerber → P-Ban.com quote → order → assembly → test",
       "url": "https://tsukuru.etzhayyim.com",
       "linkRelationship": "tsukuru_pcb_design_flow.v1",
-      "additionalType": "productRef=ai-gftd-project-open-robo"
+      "additionalType": "productRef=etzhayyim-project-open-robo"
     },
     {
       "@type": "LinkRole",
@@ -71,7 +71,7 @@
       "description": "Urban mining e-waste stream records used by robotic sort audit events",
       "url": "https://github.com/etzhayyim/etzhayyim-root/tree/main/00-contracts/lexicons/com/etzhayyim/apps/toshiKozan",
       "linkRelationship": "toshi_kozan_ewaste_stream.v1",
-      "additionalType": "productRef=ai-gftd-project-open-robo"
+      "additionalType": "productRef=etzhayyim-project-open-robo"
     }
   ],
   "manufacturingPartner": [

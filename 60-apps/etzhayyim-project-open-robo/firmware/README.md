@@ -21,7 +21,7 @@ firmware/
 ## クイックスタート
 
 ```bash
-git clone https://github.com/gftd-jp/otete-firmware
+git clone https://github.com/etzhayyim/otete-firmware
 cd otete-firmware
 ./install.sh
 

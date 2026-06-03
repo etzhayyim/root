@@ -1,10 +1,10 @@
 # Giemon Otete — 組立説明書 v1.0
 
-**対象**: Giemon Otete 組み立てキット購入者  
-**所要時間**: 約4〜6時間（初回）  
-**必要工具**: ヘクサゴンレンチ M2.5/M3、プラスドライバー、ニッパー、電動ドリル（任意）  
-**難易度**: 中級（電子工作経験者向け）  
-**言語版**: 日本語 / English（裏面）  
+**対象**: Giemon Otete 組み立てキット購入者
+**所要時間**: 約4〜6時間（初回）
+**必要工具**: ヘクサゴンレンチ M2.5/M3、プラスドライバー、ニッパー、電動ドリル（任意）
+**難易度**: 中級（電子工作経験者向け）
+**言語版**: 日本語 / English（裏面）
 **改訂**: v1.0 / 2026-05-14
 
 ---
@@ -227,7 +227,7 @@ Otete HAT PWM Port 1
 
 ```bash
 # RPiにSSH接続後
-git clone https://github.com/gftd-jp/otete-firmware
+git clone https://github.com/etzhayyim/otete-firmware
 cd otete-firmware
 ./install.sh      # 依存パッケージ + ROS2 Humble + Python仮想環境
 ```
@@ -299,5 +299,5 @@ python3 firmware/test/camera_test.py  # カメラ映像確認
 ## お問い合わせ
 
 - 製品サポート: https://armcrawler.etzhayyim.com/support
-- GitHub Issues: https://github.com/gftd-jp/otete-firmware
+- GitHub Issues: https://github.com/etzhayyim/otete-firmware
 - Email: j.kawasaki@etzhayyim.com

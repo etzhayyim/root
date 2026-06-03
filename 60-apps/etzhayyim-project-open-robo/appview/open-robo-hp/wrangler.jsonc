@@ -21,17 +21,17 @@
     "APP_UI_TYPE": "landing"
   },
   "r2_buckets": [
-    { "binding": "YATA_R2", "bucket_name": "ai-gftd-cache" },
-    { "binding": "CACHE_R2", "bucket_name": "ai-gftd-cache" }
+    { "binding": "YATA_R2", "bucket_name": "etzhayyim-cache" },
+    { "binding": "CACHE_R2", "bucket_name": "etzhayyim-cache" }
   ],
   "hyperdrive": [
     { "binding": "HYPERDRIVE", "id": "e84c0a2babe44fc7b74818e394b4b896" }
   ],
   "services": [
-    { "binding": "PDS_SERVICE", "service": "ai-gftd-pds-2603241700" },
-    { "binding": "PDS_RPC", "service": "ai-gftd-pds-2603241700", "entrypoint": "PdsRPC" },
-    { "binding": "MURAKUMO_SERVICE", "service": "ai-gftd-murakumo-2603241700" },
-    { "binding": "COMFYUI_SERVICE", "service": "ai-gftd-comfyui-2604221600" }
+    { "binding": "PDS_SERVICE", "service": "etzhayyim-pds-2603241700" },
+    { "binding": "PDS_RPC", "service": "etzhayyim-pds-2603241700", "entrypoint": "PdsRPC" },
+    { "binding": "MURAKUMO_SERVICE", "service": "etzhayyim-murakumo-2603241700" },
+    { "binding": "COMFYUI_SERVICE", "service": "etzhayyim-comfyui-2604221600" }
   ],
   "secrets_store_secrets": [
     { "binding": "SS_YATA_S3_KEY_ID", "store_id": "1824561668fe47cc9127d493961885af", "secret_name": "yata_s3_key_id" },
