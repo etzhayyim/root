@@ -30,7 +30,7 @@ const embed = () =>
   <div id="app"></div>
   <script type="module">
     import('/assets/index-CVyOo9pD.js');
-    window.parent?.postMessage({type:'gftd:embed:ready',nanoid:'unyrsfan'},'*');
+    window.parent?.postMessage({type:'etzhayyim:embed:ready',nanoid:'unyrsfan'},'*');
   </script>
 </body>
 </html>`, { headers: { "content-type": "text/html; charset=utf-8" } });

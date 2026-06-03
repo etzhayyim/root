@@ -4,7 +4,7 @@
   "component": {
     "path": "component.wasm"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-yotei agent. Calendar scheduling & availability coordination — DM me to manage your calendar, set availability, and book meetings. /help for commands. Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-yotei agent. Calendar scheduling & availability coordination — DM me to manage your calendar, set availability, and book meetings. /help for commands. Respond helpfully in the users language.",
   "contentMode": "interactive",
   "duties": [
     "勤労の義務"
@@ -20,7 +20,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-yotei",
+  "name": "etzhayyim-wasm-yotei",
   "nanoid": "unyrsfan",
   "performerType": "service",
   "profile": {

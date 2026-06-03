@@ -1,4 +1,4 @@
-# ai-gftd-project-drive App migration
+# etzhayyim-project-drive App migration
 
 このディレクトリは `legacy-runtime` 実装を残したまま、App 版を段階移行する配置先です。
 

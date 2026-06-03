@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/yotei/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# ai-gftd-project-yotei
+# etzhayyim-project-yotei
 
 Calendar scheduling & availability coordination — Calendly-like AI Agent。
 
@@ -67,7 +67,7 @@ yoro.etzhayyim.com FAB tap
 
 ### Embed
 
-`/embed` Hono route → yoro profile iframe embed。`postMessage({type:'gftd:embed:ready', nanoid:'unyrsfan'})` で完了通知。
+`/embed` Hono route → yoro profile iframe embed。`postMessage({type:'etzhayyim:embed:ready', nanoid:'unyrsfan'})` で完了通知。
 
 ### Booking Flow
 
