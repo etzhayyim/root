@@ -21,13 +21,13 @@ Build a new `lg-mangaka` image with the three new graphs and push to GHCR.
 ```bash
 # Pre-flight
 gh auth status                      # must be signed in (for ghcr.io)
-docker buildx ls | grep gftd-vke    # confirm BuildKit remote builder is up
+docker buildx ls | grep etzhayyim-vke    # confirm BuildKit remote builder is up
 
 # Build + push (linux/amd64 for VKE)
-cd 60-apps/ai-gftd-project-mangaka/lg
+cd 60-apps/etzhayyim-project-mangaka/lg
 TAG=0.1.1-$(date +%Y%m%d%H%M%S)-amd64
 docker buildx build \
-  --builder gftd-vke \
+  --builder etzhayyim-vke \
   --platform linux/amd64 \
   --build-context py=../../../20-actors/magatama/py \
   --cache-from type=registry,ref=ghcr.io/etzhayyim/build-cache:main \
@@ -107,7 +107,7 @@ Once `https://lg-mangaka.etzhayyim.com/xrpc/com.etzhayyim.mangaka.saveDocument` 
 # Or pass via env: LG_MANGAKA_BASE=https://lg-mangaka.etzhayyim.com/xrpc/ deno run ...
 
 # Then:
-cd 60-apps/ai-gftd-project-mangaka
+cd 60-apps/etzhayyim-project-mangaka
 deno run --allow-read --allow-net --allow-run --allow-write --allow-env \
   scripts/import-jump-all.ts
 ```

@@ -1,4 +1,4 @@
-# lg-mangaka Studio backend (studio.gftd.ai) — SLIM variant.
+# lg-mangaka Studio backend (studio.etzhayyim.com) — SLIM variant.
 #
 # Runs `langgraph dev` for the cine pipeline (worldModel → encode) + auth_mint_api_key.
 # Skips heavy ML deps (torch, nvidia-cuda-*, sentence-transformers, transformers,
@@ -6,14 +6,14 @@
 # preview, not training. Image stays ~400 MB instead of 8+ GB.
 #
 # Build (remote BuildKit, per 50-infra/CLAUDE.md):
-#   cd 60-apps/ai-gftd-project-mangaka/lg
-#   docker buildx build --builder gftd-vke --platform linux/amd64 \
-#     -t ghcr.io/gftdcojp/lg-mangaka-studio:0.1.0-amd64 \
+#   cd 60-apps/etzhayyim-project-mangaka/lg
+#   docker buildx build --builder etzhayyim-vke --platform linux/amd64 \
+#     -t ghcr.io/etzhayyimcojp/lg-mangaka-studio:0.1.0-amd64 \
 #     -f Dockerfile.studio --push .
 #
 # Build (local Mac fallback — bootstrap exception only, see CLAUDE.md no-local rule):
 #   docker buildx build --platform linux/amd64 \
-#     -t ghcr.io/gftdcojp/lg-mangaka-studio:0.1.0-amd64 \
+#     -t ghcr.io/etzhayyimcojp/lg-mangaka-studio:0.1.0-amd64 \
 #     -f Dockerfile.studio --push .
 
 FROM python:3.11-slim-bookworm

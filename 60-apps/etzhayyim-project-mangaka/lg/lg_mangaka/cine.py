@@ -1,7 +1,7 @@
 """Shared kami-cine pipeline helpers for the `cine_generate_scene` and
 `cine_generate_panel` LangGraph graphs.
 
-Bridges the 8-stage cinematic pipeline (WIT `gftd:kami-cine@1.0.0`,
+Bridges the 8-stage cinematic pipeline (WIT `etzhayyim:kami-cine@1.0.0`,
 `40-engine/kami-engine/wit/cine/package.wit`) to mangaka's pod-side
 persistence:
 

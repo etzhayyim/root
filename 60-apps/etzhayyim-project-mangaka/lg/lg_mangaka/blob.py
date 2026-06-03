@@ -25,7 +25,7 @@ import urllib.request
 
 _log = logging.getLogger(__name__)
 
-_B2_BUCKET = os.environ.get("MANGAKA_B2_BUCKET", os.environ.get("TRAINING_B2_BUCKET", "gftd-pds-prod"))
+_B2_BUCKET = os.environ.get("MANGAKA_B2_BUCKET", os.environ.get("TRAINING_B2_BUCKET", "etzhayyim-pds-prod"))
 _B2_KEY_ID = os.environ.get("B2_ACCESS_KEY_ID", "").strip()
 _B2_KEY = os.environ.get("B2_SECRET_ACCESS_KEY", "").strip()
 _B2_ENDPOINT = os.environ.get(

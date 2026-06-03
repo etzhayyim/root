@@ -23,7 +23,7 @@ import { buildGraphM2 } from "./graph-m2.js";
 import { computeQp, computeQi, combineQ, type RichCritique } from "./lib/openai.js";
 
 // REPO root for ghosthacker content. Default = in-repo import at
-// `60-apps/ai-gftd-project-mangaka/data/ghosthacker/`. Override with GH_REPO
+// `60-apps/etzhayyim-project-mangaka/data/ghosthacker/`. Override with GH_REPO
 // to point at the original `~/github/ghosthacker/260123-jump/` checkout if
 // preferred. The default resolves relative to this script so it works no
 // matter where the package is installed.
