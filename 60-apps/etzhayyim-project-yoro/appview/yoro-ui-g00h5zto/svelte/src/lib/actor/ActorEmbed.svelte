@@ -10,7 +10,7 @@
 	import { onMount, onDestroy, mount, unmount } from 'svelte';
 	import type { ActorProfile, ActorContext } from './types.js';
 	import { atProcedure, getSession, getCurrentDID } from '$lib/atproto-agent';
-	import { AtpAgent } from '@atproto/api';
+	import { AtpAgent } from '@etzhayyim/sdk/atproto';
 
 	interface Props {
 		profile: ActorProfile;
@@ -119,7 +119,7 @@
 
 	onDestroy(() => {
 		if (mountedComponent) {
-			try { unmount(mountedComponent); } catch (error) { console.warn("[silent-fail] projects/ai-gftd-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorEmbed.svelte: suppressed error", error); }
+			try { unmount(mountedComponent); } catch (error) { console.warn("[silent-fail] projects/etzhayyim-project-yoro/wasm/yoro-ui-g00h5zto/svelte/src/lib/actor/ActorEmbed.svelte: suppressed error", error); }
 			mountedComponent = null;
 		}
 	});

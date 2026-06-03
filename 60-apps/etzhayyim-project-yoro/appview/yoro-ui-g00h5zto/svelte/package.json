@@ -54,6 +54,7 @@
     "@connectrpc/connect-web": "^2.1.1",
     "@etzhayyim/ameno": "workspace:*",
     "@etzhayyim/signal": "workspace:*",
+    "@etzhayyim/sdk": "workspace:*",
     "@etzhayyim/xrpc": "workspace:*",
     "@etzhayyim/auth": "workspace:*",
     "@etzhayyim/design-system": "workspace:*",
