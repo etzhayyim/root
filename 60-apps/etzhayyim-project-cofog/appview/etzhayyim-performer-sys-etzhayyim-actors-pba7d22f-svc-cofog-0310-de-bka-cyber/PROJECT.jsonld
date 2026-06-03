@@ -3,6 +3,6 @@
   "@type": "Project",
   "name": "BKA Germany Reporting Actor",
   "description": "Autonomous actor for reporting cryptocurrency crimes to the Bundeskriminalamt (BKA) of Germany.",
-  "identifier": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-0310-de-bka-cyber",
+  "identifier": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-0310-de-bka-cyber",
   "status": "Development"
 }
