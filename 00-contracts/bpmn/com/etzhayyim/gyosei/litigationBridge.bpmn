@@ -4,7 +4,7 @@
   xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   id="Definitions_gyosei_litigation_bridge"
-  targetNamespace="https://gftd.ai/bpmn/gyosei"
+  targetNamespace="https://etzhayyim.ai/bpmn/gyosei"
   exporter="hand-written"
   exporterVersion="1.0">
   <bpmn:process id="gyosei_litigation_bridge" name="行政事件訴訟 bridge" isExecutable="true">

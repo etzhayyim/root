@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_hakkou_ferment_pipeline" targetNamespace="https://gftd.ai/bpmn/hakkou" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_hakkou_ferment_pipeline" targetNamespace="https://etzhayyim.ai/bpmn/hakkou" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="hakkou_ferment_pipeline" name="ferment-pipeline" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
     <bpmn:sequenceFlow id="Flow_S" sourceRef="Start" targetRef="Task_CreateRecord"/>
@@ -56,7 +56,7 @@
     <bpmn:serviceTask id="Task_Audit" name="audit">
       <bpmn:extensionElements><zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:hakkou.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:hakkou.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;hakkou.ferment&quot;" target="action"/>
           <zeebe:input source="={fermentVertexId: fermentVertexId, agentDid: agentDid, outputVertexId: outputVertexId, ethanolHash: ethanolHash}" target="payload"/>
         </zeebe:ioMapping>

@@ -12,7 +12,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_gstr3b_amend"
-    targetNamespace="https://gftd.ai/bpmn/gstr3b"
+    targetNamespace="https://etzhayyim.ai/bpmn/gstr3b"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="gstr3b_amend" name="GSTR-3B DRC-03 amendment" isExecutable="true">
@@ -128,7 +128,7 @@
               amendmentReason:         string(amendmentMeta.amendmentReason),
               deltaTaxInrPaise:        number(deltas.totalDeltaInrPaise)
           }" target="payload"/>
-          <zeebe:input source="=&quot;did:web:ind.union.gftd.ai:cbic:gstr3b&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbic:gstr3b&quot;" target="callerDid"/>
           <zeebe:output source="=ok" target="kaikeiPropagated"/>
           <zeebe:output source="=status" target="kaikeiHttpStatus"/>
         </zeebe:ioMapping>
@@ -142,7 +142,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.union.gftd.ai:cbic:gstr3b&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.union.etzhayyim.com:cbic:gstr3b&quot;" target="actor"/>
           <zeebe:input source="=&quot;gstr3b.fileAmendment&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:               vertexId,
