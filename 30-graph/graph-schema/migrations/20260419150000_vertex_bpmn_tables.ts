@@ -5,7 +5,7 @@ import { Kysely, sql } from 'kysely';
 // tier: C
 
 /**
- * vertex_bpmn_* + edge_bpmn_* tables for ai-gftd-project-bpmn executor (bx7qm9p4).
+ * vertex_bpmn_* + edge_bpmn_* tables for etzhayyim-project-bpmn executor (bx7qm9p4).
  *
  * Graph projection of D1 hot-path state:
  *   vertex_bpmn_process        ← process (D1) — deployed BPMN definitions

@@ -11,7 +11,7 @@ import { Kysely, sql } from 'kysely';
  * - vertex_fukkou_evidence_blob  : PDF→WebP / web→gyotaku の R2 blob registry
  * - edge_fukkou_evidenced_by     : 任意 vertex → evidence blob の逆引き edge
  *
- * Evidence blob storage: R2 bucket `ai-gftd-graph` / prefix `fukkou/evidence/`.
+ * Evidence blob storage: R2 bucket `etzhayyim-graph` / prefix `fukkou/evidence/`.
  * Capture tool: 70-tools/evidence-crawler/capture_blob.py.
  */
 export async function up(db: Kysely<unknown>): Promise<void> {

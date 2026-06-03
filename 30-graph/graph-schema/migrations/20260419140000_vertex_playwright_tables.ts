@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
 // tier: B
 
 /**
- * vertex_playwright_* tables for ai-gftd-project-playwright (pl4y1t8r).
+ * vertex_playwright_* tables for etzhayyim-project-playwright (pl4y1t8r).
  *
  * Session + action + artifact log. RLS 3-col + created_at.
  */

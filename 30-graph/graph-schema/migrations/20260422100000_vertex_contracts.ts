@@ -27,7 +27,7 @@ import { sql } from "kysely";
  *   ADR-0049 shared Python UDF pool
  *   ADR-0036 worker-direct Hyperdrive persistence
  *   ADR-0052 houbun actor topology (complementary, law full-text)
- *   60-apps/ai-gftd-project-social-contract/CLAUDE.md — entity DID pattern
+ *   60-apps/etzhayyim-project-social-contract/CLAUDE.md — entity DID pattern
  */
 export async function up(db: Kysely<unknown>): Promise<void> {
   // ── vertex_contracts_organization: projection over vertex_legal_entity ──

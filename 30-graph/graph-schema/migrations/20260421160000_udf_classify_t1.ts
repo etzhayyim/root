@@ -4,7 +4,7 @@ import { sql } from "kysely";
 /**
  * RisingWave SQL UDF — yabai T1 phishing classifier.
  *
- * Port of `60-apps/ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1/src/app.ts:352-366`
+ * Port of `60-apps/etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1/src/app.ts:352-366`
  * `computePhishingScore()` from TS heuristic to SQL UDF.
  *
  * Empirical bench (2026-04-21, local RW 2.8.2, 16,901 rows):

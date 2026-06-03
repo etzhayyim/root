@@ -20,7 +20,7 @@
 //
 // References:
 //   - ADR-0044 Python External UDF with io_threads=100
-//   - 90-docs/260417-codex-gftd-mv-live-reads-deployment-runbook.md
+//   - 90-docs/260417-codex-etzhayyim-mv-live-reads-deployment-runbook.md
 //   - migrations/0039_vertex_profile_fragment_embedding.ts (pattern)
 import { Kysely, sql } from "kysely";
 

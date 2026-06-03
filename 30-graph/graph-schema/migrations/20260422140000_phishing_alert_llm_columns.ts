@@ -21,7 +21,7 @@ import { sql } from "kysely";
  *   - 60 <= t1 < 85  → LLM called, llm_* populated (or error string on upstream fail)
  *   - t1_score >= 85 → T1 already confident, llm_* = NULL (cost gate)
  *
- * See `60-apps/ai-gftd-project-gmail/appview/ai-gftd-wasm-gmail-gm4il0x1/src/app.ts`
+ * See `60-apps/etzhayyim-project-gmail/appview/etzhayyim-wasm-gmail-gm4il0x1/src/app.ts`
  * writePhishingAlertViaUdf for the INSERT site.
  */
 

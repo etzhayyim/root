@@ -8,7 +8,7 @@
 // `0070_cohort_mv_shard_l1.ts` activates the migration.
 //
 // Pre-flight before activating:
-//   1. Confirm cohort_total > 500K via `gftd cohort dashboard`
+//   1. Confirm cohort_total > 500K via `etzhayyim cohort dashboard`
 //   2. Compute cardinality per L1 — none should exceed 500K (sharding's whole point)
 //   3. Increase compute pod RAM to 32Gi+ during initial backfill
 //   4. Run during off-peak hours; create MVs one-at-a-time, watch `kubectl top pod`

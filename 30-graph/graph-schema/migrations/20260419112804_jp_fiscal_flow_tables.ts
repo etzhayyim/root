@@ -7,9 +7,9 @@ import { Kysely, sql } from 'kysely';
  * ADR-0035 — JP tax money flow reverse-topology tables.
  *
  * Adds:
- *   vertex_gftd_beneficial_owner — UBO (natural/legal/trust/spc/opaque).
- *   edge_gftd_fiscal_flow        — money move across L0..L7 with derivation_stage guard.
- *   edge_gftd_ownership          — UBO child→parent ownership with evidence_kind provenance.
+ *   vertex_etzhayyim_beneficial_owner — UBO (natural/legal/trust/spc/opaque).
+ *   edge_etzhayyim_fiscal_flow        — money move across L0..L7 with derivation_stage guard.
+ *   edge_etzhayyim_ownership          — UBO child→parent ownership with evidence_kind provenance.
  *
  * Partition-ready columns: fiscal_year on fiscal_flow; observed_at on ownership.
  *
@@ -23,7 +23,7 @@ import { Kysely, sql } from 'kysely';
  */
 export async function up(db: Kysely<any>): Promise<void> {
   await sql`
-    CREATE TABLE IF NOT EXISTS vertex_gftd_beneficial_owner (
+    CREATE TABLE IF NOT EXISTS vertex_etzhayyim_beneficial_owner (
       vertex_id         VARCHAR PRIMARY KEY,
       _seq              BIGINT,
       created_date      DATE,
@@ -46,12 +46,12 @@ export async function up(db: Kysely<any>): Promise<void> {
       created_at        VARCHAR
     )
   `.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_vertex_gftd_beneficial_owner_child_did ON vertex_gftd_beneficial_owner (child_did)`.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_vertex_gftd_beneficial_owner_parent_did ON vertex_gftd_beneficial_owner (parent_did)`.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_vertex_gftd_beneficial_owner_status ON vertex_gftd_beneficial_owner (status)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_beneficial_owner_child_did ON vertex_etzhayyim_beneficial_owner (child_did)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_beneficial_owner_parent_did ON vertex_etzhayyim_beneficial_owner (parent_did)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_vertex_etzhayyim_beneficial_owner_status ON vertex_etzhayyim_beneficial_owner (status)`.execute(db);
 
   await sql`
-    CREATE TABLE IF NOT EXISTS edge_gftd_fiscal_flow (
+    CREATE TABLE IF NOT EXISTS edge_etzhayyim_fiscal_flow (
       edge_id            VARCHAR PRIMARY KEY,
       src_vid            VARCHAR,
       dst_vid            VARCHAR,
@@ -72,12 +72,12 @@ export async function up(db: Kysely<any>): Promise<void> {
       observed_at        DATE
     )
   `.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_edge_gftd_fiscal_flow_from ON edge_gftd_fiscal_flow (from_did, fiscal_year)`.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_edge_gftd_fiscal_flow_to ON edge_gftd_fiscal_flow (to_did, fiscal_year)`.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_edge_gftd_fiscal_flow_stage ON edge_gftd_fiscal_flow (stage, fiscal_year)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_fiscal_flow_from ON edge_etzhayyim_fiscal_flow (from_did, fiscal_year)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_fiscal_flow_to ON edge_etzhayyim_fiscal_flow (to_did, fiscal_year)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_fiscal_flow_stage ON edge_etzhayyim_fiscal_flow (stage, fiscal_year)`.execute(db);
 
   await sql`
-    CREATE TABLE IF NOT EXISTS edge_gftd_ownership (
+    CREATE TABLE IF NOT EXISTS edge_etzhayyim_ownership (
       edge_id            VARCHAR PRIMARY KEY,
       src_vid            VARCHAR,
       dst_vid            VARCHAR,
@@ -94,22 +94,22 @@ export async function up(db: Kysely<any>): Promise<void> {
       observed_at        DATE
     )
   `.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_edge_gftd_ownership_child ON edge_gftd_ownership (child_did, observed_at)`.execute(db);
-  await sql`CREATE INDEX IF NOT EXISTS idx_edge_gftd_ownership_parent ON edge_gftd_ownership (parent_did, observed_at)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_ownership_child ON edge_etzhayyim_ownership (child_did, observed_at)`.execute(db);
+  await sql`CREATE INDEX IF NOT EXISTS idx_edge_etzhayyim_ownership_parent ON edge_etzhayyim_ownership (parent_did, observed_at)`.execute(db);
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  await sql`DROP INDEX IF EXISTS idx_edge_gftd_ownership_parent`.execute(db);
-  await sql`DROP INDEX IF EXISTS idx_edge_gftd_ownership_child`.execute(db);
-  await sql`DROP TABLE IF EXISTS edge_gftd_ownership`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_edge_etzhayyim_ownership_parent`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_edge_etzhayyim_ownership_child`.execute(db);
+  await sql`DROP TABLE IF EXISTS edge_etzhayyim_ownership`.execute(db);
 
-  await sql`DROP INDEX IF EXISTS idx_edge_gftd_fiscal_flow_stage`.execute(db);
-  await sql`DROP INDEX IF EXISTS idx_edge_gftd_fiscal_flow_to`.execute(db);
-  await sql`DROP INDEX IF EXISTS idx_edge_gftd_fiscal_flow_from`.execute(db);
-  await sql`DROP TABLE IF EXISTS edge_gftd_fiscal_flow`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_edge_etzhayyim_fiscal_flow_stage`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_edge_etzhayyim_fiscal_flow_to`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_edge_etzhayyim_fiscal_flow_from`.execute(db);
+  await sql`DROP TABLE IF EXISTS edge_etzhayyim_fiscal_flow`.execute(db);
 
-  await sql`DROP INDEX IF EXISTS idx_vertex_gftd_beneficial_owner_status`.execute(db);
-  await sql`DROP INDEX IF EXISTS idx_vertex_gftd_beneficial_owner_parent_did`.execute(db);
-  await sql`DROP INDEX IF EXISTS idx_vertex_gftd_beneficial_owner_child_did`.execute(db);
-  await sql`DROP TABLE IF EXISTS vertex_gftd_beneficial_owner`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_vertex_etzhayyim_beneficial_owner_status`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_vertex_etzhayyim_beneficial_owner_parent_did`.execute(db);
+  await sql`DROP INDEX IF EXISTS idx_vertex_etzhayyim_beneficial_owner_child_did`.execute(db);
+  await sql`DROP TABLE IF EXISTS vertex_etzhayyim_beneficial_owner`.execute(db);
 }

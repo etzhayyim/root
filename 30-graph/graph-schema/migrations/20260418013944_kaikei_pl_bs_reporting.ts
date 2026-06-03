@@ -12,8 +12,8 @@ import { Kysely, sql } from 'kysely';
  *   asset / liability / equity / revenue / expense.
  *
  * DID format:
- *   j.debit_account_did   = 'did:plc:gftd-works:account:{hash16}'
- *   a.vertex_id           = 'did:plc:gftd-works|com.etzhayyim.apps.kaikei.account|{hash16}'
+ *   j.debit_account_did   = 'did:plc:etzhayyim-works:account:{hash16}'
+ *   a.vertex_id           = 'did:plc:etzhayyim-works|com.etzhayyim.apps.kaikei.account|{hash16}'
  *   → JOIN via SPLIT_PART(..., ':', 5) on the account DID hash.
  *
  * Spec: 90-docs/adr/0031-moneyforward-actor-replacement.md §Phase C.

@@ -6,7 +6,7 @@ import { Kysely, sql } from 'kysely';
 /**
  * vertex_natural_person_* — 4 tables for np02priv9 domain writes (Phase 1A–1.5).
  * cohort_person carries the full 26-dimension cohort hash (see
- * 60-apps/ai-gftd-project-natural-person/CLAUDE.md).
+ * 60-apps/etzhayyim-project-natural-person/CLAUDE.md).
  * PII tier 3 guardrail: sensitivity_ord=300 default for cohort_person /
  * identified_person / person_enrichment so they never federate via AT Relay.
  */

@@ -4,7 +4,7 @@ import { Kysely, sql } from 'kysely';
  * Migration: vertex_infer_concept — ideology / philosophy / religion / political system concept nodes.
  *
  * Latent entity dependency graph: country/cluster actors follow/require concept nodes.
- * Used by: gftd coverage infer deps --seed-concepts / --input deps.jsonl
+ * Used by: etzhayyim coverage infer deps --seed-concepts / --input deps.jsonl
  *
  * Design: 90-docs/260416-coverage-infer-statistical-entity-resolution.md
  */

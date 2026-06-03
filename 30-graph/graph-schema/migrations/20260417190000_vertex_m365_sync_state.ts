@@ -8,7 +8,7 @@ import { Kysely, sql } from 'kysely';
  * M365 tenant user cache + per-user sync watermark.
  *
  * Consumers: m365-ingest T1 actor pipelines. Replaces ad-hoc
- * ~/.gftd/sync_state.json JSON file with graph-native state.
+ * ~/.etzhayyim/sync_state.json JSON file with graph-native state.
  *
  * vertex_m365_user  — tenant user enumeration cache (refreshed by enumerateUsers
  *                     step). Uses upn as natural key.

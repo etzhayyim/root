@@ -8,7 +8,7 @@ import { sql } from "kysely";
  * 3-arg signature: (text, source_lang, target_lang) → translated text.
  *
  * Replaces the RunPod gemma4:26b round-trip in
- * `60-apps/ai-gftd-project-news/appview/news-core-component/src/app.ts`
+ * `60-apps/etzhayyim-project-news/appview/news-core-component/src/app.ts`
  * `translateText()` with Vultr Serverless Devstral through the shared
  * `pymagatama.llm` tier abstraction.
  *

@@ -5,7 +5,7 @@ import { sql } from "kysely";
  * Phase 2 coverage target seed — extends the initial 12-row frontier
  * from `20260424080000_udf_maps_coverage_gap.ts` with the remaining
  * path-based source DIDs enumerated in
- * `60-apps/ai-gftd-project-maps/CLAUDE.md §Source DIDs`.
+ * `60-apps/etzhayyim-project-maps/CLAUDE.md §Source DIDs`.
  *
  * Adds 13 rows to reach 25 total. ON CONFLICT DO NOTHING keeps it idempotent
  * — safe to re-run and safe to apply before/after phase-1 seed.
@@ -35,7 +35,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   ];
 
   for (const [sourceDid, label, worldTotal, priority, ttl] of seed) {
-    const sourceSlug = sourceDid.replace(/^did:web:maps\.gftd\.ai:?/, "") || sourceDid.replace(/^did:web:/, "");
+    const sourceSlug = sourceDid.replace(/^did:web:maps\.etzhayyim\.ai:?/, "") || sourceDid.replace(/^did:web:/, "");
     const vid = `at://did:web:maps.etzhayyim.com/com.etzhayyim.apps.maps.coverageTarget/${sourceSlug.replace(/[.:]/g, "-")}:${label}`;
     await sql`
       INSERT INTO vertex_maps_coverage_target (

@@ -17,7 +17,7 @@ import { Kysely, sql } from "kysely";
  *   Phase 1 (THIS FILE)  — additive only, no drops of live tables
  *     - DROP vertex_diddocument  (ghost; zero code refs; never written)
  *     - CREATE vertex_actor_profile (new slim replacement for vertex_actor)
- *     - ALTER vertex_gftd_identity ADD profile_json, capabilities
+ *     - ALTER vertex_etzhayyim_identity ADD profile_json, capabilities
  *     - CREATE view_actor_unified (read-side facade)
  *
  *   Phase 2 (next PR)    — vertex_actor → vertex_actor_profile cutover
@@ -27,9 +27,9 @@ import { Kysely, sql } from "kysely";
  *     - DROP vertex_actor
  *
  *   Phase 3 (final)      — drop vertex_did, vertex_profile
- *     - Migrate vertex_did.{display_name,description,controller} → vertex_gftd_identity
+ *     - Migrate vertex_did.{display_name,description,controller} → vertex_etzhayyim_identity
  *     - DROP + recreate mv_actor_repo_stats, mv_world_did_per_host,
- *       mv_profile_identity_topology to reference vertex_gftd_identity
+ *       mv_profile_identity_topology to reference vertex_etzhayyim_identity
  *     - Update PDS server.ts 11 vertex_profile queries → view_actor_unified
  *     - DROP vertex_did, vertex_profile
  *     - Slim vertex_actor_manifest (drop display_name, description,
@@ -37,7 +37,7 @@ import { Kysely, sql } from "kysely";
  *     - Slim vertex_did_document (keep did + doc + owner_did + updated_at)
  *
  * References:
- *   - ADR-0029 did:gftd method spec
+ *   - ADR-0029 did:etzhayyim method spec
  *   - 90-docs/260419-shannon-cleanup-did-actor-topology.md (to be written)
  */
 
@@ -60,7 +60,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     sensitivity_ord   BIGINT,
     owner_did         VARCHAR,
 
-    did               VARCHAR,   -- FK → vertex_gftd_identity.did
+    did               VARCHAR,   -- FK → vertex_etzhayyim_identity.did
     handle            VARCHAR,
     display_name      VARCHAR,
     description       VARCHAR,
@@ -84,13 +84,13 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     ON vertex_actor_profile(handle)`.execute(db);
   await sql`FLUSH`.execute(db);
 
-  // ── 3. Extend vertex_gftd_identity with capability / profile surface ──
+  // ── 3. Extend vertex_etzhayyim_identity with capability / profile surface ──
   // capabilities: JSON array of MCP tool NSIDs (com.etzhayyim.*.xxx) — replaces
   // vertex_actor.{agent_tools, capability_declare, social_post, ...} (14 bool cols).
   // profile_json: compat surface for actor-manifest.jsonld during cutover.
-  await sql`ALTER TABLE vertex_gftd_identity ADD COLUMN capabilities VARCHAR`.execute(db);
+  await sql`ALTER TABLE vertex_etzhayyim_identity ADD COLUMN capabilities VARCHAR`.execute(db);
   await sql`FLUSH`.execute(db);
-  await sql`ALTER TABLE vertex_gftd_identity ADD COLUMN profile_json VARCHAR`.execute(db);
+  await sql`ALTER TABLE vertex_etzhayyim_identity ADD COLUMN profile_json VARCHAR`.execute(db);
   await sql`FLUSH`.execute(db);
 
   // ── 4. Read-side facade VIEW ──────────────────────────────────────────
@@ -100,9 +100,9 @@ export async function up(db: Kysely<unknown>): Promise<void> {
   // without touching worker code.
   //
   // Precedence when the same attribute lives in multiple tables:
-  //   display_name:  vertex_actor_profile → vertex_actor → vertex_profile → vertex_gftd_identity
+  //   display_name:  vertex_actor_profile → vertex_actor → vertex_profile → vertex_etzhayyim_identity
   //   description:   vertex_actor_profile → vertex_actor_manifest → vertex_profile
-  //   handle:        vertex_actor_profile → vertex_actor → vertex_gftd_identity
+  //   handle:        vertex_actor_profile → vertex_actor → vertex_etzhayyim_identity
   //   avatar/banner: vertex_actor_profile → vertex_actor → vertex_profile
   //
   // `vertex_actor_profile` wins everywhere so that Phase 2 backfill flips
@@ -132,7 +132,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       am.governance_json                                                   AS governance_json,
       am.capabilities_json                                                 AS capabilities_json_legacy,
       i.profile_json                                                       AS profile_json
-    FROM vertex_gftd_identity i
+    FROM vertex_etzhayyim_identity i
     LEFT JOIN vertex_actor_profile ap ON ap.did = i.did
     LEFT JOIN vertex_actor         a  ON a.did  = i.did
     LEFT JOIN vertex_actor_manifest am ON am.did = i.did
@@ -144,9 +144,9 @@ export async function down(db: Kysely<unknown>): Promise<void> {
   await sql`DROP VIEW IF EXISTS view_actor_unified`.execute(db);
   await sql`FLUSH`.execute(db);
 
-  await sql`ALTER TABLE vertex_gftd_identity DROP COLUMN profile_json`.execute(db);
+  await sql`ALTER TABLE vertex_etzhayyim_identity DROP COLUMN profile_json`.execute(db);
   await sql`FLUSH`.execute(db);
-  await sql`ALTER TABLE vertex_gftd_identity DROP COLUMN capabilities`.execute(db);
+  await sql`ALTER TABLE vertex_etzhayyim_identity DROP COLUMN capabilities`.execute(db);
   await sql`FLUSH`.execute(db);
 
   await sql`DROP INDEX IF EXISTS idx_vertex_actor_profile_handle`.execute(db);
