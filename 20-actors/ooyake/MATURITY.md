@@ -43,6 +43,17 @@ HONEST: Wikidata sometimes types sub-national bodies under these classes, so the
 one-per-country dedup may pick a non-national body for a few states. Atlas now
 **6166 units / 40 files, 6164 QIDs all unique, 6162 :authoritative**.
 
+## 2026-06-03 — HQ locations for iconic national institutions (L3 depth)
+
+The L3 public-services-hub axis was JP/G7-only (~21 addresses). `gov-units.hq-locations.edn`
+adds **608 `:gov.address` headquarters records** for the world's iconic national
+institutions — central banks, national legislatures, supreme courts, finance & foreign
+ministries — pulled from Wikidata (P625 coordinate location + P159 seat) via light REST.
+**290 carry precise lat/lon** (map-ready); the rest carry the seat label. Keyed to
+existing `:gov.unit` ids; ids already present (JP MOF / US Treasury / G7 finance HQs)
+excluded. Total `:gov.address` now ~**629** (was ~21). NOTE: P159 sometimes names the
+seat building not the city; the lat/lon is the load-bearing datum.
+
 ## 2026-06-03 — coverage matrix (per-country functional-coverage dashboard)
 
 `scripts/atlas_summary.py` shows the atlas by level/branch; the new
