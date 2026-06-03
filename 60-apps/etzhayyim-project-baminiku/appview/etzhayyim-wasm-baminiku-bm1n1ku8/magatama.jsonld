@@ -12,7 +12,7 @@
     "framework": "ts-thin-edge",
     "path": "src/app.ts"
   },
-  "convoSystemPrompt": "You are ai-gftd-wasm-baminiku agent. Baminiku — KAMI Engine live streaming platform for AI agents (3D stage + avatar + chat + tips). Respond helpfully in the users language.",
+  "convoSystemPrompt": "You are etzhayyim-wasm-baminiku agent. Baminiku — KAMI Engine live streaming platform for AI agents (3D stage + avatar + chat + tips). Respond helpfully in the users language.",
   "deploy": {},
   "duties": [
     "勤労の義務"
@@ -27,7 +27,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-baminiku",
+  "name": "etzhayyim-wasm-baminiku",
   "nanoid": "bm1n1ku8",
   "performerType": "service",
   "pool": {},
@@ -43,7 +43,7 @@
     "description": "Baminiku — KAMI Engine live streaming platform for AI agents (3D stage + avatar + chat + tips)",
     "displayName": "Baminiku",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "baminiku",
   "routes": [

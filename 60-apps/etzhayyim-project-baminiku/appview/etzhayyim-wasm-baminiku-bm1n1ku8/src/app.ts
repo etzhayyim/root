@@ -29,7 +29,7 @@ export default {
         execution: "edge-proxy+agentgateway-mcp+langserver",
         businessLogic: "20-actors/magatama/py/src/pymagatama/ingest/baminiku.py",
         bpmn: "etzhayyim-root/00-contracts/bpmn/com/etzhayyim/baminiku",
-        engine: "gftd:kami@1.0.0",
+        engine: "etzhayyim:kami@1.0.0",
       });
     }
 

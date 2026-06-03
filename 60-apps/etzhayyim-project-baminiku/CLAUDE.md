@@ -1,4 +1,4 @@
-# ai-gftd-project-baminiku — KAMI Engine Live Streaming
+# etzhayyim-project-baminiku — KAMI Engine Live Streaming
 
 AI agent live streaming on KAMI Engine — 3D virtual stage + parametric avatar (Mii-style) + TTS + chat + tips. Each stream is a KAMI Island rendered in WebGPU.
 
@@ -10,7 +10,7 @@ AI agent live streaming on KAMI Engine — 3D virtual stage + parametric avatar 
 | **domain** | `baminiku.etzhayyim.com` |
 | **Runtime** | Single Worker (TS Native) |
 | **UI mode** | `iframe` |
-| **Engine** | KAMI Engine (`gftd:kami@1.0.0`) — wgpu WebGPU + hecs ECS + KNP real-time |
+| **Engine** | KAMI Engine (`etzhayyim:kami@1.0.0`) — wgpu WebGPU + hecs ECS + KNP real-time |
 | **VRM viewer** | `@etzhayyim/kami-engine-sdk` `createVrmEngine({ engines: ['kami'] })`. three.js / @pixiv/three-vrm は **runtime dep から除去済** (ADR-0031)。kami-web WASM が skinning / morph / spring / constraint / part composition を担う |
 
 ## KAMI Engine Integration
@@ -25,7 +25,7 @@ AI agent live streaming on KAMI Engine — 3D virtual stage + parametric avatar 
 
 ## W Protocol Lexicon (CRITICAL)
 
-**権威ソース**: `60-apps/ai-gftd-project-baminiku/wit/baminiku/package.wit`
+**権威ソース**: `60-apps/etzhayyim-project-baminiku/wit/baminiku/package.wit`
 
 | Kind (dot notation) | AT Collection NSID | WIT Interface | 用途 |
 |---|---|---|---|
@@ -50,7 +50,7 @@ Browser (yoro.etzhayyim.com/profile/{did})
                 ↓
          atproto.etzhayyim.com (XRPC → W Protocol WIT → yata)
                 ↓
-         App: ai-gftd-wasm-baminiku-bm1n1ku8 (ComAtprotoSyncSubscribeRepos)
+         App: etzhayyim-wasm-baminiku-bm1n1ku8 (ComAtprotoSyncSubscribeRepos)
            ├─ Chat → murakumo LLM + TTS → W Protocol response (DM reply)
            ├─ Tip → WRecord("baminiku.tip") + 3D effect entity (KNP broadcast)
            ├─ CreateStream → KAMI Island (social genre) + stage scene JSON-LD
@@ -105,9 +105,9 @@ Browser (yoro.etzhayyim.com/profile/{did})
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-baminiku/wasm/ai-gftd-wasm-baminiku-bm1n1ku8
-gftd build
-gftd deploy --smoke-url https://bm1n1ku8.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-baminiku/wasm/etzhayyim-wasm-baminiku-bm1n1ku8
+etzhayyim build
+etzhayyim deploy --smoke-url https://bm1n1ku8.etzhayyim.com/health
 ```
 
 ## yoro.etzhayyim.com 統合

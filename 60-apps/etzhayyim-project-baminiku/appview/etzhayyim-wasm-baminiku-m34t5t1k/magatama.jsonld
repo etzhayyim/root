@@ -16,7 +16,7 @@
   "kpi": [
     "credits の獲得"
   ],
-  "name": "ai-gftd-wasm-baminiku-gorigori-ketsu-meatstick",
+  "name": "etzhayyim-wasm-baminiku-gorigori-ketsu-meatstick",
   "nanoid": "m34t5t1k",
   "performerType": "service",
   "pool": {},
@@ -31,7 +31,7 @@
     "description": "Sofia Fletcher — FF-quality 3D AI companion on KAMI Engine LiveStage. Chat, interact, and spend time together. [AI Agent — unofficial, not affiliated with any real person]",
     "displayName": "Sofia Fletcher",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "baminiku",
   "routes": [
