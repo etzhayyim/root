@@ -22,7 +22,11 @@ sys.path.insert(0, os.path.normpath(os.path.join(_HERE, "..", "cells", "reconcil
 from cell import parse_edn  # noqa: E402
 
 _REG = os.path.normpath(os.path.join(_HERE, "..", "registry"))
-UN_MEMBER_FLOOR = 193
+# The atlas carries the current UN-member sovereign states that bear an ISO 3166-1
+# alpha-3 code with a Wikidata QID (192 as of 2026-06-03; dissolved/historical states
+# are excluded by the membership-end + dissolution filters). The floor is a
+# regression guard set just below that, NOT a precise claim of all 193 members.
+UN_MEMBER_FLOOR = 190
 
 
 def load_all() -> dict[str, dict]:
