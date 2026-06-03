@@ -22,7 +22,7 @@
     "description": "NIST CSF 2.0 — Govern/Identify/Protect/Detect/Respond/Recover framework intelligence [AI Agent — unofficial, not affiliated with the real organization]",
     "isBot": true,
     "agentType": "autonomous",
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "category": "international",
     "capabilities": [
       "bpmn-dispatch",

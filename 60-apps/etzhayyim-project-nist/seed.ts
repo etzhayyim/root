@@ -3,7 +3,7 @@
  * categories, subcategories, CMMC L2 practices, tier gaps, and mappings
  * into the SQL graph via PDS XRPC.
  *
- * Usage: npx tsx projects/ai-gftd-project-nist/seed.ts
+ * Usage: npx tsx projects/etzhayyim-project-nist/seed.ts
  */
 
 const PDS = 'https://atproto.etzhayyim.com';
@@ -14,15 +14,15 @@ const PROJECT_ID = 'nist';
 // ── Helpers ──
 
 // ADR-0023 P4: use etzhayyim_TOKEN (sk_live_*) Bearer instead of spoofable
-// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(gftd auth token)`.
+// x-magatama-verified header. Required: `export etzhayyim_TOKEN=$(etzhayyim auth token)`.
 const etzhayyim_TOKEN = process.env.etzhayyim_TOKEN;
 if (!etzhayyim_TOKEN) {
-  throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(gftd auth token)` first');
+  throw new Error('etzhayyim_TOKEN env var required — run `export etzhayyim_TOKEN=$(etzhayyim auth token)` first');
 }
 const INTERNAL_HEADERS = {
   'Content-Type': 'application/json',
   'Authorization': `Bearer ${etzhayyim_TOKEN}`,
-  'x-gftd-org-id': 'anon',
+  'x-etzhayyim-org-id': 'anon',
 };
 
 async function actorCreate(did: string, displayName: string, description: string): Promise<void> {

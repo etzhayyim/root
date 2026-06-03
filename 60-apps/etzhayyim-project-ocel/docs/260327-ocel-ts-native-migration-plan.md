@@ -1,6 +1,6 @@
 # 260327 OCEL TS Native Pilot
 
-対象: `60-apps/ai-gftd-project-ocel/wasm/ocel-core-component`
+対象: `60-apps/etzhayyim-project-ocel/wasm/ocel-core-component`
 
 ## Scope
 

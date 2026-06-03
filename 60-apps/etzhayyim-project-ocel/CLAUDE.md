@@ -1,4 +1,4 @@
-# ai-gftd-project-ocel
+# etzhayyim-project-ocel
 
 OCEL v2 Process Mining platform (`ocel.etzhayyim.com`)。**wRPC stream-native reactive pipeline (Design E)**。PDS commit stream を Follow → ComAtprotoSyncSubscribeRepos で OCEL v2 event に変換 → SQL でプロセスマイニング (DFG/Variant/Conformance/Performance)。
 
@@ -27,7 +27,7 @@ performerType: `system` (observability infrastructure)
 | `actor` | DID (profile resolution target) | PDS GetProfile |
 | `profile` | Profile/Profile node | PDS profile CRUD |
 | `session` | Auth session | PDS authenticate() |
-| `deploy` | Deploy pipeline run | gftd deploy |
+| `deploy` | Deploy pipeline run | etzhayyim deploy |
 | `app` | App | registerProfileToYata |
 | `worker` | Worker instance | account-level Worker |
 | `record` | AT Record | ComAtprotoRepoCreateRecord |
