@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package cofog_nurse.v1;
 
-option go_package = "github.com/gftdcojp/ai-gftd-kyber/performers/ai-gftd-performer-svc-cofog-nurse/pkg/gen";
+option go_package = "github.com/etzhayyimcojp/etzhayyim-kyber/performers/etzhayyim-performer-svc-cofog-nurse/pkg/gen";
 
 service NurseService {
   rpc RegisterPatient(RegisterPatientRequest) returns (PatientRecord);
