@@ -12,7 +12,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_animeka_generate_script"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_generate_script" name="animeka generate script" isExecutable="true">
     <bpmn:startEvent id="Start" name="script requested">
@@ -58,10 +58,10 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:      &quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.script/&quot; + string(episodeId) + &quot;-v1&quot;,
-              owner_did:      &quot;did:web:animeka.gftd.ai&quot;,
-              repo:           &quot;did:web:animeka.gftd.ai&quot;,
-              did:            &quot;did:web:animeka.gftd.ai:episode:&quot; + string(episodeId),
+              vertex_id:      &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.script/&quot; + string(episodeId) + &quot;-v1&quot;,
+              owner_did:      &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:           &quot;did:web:animeka.etzhayyim.com&quot;,
+              did:            &quot;did:web:animeka.etzhayyim.com:episode:&quot; + string(episodeId),
               collection:     &quot;com.etzhayyim.apps.animeka.script&quot;,
               rkey:           string(episodeId) + &quot;-v1&quot;,
               kind:           &quot;script&quot;,
@@ -82,7 +82,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;generateScript&quot;" target="action"/>
           <zeebe:input source="={episodeId: string(episodeId), model: string(draftModel), inserted: inserted}" target="payload"/>
         </zeebe:ioMapping>

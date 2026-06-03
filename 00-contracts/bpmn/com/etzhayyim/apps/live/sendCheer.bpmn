@@ -15,7 +15,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_live_send_cheer"
-    targetNamespace="https://gftd.ai/bpmn/apps/live"
+    targetNamespace="https://etzhayyim.ai/bpmn/apps/live"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="live_send_cheer" name="live sendCheer" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -38,7 +38,7 @@
               posted_at: now(),
               name: &quot;cheer:&quot; + string(kind),
               description: &quot;weight=&quot; + string(if weight != null then weight else 1.0),
-              actor_did: if callerDid != null then callerDid else &quot;did:web:live.gftd.ai:viewer:anon&quot;,
+              actor_did: if callerDid != null then callerDid else &quot;did:web:live.etzhayyim.com:viewer:anon&quot;,
               org_did: if orgDid != null then orgDid else &quot;anon&quot;,
               at_did: callerDid,
               created_at: string(now())

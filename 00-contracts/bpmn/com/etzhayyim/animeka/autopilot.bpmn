@@ -26,7 +26,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_animeka_autopilot"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_autopilot" name="animeka autopilot" isExecutable="true">
 
@@ -87,7 +87,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;autopilot&quot;" target="action"/>
           <zeebe:input source="={
               cutPostStatus: cutPostStatus,

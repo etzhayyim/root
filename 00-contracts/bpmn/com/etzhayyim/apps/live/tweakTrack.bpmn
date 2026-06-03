@@ -21,7 +21,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_live_tweak_track"
-    targetNamespace="https://gftd.ai/bpmn/apps/live"
+    targetNamespace="https://etzhayyim.ai/bpmn/apps/live"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="live_tweak_track" name="live tweakTrack" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_S</bpmn:outgoing></bpmn:startEvent>
@@ -33,7 +33,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_live_track&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id: &quot;at://&quot; + (if callerDid != null then string(callerDid) else &quot;did:web:live.gftd.ai&quot;) + &quot;/com.etzhayyim.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + string(position),
+              vertex_id: &quot;at://&quot; + (if callerDid != null then string(callerDid) else &quot;did:web:live.etzhayyim.com&quot;) + &quot;/com.etzhayyim.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + string(position),
               room_slug: roomSlug,
               position: position,
               title: title,
@@ -44,14 +44,14 @@
               cues_json: cuesJson,
               name: string(title) + &quot; (track #&quot; + string(position) + &quot;)&quot;,
               description: &quot;Track #&quot; + string(position) + &quot; of room &quot; + string(roomSlug) + &quot; — &quot; + string(title),
-              actor_did: if callerDid != null then callerDid else &quot;did:web:live.gftd.ai&quot;,
+              actor_did: if callerDid != null then callerDid else &quot;did:web:live.etzhayyim.com&quot;,
               org_did: if orgDid != null then orgDid else &quot;anon&quot;,
               at_did: callerDid,
               created_at: string(now())
           }" target="values"/>
           <zeebe:input source="=&quot;ignore&quot;" target="onConflict"/>
           <zeebe:output source="=true" target="ok"/>
-          <zeebe:output source="=&quot;at://&quot; + (if callerDid != null then string(callerDid) else &quot;did:web:live.gftd.ai&quot;) + &quot;/com.etzhayyim.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + string(position)" target="vertexId"/>
+          <zeebe:output source="=&quot;at://&quot; + (if callerDid != null then string(callerDid) else &quot;did:web:live.etzhayyim.com&quot;) + &quot;/com.etzhayyim.apps.live.track/&quot; + string(roomSlug) + &quot;-&quot; + string(position)" target="vertexId"/>
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_S</bpmn:incoming><bpmn:outgoing>Flow_A</bpmn:outgoing>
@@ -62,7 +62,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:live.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:live.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;live.tweakTrack&quot;" target="action"/>
           <zeebe:input source="={
               roomSlug: roomSlug,

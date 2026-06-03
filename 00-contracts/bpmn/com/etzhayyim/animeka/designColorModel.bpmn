@@ -8,7 +8,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_animeka_design_color_model"
-    targetNamespace="https://gftd.ai/bpmn/animeka"
+    targetNamespace="https://etzhayyim.ai/bpmn/animeka"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="animeka_design_color_model" name="animeka design color model" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>F1</bpmn:outgoing></bpmn:startEvent>
@@ -58,9 +58,9 @@
         <zeebe:ioMapping>
           <zeebe:input source="=&quot;vertex_animeka&quot;" target="table"/>
           <zeebe:input source="={
-              vertex_id:   &quot;at://did:web:animeka.gftd.ai/com.etzhayyim.apps.animeka.colorModel/&quot; + string(characterId),
-              owner_did:   &quot;did:web:animeka.gftd.ai&quot;,
-              repo:        &quot;did:web:animeka.gftd.ai&quot;,
+              vertex_id:   &quot;at://did:web:animeka.etzhayyim.com/com.etzhayyim.apps.animeka.colorModel/&quot; + string(characterId),
+              owner_did:   &quot;did:web:animeka.etzhayyim.com&quot;,
+              repo:        &quot;did:web:animeka.etzhayyim.com&quot;,
               collection:  &quot;com.etzhayyim.apps.animeka.colorModel&quot;,
               rkey:        string(characterId),
               kind:        &quot;colorModel&quot;,
@@ -82,7 +82,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:animeka.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:animeka.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;designColorModel&quot;" target="action"/>
           <zeebe:input source="={characterId: string(characterId), blobCid: string(blobCid)}" target="payload"/>
         </zeebe:ioMapping>

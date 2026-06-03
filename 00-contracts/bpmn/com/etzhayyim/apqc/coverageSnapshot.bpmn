@@ -3,7 +3,7 @@
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     id="Definitions_apqc_coverage_snapshot"
-    targetNamespace="https://gftd.ai/bpmn/apqc"
+    targetNamespace="https://etzhayyim.ai/bpmn/apqc"
     exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="apqc_coverage_snapshot" name="APQC coverage snapshot" isExecutable="true">
     <bpmn:startEvent id="Start"><bpmn:outgoing>Flow_Run</bpmn:outgoing></bpmn:startEvent>
