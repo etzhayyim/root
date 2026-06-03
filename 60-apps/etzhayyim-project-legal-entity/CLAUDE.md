@@ -1,15 +1,15 @@
-# ai-gftd-project-legal-entity — Global Legal Entity Intelligence
+# etzhayyim-project-legal-entity — Global Legal Entity Intelligence
 
 `legal-entity.etzhayyim.com` — 全世界の法人登記情報を収集・統合・公開する App。法域別 registry API / GLEIF LEI に加え、SEC disclosure 由来の statement / mention / relation / ownership / trade edge を AT Protocol commit pipeline 経由で RisingWave graph に蓄積し、UBO 分析・コンプライアンス照合の data source として機能する。
 
 ## Runtime
 
-**TS Native + Lexicon Contract。** Business logic: `wasm/ai-gftd-wasm-legal-entity-le9k4x2m/src/app.ts`。
+**TS Native + Lexicon Contract。** Business logic: `wasm/etzhayyim-wasm-legal-entity-le9k4x2m/src/app.ts`。
 
 | 項目 | 値 |
 |---|---|
 | Language | TypeScript (`@etzhayyim/magatama-host-sdk` host, TS Native) |
-| Build | `gftd deploy` (app.ts が直接 wrangler entrypoint) |
+| Build | `etzhayyim deploy` (app.ts が直接 wrangler entrypoint) |
 | Architecture | AT Protocol commit pipeline (`com.atproto.repo.applyWrites` batch) |
 | Write | repo record upsert / `com.atproto.repo.applyWrites` → PDS → sign → kagamiWrite → typed vertex / edge tables |
 | Read | `createKyselyDb()` → `vertex_legal_entity` / disclosure vertex / relation edge tables (Hyperdrive → RisingWave) |
@@ -95,7 +95,7 @@ OpenCorporates paid bulk API for 180+ jurisdictions + individual scrapers (CN, H
 ```
 le9k4x2m (Collector Worker)
   → sdk.pds.rpc("com.atproto.repo.applyWrites", { repo, writes: [...] })
-    → PDS (ai-gftd-pds-2603241700)
+    → PDS (etzhayyim-pds-2603241700)
       → sign (ES256, MST commit)
       → vertex_repo_commit (append-only log)
       → vertex_repo_record (current state)
@@ -224,7 +224,7 @@ curl -X POST https://le9k4x2m.etzhayyim.com/xrpc/com.etzhayyim.legalEntity.stats
 
 ### Coverage ツール表示修正 (TODO)
 
-`gftd coverage world` は `vertex_did` の path-based DID をカウントする。現状 records のみ書いて DID 未登録のため 0 表示。修正:
+`etzhayyim coverage world` は `vertex_did` の path-based DID をカウントする。現状 records のみ書いて DID 未登録のため 0 表示。修正:
 1. `collectGlobal` に `sdk.pds.identityCreate("lei:{LEI}", ...)` を追加
 2. または `world_coverage.go` に `vertex_legal_entity` 直接 COUNT query を追加
 

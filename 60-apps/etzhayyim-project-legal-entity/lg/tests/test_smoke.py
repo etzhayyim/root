@@ -2,7 +2,7 @@
 
 Covers the 17-graph legal entity collector dispatcher (GLEIF/EDGAR/registry).
 
-Run from `60-apps/ai-gftd-project-legal-entity/lg/`:
+Run from `60-apps/etzhayyim-project-legal-entity/lg/`:
     uv venv --python 3.11 .venv
     uv pip install --python .venv/bin/python \
         'fastapi>=0.115' 'httpx>=0.27' 'pytest>=8' \
@@ -10,7 +10,7 @@ Run from `60-apps/ai-gftd-project-legal-entity/lg/`:
     .venv/bin/pytest tests/ -v
 
 CI gate: wire into existing pytest config so it runs on every PR
-touching `60-apps/ai-gftd-project-legal-entity/lg/**`.
+touching `60-apps/etzhayyim-project-legal-entity/lg/**`.
 """
 
 from __future__ import annotations

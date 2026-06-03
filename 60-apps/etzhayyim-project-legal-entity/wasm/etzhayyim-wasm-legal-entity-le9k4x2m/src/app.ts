@@ -1,9 +1,9 @@
 // SUBSTRATE-PORT (ADR-2605212100 follow-up, 2026-05-24):
 // - ACTOR_DID, NSID_PREFIX, dispatcher default URL retargeted from etzhayyim.com to etzhayyim.com.
 // - Thin-edge proxy — no Kysely / HyperDrive usage to remove. Business logic lives on the
-//   dispatcher side; collectors / projection retain the gftd-side write path documented in
+//   dispatcher side; collectors / projection retain the etzhayyim-side write path documented in
 //   CLAUDE.md until the dispatcher itself is ported (separate wave).
-// - Note: CLAUDE.md still describes the gftd-side Kysely / RisingWave write path. The thin
+// - Note: CLAUDE.md still describes the etzhayyim-side Kysely / RisingWave write path. The thin
 //   edge here is substrate-clean; the dispatcher-side rewrite is the outstanding work.
 //
 // legal-entity.etzhayyim.com thin edge facade.

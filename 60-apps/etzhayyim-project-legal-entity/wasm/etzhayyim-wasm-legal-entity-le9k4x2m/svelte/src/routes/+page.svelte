@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Legal Entity Le9k4x2m",
-  "project": "ai-gftd-project-legal-entity",
-  "name": "ai-gftd-wasm-legal-entity-le9k4x2m",
+  "project": "etzhayyim-project-legal-entity",
+  "name": "etzhayyim-wasm-legal-entity-le9k4x2m",
   "kind": "wasm appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-legal-entity/wasm/ai-gftd-wasm-legal-entity-le9k4x2m/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-legal-entity/wasm/etzhayyim-wasm-legal-entity-le9k4x2m/svelte/src/routes/+page.svelte"
 };
 </script>
 

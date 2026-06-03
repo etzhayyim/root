@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:legal-entity.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:legal-entity.etzhayyim.com",
   "name": "le9k4x2m",
   "nanoid": "le9k4x2m",
   "performerType": "service",
@@ -10,7 +10,7 @@
   "governance": {
     "raci": "responsible",
     "classification": "public",
-    "complianceFrameworks": ["gftd-legal-entity-policy"]
+    "complianceFrameworks": ["etzhayyim-legal-entity-policy"]
   },
   "profile": {
     "displayName": "GFTD Legal Entity Collector",
@@ -18,7 +18,7 @@
     "avatar": "LE",
     "category": "data-intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.com",
     "agentType": "autonomous",
     "capabilities": [
       "gleif-lei-ingest",
