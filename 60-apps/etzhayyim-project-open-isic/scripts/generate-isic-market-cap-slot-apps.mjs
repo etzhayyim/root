@@ -22,15 +22,15 @@ function appNanoid(section, rank) {
 }
 
 function dirName(section, rank) {
-  return `ai-gftd-legacy-public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}-${appNanoid(section, rank)}`;
+  return `etzhayyim-legacy-public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}-${appNanoid(section, rank)}`;
 }
 
 function packageName(section, rank) {
-  return `gftd:public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}`;
+  return `etzhayyim:public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}`;
 }
 
 function goModuleName(section, rank) {
-  return `github.com/etzhayyim/ai-gftd-legacy-public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}`;
+  return `github.com/etzhayyim/etzhayyim-legacy-public-company-isic-${section.toLowerCase()}-top-${pad2(rank)}`;
 }
 
 function toGoString(value) {

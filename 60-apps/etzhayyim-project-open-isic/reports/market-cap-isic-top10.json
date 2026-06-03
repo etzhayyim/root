@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-03-20T13:56:31.507Z",
-  "scope": "projects/ai-gftd-project-public-companies",
+  "scope": "projects/etzhayyim-project-public-companies",
   "methodology": {
     "marketCapSource": "Seeded market-cap fields in legacy actor component main.go files",
     "coverageDefinition": "Implemented slots in the repo for each ISIC section top-10 ranking",
@@ -180,7 +180,7 @@
           "marketCapUsd": 460000000000,
           "sector": "Energy",
           "industry": "Oil & Gas",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-xom-x2om5e7d/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-xom-x2om5e7d/main.go"
         },
         {
           "ticker": "SHEL",
@@ -190,7 +190,7 @@
           "marketCapUsd": 210000000000,
           "sector": "Energy",
           "industry": "Oil & Gas Exploration and Production",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-shel-s4he7l2p/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-shel-s4he7l2p/main.go"
         },
         {
           "ticker": "BP",
@@ -200,7 +200,7 @@
           "marketCapUsd": 100000000000,
           "sector": "Energy",
           "industry": "Oil & Gas",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-bp-b3pp6l1t/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-bp-b3pp6l1t/main.go"
         }
       ]
     },
@@ -217,7 +217,7 @@
           "marketCapUsd": 3200000000000,
           "sector": "Technology",
           "industry": "Semiconductors & GPU Computing",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-nvda-n7vd9a5g/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-nvda-n7vd9a5g/main.go"
         },
         {
           "ticker": "AAPL",
@@ -227,7 +227,7 @@
           "marketCapUsd": 3000000000000,
           "sector": "Technology",
           "industry": "Consumer Electronics",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-aapl-a1pl3y7z/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-aapl-a1pl3y7z/main.go"
         },
         {
           "ticker": "JNJ",
@@ -237,7 +237,7 @@
           "marketCapUsd": 380000000000,
           "sector": "Healthcare",
           "industry": "Pharmaceuticals",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-jnj-j1nj3h8c/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-jnj-j1nj3h8c/main.go"
         },
         {
           "ticker": "7203",
@@ -247,7 +247,7 @@
           "marketCapUsd": 300000000000,
           "sector": "Consumer Discretionary",
           "industry": "Automobile Manufacturing",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-7203-t3yo5a6u/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-7203-t3yo5a6u/main.go"
         },
         {
           "ticker": "AZN",
@@ -257,7 +257,7 @@
           "marketCapUsd": 220000000000,
           "sector": "Healthcare",
           "industry": "Pharmaceuticals",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-azn-a9zn1e3j/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-azn-a9zn1e3j/main.go"
         },
         {
           "ticker": "ULVR",
@@ -267,7 +267,7 @@
           "marketCapUsd": 125000000000,
           "sector": "Consumer Staples",
           "industry": "Consumer Goods",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-ulvr-u2lv5r9s/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-ulvr-u2lv5r9s/main.go"
         },
         {
           "ticker": "6758",
@@ -277,7 +277,7 @@
           "marketCapUsd": 120000000000,
           "sector": "Consumer Electronics",
           "industry": "Electronics & Entertainment",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-6758-s8ny2o6h/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-6758-s8ny2o6h/main.go"
         },
         {
           "ticker": "6861",
@@ -287,7 +287,7 @@
           "marketCapUsd": 100000000000,
           "sector": "Technology",
           "industry": "Electronic Equipment",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-6861-k7yc1e5l/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-6861-k7yc1e5l/main.go"
         }
       ]
     },
@@ -322,7 +322,7 @@
           "marketCapUsd": 2000000000000,
           "sector": "Consumer Discretionary",
           "industry": "E-Commerce & Cloud Computing",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-amzn-a4mz7n2f/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-amzn-a4mz7n2f/main.go"
         },
         {
           "ticker": "WMT",
@@ -332,7 +332,7 @@
           "marketCapUsd": 580000000000,
           "sector": "Consumer Staples",
           "industry": "Retail",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-wmt-w3mt6a9e/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-wmt-w3mt6a9e/main.go"
         },
         {
           "ticker": "9988",
@@ -342,7 +342,7 @@
           "marketCapUsd": 250000000000,
           "sector": "Consumer Discretionary",
           "industry": "E-Commerce & Cloud Computing",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-9988-b0ba4l7m/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-9988-b0ba4l7m/main.go"
         }
       ]
     },
@@ -371,7 +371,7 @@
           "marketCapUsd": 3100000000000,
           "sector": "Technology",
           "industry": "Software & Cloud Services",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-msft-m2sf4t8w/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-msft-m2sf4t8w/main.go"
         },
         {
           "ticker": "GOOGL",
@@ -381,7 +381,7 @@
           "marketCapUsd": 2100000000000,
           "sector": "Technology",
           "industry": "Internet Services",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-googl-g5gl8o3h/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-googl-g5gl8o3h/main.go"
         },
         {
           "ticker": "META",
@@ -391,7 +391,7 @@
           "marketCapUsd": 1500000000000,
           "sector": "Technology",
           "industry": "Social Media",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-meta-m6ta9e4j/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-meta-m6ta9e4j/main.go"
         },
         {
           "ticker": "0700",
@@ -401,7 +401,7 @@
           "marketCapUsd": 450000000000,
           "sector": "Communication Services",
           "industry": "Internet Software & Services",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0700-q5tc7n3k/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0700-q5tc7n3k/main.go"
         },
         {
           "ticker": "0941",
@@ -411,7 +411,7 @@
           "marketCapUsd": 160000000000,
           "sector": "Communication Services",
           "industry": "Telecommunications Services",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0941-c9m14e2p/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0941-c9m14e2p/main.go"
         },
         {
           "ticker": "9432",
@@ -421,7 +421,7 @@
           "marketCapUsd": 100000000000,
           "sector": "Telecom",
           "industry": "Telecommunications",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-9432-n9tt3o7p/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-9432-n9tt3o7p/main.go"
         }
       ]
     },
@@ -438,7 +438,7 @@
           "marketCapUsd": 680000000000,
           "sector": "Financials",
           "industry": "Banking & Financial Services",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-jpm-j6pm8c4f/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-jpm-j6pm8c4f/main.go"
         },
         {
           "ticker": "0005",
@@ -448,7 +448,7 @@
           "marketCapUsd": 170000000000,
           "sector": "Financials",
           "industry": "Banking",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0005-h5bc8k3q/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0005-h5bc8k3q/main.go"
         },
         {
           "ticker": "HSBA",
@@ -458,7 +458,7 @@
           "marketCapUsd": 165000000000,
           "sector": "Financials",
           "industry": "Banking",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-hsba-h1sb4a8q/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-hsba-h1sb4a8q/main.go"
         },
         {
           "ticker": "8306",
@@ -468,7 +468,7 @@
           "marketCapUsd": 120000000000,
           "sector": "Financials",
           "industry": "Banking",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-8306-u8fg2m6n/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-8306-u8fg2m6n/main.go"
         },
         {
           "ticker": "1299",
@@ -478,7 +478,7 @@
           "marketCapUsd": 85000000000,
           "sector": "Financials",
           "industry": "Life & Health Insurance",
-          "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-1299-a2ia6g4k/main.go"
+          "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-1299-a2ia6g4k/main.go"
         }
       ]
     },
@@ -551,7 +551,7 @@
       "exchangeMic": "XNAS",
       "isicCode": "2610",
       "marketCapUsd": 3200000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-nvda-n7vd9a5g/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-nvda-n7vd9a5g/main.go"
     },
     {
       "entityKind": "company",
@@ -560,7 +560,7 @@
       "exchangeMic": "XNAS",
       "isicCode": "6201",
       "marketCapUsd": 3100000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-msft-m2sf4t8w/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-msft-m2sf4t8w/main.go"
     },
     {
       "entityKind": "exchange",
@@ -569,7 +569,7 @@
       "exchangeMic": "XNAS",
       "isicCode": null,
       "marketCapUsd": 3100000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xnas-n2as4d7r/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xnas-n2as4d7r/main.go"
     },
     {
       "entityKind": "company",
@@ -578,7 +578,7 @@
       "exchangeMic": "XNYS",
       "isicCode": "2620",
       "marketCapUsd": 3000000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-aapl-a1pl3y7z/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-aapl-a1pl3y7z/main.go"
     },
     {
       "entityKind": "exchange",
@@ -587,7 +587,7 @@
       "exchangeMic": "XNYS",
       "isicCode": null,
       "marketCapUsd": 3000000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xnys-x1ny5e8q/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xnys-x1ny5e8q/main.go"
     },
     {
       "entityKind": "company",
@@ -596,7 +596,7 @@
       "exchangeMic": "XNAS",
       "isicCode": "6312",
       "marketCapUsd": 2100000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-googl-g5gl8o3h/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-googl-g5gl8o3h/main.go"
     },
     {
       "entityKind": "company",
@@ -605,7 +605,7 @@
       "exchangeMic": "XNAS",
       "isicCode": "4791",
       "marketCapUsd": 2000000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-amzn-a4mz7n2f/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-amzn-a4mz7n2f/main.go"
     },
     {
       "entityKind": "company",
@@ -614,7 +614,7 @@
       "exchangeMic": "XNAS",
       "isicCode": "6312",
       "marketCapUsd": 1500000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnas-meta-m6ta9e4j/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnas-meta-m6ta9e4j/main.go"
     },
     {
       "entityKind": "company",
@@ -623,7 +623,7 @@
       "exchangeMic": "XNYS",
       "isicCode": "6419",
       "marketCapUsd": 680000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-jpm-j6pm8c4f/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-jpm-j6pm8c4f/main.go"
     },
     {
       "entityKind": "company",
@@ -632,7 +632,7 @@
       "exchangeMic": "XNYS",
       "isicCode": "4711",
       "marketCapUsd": 580000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-wmt-w3mt6a9e/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-wmt-w3mt6a9e/main.go"
     },
     {
       "entityKind": "company",
@@ -641,7 +641,7 @@
       "exchangeMic": "XNYS",
       "isicCode": "0610",
       "marketCapUsd": 460000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-xom-x2om5e7d/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-xom-x2om5e7d/main.go"
     },
     {
       "entityKind": "company",
@@ -650,7 +650,7 @@
       "exchangeMic": "XHKG",
       "isicCode": "6201",
       "marketCapUsd": 450000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0700-q5tc7n3k/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0700-q5tc7n3k/main.go"
     },
     {
       "entityKind": "exchange",
@@ -659,7 +659,7 @@
       "exchangeMic": "XHKG",
       "isicCode": null,
       "marketCapUsd": 450000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xhkg-h5kg3x9v/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xhkg-h5kg3x9v/main.go"
     },
     {
       "entityKind": "company",
@@ -668,7 +668,7 @@
       "exchangeMic": "XNYS",
       "isicCode": "2100",
       "marketCapUsd": 380000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xnys-jnj-j1nj3h8c/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xnys-jnj-j1nj3h8c/main.go"
     },
     {
       "entityKind": "company",
@@ -677,7 +677,7 @@
       "exchangeMic": "XJPX",
       "isicCode": "2910",
       "marketCapUsd": 300000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-7203-t3yo5a6u/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-7203-t3yo5a6u/main.go"
     },
     {
       "entityKind": "exchange",
@@ -686,7 +686,7 @@
       "exchangeMic": "XJPX",
       "isicCode": null,
       "marketCapUsd": 300000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xjpx-j3px6t5s/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xjpx-j3px6t5s/main.go"
     },
     {
       "entityKind": "company",
@@ -695,7 +695,7 @@
       "exchangeMic": "XHKG",
       "isicCode": "4791",
       "marketCapUsd": 250000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-9988-b0ba4l7m/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-9988-b0ba4l7m/main.go"
     },
     {
       "entityKind": "company",
@@ -704,7 +704,7 @@
       "exchangeMic": "XLON",
       "isicCode": "2100",
       "marketCapUsd": 220000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-azn-a9zn1e3j/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-azn-a9zn1e3j/main.go"
     },
     {
       "entityKind": "company",
@@ -713,7 +713,7 @@
       "exchangeMic": "XLON",
       "isicCode": "0610",
       "marketCapUsd": 210000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-shel-s4he7l2p/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-shel-s4he7l2p/main.go"
     },
     {
       "entityKind": "exchange",
@@ -722,7 +722,7 @@
       "exchangeMic": "XLON",
       "isicCode": null,
       "marketCapUsd": 200000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xlon-l4se8n2w/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xlon-l4se8n2w/main.go"
     },
     {
       "entityKind": "company",
@@ -731,7 +731,7 @@
       "exchangeMic": "XHKG",
       "isicCode": "6419",
       "marketCapUsd": 170000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0005-h5bc8k3q/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0005-h5bc8k3q/main.go"
     },
     {
       "entityKind": "company",
@@ -740,7 +740,7 @@
       "exchangeMic": "XLON",
       "isicCode": "6419",
       "marketCapUsd": 165000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-hsba-h1sb4a8q/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-hsba-h1sb4a8q/main.go"
     },
     {
       "entityKind": "company",
@@ -749,7 +749,7 @@
       "exchangeMic": "XHKG",
       "isicCode": "6120",
       "marketCapUsd": 160000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-0941-c9m14e2p/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-0941-c9m14e2p/main.go"
     },
     {
       "entityKind": "company",
@@ -758,7 +758,7 @@
       "exchangeMic": "XLON",
       "isicCode": "1040",
       "marketCapUsd": 125000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-ulvr-u2lv5r9s/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-ulvr-u2lv5r9s/main.go"
     },
     {
       "entityKind": "company",
@@ -767,7 +767,7 @@
       "exchangeMic": "XJPX",
       "isicCode": "2640",
       "marketCapUsd": 120000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-6758-s8ny2o6h/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-6758-s8ny2o6h/main.go"
     },
     {
       "entityKind": "company",
@@ -776,7 +776,7 @@
       "exchangeMic": "XJPX",
       "isicCode": "6419",
       "marketCapUsd": 120000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-8306-u8fg2m6n/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-8306-u8fg2m6n/main.go"
     },
     {
       "entityKind": "company",
@@ -785,7 +785,7 @@
       "exchangeMic": "XJPX",
       "isicCode": "2651",
       "marketCapUsd": 100000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-6861-k7yc1e5l/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-6861-k7yc1e5l/main.go"
     },
     {
       "entityKind": "company",
@@ -794,7 +794,7 @@
       "exchangeMic": "XJPX",
       "isicCode": "6110",
       "marketCapUsd": 100000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xjpx-9432-n9tt3o7p/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xjpx-9432-n9tt3o7p/main.go"
     },
     {
       "entityKind": "company",
@@ -803,7 +803,7 @@
       "exchangeMic": "XLON",
       "isicCode": "0610",
       "marketCapUsd": 100000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xlon-bp-b3pp6l1t/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xlon-bp-b3pp6l1t/main.go"
     },
     {
       "entityKind": "company",
@@ -812,7 +812,7 @@
       "exchangeMic": "XHKG",
       "isicCode": "6511",
       "marketCapUsd": 85000000000,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-co-xhkg-1299-a2ia6g4k/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-co-xhkg-1299-a2ia6g4k/main.go"
     }
   ],
   "exchanges": [
@@ -821,35 +821,35 @@
       "name": "NASDAQ",
       "marketCapUsd": 3100000000000,
       "totalListed": 3300,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xnas-n2as4d7r/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xnas-n2as4d7r/main.go"
     },
     {
       "mic": "XNYS",
       "name": "New York Stock Exchange",
       "marketCapUsd": 3000000000000,
       "totalListed": 2400,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xnys-x1ny5e8q/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xnys-x1ny5e8q/main.go"
     },
     {
       "mic": "XHKG",
       "name": "Hong Kong Stock Exchange",
       "marketCapUsd": 450000000000,
       "totalListed": 2600,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xhkg-h5kg3x9v/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xhkg-h5kg3x9v/main.go"
     },
     {
       "mic": "XJPX",
       "name": "Japan Exchange Group (TSE)",
       "marketCapUsd": 300000000000,
       "totalListed": 3800,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xjpx-j3px6t5s/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xjpx-j3px6t5s/main.go"
     },
     {
       "mic": "XLON",
       "name": "London Stock Exchange",
       "marketCapUsd": 200000000000,
       "totalListed": 1900,
-      "sourcePath": "legacy-actor-components/ai-gftd-performer-sys-gftd-actors-pba7d22f-org-exchange-xlon-l4se8n2w/main.go"
+      "sourcePath": "legacy-actor-components/etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-org-exchange-xlon-l4se8n2w/main.go"
     }
   ]
 }

@@ -4,7 +4,7 @@
  * Replaces the RW seed path (was `vertex_open_isic_class` migration) with
  * a straight-line PDS write loop. Idempotent: rkey derives from `code`
  * so re-running is a no-op past the first run. The class JSONs already
- * live in `60-apps/ai-gftd-project-open-isic/data/classes/`; this seeder
+ * live in `60-apps/etzhayyim-project-open-isic/data/classes/`; this seeder
  * reads them, derives the missing `section` field via division→section
  * mapping, and writes to PDS.
  *

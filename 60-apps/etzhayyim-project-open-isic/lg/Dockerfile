@@ -1,7 +1,7 @@
 # lg-open-isic OSS Dockerfile.
 #
 # Build:
-#   cd 60-apps/ai-gftd-project-open-isic/lg
+#   cd 60-apps/etzhayyim-project-open-isic/lg
 #   docker buildx build --platform linux/amd64 \
 #     --build-context py=../../../20-actors/magatama/py \
 #     -t ghcr.io/etzhayyim/lg-open-isic:0.1.0-amd64 \
