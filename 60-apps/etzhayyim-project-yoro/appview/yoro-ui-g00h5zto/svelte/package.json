@@ -59,7 +59,7 @@
     "@etzhayyim/auth": "workspace:*",
     "@etzhayyim/design-system": "workspace:*",
     "@huggingface/transformers": "^4.2.0",
-    "@inlang/paraglide-js": "^2.15.3",
+    "@inlang/paraglide-js": "^2.18.2",
     "@langchain/core": "^1.1.46",
     "@langchain/langgraph-sdk": "^1.9.2",
     "@langchain/svelte": "^1.0.2",
