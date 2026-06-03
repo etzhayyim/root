@@ -123,7 +123,7 @@
     "description": "12 immutable gates per ADR-2605263500. Council Lv6+ supermajority + new ADR to amend.",
     "gates": {
       "G1": "Charter Rider §2(a)-(h) scan",
-      "G2": "yatachain attestation lineage",
+      "G2": "kotoba-datomic attestation lineage",
       "G3": "NOT insurance (no premium / no actuarial / no claim denial / no underwriting)",
       "G4": "NO commercial insurance software (Guidewire/Duck Creek/Insurity/Sapiens/Majesco/SAP Insurance/Oracle Insurance/Lemonade/Hippo PROHIBITED)",
       "G5": "NO commercial re-insurance (Munich Re/Swiss Re/SCOR/Hannover Re PROHIBITED)",

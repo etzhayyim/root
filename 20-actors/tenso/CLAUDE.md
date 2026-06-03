@@ -128,6 +128,6 @@ did:web:tenso.etzhayyim.com                          <- controller
 ## Build & Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-tenso/wasm/ai-gftd-wasm-tenso-t3ns0f1l
-gftd deploy --smoke-url https://t3ns0f1l.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-tenso/wasm/etzhayyim-wasm-tenso-t3ns0f1l
+etzhayyim deploy --smoke-url https://t3ns0f1l.etzhayyim.com/health
 ```

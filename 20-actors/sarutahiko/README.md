@@ -41,12 +41,12 @@ A vehicle produced by sarutahiko is **operated** under wadachi gates; a vehicle 
 | `electrical_integration` | L5b | levi | Harness routing + ECU flash (G1 open-source firmware mandate) + diagnostics |
 | `quality_road_test` | L5c | levi | Roller dyno + 50 km public-road test (SAE Level 3 driver-in-seat, Norimichi) |
 | `emissions_audit` | cross-cutting | levi | Continuous Euro 7 + 大気汚染防止法 + Bharat Stage VI compliance |
-| `vin_attestation_binder` | terminal | judah | Per-VIN yatachain anchor (G2 open VIN registry) |
+| `vin_attestation_binder` | terminal | judah | Per-VIN kotoba-datomic anchor (G2 open VIN registry) |
 
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: ECU + electrical firmware open-source (Apache 2.0 + Charter Rider)
-- **G2**: Per-VIN manufacturing log yatachain anchor + open VIN registry
+- **G2**: Per-VIN manufacturing log kotoba-datomic anchor + open VIN registry
 - **G3**: Per-VIN IPFS-pinned photo + video (frame welding / paint / road test)
 - **G4**: Every critical weld + final marriage signed by witness quorum ≥2 robots
 - **G5**: Operator + service manual JP+EN bilingual minimum + open-source

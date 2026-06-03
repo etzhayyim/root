@@ -1,4 +1,4 @@
-# ai-gftd-project-society6
+# etzhayyim-project-society6
 
 COFOG portal + **Well-Becoming Kyu/Dan rank system**. Constituent 成長の過程を 5 軸で評価し、武道的段級位で可視化する。
 

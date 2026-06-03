@@ -62,7 +62,7 @@ Operational counterpart to **watatsuna 綿津綱** (the world submarine-cable-ne
 See `ADR-2605252200` §4 for definitions. Key enforcement:
 
 - **G1**: Pressure hull CAD + FEA open-source (FreeCAD `.fcstd` / Open CASCADE / OpenSCAD only — vendor-free per G9)
-- **G2**: Every class certification stage (DNV/ABS/NK/BV equivalent) anchored on yatachain
+- **G2**: Every class certification stage (DNV/ABS/NK/BV equivalent) anchored on kotoba-datomic
 - **G3**: Every weld pass + test step has IPFS-pinned photo + video
 - **G4**: Witness quorum ≥2 distinct robots (Sango + Tako, or Ama + Otete-marine) for critical welds
 - **G7**: Autonomous submerged operation ≤ maritime SAE J3016 Level 4 equivalent
@@ -158,7 +158,7 @@ See `ADR-2605252200` §4 for definitions. Key enforcement:
 ### class_certification_binder (terminal)
 - **Murakumo node**: judah
 - **Input**: all prior records (pressureHull → sea_trial + emissions)
-- **Output**: `classCertificationRecord` (yatachain-anchored audit binder; DNV-RU-UWT / ABS Underwater Vehicles / NK 同等)
+- **Output**: `classCertificationRecord` (kotoba-datomic-anchored audit binder; DNV-RU-UWT / ABS Underwater Vehicles / NK 同等)
 
 ## Build & Deploy (R0 → R1)
 

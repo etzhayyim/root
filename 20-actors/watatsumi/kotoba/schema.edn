@@ -234,7 +234,7 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "Submersible's DID (did:web:watatsumi.etzhayyim.com/...)"}
- {:db/ident :class-cert/yatachain-cid
+ {:db/ident :class-cert/kotoba-datomic-cid
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc "Yatachain anchor CID (G2)"}

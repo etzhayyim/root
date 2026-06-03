@@ -563,7 +563,7 @@
     "description": "Global VIN decoding, license plate lookup, vehicle history intelligence with cohort DID registration. Jurisdiction-aware multi-scheme identification (ISO 3779 VIN, JP kana plate, EU registration, US state plate).",
     "displayName": "VIN / Vehicle Registration Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

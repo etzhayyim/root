@@ -10,7 +10,7 @@
 | **performerType** | `service` (default sensitivity: `restricted`) |
 | **UI** | appview (Protocol Canvas card UI) |
 | **Data** | SQL graph (yata Workers RPC) — Role-based DID hierarchy (Shannon 最適) |
-| **WIT export** | `gftd:vin/vehicle-registry@1.0.0`, `vin-decoder@1.0.0`, `plate-resolver@1.0.0` |
+| **WIT export** | `etzhayyim:vin/vehicle-registry@1.0.0`, `vin-decoder@1.0.0`, `plate-resolver@1.0.0` |
 | **Domain** | `vin.etzhayyim.com` |
 | **Source type** | **1次ソース** (NHTSA API, 国交省リコール, EU RAPEX, WMI DB) + **2次ソース** (livecam OCR) |
 
@@ -178,7 +178,7 @@ RETURN p.plate AS orphan_vin, 'missing JurisdictionRegistry' AS gap
 livecam (YOLO車両検出 + OCR) → VIN actor へ cohort 登録リクエスト。
 
 ```
-cohort DID: did:web:vin.etzhayyim.com:cohort:fleet_gftd_tokyo
+cohort DID: did:web:vin.etzhayyim.com:cohort:fleet_etzhayyim_tokyo
   └─ member: did:web:vin.etzhayyim.com:vehicle:vinJTDKN3DU5A0123456
   └─ member: did:web:vin.etzhayyim.com:vehicle:vinWBAJA5C51KB123456
 ```

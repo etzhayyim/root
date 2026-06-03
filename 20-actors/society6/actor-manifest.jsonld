@@ -215,7 +215,7 @@
     "description": "Well-Becoming 5-axis scoring (Engagement/Competence/Contribution/Growth/Resilience) with Kyu/Dan rank promotion. COFOG constituent management and service assignment.",
     "displayName": "COFOG + Well-Becoming Kyu/Dan",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

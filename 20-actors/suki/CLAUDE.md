@@ -27,7 +27,7 @@ paint_finishing → electrical_ecu_load → quality_field_test → emissions_aud
                                                           (judah, terminal)
 ```
 
-Sarutahiko 9-cell + judah binder parity. judah anchors per-VIN yatachain record.
+Sarutahiko 9-cell + judah binder parity. judah anchors per-VIN kotoba-datomic record.
 
 ## Robotics Fleet
 

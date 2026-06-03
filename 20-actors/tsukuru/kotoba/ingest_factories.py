@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """tsukuru 作 — manufacturer registry ingest (legacy → kotoba :factory/* Datoms).
 
-ADR-2605202800, migration plan Phase 3. The legacy gftd-era registry held 460+
+ADR-2605202800, migration plan Phase 3. The legacy etzhayyim-era registry held 460+
 manufacturer DIDs across 30+ countries in the AT collections:
 
     com.etzhayyim.apps.tsukuru.manufacturer        (active)

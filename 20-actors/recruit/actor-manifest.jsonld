@@ -381,7 +381,7 @@
     "description": "Global job-posting aggregator (public feeds only, legal-entity anchored).",
     "displayName": "Recruit",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

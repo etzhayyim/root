@@ -1,4 +1,4 @@
-# ai-gftd-project-tsukuru
+# etzhayyim-project-tsukuru
 
 B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
@@ -28,15 +28,15 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 ## Required WIT Packages
 
-- `gftd:tsukuru@0.1.0`
-- `gftd:tsukuru-process-registry@1.0.0`
-- `gftd:tsukuru-manufacturer-registry@1.0.0`
-- `gftd:tsukuru-trade-compliance@1.0.0`
-- `gftd:tsukuru-production-order@1.0.0`
+- `etzhayyim:tsukuru@0.1.0`
+- `etzhayyim:tsukuru-process-registry@1.0.0`
+- `etzhayyim:tsukuru-manufacturer-registry@1.0.0`
+- `etzhayyim:tsukuru-trade-compliance@1.0.0`
+- `etzhayyim:tsukuru-production-order@1.0.0`
 
 ## Production Order (BTO/OEM)
 
-**WIT**: `gftd:tsukuru-production-order@1.0.0` — production-order, production-progress, quality-inspection
+**WIT**: `etzhayyim:tsukuru-production-order@1.0.0` — production-order, production-progress, quality-inspection
 
 **Record kinds** (`com.etzhayyim.apps.tsukuru.*`): `production_order`, `production_progress`, `quality_inspection`
 
@@ -50,7 +50,7 @@ B2B factory-direct ordering platform for `tsukuru.etzhayyim.com`.
 
 ## CNT / CNT Fiber Process Automation
 
-**WIT surface**: `gftd:tsukuru-process-registry@1.0.0` + `gftd:tsukuru-production-order@1.0.0`
+**WIT surface**: `etzhayyim:tsukuru-process-registry@1.0.0` + `etzhayyim:tsukuru-production-order@1.0.0`
 
 **XRPC**:
 - `com.etzhayyim.apps.tsukuru.cnt.designManufacturingFlow`
@@ -76,7 +76,7 @@ replace the Tsukuru manufacturing owner; they feed compliance, supply, customs,
 and embedded-carbon context into the CNT flow.
 
 **Catalog/schema data**:
-- code: `60-apps/ai-gftd-project-tsukuru/appview/tsukuru-tsukr8u0/src/cnt-process-catalog.ts`
+- code: `60-apps/etzhayyim-project-tsukuru/appview/tsukuru-tsukr8u0/src/cnt-process-catalog.ts`
 - schema: `00-contracts/schemas/tsukuru-cnt-process-catalog.schema.json`
 - data: `00-contracts/catalogs/com/etzhayyim/tsukuru/cnt/process-catalog.v1.json`
 - run package schema: `00-contracts/schemas/tsukuru-cnt-run-package.schema.json`
@@ -88,24 +88,24 @@ and embedded-carbon context into the CNT flow.
 
 | Project | Integration | Purpose |
 |---|---|---|
-| `ai-gftd-project-cpc` | WIT bidirectional dependency | CPC process resolution and performer linking |
-| `ai-gftd-project-resources` | XRPC `CreateResource` | Supplier/resource synchronization |
-| `ai-gftd-project-legal-entity` | `Invoke` LEI lookup | Legal entity verification |
-| `ai-gftd-project-yabai` | `Invoke` `ScreenEntity` | Sanctions and denied-party screening |
-| `ai-gftd-project-trust` | `Invoke` `GetTrustScore` | DID trust scoring |
-| `ai-gftd-project-completer` | `Invoke` `EvaluateCompliance` | Trade/regulatory compliance evaluation |
-| `ai-gftd-project-treaty` | Authority chain | FTA/EPA trade agreement resolution |
-| `ai-gftd-project-industry-standard` | Authority chain follow | ISO and industry standard tracking |
-| `ai-gftd-project-maps` | Graph `:LOCATED_IN` relation | Factory geolocation linkage |
-| `ai-gftd-project-supply-chain` | Graph `:SUPPLIES` relation | Upstream/downstream risk and supplier graph |
-| `ai-gftd-project-okaimono` | Catalog integration | Factory-direct catalog federation |
+| `etzhayyim-project-cpc` | WIT bidirectional dependency | CPC process resolution and performer linking |
+| `etzhayyim-project-resources` | XRPC `CreateResource` | Supplier/resource synchronization |
+| `etzhayyim-project-legal-entity` | `Invoke` LEI lookup | Legal entity verification |
+| `etzhayyim-project-yabai` | `Invoke` `ScreenEntity` | Sanctions and denied-party screening |
+| `etzhayyim-project-trust` | `Invoke` `GetTrustScore` | DID trust scoring |
+| `etzhayyim-project-completer` | `Invoke` `EvaluateCompliance` | Trade/regulatory compliance evaluation |
+| `etzhayyim-project-treaty` | Authority chain | FTA/EPA trade agreement resolution |
+| `etzhayyim-project-industry-standard` | Authority chain follow | ISO and industry standard tracking |
+| `etzhayyim-project-maps` | Graph `:LOCATED_IN` relation | Factory geolocation linkage |
+| `etzhayyim-project-supply-chain` | Graph `:SUPPLIES` relation | Upstream/downstream risk and supplier graph |
+| `etzhayyim-project-okaimono` | Catalog integration | Factory-direct catalog federation |
 
 ## Build and Deploy
 
 ```bash
-cd 60-apps/ai-gftd-project-tsukuru/wasm/tsukuru-tsukr8u0
-gftd build
-gftd deploy --smoke-url https://tsukr8u0.etzhayyim.com/health
+cd 60-apps/etzhayyim-project-tsukuru/wasm/tsukuru-tsukr8u0
+etzhayyim build
+etzhayyim deploy --smoke-url https://tsukr8u0.etzhayyim.com/health
 ```
 
 ## Storage and Access Rules

@@ -30,12 +30,12 @@ Tourist submersibles are deferred to R3+ pending wellbecoming §1.13 Council rev
 | `pressure_test` | L5b | dan | 1.25× design-depth water-pressure test |
 | `sea_trial` | L5c | levi | Dock → harbor → deep-water class trial |
 | `marine_emissions_audit` | cross-cutting | levi | MARPOL Annex I-VI + BWMC + biofouling |
-| `class_certification_binder` | terminal | judah | DNV-RU-UWT / ABS Underwater Vehicles audit binder on yatachain |
+| `class_certification_binder` | terminal | judah | DNV-RU-UWT / ABS Underwater Vehicles audit binder on kotoba-datomic |
 
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: Pressure hull CAD + FEA + firmware open-source (Apache 2.0 + Charter Rider)
-- **G2**: Class certification audit log on yatachain (DNV/ABS/NK/BV equivalent)
+- **G2**: Class certification audit log on kotoba-datomic (DNV/ABS/NK/BV equivalent)
 - **G3**: Every weld pass + test step IPFS-pinned photo + video
 - **G4**: Witness quorum ≥2 distinct robots per critical weld (Ed25519, DID-bound)
 - **G5**: JP + EN bilingual minimum for all permits / class reports / owner's manuals

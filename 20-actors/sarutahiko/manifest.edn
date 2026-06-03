@@ -16,7 +16,7 @@
 
  :actor/gates
  [{:gate/id "G1"  :gate/name "ecu-firmware-open-source" :gate/rule "ECU + all electrical firmware open-source (Apache 2.0 + Charter Rider). No proprietary ECU."}
-  {:gate/id "G2"  :gate/name "vin-yatachain-anchor"     :gate/rule "Per-VIN manufacturing log yatachain anchor + open VIN registry."}
+  {:gate/id "G2"  :gate/name "vin-kotoba-datomic-anchor"     :gate/rule "Per-VIN manufacturing log kotoba-datomic anchor + open VIN registry."}
   {:gate/id "G3"  :gate/name "ipfs-pinned-media"        :gate/rule "Per-VIN IPFS-pinned photo + video (welding / paint / road test)."}
   {:gate/id "G4"  :gate/name "robot-witness-quorum"     :gate/rule "Witness quorum >=2 distinct robots per critical weld + final marriage."}
   {:gate/id "G7"  :gate/name "fuel-type-progression"    :gate/rule "R0/R1 transition: B100 biodiesel + diesel hybrid acceptable. R2+: LFP / H₂ / NH₃ / methanol fuel-cell only. Pure-fossil phased out at R2."}

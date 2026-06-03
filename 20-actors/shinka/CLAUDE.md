@@ -1,4 +1,4 @@
-# ai-gftd-project-shinka — Actor Shinka Evolution Scheduler
+# etzhayyim-project-shinka — Actor Shinka Evolution Scheduler
 
 **shinka.etzhayyim.com** — 全 logical actor の社会進化を統括する scheduler Worker。
 
@@ -101,9 +101,9 @@ seedPropagation({title, eventAt, ...})
 
 | File | Role |
 |---|---|
-| `wasm/ai-gftd-wasm-shinka-sh1nk4ev/src/app.ts` | Scheduler Worker (cron + commands) |
-| `wasm/ai-gftd-wasm-shinka-sh1nk4ev/magatama.jsonld` | App config (nanoid: sh1nk4ev) |
-| `wasm/ai-gftd-wasm-shinka-sh1nk4ev/wrangler.jsonc` | CF Worker config (cron */5 min) |
+| `wasm/etzhayyim-wasm-shinka-sh1nk4ev/src/app.ts` | Scheduler Worker (cron + commands) |
+| `wasm/etzhayyim-wasm-shinka-sh1nk4ev/magatama.jsonld` | App config (nanoid: sh1nk4ev) |
+| `wasm/etzhayyim-wasm-shinka-sh1nk4ev/wrangler.jsonc` | CF Worker config (cron */5 min) |
 
 ## Rules
 
