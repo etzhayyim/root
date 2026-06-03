@@ -48,10 +48,10 @@
    :gov.unit/wikidata "Q17"
    :gov.unit/cofog ["01"]
    :gov.unit/status :active
-   :gov.unit/sourcing :representative
+   :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.japan.go.jp/"
    :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jpn.mof"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:jpn:ministry:mof"
@@ -63,14 +63,14 @@
    :gov.unit/name-en "Ministry of Finance"
    :gov.unit/name-romanized "Zaimu-shō"
    :gov.unit/official-url "https://www.mof.go.jp/"
-   :gov.unit/wikidata "Q1023766"
+   :gov.unit/wikidata "Q1322605"
    :gov.unit/external-code ["jp-soshiki:財務省"]
    :gov.unit/cofog ["01.1"]
    :gov.unit/status :active
-   :gov.unit/sourcing :representative
+   :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.mof.go.jp/"
    :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jpn.mof.nta"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:jpn:agency:nta"
@@ -82,13 +82,13 @@
    :gov.unit/name-en "National Tax Agency"
    :gov.unit/name-romanized "Kokuzei-chō"
    :gov.unit/official-url "https://www.nta.go.jp/"
-   :gov.unit/wikidata "Q2425817"
+   :gov.unit/wikidata "Q11421205"
    :gov.unit/cofog ["01.1"]
    :gov.unit/status :active
-   :gov.unit/sourcing :representative
+   :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.nta.go.jp/"
    :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.jpn.mof.nta.tokyo"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:jpn:bureau:nta-tokyo"
@@ -154,7 +154,7 @@
    :gov.unit/name-en "Shinjuku City"
    :gov.unit/name-romanized "Shinjuku-ku"
    :gov.unit/official-url "https://www.city.shinjuku.lg.jp/"
-   :gov.unit/wikidata "Q170461"
+   :gov.unit/wikidata "Q179645"
    :gov.unit/external-code ["jp-jichitai:131041"]
    :gov.unit/cofog ["01"]
    :gov.unit/status :active
@@ -169,59 +169,59 @@
    :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "usa"
    :gov.unit/name-local "United States of America" :gov.unit/name-en "United States of America"
    :gov.unit/official-url "https://www.usa.gov/" :gov.unit/wikidata "Q30" :gov.unit/cofog ["01"]
-   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.usa.gov/" :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
   {:gov.unit/id "gov.usa.treasury"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:dept:treasury"
    :gov.unit/parent "gov.usa" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "usa" :gov.unit/name-local "Department of the Treasury"
    :gov.unit/name-en "Department of the Treasury" :gov.unit/official-url "https://home.treasury.gov/"
-   :gov.unit/wikidata "Q633534" :gov.unit/cofog ["01.1"] :gov.unit/status :active
-   :gov.unit/sourcing :representative :gov.unit/provenance "https://home.treasury.gov/"
-   :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
+   :gov.unit/wikidata "Q648666" :gov.unit/cofog ["01.1"] :gov.unit/status :active
+   :gov.unit/sourcing :authoritative :gov.unit/provenance "https://home.treasury.gov/"
+   :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :maintainer-verified}
   {:gov.unit/id "gov.usa.treasury.irs"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:usa:agency:irs"
    :gov.unit/parent "gov.usa.treasury" :gov.unit/level :agency :gov.unit/branch :executive
    :gov.unit/jurisdiction "usa" :gov.unit/name-local "Internal Revenue Service"
    :gov.unit/name-en "Internal Revenue Service" :gov.unit/official-url "https://www.irs.gov/"
-   :gov.unit/wikidata "Q254375" :gov.unit/cofog ["01.1"] :gov.unit/status :active
-   :gov.unit/sourcing :representative :gov.unit/provenance "https://www.irs.gov/"
-   :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
+   :gov.unit/wikidata "Q973587" :gov.unit/cofog ["01.1"] :gov.unit/status :active
+   :gov.unit/sourcing :authoritative :gov.unit/provenance "https://www.irs.gov/"
+   :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.gbr"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:gbr"
    :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "gbr"
    :gov.unit/name-local "United Kingdom" :gov.unit/name-en "United Kingdom"
    :gov.unit/official-url "https://www.gov.uk/" :gov.unit/wikidata "Q145" :gov.unit/cofog ["01"]
-   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.gov.uk/" :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
   {:gov.unit/id "gov.gbr.hmrc"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:gbr:dept:hmrc"
    :gov.unit/parent "gov.gbr" :gov.unit/level :ministry :gov.unit/branch :executive
    :gov.unit/jurisdiction "gbr" :gov.unit/name-local "HM Revenue & Customs"
    :gov.unit/name-en "His Majesty's Revenue and Customs" :gov.unit/official-url "https://www.gov.uk/government/organisations/hm-revenue-customs"
-   :gov.unit/wikidata "Q1377862" :gov.unit/cofog ["01.1"] :gov.unit/status :active
-   :gov.unit/sourcing :representative :gov.unit/provenance "https://www.gov.uk/government/organisations/hm-revenue-customs"
-   :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :unverified-seed}
+   :gov.unit/wikidata "Q166559" :gov.unit/cofog ["01.1"] :gov.unit/status :active
+   :gov.unit/sourcing :authoritative :gov.unit/provenance "https://www.gov.uk/government/organisations/hm-revenue-customs"
+   :gov.unit/last-verified "2026-06-02" :gov.unit/verification-status :maintainer-verified}
 
   {:gov.unit/id "gov.deu"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:deu"
    :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "deu"
    :gov.unit/name-local "Bundesrepublik Deutschland" :gov.unit/name-en "Federal Republic of Germany"
    :gov.unit/official-url "https://www.bund.de/" :gov.unit/wikidata "Q183" :gov.unit/cofog ["01"]
-   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.bund.de/" :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
   {:gov.unit/id "gov.kor"
    :gov.unit/atlas-did "did:web:etzhayyim.com:gov:kor"
    :gov.unit/level :country :gov.unit/branch :executive :gov.unit/jurisdiction "kor"
    :gov.unit/name-local "대한민국" :gov.unit/name-en "Republic of Korea"
    :gov.unit/official-url "https://www.korea.kr/" :gov.unit/wikidata "Q884" :gov.unit/cofog ["01"]
-   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://www.korea.kr/" :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}
+   :gov.unit/verification-status :maintainer-verified}
 
   ;; ── Supranational (level :supranational, branch :intergovernmental) ────────
   {:gov.unit/id "gov.eu"
@@ -229,9 +229,9 @@
    :gov.unit/level :supranational :gov.unit/branch :intergovernmental :gov.unit/jurisdiction "eu"
    :gov.unit/name-local "European Union" :gov.unit/name-en "European Union"
    :gov.unit/official-url "https://european-union.europa.eu/" :gov.unit/wikidata "Q458" :gov.unit/cofog ["01"]
-   :gov.unit/status :active :gov.unit/sourcing :representative
+   :gov.unit/status :active :gov.unit/sourcing :authoritative
    :gov.unit/provenance "https://european-union.europa.eu/" :gov.unit/last-verified "2026-06-02"
-   :gov.unit/verification-status :unverified-seed}]
+   :gov.unit/verification-status :maintainer-verified}]
 
  ;; ════════════════════════════════════════════════════════════════════════════
  ;; ADDRESSES — 住所 (headquarters + 窓口 addresses)
