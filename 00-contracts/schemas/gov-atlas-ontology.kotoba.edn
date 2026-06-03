@@ -65,7 +65,7 @@
  {:db/ident :gov.unit/level
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
-  :db/doc ":supranational :country :region :subdivision :prefecture :municipality :ward :ministry :agency :bureau :division :section :madoguchi (窓口) :legislature (legislative-branch body — parliament/congress) :court (judicial-branch body)"}
+  :db/doc ":supranational :country :region :subdivision :prefecture :municipality :ward :ministry :agency :bureau :division :section :madoguchi (窓口) :legislature (legislative-branch body — parliament/congress) :court (judicial-branch body) :cabinet (executive body — government/cabinet of a country)"}
  {:db/ident :gov.unit/branch
   :db/valueType :db.type/keyword
   :db/cardinality :db.cardinality/one
