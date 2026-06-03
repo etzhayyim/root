@@ -4,7 +4,7 @@ NSID: com.etzhayyim.apps.yukkuri.uploadYoutube
 
 Actor: did:web:yukkuri.etzhayyim.com:actor:publisher
 
-OAuth2 refresh-token flow (shared with ai-gftd-project-youtube). Secrets read
+OAuth2 refresh-token flow (shared with etzhayyim-project-youtube). Secrets read
 from env (loaded from vault by k8s pod):
 
   YOUTUBE_CLIENT_ID
