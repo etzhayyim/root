@@ -77,7 +77,7 @@ htmlcov/
 *.lcov
 
 # Lexicon + BPMN dirs named "coverage" are not test output — keep them tracked
-# (mirrors ai-gftd-apps-gftdcojp .gitignore exceptions; ADR-2605181400)
+# (mirrors etzhayyim-apps-etzhayyimcojp .gitignore exceptions; ADR-2605181400)
 !00-contracts/lexicons/**/coverage/
 !00-contracts/lexicons/**/coverage/**
 !00-contracts/bpmn/**/coverage/

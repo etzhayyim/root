@@ -3,7 +3,7 @@ name: id-filename-consistency
 # Validate id↔filename consistency per 7th-axis registry enforcement
 # (ADR-2605271200 cycle 61; defense-in-depth wired cycle 69).
 # Tracker mode — baseline 53 known mismatches (mostly rename-pending
-# per CLAUDE.md root §"Do Not" gftd/amanomibashira invariants).
+# per CLAUDE.md root §"Do Not" etzhayyim/amanomibashira invariants).
 
 on:
   push:
@@ -77,7 +77,7 @@ jobs:
               echo "  - Initial cycle 61 found 88; auto-fix + permissive matching → 57"
               echo "  - Cycle 62 cleaned 4 (3 engineering + 1 off-by-45 typo) → 53"
               echo "  - Remaining 53 are mostly rename-pending per CLAUDE.md §\"Do Not\""
-              echo "    (gftdcojp → etzhayyim / amanomibashira → etzhayyim cutover invariants)"
+              echo "    (etzhayyimcojp → etzhayyim / amanomibashira → etzhayyim cutover invariants)"
               echo ""
               if [ "$total" -gt 53 ]; then
                 echo "⚠️ Total **above baseline (53)** — new id↔filename drift."

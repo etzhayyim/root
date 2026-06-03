@@ -107,7 +107,7 @@ updates:
   # `/20-actors/kami-engine-sdk` directory entry removed per ADR-2605265200
   # Phase 3 (commit 2d199cca9, 2026-05-26 iter-11). Canonical SDK lives at
   # `40-engine/kami-engine/kami-engine-sdk` (git subrepo of
-  # github.com/gftdcojp/kami-engine-sdk); dependabot updates for the subrepo
+  # github.com/etzhayyimcojp/kami-engine-sdk); dependabot updates for the subrepo
   # flow through the upstream repo's own dependabot config, not here.
   - package-ecosystem: "npm"
     directory: "/20-actors/magatama/mcp/unispsc-isic-mcp"
@@ -379,23 +379,23 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-isic/appview/worker"
+    directory: "/60-apps/etzhayyim-project-open-isic/appview/worker"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-robo/appview/open-robo-hp"
+    directory: "/60-apps/etzhayyim-project-open-robo/appview/open-robo-hp"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-open-robo/appview/open-robo-hp/svelte"
+    directory: "/60-apps/etzhayyim-project-open-robo/appview/open-robo-hp/svelte"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto"
+    directory: "/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/60-apps/ai-gftd-project-yoro/appview/yoro-ui-g00h5zto/svelte"
+    directory: "/60-apps/etzhayyim-project-yoro/appview/yoro-ui-g00h5zto/svelte"
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
@@ -647,35 +647,35 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/cells"
+    directory: "/60-apps/etzhayyim-project-open-ot/cells"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/cells/anti-islanding-rocof"
+    directory: "/60-apps/etzhayyim-project-open-ot/cells/anti-islanding-rocof"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/cells/droop-p-f"
+    directory: "/60-apps/etzhayyim-project-open-ot/cells/droop-p-f"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/cells/openot-bfb-rs"
+    directory: "/60-apps/etzhayyim-project-open-ot/cells/openot-bfb-rs"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/cells/pid-limited"
+    directory: "/60-apps/etzhayyim-project-open-ot/cells/pid-limited"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/cells/pid-stack-100"
+    directory: "/60-apps/etzhayyim-project-open-ot/cells/pid-stack-100"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/risk1"
+    directory: "/60-apps/etzhayyim-project-open-ot/risk1"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
-    directory: "/60-apps/ai-gftd-project-open-ot/risk1/gate-a-rig"
+    directory: "/60-apps/etzhayyim-project-open-ot/risk1/gate-a-rig"
     schedule:
       interval: "weekly"
   - package-ecosystem: "cargo"
@@ -707,14 +707,14 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-open-isic/lg"
+    directory: "/60-apps/etzhayyim-project-open-isic/lg"
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-open-ot/orchestrator"
+    directory: "/60-apps/etzhayyim-project-open-ot/orchestrator"
     schedule:
       interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/60-apps/ai-gftd-project-open-robo/firmware"
+    directory: "/60-apps/etzhayyim-project-open-robo/firmware"
     schedule:
       interval: "weekly"
