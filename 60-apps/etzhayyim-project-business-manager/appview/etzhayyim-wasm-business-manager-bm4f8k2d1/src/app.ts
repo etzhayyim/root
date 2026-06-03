@@ -5,7 +5,7 @@ type Env = {
 
 const ACTOR = {
   name: "Business Manager",
-  did: "did:web:business-manager.gftd.ai",
+  did: "did:web:business-manager.etzhayyim.com",
   nanoid: "bm4f8k2d1",
 };
 
@@ -56,7 +56,7 @@ async function readBody(request: Request): Promise<Record<string, unknown> | nul
 }
 
 async function dispatch(env: Env, nsid: string, body: Record<string, unknown>, request: Request): Promise<Response> {
-  const base = (env.DISPATCHER_URL ?? "https://dispatcher.gftd.ai").replace(/\/+$/, "");
+  const base = (env.DISPATCHER_URL ?? "https://dispatcher.etzhayyim.com").replace(/\/+$/, "");
   const headers = new Headers({ accept: "application/json", "content-type": "application/json" });
   const auth = request.headers.get("authorization");
   if (auth) headers.set("authorization", auth);

@@ -58,7 +58,7 @@
         <zeebe:taskHeaders>
           <zeebe:header key="project" value="shinshi" />
           <zeebe:header key="nanoid" value="sh1n5h1x" />
-          <zeebe:header key="url" value="https://shinshi.gftd.ai" />
+          <zeebe:header key="url" value="https://shinshi.etzhayyim.com" />
           <zeebe:header key="process" value="shinshi-business-process" />
           <zeebe:header key="kpis" value="content_coverage,crawler_health,model_pipeline,engagement_rate" />
         </zeebe:taskHeaders>
@@ -73,7 +73,7 @@
         <zeebe:taskHeaders>
           <zeebe:header key="project" value="web4" />
           <zeebe:header key="nanoid" value="web4" />
-          <zeebe:header key="url" value="https://web4.gftd.ai" />
+          <zeebe:header key="url" value="https://web4.etzhayyim.com" />
           <zeebe:header key="process" value="web4-business-process" />
           <zeebe:header key="kpis" value="contract_health,model_distribution,inference_pipeline,token_economics" />
         </zeebe:taskHeaders>
@@ -88,7 +88,7 @@
         <zeebe:taskHeaders>
           <zeebe:header key="project" value="news" />
           <zeebe:header key="nanoid" value="r5wvpkot" />
-          <zeebe:header key="url" value="https://news.gftd.ai" />
+          <zeebe:header key="url" value="https://news.etzhayyim.com" />
           <zeebe:header key="process" value="news-business-process" />
           <zeebe:header key="kpis" value="content_freshness,rss_coverage,writer_pipeline,category_health" />
         </zeebe:taskHeaders>

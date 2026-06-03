@@ -1,6 +1,6 @@
-# Migration TODO — ai-gftd-project-business-manager
+# Migration TODO — etzhayyim-project-business-manager
 
-**Status**: 🔄 TRANSFORM (partial-merge) — net-new files merged from gftdcojp archive 2026-06-02.
+**Status**: 🔄 TRANSFORM (partial-merge) — net-new files merged from etzhayyim archive 2026-06-02.
 Existing etzhayyim files were NOT overwritten (additive merge).
 
 **Codemod pending** (substrate-boundary ADR-2605172000 / 2605172100):

@@ -13,7 +13,7 @@
                   modeler:executionPlatformVersion="8.2.0">
 
   <bpmn:collaboration id="Collaboration_Web4">
-    <bpmn:participant id="Pool_Web4" name="Web4 Platform (web4.gftd.ai)" processRef="Process_Web4" />
+    <bpmn:participant id="Pool_Web4" name="Web4 Platform (web4.etzhayyim.com)" processRef="Process_Web4" />
   </bpmn:collaboration>
 
   <bpmn:process id="Process_Web4" name="Web4 Business Management Process" isExecutable="true">
@@ -69,8 +69,8 @@
         <zeebe:taskDefinition type="bm.web4.check_model_distribution" />
         <zeebe:taskHeaders>
           <zeebe:header key="kpi" value="model_distribution" />
-          <zeebe:header key="bucket" value="gftd-static-sites" />
-          <zeebe:header key="models" value="gftd-distributed-moe-260222,gftd-distributed-ti2v-moe-260222" />
+          <zeebe:header key="bucket" value="etzhayyim-static-sites" />
+          <zeebe:header key="models" value="etzhayyim-distributed-moe-260222,etzhayyim-distributed-ti2v-moe-260222" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_W_ToModel</bpmn:incoming>

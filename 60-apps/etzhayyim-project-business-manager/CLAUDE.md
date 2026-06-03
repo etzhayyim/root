@@ -1,6 +1,6 @@
 > **DEPRECATED**: Actor migrated to `20-actors/business-manager/actor-manifest.jsonld` (T1 MCP-Compose). This project wasm/*/src/app.ts is retained as T3 fallback only.
 
-# CLAUDE.md (60-apps/ai-gftd-project-business-manager)
+# CLAUDE.md (60-apps/etzhayyim-project-business-manager)
 
 このプロジェクトの `business-manager` コンポーネントは `70-tools/performer` を前提にした API-only App 実装。
 

@@ -1,6 +1,6 @@
 {
-  "@context": "https://gftd.ai/ns/magatama/v1",
-  "@id": "did:web:bm.gftd.ai",
+  "@context": "https://etzhayyim.com/ns/magatama/v1",
+  "@id": "did:web:bm.etzhayyim.com",
   "component": {
     "path": "component.wasm"
   },
@@ -32,12 +32,12 @@
     "description": "Business Manager — AI Agent for business-management intelligence and analytics",
     "displayName": "Business Manager",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.com"
   },
   "project": "business-manager",
   "routes": [
     {
-      "host": "bm.gftd.ai",
+      "host": "bm.etzhayyim.com",
       "paths": [
         "/"
       ],

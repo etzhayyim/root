@@ -1,5 +1,5 @@
 <main>
-  <h1>ai-gftd-wasm-business-manager-bm4f8k2d1</h1>
+  <h1>etzhayyim-wasm-business-manager-bm4f8k2d1</h1>
   <p>Vite entry scaffold after SvelteKit cleanup.</p>
 </main>
 

@@ -2,11 +2,11 @@
 
 ## Goal
 
-`bm.gftd.ai` の app metrics 評価結果を Matrix room に報告し、確認、承認、異常時エスカレーションを Matrix protocol 上で完結させる。
+`bm.etzhayyim.com` の app metrics 評価結果を Matrix room に報告し、確認、承認、異常時エスカレーションを Matrix protocol 上で完結させる。
 
 ## Transport
 
-- homeserver: `https://matrix.gftd.ai`
+- homeserver: `https://matrix.etzhayyim.com`
 - client: `70-tools/performer.NewMatrixClientFromEnv()`
 - delivery: Matrix room event
 - correlation: `request_event_id`, `run_id`, `domain`, `captured_at`
@@ -14,31 +14,31 @@
 ## Rooms
 
 - control room:
-  `!bm-metrics-control:matrix.gftd.ai`
+  `!bm-metrics-control:matrix.etzhayyim.com`
   BM の定期報告、障害、再実行要求
 - app rooms:
-  - `!bm-shinshi:matrix.gftd.ai`
-  - `!bm-news:matrix.gftd.ai`
-  - `!bm-games:matrix.gftd.ai`
-  - `!bm-gamers:matrix.gftd.ai`
-  - `!bm-pachinko:matrix.gftd.ai`
+  - `!bm-shinshi:matrix.etzhayyim.com`
+  - `!bm-news:matrix.etzhayyim.com`
+  - `!bm-games:matrix.etzhayyim.com`
+  - `!bm-gamers:matrix.etzhayyim.com`
+  - `!bm-pachinko:matrix.etzhayyim.com`
 - escalation room:
-  `!bm-metrics-escalation:matrix.gftd.ai`
+  `!bm-metrics-escalation:matrix.etzhayyim.com`
 
 ## Event Types
 
 - report:
-  `org.gftd.metrics.report`
+  `org.etzhayyim.metrics.report`
 - alert:
-  `org.gftd.metrics.alert`
+  `org.etzhayyim.metrics.alert`
 - ack:
-  `org.gftd.metrics.ack`
+  `org.etzhayyim.metrics.ack`
 - verify request:
-  `org.gftd.metrics.verify`
+  `org.etzhayyim.metrics.verify`
 - verify result:
-  `org.gftd.metrics.verify.result`
+  `org.etzhayyim.metrics.verify.result`
 - rollout gate:
-  `org.gftd.metrics.gate`
+  `org.etzhayyim.metrics.gate`
 
 ## Report Event
 
@@ -47,12 +47,12 @@
   "app": "bm",
   "domain": "news",
   "run_id": "bm-1773288424192244002",
-  "source": "https://bm.gftd.ai",
+  "source": "https://bm.etzhayyim.com",
   "report_type": "scheduled",
   "score": 81.4,
   "risk_level": "medium",
-  "metrics_url": "https://news.gftd.ai/metrics",
-  "health_url": "https://news.gftd.ai/health",
+  "metrics_url": "https://news.etzhayyim.com/metrics",
+  "health_url": "https://news.etzhayyim.com/health",
   "captured_at": "2026-03-12T04:07:04Z",
   "otel_metrics": {
     "request_count": 1244,
@@ -79,11 +79,11 @@
 
 ## Verify Flow
 
-1. BM posts `org.gftd.metrics.report`
-2. reviewer bot or operator posts `org.gftd.metrics.verify`
+1. BM posts `org.etzhayyim.metrics.report`
+2. reviewer bot or operator posts `org.etzhayyim.metrics.verify`
 3. verifier fetches `health` and `metrics`
-4. verifier posts `org.gftd.metrics.verify.result`
-5. operator posts `org.gftd.metrics.ack`
+4. verifier posts `org.etzhayyim.metrics.verify.result`
+5. operator posts `org.etzhayyim.metrics.ack`
 
 ## Ack Event
 
@@ -94,7 +94,7 @@
   "run_id": "bm-1773288424192244002",
   "request_event_id": "$metrics-report",
   "ack_status": "accepted",
-  "confirmed_by": "@ops:matrix.gftd.ai",
+  "confirmed_by": "@ops:matrix.etzhayyim.com",
   "confirmed_at": "2026-03-12T04:09:10Z",
   "note": "public metrics and health verified"
 }
@@ -109,7 +109,7 @@
 - `risk_level == high`
 - `diagnostics` not empty
 
-On alert, BM posts `org.gftd.metrics.alert` to control room and app room.  
+On alert, BM posts `org.etzhayyim.metrics.alert` to control room and app room.
 If unresolved after SLA, mirror to escalation room.
 
 ## Implementation Notes

@@ -1,4 +1,4 @@
-# AGENTS (60-apps/ai-gftd-project-business-manager)
+# AGENTS (60-apps/etzhayyim-project-business-manager)
 
 - `business-manager` component の変更は `70-tools/performer` ベースで実装する。
 - API は `wasi:http/incoming-handler` + `performer.Adapter` のみに限定し、
