@@ -8,7 +8,7 @@ Kyber BPMN projector that maps PCF process IDs to BPMN process definitions.
 Tranche F scaffolding (Phase 2). Per ADR-2605172400, the user has confirmed
 APQC + Kyber as full etzhayyim move (not SPLIT). Catalog reference data and
 the BPMN projector spec live here; vendor-specific customer mapping stays
-in `etzhayyim/etzhayyim-root` (60-apps/ai-gftd-project-kyber-*).
+in `etzhayyim/etzhayyim-root` (60-apps/etzhayyim-project-kyber-*).
 
 ## NSIDs (planned)
 
@@ -19,8 +19,8 @@ in `etzhayyim/etzhayyim-root` (60-apps/ai-gftd-project-kyber-*).
 
 ## See also
 
-- `60-apps/ai-gftd-project-open-apqc/` (this repo, scaffolding)
-- `60-apps/ai-gftd-project-open-kyber/` (this repo, Tranche E)
+- `60-apps/etzhayyim-project-open-apqc/` (this repo, scaffolding)
+- `60-apps/etzhayyim-project-open-kyber/` (this repo, Tranche E)
 - `00-contracts/lexicons/com/etzhayyim/kyber/` (this repo, Tranche A)
 - ADR-2605172400 (vendor: 3-axis split rule + Tranche F)
 - [ADR-0025 Kyber APQC/BPMN Projector Consolidation](https://github.com/etzhayyim/etzhayyim-root/blob/main/90-docs/adr/0025-kyber-apqc-bpmn-projector-consolidation.md) (foundational, vendor monorepo)

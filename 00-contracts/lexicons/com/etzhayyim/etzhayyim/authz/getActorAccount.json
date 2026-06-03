@@ -4,7 +4,7 @@
   "defs": {
     "main": {
       "type": "query",
-      "description": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the gftd private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID via `etzhayyimRootIdentityRegistry` when available, then reads `etzhayyimActorRegistry.actorByDid(rootDidHash)` via `https://geth.etzhayyim.com`. Returns `{activated:true, smartAccount}` if the actor has activated their account, or `{activated:false, didHash}` otherwise. Caller must hold a session (passkey-first policy, ADR-0074).",
+      "description": "Resolve the caller's Coinbase Smart Wallet-compatible ERC-4337 execution-account address on the etzhayyim private chain (chainId 260425). AuthZ first resolves the caller's accountDid to an ERC725 root DID via `etzhayyimRootIdentityRegistry` when available, then reads `etzhayyimActorRegistry.actorByDid(rootDidHash)` via `https://geth.etzhayyim.com`. Returns `{activated:true, smartAccount}` if the actor has activated their account, or `{activated:false, didHash}` otherwise. Caller must hold a session (passkey-first policy, ADR-0074).",
       "parameters": { "type": "params", "properties": {} },
       "output": {
         "encoding": "application/json",
@@ -15,7 +15,7 @@
             "accountDid":   { "type": "string" },
             "rootDid":      { "type": "string", "description": "Canonical ERC725 root DID used for on-chain account lookup; equals accountDid for migrated sessions." },
             "rootIdentity": { "type": "string", "description": "ERC725 root identity contract address when resolved." },
-            "didHash":      { "type": "string", "description": "0x-prefixed 32-byte keccak256 of the canonical ERC725 root DID string. Legacy did:gftd/did:web values are only accepted as facade lookup inputs and are not hashed directly." },
+            "didHash":      { "type": "string", "description": "0x-prefixed 32-byte keccak256 of the canonical ERC725 root DID string. Legacy did:etzhayyim/did:web values are only accepted as facade lookup inputs and are not hashed directly." },
             "activated":    { "type": "boolean" },
             "smartAccount": { "type": "string", "description": "0x-prefixed 20-byte address (only when activated)" },
             "chainId":      { "type": "integer" },
