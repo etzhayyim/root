@@ -1,14 +1,14 @@
 <script lang="ts">
   const app = {
   "title": "Isin Is1n8k2x",
-  "project": "ai-gftd-project-isin",
-  "name": "ai-gftd-wasm-isin-is1n8k2x",
+  "project": "etzhayyim-project-isin",
+  "name": "etzhayyim-wasm-isin-is1n8k2x",
   "kind": "appview",
   "routeCount": 0,
   "routes": [],
   "vars": [],
   "xrpc": true,
-  "relativePath": "60-apps/ai-gftd-project-isin/appview/ai-gftd-wasm-isin-is1n8k2x/svelte/src/routes/+page.svelte"
+  "relativePath": "60-apps/etzhayyim-project-isin/appview/etzhayyim-wasm-isin-is1n8k2x/svelte/src/routes/+page.svelte"
 };
 </script>
 

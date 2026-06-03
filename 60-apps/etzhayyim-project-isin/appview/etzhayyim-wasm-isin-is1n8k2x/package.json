@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-wasm-isin-is1n8k2x",
+  "name": "etzhayyim-wasm-isin-is1n8k2x",
   "version": "1.0.0",
   "description": "isin.etzhayyim.com — ISIN (ISO 6166) global securities registry. SEC EDGAR + OpenFIGI. 60 country DIDs.",
   "main": "src/app.ts",

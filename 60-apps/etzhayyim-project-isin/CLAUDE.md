@@ -1,6 +1,6 @@
-# ai-gftd-project-isin
+# etzhayyim-project-isin
 
-isin.etzhayyim.com — ISIN (ISO 6166) ベースの証券識別・上場企業管理。旧 `ai-gftd-project-public-companies` (257 components) を 1 Worker + multi-DID に集約。
+isin.etzhayyim.com — ISIN (ISO 6166) ベースの証券識別・上場企業管理。旧 `etzhayyim-project-public-companies` (257 components) を 1 Worker + multi-DID に集約。
 
 ## Architecture
 
@@ -74,14 +74,14 @@ Namespace: `com.etzhayyim.isin.*`
 
 | 軸 | Source Project | Relation |
 |---|---|---|
-| **ISIC** (経済統計) | `ai-gftd-project-open-isic` | `:CLASSIFIED_AS {source: "isic"}` |
-| **GICS** (投資分析) | `ai-gftd-project-open-isic` (gics-classification WIT) | `:CLASSIFIED_AS {source: "gics"}` |
-| **Exchange** | `ai-gftd-project-open-isic` (exchange-market WIT) | `:LISTED_ON` |
-| **LEI** (法人) | `ai-gftd-project-legal-entity` | `:ISSUED_BY` |
+| **ISIC** (経済統計) | `etzhayyim-project-open-isic` | `:CLASSIFIED_AS {source: "isic"}` |
+| **GICS** (投資分析) | `etzhayyim-project-open-isic` (gics-classification WIT) | `:CLASSIFIED_AS {source: "gics"}` |
+| **Exchange** | `etzhayyim-project-open-isic` (exchange-market WIT) | `:LISTED_ON` |
+| **LEI** (法人) | `etzhayyim-project-legal-entity` | `:ISSUED_BY` |
 
 ## WIT
 
-`gftd:isin@1.0.0` (`60-apps/ai-gftd-project-isin/wit/isin/package.wit`)
+`etzhayyim:isin@1.0.0` (`60-apps/etzhayyim-project-isin/wit/isin/package.wit`)
 
 | Interface | 機能 |
 |---|---|
@@ -185,5 +185,4 @@ magatama.ATPost(countryDID, summary, nil)
 
 | Component | nanoid | 用途 |
 |---|---|---|
-| `ai-gftd-wasm-isin-is1n8k2x` | `is1n8k2x` | ISIN coordinator (1 Worker, multi-DID, social evolution) |
-
+| `etzhayyim-wasm-isin-is1n8k2x` | `is1n8k2x` | ISIN coordinator (1 Worker, multi-DID, social evolution) |
