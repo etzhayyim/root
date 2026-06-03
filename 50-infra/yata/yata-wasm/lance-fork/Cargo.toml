@@ -92,7 +92,7 @@ chrono = { version = "=0.4.39", default-features = false, features = [
     "std",
     "now",
 ] }
-criterion = { version = "0.5", features = [
+criterion = { version = "0.8", features = [
     "async",
     "async_tokio",
     "html_reports",
