@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_curpus2skill_extract_evidence" targetNamespace="https://gftd.ai/bpmn/curpus2skill" exporter="hand-written" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_curpus2skill_extract_evidence" targetNamespace="https://etzhayyim.ai/bpmn/curpus2skill" exporter="hand-written" exporterVersion="1.0">
   <bpmn:process id="curpus2skill_extract_evidence" name="curpus2skill extractEvidence" isExecutable="true">
     <bpmn:documentation>{ "taskType": "curpus2skill.extractEvidence", "resident": true, "defaultSource": "legal-corpus" }</bpmn:documentation>
 
@@ -47,7 +47,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="1"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:recruit.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:recruit.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;curpus2skill.extractEvidence&quot;" target="action"/>
           <zeebe:input source="={runId: runId, source: source, sourceTable: sourceTable, documentsScanned: documentsScanned, skillsLoaded: skillsLoaded, matchedDocuments: matchedDocuments, emittedEdges: emittedEdges, error: error}" target="payload"/>
         </zeebe:ioMapping>

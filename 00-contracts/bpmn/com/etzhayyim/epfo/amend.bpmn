@@ -7,7 +7,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_epfo_amend_ecr"
-    targetNamespace="https://gftd.ai/bpmn/epfo"
+    targetNamespace="https://etzhayyim.ai/bpmn/epfo"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="epfo_amend_ecr" name="EPFO ECR amendment" isExecutable="true">
@@ -105,7 +105,7 @@
               total_wage_inr_paise:          if latestCount &gt; 0 then number(latestRows[1].total_wage_inr_paise) else 0,
               submitted_at:                  string(now()),
               approved_at:                   string(now()),
-              approved_by_did:               &quot;did:web:ind.payroll.gftd.ai:epfo&quot;,
+              approved_by_did:               &quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;,
               created_at:                    string(now()),
               owner_did:                     filerDid,
               sensitivity_ord:               1,
@@ -191,7 +191,7 @@
               triggerSource:       &quot;com.etzhayyim.apps.epfo.amendEcr&quot;,
               amendmentReason:     string(amendmentMeta.amendmentReason)
           }" target="payload"/>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="callerDid"/>
           <zeebe:output source="=ok" target="kaikeiPropagated"/>
           <zeebe:output source="=status" target="kaikeiHttpStatus"/>
         </zeebe:ioMapping>
@@ -206,7 +206,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
           <zeebe:input source="=&quot;epfo.amend&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:            vertexId,
@@ -227,7 +227,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
           <zeebe:input source="=&quot;epfo.amend.reject&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:            vertexId,

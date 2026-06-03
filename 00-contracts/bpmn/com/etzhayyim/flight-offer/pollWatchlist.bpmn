@@ -14,14 +14,14 @@
   (downstream consumers can subscribe).
 
   NSID: com.etzhayyim.apps.flightOffer.pollWatchlist
-  vertex_id: at://did:web:bpmn.gftd.ai/com.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1
+  vertex_id: at://did:web:bpmn.etzhayyim.com/com.etzhayyim.apps.bpmn.processDef/flight-offer-poll-watchlist-v1
 -->
 <bpmn:definitions
     xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_flight_offer_poll_watchlist"
-    targetNamespace="https://gftd.ai/bpmn/flight-offer"
+    targetNamespace="https://etzhayyim.ai/bpmn/flight-offer"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="flight_offer_poll_watchlist" name="pollWatchlist" isExecutable="true">
@@ -69,7 +69,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;flight.offer.pollWatchlist&quot;" target="action"/>
           <zeebe:input source="={watchesRead: watchesRead, offersWritten: offersWritten, alertsFired: alertsFired, errors: errors}" target="payload"/>
         </zeebe:ioMapping>

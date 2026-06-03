@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  domain.gftd.ai registerAssist (XRPC com.etzhayyim.apps.domain.registerAssist).
+  domain.etzhayyim.com registerAssist (XRPC com.etzhayyim.apps.domain.registerAssist).
 
   Single-task BPMN: domain.register.assist runs eligibility check + registrar
   recommendation + draft ledger INSERT in one primitive (the ledger write
@@ -11,7 +11,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_domain_register_assist"
-    targetNamespace="https://gftd.ai/bpmn/domain"
+    targetNamespace="https://etzhayyim.ai/bpmn/domain"
     exporter="hand-written"
     exporterVersion="2.0">
   <bpmn:process id="domain_register_assist" name="domain register assist" isExecutable="true">
@@ -58,7 +58,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:domain.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:domain.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;com.etzhayyim.apps.domain.registerAssist&quot;" target="eventType"/>
           <zeebe:input source="={ &quot;domainName&quot;: domainName, &quot;tld&quot;: tld, &quot;registrantDid&quot;: registrantDid, &quot;eligible&quot;: eligible, &quot;registrationVid&quot;: registrationVid }" target="attributes"/>
         </zeebe:ioMapping>

@@ -4,7 +4,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_flight_offer_add_watch"
-    targetNamespace="https://gftd.ai/bpmn/flight-offer"
+    targetNamespace="https://etzhayyim.ai/bpmn/flight-offer"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="flight_offer_add_watch" name="addWatch" isExecutable="true">
@@ -37,7 +37,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:flight-offer.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:flight-offer.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;flight.offer.addWatch&quot;" target="action"/>
           <zeebe:input source="={vertexId: vertexId, created: created, originIata: originIata, destinationIata: destinationIata, outboundDate: outboundDate}" target="payload"/>
         </zeebe:ioMapping>

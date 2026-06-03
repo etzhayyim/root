@@ -3,7 +3,7 @@
   Fund manager discovery pilot.
 
   NSID:       com.etzhayyim.apps.fund.managerDiscovery
-  Owner DID:  did:web:fund.gftd.ai
+  Owner DID:  did:web:fund.etzhayyim.com
   Process ID: fund_manager_discovery
 
   The Zeebe task types follow ADR-2604261200. Raw artifacts are persisted
@@ -14,7 +14,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_fund_manager_discovery"
-    targetNamespace="https://gftd.ai/bpmn/fund"
+    targetNamespace="https://etzhayyim.ai/bpmn/fund"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="fund_manager_discovery" name="fund manager discovery" isExecutable="true">
@@ -122,7 +122,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:fund.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:fund.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;fund.managerDiscovery.rwDegraded&quot;" target="action"/>
           <zeebe:input source="={sourceId: sourceId, runId: runId, rwHealthy: rwHealthy, rwHealthReason: rwHealthReason, status: &quot;rw-degraded&quot;}" target="payload"/>
         </zeebe:ioMapping>
@@ -136,7 +136,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit" retries="2"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:fund.gftd.ai&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:fund.etzhayyim.com&quot;" target="actor"/>
           <zeebe:input source="=&quot;fund.managerDiscovery.completed&quot;" target="action"/>
           <zeebe:input source="={sourceId: sourceId, runId: runId, managersWritten: managersWritten, fundsWritten: fundsWritten, artifactsWritten: artifactsWritten}" target="payload"/>
         </zeebe:ioMapping>

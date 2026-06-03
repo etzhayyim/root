@@ -9,7 +9,7 @@
     xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     id="Definitions_epfo_submit_monthly_ecr"
-    targetNamespace="https://gftd.ai/bpmn/epfo"
+    targetNamespace="https://etzhayyim.ai/bpmn/epfo"
     exporter="hand-written"
     exporterVersion="1.0">
   <bpmn:process id="epfo_submit_monthly_ecr" name="EPFO ECR - monthly submission" isExecutable="true">
@@ -172,7 +172,7 @@
               triggerSource:                &quot;com.etzhayyim.apps.epfo.finalize&quot;,
               trrn:                         string(verdict.trrn)
           }" target="payload"/>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="callerDid"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="callerDid"/>
           <zeebe:output source="=ok" target="kaikeiPropagated"/>
           <zeebe:output source="=status" target="kaikeiHttpStatus"/>
         </zeebe:ioMapping>
@@ -186,7 +186,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
           <zeebe:input source="=&quot;epfo.submitMonthlyEcr.approve&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:                   vertexId,
@@ -243,7 +243,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="generic.audit.emit"/>
         <zeebe:ioMapping>
-          <zeebe:input source="=&quot;did:web:ind.payroll.gftd.ai:epfo&quot;" target="actor"/>
+          <zeebe:input source="=&quot;did:web:ind.payroll.etzhayyim.com:epfo&quot;" target="actor"/>
           <zeebe:input source="=&quot;epfo.submitMonthlyEcr.reject&quot;" target="action"/>
           <zeebe:input source="={
               vertexId:            vertexId,
