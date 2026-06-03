@@ -224,7 +224,7 @@
     "description": "83 jurisdictions, 4 legal systems, Japan deep coverage (6 courts + kanpo + egov). Case collection, legislation indexing, Wikidata SPARQL, person extraction.",
     "displayName": "Global Case Law & Legislation Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

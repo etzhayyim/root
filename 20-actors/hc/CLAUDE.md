@@ -1,4 +1,4 @@
-# ai-gftd-project-hc — Human Computing Platform (スキマバイト + マイクロタスク)
+# etzhayyim-project-hc — Human Computing Platform (スキマバイト + マイクロタスク)
 
 ## Overview
 
@@ -26,8 +26,8 @@ Browser (SuperApp Mobile-First)
 
 | Service | Path |
 |---|---|
-| HCCommandService | `/xrpc/gftd.human_computing.v1.HCCommandService/*` (compatibility ingress) |
-| HCQueryService | `/xrpc/gftd.human_computing.v1.HCQueryService/*` |
+| HCCommandService | `/xrpc/etzhayyim.human_computing.v1.HCCommandService/*` (compatibility ingress) |
+| HCQueryService | `/xrpc/etzhayyim.human_computing.v1.HCQueryService/*` |
 
 ### Transport Rule
 
@@ -122,7 +122,7 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 
 **全契約の準拠法は日本法。専属管轄は東京地方裁判所。** 国別ローカライズは各国強行法規の最低限遵守のみ。
 
-**権威ソース**: `wasm/ai-gftd-wasm-hc-hc0mp7ng/svelte/src/lib/legal/contracts.ts`
+**権威ソース**: `wasm/etzhayyim-wasm-hc-hc0mp7ng/svelte/src/lib/legal/contracts.ts`
 
 ### 契約書 4 種
 
@@ -237,9 +237,9 @@ HC タスク完了時、`approve-assignment` handler が `Invoke("murakumo", "re
 ## Build & Deploy
 
 ```bash
-cd wasm/ai-gftd-wasm-hc-hc0mp7ng/svelte
+cd wasm/etzhayyim-wasm-hc-hc0mp7ng/svelte
 pnpm install && pnpm build
 cd ..
-gftd build
-gftd deploy --smoke-url https://hc0mp7ng.etzhayyim.com/health
+etzhayyim build
+etzhayyim deploy --smoke-url https://hc0mp7ng.etzhayyim.com/health
 ```

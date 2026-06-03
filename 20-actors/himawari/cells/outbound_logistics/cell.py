@@ -6,10 +6,10 @@ re-implement guidance/navigation/control; this cell only selects the carrier
 vehicle class + emits the route-request the GNC layer drives.
 
 Wires the EXISTING open-customs-clearance BPMN
-(com.etzhayyim.gftd.apps.customsClearance.{lodgeDeclaration,releaseShipment})
+(com.etzhayyim.etzhayyim.apps.customsClearance.{lodgeDeclaration,releaseShipment})
 for any cross-border leg — it does NOT invent a parallel customs engine. The
 lodgeDeclaration record this cell builds conforms to the REAL lexicon at
-00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/lodgeDeclaration.json
+00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/customsClearance/lodgeDeclaration.json
 (required: declarationId, hsCode, declaredValueUsd, lodgedAt) driven by the BPMN
 at 00-contracts/bpmn/com/etzhayyim/open-customs-clearance/lodgeDeclaration.bpmn.
 
@@ -82,9 +82,9 @@ def _load_kami_autodrive_vehicle_classes() -> frozenset[str]:
 _ALLOWED_CONSIGNEE_PREFIX = "did:web:etzhayyim.com:hikari"
 
 # Real customs engine lexicon namespace (verified to exist on disk):
-#   00-contracts/lexicons/com/etzhayyim/gftd/apps/customsClearance/lodgeDeclaration.json
+#   00-contracts/lexicons/com/etzhayyim/etzhayyim/apps/customsClearance/lodgeDeclaration.json
 # NOT the non-existent com.etzhayyim.apps.customsClearance.* (that path has no lexicon).
-_CUSTOMS_ENGINE = "com.etzhayyim.gftd.apps.customsClearance"
+_CUSTOMS_ENGINE = "com.etzhayyim.etzhayyim.apps.customsClearance"
 _CUSTOMS_BPMN = "00-contracts/bpmn/com/etzhayyim/open-customs-clearance"
 
 
@@ -180,7 +180,7 @@ class OutboundLogisticsCell:
 
         For cross-border legs, build the lodgeDeclaration input + the expected
         releaseShipment handle against the REAL customs engine
-        com.etzhayyim.gftd.apps.customsClearance.* (open-customs-clearance BPMN);
+        com.etzhayyim.etzhayyim.apps.customsClearance.* (open-customs-clearance BPMN);
         the previously-hardcoded com.etzhayyim.apps.customsClearance.* namespace
         does NOT exist on disk and is corrected here. The lodgeDeclaration record
         conforms to that lexicon's required fields (declarationId, hsCode,
@@ -207,7 +207,7 @@ class OutboundLogisticsCell:
                 state.get("lodgedAt", os_.get("recordedAt", "")) or os_["manifestId"]
             )
             customs = {
-                # input contract: com.etzhayyim.gftd.apps.customsClearance.lodgeDeclaration
+                # input contract: com.etzhayyim.etzhayyim.apps.customsClearance.lodgeDeclaration
                 # (conforms to lodgeDeclaration.json required: declarationId,
                 #  hsCode, declaredValueUsd, lodgedAt).
                 "lodgeDeclaration": {

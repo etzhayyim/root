@@ -1,4 +1,4 @@
-# ai-gftd-project-joucho — 情緒 Well-Becoming Scoring
+# etzhayyim-project-joucho — 情緒 Well-Becoming Scoring
 
 **joucho.etzhayyim.com** — Well-Becoming 観点でモノ・場所・サービスの質を評価するスコアリングプラットフォーム。
 
@@ -24,7 +24,7 @@
 
 ## CRITICAL: Platform Heartbeat Cadence Provider
 
-→ `gftd dodaf tv1 query --id ai-gftd-project-joucho-platform-heartbeat-cadence-provider` / MCP `gftd.dodaf.tv1.query`
+→ `etzhayyim dodaf tv1 query --id etzhayyim-project-joucho-platform-heartbeat-cadence-provider` / MCP `etzhayyim.dodaf.tv1.query`
 
 ## Scoring 対象 × 軸
 
@@ -66,8 +66,8 @@ joucho_score (0-100) = Σ (axis_weight × axis_score)
 
 ## WIT
 
-- Domain: `gftd:joucho@1.0.0` (`wit/joucho/package.wit`)
-- Export: `gftd:joucho/scoring@1.0.0`
+- Domain: `etzhayyim:joucho@1.0.0` (`wit/joucho/package.wit`)
+- Export: `etzhayyim:joucho/scoring@1.0.0`
 - Import: `magatama:div/health`, `magatama:div/recreation`, `magatama:contract/agreement`
 
 ## Follow Graph (2 次ソース)

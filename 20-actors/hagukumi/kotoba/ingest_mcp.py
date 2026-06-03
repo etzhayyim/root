@@ -5,7 +5,7 @@ ADR-2605261030, migration plan Phase 3. Flattens each seed entity map into
 (graph, subject, predicate, object) datoms and asserts them via the
 `kotoba_datom_create` MCP tool; `kotoba commit` seals them. Writes require an
 operator AT-session JWT (no-server-key posture, G14). Without KOTOBA_TOKEN the
-ingest is a dry-run. Replaces the legacy `gftd build` / `gftd deploy` path (G11).
+ingest is a dry-run. Replaces the legacy `etzhayyim build` / `etzhayyim deploy` path (G11).
 
 Usage:
     python3 ingest_mcp.py [--url http://127.0.0.1:8077] [--graph com.etzhayyim.hagukumi] [--dry-run]

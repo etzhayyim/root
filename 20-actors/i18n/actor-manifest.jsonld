@@ -350,7 +350,7 @@
     "description": "LLM-powered translation for 200+ languages. Batch project translation, real-time page/message translation, inline widget editor, yoro post auto-translation (50 languages Tier 1+2). Murakumo qwen3.5-4b on-prem inference.",
     "displayName": "i18n -- Murakumo Translation Service (200+ Languages)",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

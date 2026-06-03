@@ -220,7 +220,7 @@
     "description": "IP/ASN/WHOIS/GeoIP/PTR/scan intelligence with role-based DID hierarchy. RIR delegation tracking, BGP anomaly correlation, hosting provider monitoring.",
     "displayName": "IP/ASN Intelligence",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",

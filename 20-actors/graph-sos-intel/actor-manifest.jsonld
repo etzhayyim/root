@@ -194,7 +194,7 @@
   "profile": {
     "agentType": "autonomous",
     "isBot": true,
-    "operator": "gftd.co.jp",
+    "operator": "etzhayyim.co.jp",
     "displayName": "Graph SoS Intel",
     "description": "Vertex / edge / mv / idx graph topology intelligence.",
     "capabilities": [

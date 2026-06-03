@@ -1,4 +1,4 @@
-# ai-gftd-project-jp-ashiba
+# etzhayyim-project-jp-ashiba
 
 jp-ashiba.etzhayyim.com — 足場レンタル・サブスクリプション AI Agent (performerType: service)
 
@@ -50,11 +50,11 @@ atproto.etzhayyim.com/xrpc/{NSID} (W Protocol Event Stream)
 
 | Component | nanoid | 役割 |
 |---|---|---|
-| `ai-gftd-wasm-jp-ashiba-a5h1ba8k` | `a5h1ba8k` | **足場レンタル・サブスク本体** — 6 domain (catalog/rental/subscription/schedule/inspection/analytics) |
+| `etzhayyim-wasm-jp-ashiba-a5h1ba8k` | `a5h1ba8k` | **足場レンタル・サブスク本体** — 6 domain (catalog/rental/subscription/schedule/inspection/analytics) |
 
 ## Domain WIT (Lexicon)
 
-**権威ソース**: `60-apps/ai-gftd-project-jp-ashiba/wit/jp-ashiba/package.wit`
+**権威ソース**: `60-apps/etzhayyim-project-jp-ashiba/wit/jp-ashiba/package.wit`
 
 AT Lexicon namespace: `com.etzhayyim.apps.jpAshiba.*`
 

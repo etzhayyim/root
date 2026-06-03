@@ -31,12 +31,12 @@ End-of-life vehicle (ELV) disassembly + materials recovery orchestrator. Adopts 
 | `elv_seat_textile_recovery` | L3c | dan | Seat foam + textile recovery; cross-actor feed to **makura** (G13 invariant closure) |
 | `elv_body_shred` | L4 | zebulun | Hulk shredder + magnetic + eddy-current + density sort; ferrous + Al + Cu + ASR streams |
 | `elv_emissions_audit` | cross-cutting | levi | F-gas continuous + ASR mass + composition + PGM yield audit |
-| `elv_provenance_binder` | terminal | judah | Full chain DID anchoring on yatachain (VIN → parts catalog + material lots + emissions) |
+| `elv_provenance_binder` | terminal | judah | Full chain DID anchoring on kotoba-datomic (VIN → parts catalog + material lots + emissions) |
 
 ## 14 Constitutional Gates (G1–G14, IMMUTABLE R0–R3)
 
 - **G1**: All depollution + dismantling + shredder firmware + fixture CAD open-source (Apache 2.0 + Charter Rider)
-- **G2**: Mass-balance audit ≥98% closure on yatachain (input curb-weight = parts + material lots + emissions + ASR)
+- **G2**: Mass-balance audit ≥98% closure on kotoba-datomic (input curb-weight = parts + material lots + emissions + ASR)
 - **G3**: Witness quorum ≥2 distinct robots per critical step (refrigerant capture, battery disconnect, airbag neutralization, PGM removal)
 - **G4**: JP + EN bilingual parts catalog + recovery reports + take-back records
 - **G5**: Charter Rider §2(a-h) scan per intake (no military / weapon-carrying / covertly-modified)

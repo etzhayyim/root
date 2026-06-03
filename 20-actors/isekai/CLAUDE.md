@@ -1,4 +1,4 @@
-# ai-gftd-project-isekai — isekai.etzhayyim.com
+# etzhayyim-project-isekai — isekai.etzhayyim.com
 
 **ISEKAI** — Minecraft voxel sandbox + Pokoa creature collection + Brainrot meme chaos。KAMI Engine WebGPU で異世界転生オープンワールド。Guest Mode でログイン不要プレイ。
 
@@ -10,7 +10,7 @@
 | Domain | `isekai.etzhayyim.com` (vanity), `is3k41w0.etzhayyim.com` (nanoid) |
 | Runtime | Single Worker (TS Native + host-sdk) |
 | UI | `game` mode — yoro profile hero 9:16 iframe |
-| WIT | `gftd:isekai@1.0.0` (`wit/isekai/package.wit`) — 5 interfaces |
+| WIT | `etzhayyim:isekai@1.0.0` (`wit/isekai/package.wit`) — 5 interfaces |
 | Persistence | W Protocol Event Stream (AT Record) + KNP real-time (non-persistent) |
 | Scene | JSON-LD (`scenes/*.jsonld`) — procedural biome islands |
 
@@ -36,7 +36,7 @@
 - Mining + crafting + building
 - Day/night cycle → wild Pokoa spawn rates change
 
-### Pillar 2: Pokoa Creature Collection (gftd:kami/pokoa)
+### Pillar 2: Pokoa Creature Collection (etzhayyim:kami/pokoa)
 
 - 151 base species + 6 Brainrot legendaries
 - Type system: 18 standard types + `brainrot` hidden type
@@ -72,15 +72,15 @@
 
 | Kind (W Protocol) | AT Collection NSID | WIT Source | 永続化 |
 |---|---|---|---|
-| `isekai.worldState` | `com.etzhayyim.isekai.worldState` | `gftd:isekai/open-world` | AT Record |
-| `isekai.chunkData` | `com.etzhayyim.isekai.chunkData` | `gftd:isekai/voxel-terrain` | AT Record |
-| `isekai.craftRecipe` | `com.etzhayyim.isekai.craftRecipe` | `gftd:isekai/crafting` | AT Record |
-| `isekai.brainrotEvent` | `com.etzhayyim.isekai.brainrotEvent` | `gftd:isekai/brainrot-event` | AT Record |
-| `isekai.creatureRoster` | `com.etzhayyim.isekai.creatureRoster` | `gftd:isekai/creature` | AT Record |
-| `isekai.game.battle` | `com.etzhayyim.isekai.game.battle` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `isekai.game.capture` | `com.etzhayyim.isekai.game.capture` | `gftd:kami/pokoa` | AT Record (analytics) |
-| `isekai.game.craft` | `com.etzhayyim.isekai.game.craft` | `gftd:isekai/crafting` | AT Record (analytics) |
-| `isekai.game.brainrotEncounter` | `com.etzhayyim.isekai.game.brainrotEncounter` | `gftd:isekai/brainrot-event` | AT Record (analytics) |
+| `isekai.worldState` | `com.etzhayyim.isekai.worldState` | `etzhayyim:isekai/open-world` | AT Record |
+| `isekai.chunkData` | `com.etzhayyim.isekai.chunkData` | `etzhayyim:isekai/voxel-terrain` | AT Record |
+| `isekai.craftRecipe` | `com.etzhayyim.isekai.craftRecipe` | `etzhayyim:isekai/crafting` | AT Record |
+| `isekai.brainrotEvent` | `com.etzhayyim.isekai.brainrotEvent` | `etzhayyim:isekai/brainrot-event` | AT Record |
+| `isekai.creatureRoster` | `com.etzhayyim.isekai.creatureRoster` | `etzhayyim:isekai/creature` | AT Record |
+| `isekai.game.battle` | `com.etzhayyim.isekai.game.battle` | `etzhayyim:kami/pokoa` | AT Record (analytics) |
+| `isekai.game.capture` | `com.etzhayyim.isekai.game.capture` | `etzhayyim:kami/pokoa` | AT Record (analytics) |
+| `isekai.game.craft` | `com.etzhayyim.isekai.game.craft` | `etzhayyim:isekai/crafting` | AT Record (analytics) |
+| `isekai.game.brainrotEncounter` | `com.etzhayyim.isekai.game.brainrotEncounter` | `etzhayyim:isekai/brainrot-event` | AT Record (analytics) |
 | `isekai.complianceDep` | `com.etzhayyim.isekai.complianceDep` | compliance graph | AT Record |
 
 **非永続 (KNP real-time):** player position, voxel edit stream, battle animation state, brainrot NPC movement
@@ -172,9 +172,9 @@ cargo build -p kami-game
 wasm-pack build kami-web --target web
 
 # Domain agent (TS Native)
-cd 60-apps/ai-gftd-project-isekai/wasm/ai-gftd-wasm-isekai-is3k41w0
-gftd build
-gftd deploy
+cd 60-apps/etzhayyim-project-isekai/wasm/etzhayyim-wasm-isekai-is3k41w0
+etzhayyim build
+etzhayyim deploy
 
 # Scene edit (no build needed)
 # Edit scenes/isekai-overworld.jsonld → browser reload

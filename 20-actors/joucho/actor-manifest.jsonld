@@ -256,7 +256,7 @@
     "description": "48 SST emotions mapped to 5-axis joucho (vitality/serenity/connection/growth/resilience). Murakumo Opus 4.6 LLM, per-entity scoring, heartbeat cadence driver.",
     "displayName": "Joucho — Well-Becoming Emotion Scoring",
     "isBot": true,
-    "operator": "gftd.co.jp"
+    "operator": "etzhayyim.co.jp"
   },
   "requiredCollections": [
     "com.etzhayyim.apps.standard.shinkaEvolution",
