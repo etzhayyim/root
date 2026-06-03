@@ -1,5 +1,5 @@
 {
-  "name": "ai-gftd-performer-sys-gftd-actors-pba7d22f-svc-cofog-1070-social-exclusion-nec-ndeg2nx3",
+  "name": "etzhayyim-performer-sys-etzhayyim-actors-pba7d22f-svc-cofog-1070-social-exclusion-nec-ndeg2nx3",
   "version": "1.0.0",
   "description": "COFOG runtime component (TS-native migration)",
   "main": "src/app.ts",
